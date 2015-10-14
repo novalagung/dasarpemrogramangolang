@@ -1,0 +1,91 @@
+# Hash Sha1
+
+Hash merupakan sebuah algoritma enkripsi untuk mengubah text menjadi deretan karakter acak. Jumlah karakter hasil hash selalu sama. Hash termasuk *one-way encription*, membuat hasil dari hash tidak bisa dikembalikan ke text asli.
+
+Sha1 *(Secure Hash Algorithm 1)* merupakan salah satu algoritma hashing yang sering digunakan untuk enkripsi data. Didesain oleh *United States National Security Agency*. Hasil dari sha1 adalah data dengan lebar **20 byte** atau **160 bit**, biasa ditampilkan dalam bentuk bilangan heksadesimal 40 digit.
+
+Di bab ini kita akan belajar tentang penerapan hash menggunakan sha1 dan teknik salting dalam hash.
+
+## Penerapan Hash Sha1
+
+Golang menyediakan package `crypto/sha1`, berisikan library untuk keperluan *hashing*. Cara penerapannya cukup mudah, bisa dilihat di kode berikut. 
+
+```go
+import "crypto/sha1"
+import "fmt"
+
+func main() {
+    var text = "this is secret"
+    var sha = sha1.New()
+    sha.Write([]byte(text))
+    var encrypted = sha.Sum(nil)
+    var encryptedString = fmt.Sprintf("%x", encrypted)
+
+    fmt.Println(encryptedString)
+    // f4ebfd7a42d9a43a536e2bed9ee4974abf8f8dc8
+}
+```
+
+Variabel hasil dari `sha1.New()` adalah objek bertipe `hash.Hash` yang memiliki method `Write` dan `Sum`.
+
+Method `Write` digunakan untuk menge-set data yang akan di-hash. Data harus dalam bentuk `[]byte`.
+
+Method `Sum` digunakan untuk eksekusi proses hash, menghasilkan data yang sudah di-hash dalam bentuk `[]byte`. Method ini membutuhkan sebuah parameter, isi dengan nil.
+
+Untuk mengambil bentuk heksadesimal string dari data yang sudah di-hash, bisa memanfaatkan fungsi `fmt.Sprintf` dengan template `%x`.
+
+![Hashing menggunakan Sha1](images/44_1_hash_sha1.png)
+
+## Metode Salting Hash
+
+Salt dalam konteks kriptografi adalah data acak yang digabungkan pada data asli sebelum proses hash dilakukan.
+
+Hash merupakan enkripsi satu arah dengan lebar data yang sudah pasti, menjadikan sangat mungkin sekali kalau hasil hash untuk beberapa data adalah sama. Dan disinilah kegunaan *salt*. Teknik ini berguna untuk mencegah serangan dengan metode pencocokan data-data yang hasih hash nya sama *(dictionary attack)*.
+
+Langsung saja kita praktekan. Pertama import package yang dibutuhkan. Lalu buat fungsi untuk hash menggunakan salt adalah data `unix` dari waktu sekarang.
+
+```go
+import "crypto/sha1"
+import "fmt"
+import "time"
+
+func doHashUsingSalt(text string) (string, string) {
+    var salt = fmt.Sprintf("%d", time.Now().UnixNano())
+    var saltedText = fmt.Sprintf("text: '%s', salt: %s", text, salt)
+    fmt.Println(saltedText)
+    var sha = sha1.New()
+    sha.Write([]byte(saltedText))
+    var encrypted = sha.Sum(nil)
+
+    return fmt.Sprintf("%x", encrypted), salt
+}
+```
+
+Salt yang digunakan adalah hasil dari ekspresi `time.Now().UnixNano()`. Hasilnya akan selalu unik setiap detiknya, karena scope terendah adalah *nano second*. 
+
+Selanjutnya test fungsi yang telah dibuat beberapa kali.
+
+```go
+func main() {
+    var text = "this is secret"
+    fmt.Printf("original : %s\n\n", text)
+
+    var hashed1, salt1 = doHashUsingSalt(text)
+    fmt.Printf("hashed 1 : %s\n\n", hashed1)
+    // 929fd8b1e58afca1ebbe30beac3b84e63882ee1a
+
+    var hashed2, salt2 = doHashUsingSalt(text)
+    fmt.Printf("hashed 2 : %s\n\n", hashed2)
+    // cda603d95286f0aece4b3e1749abe7128a4eed78
+
+    var hashed3, salt3 = doHashUsingSalt(text)
+    fmt.Printf("hashed 3 : %s\n\n", hashed3)
+    // 9e2b514bca911cb76f7630da50a99d4f4bb200b4
+
+    _, _, _ = salt1, salt2, salt3
+}
+```
+
+Hasil ekripsi fungsi `doHashUsingSalt` akan selalu beda, karena salt yang digunakan adalah waktu.
+
+![Hashing dengan salt](images/44_2_hash_salt_sha1.png)
