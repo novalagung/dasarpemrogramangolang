@@ -1,6 +1,6 @@
 Dasar Pemrograman Golang
 =======
 
-Golang adalah bahasa baru yang mudah dipelajari dan sangat powerful. Sudah banyak industri besar yang [menggunakan](https://github.com/golang/go/wiki/GoUsers) teknologi ini hingga production.
+Golang adalah bahasa pemrograman yang mulai dilirik oleh para developer karena kelebihan-kelebihan yang dimilikinya. Sudah banyak perusahaan besar yang [menggunakan](https://github.com/golang/go/wiki/GoUsers) bahasa ini untuk produk-produk mereka hingga level production.
 
 Buku ini merupakan salah satu referensi untuk belajar tentang dasar pemrograman Golang.

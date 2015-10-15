@@ -2,7 +2,7 @@
 
 **Exec** digunakan untuk mengeksekusi sebuah perintah command line lewat kode program.
 
-Command yang bisa dieksekusi adalah semua command yang bisa dieksekusi di terminal (CMD untuk pengguna windows).
+Command yang bisa dieksekusi adalah semua command yang bisa dieksekusi di terminal (CMD untuk pengguna Wind\*ws).
 
 ## Penggunaan Keywod `exec`
 

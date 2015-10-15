@@ -14,7 +14,7 @@ Di bab ini akan dijelaskan bagaimana cara instalasi editor Sublime, package cont
  2. Setelah ter-download, buka file tersebut untuk memulai instalasi.
  3. Setelah instalasi selesai, jalankan aplikasi.
 
-![Tampilan Sublime Text 3](images/4_1_Sublime_text.png)
+![Tampilan Sublime Text 3](images/4_1_sublime_text.png)
 
 ## Instalasi Package Control
 
@@ -36,7 +36,7 @@ Package control merupakan aplikasi *3rd party* untuk Sublime, digunakan untuk me
 
 Dengan memanfaatkan package control, instalasi plugin akan menjadi lebih mudah. Berikut merupakan langkah instalasi plugin GoSublime.
 
- 1. Buka Sublime, tekan **ctrl+shift+p** (atau **cmd+shift+p** untuk pengguna OSX), akan muncul sebuah input dialog. Ketikan disana `install`, lalu tekan enter.
+ 1. Buka Sublime, tekan **ctrl+shift+p** (atau **cmd+shift+p** untuk pengguna \*SX), akan muncul sebuah input dialog. Ketikan disana `install`, lalu tekan enter.
 
     ![Cara menjalankan package control](images/4_3_install_plugin.png)
 

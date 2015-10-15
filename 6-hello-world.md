@@ -25,7 +25,7 @@ Selanjutnya kita siapkan sebuah proyek untuk keperluan pembuatan program. Buat d
 
 ![Buat proyek di sublime](images/6_2_new_project_on_sublime.png)
 
-> Nama variabel di sistem operasi non-Windows diawali dengan tanda dollar `$`, sebagai contoh `$GOPATH`. Sedangkan di Windows, nama variabel diapit karakter persen `%`, contohnya seperti `%GOPATH%`.
+> Nama variabel di sistem operasi non-Wind\*ws diawali dengan tanda dollar `$`, sebagai contoh `$GOPATH`. Sedangkan di Wind\*ws, nama variabel diapit karakter persen `%`, contohnya seperti `%GOPATH%`.
 
 ## Menyiapkan File Program
 
@@ -38,7 +38,7 @@ Pembuatan file program juga akan dilakukan lewat Sublime. Silakan ikut petunjuk 
  1. Klik kanan di folder `belajar-golang`
  2. Klik **New File**, maka akan muncul tab baru di bagian kanan
  3. Ketikkan di konten: `bab6-hello-world.go`
- 4. Lalu tekan **ctrl+s** (**cmd+s** untuk OSX), kemudian enter
+ 4. Lalu tekan **ctrl+s** (**cmd+s** untuk \*SX), kemudian enter
  5. File akan terbuat
 
 ![Buat file di sublime](images/6_3_new_file_on_sublime.png)
@@ -61,15 +61,15 @@ func main() {
 }
 ```
 
-Setelah kode disalin, buka terminal (atau CMD bagi pengguna Windows), lalu masuk ke direktori proyek menggunakan perintah `cd`.
+Setelah kode disalin, buka terminal (atau CMD bagi pengguna Wind*o*ws), lalu masuk ke direktori proyek menggunakan perintah `cd`.
 
- - Windows
+ - Wind\*ws
 
     ```
     $ cd %GOPATH%\src\belajar-golang
     ```
 
- - non-Windows
+ - non-Wind\*ws
 
     ```
     $ cd $GOPATH/src/belajar-golang

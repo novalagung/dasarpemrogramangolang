@@ -51,7 +51,7 @@ Berbeda dengan `go build`, command ini menghasilkan file executable pada folder 
 
 Pada contoh di atas, file `bab5.go` di-build, menghasilkan file baru pada folder yang sama, yaitu `bab5`, yang kemudian dieksekusi.
 
-> Pada pengguna windows, file executable ber-ekstensi `.exe`.
+> Pada pengguna Wind\*ws, file executable ber-ekstensi `.exe`.
 
 ## Command `go install`
 
