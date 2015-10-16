@@ -26,11 +26,11 @@ Bab ini merupakan ringkasan dari panduan instalasi yang disediakan oleh Golang.
 
 > Sering terjadi command `go version` tidak bisa dijalankan meskipun Golang sudah terinstal. Solusinya adalah dengan restart CMD (close CMD, lalu buka kembali). Setelah itu coba jalankan sekali lagi command tersebut.
 
-## Instalasi Golang di OSX
+## Instalasi Golang di Mac OSX
 
-Cara termudah instalasi Golang di **\*SX** adalah dengan menggunakan [homebrew](http://brew.sh/). Homebrew sendiri adalah **package manager** khusus untuk O\*SX (mirip seperti `apt-get` milik Ubuntu).
+Cara termudah instalasi Golang di **M\*c OSX** adalah dengan menggunakan [homebrew](http://brew.sh/). Homebrew sendiri adalah **package manager** khusus untuk M\*c OSX (mirip seperti `apt-get` milik Ubuntu).
 
-Di bawah ini merupakan langkah instalasi Golang di \*SX menggunakan homebrew.
+Di bawah ini merupakan langkah instalasi Golang menggunakan homebrew.
 
  1. Install terlebih dahulu homebrew (jika belum ada), dengan cara mengeksekusi perintah berikut di **terminal**.
 
@@ -80,7 +80,7 @@ Cara menginstal Golang di **Ub\*ntu** bisa dengan memanfaatkan `apt-get`. Silaka
     - 64bit => [go1.4.2.lin\*x-amd64.tar.gz](https://storage.googleapis.com/golang/go1.4.2.linux-amd64.tar.gz)
 
 
- 2. Buka **terminal**, ekstrak archive tersebut ke /usr/local. Setelah itu export path-nya. Gunakan command di bawah ini untuk melakukan hal tersebut.
+ 2. Buka **terminal**, ekstrak archive tersebut ke `/usr/local`. Setelah itu export path-nya. Gunakan command di bawah ini untuk melakukan hal tersebut.
 
     ```
     $ tar zxvf go1.4.2.lin*x-....tar.gz -C /usr/local

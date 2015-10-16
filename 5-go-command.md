@@ -1,8 +1,8 @@
 # Command
 
-Pengembangan aplikasi Golang tak jauh dari hal-hal yang berbau command line interface. Seperti kompilasi, testing, semua dilakukan lewat command line.
+Pengembangan aplikasi Golang tak jauh dari hal-hal yang berbau command line interface. Seperti kompilasi, testing, eksekusi program, semua dilakukan lewat command line.
 
-Golang menyediakan command `go` yang berguna untuk keperluan pengembangan aplikasi. Di bab ini kita akan belajar mengenai pemanfaatannya.
+Golang menyediakan command `go` untuk keperluan pengembangan aplikasi. Di bab ini kita akan belajar mengenai pemanfaatannya.
 
 ## Command `go run`
 
@@ -19,7 +19,7 @@ $ go run bab5.go
 
 Command `go run` hanya bisa digunakan pada file yang package-nya adalah **main**. Untuk lebih jelasnya akan dibahas pada bab selanjutnya (bab 6).
 
-Jika ada banyak file yang ber-package `main` dan file-file tersebut di-import di file utama, maka eksekusinya dengan menyisipkan semua file sebagai argument `go run` (lebih jelasnya akan dibahas pada bab 25). Contohnya bisa dilihat pada kode berikut.
+Jika ada banyak file yang ber-package `main` dan file-file tersebut di-import di file utama, maka eksekusinya adalah dengan menyisipkan semua file sebagai argument `go run` (lebih jelasnya akan dibahas pada bab 25). Contohnya bisa dilihat pada kode berikut.
 
 ```
 $ go run bab5.go library.go
@@ -55,7 +55,7 @@ Pada contoh di atas, file `bab5.go` di-build, menghasilkan file baru pada folder
 
 ## Command `go install`
 
-Command `go install` akan mengkompilasi file program, lalu menginstalnya. 
+Command `go install` memiliki fungsi yang sama dengan `go build`, hanya saja setelah proses kompilasi selesai, dilanjutkan ke proses instalasi program yang bersangkutan.
 
 Target eksekusi harus berupa folder proyek (bukan file `.go`), dan path folder tersebut dituliskan relatif terhadap `$GOPATH/src`. Contoh:
 
@@ -79,7 +79,7 @@ Pada kode di atas bisa dilihat command `go install` dieksekusi 2 kali.
 
 ## Command `go get`
 
-Command ini berbeda dengan command-command yang sudah dibahas di atas. `go get` digunakan untuk mendownload package. Sebagai contoh saya ingin men-download package **mgo**.
+Command ini berbeda dengan command-command yang sudah dibahas di atas. `go get` digunakan untuk men-download package. Sebagai contoh saya ingin men-download package **mgo**.
 
 ```
 $ go get gopkg.in/mgo.v2
@@ -88,4 +88,4 @@ $ ls $GOPATH/src/gopkg.in/mgo.v2
 
 ![Download package menggunakan `go get`](images/5_6_go_get.png)
 
-[gopkg.in/mgo.v2](gopkg.in/mgo.v2) adalah alamat url package mgo. Package yang sudah ter-download akan tersimpan pada `$GOPATH/src` dengan struktur folder sesuai dengan url package-nya. Sebagai contoh mgo di atas tersimpan di `$GOPATH/src/gopkg.in/mgo.v2`.
+[gopkg.in/mgo.v2](gopkg.in/mgo.v2) adalah alamat url package mgo. Package yang sudah ter-download akan tersimpan pada `$GOPATH/src` dengan struktur folder sesuai dengan url package-nya. Sebagai contoh, package mgo di atas tersimpan di `$GOPATH/src/gopkg.in/mgo.v2`.

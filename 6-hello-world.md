@@ -1,8 +1,8 @@
 # Program Pertama: Hello World
 
-Semua persiapan sudah selesai, saatnya mulai masuk pada sesi pembuatan program. Program pertama yang akan dibuat adalah program sederhana untuk memunculkan tulisan **Hello World**.
+Semua persiapan sudah selesai, saatnya mulai masuk pada sesi pembuatan program. Program pertama yang akan dibuat adalah aplikasi sederhana untuk memunculkan tulisan **Hello World**.
 
-Di bab ini akan dijelaskan secara bertahap dari awal. Mulai pembuatan proyek, pembuatan file program, sesi penulisan kode program (coding), hingga eksekusi program.
+Di bab ini akan dijelaskan secara bertahap dari awal. Mulai pembuatan proyek, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi aplikasi.
 
 ## Load `GOPATH` Ke Sublime Text
 
@@ -10,10 +10,12 @@ Hal pertama yang perlu dilakukan, adalah me-load atau memunculkan folder `GOPATH
 
  1. Buka Sublime
  2. Buka explorer/finder, lalu cari ke folder yang merupakan `GOPATH`
- 3. Klik-drag folder `GOPATH` tersebut (kebetulan lokasi folder `GOPATH` saya bernama `go`), tarik ke Sublime
+ 3. Klik-drag folder tersebut (kebetulan lokasi folder `GOPATH` saya bernama `go`), tarik ke Sublime
  4. Seluruh subfolder `GOPATH` akan terbuka di Sublime
 
 ![Gopath di sublime](images/6_1_sublime_project_explorer.png)
+
+> Nama variabel di sistem operasi non-Wind\*ws diawali dengan tanda dollar `$`, sebagai contoh `$GOPATH`. Sedangkan di Wind\*ws, nama variabel diapit karakter persen `%`, contohnya seperti `%GOPATH%`.
 
 ## Menyiapkan Folder Proyek
 
@@ -25,20 +27,18 @@ Selanjutnya kita siapkan sebuah proyek untuk keperluan pembuatan program. Buat d
 
 ![Buat proyek di sublime](images/6_2_new_project_on_sublime.png)
 
-> Nama variabel di sistem operasi non-Wind\*ws diawali dengan tanda dollar `$`, sebagai contoh `$GOPATH`. Sedangkan di Wind\*ws, nama variabel diapit karakter persen `%`, contohnya seperti `%GOPATH%`.
-
 ## Menyiapkan File Program
 
 File program disini maksudnya adalah file yang berisikan kode program Golang, file yang berekstensi `.go`.
 
 Di dalam proyek yang telah dibuat (`$GOPATH/src/belajar-golang/`), perlu disiapkan sebuah file dengan nama bebas, yang jelas harus ber-ekstensi `.go` (Pada contoh ini saya menggunakan nama file `bab6-hello-world.go`).
 
-Pembuatan file program juga akan dilakukan lewat Sublime. Silakan ikut petunjuk berikut.
+Pembuatan file program juga akan dilakukan lewat Sublime. Caranya silakan ikut petunjuk berikut.
 
  1. Klik kanan di folder `belajar-golang`
  2. Klik **New File**, maka akan muncul tab baru di bagian kanan
  3. Ketikkan di konten: `bab6-hello-world.go`
- 4. Lalu tekan **ctrl+s** (**cmd+s** untuk \*SX), kemudian enter
+ 4. Lalu tekan **ctrl+s** (**cmd+s** untuk M\*c OSX), kemudian enter
  5. File akan terbuat
 
 ![Buat file di sublime](images/6_3_new_file_on_sublime.png)
@@ -49,7 +49,7 @@ Setelah folder proyek dan file program sudah siap, saatnya untuk mulai masuk ke 
 
 Dibawah ini merupakan contoh kode program sederhana untuk memunculkan text atau tulisan **"hello world"** ke layar output (command line).
 
-Silakan salin kode berikut ke file program yang telah dibuat. Sebisa mungkin jangan copy paste. Biasakan untuk menulis dari awal, agar cepat terbiasa dan familiar dengan pemrograman Golang. **Pratice makes perfect :-)**
+Silakan salin kode berikut ke file program yang telah dibuat. Sebisa mungkin jangan copy paste. Biasakan untuk menulis dari awal, agar cepat terbiasa dan familiar dengan pemrograman Golang.
 
 ```go
 package main
@@ -61,7 +61,7 @@ func main() {
 }
 ```
 
-Setelah kode disalin, buka terminal (atau CMD bagi pengguna Wind*o*ws), lalu masuk ke direktori proyek menggunakan perintah `cd`.
+Setelah kode disalin, buka terminal (atau CMD bagi pengguna Wind\*ws), lalu masuk ke direktori proyek menggunakan perintah `cd`.
 
  - Wind\*ws
 
@@ -69,7 +69,7 @@ Setelah kode disalin, buka terminal (atau CMD bagi pengguna Wind*o*ws), lalu mas
     $ cd %GOPATH%\src\belajar-golang
     ```
 
- - non-Wind\*ws
+ - Non-Wind\*ws
 
     ```
     $ cd $GOPATH/src/belajar-golang
@@ -105,9 +105,9 @@ package main
 
 Keyword `import` digunakan untuk meng-include package lain kedalam file program, agar isi package yang di-include bisa dimanfaatkan.
 
-Package `fmt` merupakan salah satu package yang disediakan oleh Golang, berisikan banyak fungsi untuk handle urusan **I/O** yang berhubungan dengan text.
+Package `fmt` merupakan salah satu package yang disediakan oleh Golang, berisikan banyak fungsi untuk keperluan **I/O** yang berhubungan dengan text.
 
-Berikut adalah skema penulisan keyword `import` beserta contohnya:
+Berikut adalah skema penulisan keyword `import` beserta contohnya.
 
 ```go
 import "<nama-package>"
@@ -116,9 +116,9 @@ import "fmt"
 
 ## Penggunaan Fungsi `main()`
 
-Dalam sebuah proyek harus ada 1 buah fungsi bernama `main`, yang fungsi tersebut harus berada dalam package yang juga bernama `main`. Fungsi ini adalah yang dipanggil pertama kali pada saat eksekusi program.
+Dalam sebuah proyek harus ada file program yang berisikan sebuah fungsi bernama `main()`. Fungsi tersebut harus berada dalam package yang juga bernama `main`. Fungsi `main()` adalah yang dipanggil pertama kali pada saat eksekusi program.
 
-Cara penulisan fungsi `main`:
+Berikut merupakan contoh penulisannya.
 
 ```go
 func main() {
@@ -130,7 +130,7 @@ func main() {
 
 Fungsi `fmt.Println()` digunakan untuk memunculkan text ke layar (pada konteks ini, terminal atau CMD). Di program pertama yang telah kita buat, fungsi ini memunculkan tulisan **Hello World**.
 
-Berikut adalah skema penulisan fungsi `fmt.Println()` beserta contohnya:
+Berikut adalah skema penulisan fungsi `fmt.Println()` beserta contohnya.
 
 ```go
 fmt.Println("<isi-pesan>")

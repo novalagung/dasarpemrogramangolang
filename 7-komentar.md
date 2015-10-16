@@ -1,6 +1,6 @@
 # Komentar
 
-Komentar biasa dimanfaatkan untuk menyisipkan catatan pada kode program, menulis penjelasan atau deskripsi mengenai suatu blok kode, atau untuk me-remark kode (men-disable kode yg tidak digunakan). Komentar akan diabaikan ketika kompilasi maupun ketika menjalankan program.
+Komentar biasa dimanfaatkan untuk menyisipkan catatan pada kode program, menulis penjelasan atau deskripsi mengenai suatu blok kode, atau bisa juga digunakan untuk me-remark kode (men-non-aktifkan kode yg tidak digunakan). Komentar akan diabaikan ketika kompilasi maupun eksekusi program.
 
 Ada 2 jenis komentar di Golang, inline & multiline. Di bab akan dijelaskan tentang penerapan dan perbedaan kedua jenis komentar tersebut.
 
@@ -8,7 +8,7 @@ Ada 2 jenis komentar di Golang, inline & multiline. Di bab akan dijelaskan tenta
 
 Penulisan komentar jenis ini di awali dengan tanda **double slash** (`//`) lalu diikuti pesan komentarnya. Komentar inline hanya berlaku utuk satu baris pesan saja. Jika pesan komentar lebih dari satu baris, maka tanda `//` harus ditulis lagi di baris selanjutnya.
 
-Berikut ini merupakan contoh penulisan komentar inline. Semua komentar yang ada pada contoh program berikut ini akan diabaikan ketika eksekusi program.
+Berikut ini merupakan contoh penulisan komentar inline.
 
 ```go
 package main

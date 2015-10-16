@@ -32,9 +32,7 @@ Dari ke-empat kondisi di atas, yang terpenuhi adalah `if point > 5` karena nilai
 
 Skema if else Golang sama seperti pada pemrograman umumnya. Yaitu di awal seleksi kondisi menggunakan `if`, dan ketika kondisinya tidak terpenuhi akan menuju ke `else` (jika ada). Ketika ada banyak kondisi, gunakan `else if`.
 
-I> #### Seleksi kondisi dengan blok kode 1 baris
-I>
-I> Di bahasa pemrograman lain, ketika ada seleksi kondisi yang isi blok-nya hanya 1 baris saja, kurung kurawal boleh tidak dituliskan. Berbeda dengan aturan di Golang, kurung kurawal harus tetap dituliskan meski isinya hanya 1 blok satement.
+> Di bahasa pemrograman lain, ketika ada seleksi kondisi yang isi blok-nya hanya 1 baris saja, kurung kurawal boleh tidak dituliskan. Berbeda dengan aturan di Golang, kurung kurawal harus tetap dituliskan meski isinya hanya 1 blok satement.
 
 ## Variabel Temporary Pada `if` - `else`
 
@@ -81,11 +79,11 @@ default:
 
 Pada kode di atas, tidak ada kondisi atau `case` yang terpenuhi karena nilai variabel `point` adalah `6`. Ketika hal seperti ini terjadi, blok kondisi `default` akan dipanggil. Bisa dibilang bahwa `default` merupakan `else` dalam sebuah switch.
 
-Perlu diketahui, switch pada pemrograman Golang memiliki perbedaan dibanding bahasa lain. Di Golang, ketika sebuah case terpenuhi, tidak akan dilanjutkan ke pengecekkan case selanjutnya, meskipun tidak ada keyword `break` di situ. Konsep ini berkebalikan dengan switch pada umumnya, yang ketika sebuah case terpenuhi, maka akan tetap dilanjut mengecek case selanjutnya kecuali ada keyword `break`.-
+Perlu diketahui, switch pada pemrograman Golang memiliki perbedaan dibanding bahasa lain. Di Golang, ketika sebuah case terpenuhi, tidak akan dilanjutkan ke pengecekkan case selanjutnya, meskipun tidak ada keyword `break` di situ. Konsep ini berkebalikan dengan switch pada umumnya, yang ketika sebuah case terpenuhi, maka akan tetap dilanjut mengecek case selanjutnya kecuali ada keyword `break`.
 
 ## Pemanfaatan 1 `case` Untuk Banyak Kondisi
 
-Satu buah `case` bisa menampung banyak kondisi. Cara untuk menerapkannya yaitu dengan menuliskan nilai pembanding-pembandingnya setelah keyword `case` dipisah tanda koma (`,`). Contoh bisa dilihat pada kode berikut.
+Sebuah `case` dapat menampung banyak kondisi. Cara penerapannya yaitu dengan menuliskan nilai pembanding-pembanding variabel yang di-switch setelah keyword `case` dipisah tanda koma (`,`). Contoh bisa dilihat pada kode berikut.
 
 ```go
 var point = 6
@@ -104,9 +102,9 @@ Kondisi `case 7, 6, 5, 4:` akan terpenuhi ketika nilai variabel `point` adalah 7
 
 ## Kurung Kurawal Pada Keyword `case` & `default`
 
-Tanda kurung kurawal atau brackets (`{ }`) bisa diterapkan pada keyword `case` dan `default`. Tanda ini opsional, boleh dipakai boleh tidak. Bagus jika dipakai pada blok kondisi yang didalamnya ada banyak statement, kode akan terlihat lebih rapi dan mudah di-maintain.
+Tanda kurung kurawal (`{ }`) bisa diterapkan pada keyword `case` dan `default`. Tanda ini opsional, boleh dipakai boleh tidak. Bagus jika dipakai pada blok kondisi yang didalamnya ada banyak statement, kode akan terlihat lebih rapi dan mudah di-maintain.
 
-Berikut adalah contoh penggunaan brackets dalam switch. Bisa dilihat pada keyword `default` terdapat kurung kurawal yang mengapit 2 statement didalamnya.
+Berikut adalah contoh penggunaannya. Bisa dilihat pada keyword `default` terdapat kurung kurawal yang mengapit 2 statement didalamnya.
 
 ```go
 var point = 6
@@ -150,7 +148,7 @@ default:
 
 Seperti yang kita sudah singgung di atas, bahwa switch pada Golang memiliki beberapa perbedaan dengan bahasa lain. Ketika sebuah `case` terpenuhi, pengecekkan kondisi tidak akan diteruskan ke case-case setelahnya.
 
-Keyword `fallthrough` digunakan untuk memaksa proses pengecekkan diteruskan ke `case` selanjutnya, tanpa melihat case tersebut terpenuhi atau tidak. Contoh berikut merupakan penerapan keyword ini.
+Keyword `fallthrough` digunakan untuk memaksa proses pengecekkan diteruskan ke `case` selanjutnya. Contoh berikut merupakan penerapan keyword ini.
 
 ```go
 var point = 6

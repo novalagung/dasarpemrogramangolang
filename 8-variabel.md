@@ -2,7 +2,7 @@
 
 Golang mengadopsi dua jenis penulisan variabel, yang dituliskan tipe data-nya dan yang tidak. Kedua cara tersebut intinya adalah sama, pembedanya hanyalah cara penulisannya saja.
 
-Bab ini akan mengupas tuntas tentang variabel dan cara deklarasi-nya.
+Pada bab ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel.
 
 ## Deklarasi Variabel Dengan Tipe Data
 
@@ -25,15 +25,13 @@ func main() {
 }
 ```
 
-Keyword `var` digunakan untuk deklarasi variabel. Contohnya bisa dilihat pada `firstName` dan `lastName`. Nilai variabel `firstName` diisi langsung ketika deklarasi, berbeda dibanding `lastName` yang nilainya diisi setelah baris kode deklarasi. Cara seperti ini diperbolehkan di Golang.
+Keyword `var` digunakan untuk deklarasi variabel. Contohnya bisa dilihat pada `firstName` dan `lastName`. Nilai variabel `firstName` diisi langsung ketika deklarasi, berbeda dibanding `lastName` yang nilainya diisi setelah baris kode deklarasi. Cara tersebut diperbolehkan di Golang.
 
 ![Menampilkan isi variabel](images/8_1_variabel.png)
 
-Berikut merupakan penjelasan yang lebih detail mengenai kode di atas.
-
 ## Deklarasi Variabel Menggunakan Keyword `var`
 
-Pada kode di atas bisa dilihat bagaimana variabel dideklarasikan dan di set nilainya. Keyword `var` digunakan untuk membuat variabel baru.
+Pada kode di atas bisa dilihat bagaimana sebuah variabel dideklarasikan dan di set nilainya. Keyword `var` digunakan untuk membuat variabel baru.
 
 Skema penggunaan keyword var:
 
@@ -49,7 +47,7 @@ var lastName string
 var firstName string = "john"
 ```
 
-Nilai variabel bisa diisi langsung pada saat deklarasi variabel.-
+Nilai variabel bisa diisi langsung pada saat deklarasi variabel.
 
 ## Penggunaan Fungsi `fmt.Printf()`
 
@@ -65,13 +63,13 @@ fmt.Printf("halo %s %s!\n", firstName, lastName)
 fmt.Println("halo", firstName, lastName + "!")
 ```
 
-Tanda plus (**+**) jika digunakan di antara string, fungsinya adalah untuk penggabungan string (*concatenation*).
+Tanda plus (`+`) jika ditempatkan di antara string, fungsinya adalah untuk penggabungan string (*concatenation*).
 
 Fungsi `fmt.Printf()` tidak menghasilkan baris baru di akhir text, oleh karena itu digunakanlah literal `\n` untuk memunculkan baris baru di akhir. Hal ini sangat berbeda jika dibandingkan dengan fungsi `fmt.Println()` yang secara otomatis menghasilkan end line (baris baru) di akhir. 
 
 ## Deklarasi Variabel Tanpa Tipe Data
 
-Selain menggunakan teknik **manifest typing**, Golang juga mengadopsi metode **type inference**, yaitu metode deklarasi variabel yang tipe data-nya ditentukan oleh tipe data nilainya, kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword `var` dan tipe data tidak perlu ditulis. Agar lebih jelas, silakan perhatikan kode berikut.
+Selain **manifest typing**, Golang juga mengadopsi metode **type inference**, yaitu metode deklarasi variabel yang tipe data-nya ditentukan oleh tipe data nilainya, kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword `var` dan tipe data tidak perlu ditulis. Agar lebih jelas, silakan perhatikan kode berikut.
 
 ```go
 var firstName string = "john"
@@ -84,7 +82,7 @@ Variabel `lastName` dideklarasikan dengan menggunakan metode type inference. Pen
 
 Tipe data `lastName` secara otomatis akan ditentukan menyesuaikan value atau nilai-nya. Jika nilainya adalah berupa `string` maka tipe data variabel adalah `string`. Pada contoh di atas, nilainya adalah string `"wick"`.
 
-Diperbolehkan untuk tetap menggunakan keyword `var` pada saat deklarasi, dengan ketentuan tidak menggunakan tanda `:=`, melainkan tetap menggunakan `=`. Agar tidak bingung, silakan perhatikan contoh berikut.
+Diperbolehkan untuk tetap menggunakan keyword `var` pada saat deklarasi, dengan ketentuan tidak menggunakan tanda `:=`, melainkan tetap menggunakan `=`. Contohnya bisa dilihat pada kode berikut.
 
 ```go
 // menggunakan var, tanpa tipe data, menggunakan perantara "="
@@ -96,7 +94,7 @@ lastName := "wick"
 
 Kedua deklarasi di atas maksudnya adalah sama. Silakan pilih yang nyaman di hati.
 
-Perlu diperhatikan, `:=` hanya bisa digunakan pada saat deklarasi saja. Setelah variabel dideklarasikan, untuk assignment nilai selanjutnya harus menggunakan tanda `=`. Contoh:
+Tanda `:=` hanya digunakan sekali di awal pada saat deklarasi saja. Setelah itu untuk, assignment nilai selanjutnya menggunakan tanda `=`. Contoh:
 
 ```go
 lastName := "wick"
@@ -106,7 +104,7 @@ lastName = "bourne"
 
 ## Deklarasi Multi Variabel
 
-Golang mendukung deklarasi multi variabel secara bersamaan, caranya dengan menuliskan variabel-variabel-nya dengan pembatas tanda koma (`,`). Untuk pengisian nilainya-pun diperbolehkan secara bersamaan. Contoh:
+Golang mendukung deklarasi bantak variabel secara bersamaan, caranya dengan menuliskan variabel-variabel-nya dengan pembatas tanda koma (`,`). Untuk pengisian nilainya-pun diperbolehkan secara bersamaan. Contoh:
 
 ```go
 var first, second, third string
@@ -166,16 +164,16 @@ fmt.Println(name)   // 0x20818a220
 fmt.Println(*name)  // ""
 ```
 
-Variabel `name` menampung data bertipe **pointer string**. Jika ditampilkan yang muncul bukanlah nilainya melainkan alamat memori nilai tersebut (dalam bentuk notasi heksadesimal). Untuk menampilkan nilai aslinya, variabel tersebut perlu di-**dereference** terlebih dahulu (menggunakan tanda asterisk **\***).
+Variabel `name` menampung data bertipe **pointer string**. Jika ditampilkan yang muncul bukanlah nilainya melainkan alamat memori nilai tersebut (dalam bentuk notasi heksadesimal). Untuk menampilkan nilai aslinya, variabel tersebut perlu di-**dereference** terlebih dahulu, menggunakan tanda asterisk (`*`).
 
-Mungkin untuk sekarang banyak yang akan bingung, namun tak apa, karena nantinya di bab 22 akan dikupas habis apa itu pointer dan dereference.
+Mungkin untuk sekarang banyak yang akan bingung, namun tak apa, karena nantinya di bab 22 akan dikupas habis tentang apa itu pointer dan dereference.
 
 ## Deklarasi Variabel Menggunakan Keyword `make`
 
-Keyword ini hanya bisa digunakan untuk pembuatan beberapa jenis variabel saja. Berikut merupakan list-nya:
+Keyword ini hanya bisa digunakan untuk pembuatan beberapa jenis variabel saja, yaitu:
 
 - channel
 - slice
 - map
 
-Dan lagi, mungkin banyak yang akan bingung, tapi tak apa. Ketika sudah masuk ke pembahasan ketiga bab di atas, akan terlihat apa kegunaan dari keyword ini.
+Dan lagi, mungkin banyak yang akan bingung, tapi tak apa. Ketika sudah masuk ke pembahasan masing-masing poin tersebut, akan terlihat apa kegunaan dari keyword ini.

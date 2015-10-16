@@ -4,7 +4,7 @@ Golang mengenal beberapa jenis tipe data, diantaranya adalah tipe data numerik (
 
 Di bab-bab sebelumnya secara tak sadar kita sudah menerapkan beberapa tipe data, seperti `string` dan tipe numerik `int`.
 
-Di bab ini, akan dijelaskan beberapa macam tipe data standar yang disediakan oleh Golang, dan bagaiman cara penggunaannya.
+Pada bab ini, akan dijelaskan beberapa macam tipe data standar yang disediakan oleh Golang, dan bagaiman cara penggunaannya.
 
 ## Tipe Data Numerik Non-Desimal
 
@@ -17,22 +17,22 @@ Kedua tipe data di atas kemudian dibagi lagi menjadi beberapa, dengan pembagian 
 
 | Tipe data | Cakupan bilangan |
 | :-------: | :---- |
-| **`uint8`** | 0 --- 255 |
-| **`uint16`** | 0 --- 65535 |
-| **`uint32`** | 0 --- 4294967295 |
-| **`uint64`** | 0 --- 18446744073709551615 |
-| **`uint`** | sama dengan `uint32` atau `uint64` (tergantung nilai) |
-| **`byte`** | sama dengan `uint8` |
-| **`int8`** | -128 --- 127 |
-| **`int16`** | -32768 --- 32767 |
-| **`int32`** | -2147483648 --- 2147483647 |
-| **`int64`** | -9223372036854775808 --- 9223372036854775807 |
-| **`int`** | sama dengan `int32` atau `int64` (tergantung nilai) |
-| **`rune`** | sama dengan `int32` |
+| `uint8` | 0 ↔ 255 |
+| `uint16` | 0 ↔ 65535 |
+| `uint32` | 0 ↔ 4294967295 |
+| `uint64` | 0 ↔ 18446744073709551615 |
+| `uint` | sama dengan `uint32` atau `uint64` (tergantung nilai) |
+| `byte` | sama dengan `uint8` |
+| `int8` | -128 ↔ 127 |
+| `int16` | -32768 ↔ 32767 |
+| `int32` | -2147483648 ↔ 2147483647 |
+| `int64` | -9223372036854775808 ↔ 9223372036854775807 |
+| `int` | sama dengan `int32` atau `int64` (tergantung nilai) |
+| `rune` | sama dengan `int32` |
 
-Dianjurkan untuk tidak sembarangan dalam menentukan tipe data variabel, sebisa mungkin tipe yang dipilih harus disesuaikan dengan nilainya, karena efeknya adalah ke alokasi memori tipe data yang digunakan. Pemilihan tipe data yang tepat akan membuat pemakaian memori lebih optimal, tidak berlebihan.
+Dianjurkan untuk tidak sembarangan dalam menentukan tipe data variabel, sebisa mungkin tipe yang dipilih harus disesuaikan dengan nilainya, karena efeknya adalah ke alokasi memori variabel. Pemilihan tipe data yang tepat akan membuat pemakaian memori lebih optimal, tidak berlebihan.
 
-Contoh penggunaan variabel numerik non-desimal sendiri bisa dilihat di kode berikut.
+Contoh penggunaan variabel numerik non-desimal bisa dilihat di kode berikut.
 
 ```go
 var positiveNumber uint8 = 89
@@ -69,6 +69,7 @@ Tipe data `bool` berisikan hanya 2 variansi nilai, `true` dan `false`. Tipe data
 
 ```go
 var exist bool = true
+fmt.Printf("exist? %t", exist)
 ```
 
 Gunakan `%t` untuk memformat data `bool` menggunakan fungsi `fmt.Printf()`.
@@ -79,9 +80,10 @@ Ciri khas dari tipe data string adalah nilainya di apit oleh tanda *quote* atau 
 
 ```go
 var message string = "Halo"
+fmt.Printf("message: %s", message)
 ```
 
-Selain menggunakan tanda quote, deklarasi string juga bisa dengan tanda *grave accent/backticks* (**\`**) (di keyboard biasanya terletak di sebelah kiri tombol 1). Keistimewaan string yang dideklarasikan menggunakan tanda ini adalah membuat semua karakter didalamnya **tidak akan di escape**, termasuk `\n`, tanda petik dua dan tanda petik satu, baris baru, dan lainnya. Semua akan terdeteksi sebagai string. Berikut adalah contoh penerapannya.
+Selain menggunakan tanda quote, deklarasi string juga bisa dengan tanda *grave accent/backticks* (<code>`</code>), tanda ini terletak di sebelah kiri tombol 1. Keistimewaan string yang dideklarasikan menggunakan backtics adalah membuat semua karakter didalamnya **tidak akan di escape**, termasuk `\n`, tanda petik dua dan tanda petik satu, baris baru, dan lainnya. Semua akan terdeteksi sebagai string. Berikut adalah contoh penerapannya.
 
 ```go
 var message = `Nama saya "John Wick".
@@ -114,3 +116,5 @@ Semua tipe data yang sudah dibahas di atas memiliki nilai default. Artinya meski
 - `map`
 - `channel`
 - interface kosong atau `interface{}`
+
+Nantinya kita akan sering bertemu dengan `nil` ketika sudah masuk pada pembahasan bab-bab tersebut.

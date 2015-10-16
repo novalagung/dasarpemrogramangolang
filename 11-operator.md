@@ -8,11 +8,11 @@ Operator aritmatika adalah operator yang digunakan untuk operasi yang sifatnya p
 
 | Tanda | Penjelasan |
 | :---: | :--------- |
-| **`+`** | penjumlahan |
-| **`-`** | pengurangan |
-| **`*`** | perkalian |
-| **`/`** | pembagian |
-| **`%`** | modulus / sisa hasil pembagian |
+| `+` | penjumlahan |
+| `-` | pengurangan |
+| `*` | perkalian |
+| `/` | pembagian |
+| `%` | modulus / sisa hasil pembagian |
 
 Contoh penggunaannya:
 
@@ -28,12 +28,12 @@ Tabel berikut berisikan operator perbandingan yang bisa digunakan di Golang.
 
 | Tanda | Penjelasan |
 | :---: | :--------- |
-| **`==`**   | apakah nilai kiri **sama dengan** nilai kanan |
-| **`!=`**   | apakah nilai kiri **tidak sama dengan** nilai kanan |
-| **`<`**    | apakah nilai kiri **lebih kecil daripada** nilai kanan  |
-| **`<=`**   | apakah nilai kiri **lebih kecil atau sama dengan** nilai kanan |
-| **`\>`**   | apakah nilai kiri **lebih besar dari** nilai kanan |
-| **`\>=`**   | apakah nilai kiri **lebih besar atau sama dengan** nilai kanan |
+| `==`   | apakah nilai kiri **sama dengan** nilai kanan |
+| `!=`   | apakah nilai kiri **tidak sama dengan** nilai kanan |
+| `<`    | apakah nilai kiri **lebih kecil daripada** nilai kanan  |
+| `<=`   | apakah nilai kiri **lebih kecil atau sama dengan** nilai kanan |
+| `\>`   | apakah nilai kiri **lebih besar dari** nilai kanan |
+| `\>=`   | apakah nilai kiri **lebih besar atau sama dengan** nilai kanan |
 
 Contoh penggunaannya:
 
@@ -58,9 +58,9 @@ Beberapa operator logika standar yang bisa digunakan:
 
 | Tanda | Penjelasan |
 | :---: | :--------- |
-| **`&&`** | kiri **dan** kanan |
-| **&#124;&#124;** | kiri **atau** kanan |
-| **`!`** | negasi / nilai kebalikan |
+| `&&` | kiri **dan** kanan |
+| <code>&#124;&#124;</code> | kiri **atau** kanan |
+| `!` | negasi / nilai kebalikan |
 
 Contoh penggunaannya:
 

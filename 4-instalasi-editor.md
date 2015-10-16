@@ -1,6 +1,6 @@
 # Instalasi Editor
 
-Membuat program menggunakan bahasa Golang, akan lebih maksimal jika didukung editor atau **IDE** yang pas. Ada cukup banyak pilihan bagus yang bisa dipertimbangkan, diantaranya: Intellij, Netbeans, Atom, dan lainnya.
+Pembuatan program menggunakan bahasa Golang, akan lebih maksimal jika didukung editor atau **IDE** yang pas. Ada cukup banyak pilihan bagus yang bisa dipertimbangkan, diantaranya: Intellij, Netbeans, Atom, Brackets, dan lainnya.
 
 Pada saat menulis buku ini, editor yang saya gunakan adalah **Sublime Text 3**. Editor ini ringan, mudah didapat, dan memiliki cukup banyak plugin. Anda bisa memilih editor yang sama dengan yang digunakan di buku ini, atau editor lainnya, bebas, yang penting nyaman ketika digunakan.
 
@@ -40,7 +40,7 @@ Dengan memanfaatkan package control, instalasi plugin akan menjadi lebih mudah. 
 
     ![Cara menjalankan package control](images/4_3_install_plugin.png)
 
- 2. Akan muncul lagi input dialog lainnya, ketikkan `GoSublime` lalu tekan enter. Tunggu hingga proses selesai (acuan instalasi selesai adalah karakter sama dengan *(=)* di bagian kiri bawah editor yang sebelumnya bergerak-gerak. Ketika karakter tersebut sudah hilang, maka instalasi selesai).
+ 2. Akan muncul lagi input dialog lainnya, ketikkan `GoSublime` lalu tekan enter. Tunggu hingga proses selesai (acuan instalasi selesai adalah karakter sama dengan *(=)* di bagian kiri bawah editor yang sebelumnya bergerak-gerak. Ketika karakter tersebut sudah hilang, menandakan bahwa instalasi selesai).
 
     ![Cara meng-install GoSublime](images/4_4_install_gosublime.png)
 
