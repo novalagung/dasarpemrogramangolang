@@ -111,7 +111,7 @@ Perulangan di atas dijalankan sebanyak jumlah elemen array `fruits` (bisa diketa
 
 ## Perulangan Elemen Array Menggunakan Keyword `for` - `range`
 
-Ada cara yang lebih mudah yang bisa dimanfaatkan untuk me-looping sebuah data array, yaitu dengan menggunakan keyword `for` - `range`. Cara ini lebih praktis dan mudah untuk digunakan. Contoh pengaplikasiannya bisa dilihat di kode berikut.
+Ada cara yang lebih mudah yang bisa dimanfaatkan untuk me-looping sebuah data array, yaitu menggunakan keyword `for` - `range`. Contoh pengaplikasiannya bisa dilihat di kode berikut.
 
 ```go
 var fruits = [4]string{"apple", "grape", "banana", "melon"}
@@ -127,13 +127,13 @@ Output program di atas, sama dengan output program sebelumnya, hanya cara yang d
 
 ## Penggunaan Variabel Underscore `_` Dalam `for` - `range`
 
-Kadang kala ketika *looping* menggunakan `for` - `range`, ada kemungkinan dimana data yang dibutuhkan hanya elemen-nya saja, indeks-nya tidak. Sedangkan seperti di kode di atas, `range` mengembalikan 2 data, yaitu indeks dan elemen.
+Kadang kala ketika *looping* menggunakan `for` - `range`, ada kemungkinan dimana data yang dibutuhkan adalah elemen-nya saja, indeks-nya tidak. Sedangkan seperti di kode di atas, `range` mengembalikan 2 data, yaitu indeks dan elemen.
 
 Seperti yang sudah diketahui, bahwa di Golang tidak memperbolehkan adanya variabel yang menaggur atau tidak dipakai. Jika dipaksakan, error akan muncul.
 
 ![Error karena ada variabel yang tidak digunakan](images/14_4_for_range_error.png)
 
-Disinilah salah satu kegunaan variabel pengangguran, atau underscore `_`. Tampung saja nilai yang tidak ingin digunakan ke underscore.
+Disinilah salah satu kegunaan variabel pengangguran, atau underscore (`_`). Tampung saja nilai yang tidak ingin digunakan ke underscore.
 
 ```go
 var fruits = [4]string{"apple", "grape", "banana", "melon"}
@@ -157,7 +157,7 @@ for i, _ := range fruits { }
 
 ## Alokasi Elemen Array Menggunakan Keyword `make`
 
-Keyword `make` jika digunakan pada tipe data array akan menghasilkan data array dengan jumlah alokasi bisa ditentukan sendiri. Contohnya bisa dilihat pada kode berikut.
+Deklarasi sekaligus alokasi data array bisa dilakukan lewat keyword `make`. Contohnya bisa dilihat pada kode berikut.
 
 ```go
 var fruits = make([]string, 2)
@@ -167,4 +167,4 @@ fruits[1] = "manggo"
 fmt.Println(fruits)  // [apple manggo]
 ```
 
-Variabel `fruits` di atas tercetak sebagai array string dengan alokasi 2 slot.
+Parameter pertama keyword tersebut diisi dengan tipe data array yang akan dibuat, parameter kedua adalah jumlah elemennya. Pada kode di atas, variabel `fruits` tercetak sebagai array string dengan alokasi 2 slot.

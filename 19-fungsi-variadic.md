@@ -1,6 +1,6 @@
 # Fungsi Variadic
 
-Golang mengadopsi konsep **variadic function** atau pembuatan fungsi dengan parameter tak terbatas. Maksud **tak terbatas** disini adalah jumlah parameter yang disisipkan ketika pemanggilan fungsi bisa berapa saja.
+Golang mengadopsi konsep **variadic function** atau pembuatan fungsi dengan parameter sejenis yang tak terbatas. Maksud **tak terbatas** disini adalah jumlah parameter yang disisipkan ketika pemanggilan fungsi bisa berapa saja.
 
 Parameter variadic memiliki sifat yang mirip dengan slice. Nilai parameter-parameter yang disisipkan memiliki tipe data yang sama, dan akan ditampung oleh sebuah variabel saja. Cara pengaksesan tiap datanya juga sama, dengan menggunakan indeks.
 
@@ -51,6 +51,8 @@ Nilai tiap parameter bisa diakses seperti cara pengaksesan tiap elemen slice. Pa
 ```go
 for _, number := range numbers {
 ```
+
+## 
 
 Berikut merupakan penjelasan tambahan mengenai beberapa kode di atas.
 

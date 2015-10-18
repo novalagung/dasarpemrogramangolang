@@ -1,12 +1,12 @@
 # Struct
 
-Struct adalah kumpulan variabel (biasa disebut property) yang dibungkus dengan nama tertentu.
+Struct adalah kumpulan definisi variabel (atau property) dan atau fungsi (atau method), yang dibungkus dengan nama tertentu.
 
 Property dalam struct, tipe datanya bisa bervariasi. Mirip seperti `map`, hanya saja key-nya sudah didefinisikan di awal, dan tipe data tiap itemnya bisa berbeda.
 
 Dengan memanfaatkan struct, data akan terbungkus lebih rapi dan mudah di-maintain.
 
-Stuct sendiri sebenarnya merupakan cetakan, yang nantinya digunakan untuk mencetak variabel objek (istilah untuk variabel yang memiliki property). Variabel objek memiliki behaviour atau sifat yang sama sesuai struct pencetaknya. Konsep ini sama dengan konsep **class** pada pemrograman berbasis objek. Dan satu buah struct bisa dimanfaatkan untuk mencetak banyak objek. 
+Struct merupakan cetakan, digunakan untuk mencetak variabel objek (istilah untuk variabel yang memiliki property). Variabel objek memiliki behaviour atau sifat yang sama sesuai struct pencetaknya. Konsep ini sama dengan konsep **class** pada pemrograman berbasis objek. Sebuah buah struct bisa dimanfaatkan untuk mencetak banyak objek. 
 
 ## Deklarasi Struct
 
@@ -71,13 +71,13 @@ Variabel objek `s2` dideklarasikan dengan metode yang sama dengan `s1`, pembedan
 Pada deklarasi `s3`, dilakukan juga pengisian property ketika pencetakan objek. Hanya saja, yang diisi hanya `name` saja. Cara ini cukup efektif jika digunakan untuk membuat objek baru yang nilai property-nya tidak semua harus disiapkan di awal. Keistimewaan lain menggunakan cara ini adalah penentuan nilai property bisa dilakukan dengan tidak berurutan. Contohnya:
 
 ```go
-s4 := student{name: "wayne", grade: 2}
-s5 := student{grade: 2, name: "bruce"}
+var s4 = student{name: "wayne", grade: 2}
+var s5 = student{grade: 2, name: "bruce"}
 ```
 
 ## Variabel Objek Pointer
 
-Objek hasil cetakan struct bisa diambil nilai pointer-nya, dan bisa disimpan dalam variabel objek yang tipe-nya pointer. Contoh penerapannya:
+Objek hasil cetakan struct bisa diambil nilai pointer-nya, dan bisa disimpan pada variabel objek yang bertipe struct pointer. Contoh penerapannya:
 
 ```go
 var s1 = student{name: "wick", grade: 2}
@@ -122,7 +122,7 @@ func main() {
 }
 ```
 
-Pada kode di atas, disiapkan struct `person` dengan properti yang tersedia adalah `name` dan `age`. Disiapkan juga struct `student` dengan property `grade`. Struct `person` di-embed kedalam struct `student`. Cara embed struct cukup mudah, yaitu dengan menuliskan nama struct yang ingin di-embed ke dalam body `struct` target.
+Pada kode di atas, disiapkan struct `person` dengan properti yang tersedia adalah `name` dan `age`. Disiapkan juga struct `student` dengan property `grade`. Struct `person` di-embed kedalam struct `student`. Caranya cukup mudah, yaitu dengan menuliskan nama struct yang ingin di-embed ke dalam body `struct` target.
 
 Embedded struct adalah **mutable**, nilai property-nya nya bisa diubah.
 
@@ -130,7 +130,7 @@ Khusus untuk properti yang bukan properti asli (properti turunan dari struct lai
 
 ## Embedded Struct Dengan Nama Property Yang Sama
 
-Sedangkan jika salah satu properti sebuah struct ada yang sama dengan properti milik struct lain yang di-embed, maka pengaksesan property-nya harus dilakukan dengan jelas. Contoh bisa dilihat di kode berikut.
+Jika salah satu nama properti sebuah struct memiliki kesamaan dengan properti milik struct lain yang di-embed, maka pengaksesan property-nya harus dilakukan dengan jelas. Contoh bisa dilihat di kode berikut.
 
 ```go
 type person struct {
@@ -151,7 +151,7 @@ func main() {
 }
 ```
 
-Struct `person` di-embed ke dalam struct `student` dan kedua struct tersebut kebetulan salah satu nama property-nya ada yg sama, yaitu `age`. Cara mengakses property `age` milik struct `person` lewat objek struct `student`, adalah dengan menuliskan nama struct yg di-embed kemudian nama property-nya, contohnya: `s1.person.age = 22`.
+Struct `person` di-embed ke dalam struct `student`, dan kedua struct tersebut kebetulan salah satu nama property-nya ada yg sama, yaitu `age`. Cara mengakses property `age` milik struct `person` lewat objek struct `student`, adalah dengan menuliskan nama struct yg di-embed kemudian nama property-nya, contohnya: `s1.person.age = 22`.
 
 ## Pengisian Nilai Sub-Struct
 

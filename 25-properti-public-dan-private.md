@@ -4,23 +4,21 @@ Bab ini membahas mengenai *modifier* public dan private dalam Golang. Kapan sebu
 
 ## Package Public & Private
 
-Terlebih dahulu kita perlu untuk membahas sedikit lebih dalam mengenai package `main`. Package main sangat istimewa, kita bisa dengan leluasa mengakses semua properti yang ada di package ini dari dalam, tanpa harus memikirkan hak akses.
-
-Pengembangan aplikasi dalam *real development* pasti membutuhkan banyak sekali file dan folder. Dan tidak mungkin semua file package nya di set sebagai main. Golang memiliki aturan hanya 1 package main saja yang akan dieksekusi menggunakan command `go run` dalam 1 aplikasi. Dengan pertimbangan tersebut biasanya dibuatlah folder untuk memisahkan file-file agar terlihat rapi.
+Pengembangan aplikasi dalam *real development* pasti membutuhkan banyak sekali file program. Dan tidak mungkin semuanya di set sebagai package `main`. Dengan pertimbangan tersebut biasanya file-file tersebut dipisah sebagai package baru.
 
 Folder proyek selain berisikan file-file `.go` juga bisa berisikan folder. Subfolder tersebut nantinya akan menjadi package baru. Di Golang, 1 subfolder adalah 1 package (kecuali package main yang berada langsung didalam folder proyek). Menjadikan file yang ada di dalam suatu folder memiliki nama package berbeda dengan di folder lainnya. Bahkan antara folder dan subfolder juga bisa memiliki nama package yang berbeda.
 
-Fungsi, struct, dan variabel yang dibuat di package lain, jika diakses dari main caranya tidak seperti biasanya. Perlu adanya penentuan hak akses yang tepat (apakah public atau private) agar kode tidak kaca balau. Package public, berarti bisa diakses dari package berbeda. Sedang private berarti hanya bisa di akses dari package yang sama.
+Fungsi, struct, dan variabel yang dibuat di package lain, jika diakses dari package `main` caranya tidak seperti biasanya. Perlu adanya penentuan hak akses yang tepat (apakah public atau private) agar kode tidak kacau balau. Package public, berarti bisa diakses dari package berbeda, sedangkan private berarti hanya bisa di akses dari package yang sama.
 
-Penentuan level akses atau modifier sendiri di golang sangat mudah, ditandai dengan *character case* nama fungsi/struct/variabel yang ingin di akses. Ketika namanya diawali dengan huruf kapital menandakan bahwa modifier-nya public. Dan sebaliknya, jika diawali huruf kecil, berarti private.
+Penentuan level akses atau modifier sendiri di golang sangat mudah, ditandai dengan **character case** nama fungsi/struct/variabel yang ingin di akses. Ketika namanya diawali dengan huruf kapital menandakan bahwa modifier-nya public. Dan sebaliknya, jika diawali huruf kecil, berarti private.
 
 ## Penggunaan Package, Import, Dan Modifier Public & Private
 
 Agar lebih mudah dipahami, maka langsung saja kita praktekan.
 
-Pertama buat folder bernama `belajar-golang-level-akses` dalam folder `$GOPATH/src`, lalu buat file baru bernama `main.go`. File ini kita set package-nya sebagai **main**.
+Pertama buat folder proyek baru bernama `belajar-golang-level-akses` dalam folder `$GOPATH/src`, lalu buat file baru bernama `main.go` didalamnya. File ini kita tentukan package-nya sebagai **main**.
 
-Selanjutnya buat folder baru didalam folder yang sudah dibuat dengan nama `library`, berisikan sebuah file baru bernama `library.go`. File ini ditentukan package-nya adalah **library**.
+Selanjutnya buat folder baru didalam folder yang sudah dibuat dengan nama `library`, isinya sebuah file bernama `library.go`. File ini ditentukan package-nya adalah **library**.
 
 ![Struktur folder dan file](images/25_1_folder_structure.png)
 
@@ -62,7 +60,7 @@ library.SayHello()
 library.introduce("ethan")
 ```
 
-Cara pemanggilan fungsi yang berada dalam package lain adalah dengan menulis nama package target diikut dengan nama fungsi menggunakan *dot notation*.
+Cara pemanggilan fungsi yang berada dalam package lain adalah dengan menulis nama package target diikut dengan nama fungsi menggunakan *dot notation* atau tanda titik.
 
 OK, sekarang coba jalankan kode yang sudah disiapkan di atas. Harusnya akan ada error seperti pada gambar di bawah ini.
 
@@ -70,7 +68,7 @@ OK, sekarang coba jalankan kode yang sudah disiapkan di atas. Harusnya akan ada 
 
 Error tersebut disebabkan karena fungsi `introduce()` yang berada di package `library` adalah **private**, fungsi jenis ini tidak bisa diakses dari package lain (pada kasus ini `main`). Agar fungsi tersebut bisa diakses, solusinya bisa dengan menjadikannya public, atau diubah cara pemanggilannya. Disini kita menggunakan cara ke-2.
 
-Tambahkan parameter `name` pada fungsi `sayHello()`, lalu panggil fungsi `introduce()` dengan menyisipkan parameter `name` dari dalam fungsi `SayHello()`.
+Tambahkan parameter `name` pada fungsi `SayHello()`, lalu panggil fungsi `introduce()` dengan menyisipkan parameter `name` dari dalam fungsi `SayHello()`.
 
 ```go
 func SayHello(name string) {
@@ -79,7 +77,7 @@ func SayHello(name string) {
 }
 ```
 
-Lalu pada main, cukup panggil fungsi `SayHello()` saja.
+Lalu pada main, cukup panggil fungsi `SayHello()` saja, jangan lupa menyisipkan pesan string sebagai parameter-nya.
 
 ```go
 func main() {
@@ -87,7 +85,7 @@ func main() {
 }
 ```
 
-Jika sudah, coba jalankan lagi, harusnya error tadi tidak muncul lagi.
+Jika sudah, coba jalankan lagi, harusnya error sudah lenyap.
 
 ![Contoh penerapan pemanggilan fungsi dari package berbeda](images/25_2_success.png)
 
@@ -125,7 +123,7 @@ Setelah itu jalankan program.
 
 ![Error saat menjalankan program](images/25_3_error.png)
 
-Error muncul ketika program dijalankan. Penyebabnya adalah karena `struct student` masih di set sebagai private. Ganti menjadi public (dengan cara mengubah huruf awalnya menjadi huruf besar) lalu jalankan.
+Error muncul ketika program dijalankan. Penyebabnya adalah karena struct `student` masih di set sebagai private. Ganti menjadi public (dengan cara mengubah huruf awalnya menjadi huruf besar) lalu jalankan.
 
 ```go
 // pada library/library.go
@@ -155,7 +153,7 @@ Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` y
 
 ## Import Dengan Tanda Titik
 
-Seperti yang kita tahu, untuk mengakses fungsi/struct/variabel yg berada di package lain, nama package nya perlu ditulis, contohnya seperti pada penggunaan penggunaan `library.Student` dan `fmt.Println`.
+Seperti yang kita tahu, untuk mengakses fungsi/struct/variabel yg berada di package lain, nama package nya perlu ditulis, contohnya seperti pada penggunaan penggunaan `library.Student` dan `fmt.Println()`.
 
 Di Golang, package bisa di-import setara dengan file peng-import, caranya dengan menambahkan titik pada saat penulisan keyword `import`. Maksud dari setara disini adalah, semua properti di package lain yg di-import bisa diakses tanpa perlu menuliskan nama package, seperti ketika mengakses sesuatu dari file yang sama.
 
@@ -220,7 +218,7 @@ func main() {
 }
 ```
 
-Sekarang terdapat 2 file berbeda yang package-nya sama-sama `main`. Pada saat **go build** atau **go run**, semua file yang nama package-nya main tersebut harus dituliskan sebagai argumen.
+Sekarang terdapat 2 file berbeda yang package-nya sama-sama `main`, yaitu `main.go` dan `partial.go`. Pada saat **go build** atau **go run**, semua file yang nama package-nya `main` tersebut harus dituliskan sebagai argumen.
 
 ```
 $ go run main.go partial.go

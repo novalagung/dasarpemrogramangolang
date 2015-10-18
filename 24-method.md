@@ -1,8 +1,8 @@
 # Method
 
-**Method** adalah fungsi yang hanya bisa di akses lewat variabel objek. Method merupakan property dalam `struct`. 
+**Method** adalah fungsi yang hanya bisa di akses lewat variabel objek. Method merupakan bagian dari `struct`. 
 
-Keunggulan method dibanding fungsi biasa adalah memiliki akses ke property struct hingga level *private* (level akses nantinya akan dibahas lebih detail pada bab selanjutnya). Dengan menggunakan method sebuah proses bisa di-enkapsulasi dengan baik.
+Keunggulan method dibanding fungsi biasa adalah memiliki akses ke property struct hingga level *private* (level akses nantinya akan dibahas lebih detail pada bab selanjutnya). Dan juga, dengan menggunakan method sebuah proses bisa di-enkapsulasi dengan baik.
 
 ## Penerapan Method
 
@@ -26,7 +26,7 @@ func (s student) getNameAt(i int) string {
 }
 ```
 
-Cara deklarasi method sama seperti fungsi, hanya saja perlu ditambahkan deklarasi variabel objek di sela-sela keyword `func` dan nama fungsi. Struct yang digunakan pada variabel objek tersebut akan menjadi pemilik method.
+Cara deklarasi method sama seperti fungsi, hanya saja perlu ditambahkan deklarasi variabel objek di sela-sela keyword `func` dan nama fungsi. Struct yang digunakan akan menjadi pemilik method.
 
 `func (s student) sayHello()` maksudnya adalah fungsi `sayHello` dideklarasikan sebagai method milik struct `student`. Pada contoh di atas struct `student` memiliki dua buah method, yaitu `sayHello()` dan `getNameAt()`.
 
@@ -92,7 +92,9 @@ var s2 = &student{"john wick", 21}
 s2.sayHello()
 ```
 
-Berikut adalah penjelasan mengenai fungsi split.
+## 
+
+Berikut adalah penjelasan tambahan mengenai fungsi split.
 
 ## Penggunaan Fungsi `strings.Split()`
 

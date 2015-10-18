@@ -1,6 +1,6 @@
 # Fungsi
 
-Fungi merupakan aspek penting dalam pemrograman. Definisi fungsi sendiri adalah sekumpulan blok proses yang dibungkus dengan nama tertentu. Penerapan fungsi yang tepat akan menjadikan kode lebih modular dan juga *dry* (kependekan dari *don't repeat yourself*), karena tak perlu menuliskan banyak proses berkali-kali, cukup sekali saja dan tinggal panggil jika dibutuhkan.
+Fungi merupakan aspek penting dalam pemrograman. Definisi fungsi sendiri adalah sekumpulan blok kode yang dibungkus dengan nama tertentu. Penerapan fungsi yang tepat akan menjadikan kode lebih modular dan juga *dry* (kependekan dari *don't repeat yourself*), karena tak perlu menuliskan banyak proses berkali-kali, cukup sekali saja dan tinggal panggil jika dibutuhkan.
 
 Di bab ini kita akan belajar tentang penggunaan fungsi di Golang.
 
@@ -8,7 +8,9 @@ Di bab ini kita akan belajar tentang penggunaan fungsi di Golang.
 
 Sebenarnya tanpa sadar, kita sudah menerapkan fungsi di bab-bab sebelum ini, yaitu pada fungsi `main`. Fungsi `main` merupakan fungsi yang paling utama pada program Golang.
 
-Cara membuat fungsi cukup mudah, yaitu dengan menuliskan keyword `func`, diikuti setelahnya nama fungsi, dan kurung yang berisikan parameter. Parameter adalah variabel yang digunakan untuk passing data pada saat pemanggilan fungsi, tujuannta agar data tersebut bisa diakses dari dalam.
+Cara membuat fungsi cukup mudah, yaitu dengan menuliskan keyword `func`, diikuti setelahnya nama fungsi, kurung yang berisikan parameter, dan kurung kurawal untuk membungkus blok kode.
+
+Parameter sendiri adalah variabel yang disisipkan pada saat pemanggilan fungsi.
 
 Berikut adalah contoh penerapan fungsi.
 
@@ -65,7 +67,7 @@ func main() {
 }
 
 func randomWithRange(min, max int) int {
-    var value = rand.Int()%(max-min+1) + min
+    var value = rand.Int() % (max - min + 1) + min
     return value
 }
 
@@ -85,6 +87,8 @@ Sedangkan cara untuk mengembalikan nilainya adalah dengan menggunakan keyword `r
 
 Eksekusi keyword `return` akan menjadikan proses dalam blok fungsi berhenti pada saat itu juga. Semua statement setelah keyword tersebut tidak akan dieksekusi.
 
+## 
+
 Dari kode di atas mungkin ada beberapa statement yang masih terasa asing, berikut merupakan pembahasannya.
 
 ## Penggunaan Fungsi `rand.Seed()`
@@ -97,9 +101,11 @@ rand.Seed(time.Now().Unix())
 
 Fungsi `rand.Seed()` berada dalam package `math/rand`, yang harus di-import terlebih dahulu sebelum bisa dimanfaatkan.
 
+Package `time` juga perlu di-import karena kita menggunakan fungsi `(time.Now().Unix())` disitu.
+
 ## Import Banyak Package
 
-Penulisan keyword `import` untuk banyak package bisa dilakukan dengan dua cara, dengan menuliskannya cukup sekali saja, atau banyak kali. Contohnya bisa dilihat di kode berikut.
+Penulisan keyword `import` untuk banyak package bisa dilakukan dengan dua cara, dengan menuliskannya di tiap package, atau cukup sekali saja. Contohnya bisa dilihat di kode berikut.
 
 ```go
 import "fmt"
@@ -119,7 +125,7 @@ Pilih cara yang terasa nyaman di hati.
 
 ## Deklarasi Parameter Bertipe Data Sama
 
-Khusus untuk fungsi yang tipe data parameternya sama, bisa ditulis dengan gaya yang cukup unik. Tipe datanya dituliskan cukup sekali saja di akhir. Contohnya bisa dilihat pada kode berikut.
+Khusus untuk fungsi yang tipe data parameternya sama, bisa ditulis dengan gaya yang unik. Tipe datanya dituliskan cukup sekali saja di akhir. Contohnya bisa dilihat pada kode berikut.
 
 ```go
 func nameOfFunc(paramA type, paramB type, paramC type) returnType

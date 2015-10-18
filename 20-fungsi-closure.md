@@ -50,6 +50,8 @@ Output program:
 
 ![Penerapan closure](images/20_1_closure.png)
 
+## 
+
 Berikut adalah penjelasan tambahan mengenai kode di atas
 
 ## Penggunaan Template String `%v`
@@ -102,7 +104,7 @@ var newNumbers = func(min int) []int {
 
 Pada contoh di atas IIFE menghasilkan nilai balik yang kemudian ditampung `newNumber`. Perlu diperhatikan bahwa yang ditampung adalah **nilai kembaliannya** bukan **closure-nya**.
 
-> Closure bisa juga dengan gaya manifest typing, caranya dengan menuliskan skema closure-nya sebagai tipe data. Contoh:<br />```var closure (func (string, int, []string) int)```<br />```closure = func (a string, b int, c []string) int {```<br />```    // ..```<br />```}```
+> Closure bisa juga dengan gaya manifest typing, caranya dengan menuliskan skema closure-nya sebagai tipe data. Contoh:<br /><code>var closure (func (string, int, []string) int)</code><br /><code>closure = func (a string, b int, c []string) int {</code><br /><code>&nbsp;&nbsp;&nbsp;&nbsp;// ..</code><br /><code>}</code>
 
 ## Closure Sebagai Nilai Kembalian
 
@@ -130,7 +132,7 @@ return len(res), func() []int {
 }
 ```
 
-> Fungsi tanpa nama yang akan dikembalikan boleh disimpan pada variabel. Contohnya:<br />```var getNumbers = func() []int {```<br />```    return res```<br />```}```<br />```return len(res), getNumbers```
+> Fungsi tanpa nama yang akan dikembalikan boleh disimpan pada variabel terlebih dahulu. Contohnya:<br /><code>var getNumbers = func() []int {</code><br /><code>&nbsp;&nbsp;&nbsp;&nbsp;return res</code><br /><code>}</code><br /><code>return len(res), getNumbers</code>
 
 Sedikit tentang fungsi `findMax()`, fungsi ini digunakan untuk mencari banyaknya angka-angka yang nilainya di bawah atau sama dengan angka tertentu. Nilai kembalian pertama adalah jumlah angkanya. Nilai kembalian kedua berupa closure yang mengembalikan angka-angka yang dicari. Berikut merupakan contoh implementasi fungsi tersebut.
 

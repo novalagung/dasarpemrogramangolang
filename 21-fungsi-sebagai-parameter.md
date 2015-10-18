@@ -50,11 +50,11 @@ func main() {
 }
 ```
 
-Ada cukup banyak hal yang terjadi didalam tiap pemanggilan fungsi `filter()`. Berikut merupakan penjelasannya.
+Ada cukup banyak hal yang terjadi didalam tiap pemanggilan fungsi `filter()` di atas. Berikut merupakan penjelasannya.
 
  1. Data array (yang didapat dari parameter pertama) akan di-looping
  2. Di tiap perulangannya, closure `callback` dipanggil, dengan disisipkan data tiap elemen perulangan sebagai parameter
- 3. Closure `callback` berisikan kondisi filter dengan hasil bertipe `bool` yang kemudian dikembalikan. Kondisi tersebut dituliskan pada waktu awal pemanggilan fungsi `filter()`
+ 3. Closure `callback` berisikan kondisi filtering, dengan hasil bertipe `bool` yang kemudian dijadikan nilai balik dikembalikan.
  5. Di dalam fungsi `filter()` sendiri, ada proses seleksi kondisi (yang nilainya didapat dari hasil eksekusi closure `callback`). Ketika kondisinya bernilai `true`, maka data elemen yang sedang diulang dinyatakan lolos proses filtering
  6. Data yang lolos ditampung variabel `result`. Variabel tersebut dijadikan sebagai nilai balik fungsi `filter()`
 
@@ -82,6 +82,8 @@ func filter(data []string, callback FilterCallback) []string {
 
 Skema `func(string) bool` diubah menjadi tipe dengan nama `FilterCallback`. Tipe tersebut kemudian digunakan sebagai tipe data parameter `callback`.
 
+## 
+
 Di bawah ini merupakan penjelasan tambahan mengenai fungsi `strings.Contains()`.
 
 ## Penggunaan Fungsi `string.Contains()`
@@ -90,6 +92,7 @@ Inti dari fungsi ini adalah untuk deteksi apakah sebuah substring adalah bagian 
 
 ```go
 var result = strings.Contains("Golang", "ang")
+// true
 ```
 
 Variabel `result` bernilai `true` karena string `"ang"` merupakan bagian dari string `"Golang"`.
