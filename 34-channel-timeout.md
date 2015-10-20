@@ -44,7 +44,7 @@ Ada 2 blok kondisi pada `select` tersebut.
  - `case data := <-messages:`, akan terpenuhi ketika ada serah terima data pada channel `messages`
  - `case <-time.After(time.Second * 5):`, akan terpenuhi ketika tidak ada aktivitas penerimaan data dari channel dalam durasi 5 detik.
 
-Terakhir, kedua fungsi tersebut dipanggil di main.
+Terakhir, kedua fungsi tersebut dipanggil di `main`.
 
 ```go
 func main() {

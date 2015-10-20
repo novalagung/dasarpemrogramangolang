@@ -2,13 +2,13 @@
 
 Hash merupakan sebuah algoritma enkripsi untuk mengubah text menjadi deretan karakter acak. Jumlah karakter hasil hash selalu sama. Hash termasuk *one-way encription*, membuat hasil dari hash tidak bisa dikembalikan ke text asli.
 
-Sha1 *(Secure Hash Algorithm 1)* merupakan salah satu algoritma hashing yang sering digunakan untuk enkripsi data. Didesain oleh *United States National Security Agency*. Hasil dari sha1 adalah data dengan lebar **20 byte** atau **160 bit**, biasa ditampilkan dalam bentuk bilangan heksadesimal 40 digit.
+Sha1 atau **Secure Hash Algorithm 1** merupakan salah satu algoritma hashing yang sering digunakan untuk enkripsi data. Hasil dari sha1 adalah data dengan lebar **20 byte** atau **160 bit**, biasa ditampilkan dalam bentuk bilangan heksadesimal 40 digit.
 
-Di bab ini kita akan belajar tentang penerapan hash menggunakan sha1 dan teknik salting dalam hash.
+Di bab ini kita akan belajar tentang pemanfaatan sha1 dan teknik salting dalam hash.
 
 ## Penerapan Hash Sha1
 
-Golang menyediakan package `crypto/sha1`, berisikan library untuk keperluan *hashing*. Cara penerapannya cukup mudah, bisa dilihat di kode berikut. 
+Golang menyediakan package `crypto/sha1`, berisikan library untuk keperluan *hashing*. Cara penerapannya cukup mudah, contohnya bisa dilihat pada kode berikut. 
 
 ```go
 import "crypto/sha1"
@@ -28,19 +28,19 @@ func main() {
 
 Variabel hasil dari `sha1.New()` adalah objek bertipe `hash.Hash` yang memiliki method `Write` dan `Sum`.
 
-Method `Write` digunakan untuk menge-set data yang akan di-hash. Data harus dalam bentuk `[]byte`.
+ - Method `Write()` digunakan untuk menge-set data yang akan di-hash. Data harus dalam bentuk `[]byte`.
 
-Method `Sum` digunakan untuk eksekusi proses hash, menghasilkan data yang sudah di-hash dalam bentuk `[]byte`. Method ini membutuhkan sebuah parameter, isi dengan nil.
+ - Method `Sum()` digunakan untuk eksekusi proses hash, menghasilkan data yang sudah di-hash dalam bentuk `[]byte`. Method ini membutuhkan sebuah parameter, isi dengan nil.
 
-Untuk mengambil bentuk heksadesimal string dari data yang sudah di-hash, bisa memanfaatkan fungsi `fmt.Sprintf` dengan template `%x`.
+Untuk mengambil bentuk heksadesimal string dari data yang sudah di-hash, bisa memanfaatkan fungsi `fmt.Sprintf` dengan layout format `%x`.
 
 ![Hashing menggunakan Sha1](images/44_1_hash_sha1.png)
 
-## Metode Salting Hash
+## Metode Salting Pada Hash
 
 Salt dalam konteks kriptografi adalah data acak yang digabungkan pada data asli sebelum proses hash dilakukan.
 
-Hash merupakan enkripsi satu arah dengan lebar data yang sudah pasti, menjadikan sangat mungkin sekali kalau hasil hash untuk beberapa data adalah sama. Dan disinilah kegunaan *salt*. Teknik ini berguna untuk mencegah serangan dengan metode pencocokan data-data yang hasih hash nya sama *(dictionary attack)*.
+Hash merupakan enkripsi satu arah dengan lebar data yang sudah pasti, menjadikan sangat mungkin sekali kalau hasil hash untuk beberapa data adalah sama. Disinilah kegunaan **salt**, teknik ini berguna untuk mencegah serangan menggunakan metode pencocokan data-data yang hasil hash-nya adalah sama *(dictionary attack)*.
 
 Langsung saja kita praktekan. Pertama import package yang dibutuhkan. Lalu buat fungsi untuk hash menggunakan salt dari waktu sekarang.
 
@@ -61,7 +61,7 @@ func doHashUsingSalt(text string) (string, string) {
 }
 ```
 
-Salt yang digunakan adalah hasil dari ekspresi `time.Now().UnixNano()`. Hasilnya akan selalu unik setiap detiknya, karena scope terendah adalah *nano second*. 
+Salt yang digunakan adalah hasil dari ekspresi `time.Now().UnixNano()`. Hasilnya akan selalu unik setiap detiknya, karena scope terendah waktu pada fungsi tersebut adalah *nano second* atau nano detik. 
 
 Selanjutnya test fungsi yang telah dibuat beberapa kali.
 
@@ -89,3 +89,5 @@ func main() {
 Hasil ekripsi fungsi `doHashUsingSalt` akan selalu beda, karena salt yang digunakan adalah waktu.
 
 ![Hashing dengan salt](images/44_2_hash_salt_sha1.png)
+
+Metode ini sering dipakai untuk enkripsi password user. Selain hasil hash, data salt juga harus disimpan pada database, karena digunakan dalam pencocokan password setiap user melakukan login.

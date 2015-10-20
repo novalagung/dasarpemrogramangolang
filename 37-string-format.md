@@ -2,9 +2,9 @@
 
 Di bab-bab sebelumnya kita telah banyak menggunakan layout format string seperti `%s`, `%d`, `%.2f`, dan lainnya; untuk keperluan menampilkan output ke layar ataupun untuk memformat string.
 
-Layout format string digunakan pada konversi data ke string dengan bentuk tertentu. Contohnya pada perubahan nilai data bertipe `double` menjadi string dengan batas desimal 3 digit menggunakan `%.3f`.
+Layout format string digunakan pada konversi data ke bentuk string. Contohnya seperti `%.3f` yang untuk konversi nilai `double` ke `string` dengan 3 digit desimal.
 
-Pada bab ini kita akan mempelajari satu per satu layout format string yang tersedia di Golang. Sample data yang digunakan sebagai contoh adalah kode berikut.
+Pada bab ini kita akan mempelajari satu per satu layout format string yang tersedia di Golang. Sampel data yang digunakan sebagai contoh adalah kode berikut.
 
 ```go
 type student struct {
@@ -141,7 +141,7 @@ fmt.Printf("%p\n", &data.name)
 
 ## Layout Format `%q`
 
-Digunakan untuk *escape* string. Meskipun string yang dipakai menggunakan literal `\`` akan tetap di-escape.
+Digunakan untuk **escape** string. Meskipun string yang dipakai menggunakan literal <code>\</code> akan tetap di-escape.
 
 ```go
 fmt.Printf("%q\n", `" name \ height "`)
@@ -159,7 +159,7 @@ fmt.Printf("%s\n", data.name)
 
 ## Layout Format `%t`
 
-Digunakan untuk memformat data boolean, menampilkan nilai bool-nya.
+Digunakan untuk memformat data boolean, menampilkan nilai `bool`-nya.
 
 ```go
 fmt.Printf("%t\n", data.isGraduated)

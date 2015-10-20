@@ -1,6 +1,6 @@
 # Fungsi String
 
-Golang menyediakan package `strings` yang didalamnya tersedia cukup banyak fungsi untuk keperluan pengolahan data bertipe string. Bab ini berisikan pembahasan beberapa fungsi yang ada di dalam package tersebut.
+Golang menyediakan package `strings` yang didalamnya berisikan cukup banyak fungsi untuk keperluan pengolahan data bertipe string. Bab ini merupakan pembahasan mengenai beberapa fungsi yang ada di dalam package tersebut.
 
 ## Fungsi `strings.Contains()`
 

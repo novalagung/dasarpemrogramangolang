@@ -15,7 +15,7 @@ func main() {
 }
 ```
 
-Keyword `defer` digunakan untuk men-defer statement. Pada kode di atas, `fmt.Println("halo")` di-defer, hasilnya string `"halo"` akan muncul setelah `"selamat datang"`.
+Keyword `defer` digunakan untuk mengakhirkan statement. Pada kode di atas, `fmt.Println("halo")` di-defer, hasilnya string `"halo"` akan muncul setelah `"selamat datang"`.
 
 ![Penerapan `defer`](images/35_1_defer.png)
 

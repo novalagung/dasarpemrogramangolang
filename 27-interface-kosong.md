@@ -1,10 +1,10 @@
 # Interface Kosong
 
-Interface kosong atau `interface{}` adalah tipe data yang sangat spesial. Variabel bertipe ini bisa menampung segala jenis data, bahkan array, bisa pointer bisa tidak. Konsep variabel yang bisa menampung segala jenis tipe data disebut dengan **dynamic typing**. Di bab ini kita akan membahas tentang penggunaannya.
+Interface kosong atau `interface{}` adalah tipe data yang sangat spesial. Variabel bertipe ini bisa menampung segala jenis data, bahkan array, bisa pointer bisa tidak (konsep ini disebut dengan **dynamic typing**).
 
 ## Penggunaan `interface{}`
 
-Seperti yang sudah dijelaskan, `interface{}` merupakan tipe data, sehingga cara penggunaannya sama seperti pada tipe data lainnya, hanya saja nilai yang diisikan bisa apa saja. Contoh:
+`interface{}` merupakan tipe data, sehingga cara penggunaannya sama seperti pada tipe data lainnya, hanya saja nilai yang diisikan bisa apa saja. Contoh:
 
 ```go
 var secret interface{}
@@ -55,11 +55,11 @@ func main() {
     var secret interface{}
 
     secret = 2
-    number := secret.(int) * 10
+    var number = secret.(int) * 10
     fmt.Println(secret, "multiplied by 10 is :", number)
 
     secret = []string{"apple", "manggo", "banana"}
-    gruits := strings.Join(secret.([]string), ", ")
+    var gruits = strings.Join(secret.([]string), ", ")
     fmt.Println(gruits, "is my favorite fruits")
 }
 ```

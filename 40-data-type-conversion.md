@@ -1,12 +1,12 @@
 # Konversi Data
 
-Di bab-bab sebelumnya kita sudah mengaplikasikan beberapa cara konversi data, contohnya seperti konversi `string` <-> `int` menggunakan `strconv`, dan `time.Time` <-> `string`. Di bab ini kita akan belajar lebih banyak.
+Di bab-bab sebelumnya kita sudah mengaplikasikan beberapa cara konversi data, contohnya seperti konversi `string` ↔ `int` menggunakan `strconv`, dan `time.Time` ↔ `string`. Di bab ini kita akan belajar lebih banyak.
 
 ## Konversi Menggunakan `strconv`
 
 `strconv` berisikan banyak fungsi yang sangat membantu untuk keperluan konversi data. Berikut merupakan beberapa fungsi dalam package tersebut yang bisa dimanfaatkan.
 
-### Penggunaan Fungsi `strconv.Atoi()`
+### Fungsi `strconv.Atoi()`
 
 Fungsi ini digunakan untuk konversi data dari tipe `string` ke `int`. Mengembalikan 2 buah nilai balik, yaitu hasil konversi dan `error` (jika konversi sukses, maka `error` akan berisi `nil`).
 
@@ -19,7 +19,7 @@ if err == nil {
 }
 ```
 
-### Penggunaan Fungsi `strconv.Itoa()`
+### Fungsi `strconv.Itoa()`
 
 Merupakan kebalikan dari `strconv.Atoi`, berguna untuk konversi `int` ke `string`.
 
@@ -30,7 +30,7 @@ var str = strconv.Itoa(num)
 fmt.Println(str) // "124"
 ```
 
-### Penggunaan Fungsi `strconv.ParseInt()`
+### Fungsi `strconv.ParseInt()`
 
 Digunakan untuk konversi `string` berbentuk numerik dengan basis tertentu ke tipe numerik non-desimal dengan lebar data bisa ditentukan.
 
@@ -56,7 +56,7 @@ if err == nil {
 }
 ```
 
-### Penggunaan Fungsi `strconv.FormatInt()`
+### Fungsi `strconv.FormatInt()`
 
 Berguna untuk konversi data numerik `int64` ke `string` dengan basis numerik bisa ditentukan sendiri.
 
@@ -67,7 +67,7 @@ var str = strconv.FormatInt(num, 8)
 fmt.Println(str) // 30
 ```
 
-### Penggunaan Fungsi `strconv.ParseFloat()`
+### Fungsi `strconv.ParseFloat()`
 
 Digunakan untuk konversi `string` ke numerik desimal dengan lebar data bisa ditentukan.
 
@@ -82,7 +82,7 @@ if err == nil {
 
 Pada contoh di atas, string `"24.12"` dikonversi ke float dengan lebar `float32`. Hasil konversi `strconv.ParseFloat` disesuaikan dengan standar [IEEE Standard for Floating-Point Arithmetic](https://en.wikipedia.org/wiki/IEEE_floating_point).
 
-### Penggunaan Fungsi `strconv.FormatFloat()`
+### Fungsi `strconv.FormatFloat()`
 
 Berguna untuk konversi data bertipe `float64` ke `string` dengan format eksponen, lebar digit desimal, dan lebar tipe data bisa ditentukan.
 
@@ -99,14 +99,14 @@ Ada beberapa format eksponen yang bisa digunakan. Detailnya bisa dilihat di tabe
 
 | Format&nbsp;Eksponen | Penjelasan |
 | :-------------: | :-------- |
-| **`b`** | -ddddp±ddd, a, eksponen biner (basis 2) |
-| **`e`** | -d.dddde±dd, a, eksponen desimal (basis 10) |
-| **`E`** | -d.ddddE±dd, a, eksponen desimal (basis 10) |
-| **`f`** | -ddd.dddd, tanpa eksponen |
-| **`g`** | Akan menggunakan format eksponen `e` untuk eksponen besar dan `f` untuk selainnya |
-| **`G`** | Akan menggunakan format eksponen `E` untuk eksponen besar dan `f` untuk selainnya |
+| `b` | -ddddp±ddd, a, eksponen biner (basis 2) |
+| `e` | -d.dddde±dd, a, eksponen desimal (basis 10) |
+| `E` | -d.ddddE±dd, a, eksponen desimal (basis 10) |
+| `f` | -ddd.dddd, tanpa eksponen |
+| `g` | Akan menggunakan format eksponen `e` untuk eksponen besar dan `f` untuk selainnya |
+| `G` | Akan menggunakan format eksponen `E` untuk eksponen besar dan `f` untuk selainnya |
 
-### Penggunaan Fungsi `strconv.ParseBool()`
+### Fungsi `strconv.ParseBool()`
 
 Digunakan untuk konversi `string` ke `bool`.
 
@@ -119,7 +119,7 @@ if err == nil {
 }
 ```
 
-### Penggunaan Fungsi `strconv.FormatBool()`
+### Fungsi `strconv.FormatBool()`
 
 Digunakan untuk konversi `bool` ke `string`.
 

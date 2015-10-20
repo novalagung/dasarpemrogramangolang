@@ -1,10 +1,10 @@
 # Timer
 
-Ada beberapa fungsi dalam package `time` yang memiliki kegunaan sebagai timer. Dengan memanfaatkan fungsi-fungsi tersebut, kita bisa membuat eksekusi sebuah proses di-*countdown* dalam kurun waktu tertentu.
+Ada beberapa fungsi dalam package `time` yang memiliki kegunaan sebagai timer. Dengan memanfaatkan fungsi-fungsi tersebut, kita bisa menunda eksekusi sebuah proses dengan durasi waktu tertentu.
 
-## Penerapan Fungsi `time.Sleep()`
+## Fungsi `time.Sleep()`
 
-Fungsi ini digunakan untuk menghentikan program selama waktu tertentu. `time.Sleep()` bersifat *blocking*, sehingga statement dibawahnya tidak akan dieksekusi sampai waktu pemberhentian usai. Contoh sederhana penerapan `time.Sleep()`:
+Fungsi ini digunakan untuk menghentikan program sejenak. `time.Sleep()` bersifat **blocking**, sehingga statement dibawahnya tidak akan dieksekusi sampai waktu pemberhentian usai. Contoh sederhana penerapan `time.Sleep()`:
 
 ```go
 fmt.Println("start")
@@ -14,7 +14,7 @@ fmt.Println("after 4 seconds")
 
 Tulisan `"start"` muncul, lalu 4 detik kemudian tulisan `"after 4 seconds"` muncul.
 
-## Penerapan Fungsi `time.NewTimer()`
+## Fungsi `time.NewTimer()`
 
 Fungsi ini sedikit berbeda dengan `time.Sleep()`. Fungsi `time.NewTimer()` mengembalikan sebuah objek `*time.Timer` yang memiliki method `C`. Method ini mengembalikan sebuah channel dan akan dieksekusi dalam waktu yang sudah ditentukan. Contoh penerapannya bisa dilihat pada kode berikut.
 
@@ -27,7 +27,7 @@ fmt.Println("finish")
 
 Tulisan `"finish"` akan muncul setelah delay **4 detik**.
 
-## Penerapan Fungsi `time.AfterFunc()`
+## Fungsi `time.AfterFunc()`
 
 Fungsi `time.AfterFunc()` memiliki 2 parameter. Parameter pertama adalah durasi timer, dan parameter kedua adalah *callback* nya. Callback tersebut akan dieksekusi jika waktu sudah memenuhi durasi timer.
 
@@ -48,9 +48,12 @@ Tulisan `"start"` akan muncul di awal. Diikuti 4 detik kemudian tulisan `"expire
 
 Didalam callback terdapat proses transfer data lewat channel, mengakibatkan tulisan `"finish"` akan muncul tepat setelah tulisan `"expired"` muncul.
 
-Perlu diketahui bahwa fungsi ini **tidak blocking**, berbeda dibanding **time.Sleep()** dan **time.NewTimer()**.
+Beberapa hal yang perlu diketahui dalam menggunakan fungsi ini:
 
-## Penerapan Fungsi `time.After()`
+ - Jika tidak ada serah terima data lewat channel, maka eksekusi `time.AfterFunc()` adalah asynchronous dan tidak blocking.
+ - Jika ada serah terima data lewat channel, maka fungsi akan tetap berjalan asynchronous dan tidak blocking hingga baris kode dimana penerimaan data channel dilakukan.
+
+## Fungsi `time.After()`
 
 Kegunaan fungsi ini mirip seperti `time.Sleep()`. Perbedaannya adalah, fungsi `timer.After()` akan mengembalikan data channel, sehingga perlu menggunakan tanda `<-` dalam penerapannya.
 
@@ -115,6 +118,6 @@ func main() {
 }
 ```
 
-![Penerapan timer dalam goroutine](images/39_1_timer.png)
-
 Ketika user tidak menginputkan apa-apa dalam kurun waktu 5 detik, maka akan muncul pesan timeout, lalu program dihentikan.
+
+![Penerapan timer dalam goroutine](images/39_1_timer.png)

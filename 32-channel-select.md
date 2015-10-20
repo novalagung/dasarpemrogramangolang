@@ -1,10 +1,10 @@
 # Channel - Select
 
-Adanya channel dalam pemrograman Golang memang sangat membantu dalam hal pengontrolan goroutine, jumlah goroutine yang banyak bukan lagi masalah. 
+Adanya channel memang sangat membantu pengontrolan goroutine, jumlah goroutine yang banyak bukan lagi masalah. 
 
-Namun, ada kalanya dimana kita butuh tak hanya satu channel saja untuk manage goroutine yang juga banyak, dibutuhkan beberapa atau mungkin banyak channel.
+Ada kalanya dimana kita butuh tak hanya satu channel saja untuk manage goroutine yang juga banyak, dibutuhkan beberapa atau mungkin banyak channel.
 
-Disinilah kegunaan dari `select`. Select memudahkan pengontrolan goroutine. Cara penggunaannya sama seperti seleksi kondisi `switch`.
+Disinilah kegunaan dari `select`. Select memudahkan pengontrolan komunikasi data lewat channel. Cara penggunaannya sama seperti seleksi kondisi `switch`.
 
 ## Penerapan Keyword `select`
 
@@ -14,7 +14,7 @@ Pertama, kita siapkan terlebih dahulu 2 fungsi yang akan dieksekusi sebagai goro
 
 ```go
 func getAverage(numbers []int, ch chan float64) {
-    sum := 0
+    var sum = 0
     for _, e := range numbers {
         sum += e
     }
@@ -22,7 +22,7 @@ func getAverage(numbers []int, ch chan float64) {
 }
 
 func getMax(numbers []int, ch chan int) {
-    max := numbers[0]
+    var max = numbers[0]
     for _, e := range numbers {
         if max < e {
             max = e
@@ -32,7 +32,9 @@ func getMax(numbers []int, ch chan int) {
 }
 ```
 
-Kedua fungsi di atas akan dieksekusi di dalam `main` sebagai goroutine baru. Di akhir masing-masing fungsi akan dikirimkan data hasil komputasi ke channel yang sudah ditentukan sebelumnya (`ch1` menampung data rata-rata, `ch2` untuk data nilai tertinggi).
+Kedua fungsi di atas akan dieksekusi di dalam `main` sebagai goroutine baru. Di akhir masing-masing fungsi akan dikirimkan data hasil komputasi ke channel yang sudah ditentukan (`ch1` menampung data rata-rata, `ch2` untuk data nilai tertinggi).
+
+Setelah itu, buat implementasinya pada fungsi `main`.
 
 ```go
 func main() {
@@ -58,9 +60,12 @@ func main() {
 }
 ```
 
-Karena ada 2 buah channel, maka perlu ditambahkan perulangan sebanyak 2 kali, sebelum dilakukan seleksi penerimaan data channel menggunakan select.
+Pada kode di atas, transaksi pengiriman data pada channel `ch1` dan `ch2` dikontrol menggunakan `select`. Terdapat 2 buah `case` kondisi penerimaan data dari kedua channel tersebut.
 
-Kondisi `case avg := <-ch1` akan terpenuhi ketika ada transaksi data pada channel `ch1`, yang lalu akan ditampung oleh variabel `avg`. Sedangkan `case max := <-ch2` terpenuhi ketika data diterima dari channel `ch2`.
+ - Kondisi `case avg := <-ch1` akan terpenuhi ketika ada penerimaan data dari channel `ch1`, yang kemudian akan ditampung oleh variabel `avg`. 
+ - Kondisi `case max := <-ch2` akan terpenuhi ketika ada penerimaan data dari channel `ch2`, yang kemudian akan ditampung oleh variabel `max`. 
+
+Karena ada 2 buah channel, maka perlu disiapkan perulangan 2 kali sebelum penggunaan keyword `select`.
 
 ![Contoh penerapan channel select](images/32_1_channel_select.png)
 

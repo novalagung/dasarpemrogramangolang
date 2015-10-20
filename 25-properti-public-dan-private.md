@@ -133,8 +133,6 @@ type Student struct {
 var s1 = library.Student{"ethan", 21}
 ```
 
-Hasilnya:
-
 ![Error lain muncul saat menjalankan program](images/25_4_error.png)
 
 Error masih tetap muncul, tapi kali ini berbeda. Error yang baru ini disebabkan karena salah satu properti dari struct `Student` bermodifier private. Properti yg dimaksud adalah `grade`. Ubah menjadi public, lalu jalankan lagi.

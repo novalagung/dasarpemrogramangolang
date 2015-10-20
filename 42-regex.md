@@ -1,10 +1,10 @@
 # Regexp
 
-Regexp atau *regular expression* adalah suatu teknik yang digunakan untuk mencocokan string dengan pola tertentu. Regexp biasa dimanfaatkan untuk pencarian dan pengubahan data string.
+Regexp atau **regular expression** adalah suatu teknik yang digunakan untuk pencocokan string dengan pola tertentu. Regexp biasa dimanfaatkan untuk pencarian dan pengubahan data string.
 
-Pencarian string dilakukan dengan mengkombinasikan literal-literal regex. Golang mengadopsi standar regex **RE2**, untuk melihat sintaks yang di-support engine ini bisa langsung merujuk ke dokumentasinya di [https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax).
+Golang mengadopsi standar regex **RE2**, untuk melihat sintaks yang di-support engine ini bisa langsung merujuk ke dokumentasinya di [https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax).
 
-Pada bab ini kita akan belajar mengenai pengaplikasian regex. Golang menyediakan package `regexp`, berisikan banyak sekali fungsi untuk keperluan regex.
+Pada bab ini kita akan belajar mengenai pengaplikasian regex dengan memanfaatkan fungsi-fungsi dalam package `regexp`.
 
 ## Penerapan Regexp
 
@@ -29,7 +29,7 @@ var res2 = regex.FindAllString(text, -1)
 
 Ekspresi `b[a-zA-Z]+` maknanya adalah, semua string yang merupakan alphabet dan diawali huruf `b`. Ekspresi tersebut di-compile oleh `regexp.Compile()` lalu disimpan ke variabel objek `regex` yang tipenya adalah `regexp.*Regexp`.
 
-Struct `regexp.Regexp` memiliki banyak method, salah satunya adalah `FindAllString()`, yang digunakan untuk mencari semua string yang sesuai dengan ekspresi regex, dengan kembalian berupa array string.
+Struct `regexp.Regexp` memiliki banyak method, salah satunya adalah `FindAllString()`, yang berfungsi untuk pencarian semua string yang sesuai dengan ekspresi regex, dengan kembalian berupa array string.
 
 Jumlah hasil pencarian dari `regex.FindAllString()` bisa ditentukan. Contohnya pada `res1`, ditentukan maksimal `2` data saja pada nilai kembalian. Jika batas di set `-1`, maka akan mengembalikan semua data. 
 

@@ -24,7 +24,7 @@ Pada kode di atas, interface `hitung` memiliki 2 definisi method, `luas()` dan `
 
 Dengan memanfaatkan variabel objek hasil interface `hitung`, perhitungan luas dan keliling suatu bangun datar bisa dilakukan, tanpa perlu tahu jenis bangun datarnya sendiri itu apa.
 
-Selanjutnya disiapkan struct bangun datar `lingkarang` yang memiliki method yang beberapa diantaranya terdefinisi di interface `hitung`.
+Selanjutnya disiapkan struct bangun datar `lingkaran` yang memiliki method yang beberapa diantaranya terdefinisi di interface `hitung`.
 
 ```go
 type lingkaran struct {
@@ -106,7 +106,9 @@ Perlu diketahui juga, jika ada interface yang menampung objek konkrit dimana str
 
 ## Embedded Interface
 
-Interface bisa di-embed ke interface lain, sama seperti struct. Cara penerapannya juga sama, cukup dengan menuliskan nama interface yang ingin di-embed ke dalam interface tujuan. Contoh:
+Interface bisa di-embed ke interface lain, sama seperti struct. Cara penerapannya juga sama, cukup dengan menuliskan nama interface yang ingin di-embed ke dalam interface tujuan. 
+
+Pada contoh berikut, disiapkan interface bernama `hitung2d` dan `hitung3d`. Kedua interface tersebut kemudian di-embed ke interface baru bernama `hitung`.
 
 ```go
 type hitung2d interface {
@@ -124,11 +126,9 @@ type hitung interface {
 }
 ```
 
-Pada kode di atas, ada 3 buah interface yang dideklarasikan. Interface `hitung2d` berisikan method untuk kalkulasi luas dan keliling, sedang `hitung3d` berisikan method untuk mencari volume bidang.
+Interface `hitung2d` berisikan method untuk kalkulasi luas dan keliling, sedang `hitung3d` berisikan method untuk mencari volume bidang. Kedua interface tersebut diturunkan di interface `hitung`, menjadikannya memiliki kemampuan untuk menghitung luas, keliling, dan volume.
 
-Kedua interface tersebut diturunkan di interface `hitung`, menjadikannya memiliki kemampuan untuk menghitung luas, keliling, dan volume.
-
-Siapkan struct baru bernama `kubus` yang memiliki method `luas()`, `keliling()`, dan `volume()`.
+Selanjutnya siapkan struct baru bernama `kubus` yang memiliki method `luas()`, `keliling()`, dan `volume()`.
 
 ```go
 type kubus struct {
@@ -165,6 +165,6 @@ func main() {
 
 Bisa dilihat di kode di atas, lewat interface `hitung`, method `luas`, `keliling`, dan `volume` bisa di akses.
 
-Perlu diketahui, method-method struct `kubus` dideklarasikan sebagai method **pointer** (diketahui dari `func (k *kubus)`). Oleh karena itu perlu dilakukan pengambilan referensi pada struct yang tercetak, yang kemudian ditampung oleh variabel `bangunRuang` (perhatikan `var bangunRuang hitung = &kubus{4}`).
+Pada bab 24 dijelaskan bahwa method pointer bisa diakses lewat variabel objek biasa dan variabel objek pointer. Variabel objek yang dicetak menggunakan struct yang memiliki method pointer, jika ditampung kedalam variabel interface, harus diambil referensi-nya terlebih dahulu. Contohnya bisa dilihat pada kode di atas `var bangunRuang hitung = &kubus{4}`.
 
 ![Embedded interface](images/26_2_embedded_interface.png)
