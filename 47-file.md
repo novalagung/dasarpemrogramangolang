@@ -1,6 +1,6 @@
 # File
 
-Ada beberapa cara yang bisa digunakan untuk keperluan operasi file di Golang. Pada bab ini kita akan mempelajari teknik yang paling dasar, dengan memanfaatkan `os.File`.
+Ada beberapa cara yang bisa digunakan untuk operasi file di Golang. Pada bab ini kita akan mempelajari teknik yang paling dasar, yaitu dengan memanfaatkan `os.File`.
 
 ## Membuat File Baru
 
@@ -42,7 +42,7 @@ func main() {
 
 Fungsi `os.Stat()` mengembalikan 2 data, yaitu informasi tetang path yang dicari, dan error (jika ada). Masukkan error kembalian fungsi `os.Stat()` sebagai parameter fungsi `os.IsNotExist()`, untuk mendeteksi apakah file yang akan dibuat sudah ada. Jika belum ada, maka fungsi tersebut akan mengembalikan nila `true`.
 
-Fungsi `os.Create()` digunakan untuk membuat file pada path tertentu. Fungsi ini mengembalikan objek `*os.File` dari file yang bersangkutan. perlu diketahui bahwa file yang baru terbuat statusnya adalah otomatis **open**, jadi perlu untuk di-**close** menggunakan fungsi `file.Close()` setelah file tidak digunakan lagi. Membiarkan file terbuka ketika sudah tak lagi digunakan bukan hal yang baik, space memory akan teralokasi dengan sia-sia.
+Fungsi `os.Create()` digunakan untuk membuat file pada path tertentu. Fungsi ini mengembalikan objek `*os.File` dari file yang bersangkutan. perlu diketahui bahwa file yang baru terbuat statusnya adalah otomatis **open**, jadi perlu untuk di-**close** menggunakan method `file.Close()` setelah file tidak digunakan lagi. Membiarkan file terbuka ketika sudah tak lagi digunakan bukan hal yang baik, agar alokasi memory tidak sia-sia.
 
 ![Membuat file baru](images/47_1_create.png)
 
@@ -73,19 +73,13 @@ func main() {
 }
 ```
 
-Pada program di atas, file dibuka dengan level akses **read** dan **write** dengan kode permission **0664**.
-
-Setelah itu, beberapa string diisikan kedalam file tersebut menggunakan `file.WriteString`.
-
-Di akhir, semua perubahan terhadap file akan disimpan dengan dipanggilnya `file.Sync()`.
+Pada program di atas, file dibuka dengan level akses **read** dan **write** dengan kode permission **0664**. Setelah itu, beberapa string diisikan kedalam file tersebut menggunakan `file.WriteString`. Di akhir, semua perubahan terhadap file akan disimpan dengan dipanggilnya `file.Sync()`.
 
 ![Mengedit file](images/47_2_write.png)
 
 ## Membaca Isi File
 
-File yang ingin dibaca harus dibuka terlebih dahulu dengan level akses minimal *read*.
-
-Setelah itu, gunakan `file.Read()` dengan parameter variabel yang dimana hasil proses baca akan disimpan ke variabel tersebut.
+File yang ingin dibaca harus dibuka terlebih dahulu dengan level akses minimal *read*. Setelah itu, gunakan `file.Read()` dengan parameter variabel yang dimana hasil proses baca akan disimpan ke variabel tersebut.
 
 ```go
 // tambahkan di bagian import package io
@@ -117,9 +111,7 @@ func main() {
 }
 ```
 
-Variabel `text` adalah slice `[]byte` dengan alokasi elemen 1024. Variabel tersebut akan berisikan data hasil fungsi `file.Read()`.
-
-Fungsi tersebut dieksekusi dalam perulangan, yang hanya berhenti ketika sudah tidak ada baris text yang bisa dibaca dari file bersangkutan.
+Variabel `text` adalah slice `[]byte` dengan alokasi elemen 1024. Variabel tersebut akan berisikan data hasil fungsi `file.Read()`. Fungsi tersebut dieksekusi dalam perulangan, yang hanya berhenti ketika sudah tidak ada baris text yang bisa dibaca dari file bersangkutan.
 
 Error yang muncul ketika eksekusi `file.Read()` akan difilter, ketika errornya adalah selain `io.EOF` maka proses baca file akan berlanjut.
 
