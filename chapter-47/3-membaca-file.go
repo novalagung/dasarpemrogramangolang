@@ -15,7 +15,7 @@ func checkError(err error) {
 
 func readFile() {
 	// buka file
-	var file, err = os.OpenFile(path, os.O_RDWR, 0644)
+	var file, err = os.OpenFile(path, os.O_RDONLY, 0644)
 	checkError(err)
 	defer file.Close()
 
