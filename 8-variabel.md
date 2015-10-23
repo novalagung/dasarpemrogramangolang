@@ -114,19 +114,19 @@ first, second, third = "satu", "dua", "tiga"
 Pengisian nilai juga bisa dilakukan bersamaan pada saat deklarasi. Caranya dengan menuliskan nilai masing-masing variabel berurutan sesuai variabelnya dengan pembatas koma (`,`). Contohnya seperti pada kode berikut.
 
 ```go
-var first, second, third string = "satu", "dua", "tiga"
+var fourth, fifth, sixth string = "empat", "lima", "enam"
 ```
 
 Kalau ingin lebih ringkas:
 
 ```go
-first, second, third := "satu", "dua", "tiga"
+seventh, eight, ninth := "tujuh", "delapan", "sembilan"
 ```
 
 Dengan menggunakan teknik type inference, deklarasi multi variabel bisa dilakukan untuk variabel-variabel yang tipe data satu sama lainnya berbeda. Contoh:
 
 ```
-one, isFriday, two, say := 1, true, 2.2, "hello"
+one, isFriday, twoPointTwo, say := 1, true, 2.2, "hello"
 ```
 
 Istimewa bukan? Istimewa sekali.
@@ -142,10 +142,10 @@ Underscore (`_`) adalah predefined variabel yang bisa dimanfaatkan untuk menampu
 ```go
 _ = "belajar Golang"
 _ = "Golang itu mudah"
-nama, _ := "john", "wick"
+name, _ := "john", "wick"
 ```
 
-Pada contoh di atas, variabel `nama` akan berisikan text `john`, sedang nilai `wick` akan ditampung oleh variabel underscore, menandakan bahwa nilai tersebut tidak akan digunakan.
+Pada contoh di atas, variabel `name` akan berisikan text `john`, sedang nilai `wick` akan ditampung oleh variabel underscore, menandakan bahwa nilai tersebut tidak akan digunakan.
 
 Variabel underscore adalah predefined, jadi tidak perlu menggunakan `:=` untuk pengisian nilai, cukup dengan `=` saja. Namun khusus untuk pengisian nilai multi variabel yang dilakukan dengan metode type inference, boleh didalamnya terdapat variabel underscore.
 

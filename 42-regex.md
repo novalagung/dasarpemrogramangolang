@@ -13,18 +13,25 @@ Fungsi `regexp.Compile()` digunakan untuk mengkompilasi ekspresi regex yang dima
 Berikut merupakan contoh penerapan regex untuk pencarian karakter.
 
 ```go
-var text = "banana,orange juice,burger,soup"
-var regex, err = regexp.Compile(`b[a-zA-Z]+`)
+import "fmt"
+import "regexp"
 
-if err != nil {
-    fmt.Println(err.Error())
+func main() {
+    var text = "banana burger soup"
+    var regex, err = regexp.Compile(`[a-z]+`)
+
+    if err != nil {
+        fmt.Println(err.Error())
+    }
+
+    var res1 = regex.FindAllString(text, 2)
+    fmt.Printf("%#v \n", res1)
+    // ["banana", "burger"]
+
+    var res2 = regex.FindAllString(text, -1)
+    fmt.Printf("%#v \n", res2)
+    // ["banana", "burger", "soup"]
 }
-
-var res1 = regex.FindAllString(text, 2)
-// ["banana", "orange juice"]
-
-var res2 = regex.FindAllString(text, -1)
-// ["banana", "orange juice", "burger", "soup"]
 ```
 
 Ekspresi `b[a-zA-Z]+` maknanya adalah, semua string yang merupakan alphabet dan diawali huruf `b`. Ekspresi tersebut di-compile oleh `regexp.Compile()` lalu disimpan ke variabel objek `regex` yang tipenya adalah `regexp.*Regexp`.
@@ -40,10 +47,11 @@ Ada cukup banyak method struct `regexp.*Regexp` yang bisa kita manfaatkan untuk 
 Method ini digunakan untuk mendeteksi apakah string memenuhi sebuah pola regexp.
 
 ```go
-var text = "banana,orange juice,burger,soup"
-var regex, err = regexp.Compile(`b[a-zA-Z]+`)
+var text = "banana burger soup"
+var regex, _ = regexp.Compile(`[a-z]+`)
 
 var isMatch = regex.MatchString(text)
+fmt.Println(isMatch)
 // true
 ```
 
@@ -54,28 +62,30 @@ Pada contoh di atas `isMatch` bernilai `true` karena string `"banana,orange juic
 Digunakan untuk mencari string yang memenuhi kriteria regexp yang telah ditentukan.
 
 ```go
-var text = "banana,orange juice,burger,soup"
-var regex, err = regexp.Compile(`b[a-zA-Z]+`)
+var text = "banana burger soup"
+var regex, _ = regexp.Compile(`[a-z]+`)
 
 var str = regex.FindString(text)
-// banana
+fmt.Println(str)
+// "banana"
 ```
 
 Fungsi ini hanya mengembalikan 1 buah hasil saja. Jika ada banyak substring yang sesuai dengan ekspresi regexp, akan dikembalikan yang pertama saja.
 
 ## Method `FindStringIndex()`
 
-
 Digunakan untuk mencari index string kembalian hasil dari operasi regexp.
 
 ```go
-var text = "banana,orange juice,burger,soup"
-var regex, err = regexp.Compile(`b[a-zA-Z]+`)
+var text = "banana burger soup"
+var regex, _ = regexp.Compile(`[a-z]+`)
 
 var idx = regex.FindStringIndex(text)
+fmt.Println(idx)
 // [0, 6]
 
 var str = text[0:6]
+fmt.Println(str)
 // "banana"
 ```
 
@@ -86,13 +96,15 @@ Method ini sama dengan `FindString()` hanya saja yang dikembalikan indeknya.
 Digunakan untuk mencari banyak string yang memenuhi kriteria regexp yang telah ditentukan.
 
 ```go
-var text = "banana,orange juice,burger,soup"
-var regex, err = regexp.Compile(`b[a-zA-Z]+`)
+var text = "banana burger soup"
+var regex, _ = regexp.Compile(`[a-z]+`)
 
 var str1 = regex.FindAllString(text, -1)
+fmt.Println(str1)
 // ["banana", "burger"]
 
 var str2 = regex.FindAllString(text, 1)
+fmt.Println(str2)
 // ["banana"]
 ```
 
@@ -103,11 +115,12 @@ Jumlah data yang dikembalikan bisa ditentukan. Jika diisi dengan `-1`, maka akan
 Berguna untuk me-replace semua string yang memnuhi kriteri regexp, dengan string lain. 
 
 ```go
-var text = "banana,orange juice,burger,soup"
-var regex, err = regexp.Compile(`b[a-zA-Z]+`)
+var text = "banana burger soup"
+var regex, _ = regexp.Compile(`[a-z]+`)
 
 var str = regex.ReplaceAllString(text, "potato")
-// "potato,potato,orange juice,soup"
+fmt.Println(str)
+// "potato potato potato"
 ```
 
 ## Method `ReplaceAllStringFunc()`
@@ -115,8 +128,8 @@ var str = regex.ReplaceAllString(text, "potato")
 Digunakan untuk me-replace semua string yang memnuhi kriteri regexp, dengan kondisi yang bisa ditentukan untuk setiap substring yang akan di replace.
 
 ```go
-var text = "banana,orange juice,burger,soup"
-var regex, err = regexp.Compile(`b[a-zA-Z]+`)
+var text = "banana burger soup"
+var regex, _ = regexp.Compile(`[a-z]+`)
 
 var str = regex.ReplaceAllStringFunc(text, func(each string) string {
     if each == "burger" {
@@ -124,19 +137,23 @@ var str = regex.ReplaceAllStringFunc(text, func(each string) string {
     }
     return each
 })
-// "banana,potato,orange juice,soup"
+fmt.Println(str)
+// "banana potato soup"
 ```
 
 Pada contoh di atas, jika salah satu substring yang *match* adalah `"burger"` maka akan diganti dengan `"potato"`, string selainnya tidak di replace.
 
 ## Method `Split()`
 
-Digunakan untuk memsih string dengan separator atau pemisah adalah substring yang memnuhi kriteria regexp yang telah ditentukan.
+Digunakan untuk memisah string dengan pemisah adalah substring yang memnuhi kriteria regexp yang telah ditentukan.
+
+Jumlah karakter yang akan di split bisa ditentukan dengan mengisi parameter kedua fungsi `regex.Split()`. Jika diisi `-1` maka akan me-replace semua karakter.
 
 ```go
-var text = "banana,orange juice,burger,soup"
-var regex, err = regexp.Compile(`b[a-zA-Z]+`)
+var text = "banana,burger,soup"
+var regex, _ = regexp.Compile(`[a-z]+`)
 
-var str = regex.Split(text)
-// ["", ",", ",orange juice,soup"]
+var str = regex.Split(text, -1)
+fmt.Printf("%#v \n", str)
+// ["", ",", ",", ""]
 ```

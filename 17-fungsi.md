@@ -140,6 +140,10 @@ func randomWithRange(min, max int) int
 Selain sebagai penanda nilai balik, keyword `return` juga bisa dimanfaatkan untuk menghentikan proses dalam blok fungsi dimana ia dipakai. Contohnya bisa dilihat pada kode berikut.
 
 ```go
+package main
+
+import "fmt"
+
 func main() {
     divideNumber(10, 2)
     divideNumber(4, 0)

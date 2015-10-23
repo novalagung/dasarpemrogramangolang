@@ -31,11 +31,11 @@ Fungsi `filter()` sendiri digunakan untuk filtering data array (yang datanya did
 
 ```go
 func main() {
-    data := []string{"wick", "jason", "ethan"}
-    dataContainsO := filter(data, func(each string) bool {
+    var data = []string{"wick", "jason", "ethan"}
+    var dataContainsO = filter(data, func(each string) bool {
         return strings.Contains(each, "o")
     })
-    dataLenght5 := filter(data, func(each string) bool {
+    var dataLenght5 = filter(data, func(each string) bool {
         return len(each) == 5
     })
 

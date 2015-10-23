@@ -69,7 +69,7 @@ Tipe data `bool` berisikan hanya 2 variansi nilai, `true` dan `false`. Tipe data
 
 ```go
 var exist bool = true
-fmt.Printf("exist? %t", exist)
+fmt.Printf("exist? %t \n", exist)
 ```
 
 Gunakan `%t` untuk memformat data `bool` menggunakan fungsi `fmt.Printf()`.
@@ -80,7 +80,7 @@ Ciri khas dari tipe data string adalah nilainya di apit oleh tanda *quote* atau 
 
 ```go
 var message string = "Halo"
-fmt.Printf("message: %s", message)
+fmt.Printf("message: %s \n", message)
 ```
 
 Selain menggunakan tanda quote, deklarasi string juga bisa dengan tanda *grave accent/backticks* (<code>`</code>), tanda ini terletak di sebelah kiri tombol 1. Keistimewaan string yang dideklarasikan menggunakan backtics adalah membuat semua karakter didalamnya **tidak akan di escape**, termasuk `\n`, tanda petik dua dan tanda petik satu, baris baru, dan lainnya. Semua akan terdeteksi sebagai string. Berikut adalah contoh penerapannya.

@@ -113,13 +113,17 @@ type student struct {
 }
 
 func main() {
-    var s1 = student{name: "wick", age: 21, grade: 2}
+    var s1 = student{}
+    s1.name = "wick"
+    s1.age = 21
+    s1.grade = 2
 
     fmt.Println("name  :", s1.name)
     fmt.Println("age   :", s1.age)
     fmt.Println("age   :", s1.person.age)
     fmt.Println("grade :", s1.grade)
 }
+
 ```
 
 Pada kode di atas, disiapkan struct `person` dengan properti yang tersedia adalah `name` dan `age`. Disiapkan juga struct `student` dengan property `grade`. Struct `person` di-embed kedalam struct `student`. Caranya cukup mudah, yaitu dengan menuliskan nama struct yang ingin di-embed ke dalam body `struct` target.
@@ -145,9 +149,14 @@ type student struct {
 }
 
 func main() {
-    var s1 = student{name: "wick"}
+    var s1 = student{}
+    s1.name = "wick"
     s1.age = 21        // age of student
     s1.person.age = 22 // age of person
+
+    fmt.Println(s1.name)
+    fmt.Println(s1.age)
+    fmt.Println(s1.person.age)
 }
 ```
 
@@ -168,7 +177,7 @@ fmt.Println("grade :", s1.grade)
 
 Pada deklarasi `s1`, property `person` diisi variabel objek `p1`.
 
-## Anonymous struct
+## Anonymous Struct
 
 Anonymous struct adalah struct yang tidak dideklarasikan di awal, melainkan ketika dibutuhkan saja, langsung pada saat penciptaan objek. Teknik ini cukup efisien untuk pembuatan variabel objek yang struct nya hanya dipakai sekali.
 
@@ -182,7 +191,7 @@ func main() {
     var s1 = struct {
         person
         grade int
-    }
+    }{}
     s1.person = person{"wick", 21}
     s1.grade = 2
 
@@ -194,17 +203,22 @@ func main() {
 
 Pada kode di atas, variabel `s1` langsung diisi objek anonymous struct yang memiliki sebuah property `grade`, dan property lain yang diturunkan dari struct `person`. 
 
-## Inisialisasi Langsung Anonymous Struct
-
-Pada saat deklarasi, nilai anonymous struct juga bisa langsung diisi. Contoh:
+Salah satu aturan yang perlu diingat dalam pembuatan anonymous struct adalah, deklarasi harus diikuti dengan inisialisasi. Bisa dilihat pada `s1` setelah deklarasi struktur struct, terdapat kurung kurawal untuk inisialisasi objek. Meskipun nilai tidak diisikan di awal, kurung kurawal tetap harus ditulis.
 
 ```go
+// anonymous struct tanpa inisialisasi
 var s1 = struct {
     person
     grade int
+}{}
+
+// anonymous struct dengan inisialisasi
+var s2 = struct {
+    person
+    grade int
 }{
-    person{"ethan", 24},
-    3,
+    person: person{"wick", 21},
+    grade:  2,
 }
 ```
 
@@ -243,15 +257,15 @@ student.grade = 2
 
 Statement `type student struct` adalah contoh bagaimana struct dideklrasikan. Maknanya akan berbeda ketika keyword `type` disitu diganti `var`, seperti pada contoh di atas `var student struct`, yang artinya akan dicetak sebuah objek dari anonymous struct dan disimpan pada variabel bernama `student`.
 
-Kelemahan metode ini, nilai tidak bisa disiapkan langsung ketika deklarasi. Contohnya bisa dilihat pada kode di bawah ini.
+Kelemahan metode ini, nilai tidak bisa diinisialisasi langsung pada saat deklarasi. Contohnya bisa dilihat pada kode di bawah ini.
 
 ```go
-// tidak bisa langsung diisi property-nya
+// dekalrasi saja
 var student struct {
     grade int
 }
 
-// bisa langsung diisi property-nya
+// dekalrasi sekaligus inisialisasi
 var student = struct {
     grade int
 } {
@@ -287,9 +301,11 @@ type person struct { name string; age int; hobbies []string }
 Tanda semi-colon (`;`) digunakan sebagai pembatas deklarasi poperty yang dituliskan secara horizontal. Inisialisasi nilai juga bisa dituliskan dengan metode ini. Contohnya:
 
 ```go
-var p1 = struct { name string; age int } { age: 12, name: "wick" }
-var p2 = struct { name string; age int } { "wick", 12 }
+var p1 = struct { name string; age int } { age: 22, name: "wick" }
+var p2 = struct { name string; age int } { "ethan", 23 }
 ```
+
+Bagi pengguna editor Sublime yang terinstal plugin GoSublime didalamnya, dekalrasi dengan cara ini tidak bisa dilakukan, karena setiap kali save isi file program akan dirapikan. Jadi untuk mengetesnya bisa dengan menggunakan editor lain.
 
 ## Tag property dalam struct
 

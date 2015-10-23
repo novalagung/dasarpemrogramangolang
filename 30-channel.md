@@ -136,8 +136,13 @@ for _, each := range []string{"wick", "hunt", "bourne"} {
 Eksekusi goroutine tidak harus pada fungsi atau closure yang sudah terdefinisi. Sebuah IIFE juga bisa dijalankan sebagai goroutine baru. Caranya dengan langsung menambahkan keyword `go` pada waktu deklarasi-eksekusi IIFE-nya.
 
 ```go
+var messages = make(chan string)
+
 go func(who string) {
     var data = fmt.Sprintf("hello %s", who)
     messages <- data
-}(each)
+}("wick")
+
+var message = <-messages
+fmt.Println(message)
 ```

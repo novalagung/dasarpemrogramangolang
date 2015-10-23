@@ -70,21 +70,21 @@ Pada contoh kedua, `secret` berisikan array string. Kita memerlukan string terse
 
 ![Casting pada variabel bertipe `interface{}`](images/27_2_interface_casting.png)
 
+Teknik casting pada interface disebut dengan **type assertions**.
+
 ## Casting Variabel Interface Kosong Ke Objek Pointer
 
 Variabel `interface{}` bisa menyimpan data apa saja, termasuk data objek, pointer, ataupun gabungan keduanya. Di bawah ini merupakan contoh penerapan interface untuk menampung data objek pointer.
 
 ```go
-func main() {
-    type person struct {
-        name string
-        age  int
-    }
-
-    var secret interface{} = &person{name: "wick", age: 27}
-    var name = secret.(*person).name
-    fmt.Println(name)
+type person struct {
+    name string
+    age  int
 }
+
+var secret interface{} = &person{name: "wick", age: 27}
+var name = secret.(*person).name
+fmt.Println(name)
 ```
 
 Variabel `secret` dideklarasikan bertipe `interface{}` menampung referensi objek cetakan struct `person`. Cara casting dari `interface{}` ke struct pointer adalah dengan menuliskan nama struct-nya dan ditambahkan tanda asterisk (`*`) di awal, contohnya seperti `secret.(*person)`. Setelah itu barulah nilai asli bisa diakses.

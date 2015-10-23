@@ -42,10 +42,10 @@ Elemen array bisa dituliskan dalam bentuk horizontal (seperti yang sudah diconto
 ```go
 var fruits [4]string
 
-// cara vertikal
+// cara horizontal
 fruits  = [4]string{"apple", "grape", "banana", "melon"}
 
-// cara horizontal
+// cara vertikal
 fruits  = [4]string{
     "apple", 
     "grape", 

@@ -9,6 +9,8 @@ Keunggulan method dibanding fungsi biasa adalah memiliki akses ke property struc
 Cara menerapkan method sedikit berbeda dibanding penggunaan fungsi. Ketika deklarasi, ditentukan juga siapa pemilik method tersebut. Contohnya bisa dilihat pada kode berikut:
 
 ```go
+package main
+
 import "fmt"
 import "strings"
 
@@ -88,7 +90,7 @@ var s1 = student{"john wick", 21}
 s1.sayHello()
 
 // pengaksesan method dari variabel objek pointer
-var s2 = &student{"john wick", 21}
+var s2 = &student{"ethan hunt", 22}
 s2.sayHello()
 ```
 

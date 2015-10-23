@@ -13,6 +13,10 @@ Deklarasi parameter variadic sama dengan cara deklarasi variabel biasa, pembedan
 Berikut merupakan contoh penerepannya.
 
 ```go
+package main
+
+import "fmt"
+
 func main() {
     var avg = calculate(2, 4, 3, 5, 4, 3, 3, 5, 5, 3)
     var msg = fmt.Sprintf("Rata-rata : %.2f", avg)
@@ -104,6 +108,9 @@ Pada deklarasi parameter fungsi variadic, tanda 3 titik (`...`) dituliskan sebel
 Parameter variadic bisa dikombinasikan dengan parameter biasa, dengan syarat parameter variadic-nya harus diposisikan di akhir. Contohnya bisa dilihat pada kode berikut.
 
 ```go
+import "fmt"
+import "strings"
+
 func yourHobbies(name string, hobbies ...string) {
     var hobbiesAsString = strings.Join(hobbies, ", ")
 
@@ -117,14 +124,18 @@ Nilai parameter pertama fungsi `yourHobbies()` akan ditampung oleh `name`, sedan
 Cara pemanggilannya masih sama seperi pada fungsi biasa. Contohnya bisa dilihat pada kode berikut.
 
 ```go
-yourHobbies("wick", "sleeping", "eating")
+func main() {
+    yourHobbies("wick", "sleeping", "eating")
+}
 ```
 
 Jika parameter kedua dan seterusnya ingin diisi dengan data dari slice, maka gunakan tanda 3 titik. Contoh:
 
 ```go
-var hobbies = []string{"sleeping", "eating"}
-yourHobbies("wick", hobbies...)
+func main() {
+    var hobbies = []string{"sleeping", "eating"}
+    yourHobbies("wick", hobbies...)
+}
 ```
 
 Output program:

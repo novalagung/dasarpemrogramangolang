@@ -110,12 +110,12 @@ Agar lebih jelas perhatikan contoh berikut.
 
 ```go
 // cara ke-1
-var data1 = flag.StringVar("name", "anonymous", "type your name")
+var data1 = flag.String("name", "anonymous", "type your name")
 fmt.Println(*data1)
 
 // cara ke-2
 var data2 string
-flag.StringVar(&data2, "name", "anonymous", "type your name")
+flag.StringVar(&data2, "gender", "male", "type your gender")
 fmt.Println(data2)
 ```
 

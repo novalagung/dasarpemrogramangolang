@@ -47,7 +47,7 @@ func main() {
     var area, circumference = calculate(diameter)
 
     fmt.Printf("luas lingkaran\t\t: %.2f \n", area)
-    fmt.Printf("keliling linkgkaran\t: %.2f \n", circumference)
+    fmt.Printf("keliling lingkaran\t: %.2f \n", circumference)
 }
 ```
 

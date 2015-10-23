@@ -38,7 +38,7 @@ Variabel `numberB` dideklarasikan bertipe pointer `int` dengan nilai awal adalah
 
 Variabel pointer jika di-print akan menghasilkan string alamat memori (dalam notasi heksadesimal), contohnya seperti `numberB` yang diprint menghasilkan `0xc20800a220`. Nilai asli pointer bisa ditampilkan dengan cara variabel tersebut harus di-dereference terlebih dahulu (bisa dilihat pada kode `*numberB`).
 
-## Mengubah Nilai Pointer
+## Efek Perubahan Nilai Pointer
 
 Ketika salah satu variabel pointer di ubah nilainya, sedang ada variabel lain yang memiliki referensi memori yang sama, maka nilai variabel lain tersebut juga akan berubah. Contoh:
 
@@ -70,6 +70,10 @@ Variabel `numberA` dan `numberB` memiliki referensi memori yang sama. Perubahan 
 Parameter bisa juga didesain sebagai pointer. Cara penerapannya kurang lebih sama. Tinggal deklarasikan parameter tersebut sebagai pointer.
 
 ```go
+package main
+
+import "fmt"
+
 func main() {
     var number = 4
     fmt.Println("before :", number) // 4

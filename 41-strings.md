@@ -7,8 +7,15 @@ Golang menyediakan package `strings` yang didalamnya berisikan cukup banyak fung
 Dipakai untuk deteksi apakah string (parameter kedua) merupakan bagian dari string lain (parameter pertama). Nilai kembaliannya berupa `bool`.
 
 ```go
-var isExists = strings.Contains("john wick", "wick")
-// true
+package main
+
+import "fmt"
+import "strings"
+
+func main() {
+    var isExists = strings.Contains("john wick", "wick")
+    fmt.Println(isExists)
+}
 ```
 
 Variabel `isExists` akan berisikan `true`, karena string `"wick"` merupakan bagian dari `"john wick"`.
@@ -53,7 +60,7 @@ Nilai yang dikembalikan `2`, karena pada string `"ethan hunt"` terdapat dua buah
 Digunakan untuk mencari posisi indeks sebuah string (parameter kedua) dalam string (parameter pertama).
 
 ```go
-var index = strings.Index("ethan hunt", "ha")
+var index1 = strings.Index("ethan hunt", "ha")
 // 2
 ```
 
@@ -62,7 +69,7 @@ String `"ha"` berada pada posisi ke `2` dalam string `"ethan hunt"` (indeks dimu
 Jika diketemukan dua substring, maka yang diambil adalah yang pertama, contoh:
 
 ```go
-var index = strings.Index("ethan hunt", "n")
+var index2 = strings.Index("ethan hunt", "n")
 // 4
 ```
 

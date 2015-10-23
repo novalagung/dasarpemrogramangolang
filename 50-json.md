@@ -62,20 +62,20 @@ Perlu diketahui bahwa untuk decode data json ke variabel objek hasil struct, sem
 Target decoding data json juga bisa berupa variabel bertipe `map[string]interface{}`.
 
 ```go
-var data map[string]interface{}
-json.Unmarshal(jsonData, &data)
+var data1 map[string]interface{}
+json.Unmarshal(jsonData, &data1)
 
-fmt.Println("user :", data["Name"])
-fmt.Println("age  :", data["Age"])
+fmt.Println("user :", data1["Name"])
+fmt.Println("age  :", data1["Age"])
 ```
 
 Selain itu, `interface{}` juga bisa digunakan untuk menampung hasil decode. Dengan catatan pada pengaksesan nilai property-nya harus dilakukan proses casting ke `map[string]interface{}` terlebih dahulu.
 
 ```go
-var data interface{}
-json.Unmarshal(jsonData, &data)
+var data2 interface{}
+json.Unmarshal(jsonData, &data2)
 
-var decodedData = data.(map[string]interface{})
+var decodedData = data2.(map[string]interface{})
 fmt.Println("user :", decodedData["Name"])
 fmt.Println("age  :", decodedData["Age"])
 ```

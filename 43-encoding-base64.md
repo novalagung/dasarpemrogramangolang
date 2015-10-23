@@ -68,7 +68,7 @@ Khusus untuk data string yang bentuknya URL, akan lebih efektif menggunakan `URL
 Cara penerapannya kurang lebih sama, bisa menggunakan metode pertama maupun metode kedua yang sudah dibahas di atas. Cukup ganti `StdEncoding` menjadi `URLEncoding`.
 
 ```go
-var data = "http://google.com/"
+var data = "http://depeloper.com/"
 
 var encodedString = base64.URLEncoding.EncodeToString([]byte(data))
 fmt.Println(encodedString)

@@ -19,7 +19,7 @@ var fruitsB = [2]string{"banana", "melon"}    // array
 var fruitsC = [...]string{"papaya", "grape"}  // array
 ```
 
-## Hubungan Slice Dengan Array
+## Hubungan Slice Dengan Array & Operasi Slice
 
 Kalau perbedannya hanya di penentuan alokasi pada saat inisialisasi, kenapa tidak menggunakan satu istilah saja? atau adakah perbedaan lainnya?
 

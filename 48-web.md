@@ -81,8 +81,6 @@ Pertama siapkan dahulu template nya. Buat file `template.html` lalu isi dengan:
 Selanjutnya ubah isi file `.go` dengan kode berikut.
 
 ```go
-package main
-
 import "fmt"
 import "html/template"
 import "net/http"

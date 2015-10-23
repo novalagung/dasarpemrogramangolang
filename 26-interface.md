@@ -111,6 +111,11 @@ Interface bisa di-embed ke interface lain, sama seperti struct. Cara penerapanny
 Pada contoh berikut, disiapkan interface bernama `hitung2d` dan `hitung3d`. Kedua interface tersebut kemudian di-embed ke interface baru bernama `hitung`.
 
 ```go
+package main
+
+import "fmt"
+import "math"
+
 type hitung2d interface {
     luas() float64
     keliling() float64

@@ -9,14 +9,15 @@ Data seperti **pi** (22/7), kecepatan cahaya (299.792.458 m/s), adalah contoh da
 Cara penerapan konstanta sama seperti deklarasi variabel biasa, selebihnya tinggal ganti keyword `var` dengan `const`. Contohnya:
 
 ```go
-const name string = "john wick"
-fmt.Print("halo ", name, "!\n")
+const firstName string = "john"
+fmt.Print("halo ", firstName, "!\n")
 ```
 
 Teknik type inference bisa diterapkan pada konstanta, caranya yaitu cukup dengan menghilangkan tipe data pada saat deklarasi.
 
 ```go
-const name = "john wick"
+const lastName = "wick"
+fmt.Print("nice to meet you ", lastName, "!\n")
 ```
 
 ## Penggunaan Fungsi `fmt.Print()`

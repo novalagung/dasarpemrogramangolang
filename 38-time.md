@@ -1,6 +1,6 @@
 # Time, Parsing Time, & Format Time
 
-Pada bab ini kita akan belajar tentang pemanfaatan time, property-property yang disediakan, dan juga **format** & **parsing** data `string` ke `time.Time` dan sebaliknya. 
+Pada bab ini kita akan belajar tentang pemanfaatan time, method-method yang disediakan, dan juga **format** & **parsing** data `string` ke `time.Time` dan sebaliknya. 
 
 Golang menyediakan package `time` yang berisikan banyak sekali komponen yang bisa digunakan untuk keperluan pemanfaatan waktu.
 
@@ -14,13 +14,18 @@ Time disini maksudnya adalah gabungan **date** dan **time**, bukan hanya waktu s
  - Membuat time dengan data ditentukan sendiri
 
 ```go
-var time1 = time.Now()
-fmt.Printf("time1 %v\n", time1)
-// time1 2015-09-01 17:59:31.73600891 +0700 WIB
+import "fmt"
+import "time"
 
-var time2 = time.Date(2011, 12, 24, 10, 20, 0, 0, time.UTC)
-fmt.Printf("time2 %v\n", time2)
-// time2 2011-12-24 10:20:00 +0000 UTC
+func main() {
+    var time1 = time.Now()
+    fmt.Printf("time1 %v\n", time1)
+    // time1 2015-09-01 17:59:31.73600891 +0700 WIB
+
+    var time2 = time.Date(2011, 12, 24, 10, 20, 0, 0, time.UTC)
+    fmt.Printf("time2 %v\n", time2)
+    // time2 2011-12-24 10:20:00 +0000 UTC
+}
 ```
 
 Fungsi `time.Now()` mengembalikan objek `time.Time` dengan data adalah waktu sekarang. Bisa dilihat ketika di tampilkan informasi yang muncul adalah sesuai dengan tanggal program tersebut dieksekusi.
@@ -37,7 +42,7 @@ Objek cetakan fungsi `time.Now()`, informasi timezone-nya adalah relatif terhada
 
 Selain menggunakan `time.UTC` untuk penentuan lokasi, tersedia juga `time.Local` yang nilainya adalah relatif terhadap waktu kita.
 
-## Property **time.Time**
+## Method Milik **time.Time**
 
 ```go
 var now = time.Now()

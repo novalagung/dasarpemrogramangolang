@@ -174,7 +174,7 @@ func main() {
         reflect.ValueOf("wick"),
     })
 
-    fmt.Println("nama :", s1.Name
+    fmt.Println("nama :", s1.Name)
 }
 ```
 

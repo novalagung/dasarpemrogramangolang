@@ -9,6 +9,10 @@ Closure merupakan *anonymous function* atau fungsi tanpa nama. Biasa dimanfaatka
 Sebuah fungsi tanpa nama bisa disimpan dalam variabel. Variabel yang menyimpan closure memiliki sifat seperti fungsi yang disimpannya. Di bawah ini adalah contoh program sederhana untuk mencari nilai terendah dan tertinggi dari suatu array. Logika pencarian dibungkus dalam closure yang ditampung oleh variabel `getMinMax`.
 
 ```go
+package main
+
+import "fmt"
+
 func main() {
     var getMinMax = func(n []int) (int, int) {
         var min, max int
@@ -71,6 +75,10 @@ Closure jenis ini dieksekusi langsung pada saat deklarasinya. Biasa digunakan un
 Di bawah ini merupakan contoh sederhana penerapan metode IIFE untuk filtering data array.
 
 ```go
+package main
+
+import "fmt"
+
 func main() {
     var numbers = []int{2, 3, 0, 4, 3, 2, 0, 4, 2, 0, 3}
 
@@ -111,6 +119,10 @@ Pada contoh di atas IIFE menghasilkan nilai balik yang kemudian ditampung `newNu
 Salah satu keunikan closure lainnya adalah bisa dijadikan sebagai nilai balik fungsi, cukup aneh memang, tapi pada suatu kondisi teknik ini sangat membantu. Di bawah ini disiapkan sebuah fungsi bernama `findMax()` yang memiliki salah satu nilai kembalian berupa closure.
 
 ```go
+package main
+
+import "fmt"
+
 func findMax(numbers []int, max int) (int, func() []int) {
     var res []int
     for _, e := range numbers {

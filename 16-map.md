@@ -37,10 +37,10 @@ Nilai variabel bertipe map bisa didefinisikan di awal, caranya dengan menambahka
 
 ```go
 // cara vertikal
-var chicken = map[string]int{"januari": 50, "februari": 40}
+var chicken1 = map[string]int{"januari": 50, "februari": 40}
 
 // cara horizontal
-var chicken = map[string]int{
+var chicken2 = map[string]int{
     "januari":  50,
     "februari": 40,
 }
@@ -51,9 +51,9 @@ Key dan value dituliskan dengan pembatas tanda titik dua (`:`). Sedangkan tiap i
 Variabel map bisa diinisialisasi dengan tanpa nilai awal, caranya cukup menggunakan tanda kurung kurawal, contoh: `map[string]int{}`. Atau bisa juga dengan menggunakan keyword `make` dan `new`. Contohnya bisa dilihat pada kode berikut. Ketiga cara di bawah ini intinya adalah sama.
 
 ```go
-var chicken1 = map[string]int{}
-var chicken2 = make(map[string]int)
-var chicken3 = *new(map[string]int)
+var chicken3 = map[string]int{}
+var chicken4 = make(map[string]int)
+var chicken5 = *new(map[string]int)
 ```
 
 Khusus inisialisasi data menggunakan keyword `new`, yang dihasilkan adalah data pointer. Untuk mengambil nilai aslinya bisa dengan menggunakan tanda asterisk (`*`). Topik pointer akan dibahas lebih detail ketika sudah masuk bab 22.
@@ -109,5 +109,7 @@ var value, isExist = chicken["mei"]
 
 if isExist {
     fmt.Println(value)
+} else {
+    fmt.Println("item is not exists")
 }
 ```

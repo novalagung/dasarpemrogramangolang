@@ -7,9 +7,14 @@ Ada beberapa fungsi dalam package `time` yang memiliki kegunaan sebagai timer. D
 Fungsi ini digunakan untuk menghentikan program sejenak. `time.Sleep()` bersifat **blocking**, sehingga statement dibawahnya tidak akan dieksekusi sampai waktu pemberhentian usai. Contoh sederhana penerapan `time.Sleep()`:
 
 ```go
-fmt.Println("start")
-time.Sleep(time.Second * 4)
-fmt.Println("after 4 seconds")
+import "fmt"
+import "time"
+
+func main () {
+    fmt.Println("start")
+    time.Sleep(time.Second * 4)
+    fmt.Println("after 4 seconds")
+}
 ```
 
 Tulisan `"start"` muncul, lalu 4 detik kemudian tulisan `"after 4 seconds"` muncul.
@@ -89,7 +94,7 @@ func timer(timeout int, ch chan<- bool) {
 Siapkan juga fungsi `watcher()`. Fungsi ini juga akan dieksekusi sebagai goroutine. Tugasnya cukup sederhana, yaitu ketika sebuah data diterima dari channel `ch` maka akan ditampilkan tulisan penanda waktu habis.
 
 ```go
-func watcher(timeout int, ch <-chan int) {
+func watcher(timeout int, ch <-chan bool) {
     <-ch
     fmt.Println("\ntime out! no answer more than", timeout, "seconds")
     os.Exit(0)
@@ -101,7 +106,7 @@ Terakhir, buat implementasi di fungsi `main`.
 ```go
 func main() {
     var timeout = 5
-    var ch = make(chan int)
+    var ch = make(chan bool)
 
     go timer(timeout, ch)
     go watcher(timeout, ch)
