@@ -9,6 +9,8 @@ Ketika tidak ada aktivitas penerimaan data selama durasi tersebut, akan memicu c
 Berikut adalah program sederhana tentang pengaplikasian timeout pada channel. Sebuah goroutine baru dijalankan dengan tugas mengirimkan data setiap interval tertentu, dengan durasi interval-nya adalah acak/random.
 
 ```go
+package main
+
 import "fmt"
 import "math/rand"
 import "runtime"

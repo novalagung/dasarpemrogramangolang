@@ -4,7 +4,7 @@ Pada bab ini kita akan belajar tentang pemanfaatan time, method-method yang dise
 
 Golang menyediakan package `time` yang berisikan banyak sekali komponen yang bisa digunakan untuk keperluan pemanfaatan waktu.
 
-Time disini maksudnya adalah gabungan **date** dan **time**, bukan hanya waktu saja.
+> Time disini maksudnya adalah gabungan **date** dan **time**, bukan hanya waktu saja.
 
 ## Penggunaan `time.Time`
 
@@ -13,7 +13,11 @@ Time disini maksudnya adalah gabungan **date** dan **time**, bukan hanya waktu s
  - Dengan menjadikan waktu sekarang sebagai time
  - Membuat time dengan data ditentukan sendiri
 
+Berikut merupakan contoh penggunannya.
+
 ```go
+package main
+
 import "fmt"
 import "time"
 
@@ -28,7 +32,7 @@ func main() {
 }
 ```
 
-Fungsi `time.Now()` mengembalikan objek `time.Time` dengan data adalah waktu sekarang. Bisa dilihat ketika di tampilkan informasi yang muncul adalah sesuai dengan tanggal program tersebut dieksekusi.
+Fungsi `time.Now()` mengembalikan objek `time.Time` dengan data adalah waktu sekarang. Bisa dilihat ketika di tampilkan, informasi yang muncul adalah sesuai dengan tanggal program tersebut dieksekusi.
 
 ![Penggunaan time](images/38_1_time_instance.png)
 
@@ -42,7 +46,7 @@ Objek cetakan fungsi `time.Now()`, informasi timezone-nya adalah relatif terhada
 
 Selain menggunakan `time.UTC` untuk penentuan lokasi, tersedia juga `time.Local` yang nilainya adalah relatif terhadap waktu kita.
 
-## Method Milik **time.Time**
+## Method Milik `time.Time`
 
 ```go
 var now = time.Now()

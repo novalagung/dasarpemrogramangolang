@@ -15,6 +15,11 @@ Penerapan buffered channel pada dasarnya mirip seperti channel biasa. Perbedanny
 Berikut adalah contoh penerapan buffered channel. Program dibawah ini merupakan pembuktian bahwa pengiriman data lewat buffered channel adalah asynchronous selama jumlah data yang sedang di-buffer oleh channel tidak melebihi kapasitas buffernya.
 
 ```go
+package main
+
+import "fmt"
+import "runtime"
+
 func main() {
     runtime.GOMAXPROCS(2)
 

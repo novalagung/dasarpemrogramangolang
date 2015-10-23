@@ -13,6 +13,11 @@ Channel merupakan sebuah variabel, dibuat dengan menggunakan keyword `make` dan 
 Program berikut adalah contoh implementasi channel. 3 buah goroutine baru dieksekusi, yang di masing-masing goroutine terdapat proses pengiriman data lewat channel. Data tersebut akan diterima 3 kali di goroutine utama (`main`).
 
 ```go
+package main
+
+import "fmt"
+import "runtime"
+
 func main() {
     runtime.GOMAXPROCS(2)
 

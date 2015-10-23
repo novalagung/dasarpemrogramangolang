@@ -13,6 +13,8 @@ Fungsi `regexp.Compile()` digunakan untuk mengkompilasi ekspresi regex yang dima
 Berikut merupakan contoh penerapan regex untuk pencarian karakter.
 
 ```go
+package main
+
 import "fmt"
 import "regexp"
 
@@ -34,7 +36,7 @@ func main() {
 }
 ```
 
-Ekspresi `b[a-zA-Z]+` maknanya adalah, semua string yang merupakan alphabet dan diawali huruf `b`. Ekspresi tersebut di-compile oleh `regexp.Compile()` lalu disimpan ke variabel objek `regex` yang tipenya adalah `regexp.*Regexp`.
+Ekspresi `[a-z]+` maknanya adalah, semua string yang merupakan alphabet yang hurufnya kecil. Ekspresi tersebut di-compile oleh `regexp.Compile()` lalu disimpan ke variabel objek `regex` yang tipenya adalah `regexp.*Regexp`.
 
 Struct `regexp.Regexp` memiliki banyak method, salah satunya adalah `FindAllString()`, yang berfungsi untuk pencarian semua string yang sesuai dengan ekspresi regex, dengan kembalian berupa array string.
 
@@ -55,7 +57,7 @@ fmt.Println(isMatch)
 // true
 ```
 
-Pada contoh di atas `isMatch` bernilai `true` karena string `"banana,orange juice,burger,soup"` memenuhi pola regex `b[a-zA-Z]+`.
+Pada contoh di atas `isMatch` bernilai `true` karena string `"banana burger soup"` memenuhi pola regex `[a-z]+`.
 
 ## Method `FindString()`
 
@@ -89,7 +91,7 @@ fmt.Println(str)
 // "banana"
 ```
 
-Method ini sama dengan `FindString()` hanya saja yang dikembalikan indeknya.
+Method ini sama dengan `FindString()` hanya saja yang dikembalikan indeks-nya.
 
 ## Method `FindAllString()`
 
@@ -112,7 +114,7 @@ Jumlah data yang dikembalikan bisa ditentukan. Jika diisi dengan `-1`, maka akan
 
 ## Method `ReplaceAllString()`
 
-Berguna untuk me-replace semua string yang memnuhi kriteri regexp, dengan string lain. 
+Berguna untuk me-replace semua string yang memenuhi kriteri regexp, dengan string lain. 
 
 ```go
 var text = "banana burger soup"
@@ -125,7 +127,7 @@ fmt.Println(str)
 
 ## Method `ReplaceAllStringFunc()`
 
-Digunakan untuk me-replace semua string yang memnuhi kriteri regexp, dengan kondisi yang bisa ditentukan untuk setiap substring yang akan di replace.
+Digunakan untuk me-replace semua string yang memenuhi kriteri regexp, dengan kondisi yang bisa ditentukan untuk setiap substring yang akan di replace.
 
 ```go
 var text = "banana burger soup"
@@ -145,7 +147,7 @@ Pada contoh di atas, jika salah satu substring yang *match* adalah `"burger"` ma
 
 ## Method `Split()`
 
-Digunakan untuk memisah string dengan pemisah adalah substring yang memnuhi kriteria regexp yang telah ditentukan.
+Digunakan untuk memisah string dengan pemisah adalah substring yang memenuhi kriteria regexp yang telah ditentukan.
 
 Jumlah karakter yang akan di split bisa ditentukan dengan mengisi parameter kedua fungsi `regex.Split()`. Jika diisi `-1` maka akan me-replace semua karakter.
 

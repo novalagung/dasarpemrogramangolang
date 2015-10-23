@@ -11,6 +11,8 @@ Data arguments bisa didapat lewat variabel `os.Args` (package `os` perlu di-impo
 Berikut merupakan contoh penggunaannya.
 
 ```go
+package main
+
 import "fmt"
 import "os"
 
@@ -50,9 +52,11 @@ Bisa dilihat pada kode di atas, bahwa untuk data argumen yang ada karakter spasi
 
 ## Penggunaan Flag
 
-Flag memiliki kegunaan yang sama seperti arguments, yaitu untuk *parameterize* eksekusi program dengan penulisan berbentuk key-value. Dengan ini arguments lebih rapi dan terstruktur. Berikut merupakan contoh penerapannya.
+Flag memiliki kegunaan yang sama seperti arguments, yaitu untuk *parameterize* eksekusi program, dengan penulisan dalam bentuk key-value. Berikut merupakan contoh penerapannya.
 
 ```go
+package main
+
 import "flag"
 import "fmt"
 
@@ -72,14 +76,14 @@ Cara penulisan arguments menggunakan flag:
 $ go run bab45.go -name="john wick" -age=28
 ```
 
-Tiap argument harus ditentukan key, tipe data, dan nilai default-nya. Sebagai contoh `flag.String()`, maksudnya adalah disiapkan flag dengan tipe string. Agar lebih mudah dipahami, mari kita bahas kode berikut.
+Tiap argument harus ditentukan key, tipe data, dan nilai default-nya. Contohnya seperti pada `flag.String()` di atas. Agar lebih mudah dipahami, mari kita bahas kode berikut.
 
 ```go
 var dataName = flag.String("name", "anonymous", "type your name")
 fmt.Println(*dataName)
 ```
 
-Kode di atas maksudnya adalah, disiapkan flag bertipe `string`, dengan key adalah `name`, dengan nilai default `"anonymous"`, dan keterangan `"type your name"`. Nilai flag nya sendiri akan disimpan kedalam variabel `dataName`.
+Kode tersebut maksudnya adalah, disiapkan flag bertipe `string`, dengan key adalah `name`, dengan nilai default `"anonymous"`, dan keterangan `"type your name"`. Nilai flag nya sendiri akan disimpan kedalam variabel `dataName`.
 
 Nilai balik fungsi `flag.String()` adalah string pointer, jadi perlu di-*dereference* terlebih dahulu agar bisa mendapatkan nilai aslinya (`*dataName`).
 
@@ -119,4 +123,4 @@ flag.StringVar(&data2, "gender", "male", "type your gender")
 fmt.Println(data2)
 ```
 
-Tinggal tambahkan `Var` pada fungsi flag yang digunakan (contoh `flag.IntVar()`, `flag.BoolVar()`, dll), lalu disisipkan referensi variabel penampung flag sebagai parameter pertama.
+Tinggal tambahkan suffix `Var` pada pemanggilan nama fungsi flag yang digunakan (contoh `flag.IntVar()`, `flag.BoolVar()`, dll), lalu disisipkan referensi variabel penampung flag sebagai parameter pertama.

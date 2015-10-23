@@ -18,18 +18,18 @@ func main() {
 }
 ```
 
-Variabel `isExists` akan berisikan `true`, karena string `"wick"` merupakan bagian dari `"john wick"`.
+Variabel `isExists` akan bernilai `true`, karena string `"wick"` merupakan bagian dari `"john wick"`.
 
 ## Fungsi `strings.HasPrefix()`
 
 Digunakan untuk deteksi apakah sebuah string (parameter pertama) diawali string tertentu (parameter kedua).
 
 ```go
-var isPrefix1 = strings.HasPrefix("john wick", "jo") 
-// true
+var isPrefix1 = strings.HasPrefix("john wick", "jo")
+fmt.Println(isPrefix1) // true
 
 var isPrefix2 = strings.HasPrefix("john wick", "wi")
-// false
+fmt.Println(isPrefix2) // false
 ```
 
 ## Fungsi `strings.HasSuffix()`
@@ -37,11 +37,11 @@ var isPrefix2 = strings.HasPrefix("john wick", "wi")
 Digunakan untuk deteksi apakah sebuah string (parameter pertama) diakhiri string tertentu (parameter kedua).
 
 ```go
-var isSuffix1 = strings.HasSuffix("john wick", "ic") 
-// false
+var isSuffix1 = strings.HasSuffix("john wick", "ic")
+fmt.Println(isSuffix1) // false
 
 var isSuffix2 = strings.HasSuffix("john wick", "ck")
-// true
+fmt.Println(isSuffix2) // true
 ```
 
 ## Fungsi `strings.Count()`
@@ -50,7 +50,7 @@ Memiliki kegunaan untuk menghitung jumlah karakter tertentu (parameter kedua) da
 
 ```go
 var howMany = strings.Count("ethan hunt", "t")
-// 2
+fmt.Println(howMany) // 2
 ```
 
 Nilai yang dikembalikan `2`, karena pada string `"ethan hunt"` terdapat dua buah karakter `"t"`.
@@ -61,7 +61,7 @@ Digunakan untuk mencari posisi indeks sebuah string (parameter kedua) dalam stri
 
 ```go
 var index1 = strings.Index("ethan hunt", "ha")
-// 2
+fmt.Println(index1) // 2
 ```
 
 String `"ha"` berada pada posisi ke `2` dalam string `"ethan hunt"` (indeks dimulai dari 0).
@@ -70,7 +70,7 @@ Jika diketemukan dua substring, maka yang diambil adalah yang pertama, contoh:
 
 ```go
 var index2 = strings.Index("ethan hunt", "n")
-// 4
+fmt.Println(index2) // 4
 ```
 
 String `"n"` berada pada indeks `4` dan `8`. Yang dikembalikan adalah yang paling kiri (paling kecil), yaitu `4`.
@@ -87,13 +87,13 @@ var find = "a"
 var replaceWith = "o"
 
 var newText1 = strings.Replace(text, find, replaceWith, 1)
-// "bonana"
+fmt.Println(newText1) // "bonana"
 
 var newText2 = strings.Replace(text, find, replaceWith, 2)
-// "bonona"
+fmt.Println(newText2) // "bonona"
 
 var newText3 = strings.Replace(text, find, replaceWith, -1)
-// "bonono"
+fmt.Println(newText3) // "bonono"
 ```
 
 Pada contoh di atas, substring `"a"` pada string `"banana"` akan di-replace dengan string `"o"`.
@@ -108,7 +108,7 @@ Digunakan untuk mengulang string (parameter pertama) sebanyak data yang ditentuk
 
 ```go
 var str = strings.Repeat("na", 4)
-// "nananana"
+fmt.Println(str) // "nananana"
 ```
 
 Pada contoh di atas, string `"na"` diulang sebanyak 4 kali. Hasilnya adalah: `"nananana"`
@@ -119,10 +119,10 @@ Digunakan untuk memisah string (parameter pertama) dengan tanda pemisah bisa dit
 
 ```go
 var string1 = strings.Split("the dark knight", " ")
-// ["the", "dark", "knight"]
+fmt.Println(string1) // ["the", "dark", "knight"]
 
 var string2 = strings.Split("batman", "")
-// ["b", "a", "t", "m", "a", "n"]
+fmt.Println(string2) // ["b", "a", "t", "m", "a", "n"]
 ```
 
 String `"the dark knight"` dipisah menggunakan pemisah string spasi `" "`, hasilnya kemudian ditampung oleh `string1`.
@@ -136,7 +136,7 @@ Memiliki kegunaan berkebalikan dengan `strings.Split()`. Digunakan untuk menggab
 ```go
 var data = []string{"banana", "papaya", "tomato"}
 var str = strings.Join(data, "-")
-// "banana-papaya-tomato"
+fmt.Println(str) // "banana-papaya-tomato"
 ```
 
 Array `data` digabungkan menjadi satu dengan pemisah tanda *dash* (`-`).
@@ -147,7 +147,7 @@ Mengubah huruf-huruf string menjadi huruf kecil.
 
 ```go
 var str = strings.ToLower("aLAy")
-// "alay"
+fmt.Println(str) // "alay"
 ```
 
 ## Fungsi `strings.ToUpper()`
@@ -156,6 +156,6 @@ Mengubah huruf-huruf string menjadi huruf besar.
 
 ```go
 var str = strings.ToUpper("eat!")
-// "EAT!"
+fmt.Println(str) // "EAT!"
 ```
 

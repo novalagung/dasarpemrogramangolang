@@ -102,6 +102,10 @@ Meskipun `s2` bukan variabel asli, property nya tetap bisa diakses seperti biasa
 **Embedded** struct adalah penurunan properti dari satu struct ke struct lain, sehingga properti struct yang diturunkan bisa digunakan. Agar lebih mudah dipahami, mari kita bahas kode berikut.
 
 ```go
+package main
+
+import "fmt"
+
 type person struct {
     name string
     age  int
@@ -137,6 +141,10 @@ Khusus untuk properti yang bukan properti asli (properti turunan dari struct lai
 Jika salah satu nama properti sebuah struct memiliki kesamaan dengan properti milik struct lain yang di-embed, maka pengaksesan property-nya harus dilakukan dengan jelas. Contoh bisa dilihat di kode berikut.
 
 ```go
+package main
+
+import "fmt"
+
 type person struct {
     name string
     age  int
@@ -182,6 +190,10 @@ Pada deklarasi `s1`, property `person` diisi variabel objek `p1`.
 Anonymous struct adalah struct yang tidak dideklarasikan di awal, melainkan ketika dibutuhkan saja, langsung pada saat penciptaan objek. Teknik ini cukup efisien untuk pembuatan variabel objek yang struct nya hanya dipakai sekali.
 
 ```go
+package main
+
+import "fmt"
+
 type person struct {
     name string
     age  int

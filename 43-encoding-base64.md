@@ -4,11 +4,13 @@ Golang memiliki package `encoding/base64`, yang berisikan fungsi-fungsi untuk ke
 
 Ada beberapa cara yang bisa digunakan untuk encode dan decode data, dan di bab ini kita akan mempelajarinya.
 
-## Penerapan Fungsi `EncodeToString` & `DecodeString`
+## Penerapan Fungsi `EncodeToString()` & `DecodeString()`
 
-Fungsi `EncodeToString` dan `DecodeString` digunakan untuk encode dan decode data dari bentuk `string` ke `[]byte` atau sebaliknya. Berikut adalah contoh penerapannya.
+Fungsi `EncodeToString()` dan `DecodeString()` digunakan untuk encode dan decode data dari bentuk `string` ke `[]byte` atau sebaliknya. Berikut adalah contoh penerapannya.
 
 ```go
+package main
+
 import "encoding/base64"
 import "fmt"
 
@@ -30,9 +32,9 @@ Sedangkan pada fungsi decode `base64.StdEncoding.DecodeString()`, data `string` 
 
 ![Encode & decode data string](images/43_1_encode_decode.png)
 
-## Penerapan Fungsi `Encode` & `Decode`
+## Penerapan Fungsi `Encode()` & `Decode()`
 
-Kedua fungsi ini digunakan untuk decode dan encode data dari `[]byte` ke `[]byte`. Penggunaan cara ini cukup panjang karena variabel penyimpan hasil encode maupun decode harus disiapkan terlebih dahulu dengan ketentuan memiliki lebar elemen sesuai dengan hasil yang akan ditampung (yang nilainya bisa dicari menggunakan `EncodedLen` dan `DecodedLen`).
+Kedua fungsi ini digunakan untuk decode dan encode data dari `[]byte` ke `[]byte`. Penggunaan cara ini cukup panjang karena variabel penyimpan hasil encode maupun decode harus disiapkan terlebih dahulu dengan ketentuan memiliki lebar elemen sesuai dengan hasil yang akan ditampung (yang nilainya bisa dicari menggunakan fungsi `EncodedLen()` dan `DecodedLen()`).
 
 Lebih jelasnya silakan perhatikan contoh berikut.
 
@@ -55,9 +57,9 @@ fmt.Println(decodedString)
 
 Fungsi `base64.StdEncoding.EncodedLen(len(data))` menghasilkan informasi lebar data-ketika-sudah-di-encode. Nilai tersebut kemudian ditentukan sebagai lebar alokasi tipe `[]byte` pada variabel `encoded` yang nantinya digunakan untuk menampung hasil encoding.
 
-Fungsi `base64.StdEncoding.DecodedLen()` memiliki kegunaan sama dengan `EncodedLen`, hanya saja digunakan untuk keperluan decoding.
+Fungsi `base64.StdEncoding.DecodedLen()` memiliki kegunaan sama dengan `EncodedLen()`, hanya saja digunakan untuk keperluan decoding.
 
-Dibanding 2 fungsi sebelumnya, fungsi `Encode` dan `Decode` memiliki beberapa perbedaan. Selain lebar data penampung encode/decode harus dicari terlebih dahulu, terdapat perbedaan lainnya, yaitu pada fungsi ini hasil encode/decode tidak didapat dari nilai kembalian, melainkan dari parameter. Variabel yang digunakan untuk menampung hasil, disisipkan pada parameter fungsi tersebut.
+Dibanding 2 fungsi sebelumnya, fungsi `Encode()` dan `Decode()` memiliki beberapa perbedaan. Selain lebar data penampung encode/decode harus dicari terlebih dahulu, terdapat perbedaan lainnya, yaitu pada fungsi ini hasil encode/decode tidak didapat dari nilai kembalian, melainkan dari parameter. Variabel yang digunakan untuk menampung hasil, disisipkan pada parameter fungsi tersebut.
 
 Pada pemanggilan fungsi encode/decode, variabel `encoded` dan `decoded` tidak disisipkan nilai pointer-nya, cukup di-pass dengan cara biasa, karena tipe datanya sudah dalam bentuk `[]byte`.
 

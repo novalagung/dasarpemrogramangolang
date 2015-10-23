@@ -163,9 +163,7 @@ var d string = string(104)
 fmt.Println(d) // h
 ```
 
-String bisa dicasting sebagai `[]byte`. Hasilnya adalah array berisikan kode **ASCII** tiap karakter yang di cast.
-
-Sebaliknya, jika `[]byte` dicasting sebagai string, maka akan ter-*generate* string-nya.
+String bisa dicasting sebagai `[]byte`. Hasilnya adalah array berisikan kode **ASCII** tiap karakter yang di cast. Sebaliknya, jika `[]byte` dicasting sebagai string, maka akan ter-*generate* string-nya.
 
 Contoh penerapannya bisa dilihat pada kode berikut.
 

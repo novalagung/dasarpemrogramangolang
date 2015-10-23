@@ -7,16 +7,22 @@ Interface kosong atau `interface{}` adalah tipe data yang sangat spesial. Variab
 `interface{}` merupakan tipe data, sehingga cara penggunaannya sama seperti pada tipe data lainnya, hanya saja nilai yang diisikan bisa apa saja. Contoh:
 
 ```go
-var secret interface{}
+package main
 
-secret = "ethan hunt"
-fmt.Println(secret)
+import "fmt"
 
-secret = []string{"apple", "manggo", "banana"}
-fmt.Println(secret)
+func main() {
+    var secret interface{}
 
-secret = 12.4
-fmt.Println(secret)
+    secret = "ethan hunt"
+    fmt.Println(secret)
+
+    secret = []string{"apple", "manggo", "banana"}
+    fmt.Println(secret)
+
+    secret = 12.4
+    fmt.Println(secret)
+}
 ```
 
 Keyword `interface` seperti yang kita tau, digunakan untuk pembuatan interface. Tetapi ketika ditambahkan kurung kurawal (`{}`) di belakang-nya (menjadi `interface{}`), maka kegunaannya akan berubah, yaitu sebagai tipe data.
@@ -48,6 +54,8 @@ Variabel bertipe `interface{}` bisa ditampilkan ke layar sebagai `string` dengan
 Hal ini penting diketahui, karena untuk melakukan operasi yang membutuhkan nilai asli pada variabel yang bertipe `interface{}`, diperlukan casting ke tipe aslinya. Contoh seperti pada kode berikut.
 
 ```go
+package main
+
 import "fmt"
 import "strings"
 

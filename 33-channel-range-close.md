@@ -10,7 +10,7 @@ Channel yang sudah ditutup tidak bisa digunakan lagi untuk menerima maupun mengi
 
 Berikut adalah contoh program yang menggunakan `for` - `range` untuk pengambilan data dari channel.
 
-Pertama siapkan fungsi untuk pengiriman data. Didalam fungsi ini akan dijalankan perulangan sebanyak 20 kali, ditiap perulangannya data dikirim lewat channel. Setelah semua data terkirim, channel di-close.
+Pertama siapkan fungsi `sendMessage()` untuk handle pengiriman data. Didalam fungsi ini akan dijalankan perulangan sebanyak 20 kali, ditiap perulangannya data dikirim lewat channel. Setelah semua data terkirim, channel di-close.
 
 ```go
 func sendMessage(ch chan<- string) {
@@ -21,7 +21,7 @@ func sendMessage(ch chan<- string) {
 }
 ```
 
-Siapkan juga fungsi untuk penerimaan data. Didalamnya, channel akan di-looping menggunakan `for` - `range`, yang kemudian ditampilkan data-nya.
+Siapkan juga fungsi `printMessage()` untuk handle penerimaan data. Didalamnya, channel akan di-looping menggunakan `for` - `range`, yang kemudian ditampilkan data-nya.
 
 ```go
 func printMessage(ch <-chan string) {
@@ -31,7 +31,7 @@ func printMessage(ch <-chan string) {
 }
 ```
 
-Bat channel baru di fungsi `main`, jalankan `sendMessage` sebagai goroutine. Jalankan juga `printMessage`. Dengan ini 20 data dikirimkan lewat goroutine baru, dan nantinya diterima di goroutine utama.
+Bat channel baru di fungsi `main`, jalankan `sendMessage()` sebagai goroutine. Jalankan juga `printMessage()`. Dengan ini 20 data dikirimkan lewat goroutine baru, dan nantinya diterima di goroutine utama.
 
 ```go
 func main() {
@@ -43,7 +43,7 @@ func main() {
 }
 ```
 
-Setelah 20 data sukses dikirim dan diterima, channel `ch` akan dimatikan (`close(ch)`). Membuat perulangan data channel dalam `printMessage` juga akan berhenti.
+Setelah 20 data sukses dikirim dan diterima, channel `ch` akan dimatikan (`close(ch)`). Membuat perulangan data channel dalam `printMessage()` juga akan berhenti.
 
 ![Penerapan for-range-close pada channel](images/33_1_for_range_close.png)
 

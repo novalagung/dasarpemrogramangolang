@@ -1,12 +1,12 @@
 # URL Parsing
 
-Di bab ini kita akan belajar tentang konversi url yang sebelumnya berbentuk string, menjadi instance url.
+Data string url bisa dikonversi kedalam bentuk `url.URL`. Tipe tersebut berisikan banyak informasi yang bisa diakses, diantaranya adalah jenis protokol yang digunakan, path yang diakses, query, dan lainnya.
 
-URL tipe datanya adalah `url.URL`, didalamnya terdapat banyak informasi yang bisa diakses, seperti diantaranya jenis protokol yang digunakan, path yang diakses, query, dan lainnya.
-
-Berikut adalah contoh program konversi string ke bentuk URL.
+Berikut adalah contoh sederhana konversi string ke `url.URL`.
 
 ```go
+package main
+
 import "fmt"
 import "net/url"
 
@@ -29,7 +29,7 @@ func main() {
 }
 ```
 
-Fungsi `url.Parse` digunakan untuk parsing string ke bentuk url. Mengembalikan 2 data, variabel objek bertipe `url.URL` dan error (jika ada). Lewat variabel objek tersebut pengaksesan informasi url akan menjadi lebih mudah, contohnya seperti nama host bisa didapatkan lewat `u.Host`, protokol lewat `u.Scheme`, dan lainnya.
+Fungsi `url.Parse()` digunakan untuk parsing string ke bentuk url. Mengembalikan 2 data, variabel objek bertipe `url.URL` dan error (jika ada). Lewat variabel objek tersebut pengaksesan informasi url akan menjadi lebih mudah, contohnya seperti nama host bisa didapatkan lewat `u.Host`, protokol lewat `u.Scheme`, dan lainnya.
 
 Selain itu, query yang ada pada url akan otomatis diparsing juga, menjadi bentuk `map[string][]string`, dengan key adalah nama elemen query, dan value array string yang berisikan value elemen query.
 

@@ -17,6 +17,8 @@ Ketika konversi berjalan mulus, nilai balik kedua akan bernilai `nil`. Sedangkan
 Berikut merupakan contoh program sederhana untuk deteksi inputan dari user, apakah numerik atau bukan.
 
 ```go
+package main
+
 import (
     "fmt"
     "strconv"
@@ -61,6 +63,8 @@ Selain memanfaatkan error hasil kembalian fungsi, kita juga bisa membuat error s
 Berikut merupakan contoh pembuatan custom error. Pertama siapkan fungsi dengan nama `validate()`, yang nantinya digunakan untuk pengecekan input, apakah inputan kosong atau tidak. Ketika kosong, maka error baru akan dibuat.
 
 ```go
+package main
+
 import (
     "errors"
     "fmt"

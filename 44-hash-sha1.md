@@ -11,6 +11,8 @@ Di bab ini kita akan belajar tentang pemanfaatan sha1 dan teknik salting dalam h
 Golang menyediakan package `crypto/sha1`, berisikan library untuk keperluan *hashing*. Cara penerapannya cukup mudah, contohnya bisa dilihat pada kode berikut. 
 
 ```go
+package main
+
 import "crypto/sha1"
 import "fmt"
 
@@ -45,6 +47,8 @@ Hash merupakan enkripsi satu arah dengan lebar data yang sudah pasti, menjadikan
 Langsung saja kita praktekan. Pertama import package yang dibutuhkan. Lalu buat fungsi untuk hash menggunakan salt dari waktu sekarang.
 
 ```go
+package main
+
 import "crypto/sha1"
 import "fmt"
 import "time"

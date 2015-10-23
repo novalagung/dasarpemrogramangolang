@@ -4,9 +4,11 @@ Ada beberapa fungsi dalam package `time` yang memiliki kegunaan sebagai timer. D
 
 ## Fungsi `time.Sleep()`
 
-Fungsi ini digunakan untuk menghentikan program sejenak. `time.Sleep()` bersifat **blocking**, sehingga statement dibawahnya tidak akan dieksekusi sampai waktu pemberhentian usai. Contoh sederhana penerapan `time.Sleep()`:
+Fungsi ini digunakan untuk menghentikan program sejenak. `time.Sleep()` bersifat **blocking**, sehingga statement dibawahnya tidak akan dieksekusi sampai waktu pemberhentian usai. Contoh sederhana penerapannya bisa dilihat pada kode berikut.
 
 ```go
+package main
+
 import "fmt"
 import "time"
 
@@ -73,9 +75,11 @@ Tulisan `"expired"` akan muncul setelah 4 detik.
 
 Berikut merupakan contoh penerapan timer dan goroutine. Program di bawah ini adalah program tanya-jawab sederhana. User harus menginputkan jawaban dalam waktu tidak lebih dari 5 detik. Jika lebih dari waktu tersebut belum ada jawabamn, maka akan muncul pesan *time out*.
 
-Pertama, siapkan import package yang diperlukan.
+Pertama, import package yang diperlukan.
 
 ```go
+package main
+
 import "fmt"
 import "os"
 import "time"

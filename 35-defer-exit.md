@@ -6,9 +6,13 @@
 
 Seperti yang sudah dijelaskan secara singkat di atas, bahwa defer digunakan untuk mengakhirkan eksekusi baris kode. Ketika eksekusi sudah sampai pada akhir blok fungsi, statement yang di defer baru akan dijalankan.
 
-Defer bisa ditempatkan di mana saja (awal maupun akhir blok).
+Defer bisa ditempatkan di mana saja, awal maupun akhir blok.
 
 ```go
+package main
+
+import "fmt"
+
 func main() {
     defer fmt.Println("halo")
     fmt.Println("selamat datang")
@@ -21,15 +25,15 @@ Keyword `defer` digunakan untuk mengakhirkan statement. Pada kode di atas, `fmt.
 
 Ketika ada banyak statement yang di-defer, maka statement tersebut akan dieksekusi di akhir secara berurutan.
 
-## Penerapan keyword `exit`
+## Penerapan Fungsi `os.Exit()`
 
 Exit digunakan untuk menghentikan program secara paksa pada saat itu juga. Semua statement setelah exit tidak akan di eksekusi, termasuk juga defer.
 
-Fungsi `exit` berada dalam package `os`.
-
-Fungsi ini memiliki sebuah parameter bertipe numerik yang wajib diisi. Angka yang dimasukkan akan muncul sebagai **exit status** ketika program berhenti.
+Fungsi `os.Exit()` berada dalam package `os`. Fungsi ini memiliki sebuah parameter bertipe numerik yang wajib diisi. Angka yang dimasukkan akan muncul sebagai **exit status** ketika program berhenti.
 
 ```go
+package main
+
 import "fmt"
 import "os"
 
@@ -40,6 +44,6 @@ func main() {
 }
 ```
 
-Meskipun `defer fmt.Println("halo")` ditempatkan sebelum `exit`, statement tersebut tidak akan dieksekusi, karena di-tengah fungsi program dihentikan secara paksa.
+Meskipun `defer fmt.Println("halo")` ditempatkan sebelum `os.Exit()`, statement tersebut tidak akan dieksekusi, karena di-tengah fungsi program dihentikan secara paksa.
 
 ![Penerapan `exit`](images/35_2_exit.png)

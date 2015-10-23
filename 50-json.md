@@ -2,19 +2,19 @@
 
 **JSON** atau *Javascript Object Notation* adalah notasi standar yang umum digunakan untuk komunikasi data via web. JSON merupakan subset dari *javascript*.
 
-Golang menyediakan package khusus untuk kebutuhan penggunaan json.
+Golang menyediakan package `encoding/json` yang berisikan banyak fungsi untuk kebutuhan oeprasi json.
 
 Di bab ini, kita akan belajar cara untuk konverstri string yang berbentuk json menjadi objek golang, dan sebaliknya.
 
 ## Decode JSON Ke Variabel Objek Cetakan Struct
 
-Data json tipenya adalah `[]byte`, bisa didapat dari file ataupun string (dengan hasil casting).
+Data json tipenya adalah `[]byte`, bisa didapat dari file ataupun string (dengan hasil casting). Dengan menggunakan `json.Unmarshal`, data tersebut bisa dikonversi menjadi bentuk objek, entah itu dalam bentuk `map[string]interface{}` ataupun variabel objek hasil `struct`.
 
-Dengan menggunakan `json.Unmarshal`, data tersebut bisa dikonversi menjadi bentuk objek, entah itu dalam bentuk `map[string]interface{}` ataupun variabel objek hasil `struct`.
-
-Mari kita praktekan. Program berikut ini adalah contoh decoding json ke objek. Pertama import package yang dibutuhkan dan siapkan struct.
+Program berikut ini adalah contoh cara decoding json ke bentuk objek. Pertama import package yang dibutuhkan, dan siapkan struct `User`.
 
 ```go
+package main
+
 import "encoding/json"
 import "fmt"
 
@@ -24,7 +24,7 @@ type User struct {
 }
 ```
 
-Hasil decode nantinya akan disimpan ke variabel yang tipenya adalah struct `User`.
+Hasil decode nantinya akan disimpan ke variabel objek cetakan struct `User`.
 
 Selanjutnya siapkan data json string sederhana, gunakan casting ke `[]byte` agar dideteksi sebagai data json.
 
@@ -45,7 +45,7 @@ func main() {
 }
 ```
 
-Hasil decode json disimpan pada variabel `data` yang tipenya struct `User`. Pastikan variabel tersebut di-passing ke `json.Unmarshal` sebagai pointer, agar data hasil konversi bisa terambil.
+Dalam penggunaan fungsi `json.Unmarshal`, variabel yang akan menampung hasil decode harus di-passing sebagai pointer (`&data`).
 
 ![Decode data json ke variabel objek](images/50_1_decode.png)
 
@@ -59,7 +59,7 @@ Perlu diketahui bahwa untuk decode data json ke variabel objek hasil struct, sem
 
 ## Decode JSON Ke `map[string]interface{}` & `interface{}`
 
-Target decoding data json juga bisa berupa variabel bertipe `map[string]interface{}`.
+Selain ke variabel objek, target decoding data json juga bisa berupa variabel bertipe `map[string]interface{}`.
 
 ```go
 var data1 map[string]interface{}
@@ -69,7 +69,7 @@ fmt.Println("user :", data1["Name"])
 fmt.Println("age  :", data1["Age"])
 ```
 
-Selain itu, `interface{}` juga bisa digunakan untuk menampung hasil decode. Dengan catatan pada pengaksesan nilai property-nya harus dilakukan proses casting ke `map[string]interface{}` terlebih dahulu.
+Selain itu, `interface{}` juga bisa digunakan untuk menampung hasil decode. Dengan catatan pada pengaksesan nilai property, harus dilakukan casting terlebih dahulu ke `map[string]interface{}`.
 
 ```go
 var data2 interface{}

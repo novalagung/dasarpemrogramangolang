@@ -4,11 +4,13 @@
 
 ## Penggunaan Exec
 
-Golang menyediakan package `exec` berisikan banyak fungsi untuk keperluan eksekusi perintah cli.
+Golang menyediakan package `exec` berisikan banyak fungsi untuk keperluan eksekusi perintah CLI.
 
 Cara untuk eksekusi command cukup mudah, yaitu dengan menuliskan command dalam bentuk string, diikuti arguments-nya (jika ada) sebagai parameter variadic pada fungsi `exec.Command()`. Contoh:
 
 ```go
+package main
+
 import "fmt"
 import "os/exec"
 

@@ -13,6 +13,11 @@ Program pencarian rata-rata dan nilai tertinggi berikut merupakan contoh sederha
 Pertama, kita siapkan terlebih dahulu 2 fungsi yang akan dieksekusi sebagai goroutine baru. Fungsi pertama digunakan untuk mencari rata-rata, dan fungsi kedua untuk penentuan nilai tertinggi dari sebuah slice.
 
 ```go
+package main
+
+import "fmt"
+import "runtime"
+
 func getAverage(numbers []int, ch chan float64) {
     var sum = 0
     for _, e := range numbers {
