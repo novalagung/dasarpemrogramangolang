@@ -52,3 +52,8 @@ Buku ini berisikan total 50 bab, berikut adalah list-nya.
  * [Web](48-web.md)
  * [URL Parsing](49-url-parsing.md)
  * [JSON](50-json.md)
+ * [Web JSON API](51-web-json-api.md)
+ * [HTTP Request](52-http-request.md)
+ * [SQL](53-sql.md)
+ * [MongoDB](54-mongodb.md)
+ * [Unit Test](55-unit-test.md)
