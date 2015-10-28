@@ -56,4 +56,4 @@ Buku ini berisikan total 50 bab, berikut adalah list-nya.
  * [HTTP Request](52-http-request.md)
  * [SQL](53-sql.md)
  * [MongoDB](54-mongodb.md)
- * [Unit Test](55-unit-test.md)
+ * [Automated Test](55-unit-test.md)
