@@ -2,6 +2,8 @@
 
 Source Code Buku [Dasar Pemrograman Golang](https://www.gitbook.com/read/book/novalagung/dasarpemrogramangolang).
 
+## Daftar Isi
+
  1. [Berkenalan Dengan Golang](/novalagung/dasarpemrogramangolang/tree/master/chapter-1)
  * [Instalasi Golang](/novalagung/dasarpemrogramangolang/tree/master/chapter-2)
  * [GOPATH Dan Workspace](/novalagung/dasarpemrogramangolang/tree/master/chapter-3)
@@ -57,3 +59,7 @@ Source Code Buku [Dasar Pemrograman Golang](https://www.gitbook.com/read/book/no
  * [SQL](/novalagung/dasarpemrogramangolang/tree/master/chapter-5)
  * [MongoDB](/novalagung/dasarpemrogramangolang/tree/master/chapter-5)
  * [Automated Test](/novalagung/dasarpemrogramangolang/tree/master/chapter-5)
+
+## Lisensi Source Code
+
+[GNU LGPL v2.1License](https://github.com/novalagung/dasarpemrogramangolang/blob/master/LICENSE)
