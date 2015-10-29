@@ -149,11 +149,37 @@ var b int32 = int32(24.00)
 fmt.Println(b) // 24
 ```
 
-Khusus untuk string, tidak bisa dicasting ke tipe numerik, yang bisa adalah `byte`. Dan ketika data `byte` dicasting, maka yang dikembalikan adalah kode **ASCII** nya.
+## Casting `string` ↔ `byte`
 
-Sedangkan jika data numerik dicasting dengan `string`, data tersebut dideteksi sebagai kode **ASCII** dan akan dicari string berdasarkan kode tersebut.
+String sebenarnya adalah slice/array `byte`. Di Golang sebuah karakter biasa (bukan unicode) direpresentasikan oleh sebuah elemen slice byte. Nilai slice tersebut adalah data `int` yang (default-nya) ber-basis desimal, yang merupakan kode ASCII dari karakter biasa tersebut.
 
-Untuk lebih jelasnya bisa dilihat pada kode berikut.
+Cara mendapatkan slice byte dari sebuah data string adalah dengan meng-casting-nya ke tipe `[]byte`. Tiap elemen `byte` isinya adalah data numerik dengan basis desimal.
+
+```go
+var text1 = "halo"
+var b = []byte(text1)
+
+fmt.Printf("%d %d %d %d \n", b[0], b[1], b[2], b[3])
+// 104 97 108 111
+```
+
+Pada contoh di atas, string dalam variabel `text1` dikonversi ke `[]byte`. Tiap elemen slice byte tersebut kemudian ditampilkan satu-per-satu.
+
+Contoh selanjutnya dibawah ini merupakan kebalikan dari contoh di atas, sebuah `[]byte` akan dicari bentuk `string`-nya.
+
+```go
+var byte1 = []byte{104, 97, 108, 111}
+var s = string(byte1)
+
+fmt.Printf("%s \n", s)
+// halo
+```
+
+Beberapa kode byte string saya tuliskan sebagai dalam sebuah slice, yang ditampung oleh variabel `byte1`. Lalu, nilai variabel tersebut di-cast ke `string`, untuk kemudian ditampilkan.
+
+Selain itu, tiap karakter string juga bisa di-casting ke bentuk `int`, hasilnya adalah sama yaitu data byte dalam bentuk numerik basis desimal, dengan ketentuan literal string yang digunakan adalah tanda petik satu (<code>'</code>).
+
+Juga berlaku sebaliknya, data numerik jika di-casting ke bentuk string dideteksi sebagai kode byte dari karakter yang akan dihasilkan.
 
 ```go
 var c int64 = int64('h')
@@ -161,18 +187,6 @@ fmt.Println(c) // 104
 
 var d string = string(104)
 fmt.Println(d) // h
-```
-
-String bisa dicasting sebagai `[]byte`. Hasilnya adalah array berisikan kode **ASCII** tiap karakter yang di cast. Sebaliknya, jika `[]byte` dicasting sebagai string, maka akan ter-*generate* string-nya.
-
-Contoh penerapannya bisa dilihat pada kode berikut.
-
-```go
-var c []byte = []byte("halo")
-fmt.Println(c) // [104 97 108 111]
-
-var d string = string([]byte{104, 97, 108, 111})
-fmt.Println(d) // halo
 ```
 
 ## Konversi Data `interface{}` Menggunakan Teknik Type Assertions
