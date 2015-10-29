@@ -1,6 +1,7 @@
 # Dasar Pemrograman Golang
 
-<img src="cover.jpg" width="200" alt="Buku Dasar Pemrograman Golang" style="float: left; margin-right: 20px; margin-bottom: 15px;" />
+<link rel="image_src" href="cover.jpg"/>
+<img src="cover_mini.jpg" width="220" alt="Buku Dasar Pemrograman Golang" style="float: left; margin-right: 20px; margin-bottom: 15px;" />
 
 [Golang](https://golang.org/) (atau Go) adalah bahasa pemrograman baru, yang mulai dilirik oleh para developer karena kelebihan-kelebihan yang dimilikinya. Sudah banyak perusahaan besar yang [menggunakan bahasa ini](https://github.com/golang/go/wiki/GoUsers) untuk produk-produk mereka hingga di level production.
 
