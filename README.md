@@ -62,4 +62,4 @@ Source Code Buku [Dasar Pemrograman Golang](https://www.gitbook.com/read/book/no
 
 ## Lisensi Source Code
 
-[GNU LGPL v2.1License](https://github.com/novalagung/dasarpemrogramangolang/blob/master/LICENSE)
+GNU LGPL v2.1
