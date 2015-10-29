@@ -4,11 +4,11 @@ Source Code Buku [Dasar Pemrograman Golang](https://www.gitbook.com/read/bookhtt
 
 ## Daftar Isi
 
- * [Berkenalan Dengan Golang](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-1)
- * [Instalasi Golang](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-2)
- * [GOPATH Dan Workspace](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-3)
- * [Instalasi Editor](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-4)
- * [Command](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-5)
+ 1. Berkenalan Dengan Golang *
+ * Instalasi Golang *
+ * GOPATH Dan Workspace *
+ * Instalasi Editor *
+ * Command *
  * [Program Pertama: Hello World](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-6)
  * [Komentar](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-7)
  * [Variabel](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-8)
@@ -59,6 +59,8 @@ Source Code Buku [Dasar Pemrograman Golang](https://www.gitbook.com/read/bookhtt
  * [SQL](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-53)
  * [MongoDB](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-54)
  * [Automated Test](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-55)
+
+\* Tidak ada source code untuk bab tersebut
 
 ## Lisensi
 
