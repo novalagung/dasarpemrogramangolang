@@ -14,6 +14,4 @@ Source code contoh-contoh program bisa diunduh di [Github](https://github.com/no
 
 ## 
 
-Bantu developer lain untuk mengenal dan belajar golang dari 0, dengan cara [tweet buku ini](https://twitter.com/intent/tweet?text=Ebook%20Gratis!%20Dasar%20Pemrograman%20Golang&url=https%3A%2F%2Fgitbook.com%2Fread%2Fbook%2Fnovalagung%2Fdasarpemrogramangolang) atau [share ke facebook](https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgitbook.com%2Fread%2Fbook%2Fnovalagung%2Fdasarpemrogramangolang)
-
-<!-- http://www.facebook.com/sharer.php?s=100&p[title]=Ebook Dasar Pemrograman Golang&p[url]=https://www.gitbook.com/read/book/novalagung/dasarpemrogramangolang&p[summary]=mysexysummaryhere&p[images][0]=https://ek8whxe.cloudimg.io/s/width/600/https://www.gitbook.com/cover/book/novalagung/dasarpemrogramangolang.jpg?build=1446084631453&v=10.0.3 -->
+Bantu developer lain untuk mengenal dan belajar golang dari 0, dengan cara [tweet buku ini](https://twitter.com/intent/tweet?text=Ebook Gratis! Dasar Pemrograman Golang - {{ book.description }}&url={{ book.url }}) atau [share ke facebook](http://www.facebook.com/sharer.php?s=100&p[title]={{ book.title }}&p[summary]={{ book.description }} - {{ book.author }}&p[url]={{ book.url }}&p[images][0]=https://novalagung.gitbooks.io/dasarpemrogramangolang/content/cover.jpg)

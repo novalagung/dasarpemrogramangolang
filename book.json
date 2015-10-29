@@ -1,4 +1,10 @@
 {
 	"language": "id",
-	"description": "Belajar pemrograman Golang mulai dari 0"
+	"description": "Belajar pemrograman Golang mulai dari 0",
+	"variables": {
+		"title": "Dasar Pemrograman Golang",
+		"description": "Belajar pemrograman Golang mulai dari 0",
+		"author": "Noval Agung Prayogo",
+		"url": "https://www.gitbook.com/read/book/novalagung/dasarpemrogramangolang"
+	}
 }
