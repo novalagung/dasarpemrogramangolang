@@ -1,6 +1,6 @@
 # Dasar Pemrograman Golang
 
-Source Code Buku [Dasar Pemrograman Golang](https://www.gitbook.com/read/book/novalagung/dasarpemrogramangolang).
+Source Code Buku [Dasar Pemrograman Golang](https://www.gitbook.com/read/book/novalagung/dasarpemrogramangolang)
 
 ## Daftar Isi
 
