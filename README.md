@@ -6,7 +6,7 @@ Buku ini merupakan salah satu dari sekian banyak referensi yang bisa digunakan u
 
 Ebook Dasar Pemrograman Golang gratis untuk disebarluaskan secara bebas, selama tidak melanggar aturan lisensi [GNU LGPL 2.1](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html).
 
-Source code contoh-contoh program bisa diunduh di [Github](https://github.com/novalagung/dasarpemrogramangolang). Dianjurkan dalam belajar jangan copy-paste dari source code, usahakan untuk menulis sendiri kode program dari awal, agar cepat terbiasa dengan bahasa Golang.
+Source code contoh-contoh program bisa diunduh di [Github](https://github.com/novalagung/dasarpemrogramangolang). Dianjurkan untuk tidak copy-paste dari source code dalam belajar, usahakan untuk menulis sendiri kode program, agar cepat terbiasa dengan bahasa Golang.
 
 ## 
 
