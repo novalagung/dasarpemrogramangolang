@@ -12,4 +12,6 @@ Source code contoh-contoh program bisa diunduh di [Github](https://github.com/no
 
 Bantu developer lain untuk mengenal dan belajar Golang, dengan cara [<span style="color: #5491E0; font-weight: bold;">tweet buku ini</span>](https://twitter.com/intent/tweet?text=Ebook Gratis! Dasar Pemrograman Golang - {{ book.description }}&url={{ book.url }}) atau [<span style="color: #5491E0; font-weight: bold;">share ke facebook</span>](http://www.facebook.com/sharer.php?s=100&p[title]={{ book.title }}&p[summary]={{ book.description }} - {{ book.author }}&p[url]={{ book.url }}).
 
+Untuk pertanyaan, kritik, dan saran, silakan drop email ke [caknopal@gmail.com](mailto:caknopal@gmail.com).
+
 <center><img src="images/other/cover_fb_share.jpg" alt="Buku Dasar Pemrograman Golang" /></center>
