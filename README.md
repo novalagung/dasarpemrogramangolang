@@ -60,6 +60,7 @@ Sampel Source Code Buku [Dasar Pemrograman Golang](https://www.gitbook.com/book/
  * [MongoDB](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-54)
  * [Automated Test](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-55)
  * [WaitGroup](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-56)
+ * [Mutex](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-57)
 
 <span style="color: green">*</span> Tidak ada source code untuk bab tersebut
 
