@@ -57,3 +57,4 @@ Buku ini berisikan total 50 bab, berikut adalah list-nya.
  * [SQL](53-sql.md)
  * [MongoDB](54-mongodb.md)
  * [Automated Test](55-unit-test.md)
+ * [WaitGroup](56-waitgroup.md)
