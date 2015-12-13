@@ -6,7 +6,7 @@ Golang menyediakan package `sync`, yang berisikan cukup banyak API untuk handle 
 
 ### Penerapan `sync.WaitGroup`
 
-`sync.WaitGroup` digunakan menunggu selesainya goroutine yang sedang berjalan. Cara penggunaannya sangat mudah, tinggal masukan jumlah goroutine yang dieksekusi sebagai parameter method `Add()` object cetakan `sync.WaitGroup`. Dan pada akhir tiap-tiap goroutine, panggil method `Done()`. Juga, pada baris kode setelah eksekusi goroutine, panggil method `Wait()`.
+`sync.WaitGroup` digunakan menunggu selesainya goroutine yang sedang berjalan. Cara penggunaannya sangat mudah, tinggal masukan jumlah goroutine yang dieksekusi, sebagai parameter method `Add()` object cetakan `sync.WaitGroup`. Dan pada akhir tiap-tiap goroutine, panggil method `Done()`. Juga, pada baris kode setelah eksekusi goroutine, panggil method `Wait()`.
 
 Agar lebih jelas, silakan coba kode berikut.
 
@@ -38,7 +38,7 @@ func main() {
 }
 ```
 
-Kode di atas merupakan contoh penerapan `sync.WaitGroup` untuk pengelolahan goroutine. Fungsi `doPrint()` akan dijalankan sebagai goroutine, bertugas untuk menampilkan isi variabel `message`.
+Kode di atas merupakan contoh penerapan `sync.WaitGroup` untuk pengelolahan goroutine. Fungsi `doPrint()` akan dijalankan sebagai goroutine, dengan tugas menampilkan isi variabel `message`.
 
 Variabel `wg` disiapkan bertipe `sync.WaitGroup`, nantinya digunakan untuk mengontrol proses sinkronisasi goroutines yang dijalankan. 
 
@@ -56,7 +56,7 @@ Beberapa perbedaan antara channel dan `sync.WaitGroup`:
 
  - Channel tergantung kepada goroutine tertentu dalam penggunaannya, tidak seperti `sync.WaitGroup` yang dia tidak perlu tahu goroutine mana saja yang dijalankan, cukup tahu jumlah goroutine yang harus selesai
  - Penerapan `sync.WaitGroup` lebih mudah dibanding channel
- - Fungsi yang lebih utama channel, selain digunakan untuk manajemen goroutine, adalah untuk komunikasi data antar goroutine, sedangkan WaitGroup hanya digunakan untuk pengontrolan goroutine saja.
+ - Kegunaan utama channel selain untuk manajemen goroutine, adalah untuk komunikasi data antar goroutine; sedangkan WaitGroup hanya digunakan untuk pengontrolan goroutine saja
  - Performa `sync.WaitGroup` lebih baik dibanding channel, sumber: https://groups.google.com/forum/#!topic/golang-nuts/whpCEk9yLhc
 
 Jika muncul pertanyaan manakah yang lebih baik, apakah WaitGroup atau channel, maka kembali ke kebutuhan, karena kedua API tersebut memiliki kelebihan masing-masing.

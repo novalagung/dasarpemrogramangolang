@@ -14,4 +14,6 @@ Bantu developer lain untuk mengenal dan belajar Golang, dengan cara [<span style
 
 Buku ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan saran, silakan drop email ke [caknopal@gmail.com](mailto:caknopal@gmail.com).
 
+**Versi 1.2015.12.13.**
+
 <center><img src="images/other/cover_fb_share.jpg" alt="Buku Dasar Pemrograman Golang" /></center>
