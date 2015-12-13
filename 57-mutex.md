@@ -97,7 +97,7 @@ Golang menyediakan fitur untuk [deteksi sebuah race condition](http://blog.golan
 
 Terlihat pada gambar diatas ada pesan bahwa terdapat sebuah data yang dijadikan bahan balapan oleh goroutine (`Found 1 data race(s)`).
 
-### Penggunaan `sync.Mutex`
+### Penerapan `sync.Mutex`
 
 Sekarang kita tahu bahwa program di atas menghasilkan bug race condition. Untuk mengatasi masalah tersebut ada beberapa cara yang bisa digunakan, dan disini kita akan menggunakan `sync.Mutex`.
 
