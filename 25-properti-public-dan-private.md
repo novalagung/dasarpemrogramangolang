@@ -273,4 +273,3 @@ Property variabel objek `Student` akan diisi dan sebuah pesan ditampilkan ke con
 Perlu diketahui bahwa dalam sebuah package, diperbolehkan ada banyak fungsi `init()` (urutan eksekusinya adalah sesuai file mana yg terlebih dahulu digunakan). Fungsi ini dipanggil sebelum fungsi `main()`, pada saat eksekusi program.
 
 ![Fungsi `init()`](images/25_7_init.png)
-
