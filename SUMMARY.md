@@ -1,7 +1,5 @@
 # Daftar Isi
 
-Buku ini berisikan total 50 bab, berikut adalah list-nya.
-
  * [Berkenalan Dengan Golang](1-berkenalan-dengan-golang.md)
  * [Instalasi Golang](2-instalasi-golang.md)
  * [GOPATH Dan Workspace](3-gopath-dan-workspace.md)

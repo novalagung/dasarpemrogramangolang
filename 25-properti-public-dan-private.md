@@ -225,3 +225,51 @@ $ go run main.go partial.go
 Fungsi `sayHello` pada file `partial.go` bisa dikenali meski level aksesnya adalah private. Hal ini karena kedua file tersebut (`main.go` dan `partial.go`) memiliki package yang sama.
 
 ![Pemanggilan fungsi private dari dalam package yang sama](images/25_6_multi_main.png)
+
+## Fungsi `init()`
+
+Selain fungsi `main()`, terdapat juga fungsi spesial, yaitu `init()`. Fungsi ini akan dipanggil pertama kali ketika package-dimana-fungsi-berada di-import.
+
+Langsung saja kita praktekkan. Buka file `library.go`, lalu isi dengan kode berikut.
+
+```go
+package library
+
+import "fmt"
+
+var Student = struct {
+    Name  string
+    Grade int
+}{}
+
+func init() {
+    Student.Name = "John Wick"
+    Student.Grade = 2
+
+    fmt.Println("--> library/library.go imported")
+}
+```
+
+Pada package tersebut, variabel `Student` dibuat dengan isi anonymous struct. Dalam fungsi init, nilai `Name` dan `Grade` variabel di-set.
+
+Selanjutnya buka file `main.go`, isi dengan kode berikut.
+
+```go
+package main
+
+import "belajar-golang-level-akses/library"
+import "fmt"
+
+func main() {
+    fmt.Printf("Name  : %s\n", library.Student.Name)
+    fmt.Printf("Grade : %d\n", library.Student.Grade)
+}
+```
+
+Package `library` di-import, dan variabel `Student` dikonsumsi. Pada saat import package, fungsi `init()` yang berada didalamnya langsung dieksekusi.
+
+Property variabel objek `Student` akan diisi dan sebuah pesan ditampilkan ke console.
+
+Perlu diketahui bahwa dalam sebuah package, diperbolehkan ada banyak fungsi `init()` (urutan eksekusinya adalah sesuai file mana yg terlebih dahulu digunakan). Fungsi ini dipanggil sebelum fungsi `main()`, pada saat eksekusi program.
+
+![Fungsi `init()`](images/25_7_init.png)
