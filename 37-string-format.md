@@ -29,7 +29,7 @@ var data = student{
 Digunakan untuk memformat data numerik, menjadi bentuk string numerik berbasis 2 (biner).
 
 ```go
-fmt.Printf("%t\n", data.age)
+fmt.Printf("%b\n", data.age)
 // 11010
 ```
 
@@ -50,7 +50,7 @@ fmt.Printf("%c\n", 1235)
 Digunakan untuk memformat data numerik, menjadi bentuk string numerik berbasis 10 (basis bilangan yang kita gunakan).
 
 ```go
-fmt.Printf("%t\n", data.age)
+fmt.Printf("%d\n", data.age)
 // 26
 ```
 
