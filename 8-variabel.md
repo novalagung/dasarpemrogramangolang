@@ -94,7 +94,7 @@ lastName := "wick"
 
 Kedua deklarasi di atas maksudnya adalah sama. Silakan pilih yang nyaman di hati.
 
-Tanda `:=` hanya digunakan sekali di awal pada saat deklarasi saja. Setelah itu untuk, assignment nilai selanjutnya menggunakan tanda `=`. Contoh:
+Tanda `:=` hanya digunakan sekali di awal pada saat deklarasi saja. Setelah itu, untuk assignment nilai selanjutnya harus menggunakan tanda `=`. Contoh:
 
 ```go
 lastName := "wick"
