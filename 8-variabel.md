@@ -104,7 +104,7 @@ lastName = "bourne"
 
 ## Deklarasi Multi Variabel
 
-Golang mendukung deklarasi bantak variabel secara bersamaan, caranya dengan menuliskan variabel-variabel-nya dengan pembatas tanda koma (`,`). Untuk pengisian nilainya-pun diperbolehkan secara bersamaan. Contoh:
+Golang mendukung deklarasi banyak variabel secara bersamaan, caranya dengan menuliskan variabel-variabel-nya dengan pembatas tanda koma (`,`). Untuk pengisian nilainya-pun diperbolehkan secara bersamaan. Contoh:
 
 ```go
 var first, second, third string
