@@ -20,12 +20,12 @@ var data = student{
 
 func main() {
 
-	fmt.Printf("%t\n", data.age) // 11010
+	fmt.Printf("%b\n", data.age) // 11010
 
 	fmt.Printf("%c\n", 1400) // ո
 	fmt.Printf("%c\n", 1235) // ӓ
 
-	fmt.Printf("%t\n", data.age) // 26
+	fmt.Printf("%d\n", data.age) // 26
 
 	fmt.Printf("%e\n", data.height) // 1.825000e+02
 	fmt.Printf("%E\n", data.height) // 1.825000E+02
