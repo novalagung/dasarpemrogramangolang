@@ -113,3 +113,45 @@ if isExist {
     fmt.Println("item is not exists")
 }
 ```
+
+## Kombinasi Slice & Map
+
+Slice dan `map` bisa dikombinasikan, dan sering digunakan pada banyak kasus, contohnya seperti data array yang berisikan informasi siswa, dan banyak lainnya.
+
+Cara menggunakannya cukup mudah, contohnya seperti `[]map[string]int`, artinya slice yang tipe tiap elemen-nya adalah `map[string]int`.
+
+Agar lebih jelas, silakan praktekan contoh berikut.
+
+```go
+var chickens = []map[string]string{
+	map[string]string{"name": "chicken blue",   "gender": "male"},
+	map[string]string{"name": "chicken red",    "gender": "male"},
+	map[string]string{"name": "chicken yellow", "gender": "female"},
+}
+
+for _, chicken := range chickens {
+	fmt.Println(chicken["gender"], chicken["name"])
+}
+```
+
+Variabel `chickens` di atas berisikan informasi bertipe `map[string]string`, yang kebetulan tiap elemen memiliki 2 key yang sama.
+
+Jika anda menggunakan versi go terbaru, cara deklarasi slice-map bisa dipersingkat, tipe tiap elemen tidak wajib untuk dituliskan.
+
+```go
+var chickens = []map[string]string{
+	{"name": "chicken blue",   "gender": "male"},
+	{"name": "chicken red",    "gender": "male"},
+	{"name": "chicken yellow", "gender": "female"},
+}
+```
+
+Dalam `[]map[string]string`, tiap elemen bisa saja memiliki key yang berbeda-beda, sebagai contoh seperti kode berikut.
+
+```go
+var data = []map[string]string{
+	{"name": "chicken blue", "gender": "male", "color": "brown"},
+	{"address": "mangga street", "id": "k001"},
+	{"community": "chicken lovers"}
+}
+```

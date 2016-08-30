@@ -4,14 +4,14 @@ Hal pertama yang perlu dilakukan sebelum bisa menggunakan Golang adalah menginst
 
 Bab ini merupakan ringkasan dari panduan instalasi yang disediakan oleh Golang.
 
-> Di buku ini versi Golang yang digunakan adalah **1.4.2** 
+> Di buku ini versi Golang yang digunakan adalah **1.7**. Direkomendasikan menggunakan versi tersebut, atau versi lain minimal **1.4.2** ke atas.<br /><br />Di golang, perbedaan signifikan antara versi [**1.4.2**](https://golang.org/doc/go1.4.2), [**1.5**](https://golang.org/doc/go1.5), [**1.6**](https://golang.org/doc/go1.6), [**1.7**](https://golang.org/doc/go1.7) kebanyakan adalah dibagian performa, hanya sedikit update dibagian sintaks bahasa.
 
 ## Instalasi Golang di Windows
 
  1. Download terlebih dahulu installer-nya. Pilih sesuai jenis bit prosesor yang digunakan.
 
-    - 32bit => [go1.4.2.wind\*ws-386.msi](https://storage.googleapis.com/golang/go1.4.2.windows-386.msi)
-    - 64bit => [go1.4.2.wind\*ws-amd64.msi](https://storage.googleapis.com/golang/go1.4.2.windows-amd64.msi)
+    - 32bit => [go1.7.wind\*ws-386.msi](https://storage.googleapis.com/golang/go1.7.windows-386.msi)
+    - 64bit => [go1.7.wind\*ws-amd64.msi](https://storage.googleapis.com/golang/go1.7.windows-amd64.msi)
 
 
  2. Setelah ter-download, jalankan installer, klik **next** sampai proses instalasi selesai. Default-nya Golang akan terinstal di `c:\go\bin`. Path tersebut akan secara otomatis terdaftar di **path variable**.
@@ -76,14 +76,14 @@ Cara menginstal Golang di **Ub\*ntu** bisa dengan memanfaatkan `apt-get`. Silaka
 
  1. Download archive berikut, pilih sesuai jenis bit komputer anda.
 
-    - 32bit => [go1.4.2.lin\*x-386.tar.gz](https://storage.googleapis.com/golang/go1.4.2.linux-386.tar.gz)
-    - 64bit => [go1.4.2.lin\*x-amd64.tar.gz](https://storage.googleapis.com/golang/go1.4.2.linux-amd64.tar.gz)
+    - 32bit => [go1.7.lin\*x-386.tar.gz](https://storage.googleapis.com/golang/go1.7.linux-386.tar.gz)
+    - 64bit => [go1.7.lin\*x-amd64.tar.gz](https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz)
 
 
  2. Buka **terminal**, ekstrak archive tersebut ke `/usr/local`. Setelah itu export path-nya. Gunakan command di bawah ini untuk melakukan hal tersebut.
 
     ```
-    $ tar zxvf go1.4.2.lin*x-....tar.gz -C /usr/local
+    $ tar zxvf go1.7.lin*x-....tar.gz -C /usr/local
     $ export PATH=$PATH:/usr/local/go/bin
     ```
 

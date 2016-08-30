@@ -98,3 +98,35 @@ fmt.Println(name)
 Variabel `secret` dideklarasikan bertipe `interface{}` menampung referensi objek cetakan struct `person`. Cara casting dari `interface{}` ke struct pointer adalah dengan menuliskan nama struct-nya dan ditambahkan tanda asterisk (`*`) di awal, contohnya seperti `secret.(*person)`. Setelah itu barulah nilai asli bisa diakses.
 
 ![Casting `interface{}` ke variabel objek](images/27_3_interface_pointer.png)
+
+## Kombinasi Slice, `map`, dan `interface{}`
+
+Kombinasi dari slice dan `map[string]interface{}` mempunyai kemiripan dengan kombinasi slice dan `struct`. Silakan perhatikan contoh berikut.
+
+Disiapkan variabel `person`, menampung data `map` dengan 2 key, yaitu `name` dan `age`.
+
+```go
+var person = []map[string]interface{}{
+    {"name": "Wick", "age": 23},
+    {"name": "Ethan", "age": 23},
+    {"name": "Bourne", "age": 22},
+}
+
+for _, each := range person {
+    fmt.Println(each["name"], "age is", each["age"])
+}
+```
+
+Selain itu, dengan memanfaatkan slice dan `interface{}`, kita bisa membuat data array yang isinya adalah bisa apa saja. Silakan perhatikan contoh penggunaan `[]interface{}` pada kode berikut.
+
+```go
+var fruits = []interface{}{
+    map[string]interface{}{"name": "strawberry", "total": 10},
+    []string{"manggo", "pineapple", "papaya"},
+    "orange",
+}
+
+for _, each := range fruits {
+    fmt.Println(each)
+}
+```

@@ -234,9 +234,30 @@ var s2 = struct {
 }
 ```
 
-## Inisialisasi Langsung Array Anonymous Struct
+## Kombinasi Slice & Struct
 
-Anonymous struct bisa dijadikan sebagai tipe sebuah array. Dan nilai awalnya juga bisa diinisialisasi langsung pada saat deklarasi. Berikut adalah contohnya:
+Slice dan `struct` bisa dikombinasikan seperti pada slice dan `map`, caranya pun mirip, cukup tambahkan tanda `[]` sebelum tipe data pada saat deklarasi.
+
+```go
+type person struct {
+    name string
+    age  int
+}
+
+var allStudents = []person{
+    {name: "Wick", age: 23},
+    {name: "Ethan", age: 23},
+    {name: "Bourne", age: 22},
+}
+
+for _, student := range allStudents {
+    fmt.Println(student.name, "age is", student.age)
+}
+```
+
+## Inisialisasi Langsung Slice Anonymous Struct
+
+Anonymous struct bisa dijadikan sebagai tipe sebuah slice. Dan nilai awalnya juga bisa diinisialisasi langsung pada saat deklarasi. Berikut adalah contohnya:
 
 ```go
 var allStudents = []struct {

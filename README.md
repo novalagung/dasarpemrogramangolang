@@ -10,7 +10,7 @@ Source code contoh-contoh program bisa diunduh di [Github](https://github.com/no
 
 ## 
 
-**Versi 1.2016.05.23**
+**Versi 1.2016.05.24**
 
 Bantu developer lain untuk mengenal dan belajar Golang, dengan cara [<span style="color: #5491E0; font-weight: bold;">tweet buku ini</span>](https://twitter.com/intent/tweet?text=Ebook Gratis! Dasar Pemrograman Golang - {{ book.description }}&url={{ book.url }}) atau [<span style="color: #5491E0; font-weight: bold;">share ke facebook</span>](http://www.facebook.com/sharer.php?s=100&p[title]={{ book.title }}&p[summary]={{ book.description }} - {{ book.author }}&p[url]={{ book.url }}).
 
