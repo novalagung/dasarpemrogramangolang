@@ -10,7 +10,7 @@ Golang memiliki 2 macam keyword untuk seleksi kondisi, yaitu **if else** dan **s
 
 ## Seleksi Kondisi Menggunakan Keyword `if`, `else if`, & `else`
 
-Cara penerapan if-else di Golang sama dengan pada bahasa pemrograman lain. Yang membedakan hanya tanda kurung kurawalnya, di Golang tidak perlu ditulis. Kode berikut merupakan contoh penerapan seleksi kondisi if else, dengan jumlah kondisi 4 buah.
+Cara penerapan if-else di Golang sama dengan pada bahasa pemrograman lain. Yang membedakan hanya tanda kurungnya *(parentheses)*, di Golang tidak perlu ditulis. Kode berikut merupakan contoh penerapan seleksi kondisi if else, dengan jumlah kondisi 4 buah.
 
 ```go
 var point = 8
