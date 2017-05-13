@@ -10,17 +10,13 @@ Source code contoh-contoh program bisa diunduh di [Github](https://github.com/no
 
 ## 
 
-**Versi 1.2017.01.23**
+**Versi 1.2017.05.13**
 
 Buku ini bisa di-download dalam bentuk PDF, [link download PDF](https://www.gitbook.com/download/pdf/book/novalagung/dasarpemrogramangolang).
 
 Bantu developer lain untuk mengenal dan belajar Golang, dengan cara [<span style="color: #5491E0; font-weight: bold;">tweet buku ini</span>](https://twitter.com/intent/tweet?text=Ebook Gratis! Dasar Pemrograman Golang - {{ book.description }}&url={{ book.url }}) atau [<span style="color: #5491E0; font-weight: bold;">share ke facebook</span>](http://www.facebook.com/sharer.php?s=100&p[title]={{ book.title }}&p[summary]={{ book.description }} - {{ book.author }}&p[url]={{ book.url }}).
 
 Buku ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan saran, silakan drop email ke [caknopal@gmail.com](mailto:caknopal@gmail.com).
-
-Jika berkenan, anda bisa membantu penulis dengan cara donasi lewat paypal.
-
-<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=caknopal@gmail.com&amp;lc=ID&amp;item_name=Buku Dasar Pemrograman Golang&amp;currency_code=USD&amp;bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHosted" target="_blank"><img src="https://www.paypalobjects.com/WEBSCR-640-20110401-1/en_AU/i/btn/btn_donateCC_LG.gif"></a>
 
 ## 
 

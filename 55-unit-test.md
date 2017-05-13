@@ -1,6 +1,6 @@
-# Automated Testing
+# Unit Test
 
-Golang menyediakan package `testing`, yang berisikan banyak sekali tools untuk keperluan automation testing. 
+Golang menyediakan package `testing`, yang berisikan banyak sekali tools untuk keperluan unit testing. 
 
 Pada bab ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan [testify](github.com/stretchr/testify).
 

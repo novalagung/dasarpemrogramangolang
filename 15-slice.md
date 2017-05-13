@@ -55,7 +55,7 @@ var fruits = []string{"apple", "grape", "banana", "melon"}
 | `fruits[4:0]` | `[]` | error, pada penulisan `fruits[a,b]` nilai `a` harus lebih besar atau sama dengan `b` |
 | `fruits[:]` | `[apple, grape, banana, melon]` | semua elemen |
 | `fruits[2:]` | `[banana, melon]` | semua elemen mulai indeks ke-2 |
-| `fruits[:2]` | `[apple, apple]` | semua elemen hingga sebelum indeks ke-2 |
+| `fruits[:2]` | `[apple, grape]` | semua elemen hingga sebelum indeks ke-2 |
 
 ## Slice Merupakan Tipe Data Reference
 

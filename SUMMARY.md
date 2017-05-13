@@ -54,6 +54,6 @@
  * [HTTP Request](52-http-request.md)
  * [SQL](53-sql.md)
  * [MongoDB](54-mongodb.md)
- * [Automated Test](55-unit-test.md)
+ * [Unit Test](55-unit-test.md)
  * [WaitGroup](56-waitgroup.md)
  * [Mutex](57-mutex.md)
