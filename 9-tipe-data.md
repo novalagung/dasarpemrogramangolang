@@ -2,18 +2,18 @@
 
 Golang mengenal beberapa jenis tipe data, diantaranya adalah tipe data numerik (desimal & non-desimal), string, dan boolean.
 
-Di bab-bab sebelumnya secara tak sadar kita sudah menerapkan beberapa tipe data, seperti `string` dan tipe numerik `int`.
+Di bab-bab sebelumnya secara tak sadar kita sudah mengaplikasikan beberapa tipe data, seperti `string` dan tipe numerik `int`.
 
-Pada bab ini, akan dijelaskan beberapa macam tipe data standar yang disediakan oleh Golang, dan bagaiman cara penggunaannya.
+Bab ini menjelaskan beberapa macam tipe data standar yang disediakan oleh Golang, beserta cara penggunaannya.
 
 ## Tipe Data Numerik Non-Desimal
 
-Tipe data numerik non-desimal atau **non floating point** di Golang ada beberapa macam. Secara umum ada 2 tipe data yang perlu diketahui, yaitu: 
+Tipe data numerik non-desimal atau **non floating point** di Golang ada beberapa jenis. Secara umum ada 2 tipe data kategori ini yang perlu diketahui.
 
- - `uint`, merupakan tipe data untuk bilangan cacah (bilangan positif), dan
- - `int`, merupakan tipe data untuk bilangan bulat (bilangan negatif dan positif)
+ - `uint`, tipe data untuk bilangan cacah (bilangan positif)
+ - `int`, tipe data untuk bilangan bulat (bilangan negatif dan positif)
 
-Kedua tipe data di atas kemudian dibagi lagi menjadi beberapa, dengan pembagian berdasarkan lebar cakupan nilainya, detailnya bisa dilihat di tabel berikut.
+Kedua tipe data di atas kemudian dibagi lagi menjadi beberapa jenis, dengan pembagian berdasarkan lebar cakupan nilainya, detailnya bisa dilihat di tabel berikut.
 
 | Tipe data | Cakupan bilangan |
 | :-------: | :---- |
@@ -83,7 +83,7 @@ var message string = "Halo"
 fmt.Printf("message: %s \n", message)
 ```
 
-Selain menggunakan tanda quote, deklarasi string juga bisa dengan tanda *grave accent/backticks* (<code>`</code>), tanda ini terletak di sebelah kiri tombol 1. Keistimewaan string yang dideklarasikan menggunakan backtics adalah membuat semua karakter didalamnya **tidak akan di escape**, termasuk `\n`, tanda petik dua dan tanda petik satu, baris baru, dan lainnya. Semua akan terdeteksi sebagai string. Berikut adalah contoh penerapannya.
+Selain menggunakan tanda quote, deklarasi string juga bisa dengan tanda *grave accent/backticks* (<code>`</code>), tanda ini terletak di sebelah kiri tombol 1. Keistimewaan string yang dideklarasikan menggunakan backtics adalah membuat semua karakter didalamnya **tidak di escape**, termasuk `\n`, tanda petik dua dan tanda petik satu, baris baru, dan lainnya. Semua akan terdeteksi sebagai string.
 
 ```go
 var message = `Nama saya "John Wick".
@@ -97,18 +97,18 @@ Ketika dijalankan, output akan muncul sama persisi sesuai nilai variabel `messag
 
 ![String menggunakan grave accent](images/9_2_unescaped_string.png)
 
-## Nilai `nil` Dan Nilai Default Tipe Data 
+## Nilai `nil` Dan Nilai Default Tipe Data
 
-`nil` bukan merupakan tipe data, melainkan sebuah nilai. Variabel yang isi nilainya `nil`, berarti variabel tersebut memiliki nilai kosong.
+`nil` bukan merupakan tipe data, melainkan sebuah nilai. Variabel yang isi nilainya `nil` berarti memiliki nilai kosong.
 
-Semua tipe data yang sudah dibahas di atas memiliki nilai default. Artinya meskipun variabel dideklarasikan dengan tanpa nilai awal, akan ada nilai default-nya. 
+Semua tipe data yang sudah dibahas di atas memiliki nilai default. Artinya meskipun variabel dideklarasikan dengan tanpa nilai awal, akan ada nilai default-nya.
 
  - Nilai default `string` adalah `""` (string kosong)
  - Nilai default `bool` adalah `false`
  - Nilai default tipe numerik non-desimal adalah `0`
  - Nilai default tipe numerik desimal adalah `0.0`
 
-`nil` adalah nilai kosong, benar-benar kosong. `nil` tidak bisa digunakan pada tipe data yang sudah dibahas di atas, karena kesemuanya sudah memiliki nilai default pada saat deklarasi. Ada beberapa tipe data yang bisa di-set nilainya dengan `nil`, diantaranya:
+`nil` adalah nilai kosong, benar-benar kosong. `nil` tidak bisa digunakan pada tipe data yang sudah dibahas di atas, karena kesemuanya akan memiliki nilai default pada saat deklarasi. Ada beberapa tipe data yang bisa di-set nilainya dengan `nil`, diantaranya:
 
 - pointer
 - tipe data fungsi
@@ -117,4 +117,4 @@ Semua tipe data yang sudah dibahas di atas memiliki nilai default. Artinya meski
 - `channel`
 - interface kosong atau `interface{}`
 
-Nantinya kita akan sering bertemu dengan `nil` ketika sudah masuk pada pembahasan bab-bab tersebut.
+Nantinya kita akan sering bertemu dengan `nil` setelah masuk pada pembahasan bab-bab tersebut.

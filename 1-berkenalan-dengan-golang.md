@@ -15,9 +15,9 @@ Golang memiliki kelebihan dibanding bahasa lainnya, beberapa di antaranya:
 * Bukan bahasa pemrograman yang hirarkial, menjadikan developer tidak perlu *ribet* memikirkan segmen OOP-nya
 * Package/modul yang disediakan terbilang lengkap. Karena bahasa ini open source, banyak sekali developer yang juga mengembangkan modul-modul lain yang bisa dimanfaatkan
 
-Meskipun bahasa ini masih berumur sekitar 5 tahunan, sudah banyak industri dan perusahaan yg menggunakan Golang sampai level production, termasuk diantaranya adalah Google sendiri.
+Sudah banyak industri dan perusahaan yg menggunakan Golang sampai level production, termasuk diantaranya adalah Google sendiri, dan tempat dimana saya bekerja 😁
 
-## 
+##
 
 Di buku ini kita akan belajar tentang dasar pemrograman Golang mulai dari 0.
 

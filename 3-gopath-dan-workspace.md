@@ -1,36 +1,37 @@
 # GOPATH Dan Workspace
 
-Setelah Golang berhasil di-instal, ada hal yang perlu disiapkan sebelum bisa masuk ke sesi pembuatan aplikasi, yaitu setup workspace untuk proyek-proyek yang akan dibuat. Dan di bab ini kita akan belajar bagaimana caranya.
+Ada hal yang perlu disiapkan sebelum bisa masuk ke sesi pembuatan aplikasi menggunakan Golang. Diantaranya adalah setup workspace untuk Project yang akan dibuat. Dan di bab ini kita akan belajar bagaimana caranya.
 
 ## Variabel `GOPATH`
 
-**GOPATH** adalah variabel yang digunakan oleh Golang sebagai rujukan lokasi dimana semua folder proyek disimpan. Gopath berisikian 3 buah sub folder: `src`, `bin`, dan `pkg`.
+**GOPATH** adalah variabel yang digunakan oleh Golang sebagai rujukan lokasi dimana semua folder project disimpan. Gopath berisikian 3 buah sub folder: `src`, `bin`, dan `pkg`.
 
-Proyek di Golang harus ditempatkan pada path `$GOPATH/src`. Sebagai contoh kita ingin membuat proyek dengan nama `belajar`, maka harus dibuatkan sebuah folder dengan nama `belajar` ditempatkan dalam `src` (`$GOPATH/src/belajar`). Nantinya semua file untuk keperluan proyek yang bersangkutan ditempatkan disana.
+Project di Golang harus ditempatkan dalam `$GOPATH/src`. Sebagai contoh anda ingin membuat project dengan nama `belajar`, maka harus dibuatkan sebuah folder dengan nama `belajar`, ditempatkan dalam `src` (`$GOPATH/src/belajar`).
 
-> Path separator yang digunakan sebagai contoh di buku ini adalah slash `/`. Khusus pengguna Wind\*ws, path separator adalah backslah `\`.
+> Path separator yang digunakan sebagai contoh di buku ini adalah slash `/`. Khusus pengguna Windows, path separator adalah backslah `\`.
 
 ## Setup Workspace
 
-Lokasi atau alamat folder yang akan dijadikan sebagai workspace bisa ditentukan sendiri. Anda bisa menggunakan alamat folder mana saja, bebas. Lokasi tersebut perlu disimpan kedalam path variable dengan nama `GOPATH`. Sebagai contoh, saya memilih path `$HOME/Documents/go`, maka saya daftarkan alamat tersebut. Caranya:
+Lokasi folder yang akan dijadikan sebagai workspace bisa ditentukan sendiri. Anda bisa menggunakan alamat folder mana saja, bebas, tapi jangan gunakan path dimana golang di-install. Lokasi tersebut harus didaftarkan dalam path variable dengan nama `GOPATH`. Sebagai contoh, penulis memilih path `$HOME/Documents/go`, maka saya daftarkan alamat tersebut. Caranya:
 
- - Bagi pengguna **Wind\*ws**, tambahkan path folder tersebut ke **path variable** dengan nama `GOPATH`. Setelah variabel didaftarkan, cek apakah path sudah terdaftar dengan benar.
+ - Bagi pengguna **Windows**, tambahkan path folder tersebut ke **path variable** dengan nama `GOPATH`. Setelah variabel terdaftar, cek apakah path sudah terdaftar dengan benar.
 
-    > Sering terjadi `GOPATH` tidak dikenali meskipun variabel sudah didaftarkan. Jika hal seperti ini terjadi, restart command prompt anda, lalu coba lagi.
+    > Sering terjadi `GOPATH` tidak dikenali meskipun variabel sudah didaftarkan. Jika hal seperti ini terjadi, restart CMD, lalu coba lagi.
 
- - Bagi pengguna non-**Wind\*ws**, gunakan keyword `export` untuk mendaftarkan `GOPATH`.
+ - Bagi pengguna Mac OS, export path ke `~/.bash_profile`. Untuk Linux, export ke `~/.bashrc`
 
     ```
-    $ export GOPATH=$HOME/Documents/go
+    $ echo "export GOPATH=$HOME/Documents/go" >> ~/.bash_profile
+    $ source ~/.bash_profile
     ```
 
-    Setelah variabel didaftarkan, cek apakah path sudah terdaftar dengan benar.
+    Cek apakah path sudah terdaftar dengan benar.
 
     ![Pengecekan `GOPATH` di sistem operasi non-Wind\*ws](images/3_1_path.png)
 
-Setelah `GOPATH` berhasil dikenali, perlu disiapkan 3 buah sub folder didalamnya dengan kriteria sebagai berikut:
+Setelah `GOPATH` berhasil dikenali, perlu disiapkan 3 buah sub folder didalamnya, dengan kriteria sebagai berikut:
 
- - Folder `src`, adalah path dimana proyek golang disimpan
+ - Folder `src`, adalah path dimana project golang disimpan
  - Folder `pkg`, berisi file hasil kompilasi
  - Folder `bin`, berisi file executable hasil build
 

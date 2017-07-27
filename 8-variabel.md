@@ -1,12 +1,12 @@
 # Variabel
 
-Golang mengadopsi dua jenis penulisan variabel, yang dituliskan tipe data-nya dan yang tidak. Kedua cara tersebut intinya adalah sama, pembedanya hanyalah cara penulisannya saja.
+Golang mengadopsi dua jenis penulisan variabel, yang dituliskan tipe data-nya dan yang tidak. Kedua cara tersebut valid dan tujuannya sama, pembedanya hanya cara penulisannya saja.
 
 Pada bab ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel.
 
 ## Deklarasi Variabel Dengan Tipe Data
 
-Golang memiliki aturan cukup ketat dalam hal penulisan variabel. Pada saat deklarasinya, tipe data yg digunakan harus dituliskan juga. Istilah lain dari konsep ini adalah **manifest typing**.
+Golang memiliki aturan cukup ketat dalam hal penulisan variabel. Ketika deklarasi, tipe data yg digunakan harus dituliskan juga. Istilah lain dari konsep ini adalah **manifest typing**.
 
 Berikut adalah contoh cara pembuatan variabel yang tipe datanya harus ditulis.
 
@@ -25,13 +25,15 @@ func main() {
 }
 ```
 
-Keyword `var` digunakan untuk deklarasi variabel. Contohnya bisa dilihat pada `firstName` dan `lastName`. Nilai variabel `firstName` diisi langsung ketika deklarasi, berbeda dibanding `lastName` yang nilainya diisi setelah baris kode deklarasi. Cara tersebut diperbolehkan di Golang.
+Keyword `var` di atas digunakan untuk deklarasi variabel, contohnya bisa dilihat pada `firstName` dan `lastName`.
+
+Nilai variabel `firstName` diisi langsung ketika deklarasi, berbeda dibanding `lastName` yang nilainya diisi setelah baris kode deklarasi, hal seperti ini diperbolehkan di Golang.
 
 ![Menampilkan isi variabel](images/8_1_variabel.png)
 
 ## Deklarasi Variabel Menggunakan Keyword `var`
 
-Pada kode di atas bisa dilihat bagaimana sebuah variabel dideklarasikan dan di set nilainya. Keyword `var` digunakan untuk membuat variabel baru.
+Pada kode di atas bisa dilihat bagaimana sebuah variabel dideklarasikan dan di-set nilainya. Keyword `var` digunakan untuk membuat variabel baru.
 
 Skema penggunaan keyword var:
 
@@ -47,7 +49,7 @@ var lastName string
 var firstName string = "john"
 ```
 
-Nilai variabel bisa diisi langsung pada saat deklarasi variabel.
+Nilai variabel bisa di-isi langsung pada saat deklarasi variabel.
 
 ## Penggunaan Fungsi `fmt.Printf()`
 
@@ -63,13 +65,13 @@ fmt.Printf("halo %s %s!\n", firstName, lastName)
 fmt.Println("halo", firstName, lastName + "!")
 ```
 
-Tanda plus (`+`) jika ditempatkan di antara string, fungsinya adalah untuk penggabungan string (*concatenation*).
+Tanda plus (`+`) jika ditempatkan di antara string, fungsinya adalah untuk penggabungan string (istilah lainnya: concatenation).
 
-Fungsi `fmt.Printf()` tidak menghasilkan baris baru di akhir text, oleh karena itu digunakanlah literal `\n` untuk memunculkan baris baru di akhir. Hal ini sangat berbeda jika dibandingkan dengan fungsi `fmt.Println()` yang secara otomatis menghasilkan end line (baris baru) di akhir. 
+Fungsi `fmt.Printf()` tidak menghasilkan baris baru di akhir text, oleh karena itu digunakanlah literal `\n` untuk memunculkan baris baru di akhir. Hal ini sangat berbeda jika dibandingkan dengan fungsi `fmt.Println()` yang secara otomatis menghasilkan new line (baris baru) di akhir.
 
 ## Deklarasi Variabel Tanpa Tipe Data
 
-Selain **manifest typing**, Golang juga mengadopsi metode **type inference**, yaitu metode deklarasi variabel yang tipe data-nya ditentukan oleh tipe data nilainya, kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword `var` dan tipe data tidak perlu ditulis. Agar lebih jelas, silakan perhatikan kode berikut.
+Selain **manifest typing**, Golang juga mengadopsi metode **type inference**, yaitu metode deklarasi variabel yang tipe data-nya ditentukan oleh tipe data nilainya, cara kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword `var` dan tipe data tidak perlu ditulis. Agar lebih jelas, silakan perhatikan kode berikut.
 
 ```go
 var firstName string = "john"
@@ -82,7 +84,7 @@ Variabel `lastName` dideklarasikan dengan menggunakan metode type inference. Pen
 
 Tipe data `lastName` secara otomatis akan ditentukan menyesuaikan value atau nilai-nya. Jika nilainya adalah berupa `string` maka tipe data variabel adalah `string`. Pada contoh di atas, nilainya adalah string `"wick"`.
 
-Diperbolehkan untuk tetap menggunakan keyword `var` pada saat deklarasi, dengan ketentuan tidak menggunakan tanda `:=`, melainkan tetap menggunakan `=`. Contohnya bisa dilihat pada kode berikut.
+Diperbolehkan untuk tetap menggunakan keyword `var` pada saat deklarasi meskipun tanpa menuliskan tipe data, dengan ketentuan tidak menggunakan tanda `:=`, melainkan tetap menggunakan `=`. Contohnya bisa dilihat pada kode berikut.
 
 ```go
 // menggunakan var, tanpa tipe data, menggunakan perantara "="
@@ -92,9 +94,9 @@ var firstName = "john"
 lastName := "wick"
 ```
 
-Kedua deklarasi di atas maksudnya adalah sama. Silakan pilih yang nyaman di hati.
+Kedua deklarasi di atas maksudnya sama. Silakan pilih yang nyaman di hati.
 
-Tanda `:=` hanya digunakan sekali di awal pada saat deklarasi saja. Setelah itu, untuk assignment nilai selanjutnya harus menggunakan tanda `=`. Contoh:
+Tanda `:=` hanya digunakan sekali di awal pada saat deklarasi. Untuk assignment nilai selanjutnya harus menggunakan tanda `=`, contoh:
 
 ```go
 lastName := "wick"
@@ -104,14 +106,14 @@ lastName = "bourne"
 
 ## Deklarasi Multi Variabel
 
-Golang mendukung metode deklarasi banyak variabel secara bersamaan, caranya dengan menuliskan variabel-variabel-nya dengan pembatas tanda koma (`,`). Untuk pengisian nilainya-pun diperbolehkan secara bersamaan. Contoh:
+Golang mendukung metode deklarasi banyak variabel secara bersamaan, caranya dengan menuliskan variabel-variabel-nya dengan pembatas tanda koma (`,`). Untuk pengisian nilainya-pun diperbolehkan secara bersamaan, contoh:
 
 ```go
 var first, second, third string
 first, second, third = "satu", "dua", "tiga"
 ```
 
-Pengisian nilai juga bisa dilakukan bersamaan pada saat deklarasi. Caranya dengan menuliskan nilai masing-masing variabel berurutan sesuai variabelnya dengan pembatas koma (`,`). Contohnya seperti pada kode berikut.
+Pengisian nilai juga bisa dilakukan bersamaan pada saat deklarasi. Caranya dengan menuliskan nilai masing-masing variabel berurutan sesuai variabelnya dengan pembatas koma (`,`).
 
 ```go
 var fourth, fifth, sixth string = "empat", "lima", "enam"
@@ -123,7 +125,7 @@ Kalau ingin lebih ringkas:
 seventh, eight, ninth := "tujuh", "delapan", "sembilan"
 ```
 
-Dengan menggunakan teknik type inference, deklarasi multi variabel bisa dilakukan untuk variabel-variabel yang tipe data satu sama lainnya berbeda. Contoh:
+Dengan menggunakan teknik type inference, deklarasi multi variabel bisa dilakukan untuk variabel-variabel yang tipe data satu sama lainnya berbeda.
 
 ```
 one, isFriday, twoPointTwo, say := 1, true, 2.2, "hello"
@@ -133,7 +135,7 @@ Istimewa bukan? Istimewa sekali.
 
 ## Variabel Underscore `_`
 
-Golang memiliki aturan unik yang tidak dimiliki bahasa lain, yaitu tidak boleh ada satupun variabel yang menganggur. Artinya, semua variabel yang dideklarasikan harus digunakan. Jika ada variabel yang tidak digunakan tapi dideklarasikan, program akan gagal dikompilasi.
+Golang memiliki aturan unik yang jarang dimiliki bahasa lain, yaitu tidak boleh ada satupun variabel yang menganggur. Artinya, semua variabel yang dideklarasikan harus digunakan. Jika ada variabel yang tidak digunakan tapi dideklarasikan, error akan muncul dan program tidak bisa di-run ataupun di-compile.
 
 ![Variabel pengangguran](images/8_2_unused_variabel.png)
 
@@ -145,13 +147,13 @@ _ = "Golang itu mudah"
 name, _ := "john", "wick"
 ```
 
-Pada contoh di atas, variabel `name` akan berisikan text `john`, sedang nilai `wick` akan ditampung oleh variabel underscore, menandakan bahwa nilai tersebut tidak akan digunakan.
+Pada contoh di atas, variabel `name` akan berisikan text `john`, sedang nilai `wick` ditampung oleh variabel underscore, menandakan bahwa nilai tersebut tidak akan digunakan.
 
 Variabel underscore adalah predefined, jadi tidak perlu menggunakan `:=` untuk pengisian nilai, cukup dengan `=` saja. Namun khusus untuk pengisian nilai multi variabel yang dilakukan dengan metode type inference, boleh didalamnya terdapat variabel underscore.
 
-Biasanya underscore sering dimanfaatkan untuk menampung nilai balik fungsi yang tidak digunakan.
+Biasanya variabel underscore sering dimanfaatkan untuk menampung nilai balik fungsi yang tidak digunakan.
 
-Perlu diketahui, bahwa isi variabel underscore tidak dapat ditampilkan. Data yang sudah masuk variabel tersebut akan hilang. Ibarat blackhole, sekali masuk, tidak akan bisa keluar :-)
+Perlu diketahui, bahwa isi variabel underscore tidak dapat ditampilkan. Data yang sudah masuk variabel tersebut akan hilang. Ibarat blackhole, sekali masuk, tidak akan bisa keluar 😁
 
 ## Deklarasi Variabel Menggunakan Keyword `new`
 
@@ -166,7 +168,7 @@ fmt.Println(*name)  // ""
 
 Variabel `name` menampung data bertipe **pointer string**. Jika ditampilkan yang muncul bukanlah nilainya melainkan alamat memori nilai tersebut (dalam bentuk notasi heksadesimal). Untuk menampilkan nilai aslinya, variabel tersebut perlu di-**dereference** terlebih dahulu, menggunakan tanda asterisk (`*`).
 
-Mungkin untuk sekarang banyak yang akan bingung, namun tak apa, karena nantinya di bab 22 akan dikupas habis tentang apa itu pointer dan dereference.
+Mungkin untuk sekarang banyak yang akan bingung tentang apa itu pointer, namun tak apa, karena nantinya di bab 22 akan dikupas habis topik pointer dan dereference.
 
 ## Deklarasi Variabel Menggunakan Keyword `make`
 
@@ -176,4 +178,4 @@ Keyword ini hanya bisa digunakan untuk pembuatan beberapa jenis variabel saja, y
 - slice
 - map
 
-Dan lagi, mungkin banyak yang akan bingung, tapi tak apa. Ketika sudah masuk ke pembahasan masing-masing poin tersebut, akan terlihat apa kegunaan dari keyword ini.
+Dan lagi, mungkin banyak yang akan bingung. Ketika sudah masuk ke pembahasan masing-masing poin tersebut, akan terlihat apa kegunaan dari keyword `make` ini.

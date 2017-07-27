@@ -1,38 +1,37 @@
 # Instalasi Golang
 
-Hal pertama yang perlu dilakukan sebelum bisa menggunakan Golang adalah menginstalnya terlebih dahulu. Cara instalasinya berbeda-beda untuk tiap jenis sistem operasi. Panduan instalasi Golang sebenarnya sudah disediakan, bisa dilihat di situs official-nya [http://golang.org/doc/install#install](http://golang.org/doc/install#install).
+Hal pertama yang perlu dilakukan sebelum bisa menggunakan Golang adalah meng-install-nya terlebih dahulu. Panduan instalasi sebenarnya sudah disediakan di situs official Golang [http://golang.org/doc/install#install](http://golang.org/doc/install#install).
 
-Bab ini merupakan ringkasan dari panduan instalasi yang disediakan oleh Golang.
+Disini penulis mencoba meringkas pandian instalasi yang telah disediakan, agar lebih mudah untuk diikuti terutama untuk pembaca yang baru belajar.
 
-> Di buku ini versi Golang yang digunakan adalah **1.7**. Direkomendasikan menggunakan versi tersebut, atau versi lain minimal **1.4.2** ke atas.<br /><br />Di golang, perbedaan signifikan antara versi [**1.4.2**](https://golang.org/doc/go1.4.2), [**1.5**](https://golang.org/doc/go1.5), [**1.6**](https://golang.org/doc/go1.6), [**1.7**](https://golang.org/doc/go1.7) kebanyakan adalah dibagian performa, hanya sedikit update dibagian sintaks bahasa.
+> Golang yang digunakan adalah versi **1.8.3**. Direkomendasikan menggunakan versi tersebut, atau versi lain minimal **1.4.2** ke atas.<br /><br />Perbedaan signifikan antara versi [**1.4.2**](https://golang.org/doc/go1.4.2), [**1.5**](https://golang.org/doc/go1.5), [**1.6**](https://golang.org/doc/go1.6), [**1.7**](https://golang.org/doc/go1.7) kebanyakan adalah dibagian performa, hanya sedikit update dibagian sintaks bahasa.
+
+Link untuk download installer golang: https://golang.org/dl/. Anda bisa langsung unduh dari URL tersebut lalu lakukan instalasi sendiri, atau bisa mengikuti petunjuk berikut.
 
 ## Instalasi Golang di Windows
 
- 1. Download terlebih dahulu installer-nya. Pilih sesuai jenis bit prosesor yang digunakan.
+ 1. Download terlebih dahulu installer-nya. Pilih sesuai jenis bit yang digunakan.
 
-    - 32bit => [go1.7.wind\*ws-386.msi](https://storage.googleapis.com/golang/go1.7.windows-386.msi)
-    - 64bit => [go1.7.wind\*ws-amd64.msi](https://storage.googleapis.com/golang/go1.7.windows-amd64.msi)
+    - 32bit => [go1.8.3.windows-386.msi](https://storage.googleapis.com/golang/go1.8.3.windows-386.msi)
+    - 64bit => [go1.8.3.windows-amd64.msi](https://storage.googleapis.com/golang/go1.8.3.windows-amd64.msi)
 
+ 2. Setelah ter-download, jalankan installer, klik **next** sampai proses instalasi selesai. By default jika anda tidak merubah path pada saat instalasi, Golang akan terinstall di terinstal di `C:\go`. Path tersebut secara otomatis didaftarkan dalam **path variable**.
 
- 2. Setelah ter-download, jalankan installer, klik **next** sampai proses instalasi selesai. Default-nya Golang akan terinstal di `c:\go\bin`. Path tersebut akan secara otomatis terdaftar di **path variable**.
-
- 3. Buka **Command Prompt** / **CMD**, eksekusi perintah berikut untuk mengetes apakah Golang sudah terinstal dengan benar.
+ 3. Buka **Command Prompt** / **CMD**, eksekusi perintah untuk mengecek versi Golang.
 
     ```
     $ go version
     ```
 
- 4. Jika output command di atas adalah versi Golang yang di-instal, maka instalasi berhasil.
+ 4. Jika output adalah sama dengan Golang yang ter-install, menandakan instalasi berhasil.
 
-> Sering terjadi command `go version` tidak bisa dijalankan meskipun Golang sudah terinstal. Solusinya adalah dengan restart CMD (close CMD, lalu buka kembali). Setelah itu coba jalankan sekali lagi command tersebut.
+> Sering terjadi command `go version` tidak bisa dijalankan meskipun instalasi sukses. Solusinya bisa dengan restart CMD (close CMD, lalu buka kembali). Setelah itu coba jalankan sekali lagi command tersebut.
 
-## Instalasi Golang di Mac OSX
+## Instalasi Golang di Mac OS
 
-Cara termudah instalasi Golang di **M\*c OSX** adalah dengan menggunakan [homebrew](http://brew.sh/). Homebrew sendiri adalah **package manager** khusus untuk M\*c OSX (mirip seperti `apt-get` milik Ubuntu).
+Cara termudah instalasi Golang di **Mac OS** adalah menggunakan [homebrew](http://brew.sh/).
 
-Di bawah ini merupakan langkah instalasi Golang menggunakan homebrew.
-
- 1. Install terlebih dahulu homebrew (jika belum ada), dengan cara mengeksekusi perintah berikut di **terminal**.
+ 1. Install terlebih dahulu Homebrew (jika belum ada), jalankan perintah tersebut di **terminal**.
 
     ```
     $ ruby -e "$(curl -fsSL http://git.io/pVOl)"
@@ -44,53 +43,51 @@ Di bawah ini merupakan langkah instalasi Golang menggunakan homebrew.
     $ brew install go
     ```
 
- 3. Selanjutnya, eksekusi perintah di bawah ini untuk mengetes apakah golang sudah terinstal dengan benar.
+ 3. Tambahkan path ke environment variable.
+
+    ```
+    $ echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bash_profile
+    $ source ~/.bash_profile
+    ```
+
+ 4. Jalankan command untuk mengecek versi Golang.
 
     ```
     $ go version
     ```
 
- 4. Jika output command di atas adalah versi Golang yang di-instal, maka instalasi berhasil.
+ 5. Jika output adalah sama dengan Golang yang ter-install, menandakan instalasi berhasil.
 
-## Instalasi Golang di Ubuntu
-
-Cara menginstal Golang di **Ub\*ntu** bisa dengan memanfaatkan `apt-get`. Silakan ikuti petunjuk di bawah ini.
-
- 1. Jalankan command berikut di **terminal**.
-
-    ```
-    $ sudo add-apt-repository ppa:gophers/go
-    $ sudo apt-get update
-    $ sudo apt-get install Golang-stable
-    ```
-
- 2. Setelah instalasi selesai, eksekusi perintah di bawah ini untuk mengetes apakah Golang sudah terinstal dengan benar.
-
-    ```
-    $ go version
-    ```
-
- 3. Jika output command di atas adalah versi Golang yang di-instal, maka instalasi berhasil.
-
-## Instalasi Golang di Distro Linux Lain
+## Instalasi Golang di Linux
 
  1. Download archive berikut, pilih sesuai jenis bit komputer anda.
 
-    - 32bit => [go1.7.lin\*x-386.tar.gz](https://storage.googleapis.com/golang/go1.7.linux-386.tar.gz)
-    - 64bit => [go1.7.lin\*x-amd64.tar.gz](https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz)
+     - 32bit => [go1.8.3.linux-386.msi](https://storage.googleapis.com/golang/go1.8.3.linux-386.tar.gz)
+     - 64bit => [go1.8.3.linux-amd64.msi](https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz)
 
-
- 2. Buka **terminal**, ekstrak archive tersebut ke `/usr/local`. Setelah itu export path-nya. Gunakan command di bawah ini untuk melakukan hal tersebut.
+    Download bisa dilakukan lewat CLI, menggunakan `wget` atau `curl`.
 
     ```
-    $ tar zxvf go1.7.lin*x-....tar.gz -C /usr/local
-    $ export PATH=$PATH:/usr/local/go/bin
+    $ wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
     ```
 
- 3. Selanjutnya, eksekusi perintah berikut untuk mengetes apakah Golang sudah terinstal dengan benar.
+ 2. Buka **terminal**, extract archive tersebut ke `/usr/local`.
+
+    ```
+    $ tar -C /usr/local -xzf go1.8.3.linux-amd64.tar.gz
+    ```
+
+ 3. Setelah itu export path-nya, gunakan command di bawah ini.
+
+    ```
+    $ echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
+    $ source ~/.bashrc
+    ```
+
+ 4. Selanjutnya, eksekusi perintah berikut untuk mengetes apakah Golang sudah terinstal dengan benar.
 
     ```
     $ go version
     ```
 
- 4. Jika output command di atas adalah versi Golang yang di-instal, maka instalasi berhasil.
+ 5. Jika output adalah sama dengan Golang yang ter-install, menandakan instalasi berhasil.

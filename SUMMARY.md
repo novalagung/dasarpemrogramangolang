@@ -1,6 +1,8 @@
 # Daftar Isi
 
  * [Berkenalan Dengan Golang](1-berkenalan-dengan-golang.md)
+    * [Tentang Penulis](1.1-tentang-penulis.md)
+    * [Tentang Buku Ini](1.2-tentang-buku.md)
  * [Instalasi Golang](2-instalasi-golang.md)
  * [GOPATH Dan Workspace](3-gopath-dan-workspace.md)
  * [Instalasi Editor](4-instalasi-editor.md)

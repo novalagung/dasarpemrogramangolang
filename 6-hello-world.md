@@ -1,8 +1,8 @@
 # Program Pertama: Hello World
 
-Semua persiapan sudah selesai, saatnya mulai masuk pada sesi pembuatan program. Program pertama yang akan dibuat adalah aplikasi sederhana untuk memunculkan tulisan **Hello World**.
+Semua persiapan sudah selesai, saatnya mulai masuk pada sesi pembuatan program. Program pertama yang akan kita buat adalah aplikasi kecil untuk memunculkan tulisan **Hello World**.
 
-Di bab ini akan dijelaskan secara bertahap dari awal. Mulai pembuatan proyek, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi aplikasi.
+Di bab ini akan dijelaskan secara bertahap dari awal. Mulai pembuatan project, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi aplikasi.
 
 ## Load `GOPATH` Ke Sublime Text
 
@@ -15,11 +15,11 @@ Hal pertama yang perlu dilakukan, adalah me-load atau memunculkan folder `GOPATH
 
 ![Gopath di sublime](images/6_1_sublime_project_explorer.png)
 
-> Nama variabel di sistem operasi non-Wind\*ws diawali dengan tanda dollar `$`, sebagai contoh `$GOPATH`. Sedangkan di Wind\*ws, nama variabel diapit karakter persen `%`, contohnya seperti `%GOPATH%`.
+> Nama variabel di sistem operasi non-Windows diawali dengan tanda dollar `$`, sebagai contoh `$GOPATH`. Sedangkan di Windows, nama variabel diapit karakter persen `%`, contohnya seperti `%GOPATH%`.
 
-## Menyiapkan Folder Proyek
+## Menyiapkan Folder Project
 
-Selanjutnya kita siapkan sebuah proyek untuk keperluan pembuatan program. Buat direktori baru dalam `$GOPATH/src` dengan nama folder silakan ditentukan sendiri (boleh menggunakan nama `belajar-golang` atau lainnya). Agar lebih praktis, buat folder tersebut lewat Sublime. Berikut adalah caranya.
+Selanjutnya, buat project folder baru dalam `$GOPATH/src`, dengan nama folder bebas (boleh menggunakan nama `belajar-golang` atau lainnya). Agar lebih praktis, buat folder tersebut lewat Sublime. Berikut adalah caranya.
 
  1. Klik kanan di folder `src`
  2. Klik **New Folder**, di bagian bawah akan muncul inputan kecil **Folder Name**
@@ -29,9 +29,9 @@ Selanjutnya kita siapkan sebuah proyek untuk keperluan pembuatan program. Buat d
 
 ## Menyiapkan File Program
 
-File program disini maksudnya adalah file yang berisikan kode program Golang, file yang berekstensi `.go`.
+File program disini maksudnya adalah file yang berisikan kode program Golang, yang berekstensi `.go`.
 
-Di dalam proyek yang telah dibuat (`$GOPATH/src/belajar-golang/`), perlu disiapkan sebuah file dengan nama bebas, yang jelas harus ber-ekstensi `.go` (Pada contoh ini saya menggunakan nama file `bab6-hello-world.go`).
+Di dalam project yang telah dibuat (`$GOPATH/src/belajar-golang/`), siapkan sebuah file dengan nama bebas, yang jelas harus ber-ekstensi `.go` (Pada contoh ini saya menggunakan nama file `bab6-hello-world.go`).
 
 Pembuatan file program juga akan dilakukan lewat Sublime. Caranya silakan ikut petunjuk berikut.
 
@@ -45,11 +45,11 @@ Pembuatan file program juga akan dilakukan lewat Sublime. Caranya silakan ikut p
 
 ## Program Pertama: Hello Word
 
-Setelah folder proyek dan file program sudah siap, saatnya untuk mulai masuk ke sesi penulisan program atau **coding**.
+Setelah project folder dan file program sudah siap, saatnya untuk mulai masuk ke sesi penulisan program atau **coding**.
 
 Dibawah ini merupakan contoh kode program sederhana untuk memunculkan text atau tulisan **"hello world"** ke layar output (command line).
 
-Silakan salin kode berikut ke file program yang telah dibuat. Sebisa mungkin jangan copy paste. Biasakan untuk menulis dari awal, agar cepat terbiasa dan familiar dengan pemrograman Golang.
+Silakan salin kode berikut ke file program yang telah dibuat. Sebisa mungkin jangan copy paste. Biasakan untuk menulis dari awal, agar cepat terbiasa dan familiar dengan Golang.
 
 ```go
 package main
@@ -63,36 +63,38 @@ func main() {
 
 Setelah kode disalin, buka terminal (atau CMD bagi pengguna Wind\*ws), lalu masuk ke direktori proyek menggunakan perintah `cd`.
 
- - Wind\*ws
+ - Windows
 
     ```
     $ cd %GOPATH%\src\belajar-golang
     ```
 
- - Non-Wind\*ws
+ - Non-Windows
 
     ```
     $ cd $GOPATH/src/belajar-golang
     ```
 
 
-Setelah itu jalankan program dengan perintah `go run`.
+Jalankan program dengan perintah `go run`.
 
 ```
-$ go run bab6-hello-world.go 
+$ go run bab6-hello-world.go
 ```
 
-Akan muncul tulisan **hello world** di layar console.
+Hasilnya, muncul tulisan **hello world** di layar console.
 
 ![Menjalankan program](images/6_4_execute_hello_world.png)
 
 Selamat! Anda telah berhasil membuat program menggunakan Golang!
 
+---
+
 Meski kode program di atas sangat sederhana, mungkin akan muncul beberapa pertanyaan di benak. Di bawah ini merupakan detail penjelasan mengenai kode di atas.
 
 ## Penggunaan Keyword `package`
 
-Setiap file program harus memiliki package. Setiap proyek harus ada satu file dengan package bernama `main`. File yang ber-package main, akan di eksekusi pertama kali ketika program di jalankan.
+Setiap file program harus memiliki package. Setiap project harus ada satu file dengan package bernama `main`. File yang ber-package `main`, akan di eksekusi pertama kali ketika program di jalankan.
 
 Cara penentuan package adalah menggunakan keyword `package`, berikut adalah contoh penggunaannya.
 
@@ -103,7 +105,7 @@ package main
 
 ## Penggunaan Keyword `import`
 
-Keyword `import` digunakan untuk meng-include package lain kedalam file program, agar isi package yang di-include bisa dimanfaatkan.
+Keyword `import` digunakan untuk meng-include atau memasukan package lain kedalam file program, agar isi package yang di-include bisa dimanfaatkan.
 
 Package `fmt` merupakan salah satu package yang disediakan oleh Golang, berisikan banyak fungsi untuk keperluan **I/O** yang berhubungan dengan text.
 
@@ -137,9 +139,9 @@ fmt.Println("<isi-pesan>")
 fmt.Println("hello world")
 ```
 
-Fungsi `fmt.Println()` berada pada package `fmt`, maka untuk menggunakannya perlu di-import terlebih dahulu package tersebut.
+Fungsi `fmt.Println()` berada dalam package `fmt`, maka untuk menggunakannya perlu package tersebut untuk di-import terlebih dahulu.
 
-Fungsi ini bisa menampung parameter yang tidak terbatas jumlahnya. Semua data parameter akan dimunculkan dengan pemisah tanda spasi. Contohnya bisa dilihat di kode berikut.
+Fungsi `fmt.Println()` dapat menampung parameter yang tidak terbatas jumlahnya. Semua data parameter akan dimunculkan dengan pemisah tanda spasi. Contohnya bisa dilihat di kode berikut.
 
 ```go
 fmt.Println("hello", "world!", "how", "are", "you")

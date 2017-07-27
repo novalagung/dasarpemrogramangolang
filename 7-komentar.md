@@ -24,7 +24,7 @@ func main() {
 }
 ```
 
-Mari kita praktekan kode di atas. Siapkan file program baru di proyek `belajar-golang` dengan nama bisa apa saja. isi dengan kode di atas, lalu jalankan.
+Mari kita praktekan kode di atas. Siapkan file program baru dalam project folder `belajar-golang` dengan nama bebas. Isi dengan kode di atas, lalu jalankan.
 
 ![Contoh komentar inline](images/7_1_inline_comment.png)
 
@@ -44,4 +44,4 @@ fmt.Println("hello world")
 // fmt.Println("baris ini tidak akan di eksekusi")
 ```
 
-Sifat komentar ini sama seperti komentar inline, yaitu sama-sama diabaikan oleh Compiler.
+Sifat komentar ini sama seperti komentar inline, yaitu sama-sama diabaikan oleh compiler.
