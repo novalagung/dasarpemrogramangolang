@@ -25,8 +25,8 @@ func main() {
 	fmt.Println("data asli \t\t:", data)
 	// data asli : [wick jason ethan]
 
-	fmt.Println("filter ada huruf \"i\"\t:", dataContainsO)
-	// filter ada huruf "i" : [wick]
+	fmt.Println("filter ada huruf \"o\"\t:", dataContainsO)
+	// filter ada huruf "o" : [jason]
 
 	fmt.Println("filter jumlah huruf \"5\"\t:", dataLenght5)
 	// filter jumlah huruf "5" : [jason ethan]
