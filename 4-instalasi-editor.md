@@ -1,4 +1,4 @@
-# Instalasi Editor
+# 4. Instalasi Editor
 
 Proses pembuatan aplikasi menggunakan Golang akan lebih maksimal jika didukung oleh editor atau **IDE** yang pas. Ada cukup banyak pilihan bagus yang bisa dipertimbangkan, diantaranya: Brackets, Intellij, Netbeans, Atom, Brackets, Visual Studio Code, Sublime Text, dan lainnya.
 
@@ -8,7 +8,7 @@ Bagi yang memilih Sublime Text, penulis sarankan untuk meng-install plugin berna
 
 Di bab ini akan dijelaskan bagaimana cara instalasi editor Sublime Text, Package Control, dan plugin GoSublime.
 
-## Instalasi Editor Sublime Text
+## 4.1. Instalasi Editor Sublime Text
 
  1. Download **Sublime Text versi 3** di [http://www.sublimetext.com/3](http://www.sublimetext.com/3), pilih sesuai dengan sistem operasi yang digunakan.
  2. Jalankan installer.
@@ -16,7 +16,7 @@ Di bab ini akan dijelaskan bagaimana cara instalasi editor Sublime Text, Package
 
 ![Tampilan Sublime Text 3](images/4_1_sublime_text.png)
 
-## Instalasi Package Control
+## 4.2. Instalasi Package Control
 
 Package control merupakan aplikasi 3rd party untuk Sublime Text, digunakan untuk mempermudah instalasi plugin. Default-nya Sublime tidak menyediakan aplikasi ini, kita perlu meng-install-nya sendiri. Silakan ikuti petunjuk berikut untuk cara instalasinya.
 
@@ -32,7 +32,7 @@ Package control merupakan aplikasi 3rd party untuk Sublime Text, digunakan untuk
 
  4. Setelah selesai, tutup aplikasi, lalu buka kembali. Package Control sudah berhasil di-install.
 
-## Instalasi Plugin GoSublime
+## 4.3. Instalasi Plugin GoSublime
 
 Dengan memanfaatkan Package Control, instalasi plugin akan menjadi lebih mudah. Berikut merupakan langkah instalasi plugin GoSublime.
 

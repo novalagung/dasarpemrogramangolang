@@ -1,16 +1,16 @@
-# Command
+# 5. Command
 
 Pengembangan aplikasi Golang tak jauh dari hal-hal yang berbau CLI atau **Command Line Interface**. Proses kompilasi, testing, eksekusi program, semua dilakukan lewat command line.
 
 Golang menyediakan command `go`, di bab ini kita akan belajar mengenai pemanfaatannya.
 
-## Command `go run`
+## 5.1. Command `go run`
 
 Command `go run` digunakan untuk eksekusi file program (file ber-ekstensi `.go`). Cara penggunaannya dengan menuliskan command tersebut diikut argumen nama file.
 
 Berikut adalah contoh penerapan `go run` untuk eksekusi file program `bab5.go` yang tersimpan di path `$GOPATH/src/belajar-golang`.
 
-```
+```bash
 $ cd $GOPATH/src/belajar-golang
 $ go run bab5.go
 ```
@@ -21,31 +21,31 @@ Command `go run` hanya bisa digunakan pada file yang package-nya adalah **main**
 
 Jika ada banyak file yang ber-package `main`, dan file-file tersebut di-import di file utama, maka eksekusinya adalah dengan menyisipkan semua file sebagai argument `go run` (lebih jelasnya akan dibahas pada bab 25). Contohnya bisa dilihat pada kode berikut.
 
-```
+```bash
 $ go run bab5.go library.go
 ```
 
 ![Eksekusi banyak file main](images/5_2_go_run_multi.png)
 
-Atau bisa dengan menggunakan `*.go`.
+Atau bisa dengan menggunakan `*.go`, tanpa tidak perlu menuliskan nama-nama file program yang ada.
 
-```
+```bash
 $ go run *.go
 ```
 
-## Command `go test`
+## 5.2. Command `go test`
 
 Golang menyediakan package `testing`, berguna untuk keperluan unit testing. File yang akan di-test harus ber-suffix `_test.go`.
 
 Berikut adalah contoh penggunaan command `go test` untuk testing file `bab5_test.go`.
 
-```
+```bash
 $ go test bab5_test.go
 ```
 
 ![Unit testing menggunakan `go test`](images/5_3_go_test.png)
 
-## Command `go build`
+## 5.3. Command `go build`
 
 Command ini digunakan untuk mengkompilasi file program.
 
@@ -59,20 +59,20 @@ Pada contoh di atas, file `bab5.go` di-build, menghasilkan file baru pada folder
 
 > Pada pengguna Windows, file executable ber-ekstensi `.exe`.
 
-## Command `go install`
+## 5.4. Command `go install`
 
 Command `go install` memiliki fungsi yang sama dengan `go build`, hanya saja setelah proses kompilasi selesai, dilanjutkan ke proses instalasi program yang bersangkutan.
 
 Target eksekusi harus berupa folder proyek (bukan file `.go`), dan path folder tersebut dituliskan relatif terhadap `$GOPATH/src`. Contoh:
 
-```
+```bash
 $ go install github.com/novalagung/godong
 ```
 
 `go install` menghasilkan output berbeda untuk package `main` dan non-main.
 
- - Pada package **non-main**, menghasilkan file berekstensi `.a` tersimpan dalam folder `$GOPATH/pkg`
- - Pada package **main**, menghasilkan file *executable* tersimpan dalam folder `$GOPATH/bin`
+ - Pada package **non-main**, menghasilkan file berekstensi `.a` tersimpan dalam folder `$GOPATH/pkg`.
+ - Pada package **main**, menghasilkan file *executable* tersimpan dalam folder `$GOPATH/bin`.
 
 Berikut merupakan contoh penerapan `go install`.
 
@@ -80,14 +80,14 @@ Berikut merupakan contoh penerapan `go install`.
 
 Pada kode di atas bisa dilihat command `go install` dieksekusi 2 kali.
 
- 1. Pada package non-main, `github.com/novalagung/godong`. Hasil instalasi adalah file berekstensi `.a` tersimpan pada folder `$GOPATH/pkg`
- 2. Pada package main, `github.com/novalagung/godong/godong_test`. Hasil instalasi adalah file executable tersimpan pada folder `$GOPATH/bin`
+ 1. Pada package non-main, `github.com/novalagung/godong`. Hasil instalasi adalah file berekstensi `.a` tersimpan pada folder `$GOPATH/pkg`.
+ 2. Pada package main, `github.com/novalagung/godong/godong_test`. Hasil instalasi adalah file executable tersimpan pada folder `$GOPATH/bin`.
 
-## Command `go get`
+## 5.5. Command `go get`
 
-Command ini berbeda dengan command-command yang sudah dibahas di atas. `go get` digunakan untuk men-download package. Sebagai contoh saya ingin men-download package **MGO**.
+Command ini berbeda dengan command-command yang sudah dibahas di atas. `go get` digunakan untuk men-download package. Sebagai contoh saya ingin men-download package **Mgo**.
 
-```
+```bash
 $ go get gopkg.in/mgo.v2
 $ ls $GOPATH/src/gopkg.in/mgo.v2
 ```

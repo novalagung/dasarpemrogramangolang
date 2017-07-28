@@ -1,8 +1,8 @@
-# GOPATH Dan Workspace
+# 3. GOPATH Dan Workspace
 
-Ada hal yang perlu disiapkan sebelum bisa masuk ke sesi pembuatan aplikasi menggunakan Golang. Diantaranya adalah setup workspace untuk Project yang akan dibuat. Dan di bab ini kita akan belajar bagaimana caranya.
+Ada beberapa hal yang perlu disiapkan sebelum bisa masuk ke sesi pembuatan aplikasi menggunakan Golang, yaitu setup workspace untuk Project yang akan dibuat. Dan di bab ini kita akan belajar bagaimana caranya.
 
-## Variabel `GOPATH`
+## 3.1. Variabel `GOPATH`
 
 **GOPATH** adalah variabel yang digunakan oleh Golang sebagai rujukan lokasi dimana semua folder project disimpan. Gopath berisikian 3 buah sub folder: `src`, `bin`, dan `pkg`.
 
@@ -10,7 +10,7 @@ Project di Golang harus ditempatkan dalam `$GOPATH/src`. Sebagai contoh anda ing
 
 > Path separator yang digunakan sebagai contoh di buku ini adalah slash `/`. Khusus pengguna Windows, path separator adalah backslah `\`.
 
-## Setup Workspace
+## 3.2. Setup Workspace
 
 Lokasi folder yang akan dijadikan sebagai workspace bisa ditentukan sendiri. Anda bisa menggunakan alamat folder mana saja, bebas, tapi jangan gunakan path dimana golang di-install. Lokasi tersebut harus didaftarkan dalam path variable dengan nama `GOPATH`. Sebagai contoh, penulis memilih path `$HOME/Documents/go`, maka saya daftarkan alamat tersebut. Caranya:
 
@@ -20,7 +20,7 @@ Lokasi folder yang akan dijadikan sebagai workspace bisa ditentukan sendiri. And
 
  - Bagi pengguna Mac OS, export path ke `~/.bash_profile`. Untuk Linux, export ke `~/.bashrc`
 
-    ```
+    ```bash
     $ echo "export GOPATH=$HOME/Documents/go" >> ~/.bash_profile
     $ source ~/.bash_profile
     ```

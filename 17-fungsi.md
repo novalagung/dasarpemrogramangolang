@@ -1,10 +1,10 @@
-# Fungsi
+# 17. Fungsi
 
-Fungi merupakan aspek penting dalam pemrograman. Definisi fungsi sendiri adalah sekumpulan blok kode yang dibungkus dengan nama tertentu. Penerapan fungsi yang tepat akan menjadikan kode lebih modular dan juga *dry* (kependekan dari *don't repeat yourself*), karena tak perlu menuliskan banyak proses berkali-kali, cukup sekali saja dan tinggal panggil jika dibutuhkan.
+Fungi merupakan aspek penting dalam pemrograman. Definisi fungsi sendiri adalah sekumpulan blok kode yang dibungkus dengan nama tertentu. Penerapan fungsi yang tepat akan menjadikan kode lebih modular dan juga *dry* (kependekan dari *don't repeat yourself*), tak perlu menuliskan banyak kode yang kegunaannya berkali-kali, cukup sekali saja lalu panggil sesuai kebutuhan.
 
 Di bab ini kita akan belajar tentang penggunaan fungsi di Golang.
 
-## Penerapan Fungsi
+## 17.1. Penerapan Fungsi
 
 Sebenarnya tanpa sadar, kita sudah menerapkan fungsi di bab-bab sebelum ini, yaitu pada fungsi `main`. Fungsi `main` merupakan fungsi yang paling utama pada program Golang.
 
@@ -12,7 +12,7 @@ Cara membuat fungsi cukup mudah, yaitu dengan menuliskan keyword `func`, diikuti
 
 Parameter sendiri adalah variabel yang disisipkan pada saat pemanggilan fungsi.
 
-Berikut adalah contoh penerapan fungsi.
+Silakan lihat dan praktekan kode tentang implementasi fungsi berikut.
 
 ```go
 package main
@@ -31,17 +31,17 @@ func printMessage(message string, arr []string) {
 }
 ```
 
-Pada kode di atas, fungsi baru dibuat dengan nama `printMessage` memiliki 2 buah parameter yaitu string `message` dan slice string `arr`.
+Pada kode di atas, sebuah fungsi baru dibuat dengan nama `printMessage` memiliki 2 buah parameter yaitu string `message` dan slice string `arr`.
 
-Fungsi tersebut dipanggil dalam `main`, dengan disisipkan 2 buah data sebagai parameter, data pertama adalah string `"hallo"` yang ditampung parameter `message`, dan slice string `names` yang nilainya ditampung oleh parameter `arr`.
+Fungsi tersebut dipanggil dalam `main`, dengan disisipkan 2 buah data sebagai parameter, data pertama adalah string `"hallo"` yang ditampung parameter `message`, dan parameter ke 2 adalah slice string `names` yang nilainya ditampung oleh parameter `arr`.
 
-Di dalam `printMessage`, nilai `arr` yang merupakan slice string digabungkan menjadi sebuah string dengan pembatas adalah karakter **spasi**. Penggabungan slice dapat dilakukan dengan memanfaatkan fungsi `strings.Join()`. Fungsi ini berada di dalam package `strings`.
+Di dalam `printMessage`, nilai `arr` yang merupakan slice string digabungkan menjadi sebuah string dengan pembatas adalah karakter **spasi**. Penggabungan slice dapat dilakukan dengan memanfaatkan fungsi `strings.Join()` (berada di dalam package `strings`).
 
 ![Contoh penggunaan fungsi](images/17_1_function.png)
 
-## Fungsi Dengan Return Value / Nilai Balik
+## 17.2. Fungsi Dengan Return Value / Nilai Balik
 
-Sebuah fungsi bisa didesain tidak mengembalikan apa-apa (*void*), atau bisa mengembalikan suatu nilai. Fungsi yang memiliki nilai kembalian, harus ditentukan tipe data nilai baliknya pada saat deklarasi.
+Sebuah fungsi bisa didesain tidak mengembalikan nilai balik (*void*), atau bisa mengembalikan suatu nilai. Fungsi yang memiliki nilai kembalian, harus ditentukan tipe data nilai baliknya pada saat deklarasi.
 
 Program berikut merupakan contoh penerapan fungsi yang memiliki return value.
 
@@ -73,7 +73,7 @@ func randomWithRange(min, max int) int {
 
 ```
 
-Di dalam fungsi `randomWithRange` terdapat proses *generate* angka acak, yang angka tersebut kemudian digunakan sebagai nilai kembalian.
+Fungsi `randomWithRange` bertugas untuk *generate* angka acak sesuai dengan range yang ditentukan, yang kemudian angka tersebut dijadikan nilai kembalian fungsi.
 
 ![Fungsi dengan nilai balik](images/17_2_function_return_type.png)
 
@@ -83,15 +83,15 @@ Cara menentukan tipe data nilai balik fungsi adalah dengan menuliskan tipe data 
 func randomWithRange(min, max int) int
 ```
 
-Sedangkan cara untuk mengembalikan nilainya adalah dengan menggunakan keyword `return` diikuti data yang ingin dikembalikan. Pada contoh di atas, `return value` artinya nilai variabel `value` dijadikan nilai kembalian fungsi.
+Sedangkan cara untuk mengembalikan nilai itu sendiri adalah dengan menggunakan keyword `return` diikuti data yang ingin dikembalikan. Pada contoh di atas, `return value` artinya nilai variabel `value` dijadikan nilai kembalian fungsi.
 
 Eksekusi keyword `return` akan menjadikan proses dalam blok fungsi berhenti pada saat itu juga. Semua statement setelah keyword tersebut tidak akan dieksekusi.
 
-## 
+---
 
-Dari kode di atas mungkin ada beberapa statement yang masih terasa asing, berikut merupakan pembahasannya.
+Dari kode di atas mungkin ada beberapa hal yang belum pernah kita lakukan pada bab-bab sebelumnya, kita akan bahas satu-persatu.
 
-## Penggunaan Fungsi `rand.Seed()`
+## 17.3. Penggunaan Fungsi `rand.Seed()`
 
 Fungsi ini diperlukan untuk memastikan bahwa angka random yang akan di-generate benar-benar acak. Kita bisa gunakan angka apa saja sebagai nilai parameter fungsi ini (umumnya diisi `time.Now().Unix()`).
 
@@ -103,9 +103,9 @@ Fungsi `rand.Seed()` berada dalam package `math/rand`, yang harus di-import terl
 
 Package `time` juga perlu di-import karena kita menggunakan fungsi `(time.Now().Unix())` disitu.
 
-## Import Banyak Package
+## 17.4. Import Banyak Package
 
-Penulisan keyword `import` untuk banyak package bisa dilakukan dengan dua cara, dengan menuliskannya di tiap package, atau cukup sekali saja. Contohnya bisa dilihat di kode berikut.
+Penulisan keyword `import` untuk banyak package bisa dilakukan dengan dua cara, dengan menuliskannya di tiap package, atau cukup sekali saja, bebas.
 
 ```go
 import "fmt"
@@ -121,9 +121,7 @@ import (
 )
 ```
 
-Pilih cara yang terasa nyaman di hati.
-
-## Deklarasi Parameter Bertipe Data Sama
+## 17.5. Deklarasi Parameter Bertipe Data Sama
 
 Khusus untuk fungsi yang tipe data parameternya sama, bisa ditulis dengan gaya yang unik. Tipe datanya dituliskan cukup sekali saja di akhir. Contohnya bisa dilihat pada kode berikut.
 
@@ -135,7 +133,7 @@ func randomWithRange(min int, max int) int
 func randomWithRange(min, max int) int
 ```
 
-## Penggunaan Keyword `return` Untuk Menghentikan Proses Dalam Fungsi
+## 17.6. Penggunaan Keyword `return` Untuk Menghentikan Proses Dalam Fungsi
 
 Selain sebagai penanda nilai balik, keyword `return` juga bisa dimanfaatkan untuk menghentikan proses dalam blok fungsi dimana ia dipakai. Contohnya bisa dilihat pada kode berikut.
 

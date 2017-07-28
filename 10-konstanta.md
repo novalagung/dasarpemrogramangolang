@@ -1,12 +1,12 @@
-# Konstanta
+# 10. Konstanta
 
 Konstanta adalah jenis variabel yang nilainya tidak bisa diubah. Inisialisasi nilai hanya dilakukan sekali di awal, setelahnya tidak bisa diubah nilainya.
 
-## Penggunaan Konstanta
+## 10.1. Penggunaan Konstanta
 
 Data seperti **pi** (22/7), kecepatan cahaya (299.792.458 m/s), adalah contoh data yang tepat jika dideklarasikan sebagai konstanta daripada variabel, karena nilainya sudah pasti dan tidak berubah.
 
-Cara penerapan konstanta sama seperti deklarasi variabel biasa, selebihnya tinggal ganti keyword `var` dengan `const`. Contohnya:
+Cara penerapan konstanta sama seperti deklarasi variabel biasa, selebihnya tinggal ganti keyword `var` dengan `const`.
 
 ```go
 const firstName string = "john"
@@ -20,11 +20,11 @@ const lastName = "wick"
 fmt.Print("nice to meet you ", lastName, "!\n")
 ```
 
-## Penggunaan Fungsi `fmt.Print()`
+## 10.2. Penggunaan Fungsi `fmt.Print()`
 
 Fungsi ini memiliki peran yang sama seperti fungsi `fmt.Println()`, pembedanya fungsi `fmt.Print()` tidak menghasilkan baris baru di akhir outputnya.
 
-Perbedaan lainnya adalah, nilai pada parameter-parameter yang dimasukkan ke fungsi tersebut digabungkan tanpa pemisah. Tidak seperti pada fungsi `fmt.Println()` yang nilai paremeternya digabung menggunakan penghubung spasi. Agar lebih mudah dipahami, perhatikan kode berikut.
+Perbedaan lainnya adalah, nilai pada parameter-parameter yang dimasukkan ke fungsi tersebut digabungkan tanpa pemisah. Tidak seperti pada fungsi `fmt.Println()` yang nilai paremeternya digabung menggunakan penghubung spasi.
 
 ```go
 fmt.Println("john wick")

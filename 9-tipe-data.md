@@ -1,4 +1,4 @@
-# Tipe Data
+# 9. Tipe Data
 
 Golang mengenal beberapa jenis tipe data, diantaranya adalah tipe data numerik (desimal & non-desimal), string, dan boolean.
 
@@ -6,12 +6,12 @@ Di bab-bab sebelumnya secara tak sadar kita sudah mengaplikasikan beberapa tipe 
 
 Bab ini menjelaskan beberapa macam tipe data standar yang disediakan oleh Golang, beserta cara penggunaannya.
 
-## Tipe Data Numerik Non-Desimal
+## 9.1. Tipe Data Numerik Non-Desimal
 
 Tipe data numerik non-desimal atau **non floating point** di Golang ada beberapa jenis. Secara umum ada 2 tipe data kategori ini yang perlu diketahui.
 
- - `uint`, tipe data untuk bilangan cacah (bilangan positif)
- - `int`, tipe data untuk bilangan bulat (bilangan negatif dan positif)
+ - `uint`, tipe data untuk bilangan cacah (bilangan positif).
+ - `int`, tipe data untuk bilangan bulat (bilangan negatif dan positif).
 
 Kedua tipe data di atas kemudian dibagi lagi menjadi beberapa jenis, dengan pembagian berdasarkan lebar cakupan nilainya, detailnya bisa dilihat di tabel berikut.
 
@@ -32,8 +32,6 @@ Kedua tipe data di atas kemudian dibagi lagi menjadi beberapa jenis, dengan pemb
 
 Dianjurkan untuk tidak sembarangan dalam menentukan tipe data variabel, sebisa mungkin tipe yang dipilih harus disesuaikan dengan nilainya, karena efeknya adalah ke alokasi memori variabel. Pemilihan tipe data yang tepat akan membuat pemakaian memori lebih optimal, tidak berlebihan.
 
-Contoh penggunaan variabel numerik non-desimal bisa dilihat di kode berikut.
-
 ```go
 var positiveNumber uint8 = 89
 var negativeNumber = -1243423644
@@ -46,9 +44,9 @@ Variabel `positiveNumber` bertipe `uint8` dengan nilai awal `89`. Sedangkan vari
 
 Template `%d` pada `fmt.Printf()` digunakan untuk memformat data numerik non-desimal.
 
-## Tipe Data Numerik Desimal
+## 9.2. Tipe Data Numerik Desimal
 
-Tipe data numerik desimal yang perlu diketahui ada 2, `float32` dan `float64`. Perbedaan kedua tipe data tersebut berada di lebar cakupan nilai desimal yang bisa ditampung. Untuk lebih jelasnya bisa merujuk ke spesifikasi [IEEE-754 32-bit floating-point numbers](http://www.h-schmidt.net/FloatConverter/IEEE754.html). Contoh penggunaan tipe data ini bisa dilihat di kode berikut.
+Tipe data numerik desimal yang perlu diketahui ada 2, `float32` dan `float64`. Perbedaan kedua tipe data tersebut berada di lebar cakupan nilai desimal yang bisa ditampung. Untuk lebih jelasnya bisa merujuk ke spesifikasi [IEEE-754 32-bit floating-point numbers](http://www.h-schmidt.net/FloatConverter/IEEE754.html).
 
 ```go
 var decimalNumber = 2.62
@@ -63,9 +61,9 @@ Pada kode di atas, variabel `decimalNumber` akan memiliki tipe data `float32`, k
 
 Template `%f` digunakan untuk memformat data numerik desimal menjadi string. Digit desimal yang akan dihasilkan adalah **6 digit**. Pada contoh di atas, hasil format variabel `decimalNumber` adalah `2.620000`. Jumlah digit yang muncul bisa dikontrol menggunakan `%.nf`, tinggal ganti `n` dengan angka yang diinginkan. Contoh: `%.3f` maka akan menghasilkan 3 digit desimal, `%.10f` maka akan menghasilkan 10 digit desimal.
 
-## Tipe Data `bool` (Boolean)
+## 9.3. Tipe Data `bool` (Boolean)
 
-Tipe data `bool` berisikan hanya 2 variansi nilai, `true` dan `false`. Tipe data ini biasa dimanfaatkan dalam seleksi kondisi dan perulangan (yang nantinya akan kita bahas pada bab 12 dan bab 13). Contoh sederhana penggunaan `bool`:
+Tipe data `bool` berisikan hanya 2 variansi nilai, `true` dan `false`. Tipe data ini biasa dimanfaatkan dalam seleksi kondisi dan perulangan (yang nantinya akan kita bahas pada bab 12 dan bab 13).
 
 ```go
 var exist bool = true
@@ -74,7 +72,7 @@ fmt.Printf("exist? %t \n", exist)
 
 Gunakan `%t` untuk memformat data `bool` menggunakan fungsi `fmt.Printf()`.
 
-## Tipe Data `string`
+## 9.4. Tipe Data `string`
 
 Ciri khas dari tipe data string adalah nilainya di apit oleh tanda *quote* atau petik dua (`"`). Contoh penerapannya:
 
@@ -97,16 +95,16 @@ Ketika dijalankan, output akan muncul sama persisi sesuai nilai variabel `messag
 
 ![String menggunakan grave accent](images/9_2_unescaped_string.png)
 
-## Nilai `nil` Dan Nilai Default Tipe Data
+## 9.5. Nilai `nil` Dan Nilai Default Tipe Data
 
 `nil` bukan merupakan tipe data, melainkan sebuah nilai. Variabel yang isi nilainya `nil` berarti memiliki nilai kosong.
 
 Semua tipe data yang sudah dibahas di atas memiliki nilai default. Artinya meskipun variabel dideklarasikan dengan tanpa nilai awal, akan ada nilai default-nya.
 
- - Nilai default `string` adalah `""` (string kosong)
- - Nilai default `bool` adalah `false`
- - Nilai default tipe numerik non-desimal adalah `0`
- - Nilai default tipe numerik desimal adalah `0.0`
+ - Nilai default `string` adalah `""` (string kosong).
+ - Nilai default `bool` adalah `false`.
+ - Nilai default tipe numerik non-desimal adalah `0`.
+ - Nilai default tipe numerik desimal adalah `0.0`.
 
 `nil` adalah nilai kosong, benar-benar kosong. `nil` tidak bisa digunakan pada tipe data yang sudah dibahas di atas, karena kesemuanya akan memiliki nilai default pada saat deklarasi. Ada beberapa tipe data yang bisa di-set nilainya dengan `nil`, diantaranya:
 
