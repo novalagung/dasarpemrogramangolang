@@ -1,14 +1,14 @@
-# Fungsi Variadic
+# 19. Fungsi Variadic
 
 Golang mengadopsi konsep **variadic function** atau pembuatan fungsi dengan parameter sejenis yang tak terbatas. Maksud **tak terbatas** disini adalah jumlah parameter yang disisipkan ketika pemanggilan fungsi bisa berapa saja.
 
-Parameter variadic memiliki sifat yang mirip dengan slice. Nilai parameter-parameter yang disisipkan memiliki tipe data yang sama, dan akan ditampung oleh sebuah variabel saja. Cara pengaksesan tiap datanya juga sama, dengan menggunakan indeks.
+Parameter variadic memiliki sifat yang mirip dengan slice. Nilai dari parameter-parameter yang disisipkan bertipe data sama, dan ditampung oleh sebuah variabel saja. Cara pengaksesan tiap datanya juga sama, dengan menggunakan index.
 
 Di bab ini kita akan belajar mengenai cara penerapan fungsi variadic.
 
-## Penerapan Fungsi Variadic
+## 19.1. Penerapan Fungsi Variadic
 
-Deklarasi parameter variadic sama dengan cara deklarasi variabel biasa, pembedanya pada parameter jenis ini ditambahkan tanda 3 titik (`...`) setelah penulisan variabel (sebelum tipe data). Nantinya semua nilai yang disisipkan sebagai parameter akan ditampung oleh variabel tersebut.
+Deklarasi parameter variadic sama dengan cara deklarasi variabel biasa, pembedanya adalah pada parameter jenis ini ditambahkan tanda titik tiga kali (`...`) tepat setelah penulisan variabel (sebelum tipe data). Nantinya semua nilai yang disisipkan sebagai parameter akan ditampung oleh variabel tersebut.
 
 Berikut merupakan contoh penerepannya.
 
@@ -38,13 +38,13 @@ Output program:
 
 ![Contoh penerapan parameter variadic](images/19_1_variadic_param.png)
 
-Bisa dilihat pada fungsi `calculate()`, parameter `numbers` dideklarasikan dengan disisipkan tanda 3 titik (`...`) sebelum penulisan tipe data-nya. Menandakan bahwa `numbers` adalah sebuah parameter variadic dengan tipe data `int`.
+Bisa dilihat pada fungsi `calculate()`, parameter `numbers` dideklarasikan dengan disisipkan tanda 3 titik (`...`), menandakan bahwa `numbers` adalah sebuah parameter variadic dengan tipe data `int`.
 
 ```go
 func calculate(numbers ...int) float64 {
 ```
 
-Pada pemanggilan fungsi disisipkan banyak parameter sesuai kebutuhan.
+Pemanggilan fungsi dilakukan seperti biasa, hanya saja jumlah parameter yang disisipkan bisa banyak.
 
 ```go
 var avg = calculate(2, 4, 3, 5, 4, 3, 3, 5, 5, 3)
@@ -56,17 +56,17 @@ Nilai tiap parameter bisa diakses seperti cara pengaksesan tiap elemen slice. Pa
 for _, number := range numbers {
 ```
 
-## 
+---
 
-Berikut merupakan penjelasan tambahan mengenai beberapa kode di atas.
+Berikut merupakan penjelasan tambahan dari kode yang telah kita tulis.
 
-## Penggunaan Fungsi `fmt.Sprintf()`
+## 19.2. Penggunaan Fungsi `fmt.Sprintf()`
 
-Fungsi `fmt.Sprintf()` pada dasarnya sama dengan `fmt.Printf()`, hanya saja fungsi ini tidak menampilkan nilai, melainkan mengembalikan nilainya dalam bentuk string. Pada kasus di atas, nilai hasil `fmt.Sprintf()` ditampung oleh variabel `msg`. 
+Fungsi `fmt.Sprintf()` pada dasarnya sama dengan `fmt.Printf()`, hanya saja fungsi ini tidak menampilkan nilai, melainkan mengembalikan nilainya dalam bentuk string. Pada kasus di atas, nilai kembalian `fmt.Sprintf()` ditampung oleh variabel `msg`.
 
 Selain `fmt.Sprintf()`, ada juga `fmt.Sprint()` dan `fmt.Sprintln()`.
 
-## Penggunaan Fungsi `float64()`
+## 19.3. Penggunaan Fungsi `float64()`
 
 Sebelumnya sudah dibahas bahwa `float64` merupakan tipe data. Tipe data jika ditulis sebagai fungsi (penandanya ada tanda kurungnya) berguna untuk **casting**. Casting sendiri adalah teknik untuk konversi tipe sebuah data ke tipe lain. Hampir semua jenis tipe data dasar yang telah dipelajari di bab 9 bisa digunakan untuk casting. Dan cara penerepannya juga sama, cukup panggil sebagai fungsi, lalu masukan data yang ingin dikonversi sebagai parameter.
 
@@ -76,9 +76,11 @@ Variabel `avg` perlu dijadikan `float64` karena penghitungan rata-rata lebih ser
 
 Operasi bilangan (perkalian, pembagian, dan lainnya) di Golang hanya bisa dilakukan jika tipe datanya sejenis. Maka dari itulah perlu adanya casting ke tipe `float64` pada tiap operand.
 
-## Pengisian Fungsi Variadic Menggunakan Data Slice
+---
 
-Slice bisa digunakan sebagai parameter variadic. Caranya cukup mudah, yaitu dengan menambahkan tanda 3 titik setelah nama variabel ketika memasukannya ke parameter. Contohnya bisa dilihat pada kode berikut.
+## 19.4. Pengisian Parameter Fungsi Variadic Menggunakan Data Slice
+
+Slice bisa digunakan sebagai parameter variadic. Caranya dengan menambahkan tanda titik tiga kali, tepat setelah nama variabel yang dijadikan parameter. Contohnya bisa dilihat pada kode berikut.
 
 ```go
 var numbers = []int{2, 4, 3, 5, 4, 3, 3, 5, 5, 3}
@@ -103,7 +105,7 @@ var avg = calculate(2, 4, 3, 5, 4, 3, 3, 5, 5, 3)
 
 Pada deklarasi parameter fungsi variadic, tanda 3 titik (`...`) dituliskan sebelum tipe data parameter. Sedangkan pada pemanggilan fungsi dengan menyisipkan parameter array, tanda tersebut dituliskan dibelakang variabelnya.
 
-## Fungsi Dengan Parameter Biasa & Variadic
+## 19.5. Fungsi Dengan Parameter Biasa & Variadic
 
 Parameter variadic bisa dikombinasikan dengan parameter biasa, dengan syarat parameter variadic-nya harus diposisikan di akhir. Contohnya bisa dilihat pada kode berikut.
 
@@ -121,7 +123,7 @@ func yourHobbies(name string, hobbies ...string) {
 
 Nilai parameter pertama fungsi `yourHobbies()` akan ditampung oleh `name`, sedangkan nilai parameter kedua dan seterusnya akan ditampung oleh `hobbies` sebagai slice.
 
-Cara pemanggilannya masih sama seperi pada fungsi biasa. Contohnya bisa dilihat pada kode berikut.
+Cara pemanggilannya masih sama seperi pada fungsi biasa.
 
 ```go
 func main() {
@@ -129,7 +131,7 @@ func main() {
 }
 ```
 
-Jika parameter kedua dan seterusnya ingin diisi dengan data dari slice, maka gunakan tanda 3 titik. Contoh:
+Jika parameter kedua dan seterusnya ingin diisi dengan data dari slice, maka gunakan tanda titik tiga kali.
 
 ```go
 func main() {

@@ -1,10 +1,10 @@
-# Pointer
+# 22. Pointer
 
-Pointer adalah referensi atau alamat memory. Variabel pointer berarti variabel yang menampung alamat memori suatu nilai. Sebagai contoh sebuah variabel bertipe integer memiliki nilai **4**, maka yang dimaksud pointer adalah **alamat memori dimana nilai 4 disimpan**, bukan nilai 4 nya sendiri.
+Pointer adalah *reference* atau alamat memory. Variabel pointer berarti variabel yang berisi alamat memori suatu nilai. Sebagai contoh sebuah variabel bertipe integer memiliki nilai **4**, maka yang dimaksud pointer adalah **alamat memori dimana nilai 4 disimpan**, bukan nilai 4 nya sendiri.
 
-Variabel-variabel yang memiliki referensi atau alamat pointer yang sama, saling berhubungan satu sama lain dan nilainya pasti sama. Ketika ada perubahan nilai, maka akan memberikan efek kepada variabel lain (yang referensi-nya sama) yaitu nilainya ikut berubah. 
+Variabel-variabel yang memiliki *reference* atau alamat pointer yang sama, saling berhubungan satu sama lain dan nilainya pasti sama. Ketika ada perubahan nilai, maka akan memberikan efek kepada variabel lain (yang referensi-nya sama) yaitu nilainya ikut berubah.
 
-## Penerapan Pointer
+## 22.1. Penerapan Pointer
 
 Variabel bertipe pointer ditandai dengan adanya tanda **asterisk** (`*`) tepat sebelum penulisan tipe data ketika deklarasi.
 
@@ -36,11 +36,13 @@ Variabel `numberB` dideklarasikan bertipe pointer `int` dengan nilai awal adalah
 
 ![Penggunaan variabel pointer](images/22_1_pointer.png)
 
-Variabel pointer jika di-print akan menghasilkan string alamat memori (dalam notasi heksadesimal), contohnya seperti `numberB` yang diprint menghasilkan `0xc20800a220`. Nilai asli pointer bisa ditampilkan dengan cara variabel tersebut harus di-dereference terlebih dahulu (bisa dilihat pada kode `*numberB`).
+Variabel pointer jika di-print akan menghasilkan string alamat memori (dalam notasi heksadesimal), contohnya seperti `numberB` yang diprint menghasilkan `0xc20800a220`.
 
-## Efek Perubahan Nilai Pointer
+Nilai asli sebuah variabel pointer bisa didapatkan dengan cara di-dereference terlebih dahulu (bisa dilihat pada kode `*numberB`).
 
-Ketika salah satu variabel pointer di ubah nilainya, sedang ada variabel lain yang memiliki referensi memori yang sama, maka nilai variabel lain tersebut juga akan berubah. Contoh:
+## 22.2. Efek Perubahan Nilai Pointer
+
+Ketika salah satu variabel pointer di ubah nilainya, sedang ada variabel lain yang memiliki referensi memori yang sama, maka nilai variabel lain tersebut juga akan berubah.
 
 ```go
 var numberA int = 4
@@ -65,9 +67,9 @@ Variabel `numberA` dan `numberB` memiliki referensi memori yang sama. Perubahan 
 
 ![Variabel pointer diubah nilainya](images/22_2_pointer_change.png)
 
-## Parameter Pointer
+## 22.3. Parameter Pointer
 
-Parameter bisa juga didesain sebagai pointer. Cara penerapannya kurang lebih sama. Tinggal deklarasikan parameter tersebut sebagai pointer.
+Parameter bisa juga didesain sebagai pointer. Cara penerapannya kurang lebih sama, dengan cara mendeklarasikan parameter sebagai pointer.
 
 ```go
 package main
@@ -87,7 +89,7 @@ func change(original *int, value int) {
 }
 ```
 
-Fungsi `change()` memiliki 2 parameter, yaitu `original` yang tipenya adalah pointer `int`, dan `value`. Di dalam fungsi tersebut nilai asli parameter pointer `original` diubah.
+Fungsi `change()` memiliki 2 parameter, yaitu `original` yang tipenya adalah pointer `int`, dan `value` yang bertipe `int`. Di dalam fungsi tersebut nilai asli parameter pointer `original` diubah.
 
 Fungsi `change()` kemudian diimplementasikan di `main`. Variabel `number` yang nilai awalnya adalah `4` diambil referensi-nya lalu digunakan sebagai parameter pada pemanggilan fungsi `change()`.
 

@@ -1,10 +1,10 @@
-# Fungsi Multiple Return
+# 18. Fungsi Multiple Return
 
 Umumnya fungsi hanya memiliki satu buah nilai balik saja. Jika ada kebutuhan dimana data yang dikembalikan harus banyak, biasanya digunakanlah tipe seperti `map`, slice, atau `struct` sebagai nilai balik.
 
 Golang menyediakan kapabilitas bagi programmer untuk membuat fungsi memiliki banyak nilai balik. Di bab ini akan dibahas bagaimana penerapannya.
 
-## Penerapan Fungsi Multiple Return
+## 18.1 Penerapan Fungsi Multiple Return
 
 Cara membuat fungsi yang memiliki banyak nilai balik tidaklah sulit. Tinggal tulis saja pada saat deklarasi fungsi semua tipe data nilai yang dikembalikan, dan pada keyword `return` tulis semua data yang ingin dikembalikan. Contoh bisa dilihat pada berikut.
 
@@ -27,7 +27,7 @@ func calculate(d float64) (float64, float64) {
 
 Fungsi `calculate()` di atas menerima satu buah parameter (`diameter`) yang digunakan dalam proses perhitungan. Di dalam fungsi tersebut ada 2 hal yang dihitung, yaitu nilai **keliling** dan **lingkaran**. Kedua nilai tersebut kemudian dijadikan sebagai return value fungsi.
 
-Cara pendefinisian banyak nilai balik bisa dilihat pada kode di atas, yaitu dengan langsung menuliskan tipe-tipe data nilai balik dengan pemisah tanda koma, dan ditambahkan kurung diantaranya.
+Cara pendefinisian banyak nilai balik bisa dilihat pada kode di atas, langsung tulis tipe data semua nilai balik dipisah tanda koma, lalu ditambahkan kurung diantaranya.
 
 ```go
 func calculate(d float64) (float64, float64)
@@ -39,7 +39,7 @@ Tak lupa di bagian penulisan keyword `return` harus dituliskan juga semua data y
 return area, circumference
 ```
 
-Implementasi dari fungsi `calculate()` di atas, bisa dilihat pada kode berikut. 
+Implementasi dari fungsi `calculate()` di atas, bisa dilihat pada kode berikut.
 
 ```go
 func main() {
@@ -61,14 +61,37 @@ Karena fungsi tersebut memiliki banyak nilai balik, maka pada pemanggilannya har
 var area, circumference = calculate(diameter)
 ```
 
-## 
+## 18.2 Fungsi Dengan Predefined Return Value
+
+Keunikan lainnya yang jarang ditemui di bahasa lain adalah, di Golang variabel yang digunakan sebagai nilai balik bisa didefinisikan di-awal.
+
+```go
+func calculate(d float64) (area float64, circumference float64) {
+    area = math.Pi * math.Pow(d / 2, 2)
+    circumference = math.Pi * d
+
+    return
+}
+```
+
+Fungsi `calculate` kita modif menjadi lebih sederhana. Bisa dilihat di kode di atas, ada cukup banyak perbedaan dibanding fungsi `calculate` sebelumnya. Perhatikan kode berikut.
+
+```go
+func calculate(d float64) (area float64, circumference float64) {
+```
+
+Fungsi dideklarasikan memiliki 2 buah tipe data, dan variabel yang nantinya dijadikan nilai balik juga dideklarasikan. Variabel `area` yang bertipe `float64`, dan `circumference` bertipe `float64`.
+
+Karena variabel nilai balik sudah ditentukan di awal, untuk mengembalikan nilai cukup dengan memanggil `return` tanpa perlu diikuti variabel apapun. Nilai terakhir `area` dan `circumference` sebelum pemanggilan keyword `return` adalah hasil dari fungsi di atas.
+
+---
 
 Ada beberapa hal baru dari kode di atas yang perlu dibahas, seperti `math.Pow()` dan `math.Pi`. Berikut adalah penjelasannya.
 
-## Penggunaan Fungsi `math.Pow()`
+## 18.3. Penggunaan Fungsi `math.Pow()`
 
 Fungsi `math.Pow()` digunakan untuk memangkat nilai. `math.Pow(2, 3)` berarti 2 pangkat 3, hasilnya 8. Fungsi ini berada dalam package `math`.
 
-## Penggunaan Konstanta `math.Pi`
+## 18.4. Penggunaan Konstanta `math.Pi`
 
 `math.Pi` adalah konstanta bawaan `package math` yang merepresentasikan **Pi** atau **22/7**.

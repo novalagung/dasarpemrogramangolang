@@ -1,10 +1,10 @@
-# Method
+# 24. Method
 
-**Method** adalah fungsi yang hanya bisa di akses lewat variabel objek. Method merupakan bagian dari `struct`. 
+**Method** adalah fungsi yang menempel pada `struct`, sehingga hanya bisa di akses lewat variabel objek.
 
 Keunggulan method dibanding fungsi biasa adalah memiliki akses ke property struct hingga level *private* (level akses nantinya akan dibahas lebih detail pada bab selanjutnya). Dan juga, dengan menggunakan method sebuah proses bisa di-enkapsulasi dengan baik.
 
-## Penerapan Method
+## 24.1. Penerapan Method
 
 Cara menerapkan method sedikit berbeda dibanding penggunaan fungsi. Ketika deklarasi, ditentukan juga siapa pemilik method tersebut. Contohnya bisa dilihat pada kode berikut:
 
@@ -65,24 +65,54 @@ func getNameAt(i int) string {
 func (s student) getNameAt(i int) string {
 ```
 
-## Method Pointer
+## 24.2. Method Pointer
 
-Method pointer adalah method yang variabel objeknya dideklarasikan dalam bentuk pointer. Kelebihan method jenis ini adalah manipulasi data pointer pada property milik variabel tersebut bisa dilakukan.
+Method pointer adalah method yang variabel objek pemilik method tersebut berupa pointer.
 
-Pemanggilan method pointer sama seperti method biasa. Contohnya bisa dilihat di kode berikut.
+Kelebihan method jenis ini adalah, ketika kita melakukan manipulasi nilai pada property lain yang masih satu struct, nilai pada property tersebut akan di rubah pada reference nya. Lebih jelasnya perhatikan kode berikut.
 
 ```go
-func (s *student) sayHello() {
-    fmt.Println("halo", s.name)
+package main
+
+import "fmt"
+
+type student struct {
+    name  string
+    grade int
+}
+
+func (s student) changeName1(name string) {
+    fmt.Println("---> on changeName1, name changed to", name)
+    s.name = name
+}
+
+func (s *student) changeName2(name string) {
+    fmt.Println("---> on changeName2, name changed to", name)
+    s.name = name
 }
 
 func main() {
     var s1 = student{"john wick", 21}
-    s1.sayHello()
+    fmt.Println("s1 before", s1.name)
+    // john wick
+
+    s1.changeName1("jason bourne")
+    fmt.Println("s1 after changeName1", s1.name)
+    // john wick
+
+    s1.changeName2("ethan hunt")
+    fmt.Println("s1 after changeName2", s1.name)
+    // ethan hunt
 }
 ```
 
-Method pointer tetap bisa diakses lewat variabel objek biasa (bukan pointer) dengan cara yang nya masih sama. Contoh:
+Output:
+
+![Penggunaan method pointer](images/24_2_method_pointer.png)
+
+Setelah eksekusi statement `s1.changeName1("jason bourne")`, nilai `s1.name` tidak berubah. Sebenarnya nilainya berubah tapi hanya dalam method `changeName1()` saja, nilai pada reference di objek-nya tidak berubah. Karena itulah ketika objek di print value dari `s1.name` tidak berubah.
+
+Keistimewaan lain method pointer adalah, method itu sendiri bisa dipanggil dari objek pointer maupun objek biasa.
 
 ```go
 // pengaksesan method dari variabel objek biasa
@@ -94,13 +124,13 @@ var s2 = &student{"ethan hunt", 22}
 s2.sayHello()
 ```
 
-## 
+---
 
-Berikut adalah penjelasan tambahan mengenai fungsi split.
+Berikut adalah penjelasan tambahan untuk beberapa hal dalam bab ini.
 
-## Penggunaan Fungsi `strings.Split()`
+## 24.3. Penggunaan Fungsi `strings.Split()`
 
-Di bab ini ada fungsi baru yang kita gunakan: `strings.Split()`. Fungsi ini digunakan untuk memisah string menggunakan pemisah tertentu. Hasilnya adalah array berisikan kumpulan substring yang telah dipisah.
+Di bab ini ada fungsi baru yang kita gunakan: `strings.Split()`. Fungsi ini berguna untuk memisah string menggunakan pemisah yang ditentukan sendiri. Hasilnya adalah array berisikan kumpulan substring.
 
 ```go
 strings.Split("ethan hunt", " ")
@@ -109,9 +139,9 @@ strings.Split("ethan hunt", " ")
 
 Pada contoh di atas, string `"ethan hunt"` dipisah menggunakan separator spasi `" "`. Maka hasilnya terbentuk array berisikan 2 data, `"ethan"` dan `"hunt"`.
 
-## Apakah `fmt.Println()` & `strings.Split()` Juga Merupakan Method ?
+## 24.4. Apakah `fmt.Println()` & `strings.Split()` Juga Merupakan Method ?
 
-Setelah tahu apa itu method dan bagaimana penggunaannya, mungkin akan muncul di benak kita bahwa kode seperti `fmt.Println()`, `strings.Split()` dan lainnya-yang-berada-pada-package-lain juga merupakan fungsi.
+Setelah tahu apa itu method dan bagaimana penggunaannya, mungkin akan muncul di benak kita bahwa kode seperti `fmt.Println()`, `strings.Split()` dan lainnya-yang-berada-pada-package-lain juga merupakan method.
 
 Tapi sayangnya **bukan**. `fmt` disitu bukanlah variabel objek, dan `Println()` bukan merupakan method-nya.
 
