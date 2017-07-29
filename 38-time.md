@@ -1,17 +1,17 @@
-# Time, Parsing Time, & Format Time
+# 38. Time, Parsing Time, & Format Time
 
-Pada bab ini kita akan belajar tentang pemanfaatan time, method-method yang disediakan, dan juga **format** & **parsing** data `string` ke `time.Time` dan sebaliknya. 
+Pada bab ini kita akan belajar tentang pemanfaatan data bertipe waktu, method-method yang disediakan, dan juga **format** & **parsing** data `string` ke tipe `time.Time` dan sebaliknya.
 
-Golang menyediakan package `time` yang berisikan banyak sekali komponen yang bisa digunakan untuk keperluan pemanfaatan waktu.
+Golang menyediakan package `time` yang berisikan banyak sekali komponen yang bisa digunakan untuk keperluan pemanfaatan waktu. Salah satunya adalah `time.Time`, yang merupakan tipe untuk data tanggal dan waktu di Golang.
 
 > Time disini maksudnya adalah gabungan **date** dan **time**, bukan hanya waktu saja.
 
-## Penggunaan `time.Time`
+## 38.1. Penggunaan `time.Time`
 
 `time.Time` adalah tipe data untuk objek waktu. Ada 2 cara yang bisa digunakan untuk membuat data bertipe ini.
 
- - Dengan menjadikan waktu sekarang sebagai time
- - Membuat time dengan data ditentukan sendiri
+ - Menjadikan informasi waktu sekarang sebagai objek `time.Time`.
+ - Membuat objek baru bertipe `time.Time` dengan informasi ditentukan sendiri.
 
 Berikut merupakan contoh penggunannya.
 
@@ -32,21 +32,23 @@ func main() {
 }
 ```
 
-Fungsi `time.Now()` mengembalikan objek `time.Time` dengan data adalah waktu sekarang. Bisa dilihat ketika di tampilkan, informasi yang muncul adalah sesuai dengan tanggal program tersebut dieksekusi.
+Fungsi `time.Now()` mengembalikan objek `time.Time` dengan informasi adalah waktu sekarang, waktu tepat ketika statement tersebut dijalankan. Bisa dilihat ketika di tampilkan, informasi yang muncul adalah sesuai dengan tanggal program tersebut dieksekusi.
 
 ![Penggunaan time](images/38_1_time_instance.png)
 
-Sedangkan `time.Date()` digunakan untuk membuat objek `time.Time` baru dengan informasi waktu yang bisa kita tentukan sendiri. Fungsi ini memiliki 8 buah parameter **mandatory** dengan skema bisa dilihat di kode berikut:
+Fungsi `time.Date()` digunakan untuk membuat objek `time.Time` baru yang informasi waktunya kita tentukan sendiri. Fungsi ini memiliki 8 buah parameter **mandatory** dengan skema bisa dilihat di kode berikut:
 
 ```go
 time.Date(tahun, bulan, tanggal, jam, menit, detik, nanodetik, timezone)
 ```
 
-Objek cetakan fungsi `time.Now()`, informasi timezone-nya adalah relatif terhadap lokasi kita. Karena kebetulan penulis berlokasi di jawa timur, maka akan terdeteksi masuk dalam **GMT+7** atau **WIB**. Berbeda dengan variabel `time2` yang lokasinya sudah kita tentukan secara eksplisit yaitu **UTC**.
+Objek cetakan fungsi `time.Now()`, informasi timezone-nya adalah relatif terhadap lokasi kita. Karena kebetulan penulis berlokasi di Jawa Timur, maka akan terdeteksi masuk dalam **GMT+7** atau **WIB**. Berbeda dengan variabel `time2` yang lokasinya sudah kita tentukan secara eksplisit yaitu **UTC**.
 
-Selain menggunakan `time.UTC` untuk penentuan lokasi, tersedia juga `time.Local` yang nilainya adalah relatif terhadap waktu kita.
+Selain menggunakan `time.UTC` untuk penentuan lokasi, tersedia juga `time.Local` yang nilainya adalah relatif terhadap waktu lokal kita.
 
-## Method Milik `time.Time`
+## 38.2. Method Milik `time.Time`
+
+Tipe data `time.Time` merupakan struct, memiliki beberapa method yang bisa dipakai.
 
 ```go
 var now = time.Now()
@@ -56,7 +58,7 @@ fmt.Println("year:", now.Year(), "month:", now.Month())
 
 Kode di atas adalah contoh penggunaan beberapa method milik objek bertipe `time.Time`. Method `Year()` mengembalikan informasi tahun, dan `Month()` mengembalikan informasi angka bulan.
 
-Selain kedua method di atas, ada banyak lagi yang bisa dimanfaatkan. Tabel berikut merupakan list method yang berhubungan dengan *date*, *time*, dan *location* yang tersedia pada tipe `time.Time`. 
+Selain kedua method di atas, ada banyak lagi yang bisa dimanfaatkan. Tabel berikut merupakan list method yang berhubungan dengan *date*, *time*, dan *location* yang dimiliki tipe `time.Time`.
 
 | Method | Return Type | Penjelasan |
 | :------------ | :--------- | :------- |
@@ -79,14 +81,14 @@ Selain kedua method di atas, ada banyak lagi yang bisa dimanfaatkan. Tabel berik
 | `now.UnixNano()` | `int64` | Waktu dalam format *unix time*. Infomasi nano detik juga dimasukkan |
 | `now.String()` | `string` | Waktu dalam string |
 
-## Parsing `time.Time`
+## 38.3. Parsing `time.Time`
 
 Data `string` bisa dikonversi menjadi `time.Time` dengan memanfaatkan `time.Parse`. Fungsi ini membutuhkan 2 parameter:
 
- - Parameter ke-1 adalah layout format dari data waktu yang akan diparsing
- - Parameter ke-2 adalah data string yang ingin diparsing
+ - Parameter ke-1 adalah layout format dari data waktu yang akan diparsing.
+ - Parameter ke-2 adalah data string yang ingin diparsing.
 
-Contoh penerapannya bisa dilihat di kode berikut:
+Contoh penerapannya bisa dilihat di kode berikut.
 
 ```go
 var layoutFormat, value string
@@ -107,7 +109,7 @@ fmt.Println(value, "\t\t->", date.String())
 
 ![Contoh penggunaan **time.Parse**](images/38_2_time_parse.png)
 
-Layout format time di golang berbeda dibanding bahasa lain. Umumnya layout format yang digunakan adalah seperti `"DD/MM/YYYY"` dll, di Golang tidak.
+Layout format time di golang berbeda dibanding bahasa lain. Umumnya layout format yang digunakan adalah seperti `"DD/MM/YYYY"`, di Golang tidak.
 
 Golang memiliki standar layout format yang cukup unik, contohnya seperti pada kode di atas `"2006-01-02 15:04:05"`. Golang menggunakan `2006` untuk parsing tahun, bukan `YYYY`; `01` untuk parsing bulan; `02` untuk parsing hari; dan seterusnya. Detailnya bisa dilihat di tabel berikut.
 
@@ -136,7 +138,7 @@ Golang memiliki standar layout format yang cukup unik, contohnya seperti pada ko
 | `MST` | Lokasi timezone | `UTC`,&nbsp;`WIB`,&nbsp;`EST` |
 | `Z0700` | Offset timezone  | `Z`,&nbsp;`+0700`,&nbsp;`-0200` |
 
-## Predefined Layout Format Untuk Keperluan Parsing Time
+## 38.4. Predefined Layout Format Untuk Keperluan Parsing Time
 
 Golang juga menyediakan beberapa predefined layout format umum yang bisa dimanfaatkan. Jadi tidak perlu menuliskan kombinasi komponen-komponen layout format.
 
@@ -148,7 +150,7 @@ fmt.Println(date.String())
 // 2015-09-02 08:00:00 +0700 WIB
 ```
 
-Ada beberapa layout format lain yang bisa dimanfaatkan. Berikut adalah list nya.
+Ada beberapa layout format lain yang tersedia, silakan lihat tabel berikut.
 
 | Predefined Layout Format | Layout Format |
 | :---------------- | :----- |
@@ -168,11 +170,11 @@ Ada beberapa layout format lain yang bisa dimanfaatkan. Berikut adalah list nya.
 | `time.StampMicro` | Jan _2 15:04:05.000000 |
 | `time.StampNano` | Jan _2 15:04:05.000000000 |
 
-## Format `time.Time`
+## 38.5. Format `time.Time`
 
-Setelah sebelumnya kita belajar tentang konversi `string` ke `time.Time`. Kali ini kita akan belajar sebaliknya, yaitu konversi `time.Time` ke `string`.
+Setelah sebelumnya kita belajar tentang cara konversi data dengan tipe `string` ke `time.Time`. Kali ini kita akan belajar kebalikannya, konversi `time.Time` ke `string`.
 
-Method `Format()` digunakan untuk membentuk `string` menggunakan layout format tertentu. Layout format yang bisa digunakan adalah sama seperti pada parsing time. Contoh bisa dilihat pada kode berikut.
+Method `Format()` milik tipe `time.Time` digunakan untuk membentuk output `string` sesuai dengan layout format yang diinginkan. Contoh bisa dilihat pada kode berikut.
 
 ```go
 var date, _ = time.Parse(time.RFC822, "02 Sep 15 08:00 WIB")
@@ -186,15 +188,15 @@ fmt.Println("dateS2", dateS2)
 // 2015-09-02T08:00:00+07:00
 ```
 
-Variabel `date` berisikan hasil parsing menggunakan predefined layout format `time.RFC822`. Variabel tersebut kemudian ditampilkan 2 kali dengan layout format berbeda.
+Variabel `date` di atas berisikan hasil parsing data dengan format `time.RFC822`. Data tersebut kemudian diformat sebagai string 2 kali dengan layout format berbeda.
 
 ![Contoh penggunaan method `Format()`](images/38_3_time_format.png)
 
-## Handle Error Parsing `time.Time`
+## 38.6. Handle Error Parsing `time.Time`
 
 Ketika parsing `string` ke `time.Time`, sangat memungkinkan bisa terjadi error karena struktur data yang akan diparsing tidak sesuai layout format yang digunakan.
 
-Untuk mendeteksi hal ini bisa memanfaatkan nilai kembalian ke-2 fungsi `time.Parse`. Berikut adalah contoh penerapannya.
+Error tidaknya parsing bisa diketahui lewat nilai kembalian ke-2 fungsi `time.Parse`. Berikut adalah contoh penerapannya.
 
 ```go
 var date, err = time.Parse("06 Jan 15", "02 Sep 15 08:00 WIB")
@@ -207,6 +209,6 @@ if err != nil {
 fmt.Println(date)
 ```
 
-Kode di atas menghasilkan error karena format tidak sesuai dengan skema data yang akan diparsing. Layout format yang harusnya digunakan adalah `06 Jan 15 03:04 MST`.
+Kode di atas menghasilkan error karena format tidak sesuai dengan skema data yang akan diparsing. Layout format yang seharusnya digunakan adalah `06 Jan 15 03:04 MST`.
 
 ![Error parsing time.Time](images/38_4_error_parse.png)

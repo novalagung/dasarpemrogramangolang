@@ -1,8 +1,8 @@
 # Daftar Isi
 
  * [Berkenalan Dengan Golang](1-berkenalan-dengan-golang.md)
-    * [Tentang Penulis](1.1-tentang-penulis.md)
-    * [Tentang Buku Ini](1.2-tentang-buku.md)
+    <!-- * [Tentang Penulis](1.1-tentang-penulis.md) -->
+    <!-- * [Tentang Buku Ini](1.2-tentang-buku.md) -->
  * [Instalasi Golang](2-instalasi-golang.md)
  * [GOPATH Dan Workspace](3-gopath-dan-workspace.md)
  * [Instalasi Editor](4-instalasi-editor.md)
@@ -41,7 +41,7 @@
  * [Layout Format String](37-string-format.md)
  * [Time, Parsing Time, & Format Time](38-time.md)
  * [Timer](39-timer.md)
- * [Konversi Data](40-data-type-conversion.md)
+ * [Konversi Antar Tipe Data](40-data-type-conversion.md)
  * [Fungsi String](41-strings.md)
  * [Regexp](42-regex.md)
  * [Encode - Decode Base64](43-encoding-base64.md)

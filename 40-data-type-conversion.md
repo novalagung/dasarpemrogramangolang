@@ -1,14 +1,14 @@
-# Konversi Data
+# 40. Konversi Antar Tipe Data
 
 Di bab-bab sebelumnya kita sudah mengaplikasikan beberapa cara konversi data, contohnya seperti konversi `string` ↔ `int` menggunakan `strconv`, dan `time.Time` ↔ `string`. Di bab ini kita akan belajar lebih banyak.
 
-## Konversi Menggunakan `strconv`
+## 40.1. Konversi Menggunakan `strconv`
 
-`strconv` berisikan banyak fungsi yang sangat membantu untuk keperluan konversi data. Berikut merupakan beberapa fungsi dalam package tersebut yang bisa dimanfaatkan.
+Package `strconv` berisi banyak fungsi yang sangat membantu kita untuk melakukan konversi. Berikut merupakan beberapa fungsi yang dalam package tersebut.
 
-### Fungsi `strconv.Atoi()`
+### 40.1.a. Fungsi `strconv.Atoi()`
 
-Fungsi ini digunakan untuk konversi data dari tipe `string` ke `int`. Mengembalikan 2 buah nilai balik, yaitu hasil konversi dan `error` (jika konversi sukses, maka `error` akan berisi `nil`).
+Fungsi ini digunakan untuk konversi data dari tipe `string` ke `int`. `strconv.Atoi()` menghasilkan 2 buah nilai kembalian, yaitu hasil konversi dan `error` (jika konversi sukses, maka `error` berisi `nil`).
 
 ```go
 package main
@@ -26,7 +26,7 @@ func main() {
 }
 ```
 
-### Fungsi `strconv.Itoa()`
+### 40.1.b. Fungsi `strconv.Itoa()`
 
 Merupakan kebalikan dari `strconv.Atoi`, berguna untuk konversi `int` ke `string`.
 
@@ -37,11 +37,11 @@ var str = strconv.Itoa(num)
 fmt.Println(str) // "124"
 ```
 
-### Fungsi `strconv.ParseInt()`
+### 40.1.c. Fungsi `strconv.ParseInt()`
 
 Digunakan untuk konversi `string` berbentuk numerik dengan basis tertentu ke tipe numerik non-desimal dengan lebar data bisa ditentukan.
 
-Pada contoh berikut, string `"124"` ditentukan basis numeriknya 10, akan dikonversi ke jenis tipe data `int64`.
+Pada contoh berikut, string `"124"` dikonversi ke tipe numerik dengan ketentuan basis yang digunakan `10` dan lebar datanya mengikuti tipe `int64` (lihat parameter ketiga).
 
 ```go
 var str = "124"
@@ -52,7 +52,7 @@ if err == nil {
 }
 ```
 
-Contoh lainnya, string `"1010"` ditentukan basis numeriknya 2 (biner), akan dikonversi ke jenis tipe data `int8`.
+Contoh lainnya, string `"1010"` dikonversi ke basis 2 (biner) dengan tipe data hasil adalah `int8`.
 
 ```go
 var str = "1010"
@@ -63,7 +63,7 @@ if err == nil {
 }
 ```
 
-### Fungsi `strconv.FormatInt()`
+### 40.1.d. Fungsi `strconv.FormatInt()`
 
 Berguna untuk konversi data numerik `int64` ke `string` dengan basis numerik bisa ditentukan sendiri.
 
@@ -74,7 +74,7 @@ var str = strconv.FormatInt(num, 8)
 fmt.Println(str) // 30
 ```
 
-### Fungsi `strconv.ParseFloat()`
+### 40.1.e. Fungsi `strconv.ParseFloat()`
 
 Digunakan untuk konversi `string` ke numerik desimal dengan lebar data bisa ditentukan.
 
@@ -87,9 +87,9 @@ if err == nil {
 }
 ```
 
-Pada contoh di atas, string `"24.12"` dikonversi ke float dengan lebar `float32`. Hasil konversi `strconv.ParseFloat` disesuaikan dengan standar [IEEE Standard for Floating-Point Arithmetic](https://en.wikipedia.org/wiki/IEEE_floating_point).
+Pada contoh di atas, string `"24.12"` dikonversi ke float dengan lebar tipe data `float32`. Hasil konversi `strconv.ParseFloat` adalah sesuai dengan standar [IEEE Standard for Floating-Point Arithmetic](https://en.wikipedia.org/wiki/IEEE_floating_point).
 
-### Fungsi `strconv.FormatFloat()`
+### 40.1.f. Fungsi `strconv.FormatFloat()`
 
 Berguna untuk konversi data bertipe `float64` ke `string` dengan format eksponen, lebar digit desimal, dan lebar tipe data bisa ditentukan.
 
@@ -113,7 +113,7 @@ Ada beberapa format eksponen yang bisa digunakan. Detailnya bisa dilihat di tabe
 | `g` | Akan menggunakan format eksponen `e` untuk eksponen besar dan `f` untuk selainnya |
 | `G` | Akan menggunakan format eksponen `E` untuk eksponen besar dan `f` untuk selainnya |
 
-### Fungsi `strconv.ParseBool()`
+### 40.1.g. Fungsi `strconv.ParseBool()`
 
 Digunakan untuk konversi `string` ke `bool`.
 
@@ -126,7 +126,7 @@ if err == nil {
 }
 ```
 
-### Fungsi `strconv.FormatBool()`
+### 40.1.h. Fungsi `strconv.FormatBool()`
 
 Digunakan untuk konversi `bool` ke `string`.
 
@@ -137,9 +137,9 @@ var str = strconv.FormatBool(bul)
 fmt.Println(str) // 124
 ```
 
-## Konversi Data Menggunakan Casting
+## 40.2. Konversi Data Menggunakan Casting
 
-Keyword tipe data bisa digunakan untuk casting. Cara penggunaannya adalah dengan memanggilnya sebagai fungsi dan menyisipkan data yang akan dikonversi sebagai parameter.
+Keyword tipe data bisa digunakan untuk casting. Cara penggunaannya adalah dengan menuliskan tipe data sebagai fungsi dan menyisipkan data yang akan dikonversi sebagai parameternya.
 
 ```go
 var a float64 = float64(24)
@@ -149,11 +149,11 @@ var b int32 = int32(24.00)
 fmt.Println(b) // 24
 ```
 
-## Casting `string` ↔ `byte`
+## 40.3. Casting `string` ↔ `byte`
 
-String sebenarnya adalah slice/array `byte`. Di Golang sebuah karakter biasa (bukan unicode) direpresentasikan oleh sebuah elemen slice byte. Nilai slice tersebut adalah data `int` yang (default-nya) ber-basis desimal, yang merupakan kode ASCII dari karakter biasa tersebut.
+String sebenarnya adalah slice/array `byte`. Di Golang sebuah karakter biasa (bukan unicode) direpresentasikan oleh sebuah elemen slice byte. Tiap elemen slice berisi data `int` dengan basis desimal, yang merupakan kode ASCII dari karakter dalam string.
 
-Cara mendapatkan slice byte dari sebuah data string adalah dengan meng-casting-nya ke tipe `[]byte`. Tiap elemen `byte` isinya adalah data numerik dengan basis desimal.
+Cara mendapatkan slice byte dari sebuah data string adalah dengan meng-casting-nya ke tipe `[]byte`.
 
 ```go
 var text1 = "halo"
@@ -165,7 +165,7 @@ fmt.Printf("%d %d %d %d \n", b[0], b[1], b[2], b[3])
 
 Pada contoh di atas, string dalam variabel `text1` dikonversi ke `[]byte`. Tiap elemen slice byte tersebut kemudian ditampilkan satu-per-satu.
 
-Contoh selanjutnya dibawah ini merupakan kebalikan dari contoh di atas, sebuah `[]byte` akan dicari bentuk `string`-nya.
+Contoh berikut ini merupakan kebalikan dari contoh di atas, data bertipe `[]byte` akan dicari bentuk `string`-nya.
 
 ```go
 var byte1 = []byte{104, 97, 108, 111}
@@ -175,11 +175,11 @@ fmt.Printf("%s \n", s)
 // halo
 ```
 
-Beberapa kode byte string saya tuliskan sebagai dalam sebuah slice, yang ditampung oleh variabel `byte1`. Lalu, nilai variabel tersebut di-cast ke `string`, untuk kemudian ditampilkan.
+Pada contoh di-atas, beberapa kode byte dituliskan dalam bentuk slice, ditampung variabel `byte1`. Lalu, nilai variabel tersebut di-cast ke `string`, untuk kemudian ditampilkan.
 
 Selain itu, tiap karakter string juga bisa di-casting ke bentuk `int`, hasilnya adalah sama yaitu data byte dalam bentuk numerik basis desimal, dengan ketentuan literal string yang digunakan adalah tanda petik satu (<code>'</code>).
 
-Juga berlaku sebaliknya, data numerik jika di-casting ke bentuk string dideteksi sebagai kode byte dari karakter yang akan dihasilkan.
+Juga berlaku sebaliknya, data numerik jika di-casting ke bentuk string dideteksi sebagai kode ASCII dari karakter yang akan dihasilkan.
 
 ```go
 var c int64 = int64('h')
@@ -189,11 +189,11 @@ var d string = string(104)
 fmt.Println(d) // h
 ```
 
-## Konversi Data `interface{}` Menggunakan Teknik Type Assertions
+## 40.4. Konversi Data `interface{}` Menggunakan Teknik Type Assertions
 
-**Type assertions** merupakan teknik casting data `interface{}` ke segala jenis tipe (dengan syarat data tersebut memang bisa di-casting).
+**Type assertions** merupakan teknik casting data `interface{}` ke segala jenis tipe (dengan syarat data tersebut memang bisa di-casting ke tipe tujuan).
 
-Berikut merupakan contoh penerapannya. Disiapkan variabel `data` bertipe `map[string]interface{}` dengan value berbeda beda tipe datanya.
+Berikut merupakan contoh penerapannya. Variabel `data` disiapkan bertipe `map[string]interface{}`, berisikan beberapa item dengan tipe data value nya berbeda satu sama lain.
 
 ```go
 var data = map[string]interface{}{
@@ -209,11 +209,11 @@ fmt.Println(data["grade"].(int))
 fmt.Println(data["height"].(float64))
 fmt.Println(data["isMale"].(bool))
 fmt.Println(data["hobbies"].([]string))
-``` 
+```
 
 Statement `data["nama"].(string)` maksudnya adalah, nilai `data["nama"]` dicasting sebagai `string`.
 
-Tipe asli data pada variabel `interface{}` bisa diketahui dengan cara meng-casting `interface{}` ke tipe `type`. Namun casting ini hanya bisa dilakukan pada `switch`.
+Tipe asli data pada variabel `interface{}` bisa diketahui dengan cara meng-casting ke tipe `type`. Namun casting ke tipe `type` hanya bisa dilakukan pada `switch`.
 
 ```go
 for _, val := range data {

@@ -1,10 +1,10 @@
-# Timer
+# 39. Timer
 
-Ada beberapa fungsi dalam package `time` yang memiliki kegunaan sebagai timer. Dengan memanfaatkan fungsi-fungsi tersebut, kita bisa menunda eksekusi sebuah proses dengan durasi waktu tertentu.
+Ada beberapa fungsi dalam package `time` yang bisa dimanfaatkan untuk menunda atau mengatur jadwal eksekusi sebuah proses dalam jeda waktu tertentu.
 
-## Fungsi `time.Sleep()`
+## 39.1. Fungsi `time.Sleep()`
 
-Fungsi ini digunakan untuk menghentikan program sejenak. `time.Sleep()` bersifat **blocking**, sehingga statement dibawahnya tidak akan dieksekusi sampai waktu pemberhentian usai. Contoh sederhana penerapannya bisa dilihat pada kode berikut.
+Fungsi ini digunakan untuk menghentikan program sejenak. `time.Sleep()` bersifat **blocking**, statement dibawahnya tidak akan dieksekusi sampai waktu pemberhentian usai. Contoh sederhana penerapan bisa dilihat pada kode berikut.
 
 ```go
 package main
@@ -19,11 +19,13 @@ func main () {
 }
 ```
 
-Tulisan `"start"` muncul, lalu 4 detik kemudian tulisan `"after 4 seconds"` muncul.
+Hasilnya, tulisan `"start"` muncul, lalu 4 detik kemudian tulisan `"after 4 seconds"` muncul.
 
-## Fungsi `time.NewTimer()`
+## 39.2. Fungsi `time.NewTimer()`
 
-Fungsi ini sedikit berbeda dengan `time.Sleep()`. Fungsi `time.NewTimer()` mengembalikan sebuah objek `*time.Timer` yang memiliki method `C`. Method ini mengembalikan sebuah channel dan akan dieksekusi dalam waktu yang sudah ditentukan. Contoh penerapannya bisa dilihat pada kode berikut.
+Fungsi ini sedikit berbeda dengan `time.Sleep()`. Fungsi `time.NewTimer()` mengembalikan objek bertipe `*time.Timer` yang memiliki property `C`. Cara kerja fungsi ini, setelah jeda waktu yang ditentukan sebuah data akan dikirimkan lewat channel `C`. Penggunaan fungsi ini harus diikuti dengan statement untuk penerimaan data dari channel `C`.
+
+Untuk lebih jelasnya silakan perhatikan kode berikut.
 
 ```go
 var timer = time.NewTimer(4 * time.Second)
@@ -32,9 +34,11 @@ fmt.Println("start")
 fmt.Println("finish")
 ```
 
-Tulisan `"finish"` akan muncul setelah delay **4 detik**.
+Statement `var timer = time.NewTimer(4 * time.Second)` mengindikasikan bahwa nantinya akan ada data yang dikirimkan ke channel `timer.C` setelah 4 detik berlalu. Baris kode `<-timer.C` menandakan penerimaan data dari channel `timer.C`. Karena penerimaan channel sendiri sifatnya adalah blocking, maka statement `fmt.Println("finish")` baru akan dieksekusi setelah **4 detik**.
 
-## Fungsi `time.AfterFunc()`
+Hasil program di atas adalah tulisan `"start"` muncul, lalu setelah 4 detik tulisan `"expired"` muncul.
+
+## 39.3. Fungsi `time.AfterFunc()`
 
 Fungsi `time.AfterFunc()` memiliki 2 parameter. Parameter pertama adalah durasi timer, dan parameter kedua adalah *callback* nya. Callback tersebut akan dieksekusi jika waktu sudah memenuhi durasi timer.
 
@@ -51,16 +55,16 @@ fmt.Println("start")
 fmt.Println("finish")
 ```
 
-Tulisan `"start"` akan muncul di awal. Diikuti 4 detik kemudian tulisan `"expired"`.
+Hasil dari kode di atas, tulisan `"start"` muncul kemudian setelah 4 detik berlalu, tulisan `"expired"` muncul.
 
-Didalam callback terdapat proses transfer data lewat channel, mengakibatkan tulisan `"finish"` akan muncul tepat setelah tulisan `"expired"` muncul.
+Didalam callback terdapat proses transfer data lewat channel, menjadikan tulisan `"finish"` akan muncul tepat setelah tulisan `"expired"` muncul.
 
 Beberapa hal yang perlu diketahui dalam menggunakan fungsi ini:
 
  - Jika tidak ada serah terima data lewat channel, maka eksekusi `time.AfterFunc()` adalah asynchronous dan tidak blocking.
  - Jika ada serah terima data lewat channel, maka fungsi akan tetap berjalan asynchronous dan tidak blocking hingga baris kode dimana penerimaan data channel dilakukan.
 
-## Fungsi `time.After()`
+## 39.4. Fungsi `time.After()`
 
 Kegunaan fungsi ini mirip seperti `time.Sleep()`. Perbedaannya adalah, fungsi `timer.After()` akan mengembalikan data channel, sehingga perlu menggunakan tanda `<-` dalam penerapannya.
 
@@ -71,11 +75,11 @@ fmt.Println("expired")
 
 Tulisan `"expired"` akan muncul setelah 4 detik.
 
-## Kombinasi Timer & Goroutine
+## 39.5. Kombinasi Timer & Goroutine
 
-Berikut merupakan contoh penerapan timer dan goroutine. Program di bawah ini adalah program tanya-jawab sederhana. User harus menginputkan jawaban dalam waktu tidak lebih dari 5 detik. Jika lebih dari waktu tersebut belum ada jawabamn, maka akan muncul pesan *time out*.
+Berikut merupakan contoh penerapan timer dan goroutine. Program di bawah ini adalah program tanya-jawab sederhana. Sebuah pertanyaan muncul dan user harus menginputkan jawaban dalam waktu tidak lebih dari 5 detik. Jika 5 detik berlalu dan belum ada jawaban, maka akan muncul pesan **time out**.
 
-Pertama, import package yang diperlukan.
+OK langsung saja, mari kita buat programnya, pertama, import package yang diperlukan.
 
 ```go
 package main
@@ -85,7 +89,7 @@ import "os"
 import "time"
 ```
 
-Buat fungsi `timer()`, yang nantinya akan dieksekusi sebagai goroutine. Di dalam fungsi ini akan ada proses pengiriman data lewat channel `ch` ketika waktu sudah mencapai `timeout`.
+Buat fungsi `timer()`, nantinya fungsi ini dieksekusi sebagai goroutine. Di dalam fungsi `timer()` terdapat blok kode jika waktu sudah mencapai `timeout`, maka sebuah data dikirimkan lewat channel `ch`.
 
 ```go
 func timer(timeout int, ch chan<- bool) {
@@ -95,7 +99,7 @@ func timer(timeout int, ch chan<- bool) {
 }
 ```
 
-Siapkan juga fungsi `watcher()`. Fungsi ini juga akan dieksekusi sebagai goroutine. Tugasnya cukup sederhana, yaitu ketika sebuah data diterima dari channel `ch` maka akan ditampilkan tulisan penanda waktu habis.
+Siapkan juga fungsi `watcher()`. Fungsi ini juga akan dieksekusi sebagai goroutine. Tugasnya cukup sederhana, yaitu menerima data dari channel `ch` (jika ada penerimaan data, berarti sudah masuk waktu timeout), lalu menampilkan pesan bahwa waktu telah habis.
 
 ```go
 func watcher(timeout int, ch <-chan bool) {
