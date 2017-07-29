@@ -1,8 +1,8 @@
-# Interface Kosong
+# 27. Interface Kosong
 
 Interface kosong atau `interface{}` adalah tipe data yang sangat spesial. Variabel bertipe ini bisa menampung segala jenis data, bahkan array, bisa pointer bisa tidak (konsep ini disebut dengan **dynamic typing**).
 
-## Penggunaan `interface{}`
+## 27.1. Penggunaan `interface{}`
 
 `interface{}` merupakan tipe data, sehingga cara penggunaannya sama seperti pada tipe data lainnya, hanya saja nilai yang diisikan bisa apa saja. Contoh:
 
@@ -43,11 +43,11 @@ data = map[string]interface{}{
 
 Pada kode di atas, disiapkan variabel `data` dengan tipe `map[string]interface{}`, yaitu sebuah koleksi dengan key bertipe `string` dan nilai bertipe interface kosong `interface{}`.
 
-Kemudian variabel tersebut di-instansiasi, ditambahkan lagi kurung kurawal setelah keyword deklarasi untuk kebutuhan pengisian data, `map[string]interface{}{ /* data */ }`.
+Kemudian variabel tersebut di-inisialisasi, ditambahkan lagi kurung kurawal setelah keyword deklarasi untuk kebutuhan pengisian data, `map[string]interface{}{ /* data */ }`.
 
 Dari situ terlihat bahwa `interface{}` bukanlah sebuah objek, melainkan tipe data.
 
-## Casting Variabel Interface Kosong
+## 27.2. Casting Variabel Interface Kosong
 
 Variabel bertipe `interface{}` bisa ditampilkan ke layar sebagai `string` dengan memanfaatkan fungsi print, seperti `fmt.Println()`. Tapi perlu diketahui bahwa nilai yang dimunculkan tersebut bukanlah nilai asli, melainkan bentuk string dari nilai aslinya.
 
@@ -80,7 +80,7 @@ Pada contoh kedua, `secret` berisikan array string. Kita memerlukan string terse
 
 Teknik casting pada interface disebut dengan **type assertions**.
 
-## Casting Variabel Interface Kosong Ke Objek Pointer
+## 27.3. Casting Variabel Interface Kosong Ke Objek Pointer
 
 Variabel `interface{}` bisa menyimpan data apa saja, termasuk data objek, pointer, ataupun gabungan keduanya. Di bawah ini merupakan contoh penerapan interface untuk menampung data objek pointer.
 
@@ -99,11 +99,11 @@ Variabel `secret` dideklarasikan bertipe `interface{}` menampung referensi objek
 
 ![Casting `interface{}` ke variabel objek](images/27_3_interface_pointer.png)
 
-## Kombinasi Slice, `map`, dan `interface{}`
+## 27.4. Kombinasi Slice, `map`, dan `interface{}`
 
-Kombinasi dari slice dan `map[string]interface{}` mempunyai kemiripan dengan kombinasi slice dan `struct`. Silakan perhatikan contoh berikut.
+Tipe `[]map[string]interface{}` adalah salah satu tipe yang paling sering digunakan (menurut saya), karena tipe data tersebut bisa menjadi alternatif tipe slice struct.
 
-Disiapkan variabel `person`, menampung data `map` dengan 2 key, yaitu `name` dan `age`.
+Pada contoh berikut, variabel `person` dideklarasikan berisi data slice `map` berisikan 2 item dengan key adalah `name` dan `age`.
 
 ```go
 var person = []map[string]interface{}{
@@ -117,7 +117,7 @@ for _, each := range person {
 }
 ```
 
-Selain itu, dengan memanfaatkan slice dan `interface{}`, kita bisa membuat data array yang isinya adalah bisa apa saja. Silakan perhatikan contoh penggunaan `[]interface{}` pada kode berikut.
+Dengan memanfaatkan slice dan `interface{}`, kita bisa membuat data array yang isinya adalah bisa apa saja. Silakan perhatikan contoh berikut.
 
 ```go
 var fruits = []interface{}{

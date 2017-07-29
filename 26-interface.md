@@ -1,12 +1,12 @@
-# Interface
+# 26. Interface
 
 Interface adalah kumpulan definisi method yang tidak memiliki isi (hanya definisi saja), dan dibungkus dengan nama tertentu.
 
 Interface merupakan tipe data. Nilai objek bertipe interface default-nya adalah `nil`. Interface mulai bisa digunakan jika sudah ada isinya, yaitu objek konkret yang memiliki definisi method minimal sama dengan yang ada di interface-nya.
 
-## Penerapan Interface
+## 26.1. Penerapan Interface
 
-Yang pertama perlu dilakukan untuk menerapkan interface adalah menyiapkan interface baru beserta definisi method nya. Keyword `type` dan `interface` digunakan dalam pembuatannya. Contoh:
+Yang pertama perlu dilakukan untuk menerapkan interface adalah menyiapkan interface beserta definisi method nya. Keyword `type` dan `interface` digunakan untuk pendefinisian interface.
 
 ```go
 package main
@@ -20,11 +20,11 @@ type hitung interface {
 }
 ```
 
-Pada kode di atas, interface `hitung` memiliki 2 definisi method, `luas()` dan `keliling()`. Interface ini nantinya digunakan sebagai tipe data variabel, dimana variabel tersebut digunakan untuk menampung objek bangun datar hasil dari struct yang akan kita buat.
+Pada kode di atas, interface `hitung` memiliki 2 definisi method, `luas()` dan `keliling()`. Interface ini nantinya digunakan sebagai tipe data pada variabel, dimana variabel tersebut akan menampung menampung objek bangun datar hasil dari struct yang akan kita buat.
 
-Dengan memanfaatkan variabel objek hasil interface `hitung`, perhitungan luas dan keliling suatu bangun datar bisa dilakukan, tanpa perlu tahu jenis bangun datarnya sendiri itu apa.
+Dengan memanfaatkan interface `hitung`, perhitungan luas dan keliling bangun datar bisa dilakukan, tanpa perlu tahu jenis bangun datarnya sendiri itu apa.
 
-Selanjutnya disiapkan struct bangun datar `lingkaran` yang memiliki method yang beberapa diantaranya terdefinisi di interface `hitung`.
+Siapkan struct bangun datar `lingkaran`, struct ini memiliki method yang beberapa diantaranya terdefinisi di interface `hitung`.
 
 ```go
 type lingkaran struct {
@@ -44,9 +44,9 @@ func (l lingkaran) keliling() float64 {
 }
 ```
 
-Struct `lingkaran` di atas memiliki tiga method, `jariJari()`, `luas()`, dan `keliling()`. 
+Struct `lingkaran` di atas memiliki tiga method, `jariJari()`, `luas()`, dan `keliling()`.  
 
-Setelah itu, siapkan juga struct bangun datar `persegi`.
+Selanjutnya, siapkan struct bangun datar `persegi`.
 
 ```go
 type persegi struct {
@@ -64,7 +64,7 @@ func (p persegi) keliling() float64 {
 
 Perbedaan struct `persegi` dengan `lingkaran` terletak pada method `jariJari()`. Struct `persegi` tidak memiliki method tersebut. Tetapi meski demikian, variabel objek hasil cetakan 2 struct ini akan tetap bisa ditampung oleh variabel cetakan interface `hitung`, karena dua method yang ter-definisi di interface tersebut juga ada pada struct `persegi` dan `lingkaran`, yaitu `luas()` dan `keliling()`.
 
-Terakhir, buat implementasinya di `main`.
+Buat implementasi perhitungan di `main`.
 
 ```go
 func main() {
@@ -83,7 +83,7 @@ func main() {
 }
 ```
 
-Perhatikan kode di atas. Disiapkan variabel objek `bangunDatar` yang tipe-nya interface `hitung`. Variabel tersebut akan digunakan untuk menampung objek konkrit buatan struct `lingkaran` dan `persegi`.
+Perhatikan kode di atas. Variabel objek `bangunDatar` bertipe interface `hitung`. Variabel tersebut digunakan untuk menampung objek konkrit buatan struct `lingkaran` dan `persegi`.
 
 Dari variabel tersebut, method `luas()` dan `keliling()` diakses. Secara otomatis Golang akan mengarahkan pemanggilan method pada interface ke method asli milik struct yang bersangkutan.
 
@@ -104,9 +104,9 @@ bangunLingkaran.jariJari()
 
 Perlu diketahui juga, jika ada interface yang menampung objek konkrit dimana struct-nya tidak memiliki salah satu method yang terdefinisi di interface, error juga akan muncul. Intinya kembali ke aturan awal, variabel interface hanya bisa menampung objek yang minimal memiliki semua method yang terdefinisi di interface-nya.
 
-## Embedded Interface
+## 26.2. Embedded Interface
 
-Interface bisa di-embed ke interface lain, sama seperti struct. Cara penerapannya juga sama, cukup dengan menuliskan nama interface yang ingin di-embed ke dalam interface tujuan. 
+Interface bisa di-embed ke interface lain, sama seperti struct. Cara penerapannya juga sama, cukup dengan menuliskan nama interface yang ingin di-embed ke dalam interface tujuan.
 
 Pada contoh berikut, disiapkan interface bernama `hitung2d` dan `hitung3d`. Kedua interface tersebut kemudian di-embed ke interface baru bernama `hitung`.
 
@@ -133,7 +133,7 @@ type hitung interface {
 
 Interface `hitung2d` berisikan method untuk kalkulasi luas dan keliling, sedang `hitung3d` berisikan method untuk mencari volume bidang. Kedua interface tersebut diturunkan di interface `hitung`, menjadikannya memiliki kemampuan untuk menghitung luas, keliling, dan volume.
 
-Selanjutnya siapkan struct baru bernama `kubus` yang memiliki method `luas()`, `keliling()`, dan `volume()`.
+Next, siapkan struct baru bernama `kubus` yang memiliki method `luas()`, `keliling()`, dan `volume()`.
 
 ```go
 type kubus struct {
@@ -155,7 +155,7 @@ func (k *kubus) keliling() float64 {
 
 Objek hasil cetakan struct `kubus` di atas, nantinya akan ditampung oleh objek cetakan interface `hitung` yang isinya merupakan gabungan interface `hitung2d` dan `hitung3d`.
 
-Selanjutnya, buat implementasi-nya di main.
+Terakhhir, buat implementasi-nya di main.
 
 ```go
 func main() {

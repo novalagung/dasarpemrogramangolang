@@ -37,7 +37,7 @@
  * [Channel - Range & Close](33-channel-range-close.md)
  * [Channel - Timeout](34-channel-timeout.md)
  * [Defer & Exit](35-defer-exit.md)
- * [Error & Panic](36-error-panic.md)
+ * [Error, Panic, & Recover](36-error-panic-recover.md)
  * [Layout Format String](37-string-format.md)
  * [Time, Parsing Time, & Format Time](38-time.md)
  * [Timer](39-timer.md)

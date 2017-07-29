@@ -1,16 +1,16 @@
-# Channel - Range dan Close
+# 33. Channel - Range dan Close
 
-Penerimaan data lewat channel yang dipakai oleh banyak goroutine, akan lebih mudah dengan memanfaatkan keyword `for` - `range`.
+Penerimaan data lewat channel yang jumlah goroutine-nya banyak bisa lebih mudah dengan memanfaatkan keyword `for` - `range`.
 
-`for` - `range` jika diterapkan pada channel, akan melakukan perulangan tanpa henti. Perulangan tersebut tetap berjalan meski tidak ada transaksi pada channel, dan hanya akan berhenti jika status channel berubah menjadi **closed** atau sudah ditutup. Fungsi `close` digunakan utuk menutup channel.
+`for` - `range` jika diterapkan pada channel berfungsi untuk handle penerimaan data. Setiap kali ada pengiriman data ke channel, perulangan akan berjalan sekali, setelah 1 perulangan selesai akan menunggu lagi penerimaan data selanjutnya. Perulangan hanya akan berhenti jika channel di **close** atau di-non-aktifkan. Fungsi `close` digunakan utuk me-non-aktifkan channel.
 
-Channel yang sudah ditutup tidak bisa digunakan lagi untuk menerima maupun mengirim data. Menjadikan penerimaan data menggunakan `for` - `range` juga ikut berhenti.
+Channel yang sudah di-close tidak bisa digunakan lagi untuk menerima maupun mengirim data, itulah kenapa perulangan pada `for` - `range` juga ikut berhenti.
 
-## Penerapan `for` - `range` - `close` Pada Channel
+## 33.1. Penerapan `for` - `range` - `close` Pada Channel
 
-Berikut adalah contoh program yang menggunakan `for` - `range` untuk pengambilan data dari channel.
+Berikut adalah contoh program yang menggunakan `for` - `range` untuk penerimaan data dari channel.
 
-Pertama siapkan fungsi `sendMessage()` untuk handle pengiriman data. Didalam fungsi ini akan dijalankan perulangan sebanyak 20 kali, ditiap perulangannya data dikirim lewat channel. Setelah semua data terkirim, channel di-close.
+Pertama siapkan fungsi `sendMessage()` bertugas untuk mengirim data. Didalam fungsi ini dijalankan perulangan sebanyak 20 kali, ditiap perulangannya data dikirim lewat channel. Setelah semua data terkirim, channel di-close.
 
 ```go
 func sendMessage(ch chan<- string) {
@@ -31,7 +31,7 @@ func printMessage(ch <-chan string) {
 }
 ```
 
-Bat channel baru di fungsi `main`, jalankan `sendMessage()` sebagai goroutine. Jalankan juga `printMessage()`. Dengan ini 20 data dikirimkan lewat goroutine baru, dan nantinya diterima di goroutine utama.
+Buat channel baru dalam `main`, jalankan `sendMessage()` sebagai goroutine. Jalankan juga `printMessage()`. Dengan ini 20 data dikirimkan lewat goroutine baru, dan nantinya diterima di goroutine utama.
 
 ```go
 func main() {
@@ -43,11 +43,15 @@ func main() {
 }
 ```
 
-Setelah 20 data sukses dikirim dan diterima, channel `ch` akan dimatikan (`close(ch)`). Membuat perulangan data channel dalam `printMessage()` juga akan berhenti.
+Setelah 20 data sukses dikirim dan diterima, channel `ch` di-non-aktifkan (`close(ch)`). Membuat perulangan data channel dalam `printMessage()` juga akan berhenti.
 
 ![Penerapan for-range-close pada channel](images/33_1_for_range_close.png)
 
-## Channel Direction
+---
+
+Berikut adalah penjelasan tambahan mengenai channel.
+
+## 33.2. Channel Direction
 
 Ada yang unik dengan fitur parameter channel yang disediakan Golang. Level akses channel bisa ditentukan, apakah hanya sebagai penerima, pengirim, atau penerima sekaligus pengirim. Konsep ini disebut dengan **channel direction**.
 

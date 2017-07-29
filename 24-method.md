@@ -126,7 +126,7 @@ s2.sayHello()
 
 ---
 
-Berikut adalah penjelasan tambahan untuk beberapa hal dalam bab ini.
+Berikut adalah penjelasan tambahan mengenai beberapa hal pada bab ini.
 
 ## 24.3. Penggunaan Fungsi `strings.Split()`
 

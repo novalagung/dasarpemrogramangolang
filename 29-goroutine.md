@@ -1,10 +1,18 @@
-# Goroutine
+# 29. Goroutine
 
-Goroutine bukanlah thread. Sebuah *native thread* bisa berisikan sangat banyak goroutine. Mungkin lebih pas kalau goroutine disebut sebagai **mini thread**. Goroutine sangat ringan, hanya dibutuhkan sekitar **2kB** memori saja untuk satu buah goroutine. Ekseksui goroutine bersifat *asynchronous*, menjadikannya tidak saling tunggu dengan goroutine lain.
+Goroutine mirip dengan thread thread, tapi sebenarnya bukan. Sebuah *native thread* bisa berisikan sangat banyak goroutine. Mungkin lebih pas kalau goroutine disebut sebagai **mini thread**. Goroutine sangat ringan, hanya dibutuhkan sekitar **2kB** memori saja untuk satu buah goroutine. Ekseksui goroutine bersifat *asynchronous*, menjadikannya tidak saling tunggu dengan goroutine lain.
 
-## Penerapan Goroutine
+> Karena goroutine sangat ringan, maka eksekusi banyak goroutine bukan masalah. Akan tetapi jika jumlah goroutine sangat banyak sekali (contoh 1 juta goroutine dijalankan pada komputer dengan RAM terbatas), memang proses akan jauh lebih cepat selesai, tapi memory / RAM juga bisa bengkak.
 
-Untuk menerapkan goroutine, proses yang akan dieksekusi sebagai goroutine harus dibungkus kedalam fungsi. Pada saat pemanggilan fungsi tersebut, ditambahkan keyword `go` didepannya. Dengan demikian proses yang ada dalam fungsi tersebut dideteksi sebagai goroutine baru.
+Goroutine merupakan salah satu bagian paling penting dalam Concurrent Programming di Golang. Salah satu yang membuat goroutine sangat istimewa adalah eksekusi-nya dijalankan di multi core processor. Kita bisa tentukan berapa banyak core yang aktif, makin banyak akan makin cepat.
+
+Mulai bab 29 ini hingga bab 34, lalu dilanjut bab 56 dan 57, kita akan membahas tentang fitur-fitur yang disediakan golang untuk kebutuhan Concurrent Programming.
+
+> Concurrency atau konkurensi berbeda dengan paralel. Paralel adalah eksekusi banyak proses secara bersamaan. Sedangkan konkurensi adalah komposisi dari sebuah proses. Konkurensi merupakan struktur, sedangkan paralel adalah bagaimana eksekusinya berlangsung.
+
+## 29.1. Penerapan Goroutine
+
+Untuk menerapkan goroutine, proses yang akan dieksekusi sebagai goroutine harus dibungkus kedalam sebuah fungsi. Pada saat pemanggilan fungsi tersebut, ditambahkan keyword `go` didepannya, dengan itu goroutine baru akan dibuat dengan tugas adalah menjalankan proses yang ada dalam fungsi tersebut.
 
 Berikut merupakan contoh implementasi sederhana tentang goroutine. Program di bawah ini menampilkan 10 baris teks, 5 dieksekusi dengan cara biasa, dan 5 lainnya dieksekusi sebagai goroutine baru.
 
@@ -31,7 +39,7 @@ func main() {
 }
 ```
 
-Pada kode di atas, `runtime.GOMAXPROCS(n)` digunakan untuk menentukan jumlah prosesor yang aktif.
+Pada kode di atas, Fungsi `runtime.GOMAXPROCS(n)` digunakan untuk menentukan jumlah core yang diaktifkan untuk eksekusi program.
 
 Pembuatan goroutine baru ditandai dengan keyword `go`. Contohnya pada statement `go print(5, "halo")`, di situ fungsi `print()` dieksekusi sebagai goroutine baru.
 
@@ -39,21 +47,21 @@ Fungsi `fmt.Scanln()` mengakibatkan proses jalannya aplikasi berhenti di baris i
 
 ![Implementasi goroutine](images/29_1_goroutine.png)
 
-Bisa dilihat di output, tulisan `"halo"` dan `"apa kabar"` bermunculan selang-seling. Ini disebabkan karena statement `print(5, "halo")` dijalankan sebagai goroutine baru, menjadikannya tidak saling tunggu dengan `print(5, "apa kabar")`. 
+Bisa dilihat di output, tulisan `"halo"` dan `"apa kabar"` bermunculan selang-seling. Ini disebabkan karena statement `print(5, "halo")` dijalankan sebagai goroutine baru, menjadikannya tidak saling tunggu dengan `print(5, "apa kabar")`.
 
 Pada gambar di atas, program dieksekusi 2 kali. Hasil eksekusi pertama berbeda dengan kedua, penyebabnya adalah karena kita menggunakan 2 prosesor. Goroutine mana yang dieksekusi terlebih dahulu tergantung kedua prosesor tersebut.
 
-## 
+---
 
 Berikut adalah penjelasan tambahan tentang beberapa fungsi yang baru kita pelajari di atas.
 
-## Penggunaan Fungsi `runtime.GOMAXPROCS()`
+## 29.2. Penggunaan Fungsi `runtime.GOMAXPROCS()`
 
-Fungsi ini digunakan untuk menentukan jumlah prosesor yang digunakan dalam eksekusi program.
+Fungsi ini digunakan untuk menentukan jumlah core atau processor yang digunakan dalam eksekusi program.
 
-Jumlah prosesor yang diinputkan secara otomatis akan disesuaikan dengan jumlah asli *logical processor* yang ada. Jika angka yg diinputkan adalah lebih, maka dianggap menggunakan semua prosesor yang ada.
+Jumlah yang diinputkan secara otomatis akan disesuaikan dengan jumlah asli *logical processor* yang ada. Jika jumlahnya lebih, maka dianggap menggunakan sejumlah prosesor yang ada.
 
-## Penggunaan Fungsi `fmt.Scanln()`
+## 29.3. Penggunaan Fungsi `fmt.Scanln()`
 
 Fungsi ini akan meng-capture semua karakter sebelum user menekan tombol enter, lalu menyimpannya pada variabel.
 
@@ -75,4 +83,3 @@ fmt.Println(s3) // law
 ```
 
 Bisa dilihat pada kode di atas, untuk menampung inputan text `trafalgar d law`, dibutuhkan 3 buah variabel. Juga perlu diperhatikan bahwa yang disisipkan sebagai parameter pada pemanggilan fungsi `fmt.Scanln()` adalah referensi variabel, bukan nilai aslinya.
-
