@@ -13,7 +13,17 @@ func validate(input string) (bool, error) {
 	return true, nil
 }
 
+func catch() {
+if r := recover(); r != nil {
+        fmt.Println("Error occured", r)
+    } else {
+        fmt.Println("Application running perfectly")
+    }
+}
+
 func main() {
+	defer catch()
+	
 	var name string
 	fmt.Print("Type your name: ")
 	fmt.Scanln(&name)
