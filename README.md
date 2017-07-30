@@ -20,4 +20,4 @@ Buku ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan sara
 
 ---
 
-<center><img src="images/other/cover_fb_share.jpg" alt="Buku Dasar Pemrograman Golang" height="100" /></center>
+<center><img src="images/other/cover_fb_share.jpg" alt="Buku Dasar Pemrograman Golang" height="200" /></center>
