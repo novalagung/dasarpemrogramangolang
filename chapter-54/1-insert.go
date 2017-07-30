@@ -2,30 +2,36 @@ package main
 
 import "fmt"
 import "gopkg.in/mgo.v2"
-import "os"
 
 type student struct {
 	Name  string `bson:"name"`
 	Grade int    `bson:"Grade"`
 }
 
-func connect() *mgo.Session {
+func connect() (*mgo.Session, error) {
 	var session, err = mgo.Dial("localhost")
 	if err != nil {
-		os.Exit(0)
+		return nil, err
 	}
-	return session
+	return session, nil
 }
 
 func insert() {
-	var session = connect()
-	defer session.Close()
-	var collection = session.DB("belajar_golang").C("student")
-
-	var err = collection.Insert(&student{"Wick", 2}, &student{"Ethan", 2})
+	var session, err = connect()
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Println("Error!", err.Error())
+		return
 	}
+	defer session.Close()
+
+	var collection = session.DB("belajar_golang").C("student")
+	err = collection.Insert(&student{"Wick", 2}, &student{"Ethan", 2})
+	if err != nil {
+		fmt.Println("Error!", err.Error())
+		return
+	}
+
+	fmt.Println("Insert success!")
 }
 
 func main() {

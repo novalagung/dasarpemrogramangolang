@@ -39,7 +39,7 @@ func fetchUsers() ([]student, error) {
 func main() {
 	var users, err = fetchUsers()
 	if err != nil {
-		fmt.Println("Error!",err.Error())
+		fmt.Println("Error!", err.Error())
 		return
 	}
 

@@ -2,7 +2,6 @@ package main
 
 import "fmt"
 import "database/sql"
-import "os"
 import _ "github.com/go-sql-driver/mysql"
 
 type student struct {
@@ -12,25 +11,31 @@ type student struct {
 	grade int
 }
 
-func connect() *sql.DB {
-	var db, err = sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/db_belajar_golang")
+func connect() (*sql.DB, error) {
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/db_belajar_golang")
 	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(0)
+		return nil, err
 	}
 
-	return db
+	return db, nil
 }
 
 func sqlExec() {
-	var db = connect()
+	db, err := connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 	defer db.Close()
 
-	var stmt, err = db.Prepare("insert into tb_student values (?, ?, ?, ?)")
+	stmt, err := db.Prepare("insert into tb_student values (?, ?, ?, ?)")
 	stmt.Exec("G001", "Galahad", 29, 2)
 	if err != nil {
 		fmt.Println(err.Error())
+		return
 	}
+
+	fmt.Println("insert success!")
 }
 
 func main() {

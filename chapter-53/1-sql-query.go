@@ -2,7 +2,6 @@ package main
 
 import "fmt"
 import "database/sql"
-import "os"
 import _ "github.com/go-sql-driver/mysql"
 
 type student struct {
@@ -12,25 +11,28 @@ type student struct {
 	grade int
 }
 
-func connect() *sql.DB {
-	var db, err = sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/db_belajar_golang")
+func connect() (*sql.DB, error) {
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/db_belajar_golang")
 	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(0)
+		return nil, err
 	}
 
-	return db
+	return db, nil
 }
 
 func sqlQuery() {
-	var db = connect()
+	db, err := connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 	defer db.Close()
 
 	var age = 27
-	var rows, err = db.Query("select id, name, grade from tb_student where age = ?", age)
+	rows, err := db.Query("select id, name, grade from tb_student where age = ?", age)
 	if err != nil {
 		fmt.Println(err.Error())
-		os.Exit(0)
+		return
 	}
 	defer rows.Close()
 
@@ -42,7 +44,7 @@ func sqlQuery() {
 
 		if err != nil {
 			fmt.Println(err.Error())
-			os.Exit(0)
+			return
 		}
 
 		result = append(result, each)
@@ -50,7 +52,7 @@ func sqlQuery() {
 
 	if err = rows.Err(); err != nil {
 		fmt.Println(err.Error())
-		os.Exit(0)
+		return
 	}
 
 	for _, each := range result {

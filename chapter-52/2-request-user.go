@@ -46,7 +46,7 @@ func fetchUser(ID string) (student, error) {
 func main() {
 	var user1, err = fetchUser("E001")
 	if err != nil {
-		fmt.Println("Error!",err.Error())
+		fmt.Println("Error!", err.Error())
 		return
 	}
 

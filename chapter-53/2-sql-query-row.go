@@ -2,7 +2,6 @@ package main
 
 import "fmt"
 import "database/sql"
-import "os"
 import _ "github.com/go-sql-driver/mysql"
 
 type student struct {
@@ -12,26 +11,31 @@ type student struct {
 	grade int
 }
 
-func connect() *sql.DB {
-	var db, err = sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/db_belajar_golang")
+func connect() (*sql.DB, error) {
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/db_belajar_golang")
 	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(0)
+		return nil, err
 	}
 
-	return db
+	return db, nil
 }
 
 func sqlQueryRow() {
-	var db = connect()
+	var db, err = connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 	defer db.Close()
 
 	var result = student{}
 	var id = "E001"
-	var err = db.QueryRow("select name, grade from tb_student where id = ?", id).Scan(&result.name, &result.grade)
+	err = db.
+		QueryRow("select name, grade from tb_student where id = ?", id).
+		Scan(&result.name, &result.grade)
 	if err != nil {
 		fmt.Println(err.Error())
-		os.Exit(0)
+		return
 	}
 
 	fmt.Printf("name: %s\ngrade: %d\n", result.name, result.grade)
