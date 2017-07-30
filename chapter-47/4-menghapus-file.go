@@ -5,16 +5,19 @@ import "os"
 
 var path = "/Users/novalagung/Documents/temp/test.txt"
 
-func checkError(err error) {
+func isError(err error) bool {
 	if err != nil {
 		fmt.Println(err.Error())
-		os.Exit(0)
 	}
+
+	return (err != nil)
 }
 
 func deleteFile() {
-	var err = os.Remove(path)
-	checkError(err)
+    var err = os.Remove(path)
+	if isError(err) { return }
+
+	fmt.Println("==> file berhasil di delete")
 }
 
 func main() {

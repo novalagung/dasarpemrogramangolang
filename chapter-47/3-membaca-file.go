@@ -6,32 +6,35 @@ import "io"
 
 var path = "/Users/novalagung/Documents/temp/test.txt"
 
-func checkError(err error) {
+func isError(err error) bool {
 	if err != nil {
 		fmt.Println(err.Error())
-		os.Exit(0)
 	}
+
+	return (err != nil)
 }
 
 func readFile() {
-	// buka file
-	var file, err = os.OpenFile(path, os.O_RDONLY, 0644)
-	checkError(err)
+    // buka file
+    var file, err = os.OpenFile(path, os.O_RDWR, 0644)
+	if isError(err) { return }
 	defer file.Close()
 
-	// baca file
-	var text = make([]byte, 1024)
+    // baca file
+    var text = make([]byte, 1024)
 	for {
 		n, err := file.Read(text)
 		if err != io.EOF {
-			checkError(err)
+			if isError(err) { break }
 		}
 		if n == 0 {
 			break
 		}
 	}
+	if isError(err) { return }
+
+	fmt.Println("==> file berhasil dibaca")
 	fmt.Println(string(text))
-	checkError(err)
 }
 
 func main() {
