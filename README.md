@@ -6,7 +6,7 @@ Buku ini merupakan salah satu dari sekian banyak referensi yang bisa digunakan u
 
 Ebook Dasar Pemrograman Golang gratis untuk disebarluaskan secara bebas, selama tidak melanggar aturan lisensi [GNU LGPL 2.1](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html).
 
-Source code contoh-contoh program bisa diunduh di [Github](https://github.com/novalagung/dasarpemrogramangolang). Dianjurkan untuk tidak copy-paste dari source code dalam belajar, usahakan untuk menulis sendiri kode program, agar cepat terbiasa dengan bahasa Golang.
+Source code contoh-contoh program bisa diunduh di https://github.com/novalagung/dasarpemrogramangolang. Dianjurkan untuk tidak copy-paste dari source code dalam belajar, usahakan untuk menulis sendiri kode program, agar cepat terbiasa dengan bahasa Golang.
 
 ---
 
@@ -18,6 +18,6 @@ Bantu developer lain untuk mengenal dan belajar Golang, dengan cara [<span style
 
 Buku ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan saran, silakan drop email ke [caknopal@gmail.com](mailto:caknopal@gmail.com).
 
----
+<!-- --- -->
 
-<center><img src="images/other/cover_fb_share.jpg" alt="Buku Dasar Pemrograman Golang" height="180" /></center>
+<!-- <center><img src="images/other/cover_fb_share.jpg" alt="Buku Dasar Pemrograman Golang" height="180" /></center> -->
