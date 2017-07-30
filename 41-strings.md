@@ -1,6 +1,6 @@
 # 41. Fungsi String
 
-Golang menyediakan package `strings` yang didalamnya berisikan cukup banyak fungsi untuk keperluan pengolahan data bertipe string. Bab ini merupakan pembahasan mengenai beberapa fungsi yang ada di dalam package tersebut.
+Golang menyediakan package `strings`, berisikan cukup banyak fungsi untuk keperluan pengolahan data string. Bab ini berisi pembahasan mengenai beberapa fungsi yang ada di dalam package tersebut.
 
 ## 41.1. Fungsi `strings.Contains()`
 
@@ -64,9 +64,7 @@ var index1 = strings.Index("ethan hunt", "ha")
 fmt.Println(index1) // 2
 ```
 
-String `"ha"` berada pada posisi ke `2` dalam string `"ethan hunt"` (indeks dimulai dari 0).
-
-Jika diketemukan dua substring, maka yang diambil adalah yang pertama, contoh:
+String `"ha"` berada pada posisi ke `2` dalam string `"ethan hunt"` (indeks dimulai dari 0). Jika diketemukan dua substring, maka yang diambil adalah yang pertama, contoh:
 
 ```go
 var index2 = strings.Index("ethan hunt", "n")
@@ -77,9 +75,7 @@ String `"n"` berada pada indeks `4` dan `8`. Yang dikembalikan adalah yang palin
 
 ## 41.6. Fungsi `strings.Replace()`
 
-Fungsi ini digunakan untuk replace/mengganti bagian dari string dengan string tertentu.
-
-Jumlah substring yang di-replace bisa ditentukan, apakah hanya 1 string pertama, 2 string, atau kesemuanya.
+Fungsi ini digunakan untuk replace atau mengganti bagian dari string dengan string tertentu. Jumlah substring yang di-replace bisa ditentukan, apakah hanya 1 string pertama, 2 string, atau kesemuanya.
 
 ```go
 var text = "banana"
@@ -96,11 +92,11 @@ var newText3 = strings.Replace(text, find, replaceWith, -1)
 fmt.Println(newText3) // "bonono"
 ```
 
-Pada contoh di atas, substring `"a"` pada string `"banana"` akan di-replace dengan string `"o"`.
+Penjelasan:
 
-Pada `newText1`, hanya 1 huruf `o` saja yang tereplace karena maksimal substring yang ingin di-replace ditentukan 1.
-
-Angka `-1` akan menjadikan proses replace berlaku pada semua substring. Contoh bisa dilihat pada `newText3`.
+ 1. Pada contoh di atas, substring `"a"` pada string `"banana"` akan di-replace dengan string `"o"`.
+ 2. Pada `newText1`, hanya 1 huruf `o` saja yang tereplace karena maksimal substring yang ingin di-replace ditentukan 1.
+ 3. Angka `-1` akan menjadikan proses replace berlaku pada semua substring. Contoh bisa dilihat pada `newText3`.
 
 ## 41.7. Fungsi `strings.Repeat()`
 
@@ -125,7 +121,7 @@ var string2 = strings.Split("batman", "")
 fmt.Println(string2) // ["b", "a", "t", "m", "a", "n"]
 ```
 
-String `"the dark knight"` dipisah menggunakan pemisah string spasi `" "`, hasilnya kemudian ditampung oleh `string1`.
+String `"the dark knight"` dipisah oleh karakter spasi `" "`, hasilnya kemudian ditampung oleh `string1`.
 
 Untuk memisah string menjadi array tiap 1 string, gunakan pemisah string kosong `""`. Bisa dilihat contohnya pada variabel `string2`.
 

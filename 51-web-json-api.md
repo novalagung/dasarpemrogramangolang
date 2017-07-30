@@ -1,10 +1,10 @@
-# Web API JSON
+# 51. Web API JSON
 
 Pada bab ini kita akan mengkombinasikan pembahasan 2 bab sebelumnya, yaitu web dan JSON, untuk membuat sebuah web API dengan tipe data reponse berbentuk JSON.
 
-> Web API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML. 
+> Web API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML. Di bab ini kita akan buat tanpa authentikasi.
 
-## Pembuatan Web API
+## 51.1. Pembuatan Web API
 
 Pertama siapkan terlebih dahulu struct dan beberapa data sample.
 
@@ -29,7 +29,7 @@ var data = []student{
 }
 ```
 
-Struct `student` di atas digunakan sebagai tipe elemen array sample data yang ditampung oleh variabel `data`.
+Struct `student` di atas digunakan sebagai tipe elemen array sample data, ditampung variabel `data`.
 
 Selanjutnya buat fungsi `users()` untuk handle rute `/users`. Didalam fungsi tersebut ada proses deteksi jenis request lewat property `r.Method()`, untuk mencari tahu apakah jenis request adalah **POST** atau **GET** atau lainnya.
 
@@ -95,7 +95,7 @@ func user(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Method `r.FormValue()` digunakan untuk mengambil data payload yang dikirim dari client, pada konteks ini data yang dimaksud adalah `ID`.
+Method `r.FormValue()` digunakan untuk mengambil data form yang dikirim dari client, pada konteks ini data yang dimaksud adalah `ID`.
 
 Dengan menggunakan `ID` tersebut dicarilah data yang relevan. Jika ada, maka dikembalikan sebagai response. Jika tidak ada maka error **400, Bad Request** dikembalikan dengan pesan **User Not Found**.
 
@@ -111,18 +111,18 @@ func main() {
 }
 ```
 
-Jalankan program, maka web server sudah live dan bisa dikonsumsi datanya.
+Jalankan program, sekarang web server sudah live dan bisa dikonsumsi datanya.
 
 ![Web API Server dijalankan](images/51_1_server.png)
 
-## Test API
+## 51.2. Test API
 
-Setelah web server sudah berjalan, web API yang telah dibuat perlu untuk di tes. Di sini saya menggunakan Go\*gle Chrome plugin bernama [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en) untuk mengetes API yang sudah dibuat.
+Setelah web server sudah berjalan, web API yang telah dibuat perlu untuk di tes. Di sini saya menggunakan Google Chrome plugin bernama [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en) untuk mengetes API yang sudah dibuat.
 
  - Test `/users`, apakah data yang dikembalikan sudah benar.
-   
+
     ![Test `/users`](images/51_2_test_api_users.png)
 
- - Test `/user` dengan data payload `id` adalah `E001`.
+ - Test `/user`, isi form data `id` dengan nilai `E001`.
 
     ![Test `/user`](images/51_3_test_api_user.png)

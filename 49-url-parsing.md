@@ -1,6 +1,6 @@
-# URL Parsing
+# 49. URL Parsing
 
-Data string url bisa dikonversi kedalam bentuk `url.URL`. Tipe tersebut berisikan banyak informasi yang bisa diakses, diantaranya adalah jenis protokol yang digunakan, path yang diakses, query, dan lainnya.
+Data string url bisa dikonversi kedalam bentuk `url.URL`. Dengan menggunakan tipe tersebut akan ada banyak informasi yang bisa kita manfaatkan, diantaranya adalah jenis protokol yang digunakan, path yang diakses, query, dan lainnya.
 
 Berikut adalah contoh sederhana konversi string ke `url.URL`.
 
@@ -15,6 +15,7 @@ func main() {
     var u, e = url.Parse(urlString)
     if e != nil {
         fmt.Println(e.Error())
+        return
     }
 
     fmt.Printf("url: %s\n", urlString)
@@ -34,5 +35,3 @@ Fungsi `url.Parse()` digunakan untuk parsing string ke bentuk url. Mengembalikan
 Selain itu, query yang ada pada url akan otomatis diparsing juga, menjadi bentuk `map[string][]string`, dengan key adalah nama elemen query, dan value array string yang berisikan value elemen query.
 
 ![Pengaksesan elemen URL](images/49_1_parse_url.png)
-
-

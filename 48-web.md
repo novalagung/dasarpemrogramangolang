@@ -1,12 +1,12 @@
-# Web
+# 48. Web
 
-Golang menyediakan package `net/http` yang berisikan berbagai macam fitur untuk keperluan pembuatan aplikasi berbasi web. Termasuk didalamnya routing, server, templating, dan lainnya, semua tinggal pakai.
+Golang menyediakan package `net/http`, berisi berbagai macam fitur untuk keperluan pembuatan aplikasi berbasi web. Termasuk didalamnya routing, server, templating, dan lainnya, semua tinggal pakai.
 
-Golang memiliki web server sendiri, dan web server tersebut berada di dalam golang, tdak seperti bahasa lain yang server nya terpisah dan perlu di-instal sendiri (seperti PHP yang memerlukan Apache, .NET yang memerlukan IIS). Tapi tak menutup kemungkinan juga sebuah aplikasi Golang dijalankan pada web server lain seperti server Nginx.
+Golang memiliki web server sendiri, dan web server tersebut berada di dalam golang, tdak seperti bahasa lain yang server nya terpisah dan perlu di-instal sendiri (seperti PHP yang memerlukan Apache, .NET yang memerlukan IIS).
 
-Di bab ini kita akan belajar cara pembuatan aplikasi web sederhanda, dan juga pemanfaatan template dalam mendesain view.
+Di bab ini kita akan belajar cara pembuatan aplikasi web sederhanda dan pemanfaatan template untuk mendesain view.
 
-## Membuat Aplikasi Web Sederhanda
+## 48.1. Membuat Aplikasi Web Sederhanda
 
 Package `net/http` memiliki banyak sekali fungsi yang bisa dimanfaatkan. Di bagian ini kita akan mempelajari beberapa fungsi penting seperti *routing* dan *start server*.
 
@@ -54,13 +54,13 @@ Fungsi `http.listenAndServe()` digunakan untuk menghidupkan server sekaligus men
 
 Pada contoh di atas, server dijalankan pada port `8080`.
 
-Perlu diingat, setiap ada perubahan pada file, `go run` harus dipanggil lagi.
+Perlu diingat, setiap ada perubahan pada file `.go`, `go run` harus dipanggil lagi.
 
-Untuk menghentikan web server, tekan **CTRL+C** pada terminal atau CMD dimana pengeksekusian aplikasi berlangsung.
+Untuk menghentikan web server, tekan **CTRL+C** pada terminal atau CMD, dimana pengeksekusian aplikasi berlangsung.
 
-## Penggunaan Template Web
+## 48.2. Penggunaan Template Web
 
-Template memberikan kemudahan dalam mendesain tampilan view aplikasi website. Dan kabar baiknya golang menyediakan engine template sendiri, dengan banyak fitur yang tersedia didalamnya.
+Template egninmemberikan kemudahan dalam mendesain tampilan view aplikasi website. Dan kabar baiknya golang menyediakan engine template sendiri, dengan banyak fitur yang tersedia didalamnya.
 
 Di sini kita akan belajar contoh sederhana penggunaan template untuk menampilkan data. Pertama siapkan dahulu template nya. Buat file `template.html` lalu isi dengan kode berikut.
 
@@ -76,7 +76,7 @@ Di sini kita akan belajar contoh sederhana penggunaan template untuk menampilkan
 </html>
 ```
 
-Kode `{{.Name}}` maksudnya adalah representasi variabel `Name` yang dikirim dari router. Kode tersebut nantinya di-replace dengan isi variabel `Name`.
+Kode `{{.Name}}` artinya memunculkan isi data property `Name` yang dikirim dari router. Kode tersebut nantinya di-replace dengan isi variabel `Name`.
 
 Selanjutnya ubah isi file `.go` dengan kode berikut.
 
@@ -97,6 +97,7 @@ func main() {
         var t, err = template.ParseFiles("template.html")
         if err != nil {
             fmt.Println(err.Error())
+            return
         }
 
         t.Execute(w, data)
@@ -112,3 +113,7 @@ Jalankan, lalu buka [http://localhost:8080/](http://localhost:8080/), maka data 
 ![Penggunaan template](images/48_2_template.png)
 
 Fungsi `template.ParseFiles()` digunakan untuk parsing template, mengembalikan 2 data yaitu instance template-nya dan error (jika ada). Pemanggilan method `Execute()` akan membuat hasil parsing template ditampilkan ke layar web browser.
+
+Pada kode di atas, variabel `data` disisipkan sebagai parameter ke-2 method `Execute()`. Isi dari variabel tersebut bisa diakses di-view dengan menggunakan notasi `{{.NAMA_PROPERTY}}` (nama variabel sendiri tidak perlu dituliskan, langsung nama property didalamnya).
+
+Pada contoh di atas, statement di view `{{.Name}}` akan menampilkan isi dari `data.Name`.

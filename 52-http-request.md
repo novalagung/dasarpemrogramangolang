@@ -1,12 +1,12 @@
-# HTTP Request
+# 52. HTTP Request
 
-Setelah di bab sebelumnya kita belajar tentang bagaimana membuat Web API yang menyediakan data dalam bentuk JSON, pada bab ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
+Di bab sebelumnya kita telah belajar tentang bagaimana membuat Web API yang mem-provide data JSON, pada bab ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
 
-Pastikan anda sudah mempraktekkan apa-apa yang ada pada bab sebelumnya (bab 51), karena web api server yang sudah dibahas pada bab tersebut digunakan juga pada bab ini.
+Pastikan anda sudah mempraktekkan apa-apa yang ada pada bab sebelumnya (bab 51), karena web api server yang sudah dibuat pada bab sebelumnya kita juga pada bab ini.
 
 ![Jalankan web server](images/51_1_server.png)
 
-## Penggunaan HTTP Request
+## 52.1. Penggunaan HTTP Request
 
 Package `net/http`, selain berisikan tools untuk keperluan pembuatan web, juga berisikan fungsi-fungsi untuk melakukan http request. Salah satunya adalah `http.NewRequest()` yang akan kita bahas di sini.
 
@@ -31,31 +31,28 @@ type student struct {
 Setelah itu buat fungsi `fetchUsers()`. Fungsi ini bertugas melakukan request ke [http://localhost:8080/users](http://localhost:8080/users), menerima response dari request tersebut, lalu menampilkannya.
 
 ```go
-func fetchUsers() []*student {
-    var err error
-    var client = &http.Client{}
-    var data []*student
+func fetchUsers() ([]student, error) {
+	var err error
+	var client = &http.Client{}
+	var data []student
 
-    request, err := http.NewRequest("POST", baseURL+"/users", nil)
-    if err != nil {
-        fmt.Println(err.Error())
-        return data
-    }
+	request, err := http.NewRequest("POST", baseURL+"/users", nil)
+	if err != nil {
+		return nil, err
+	}
 
-    response, err := client.Do(request)
-    if err != nil {
-        fmt.Println(err.Error())
-        return data
-    }
-    defer response.Body.Close()
+	response, err := client.Do(request)
+	if err != nil {
+		return nil, err
+	}
+	defer response.Body.Close()
 
-    err = json.NewDecoder(response.Body).Decode(&data)
-    if err != nil {
-        fmt.Println(err.Error())
-        return data
-    }
+	err = json.NewDecoder(response.Body).Decode(&data)
+	if err != nil {
+		return nil, err
+	}
 
-    return data
+	return data,nil
 }
 ```
 
@@ -65,7 +62,7 @@ Fungsi `http.NewRequest()` digunakan untuk membuat request baru. Fungsi tersebut
 
  1. Parameter pertama, berisikan tipe request **POST** atau **GET** atau lainnya
  2. Parameter kedua, adalah URL tujuan request
- 3. Parameter ketiga, payload request (jika ada)
+ 3. Parameter ketiga, form data request (jika ada)
 
 Fungsi tersebut menghasilkan instance bertipe `http.Request`. Objek tersebut nantinya disisipkan pada saat eksekusi request.
 
@@ -81,11 +78,15 @@ Implementasikan fungsi `fetchUsers()` di atas pada `main`.
 
 ```go
 func main() {
-    var users = fetchUsers()
+	var users, err = fetchUsers()
+	if err != nil {
+		fmt.Println("Error!", err.Error())
+		return
+	}
 
-    for _, each := range users {
-        fmt.Printf("ID: %s\t Name: %s\t Grade: %d\n", each.ID, each.Name, each.Grade)
-    }
+	for _, each := range users {
+		fmt.Printf("ID: %s\t Name: %s\t Grade: %d\n", each.ID, each.Name, each.Grade)
+	}
 }
 ```
 
@@ -93,7 +94,7 @@ Jalankan program untuk mengetes hasilnya.
 
 ![HTTP Request](images/52_1_http_request.png)
 
-## HTTP Request Dengan Payload
+## 52.3. HTTP Request Dengan Form Data
 
 Untuk menyisipkan data pada sebuah request, ada beberapa hal yang perlu ditambahkan. Yang pertama, import beberapa package lagi, `bytes` dan `net/url`.
 
@@ -102,64 +103,66 @@ import "bytes"
 import "net/url"
 ```
 
-Buat fungsi baru dengan isi adalah sebuah request ke [http://localhost:8080/user](http://localhost:8080/user) dengan data yang disisipkan adalah `ID`.
+Buat fungsi baru, isinya request ke [http://localhost:8080/user](http://localhost:8080/user) dengan data yang disisipkan adalah `ID`.
 
 
 ```go
-func fetchUser(ID string) student {
-    var err error
-    var client = &http.Client{}
-    var data student
+func fetchUser(ID string) (student, error) {
+	var err error
+	var client = &http.Client{}
+	var data student
 
-    var param = url.Values{}
-    param.Set("id", ID)
-    var payload = bytes.NewBufferString(param.Encode())
+	var param = url.Values{}
+	param.Set("id", ID)
+	var payload = bytes.NewBufferString(param.Encode())
 
-    request, err := http.NewRequest("POST", baseURL+"/user", payload)
-    if err != nil {
-        fmt.Println(err.Error())
-        return data
-    }
-    request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	request, err := http.NewRequest("POST", baseURL+"/user", payload)
+	if err != nil {
+		return data, err
+	}
+	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
-    response, err := client.Do(request)
-    if err != nil {
-        fmt.Println(err.Error())
-        return data
-    }
-    defer response.Body.Close()
+	response, err := client.Do(request)
+	if err != nil {
+		return data, err
+	}
+	defer response.Body.Close()
 
-    err = json.NewDecoder(response.Body).Decode(&data)
-    if err != nil {
-        fmt.Println(err.Error())
-        return data
-    }
+	err = json.NewDecoder(response.Body).Decode(&data)
+	if err != nil {
+		return data, err
+	}
 
-    return data
+	return data, nil
 }
 ```
 
-Isi fungsi di atas bisa dilihat memiliki beberapa kemiripan dengan fungsi `fetchUsers()` sebelumnya. 
+Isi fungsi di atas bisa dilihat memiliki beberapa kemiripan dengan fungsi `fetchUsers()` sebelumnya.
 
-Statement `url.Values{}` akan menghasilkan objek yang nantinya digunakan sebagai payload request. Pada objek tersebut perlu di set data apa saja yang ingin dikirimkan menggunakan fungsi `Set()` seperti pada `param.Set("id", ID)`.
+Statement `url.Values{}` akan menghasilkan objek yang nantinya digunakan sebagai form data request. Pada objek tersebut perlu di set data apa saja yang ingin dikirimkan menggunakan fungsi `Set()` seperti pada `param.Set("id", ID)`.
 
-Statement `bytes.NewBufferString(param.Encode())` maksudnya, objek payload di-encode lalu diubah menjadi bentuk `bytes.Buffer`, yang nantinya disisipkan pada parameter ketiga pemanggilan fungsi `http.NewRequest()`.
+Statement `bytes.NewBufferString(param.Encode())` maksudnya, objek form data di-encode lalu diubah menjadi bentuk `bytes.Buffer`, yang nantinya disisipkan pada parameter ketiga pemanggilan fungsi `http.NewRequest()`.
 
 Karena data yang akan dikirim di-encode, maka pada header perlu di set tipe konten request-nya. Kode `request.Header.Set("Content-Type", "application/x-www-form-urlencoded")` artinya tipe konten request di set sebagai `application/x-www-form-urlencoded`.
 
 > Pada konteks HTML, HTTP Request yang di trigger dari tag `<form></form>` secara default tipe konten-nya sudah di set `application/x-www-form-urlencoded`. Lebih detailnya bisa merujuk ke spesifikasi HTML form [http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1](http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1)
 
-Response dari rute `/user` bukan berupa array objek, melainkan sebuah objek. Maka pada saat decode pastikan tipe variabel penampung hasil decode data response adalah `student` bukan `[]*student`.
+Response dari rute `/user` bukan berupa array objek, melainkan sebuah objek. Maka pada saat decode pastikan tipe variabel penampung hasil decode data response adalah `student` (bukan `[]student`).
 
 Terakhir buat implementasinya pada fungsi `main`.
 
 ```go
 func main() {
-    var user1 = fetchUser("E001")
-    fmt.Printf("ID: %s\t Name: %s\t Grade: %d\n", user1.ID, user1.Name, user1.Grade)
+	var user1, err = fetchUser("E001")
+	if err != nil {
+		fmt.Println("Error!", err.Error())
+		return
+	}
+
+	fmt.Printf("ID: %s\t Name: %s\t Grade: %d\n", user1.ID, user1.Name, user1.Grade)
 }
 ```
 
-Pada kode di atas `ID` ditentukan nilainya adalah `"E001"`. Jalankan program untuk mengetes apakah data yang dikembalikan sesuai.
+Pada kode di atas `ID` ditentukan nilainya `"E001"`. Jalankan program untuk mengetes apakah data yang dikembalikan sesuai.
 
-![HTTP request payload](images/52_2_http_request_payload.png)
+![HTTP request Form Data](images/52_2_http_request_form_data.png)

@@ -1,14 +1,14 @@
-# Regexp
+# 42. Regex
 
-Regexp atau **regular expression** adalah suatu teknik yang digunakan untuk pencocokan string dengan pola tertentu. Regexp biasa dimanfaatkan untuk pencarian dan pengubahan data string.
+Regex atau **regular expression** adalah suatu teknik yang digunakan untuk pencocokan string dengan pola tertentu. Regex biasa dimanfaatkan untuk pencarian dan pengubahan data string.
 
 Golang mengadopsi standar regex **RE2**, untuk melihat sintaks yang di-support engine ini bisa langsung merujuk ke dokumentasinya di [https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax).
 
 Pada bab ini kita akan belajar mengenai pengaplikasian regex dengan memanfaatkan fungsi-fungsi dalam package `regexp`.
 
-## Penerapan Regexp
+## 42.1. Penerapan Regexp
 
-Fungsi `regexp.Compile()` digunakan untuk mengkompilasi ekspresi regex yang dimasukkan. Fungsi tersebut mengembalikan objek bertipe `regexp.*Regexp`. 
+Fungsi `regexp.Compile()` digunakan untuk mengkompilasi ekspresi regex. Fungsi tersebut mengembalikan objek bertipe `regexp.*Regexp`.
 
 Berikut merupakan contoh penerapan regex untuk pencarian karakter.
 
@@ -36,15 +36,15 @@ func main() {
 }
 ```
 
-Ekspresi `[a-z]+` maknanya adalah, semua string yang merupakan alphabet yang hurufnya kecil. Ekspresi tersebut di-compile oleh `regexp.Compile()` lalu disimpan ke variabel objek `regex` yang tipenya adalah `regexp.*Regexp`.
+Ekspresi `[a-z]+` maknanya adalah, semua string yang merupakan alphabet yang hurufnya kecil. Ekspresi tersebut di-compile oleh `regexp.Compile()` lalu disimpan ke variabel objek `regex` bertipe `regexp.*Regexp`.
 
-Struct `regexp.Regexp` memiliki banyak method, salah satunya adalah `FindAllString()`, yang berfungsi untuk pencarian semua string yang sesuai dengan ekspresi regex, dengan kembalian berupa array string.
+Struct `regexp.Regexp` memiliki banyak method, salah satunya adalah `FindAllString()`, berfungsi untuk mencari semua string yang sesuai dengan ekspresi regex, dengan kembalian berupa array string.
 
-Jumlah hasil pencarian dari `regex.FindAllString()` bisa ditentukan. Contohnya pada `res1`, ditentukan maksimal `2` data saja pada nilai kembalian. Jika batas di set `-1`, maka akan mengembalikan semua data. 
+Jumlah hasil pencarian dari `regex.FindAllString()` bisa ditentukan. Contohnya pada `res1`, ditentukan maksimal `2` data saja pada nilai kembalian. Jika batas di set `-1`, maka akan mengembalikan semua data.
 
 Ada cukup banyak method struct `regexp.*Regexp` yang bisa kita manfaatkan untuk keperluan pengelolaan string. Berikut merupakan pembahasan tiap method-nya.
 
-## Method `MatchString()`
+## 42.2. Method `MatchString()`
 
 Method ini digunakan untuk mendeteksi apakah string memenuhi sebuah pola regexp.
 
@@ -59,7 +59,7 @@ fmt.Println(isMatch)
 
 Pada contoh di atas `isMatch` bernilai `true` karena string `"banana burger soup"` memenuhi pola regex `[a-z]+`.
 
-## Method `FindString()`
+## 42.3. Method `FindString()`
 
 Digunakan untuk mencari string yang memenuhi kriteria regexp yang telah ditentukan.
 
@@ -74,7 +74,7 @@ fmt.Println(str)
 
 Fungsi ini hanya mengembalikan 1 buah hasil saja. Jika ada banyak substring yang sesuai dengan ekspresi regexp, akan dikembalikan yang pertama saja.
 
-## Method `FindStringIndex()`
+## 42.4. Method `FindStringIndex()`
 
 Digunakan untuk mencari index string kembalian hasil dari operasi regexp.
 
@@ -93,7 +93,7 @@ fmt.Println(str)
 
 Method ini sama dengan `FindString()` hanya saja yang dikembalikan indeks-nya.
 
-## Method `FindAllString()`
+## 42.5. Method `FindAllString()`
 
 Digunakan untuk mencari banyak string yang memenuhi kriteria regexp yang telah ditentukan.
 
@@ -112,9 +112,9 @@ fmt.Println(str2)
 
 Jumlah data yang dikembalikan bisa ditentukan. Jika diisi dengan `-1`, maka akan mengembalikan semua data.
 
-## Method `ReplaceAllString()`
+## 42.6. Method `ReplaceAllString()`
 
-Berguna untuk me-replace semua string yang memenuhi kriteri regexp, dengan string lain. 
+Berguna untuk me-replace semua string yang memenuhi kriteri regexp, dengan string lain.
 
 ```go
 var text = "banana burger soup"
@@ -125,7 +125,7 @@ fmt.Println(str)
 // "potato potato potato"
 ```
 
-## Method `ReplaceAllStringFunc()`
+## 42.7. Method `ReplaceAllStringFunc()`
 
 Digunakan untuk me-replace semua string yang memenuhi kriteri regexp, dengan kondisi yang bisa ditentukan untuk setiap substring yang akan di replace.
 
@@ -145,11 +145,11 @@ fmt.Println(str)
 
 Pada contoh di atas, jika salah satu substring yang *match* adalah `"burger"` maka akan diganti dengan `"potato"`, string selainnya tidak di replace.
 
-## Method `Split()`
+## 42.8. Method `Split()`
 
 Digunakan untuk memisah string dengan pemisah adalah substring yang memenuhi kriteria regexp yang telah ditentukan.
 
-Jumlah karakter yang akan di split bisa ditentukan dengan mengisi parameter kedua fungsi `regex.Split()`. Jika diisi `-1` maka akan me-replace semua karakter.
+Jumlah karakter yang akan di split bisa ditentukan dengan mengisi parameter kedua fungsi `regex.Split()`. Jika di-isi `-1` maka semua karakter yang memenuhi regex akan di-replace. Contoh lain, jika di-isi `2`, maka hanya 2 karakter pertama yang memenuhi regex akan di-replace.
 
 ```go
 var text = "banana,burger,soup"

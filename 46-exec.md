@@ -1,12 +1,12 @@
-# Exec
+# 46. Exec
 
-**Exec** digunakan untuk eksekusi perintah command line lewat kode program. Command yang bisa dieksekusi adalah semua command yang bisa dieksekusi di terminal (CMD untuk pengguna Wind\*ws).
+**Exec** digunakan untuk eksekusi perintah command line lewat kode program. Command yang bisa dieksekusi adalah semua command yang bisa dieksekusi di terminal (CMD untuk pengguna Windows).
 
-## Penggunaan Exec
+## 46.1. Penggunaan Exec
 
 Golang menyediakan package `exec` berisikan banyak fungsi untuk keperluan eksekusi perintah CLI.
 
-Cara untuk eksekusi command cukup mudah, yaitu dengan menuliskan command dalam bentuk string, diikuti arguments-nya (jika ada) sebagai parameter variadic pada fungsi `exec.Command()`. Contoh:
+Cara untuk eksekusi command cukup mudah, yaitu dengan menuliskan command dalam bentuk string, diikuti arguments-nya (jika ada) sebagai parameter variadic pada fungsi `exec.Command()`.
 
 ```go
 package main

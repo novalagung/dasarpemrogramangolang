@@ -1,10 +1,10 @@
-# Arguments & Flag
+# 45. Arguments & Flag
 
 **Arguments** adalah data opsional yang disisipkan ketika eksekusi program. Sedangkan **flag** merupakan ekstensi dari argument. Dengan flag, penulisan argument menjadi lebih rapi dan terstruktur.
 
 Di bab ini kita akan belajar tentang penggunaan arguments dan flag.
 
-## Penggunaan Arguments
+## 45.1. Penggunaan Arguments
 
 Data arguments bisa didapat lewat variabel `os.Args` (package `os` perlu di-import terlebih dahulu). Data tersebut tersimpan dalam bentuk array dengan pemisah adalah tanda spasi.
 
@@ -50,7 +50,7 @@ Variabel `os.Args` mengembalikan tak hanya arguments saja, tapi juga path file e
 
 Bisa dilihat pada kode di atas, bahwa untuk data argumen yang ada karakter spasi nya (<code> </code>), maka harus diapit tanda petik (`"`), agar tidak dideteksi sebagai 2 argumen.
 
-## Penggunaan Flag
+## 45.2. Penggunaan Flag
 
 Flag memiliki kegunaan yang sama seperti arguments, yaitu untuk *parameterize* eksekusi program, dengan penulisan dalam bentuk key-value. Berikut merupakan contoh penerapannya.
 
@@ -104,7 +104,7 @@ Tabel berikut merupakan macam-macam fungsi flag yang tersedia untuk tiap jenis t
 | `flag.Uint(name, defaultValue, usage)` | `*uint` |
 | `flag.Uint64(name, defaultValue, usage)` | `*uint64` |
 
-## Deklarasi Flag Dengan Cara Passing Reference Variabel Penampung Data
+## 45.3. Deklarasi Flag Dengan Cara Passing Reference Variabel Penampung Data
 
 Sebenarnya ada 2 cara deklarasi flag yang bisa digunakan, dan cara di atas merupakan cara pertama.
 
@@ -124,3 +124,7 @@ fmt.Println(data2)
 ```
 
 Tinggal tambahkan suffix `Var` pada pemanggilan nama fungsi flag yang digunakan (contoh `flag.IntVar()`, `flag.BoolVar()`, dll), lalu disisipkan referensi variabel penampung flag sebagai parameter pertama.
+
+Kegunaan dari parameter terakhir method-method flag adalah untuk memunculkan hints atau petunjuk arguments apa saja yang bisa dipakai, ketika argument `--help` ditambahkan saat eksekusi program.
+
+![Contoh penggunaan flag](images/45_3_flag_info.png)
