@@ -14,11 +14,12 @@ func main() {
     {"Name": "ethan hunt", "Age": 32}
 ]`
 
-	var data []*User
+	var data []User
 
 	var err = json.Unmarshal([]byte(jsonString), &data)
 	if err != nil {
 		fmt.Println(err.Error())
+		return
 	}
 
 	fmt.Println("user 1:", data[0].FullName)

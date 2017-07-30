@@ -13,6 +13,7 @@ func main() {
 	var jsonData, err = json.Marshal(object)
 	if err != nil {
 		fmt.Println(err.Error())
+		return
 	}
 
 	var jsonString = string(jsonData)

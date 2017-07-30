@@ -8,6 +8,7 @@ func main() {
 	var u, e = url.Parse(urlString)
 	if e != nil {
 		fmt.Println(e.Error())
+		return
 	}
 
 	fmt.Printf("url: %s\n", urlString)

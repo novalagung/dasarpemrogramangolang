@@ -14,7 +14,7 @@ type student struct {
 	Grade int
 }
 
-func fetchUser(ID string) student {
+func fetchUser(ID string) (student, error) {
 	var err error
 	var client = &http.Client{}
 	var data student
@@ -25,28 +25,30 @@ func fetchUser(ID string) student {
 
 	request, err := http.NewRequest("POST", baseURL+"/user", payload)
 	if err != nil {
-		fmt.Println(err.Error())
-		return data
+		return data, err
 	}
 	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 	response, err := client.Do(request)
 	if err != nil {
-		fmt.Println(err.Error())
-		return data
+		return data, err
 	}
 	defer response.Body.Close()
 
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
-		fmt.Println(err.Error())
-		return data
+		return data, err
 	}
 
-	return data
+	return data, nil
 }
 
 func main() {
-	var user1 = fetchUser("E001")
+	var user1, err = fetchUser("E001")
+	if err != nil {
+		fmt.Println("Error!",err.Error())
+		return
+	}
+
 	fmt.Printf("ID: %s\t Name: %s\t Grade: %d\n", user1.ID, user1.Name, user1.Grade)
 }

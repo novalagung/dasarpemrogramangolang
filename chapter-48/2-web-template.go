@@ -14,6 +14,7 @@ func main() {
 		var t, err = template.ParseFiles("template.html")
 		if err != nil {
 			fmt.Println(err.Error())
+			return
 		}
 
 		t.Execute(w, data)
