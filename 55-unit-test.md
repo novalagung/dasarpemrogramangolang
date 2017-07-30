@@ -1,10 +1,10 @@
-# Unit Test
+# 55. Unit Test
 
-Golang menyediakan package `testing`, yang berisikan banyak sekali tools untuk keperluan unit testing. 
+Golang menyediakan package `testing`, yang berisikan banyak sekali tools untuk keperluan unit testing.
 
 Pada bab ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan [testify](github.com/stretchr/testify).
 
-## Persiapan
+## 55.1. Persiapan
 
 Pertama siapkan terlebih dahulu sebuah struct `Kubus`. Variabel object hasil struct ini nantinya kita gunakan sebagai bahan testing.
 
@@ -30,13 +30,13 @@ func (k Kubus) Keliling() float64 {
 }
 ```
 
-Kode di atas saya simpan ke file bernama `bab55.go`.
+Simpan kode di atas dengan nama `bab55.go`.
 
-## Testing
+## 55.2. Testing
 
-File untuk keperluan testing terpisah dengan file utama, namanya harus berakhiran `_test.go`, dan package-nya harus sama. Pada bab ini, file utama adalah `bab55.go`, maka file testing saya beri nama `bab55_test.go`.
+File untuk keperluan testing dipisah dengan file utama, namanya harus berakhiran `_test.go`, dan package-nya harus sama. Pada bab ini, file utama adalah `bab55.go`, maka file testing harus bernama `bab55_test.go`.
 
-Testing di Golang dituliskan dalam bentuk fungsi, sebagai contoh jika ada 2 fungsi maka ada 2 test. Fungsi tersebut namanya harus diawali dengan **Test** dan memiliki parameter yang bertipe `*testing.T` (pastikan sudah meng-import package `testing` sebelumnya). Lewat parameter tersebut, kita bisa mengakses method-method untuk keperluan testing.
+Unit test di Golang dituliskan dalam bentuk fungsi, yang memiliki parameter yang bertipe `*testing.T`, dengan nama fungsi harus diawali kata **Test** (pastikan sudah meng-import package `testing` sebelumnya). Lewat parameter tersebut, kita bisa mengakses method-method untuk keperluan testing.
 
 Pada contoh di bawah ini disiapkan 3 buah fungsi test, yang masing-masing digunakan untuk mengecek apakah hasil kalkulasi volume, luas, dan keliling kubus adalah benar.
 
@@ -81,13 +81,13 @@ Method `t.Logf()` digunakan untuk memunculkan log. Method ini equivalen dengan `
 
 Method `Errorf()` digunakan untuk memunculkan log dengan diikuti keterangan bahwa terjadi **fail** pada saat testing.
 
-Jalankan aplikasi, maka akan terlihat bahwa tidak ada fail.
-
-![Testing](images/55_1_test.png)
-
 Cara eksekusi testing adalah menggunakan command `go test`. Karena struct yang diuji berada dalam file `bab55.go`, maka pada saat eksekusi test menggunakan `go test`, nama file `bab55_test.go` dan `bab55.go` perlu dituliskan sebagai argument.
 
 Argument `-v` atau verbose digunakan menampilkan semua output log pada saat pengujian.
+
+Jalankan aplikasi seperti gambar dibawah ini, terlihat bahwa tidak ada test yang fail.
+
+![Testing](images/55_1_test.png)
 
 OK, selanjutnya coba ubah rumus kalkulasi method `Keliling()`. Tujuan dari pengubahan ini adalah untuk mengetahui bagaimana penanda fail muncul ketika ada test yang gagal.
 
@@ -101,7 +101,7 @@ Setelah itu jalankan lagi test.
 
 ![Test fail](images/55_2_test_fail.png)
 
-## Method Test
+## 55.3. Method Test
 
 Table berikut berisikan method standar testing yang bisa digunakan di Golang.
 
@@ -122,7 +122,7 @@ Table berikut berisikan method standar testing yang bisa digunakan di Golang.
 | `Skiped()` | Menampilkan laporan skip |
 | `Parallel()` | Menge-set bahwa eksekusi testing adalah parallel |
 
-## Benchmark
+## 55.4. Benchmark
 
 Package `testing` selain berisikan tools untuk testing juga berisikan tools untuk benchmarking. Cara pembuatan benchmark sendiri cukup mudah yaitu dengan membuat fungsi yang namanya diawali dengan **Benchmark** dan parameternya bertipe `*testing.B`.
 
@@ -140,9 +140,9 @@ Jalankan test menggunakan argument `-bench=.`, argumen ini digunakan untuk menan
 
 ![Benchmark](images/55_3_benchmark.png)
 
-`30000000  51.1 ns/op` artinya adalah perulangan di atas dilakukan sebanyak **30 juta** kali, dalam waktu **51 nano detik** untuk tiap perulangannya.
+Arti dari `30000000  51.1 ns/op` adalah, fungsi di atas di-test sebanyak **30 juta** kali, hasilnya membutuhkan waktu rata-rata **51 nano detik** untuk run satu fungsi.
 
-## Testing Menggunakan testify
+## 55.5. Testing Menggunakan testify
 
 Package **testify** berisikan banyak sekali tools yang bisa dimanfaatkan untuk keperluan testing di Golang.
 
@@ -158,7 +158,7 @@ Didalam testify terdapat 5 package dengan kegunaan berbeda-beda satu dengan lain
 | require | Sama seperti assert, hanya saja jika terjadi fail pada saat test akan menghentikan eksekusi program |
 | suite | Berisikan tools testing yang berhubungan dengan struct dan method |
 
-Pada bab ini akan kita contohkan bagaimana penggunaan package assert untuk keperluan testing. Caranya cukup mudah, contohnya bisa dilihat pada kode berikut.
+Pada bab ini akan kita contohkan bagaimana penggunaan package assert. Silakan perhatikan contoh berikut.
 
 ```go
 import "github.com/stretchr/testify/assert"

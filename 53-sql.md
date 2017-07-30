@@ -1,4 +1,4 @@
-# SQL
+# 53. SQL
 
 Golang menyediakan package `database/sql` berisikan generic interface untuk keperluan interaksi dengan database sql. Package ini hanya bisa digunakan ketika **driver** database engine yang dipilih juga ada.
 
@@ -9,11 +9,11 @@ Ada cukup banyak sql driver yang tersedia untuk Golang, detailnya bisa diakses d
  - MS Sql Server
  - dan lainnya
 
-Driver-driver tersebut merupakan proyek open source yang diinisiasi oleh komunitas di Github. Artinya kita selaku developer juga bisa ikut berkontribusi didalamnya.
+Driver-driver tersebut merupakan project open source yang diinisiasi oleh komunitas di Github. Artinya kita selaku developer juga bisa ikut berkontribusi didalamnya.
 
-Pada bab ini kita akan belajar bagaiman berkomunikasi dengan database MySQL menggunakan driver [Go-MySQL-Driver](github.com/go-sql-driver/mysql).
+Pada bab ini kita akan belajar bagaimana berkomunikasi dengan database MySQL menggunakan driver [Go-MySQL-Driver](github.com/go-sql-driver/mysql).
 
-## Instalasi Driver
+## 53.1. Instalasi Driver
 
 Undah driver [github.com/go-sql-driver/mysql](github.com/go-sql-driver/mysql) menggunakan `go get`.
 
@@ -23,11 +23,11 @@ go get github.com/go-sql-driver/mysql
 
 ![Download mysql driver](images/53_1_go_get_driver.png)
 
-## Setup Database
+## 53.2. Setup Database
 
 > Sebelumnya pastikan sudah ada [mysql server](https://dev.mysql.com/downloads/mysql/) yang terinstal di lokal anda.
 
-Buat database baru bernama `db_belajar_golang`, dan sebuah tabel baru bernama `tb_student`.
+Buat database baru bernama `db_belajar_golang`, dan tabel baru bernama `tb_student`.
 
 ```sql
 CREATE TABLE IF NOT EXISTS `tb_student` (
@@ -46,23 +46,22 @@ INSERT INTO `tb_student` (`id`, `name`, `age`, `grade`) VALUES
 ALTER TABLE `tb_student` ADD PRIMARY KEY (`id`);
 ```
 
-## Membaca Data Dari MySQL Server
+## 53.3. Membaca Data Dari MySQL Server
 
-Yang pertama perlu disiapkan adalah meng-import package yang dibutuhkan. Juga, perlu disiapkan sebuah struct dengan skema yang sama seperti pada `tb_student` di database. Nantinya struct ini digunakan sebagai tipe data penampung hasil query.
+Import package yang dibutuhkan, lalu disiapkan struct dengan skema yang sama seperti pada tabel `tb_student` di database. Nantinya struct ini digunakan sebagai tipe data penampung hasil query.
 
 ```go
 package main
 
 import "fmt"
 import "database/sql"
-import "os"
 import _ "github.com/go-sql-driver/mysql"
 
 type student struct {
-    id    string
-    name  string
-    age   int
-    grade int
+	id    string
+	name  string
+	age   int
+	grade int
 }
 ```
 
@@ -71,84 +70,82 @@ Driver database yang digunakan perlu di-import menggunakan tanda `_`, karena mes
 Selanjutnya buat fungsi untuk koneksi ke database.
 
 ```go
-func connect() *sql.DB {
-    var db, err = sql.Open("mysql", "root@tcp(127.0.0.1:3306)/db_belajar_golang")
-    if err != nil {
-        fmt.Println(err.Error())
-        os.Exit(0)
-    }
+func connect() (*sql.DB, error) {
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/db_belajar_golang")
+	if err != nil {
+		return nil, err
+	}
 
-    return db
+	return db, nil
 }
 ```
 
 Fungsi `sql.Open()` digunakan untuk memulai koneksi dengan database. Fungsi tersebut memiliki 2 parameter mandatory, nama driver dan **connection string**.
 
-Skema connection string untuk driver mysql yang kita gunakan cukup unik, `root@tcp(127.0.0.1:3306)/db_belajar_golang`.
-
-Agar tidak bingung, silakan perhatikan skema connection string di bawah ini.
-
+Skema connection string untuk driver mysql yang kita gunakan cukup unik, `root@tcp(127.0.0.1:3306)/db_belajar_golang`. Dibawah ini merupakan skema connection string yang bisa digunakan pada driver Go-MySQL-Driver. Jika anda menggunakan driver mysql lain, skema koneksinya bisa saja berbeda tergantung driver yang digunakan.
 ```
 user:password@tcp(host:port)/dbname
 user@tcp(host:port)/dbname
 ```
 
-Berikut adalah penjelasan mengenai connection string yang digunakan pada fungsi `connect()`.
+Di bawah ini adalah penjelasan mengenai connection string yang digunakan pada fungsi `connect()`.
 
 ```
 root@tcp(127.0.0.1:3306)/db_belajar_golang
 // user     => root
-// password => 
+// password =>
 // host     => 127.0.0.1 atau localhost
 // port     => 3306
 // dbname   => db_belajar_golang
 ```
 
-Setelah fungsi untuk konektivitas dengan database sudah dibuat, saatnya untuk mempraktekan proses pembacaan data dari server database.
-
-Siapkan fungsi `sqlQuery()` dengan isi adalah kode berikut.
+Setelah fungsi untuk konektivitas dengan database sudah dibuat, saatnya untuk mempraktekan proses pembacaan data dari server database. Siapkan fungsi `sqlQuery()` dengan isi adalah kode berikut.
 
 ```go
 func sqlQuery() {
-    var db = connect()
-    defer db.Close()
+	db, err := connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	defer db.Close()
 
-    var age = 27
-    var rows, err = db.Query("select id, name, grade from tb_student where age = ?", age)
-    if err != nil {
-        fmt.Println(err.Error())
-        os.Exit(0)
-    }
-    defer rows.Close()
+	var age = 27
+	rows, err := db.Query("select id, name, grade from tb_student where age = ?", age)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	defer rows.Close()
 
-    var result []student
+	var result []student
 
-    for rows.Next() {
-        var each = student{}
-        var err = rows.Scan(&each.id, &each.name, &each.grade)
+	for rows.Next() {
+		var each = student{}
+		var err = rows.Scan(&each.id, &each.name, &each.grade)
 
-        if err != nil {
-            fmt.Println(err.Error())
-            os.Exit(0)
-        }
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 
-        result = append(result, each)
-    }
+		result = append(result, each)
+	}
 
-    if err = rows.Err(); err != nil {
-        fmt.Println(err.Error())
-        os.Exit(0)
-    }
+	if err = rows.Err(); err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
-    for _, each := range result {
-        fmt.Println(each.name)
-    }
+	for _, each := range result {
+		fmt.Println(each.name)
+	}
 }
 ```
 
 Setiap kali terbuat koneksi baru, jangan lupa untuk selalu **close** instance koneksinya. Bisa menggunakan keyword `defer` seperti pada kode di atas, `defer db.Close()`.
 
-Fungsi `db.Query()` digunakan untuk eksekusi sql query. Fungsi tersebut parameter keduanya adalah variadic, sehingga boleh tidak diisi. Pada kode di atas bisa dilihat bahwa nilai salah satu clause `where` adalah tanda tanya (`?`). Tanda tersebut kemudian akan ter-replace oleh nilai pada parameter setelahnya (nilai variabel `age`). Teknik penulisan query sejenis ini sangat dianjurkan, untuk mencegah terjadinya [sql injection](https://en.wikipedia.org/wiki/SQL_injection).
+Fungsi `db.Query()` digunakan untuk eksekusi sql query. Fungsi tersebut parameter keduanya adalah variadic, sehingga boleh tidak diisi. Pada kode di atas bisa dilihat bahwa nilai salah satu clause `where` adalah tanda tanya (`?`). Tanda tersebut kemudian akan ter-replace oleh nilai pada parameter setelahnya (nilai variabel `age`). Teknik penulisan query sejenis ini sangat dianjurkan, untuk mencegah [sql injection](https://en.wikipedia.org/wiki/SQL_injection).
 
 Fungsi tersebut menghasilkan instance bertipe `sql.*Rows`, yang juga perlu di **close** ketika sudah tidak digunakan (`defer rows.Close()`).
 
@@ -156,7 +153,7 @@ Selanjutnya, sebuah array dengan tipe elemen struct `student` disiapkan dengan n
 
 Kemudian dilakukan perulangan dengan acuan kondisi adalah `rows.Next()`. Perulangan dengan cara ini dilakukan sebanyak jumlah total record yang ada, berurutan dari record pertama hingga akhir, satu per satu.
 
-Method `Scan()` milik `sql.Rows` berfungsi untuk mengambil nilai record yang sedang diiterasi, untuk disimpan pada variabel. Variabel yang digunakan untuk menyimpan field-field record dituliskan berurutan nilai pointernya sebagai parameter variadic fungsi tersebut, sesuai dengan field yang di select pada query.
+Method `Scan()` milik `sql.Rows` berfungsi untuk mengambil nilai record yang sedang diiterasi, untuk disimpan pada variabel pointer. Variabel yang digunakan untuk menyimpan field-field record dituliskan berurutan sebagai parameter variadic, sesuai dengan field yang di select pada query. Silakan lihat perbandingan dibawah ini unuk lebih jelasnya.
 
 ```
 // query
@@ -166,9 +163,9 @@ select id, name, grade ...
 rows.Scan(&each.id, &each.name, &each.grade ...
 ```
 
-Setelah itu, data di-append kedalam array `result` lewat statement `result = append(result, each)`.
+Data record yang didapat kemudian di-append ke slice `result`, lewat statement `result = append(result, each)`.
 
-Setelah fungsi `sqlQuery()` siap, implementasikan pada pada fungsi `main`.
+OK, sekarang tinggal panggil fungsi `sqlQuery()` di `main`, lalu jalankan program.
 
 ```go
 func main() {
@@ -176,26 +173,34 @@ func main() {
 }
 ```
 
+Output:
+
 ![Membaca data dari database server](images/53_2_sql_query.png)
 
-## Membaca 1 Record Data Menggunakan Method `QueryRow()`
+## 53.4. Membaca 1 Record Data Menggunakan Method `QueryRow()`
 
-Untuk query yang menghasilkan 1 baris record saja, bisa gunakan method `QueryRow()` untuk eksekusi query-nya, dengan metode ini kode menjadi lebih ringkas. Chain dengan method `Scan()` untuk mendapatkan value-nya.
+Untuk query yang menghasilkan 1 baris record saja, bisa gunakan method `QueryRow()`, dengan metode ini kode menjadi lebih ringkas. Chain dengan method `Scan()` untuk mendapatkan value-nya.
 
 ```go
 func sqlQueryRow() {
-    var db = connect()
-    defer db.Close()
+	var db, err = connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	defer db.Close()
 
-    var result = student{}
-    var id = "E001"
-    var err = db.QueryRow("select name, grade from tb_student where id = ?", id).Scan(&result.name, &result.grade)
-    if err != nil {
-        fmt.Println(err.Error())
-        os.Exit(0)
-    }
+	var result = student{}
+	var id = "E001"
+	err = db.
+        QueryRow("select name, grade from tb_student where id = ?", id).
+        Scan(&result.name, &result.grade)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
-    fmt.Printf("name: %s\ngrade: %d\n", result.name, result.grade)
+	fmt.Printf("name: %s\ngrade: %d\n", result.name, result.grade)
 }
 
 func main() {
@@ -203,38 +208,50 @@ func main() {
 }
 ```
 
+Dari kode di atas ada statement yang dituliskan cukup unik, chain statement boleh dituliskan dalam beberapa baris, contohnya:
+
+```go
+err = db.
+    QueryRow("select name, grade from tb_student where id = ?", id).
+    Scan(&result.name, &result.grade)
+```
+
+Sekarang jalankan program. Outputnya akan muncul data record sesuai id.
+
 ![Penggunaan `QueryRow()`](images/53_3_sql_query_row.png)
 
-## Eksekusi Query Menggunakan `Prepare()`
+## 53.5. Eksekusi Query Menggunakan `Prepare()`
 
 Teknik **prepared statement** adalah teknik penulisan query di awal dengan kelebihan bisa di re-use atau digunakan banyak kali untuk eksekusi yang berbeda-beda.
 
-Metode ini bisa digabung dengan `Query()` maupun `QueryRow()`.
-
-Berikut merupakan contoh penerapannya.
+Metode ini bisa digabung dengan `Query()` maupun `QueryRow()`. Berikut merupakan contoh penerapannya.
 
 ```go
 func sqlPrepare() {
-    var db = connect()
-    defer db.Close()
+	db, err := connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	defer db.Close()
 
-    var statement, err = db.Prepare("select name, grade from tb_student where id = ?")
-    if err != nil {
-        fmt.Println(err.Error())
-        os.Exit(0)
-    }
+	stmt, err := db.Prepare("select name, grade from tb_student where id = ?")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
-    var result1 = student{}
-    statement.QueryRow("E001").Scan(&result1.name, &result1.grade)
-    fmt.Printf("name: %s\ngrade: %d\n", result1.name, result1.grade)
+	var result1 = student{}
+	stmt.QueryRow("E001").Scan(&result1.name, &result1.grade)
+	fmt.Printf("name: %s\ngrade: %d\n", result1.name, result1.grade)
 
-    var result2 = student{}
-    statement.QueryRow("W001").Scan(&result2.name, &result2.grade)
-    fmt.Printf("name: %s\ngrade: %d\n", result2.name, result2.grade)
+	var result2 = student{}
+	stmt.QueryRow("W001").Scan(&result2.name, &result2.grade)
+	fmt.Printf("name: %s\ngrade: %d\n", result2.name, result2.grade)
 
-    var result3 = student{}
-    statement.QueryRow("B001").Scan(&result3.name, &result3.grade)
-    fmt.Printf("name: %s\ngrade: %d\n", result3.name, result3.grade)
+	var result3 = student{}
+	stmt.QueryRow("B001").Scan(&result3.name, &result3.grade)
+	fmt.Printf("name: %s\ngrade: %d\n", result3.name, result3.grade)
 }
 
 func main() {
@@ -246,31 +263,39 @@ Method `Prepare()` digunakan untuk deklarasi query, yang mengembalikan objek ber
 
 ![Prepared statement](images/53_4_prepared_statement.png)
 
-## Insert, Update, & Delete Data Menggunakan `Exec()`
+## 53.6. Insert, Update, & Delete Data Menggunakan `Exec()`
 
 Untuk operasi **insert**, **update**, dan **delete**; dianjurkan untuk tidak menggunakan fungsi `sql.Query()` ataupun `sql.QueryRow()` untuk eksekusinya. Direkomendasikan eksekusi perintah-perintah tersebut lewat fungsi `Exec()`, contohnya seperti pada kode berikut.
 
 ```go
 func sqlExec() {
-    var db = connect()
-    defer db.Close()
+	db, err := connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	defer db.Close()
 
-    var err error
+	_, err = db.Exec("insert into tb_student values (?, ?, ?, ?)", "G001", "Galahad", 29, 2)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println("insert success!")
 
-    _, err = db.Exec("insert into tb_student values (?, ?, ?, ?)", "G001", "Galahad", 29, 2)
-    if err != nil {
-        fmt.Println(err.Error())
-    }
+	_, err = db.Exec("update tb_student set age = ? where id = ?", 28, "G001")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println("update success!")
 
-    _, err = db.Exec("update tb_student set age = ? where id = ?", 28, "G001")
-    if err != nil {
-        fmt.Println(err.Error())
-    }
-
-    _, err = db.Exec("delete from tb_student where id = ?", "G001")
-    if err != nil {
-        fmt.Println(err.Error())
-    }
+	_, err = db.Exec("delete from tb_student where id = ?", "G001")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println("delete success!")
 }
 
 func main() {
@@ -278,18 +303,18 @@ func main() {
 }
 ```
 
-Teknik prepared statement juga bisa digunakan pada metode ini. Berikut merupakan perbandingan eksekusi `Exec()` menggunakan `Prepare()` dan cara biasa.
+Teknik prepared statement juga bisa digunakan pada metode ini. Berikut adalah perbandingan eksekusi `Exec()` menggunakan `Prepare()` dan cara biasa.
 
 ```go
 // menggunakan metode prepared statement
-var stmt, _ = db.Prepare("insert into tb_student values (?, ?, ?, ?)")
+stmt, err := db.Prepare("insert into tb_student values (?, ?, ?, ?)")
 stmt.Exec("G001", "Galahad", 29, 2)
 
 // menggunakan metode biasa
-_, _ = db.Exec("insert into tb_student values (?, ?, ?, ?)", "G001", "Galahad", 29, 2)
+_, err := db.Exec("insert into tb_student values (?, ?, ?, ?)", "G001", "Galahad", 29, 2)
 ```
 
-## Koneksi Dengan Engine Database Lain
+## 53.7. Koneksi Dengan Engine Database Lain
 
 Karena package `database/sql` merupakan interface generic, maka cara untuk koneksi ke engine database lain (semisal Oracle, Postgres, SQL Server) adalah sama dengan cara koneksi ke MySQL. Cukup dengan meng-import driver yang digunakan, lalu mengganti nama driver pada saat pembuatan koneksi baru.
 
@@ -303,4 +328,4 @@ Sebagai contoh saya menggunakan driver [pq](https://github.com/lib/pq) untuk kon
 sql.Open("pq", "user=postgres password=secret dbname=test sslmode=disable")
 ```
 
-Selengkapya mengenai driver yang tersedia bisa dilihat di [https://github.com/golang/go/wiki/SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers)
+Selengkapya mengenai driver yang tersedia bisa dilihat di [https://github.com/golang/go/wiki/SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers).

@@ -10,7 +10,7 @@ Source code contoh-contoh program bisa diunduh di [Github](https://github.com/no
 
 ---
 
-**Versi Buku: 1.2017.07.28**
+**Versi Buku: 1.2017.07.30**
 
 Buku ini bisa di-download dalam bentuk PDF, [link download](https://www.gitbook.com/download/pdf/book/novalagung/dasarpemrogramangolang). Untuk mendapatkan konten buku yang paling update, silakan baca online, atau download ulang PDF menggunakan link di atas. Konten pada versi terbaru lebih update.
 

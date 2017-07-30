@@ -4,7 +4,7 @@ Bab ini membahas mengenai *modifier* public dan private dalam Golang. Kapan sebu
 
 ## 25.1. Package Public & Private
 
-Pengembangan aplikasi dalam *real development* pasti membutuhkan banyak sekali file program. Tidak mungkin dalam satu projek semua file memiliki nama package `main`, biasanya akan dipisah sebagai package berbeda sesuai bagiannya.
+Pengembangan aplikasi dalam *real development* pasti membutuhkan banyak sekali file program. Tidak mungkin dalam satu project semua file memiliki nama package `main`, biasanya akan dipisah sebagai package berbeda sesuai bagiannya.
 
 Project folder selain berisikan file-file `.go` juga bisa berisikan folder. Di bahasa Golang, setiap satu folder atau subfolder adalah satu package, file-file yang ada didalamnya harus memiliki nama package yang berbeda dengan file di folder lain.
 

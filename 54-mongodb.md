@@ -1,10 +1,10 @@
-# NoSQL MongoDB
+# 54. NoSQL MongoDB
 
-Golang tidak menyediakan interface generic untuk NoSQL, hal ini menjadikan driver tiap brand NoSQL untuk Golang bisa berbeda satu dengan lainnya. 
+Golang tidak menyediakan interface generic untuk NoSQL, jadi implementasi driver tiap brand NoSQL di Golang bisa berbeda satu dengan lainnya.
 
 Dari sekian banyak teknologi NoSQL yang ada, yang terpilih untuk dibahas di buku ini adalah MongoDB. Dan pada bab ini kita akan belajar cara berkomunikasi dengan MongoDB menggunakan driver [mgo](https://labix.org/mgo).
 
-## Persiapan
+## 54.1. Persiapan
 
 Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
 
@@ -20,20 +20,21 @@ Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
 
  3. Instal juga MongoDB GUI untuk mempermudah browsing data. Bisa menggunakan [MongoChef](http://3t.io/mongochef/), [Robomongo](http://robomongo.org/), atau lainnya.
 
-## Insert Data
+## 54.2. Insert Data
 
-Cara insert data lewat mongo tidak terlalu sulit. Yang pertama perlu dilakukan adalah import package yang dibutuhkan, dan juga menyiapkan struct model.
+Cara insert data lewat mongo tidak terlalu sulit. Kita akan praktekan bagaiamana caranya.
+
+Import package yang dibutuhkan, lalu siapkan struct model.
 
 ```go
 package main
 
 import "fmt"
 import "gopkg.in/mgo.v2"
-import "os"
 
 type student struct {
-    Name  string `bson:"name"`
-    Grade int    `bson:"Grade"`
+	Name  string `bson:"name"`
+	Grade int    `bson:"Grade"`
 }
 ```
 
@@ -44,16 +45,16 @@ Pada contoh di atas, property `Name` ditentukan nama field nya sebagai `name`, d
 Selanjutnya siapkan fungsi untuk membuat session baru.
 
 ```go
-func connect() *mgo.Session {
-    var session, err = mgo.Dial("localhost")
-    if err != nil {
-        os.Exit(0)
-    }
-    return session
+func connect() (*mgo.Session, error) {
+	var session, err = mgo.Dial("localhost")
+	if err != nil {
+		return nil, err
+	}
+	return session, nil
 }
 ```
 
-Fungsi `mgo.Dial()` digunakan untuk membuat session baru (bertipe `*mgo.Session`). Fungsi tersebut memiliki sebuah parameter yang harus diisi, yaitu connection string dari server mongo yang akan diakses.
+Fungsi `mgo.Dial()` digunakan untuk membuat objek session baru, dengan tipe `*mgo.Session`. Fungsi ini memiliki satu parameter yang harus diisi, yaitu connection string dari server mongo yang akan diakses.
 
 Secara default jenis konsistensi session yang digunakan adalah `mgo.Primary`. Anda bisa mengubahnya lewat method `SetMode()` milik struct `mgo.Session`. Lebih jelasnya silakan merujuk [https://godoc.org/gopkg.in/mgo.v2#Session.SetMode](https://godoc.org/gopkg.in/mgo.v2#Session.SetMode).
 
@@ -61,14 +62,21 @@ Terkahir buat fungsi insert yang didalamnya berisikan kode untuk insert data ke 
 
 ```go
 func insert() {
-    var session = connect()
-    defer session.Close()
-    var collection = session.DB("belajar_golang").C("student")
+    var session, err = connect()
+	if err != nil {
+		fmt.Println("Error!", err.Error())
+		return
+	}
+	defer session.Close()
 
-    var err = collection.Insert(&student{"Wick", 2}, &student{"Ethan", 2})
-    if err != nil {
-        fmt.Println(err.Error())
-    }
+	var collection = session.DB("belajar_golang").C("student")
+	err = collection.Insert(&student{"Wick", 2}, &student{"Ethan", 2})
+	if err != nil {
+		fmt.Println("Error!", err.Error())
+		return
+	}
+
+	fmt.Println("Insert success!")
 }
 
 func main() {
@@ -78,15 +86,15 @@ func main() {
 
 Session di mgo juga harus di close ketika sudah tidak digunakan, seperti pada instance connection di bab SQL. Statement `defer session.Close()` akan mengakhirkan proses close session dalam fungsi `insert()`.
 
-Struct `mgo.Session` memiliki method `DB()` yang digunakan untuk memilih database yang digunakan, dan bisa langsung di chain dengan fungsi `C()` untuk memilih collection.
+Struct `mgo.Session` memiliki method `DB()`, digunakan untuk memilih database, dan bisa langsung di chain dengan fungsi `C()` untuk memilih collection.
 
-Setelah mendapatkan instance collection-nya, digunakan method `Insert()` untuk insert data ke database. Method ini memiliki parameter variadic pointer data yang ingin di-insert.
+Setelah mendapatkan instance collection-nya, gunakan method `Insert()` untuk insert data ke database. Method ini memiliki parameter variadic, harus diisi pointer data yang ingin di-insert.
 
 Jalankan program tersebut, lalu cek menggunakan mongo GUI untuk melihat apakah data sudah masuk.
 
 ![Insert mongo](images/54_2_insert.png)
 
-## Membaca Data
+## 54.3. Membaca Data
 
 method `Find()` milik tipe collection `mgo.Collection` digunakan untuk melakukan pembacaan data. Query selectornya dituliskan menggunakan `bson.M` lalu disisipkan sebagai parameter fungsi `Find()`.
 
@@ -100,19 +108,24 @@ Setelah itu buat fungsi `find` yang didalamnya terdapat proses baca data dari da
 
 ```go
 func find() {
-    var session = connect()
-    defer session.Close()
-    var collection = session.DB("belajar_golang").C("student")
+    var session, err = connect()
+	if err != nil {
+		fmt.Println("Error!", err.Error())
+		return
+	}
+	defer session.Close()
+	var collection = session.DB("belajar_golang").C("student")
 
-    var result = student{}
-    var selector = bson.M{"name": "Wick"}
-    var err = collection.Find(selector).One(&result)
-    if err != nil {
-        fmt.Println(err.Error())
-    }
+	var result = student{}
+	var selector = bson.M{"name": "Wick"}
+	err = collection.Find(selector).One(&result)
+	if err != nil {
+		fmt.Println("Error!", err.Error())
+		return
+	}
 
-    fmt.Println("Name  :", result.Name)
-    fmt.Println("Grade :", result.Grade)
+	fmt.Println("Name  :", result.Name)
+	fmt.Println("Grade :", result.Grade)
 }
 
 func main() {
@@ -122,31 +135,40 @@ func main() {
 
 Variabel `result` di-inisialisasi menggunakan struct `student`. Variabel tersebut nantinya digunakan untuk menampung hasil pencarian data.
 
-Tipe `bson.M` sebenarnya adalah alias dari `map[string]interface{}`, digunakan dalam penulisan selector.
+query selector ditulis dalam tipe `bson.M`. Tipe ini sebenarnya adalah alias dari `map[string]interface{}`.
 
-Selector tersebut kemudian dimasukan sebagai parameter method `Find()`, yang kemudian di chain langsung dengan method `One()` untuk mengambil 1 baris datanya. Kemudian pointer variabel `result` disisipkan sebagai parameter method tersebut.
+Selector tersebut kemudian dimasukan sebagai parameter method `Find()`, yang kemudian di chain langsung dengan method `One()` untuk mengambil 1 baris datanya. Pointer variabel `result` disisipkan sebagai parameter method tersebut.
 
 ![Pencarian data](images/54_3_find.png)
 
-## Update Data
+## 54.4. Update Data
 
 Method `Update()` milik struct `mgo.Collection` digunakan untuk update data. Ada 2 parameter yang harus diisi:
 
  1. Parameter pertama adalah query selector data yang ingin di update
  2. Parameter kedua adalah data perubahannya
 
+Di bawah ini adalah contok implementasi method `Update()`.
+
 ```go
 func update() {
-    var session = connect()
-    defer session.Close()
-    var collection = session.DB("belajar_golang").C("student")
+	var session, err = connect()
+	if err != nil {
+		fmt.Println("Error!", err.Error())
+		return
+	}
+	defer session.Close()
+	var collection = session.DB("belajar_golang").C("student")
 
-    var selector = bson.M{"name": "Wick"}
-    var changes = student{"John Wick", 2}
-    var err = collection.Update(selector, changes)
-    if err != nil {
-        fmt.Println(err.Error())
-    }
+	var selector = bson.M{"name": "Wick"}
+	var changes = student{"John Wick", 2}
+	err = collection.Update(selector, changes)
+	if err != nil {
+		fmt.Println("Error!", err.Error())
+		return
+	}
+
+	fmt.Println("Update success!")
 }
 
 func main() {
@@ -154,25 +176,32 @@ func main() {
 }
 ```
 
-Bisa dicek lewat Mongo GUI apakah data sudah berubah.
+Jalankan kode di atas, lalu cek lewat Mongo GUI apakah data berubah.
 
 ![Update data](images/54_4_update.png)
 
-## Menghapus Data
+## 54.5. Menghapus Data
 
 Cara menghapus document pada collection cukup mudah, tinggal gunakan method `Remove()` dengan isi parameter adalah query selector document yang ingin dihapus.
 
 ```go
 func remove() {
-    var session = connect()
-    defer session.Close()
-    var collection = session.DB("belajar_golang").C("student")
+	var session, err = connect()
+	if err != nil {
+		fmt.Println("Error!", err.Error())
+		return
+	}
+	defer session.Close()
+	var collection = session.DB("belajar_golang").C("student")
 
-    var selector = bson.M{"name": "John Wick"}
-    var err = collection.Remove(selector)
-    if err != nil {
-        fmt.Println(err.Error())
-    }
+	var selector = bson.M{"name": "John Wick"}
+	err = collection.Remove(selector)
+	if err != nil {
+		fmt.Println("Error!", err.Error())
+		return
+	}
+
+	fmt.Println("Remove success!")
 }
 
 func main() {
