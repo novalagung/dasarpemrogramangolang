@@ -58,7 +58,7 @@ Sampel Source Code Buku [Dasar Pemrograman Golang](https://www.gitbook.com/book/
  * [HTTP Request](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-52)
  * [SQL](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-53)
  * [MongoDB](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-54)
- * [Automated Test](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-55)
+ * [Unit Test](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-55)
  * [WaitGroup](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-56)
  * [Mutex](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-57)
 
