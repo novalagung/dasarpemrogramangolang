@@ -104,7 +104,7 @@ lastName = "ethan"
 lastName = "bourne"
 ```
 
-> Deklarasi menggunakan `:=` hanya bisa dilakukan di dalam fungsi, tidak bisa digunakan di luar fungsi.
+Perlu diketahu, deklarasi menggunakan `:=` hanya bisa dilakukan di dalam fungsi, tidak bisa digunakan di luar fungsi.
 
 ## 8.5. Deklarasi Multi Variabel
 
