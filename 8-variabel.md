@@ -104,6 +104,8 @@ lastName = "ethan"
 lastName = "bourne"
 ```
 
+> Deklarasi menggunakan `:=` hanya bisa dilakukan di dalam fungsi, tidak bisa digunakan di luar fungsi.
+
 ## 8.5. Deklarasi Multi Variabel
 
 Golang mendukung metode deklarasi banyak variabel secara bersamaan, caranya dengan menuliskan variabel-variabel-nya dengan pembatas tanda koma (`,`). Untuk pengisian nilainya-pun diperbolehkan secara bersamaan.
