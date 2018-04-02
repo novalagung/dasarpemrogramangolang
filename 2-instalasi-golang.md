@@ -91,3 +91,9 @@ Cara termudah instalasi Golang di **Mac OS** adalah menggunakan [homebrew](http:
     ```
 
  5. Jika output adalah sama dengan Golang yang ter-install, menandakan instalasi berhasil.
+
+## 2.4. Variabel `GOROOT`
+
+By default, setelah proses instalasi Golang selesai, secara otomatis akan muncul environment variabel bernama `GOROOT`. Isi dari environment variabel ini adalah path/folder/lokasi dimana golang di install.
+
+Sebagai contoh di Windows, ketika golang di-install di `C:\go`, maka path tersebut akan menjadi isi dari `GOROOT`.
