@@ -172,7 +172,7 @@ type Student struct {
 }
 
 // pada main.go
-var s1 = library.student{"ethan", 21}
+var s1 = library.Student{"ethan", 21}
 fmt.Println("name ", s1.Name)
 fmt.Println("grade", s1.Grade)
 ```
