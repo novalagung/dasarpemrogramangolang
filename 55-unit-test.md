@@ -2,7 +2,7 @@
 
 Golang menyediakan package `testing`, yang berisikan banyak sekali tools untuk keperluan unit testing.
 
-Pada bab ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan [testify](github.com/stretchr/testify).
+Pada bab ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan [testify](https://github.com/stretchr/testify).
 
 ## 55.1. Persiapan
 
@@ -146,7 +146,7 @@ Arti dari `30000000  51.1 ns/op` adalah, fungsi di atas di-test sebanyak **30 ju
 
 Package **testify** berisikan banyak sekali tools yang bisa dimanfaatkan untuk keperluan testing di Golang.
 
-Testify bisa di-download pada [github.com/stretchr/testify](github.com/stretchr/testify) menggunakan `go get`.
+Testify bisa di-download pada [github.com/stretchr/testify](https://github.com/stretchr/testify) menggunakan `go get`.
 
 Didalam testify terdapat 5 package dengan kegunaan berbeda-beda satu dengan lainnya. Detailnya bisa dilihat pada tabel berikut.
 
@@ -181,3 +181,7 @@ func TestHitungKeliling(t *testing.T) {
 Fungsi `assert.Equal()` digunakan untuk uji perbandingan. Parameter ke-2 dibandingkan nilainya dengan parameter ke-3. Jika tidak sama, maka pesan parameter ke-3 akan dimunculkan.
 
 ![Testing menggunakan testify](images/55_4_testify.png)
+
+---
+
+- [Testify](https://github.com/stretchr/testify), by "Stretchr, Inc"

@@ -11,11 +11,11 @@ Ada cukup banyak sql driver yang tersedia untuk Golang, detailnya bisa diakses d
 
 Driver-driver tersebut merupakan project open source yang diinisiasi oleh komunitas di Github. Artinya kita selaku developer juga bisa ikut berkontribusi didalamnya.
 
-Pada bab ini kita akan belajar bagaimana berkomunikasi dengan database MySQL menggunakan driver [Go-MySQL-Driver](github.com/go-sql-driver/mysql).
+Pada bab ini kita akan belajar bagaimana berkomunikasi dengan database MySQL menggunakan driver [Go MySQL Driver](https://github.com/go-sql-driver/mysql).
 
 ## 53.1. Instalasi Driver
 
-Undah driver [github.com/go-sql-driver/mysql](github.com/go-sql-driver/mysql) menggunakan `go get`.
+Unduh driver mysql menggunakan `go get`.
 
 ```
 go get github.com/go-sql-driver/mysql
@@ -82,7 +82,7 @@ func connect() (*sql.DB, error) {
 
 Fungsi `sql.Open()` digunakan untuk memulai koneksi dengan database. Fungsi tersebut memiliki 2 parameter mandatory, nama driver dan **connection string**.
 
-Skema connection string untuk driver mysql yang kita gunakan cukup unik, `root@tcp(127.0.0.1:3306)/db_belajar_golang`. Dibawah ini merupakan skema connection string yang bisa digunakan pada driver Go-MySQL-Driver. Jika anda menggunakan driver mysql lain, skema koneksinya bisa saja berbeda tergantung driver yang digunakan.
+Skema connection string untuk driver mysql yang kita gunakan cukup unik, `root@tcp(127.0.0.1:3306)/db_belajar_golang`. Dibawah ini merupakan skema connection string yang bisa digunakan pada driver Go MySQL Driver. Jika anda menggunakan driver mysql lain, skema koneksinya bisa saja berbeda tergantung driver yang digunakan.
 ```
 user:password@tcp(host:port)/dbname
 user@tcp(host:port)/dbname
@@ -329,3 +329,7 @@ sql.Open("pq", "user=postgres password=secret dbname=test sslmode=disable")
 ```
 
 Selengkapya mengenai driver yang tersedia bisa dilihat di [https://github.com/golang/go/wiki/SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers).
+
+---
+
+- [Go MySQL Driver](https://github.com/go-sql-driver/mysql), by Julien Schmidt, MPL-2.0 license
