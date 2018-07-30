@@ -8,7 +8,7 @@ Ebook Dasar Pemrograman Golang gratis untuk disebarluaskan secara bebas, selama 
 
 Source code contoh-contoh program bisa diunduh di https://github.com/novalagung/dasarpemrogramangolang. Dianjurkan untuk tidak copy-paste dari source code dalam belajar, usahakan untuk menulis sendiri kode program, agar cepat terbiasa dengan bahasa Golang.
 
-**Versi Buku: 1.2018.07.13**
+**Versi Buku: 1.2018.07.30**
 
 Buku ini bisa di-download dalam bentuk PDF, [link download](https://www.gitbook.com/download/pdf/book/novalagung/dasarpemrogramangolang). Untuk mendapatkan konten buku yang paling update, silakan baca online, atau download ulang PDF menggunakan link di atas. Konten pada versi terbaru lebih update.
 

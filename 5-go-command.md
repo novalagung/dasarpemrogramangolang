@@ -94,4 +94,4 @@ $ ls $GOPATH/src/gopkg.in/mgo.v2
 
 ![Download package menggunakan `go get`](images/5_6_go_get.png)
 
-[gopkg.in/mgo.v2](gopkg.in/mgo.v2) adalah URL package mgo. Package yang sudah ter-download tersimpan dalam `$GOPATH/src`, dengan struktur folder sesuai dengan URL package-nya. Sebagai contoh, package MGO di atas tersimpan di `$GOPATH/src/gopkg.in/mgo.v2`.
+[gopkg.in/mgo.v2](https://gopkg.in/mgo.v2) adalah URL package mgo. Package yang sudah ter-download tersimpan dalam `$GOPATH/src`, dengan struktur folder sesuai dengan URL package-nya. Sebagai contoh, package MGO di atas tersimpan di `$GOPATH/src/gopkg.in/mgo.v2`.
