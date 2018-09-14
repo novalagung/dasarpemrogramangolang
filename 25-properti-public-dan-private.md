@@ -262,7 +262,7 @@ Fungsi `sayHello` pada file `partial.go` bisa dikenali meski level aksesnya adal
 
 ## 26.7. Fungsi `init()`
 
-Selain fungsi `main()`, terdapat juga fungsi spesial, yaitu `init()`. Fungsi ini otomatis dipanggil pertama kali ketika package-dimana-fungsi-berada di-import.
+Selain fungsi `main()`, terdapat juga fungsi spesial, yaitu `init()`. Fungsi ini otomatis dipanggil pertama kali ketika aplikasi di-run. Jika fungsi ini berada dalam package main, maka dipanggil lebih dulu sebelum fungsi `main()` dieksekusi.
 
 Langsung saja kita praktekkan. Buka file `library.go`, hapus isinya lalu isi dengan kode berikut.
 
