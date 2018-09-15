@@ -1,8 +1,6 @@
 # Daftar Isi
 
  * [1. Berkenalan Dengan Golang](1-berkenalan-dengan-golang.md)
-    <!-- * [Tentang Penulis](1.1-tentang-penulis.md) -->
-    <!-- * [Tentang Buku Ini](1.2-tentang-buku.md) -->
  * [2. Instalasi Golang](2-instalasi-golang.md)
  * [3. GOPATH Dan Workspace](3-gopath-dan-workspace.md)
  * [4. Instalasi Editor](4-instalasi-editor.md)
@@ -59,3 +57,4 @@
  * [55. Unit Test](55-unit-test.md)
  * [56. WaitGroup](56-waitgroup.md)
  * [57. Mutex](57-mutex.md)
+ * [... Lanjutan](end.md)
