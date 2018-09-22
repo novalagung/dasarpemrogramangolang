@@ -1,0 +1,18 @@
+{
+  "name": "dasarpemrogramangolang",
+  "version": "1.0.0",
+  "description": "[Golang](https://golang.org/) (atau Go) adalah bahasa pemrograman baru, yang mulai dilirik oleh para developer karena kelebihan-kelebihan yang dimilikinya. Sudah banyak perusahaan besar yang [menggunakan bahasa ini](https://github.com/golang/go/wiki/GoUsers) untuk produk-produk mereka hingga di level production.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.gitbook.com/novalagung/dasarpemrogramangolang.git"
+  },
+  "author": "Noval Agung Prayogo",
+  "license": "ISC",
+  "dependencies": {
+    "gitbook-plugin-ga": "^2.0.0"
+  }
+}
