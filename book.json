@@ -7,5 +7,8 @@
         "ga": {
             "token": "UA-27602984-29"
         }
+    },
+    "styles": {
+        "website": "styles/website.css"
     }
 }
