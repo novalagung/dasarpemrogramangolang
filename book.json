@@ -1,11 +1,15 @@
 {
     "plugins": [
         "ga",
-        "html-minifier"
+        "html-minifier",
+        "disqus"
     ],
     "pluginsConfig": {
         "ga": {
             "token": "UA-27602984-29"
+        },
+        "disqus": {
+            "shortName": "dasarpemrogramangolang"
         }
     },
     "styles": {
