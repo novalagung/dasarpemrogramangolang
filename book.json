@@ -1,5 +1,8 @@
 {
-    "plugins": ["ga"],
+    "plugins": [
+        "ga",
+        "html-minifier"
+    ],
     "pluginsConfig": {
         "ga": {
             "token": "UA-27602984-29"
