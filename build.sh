@@ -1,4 +1,7 @@
 gitbook build
+gitbook pdf ./ ./_book/dasarpemrogramangolang.pdf
+gitbook epub ./ ./_book/dasarpemrogramangolang.epub
+gitbook mobi ./ ./_book/dasarpemrogramangolang.mobi
 cd _book
 echo 'dasarpemrogramangolang.novalagung.com' > CNAME
 rm -rf .git
