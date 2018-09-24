@@ -1,5 +1,8 @@
 gitbook build
 cd _book
+cp ./../pemrogramanwebgolang.pdf ./
+cp ./../pemrogramanwebgolang.epub ./
+cp ./../pemrogramanwebgolang.mobi ./
 echo 'dasarpemrogramangolang.novalagung.com' > CNAME
 rm -rf .git
 rm -rf .gitignore

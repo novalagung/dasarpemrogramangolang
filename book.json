@@ -2,7 +2,9 @@
     "plugins": [
         "ga",
         "html-minifier",
-        "disqus"
+        "disqus",
+        "meta",
+        "sitemap"
     ],
     "pluginsConfig": {
         "ga": {
@@ -10,6 +12,13 @@
         },
         "disqus": {
             "shortName": "dasarpemrogramangolang"
+        },
+        "meta": {
+            "name": "google-site-verification",
+            "content": "UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"
+        },
+        "sitemap": {
+            "hostname": "https://dasarpemrogramangolang.novalagung.com/"
         }
     },
     "styles": {

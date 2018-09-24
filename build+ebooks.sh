@@ -1,8 +1,12 @@
 gitbook build
-gitbook pdf ./ ./_book/dasarpemrogramangolang.pdf
-gitbook epub ./ ./_book/dasarpemrogramangolang.epub
-gitbook mobi ./ ./_book/dasarpemrogramangolang.mobi
+gitbook pdf ./ ./dasarpemrogramangolang.pdf
+gitbook epub ./ ./dasarpemrogramangolang.epub
+gitbook mobi ./ ./dasarpemrogramangolang.mobi
+
 cd _book
+cp ./../dasarpemrogramangolang.pdf ./
+cp ./../dasarpemrogramangolang.epub ./
+cp ./../dasarpemrogramangolang.mobi ./
 echo 'dasarpemrogramangolang.novalagung.com' > CNAME
 rm -rf .git
 rm -rf .gitignore
