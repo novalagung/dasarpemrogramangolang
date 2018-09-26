@@ -2,6 +2,7 @@ gitbook build
 gitbook pdf ./ ./dasarpemrogramangolang.pdf
 gitbook epub ./ ./dasarpemrogramangolang.epub
 gitbook mobi ./ ./dasarpemrogramangolang.mobi
+go run file-title-renamer.go -name "Dasar Pemrograman Golang"
 
 cd _book
 cp ./../dasarpemrogramangolang.pdf ./
@@ -11,6 +12,8 @@ echo 'dasarpemrogramangolang.novalagung.com' > CNAME
 rm -rf .git
 rm -rf .gitignore
 rm -rf *.psd
+rm -rf *.sh
+rm -rf *.go
 git init .
 git add .
 git commit -m "deploy"

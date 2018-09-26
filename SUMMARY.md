@@ -58,5 +58,4 @@
 * [55. Unit Test](55-unit-test.md)
 * [56. WaitGroup](56-waitgroup.md)
 * [57. Mutex](57-mutex.md)
-* [... Lanjutan](end.md)
-
+* [99. Lanjutan](end.md)
