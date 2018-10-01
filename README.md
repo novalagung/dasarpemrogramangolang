@@ -85,7 +85,6 @@ Source Code Praktek [Dasar Pemrograman Golang](https://dasarpemrogramangolang.no
      * [B.20. Custom Multiplexer](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-A.20-custom-mux-multiplexer)
      * [B.21. HTTP Cookie](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-A.21-cookie)
      * [B.22. Configuration File](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-A.22-configuration-file)
-     * [B.23. RDBMS MySQL](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-A.23-sql)
  * C. Pemrograman Web Golang Lanjut
      * [C.1. Echo Framework & Routing](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.1-echo-routing)
      * [C.2. Parsing HTTP Request Payload (Echo)](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.2-parsing-http-request-payload-echo)
@@ -97,7 +96,6 @@ Source Code Praktek [Dasar Pemrograman Golang](https://dasarpemrogramangolang.no
      * [C.8. Advanced Configuration File (Viper)](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.8-advanced-configuration-file)
      * [C.9. Secure Cookie (Gorilla Securecookie)](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.9-securecookie)
      * [C.10. Session (Gorilla Session)](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.10-session)
-     * [C.11. NoSQL MongoDB (Mgo v2)](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.11-mongodb)
      * [C.12. CORS & Preflight Request](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.12-cors-preflight-request)
      * [C.13. CSRF](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.13-csrf)
      * [C.14. Secure Middleware](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.14-secure-middleware)
