@@ -29,5 +29,9 @@
     },
     "styles": {
         "website": "styles/website.css"
+    },
+    {
+    "lunr": {
+        "maxIndexSize": 1000000000
     }
 }
