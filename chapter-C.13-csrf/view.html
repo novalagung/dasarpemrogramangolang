@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <form id="form" action="/sayhello" method="POST">
+        <div>
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Type your name here">
+        </div>
+        <div>
+            <label>Gender</label>
+            <select name="gender">
+                <option value="">Select one</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <div>
+            <input type="hidden" name="csrf_token" value="{{ .csrf_token }}">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('form').on('submit', function (e) {
+                e.preventDefault()
+
+                var self = $(this)
+
+                var formData = {
+                    name: self.find('[name="name"]').val(),
+                    gender: self.find('[name="gender"]').val(),
+                }
+
+                var url = self.attr('action')
+                var method = self.attr('method')
+                var payload = JSON.stringify(formData)
+
+                $.ajax({
+                    url: url,
+                    type: method,
+                    contentType: 'application/json',
+                    data: payload,
+                    beforeSend: function(req) {
+                        var csrfToken = self.find('[name=csrf_token]').val()
+                        req.setRequestHeader("X-Csrf-Token", csrfToken)
+                    },
+                }).then(function (res) {
+                    alert(res)
+                }).catch(function (err) {
+                    alert('ERROR: ' + err.responseText)
+                    console.log('err', err)
+                })
+            })
+        })
+    </script>
+</body>
+</html>

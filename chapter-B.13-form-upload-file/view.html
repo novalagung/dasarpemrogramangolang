@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Input Message</title>
+	</head>
+	<body>
+		<form method="post" action="/process" enctype="multipart/form-data">
+			<label>The file :</label>
+			<input type="file" name="file" required />
+			<br />
+
+
+			<label>Rename to :</label>
+			<input type="text" name="alias" />
+			<br />
+
+			<button type="submmit">Submit</button>
+		</form>
+	</body>
+</html>

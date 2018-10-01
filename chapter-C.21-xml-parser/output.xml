@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<website>
+  <title>Noval Agung</title>
+  <url>https://novalagung.com</url>
+  <contents>
+    <article>
+      <title>Connect to Oracle Server using Golang and Go-OCI8 on Ubuntu</title>
+      <url>/go-oci8-oracle-linux/</url>
+      <category>Server</category>
+    </article>
+    <article>
+      <title>Easy Setup OpenVPN Using Docker DockVPN</title>
+      <url>/easy-setup-openvpn-docker/</url>
+      <category>Server</category>
+      <category>VPN</category>
+    </article>
+    <article info="popular article">
+      <title>Setup Ghost v0.11-LTS, Ubuntu, Nginx, Custom Domain, and SSL</title>
+      <url>/ghost-v011-lts-ubuntu-nginx-custom-domain-ssl/</url>
+      <category>Server</category>
+    </article>
+  </contents>
+</website>

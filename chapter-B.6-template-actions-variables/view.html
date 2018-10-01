@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Learning html/template Actions</title>
+	</head>
+	<body>
+		<table>
+			<tr>
+				{{/* example how to use actions */}}
+				<td>{{"Name"}}</td>
+				<td>: {{.Name}}</td>
+			</tr>
+
+			<tr>
+				<td>Gender</td>
+				{{$gender := .Gender}}
+				<td style="text-transform: capitalize;">: 
+					{{$gender}}
+				</td>
+			</tr>
+
+			<tr>
+				<td>Hobbies</td>
+				<td>: 
+					{{range $index, $elem := .Hobbies}}
+						{{$elem}},
+					{{end}}
+				</td>
+			</tr>
+
+			<tr>
+				<td>Affiliation</td>
+				<td>: {{.Info.Affiliation}} ({{.Info.GetAffiliationDetailInfo}})</td>
+			</tr>
+
+			{{with .Info}}
+			<tr>
+				<td>Address</td>
+				<td>: {{.Address}}</td>
+			</tr>
+			{{end}}
+
+			{{if eq .Name "Bruce Wayne"}}
+			<tr>
+				<td colspan="2" style="font-weight: bold;">
+					I'm the Batman!
+				</td>
+			</tr>
+			{{end}}
+		</table>
+	</body>
+</html>

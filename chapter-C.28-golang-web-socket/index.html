@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket</title>
+
+    <style type="text/css">
+        .form {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: #f9f9f9;
+            border-top: 1px solid #78b8ef;
+            padding: 5px 10px;
+        }
+        .form .placeholder,
+        .form .input-message,
+        .form button {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form .input-message {
+            padding: 7px;
+            border: 1px solid #ecebeb;
+            border-radius: 4px;
+            width: -webkit-fill-available;
+        }
+        .form button {
+            width: 100%;
+            color: white;
+            padding: 7px 10px;
+            border-radius: 4px;
+            background-color: #78b8ef;
+            border: 1px solid #5a9ed8;
+        }
+        .container {
+            margin-bottom: 50px;
+        }
+        .container p {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"></div>
+
+    <div class="form">
+        <form onsubmit="app.doSendMessage(); return false;">
+            <div class="placeholder">
+                <label>Hello <b class="username"></b>. Say something:</label>
+            </div>
+            <input class="input-message" type="text" placeholder="Enter message">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        var app = {}
+        app.ws = undefined
+        app.container = undefined
+
+        app.print = function (message) {
+            var el = document.createElement("p")
+            el.innerHTML = message
+            app.container.append(el)
+        }
+
+        app.doSendMessage = function () {
+            var messageRaw = document.querySelector('.input-message').value
+            app.ws.send(JSON.stringify({
+                Message: messageRaw
+            }));
+
+            var message = '<b>me</b>: ' + messageRaw
+            app.print(message)
+
+            document.querySelector('.input-message').value = ''
+        }
+
+        app.init = function () {
+            if (!(window.WebSocket)) {
+                alert('Your browser does not support WebSocket')
+                return
+            }
+
+            var name = prompt('Enter your name please:') || "No name"
+            document.querySelector('.username').innerText = name
+
+            app.container = document.querySelector('.container')
+
+            app.ws = new WebSocket("ws://localhost:8080/ws?username=" + name)
+
+            app.ws.onopen = function() {
+                var message = '<b>me</b>: connected'
+                app.print(message)
+            }
+
+            app.ws.onmessage = function (event) {
+                var res = JSON.parse(event.data)
+
+                var messsage = ''
+                if (res.Type === 'New User') {
+                    message = 'User <b>' + res.From + '</b>: connected'
+                } else if (res.Type === 'Leave') {
+                    message = 'User <b>' + res.From + '</b>: disconnected'
+                } else {
+                    message = '<b>' + res.From + '</b>: ' + res.Message 
+                }
+
+                app.print(message)
+            }
+
+            app.ws.onclose = function () {
+                var message = '<b>me</b>: disconnected'
+                app.print(message)
+            }
+        }
+
+        window.onload = app.init
+    </script>
+</body>
+</html>

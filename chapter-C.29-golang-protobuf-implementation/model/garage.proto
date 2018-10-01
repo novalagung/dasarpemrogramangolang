@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package model;
+
+message GarageCoordinate {
+    float latitude = 1;
+    float longitude = 2;
+}
+
+message Garage {
+    string id = 1;
+    string name = 2;
+    GarageCoordinate coordinate = 3;
+}
+
+message GarageList {
+    repeated Garage list = 1;
+}
+
+message GarageListByUser {
+    map<string, GarageList> list = 1;
+}

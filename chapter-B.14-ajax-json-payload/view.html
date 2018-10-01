@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JSON Payload</title>
+		<script src="static/jquery-3.3.1.min.js"></script>
+		<script>
+			$(function () {
+				$("#user-form").on("submit", function (e) {
+					e.preventDefault();
+
+					var $self = $(this);
+					var payload = JSON.stringify({
+						name: $('[name="name"]').val(),
+						age: parseInt($('[name="age"]').val(), 10),
+						gender: $('[name="gender"]').val()
+					});
+
+					$.ajax({
+						url: $self.attr("action"),
+						type: $self.attr("method"),
+						data: payload,
+						contentType: 'application/json',
+					}).then(function (res) {
+						$(".message").text(res);
+					}).catch(function (a) {
+						alert("ERROR: " + a.responseText);
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<p class="message"></p>
+		<form id="user-form" method="post" action="/save">
+			<table noborder>
+				<tr>
+					<td>
+						<label>Name :</label>
+					</td>
+					<td>
+						<input required type="text" name="name" placeholder="Type name here" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Age :</label>
+					</td>
+					<td>
+						<input required type="number" name="age" placeholder="Set age" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Gender :</label>
+					</td>
+					<td>
+						<select name="gender" required style="width: 100%;">
+							<option value="">Select one</option>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align: right;">
+						<button type="submit">Save</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>
