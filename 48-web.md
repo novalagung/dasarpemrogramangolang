@@ -1,4 +1,4 @@
-# 48. Web
+# A.48. Web
 
 Golang menyediakan package `net/http`, berisi berbagai macam fitur untuk keperluan pembuatan aplikasi berbasi web. Termasuk didalamnya routing, server, templating, dan lainnya, semua tinggal pakai.
 
@@ -6,7 +6,7 @@ Golang memiliki web server sendiri, dan web server tersebut berada di dalam gola
 
 Di bab ini kita akan belajar cara pembuatan aplikasi web sederhanda dan pemanfaatan template untuk mendesain view.
 
-## 48.1. Membuat Aplikasi Web Sederhanda
+## A.48.1. Membuat Aplikasi Web Sederhanda
 
 Package `net/http` memiliki banyak sekali fungsi yang bisa dimanfaatkan. Di bagian ini kita akan mempelajari beberapa fungsi penting seperti *routing* dan *start server*.
 
@@ -36,11 +36,11 @@ func main() {
 
 Jalankan program tersebut.
 
-![Eksekusi program](images/48_0_start_server.png)
+![Eksekusi program](images/A.48_0_start_server.png)
 
 Jika muncul dialog **Do you want the application “bab48” to accept incoming network connections?** atau sejenis, pilih allow. Setelah itu, buka url [http://localhost/](http://localhost/) dan [http://localhost/index](http://localhost/index/) lewat browser.
 
-![Contoh penerapan net/http](images/48_1_web.png)
+![Contoh penerapan net/http](images/A.48_1_web.png)
 
 Fungsi `http.HandleFunc()` digunakan untuk routing aplikasi web. Maksud dari routing adalah penentuan aksi ketika url tertentu diakses oleh user.
 
@@ -58,7 +58,7 @@ Perlu diingat, setiap ada perubahan pada file `.go`, `go run` harus dipanggil la
 
 Untuk menghentikan web server, tekan **CTRL+C** pada terminal atau CMD, dimana pengeksekusian aplikasi berlangsung.
 
-## 48.2. Penggunaan Template Web
+## A.48.2. Penggunaan Template Web
 
 Template egninmemberikan kemudahan dalam mendesain tampilan view aplikasi website. Dan kabar baiknya golang menyediakan engine template sendiri, dengan banyak fitur yang tersedia didalamnya.
 
@@ -110,7 +110,7 @@ func main() {
 
 Jalankan, lalu buka [http://localhost:8080/](http://localhost:8080/), maka data `Nama` dan `Message` akan muncul di view.
 
-![Penggunaan template](images/48_2_template.png)
+![Penggunaan template](images/A.48_2_template.png)
 
 Fungsi `template.ParseFiles()` digunakan untuk parsing template, mengembalikan 2 data yaitu instance template-nya dan error (jika ada). Pemanggilan method `Execute()` akan membuat hasil parsing template ditampilkan ke layar web browser.
 

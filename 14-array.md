@@ -1,4 +1,4 @@
-# 14. Array
+# A.14. Array
 
 Array adalah kumpulan data bertipe sama, yang disimpan dalam sebuah variabel. Array memiliki kapasitas yang nilainya ditentukan pada saat pembuatan, menjadikan elemen/data yang disimpan di array tersebut jumlahnya tidak boleh melebihi yang sudah dialokasikan. Default nilai tiap elemen array pada awalnya tergantung dari tipe datanya. Jika `int` maka default nya `0`, jika `bool` maka default-nya `false`, dan tipe data lain. Setiap elemen array memiliki indeks berupa angka yang merepresentasikan posisi urutan elemen tersebut. Indeks array dimulai dari 0.
 
@@ -16,9 +16,9 @@ fmt.Println(names[0], names[1], names[2], names[3])
 
 Variabel `names` dideklarasikan sebagai `array string` dengan alokasi elemen `4` slot. Cara mengisi slot elemen array bisa dilihat di kode di atas, yaitu dengan langsung mengakses elemen menggunakan indeks, lalu mengisinya.
 
-![Menampilkan elemen array](images/14_0_array.png)
+![Menampilkan elemen array](images/A.14_0_array.png)
 
-## 14.1. Pengisian Elemen Array yang Melebihi Alokasi Awal
+## A.14.1. Pengisian Elemen Array yang Melebihi Alokasi Awal
 
 Pengisian elemen array pada indeks yang tidak sesuai dengan alokasi menghasilkan error. Contoh sederhana, jika array memiliki 4 slot, maka pengisian nilai slot 5 seterusnya adalah tidak valid.
 
@@ -33,7 +33,7 @@ names[4] = "ez" // baris kode ini menghasilkan error
 
 Solusi dari masalah di atas adalah dengan menggunakan keyword `append`, yang di bab selanjutnya akan kita bahas.
 
-## 14.2. Inisialisasi Nilai Awal Array
+## A.14.2. Inisialisasi Nilai Awal Array
 
 Pengisian elemen array bisa dilakukan pada saat deklarasi variabel. Caranya dengan menuliskan data elemen dalam kurung kurawal setelah tipe data, dengan pembatas antar elemen adalah tanda koma (`,`).
 
@@ -46,11 +46,11 @@ fmt.Println("Isi semua element \t", fruits)
 
 Penggunaan fungsi `fmt.Println()` pada data array tanpa mengakses indeks tertentu, akan menghasilkan output dalam bentuk string dari semua array yang ada. Teknik ini biasa digunakan untuk **debugging** data array.
 
-![Menghitung jumlah elemen dan menampilkan isi array](images/14_1_array_initialization_and_len.png)
+![Menghitung jumlah elemen dan menampilkan isi array](images/A.14_1_array_initialization_and_len.png)
 
 Fungsi `len()` dipakai untuk menghitung jumlah elemen sebuah array.
 
-## 14.3. Inisialisasi Nilai Array Dengan Gaya Vertikal
+## A.14.3. Inisialisasi Nilai Array Dengan Gaya Vertikal
 
 Elemen array bisa dituliskan dalam bentuk horizontal (seperti yang sudah dicontohkan di atas) ataupun dalam bentuk vertikal.
 
@@ -71,7 +71,7 @@ fruits  = [4]string{
 
 Khusus untuk deklarasi array dengan cara vertikal, tanda koma wajib dituliskan setelah elemen, termasuk elemen terakhir. Jika tidak, maka akan muncul error.
 
-## 14.4. Inisialisasi Nilai Awal Array Tanpa Jumlah Elemen
+## A.14.4. Inisialisasi Nilai Awal Array Tanpa Jumlah Elemen
 
 Deklarasi array yang nilainya diset di awal, boleh tidak dituliskan jumlah lebar array-nya, cukup ganti dengan tanda 3 titik (`...`). Jumlah elemen akan dikalkulasi secara otomatis menyesuaikan data elemen yang diisikan.
 
@@ -84,9 +84,9 @@ fmt.Println("jumlah elemen \t:", len(numbers))
 
 Variabel `numbers` akan secara otomatis memiliki jumlah elemen `5`, karena pada saat deklarasi disiapkan 5 buah elemen.
 
-![Deklarasi array menggunakan tanda 3 titik](images/14_1_1_array_dots.png)
+![Deklarasi array menggunakan tanda 3 titik](images/A.14_1_1_array_dots.png)
 
-## 14.5. Array Multidimensi
+## A.14.5. Array Multidimensi
 
 Array multidimensi adalah array yang tiap elemennya juga berupa array (dan bisa seterusnya, tergantung kedalaman dimensinya).
 
@@ -104,9 +104,9 @@ fmt.Println("numbers2", numbers2)
 
 Kedua array di atas memiliki elemen yang sama.
 
-![Array multidimensi](images/14_2_array_multidimension.png)
+![Array multidimensi](images/A.14_2_array_multidimension.png)
 
-## 14.6. Perulangan Elemen Array Menggunakan Keyword `for`
+## A.14.6. Perulangan Elemen Array Menggunakan Keyword `for`
 
 Keyword `for` dan array memiliki hubungan yang sangat erat. Dengan memanfaatkan perulangan menggunakan keyword ini, elemen-elemen dalam array bisa didapat.
 
@@ -122,9 +122,9 @@ for i := 0; i < len(fruits); i++ {
 
 Perulangan di atas dijalankan sebanyak jumlah elemen array `fruits` (bisa diketahui dari kondisi `i < len(fruits`). Di tiap perulangan, elemen array diakses lewat variabel iterasi `i`.
 
-![Iterasi elemen array](images/14_3_for_range.png)
+![Iterasi elemen array](images/A.14_3_for_range.png)
 
-## 14.7. Perulangan Elemen Array Menggunakan Keyword `for` - `range`
+## A.14.7. Perulangan Elemen Array Menggunakan Keyword `for` - `range`
 
 Ada cara yang lebih sederhana me-looping data array, dengan menggunakan keyword `for` - `range`. Contoh pengaplikasiannya bisa dilihat di kode berikut.
 
@@ -140,7 +140,7 @@ Array `fruits` diambil elemen-nya secara berurutan. Nilai tiap elemen ditampung 
 
 Output program di atas, sama dengan output program sebelumnya, hanya cara yang digunakan berbeda.
 
-## 14.8. Penggunaan Variabel Underscore `_` Dalam `for` - `range`
+## A.14.8. Penggunaan Variabel Underscore `_` Dalam `for` - `range`
 
 Kadang kala ketika *looping* menggunakan `for` - `range`, ada kemungkinan dimana data yang dibutuhkan adalah elemen-nya saja, indeks-nya tidak. Sedangkan kode di atas, `range` mengembalikan 2 data, yaitu indeks dan elemen.
 
@@ -156,7 +156,7 @@ for i, fruit := range fruits {
 
 Hasil dari kode program di atas:
 
-![Error karena ada variabel yang tidak digunakan](images/14_4_for_range_error.png)
+![Error karena ada variabel yang tidak digunakan](images/A.14_4_for_range_error.png)
 
 Disinilah salah satu kegunaan variabel pengangguran, atau underscore (`_`). Tampung saja nilai yang tidak ingin digunakan ke underscore.
 
@@ -170,7 +170,7 @@ for _, fruit := range fruits {
 
 Pada kode di atas, yang sebelumnya adalah variabel `i` diganti dengan `_`, karena kebetulan variabel `i` tidak digunakan.
 
-![For range tanpa indeks](images/14_5_for_range_underscore.png)
+![For range tanpa indeks](images/A.14_5_for_range_underscore.png)
 
 Jika yang dibutuhkan hanya indeks elemen-nya saja, bisa gunakan 1 buah variabel setelah keyword `for`.
 
@@ -180,7 +180,7 @@ for i, _ := range fruits { }
 for i := range fruits { }
 ```
 
-## 14.9. Alokasi Elemen Array Menggunakan Keyword `make`
+## A.14.9. Alokasi Elemen Array Menggunakan Keyword `make`
 
 Deklarasi sekaligus alokasi data array juga bisa dilakukan lewat keyword `make`.
 

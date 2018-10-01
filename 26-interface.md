@@ -1,10 +1,10 @@
-# 26. Interface
+# A.26. Interface
 
 Interface adalah kumpulan definisi method yang tidak memiliki isi (hanya definisi saja), dan dibungkus dengan nama tertentu.
 
 Interface merupakan tipe data. Nilai objek bertipe interface default-nya adalah `nil`. Interface mulai bisa digunakan jika sudah ada isinya, yaitu objek konkret yang memiliki definisi method minimal sama dengan yang ada di interface-nya.
 
-## 26.1. Penerapan Interface
+## A.26.1. Penerapan Interface
 
 Yang pertama perlu dilakukan untuk menerapkan interface adalah menyiapkan interface beserta definisi method nya. Keyword `type` dan `interface` digunakan untuk pendefinisian interface.
 
@@ -87,7 +87,7 @@ Perhatikan kode di atas. Variabel objek `bangunDatar` bertipe interface `hitung`
 
 Dari variabel tersebut, method `luas()` dan `keliling()` diakses. Secara otomatis Golang akan mengarahkan pemanggilan method pada interface ke method asli milik struct yang bersangkutan.
 
-![Pemanfaatan interface](images/26_1_interface.png)
+![Pemanfaatan interface](images/A.26_1_interface.png)
 
 Method `jariJari()` pada struct `lingkaran` tidak akan bisa diakses karena tidak terdefinisi dalam interface `hitung`. Pengaksesannya dengan paksa akan menyebabkan error.
 
@@ -104,7 +104,7 @@ bangunLingkaran.jariJari()
 
 Perlu diketahui juga, jika ada interface yang menampung objek konkrit dimana struct-nya tidak memiliki salah satu method yang terdefinisi di interface, error juga akan muncul. Intinya kembali ke aturan awal, variabel interface hanya bisa menampung objek yang minimal memiliki semua method yang terdefinisi di interface-nya.
 
-## 26.2. Embedded Interface
+## A.26.2. Embedded Interface
 
 Interface bisa di-embed ke interface lain, sama seperti struct. Cara penerapannya juga sama, cukup dengan menuliskan nama interface yang ingin di-embed ke dalam interface tujuan.
 
@@ -172,4 +172,4 @@ Bisa dilihat di kode di atas, lewat interface `hitung`, method `luas`, `keliling
 
 Pada bab 24 dijelaskan bahwa method pointer bisa diakses lewat variabel objek biasa dan variabel objek pointer. Variabel objek yang dicetak menggunakan struct yang memiliki method pointer, jika ditampung kedalam variabel interface, harus diambil referensi-nya terlebih dahulu. Contohnya bisa dilihat pada kode di atas `var bangunRuang hitung = &kubus{4}`.
 
-![Embedded interface](images/26_2_embedded_interface.png)
+![Embedded interface](images/A.26_2_embedded_interface.png)

@@ -1,4 +1,4 @@
-# 23. Struct
+# A.23. Struct
 
 Struct adalah kumpulan definisi variabel (atau property) dan atau fungsi (atau method), yang dibungkus dengan nama tertentu.
 
@@ -10,7 +10,7 @@ Struct merupakan cetakan, digunakan untuk mencetak variabel objek (istilah untuk
 
 > Disini penulis menggunakan konsep OOP sebagai analogi, dengan tujuan untuk mempermudah dalam mencerna isi bab ini.
 
-## 23.1. Deklarasi Struct
+## A.23.1. Deklarasi Struct
 
 Keyword `type` digunakan untuk deklarasi struct. Di bawah ini merupakan contoh cara penggunaannya.
 
@@ -23,7 +23,7 @@ type student struct {
 
 Struct `student` dideklarasikan memiliki 2 property, yaitu `name` dan `grade`. Objek yang dicetak dengan struct ini nantinya akan memiliki sifat yang sama.
 
-## 23.2. Penerapan Struct
+## A.23.2. Penerapan Struct
 
 Struct `student` yang sudah disiapkan di atas akan kita manfaatkan untuk mencetak variabel objek. Property variabel tersebut di-isi kemudian ditampilkan.
 
@@ -44,9 +44,9 @@ Semua property variabel objek pada awalnya memiliki nilai default sesuai tipe da
 
 Property variabel objek bisa diakses nilainya menggunakan notasi titik, contohnya `s1.name`. Nilai property-nya juga bisa diubah, contohnya  `s1.grade = 2`.
 
-![Pengaksesan property variabel objek](images/23_1_struct.png)
+![Pengaksesan property variabel objek](images/A.23_1_struct.png)
 
-## 23.3. Inisialisasi Object Struct
+## A.23.3. Inisialisasi Object Struct
 
 Cara inisialisasi variabel objek adalah dengan menambahkan kurung kurawal setelah nama struct. Nilai masing-masing property bisa diisi pada saat inisialisasi.
 
@@ -77,7 +77,7 @@ var s4 = student{name: "wayne", grade: 2}
 var s5 = student{grade: 2, name: "bruce"}
 ```
 
-## 23.4. Variabel Objek Pointer
+## A.23.4. Variabel Objek Pointer
 
 Objek hasil cetakan struct bisa diambil nilai pointer-nya, dan bisa disimpan pada variabel objek yang bertipe struct pointer. Contoh penerapannya:
 
@@ -97,9 +97,9 @@ fmt.Println("student 4, name :", s2.name)
 
 Meskipun `s2` bukan variabel asli, property nya tetap bisa diakses seperti biasa. Inilah keistimewaan property dalam objek pointer, tanpa perlu di-dereferensi nilai asli property tetap bisa diakses. Pengisian nilai pada property tersebut juga bisa langsung menggunakan nilai asli, contohnya seperti `s2.name = "ethan"`.
 
-![Variabel objek pointer](images/23_2_pointer_object.png)
+![Variabel objek pointer](images/A.23_2_pointer_object.png)
 
-## 23.5. Embedded Struct
+## A.23.5. Embedded Struct
 
 **Embedded** struct adalah mekanisme untuk menyimpan objek cetakan struct kedalam properti sebuah struct lain. Agar lebih mudah dipahami, mari kita bahas kode berikut.
 
@@ -138,7 +138,7 @@ Embedded struct adalah **mutable**, nilai property-nya nya bisa diubah.
 
 Khusus untuk properti yang bukan properti asli (properti turunan dari struct lain), bisa diakses dengan cara mengakses struct *parent*-nya terlebih dahulu, contohnya `s1.person.age`. Nilai yang dikembalikan memiliki referensi yang sama dengan `s1.age`.
 
-## 23.6. Embedded Struct Dengan Nama Property Yang Sama
+## A.23.6. Embedded Struct Dengan Nama Property Yang Sama
 
 Jika salah satu nama properti sebuah struct memiliki kesamaan dengan properti milik struct lain yang di-embed, maka pengaksesan property-nya harus dilakukan secara explisit atau jelas. Contoh bisa dilihat di kode berikut.
 
@@ -172,7 +172,7 @@ func main() {
 
 Struct `person` di-embed ke dalam struct `student`, dan kedua struct tersebut kebetulan salah satu nama property-nya ada yg sama, yaitu `age`. Cara mengakses property `age` milik struct `person` lewat objek struct `student`, adalah dengan menuliskan nama struct yg di-embed kemudian nama property-nya, contohnya: `s1.person.age = 22`.
 
-## 23.7. Pengisian Nilai Sub-Struct
+## A.23.7. Pengisian Nilai Sub-Struct
 
 Pengisian nilai property sub-struct bisa dilakukan dengan langsung memasukkan variabel objek yang tercetak dari struct yang sama.
 
@@ -187,7 +187,7 @@ fmt.Println("grade :", s1.grade)
 
 Pada deklarasi `s1`, property `person` diisi variabel objek `p1`.
 
-## 23.8. Anonymous Struct
+## A.23.8. Anonymous Struct
 
 Anonymous struct adalah struct yang tidak dideklarasikan di awal, melainkan ketika dibutuhkan saja, langsung pada saat penciptaan objek. Teknik ini cukup efisien untuk pembuatan variabel objek yang struct nya hanya dipakai sekali.
 
@@ -236,7 +236,7 @@ var s2 = struct {
 }
 ```
 
-## 23.9. Kombinasi Slice & Struct
+## A.23.9. Kombinasi Slice & Struct
 
 Slice dan `struct` bisa dikombinasikan seperti pada slice dan `map`, caranya pun mirip, cukup tambahkan tanda `[]` sebelum tipe data pada saat deklarasi.
 
@@ -257,7 +257,7 @@ for _, student := range allStudents {
 }
 ```
 
-## 23.10. Inisialisasi Slice Anonymous Struct
+## A.23.10. Inisialisasi Slice Anonymous Struct
 
 Anonymous struct bisa dijadikan sebagai tipe sebuah slice. Dan nilai awalnya juga bisa diinisialisasi langsung pada saat deklarasi. Berikut adalah contohnya:
 
@@ -276,7 +276,7 @@ for _, student := range allStudents {
 }
 ```
 
-## 23.11. Deklarasi Anonymous Struct Menggunakan Keyword **var**
+## A.23.11. Deklarasi Anonymous Struct Menggunakan Keyword **var**
 
 Cara lain untuk deklarasi anonymous struct adalah dengan menggunakan keyword `var`.
 
@@ -308,7 +308,7 @@ var student = struct {
 }
 ```
 
-## 23.12. Nested struct
+## A.23.12. Nested struct
 
 Nested struct adalah anonymous struct yang di-embed ke sebuah struct. Deklarasinya langsung didalam struct peng-embed. Contoh:
 
@@ -325,7 +325,7 @@ type student struct {
 
 Teknik ini biasa digunakan ketika decoding data **json** yang struktur datanya cukup kompleks dengan proses decode hanya sekali.
 
-## 23.13. Deklarasi Dan Inisialisasi Struct Secara Horizontal
+## A.23.13. Deklarasi Dan Inisialisasi Struct Secara Horizontal
 
 Deklarasi struct bisa dituliskan secara horizontal, caranya bisa dilihat pada kode berikut:
 
@@ -342,7 +342,7 @@ var p2 = struct { name string; age int } { "ethan", 23 }
 
 Bagi pengguna editor Sublime yang terinstal plugin GoSublime didalamnya, cara ini tidak akan bisa dilakukan, karena setiap kali file di-save, kode program dirapikan. Jadi untuk mengetesnya bisa dengan menggunakan editor lain.
 
-## 23.14. Tag property dalam struct
+## A.23.14. Tag property dalam struct
 
 Tag merupakan informasi opsional yang bisa ditambahkan pada masing-masing property struct.
 

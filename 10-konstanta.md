@@ -1,8 +1,8 @@
-# 10. Konstanta
+# A.10. Konstanta
 
 Konstanta adalah jenis variabel yang nilainya tidak bisa diubah. Inisialisasi nilai hanya dilakukan sekali di awal, setelahnya tidak bisa diubah nilainya.
 
-## 10.1. Penggunaan Konstanta
+## A.10.1. Penggunaan Konstanta
 
 Data seperti **pi** (22/7), kecepatan cahaya (299.792.458 m/s), adalah contoh data yang tepat jika dideklarasikan sebagai konstanta daripada variabel, karena nilainya sudah pasti dan tidak berubah.
 
@@ -20,7 +20,7 @@ const lastName = "wick"
 fmt.Print("nice to meet you ", lastName, "!\n")
 ```
 
-## 10.2. Penggunaan Fungsi `fmt.Print()`
+## A.10.2. Penggunaan Fungsi `fmt.Print()`
 
 Fungsi ini memiliki peran yang sama seperti fungsi `fmt.Println()`, pembedanya fungsi `fmt.Print()` tidak menghasilkan baris baru di akhir outputnya.
 

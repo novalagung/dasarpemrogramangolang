@@ -1,10 +1,10 @@
-# 17. Fungsi
+# A.17. Fungsi
 
 Fungi merupakan aspek penting dalam pemrograman. Definisi fungsi sendiri adalah sekumpulan blok kode yang dibungkus dengan nama tertentu. Penerapan fungsi yang tepat akan menjadikan kode lebih modular dan juga *dry* (kependekan dari *don't repeat yourself*), tak perlu menuliskan banyak kode yang kegunaannya berkali-kali, cukup sekali saja lalu panggil sesuai kebutuhan.
 
 Di bab ini kita akan belajar tentang penggunaan fungsi di Golang.
 
-## 17.1. Penerapan Fungsi
+## A.17.1. Penerapan Fungsi
 
 Sebenarnya tanpa sadar, kita sudah menerapkan fungsi di bab-bab sebelum ini, yaitu pada fungsi `main`. Fungsi `main` merupakan fungsi yang paling utama pada program Golang.
 
@@ -37,9 +37,9 @@ Fungsi tersebut dipanggil dalam `main`, dengan disisipkan 2 buah data sebagai pa
 
 Di dalam `printMessage`, nilai `arr` yang merupakan slice string digabungkan menjadi sebuah string dengan pembatas adalah karakter **spasi**. Penggabungan slice dapat dilakukan dengan memanfaatkan fungsi `strings.Join()` (berada di dalam package `strings`).
 
-![Contoh penggunaan fungsi](images/17_1_function.png)
+![Contoh penggunaan fungsi](images/A.17_1_function.png)
 
-## 17.2. Fungsi Dengan Return Value / Nilai Balik
+## A.17.2. Fungsi Dengan Return Value / Nilai Balik
 
 Sebuah fungsi bisa didesain tidak mengembalikan nilai balik (*void*), atau bisa mengembalikan suatu nilai. Fungsi yang memiliki nilai kembalian, harus ditentukan tipe data nilai baliknya pada saat deklarasi.
 
@@ -75,7 +75,7 @@ func randomWithRange(min, max int) int {
 
 Fungsi `randomWithRange` bertugas untuk *generate* angka acak sesuai dengan range yang ditentukan, yang kemudian angka tersebut dijadikan nilai kembalian fungsi.
 
-![Fungsi dengan nilai balik](images/17_2_function_return_type.png)
+![Fungsi dengan nilai balik](images/A.17_2_function_return_type.png)
 
 Cara menentukan tipe data nilai balik fungsi adalah dengan menuliskan tipe data yang diinginkan setelah kurung parameter. Bisa dilihat pada kode di atas, bahwa `int` merupakan tipe data nilai balik fungsi `randomWithRange`.
 
@@ -91,7 +91,7 @@ Eksekusi keyword `return` akan menjadikan proses dalam blok fungsi berhenti pada
 
 Dari kode di atas mungkin ada beberapa hal yang belum pernah kita lakukan pada bab-bab sebelumnya, kita akan bahas satu-persatu.
 
-## 17.3. Penggunaan Fungsi `rand.Seed()`
+## A.17.3. Penggunaan Fungsi `rand.Seed()`
 
 Fungsi ini diperlukan untuk memastikan bahwa angka random yang akan di-generate benar-benar acak. Kita bisa gunakan angka apa saja sebagai nilai parameter fungsi ini (umumnya diisi `time.Now().Unix()`).
 
@@ -103,7 +103,7 @@ Fungsi `rand.Seed()` berada dalam package `math/rand`, yang harus di-import terl
 
 Package `time` juga perlu di-import karena kita menggunakan fungsi `(time.Now().Unix())` disitu.
 
-## 17.4. Import Banyak Package
+## A.17.4. Import Banyak Package
 
 Penulisan keyword `import` untuk banyak package bisa dilakukan dengan dua cara, dengan menuliskannya di tiap package, atau cukup sekali saja, bebas.
 
@@ -121,7 +121,7 @@ import (
 )
 ```
 
-## 17.5. Deklarasi Parameter Bertipe Data Sama
+## A.17.5. Deklarasi Parameter Bertipe Data Sama
 
 Khusus untuk fungsi yang tipe data parameternya sama, bisa ditulis dengan gaya yang unik. Tipe datanya dituliskan cukup sekali saja di akhir. Contohnya bisa dilihat pada kode berikut.
 
@@ -133,7 +133,7 @@ func randomWithRange(min int, max int) int
 func randomWithRange(min, max int) int
 ```
 
-## 17.6. Penggunaan Keyword `return` Untuk Menghentikan Proses Dalam Fungsi
+## A.17.6. Penggunaan Keyword `return` Untuk Menghentikan Proses Dalam Fungsi
 
 Selain sebagai penanda nilai balik, keyword `return` juga bisa dimanfaatkan untuk menghentikan proses dalam blok fungsi dimana ia dipakai. Contohnya bisa dilihat pada kode berikut.
 
@@ -163,4 +163,4 @@ Fungsi `divideNumber` didesain tidak memiliki nilai balik. Fungsi ini dibuat unt
 
 Didalamnya terdapat proses validasi nilai variabel pembagi, jika nilainya adalah 0, maka akan ditampilkan pesan bahwa pembagian tidak bisa dilakukan, lalu proses dihentikan pada saat itu juga (dengan memanfaatkan keyword `return`). Jika nilai pembagi valid, maka proses pembagian diteruskan.
 
-![Keyword return menjadikan proses dalam fungsi berhenti](images/17_3_function_return_as_break.png)
+![Keyword return menjadikan proses dalam fungsi berhenti](images/A.17_3_function_return_as_break.png)

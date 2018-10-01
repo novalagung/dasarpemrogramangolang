@@ -1,10 +1,10 @@
-# 8. Variabel
+# A.8. Variabel
 
 Golang mengadopsi dua jenis penulisan variabel, yang dituliskan tipe data-nya dan yang tidak. Kedua cara tersebut valid dan tujuannya sama, pembedanya hanya cara penulisannya saja.
 
 Pada bab ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel.
 
-## 8.1. Deklarasi Variabel Dengan Tipe Data
+## A.8.1. Deklarasi Variabel Dengan Tipe Data
 
 Golang memiliki aturan cukup ketat dalam hal penulisan variabel. Ketika deklarasi, tipe data yg digunakan harus dituliskan juga. Istilah lain dari konsep ini adalah **manifest typing**.
 
@@ -29,9 +29,9 @@ Keyword `var` di atas digunakan untuk deklarasi variabel, contohnya bisa dilihat
 
 Nilai variabel `firstName` diisi langsung ketika deklarasi, berbeda dibanding `lastName` yang nilainya diisi setelah baris kode deklarasi, hal seperti ini diperbolehkan di Golang.
 
-![Menampilkan isi variabel](images/8_1_variabel.png)
+![Menampilkan isi variabel](images/A.8_1_variabel.png)
 
-## 8.2. Deklarasi Variabel Menggunakan Keyword `var`
+## A.8.2. Deklarasi Variabel Menggunakan Keyword `var`
 
 Pada kode di atas bisa dilihat bagaimana sebuah variabel dideklarasikan dan di-set nilainya. Keyword `var` digunakan untuk membuat variabel baru.
 
@@ -51,7 +51,7 @@ var firstName string = "john"
 
 Nilai variabel bisa di-isi langsung pada saat deklarasi variabel.
 
-## 8.3. Penggunaan Fungsi `fmt.Printf()`
+## A.8.3. Penggunaan Fungsi `fmt.Printf()`
 
 Fungsi ini digunakan untuk menampilkan output dalam bentuk tertentu. Kegunaannya sama seperti fungsi `fmt.Println()`, hanya saja struktur outputnya didefinisikan di awal.
 
@@ -69,7 +69,7 @@ Tanda plus (`+`) jika ditempatkan di antara string, fungsinya adalah untuk pengg
 
 Fungsi `fmt.Printf()` tidak menghasilkan baris baru di akhir text, oleh karena itu digunakanlah literal `\n` untuk memunculkan baris baru di akhir. Hal ini sangat berbeda jika dibandingkan dengan fungsi `fmt.Println()` yang secara otomatis menghasilkan new line (baris baru) di akhir.
 
-## 8.4. Deklarasi Variabel Tanpa Tipe Data
+## A.8.4. Deklarasi Variabel Tanpa Tipe Data
 
 Selain **manifest typing**, Golang juga mengadopsi metode **type inference**, yaitu metode deklarasi variabel yang tipe data-nya ditentukan oleh tipe data nilainya, cara kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword `var` dan tipe data tidak perlu ditulis.
 
@@ -106,7 +106,7 @@ lastName = "bourne"
 
 Perlu diketahu, deklarasi menggunakan `:=` hanya bisa dilakukan di dalam fungsi, tidak bisa digunakan di luar fungsi.
 
-## 8.5. Deklarasi Multi Variabel
+## A.8.5. Deklarasi Multi Variabel
 
 Golang mendukung metode deklarasi banyak variabel secara bersamaan, caranya dengan menuliskan variabel-variabel-nya dengan pembatas tanda koma (`,`). Untuk pengisian nilainya-pun diperbolehkan secara bersamaan.
 
@@ -135,11 +135,11 @@ one, isFriday, twoPointTwo, say := 1, true, 2.2, "hello"
 
 Istimewa bukan? Istimewa sekali.
 
-## 8.6. Variabel Underscore `_`
+## A.8.6. Variabel Underscore `_`
 
 Golang memiliki aturan unik yang jarang dimiliki bahasa lain, yaitu tidak boleh ada satupun variabel yang menganggur. Artinya, semua variabel yang dideklarasikan harus digunakan. Jika ada variabel yang tidak digunakan tapi dideklarasikan, error akan muncul dan program tidak bisa di-run ataupun di-compile.
 
-![Variabel pengangguran](images/8_2_unused_variabel.png)
+![Variabel pengangguran](images/A.8_2_unused_variabel.png)
 
 Underscore (`_`) adalah predefined variabel yang bisa dimanfaatkan untuk menampung nilai yang tidak dipakai. Bisa dibilang variabel ini merupakan keranjang sampah.
 
@@ -157,7 +157,7 @@ Biasanya variabel underscore sering dimanfaatkan untuk menampung nilai balik fun
 
 Perlu diketahui, bahwa isi variabel underscore tidak dapat ditampilkan. Data yang sudah masuk variabel tersebut akan hilang. Ibarat blackhole, sekali masuk, tidak akan bisa keluar 😁
 
-## 8.7. Deklarasi Variabel Menggunakan Keyword `new`
+## A.8.7. Deklarasi Variabel Menggunakan Keyword `new`
 
 Keyword `new` digunakan untuk mencetak data **pointer** dengan tipe data tertentu. Nilai data default-nya akan menyesuaikan tipe datanya.
 
@@ -172,7 +172,7 @@ Variabel `name` menampung data bertipe **pointer string**. Jika ditampilkan yang
 
 Mungkin untuk sekarang banyak yang akan bingung tentang apa itu pointer, namun tak apa, karena nantinya di bab 22 akan dikupas habis topik pointer dan dereference.
 
-## 8.8. Deklarasi Variabel Menggunakan Keyword `make`
+## A.8.8. Deklarasi Variabel Menggunakan Keyword `make`
 
 Keyword ini hanya bisa digunakan untuk pembuatan beberapa jenis variabel saja, yaitu:
 

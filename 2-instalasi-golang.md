@@ -1,4 +1,4 @@
-# 2. Instalasi Golang
+# A.2. Instalasi Golang
 
 Hal pertama yang perlu dilakukan sebelum bisa menggunakan Golang adalah meng-install-nya terlebih dahulu. Panduan instalasi sebenarnya sudah disediakan di situs official Golang [http://golang.org/doc/install#install](http://golang.org/doc/install#install).
 
@@ -8,7 +8,7 @@ Disini penulis mencoba meringkas petunjuk instalasi di link tersebut, agar lebih
 
 Link untuk download installer golang: https://golang.org/dl/. Anda bisa langsung unduh dari URL tersebut lalu lakukan instalasi sendiri, atau bisa mengikuti petunjuk di bab ini.
 
-## 2.1. Instalasi Golang di Windows
+## A.2.1. Instalasi Golang di Windows
 
  1. Download terlebih dahulu installer-nya. Pilih sesuai jenis bit yang digunakan.
 
@@ -27,7 +27,7 @@ Link untuk download installer golang: https://golang.org/dl/. Anda bisa langsung
 
 > Sering terjadi command `go version` tidak bisa dijalankan meskipun instalasi sukses. Solusinya bisa dengan restart CMD (close CMD, lalu buka kembali). Setelah itu coba jalankan sekali lagi command tersebut.
 
-## 2.2. Instalasi Golang di Mac OS
+## A.2.2. Instalasi Golang di Mac OS
 
 Cara termudah instalasi Golang di **Mac OS** adalah menggunakan [homebrew](http://brew.sh/).
 
@@ -58,7 +58,7 @@ Cara termudah instalasi Golang di **Mac OS** adalah menggunakan [homebrew](http:
 
  5. Jika output adalah sama dengan Golang yang ter-install, menandakan instalasi berhasil.
 
-## 2.3. Instalasi Golang di Linux
+## A.2.3. Instalasi Golang di Linux
 
  1. Download archive berikut, pilih sesuai jenis bit komputer anda.
 
@@ -92,7 +92,7 @@ Cara termudah instalasi Golang di **Mac OS** adalah menggunakan [homebrew](http:
 
  5. Jika output adalah sama dengan Golang yang ter-install, menandakan instalasi berhasil.
 
-## 2.4. Variabel `GOROOT`
+## A.2.4. Variabel `GOROOT`
 
 By default, setelah proses instalasi Golang selesai, secara otomatis akan muncul environment variabel bernama `GOROOT`. Isi dari environment variabel ini adalah path/folder/lokasi dimana golang di install.
 

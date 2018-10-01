@@ -1,8 +1,8 @@
-# 11. Operator
+# A.11. Operator
 
 Bab ini membahas mengenai macam operator yang bisa digunakan di Golang. Secara umum operator dibagi menjadi 3 kategori: operator aritmatika, perbandingan, dan logika.
 
-## 11.1. Operator Aritmatika
+## A.11.1. Operator Aritmatika
 
 Operator aritmatika adalah operator yang digunakan untuk operasi yang sifatnya perhitungan. Golang mendukung beberapa operator aritmatika standar, list-nya bisa dilihat di tabel berikut.
 
@@ -20,7 +20,7 @@ Contoh penggunaan:
 var value = (((2 + 6) % 3) * 4 - 2) / 3
 ```
 
-## 11.2. Operator Perbandingan
+## A.11.2. Operator Perbandingan
 
 Operator perbandingan digunakan untuk menentukan kebenaran suatu kondisi. Hasilnya berupa nilai boolean, `true` atau `false`.
 
@@ -46,11 +46,11 @@ fmt.Printf("nilai %d (%t) \n", value, isEqual)
 
 Pada kode di atas, terdapat statement operasi aritmatika yang hasilnya ditampung oleh variabel `value`. Selanjutnya, variabel tersebut tersebut dibandingkan dengan angka **2** untuk dicek apakah nilainya sama. Jika iya, maka hasilnya adalah `true`, jika tidak maka `false`. Nilai hasil operasi perbandingan tersebut kemudian disimpan dalam variabel `isEqual`.
 
-![Penggunaan operator perbandingan](images/11_1_operator_comparison.png)
+![Penggunaan operator perbandingan](images/A.11_1_operator_comparison.png)
 
 Untuk memunculkan nilai `bool` menggunakan `fmt.Printf()`, bisa gunakan layout format `%t`.
 
-## 11.3. Operator Logika
+## A.11.3. Operator Logika
 
 Operator ini digunakan untuk mencari benar tidaknya kombinasi data bertipe `bool` (bisa berupa variabel bertipe `bool`, atau hasil dari operator perbandingan).
 
@@ -80,7 +80,7 @@ fmt.Printf("!left \t\t(%t) \n", leftReverse)
 
 Hasil dari operator logika sama dengan hasil dari operator perbandingan, yaitu berupa nilai boolean.
 
-![Penerapan operator logika](images/11_2_operator_logical.png)
+![Penerapan operator logika](images/A.11_2_operator_logical.png)
 
 Berikut penjelasan statemen operator logika pada kode di atas.
 

@@ -1,4 +1,4 @@
-# 44. Hash SHA1
+# A.44. Hash SHA1
 
 Hash adalah algoritma enkripsi untuk mengubah text menjadi deretan karakter acak. Jumlah karakter hasil hash selalu sama. Hash termasuk *one-way encription*, membuat hasil dari hash tidak bisa dikembalikan ke text asli.
 
@@ -6,7 +6,7 @@ SHA1 atau **Secure Hash Algorithm 1** merupakan salah satu algoritma hashing yan
 
 Di bab ini kita akan belajar tentang pemanfaatan sha1 dan teknik salting dalam hash.
 
-## 44.1. Penerapan Hash SHA1
+## A.44.1. Penerapan Hash SHA1
 
 Golang menyediakan package `crypto/sha1`, berisikan library untuk keperluan *hashing*. Cara penerapannya cukup mudah, contohnya bisa dilihat pada kode berikut.
 
@@ -35,9 +35,9 @@ Variabel hasil dari `sha1.New()` adalah objek bertipe `hash.Hash`, memiliki dua 
 
 Untuk mengambil bentuk heksadesimal string dari data yang sudah di-hash, bisa memanfaatkan fungsi `fmt.Sprintf` dengan layout format `%x`.
 
-![Hashing menggunakan SHA1](images/44_1_hash_sha1.png)
+![Hashing menggunakan SHA1](images/A.44_1_hash_sha1.png)
 
-## 44.2. Metode Salting Pada Hash SHA1
+## A.44.2. Metode Salting Pada Hash SHA1
 
 Salt dalam konteks kriptografi adalah data acak yang digabungkan pada data asli sebelum proses hash dilakukan.
 
@@ -91,6 +91,6 @@ func main() {
 
 Hasil ekripsi fungsi `doHashUsingSalt` akan selalu beda, karena salt yang digunakan adalah waktu.
 
-![Hashing dengan salt](images/44_2_hash_salt_sha1.png)
+![Hashing dengan salt](images/A.44_2_hash_salt_sha1.png)
 
 Metode ini sering dipakai untuk enkripsi password user. Salt dan data hasil hash harus disimpan pada database, karena digunakan dalam pencocokan password setiap user melakukan login.

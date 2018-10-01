@@ -1,4 +1,4 @@
-# 31. Buffered Channel
+# A.31. Buffered Channel
 
 Channel secara default adalah **un-buffered**, tidak di-buffer di memori. Ketika ada goroutine yang mengirimkan data lewat channel, harus ada goroutine lain yang bertugas menerima data dari channel yang sama, dengan proses serah-terima yang bersifat blocking. Maksudnya, baris kode di bagian pengiriman dan penerimaan data, tidak akan akan diproses sebelum proses serah-terima-nya selesai.
 
@@ -6,9 +6,9 @@ Buffered channel sedikit berbeda. Pada channel jenis ini, ditentukan jumlah buff
 
 Ketika jumlah data yang dikirim sudah melewati batas buffer, maka pengiriman data hanya bisa dilakukan ketika salah satu data sudah diambil dari channel, sehingga ada slot channel yang kosong. Dengan proses penerimaan-nya sendiri bersifat blocking.
 
-![Analogi buffered channel](images/31_1_anatomy.png)
+![Analogi buffered channel](images/A.31_1_anatomy.png)
 
-## 31.1. Penerapan Buffered Channel
+## A.31.1. Penerapan Buffered Channel
 
 Penerapan buffered channel pada dasarnya mirip seperti channel biasa. Perbedannya pada channel jenis ini perlu disiapkan jumlah buffer-nya.
 
@@ -45,7 +45,7 @@ Pada contoh di atas, terdapat juga sebuah goroutine yang berisikan proses peneri
 
 Setelah goroutine untuk penerimaan data dieksekusi, data dikirimkan lewat perulangan `for`. Sejumlah 5 data akan dikirim lewat channel `message` secara sekuensial.
 
-![Implementasi buffered channel](images/31_2_buffered_channel.png)
+![Implementasi buffered channel](images/A.31_2_buffered_channel.png)
 
 Bisa dilihat hasilnya pada output di atas. Pengiriman data ke-4, diikuti dengan penerimaan data, dan kedua proses tersebut berjalan secara blocking.
 

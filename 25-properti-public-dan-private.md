@@ -1,8 +1,8 @@
-# 25. Property Public Dan Private
+# A.25. Property Public Dan Private
 
 Bab ini membahas mengenai *modifier* public dan private dalam Golang. Kapan sebuah struct, fungsi, atau method bisa diakses dari package lain dan kapan tidak.
 
-## 25.1. Package Public & Private
+## A.25.1. Package Public & Private
 
 Pengembangan aplikasi dalam *real development* pasti membutuhkan banyak sekali file program. Tidak mungkin dalam satu project semua file memiliki nama package `main`, biasanya akan dipisah sebagai package berbeda sesuai bagiannya.
 
@@ -21,7 +21,7 @@ Penentuan hak akses yang tepat untuk tiap komponen sangatlah penting.
 
 Di Golang cara menentukan level akses atau modifier sangat mudah, penandanya adalah **character case** karakter pertama nama fungsi, struct, variabel, atau lainnya. Ketika namanya diawali dengan huruf kapital menandakan bahwa modifier-nya public. Dan sebaliknya, jika diawali huruf kecil, berarti private.
 
-## 25.2. Penggunaan Package, Import, Dan Modifier Public & Private
+## A.25.2. Penggunaan Package, Import, Dan Modifier Public & Private
 
 Agar lebih mudah dipahami, maka langsung saja kita praktekan.
 
@@ -29,7 +29,7 @@ Pertama buat folder proyek baru bernama `belajar-golang-level-akses` di dalam fo
 
 Selanjutnya buat folder baru bernama `library` di dalam folder baru yang sudah dibuat tadi. Didalamnya buat file baru `library.go`, set nama package-nya **library**.
 
-![Struktur folder dan file](images/25_1_folder_structure.png)
+![Struktur folder dan file](images/A.25_1_folder_structure.png)
 
 Buka file `library.go` lalu isi dengan kode berikut.
 
@@ -84,7 +84,7 @@ Cara pemanggilan fungsi yang berada dalam package lain adalah dengan menuliskan 
 
 OK, sekarang coba jalankan kode yang sudah disiapkan di atas, hasilnya error.
 
-![Error saat menjalankan program](images/25_2_error.png)
+![Error saat menjalankan program](images/A.25_2_error.png)
 
 Error di atas disebabkan karena fungsi `introduce()` yang berada dalam package `library` memiliki level akses **private**, fungsi ini tidak bisa diakses dari package lain (pada kasus ini `main`). Agar bisa diakses, solusinya bisa dengan menjadikannya public, atau diubah cara pemanggilannya. Disini kita menggunakan cara ke-2.
 
@@ -107,7 +107,7 @@ func main() {
 
 Coba jalankan lagi.
 
-![Contoh penerapan pemanggilan fungsi dari package berbeda](images/25_2_success.png)
+![Contoh penerapan pemanggilan fungsi dari package berbeda](images/A.25_2_success.png)
 
 ## 26.3. Penggunaan Public & Private Pada Struct Dan Propertinya
 
@@ -141,7 +141,7 @@ func main() {
 
 Setelah itu jalankan program.
 
-![Error saat menjalankan program](images/25_3_error.png)
+![Error saat menjalankan program](images/A.25_3_error.png)
 
 Error muncul lagi, kali ini penyebabnya adalah karena struct `student` masih di set sebagai private. Ganti menjadi public (dengan cara mengubah huruf awalnya menjadi huruf besar) lalu jalankan.
 
@@ -160,7 +160,7 @@ fmt.Println("grade", s1.grade)
 
 Output:
 
-![Error lain muncul saat menjalankan program](images/25_4_error.png)
+![Error lain muncul saat menjalankan program](images/A.25_4_error.png)
 
 Error masih tetap muncul, tapi kali ini berbeda. Error yang baru ini disebabkan karena salah satu properti dari struct `Student` bermodifier private. Properti yg dimaksud adalah `grade`. Ubah menjadi public, lalu jalankan lagi.
 
@@ -179,7 +179,7 @@ fmt.Println("grade", s1.Grade)
 
 Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` yang berada di package lain, selain nama stuct-nya harus bermodifier public, properti yang diakses juga harus public.
 
-![Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda](images/25_4_success.png)
+![Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda](images/A.25_4_success.png)
 
 ## 26.4. Import Dengan Prefix Tanda Titik
 
@@ -224,7 +224,7 @@ Jika properti yang ingin di akses masih dalam satu package tapi berbeda file, ca
 
 Langsung saja kita praktekan, buat file baru dalam `belajar-golang-level-akses` dengan nama `partial.go`.
 
-![File `partial.go` disiapkan setara dengan file `main.go`](images/25_5_structure.png)
+![File `partial.go` disiapkan setara dengan file `main.go`](images/A.25_5_structure.png)
 
 Tulis kode berikut pada file `partial.go`. File ini kita set package-nya **main** (sama dengan nama package file `main.go`).
 
@@ -258,7 +258,7 @@ Fungsi `sayHello` pada file `partial.go` bisa dikenali meski level aksesnya adal
 
 > Cara lain untuk menjalankan program bisa dengan perintah `go run *.go`, dengan cara ini tidak perlu menuliskan nama file nya satu per satu.
 
-![Pemanggilan fungsi private dari dalam package yang sama](images/25_6_multi_main.png)
+![Pemanggilan fungsi private dari dalam package yang sama](images/A.25_6_multi_main.png)
 
 ## 26.7. Fungsi `init()`
 
@@ -306,4 +306,4 @@ Property variabel objek `Student` akan diisi dan sebuah pesan ditampilkan ke con
 
 Dalam sebuah package diperbolehkan ada banyak fungsi `init()` (urutan eksekusinya adalah sesuai file mana yg terlebih dahulu digunakan). Fungsi ini dipanggil sebelum fungsi `main()`, pada saat eksekusi program.
 
-![Fungsi `init()`](images/25_7_init.png)
+![Fungsi `init()`](images/A.25_7_init.png)

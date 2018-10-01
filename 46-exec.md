@@ -1,8 +1,8 @@
-# 46. Exec
+# A.46. Exec
 
 **Exec** digunakan untuk eksekusi perintah command line lewat kode program. Command yang bisa dieksekusi adalah semua command yang bisa dieksekusi di terminal (CMD untuk pengguna Windows).
 
-## 46.1. Penggunaan Exec
+## A.46.1. Penggunaan Exec
 
 Golang menyediakan package `exec` berisikan banyak fungsi untuk keperluan eksekusi perintah CLI.
 
@@ -28,4 +28,4 @@ func main() {
 
 Fungsi `exec.Command()` digunakan untuk menjalankan command. Fungsi tersebut bisa langsung di-chain dengan method `Output()`, jika ingin mendapatkan outputnya. Output yang dihasilkan berbentuk `[]byte`, gunakan cast ke string untuk mengambil bentuk string-nya.
 
-![Ekeskusi command menggunakan exec](images/46_1_exec.png)
+![Ekeskusi command menggunakan exec](images/A.46_1_exec.png)

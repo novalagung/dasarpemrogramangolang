@@ -1,10 +1,10 @@
-# 36. Error, Panic, dan Recover
+# A.36. Error, Panic, dan Recover
 
 Error merupakan topik yang penting dalam pemrograman golang. Di bagian ini kita akan belajar mengenai pemanfaatan error dan cara membuat custom error sendiri.
 
 Kita juga akan belajar tentang penggunaan **panic** untuk memunculkan panic error, dan **recover** untuk mengatasinya.
 
-## 36.1. Pemanfaatan Error
+## A.36.1. Pemanfaatan Error
 
 `error` adalah sebuah tipe. Error memiliki memiliki 1 buah property berupa method `Error()`, method ini mengembalikan detail pesan error. Error termasuk tipe yang isinya bisa kosong atau `nil`.
 
@@ -54,9 +54,9 @@ Setelah itu dilakukan pengecekkan, ketika tidak ada error, `number` ditampilkan.
 
 Pesan error bisa didapat dari method `Error()` milik tipe `error`.
 
-![Penerapan error](images/36_1_error.png)
+![Penerapan error](images/A.36_1_error.png)
 
-## 36.2. Membuat Custom Error
+## A.36.2. Membuat Custom Error
 
 Selain memanfaatkan error hasil kembalian fungsi, kita juga bisa membuat error sendiri dengan menggunakan fungsi `errors.New` (untuk menggunakannya harus import package `errors` terlebih dahulu).
 
@@ -101,9 +101,9 @@ Fungsi `strings.TrimSpace()` digunakan untuk menghilangkan karakter spasi sebelu
 
 Ketika inputan tidak valid, maka error baru dibuat dengan memanfaatkan fungsi `errors.New()`.
 
-![Custom error](images/36_2_custom_error.png)
+![Custom error](images/A.36_2_custom_error.png)
 
-## 36.3. Penggunaan `panic`
+## A.36.3. Penggunaan `panic`
 
 Panic digunakan untuk menampilkan *trace* error sekaligus menghentikan flow goroutine (ingat, `main` juga merupakan goroutine). Setelah ada panic, proses selanjutnya tidak di-eksekusi (kecuali proses yang di-defer, akan tetap dijalankan tepat sebelum panic muncul).
 
@@ -128,9 +128,9 @@ func main() {
 
 Coba jalankan program, lalu langsung tekan enter, error panic akan muncul, dan baris kode setelahnya tidak dijalankan.
 
-![Menampilkan error menggunakan panic](images/36_3_panic.png)
+![Menampilkan error menggunakan panic](images/A.36_3_panic.png)
 
-## 36.4. Penggunaan `recover`
+## A.36.4. Penggunaan `recover`
 
 Recover berguna untuk meng-handle panic error. Pada saat panic muncul, recover men-take-over goroutine yang sedang panic (pesan panic tidak akan muncul).
 
@@ -165,4 +165,4 @@ func main() {
 
 Output:
 
-![Handle panic menggunakan recover](images/36_4_recover.png)
+![Handle panic menggunakan recover](images/A.36_4_recover.png)

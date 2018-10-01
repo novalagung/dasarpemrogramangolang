@@ -1,10 +1,10 @@
-# 13. Perulangan
+# A.13. Perulangan
 
 Perulangan adalah proses mengulang-ulang eksekusi blok kode tanpa henti, selama kondisi yang dijadikan acuan terpenuhi. Biasanya disiapkan variabel untuk iterasi atau variabel penanda kapan perulangan akan diberhentikan.
 
 Di Golang keyword perulangan hanya **for** saja, tetapi meski demikian, kemampuannya merupakan gabungan `for`, `foreach`, dan `while` ibarat bahasa pemrograman lain.
 
-## 13.1. Perulangan Menggunakan Keyword `for`
+## A.13.1. Perulangan Menggunakan Keyword `for`
 
 Ada beberapa cara standar menggunakan `for`. Cara pertama dengan memasukkan variabel counter perulangan beserta kondisinya setelah keyword. Perhatikan dan praktekan kode berikut.
 
@@ -16,9 +16,9 @@ for i := 0; i < 5; i++ {
 
 Perulangan di atas hanya akan berjalan ketika variabel `i` bernilai dibawah `5`, dengan ketentuan setiap kali perulangan, nilai variabel `i` akan di-iterasi atau ditambahkan 1 (`i++` artinya ditambah satu, sama seperti `i = i + 1`). Karena `i` pada awalnya bernilai 0, maka perulangan akan berlangsung 5 kali, yaitu ketika `i` bernilai 0, 1, 2, 3, dan 4.
 
-![Penggunaan `for`](images/13_1_for.png)
+![Penggunaan `for`](images/A.13_1_for.png)
 
-## 13.2. Penggunaan Keyword `for` Dengan Argumen Hanya Kondisi
+## A.13.2. Penggunaan Keyword `for` Dengan Argumen Hanya Kondisi
 
 Cara ke-2 adalah dengan menuliskan kondisi setelah keyword `for` (hanya kondisi). Deklarasi dan iterasi variabel counter tidak dituliskan setelah keyword, hanya kondisi perulangan saja. Konsepnya mirip seperti `while` milik bahasa pemrograman lain.
 
@@ -33,7 +33,7 @@ for i < 5 {
 }
 ```
 
-## 13.3. Penggunaan Keyword `for` Tanpa Argumen
+## A.13.3. Penggunaan Keyword `for` Tanpa Argumen
 
 Cara ke-3 adalah `for` ditulis tanpa kondisi. Dengan ini akan dihasilkan perulangan tanpa henti (sama dengan `for true`). Pemberhentian perulangan dilakukan dengan menggunakan keyword `break`.
 
@@ -52,11 +52,11 @@ for {
 
 Dalam perulangan tanpa henti di atas, variabel `i` yang nilai awalnya `0` di-inkrementasi. Ketika nilai `i` sudah mencapai `5`, keyword `break` digunakan, dan perulangan akan berhenti.
 
-## 13.4. Penggunaan Keyword `for` - `range`
+## A.13.4. Penggunaan Keyword `for` - `range`
 
 Cara ke-4 adalah perulangan dengan menggunakan kombinasi keyword `for` dan `range`. Cara ini biasa digunakan untuk me-looping data bertipe array. Detailnya akan dibahas dalam bab selanjutnya (bab 14).
 
-## 13.5. Penggunaan Keyword `break` & `continue`
+## A.13.5. Penggunaan Keyword `break` & `continue`
 
 Keyword `break` digunakan untuk menghentikan secara paksa sebuah perulangan, sedangkan `continue` dipakai untuk memaksa maju ke perulangan berikutnya.
 
@@ -83,9 +83,9 @@ Kode di atas akan lebih mudah dicerna jika dijelaskan secara berurutan. Berikut 
  3. Ketika `i` lebih besar dari 8, maka perulangan akan berhenti.
  4. Nilai `m` ditampilkan.
 
-![Penerapan keyword `for`, `break`, dan `continue`](images/13_2_for_break_continue.png)
+![Penerapan keyword `for`, `break`, dan `continue`](images/A.13_2_for_break_continue.png)
 
-## 13.6. Perulangan Bersarang
+## A.13.6. Perulangan Bersarang
 
 Tak hanya seleksi kondisi yang bisa bersarang, perulangan juga bisa. Cara pengaplikasiannya kurang lebih sama, tinggal tulis blok statement perulangan didalam perulangan.
 
@@ -101,9 +101,9 @@ for i := 0; i < 5; i++ {
 
 Pada kode di atas, untuk pertama kalinya fungsi `fmt.Println()` dipanggil tanpa disisipkan parameter. Cara seperti ini bisa digunakan untuk menampilkan baris baru. Kegunaannya sama seperti output dari statement `fmt.Print("\n")`.
 
-![Perulangan bersarang](images/13_3_nested_for.png)
+![Perulangan bersarang](images/A.13_3_nested_for.png)
 
-## 13.7. Pemanfaatan Label Dalam Perulangan
+## A.13.7. Pemanfaatan Label Dalam Perulangan
 
 Di perulangan bersarang, `break` dan `continue` akan berlaku pada blok perulangan dimana ia digunakan saja. Ada cara agar kedua keyword ini bisa tertuju pada perulangan terluar atau perulangan tertentu, yaitu dengan memanfaatkan teknik pemberian **label**.
 
@@ -125,4 +125,4 @@ Tepat sebelum keyword `for` terluar, terdapat baris kode `outerLoop:`. Maksud da
 
 Pada `for` bagian dalam, terdapat seleksi kondisi untuk pengecekan nilai `i`. Ketika nilai tersebut sama dengan `3`, maka `break` dipanggil dengan target adalah perulangan yang dilabeli `outerLoop`, perulangan tersebut akan dihentikan.
 
-![Penerapan label dalam perulangan](images/13_4_for_label.png)
+![Penerapan label dalam perulangan](images/A.13_4_for_label.png)

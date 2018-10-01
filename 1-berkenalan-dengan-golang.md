@@ -1,10 +1,10 @@
-# 1. Berkenalan Dengan Golang
+# A.1. Berkenalan Dengan Golang
 
 **Golang** (atau biasa disebut dengan **Go**) adalah bahasa pemrograman baru yang dikembangkan di **Google** oleh **Robert Griesemer**, **Rob Pike**, dan **Ken Thompson** pada tahun 2007 dan mulai diperkenalkan di publik tahun 2009.
 
 Penciptaan bahasa Golang didasari bahasa **C** dan **C++**, oleh karena itu gaya sintaks-nya mirip.
 
-## 1.1. Kelebihan Golang
+## A.1.1. Kelebihan Golang
 
 Golang memiliki kelebihan dibanding bahasa lainnya, beberapa di antaranya:
 
@@ -21,4 +21,4 @@ Sudah banyak industri dan perusahaan yg menggunakan Golang sampai level producti
 
 Di buku ini kita akan belajar tentang dasar pemrograman Golang mulai dari 0.
 
-![Logo Golang, "The Go Gopher"](images/1_1_logo.png)
+![Logo Golang, "The Go Gopher"](images/A.1_1_logo.png)

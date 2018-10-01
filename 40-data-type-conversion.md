@@ -1,12 +1,12 @@
-# 40. Konversi Antar Tipe Data
+# A.40. Konversi Antar Tipe Data
 
 Di bab-bab sebelumnya kita sudah mengaplikasikan beberapa cara konversi data, contohnya seperti konversi `string` ↔ `int` menggunakan `strconv`, dan `time.Time` ↔ `string`. Di bab ini kita akan belajar lebih banyak.
 
-## 40.1. Konversi Menggunakan `strconv`
+## A.40.1. Konversi Menggunakan `strconv`
 
 Package `strconv` berisi banyak fungsi yang sangat membantu kita untuk melakukan konversi. Berikut merupakan beberapa fungsi yang dalam package tersebut.
 
-### 40.1.a. Fungsi `strconv.Atoi()`
+### A.40.1.a. Fungsi `strconv.Atoi()`
 
 Fungsi ini digunakan untuk konversi data dari tipe `string` ke `int`. `strconv.Atoi()` menghasilkan 2 buah nilai kembalian, yaitu hasil konversi dan `error` (jika konversi sukses, maka `error` berisi `nil`).
 
@@ -26,7 +26,7 @@ func main() {
 }
 ```
 
-### 40.1.b. Fungsi `strconv.Itoa()`
+### A.40.1.b. Fungsi `strconv.Itoa()`
 
 Merupakan kebalikan dari `strconv.Atoi`, berguna untuk konversi `int` ke `string`.
 
@@ -37,7 +37,7 @@ var str = strconv.Itoa(num)
 fmt.Println(str) // "124"
 ```
 
-### 40.1.c. Fungsi `strconv.ParseInt()`
+### A.40.1.c. Fungsi `strconv.ParseInt()`
 
 Digunakan untuk konversi `string` berbentuk numerik dengan basis tertentu ke tipe numerik non-desimal dengan lebar data bisa ditentukan.
 
@@ -63,7 +63,7 @@ if err == nil {
 }
 ```
 
-### 40.1.d. Fungsi `strconv.FormatInt()`
+### A.40.1.d. Fungsi `strconv.FormatInt()`
 
 Berguna untuk konversi data numerik `int64` ke `string` dengan basis numerik bisa ditentukan sendiri.
 
@@ -74,7 +74,7 @@ var str = strconv.FormatInt(num, 8)
 fmt.Println(str) // 30
 ```
 
-### 40.1.e. Fungsi `strconv.ParseFloat()`
+### A.40.1.e. Fungsi `strconv.ParseFloat()`
 
 Digunakan untuk konversi `string` ke numerik desimal dengan lebar data bisa ditentukan.
 
@@ -89,7 +89,7 @@ if err == nil {
 
 Pada contoh di atas, string `"24.12"` dikonversi ke float dengan lebar tipe data `float32`. Hasil konversi `strconv.ParseFloat` adalah sesuai dengan standar [IEEE Standard for Floating-Point Arithmetic](https://en.wikipedia.org/wiki/IEEE_floating_point).
 
-### 40.1.f. Fungsi `strconv.FormatFloat()`
+### A.40.1.f. Fungsi `strconv.FormatFloat()`
 
 Berguna untuk konversi data bertipe `float64` ke `string` dengan format eksponen, lebar digit desimal, dan lebar tipe data bisa ditentukan.
 
@@ -113,7 +113,7 @@ Ada beberapa format eksponen yang bisa digunakan. Detailnya bisa dilihat di tabe
 | `g` | Akan menggunakan format eksponen `e` untuk eksponen besar dan `f` untuk selainnya |
 | `G` | Akan menggunakan format eksponen `E` untuk eksponen besar dan `f` untuk selainnya |
 
-### 40.1.g. Fungsi `strconv.ParseBool()`
+### A.40.1.g. Fungsi `strconv.ParseBool()`
 
 Digunakan untuk konversi `string` ke `bool`.
 
@@ -126,7 +126,7 @@ if err == nil {
 }
 ```
 
-### 40.1.h. Fungsi `strconv.FormatBool()`
+### A.40.1.h. Fungsi `strconv.FormatBool()`
 
 Digunakan untuk konversi `bool` ke `string`.
 
@@ -137,7 +137,7 @@ var str = strconv.FormatBool(bul)
 fmt.Println(str) // 124
 ```
 
-## 40.2. Konversi Data Menggunakan Casting
+## A.40.2. Konversi Data Menggunakan Casting
 
 Keyword tipe data bisa digunakan untuk casting. Cara penggunaannya adalah dengan menuliskan tipe data sebagai fungsi dan menyisipkan data yang akan dikonversi sebagai parameternya.
 
@@ -149,7 +149,7 @@ var b int32 = int32(24.00)
 fmt.Println(b) // 24
 ```
 
-## 40.3. Casting `string` ↔ `byte`
+## A.40.3. Casting `string` ↔ `byte`
 
 String sebenarnya adalah slice/array `byte`. Di Golang sebuah karakter biasa (bukan unicode) direpresentasikan oleh sebuah elemen slice byte. Tiap elemen slice berisi data `int` dengan basis desimal, yang merupakan kode ASCII dari karakter dalam string.
 
@@ -189,7 +189,7 @@ var d string = string(104)
 fmt.Println(d) // h
 ```
 
-## 40.4. Konversi Data `interface{}` Menggunakan Teknik Type Assertions
+## A.40.4. Konversi Data `interface{}` Menggunakan Teknik Type Assertions
 
 **Type assertions** merupakan teknik casting data `interface{}` ke segala jenis tipe (dengan syarat data tersebut memang bisa di-casting ke tipe tujuan).
 

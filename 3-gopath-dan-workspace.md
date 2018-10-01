@@ -1,8 +1,8 @@
-# 3. GOPATH Dan Workspace
+# A.3. GOPATH Dan Workspace
 
 Ada beberapa hal yang perlu disiapkan sebelum bisa masuk ke sesi pembuatan aplikasi menggunakan Golang, yaitu setup workspace untuk Project yang akan dibuat. Dan di bab ini kita akan belajar bagaimana caranya.
 
-## 3.1. Variabel `GOPATH`
+## A.3.1. Variabel `GOPATH`
 
 **GOPATH** adalah variabel yang digunakan oleh Golang sebagai rujukan lokasi dimana semua folder project disimpan. Gopath berisikian 3 buah sub folder: `src`, `bin`, dan `pkg`.
 
@@ -10,7 +10,7 @@ Project di Golang harus ditempatkan dalam `$GOPATH/src`. Sebagai contoh anda ing
 
 > Path separator yang digunakan sebagai contoh di buku ini adalah slash `/`. Khusus pengguna Windows, path separator adalah backslah `\`.
 
-## 3.2. Setup Workspace
+## A.3.2. Setup Workspace
 
 Lokasi folder yang akan dijadikan sebagai workspace bisa ditentukan sendiri. Anda bisa menggunakan alamat folder mana saja, bebas, tapi jangan gunakan path dimana golang di-install (jangan sama dengan `GOROOT`). Lokasi tersebut harus didaftarkan dalam path variable dengan nama `GOPATH`. Sebagai contoh, penulis memilih path `$HOME/Documents/go`, maka saya daftarkan alamat tersebut. Caranya:
 
@@ -27,7 +27,7 @@ Lokasi folder yang akan dijadikan sebagai workspace bisa ditentukan sendiri. And
 
     Cek apakah path sudah terdaftar dengan benar.
 
-    ![Pengecekan `GOPATH` di sistem operasi non-Wind\*ws](images/3_1_path.png)
+    ![Pengecekan `GOPATH` di sistem operasi non-Wind\*ws](images/A.3_1_path.png)
 
 Setelah `GOPATH` berhasil dikenali, perlu disiapkan 3 buah sub folder didalamnya, dengan kriteria sebagai berikut:
 
@@ -35,6 +35,6 @@ Setelah `GOPATH` berhasil dikenali, perlu disiapkan 3 buah sub folder didalamnya
  - Folder `pkg`, berisi file hasil kompilasi
  - Folder `bin`, berisi file executable hasil build
 
-![Struktur folder dalam worskpace](images/3_2_workspace.png)
+![Struktur folder dalam worskpace](images/A.3_2_workspace.png)
 
 Struktur diatas merupakan struktur standar workspace Golang. Jadi pastikan penamaan dan hirarki folder adalah sama.

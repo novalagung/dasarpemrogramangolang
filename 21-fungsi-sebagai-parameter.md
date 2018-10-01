@@ -1,10 +1,10 @@
-# 21. Fungsi Sebagai parameter
+# A.21. Fungsi Sebagai parameter
 
 Setelah di bab sebelumnya kita belajar mengenai fungsi yang mengembalikan nilai balik berupa fungsi, kali ini topiknya tidak kalah unik, yaitu fungsi yang digunakan sebagai parameter.
 
 Di Golang, fungsi bisa dijadikan sebagai tipe data variabel. Dari situ sangat memungkinkan untuk menjadikannya sebagai parameter juga.
 
-## 21.1. Penerapan Fungsi Sebagai Parameter
+## A.21.1. Penerapan Fungsi Sebagai Parameter
 
 Cara membuat parameter fungsi adalah dengan langsung menuliskan skema fungsi nya sebagai tipe data. Contohnya bisa dilihat pada kode berikut.
 
@@ -58,7 +58,7 @@ Ada cukup banyak hal yang terjadi didalam tiap pemanggilan fungsi `filter()` di 
  5. Di dalam fungsi `filter()` sendiri, ada proses seleksi kondisi (yang nilainya didapat dari hasil eksekusi closure `callback`). Ketika kondisinya bernilai `true`, maka data elemen yang sedang diulang dinyatakan lolos proses filtering.
  6. Data yang lolos ditampung variabel `result`. Variabel tersebut dijadikan sebagai nilai balik fungsi `filter()`.
 
-![Filtering data](images/21_1_filtering.png)
+![Filtering data](images/A.21_1_filtering.png)
 
 Pada `dataContainsO`, parameter kedua fungsi `filter()` berisikan statement untuk deteksi apakah terdapat substring `"o"` di dalam nilai variabel `each` (yang merupakan data tiap elemen), jika iya, maka kondisi filter bernilai `true`, dan sebaliknya.
 
@@ -66,7 +66,7 @@ pada contoh ke-2 (`dataLength5`), closure `callback` berisikan statement untuk d
 
 Memang butuh usaha ekstra untuk memahami pemanfaatan closure sebagai parameter fungsi. Tapi setelah paham, penerapan teknik ini pada kondisi yang tepat akan sangat membantu proses pembuatan aplikasi.
 
-## 21.2. Alias Skema Closure
+## A.21.2. Alias Skema Closure
 
 Kita sudah mempelajari bahwa closure bisa dimanfaatkan sebagai tipe parameter, contohnya seperti pada fungsi `filter()`. Pada fungsi tersebut kebetulan skema tipe parameter closure-nya tidak terlalu panjang, hanya ada satu buah parameter dan satu buah nilai balik.
 
@@ -86,7 +86,7 @@ Skema `func(string) bool` diubah menjadi tipe dengan nama `FilterCallback`. Tipe
 
 Di bawah ini merupakan penjelasan tambahan mengenai fungsi `strings.Contains()`.
 
-## 21.3. Penggunaan Fungsi `string.Contains()`
+## A.21.3. Penggunaan Fungsi `string.Contains()`
 
 Inti dari fungsi ini adalah untuk deteksi apakah sebuah substring adalah bagian dari string, jika iya maka akan bernilai `true`, dan sebaliknya. Contoh penggunaannya:
 

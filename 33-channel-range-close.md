@@ -1,4 +1,4 @@
-# 33. Channel - Range dan Close
+# A.33. Channel - Range dan Close
 
 Penerimaan data lewat channel yang jumlah goroutine-nya banyak bisa lebih mudah dengan memanfaatkan keyword `for` - `range`.
 
@@ -6,7 +6,7 @@ Penerimaan data lewat channel yang jumlah goroutine-nya banyak bisa lebih mudah 
 
 Channel yang sudah di-close tidak bisa digunakan lagi untuk menerima maupun mengirim data, itulah kenapa perulangan pada `for` - `range` juga ikut berhenti.
 
-## 33.1. Penerapan `for` - `range` - `close` Pada Channel
+## A.33.1. Penerapan `for` - `range` - `close` Pada Channel
 
 Berikut adalah contoh program yang menggunakan `for` - `range` untuk penerimaan data dari channel.
 
@@ -45,13 +45,13 @@ func main() {
 
 Setelah 20 data sukses dikirim dan diterima, channel `ch` di-non-aktifkan (`close(ch)`). Membuat perulangan data channel dalam `printMessage()` juga akan berhenti.
 
-![Penerapan for-range-close pada channel](images/33_1_for_range_close.png)
+![Penerapan for-range-close pada channel](images/A.33_1_for_range_close.png)
 
 ---
 
 Berikut adalah penjelasan tambahan mengenai channel.
 
-## 33.2. Channel Direction
+## A.33.2. Channel Direction
 
 Ada yang unik dengan fitur parameter channel yang disediakan Golang. Level akses channel bisa ditentukan, apakah hanya sebagai penerima, pengirim, atau penerima sekaligus pengirim. Konsep ini disebut dengan **channel direction**.
 

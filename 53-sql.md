@@ -1,4 +1,4 @@
-# 53. SQL
+# A.53. SQL
 
 Golang menyediakan package `database/sql` berisikan generic interface untuk keperluan interaksi dengan database sql. Package ini hanya bisa digunakan ketika **driver** database engine yang dipilih juga ada.
 
@@ -13,7 +13,7 @@ Driver-driver tersebut merupakan project open source yang diinisiasi oleh komuni
 
 Pada bab ini kita akan belajar bagaimana berkomunikasi dengan database MySQL menggunakan driver [Go MySQL Driver](https://github.com/go-sql-driver/mysql).
 
-## 53.1. Instalasi Driver
+## A.53.1. Instalasi Driver
 
 Unduh driver mysql menggunakan `go get`.
 
@@ -21,9 +21,9 @@ Unduh driver mysql menggunakan `go get`.
 go get github.com/go-sql-driver/mysql
 ```
 
-![Download mysql driver](images/53_1_go_get_driver.png)
+![Download mysql driver](images/A.53_1_go_get_driver.png)
 
-## 53.2. Setup Database
+## A.53.2. Setup Database
 
 > Sebelumnya pastikan sudah ada [mysql server](https://dev.mysql.com/downloads/mysql/) yang terinstal di lokal anda.
 
@@ -46,7 +46,7 @@ INSERT INTO `tb_student` (`id`, `name`, `age`, `grade`) VALUES
 ALTER TABLE `tb_student` ADD PRIMARY KEY (`id`);
 ```
 
-## 53.3. Membaca Data Dari MySQL Server
+## A.53.3. Membaca Data Dari MySQL Server
 
 Import package yang dibutuhkan, lalu disiapkan struct dengan skema yang sama seperti pada tabel `tb_student` di database. Nantinya struct ini digunakan sebagai tipe data penampung hasil query.
 
@@ -175,9 +175,9 @@ func main() {
 
 Output:
 
-![Membaca data dari database server](images/53_2_sql_query.png)
+![Membaca data dari database server](images/A.53_2_sql_query.png)
 
-## 53.4. Membaca 1 Record Data Menggunakan Method `QueryRow()`
+## A.53.4. Membaca 1 Record Data Menggunakan Method `QueryRow()`
 
 Untuk query yang menghasilkan 1 baris record saja, bisa gunakan method `QueryRow()`, dengan metode ini kode menjadi lebih ringkas. Chain dengan method `Scan()` untuk mendapatkan value-nya.
 
@@ -218,9 +218,9 @@ err = db.
 
 Sekarang jalankan program. Outputnya akan muncul data record sesuai id.
 
-![Penggunaan `QueryRow()`](images/53_3_sql_query_row.png)
+![Penggunaan `QueryRow()`](images/A.53_3_sql_query_row.png)
 
-## 53.5. Eksekusi Query Menggunakan `Prepare()`
+## A.53.5. Eksekusi Query Menggunakan `Prepare()`
 
 Teknik **prepared statement** adalah teknik penulisan query di awal dengan kelebihan bisa di re-use atau digunakan banyak kali untuk eksekusi yang berbeda-beda.
 
@@ -261,9 +261,9 @@ func main() {
 
 Method `Prepare()` digunakan untuk deklarasi query, yang mengembalikan objek bertipe `sql.*Stmt`. Dari objek tersebut, dipanggil method `QueryRow()` beberapa kali dengan isi value untuk `id` berbeda-beda untuk tiap pemanggilannya.
 
-![Prepared statement](images/53_4_prepared_statement.png)
+![Prepared statement](images/A.53_4_prepared_statement.png)
 
-## 53.6. Insert, Update, & Delete Data Menggunakan `Exec()`
+## A.53.6. Insert, Update, & Delete Data Menggunakan `Exec()`
 
 Untuk operasi **insert**, **update**, dan **delete**; dianjurkan untuk tidak menggunakan fungsi `sql.Query()` ataupun `sql.QueryRow()` untuk eksekusinya. Direkomendasikan eksekusi perintah-perintah tersebut lewat fungsi `Exec()`, contohnya seperti pada kode berikut.
 
@@ -314,7 +314,7 @@ stmt.Exec("G001", "Galahad", 29, 2)
 _, err := db.Exec("insert into tb_student values (?, ?, ?, ?)", "G001", "Galahad", 29, 2)
 ```
 
-## 53.7. Koneksi Dengan Engine Database Lain
+## A.53.7. Koneksi Dengan Engine Database Lain
 
 Karena package `database/sql` merupakan interface generic, maka cara untuk koneksi ke engine database lain (semisal Oracle, Postgres, SQL Server) adalah sama dengan cara koneksi ke MySQL. Cukup dengan meng-import driver yang digunakan, lalu mengganti nama driver pada saat pembuatan koneksi baru.
 

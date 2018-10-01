@@ -1,4 +1,4 @@
-# 32. Channel - Select
+# A.32. Channel - Select
 
 Adanya channel memang sangat membantu pengontrolan goroutine, jumlah goroutine yang banyak bukan lagi masalah.
 
@@ -8,7 +8,7 @@ Ada kalanya dimana kita butuh tak hanya satu channel saja untuk handle komunikas
 
 Disinilah kegunaan dari `select`. Select memudahkan pengontrolan komunikasi data lewat channel. Cara penggunaannya sama seperti seleksi kondisi `switch`.
 
-## 32.1. Penerapan Keyword `select`
+## A.32.1. Penerapan Keyword `select`
 
 Program pencarian rata-rata dan nilai tertinggi berikut merupakan contoh sederhana penerapan select dalam channel. Akan ada 2 buah goroutine yang masing-masing di-handle oleh sebuah channel. Setiap kali goroutine selesai dieksekusi, akan dikirimkan datanya ke channel yang bersangkutan. Lalu dengan menggunakan select, akan diatur penerimaan datanya.
 
@@ -74,6 +74,6 @@ Pada kode di atas, transaksi pengiriman data pada channel `ch1` dan `ch2` dikont
 
 Karena ada 2 buah channel, maka perlu disiapkan perulangan 2 kali sebelum penggunaan keyword `select`.
 
-![Contoh penerapan channel select](images/32_1_channel_select.png)
+![Contoh penerapan channel select](images/A.32_1_channel_select.png)
 
 Cukup mudah bukan?

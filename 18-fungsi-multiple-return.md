@@ -1,10 +1,10 @@
-# 18. Fungsi Multiple Return
+# A.18. Fungsi Multiple Return
 
 Umumnya fungsi hanya memiliki satu buah nilai balik saja. Jika ada kebutuhan dimana data yang dikembalikan harus banyak, biasanya digunakanlah tipe seperti `map`, slice, atau `struct` sebagai nilai balik.
 
 Golang menyediakan kapabilitas bagi programmer untuk membuat fungsi memiliki banyak nilai balik. Di bab ini akan dibahas bagaimana penerapannya.
 
-## 18.1 Penerapan Fungsi Multiple Return
+## A.18.1 Penerapan Fungsi Multiple Return
 
 Cara membuat fungsi yang memiliki banyak nilai balik tidaklah sulit. Tinggal tulis saja pada saat deklarasi fungsi semua tipe data nilai yang dikembalikan, dan pada keyword `return` tulis semua data yang ingin dikembalikan. Contoh bisa dilihat pada berikut.
 
@@ -53,7 +53,7 @@ func main() {
 
 Output program:
 
-![Penerapan teknik multiple return](images/18_1_multiple_return.png)
+![Penerapan teknik multiple return](images/A.18_1_multiple_return.png)
 
 Karena fungsi tersebut memiliki banyak nilai balik, maka pada pemanggilannya harus disiapkan juga banyak variabel untuk menampung nilai kembalian yang ada (sesuai jumlah nilai balik fungsi).
 
@@ -61,7 +61,7 @@ Karena fungsi tersebut memiliki banyak nilai balik, maka pada pemanggilannya har
 var area, circumference = calculate(diameter)
 ```
 
-## 18.2 Fungsi Dengan Predefined Return Value
+## A.18.2 Fungsi Dengan Predefined Return Value
 
 Keunikan lainnya yang jarang ditemui di bahasa lain adalah, di Golang variabel yang digunakan sebagai nilai balik bisa didefinisikan di-awal.
 
@@ -88,10 +88,10 @@ Karena variabel nilai balik sudah ditentukan di awal, untuk mengembalikan nilai 
 
 Ada beberapa hal baru dari kode di atas yang perlu dibahas, seperti `math.Pow()` dan `math.Pi`. Berikut adalah penjelasannya.
 
-## 18.3. Penggunaan Fungsi `math.Pow()`
+## A.18.3. Penggunaan Fungsi `math.Pow()`
 
 Fungsi `math.Pow()` digunakan untuk memangkat nilai. `math.Pow(2, 3)` berarti 2 pangkat 3, hasilnya 8. Fungsi ini berada dalam package `math`.
 
-## 18.4. Penggunaan Konstanta `math.Pi`
+## A.18.4. Penggunaan Konstanta `math.Pi`
 
 `math.Pi` adalah konstanta bawaan `package math` yang merepresentasikan **Pi** atau **22/7**.

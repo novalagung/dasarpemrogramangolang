@@ -1,12 +1,12 @@
-# 52. HTTP Request
+# A.52. HTTP Request
 
 Di bab sebelumnya kita telah belajar tentang bagaimana membuat Web API yang mem-provide data JSON, pada bab ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
 
 Pastikan anda sudah mempraktekkan apa-apa yang ada pada bab sebelumnya (bab 51), karena web api server yang sudah dibuat pada bab sebelumnya kita juga pada bab ini.
 
-![Jalankan web server](images/51_1_server.png)
+![Jalankan web server](images/A.51_1_server.png)
 
-## 52.1. Penggunaan HTTP Request
+## A.52.1. Penggunaan HTTP Request
 
 Package `net/http`, selain berisikan tools untuk keperluan pembuatan web, juga berisikan fungsi-fungsi untuk melakukan http request. Salah satunya adalah `http.NewRequest()` yang akan kita bahas di sini.
 
@@ -92,9 +92,9 @@ func main() {
 
 Jalankan program untuk mengetes hasilnya.
 
-![HTTP Request](images/52_1_http_request.png)
+![HTTP Request](images/A.52_1_http_request.png)
 
-## 52.3. HTTP Request Dengan Form Data
+## A.52.3. HTTP Request Dengan Form Data
 
 Untuk menyisipkan data pada sebuah request, ada beberapa hal yang perlu ditambahkan. Yang pertama, import beberapa package lagi, `bytes` dan `net/url`.
 
@@ -165,4 +165,4 @@ func main() {
 
 Pada kode di atas `ID` ditentukan nilainya `"E001"`. Jalankan program untuk mengetes apakah data yang dikembalikan sesuai.
 
-![HTTP request Form Data](images/52_2_http_request_form_data.png)
+![HTTP request Form Data](images/A.52_2_http_request_form_data.png)

@@ -1,10 +1,10 @@
-# 24. Method
+# A.24. Method
 
 **Method** adalah fungsi yang menempel pada `struct`, sehingga hanya bisa di akses lewat variabel objek.
 
 Keunggulan method dibanding fungsi biasa adalah memiliki akses ke property struct hingga level *private* (level akses nantinya akan dibahas lebih detail pada bab selanjutnya). Dan juga, dengan menggunakan method sebuah proses bisa di-enkapsulasi dengan baik.
 
-## 24.1. Penerapan Method
+## A.24.1. Penerapan Method
 
 Cara menerapkan method sedikit berbeda dibanding penggunaan fungsi. Ketika deklarasi, ditentukan juga siapa pemilik method tersebut. Contohnya bisa dilihat pada kode berikut:
 
@@ -46,7 +46,7 @@ func main() {
 
 Output:
 
-![Penggunaan method](images/24_1_method.png)
+![Penggunaan method](images/A.24_1_method.png)
 
 Cara mengakses method sama seperti pengaksesan properti berupa variabel. Tinggal panggil saja methodnya.
 
@@ -65,7 +65,7 @@ func getNameAt(i int) string {
 func (s student) getNameAt(i int) string {
 ```
 
-## 24.2. Method Pointer
+## A.24.2. Method Pointer
 
 Method pointer adalah method yang variabel objek pemilik method tersebut berupa pointer.
 
@@ -108,7 +108,7 @@ func main() {
 
 Output:
 
-![Penggunaan method pointer](images/24_2_method_pointer.png)
+![Penggunaan method pointer](images/A.24_2_method_pointer.png)
 
 Setelah eksekusi statement `s1.changeName1("jason bourne")`, nilai `s1.name` tidak berubah. Sebenarnya nilainya berubah tapi hanya dalam method `changeName1()` saja, nilai pada reference di objek-nya tidak berubah. Karena itulah ketika objek di print value dari `s1.name` tidak berubah.
 
@@ -128,7 +128,7 @@ s2.sayHello()
 
 Berikut adalah penjelasan tambahan mengenai beberapa hal pada bab ini.
 
-## 24.3. Penggunaan Fungsi `strings.Split()`
+## A.24.3. Penggunaan Fungsi `strings.Split()`
 
 Di bab ini ada fungsi baru yang kita gunakan: `strings.Split()`. Fungsi ini berguna untuk memisah string menggunakan pemisah yang ditentukan sendiri. Hasilnya adalah array berisikan kumpulan substring.
 
@@ -139,7 +139,7 @@ strings.Split("ethan hunt", " ")
 
 Pada contoh di atas, string `"ethan hunt"` dipisah menggunakan separator spasi `" "`. Maka hasilnya terbentuk array berisikan 2 data, `"ethan"` dan `"hunt"`.
 
-## 24.4. Apakah `fmt.Println()` & `strings.Split()` Juga Merupakan Method ?
+## A.24.4. Apakah `fmt.Println()` & `strings.Split()` Juga Merupakan Method ?
 
 Setelah tahu apa itu method dan bagaimana penggunaannya, mungkin akan muncul di benak kita bahwa kode seperti `fmt.Println()`, `strings.Split()` dan lainnya-yang-berada-pada-package-lain juga merupakan method.
 

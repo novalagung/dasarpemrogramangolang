@@ -1,10 +1,10 @@
-# 16. Map
+# A.16. Map
 
 **Map** adalah tipe data asosiatif yang ada di Golang, berbentuk *key-value*. Untuk setiap data (atau value) yang disimpan, disiapkan juga key-nya. Key harus unik, karena digunakan sebagai penanda (atau identifier) untuk pengaksesan value yang bersangkutan.
 
 Kalau dilihat, `map` mirip seperti slice, hanya saja indeks yang digunakan untuk pengaksesan bisa ditentukan sendiri tipe-nya (indeks tersebut adalah key).
 
-## 16.1. Penggunaan Map
+## A.16.1. Penggunaan Map
 
 Cara menggunakan map cukup dengan menuliskan keyword `map` diikuti tipe data key dan value-nya. Agar lebih mudah dipahami, silakan perhatikan contoh di bawah ini.
 
@@ -29,11 +29,11 @@ Cara menge-set nilai pada sebuah map adalah dengan menuliskan variabel-nya, kemu
 
 Pengisian data pada map bersifat **overwrite**, ketika variabel sudah memiliki item dengan key yang sama, maka value lama akan ditimpa dengan value baru.
 
-![Pengaksesan data map](images/16_1_map_set_get.png)
+![Pengaksesan data map](images/A.16_1_map_set_get.png)
 
 Pada pengaksesan item menggunakan key yang belum tersimpan di map, akan dikembalikan nilai default tipe data value-nya. Contohnya seperti pada kode di atas, `chicken["mei"]` menghasilkan nilai 0 (nilai default tipe `int`), karena belum ada item yang tersimpan menggunakan key `"mei"`.
 
-## 16.2. Inisialisasi Nilai Map
+## A.16.2. Inisialisasi Nilai Map
 
 Nilai variabel bertipe map bisa didefinisikan di awal, caranya dengan menambahkan kurung kurawal setelah tipe data, lalu menuliskan key dan value didalamnya. Cara ini sekilas mirip dengan definisi nilai array/slice namun dalam bentuk key-value.
 
@@ -60,7 +60,7 @@ var chicken5 = *new(map[string]int)
 
 Khusus inisialisasi data menggunakan keyword `new`, yang dihasilkan adalah data pointer. Untuk mengambil nilai aslinya bisa dengan menggunakan tanda asterisk (`*`). Topik pointer akan dibahas lebih detail ketika sudah masuk bab 22.
 
-## 16.3. Iterasi Item Map Menggunakan `for` - `range`
+## A.16.3. Iterasi Item Map Menggunakan `for` - `range`
 
 Item variabel `map` bisa di iterasi menggunakan `for` - `range`. Cara penerapannya masih sama seperti pada slice, pembedanya data yang dikembalikan di tiap perulangan adalah key dan value, bukan indeks dan elemen. Contohnya bisa dilihat pada kode berikut.
 
@@ -77,9 +77,9 @@ for key, val := range chicken {
 }
 ```
 
-![Perulangan Map](images/16_2_map_for_range.png)
+![Perulangan Map](images/A.16_2_map_for_range.png)
 
-## 16.4. Menghapus Item Map
+## A.16.4. Menghapus Item Map
 
 Fungsi `delete()` digunakan untuk menghapus item dengan key tertentu pada variabel map. Cara penggunaannya, dengan memasukan objek map dan key item yang ingin dihapus sebagai parameter.
 
@@ -97,11 +97,11 @@ fmt.Println(chicken)
 
 Item yang memiliki key `"januari"` dalam variabel `chicken` akan dihapus.
 
-![Hapus item Map](images/16_3_map_delete_item.png)
+![Hapus item Map](images/A.16_3_map_delete_item.png)
 
 Fungsi `len()` jika digunakan pada map akan mengembalikan jumlah item.
 
-## 16.5. Deteksi Keberadaan Item Dengan Key Tertentu
+## A.16.5. Deteksi Keberadaan Item Dengan Key Tertentu
 
 Ada cara untuk mengetahui apakah dalam sebuah variabel map terdapat item dengan key tertentu atau tidak, yaitu dengan memanfaatkan 2 variabel sebagai penampung nilai kembalian pengaksesan item. Variabel ke-2 akan berisikan nilai `bool` yang menunjukkan ada atau tidaknya item yang dicari.
 
@@ -116,7 +116,7 @@ if isExist {
 }
 ```
 
-## 16.6. Kombinasi Slice & Map
+## A.16.6. Kombinasi Slice & Map
 
 Slice dan `map` bisa dikombinasikan, dan sering digunakan pada banyak kasus, contohnya seperti data array yang berisikan informasi siswa, dan banyak lainnya.
 

@@ -1,10 +1,10 @@
-# 7. Komentar
+# A.7. Komentar
 
 Komentar biasa dimanfaatkan untuk menyisipkan catatan pada kode program, menulis penjelasan atau deskripsi mengenai suatu blok kode, atau bisa juga digunakan untuk me-remark kode (men-non-aktifkan kode yg tidak digunakan). Komentar akan diabaikan ketika kompilasi maupun eksekusi program.
 
 Ada 2 jenis komentar di Golang, inline & multiline. Di bab akan dijelaskan tentang penerapan dan perbedaan kedua jenis komentar tersebut.
 
-## 7.1. Komentar Inline
+## A.7.1. Komentar Inline
 
 Penulisan komentar jenis ini di awali dengan tanda **double slash** (`//`) lalu diikuti pesan komentarnya. Komentar inline hanya berlaku utuk satu baris pesan saja. Jika pesan komentar lebih dari satu baris, maka tanda `//` harus ditulis lagi di baris selanjutnya.
 
@@ -24,11 +24,11 @@ func main() {
 
 Mari kita praktekan kode di atas. Siapkan file program baru dalam project folder `belajar-golang` dengan nama bebas. Isi dengan kode di atas, lalu jalankan.
 
-![Contoh komentar inline](images/7_1_inline_comment.png)
+![Contoh komentar inline](images/A.7_1_inline_comment.png)
 
 Hasilnya hanya tulisan **hello world** saja yang muncul di layar, karena semua yang di awali tanda double slash `//` diabaikan oleh compiler.
 
-## 7.2. Komentar Multiline
+## A.7.2. Komentar Multiline
 
 Komentar yang cukup panjang akan lebih rapi jika ditulis menggunakan teknik komentar multiline. Ciri dari komentar jenis ini adalah penulisannya diawali dengan tanda `/*` dan diakhiri `*/`.
 

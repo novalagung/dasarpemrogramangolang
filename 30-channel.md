@@ -1,12 +1,12 @@
-# 30. Channel
+# A.30. Channel
 
 **Channel** digunakan untuk menghubungkan gorutine satu dengan goroutine lain. Mekanismenya adalah serah-terima data lewat channel tersebut. Goroutine pengirim dan penerima harus berada pada channel yang berbeda (konsep ini disebut **buffered channel**). Pengiriman dan penerimaan data pada channel bersifat **blocking** atau **synchronous**.
 
-![Analogi channel](images/30_1_analogy.png)
+![Analogi channel](images/A.30_1_analogy.png)
 
 Pada bab ini kita akan belajar mengenai pemanfaatan channel.
 
-## 30.1. Penerapan Channel
+## A.30.1. Penerapan Channel
 
 Channel merupakan sebuah variabel, dibuat dengan menggunakan keyword `make` dan `chan`. Variabel channel memiliki tugas menjadi pengirim dan penerima data.
 
@@ -77,13 +77,13 @@ Penerimaan channel bersifat blocking. Artinya statement `var message1 = <-messag
 
 Ketiga goroutine tersebut datanya akan diterima secara berurutan oleh `message1`, `message2`, `message3`; untuk kemudian ditampilkan.
 
-![Implementasi channel](images/30_2_channel.png)
+![Implementasi channel](images/A.30_2_channel.png)
 
 Dari screenshot output di atas bisa dilihat bahwa text yang dikembalikan oleh `sayHelloTo` tidak selalu berurutan, meskipun penerimaan datanya adalah berurutan. Hal ini dikarenakan, pengiriman data adalah dari 3 goroutine yang berbeda, yang kita tidak tau mana yang prosesnya selesai lebih dulu. Goroutine yang dieksekusi lebih awal belum tentu selesai lebih awal, yang jelas proses yang selesai lebih awal datanya akan diterima lebih awal.
 
 Karena pengiriman dan penerimaan data lewat channel bersifat **blocking**, tidak perlu memanfaatkan sifat blocking dari fungsi `fmt.Scanln()` untuk mengantisipasi goroutine utama `main` selesai sebelum 3 goroutine di atas selesai.
 
-## 30.2. Channel Sebagai Tipe Data Parameter
+## A.30.2. Channel Sebagai Tipe Data Parameter
 
 Variabel channel bisa di-passing ke fungsi lain sebagai parameter. Caranya dengan menambahkan keyword `chan` ketika deklarasinya.
 
@@ -120,13 +120,13 @@ Parameter `what` fungsi `printMessage` bertipe channel `string`, bisa dilihat da
 
 Passing data bertipe channel lewat parameter secara implisit adalah **pass by reference**, yang di-passing adalah pointer-nya. Output program di atas adalah sama dengan program sebelumnya.
 
-![Parameter channel](images/30_3_channel_param.png)
+![Parameter channel](images/A.30_3_channel_param.png)
 
 ---
 
 Berikut merupakan penjelasan tambahan kode di atas.
 
-## 30.3. Iterasi Data Array Langsung Pada Saat Inisialisasi
+## A.30.3. Iterasi Data Array Langsung Pada Saat Inisialisasi
 
 Data array yang baru di-inisialisasi bisa langsung di-iterasi, caranya mudah dengan menuliskanya langsung setelah keyword `range`.
 
@@ -136,7 +136,7 @@ for _, each := range []string{"wick", "hunt", "bourne"} {
 }
 ```
 
-## 30.4. Eksekusi Goroutine Pada IIFE
+## A.30.4. Eksekusi Goroutine Pada IIFE
 
 Eksekusi goroutine tidak harus pada fungsi atau closure yang sudah terdefinisi. Sebuah IIFE juga bisa dijalankan sebagai goroutine baru. Caranya dengan langsung menambahkan keyword `go` pada waktu deklarasi-eksekusi IIFE-nya.
 

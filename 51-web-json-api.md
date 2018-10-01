@@ -1,10 +1,10 @@
-# 51. Web API JSON
+# A.51. Web API JSON
 
 Pada bab ini kita akan mengkombinasikan pembahasan 2 bab sebelumnya, yaitu web dan JSON, untuk membuat sebuah web API dengan tipe data reponse berbentuk JSON.
 
 > Web API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML. Di bab ini kita akan buat tanpa authentikasi.
 
-## 51.1. Pembuatan Web API
+## A.51.1. Pembuatan Web API
 
 Pertama siapkan terlebih dahulu struct dan beberapa data sample.
 
@@ -113,16 +113,16 @@ func main() {
 
 Jalankan program, sekarang web server sudah live dan bisa dikonsumsi datanya.
 
-![Web API Server dijalankan](images/51_1_server.png)
+![Web API Server dijalankan](images/A.51_1_server.png)
 
-## 51.2. Test API
+## A.51.2. Test API
 
 Setelah web server sudah berjalan, web API yang telah dibuat perlu untuk di tes. Di sini saya menggunakan Google Chrome plugin bernama [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en) untuk mengetes API yang sudah dibuat.
 
  - Test `/users`, apakah data yang dikembalikan sudah benar.
 
-    ![Test `/users`](images/51_2_test_api_users.png)
+    ![Test `/users`](images/A.51_2_test_api_users.png)
 
  - Test `/user`, isi form data `id` dengan nilai `E001`.
 
-    ![Test `/user`](images/51_3_test_api_user.png)
+    ![Test `/user`](images/A.51_3_test_api_user.png)

@@ -1,4 +1,4 @@
-# 56. WaitGroup
+# A.56. WaitGroup
 
 Sebelumnya kita telah belajar banyak mengenai channel, yang fungsi utama-nya adalah untuk sharing data antar goroutine. Selain untuk komunikasi data, channel secara tidak langsung bisa dimanfaatkan untuk mengontrol goroutine.
 
@@ -8,7 +8,7 @@ Kegunaan `sync.WaitGroup` adalah untuk sinkronisasi goroutine. Berbeda dengan ch
 
 > Sebenarnya kurang pas membandingkan `sync.WaitGroup` dan channel, karena fungsi utama dari keduanya adalah berbeda. Channel untuk keperluan sharing data antar goroutine, sedangkan `sync.WaitGroup` untuk sinkronisasi goroutine.
 
-## 56.1. Penerapan `sync.WaitGroup`
+## A.56.1. Penerapan `sync.WaitGroup`
 
 `sync.WaitGroup` digunakan untuk menunggu goroutine. Cara penggunaannya sangat mudah, tinggal masukan jumlah goroutine yang dieksekusi, sebagai parameter method `Add()` object cetakan `sync.WaitGroup`. Dan pada akhir tiap-tiap goroutine, panggil method `Done()`. Juga, pada baris kode setelah eksekusi goroutine, panggil method `Wait()`.
 
@@ -54,9 +54,9 @@ Statement `wg.Wait()` bersifat blocking, proses eksekusi program tidak akan dite
 
 Output program di atas.
 
-![Contoh penerapan `sync.WaitGroup`](images/56_1_waitgroup.png)
+![Contoh penerapan `sync.WaitGroup`](images/A.56_1_waitgroup.png)
 
-## 56.2. Perbedaan WaitGroup Dengan Channel
+## A.56.2. Perbedaan WaitGroup Dengan Channel
 
 Beberapa perbedaan antara channel dan `sync.WaitGroup`:
 

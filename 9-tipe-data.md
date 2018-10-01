@@ -1,4 +1,4 @@
-# 9. Tipe Data
+# A.9. Tipe Data
 
 Golang mengenal beberapa jenis tipe data, diantaranya adalah tipe data numerik (desimal & non-desimal), string, dan boolean.
 
@@ -6,7 +6,7 @@ Di bab-bab sebelumnya secara tak sadar kita sudah mengaplikasikan beberapa tipe 
 
 Bab ini menjelaskan beberapa macam tipe data standar yang disediakan oleh Golang, beserta cara penggunaannya.
 
-## 9.1. Tipe Data Numerik Non-Desimal
+## A.9.1. Tipe Data Numerik Non-Desimal
 
 Tipe data numerik non-desimal atau **non floating point** di Golang ada beberapa jenis. Secara umum ada 2 tipe data kategori ini yang perlu diketahui.
 
@@ -44,7 +44,7 @@ Variabel `positiveNumber` bertipe `uint8` dengan nilai awal `89`. Sedangkan vari
 
 Template `%d` pada `fmt.Printf()` digunakan untuk memformat data numerik non-desimal.
 
-## 9.2. Tipe Data Numerik Desimal
+## A.9.2. Tipe Data Numerik Desimal
 
 Tipe data numerik desimal yang perlu diketahui ada 2, `float32` dan `float64`. Perbedaan kedua tipe data tersebut berada di lebar cakupan nilai desimal yang bisa ditampung. Untuk lebih jelasnya bisa merujuk ke spesifikasi [IEEE-754 32-bit floating-point numbers](http://www.h-schmidt.net/FloatConverter/IEEE754.html).
 
@@ -57,11 +57,11 @@ fmt.Printf("bilangan desimal: %.3f\n", decimalNumber)
 
 Pada kode di atas, variabel `decimalNumber` akan memiliki tipe data `float32`, karena nilainya berada di cakupan tipe data tersebut.
 
-![Tipe data numerik desimal](images/9_1_decimal_data_type.png)
+![Tipe data numerik desimal](images/A.9_1_decimal_data_type.png)
 
 Template `%f` digunakan untuk memformat data numerik desimal menjadi string. Digit desimal yang akan dihasilkan adalah **6 digit**. Pada contoh di atas, hasil format variabel `decimalNumber` adalah `2.620000`. Jumlah digit yang muncul bisa dikontrol menggunakan `%.nf`, tinggal ganti `n` dengan angka yang diinginkan. Contoh: `%.3f` maka akan menghasilkan 3 digit desimal, `%.10f` maka akan menghasilkan 10 digit desimal.
 
-## 9.3. Tipe Data `bool` (Boolean)
+## A.9.3. Tipe Data `bool` (Boolean)
 
 Tipe data `bool` berisikan hanya 2 variansi nilai, `true` dan `false`. Tipe data ini biasa dimanfaatkan dalam seleksi kondisi dan perulangan (yang nantinya akan kita bahas pada bab 12 dan bab 13).
 
@@ -72,7 +72,7 @@ fmt.Printf("exist? %t \n", exist)
 
 Gunakan `%t` untuk memformat data `bool` menggunakan fungsi `fmt.Printf()`.
 
-## 9.4. Tipe Data `string`
+## A.9.4. Tipe Data `string`
 
 Ciri khas dari tipe data string adalah nilainya di apit oleh tanda *quote* atau petik dua (`"`). Contoh penerapannya:
 
@@ -93,9 +93,9 @@ fmt.Println(message)
 
 Ketika dijalankan, output akan muncul sama persisi sesuai nilai variabel `message` di atas. Tanda petik dua akan muncul, baris baru juga muncul, sama persis.
 
-![String menggunakan grave accent](images/9_2_unescaped_string.png)
+![String menggunakan grave accent](images/A.9_2_unescaped_string.png)
 
-## 9.5. Nilai `nil` Dan Nilai Default Tipe Data
+## A.9.5. Nilai `nil` Dan Nilai Default Tipe Data
 
 `nil` bukan merupakan tipe data, melainkan sebuah nilai. Variabel yang isi nilainya `nil` berarti memiliki nilai kosong.
 

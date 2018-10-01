@@ -1,10 +1,10 @@
-# 6. Program Pertama: Hello World
+# A.6. Program Pertama: Hello World
 
 Semua persiapan sudah selesai, saatnya mulai masuk pada sesi pembuatan program. Program pertama yang akan kita buat adalah aplikasi kecil untuk memunculkan tulisan **Hello World**.
 
 Di bab ini akan dijelaskan secara bertahap dari awal. Mulai pembuatan project, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi aplikasi.
 
-## 6.1. Load `GOPATH` Ke Sublime Text
+## A.6.1. Load `GOPATH` Ke Sublime Text
 
 Hal pertama yang perlu dilakukan, adalah me-load atau memunculkan folder `GOPATH` di editor Sublime. Dengan begitu proyek-proyek Golang akan lebih mudah di-maintain. Caranya:
 
@@ -13,11 +13,11 @@ Hal pertama yang perlu dilakukan, adalah me-load atau memunculkan folder `GOPATH
  3. Klik-drag folder tersebut (kebetulan lokasi folder `GOPATH` saya bernama `go`), tarik ke Sublime.
  4. Seluruh subfolder `GOPATH` akan terbuka di Sublime.
 
-![Gopath di sublime](images/6_1_sublime_project_explorer.png)
+![Gopath di sublime](images/A.6_1_sublime_project_explorer.png)
 
 > Nama variabel di sistem operasi non-Windows diawali dengan tanda dollar `$`, sebagai contoh `$GOPATH`. Sedangkan di Windows, nama variabel diapit karakter persen `%`, contohnya seperti `%GOPATH%`.
 
-## 6.2. Menyiapkan Folder Project
+## A.6.2. Menyiapkan Folder Project
 
 Selanjutnya, buat project folder baru dalam `$GOPATH/src`, dengan nama folder bebas (boleh menggunakan nama `belajar-golang` atau lainnya). Agar lebih praktis, buat folder tersebut lewat Sublime. Berikut adalah caranya.
 
@@ -25,9 +25,9 @@ Selanjutnya, buat project folder baru dalam `$GOPATH/src`, dengan nama folder be
  2. Klik **New Folder**, di bagian bawah akan muncul inputan kecil **Folder Name**.
  3. Ketikkan nama folder, **belajar-golang**, lalu enter.
 
-![Buat proyek di sublime](images/6_2_new_project_on_sublime.png)
+![Buat proyek di sublime](images/A.6_2_new_project_on_sublime.png)
 
-## 6.3. Menyiapkan File Program
+## A.6.3. Menyiapkan File Program
 
 File program disini maksudnya adalah file yang berisikan kode program Golang, yang berekstensi `.go`.
 
@@ -40,9 +40,9 @@ Pembuatan file program juga akan dilakukan lewat Sublime. Caranya silakan ikut p
  3. Ketikkan di konten: `bab6-hello-world.go`.
  4. Lalu tekan **ctrl+s** (**cmd+s** untuk M\*c OSX), kemudian enter.
 
-![Buat file di sublime](images/6_3_new_file_on_sublime.png)
+![Buat file di sublime](images/A.6_3_new_file_on_sublime.png)
 
-## 6.4. Program Pertama: Hello Word
+## A.6.4. Program Pertama: Hello Word
 
 Setelah project folder dan file program sudah siap, saatnya untuk **coding**.
 
@@ -83,7 +83,7 @@ $ go run bab6-hello-world.go
 
 Hasilnya, muncul tulisan **hello world** di layar console.
 
-![Menjalankan program](images/6_4_execute_hello_world.png)
+![Menjalankan program](images/A.6_4_execute_hello_world.png)
 
 Selamat! Anda telah berhasil membuat program menggunakan Golang!
 
@@ -91,7 +91,7 @@ Selamat! Anda telah berhasil membuat program menggunakan Golang!
 
 Meski kode program di atas sangat sederhana, mungkin akan muncul beberapa pertanyaan di benak. Di bawah ini merupakan detail penjelasan kode di atas.
 
-## 6.5. Penggunaan Keyword `package`
+## A.6.5. Penggunaan Keyword `package`
 
 Setiap file program harus memiliki package. Setiap project harus ada satu file dengan package bernama `main`. File yang ber-package `main`, akan di eksekusi pertama kali ketika program di jalankan.
 
@@ -102,7 +102,7 @@ package <nama-package>
 package main
 ```
 
-## 6.6. Penggunaan Keyword `import`
+## A.6.6. Penggunaan Keyword `import`
 
 Keyword `import` digunakan untuk meng-include atau memasukan package lain kedalam file program, agar isi package yang di-include bisa dimanfaatkan.
 
@@ -115,7 +115,7 @@ import "<nama-package>"
 import "fmt"
 ```
 
-## 6.7. Penggunaan Fungsi `main()`
+## A.6.7. Penggunaan Fungsi `main()`
 
 Dalam sebuah proyek harus ada file program yang berisikan sebuah fungsi bernama `main()`. Fungsi tersebut harus berada dalam package yang juga bernama `main`. Fungsi `main()` adalah yang dipanggil pertama kali pada saat eksekusi program. Contoh penulisan fungsi `main`:
 
@@ -125,7 +125,7 @@ func main() {
 }
 ```
 
-## 6.8. Penggunaan Fungsi `fmt.Println()`
+## A.6.8. Penggunaan Fungsi `fmt.Println()`
 
 Fungsi `fmt.Println()` digunakan untuk memunculkan text ke layar (pada konteks ini, terminal atau CMD). Di program pertama yang telah kita buat, fungsi ini memunculkan tulisan **Hello World**.
 

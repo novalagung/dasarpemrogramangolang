@@ -1,4 +1,4 @@
-# 28. Reflect
+# A.28. Reflect
 
 Reflection adalah teknik untuk inspeksi variabel, mengambil informasi dari variabel tersebut atau bahkan memanipulasinya. Cakupan informasi yang bisa didapatkan lewat reflection sangat luas, seperti melihat struktur variabel, tipe, nilai pointer, dan banyak lagi.
 
@@ -9,7 +9,7 @@ Dari banyak fungsi yang tersedia di dalam package tersebut, ada 2 fungsi yang pa
  - Fungsi `reflect.ValueOf()` akan mengembalikan objek dalam tipe `reflect.Value`, yang berisikan informasi yang berhubungan dengan nilai pada variabel yang dicari
  - Sedangkan `reflect.TypeOf()` mengembalikan objek dalam tipe `reflect.Type`. Objek tersebut berisikan informasi yang berhubungan dengan tipe data variabel yang dicari
 
-## 28.1. Mencari Tipe Data & Value Menggunakan Reflect
+## A.28.1. Mencari Tipe Data & Value Menggunakan Reflect
 
 Dengan reflection, tipe data dan nilai variabel dapat diketahui dengan mudah. Contoh penerapannya bisa dilihat pada kode berikut.
 
@@ -31,7 +31,7 @@ func main() {
 }
 ```
 
-![Pemanfaatan reflect](images/28_0_reflect.png)
+![Pemanfaatan reflect](images/A.28_0_reflect.png)
 
 Fungsi `reflect.valueOf()` memiliki parameter yang bisa menampung segala jenis tipe data. Fungsi tersebut mengembalikan objek dalam tipe `reflect.Value`, yang berisikan informasi mengenai variabel yang bersangkutan.
 
@@ -90,7 +90,7 @@ Fungsi `Interface()` mengembalikan nilai interface kosong atau `interface{}`. Ni
 var nilai = reflectValue.Interface().(int)
 ```
 
-## 28.2. Pengaksesan Informasi Property Variabel Objek
+## A.28.2. Pengaksesan Informasi Property Variabel Objek
 
 Reflect bisa digunakan untuk mengambil informasi semua property variabel objek cetakan struct, dengan catatan property-property tersebut bermodifier public. Langsung saja kita praktekan, siapkan sebuah struct bernama `student`.
 
@@ -131,7 +131,7 @@ func main() {
 }
 ```
 
-![Pengaksesan property menggunakan reflect](images/28_1_accessing_properties.png)
+![Pengaksesan property menggunakan reflect](images/A.28_1_accessing_properties.png)
 
 Didalam method `getPropertyInfo` terjadi beberapa hal. Pertama objek `reflect.Value` dari variabel `s` diambil. Setelah itu dilakukan pengecekan apakah variabel objek tersebut merupakan pointer atau tidak (bisa dilihat dari `if reflectValue.Kind() == reflect.Ptr`, jika bernilai `true` maka variabel adalah pointer). jika ternyata variabel memang pointer, maka perlu diambil objek reflect aslinya dengan cara memanggil method `Elem()`.
 
@@ -145,7 +145,7 @@ Di tiap perulangan, informasi tiap property struct diambil berurutan dengan lewa
 
 Pengambilan informasi property, selain menggunakan indeks, bisa diambil berdasarkan nama field dengan menggunakan method `FieldByName()`.
 
-## 28.3. Pengaksesan Informasi Method Variabel Objek
+## A.28.3. Pengaksesan Informasi Method Variabel Objek
 
 Informasi mengenai method juga bisa diakses lewat reflect, syaratnya masih sama seperti pada pengaksesan proprerty, yaitu harus bermodifier public.
 
@@ -174,7 +174,7 @@ func main() {
 }
 ```
 
-![Eksekusi method lewat reflection](images/28_2_accessing_method_information.png)
+![Eksekusi method lewat reflection](images/A.28_2_accessing_method_information.png)
 
 Pada kode di atas, disiapkan variabel `s1` yang merupakan instance struct `student`. Awalnya property `Name` variabel tersebut berisikan string `"john wick"`.
 

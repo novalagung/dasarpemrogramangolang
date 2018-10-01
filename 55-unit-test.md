@@ -1,10 +1,10 @@
-# 55. Unit Test
+# A.55. Unit Test
 
 Golang menyediakan package `testing`, yang berisikan banyak sekali tools untuk keperluan unit testing.
 
 Pada bab ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan [testify](https://github.com/stretchr/testify).
 
-## 55.1. Persiapan
+## A.55.1. Persiapan
 
 Pertama siapkan terlebih dahulu sebuah struct `Kubus`. Variabel object hasil struct ini nantinya kita gunakan sebagai bahan testing.
 
@@ -32,7 +32,7 @@ func (k Kubus) Keliling() float64 {
 
 Simpan kode di atas dengan nama `bab55.go`.
 
-## 55.2. Testing
+## A.55.2. Testing
 
 File untuk keperluan testing dipisah dengan file utama, namanya harus berakhiran `_test.go`, dan package-nya harus sama. Pada bab ini, file utama adalah `bab55.go`, maka file testing harus bernama `bab55_test.go`.
 
@@ -87,7 +87,7 @@ Argument `-v` atau verbose digunakan menampilkan semua output log pada saat peng
 
 Jalankan aplikasi seperti gambar dibawah ini, terlihat bahwa tidak ada test yang fail.
 
-![Testing](images/55_1_test.png)
+![Testing](images/A.55_1_test.png)
 
 OK, selanjutnya coba ubah rumus kalkulasi method `Keliling()`. Tujuan dari pengubahan ini adalah untuk mengetahui bagaimana penanda fail muncul ketika ada test yang gagal.
 
@@ -99,9 +99,9 @@ func (k Kubus) Keliling() float64 {
 
 Setelah itu jalankan lagi test.
 
-![Test fail](images/55_2_test_fail.png)
+![Test fail](images/A.55_2_test_fail.png)
 
-## 55.3. Method Test
+## A.55.3. Method Test
 
 Table berikut berisikan method standar testing yang bisa digunakan di Golang.
 
@@ -122,7 +122,7 @@ Table berikut berisikan method standar testing yang bisa digunakan di Golang.
 | `Skiped()` | Menampilkan laporan skip |
 | `Parallel()` | Menge-set bahwa eksekusi testing adalah parallel |
 
-## 55.4. Benchmark
+## A.55.4. Benchmark
 
 Package `testing` selain berisikan tools untuk testing juga berisikan tools untuk benchmarking. Cara pembuatan benchmark sendiri cukup mudah yaitu dengan membuat fungsi yang namanya diawali dengan **Benchmark** dan parameternya bertipe `*testing.B`.
 
@@ -138,11 +138,11 @@ func BenchmarkHitungLuas(b *testing.B) {
 
 Jalankan test menggunakan argument `-bench=.`, argumen ini digunakan untuk menandai bahwa selain testing terdapat juga benchmark yang perlu diuji.
 
-![Benchmark](images/55_3_benchmark.png)
+![Benchmark](images/A.55_3_benchmark.png)
 
 Arti dari `30000000  51.1 ns/op` adalah, fungsi di atas di-test sebanyak **30 juta** kali, hasilnya membutuhkan waktu rata-rata **51 nano detik** untuk run satu fungsi.
 
-## 55.5. Testing Menggunakan testify
+## A.55.5. Testing Menggunakan testify
 
 Package **testify** berisikan banyak sekali tools yang bisa dimanfaatkan untuk keperluan testing di Golang.
 
@@ -180,7 +180,7 @@ func TestHitungKeliling(t *testing.T) {
 
 Fungsi `assert.Equal()` digunakan untuk uji perbandingan. Parameter ke-2 dibandingkan nilainya dengan parameter ke-3. Jika tidak sama, maka pesan parameter ke-3 akan dimunculkan.
 
-![Testing menggunakan testify](images/55_4_testify.png)
+![Testing menggunakan testify](images/A.55_4_testify.png)
 
 ---
 

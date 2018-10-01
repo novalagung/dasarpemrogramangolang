@@ -1,4 +1,4 @@
-# 12. Seleksi Kondisi
+# A.12. Seleksi Kondisi
 
 Seleksi kondisi digunakan untuk mengontrol alur program. Analoginya mirip seperti fungsi rambu lalu lintas di jalan raya. Kapan kendaraan diperbolehkan melaju dan kapan harus berhenti diatur oleh rambu tersebut. Sama seperti pada seleksi kondisi, kapan sebuah blok kode akan dieksekusi juga dikontrol.
 
@@ -8,7 +8,7 @@ Golang memiliki 2 macam keyword untuk seleksi kondisi, yaitu **if else** dan **s
 
 > Golang tidak mendukung seleksi kondisi menggunakan **ternary**.<br />Statement seperti: `var data = (isExist ? "ada" : "tidak ada")` adalah invalid dan menghasilkan error.
 
-## 12.1. Seleksi Kondisi Menggunakan Keyword `if`, `else if`, & `else`
+## A.12.1. Seleksi Kondisi Menggunakan Keyword `if`, `else if`, & `else`
 
 Cara penerapan if-else di Golang sama seperti pada bahasa pemrograman lain. Yang membedakan hanya tanda kurungnya *(parentheses)*, di Golang tidak perlu ditulis. Kode berikut merupakan contoh penerapan seleksi kondisi if else, dengan jumlah kondisi 4 buah.
 
@@ -28,13 +28,13 @@ if point == 10 {
 
 Dari ke-empat kondisi di atas, yang terpenuhi adalah `if point > 5`, karena nilai variabel `point` memang lebih besar dari `5`. Maka blok kode tepat dibawah kondisi tersebut akan dieksekusi (blok kode ditandai kurung kurawal buka dan tutup), hasilnya text `"lulus"` muncul sebagai output.
 
-![Seleksi kondisi `if` - `else`](images/12_1_if_else.png)
+![Seleksi kondisi `if` - `else`](images/A.12_1_if_else.png)
 
 Skema if else Golang sama seperti pada pemrograman umumnya. Yaitu di awal seleksi kondisi menggunakan `if`, dan ketika kondisinya tidak terpenuhi akan menuju ke `else` (jika ada). Ketika ada banyak kondisi, gunakan `else if`.
 
 > Di bahasa pemrograman lain, ketika ada seleksi kondisi yang isi blok-nya hanya 1 baris saja, kurung kurawal boleh tidak dituliskan. Berbeda dengan aturan di Golang, kurung kurawal harus tetap dituliskan meski isinya hanya 1 blok satement.
 
-## 12.2. Variabel Temporary Pada `if` - `else`
+## A.12.2. Variabel Temporary Pada `if` - `else`
 
 Variabel temporary adalah variabel yang hanya bisa digunakan pada blok seleksi kondisi dimana ia ditempatkan saja. Penggunaan variabel ini membawa beberapa manfaat, antara lain:
 
@@ -58,7 +58,7 @@ Variabel `percent` nilainya didapat dari hasil perhitungan, dan hanya bisa digun
 
 > Deklarasi variabel temporary hanya bisa dilakukan lewat metode type inference yang menggunakan tanda `:=`. Penggunaan keyword `var` disitu tidak diperbolehkan karena akan menyebabkan error.
 
-## 12.3. Seleksi Kondisi Menggunakan Keyword `switch` - `case`
+## A.12.3. Seleksi Kondisi Menggunakan Keyword `switch` - `case`
 
 Switch merupakan seleksi kondisi yang sifatnya fokus pada satu variabel, lalu kemudian di-cek nilainya. Contoh sederhananya seperti penentuan apakah nilai variabel `x` adalah: `1`, `2`, `3`, atau lainnya.
 
@@ -79,7 +79,7 @@ Pada kode di atas, tidak ada kondisi atau `case` yang terpenuhi karena nilai var
 
 Perlu diketahui, switch pada pemrograman Golang memiliki perbedaan dibanding bahasa lain. Di Golang, ketika sebuah case terpenuhi, tidak akan dilanjutkan ke pengecekkan case selanjutnya, meskipun tidak ada keyword `break` di situ. Konsep ini berkebalikan dengan switch pada umumnya, yang ketika sebuah case terpenuhi, maka akan tetap dilanjut mengecek case selanjutnya kecuali ada keyword `break`.
 
-## 12.4. Pemanfaatan `case` Untuk Banyak Kondisi
+## A.12.4. Pemanfaatan `case` Untuk Banyak Kondisi
 
 Sebuah `case` dapat menampung banyak kondisi. Cara penerapannya yaitu dengan menuliskan nilai pembanding-pembanding variabel yang di-switch setelah keyword `case` dipisah tanda koma (`,`).
 
@@ -98,7 +98,7 @@ default:
 
 Kondisi `case 7, 6, 5, 4:` akan terpenuhi ketika nilai variabel `point` adalah 7 atau 6 atau 5 atau 4.
 
-## 12.5. Kurung Kurawal Pada Keyword `case` & `default`
+## A.12.5. Kurung Kurawal Pada Keyword `case` & `default`
 
 Tanda kurung kurawal (`{ }`) bisa diterapkan pada keyword `case` dan `default`. Tanda ini opsional, boleh dipakai boleh tidak. Bagus jika dipakai pada blok kondisi yang didalamnya ada banyak statement, kode akan terlihat lebih rapi dan mudah di-maintain.
 
@@ -120,7 +120,7 @@ default:
 }
 ```
 
-## 12.6. Switch Dengan Gaya `if` - `else`
+## A.12.6. Switch Dengan Gaya `if` - `else`
 
 Uniknya di Golang, switch bisa digunakan dengan gaya ala if-else. Nilai yang akan dibandingkan tidak dituliskan setelah keyword `switch`, melainkan akan ditulis langsung dalam bentuk perbandingan dalam keyword `case`.
 
@@ -142,7 +142,7 @@ default:
 }
 ```
 
-## 12.7. Penggunaan Keyword `fallthrough` Dalam `switch`
+## A.12.7. Penggunaan Keyword `fallthrough` Dalam `switch`
 
 Seperti yang sudah dijelaskan sebelumnya, bahwa switch pada Golang memiliki perbedaan dengan bahasa lain. Ketika sebuah `case` terpenuhi, pengecekkan kondisi tidak akan diteruskan ke case-case setelahnya.
 
@@ -170,9 +170,9 @@ default:
 
 Setelah pengecekkan `case (point < 8) && (point > 3)` selesai, akan dilanjut ke pengecekkan `case point < 5`, karena ada `fallthrough` di situ.
 
-![Penggunaan `fallthrough` dalam `switch`](images/12_2_fallthrough.png)
+![Penggunaan `fallthrough` dalam `switch`](images/A.12_2_fallthrough.png)
 
-## 12.8. Seleksi Kondisi Bersarang
+## A.12.8. Seleksi Kondisi Bersarang
 
 Seleksi kondisi bersarang adalah seleksi kondisi, yang berada dalam seleksi kondisi, yang mungkin juga berada dalam seleksi kondisi, dan seterusnya. Seleksi kondisi bersarang bisa dilakukan pada `if` - `else`, `switch`, ataupun kombinasi keduanya.
 

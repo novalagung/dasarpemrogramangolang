@@ -1,8 +1,8 @@
-# 27. Interface Kosong
+# A.27. Interface Kosong
 
 Interface kosong atau `interface{}` adalah tipe data yang sangat spesial. Variabel bertipe ini bisa menampung segala jenis data, bahkan array, bisa pointer bisa tidak (konsep ini disebut dengan **dynamic typing**).
 
-## 27.1. Penggunaan `interface{}`
+## A.27.1. Penggunaan `interface{}`
 
 `interface{}` merupakan tipe data, sehingga cara penggunaannya sama seperti pada tipe data lainnya, hanya saja nilai yang diisikan bisa apa saja. Contoh:
 
@@ -27,7 +27,7 @@ func main() {
 
 Keyword `interface` seperti yang kita tau, digunakan untuk pembuatan interface. Tetapi ketika ditambahkan kurung kurawal (`{}`) di belakang-nya (menjadi `interface{}`), maka kegunaannya akan berubah, yaitu sebagai tipe data.
 
-![Segala jenis data bisa ditampung `interface{}`](images/27_1_empty_interface.png)
+![Segala jenis data bisa ditampung `interface{}`](images/A.27_1_empty_interface.png)
 
 Agar tidak bingung, coba perhatikan kode berikut.
 
@@ -47,7 +47,7 @@ Kemudian variabel tersebut di-inisialisasi, ditambahkan lagi kurung kurawal sete
 
 Dari situ terlihat bahwa `interface{}` bukanlah sebuah objek, melainkan tipe data.
 
-## 27.2. Casting Variabel Interface Kosong
+## A.27.2. Casting Variabel Interface Kosong
 
 Variabel bertipe `interface{}` bisa ditampilkan ke layar sebagai `string` dengan memanfaatkan fungsi print, seperti `fmt.Println()`. Tapi perlu diketahui bahwa nilai yang dimunculkan tersebut bukanlah nilai asli, melainkan bentuk string dari nilai aslinya.
 
@@ -76,11 +76,11 @@ Pertama, variabel `secret` menampung nilai bertipe numerik. Ada kebutuhan untuk 
 
 Pada contoh kedua, `secret` berisikan array string. Kita memerlukan string tersebut untuk digabungkan dengan pemisah tanda koma. Maka perlu di-casting ke `[]string` terlebih dahulu sebelum bisa digunakan di `strings.Join()`, contohnya pada `strings.Join(secret.([]string), ", ")`.
 
-![Casting pada variabel bertipe `interface{}`](images/27_2_interface_casting.png)
+![Casting pada variabel bertipe `interface{}`](images/A.27_2_interface_casting.png)
 
 Teknik casting pada interface disebut dengan **type assertions**.
 
-## 27.3. Casting Variabel Interface Kosong Ke Objek Pointer
+## A.27.3. Casting Variabel Interface Kosong Ke Objek Pointer
 
 Variabel `interface{}` bisa menyimpan data apa saja, termasuk data objek, pointer, ataupun gabungan keduanya. Di bawah ini merupakan contoh penerapan interface untuk menampung data objek pointer.
 
@@ -97,9 +97,9 @@ fmt.Println(name)
 
 Variabel `secret` dideklarasikan bertipe `interface{}` menampung referensi objek cetakan struct `person`. Cara casting dari `interface{}` ke struct pointer adalah dengan menuliskan nama struct-nya dan ditambahkan tanda asterisk (`*`) di awal, contohnya seperti `secret.(*person)`. Setelah itu barulah nilai asli bisa diakses.
 
-![Casting `interface{}` ke variabel objek](images/27_3_interface_pointer.png)
+![Casting `interface{}` ke variabel objek](images/A.27_3_interface_pointer.png)
 
-## 27.4. Kombinasi Slice, `map`, dan `interface{}`
+## A.27.4. Kombinasi Slice, `map`, dan `interface{}`
 
 Tipe `[]map[string]interface{}` adalah salah satu tipe yang paling sering digunakan (menurut saya), karena tipe data tersebut bisa menjadi alternatif tipe slice struct.
 

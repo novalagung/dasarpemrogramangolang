@@ -1,4 +1,4 @@
-# 57. Mutex
+# A.57. Mutex
 
 Sebelum kita membahas mengenai apa itu **mutex**? ada baiknya untuk mempelajari terlebih dahulu apa itu **race condition**, karena kedua konsep ini berhubungan erat satu sama lain.
 
@@ -8,7 +8,7 @@ Mutex melakukan pengubahan level akses sebuah data menjadi eksklusif, menjadikan
 
 Golang menyediakan `sync.Mutex` yang bisa dimanfaatkan untuk keperluan **lock** dan **unlock** data. Pada bab ini kita akan membahas mengenai race condition, dan menanggulanginya menggunakan mutex.
 
-## 57.1. Persiapan
+## A.57.1. Persiapan
 
 Pertama siapkan struct baru bernama `counter`, dengan isi satu buah property `val` bertipe `int`. Property ini nantinya dikonsumsi dan diolah oleh banyak goroutine.
 
@@ -41,7 +41,7 @@ func (c *counter) Value() (x int) {
 
 Kode di atas kita gunakan sebagai template contoh source code yang ada pada bab ini.
 
-## 57.2. Contoh Race Condition
+## A.57.2. Contoh Race Condition
 
 Program berikut merupakan contoh program yang didalamnya memungkinkan terjadi race condition atau kondisi goroutine balapan.
 
@@ -81,21 +81,21 @@ Di akhir, `wg.Wait()` dipanggil, dan nilai variabel counter `meter` diambil lewa
 
 Jalankan program, lihat hasilnya.
 
-![Contoh race condition](images/57_1_race_condition.png)
+![Contoh race condition](images/A.57_1_race_condition.png)
 
 Nilai `meter.val` tidak genap 1000000? kenapa bisa begitu? Padahal seharusnya tidak ada masalah dalam kode yang kita tulis di atas.
 
 Inilah yang disebut dengan race condition, data yang diakses bersamaan dalam 1 waktu menjadi kacau.
 
-## 57.3. Deteksi Race Condition Menggunakan Golang Race Detector
+## A.57.3. Deteksi Race Condition Menggunakan Golang Race Detector
 
 Golang menyediakan fitur untuk [deteksi race condition](http://blog.golang.org/race-detector). Cara penggunaannya adalah dengan menambahkan flag `-race` pada saat eksekusi aplikasi.
 
-![Race detector](images/57_2_race_detector.png)
+![Race detector](images/A.57_2_race_detector.png)
 
 Terlihat pada gambar diatas, ada pesan memberitahu terdapat kemungkinan data race pada program yang kita jalankan.
 
-## 57.4. Penerapan `sync.Mutex`
+## A.57.4. Penerapan `sync.Mutex`
 
 Sekarang kita tahu bahwa program di atas menghasilkan bug, ada kemungkinan data race didalamnya. Untuk mengatasi masalah ini ada beberapa cara yang bisa digunakan, dan disini kita akan menggunakan `sync.Mutex`.
 
@@ -128,7 +128,7 @@ Di contoh di atas, pada saat bagian pengambilan nilai, mutex tidak dipasang, kar
 
 Coba jalankan program, dan lihat hasilnya.
 
-![Mutex](images/57_3_mutex.png)
+![Mutex](images/A.57_3_mutex.png)
 
 Penggunaan `sync.Mutex` yang dianjurkan adalah dengan cara langsung di embed ke struct dimana proses yang memungkin race condition berada. Kita bisa saja menggunakan mutex dengan cara biasa, berikut adalah contohnya.
 

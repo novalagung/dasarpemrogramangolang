@@ -1,10 +1,10 @@
-# 54. NoSQL MongoDB
+# A.54. NoSQL MongoDB
 
 Golang tidak menyediakan interface generic untuk NoSQL, jadi implementasi driver tiap brand NoSQL di Golang bisa berbeda satu dengan lainnya.
 
 Dari sekian banyak teknologi NoSQL yang ada, yang terpilih untuk dibahas di buku ini adalah MongoDB. Dan pada bab ini kita akan belajar cara berkomunikasi dengan MongoDB menggunakan driver [mgo](https://labix.org/mgo).
 
-## 54.1. Persiapan
+## A.54.1. Persiapan
 
 Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
 
@@ -14,13 +14,13 @@ Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
     go get gopkg.in/mgo.v2
     ```
 
-    ![Download driver mgo](images/54_1_go_get.png)
+    ![Download driver mgo](images/A.54_1_go_get.png)
 
  2. Pastikan sudah terinstal MongoDB di komputer anda, dan jangan lupa untuk menjalankan daemon-nya. Jika belum, [download](ihttps://www.mongodb.org/downloads) dan install terlebih dahulu.
 
  3. Instal juga MongoDB GUI untuk mempermudah browsing data. Bisa menggunakan [MongoChef](http://3t.io/mongochef/), [Robomongo](http://robomongo.org/), atau lainnya.
 
-## 54.2. Insert Data
+## A.54.2. Insert Data
 
 Cara insert data lewat mongo tidak terlalu sulit. Kita akan praktekan bagaiamana caranya.
 
@@ -92,9 +92,9 @@ Setelah mendapatkan instance collection-nya, gunakan method `Insert()` untuk ins
 
 Jalankan program tersebut, lalu cek menggunakan mongo GUI untuk melihat apakah data sudah masuk.
 
-![Insert mongo](images/54_2_insert.png)
+![Insert mongo](images/A.54_2_insert.png)
 
-## 54.3. Membaca Data
+## A.54.3. Membaca Data
 
 method `Find()` milik tipe collection `mgo.Collection` digunakan untuk melakukan pembacaan data. Query selectornya dituliskan menggunakan `bson.M` lalu disisipkan sebagai parameter fungsi `Find()`.
 
@@ -139,9 +139,9 @@ query selector ditulis dalam tipe `bson.M`. Tipe ini sebenarnya adalah alias dar
 
 Selector tersebut kemudian dimasukan sebagai parameter method `Find()`, yang kemudian di chain langsung dengan method `One()` untuk mengambil 1 baris datanya. Pointer variabel `result` disisipkan sebagai parameter method tersebut.
 
-![Pencarian data](images/54_3_find.png)
+![Pencarian data](images/A.54_3_find.png)
 
-## 54.4. Update Data
+## A.54.4. Update Data
 
 Method `Update()` milik struct `mgo.Collection` digunakan untuk update data. Ada 2 parameter yang harus diisi:
 
@@ -178,9 +178,9 @@ func main() {
 
 Jalankan kode di atas, lalu cek lewat Mongo GUI apakah data berubah.
 
-![Update data](images/54_4_update.png)
+![Update data](images/A.54_4_update.png)
 
-## 54.5. Menghapus Data
+## A.54.5. Menghapus Data
 
 Cara menghapus document pada collection cukup mudah, tinggal gunakan method `Remove()` dengan isi parameter adalah query selector document yang ingin dihapus.
 
@@ -211,4 +211,4 @@ func main() {
 
 2 data yang sebelumnya sudah di-insert kini tinggal satu saja.
 
-![Menghapus data](images/54_5_remove.png)
+![Menghapus data](images/A.54_5_remove.png)

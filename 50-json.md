@@ -1,4 +1,4 @@
-# 50. JSON
+# A.50. JSON
 
 **JSON** atau *Javascript Object Notation* adalah notasi standar yang umum digunakan untuk komunikasi data via web. JSON merupakan subset dari *javascript*.
 
@@ -6,7 +6,7 @@ Golang menyediakan package `encoding/json` yang berisikan banyak fungsi untuk ke
 
 Di bab ini, kita akan belajar cara untuk konverstri string yang berbentuk json menjadi objek golang, dan sebaliknya.
 
-## 50.1. Decode JSON Ke Variabel Objek Cetakan Struct
+## A.50.1. Decode JSON Ke Variabel Objek Cetakan Struct
 
 Di Golang data json tipenya adalah `string`. Dengan menggunakan `json.Unmarshal`, json string bisa dikonversi menjadi bentuk objek, entah itu dalam bentuk `map[string]interface{}` ataupun variabel objek hasil `struct`.
 
@@ -48,7 +48,7 @@ func main() {
 
 Dalam penggunaan fungsi `json.Unmarshal`, variabel penampung hasil decode harus di-pass dalam bentuk pointer, contohnya seperti `&data`.
 
-![Decode data json ke variabel objek](images/50_1_decode.png)
+![Decode data json ke variabel objek](images/A.50_1_decode.png)
 
 Bisa dilihat bahwa salah satu property struct `User`, yaitu `FullName` memiliki **tag** `json:"Name"`. Tag tersebut digunakan untuk mapping data json ke property yang bersangkutan.
 
@@ -58,7 +58,7 @@ Property `FullName` struct tersebut kemudian ditugaskan untuk menampung data jso
 
 Perlu diketahui bahwa untuk decode data json ke variabel objek hasil struct, semua level akses property struct-nya harus publik.
 
-## 50.2. Decode JSON Ke `map[string]interface{}` & `interface{}`
+## A.50.2. Decode JSON Ke `map[string]interface{}` & `interface{}`
 
 Tak hanya ke objek cetakan struct, target decoding data json juga bisa berupa variabel bertipe `map[string]interface{}`.
 
@@ -81,7 +81,7 @@ fmt.Println("user :", decodedData["Name"])
 fmt.Println("age  :", decodedData["Age"])
 ```
 
-## 50.3. Decode Array JSON Ke Array Objek
+## A.50.3. Decode Array JSON Ke Array Objek
 
 Decode data dari array json ke slice/array objek masih sama, siapkan saja variabel penampung hasil decode dengan tipe slice struct. Contohnya bisa dilihat pada kode berikut.
 
@@ -103,7 +103,7 @@ fmt.Println("user 1:", data[0].FullName)
 fmt.Println("user 2:", data[1].FullName)
 ```
 
-## 50.4. Encode Objek Ke JSON
+## A.50.4. Encode Objek Ke JSON
 
 Setelah sebelumnya dijelaskan beberapa cara decode data dari json json ke objek, sekarang kita akan belajar cara **encode** data objek ke bentuk json string.
 
@@ -125,4 +125,4 @@ fmt.Println(jsonString)
 
 Output:
 
-![Encode data ke JSON](images/50_2_encode.png)
+![Encode data ke JSON](images/A.50_2_encode.png)

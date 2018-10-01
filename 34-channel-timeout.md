@@ -1,10 +1,10 @@
-# 34. Channel - Timeout
+# A.34. Channel - Timeout
 
 Teknik timeout digunakan untuk mengontrol penerimaan data dari channel berdasarkan waktu diterimanya, dengan durasi timeout bisa kita tentukan sendiri.
 
 Ketika tidak ada aktivitas penerimaan data dalam durasi yang sudah ditentukan, callback akan dijalankan.
 
-## 34.1. Penerapan Channel Timeout
+## A.34.1. Penerapan Channel Timeout
 
 Berikut adalah program sederhana tentang pengaplikasian timeout pada channel. Sebuah goroutine baru dijalankan dengan tugas mengirimkan data setiap interval tertentu, dengan durasi interval-nya adalah acak/random.
 
@@ -62,4 +62,4 @@ func main() {
 
 Muncul output setiap kali ada penerimaan data dengan delay waktu acak. Ketika tidak ada aktifitas penerimaan dari channel dalam durasi 5 detik, perulangan pengecekkan channel diberhentikan.
 
-![Channel timeout](images/34_1_channel_delay.png)
+![Channel timeout](images/A.34_1_channel_delay.png)
