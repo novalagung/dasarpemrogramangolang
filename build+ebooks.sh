@@ -14,6 +14,7 @@ rm -rf .gitignore
 rm -rf *.psd
 rm -rf *.sh
 rm -rf *.go
+rm -rf *.md
 git init .
 git add .
 git commit -m "deploy"
