@@ -12,7 +12,56 @@ import (
 type M map[string]interface{}
 
 var SEARCH_MAX_DURATION = 4 * time.Second
-var GOOGLE_SEARCH_API_KEY = "AIzaSyB6FJHkVnHfjD_ltN1vRP3pnub86veMFgE"
+var GOOGLE_SEARCH_API_KEY = "ASSVnHfjD_ltXXXXSyB6WWWWWWWWveMFgE"
+
+func main() {
+	mux := new(CustomMux)
+	mux.RegisterMiddleware(MiddlewareUtility)
+
+	mux.HandleFunc("/api/search", func(w http.ResponseWriter, r *http.Request) {
+		ctx := r.Context()
+
+		keyword := r.URL.Query().Get("keyword")
+		chanRes := make(chan []byte)
+		chanErr := make(chan error)
+
+		go doSearch(ctx, keyword, chanRes, chanErr)
+
+		select {
+		case res := <-chanRes:
+			w.Header().Set("Content-type", "application/json")
+			w.Write(res)
+		case err := <-chanErr:
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	})
+
+	server := new(http.Server)
+	server.Handler = mux
+	server.Addr = ":80"
+
+	fmt.Println("Starting server at", server.Addr)
+	server.ListenAndServe()
+}
+
+func MiddlewareUtility(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := r.Context()
+		if ctx == nil {
+			ctx = context.Background()
+		}
+
+		from := r.Header.Get("Referer")
+		if from == "" {
+			from = r.Host
+		}
+
+		ctx = context.WithValue(ctx, "from", from)
+
+		requestWithContext := r.WithContext(ctx)
+		next.ServeHTTP(w, requestWithContext)
+	})
+}
 
 func doSearch(
 	ctx context.Context,
@@ -31,7 +80,6 @@ func doSearch(
 
 	from := ctx.Value("from").(string)
 
-	// ctx, cancel := context.WithDeadline(parent, time.Now().Add(SEARCH_MAX_DURATION))
 	ctx, cancel := context.WithTimeout(ctx, SEARCH_MAX_DURATION)
 	defer cancel()
 
@@ -81,53 +129,4 @@ func doSearch(
 		chanErr <- err
 		return
 	}
-}
-
-func main() {
-	mux := new(CustomMux)
-	mux.RegisterMiddleware(MiddlewareUtility)
-
-	mux.HandleFunc("/api/search", func(w http.ResponseWriter, r *http.Request) {
-		ctx := r.Context()
-
-		keyword := r.URL.Query().Get("keyword")
-		chanRes := make(chan []byte)
-		chanErr := make(chan error)
-
-		go doSearch(ctx, keyword, chanRes, chanErr)
-
-		select {
-		case res := <-chanRes:
-			w.Header().Set("Content-type", "application/json")
-			w.Write(res)
-		case err := <-chanErr:
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-	})
-
-	server := new(http.Server)
-	server.Handler = mux
-	server.Addr = ":80"
-
-	fmt.Println("Starting server at", server.Addr)
-	server.ListenAndServe()
-}
-
-func MiddlewareUtility(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		ctx := r.Context()
-		if ctx == nil {
-			ctx = context.Background()
-		}
-
-		from := r.Header.Get("Referer")
-		if from == "" {
-			from = r.Host
-		}
-
-		ctx = context.WithValue(ctx, "from", from)
-
-		requestWithContext := r.WithContext(ctx)
-		next.ServeHTTP(w, requestWithContext)
-	})
 }

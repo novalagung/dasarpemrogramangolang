@@ -115,6 +115,7 @@ Source Code Praktek [Dasar Pemrograman Golang](https://dasarpemrogramangolang.no
      * [C.28. Web Socket: Chatting App](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.28-golang-web-socket)
      * [C.29. Protobuf](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.29-golang-protobuf-implementation)
      * [C.30. gRPC + Protobuf](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.30-golang-grpc-protobuf)
+     * [C.31. Context](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.31-golang-context)
 
 <span style="color: green">*</span> Tidak ada source code untuk bab tersebut
 
