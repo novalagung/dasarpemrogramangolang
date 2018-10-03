@@ -112,6 +112,6 @@
     * [C.28. Web Socket: Chatting App](C-28-golang-web-socket.md)
     * [C.29. Protobuf](C-29-golang-protobuf-implementation.md)
     * [C.30. gRPC + Protobuf](C-30-golang-grpc-protobuf.md)
-    * [C.31. Context](C-31-golang-context.md)
+    * [C.31. Context: Value, Timeout, & Cancellation](C-31-golang-context.md)
     <!-- * [C.32. JWT](C-31-golang-jwt.md) -->
     <!-- * [C.31. Dockerize Golang App](C-31-golang-dockerize-app.md) -->

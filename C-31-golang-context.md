@@ -1,4 +1,4 @@
-# C.31. Context
+# C.31. Context: Value, Timeout, & Cancellation
 
 Pada bab ini kita akan belajar pemanfaatan `context.Context` untuk penyisipan dan pembacaan data pada objek `*http.Request`, dan juga untuk handling timeout dan cancelation request.
 
