@@ -29,7 +29,7 @@ func doSearch(
 	url = fmt.Sprintf("%s&callback=hndlr", url)
 	url = fmt.Sprintf("%s&q=%s", url, keyword)
 
-	domain := ctx.Value("domain").(string)
+	from := ctx.Value("from").(string)
 
 	// ctx, cancel := context.WithDeadline(parent, time.Now().Add(SEARCH_MAX_DURATION))
 	ctx, cancel := context.WithTimeout(ctx, SEARCH_MAX_DURATION)
@@ -42,7 +42,7 @@ func doSearch(
 	}
 
 	req = req.WithContext(ctx)
-	req.Header.Set("Referer", domain)
+	req.Header.Set("Referer", from)
 
 	transport := new(http.Transport)
 	client := new(http.Client)
@@ -107,7 +107,7 @@ func main() {
 
 	server := new(http.Server)
 	server.Handler = mux
-	server.Addr = ":8080"
+	server.Addr = ":80"
 
 	fmt.Println("Starting server at", server.Addr)
 	server.ListenAndServe()
@@ -120,8 +120,12 @@ func MiddlewareUtility(next http.Handler) http.Handler {
 			ctx = context.Background()
 		}
 
-		domain := "mysampletestapp.com"
-		ctx = context.WithValue(ctx, "domain", domain)
+		from := r.Header.Get("Referer")
+		if from == "" {
+			from = r.Host
+		}
+
+		ctx = context.WithValue(ctx, "from", from)
 
 		requestWithContext := r.WithContext(ctx)
 		next.ServeHTTP(w, requestWithContext)

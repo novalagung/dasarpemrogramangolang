@@ -13,13 +13,13 @@ func main() {
 	mux.RegisterMiddleware(MiddlewareUtility)
 
 	mux.HandleFunc("/api/search", func(w http.ResponseWriter, r *http.Request) {
-		domain := r.Context().Value("domain").(string)
-		w.Write([]byte(domain))
+		from := r.Context().Value("from").(string)
+		w.Write([]byte(from))
 	})
 
 	server := new(http.Server)
 	server.Handler = mux
-	server.Addr = ":8080"
+	server.Addr = ":80"
 
 	fmt.Println("Starting server at", server.Addr)
 	server.ListenAndServe()
@@ -32,8 +32,12 @@ func MiddlewareUtility(next http.Handler) http.Handler {
 			ctx = context.Background()
 		}
 
-		domain := "mysampletestapp.com"
-		ctx = context.WithValue(ctx, "domain", domain)
+		from := r.Header.Get("Referer")
+		if from == "" {
+			from = r.Host
+		}
+
+		ctx = context.WithValue(ctx, "from", from)
 
 		requestWithContext := r.WithContext(ctx)
 		next.ServeHTTP(w, requestWithContext)
