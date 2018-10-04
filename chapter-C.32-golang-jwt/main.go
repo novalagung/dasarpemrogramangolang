@@ -9,18 +9,29 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/novalagung/gubrak"
 )
 
 type M map[string]interface{}
 
+type MyClaims struct {
+	jwt.StandardClaims
+	Username string `json:"Username"`
+	Email    string `json:"Email"`
+	Group    string `json:"Group"`
+}
+
+var APPLICATION_NAME = "My Simple JWT App"
+var LOGIN_EXPIRATION_DURATION = time.Duration(1) * time.Hour
 var JWT_SIGNING_METHOD = jwt.SigningMethodHS256
 var JWT_SIGNATURE_KEY = []byte("the secret of kalimdor")
 
 func main() {
 	mux := new(CustomMux)
-	mux.RegisterMiddleware(MiddlewareAuth)
+	mux.RegisterMiddleware(MiddlewareJWTAuthorization)
 
 	mux.HandleFunc("/login", HandlerLogin)
 	mux.HandleFunc("/index", HandlerIndex)
@@ -35,61 +46,78 @@ func main() {
 
 func authenticateUser(username, password string) (bool, M) {
 	basePath, _ := os.Getwd()
-	dbPath := filepath.Join(basePath, "registered_users.txt")
+	dbPath := filepath.Join(basePath, "users.json")
 	buf, _ := ioutil.ReadFile(dbPath)
 
-	for _, each := range strings.Split(string(buf), "\n") {
-		if strings.TrimSpace(each) == "" {
-			continue
-		}
+	data := make([]M, 0)
+	err := json.Unmarshal(buf, &data)
+	if err != nil {
+		return false, nil
+	}
 
-		parts := strings.Split(each, ":")
-		if username == parts[0] && password == parts[1] {
-			return true, M{
-				"username": username,
-				"email":    parts[2],
-				"grant":    parts[3],
-			}
-		}
+	res, _ := gubrak.Find(data, func(each M) bool {
+		return each["username"] == username && each["password"] == password
+	})
+
+	if res != nil {
+		resM := res.(M)
+		delete(resM, "password")
+		return true, resM
 	}
 
 	return false, nil
 }
 
 func HandlerLogin(w http.ResponseWriter, r *http.Request) {
-	payload := struct {
-		Username string
-		Password string
-	}{}
-
-	err := json.NewDecoder(r.Body).Decode(&payload)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+	if r.Method != "POST" {
+		http.Error(w, "Unsupported http method", http.StatusBadRequest)
 		return
 	}
 
-	ok, userInfo := authenticateUser(payload.Username, payload.Password)
+	username, password, ok := r.BasicAuth()
 	if !ok {
 		http.Error(w, "Invalid username or password", http.StatusBadRequest)
 		return
 	}
 
-	claims := jwt.NewWithClaims(
+	ok, userInfo := authenticateUser(username, password)
+	if !ok {
+		http.Error(w, "Invalid username or password", http.StatusBadRequest)
+		return
+	}
+
+	claims := MyClaims{
+		StandardClaims: jwt.StandardClaims{
+			Issuer:    APPLICATION_NAME,
+			ExpiresAt: time.Now().Add(LOGIN_EXPIRATION_DURATION).Unix(),
+		},
+		Username: userInfo["username"].(string),
+		Email:    userInfo["email"].(string),
+		Group:    userInfo["group"].(string),
+	}
+
+	token := jwt.NewWithClaims(
 		JWT_SIGNING_METHOD,
-		jwt.MapClaims(userInfo),
+		claims,
 	)
 
-	token, err := claims.SignedString(JWT_SIGNATURE_KEY)
+	signedToken, err := token.SignedString(JWT_SIGNATURE_KEY)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	tokenString, _ := json.Marshal(M{"token": token})
+	tokenString, _ := json.Marshal(M{"token": signedToken})
 	w.Write([]byte(tokenString))
 }
 
-func MiddlewareAuth(next http.Handler) http.Handler {
+func HandlerIndex(w http.ResponseWriter, r *http.Request) {
+	userInfo := r.Context().Value("userInfo").(jwt.MapClaims)
+	message := fmt.Sprintf("hello %s (%s)", userInfo["Username"], userInfo["Group"])
+	w.Write([]byte(message))
+}
+
+func MiddlewareJWTAuthorization(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		if r.URL.Path == "/login" {
@@ -125,15 +153,16 @@ func MiddlewareAuth(next http.Handler) http.Handler {
 			return
 		}
 
-		ctx := context.WithValue(context.Background(), "userInfo", M(claims))
+		ctx := context.WithValue(context.Background(), "userInfo", claims)
 		r = r.WithContext(ctx)
 
 		next.ServeHTTP(w, r)
 	})
 }
 
-func HandlerIndex(w http.ResponseWriter, r *http.Request) {
-	userInfo := r.Context().Value("userInfo").(M)
-	message := fmt.Sprintf("hello %s (%s)", userInfo["username"], userInfo["grant"])
-	w.Write([]byte(message))
-}
+// curl -X POST --user noval:kaliparejaya123 http://localhost:8080/login
+// {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Mzg2NTI0NzksImlzcyI6Ik15IFNpbXBsZSBKV1QgQXBwIiwiVXNlcm5hbWUiOiJub3ZhbCIsIkVtYWlsIjoidGVycGFsbXVyYWhAZ21haWwuY29tIiwiR3JvdXAiOiJhZG1pbiJ9.JREJgUAYs2R5zuquqyX8tk23QlajVVe19susm6JsZq8"}
+
+// curl -X GET \
+//  --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Mzg2NTI0NzksImlzcyI6Ik15IFNpbXBsZSBKV1QgQXBwIiwiVXNlcm5hbWUiOiJub3ZhbCIsIkVtYWlsIjoidGVycGFsbXVyYWhAZ21haWwuY29tIiwiR3JvdXAiOiJhZG1pbiJ9.JREJgUAYs2R5zuquqyX8tk23QlajVVe19susm6JsZq8" \
+//  http://localhost:8080/index
