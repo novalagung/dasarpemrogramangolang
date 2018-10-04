@@ -116,6 +116,7 @@ Source Code Praktek [Dasar Pemrograman Golang](https://dasarpemrogramangolang.no
      * [C.29. Protobuf](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.29-golang-protobuf-implementation)
      * [C.30. gRPC + Protobuf](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.30-golang-grpc-protobuf)
      * [C.31. Context](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.31-golang-context)
+     * [C.32. JSON Web Token (JWT)](https://github.com/novalagung/pemrogramanwebgolang/tree/master/chapter-B.32-golang-jwt)
 
 <span style="color: green">*</span> Tidak ada source code untuk bab tersebut
 
