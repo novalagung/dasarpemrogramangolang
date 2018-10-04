@@ -113,5 +113,5 @@
     * [C.29. Protobuf](C-29-golang-protobuf-implementation.md)
     * [C.30. gRPC + Protobuf](C-30-golang-grpc-protobuf.md)
     * [C.31. Context: Value, Timeout, & Cancellation](C-31-golang-context.md)
-    <!-- * [C.32. JWT](C-31-golang-jwt.md) -->
+    * [C.32. JSON Web Token (JWT)](C-32-golang-jwt.md)
     <!-- * [C.31. Dockerize Golang App](C-31-golang-dockerize-app.md) -->

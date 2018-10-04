@@ -1,9 +1,6 @@
+mv book.json.temp book.json
 gitbook build
-gitbook pdf ./ ./dasarpemrogramangolang.pdf
-gitbook epub ./ ./dasarpemrogramangolang.epub
-gitbook mobi ./ ./dasarpemrogramangolang.mobi
 go run file-title-renamer.go -name "Dasar Pemrograman Golang"
-
 cd _book
 cp ./../dasarpemrogramangolang.pdf ./
 cp ./../dasarpemrogramangolang.epub ./
