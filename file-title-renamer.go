@@ -57,6 +57,22 @@ func main() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+
+	siteMapPath := filepath.Join(basePath, "_book", "sitemap.xml")
+
+	buf, err := ioutil.ReadFile(siteMapPath)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	htmlString := string(buf)
+	newHtmlString := strings.Replace(htmlString, `<changefreq>weekly</changefreq>`, `<changefreq>daily</changefreq>`, -1)
+
+	err = ioutil.WriteFile(siteMapPath, []byte(newHtmlString), 0644)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	fmt.Println("  ==>", siteMapPath)
 }
 
 //
