@@ -361,10 +361,7 @@ Jalankan aplikasi, lalu test menggunakan curl.
 #### Otentikasi
 
 ```bash
-curl -X POST \
-	--header "Content-Type: application/json" \
-	--data '{"username":"noval","password":"kaliparejaya123"}' \
-	http://localhost:8080/login
+curl -X POST --user noval:kaliparejaya123 http://localhost:8080/login
 ```
 
 Output:
