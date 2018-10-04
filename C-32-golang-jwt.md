@@ -4,7 +4,7 @@ Pada bab ini kita akan belajar JSON Web Token (JWT) dan cara penerapannya di bah
 
 ## C.31.1. Definisi
 
-JWT merupakan salah satu standar JSON (RFC 7519) untuk akses token. Token dibentuk dari kombinasi beberapa informasi yang di-encode dan di-enkripsi. Informasi yang dimaksud adalah header, payload, dan signature.
+JWT merupakan salah satu standar JSON ([RFC 7519](https://tools.ietf.org/html/rfc7519)) untuk akses token. Token dibentuk dari kombinasi beberapa informasi yang di-encode dan di-enkripsi. Informasi yang dimaksud adalah header, payload, dan signature.
 
 Contoh JWT:
 
