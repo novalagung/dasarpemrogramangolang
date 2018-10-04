@@ -1,11 +1,12 @@
 package main
 
 import (
-	"chapter-A.22/conf"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
+
+	"dasarpemrogramangolang/chapter-B.22-configuration-file/conf"
 )
 
 type CustomMux struct {

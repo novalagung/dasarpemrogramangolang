@@ -33,8 +33,8 @@ func main() {
 	mux := new(CustomMux)
 	mux.RegisterMiddleware(MiddlewareJWTAuthorization)
 
-	mux.HandleFunc("/login", HandlerLogin)
 	mux.HandleFunc("/index", HandlerIndex)
+	mux.HandleFunc("/login", HandlerLogin)
 
 	server := new(http.Server)
 	server.Handler = mux
@@ -44,28 +44,10 @@ func main() {
 	server.ListenAndServe()
 }
 
-func authenticateUser(username, password string) (bool, M) {
-	basePath, _ := os.Getwd()
-	dbPath := filepath.Join(basePath, "users.json")
-	buf, _ := ioutil.ReadFile(dbPath)
-
-	data := make([]M, 0)
-	err := json.Unmarshal(buf, &data)
-	if err != nil {
-		return false, nil
-	}
-
-	res, _ := gubrak.Find(data, func(each M) bool {
-		return each["username"] == username && each["password"] == password
-	})
-
-	if res != nil {
-		resM := res.(M)
-		delete(resM, "password")
-		return true, resM
-	}
-
-	return false, nil
+func HandlerIndex(w http.ResponseWriter, r *http.Request) {
+	userInfo := r.Context().Value("userInfo").(jwt.MapClaims)
+	message := fmt.Sprintf("hello %s (%s)", userInfo["Username"], userInfo["Group"])
+	w.Write([]byte(message))
 }
 
 func HandlerLogin(w http.ResponseWriter, r *http.Request) {
@@ -111,10 +93,28 @@ func HandlerLogin(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(tokenString))
 }
 
-func HandlerIndex(w http.ResponseWriter, r *http.Request) {
-	userInfo := r.Context().Value("userInfo").(jwt.MapClaims)
-	message := fmt.Sprintf("hello %s (%s)", userInfo["Username"], userInfo["Group"])
-	w.Write([]byte(message))
+func authenticateUser(username, password string) (bool, M) {
+	basePath, _ := os.Getwd()
+	dbPath := filepath.Join(basePath, "users.json")
+	buf, _ := ioutil.ReadFile(dbPath)
+
+	data := make([]M, 0)
+	err := json.Unmarshal(buf, &data)
+	if err != nil {
+		return false, nil
+	}
+
+	res, _ := gubrak.Find(data, func(each M) bool {
+		return each["username"] == username && each["password"] == password
+	})
+
+	if res != nil {
+		resM := res.(M)
+		delete(resM, "password")
+		return true, resM
+	}
+
+	return false, nil
 }
 
 func MiddlewareJWTAuthorization(next http.Handler) http.Handler {
@@ -161,8 +161,8 @@ func MiddlewareJWTAuthorization(next http.Handler) http.Handler {
 }
 
 // curl -X POST --user noval:kaliparejaya123 http://localhost:8080/login
-// {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Mzg2NTI0NzksImlzcyI6Ik15IFNpbXBsZSBKV1QgQXBwIiwiVXNlcm5hbWUiOiJub3ZhbCIsIkVtYWlsIjoidGVycGFsbXVyYWhAZ21haWwuY29tIiwiR3JvdXAiOiJhZG1pbiJ9.JREJgUAYs2R5zuquqyX8tk23QlajVVe19susm6JsZq8"}
+// {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Mzg2NjQ3NjYsImlzcyI6Ik15IFNpbXBsZSBKV1QgQXBwIiwiVXNlcm5hbWUiOiJub3ZhbCIsIkVtYWlsIjoidGVycGFsbXVyYWhAZ21haWwuY29tIiwiR3JvdXAiOiJhZG1pbiJ9.tEpRwudxmt4v-71UlWPoOe3IA_MIWWJjf1CzCIZcgnk"}
 
 // curl -X GET \
-//  --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Mzg2NTI0NzksImlzcyI6Ik15IFNpbXBsZSBKV1QgQXBwIiwiVXNlcm5hbWUiOiJub3ZhbCIsIkVtYWlsIjoidGVycGFsbXVyYWhAZ21haWwuY29tIiwiR3JvdXAiOiJhZG1pbiJ9.JREJgUAYs2R5zuquqyX8tk23QlajVVe19susm6JsZq8" \
+//  --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Mzg2NjQ3NjYsImlzcyI6Ik15IFNpbXBsZSBKV1QgQXBwIiwiVXNlcm5hbWUiOiJub3ZhbCIsIkVtYWlsIjoidGVycGFsbXVyYWhAZ21haWwuY29tIiwiR3JvdXAiOiJhZG1pbiJ9.tEpRwudxmt4v-71UlWPoOe3IA_MIWWJjf1CzCIZcgnk" \
 //  http://localhost:8080/index
