@@ -8,7 +8,7 @@ func main() {
 
 	var copiedElemen = copy(fruits, aFruits)
 
-	fmt.Println(fruits)       // ["apple", "watermelon", "pinnaple"]
+	fmt.Println(fruits)       // ["watermelon"]
 	fmt.Println(aFruits)      // ["watermelon", "pinnaple"]
 	fmt.Println(copiedElemen) // 1
 }
