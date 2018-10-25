@@ -193,18 +193,43 @@ Pada contoh di atas bisa dilihat, elemen indeks ke-2 slice `fruits` nilainya ber
 
 ## A.15.7. Fungsi `copy()`
 
-Fungsi `copy()` digunakan untuk men-copy elemen slice pada parameter ke-2, untuk digabungkan dengan slice pada parameter ke-1. Fungsi ini mengembalikan jumlah elemen yang berhasil di-copy (yang nilai tersebut merupakan nilai terkecil antara `len(sliceTarget)` dan `len(sliceTujuan)`). Berikut merupakan contoh penerapannya.
+Fungsi `copy()` digunakan untuk men-copy elements slice pada `src` (parameter ke-2), ke `dst` (parameter pertama).
 
 ```go
-var fruits = []string{"apple"}
-var aFruits = []string{"watermelon", "pinnaple"}
-
-var copiedElemen = copy(fruits, aFruits)
-
-fmt.Println(fruits)       // ["apple", "watermelon", "pinnaple"]
-fmt.Println(aFruits)      // ["watermelon", "pinnaple"]
-fmt.Println(copiedElemen) // 1
+copy(dst, src)
 ```
+
+Jumlah element yang di-copy dari `src` adalah sejumlah lebar slice `dst` (atau `len(dst)`). Jika jumlah slice pada `src` lebih kecil dari `dst`, maka akan ter-copy semua. Lebih jelasnya silakan perhatikan contoh berikut.
+
+```go
+dst := make([]string, 3)
+src := []string{"watermelon", "pinnaple", "apple", "orange"}
+n := copy(dst, src)
+
+fmt.Println(dst) // watermelon pinnaple apple
+fmt.Println(src) // watermelon pinnaple apple orange
+fmt.Println(n)   // 3
+```
+
+Pada kode di atas variabel slice `dst` dipersiapkan dengan lebar adalah 3 elements. Slice `src` yang isinya 4 elements, di-copy ke `dst`. Menjadikan isi slice `dst` sekarang adalah 3 buah elements yang sama dengan 3 buah elements `src`, hasil dari operasi `copy()`.
+
+Yang ter-copy hanya 3 buah (meski `src` memiliki 4 elements) hal ini karena `copy()` hanya meng-copy elements sebanyak `len(dst)`.
+
+> Fungsi `copy()` mengembalikan informasi angka, representasi dari jumlah element yang berhasil di-copy.
+
+Pada contoh kedua berikut, `dst` merupakan slice yang sudah ada isinya, 3 buah elements. Variabel `src` yang juga merupakan slice dengan isi dua elements, di-copy ke `dst`. Karena operasi `copy()` akan meng-copy sejumlah `len(dst)`, maka semua elements `src` akan ter-copy **karena jumlahnya dibawah atau sama dengan lebar** `dst`.
+
+```go
+dst := []string{"potato", "potato", "potato"}
+src := []string{"watermelon", "pinnaple"}
+n := copy(dst, src)
+
+fmt.Println(dst) // watermelon pinnaple potato
+fmt.Println(src) // watermelon pinnaple
+fmt.Println(n)   // 2
+```
+
+Jika dilihat pada kode di atas, isi `dst` masih tetap 3 elements, tapi dua elements pertama adalah sama dengan `src`. Element terakhir `dst` isinya tidak berubah, tetap `potato`, hal ini karena proses copy hanya memutasi element ke-1 dan ke-2 milik `dst`, karena memang pada `src` hanya dua itu elements-nya.
 
 ## A.15.8. Pengaksesan Elemen Slice Dengan 3 Indeks
 

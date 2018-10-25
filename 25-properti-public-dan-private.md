@@ -109,7 +109,7 @@ Coba jalankan lagi.
 
 ![Contoh penerapan pemanggilan fungsi dari package berbeda](images/A.25_2_success.png)
 
-## 26.3. Penggunaan Public & Private Pada Struct Dan Propertinya
+## 25.3. Penggunaan Public & Private Pada Struct Dan Propertinya
 
 Level akses private dan public juga bisa diterapkan di fungsi, struct, method, maupun property variabel. Cara penggunaannya sama seperti pada pembahasan sebelumnya, yaitu dengan menentukan **character case** huruf pertama nama komponen, apakah huruf besar atau kecil.
 
@@ -181,7 +181,7 @@ Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` y
 
 ![Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda](images/A.25_4_success.png)
 
-## 26.4. Import Dengan Prefix Tanda Titik
+## 25.4. Import Dengan Prefix Tanda Titik
 
 Seperti yang kita tahu, untuk mengakses fungsi/struct/variabel yg berada di package lain, nama package nya perlu ditulis, contohnya seperti pada penggunaan penggunaan `library.Student` dan `fmt.Println()`.
 
@@ -202,7 +202,7 @@ func main() {
 
 Pada kode di atas package `library` di-import menggunakan tanda titik. Dengan itu, pemanggilan struct `Student` tidak perlu dengan menuliskan nama package nya.
 
-## 26.5. Pemanfaatan Alias Ketika Import Package
+## 25.5. Pemanfaatan Alias Ketika Import Package
 
 Fungsi yang berada di package lain bisa diakses dengan cara menuliskan nama-package diikuti nama fungsi-nya, contohnya seperti `fmt.Println()`. Package yang sudah di-import tersebut bisa diubah namanya dengan cara menggunakan alias pada saat import. Contohnya bisa dilihat pada kode berikut.
 
@@ -218,7 +218,7 @@ func main() {
 
 Pada kode di-atas, package `fmt` di tentukan aliasnya adalah `f`, untuk mengakses `Println()` cukup dengan `f.Println()`.
 
-## 26.6. Mengakses Properti Dalam File Yang Package-nya Sama
+## 25.6. Mengakses Properti Dalam File Yang Package-nya Sama
 
 Jika properti yang ingin di akses masih dalam satu package tapi berbeda file, cara mengaksesnya bisa langsung dengan memanggil namanya. Hanya saja ketika eksekusi, file-file lain yang yang nama package-nya sama juga ikut dipanggil.
 
@@ -260,7 +260,7 @@ Fungsi `sayHello` pada file `partial.go` bisa dikenali meski level aksesnya adal
 
 ![Pemanggilan fungsi private dari dalam package yang sama](images/A.25_6_multi_main.png)
 
-## 26.7. Fungsi `init()`
+## 25.7. Fungsi `init()`
 
 Selain fungsi `main()`, terdapat juga fungsi spesial, yaitu `init()`. Fungsi ini otomatis dipanggil pertama kali ketika aplikasi di-run. Jika fungsi ini berada dalam package main, maka dipanggil lebih dulu sebelum fungsi `main()` dieksekusi.
 
