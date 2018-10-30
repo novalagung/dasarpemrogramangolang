@@ -2,11 +2,13 @@
 
 Bab ini membahas mengenai *modifier* public dan private dalam Golang. Kapan sebuah struct, fungsi, atau method bisa diakses dari package lain dan kapan tidak.
 
-**PERINGATAN**: Peringatan ini saya tulis karena sudah terlalu banyak email yang penulis dapati, perihal munculnya error ketika mengikuti pembahasan pada bab ini. Dan kebanyakan **pembaca tidak tau cara menyelesaikannya karena hanya copy-paste source code tanpa membaca penjelasan-penjelasan yang padahal sudah tertulis** dengan cukup detail. Tidak semua, tapi kebanyakan, *no hard feeling* 👌.
+## A.25.0. PERINGATAN
+
+Peringatan ini saya tulis karena sudah terlalu banyak email yang penulis dapati, perihal munculnya error ketika mengikuti pembahasan pada bab ini. Dan kebanyakan **pembaca tidak tau cara menyelesaikannya karena hanya copy-paste source code tanpa membaca penjelasan-penjelasan yang padahal sudah tertulis** dengan cukup detail. Tidak semua, tapi kebanyakan, *no hard feeling* 👌.
 
 Bab ini memiliki beberapa perbedaan dengan bab lainnya. Jika pembaca mengikuti secara berurutan, dan membaca penjelasan dan pembahasan yang sudah tertulis, pasti akan mendapati **3 buah error. Di tiap-tiap error, terlampir screenshot, penjelasan penyebab error, terdapat juga cara resolve ketiga error tersebut**.
 
-**JANGAN CUMA COPAS SOURCE KODE, BACA!**.
+> **JANGAN CUMA COPAS SOURCE KODE, BACA!**.
 
 ## A.25.1. Package Public & Private
 
