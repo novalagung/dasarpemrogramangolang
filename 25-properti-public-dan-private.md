@@ -8,7 +8,7 @@ Peringatan ini saya tulis karena sudah terlalu banyak email yang penulis dapati,
 
 Bab ini memiliki beberapa perbedaan dengan bab lainnya. Jika pembaca mengikuti secara berurutan, dan membaca penjelasan dan pembahasan yang sudah tertulis, pasti akan mendapati **3 buah error. Di tiap-tiap error, terlampir screenshot, penjelasan penyebab error, terdapat juga cara resolve ketiga error tersebut**.
 
-> **JANGAN CUMA COPAS SOURCE KODE, BACA!**.
+> **JANGAN CUMA COPAS SOURCE KODE, BACA DAN PAHAMI!**.
 
 ## A.25.1. Package Public & Private
 
