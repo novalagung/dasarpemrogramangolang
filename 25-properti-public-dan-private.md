@@ -4,11 +4,17 @@ Bab ini membahas mengenai *modifier* public dan private dalam Golang. Kapan sebu
 
 ## A.25.0. PERINGATAN
 
-Peringatan ini saya tulis karena sudah terlalu banyak email yang penulis dapati, perihal munculnya error ketika mengikuti pembahasan pada bab ini. Dan kebanyakan **pembaca tidak tau cara menyelesaikannya karena hanya copy-paste source code tanpa membaca penjelasan-penjelasan yang padahal sudah tertulis** dengan cukup detail. Tidak semua, tapi kebanyakan, *no hard feeling* 👌.
+Peringatan ini ditulis karena sudah terlalu banyak email yang penulis dapati, perihal error yang muncul ketika mengikuti pembahasan bab ini.
 
-Bab ini memiliki beberapa perbedaan dengan bab lainnya. Jika pembaca mengikuti secara berurutan, dan membaca penjelasan dan pembahasan yang sudah tertulis, pasti akan mendapati **3 buah error. Di tiap-tiap error, terlampir screenshot, penjelasan penyebab error, terdapat juga cara resolve ketiga error tersebut**.
+Bab ini memiliki beberapa perbedaan dibanding bab lainnya. Jika pembaca mengikuti secara berurutan, membaca penjelasan dan pembahasan yang sudah tertulis, **pasti akan mendapati 3 buah error**. Di tiap-tiap error, sebenarnya sudah terlampir:
 
-> **JANGAN CUMA COPAS SOURCE KODE, BACA DAN PAHAMI!**.
+1. Screenshot error
+2. Penjelasan penyebab error
+3. Cara resolve atau solusi dari ketiga error tersebut.
+
+Kesimpulan dari email-email yang penulis dapati: **pembaca tidak tau cara mengatasi error tersebut, yang padahal sudah jelas tertulis akan muncul error dan juga cara mengatasinya. Ini kemungkinan besar disebabkan karena pembaca hanya copy-paste source code, tanpa membaca penjelasan-penjelasan yang padahal sudah tertulis cukup mendetail**. Tapi ini tidak semua, tapi banyak, jadi *no hard feeling* 👌😁.
+
+> Oleh karena itu, JANGAN CUMA COPAS SOURCE KODE, BACA, PELAJARI, DAN PAHAMI!
 
 ## A.25.1. Package Public & Private
 
