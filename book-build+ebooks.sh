@@ -2,6 +2,7 @@ mv book.json.temp book.json
 mv _book/.git _book_git
 gitbook build
 mv _book_git _book/.git
+rm -rf _book/_book_git
 gitbook pdf ./ ./dasarpemrogramangolang.pdf
 gitbook epub ./ ./dasarpemrogramangolang.epub
 gitbook mobi ./ ./dasarpemrogramangolang.mobi
