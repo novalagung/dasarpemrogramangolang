@@ -41,17 +41,25 @@ func main() {
 		}
 		htmlString := string(buf)
 
-		title := regex.FindString(htmlString)
-		title = strings.Replace(title, "· GitBook", fmt.Sprintf("- %s", bookName), -1)
-		if strings.HasPrefix(title, "Golang") {
-			// do nothing
-		} else if strings.HasPrefix(title, "Go") {
-			title = strings.Replace(title, "Go", "Golang", 1)
-		} else {
-			title = fmt.Sprintf("Golang %s", title)
-		}
-		newHtmlString := strings.Replace(htmlString, title, title, -1)
+		oldTitle := regex.FindString(htmlString)
+		oldTitle = strings.Replace(oldTitle, "<title>", "", -1)
+		oldTitle = strings.Replace(oldTitle, "</title>", "", -1)
 
+		newTitle := oldTitle
+		if titleParts := strings.Split(newTitle, "."); len(titleParts) > 2 {
+			actualTitle := strings.TrimSpace(titleParts[2])
+
+			if strings.Contains(actualTitle, "Go") || strings.Contains(actualTitle, "Golang") {
+				// do nothing
+			} else {
+				titleParts[2] = fmt.Sprintf(" Golang %s", actualTitle)
+			}
+
+			newTitle = strings.Join(titleParts, ".")
+		}
+		newTitle = strings.Replace(newTitle, "· GitBook", fmt.Sprintf("- %s", bookName), -1)
+
+		newHtmlString := strings.Replace(htmlString, oldTitle, newTitle, -1)
 		err = ioutil.WriteFile(path, []byte(newHtmlString), info.Mode())
 		if err != nil {
 			return err
