@@ -354,3 +354,55 @@ type person struct {
 ```
 
 Tag biasa dimanfaatkan untuk keperluan encode/decode data json. Informasi tag juga bisa diakses lewat reflect. Nantinya akan ada pembahasan yang lebih detail mengenai pemanfaatan tag dalam struct, terutama ketika sudah masuk bab JSON.
+
+## A.23.15. Type Alias
+
+Sebuah tipe data, seperti struct, bisa dibuatkan alias baru, caranya dengan `type NamaAlias = TargetStruct`. Contoh:
+
+```go
+type Person struct {
+	name string `tag1`
+	age  int    `tag2`
+}
+type People = Person
+
+var p1 = Person{"wick", 21}
+fmt.Println(p1)
+
+var p2 = People{"wick", 21}
+fmt.Println(p2)
+```
+
+Pada kode di atas, sebuah alias bernama `People` dibuat untuk struct `Person`.
+
+Casting dari objek (yang dicetak lewat struct tertentu) ke tipe yang merupakan alias dari struct pencetak, hasilnya selalu valid. Berlaku juga sebaliknya.
+
+```go
+people := People{"wick", 21}
+fmt.Println(Person(people))
+
+person := Person{"wick", 21}
+fmt.Println(People(person))
+```
+
+Pembuatan struct baru juga bisa dilakukan lewat teknik type alias. Silakan perhatikan kode berikut.
+
+```go
+type People1 struct {
+	name string `tag1`
+	age  int    `tag2`
+}
+type People2 = struct {
+	name string `tag1`
+	age  int    `tag2`
+}
+```
+
+Struct `People1` dideklarasikan. Struct alias `People2` juga dideklarasikan, struct ini merupakan alias dari anonymous struct. Penggunaan teknik type alias untuk anonymous struct menghasilkan output yang ekuivalen dengan pendeklarasian struct.
+
+Perlu diketahui juga, dan di atas sudah sempat disinggung, bahwa teknik type alias ini tidak didesain hanya untuk pembuatan alias pada tipe struct saja, semua jenis tipe data bisa dibuatkan alias. Di contoh berikut, dipersiapkan tipe `Number` yang merupakan alias dari tipe data `int`.
+
+```go
+type Number = int
+var num Number = 12
+```
