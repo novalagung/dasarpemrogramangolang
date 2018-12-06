@@ -47,9 +47,9 @@ func main() {
         data := "Hello from /index"
         return ctx.String(http.StatusOK, data)
     })
-}
 
-r.Start(":9000")
+    r.Start(":9000")
+}
 ```
 
 Kode di atas adalah contoh sederhana penerapan echo router.
