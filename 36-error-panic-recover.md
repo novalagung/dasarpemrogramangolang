@@ -166,3 +166,51 @@ func main() {
 Output:
 
 ![Handle panic menggunakan recover](images/A.36_4_recover.png)
+
+## A.36.5. Pemanfaatan `recover` pada IIFE
+
+Recover akan dieksekusi (pada waktunya) di blok kode dimana blok fungsi untuk recover ditempatkan.
+
+```go
+func main() {
+
+    // recover untuk panic dalam fungsi main
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Println("Panic occured", r)
+        } else {
+            fmt.Println("Application running perfectly")
+        }
+    }()
+
+    panic("some error happen")
+}
+```
+
+Di real-world development, ada kalanya recover dibutuhkan tidak pada fungsi terluar, tetapi dalam blok kode yg lebih spesifik. Sebagai contoh: recover panic dalam perulangan tanpa memberhentikan perulangan itu sendiri.
+
+```go
+func main() {
+    data := []string{"superman", "aquaman", "wonder woman"}
+
+    for _, each := range data {
+
+		func() {
+
+            // recover untuk iife dalam perulangan
+			defer func() {
+				if r := recover(); r != nil {
+					fmt.Println("Panic occured on looping", each, "| message:", r)
+				} else {
+					fmt.Println("Application running perfectly")
+				}
+			}()
+
+			panic("some error happen")
+        }()
+        
+	}
+}
+```
+
+Pada kode di atas, di dalam perulangan terdapat sebuah IIFE. Berisi operasi sesuai kebutuhan dan sebuah fungsi yang di-defer untuk recover panic. Ketika terjadi panic, maka perulangan tersebut tidak akan rusak, tetap lanjut.
