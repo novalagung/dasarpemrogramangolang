@@ -59,6 +59,9 @@
     * [A.55. Unit Test](55-unit-test.md)
     * [A.56. WaitGroup](56-waitgroup.md)
     * [A.57. Mutex](57-mutex.md)
+    * [A.58. Go Vendoring](A-58-go-vendoring.md)
+    * [A.59. Dep - Go Dependency Management Tool](A-59-go-dep.md)
+    * [A.60. Go Modules](A-60-go-modules.md)
 * B. Pemrograman Web Golang Dasar
     * [B.1. Golang Web App: Hello World](B-1-golang-web-hello-world.md)
     * [B.2. Routing http.HandleFunc](B-2-routing-http-handlefunc.md)

@@ -12,7 +12,7 @@ Dimisalkan, ada dua buah projek yang sedang di-develop, `project-one` dan `proje
 
 Kedua projek tersebut pastinya akan lookup gubrak ke direktori yang sama, yaitu `$GOPATH/src/github.com/novalagung/gubrak`. Efeknya, ketika sedang bekerja pada `project-one`, harus dipastikan current revision pada repository gubrak di lokal adalah sesuai dengan versi `v1.0.0`. Dan, ketika mengerjakan `project-two` maka current revision gubrak harus sesuai dengan versi `v0.9.1-alpha`. Repot sekali bukan?
 
-Setelah beberapa waktu, akhirnya `go1.6` rilis, dengan membawa kabar baik, yaitu rilisnya fasilitas baru **vendoring**. Vendoring ini berguna untuk meng-enkapsulasi packages atau dependencies atau 3rd party libraries yang digunakan dalam spesifik project.
+Setelah beberapa waktu, akhirnya `go1.6` rilis, dengan membawa kabar baik, yaitu rilisnya fasilitas baru **vendoring**. Vendoring ini berguna untuk men-centralize packages atau dependencies atau 3rd party libraries yang digunakan dalam spesifik project.
 
 Penggunaannya sendiri sangat mudah, cukup tempatkan 3rd party library ke-dalam folder `vendor`, yang berada di dalam masing-masing project. By default go akan memprioritaskan lookup pada folder `vendor`.
 
