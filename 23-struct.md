@@ -361,8 +361,8 @@ Sebuah tipe data, seperti struct, bisa dibuatkan alias baru, caranya dengan `typ
 
 ```go
 type Person struct {
-	name string `tag1`
-	age  int    `tag2`
+	name string
+	age  int
 }
 type People = Person
 
@@ -389,12 +389,12 @@ Pembuatan struct baru juga bisa dilakukan lewat teknik type alias. Silakan perha
 
 ```go
 type People1 struct {
-	name string `tag1`
-	age  int    `tag2`
+	name string
+	age  int
 }
 type People2 = struct {
-	name string `tag1`
-	age  int    `tag2`
+	name string
+	age  int
 }
 ```
 

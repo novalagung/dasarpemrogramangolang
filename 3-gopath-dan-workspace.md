@@ -6,9 +6,11 @@ Ada beberapa hal yang perlu disiapkan sebelum bisa masuk ke sesi pembuatan aplik
 
 **GOPATH** adalah variabel yang digunakan oleh Golang sebagai rujukan lokasi dimana semua folder project disimpan. Gopath berisikian 3 buah sub folder: `src`, `bin`, dan `pkg`.
 
-Project di Golang harus ditempatkan dalam `$GOPATH/src`. Sebagai contoh anda ingin membuat project dengan nama `belajar`, maka harus dibuatkan sebuah folder dengan nama `belajar`, ditempatkan dalam `src` (`$GOPATH/src/belajar`).
+Project di Golang **harus** ditempatkan dalam `$GOPATH/src`. Sebagai contoh anda ingin membuat project dengan nama `belajar`, maka **harus** dibuatkan sebuah folder dengan nama `belajar`, ditempatkan dalam `src` (`$GOPATH/src/belajar`).
 
 > Path separator yang digunakan sebagai contoh di buku ini adalah slash `/`. Khusus pengguna Windows, path separator adalah backslah `\`.
+
+Ada pengecualian untuk *aturan project harus ditempatkan dalam workspace*. Jika project dikembangkan dengan menerapkan **Go Modules** maka tidak perlu ditaruh dalam workspace, lebih jelasnya akan dibahas secara mendetail di [bab A.60. Go Modules](/A-60-go-modules.html).
 
 ## A.3.2. Setup Workspace
 
