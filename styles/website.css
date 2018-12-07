@@ -23,3 +23,6 @@
 #disqus_thread > iframe:nth-child(1) {
     padding-top: 30px;
 }
+#disqus_thread > iframe[src*=ads] {
+    display: none;
+}
