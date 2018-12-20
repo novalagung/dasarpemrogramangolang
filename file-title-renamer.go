@@ -46,18 +46,26 @@ func main() {
 		oldTitle = strings.Replace(oldTitle, "</title>", "", -1)
 
 		newTitle := oldTitle
-		if titleParts := strings.Split(newTitle, "."); len(titleParts) > 2 {
-			actualTitle := strings.TrimSpace(titleParts[2])
+		if newTitle == "Introduction · GitBook" {
+			newTitle = bookName
+		} else {
+			if titleParts := strings.Split(newTitle, "."); len(titleParts) > 2 {
+				actualTitle := strings.TrimSpace(titleParts[2])
 
-			if strings.Contains(actualTitle, "Go") || strings.Contains(actualTitle, "Golang") {
-				// do nothing
-			} else {
-				titleParts[2] = fmt.Sprintf(" Golang %s", actualTitle)
+				if strings.Contains(actualTitle, "Go") || strings.Contains(actualTitle, "Golang") {
+					// do nothing
+				} else {
+					titleParts[2] = fmt.Sprintf(" Golang %s", actualTitle)
+				}
+
+				newTitle = strings.Join(titleParts, ".")
 			}
 
-			newTitle = strings.Join(titleParts, ".")
+			newTitle = strings.Replace(newTitle, "· GitBook", fmt.Sprintf("- %s", bookName), -1)
 		}
-		newTitle = strings.Replace(newTitle, "· GitBook", fmt.Sprintf("- %s", bookName), -1)
+
+
+		return nil
 
 		newHtmlString := strings.Replace(htmlString, oldTitle, newTitle, -1)
 		err = ioutil.WriteFile(path, []byte(newHtmlString), info.Mode())
