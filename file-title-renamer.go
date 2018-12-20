@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	bookNameFlag := flag.String("name", "", "Book Name")
+	bookNameFlag := flag.String("name", "Dasar Pemrograman Golang", "Book Name")
 	flag.Parse()
 
 	bookName := *bookNameFlag
@@ -45,8 +45,10 @@ func main() {
 		oldTitle = strings.Replace(oldTitle, "<title>", "", -1)
 		oldTitle = strings.Replace(oldTitle, "</title>", "", -1)
 
+		isLandingPage := false
 		newTitle := oldTitle
 		if newTitle == "Introduction · GitBook" {
+			isLandingPage = true
 			newTitle = bookName
 		} else {
 			if titleParts := strings.Split(newTitle, "."); len(titleParts) > 2 {
@@ -64,10 +66,12 @@ func main() {
 			newTitle = strings.Replace(newTitle, "· GitBook", fmt.Sprintf("- %s", bookName), -1)
 		}
 
+		newHtmlString := htmlString
+		if isLandingPage {
+			newHtmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description">`, -1)
+		}
+		newHtmlString = strings.Replace(newHtmlString, oldTitle, newTitle, -1)
 
-		return nil
-
-		newHtmlString := strings.Replace(htmlString, oldTitle, newTitle, -1)
 		err = ioutil.WriteFile(path, []byte(newHtmlString), info.Mode())
 		if err != nil {
 			return err

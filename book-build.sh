@@ -3,7 +3,7 @@ mv _book/.git _book_git
 gitbook build
 mv _book_git _book/.git
 rm -rf _book/_book_git
-go run file-title-renamer.go -name "Dasar Pemrograman Golang"
+go run file-title-renamer.go
 cd _book
 cp ./../dasarpemrogramangolang.pdf ./
 cp ./../dasarpemrogramangolang.epub ./

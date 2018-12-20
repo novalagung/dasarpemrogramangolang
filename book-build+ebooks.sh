@@ -6,7 +6,7 @@ rm -rf _book/_book_git
 gitbook pdf ./ ./dasarpemrogramangolang.pdf
 gitbook epub ./ ./dasarpemrogramangolang.epub
 gitbook mobi ./ ./dasarpemrogramangolang.mobi
-go run file-title-renamer.go -name "Dasar Pemrograman Golang"
+go run file-title-renamer.go
 
 cd _book
 cp ./../dasarpemrogramangolang.pdf ./
