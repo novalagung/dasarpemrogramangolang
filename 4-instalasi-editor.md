@@ -16,8 +16,8 @@ Di bab ini akan dijelaskan bagaimana cara instalasi editor Visual Studio Code.
 
 ## A.4.2. Instalasi Extensi Go
 
-Dengan meng-instal Go Extension, maka programming menggunakan bahasa ini akan menjadi sangat nyaman lewat VS Code.
+Dengan meng-instal Go Extension, maka programming menggunakan bahasa ini akan menjadi sangat nyaman lewat VS Code. Banyak benefit yang didapat dengan meng-install ekstensi ini, beberapa diantaranya adalah integrasi dengan kompiler Go, auto lint on save, testing with coverage, fasilitas debugging with breakpoints, dan lainnya.
 
-Cara instalasi ekstensi sendiri cukup mudah, klik `View -> Extension` atau klik ikon *Extension Marketplace* di sebelah kiri (silakan lihat gambar berikut, ikon yang dilingkari merah). Setelah itu ketikkan **Go** pada inputan search, silakan install ekstensi Go buatan Micrsofot, biasanya muncul paling atas sendiri.
+Cara instalasi ekstensi sendiri cukup mudah, klik `View -> Extension` atau klik ikon *Extension Marketplace* di sebelah kiri (silakan lihat gambar berikut, deretan button paling kiri yang dilingkari merah). Setelah itu ketikkan **Go** pada inputan search, silakan install ekstensi Go buatan Microsoft, biasanya muncul paling atas sendiri.
 
 ![VSCode Go extension](images/A.4_2_vscode_go_extension.png)
