@@ -62,8 +62,8 @@ Cara termudah instalasi Golang di **Mac OS** adalah menggunakan [homebrew](http:
 
  1. Download archive berikut, pilih sesuai jenis bit komputer anda.
 
-     - 32bit => [go1.8.3.linux-386.msi](https://storage.googleapis.com/golang/go1.8.3.linux-386.tar.gz)
-     - 64bit => [go1.8.3.linux-amd64.msi](https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz)
+     - 32bit => [go1.8.3.linux-386.tar.gz](https://storage.googleapis.com/golang/go1.8.3.linux-386.tar.gz)
+     - 64bit => [go1.8.3.linux-amd64.tar.gz](https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz)
 
     Download bisa dilakukan lewat CLI, menggunakan `wget` atau `curl`.
 

@@ -4,28 +4,26 @@ Semua persiapan sudah selesai, saatnya mulai masuk pada sesi pembuatan program. 
 
 Di bab ini akan dijelaskan secara bertahap dari awal. Mulai pembuatan project, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi aplikasi.
 
-## A.6.1. Load `GOPATH` Ke Sublime Text
+## A.6.1. Load `GOPATH` Ke Editor
 
-Hal pertama yang perlu dilakukan, adalah me-load atau memunculkan folder `GOPATH` di editor Sublime. Dengan begitu proyek-proyek Golang akan lebih mudah di-maintain. Caranya:
+Hal pertama yang perlu dilakukan, adalah me-load atau memunculkan folder `GOPATH` di editor. Dengan begitu proyek-proyek Golang akan lebih mudah di-maintain. Caranya:
 
- 1. Buka Sublime.
- 2. Buka explorer/finder, lalu cari ke folder yang merupakan `GOPATH`.
- 3. Klik-drag folder tersebut (kebetulan lokasi folder `GOPATH` saya bernama `go`), tarik ke Sublime.
- 4. Seluruh subfolder `GOPATH` akan terbuka di Sublime.
+ 1. Buka editor yang digunakan.
+ 2. Cari menu untuk menambahkan projek, lalu pilih folder `GOPATH`. Untuk beberapa jenis editor bisa cukup dengan klik-drag folder tersebut ke editor.
 
-![Gopath di sublime](images/A.6_1_sublime_project_explorer.png)
+![GOPATH di editor](images/A.6_1_editor_project_explorer.png)
 
 > Nama variabel di sistem operasi non-Windows diawali dengan tanda dollar `$`, sebagai contoh `$GOPATH`. Sedangkan di Windows, nama variabel diapit karakter persen `%`, contohnya seperti `%GOPATH%`.
 
 ## A.6.2. Menyiapkan Folder Project
 
-Selanjutnya, buat project folder baru dalam `$GOPATH/src`, dengan nama folder bebas (boleh menggunakan nama `belajar-golang` atau lainnya). Agar lebih praktis, buat folder tersebut lewat Sublime. Berikut adalah caranya.
+Selanjutnya, buat project folder baru dalam `$GOPATH/src`, dengan nama folder bebas (boleh menggunakan nama `belajar-golang` atau lainnya). Agar lebih praktis, buat folder tersebut lewat editor yang digunakan. Berikut adalah caranya.
 
  1. Klik kanan di folder `src`.
  2. Klik **New Folder**, di bagian bawah akan muncul inputan kecil **Folder Name**.
  3. Ketikkan nama folder, **belajar-golang**, lalu enter.
 
-![Buat proyek di sublime](images/A.6_2_new_project_on_sublime.png)
+![Buat proyek di editor](images/A.6_2_new_project_on_editor.png)
 
 ## A.6.3. Menyiapkan File Program
 
@@ -33,14 +31,14 @@ File program disini maksudnya adalah file yang berisikan kode program Golang, ya
 
 Di dalam project yang telah dibuat (`$GOPATH/src/belajar-golang/`), siapkan sebuah file dengan nama bebas, yang jelas harus ber-ekstensi `.go` (Pada contoh ini saya menggunakan nama file `bab6-hello-world.go`).
 
-Pembuatan file program juga akan dilakukan lewat Sublime. Caranya silakan ikut petunjuk berikut.
+Pembuatan file program juga akan dilakukan lewat editor. Caranya silakan ikut petunjuk berikut.
 
  1. Klik kanan di folder `belajar-golang`.
  2. Klik **New File**, maka akan muncul tab baru di bagian kanan.
  3. Ketikkan di konten: `bab6-hello-world.go`.
  4. Lalu tekan **ctrl+s** (**cmd+s** untuk M\*c OSX), kemudian enter.
 
-![Buat file di sublime](images/A.6_3_new_file_on_sublime.png)
+![Buat file di editor](images/A.6_3_new_file_on_editor.png)
 
 ## A.6.4. Program Pertama: Hello Word
 
