@@ -34,9 +34,8 @@ Di dalam project yang telah dibuat (`$GOPATH/src/belajar-golang/`), siapkan sebu
 Pembuatan file program juga akan dilakukan lewat editor. Caranya silakan ikut petunjuk berikut.
 
  1. Klik kanan di folder `belajar-golang`.
- 2. Klik **New File**, maka akan muncul tab baru di bagian kanan.
- 3. Ketikkan di konten: `bab6-hello-world.go`.
- 4. Lalu tekan **ctrl+s** (**cmd+s** untuk M\*c OSX), kemudian enter.
+ 2. Klik **New File**, di bagian bawah akan muncul inputan kecil **File Name**.
+ 3. Ketikkan nama file, **belajar-golang**, lalu enter.
 
 ![Buat file di editor](images/A.6_3_new_file_on_editor.png)
 
