@@ -189,7 +189,9 @@ func handleDownload(w http.ResponseWriter, r *http.Request) {
 
 	path := r.FormValue("path")
 	f, err := os.Open(path)
-	defer f.Close()
+	if f != nil {
+		defer f.Close()
+	}
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
