@@ -117,4 +117,5 @@
     * [C.30. gRPC + Protobuf](C-30-golang-grpc-protobuf.md)
     * [C.31. Context: Value, Timeout, & Cancellation](C-31-golang-context.md)
     * [C.32. JSON Web Token (JWT)](C-32-golang-jwt.md)
-    <!-- * [C.31. Dockerize Golang App](C-31-golang-dockerize-app.md) -->
+    * [C.33. LDAP Authentication](C-33-ldap-authentication.md)
+    * [C.32. SSO SAML (Service Provider)](C-34-sso-saml-sp.md)

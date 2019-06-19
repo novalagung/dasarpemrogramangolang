@@ -70,8 +70,8 @@ Di sini kita akan belajar contoh sederhana penggunaan template untuk menampilkan
         <title>Golang learn net/http</title>
     </head>
     <body>
-        <p>Hello {{.Name}} !</p>
-        <p>{{.Message}}</p>
+        <p>Hello {{\.Name}} !</p>
+        <p>{{\.Message}}</p>
     </body>
 </html>
 ```
