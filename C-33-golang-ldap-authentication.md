@@ -20,9 +20,9 @@ Directory Services adalah sebuah sistem yang menyimpan, mengelola, dan menyediak
 - Nomor telephone
 - ...
 
-Cakupan network resources mulai dari hardware seperti komputer (atau lebih tinggi lagi) hingga aspek terkecil seperti file.
+Cakupan network resources mulai dari hardware seperti komputer (atau lebih tinggi lagi) hingga aspek yang relatif kecil seperti file.
 
-Dengan terhubungnya resources tersebut, akan mudah bagi kita untuk mengelola banyak hal yang berhubungan dengan network. Seperti misal kita perlu membuat aplikasi yang bisa login menggunakan credentials email kantor, atau banyak lainnya.
+Dengan terhubungnya resources tersebut, akan mudah bagi kita untuk mengelola banyak hal yang berhubungan dengan network. Seperti misal membuat aplikasi yang bisa login menggunakan credentials email kantor, atau banyak lainnya.
 
 #### Bind Operation
 
@@ -278,7 +278,7 @@ Login berhasil, dibuktikan dengan munculnya fullname **Robert Boyle**. Coba juga
 
 ![Ldap Login Sukses](images/C.33_3_ldap_login_success.png)
 
-## LDAP TLS
+## C.33.6. LDAP TLS
 
 Untuk koneksi LDAP yang TLS-enabled, maka cukup panggil method `.StartTLS()` milik objek ldap dial, dan isi parameternya dengan tls config. Pemanggilan fungsi ini harus tepat setelah proses dial ke directory server.
 
