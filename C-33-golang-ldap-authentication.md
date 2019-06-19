@@ -10,21 +10,29 @@ LDAP (Lightweight Directory Access Protocol) adalah protokol yang digunakan untu
 
 #### Directory Services
 
-??????????????????
+Directory Services adalah sebuah sistem yang menyimpan, mengelola, dan menyediakan akses informasi untuk menghubungkan sumber daya network (atau network resources). Network resources yang dimaksud contohnya:
+
+- Email
+- Perangkat periferal
+- Komputer
+- Folder/Files
+- Printers
+- Nomor telephone
+- ...
+
+Cakupan network resources mulai dari hardware seperti komputer (atau lebih tinggi lagi) hingga aspek terkecil seperti file.
+
+Dengan terhubungnya resources tersebut, akan mudah bagi kita untuk mengelola banyak hal yang berhubungan dengan network. Seperti misal kita perlu membuat aplikasi yang bisa login menggunakan credentials email kantor, atau banyak lainnya.
 
 #### Bind Operation
 
+Operasi bind digunakan untuk otentikasi client ke directory server, dan juga untuk mengubah state otorisasi client tersebut. Operasi bind dilakukan dengan mengirim informasi bind dn dan password.
 
-?????? 
+#### Directory Server untuk testing
 
-Bind operations are used to authenticate clients (and the users or applications behind them) to the directory server, to establish an authorization identity that will be used for subsequent operations processed on that connection, and to specify the LDAP protocol version that the client will use.
+Karena komunikasi adalah client-server maka kita perlu menggunakan salah satu directory server untuk keperluan testing. Beruntung-nya [Forum Systems](www.forumsys.com) berbaik hati menyediakan directory server yg bisa diakses secara gratis, dan di bab ini akan kita gunakan. 
 
-
-#### LDAP Server untuk testing
-
-Karena komunikasi adalah client-server maka kita perlu menggunakan salah satu LDAP server untuk keperluan testing. Beruntung-nya [Forum Systems](www.forumsys.com) berbaik hati menyediakan LDAP server yg bisa diakses secara gratis, dan di bab ini akan kita gunakan. 
-
-Berikut adalah informasi credentials LDAP server tersebut:
+Berikut adalah informasi credentials directory server tersebut:
 
 ```
 Server: ldap.forumsys.com  
@@ -39,7 +47,9 @@ Lebih detailnya silakan cek di http://www.forumsys.com/tutorials/integration-how
 
 ## C.33.2. LDAP Browser & Directory Client
 
-Silakan gunakan LDAP browser yang disukai, atau bisa gunakan [Apache Directory Studio](https://directory.apache.org/studio/). Buat koneksi baru menggunakan credentials di atas. Lakukan hingga berhasil memunculkan list user data seperti gambar berikut.
+Silakan gunakan LDAP browser yang disukai, atau bisa gunakan [Apache Directory Studio](https://directory.apache.org/studio/).
+
+Buat koneksi baru menggunakan credentials di atas. Lakukan hingga berhasil memunculkan list user data seperti gambar berikut.
 
 ![Browse LDAP](images/C.33_1_ldap_browse.png)
 
@@ -51,8 +61,8 @@ Berikutnya masuk ke bagian perkodingan.
 
 Pertama kita buat terlebih dahulu aplikasi web-nya. Ada dua rute yang perlu dipersiapkan:
 
-- landing page, memunculkan form login
-- action login endpoint, untuk handle proses login
+- Landing page, memunculkan form login
+- Action login endpoint, untuk handle proses login
 
 Mari langsung praktek, buat file `main.go`, lalu siapkan html string untuk login form.
 
@@ -124,7 +134,7 @@ http.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
 })
 ```
 
-Pada kode di atas proses otentikasi di handle secara implisit oleh fungsi `AuthUsingLDAP()` yang akan kita buat. Ketika user sukses melakukan login maka pesan selamat datang akan ditampilkan dengan menyertakan data nama lengkap user tersebut (data nama didapat nantinya dari user data di directory service).
+Pada kode di atas proses otentikasi di handle secara implisit oleh fungsi `AuthUsingLDAP()`, yang akan kita buat pastinya. Ketika user sukses melakukan login maka pesan selamat datang akan ditampilkan dengan menyertakan data nama lengkap user tersebut (data nama didapat nantinya dari user data di directory service).
 
 OK, dua handler sudah siap, sekarang start webserver.
 
@@ -155,11 +165,11 @@ const (
 )
 ```
 
-3rd party lib `go-ldap/ldap` kita gunakan untuk melakukan operasi client-server dengan LDAP server. Silakan `go get` terlebih dahulu jika belum.
+3rd party lib [https://github.com/go-ldap/ldap](github.com/go-ldap/ldap) kita gunakan untuk melakukan operasi client-server dengan directory server. Silakan `go get` terlebih dahulu jika belum.
 
-Beberapa konstanta di atas isinya sesuai dengan credentials LDAP server test yang di atas sudah kita bahas. Diluar itu ada satu tambahan konstanta, yaitu `ldapSearchDN`, nantinya kita perlukan dalam melakukan operasi search.
+Beberapa konstanta di atas isinya sesuai dengan credentials directory server test yang di atas sudah kita bahas. Diluar itu ada satu tambahan konstanta, yaitu `ldapSearchDN`, nantinya kita perlukan dalam melakukan operasi search.
 
-Kemudian siapkan struct untuk menampung user data yang dikembalikan oleh LDAP server.
+Selanjutnya, siapkan struct untuk menampung user data yang dikembalikan oleh directory server.
 
 ```go
 type UserLDAPData struct {
@@ -173,7 +183,6 @@ type UserLDAPData struct {
 Buat fungsi `AuthUsingLDAP()`, lalu inisialisasi koneksi ldap. Fungsi ini menerima dua parameter, username dan password, yang keduanya diinputkan oleh user nantinya lewat browser.
 
 ```go
-
 func AuthUsingLDAP(username, password string) (bool, *UserLDAPData, error) {
 	l, err := ldap.Dial("tcp", fmt.Sprintf("%s:%d", ldapServer, ldapPort))
 	if err != nil {
@@ -185,7 +194,7 @@ func AuthUsingLDAP(username, password string) (bool, *UserLDAPData, error) {
 }
 ```
 
-Fungsi `ldap.Dial()` digunakan untuk melakukan handshake dengan ldap server.
+Fungsi `ldap.Dial()` digunakan untuk melakukan handshake dengan directory server.
 
 Setelah itu lakukan bind operation menggunakan Bind DN dan password sesuai konstanta yang sudah dipersiapkan. Gunakan method `.Bind()` milik objek hasil dial ldap untuk bind.
 
@@ -268,3 +277,25 @@ Ok, mari kita test. Jalankan program, lalu akses http://localhost:9000/; Lakukan
 Login berhasil, dibuktikan dengan munculnya fullname **Robert Boyle**. Coba juga gunakan password yang salah agar lebih meyakinkan.
 
 ![Ldap Login Sukses](images/C.33_3_ldap_login_success.png)
+
+## LDAP TLS
+
+Untuk koneksi LDAP yang TLS-enabled, maka cukup panggil method `.StartTLS()` milik objek ldap dial, dan isi parameternya dengan tls config. Pemanggilan fungsi ini harus tepat setelah proses dial ke directory server.
+
+```go
+l, err := ldap.Dial("tcp", fmt.Sprintf("%s:%d", ldapServer, ldapPort))
+if err != nil {
+    return false, nil, err
+}
+defer l.Close()
+
+// reconnect with TLS
+err = l.StartTLS(tlsConfig)
+if err != nil {
+    return false, nil, err
+}
+```
+
+---
+
+ - [go-ldap/ldap](https://github.com/go-ldap/ldap), by go-ldap team, MIT License
