@@ -1,14 +1,14 @@
 # A.23. Struct
 
-Struct adalah kumpulan definisi variabel (atau property) dan atau fungsi (atau method), yang dibungkus dengan nama tertentu.
+Go tidak memiliki class yang ada di bahasa-bahasa strict OOP lain. Tapi Go memiliki tipe data struktur yang disebut dengan Struct.
 
-Property dalam struct, tipe datanya bisa bervariasi. Mirip seperti `map`, hanya saja key-nya sudah didefinisikan di awal, dan tipe data tiap itemnya bisa berbeda.
+Struct adalah kumpulan definisi variabel (atau property) dan atau fungsi (atau method), yang dibungkus sebagai tipe data baru dengan nama tertentu. Property dalam struct, tipe datanya bisa bervariasi. Mirip seperti `map`, hanya saja key-nya sudah didefinisikan di awal, dan tipe data tiap itemnya bisa berbeda.
 
-Dengan memanfaatkan struct, data akan terbungkus lebih rapi dan mudah di-maintain.
+Dari sebuah struct, kita bisa buat variabel baru, yang memiliki atribut sesuai skema struct tersebut. Kita sepakati dalam buku ini, variabel tersebut dipanggil dengan istilah **object** atau **object struct**.
 
-Struct merupakan cetakan, digunakan untuk mencetak variabel objek (istilah untuk variabel yang memiliki property). Variabel objek memiliki behaviour atau sifat yang sama sesuai struct pencetaknya. Konsep ini sama dengan konsep **class** pada pemrograman berbasis objek. Sebuah buah struct bisa dimanfaatkan untuk mencetak banyak objek.
+> Konsep struct di golang mirip dengan konsep **class** pada OOP, meski sebenarnya berbeda. Disini penulis menggunakan konsep OOP sebagai analogi, dengan tujuan untuk mempermudah dalam mencerna isi bab ini.
 
-> Disini penulis menggunakan konsep OOP sebagai analogi, dengan tujuan untuk mempermudah dalam mencerna isi bab ini.
+Dengan memanfaatkan struct, grouping data akan lebih mudah, selain itu dan rapi dan gampang untuk di-maintain.
 
 ## A.23.1. Deklarasi Struct
 
@@ -21,11 +21,11 @@ type student struct {
 }
 ```
 
-Struct `student` dideklarasikan memiliki 2 property, yaitu `name` dan `grade`. Objek yang dicetak dengan struct ini nantinya akan memiliki sifat yang sama.
+Struct `student` dideklarasikan memiliki 2 property, yaitu `name` dan `grade`. Objek yang dibuat dengan struct ini nantinya memiliki skema atau struktur yang sama.
 
 ## A.23.2. Penerapan Struct
 
-Struct `student` yang sudah disiapkan di atas akan kita manfaatkan untuk mencetak variabel objek. Property variabel tersebut di-isi kemudian ditampilkan.
+Struct `student` yang sudah disiapkan di atas akan kita manfaatkan untuk membuat variabel objek. Property variabel tersebut di-isi kemudian ditampilkan.
 
 ```go
 func main() {
@@ -40,7 +40,7 @@ func main() {
 
 Cara membuat variabel objek sama seperti pembuatan variabel biasa. Tinggal tulis saja nama variabel diikuti nama struct, contoh: `var s1 student`.
 
-Semua property variabel objek pada awalnya memiliki nilai default sesuai tipe datanya.
+Semua property variabel objek pada awalnya memiliki zero value sesuai tipe datanya.
 
 Property variabel objek bisa diakses nilainya menggunakan notasi titik, contohnya `s1.name`. Nilai property-nya juga bisa diubah, contohnya  `s1.grade = 2`.
 
@@ -79,7 +79,7 @@ var s5 = student{grade: 2, name: "bruce"}
 
 ## A.23.4. Variabel Objek Pointer
 
-Objek hasil cetakan struct bisa diambil nilai pointer-nya, dan bisa disimpan pada variabel objek yang bertipe struct pointer. Contoh penerapannya:
+Objek yang dibuat dari tipe struct bisa diambil nilai pointer-nya, dan bisa disimpan pada variabel objek yang bertipe struct pointer. Contoh penerapannya:
 
 ```go
 var s1 = student{name: "wick", grade: 2}
@@ -101,7 +101,7 @@ Meskipun `s2` bukan variabel asli, property nya tetap bisa diakses seperti biasa
 
 ## A.23.5. Embedded Struct
 
-**Embedded** struct adalah mekanisme untuk menyimpan objek cetakan struct kedalam properti sebuah struct lain. Agar lebih mudah dipahami, mari kita bahas kode berikut.
+**Embedded** struct adalah mekanisme untuk menempelkan sebuah struct sebagai properti struct lain. Agar lebih mudah dipahami, mari kita bahas kode berikut.
 
 ```go
 package main
@@ -189,7 +189,7 @@ Pada deklarasi `s1`, property `person` diisi variabel objek `p1`.
 
 ## A.23.8. Anonymous Struct
 
-Anonymous struct adalah struct yang tidak dideklarasikan di awal, melainkan ketika dibutuhkan saja, langsung pada saat penciptaan objek. Teknik ini cukup efisien untuk pembuatan variabel objek yang struct nya hanya dipakai sekali.
+Anonymous struct adalah struct yang tidak dideklarasikan di awal sebagai tipe data baru, melainkan langsung ketika pembuatan objek. Teknik ini cukup efisien untuk pembuatan variabel objek yang struct-nya hanya dipakai sekali.
 
 ```go
 package main
@@ -238,7 +238,7 @@ var s2 = struct {
 
 ## A.23.9. Kombinasi Slice & Struct
 
-Slice dan `struct` bisa dikombinasikan seperti pada slice dan `map`, caranya pun mirip, cukup tambahkan tanda `[]` sebelum tipe data pada saat deklarasi.
+Slice dan `struct` bisa dikombinasikan seperti pada slice dan `map`, caranya penggunaannya-pun mirip, cukup tambahkan tanda `[]` sebelum tipe data pada saat deklarasi.
 
 ```go
 type person struct {
@@ -406,3 +406,7 @@ Perlu diketahui juga, dan di atas sudah sempat disinggung, bahwa teknik type ali
 type Number = int
 var num Number = 12
 ```
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.23-struct)

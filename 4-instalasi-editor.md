@@ -1,6 +1,6 @@
 # A.4. Instalasi Editor
 
-Proses pembuatan aplikasi menggunakan Golang akan lebih maksimal jika didukung oleh editor atau **IDE** yang pas. Ada cukup banyak pilihan bagus yang bisa dipertimbangkan, diantaranya: Brackets, JetBrains GoLand, Netbeans, Atom, Brackets, Visual Studio Code, Sublime Text, dan lainnya.
+Proses pembuatan aplikasi menggunakan Go akan lebih maksimal jika didukung oleh editor atau **IDE** yang pas. Ada cukup banyak pilihan bagus yang bisa dipertimbangkan, diantaranya: Brackets, JetBrains GoLand, Netbeans, Atom, Brackets, Visual Studio Code, Sublime Text, dan lainnya.
 
 Penulis sarankan untuk memilih editor yang paling nyaman digunakan, preferensi masing-masing pastinya berbeda. Penulis sendiri sempat menggunakan Sublime Text 3, tapi sekarang pindah ke **Visual Studio Code**. Editor ini sangat ringan, mudah didapat, dan memiliki ekstensi yang bagus untuk bahasa Go. Jika pembaca ingin menggunakan editor yang sama, maka silakan melanjutkan guide berikut.
 

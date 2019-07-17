@@ -4,7 +4,7 @@
 
 ## A.15.1. Inisialisasi Slice
 
-Cara pembuatan slice mirip seperti pembuatan array, bedanya tidak perlu mendefinisikan jumlah elemen ketika awal deklarasi. Pengaksesan nilai elemen-nya juga sama. Kode berikut adalah contoh pembuatan slice.
+Cara pembuatan slice mirip seperti pembuatan array, bedanya tidak perlu mendefinisikan jumlah elemen ketika awal deklarasi. Pengaksesan nilai elemen-nya juga sama. Contoh pembuatan slice:
 
 ```go
 var fruits = []string{"apple", "grape", "banana", "melon"}
@@ -102,7 +102,7 @@ Bisa dilihat pada output di atas, elemen yang sebelumnya bernilai `"grape"` pada
 
 ---
 
-Pembahasan mengenai dasar slice sepertinya sudah cukup, selanjutnya kita akan membahas tentang beberapa *built in function* bawaan Golang, yang bisa dimanfaatkan untuk keperluan operasi slice.
+Pembahasan mengenai dasar slice sepertinya sudah cukup, selanjutnya kita akan membahas tentang beberapa *built in function* bawaan Go, yang bisa dimanfaatkan untuk keperluan operasi slice.
 
 ## A.15.4. Fungsi `len()`
 
@@ -254,3 +254,7 @@ fmt.Println(bFruits)      // ["apple", "grape"]
 fmt.Println(len(bFruits)) // len: 2
 fmt.Println(cap(bFruits)) // cap: 2
 ```
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.15-slice)

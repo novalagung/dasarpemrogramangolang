@@ -1,14 +1,14 @@
 # A.9. Tipe Data
 
-Golang mengenal beberapa jenis tipe data, diantaranya adalah tipe data numerik (desimal & non-desimal), string, dan boolean.
+Go mengenal beberapa jenis tipe data, diantaranya adalah tipe data numerik (desimal & non-desimal), string, dan boolean.
 
 Di bab-bab sebelumnya secara tak sadar kita sudah mengaplikasikan beberapa tipe data, seperti `string` dan tipe numerik `int`.
 
-Bab ini menjelaskan beberapa macam tipe data standar yang disediakan oleh Golang, beserta cara penggunaannya.
+Pada bab ini akan dijelaskan beberapa macam tipe data standar yang disediakan oleh Go, beserta cara penggunaannya.
 
 ## A.9.1. Tipe Data Numerik Non-Desimal
 
-Tipe data numerik non-desimal atau **non floating point** di Golang ada beberapa jenis. Secara umum ada 2 tipe data kategori ini yang perlu diketahui.
+Tipe data numerik non-desimal atau **non floating point** di Go ada beberapa jenis. Secara umum ada 2 tipe data kategori ini yang perlu diketahui.
 
  - `uint`, tipe data untuk bilangan cacah (bilangan positif).
  - `int`, tipe data untuk bilangan bulat (bilangan negatif dan positif).
@@ -95,18 +95,18 @@ Ketika dijalankan, output akan muncul sama persisi sesuai nilai variabel `messag
 
 ![String menggunakan grave accent](images/A.9_2_unescaped_string.png)
 
-## A.9.5. Nilai `nil` Dan Nilai Default Tipe Data
+## A.9.5. Nilai `nil` & Zero Value
 
 `nil` bukan merupakan tipe data, melainkan sebuah nilai. Variabel yang isi nilainya `nil` berarti memiliki nilai kosong.
 
-Semua tipe data yang sudah dibahas di atas memiliki nilai default. Artinya meskipun variabel dideklarasikan dengan tanpa nilai awal, akan ada nilai default-nya.
+Semua tipe data yang sudah dibahas di atas memiliki zero value (nilai default tipe data). Artinya meskipun variabel dideklarasikan dengan tanpa nilai awal, tetap akan ada nilai default-nya.
 
- - Nilai default `string` adalah `""` (string kosong).
- - Nilai default `bool` adalah `false`.
- - Nilai default tipe numerik non-desimal adalah `0`.
- - Nilai default tipe numerik desimal adalah `0.0`.
+ - Zero value dari `string` adalah `""` (string kosong).
+ - Zero value dari `bool` adalah `false`.
+ - Zero value dari tipe numerik non-desimal adalah `0`.
+ - Zero value dari tipe numerik desimal adalah `0.0`.
 
-`nil` adalah nilai kosong, benar-benar kosong. `nil` tidak bisa digunakan pada tipe data yang sudah dibahas di atas, karena kesemuanya akan memiliki nilai default pada saat deklarasi. Ada beberapa tipe data yang bisa di-set nilainya dengan `nil`, diantaranya:
+Zero value berbeda dengan `nil`. `Nil` adalah nilai kosong, benar-benar kosong. `nil` tidak bisa digunakan pada tipe data yang sudah dibahas di atas. Ada beberapa tipe data yang bisa di-set nilainya dengan `nil`, diantaranya:
 
 - pointer
 - tipe data fungsi
@@ -116,3 +116,7 @@ Semua tipe data yang sudah dibahas di atas memiliki nilai default. Artinya meski
 - interface kosong atau `interface{}`
 
 Nantinya kita akan sering bertemu dengan `nil` setelah masuk pada pembahasan bab-bab tersebut.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.9-tipe-data)

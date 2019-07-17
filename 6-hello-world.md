@@ -1,12 +1,14 @@
 # A.6. Program Pertama: Hello World
 
-Semua persiapan sudah selesai, saatnya mulai masuk pada sesi pembuatan program. Program pertama yang akan kita buat adalah aplikasi kecil untuk memunculkan tulisan **Hello World**.
+Semua persiapan sudah selesai, saatnya mulai masuk pada sesi pembuatan program. Program pertama yang akan kita buat adalah aplikasi kecil yang menampilkan tulisan **Hello World**.
 
-Di bab ini akan dijelaskan secara bertahap dari awal. Mulai pembuatan project, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi aplikasi.
+Di bab ini akan dijelaskan secara komprehensif step-by-step mulai dari awal. Mulai pembuatan project, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi aplikasi.
 
 ## A.6.1. Load `GOPATH` Ke Editor
 
-Hal pertama yang perlu dilakukan, adalah me-load atau memunculkan folder `GOPATH` di editor. Dengan begitu proyek-proyek Golang akan lebih mudah di-maintain. Caranya:
+> Jika kawan-kawan menggunakan Go Modules, maka silakan langsung loncat ke step [A.6.3](#a63-menyiapkan-file-program), langsung drag saja folder projek ke editor atau IDE yang digunakan.
+
+OK, hal pertama yang perlu dilakukan, adalah me-load atau memunculkan folder `GOPATH` di editor. Dengan begitu proyek-proyek Go akan lebih mudah di-maintain. Caranya:
 
  1. Buka editor yang digunakan.
  2. Cari menu untuk menambahkan projek, lalu pilih folder `GOPATH`. Untuk beberapa jenis editor bisa cukup dengan klik-drag folder tersebut ke editor.
@@ -27,9 +29,9 @@ Selanjutnya, buat project folder baru dalam `$GOPATH/src`, dengan nama folder be
 
 ## A.6.3. Menyiapkan File Program
 
-File program disini maksudnya adalah file yang berisikan kode program Golang, yang berekstensi `.go`.
+File program disini maksudnya adalah file yang berisikan kode program Go, berekstensi `.go`.
 
-Di dalam project yang telah dibuat (`$GOPATH/src/belajar-golang/`), siapkan sebuah file dengan nama bebas, yang jelas harus ber-ekstensi `.go` (Pada contoh ini saya menggunakan nama file `bab6-hello-world.go`).
+Di dalam project yang telah dibuat (`$GOPATH/src/belajar-golang/`), siapkan sebuah file dengan nama bebas, yang jelas harus ber-ekstensi `.go`. Pada contoh ini saya menggunakan nama file `bab6-hello-world.go`.
 
 Pembuatan file program juga akan dilakukan lewat editor. Caranya silakan ikut petunjuk berikut.
 
@@ -43,9 +45,7 @@ Pembuatan file program juga akan dilakukan lewat editor. Caranya silakan ikut pe
 
 Setelah project folder dan file program sudah siap, saatnya untuk **coding**.
 
-Dibawah ini merupakan contoh kode program sederhana untuk memunculkan text atau tulisan **"hello world"** ke layar output (command line).
-
-Silakan salin kode berikut ke file program yang telah dibuat. Sebisa mungkin jangan copy paste. Biasakan untuk menulis dari awal, agar cepat terbiasa dan familiar dengan Golang.
+Dibawah ini merupakan contoh kode program sederhana untuk memunculkan text atau tulisan **"hello world"** ke layar output (command line). Silakan salin kode berikut ke file program yang telah dibuat. Sebisa mungkin jangan copy paste. Biasakan untuk menulis dari awal, agar cepat terbiasa dan familiar dengan Go.
 
 ```go
 package main
@@ -82,7 +82,7 @@ Hasilnya, muncul tulisan **hello world** di layar console.
 
 ![Menjalankan program](images/A.6_4_execute_hello_world.png)
 
-Selamat! Anda telah berhasil membuat program menggunakan Golang!
+Selamat! Anda telah berhasil membuat program menggunakan Go!
 
 ---
 
@@ -90,7 +90,7 @@ Meski kode program di atas sangat sederhana, mungkin akan muncul beberapa pertan
 
 ## A.6.5. Penggunaan Keyword `package`
 
-Setiap file program harus memiliki package. Setiap project harus ada satu file dengan package bernama `main`. File yang ber-package `main`, akan di eksekusi pertama kali ketika program di jalankan.
+Setiap file program harus memiliki package. Setiap project harus ada minimal satu file dengan nama package `main`. File yang ber-package `main`, akan di eksekusi pertama kali ketika program di jalankan.
 
 Cara menentikan package dengan menggunakan keyword `package`, berikut adalah contoh penulisannya.
 
@@ -103,7 +103,7 @@ package main
 
 Keyword `import` digunakan untuk meng-include atau memasukan package lain kedalam file program, agar isi package yang di-include bisa dimanfaatkan.
 
-Package `fmt` merupakan salah satu package yang disediakan oleh Golang, berisikan banyak fungsi untuk keperluan **I/O** yang berhubungan dengan text.
+Package `fmt` merupakan salah satu package yang disediakan oleh Go, berisikan banyak fungsi untuk keperluan **I/O** yang berhubungan dengan text.
 
 Skema penulisan keyword `import` bisa dilihat pada contoh berikut.
 
@@ -142,3 +142,7 @@ fmt.Println("hello", "world!", "how", "are", "you")
 ```
 
 Outputnya: **hello world! how are you**.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.6-hello-world).

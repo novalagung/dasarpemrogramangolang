@@ -118,4 +118,4 @@
     * [C.31. Context: Value, Timeout, & Cancellation](C-31-golang-context.md)
     * [C.32. JSON Web Token (JWT)](C-32-golang-jwt.md)
     * [C.33. LDAP Authentication](C-33-golang-ldap-authentication.md)
-    * [C.32. SSO SAML (Service Provider)](C-34-sso-saml-sp.md)
+    * [C.32. SSO SAML (Service Provider)](C-34-golang-sso-saml-sp.md)

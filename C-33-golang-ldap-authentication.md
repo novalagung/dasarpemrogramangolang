@@ -24,6 +24,8 @@ Cakupan network resources mulai dari hardware seperti komputer (atau lebih tingg
 
 Dengan terhubungnya resources tersebut, akan mudah bagi kita untuk mengelola banyak hal yang berhubungan dengan network. Seperti misal membuat aplikasi yang bisa login menggunakan credentials email kantor, atau banyak lainnya.
 
+Selain itu, juga LDAP sering dimanfaatkan dalam implementasi SSO (Single sign-on).
+
 #### Bind Operation
 
 Operasi bind digunakan untuk otentikasi client ke directory server, dan juga untuk mengubah state otorisasi client tersebut. Operasi bind dilakukan dengan mengirim informasi bind dn dan password.
