@@ -1,6 +1,6 @@
 # A.41. Fungsi String
 
-Golang menyediakan package `strings`, berisikan cukup banyak fungsi untuk keperluan pengolahan data string. Bab ini berisi pembahasan mengenai beberapa fungsi yang ada di dalam package tersebut.
+Go menyediakan package `strings`, isinya banyak fungsi untuk keperluan pengolahan data string. Bab ini berisi pembahasan mengenai beberapa fungsi yang ada di dalam package tersebut.
 
 ## A.41.1. Fungsi `strings.Contains()`
 
@@ -154,3 +154,7 @@ Mengubah huruf-huruf string menjadi huruf besar.
 var str = strings.ToUpper("eat!")
 fmt.Println(str) // "EAT!"
 ```
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.41-strings)

@@ -128,7 +128,7 @@ s2.sayHello()
 
 Berikut adalah penjelasan tambahan mengenai beberapa hal pada bab ini.
 
-#### A.24.2.1. Penggunaan Fungsi `strings.Split()`
+### A.24.2.1. Penggunaan Fungsi `strings.Split()`
 
 Di bab ini ada fungsi baru yang kita gunakan: `strings.Split()`. Fungsi ini berguna untuk memisah string menggunakan pemisah yang ditentukan sendiri. Hasilnya adalah array berisikan kumpulan substring.
 

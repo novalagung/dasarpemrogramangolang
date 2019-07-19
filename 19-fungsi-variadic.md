@@ -60,13 +60,13 @@ for _, number := range numbers {
 
 Berikut merupakan penjelasan tambahan dari kode yang telah kita tulis.
 
-#### A.19.1.1. Penggunaan Fungsi `fmt.Sprintf()`
+### A.19.1.1. Penggunaan Fungsi `fmt.Sprintf()`
 
 Fungsi `fmt.Sprintf()` pada dasarnya sama dengan `fmt.Printf()`, hanya saja fungsi ini tidak menampilkan nilai, melainkan mengembalikan nilainya dalam bentuk string. Pada kasus di atas, nilai kembalian `fmt.Sprintf()` ditampung oleh variabel `msg`.
 
 Selain `fmt.Sprintf()`, ada juga `fmt.Sprint()` dan `fmt.Sprintln()`.
 
-#### A.19.1.2. Penggunaan Fungsi `float64()`
+### A.19.1.2. Penggunaan Fungsi `float64()`
 
 Sebelumnya sudah dibahas bahwa `float64` merupakan tipe data. Tipe data jika ditulis sebagai fungsi (penandanya ada tanda kurungnya) berguna untuk **casting**. Casting sendiri adalah teknik untuk konversi tipe sebuah data ke tipe lain. Hampir semua jenis tipe data dasar yang telah dipelajari di bab 9 bisa digunakan untuk casting. Dan cara penerepannya juga sama, cukup panggil sebagai fungsi, lalu masukan data yang ingin dikonversi sebagai parameter.
 

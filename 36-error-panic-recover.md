@@ -1,18 +1,12 @@
 # A.36. Error, Panic, dan Recover
 
-Error merupakan topik yang penting dalam pemrograman golang. Di bagian ini kita akan belajar mengenai pemanfaatan error dan cara membuat custom error sendiri.
-
-Kita juga akan belajar tentang penggunaan **panic** untuk memunculkan panic error, dan **recover** untuk mengatasinya.
+Error merupakan topik yang sangat penting dalam pemrograman Go. Di bagian ini kita akan belajar mengenai pemanfaatan error dan cara membuat custom error sendiri. Selain itu, kita juga akan belajar tentang penggunaan **panic** untuk memunculkan panic error, dan **recover** untuk mengatasinya.
 
 ## A.36.1. Pemanfaatan Error
 
-`error` adalah sebuah tipe. Error memiliki memiliki 1 buah property berupa method `Error()`, method ini mengembalikan detail pesan error. Error termasuk tipe yang isinya bisa kosong atau `nil`.
+`error` merupakan sebuah tipe. Error memiliki memiliki 1 buah property berupa method `Error()`, method ini mengembalikan detail pesan error dalam string. Error termasuk tipe yang isinya bisa `nil`.
 
-Di golang, banyak sekali fungsi yang mengembalikan nilai balik lebih dari satu. Biasanya, salah satu kembalian adalah bertipe `error`. Contohnya seperti pada fungsi `strconv.Atoi()`.
-
-`strconv.Atoi()` berguna untuk mengkonversi data string menjadi numerik. Fungsi ini mengembalikan 2 nilai balik. Nilai balik pertama adalah hasil konversi, dan nilai balik kedua adalah `error`.
-
-Ketika konversi berjalan mulus, nilai balik kedua akan bernilai `nil`. Sedangkan ketika konversi gagal, penyebabnya bisa langsung diketahui dari nilai balik kedua.
+Di Go, banyak sekali fungsi yang mengembalikan nilai balik lebih dari satu. Biasanya, salah satu kembalian adalah bertipe `error`. Contohnya seperti pada fungsi `strconv.Atoi()`. Fungsi tersebut digunakan untuk konversi data string menjadi numerik. Fungsi ini mengembalikan 2 nilai balik. Nilai balik pertama adalah hasil konversi, dan nilai balik kedua adalah `error`. Ketika konversi berjalan mulus, nilai balik kedua akan bernilai `nil`. Sedangkan ketika konversi gagal, penyebabnya bisa langsung diketahui dari error yang dikembalikan.
 
 Dibawah ini merupakan contoh program sederhana untuk deteksi inputan dari user, apakah numerik atau bukan. Dari sini kita akan belajar mengenai pemanfaatan error.
 
@@ -42,9 +36,9 @@ func main() {
 }
 ```
 
-Ketika program dijalankan, muncul tulisan `"Type some number: "`, ketik sebuah angka lalu enter.
+Jalankan program, maka muncul tulisan `"Type some number: "`. Ketik angka bebas, jika sudah maka enter.
 
-`fmt.Scanln(&input)` bertugas mengambil inputan yang diketik user sebelum dia menekan enter, lalu menyimpannya sebagai string ke variabel `input`.
+Statement `fmt.Scanln(&input)` dipergunakan untuk men-capture inputan yang diketik oleh user sebelum dia menekan enter, lalu menyimpannya sebagai string ke variabel `input`.
 
 Selanjutnya variabel tersebut dikonversi ke tipe numerik menggunakan `strconv.Atoi()`. Fungsi tersebut mengembalikan 2 data, ditampung oleh `number` dan `err`.
 
@@ -58,7 +52,7 @@ Pesan error bisa didapat dari method `Error()` milik tipe `error`.
 
 ## A.36.2. Membuat Custom Error
 
-Selain memanfaatkan error hasil kembalian fungsi, kita juga bisa membuat error sendiri dengan menggunakan fungsi `errors.New` (untuk menggunakannya harus import package `errors` terlebih dahulu).
+Selain memanfaatkan error hasil kembalian suatu fungsi internal yang tersedia, kita juga bisa membuat objek error sendiri dengan menggunakan fungsi `errors.New()` (harus import package `errors` terlebih dahulu).
 
 Pada contoh berikut ditunjukan bagaimana cara membuat custom error. Pertama siapkan fungsi dengan nama `validate()`, yang nantinya digunakan untuk pengecekan input, apakah inputan kosong atau tidak. Ketika kosong, maka error baru akan dibuat.
 
@@ -99,17 +93,17 @@ Fungsi `validate()` mengembalikan 2 data. Data pertama adalah nilai `bool` yang 
 
 Fungsi `strings.TrimSpace()` digunakan untuk menghilangkan karakter spasi sebelum dan sesudah string. Ini dibutuhkan karena user bisa saja menginputkan spasi lalu enter.
 
-Ketika inputan tidak valid, maka error baru dibuat dengan memanfaatkan fungsi `errors.New()`.
+Ketika inputan tidak valid, maka error baru dibuat dengan memanfaatkan fungsi `errors.New()`. Selain itu objek error juga bisa dibuat lewat fungsi `fmt.Errorf()`.
 
 ![Custom error](images/A.36_2_custom_error.png)
 
 ## A.36.3. Penggunaan `panic`
 
-Panic digunakan untuk menampilkan *trace* error sekaligus menghentikan flow goroutine (ingat, `main` juga merupakan goroutine). Setelah ada panic, proses selanjutnya tidak di-eksekusi (kecuali proses yang di-defer, akan tetap dijalankan tepat sebelum panic muncul).
+Panic digunakan untuk menampilkan *stack trace* error sekaligus menghentikan flow goroutine (karena `main()` juga merupakan goroutine, maka behaviour yang sama juga berlaku). Setelah ada panic, proses akan terhenti, apapun setelah tidak di-eksekusi kecuali proses yang sudah di-defer sebelumnya (akan muncul sebelum panic error).
 
-Panic memnuculkan pesan di console, sama seperti `fmt.Println()` hanya saja informasi yang ditampilkan sangat mendetail dan heboh.
+Panic menampilkan pesan error di console, sama seperti `fmt.Println()`. Informasi error yang ditampilkan adalah stack trace error, jadi sangat mendetail dan heboh.
 
-Pada program yang telah kita buat tadi, ubah `fmt.Println()` yang berada di dalam blok kondisi `else` pada fungsi main menjadi `panic()`, lalu tambahkan `fmt.Println()` setelahnya.
+Kembali ke koding, pada program yang telah kita buat tadi, ubah `fmt.Println()` yang berada di dalam blok kondisi `else` pada fungsi main menjadi `panic()`, lalu tambahkan `fmt.Println()` setelahnya.
 
 ```go
 func main() {
@@ -126,17 +120,17 @@ func main() {
 }
 ```
 
-Coba jalankan program, lalu langsung tekan enter, error panic akan muncul, dan baris kode setelahnya tidak dijalankan.
+Jalankan program lalu langsung tekan enter, maka panic error muncul dan baris kode setelahnya tidak dijalankan.
 
 ![Menampilkan error menggunakan panic](images/A.36_3_panic.png)
 
 ## A.36.4. Penggunaan `recover`
 
-Recover berguna untuk meng-handle panic error. Pada saat panic muncul, recover men-take-over goroutine yang sedang panic (pesan panic tidak akan muncul).
+Recover berguna untuk meng-handle panic error. Pada saat panic error muncul, recover men-take-over goroutine yang sedang panic (pesan panic tidak akan muncul).
 
-Kita modif sedikit fungsi di-atas untuk mempraktekkan bagaimana cara penggunaan recover.
+Ok, mari kita modif sedikit fungsi di-atas untuk mempraktekkan bagaimana cara penggunaan recover. Tambahkan fungsi `catch()`, dalam fungsi ini terdapat statement `recover()` yang dia akan mengembalikan pesan panic error yang seharusnya muncul.
 
-Tambahkan fungsi `catch()`, dalam fungsi ini terdapat statement `recover()` yang dia akan mengembalikan pesan error panic yang seharusnya muncul. Fungsi yang berisikan `recover()` harus di-defer, karena meskipun muncul panic, defer tetap di-eksekusi.
+Untuk menggunakan recover, fungsi/closure/IIFE dimana `recover()` berada harus dieksekusi dengan cara di-defer.
 
 ```go
 func catch() {
@@ -169,12 +163,10 @@ Output:
 
 ## A.36.5. Pemanfaatan `recover` pada IIFE
 
-Recover akan dieksekusi (pada waktunya) di blok kode dimana blok fungsi untuk recover ditempatkan.
+Contoh penerapan recover pada IIFE:
 
 ```go
 func main() {
-
-    // recover untuk panic dalam fungsi main
     defer func() {
         if r := recover(); r != nil {
             fmt.Println("Panic occured", r)
@@ -187,7 +179,9 @@ func main() {
 }
 ```
 
-Di real-world development, ada kalanya recover dibutuhkan tidak pada fungsi terluar, tetapi dalam blok kode yg lebih spesifik. Sebagai contoh: recover panic dalam perulangan tanpa memberhentikan perulangan itu sendiri.
+Dalam real-world development, ada kalanya recover dibutuhkan tidak dalam blok fungsi terluar, tetapi dalam blok fungsi yg lebih spesifik.
+
+Silakan perhatikan contoh kode recover perulangan berikut. Umumnya, jika terjadi panic error, maka proses proses dalam scope blok fungsi akan terjenti, mengakibatkan perulangan juga akan terhenti secara paksa. Pada contoh berikut kita coba terapkan cara handle panic error tanpa menghentikan perulangan itu sendiri.
 
 ```go
 func main() {
@@ -196,8 +190,8 @@ func main() {
     for _, each := range data {
 
 		func() {
-
-            // recover untuk iife dalam perulangan
+            
+            // recover untuk IIFE dalam perulangan
 			defer func() {
 				if r := recover(); r != nil {
 					fmt.Println("Panic occured on looping", each, "| message:", r)
@@ -213,4 +207,8 @@ func main() {
 }
 ```
 
-Pada kode di atas, di dalam perulangan terdapat sebuah IIFE. Berisi operasi sesuai kebutuhan dan sebuah fungsi yang di-defer untuk recover panic. Ketika terjadi panic, maka perulangan tersebut tidak akan rusak, tetap lanjut.
+Pada kode di atas, bisa dilihat di dalam perulangan terdapat sebuah IIFE untuk recover panic dan juga ada kode untuk men-trigger panic error secara paksa. Ketika panic error terjadi, maka idealnya perulangan terhenti, tetapi pada contoh di atas tidak, dikarenakan operasi dalam perulangan sudah di bungkus dalam IIFE dan seperti yang kita tau sifat panic error adalah menghentikan proses secara paksa dalam scope blok fungsi.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.36-error-panic-recover)

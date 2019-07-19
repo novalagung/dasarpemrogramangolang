@@ -8,7 +8,7 @@ Di bab ini kita akan belajar tentang pemanfaatan sha1 dan teknik salting dalam h
 
 ## A.44.1. Penerapan Hash SHA1
 
-Golang menyediakan package `crypto/sha1`, berisikan library untuk keperluan *hashing*. Cara penerapannya cukup mudah, contohnya bisa dilihat pada kode berikut.
+Go menyediakan package `crypto/sha1`, berisikan library untuk keperluan *hashing*. Cara penerapannya cukup mudah, contohnya bisa dilihat pada kode berikut.
 
 ```go
 package main
@@ -94,3 +94,7 @@ Hasil ekripsi fungsi `doHashUsingSalt` akan selalu beda, karena salt yang diguna
 ![Hashing dengan salt](images/A.44_2_hash_salt_sha1.png)
 
 Metode ini sering dipakai untuk enkripsi password user. Salt dan data hasil hash harus disimpan pada database, karena digunakan dalam pencocokan password setiap user melakukan login.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.43-hash-sha1)

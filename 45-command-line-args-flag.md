@@ -128,3 +128,7 @@ Tinggal tambahkan suffix `Var` pada pemanggilan nama fungsi flag yang digunakan 
 Kegunaan dari parameter terakhir method-method flag adalah untuk memunculkan hints atau petunjuk arguments apa saja yang bisa dipakai, ketika argument `--help` ditambahkan saat eksekusi program.
 
 ![Contoh penggunaan flag](images/A.45_3_flag_info.png)
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.45-command-line-args-flag)
