@@ -1,12 +1,12 @@
 # A.35. Defer & Exit
 
-**Defer** digunakan untuk mengakhirkan eksekusi sebuah statement. Sedangkan **Exit** digunakan untuk menghentikan program (ingat, menghentikan program, tidak seperti `return` yang menghentikan blok kode).
+**Defer** digunakan untuk mengakhirkan eksekusi sebuah statement tepat sebelum blok fungsi selesai. Sedangkan **Exit** digunakan untuk menghentikan program secara paksa (ingat, menghentikan program, tidak seperti `return` yang hanya menghentikan blok kode).
 
 ## A.35.1. Penerapan keyword `defer`
 
-Seperti yang sudah dijelaskan secara singkat di atas, bahwa defer digunakan untuk mengakhirkan eksekusi baris kode. Ketika eksekusi blok sudah selesai, statement yang di defer baru akan dijalankan.
+Seperti yang sudah dijelaskan secara singkat di atas, bahwa defer digunakan untuk mengakhirkan eksekusi baris kode. Ketika eksekusi blok sudah hampir selesai, statement yang di-defer dijalankan.
 
-Defer bisa ditempatkan di mana saja, awal maupun akhir blok.
+Defer bisa ditempatkan di mana saja, awal maupun akhir blok. Tetapi tidak mempengaruhi kapan waktu dieksekusinya, akan selalu dieksekusi di akhir.
 
 ```go
 package main
@@ -23,7 +23,7 @@ Output:
 
 ![Penerapan `defer`](images/A.35_1_defer.png)
 
-Keyword `defer` digunakan untuk mengakhirkan statement. Pada kode di atas, `fmt.Println("halo")` di-defer, hasilnya string `"halo"` akan muncul setelah `"selamat datang"`.
+Keyword `defer` di atas akan mengakhirkan ekseusi `fmt.Println("halo")`, efeknya pesan `"halo"` akan muncul setelah `"selamat datang"`.
 
 Statement yang di-defer akan tetap muncul meskipun blok kode diberhentikan ditengah jalan menggunakan `return`. Contohnya seperti pada kode berikut.
 
@@ -73,3 +73,7 @@ func main() {
 Meskipun `defer fmt.Println("halo")` ditempatkan sebelum `os.Exit()`, statement tersebut tidak akan dieksekusi, karena di-tengah fungsi program dihentikan secara paksa.
 
 ![Penerapan `exit`](images/A.35_3_exit.png)
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.35-defer-exit)

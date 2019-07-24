@@ -4,7 +4,9 @@ Di bab-bab sebelumnya kita telah banyak menggunakan layout format string seperti
 
 Layout format string digunakan dalam konversi data ke bentuk string. Contohnya seperti `%.3f` yang untuk konversi nilai `double` ke `string` dengan 3 digit desimal.
 
-Pada bab ini kita akan mempelajari satu per satu layout format string yang tersedia di Golang. Kode berikut adalah sampel data yang akan kita digunakan sebagai contoh.
+## A.37.1. Persiapan
+
+Pada bab ini kita akan mempelajari satu per satu layout format string yang tersedia di Golang. Kode berikut adalah sample data yang akan kita digunakan sebagai contoh.
 
 ```go
 type student struct {
@@ -24,7 +26,7 @@ var data = student{
 }
 ```
 
-## A.37.1. Layout Format `%b`
+## A.37.2. Layout Format `%b`
 
 Digunakan untuk memformat data numerik, menjadi bentuk string numerik berbasis 2 (biner).
 
@@ -33,7 +35,7 @@ fmt.Printf("%b\n", data.age)
 // 11010
 ```
 
-## A.37.2. Layout Format `%c`
+## A.37.3. Layout Format `%c`
 
 Digunakan untuk memformat data numerik yang merupakan kode unicode, menjadi bentuk string karakter unicode-nya.
 
@@ -45,7 +47,7 @@ fmt.Printf("%c\n", 1235)
 // ӓ
 ```
 
-## A.37.3. Layout Format `%d`
+## A.37.4. Layout Format `%d`
 
 Digunakan untuk memformat data numerik, menjadi bentuk string numerik berbasis 10 (basis bilangan yang kita gunakan).
 
@@ -54,7 +56,7 @@ fmt.Printf("%d\n", data.age)
 // 26
 ```
 
-## A.37.4. Layout Format `%e` atau `%E`
+## A.37.5. Layout Format `%e` atau `%E`
 
 Digunakan untuk memformat data numerik desimal ke dalam bentuk notasi numerik standar [Scientific notation](https://en.wikipedia.org/wiki/Scientific_notation).
 
@@ -70,7 +72,7 @@ fmt.Printf("%E\n", data.height)
 
 Perbedaan antara `%e` dan `%E` hanya pada bagian huruf besar kecil karakter `e` pada hasil.
 
-## A.37.5. Layout Format `%f` atau `%F`
+## A.37.6. Layout Format `%f` atau `%F`
 
 `%F` adalah alias dari `%f`. Keduanya memiliki fungsi yang sama.
 
@@ -90,7 +92,7 @@ fmt.Printf("%.f\n", data.height)
 // 182
 ```
 
-## A.37.6. Layout Format `%g` atau `%G`
+## A.37.7. Layout Format `%g` atau `%G`
 
 `%G` adalah alias dari `%g`. Keduanya memiliki fungsi yang sama.
 
@@ -119,7 +121,7 @@ fmt.Printf("%.5g\n", 0.12)
 // 0.12
 ```
 
-## A.37.7. Layout Format `%o`
+## A.37.8. Layout Format `%o`
 
 Digunakan untuk memformat data numerik, menjadi bentuk string numerik berbasis 8 (oktal).
 
@@ -128,7 +130,7 @@ fmt.Printf("%o\n", data.age)
 // 32
 ```
 
-## A.37.8. Layout Format `%p`
+## A.37.9. Layout Format `%p`
 
 Digunakan untuk memformat data pointer, mengembalikan alamat pointer referensi variabel-nya.
 
@@ -139,7 +141,7 @@ fmt.Printf("%p\n", &data.name)
 // 0x2081be0c0
 ```
 
-## A.37.9. Layout Format `%q`
+## A.37.10. Layout Format `%q`
 
 Digunakan untuk **escape** string. Meskipun string yang dipakai menggunakan literal <code>\</code> akan tetap di-escape.
 
@@ -148,7 +150,7 @@ fmt.Printf("%q\n", `" name \ height "`)
 // "\" name \\\\ height \""
 ```
 
-## A.37.10. Layout Format `%s`
+## A.37.11. Layout Format `%s`
 
 Digunakan untuk memformat data string.
 
@@ -157,7 +159,7 @@ fmt.Printf("%s\n", data.name)
 // wick
 ```
 
-## A.37.11. Layout Format `%t`
+## A.37.12. Layout Format `%t`
 
 Digunakan untuk memformat data boolean, menampilkan nilai `bool`-nya.
 
@@ -166,7 +168,7 @@ fmt.Printf("%t\n", data.isGraduated)
 // false
 ```
 
-## A.37.12. Layout Format `%T`
+## A.37.13. Layout Format `%T`
 
 Berfungsi untuk mengambil tipe variabel yang akan diformat.
 
@@ -187,7 +189,7 @@ fmt.Printf("%T\n", data.hobbies)
 // []string
 ```
 
-## A.37.13. Layout Format `%v`
+## A.37.14. Layout Format `%v`
 
 Digunakan untuk memformat data apa saja (termasuk data bertipe `interface{}`). Hasil kembaliannya adalah string nilai data aslinya.
 
@@ -198,7 +200,7 @@ fmt.Printf("%v\n", data)
 // {wick 182.5 26 false [eating sleeping]}
 ```
 
-## A.37.14. Layout Format `%+v`
+## A.37.15. Layout Format `%+v`
 
 Digunakan untuk memformat struct, mengembalikan nama tiap property dan nilainya berurutan sesuai dengan struktur struct.
 
@@ -207,7 +209,7 @@ fmt.Printf("%+v\n", data)
 // {name:wick height:182.5 age:26 isGraduated:false hobbies:[eating sleeping]}
 ```
 
-## A.37.15. Layout Format `%#v`
+## A.37.16. Layout Format `%#v`
 
 Digunakan untuk memformat struct, mengembalikan nama dan nilai tiap property sesuai dengan struktur struct dan juga bagaimana objek tersebut dideklarasikan.
 
@@ -233,7 +235,7 @@ fmt.Printf("%#v\n", data)
 
 Format ini juga bisa digunakan untuk menampilkan tipe data lain, dan akan dimunculkan strukturnya juga.
 
-## A.37.16. Layout Format `%x` atau `%X`
+## A.37.17. Layout Format `%x` atau `%X`
 
 Digunakan untuk memformat data numerik, menjadi bentuk string numerik berbasis 16 (heksadesimal).
 
@@ -256,7 +258,7 @@ fmt.Printf("%x\n", d)
 
 `%x` dan `%X` memiliki fungsi yang sama. Perbedaannya adalah `%X` akan mengembalikan string dalam bentuk *uppercase* atau huruf kapital.
 
-## A.37.17. Layout Format `%%`
+## A.37.18. Layout Format `%%`
 
 Cara untuk menulis karakter `%` pada string format.
 
@@ -264,3 +266,7 @@ Cara untuk menulis karakter `%` pada string format.
 fmt.Printf("%%\n")
 // %
 ```
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.37-string-format)

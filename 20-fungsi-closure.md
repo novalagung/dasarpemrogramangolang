@@ -58,7 +58,7 @@ Output program:
 
 Berikut adalah penjelasan tambahan mengenai kode di atas
 
-## A.20.2. Penggunaan Template String `%v`
+## A.20.1.1. Penggunaan Template String `%v`
 
 Template `%v` digunakan untuk menampilkan segala jenis data. Bisa array, int, float, bool, dan lainnya.
 
@@ -70,7 +70,7 @@ Bisa dilihat pada statement di atas, data bertipe array dan numerik ditampilkan 
 
 ---
 
-## A.20.3. Immediately-Invoked Function Expression (IIFE)
+## A.20.2. Immediately-Invoked Function Expression (IIFE)
 
 Closure jenis ini dieksekusi langsung pada saat deklarasinya. Biasa digunakan untuk membungkus proses yang hanya dilakukan sekali, bisa mengembalikan nilai, bisa juga tidak.
 
@@ -116,7 +116,7 @@ Pada contoh di atas IIFE menghasilkan nilai balik yang kemudian ditampung `newNu
 
 > Closure bisa juga dengan gaya manifest typing, caranya dengan menuliskan skema closure-nya sebagai tipe data. Contoh:<br /><code>var closure (func (string, int, []string) int)</code><br /><code>closure = func (a string, b int, c []string) int {</code><br /><code>&nbsp;&nbsp;&nbsp;&nbsp;// ..</code><br /><code>}</code>
 
-## A.20.4. Closure Sebagai Nilai Kembalian
+## A.20.3. Closure Sebagai Nilai Kembalian
 
 Salah satu keunikan closure lainnya adalah bisa dijadikan sebagai nilai balik fungsi, cukup aneh memang, tapi pada suatu kondisi teknik ini sangat membantu. Di bawah ini disediakan sebuah fungsi bernama `findMax()`, fungsi ini salah satu nilai kembaliannya berupa closure.
 
@@ -168,3 +168,7 @@ func main() {
 Output program:
 
 ![Kombinasi parameter biasa dan variadic](images/A.20_3_combination.png)
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.20-fungsi-closure)

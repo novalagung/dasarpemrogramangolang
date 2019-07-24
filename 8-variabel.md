@@ -1,12 +1,12 @@
 # A.8. Variabel
 
-Golang mengadopsi dua jenis penulisan variabel, yang dituliskan tipe data-nya dan yang tidak. Kedua cara tersebut valid dan tujuannya sama, pembedanya hanya cara penulisannya saja.
+Go mengadopsi dua jenis penulisan variabel, yang dituliskan tipe data-nya dan yang tidak. Kedua cara tersebut valid dan tujuannya sama, pembedanya hanya cara penulisannya saja.
 
 Pada bab ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel.
 
-## A.8.1. Deklarasi Variabel Dengan Tipe Data
+## A.8.1. Deklarasi Variabel Beserta Tipe Data
 
-Golang memiliki aturan cukup ketat dalam hal penulisan variabel. Ketika deklarasi, tipe data yg digunakan harus dituliskan juga. Istilah lain dari konsep ini adalah **manifest typing**.
+Go memiliki aturan cukup ketat dalam hal penulisan variabel. Ketika deklarasi, tipe data yg digunakan harus dituliskan juga. Istilah lain dari konsep ini adalah **manifest typing**.
 
 Berikut adalah contoh cara pembuatan variabel yang tipe datanya harus ditulis.
 
@@ -27,7 +27,7 @@ func main() {
 
 Keyword `var` di atas digunakan untuk deklarasi variabel, contohnya bisa dilihat pada `firstName` dan `lastName`.
 
-Nilai variabel `firstName` diisi langsung ketika deklarasi, berbeda dibanding `lastName` yang nilainya diisi setelah baris kode deklarasi, hal seperti ini diperbolehkan di Golang.
+Nilai variabel `firstName` diisi langsung ketika deklarasi, berbeda dibanding `lastName` yang nilainya diisi setelah baris kode deklarasi, hal seperti ini diperbolehkan di Go.
 
 ![Menampilkan isi variabel](images/A.8_1_variabel.png)
 
@@ -51,7 +51,7 @@ var firstName string = "john"
 
 Nilai variabel bisa di-isi langsung pada saat deklarasi variabel.
 
-## A.8.3. Penggunaan Fungsi `fmt.Printf()`
+### A.8.2.1. Penggunaan Fungsi `fmt.Printf()`
 
 Fungsi ini digunakan untuk menampilkan output dalam bentuk tertentu. Kegunaannya sama seperti fungsi `fmt.Println()`, hanya saja struktur outputnya didefinisikan di awal.
 
@@ -69,9 +69,9 @@ Tanda plus (`+`) jika ditempatkan di antara string, fungsinya adalah untuk pengg
 
 Fungsi `fmt.Printf()` tidak menghasilkan baris baru di akhir text, oleh karena itu digunakanlah literal `\n` untuk memunculkan baris baru di akhir. Hal ini sangat berbeda jika dibandingkan dengan fungsi `fmt.Println()` yang secara otomatis menghasilkan new line (baris baru) di akhir.
 
-## A.8.4. Deklarasi Variabel Tanpa Tipe Data
+## A.8.3. Deklarasi Variabel Tanpa Tipe Data
 
-Selain **manifest typing**, Golang juga mengadopsi metode **type inference**, yaitu metode deklarasi variabel yang tipe data-nya ditentukan oleh tipe data nilainya, cara kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword `var` dan tipe data tidak perlu ditulis.
+Selain **manifest typing**, Go juga mengadopsi metode **type inference**, yaitu metode deklarasi variabel yang tipe data-nya ditentukan oleh tipe data nilainya, cara kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword `var` dan tipe data tidak perlu ditulis.
 
 ```go
 var firstName string = "john"
@@ -104,11 +104,11 @@ lastName = "ethan"
 lastName = "bourne"
 ```
 
-Perlu diketahu, deklarasi menggunakan `:=` hanya bisa dilakukan di dalam fungsi, tidak bisa digunakan di luar fungsi.
+> Perlu diketahu, deklarasi menggunakan `:=` hanya bisa dilakukan di dalam blok fungsi.
 
-## A.8.5. Deklarasi Multi Variabel
+## A.8.4. Deklarasi Multi Variabel
 
-Golang mendukung metode deklarasi banyak variabel secara bersamaan, caranya dengan menuliskan variabel-variabel-nya dengan pembatas tanda koma (`,`). Untuk pengisian nilainya-pun diperbolehkan secara bersamaan.
+Go mendukung metode deklarasi banyak variabel secara bersamaan, caranya dengan menuliskan variabel-variabel-nya dengan pembatas tanda koma (`,`). Untuk pengisian nilainya-pun diperbolehkan secara bersamaan.
 
 ```go
 var first, second, third string
@@ -133,11 +133,9 @@ Dengan menggunakan teknik type inference, deklarasi multi variabel bisa dilakuka
 one, isFriday, twoPointTwo, say := 1, true, 2.2, "hello"
 ```
 
-Istimewa bukan? Istimewa sekali.
+## A.8.5. Variabel Underscore `_`
 
-## A.8.6. Variabel Underscore `_`
-
-Golang memiliki aturan unik yang jarang dimiliki bahasa lain, yaitu tidak boleh ada satupun variabel yang menganggur. Artinya, semua variabel yang dideklarasikan harus digunakan. Jika ada variabel yang tidak digunakan tapi dideklarasikan, error akan muncul dan program tidak bisa di-run ataupun di-compile.
+Go memiliki aturan unik yang jarang dimiliki bahasa lain, yaitu tidak boleh ada satupun variabel yang menganggur. Artinya, semua variabel yang dideklarasikan harus digunakan. Jika ada variabel yang tidak digunakan tapi dideklarasikan, error akan muncul dan program tidak bisa di-run ataupun di-compile.
 
 ![Variabel pengangguran](images/A.8_2_unused_variabel.png)
 
@@ -155,9 +153,9 @@ Variabel underscore adalah predefined, jadi tidak perlu menggunakan `:=` untuk p
 
 Biasanya variabel underscore sering dimanfaatkan untuk menampung nilai balik fungsi yang tidak digunakan.
 
-Perlu diketahui, bahwa isi variabel underscore tidak dapat ditampilkan. Data yang sudah masuk variabel tersebut akan hilang. Ibarat blackhole, sekali masuk, tidak akan bisa keluar 😁
+Perlu diketahui, bahwa isi variabel underscore tidak dapat ditampilkan. Data yang sudah masuk variabel tersebut akan hilang. Ibaratkan variabel underscore seperti blackhole, objek apapun yang masuk kedalamnya, akan terjebak selamanya di-dalam singularity dan tidak akan bisa keluar 😁
 
-## A.8.7. Deklarasi Variabel Menggunakan Keyword `new`
+## A.8.6. Deklarasi Variabel Menggunakan Keyword `new`
 
 Keyword `new` digunakan untuk mencetak data **pointer** dengan tipe data tertentu. Nilai data default-nya akan menyesuaikan tipe datanya.
 
@@ -170,9 +168,9 @@ fmt.Println(*name)  // ""
 
 Variabel `name` menampung data bertipe **pointer string**. Jika ditampilkan yang muncul bukanlah nilainya melainkan alamat memori nilai tersebut (dalam bentuk notasi heksadesimal). Untuk menampilkan nilai aslinya, variabel tersebut perlu di-**dereference** terlebih dahulu, menggunakan tanda asterisk (`*`).
 
-Mungkin untuk sekarang banyak yang akan bingung tentang apa itu pointer, namun tak apa, karena nantinya di bab 22 akan dikupas habis topik pointer dan dereference.
+Mungkin untuk sekarang banyak yang akan bingung tentang apa itu pointer, namun tak apa, karena nantinya di [Bab A.22. Pointer](/22-pointer.html) akan dikupas habis topik tersebut.
 
-## A.8.8. Deklarasi Variabel Menggunakan Keyword `make`
+## A.8.7. Deklarasi Variabel Menggunakan Keyword `make`
 
 Keyword ini hanya bisa digunakan untuk pembuatan beberapa jenis variabel saja, yaitu:
 
@@ -181,3 +179,7 @@ Keyword ini hanya bisa digunakan untuk pembuatan beberapa jenis variabel saja, y
 - map
 
 Dan lagi, mungkin banyak yang akan bingung. Ketika sudah masuk ke pembahasan masing-masing poin tersebut, akan terlihat apa kegunaan dari keyword `make` ini.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.8-variabel)

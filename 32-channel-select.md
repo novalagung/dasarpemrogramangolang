@@ -1,18 +1,18 @@
 # A.32. Channel - Select
 
-Adanya channel memang sangat membantu pengontrolan goroutine, jumlah goroutine yang banyak bukan lagi masalah.
+Disediakannya channel membuat engineer menjadi mudah dalam me-manage goroutine. Namun perlu di-ingat, meskipun lewat channel manajemen goroutine menjadi mudah, fungsi utama channel bukan untuk kontrol, melainkan untuk sharing data antar goroutine.
 
-> Fungsi utama channel bukan untuk mengontrol goroutine, melainkan untuk sharing data antar goroutine. Namun channel memang bisa digunakan untuk mengontrol goroutine.
+> Nantinya pada [Bab A.56. Waitgroup](/56-waitgroup.html) akan dibahas secara komprehensif bagaimana cara optimal mengontrol goroutine.
 
-Ada kalanya dimana kita butuh tak hanya satu channel saja untuk handle komunikasi data pada goroutine yang jumlahnya juga banyak, dibutuhkan beberapa atau mungkin banyak channel.
+Ada kalanya kita butuh tak hanya satu channel saja untuk melakukan komunikasi data antar goroutine. Tergantung jenis kasusnya, sangat mungkin lebih dari satu channel dibutuhkan. Nah, disitulah kegunaan dari `select`. Select ini mempermudah kontrol komunikasi data lewat satu ataupun banyak channel.
 
-Disinilah kegunaan dari `select`. Select memudahkan pengontrolan komunikasi data lewat channel. Cara penggunaannya sama seperti seleksi kondisi `switch`.
+Cara penggunaan `switch` untuk kontrol channel sama seperti penggunaan `switch` untuk seleksi kondisi.
 
 ## A.32.1. Penerapan Keyword `select`
 
-Program pencarian rata-rata dan nilai tertinggi berikut merupakan contoh sederhana penerapan select dalam channel. Akan ada 2 buah goroutine yang masing-masing di-handle oleh sebuah channel. Setiap kali goroutine selesai dieksekusi, akan dikirimkan datanya ke channel yang bersangkutan. Lalu dengan menggunakan select, akan diatur penerimaan datanya.
+Program berikut merupakan contoh sederhana penerapan select dalam channel. Dipersiapkan 2 buah goroutine, satu untuk pencarian rata-rata, dan satu untuk nilai tertinggi. Hasil operasi di masing-masing goroutine dikirimkan ke fungsi `main()` via channel (ada dua channel). Di fungsi `main()` sendiri, data tersebut diterima dengan memanfaatkan keyword `select`.
 
-Pertama, kita siapkan terlebih dahulu 2 fungsi yang akan dieksekusi sebagai goroutine baru. Fungsi pertama digunakan untuk mencari rata-rata, dan fungsi kedua untuk penentuan nilai tertinggi dari sebuah slice.
+Ok, langsung saja kita praktek. Pertama, siapkan 2 fungsi yang sudah dibahas di atas. Fungsi pertama digunakan untuk mencari rata-rata, dan fungsi kedua untuk penentuan nilai tertinggi dari sebuah slice.
 
 ```go
 package main
@@ -39,9 +39,9 @@ func getMax(numbers []int, ch chan int) {
 }
 ```
 
-Kedua fungsi di atas nantinya dijalankan sebagai goroutine baru. Di akhir masing-masing fungsi, dikirimkan data hasil komputasi ke channel yang sudah ditentukan (`ch1` menampung data rata-rata, `ch2` untuk data nilai tertinggi).
+Kedua fungsi tersebut dijalankan sebagai goroutine. Di akhir blok masing-masing fungsi, hasil kalkulasi dikirimkan via channel yang sudah dipersiapkan, yaitu `ch1` untuk menampung data rata-rata, `ch2` untuk data nilai tertinggi.
 
-Buat implementasinya pada fungsi `main`.
+Ok lanjut, buat implementasinya pada fungsi `main()`.
 
 ```go
 func main() {
@@ -67,7 +67,7 @@ func main() {
 }
 ```
 
-Pada kode di atas, transaksi pengiriman data pada channel `ch1` dan `ch2` dikontrol menggunakan `select`. Terdapat 2 buah `case` kondisi penerimaan data dari kedua channel tersebut.
+Pada kode di atas, pengiriman data pada channel `ch1` dan `ch2` dikontrol menggunakan `select`. Terdapat 2 buah `case` kondisi penerimaan data dari kedua channel tersebut.
 
  - Kondisi `case avg := <-ch1` akan terpenuhi ketika ada penerimaan data dari channel `ch1`, yang kemudian akan ditampung oleh variabel `avg`.
  - Kondisi `case max := <-ch2` akan terpenuhi ketika ada penerimaan data dari channel `ch2`, yang kemudian akan ditampung oleh variabel `max`.
@@ -77,3 +77,7 @@ Karena ada 2 buah channel, maka perlu disiapkan perulangan 2 kali sebelum penggu
 ![Contoh penerapan channel select](images/A.32_1_channel_select.png)
 
 Cukup mudah bukan?
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.32-channel-select)

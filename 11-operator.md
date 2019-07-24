@@ -1,10 +1,10 @@
 # A.11. Operator
 
-Bab ini membahas mengenai macam operator yang bisa digunakan di Golang. Secara umum operator dibagi menjadi 3 kategori: operator aritmatika, perbandingan, dan logika.
+Bab ini membahas mengenai macam operator yang bisa digunakan di Go. Secara umum terdapat 3 kategori operator: aritmatika, perbandingan, dan logika.
 
 ## A.11.1. Operator Aritmatika
 
-Operator aritmatika adalah operator yang digunakan untuk operasi yang sifatnya perhitungan. Golang mendukung beberapa operator aritmatika standar, list-nya bisa dilihat di tabel berikut.
+Operator aritmatika adalah operator yang digunakan untuk operasi yang sifatnya perhitungan. Go mendukung beberapa operator aritmatika standar, list-nya bisa dilihat di tabel berikut.
 
 | Tanda | Penjelasan |
 | :---: | :--------- |
@@ -24,7 +24,7 @@ var value = (((2 + 6) % 3) * 4 - 2) / 3
 
 Operator perbandingan digunakan untuk menentukan kebenaran suatu kondisi. Hasilnya berupa nilai boolean, `true` atau `false`.
 
-Tabel di bawah ini berisikan operator perbandingan yang bisa digunakan di Golang.
+Tabel di bawah ini berisikan operator perbandingan yang bisa digunakan di Go.
 
 | Tanda | Penjelasan |
 | :---: | :--------- |
@@ -78,7 +78,7 @@ var leftReverse = !left
 fmt.Printf("!left \t\t(%t) \n", leftReverse)
 ```
 
-Hasil dari operator logika sama dengan hasil dari operator perbandingan, yaitu berupa nilai boolean.
+Hasil dari operator logika sama dengan hasil dari operator perbandingan, yaitu berupa boolean.
 
 ![Penerapan operator logika](images/A.11_2_operator_logical.png)
 
@@ -89,3 +89,7 @@ Berikut penjelasan statemen operator logika pada kode di atas.
  - `leftReverse` bernilai `true`, karena **negasi** (atau lawan dari) `false` adalah `true`.
 
 Template `\t` digunakan untuk menambahkan indent tabulasi. Biasa dimanfaatkan untuk merapikan tampilan output pada console.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.11-operator)

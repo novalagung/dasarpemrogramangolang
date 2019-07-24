@@ -1,6 +1,6 @@
 # A.27. Interface Kosong
 
-Interface kosong atau `interface{}` adalah tipe data yang sangat spesial. Variabel bertipe ini bisa menampung segala jenis data, bahkan array, bisa pointer bisa tidak (konsep ini disebut dengan **dynamic typing**).
+Interface kosong atau *empty interface* yang dinotasikan dengan `interface{}` merupakan tipe data yang sangat spesial. Variabel bertipe ini bisa menampung segala jenis data, bahkan array, pointer, apapun. Tipe data dengan konsep ini biasa disebut dengan **dynamic typing**.
 
 ## A.27.1. Penggunaan `interface{}`
 
@@ -130,3 +130,7 @@ for _, each := range fruits {
     fmt.Println(each)
 }
 ```
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.27-interface-kosong)

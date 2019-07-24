@@ -1,6 +1,6 @@
 # A.24. Method
 
-**Method** adalah fungsi yang menempel pada `struct`, sehingga hanya bisa di akses lewat variabel objek.
+**Method** adalah fungsi yang menempel pada `type` (bisa `struct` atau tipe data lainnya). Method bisa diakses lewat variabel objek.
 
 Keunggulan method dibanding fungsi biasa adalah memiliki akses ke property struct hingga level *private* (level akses nantinya akan dibahas lebih detail pada bab selanjutnya). Dan juga, dengan menggunakan method sebuah proses bisa di-enkapsulasi dengan baik.
 
@@ -128,7 +128,7 @@ s2.sayHello()
 
 Berikut adalah penjelasan tambahan mengenai beberapa hal pada bab ini.
 
-## A.24.3. Penggunaan Fungsi `strings.Split()`
+### A.24.2.1. Penggunaan Fungsi `strings.Split()`
 
 Di bab ini ada fungsi baru yang kita gunakan: `strings.Split()`. Fungsi ini berguna untuk memisah string menggunakan pemisah yang ditentukan sendiri. Hasilnya adalah array berisikan kumpulan substring.
 
@@ -139,12 +139,14 @@ strings.Split("ethan hunt", " ")
 
 Pada contoh di atas, string `"ethan hunt"` dipisah menggunakan separator spasi `" "`. Maka hasilnya terbentuk array berisikan 2 data, `"ethan"` dan `"hunt"`.
 
-## A.24.4. Apakah `fmt.Println()` & `strings.Split()` Juga Merupakan Method ?
+## A.24.3. Apakah `fmt.Println()` & `strings.Split()` Juga Merupakan Method?
 
-Setelah tahu apa itu method dan bagaimana penggunaannya, mungkin akan muncul di benak kita bahwa kode seperti `fmt.Println()`, `strings.Split()` dan lainnya-yang-berada-pada-package-lain juga merupakan method.
-
-Tapi sayangnya **bukan**. `fmt` disitu bukanlah variabel objek, dan `Println()` bukan merupakan method-nya.
+Setelah tahu apa itu method dan bagaimana penggunaannya, mungkin akan muncul di benak kita bahwa kode seperti `fmt.Println()`, `strings.Split()` dan lainnya-yang-berada-pada-package-lain adalah merupakan method. Tapi sayangnya **bukan**. `fmt` disitu bukanlah variabel objek, dan `Println()` bukan merupakan method-nya.
 
 `fmt` adalah nama **package** yang di-import (bisa dilihat pada kode `import "fmt"`). Sedangkan `Println()` adalah **nama fungsi**. Untuk mengakses fungsi yang berada pada package lain, harus dituliskan nama package-nya. Hal ini berlaku juga di dalam package `main`. Jika ada fungsi dalam package main yang diakses dari package lain yang berbeda, maka penulisannya `main.NamaFungsi()`.
 
 Lebih detailnya akan dibahas di bab selanjutnya.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.24-method)

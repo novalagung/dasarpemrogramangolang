@@ -2,11 +2,11 @@
 
 Goroutine mirip dengan thread thread, tapi sebenarnya bukan. Sebuah *native thread* bisa berisikan sangat banyak goroutine. Mungkin lebih pas kalau goroutine disebut sebagai **mini thread**. Goroutine sangat ringan, hanya dibutuhkan sekitar **2kB** memori saja untuk satu buah goroutine. Ekseksui goroutine bersifat *asynchronous*, menjadikannya tidak saling tunggu dengan goroutine lain.
 
-> Karena goroutine sangat ringan, maka eksekusi banyak goroutine bukan masalah. Akan tetapi jika jumlah goroutine sangat banyak sekali (contoh 1 juta goroutine dijalankan pada komputer dengan RAM terbatas), memang proses akan jauh lebih cepat selesai, tapi memory / RAM juga bisa bengkak.
+> Karena goroutine sangat ringan, maka eksekusi banyak goroutine bukan masalah. Akan tetapi jika jumlah goroutine sangat banyak sekali (contoh 1 juta goroutine dijalankan pada komputer dengan RAM terbatas), memang proses akan jauh lebih cepat selesai, tapi memory/RAM pasti bengkak.
 
-Goroutine merupakan salah satu bagian paling penting dalam Concurrent Programming di Golang. Salah satu yang membuat goroutine sangat istimewa adalah eksekusi-nya dijalankan di multi core processor. Kita bisa tentukan berapa banyak core yang aktif, makin banyak akan makin cepat.
+Goroutine merupakan salah satu bagian paling penting dalam *concurrent programming* di Go. Salah satu yang membuat goroutine sangat istimewa adalah eksekusi-nya dijalankan di multi core processor. Kita bisa tentukan berapa banyak core yang aktif, makin banyak akan makin cepat.
 
-Mulai bab 29 ini hingga bab 34, lalu dilanjut bab 56 dan 57, kita akan membahas tentang fitur-fitur yang disediakan golang untuk kebutuhan Concurrent Programming.
+Mulai bab A.29 ini hingga bab A.34, lalu dilanjut bab A.56 dan A.57, kita akan membahas tentang fitur-fitur yang disediakan Go untuk kebutuhan *concurrent programming*.
 
 > Concurrency atau konkurensi berbeda dengan paralel. Paralel adalah eksekusi banyak proses secara bersamaan. Sedangkan konkurensi adalah komposisi dari sebuah proses. Konkurensi merupakan struktur, sedangkan paralel adalah bagaimana eksekusinya berlangsung.
 
@@ -55,13 +55,13 @@ Pada gambar di atas, program dieksekusi 2 kali. Hasil eksekusi pertama berbeda d
 
 Berikut adalah penjelasan tambahan tentang beberapa fungsi yang baru kita pelajari di atas.
 
-## A.29.2. Penggunaan Fungsi `runtime.GOMAXPROCS()`
+## A.29.1.1. Penggunaan Fungsi `runtime.GOMAXPROCS()`
 
 Fungsi ini digunakan untuk menentukan jumlah core atau processor yang digunakan dalam eksekusi program.
 
 Jumlah yang diinputkan secara otomatis akan disesuaikan dengan jumlah asli *logical processor* yang ada. Jika jumlahnya lebih, maka dianggap menggunakan sejumlah prosesor yang ada.
 
-## A.29.3. Penggunaan Fungsi `fmt.Scanln()`
+## A.29.1.2. Penggunaan Fungsi `fmt.Scanln()`
 
 Fungsi ini akan meng-capture semua karakter sebelum user menekan tombol enter, lalu menyimpannya pada variabel.
 
@@ -83,3 +83,7 @@ fmt.Println(s3) // law
 ```
 
 Bisa dilihat pada kode di atas, untuk menampung inputan text `trafalgar d law`, dibutuhkan 3 buah variabel. Juga perlu diperhatikan bahwa yang disisipkan sebagai parameter pada pemanggilan fungsi `fmt.Scanln()` adalah referensi variabel, bukan nilai aslinya.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.29-goroutine)

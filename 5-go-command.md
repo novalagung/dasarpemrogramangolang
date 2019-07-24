@@ -1,8 +1,8 @@
 # A.5. Command
 
-Pengembangan aplikasi Golang tak jauh dari hal-hal yang berbau CLI atau **Command Line Interface**. Proses kompilasi, testing, eksekusi program, semua dilakukan lewat command line.
+Pengembangan aplikasi Go tak jauh dari hal-hal yang berbau CLI atau **Command Line Interface**. Proses kompilasi, testing, eksekusi program, semua dilakukan lewat command line.
 
-Golang menyediakan command `go`, di bab ini kita akan belajar mengenai pemanfaatannya.
+Go menyediakan command `go`, di bab ini kita akan belajar mengenai pemanfaatannya.
 
 ## A.5.1. Command `go run`
 
@@ -35,7 +35,7 @@ $ go run *.go
 
 ## A.5.2. Command `go test`
 
-Golang menyediakan package `testing`, berguna untuk keperluan unit testing. File yang akan di-test harus ber-suffix `_test.go`.
+Go menyediakan package `testing`, berguna untuk keperluan unit testing. File yang akan di-test harus ber-suffix `_test.go`.
 
 Berikut adalah contoh penggunaan command `go test` untuk testing file `bab5_test.go`.
 

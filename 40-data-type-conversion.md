@@ -6,7 +6,7 @@ Di bab-bab sebelumnya kita sudah mengaplikasikan beberapa cara konversi data, co
 
 Package `strconv` berisi banyak fungsi yang sangat membantu kita untuk melakukan konversi. Berikut merupakan beberapa fungsi yang dalam package tersebut.
 
-### A.40.1.a. Fungsi `strconv.Atoi()`
+### A.40.1.1. Fungsi `strconv.Atoi()`
 
 Fungsi ini digunakan untuk konversi data dari tipe `string` ke `int`. `strconv.Atoi()` menghasilkan 2 buah nilai kembalian, yaitu hasil konversi dan `error` (jika konversi sukses, maka `error` berisi `nil`).
 
@@ -26,7 +26,7 @@ func main() {
 }
 ```
 
-### A.40.1.b. Fungsi `strconv.Itoa()`
+### A.40.1.2. Fungsi `strconv.Itoa()`
 
 Merupakan kebalikan dari `strconv.Atoi`, berguna untuk konversi `int` ke `string`.
 
@@ -37,7 +37,7 @@ var str = strconv.Itoa(num)
 fmt.Println(str) // "124"
 ```
 
-### A.40.1.c. Fungsi `strconv.ParseInt()`
+### A.40.1.3. Fungsi `strconv.ParseInt()`
 
 Digunakan untuk konversi `string` berbentuk numerik dengan basis tertentu ke tipe numerik non-desimal dengan lebar data bisa ditentukan.
 
@@ -63,7 +63,7 @@ if err == nil {
 }
 ```
 
-### A.40.1.d. Fungsi `strconv.FormatInt()`
+### A.40.1.4. Fungsi `strconv.FormatInt()`
 
 Berguna untuk konversi data numerik `int64` ke `string` dengan basis numerik bisa ditentukan sendiri.
 
@@ -74,7 +74,7 @@ var str = strconv.FormatInt(num, 8)
 fmt.Println(str) // 30
 ```
 
-### A.40.1.e. Fungsi `strconv.ParseFloat()`
+### A.40.1.5. Fungsi `strconv.ParseFloat()`
 
 Digunakan untuk konversi `string` ke numerik desimal dengan lebar data bisa ditentukan.
 
@@ -89,7 +89,7 @@ if err == nil {
 
 Pada contoh di atas, string `"24.12"` dikonversi ke float dengan lebar tipe data `float32`. Hasil konversi `strconv.ParseFloat` adalah sesuai dengan standar [IEEE Standard for Floating-Point Arithmetic](https://en.wikipedia.org/wiki/IEEE_floating_point).
 
-### A.40.1.f. Fungsi `strconv.FormatFloat()`
+### A.40.1.6. Fungsi `strconv.FormatFloat()`
 
 Berguna untuk konversi data bertipe `float64` ke `string` dengan format eksponen, lebar digit desimal, dan lebar tipe data bisa ditentukan.
 
@@ -113,7 +113,7 @@ Ada beberapa format eksponen yang bisa digunakan. Detailnya bisa dilihat di tabe
 | `g` | Akan menggunakan format eksponen `e` untuk eksponen besar dan `f` untuk selainnya |
 | `G` | Akan menggunakan format eksponen `E` untuk eksponen besar dan `f` untuk selainnya |
 
-### A.40.1.g. Fungsi `strconv.ParseBool()`
+### A.40.1.7. Fungsi `strconv.ParseBool()`
 
 Digunakan untuk konversi `string` ke `bool`.
 
@@ -126,7 +126,7 @@ if err == nil {
 }
 ```
 
-### A.40.1.h. Fungsi `strconv.FormatBool()`
+### A.40.1.8. Fungsi `strconv.FormatBool()`
 
 Digunakan untuk konversi `bool` ke `string`.
 
@@ -137,9 +137,9 @@ var str = strconv.FormatBool(bul)
 fmt.Println(str) // 124
 ```
 
-## A.40.2. Konversi Data Menggunakan Casting
+## A.40.2. Konversi Data Menggunakan Teknik Casting
 
-Keyword tipe data bisa digunakan untuk casting. Cara penggunaannya adalah dengan menuliskan tipe data sebagai fungsi dan menyisipkan data yang akan dikonversi sebagai parameternya.
+Keyword tipe data bisa digunakan untuk casting, atau konversi antar tipe data. Cara penggunaannya adalah dengan menuliskan tipe data tujuan casting sebagai fungsi, lalu menyisipkan data yang akan dikonversi sebagai parameter fungsi tersebut.
 
 ```go
 var a float64 = float64(24)
@@ -151,7 +151,7 @@ fmt.Println(b) // 24
 
 ## A.40.3. Casting `string` ↔ `byte`
 
-String sebenarnya adalah slice/array `byte`. Di Golang sebuah karakter biasa (bukan unicode) direpresentasikan oleh sebuah elemen slice byte. Tiap elemen slice berisi data `int` dengan basis desimal, yang merupakan kode ASCII dari karakter dalam string.
+String sebenarnya adalah slice/array `byte`. Di Go sebuah karakter biasa (bukan unicode) direpresentasikan oleh sebuah elemen slice byte. Tiap elemen slice berisi data `int` dengan basis desimal, yang merupakan kode ASCII dari karakter dalam string.
 
 Cara mendapatkan slice byte dari sebuah data string adalah dengan meng-casting-nya ke tipe `[]byte`.
 
@@ -189,11 +189,11 @@ var d string = string(104)
 fmt.Println(d) // h
 ```
 
-## A.40.4. Konversi Data `interface{}` Menggunakan Teknik Type Assertions
+## A.40.4. Type Assertions Pada Interface Kosong (`interface{}`)
 
-**Type assertions** merupakan teknik casting data `interface{}` ke segala jenis tipe (dengan syarat data tersebut memang bisa di-casting ke tipe tujuan).
+**Type assertions** merupakan teknik untuk mengambil tipe data konkret dari data yang terbungkus dalam `interface{}`. Jadi bisa disimpulkan bahwa teknik type assertions hanya bisa dilakukan pada data bertipe `interface{}`. Lebih jelasnya silakan cek contoh berikut.
 
-Berikut merupakan contoh penerapannya. Variabel `data` disiapkan bertipe `map[string]interface{}`, berisikan beberapa item dengan tipe data value nya berbeda satu sama lain.
+Variabel `data` disiapkan bertipe `map[string]interface{}`, map tersebut berisikan beberapa item dengan tipe data value-nya berbeda satu sama lain, sementara tipe data untuk key-nya sama yaitu `string`.
 
 ```go
 var data = map[string]interface{}{
@@ -211,9 +211,15 @@ fmt.Println(data["isMale"].(bool))
 fmt.Println(data["hobbies"].([]string))
 ```
 
-Statement `data["nama"].(string)` maksudnya adalah, nilai `data["nama"]` dicasting sebagai `string`.
+Statement `data["nama"].(string)` maksudnya adalah, nilai `data["nama"]` yang bertipe `interface{}` diambil nilai konkretnya dalam bentuk string `string`.
 
-Tipe asli data pada variabel `interface{}` bisa diketahui dengan cara meng-casting ke tipe `type`. Namun casting ke tipe `type` hanya bisa dilakukan pada `switch`.
+Pada kode di atas, tidak akan terjadi panic error, karena semua operasi type assertion adalah dilakukan menggunakan tipe data yang sudah sesuai dengan tipe data nilai aslinya. Seperti `data["nama"]` yang merupakan `string` pasti bisa di-asertasi ke tipe `string`.
+
+Coba lakukan asertasi ke tipe yang tidak sesuai dengan tipe nilai aslinya, seperti `data["nama"].(int)`, pasti akan men-trigger panic error.
+
+Nah, dari penjelasan di atas, terlihat bahwa kita harus tau terlebih dahulu apa tipe data asli dari data yang tersimpan dalam interface. Jika misal tidak tau, maka bisa gunakan teknik di bawah ini untuk pengecekan sukses tidaknya proses asertasi.
+
+Tipe asli data pada variabel `interface{}` bisa diketahui dengan cara meng-casting ke tipe `type`, namun casting ini hanya bisa dilakukan pada `switch`.
 
 ```go
 for _, val := range data {
@@ -234,4 +240,8 @@ for _, val := range data {
 }
 ```
 
-Kombinasi `switch` - `case` bisa dimanfaatkan untuk deteksi tipe asli sebuah data bertipe `interface{}`, contoh penerapannya seperti pada kode di atas.
+Kombinasi `switch` - `case` bisa dimanfaatkan untuk deteksi tipe konkret data yang bertipe `interface{}`, contoh penerapannya seperti pada kode di atas.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.40-data-type-conversion)

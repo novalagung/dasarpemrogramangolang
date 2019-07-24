@@ -1,12 +1,12 @@
 # A.34. Channel - Timeout
 
-Teknik timeout digunakan untuk mengontrol penerimaan data dari channel berdasarkan waktu diterimanya, dengan durasi timeout bisa kita tentukan sendiri.
+Teknik channel timeout digunakan untuk mengontrol penerimaan data dari channel mengacu ke kapan waktu diterimanya data, dengan durasi timeout bisa kita tentukan sendiri.
 
-Ketika tidak ada aktivitas penerimaan data dalam durasi yang sudah ditentukan, callback akan dijalankan.
+Ketika tidak ada aktivitas penerimaan data dalam durasi yang sudah ditentukan, maka blok timeout dieksekusi.
 
 ## A.34.1. Penerapan Channel Timeout
 
-Berikut adalah program sederhana tentang pengaplikasian timeout pada channel. Sebuah goroutine baru dijalankan dengan tugas mengirimkan data setiap interval tertentu, dengan durasi interval-nya adalah acak/random.
+Berikut adalah program sederhana contoh pengaplikasian timeout pada channel. Sebuah goroutine baru dijalankan dengan tugas mengirimkan data setiap interval tertentu, dengan durasi interval-nya sendiri adalah acak/random.
 
 ```go
 package main
@@ -24,7 +24,7 @@ func sendData(ch chan<- int) {
 }
 ```
 
-Selanjutnya, disiapkan perulangan tanpa henti, yang di tiap perulangannya ada seleksi kondisi channel menggunakan `select`.
+Selanjutnya, disiapkan perulangan tanpa henti, yang di setiap perulangan ada seleksi kondisi channel menggunakan `select`.
 
 ```go
 func retreiveData(ch <-chan int) {
@@ -43,10 +43,10 @@ func retreiveData(ch <-chan int) {
 
 Ada 2 blok kondisi pada `select` tersebut.
 
- - `case data := <-messages:`, akan terpenuhi ketika ada serah terima data pada channel `messages`
- - `case <-time.After(time.Second * 5):`, akan terpenuhi ketika tidak ada aktivitas penerimaan data dari channel dalam durasi 5 detik. Blok inilah yang kita sebut sebagai callback.
+ - Kondisi `case data := <-messages:`, akan terpenuhi ketika ada serah terima data pada channel `messages`.
+ - Kondisi `case <-time.After(time.Second * 5):`, akan terpenuhi ketika tidak ada aktivitas penerimaan data dari channel dalam durasi 5 detik. Blok inilah yang kita sebut sebagai blok timeout.
 
-Terakhir, kedua fungsi tersebut dipanggil di `main`.
+Terakhir, kedua fungsi tersebut dipanggil di `main()`.
 
 ```go
 func main() {
@@ -63,3 +63,7 @@ func main() {
 Muncul output setiap kali ada penerimaan data dengan delay waktu acak. Ketika tidak ada aktifitas penerimaan dari channel dalam durasi 5 detik, perulangan pengecekkan channel diberhentikan.
 
 ![Channel timeout](images/A.34_1_channel_delay.png)
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.34-channel-timeout)

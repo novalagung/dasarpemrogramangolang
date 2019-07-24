@@ -1,6 +1,6 @@
 # A.43. Encode - Decode Base64
 
-Golang memiliki package `encoding/base64`, berisikan fungsi-fungsi untuk kebutuhan **encode** dan **decode** data ke base64 dan sebaliknya. Data yang akan di-encode harus bertipe `[]byte`, perlu dilakukan casting untuk data-data yang belum sesuai tipenya.
+Go memiliki package `encoding/base64`, berisikan fungsi-fungsi untuk kebutuhan **encode** dan **decode** data ke base64 dan sebaliknya. Data yang akan di-encode harus bertipe `[]byte`, perlu dilakukan casting untuk data-data yang belum sesuai tipenya.
 
 Ada beberapa cara yang bisa digunakan untuk encode dan decode data, dan di bab ini kita akan mempelajarinya.
 
@@ -79,3 +79,7 @@ var decodedByte, _ = base64.URLEncoding.DecodeString(encodedString)
 var decodedString = string(decodedByte)
 fmt.Println(decodedString)
 ```
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.43-encoding-base64)

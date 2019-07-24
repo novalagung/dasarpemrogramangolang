@@ -2,7 +2,7 @@
 
 Setelah di bab sebelumnya kita belajar mengenai fungsi yang mengembalikan nilai balik berupa fungsi, kali ini topiknya tidak kalah unik, yaitu fungsi yang digunakan sebagai parameter.
 
-Di Golang, fungsi bisa dijadikan sebagai tipe data variabel. Dari situ sangat memungkinkan untuk menjadikannya sebagai parameter juga.
+Di Go, fungsi bisa dijadikan sebagai tipe data variabel. Dari situ sangat memungkinkan untuk menjadikannya sebagai parameter juga.
 
 ## A.21.1. Penerapan Fungsi Sebagai Parameter
 
@@ -86,7 +86,7 @@ Skema `func(string) bool` diubah menjadi tipe dengan nama `FilterCallback`. Tipe
 
 Di bawah ini merupakan penjelasan tambahan mengenai fungsi `strings.Contains()`.
 
-## A.21.3. Penggunaan Fungsi `string.Contains()`
+## A.21.2.1. Penggunaan Fungsi `string.Contains()`
 
 Inti dari fungsi ini adalah untuk deteksi apakah sebuah substring adalah bagian dari string, jika iya maka akan bernilai `true`, dan sebaliknya. Contoh penggunaannya:
 
@@ -96,3 +96,7 @@ var result = strings.Contains("Golang", "ang")
 ```
 
 Variabel `result` bernilai `true` karena string `"ang"` merupakan bagian dari string `"Golang"`.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.21-fungsi-sebagai-parameter)

@@ -2,7 +2,7 @@
 
 Reflection adalah teknik untuk inspeksi variabel, mengambil informasi dari variabel tersebut atau bahkan memanipulasinya. Cakupan informasi yang bisa didapatkan lewat reflection sangat luas, seperti melihat struktur variabel, tipe, nilai pointer, dan banyak lagi.
 
-Golang menyediakan package bernama `reflect`, berisikan banyak sekali fungsi untuk keperluan reflection. Di bab ini, kita akan belajar tentang dasar penggunaan package tersebut.
+Go menyediakan package `reflect`, berisikan banyak sekali fungsi untuk keperluan reflection. Di bab ini, kita akan belajar tentang dasar penggunaan package tersebut.
 
 Dari banyak fungsi yang tersedia di dalam package tersebut, ada 2 fungsi yang paling penting untuk diketahui, yaitu `reflect.ValueOf()` dan `reflect.TypeOf()`.
 
@@ -43,34 +43,7 @@ Perlu diketahui, fungsi yang digunakan harus sesuai dengan tipe data nilai yang 
 
 Diperlukan adanya pengecekan tipe data nilai yang disimpan, agar pengambilan nilai bisa tepat. Salah satunya bisa dengan cara seperti kode di atas, yaitu dengan mengecek dahulu apa jenis tipe datanya menggunakan method `Kind()`, setelah itu diambil nilainya dengan method yang sesuai.
 
-Berikut adalah konstanta tipe data dan method yang bisa digunakan dalam refleksi di Golang.
-
- + Bool
- + Int
- + Int8
- + Int16
- + Int32
- + Int64
- + Uint
- + Uint8
- + Uint16
- + Uint32
- + Uint64
- + Uintptr
- + Float32
- + Float64
- + Complex64
- + Complex128
- + Array
- + Chan
- + Func
- + Interface
- + Map
- + Ptr
- + Slice
- + String
- + Struct
- + UnsafePointer
+List konstanta tipe data dan method yang bisa digunakan dalam refleksi di Go bisa dilihat di https://godoc.org/reflect#Kind
 
 ## Pengaksesan Nilai Dalam Bentuk `interface{}`
 
@@ -189,3 +162,7 @@ Jika eksekusi method diikuti pengisian parameter, maka parameternya harus dituli
     reflect.ValueOf("wick"),
 }
 ```
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.28-reflect)

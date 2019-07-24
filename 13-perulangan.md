@@ -2,7 +2,7 @@
 
 Perulangan adalah proses mengulang-ulang eksekusi blok kode tanpa henti, selama kondisi yang dijadikan acuan terpenuhi. Biasanya disiapkan variabel untuk iterasi atau variabel penanda kapan perulangan akan diberhentikan.
 
-Di Golang keyword perulangan hanya **for** saja, tetapi meski demikian, kemampuannya merupakan gabungan `for`, `foreach`, dan `while` ibarat bahasa pemrograman lain.
+Di Go keyword perulangan hanya **for** saja, tetapi meski demikian, kemampuannya merupakan gabungan `for`, `foreach`, dan `while` ibarat bahasa pemrograman lain.
 
 ## A.13.1. Perulangan Menggunakan Keyword `for`
 
@@ -22,7 +22,7 @@ Perulangan di atas hanya akan berjalan ketika variabel `i` bernilai dibawah `5`,
 
 Cara ke-2 adalah dengan menuliskan kondisi setelah keyword `for` (hanya kondisi). Deklarasi dan iterasi variabel counter tidak dituliskan setelah keyword, hanya kondisi perulangan saja. Konsepnya mirip seperti `while` milik bahasa pemrograman lain.
 
-Kode berikut adalah contoh `for` dengan argumen hanya kondisi (seperti if), output yang dihasilkan sama seperti penerapan for cara pertama.
+Kode berikut adalah contoh `for` dengan argumen hanya kondisi (seperti `if`), output yang dihasilkan sama seperti penerapan for cara pertama.
 
 ```go
 var i = 0
@@ -126,3 +126,7 @@ Tepat sebelum keyword `for` terluar, terdapat baris kode `outerLoop:`. Maksud da
 Pada `for` bagian dalam, terdapat seleksi kondisi untuk pengecekan nilai `i`. Ketika nilai tersebut sama dengan `3`, maka `break` dipanggil dengan target adalah perulangan yang dilabeli `outerLoop`, perulangan tersebut akan dihentikan.
 
 ![Penerapan label dalam perulangan](images/A.13_4_for_label.png)
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.13-perulangan)

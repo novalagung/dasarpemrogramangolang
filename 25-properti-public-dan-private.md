@@ -1,18 +1,18 @@
 # A.25. Property Public Dan Private
 
-Bab ini membahas mengenai *modifier* public dan private dalam Golang. Kapan sebuah struct, fungsi, atau method bisa diakses dari package lain dan kapan tidak.
+Bab ini membahas mengenai *modifier* public dan private dalam Go. Kapan sebuah struct, fungsi, atau method bisa diakses dari package lain dan kapan tidak.
 
 ## A.25.0. PERINGATAN
 
-Peringatan ini ditulis karena sudah terlalu banyak email yang penulis dapati, perihal error yang muncul ketika mengikuti pembahasan bab ini.
+Peringatan ini ditulis karena sudah terlalu banyak email yang penulis dapati, perihal error yang muncul ketika mempraktekan beberapa kode pada bab ini.
 
-Bab ini memiliki beberapa perbedaan dibanding bab lainnya. Jika pembaca mengikuti secara berurutan, membaca penjelasan dan pembahasan yang sudah tertulis, **pasti akan mendapati 3 buah error**. Di tiap-tiap error, sebenarnya sudah terlampir:
+Bab ini memiliki beberapa perbedaan dibanding lainnya. Jika pembaca mengikuti secara berurutan, membaca penjelasan dan pembahasan yang sudah tertulis, maka **pasti akan mendapati 3 buah error**. Di tiap-tiap error, sebenarnya sudah terlampir:
 
 1. Screenshot error
 2. Penjelasan penyebab error
 3. Cara resolve atau solusi dari ketiga error tersebut.
 
-Kesimpulan dari email-email yang penulis dapati: **pembaca tidak tau cara mengatasi error tersebut, yang padahal sudah jelas tertulis akan muncul error dan juga cara mengatasinya. Ini kemungkinan besar disebabkan karena pembaca hanya copy-paste source code, tanpa membaca penjelasan-penjelasan yang padahal sudah tertulis cukup mendetail**. Tapi ini tidak semua, tapi banyak, jadi *no hard feeling* 👌😁.
+Kesimpulan dari email-email yang penulis dapati: **pembaca bingung karena mendapati error, dan tidak tau cara mengatasi error tersebut. Padahal sudah ada keterangan yang jelas bahwa error tersebut pasti muncul, dan juga sudah dijelaskan cara mengatasinya. Ini kemungkinan besar disebabkan karena pembaca hanya copy-paste source code, tanpa membaca penjelasan-penjelasan yang padahal sudah tertulis cukup mendetail**. *No hard feeling* 👌😁.
 
 > Oleh karena itu, JANGAN CUMA COPAS SOURCE KODE, BACA, PELAJARI, DAN PAHAMI!
 
@@ -20,7 +20,7 @@ Kesimpulan dari email-email yang penulis dapati: **pembaca tidak tau cara mengat
 
 Pengembangan aplikasi dalam *real development* pasti membutuhkan banyak sekali file program. Tidak mungkin dalam satu project semua file memiliki nama package `main`, biasanya akan dipisah sebagai package berbeda sesuai bagiannya.
 
-Project folder selain berisikan file-file `.go` juga bisa berisikan folder. Di bahasa Golang, setiap satu folder atau subfolder adalah satu package, file-file yang ada didalamnya harus memiliki nama package yang berbeda dengan file di folder lain.
+Project folder selain berisikan file-file `.go` juga bisa berisikan folder. Di bahasa Go, setiap satu folder atau subfolder adalah satu package, file-file yang ada didalamnya harus memiliki nama package yang berbeda dengan file di folder lain.
 
 Dalam sebuah package, biasanya kita menulis sangat banyak komponen, entah itu fungsi, struct, variabel, atau lainnya. Komponen tersebut bisa leluasa digunakan dalam package yang sama. Contoh sederhananya seperti program yang telah kita praktekan di bab sebelum-sebelumnya, dalam package `main` ada banyak yang di-define: fungsi, variabel, closure, struct, dan lainnya; kesemuanya bisa langsung dimanfaatkan.
 
@@ -33,7 +33,7 @@ Ada 2 jenis hak akses:
 
 Penentuan hak akses yang tepat untuk tiap komponen sangatlah penting.
 
-Di Golang cara menentukan level akses atau modifier sangat mudah, penandanya adalah **character case** karakter pertama nama fungsi, struct, variabel, atau lainnya. Ketika namanya diawali dengan huruf kapital menandakan bahwa modifier-nya public. Dan sebaliknya, jika diawali huruf kecil, berarti private.
+Di Go cara menentukan level akses atau modifier sangat mudah, penandanya adalah **character case** karakter pertama nama fungsi, struct, variabel, atau lainnya. Ketika namanya diawali dengan huruf kapital menandakan bahwa modifier-nya public. Dan sebaliknya, jika diawali huruf kecil, berarti private.
 
 ## A.25.2. Penggunaan Package, Import, Dan Modifier Public & Private
 
@@ -123,11 +123,11 @@ Coba jalankan lagi.
 
 ![Contoh penerapan pemanggilan fungsi dari package berbeda](images/A.25_2_success.png)
 
-## 25.3. Penggunaan Public & Private Pada Struct Dan Propertinya
+## A.25.3. Penggunaan Public & Private Pada Struct Dan Propertinya
 
 Level akses private dan public juga bisa diterapkan di fungsi, struct, method, maupun property variabel. Cara penggunaannya sama seperti pada pembahasan sebelumnya, yaitu dengan menentukan **character case** huruf pertama nama komponen, apakah huruf besar atau kecil.
 
-Belajar tentang level akses di Golang akan lebih cepat jika langsung praktek. Oleh karena itu langsung saja. Hapus isi file `library.go`, buat struct baru dengan nama `student` didalamnya.
+Belajar tentang level akses di Go akan lebih cepat jika langsung praktek. Oleh karena itu langsung saja. Hapus isi file `library.go`, buat struct baru dengan nama `student` didalamnya.
 
 ```go
 package library
@@ -195,11 +195,11 @@ Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` y
 
 ![Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda](images/A.25_4_success.png)
 
-## 25.4. Import Dengan Prefix Tanda Titik
+## A.25.4. Import Dengan Prefix Tanda Titik
 
 Seperti yang kita tahu, untuk mengakses fungsi/struct/variabel yg berada di package lain, nama package nya perlu ditulis, contohnya seperti pada penggunaan penggunaan `library.Student` dan `fmt.Println()`.
 
-Di Golang, komponen yang berada di package lain yang di-import bisa dijadikan se-level dengan komponen package peng-import, caranya dengan menambahkan tanda titik (`.`) setelah penulisan keyword `import`. Maksud dari se-level disini adalah, semua properti di package lain yg di-import bisa diakses tanpa perlu menuliskan nama package, seperti ketika mengakses sesuatu dari file yang sama.
+Di Go, komponen yang berada di package lain yang di-import bisa dijadikan se-level dengan komponen package peng-import, caranya dengan menambahkan tanda titik (`.`) setelah penulisan keyword `import`. Maksud dari se-level disini adalah, semua properti di package lain yg di-import bisa diakses tanpa perlu menuliskan nama package, seperti ketika mengakses sesuatu dari file yang sama.
 
 ```go
 import (
@@ -232,7 +232,7 @@ func main() {
 
 Pada kode di-atas, package `fmt` di tentukan aliasnya adalah `f`, untuk mengakses `Println()` cukup dengan `f.Println()`.
 
-## 25.6. Mengakses Properti Dalam File Yang Package-nya Sama
+## A.25.6. Mengakses Properti Dalam File Yang Package-nya Sama
 
 Jika properti yang ingin di akses masih dalam satu package tapi berbeda file, cara mengaksesnya bisa langsung dengan memanggil namanya. Hanya saja ketika eksekusi, file-file lain yang yang nama package-nya sama juga ikut dipanggil.
 
@@ -274,7 +274,7 @@ Fungsi `sayHello` pada file `partial.go` bisa dikenali meski level aksesnya adal
 
 ![Pemanggilan fungsi private dari dalam package yang sama](images/A.25_6_multi_main.png)
 
-## 25.7. Fungsi `init()`
+## A.25.6.1. Fungsi `init()`
 
 Selain fungsi `main()`, terdapat juga fungsi spesial, yaitu `init()`. Fungsi ini otomatis dipanggil pertama kali ketika aplikasi di-run. Jika fungsi ini berada dalam package main, maka dipanggil lebih dulu sebelum fungsi `main()` dieksekusi.
 
@@ -321,3 +321,7 @@ Property variabel objek `Student` akan diisi dan sebuah pesan ditampilkan ke con
 Dalam sebuah package diperbolehkan ada banyak fungsi `init()` (urutan eksekusinya adalah sesuai file mana yg terlebih dahulu digunakan). Fungsi ini dipanggil sebelum fungsi `main()`, pada saat eksekusi program.
 
 ![Fungsi `init()`](images/A.25_7_init.png)
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.25-properti-public-private)

@@ -1,6 +1,6 @@
 # A.16. Map
 
-**Map** adalah tipe data asosiatif yang ada di Golang, berbentuk *key-value*. Untuk setiap data (atau value) yang disimpan, disiapkan juga key-nya. Key harus unik, karena digunakan sebagai penanda (atau identifier) untuk pengaksesan value yang bersangkutan.
+**Map** adalah tipe data asosiatif yang ada di Go, berbentuk *key-value pair*. Untuk setiap data (atau value) yang disimpan, disiapkan juga key-nya. Key harus unik, karena digunakan sebagai penanda (atau identifier) untuk pengaksesan value yang bersangkutan.
 
 Kalau dilihat, `map` mirip seperti slice, hanya saja indeks yang digunakan untuk pengaksesan bisa ditentukan sendiri tipe-nya (indeks tersebut adalah key).
 
@@ -34,6 +34,18 @@ Pengisian data pada map bersifat **overwrite**, ketika variabel sudah memiliki i
 Pada pengaksesan item menggunakan key yang belum tersimpan di map, akan dikembalikan nilai default tipe data value-nya. Contohnya seperti pada kode di atas, `chicken["mei"]` menghasilkan nilai 0 (nilai default tipe `int`), karena belum ada item yang tersimpan menggunakan key `"mei"`.
 
 ## A.16.2. Inisialisasi Nilai Map
+
+Zero value dari map adalah `nil`, maka tiap variabel bertipe map harus di-inisialisasi secara explisit nilai awalnya (agar tidak `nil`).
+
+```go
+var data map[string]int
+data["one"] = 1
+// akan muncul error!
+
+data = map[string]int{}
+data["one"] = 1
+// tidak ada error
+```
 
 Nilai variabel bertipe map bisa didefinisikan di awal, caranya dengan menambahkan kurung kurawal setelah tipe data, lalu menuliskan key dan value didalamnya. Cara ini sekilas mirip dengan definisi nilai array/slice namun dalam bentuk key-value.
 
@@ -103,7 +115,7 @@ Fungsi `len()` jika digunakan pada map akan mengembalikan jumlah item.
 
 ## A.16.5. Deteksi Keberadaan Item Dengan Key Tertentu
 
-Ada cara untuk mengetahui apakah dalam sebuah variabel map terdapat item dengan key tertentu atau tidak, yaitu dengan memanfaatkan 2 variabel sebagai penampung nilai kembalian pengaksesan item. Variabel ke-2 akan berisikan nilai `bool` yang menunjukkan ada atau tidaknya item yang dicari.
+Ada cara untuk mengetahui apakah dalam sebuah variabel map terdapat item dengan key tertentu atau tidak, yaitu dengan memanfaatkan 2 variabel sebagai penampung nilai kembalian pengaksesan item. Return value ke-2 ini adalah opsional, isinya nilai `bool` yang menunjukkan ada atau tidaknya item yang dicari.
 
 ```go
 var chicken = map[string]int{"januari": 50, "februari": 40}
@@ -157,3 +169,7 @@ var data = []map[string]string{
 	{"community": "chicken lovers"}
 }
 ```
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.16-map)

@@ -2,7 +2,7 @@
 
 Umumnya fungsi hanya memiliki satu buah nilai balik saja. Jika ada kebutuhan dimana data yang dikembalikan harus banyak, biasanya digunakanlah tipe seperti `map`, slice, atau `struct` sebagai nilai balik.
 
-Golang menyediakan kapabilitas bagi programmer untuk membuat fungsi memiliki banyak nilai balik. Di bab ini akan dibahas bagaimana penerapannya.
+Go menyediakan kapabilitas bagi programmer untuk membuat fungsi memiliki banyak nilai balik. Di bab ini akan dibahas bagaimana penerapannya.
 
 ## A.18.1 Penerapan Fungsi Multiple Return
 
@@ -63,7 +63,7 @@ var area, circumference = calculate(diameter)
 
 ## A.18.2 Fungsi Dengan Predefined Return Value
 
-Keunikan lainnya yang jarang ditemui di bahasa lain adalah, di Golang variabel yang digunakan sebagai nilai balik bisa didefinisikan di-awal.
+Keunikan lainnya yang jarang ditemui di bahasa lain adalah, di Go variabel yang digunakan sebagai nilai balik bisa didefinisikan di-awal.
 
 ```go
 func calculate(d float64) (area float64, circumference float64) {
@@ -88,10 +88,14 @@ Karena variabel nilai balik sudah ditentukan di awal, untuk mengembalikan nilai 
 
 Ada beberapa hal baru dari kode di atas yang perlu dibahas, seperti `math.Pow()` dan `math.Pi`. Berikut adalah penjelasannya.
 
-## A.18.3. Penggunaan Fungsi `math.Pow()`
+### A.18.2.1. Penggunaan Fungsi `math.Pow()`
 
 Fungsi `math.Pow()` digunakan untuk memangkat nilai. `math.Pow(2, 3)` berarti 2 pangkat 3, hasilnya 8. Fungsi ini berada dalam package `math`.
 
-## A.18.4. Penggunaan Konstanta `math.Pi`
+### A.18.2.2. Penggunaan Konstanta `math.Pi`
 
 `math.Pi` adalah konstanta bawaan `package math` yang merepresentasikan **Pi** atau **22/7**.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.18-fungsi-multiple-return)

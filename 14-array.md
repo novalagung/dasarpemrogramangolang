@@ -1,6 +1,6 @@
 # A.14. Array
 
-Array adalah kumpulan data bertipe sama, yang disimpan dalam sebuah variabel. Array memiliki kapasitas yang nilainya ditentukan pada saat pembuatan, menjadikan elemen/data yang disimpan di array tersebut jumlahnya tidak boleh melebihi yang sudah dialokasikan. Default nilai tiap elemen array pada awalnya tergantung dari tipe datanya. Jika `int` maka default nya `0`, jika `bool` maka default-nya `false`, dan tipe data lain. Setiap elemen array memiliki indeks berupa angka yang merepresentasikan posisi urutan elemen tersebut. Indeks array dimulai dari 0.
+Array adalah kumpulan data bertipe sama, yang disimpan dalam sebuah variabel. Array memiliki kapasitas yang nilainya ditentukan pada saat pembuatan, menjadikan elemen/data yang disimpan di array tersebut jumlahnya tidak boleh melebihi yang sudah dialokasikan. Default nilai tiap elemen array pada awalnya tergantung dari tipe datanya. Jika `int` maka tiap element zero value-nya adalah `0`, jika `bool` maka `false`, dan seterusnya. Setiap elemen array memiliki indeks berupa angka yang merepresentasikan posisi urutan elemen tersebut. Indeks array dimulai dari 0.
 
 Contoh penerapan array:
 
@@ -31,7 +31,7 @@ names[3] = "law"
 names[4] = "ez" // baris kode ini menghasilkan error
 ```
 
-Solusi dari masalah di atas adalah dengan menggunakan keyword `append`, yang di bab selanjutnya akan kita bahas.
+Solusi dari masalah di atas adalah dengan menggunakan keyword `append`, yang di bab selanjutnya ([Bab A.15. Slice](/15-slice.html)) akan kita bahas.
 
 ## A.14.2. Inisialisasi Nilai Awal Array
 
@@ -144,7 +144,7 @@ Output program di atas, sama dengan output program sebelumnya, hanya cara yang d
 
 Kadang kala ketika *looping* menggunakan `for` - `range`, ada kemungkinan dimana data yang dibutuhkan adalah elemen-nya saja, indeks-nya tidak. Sedangkan kode di atas, `range` mengembalikan 2 data, yaitu indeks dan elemen.
 
-Seperti yang sudah diketahui, bahwa di Golang tidak memperbolehkan adanya variabel yang menaggur atau tidak dipakai. Jika dipaksakan, error akan muncul, contohnya seperti kode berikut.
+Seperti yang sudah diketahui, bahwa di Go tidak memperbolehkan adanya variabel yang menaggur atau tidak dipakai. Jika dipaksakan, error akan muncul, contohnya seperti kode berikut.
 
 ```go
 var fruits = [4]string{"apple", "grape", "banana", "melon"}
@@ -193,3 +193,7 @@ fmt.Println(fruits)  // [apple manggo]
 ```
 
 Parameter pertama keyword `make` diisi dengan tipe data elemen array yang diinginkan, parameter kedua adalah jumlah elemennya. Pada kode di atas, variabel `fruits` tercetak sebagai array string dengan alokasi 2 slot.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.14-array)
