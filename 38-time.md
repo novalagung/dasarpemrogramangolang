@@ -1,4 +1,4 @@
-# A.8. Time, Parsing Time, & Format Time
+# A.38. Time, Parsing Time, & Format Time
 
 Pada bab ini kita akan belajar tentang pemanfaatan data bertipe date-time, method-method yang disediakan, dan juga **format** & **parsing** data `string` ke tipe `time.Time` dan sebaliknya.
 
@@ -6,7 +6,7 @@ Go menyediakan package `time` yang berisikan banyak sekali komponen yang bisa di
 
 > Time disini maksudnya adalah gabungan **date** dan **time**, bukan hanya waktu saja.
 
-## A.8.1. Penggunaan `time.Time`
+## A.38.1. Penggunaan `time.Time`
 
 Tipe `time.Time` merupakan representasi untuk objek date-time. Ada 2 cara yang bisa dipilih untuk membuat data bertipe ini.
 
@@ -46,7 +46,7 @@ Objek cetakan fungsi `time.Now()`, informasi timezone-nya adalah relatif terhada
 
 Selain menggunakan `time.UTC` untuk penentuan lokasi, tersedia juga `time.Local` yang nilainya adalah relatif terhadap date-time lokal kita.
 
-## A.8.2. Method Milik `time.Time`
+## A.38.2. Method Milik `time.Time`
 
 Tipe data `time.Time` merupakan struct, memiliki beberapa method yang bisa dipakai.
 
@@ -81,7 +81,7 @@ Selain kedua method di atas, ada banyak lagi yang bisa dimanfaatkan. Tabel berik
 | `now.UnixNano()` | `int64` | Date-time dalam format *unix time*. Infomasi nano detik juga dimasukkan |
 | `now.String()` | `string` | Date-time dalam string |
 
-## A.8.3. Parsing dari `string` ke `time.Time`
+## A.38.3. Parsing dari `string` ke `time.Time`
 
 Data `string` bisa dikonversi menjadi `time.Time` dengan memanfaatkan `time.Parse`. Fungsi ini membutuhkan 2 parameter:
 
@@ -138,7 +138,7 @@ Go memiliki standar layout format yang cukup unik, contohnya seperti pada kode d
 | `MST` | Lokasi timezone | `UTC`,&nbsp;`WIB`,&nbsp;`EST` |
 | `Z0700` | Offset timezone  | `Z`,&nbsp;`+0700`,&nbsp;`-0200` |
 
-## A.8.4. Predefined Layout Format Untuk Keperluan Parsing Time
+## A.38.4. Predefined Layout Format Untuk Keperluan Parsing Time
 
 Go juga menyediakan beberapa predefined layout format umum yang bisa dimanfaatkan. Jadi tidak perlu menuliskan kombinasi komponen-komponen layout format.
 
@@ -170,7 +170,7 @@ Ada beberapa layout format lain yang tersedia, silakan lihat tabel berikut.
 | `time.StampMicro` | Jan _2 15:04:05.000000 |
 | `time.StampNano` | Jan _2 15:04:05.000000000 |
 
-## A.8.5. Format dari `time.Time` ke `string`
+## A.38.5. Format dari `time.Time` ke `string`
 
 Setelah sebelumnya kita belajar tentang cara konversi data dengan tipe `string` ke `time.Time`. Kali ini kita akan belajar kebalikannya, konversi `time.Time` ke `string`.
 
@@ -192,7 +192,7 @@ Variabel `date` di atas berisikan hasil parsing data dengan format `time.RFC822`
 
 ![Contoh penggunaan method `Format()`](images/A.38_3_time_format.png)
 
-## A.8.6. Handle Error Parsing `time.Time`
+## A.38.6. Handle Error Parsing `time.Time`
 
 Ketika parsing `string` ke `time.Time`, sangat memungkinkan bisa terjadi error karena struktur data yang akan di-parse tidak sesuai layout format yang digunakan. Error tidaknya parsing bisa diketahui lewat nilai kembalian ke-2 fungsi `time.Parse()`. Berikut adalah contoh penerapannya.
 
@@ -213,4 +213,4 @@ Kode di atas menghasilkan error karena format tidak sesuai dengan skema data yan
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.38-time)
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.38-time-parsing-format)
