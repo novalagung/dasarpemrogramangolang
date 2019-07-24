@@ -2,6 +2,8 @@
 
 Pada bagian ini kita akan belajar cara pemanfaatan Go Modules untuk manajemen project dan dependency. Go Modules merupakan bagian dari **Go Toolchain** yang sekarang sedang dikembangkan.
 
+Sebelum kita belajar mengenai go modules secara intensif, ada baiknya kita coba melihat kebelakang sejenak untuk mengenang `$GOPATH`.
+
 ## A.60.1. *The Infamous* `$GOPATH`
 
 Sebelumnya sudah di bahas dalam [Bab A.3. GOPATH Dan Workspace](/3-gopath-dan-workspace.html) bahwa project Go harus ditempatkan didalam workspace, lebih spesifiknya dalam folder `$GOPATH/src/`. Sudah dibahas juga bahwa ada baiknya untuk men-centralize 3rd party library yang digunakan per project dengan memanfaatkan [vendoring](/A-58-go-vendoring.html) dan [package management tools: Dep](/A-59-go-dep.html).
@@ -67,3 +69,7 @@ Jika pada sebuah projek sudah enabled `dep`, dan ingin di enable Go Modules. Mak
 ## A.60.5. Sinkronisasi Dependencies
 
 Gunakan command `go mod tidy` untuk sinkronisasi dependencies yang digunakan dalam project. Dengan command tersebut, secara otomatis 3rd party yang belum ditambahkan akan dicatat dan ditambahkan; dan yang tidak digunakan tapi terlanjut tercatat akan dihapuskan.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.60-go-modules)

@@ -73,3 +73,7 @@ Di go, ada sangat banyak sekali package management tools. Sangat. Banyak. Sekali
 Pembaca bebas memilih untuk menggunakan package management tools yang mana. Namun di buku ini, **Dep** akan kita bahas. Dep sendiri merupakan official package management tools untuk Go dari Go Team.
 
 Pembahasan mengenai Dep ada di bab selanjutnya.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.58-vendoring)

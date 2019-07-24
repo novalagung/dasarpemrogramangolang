@@ -52,7 +52,7 @@
     * [A.48. Web](48-web.md)
     * [A.49. URL Parsing](49-url-parsing.md)
     * [A.50. JSON](50-json.md)
-    * [A.51. Web JSON API](51-web-json-api.md)
+    * [A.51. Web Service API (JSON Data)](51-web-json-api.md)
     * [A.52. HTTP Request](52-http-request.md)
     * [A.53. SQL](53-sql.md)
     * [A.54. NoSQL MongoDB](54-mongodb.md)

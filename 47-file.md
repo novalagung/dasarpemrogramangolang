@@ -1,12 +1,10 @@
 # A.47. File
 
-Ada beberapa cara yang bisa digunakan untuk operasi file di Golang. Pada bab ini kita akan mempelajari teknik yang paling dasar, yaitu dengan memanfaatkan `os.File`.
+Ada beberapa cara yang bisa digunakan untuk operasi file di Go. Pada bab ini kita akan mempelajari teknik yang paling dasar, yaitu dengan memanfaatkan `os.File`.
 
 ## A.47.1. Membuat File Baru
 
-Pembuatan file di Golang sangatlah mudah, cukup dengan memanggil fungsi `os.Create()` lalu memasukkan path file ingin dibuat sebagai parameter fungsi tersebut.
-
-Jika file yang akan dibuat sudah ada, maka akan ditimpa. Bisa memanfaatkan `os.IsNotExist()` untuk mendeteksi apakah file sudah dibuat atau belum.
+Pembuatan file di Go sangatlah mudah, cukup dengan memanggil fungsi `os.Create()` lalu memasukkan path file yang ingin dibuat sebagai parameter. Jika ternyata file yang akan dibuat sudah ada, maka akan ditimpa. Bisa memanfaatkan `os.IsNotExist()` untuk mendeteksi apakah file sudah dibuat atau belum.
 
 Berikut merupakan contoh pembuatan file.
 
@@ -152,3 +150,7 @@ func main() {
 ```
 
 ![Menghapus file](images/A.47_4_delete.png)
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.47-file)

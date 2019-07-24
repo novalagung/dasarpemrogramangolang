@@ -1,8 +1,8 @@
 # A.48. Web
 
-Golang menyediakan package `net/http`, berisi berbagai macam fitur untuk keperluan pembuatan aplikasi berbasi web. Termasuk didalamnya routing, server, templating, dan lainnya, semua tinggal pakai.
+Go menyediakan package `net/http`, berisi berbagai macam fitur untuk keperluan pembuatan aplikasi berbasi web. Termasuk didalamnya web server, routing, templating, dan lainnya.
 
-Golang memiliki web server sendiri, dan web server tersebut berada di dalam golang, tdak seperti bahasa lain yang server nya terpisah dan perlu di-instal sendiri (seperti PHP yang memerlukan Apache, .NET yang memerlukan IIS).
+Go memiliki web server sendiri, dan web server tersebut berada di dalam Go, tdak seperti bahasa lain yang server nya terpisah dan perlu di-instal sendiri (seperti PHP yang memerlukan Apache, .NET yang memerlukan IIS).
 
 Di bab ini kita akan belajar cara pembuatan aplikasi web sederhanda dan pemanfaatan template untuk mendesain view.
 
@@ -50,7 +50,7 @@ Fungsi `http.HandleFunc()` memiliki 2 buah parameter yang harus diisi. Parameter
 
 Pada pendaftaran rute `/index`, callback-nya adalah fungsi `index()`, hal seperti ini diperbolehkan asalkan tipe dari fungsi tersebut sesuai.
 
-Fungsi `http.listenAndServe()` digunakan untuk menghidupkan server sekaligus menjalankan aplikasi menggunakan server tersebut. Di golang, 1 web aplikasi adalah 1 buah server berbeda.
+Fungsi `http.listenAndServe()` digunakan untuk menghidupkan server sekaligus menjalankan aplikasi menggunakan server tersebut. Di Go, 1 web aplikasi adalah 1 buah server berbeda.
 
 Pada contoh di atas, server dijalankan pada port `8080`.
 
@@ -60,14 +60,14 @@ Untuk menghentikan web server, tekan **CTRL+C** pada terminal atau CMD, dimana p
 
 ## A.48.2. Penggunaan Template Web
 
-Template egninmemberikan kemudahan dalam mendesain tampilan view aplikasi website. Dan kabar baiknya golang menyediakan engine template sendiri, dengan banyak fitur yang tersedia didalamnya.
+Template engine memberikan kemudahan dalam mendesain tampilan view aplikasi website. Dan kabar baiknya Go menyediakan engine template sendiri, dengan banyak fitur yang tersedia didalamnya.
 
 Di sini kita akan belajar contoh sederhana penggunaan template untuk menampilkan data. Pertama siapkan dahulu template nya. Buat file `template.html` lalu isi dengan kode berikut.
 
 ```html
 <html>
     <head>
-        <title>Golang learn net/http</title>
+        <title>Go learn net/http</title>
     </head>
     <body>
         <p>Hello {{\.Name}} !</p>
@@ -117,3 +117,11 @@ Fungsi `template.ParseFiles()` digunakan untuk parsing template, mengembalikan 2
 Pada kode di atas, variabel `data` disisipkan sebagai parameter ke-2 method `Execute()`. Isi dari variabel tersebut bisa diakses di-view dengan menggunakan notasi `{{.NAMA_PROPERTY}}` (nama variabel sendiri tidak perlu dituliskan, langsung nama property didalamnya).
 
 Pada contoh di atas, statement di view `{{.Name}}` akan menampilkan isi dari `data.Name`.
+
+## A.48.3. Advance Web Programming
+
+Sampai bab ini yang kita pelajari adalah dasar-dasar pemrograman Go, di bahas per topik adalah per bab. Nantinya jika sudah masuk [Bab B.1. Golang Web App: Hello World](/B-1-golang-web-hello-world.html) hingga seterusnya akan membahas mostly mengenai pemrograman web, jadi sabar dulu. Mari kita selesaikan dulu yang fundamental sebelum masuk ke web development.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.48-web)

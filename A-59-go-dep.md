@@ -4,6 +4,8 @@ Dep adalah Go Official Package Management Tools, diperkenalkan pada go versi `go
 
 Dengan menggunakan Dep, maka semua 3rd party libraries yang dipakai dalam suatu project akan dicatat dan ditempatkan di dalam sub folder `vendor` pada project tersebut.
 
+> Jika kawan-kawan menggunakan `$GOPATH`, silakan memanfaatkan Dep ini untuk manajemen dependensi. Tetapi jika menggunakan [Go Modules](/A-60-go-modules.html) penulis sarankan untuk menggunakan fasilitas package manager yang sudah ter-bundle dalam Go Modules.
+
 ## A.58.1. Instalasi Dep
 
 Silakan ikuti petunjuk di [Dep Installation](https://golang.github.io/dep/docs/installation.html), ada beberapa cara yang bisa dipilih untuk meng-install Dep.
@@ -57,3 +59,7 @@ Contoh command update:
 ```bash
 $ dep ensure -update github.com/novalagung/gubrak
 ```
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.59-dep)

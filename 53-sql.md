@@ -1,8 +1,8 @@
 # A.53. SQL
 
-Golang menyediakan package `database/sql` berisikan generic interface untuk keperluan interaksi dengan database sql. Package ini hanya bisa digunakan ketika **driver** database engine yang dipilih juga ada.
+Go menyediakan package `database/sql` berisikan generic interface untuk keperluan interaksi dengan database sql. Package ini hanya bisa digunakan ketika **driver** database engine yang dipilih juga ada.
 
-Ada cukup banyak sql driver yang tersedia untuk Golang, detailnya bisa diakses di [https://github.com/golang/go/wiki/SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers). Beberapa diantaranya:
+Ada cukup banyak sql driver yang tersedia untuk Go, detailnya bisa diakses di [https://github.com/golang/go/wiki/SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers). Beberapa diantaranya:
 
  - MySql
  - Oracle
@@ -333,3 +333,7 @@ Selengkapya mengenai driver yang tersedia bisa dilihat di [https://github.com/go
 ---
 
 - [Go MySQL Driver](https://github.com/go-sql-driver/mysql), by Julien Schmidt, MPL-2.0 license
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.53-sql)

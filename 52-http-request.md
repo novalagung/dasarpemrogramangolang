@@ -1,8 +1,8 @@
 # A.52. HTTP Request
 
-Di bab sebelumnya kita telah belajar tentang bagaimana membuat Web API yang mem-provide data JSON, pada bab ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
+Di bab sebelumnya telah dibahas bagaimana membuat Web Service API yang mem-provide data JSON, pada bab ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
 
-Pastikan anda sudah mempraktekkan apa-apa yang ada pada bab sebelumnya (bab 51), karena web api server yang sudah dibuat pada bab sebelumnya kita juga pada bab ini.
+Pastikan anda sudah mempraktekkan apa-apa yang ada pada bab sebelumnya [Bab A.51. Web Service API (JSON Data)](/51-web-json-api.html), karena web service yang telah dibuat pada bab tersebut dipergunakan juga pada bab ini.
 
 ![Jalankan web server](images/A.51_1_server.png)
 
@@ -74,7 +74,7 @@ Data response bisa diambil lewat property `Body` dalam bentuk string. Gunakan JS
 
 Perlu diketahui, data response perlu di-**close** setelah tidak dipakai. Caranya seperti pada kode `defer response.Body.Close()`.
 
-Implementasikan fungsi `fetchUsers()` di atas pada `main`.
+Selanjutnya, eksekusi fungsi `fetchUsers()` dalam fungsi `main()`.
 
 ```go
 func main() {
@@ -90,11 +90,11 @@ func main() {
 }
 ```
 
-Jalankan program untuk mengetes hasilnya.
+Jalankan program untuk test hasil.
 
 ![HTTP Request](images/A.52_1_http_request.png)
 
-## A.52.3. HTTP Request Dengan Form Data
+## A.52.2. HTTP Request Dengan Form Data
 
 Untuk menyisipkan data pada sebuah request, ada beberapa hal yang perlu ditambahkan. Yang pertama, import beberapa package lagi, `bytes` dan `net/url`.
 
@@ -104,7 +104,6 @@ import "net/url"
 ```
 
 Buat fungsi baru, isinya request ke [http://localhost:8080/user](http://localhost:8080/user) dengan data yang disisipkan adalah `ID`.
-
 
 ```go
 func fetchUser(ID string) (student, error) {
@@ -147,9 +146,9 @@ Karena data yang akan dikirim di-encode, maka pada header perlu di set tipe kont
 
 > Pada konteks HTML, HTTP Request yang di trigger dari tag `<form></form>` secara default tipe konten-nya sudah di set `application/x-www-form-urlencoded`. Lebih detailnya bisa merujuk ke spesifikasi HTML form [http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1](http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1)
 
-Response dari rute `/user` bukan berupa array objek, melainkan sebuah objek. Maka pada saat decode pastikan tipe variabel penampung hasil decode data response adalah `student` (bukan `[]student`).
+Response dari endpoint `/user` bukanlah slice, tetapi berupa objek. Maka pada saat decode perlu pastikan tipe variabel penampung hasil decode data response adalah `student` (bukan `[]student`).
 
-Terakhir buat implementasinya pada fungsi `main`.
+Lanjut ke perkodingan, terakhir, implementasikan `fetchUser()` pada fungsi `main()`.
 
 ```go
 func main() {
@@ -163,6 +162,14 @@ func main() {
 }
 ```
 
-Pada kode di atas `ID` ditentukan nilainya `"E001"`. Jalankan program untuk mengetes apakah data yang dikembalikan sesuai.
+Untuk keperluan testing, kita hardcode `ID` nilainya `"E001"`. Jalankan program untuk test apakah data yang dikembalikan sesuai.
 
 ![HTTP request Form Data](images/A.52_2_http_request_form_data.png)
+
+## A.52.3. Secure & Insecure HTTP Request
+
+Kita telah mempelajari bagaimana cara membuat http request sederhana untuk kirim data dan juga ambil data. Nantinya pada [Bab C.25. Secure & Insecure Client HTTP Request](/C-25-secure-insecure-client-http-request.html) kita akan belajar cara membuat http client request yang lebih njlimet untuk kasus yang lebih advance, tapi sabar dulu hehe.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.52-http-request)

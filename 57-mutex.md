@@ -6,7 +6,7 @@ Race condition adalah kondisi dimana lebih dari satu goroutine, mengakses data y
 
 Mutex melakukan pengubahan level akses sebuah data menjadi eksklusif, menjadikan data tersebut hanya dapat dikonsumsi (read / write) oleh satu buah goroutine saja. Ketika terjadi race condition, maka hanya goroutine yang beruntung saja yang bisa mengakses data tersebut. Goroutine lain (yang waktu running nya kebetulan bersamaan) akan dipaksa untuk menunggu, hingga goroutine yang sedang memanfaatkan data tersebut selesai.
 
-Golang menyediakan `sync.Mutex` yang bisa dimanfaatkan untuk keperluan **lock** dan **unlock** data. Pada bab ini kita akan membahas mengenai race condition, dan menanggulanginya menggunakan mutex.
+Go menyediakan `sync.Mutex` yang bisa dimanfaatkan untuk keperluan **lock** dan **unlock** data. Pada bab ini kita akan membahas mengenai race condition, dan menanggulanginya menggunakan mutex.
 
 ## A.57.1. Persiapan
 
@@ -87,9 +87,9 @@ Nilai `meter.val` tidak genap 1000000? kenapa bisa begitu? Padahal seharusnya ti
 
 Inilah yang disebut dengan race condition, data yang diakses bersamaan dalam 1 waktu menjadi kacau.
 
-## A.57.3. Deteksi Race Condition Menggunakan Golang Race Detector
+## A.57.3. Deteksi Race Condition Menggunakan Go Race Detector
 
-Golang menyediakan fitur untuk [deteksi race condition](http://blog.golang.org/race-detector). Cara penggunaannya adalah dengan menambahkan flag `-race` pada saat eksekusi aplikasi.
+Go menyediakan fitur untuk [deteksi race condition](http://blog.golang.org/race-detector). Cara penggunaannya adalah dengan menambahkan flag `-race` pada saat eksekusi aplikasi.
 
 ![Race detector](images/A.57_2_race_detector.png)
 
@@ -130,7 +130,7 @@ Coba jalankan program, dan lihat hasilnya.
 
 ![Mutex](images/A.57_3_mutex.png)
 
-Penggunaan `sync.Mutex` yang dianjurkan adalah dengan cara langsung di embed ke struct dimana proses yang memungkin race condition berada. Kita bisa saja menggunakan mutex dengan cara biasa, berikut adalah contohnya.
+Pada contoh di atas, mutex diterapkan dengan cara di-embed ke objek yang memerlukan proses lock-unlock, menjadikan variabel mutex tersebut adalah eksklusif untuk objek tersebut saja. Cara ini merupakan cara yang dianjurkan. Meskipun demikian, mutex tetap bisa digunakan dengan cara tanpa ditempelkan ke objek yang memerlukan lock-unlock. Contohnya bisa dilihat dibawah ini.
 
 ```go
 func (c *counter) Add(x int) {
@@ -167,10 +167,6 @@ func main() {
 }
 ```
 
-<!-- https://en.wikipedia.org/wiki/Race_condition
-http://blog.golang.org/race-detector
-http://www.goinggo.net/2013/09/detecting-race-conditions-with-go.html
-http://www.alexedwards.net/blog/understanding-mutexes
-http://wysocki.in/golang-concurrency-data-races/
-http://stackoverflow.com/questions/34510/what-is-a-race-condition
-http://stackoverflow.com/questions/26521587/golang-how-to-share-value-message-or-mutex -->
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.57-mutex)

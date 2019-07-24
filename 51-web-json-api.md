@@ -1,8 +1,8 @@
-# A.51. Web API JSON
+# A.51. Web Service API (JSON Data)
 
-Pada bab ini kita akan mengkombinasikan pembahasan 2 bab sebelumnya, yaitu web dan JSON, untuk membuat sebuah web API dengan tipe data reponse berbentuk JSON.
+Pada bab ini kita akan mengkombinasikan pembahasan 2 bab sebelumnya, yaitu web programming dan JSON, untuk membuat sebuah web service API dengan tipe data reponse berbentuk JSON.
 
-> Web API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML. Di bab ini kita akan buat tanpa authentikasi.
+> Web Service API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML.
 
 ## A.51.1. Pembuatan Web API
 
@@ -29,9 +29,9 @@ var data = []student{
 }
 ```
 
-Struct `student` di atas digunakan sebagai tipe elemen array sample data, ditampung variabel `data`.
+Struct `student` di atas digunakan sebagai tipe elemen slice sample data, ditampung variabel `data`.
 
-Selanjutnya buat fungsi `users()` untuk handle rute `/users`. Didalam fungsi tersebut ada proses deteksi jenis request lewat property `r.Method()`, untuk mencari tahu apakah jenis request adalah **POST** atau **GET** atau lainnya.
+Selanjutnya buat fungsi `users()` untuk handle endpoint `/users`. Didalam fungsi tersebut ada proses deteksi jenis request lewat property `r.Method()`, untuk mencari tahu apakah jenis request adalah **POST** atau **GET** atau lainnya.
 
 ```go
 func users(w http.ResponseWriter, r *http.Request) {
@@ -59,10 +59,10 @@ Statement `w.Header().Set("Content-Type", "application/json")` digunakan untuk m
 
 Selebihnya, jika request tidak valid, response di set sebagai error menggunakan fungsi `http.Error()`.
 
-Siapkan juga handler untuk rute `/user`. Perbedaan rute ini dengan rute `/users` di atas adalah:
+Siapkan juga handler untuk endpoint `/user`. Perbedaan endpoint ini dengan `/users` di atas adalah:
 
- - `/users` menghasilkan semua sample data yang ada (array).
- - `/user` menghasilkan satu buah data saja, diambel dari data sample berdasarkan `ID`-nya. Pada rute ini, client harus mengirimkan juga informasi `ID` data yang dicari.
+ - Endpoint `/users` menghasilkan semua sample data yang ada (array).
+ - Endpoint `/user` menghasilkan satu buah data saja, diambel dari data sample berdasarkan `ID`-nya. Pada endpoint ini, client harus mengirimkan juga informasi `ID` data yang dicari.
 
 ```go
 func user(w http.ResponseWriter, r *http.Request) {
@@ -115,14 +115,18 @@ Jalankan program, sekarang web server sudah live dan bisa dikonsumsi datanya.
 
 ![Web API Server dijalankan](images/A.51_1_server.png)
 
-## A.51.2. Test API
+## A.51.2. Test Web Service API
 
-Setelah web server sudah berjalan, web API yang telah dibuat perlu untuk di tes. Di sini saya menggunakan Google Chrome plugin bernama [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en) untuk mengetes API yang sudah dibuat.
+Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-tes. Di sini saya menggunakan Google Chrome plugin bernama [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en) untuk mengetes API yang sudah dibuat.
 
- - Test `/users`, apakah data yang dikembalikan sudah benar.
+ - Test endpoint `/users`, apakah data yang dikembalikan sudah benar.
 
     ![Test `/users`](images/A.51_2_test_api_users.png)
 
- - Test `/user`, isi form data `id` dengan nilai `E001`.
+ - Test endpoint `/user`, isi form data `id` dengan nilai `E001`.
 
     ![Test `/user`](images/A.51_3_test_api_user.png)
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.51-web-json-api)

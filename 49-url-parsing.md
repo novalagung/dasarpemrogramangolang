@@ -11,7 +11,7 @@ import "fmt"
 import "net/url"
 
 func main() {
-    var urlString = "http://depeloper.com:80/hello?name=john wick&age=27"
+    var urlString = "http://kalipare.com:80/hello?name=john wick&age=27"
     var u, e = url.Parse(urlString)
     if e != nil {
         fmt.Println(e.Error())
@@ -21,7 +21,7 @@ func main() {
     fmt.Printf("url: %s\n", urlString)
 
     fmt.Printf("protocol: %s\n", u.Scheme) // http
-    fmt.Printf("host: %s\n", u.Host)       // depeloper.com:80
+    fmt.Printf("host: %s\n", u.Host)       // kalipare.com:80
     fmt.Printf("path: %s\n", u.Path)       // /hello
 
     var name = u.Query()["name"][0] // john wick
@@ -35,3 +35,7 @@ Fungsi `url.Parse()` digunakan untuk parsing string ke bentuk url. Mengembalikan
 Selain itu, query yang ada pada url akan otomatis diparsing juga, menjadi bentuk `map[string][]string`, dengan key adalah nama elemen query, dan value array string yang berisikan value elemen query.
 
 ![Pengaksesan elemen URL](images/A.49_1_parse_url.png)
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.49-url-parsing)

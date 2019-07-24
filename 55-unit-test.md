@@ -1,12 +1,12 @@
 # A.55. Unit Test
 
-Golang menyediakan package `testing`, yang berisikan banyak sekali tools untuk keperluan unit testing.
+Go menyediakan package `testing`, berisikan banyak sekali tools untuk keperluan unit test.
 
 Pada bab ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan [testify](https://github.com/stretchr/testify).
 
 ## A.55.1. Persiapan
 
-Pertama siapkan terlebih dahulu sebuah struct `Kubus`. Variabel object hasil struct ini nantinya kita gunakan sebagai bahan testing.
+Langsung saja kita praktek. Pertama siapkan terlebih dahulu sebuah struct `Kubus`. Variabel object hasil struct ini nantinya kita gunakan sebagai bahan testing.
 
 ```go
 package main
@@ -36,7 +36,7 @@ Simpan kode di atas dengan nama `bab55.go`.
 
 File untuk keperluan testing dipisah dengan file utama, namanya harus berakhiran `_test.go`, dan package-nya harus sama. Pada bab ini, file utama adalah `bab55.go`, maka file testing harus bernama `bab55_test.go`.
 
-Unit test di Golang dituliskan dalam bentuk fungsi, yang memiliki parameter yang bertipe `*testing.T`, dengan nama fungsi harus diawali kata **Test** (pastikan sudah meng-import package `testing` sebelumnya). Lewat parameter tersebut, kita bisa mengakses method-method untuk keperluan testing.
+Unit test di Go dituliskan dalam bentuk fungsi, yang memiliki parameter yang bertipe `*testing.T`, dengan nama fungsi harus diawali kata **Test** (pastikan sudah meng-import package `testing` sebelumnya). Lewat parameter tersebut, kita bisa mengakses method-method untuk keperluan testing.
 
 Pada contoh di bawah ini disiapkan 3 buah fungsi test, yang masing-masing digunakan untuk mengecek apakah hasil kalkulasi volume, luas, dan keliling kubus adalah benar.
 
@@ -103,7 +103,7 @@ Setelah itu jalankan lagi test.
 
 ## A.55.3. Method Test
 
-Table berikut berisikan method standar testing yang bisa digunakan di Golang.
+Table berikut berisikan method standar testing yang bisa digunakan di Go.
 
 | Method | Kegunaan |
 | :----- | :------- |
@@ -144,7 +144,7 @@ Arti dari `30000000  51.1 ns/op` adalah, fungsi di atas di-test sebanyak **30 ju
 
 ## A.55.5. Testing Menggunakan testify
 
-Package **testify** berisikan banyak sekali tools yang bisa dimanfaatkan untuk keperluan testing di Golang.
+Package **testify** berisikan banyak sekali tools yang bisa dimanfaatkan untuk keperluan testing di Go.
 
 Testify bisa di-download pada [github.com/stretchr/testify](https://github.com/stretchr/testify) menggunakan `go get`.
 
@@ -185,3 +185,7 @@ Fungsi `assert.Equal()` digunakan untuk uji perbandingan. Parameter ke-2 dibandi
 ---
 
 - [Testify](https://github.com/stretchr/testify), by "Stretchr, Inc"
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.55-unit-test)
