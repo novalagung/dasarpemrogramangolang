@@ -1,6 +1,6 @@
 # B.8. Template: Custom Functions
 
-Pada bab sebelumnya kita telah mengenal beberapa predefined fungsi yang disediakan oleh Golang. Kali ini kita akan belajar tentang fungsi custom, bagaimana cara membuat dan menggunakannya dalam template.
+Pada bab sebelumnya kita telah mengenal beberapa *predefined* function yang disediakan oleh Go. Kali ini kita akan belajar tentang fungsi custom, bagaimana cara membuat dan menggunakannya dalam template.
 
 ## B.8.1. Front End
 
@@ -58,7 +58,7 @@ var funcMap = template.FuncMap{
 }
 ```
 
-> template.FuncMap sebenarnya merupakan alias dari `map[string]interface{}`
+> Tipe `template.FuncMap` sebenarnya merupakan alias dari `map[string]interface{}`
 
 Dalam `funcMap` di atas, dua buah fungsi disiapkan, `unescape()` dan `avg()`. Nantinya fungsi ini kita gunakan di view.
 
@@ -96,7 +96,7 @@ Tes hasilnya lewat browser.
 
 Pada kode di atas, pemanggilan `template.New()` menghasilkan objek bertipe `*template.Template`. 
 
-Pada bab **[1.5](/1-5-render-html-partial.html#parsing-banyak-file-html-menggunakan-templateparsefiles)** kita telah belajar mengenai fungsi `template.ParseFiles()`, yang fungsi tersebut juga mengembalikan objek bertipe `*template.Template`.
+Pada **[Bab B.5. Template: Render Partial HTML Template](/B-5-template-render-partial-html.html#b56-parsing-banyak-file-html-menggunakan-templateparsefiles)** kita telah belajar mengenai fungsi `template.ParseFiles()`, yang fungsi tersebut juga mengembalikan objek bertipe `*template.Template`.
 
 Pada kode di atas, method `ParseFiles()` yang dipanggil bukanlah fungsi `template.ParseFiles()` yang kita telah pelajari sebelumnya. Meskipun namanya sama, kedua fungsi/method ini berbeda.
 
@@ -104,4 +104,10 @@ Pada kode di atas, method `ParseFiles()` yang dipanggil bukanlah fungsi `templat
  - Method `ParseFiles()`, milik `*template.Template`, digunakan untuk memparsing semua view yang disisipkan sebagai parameter, lalu diambil hanya bagian yang nama template-nya adalah sama dengan nama template yang sudah di-alokasikan menggunakan `template.New()`. Jika template yang dicari tidak ada, maka akan mencari yang nama file-nya sama dengan nama template yang sudah ter-alokasi.
 
 Bab selanjutnya akan membahas lebih detail mengenai penggunaan method `ParseFiles()`.
- 
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.8-template-custom-functions">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.8...</a>
+</div>

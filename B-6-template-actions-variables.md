@@ -1,6 +1,6 @@
 # B.6. Template: Actions & Variables
 
-[**Actions**](https://golang.org/pkg/text/template/#hdr-Actions) adalah *predefined* keyword yang sudah disiapkan oleh golang, biasa dimanfaatkan dalam pembuatan template. 
+[**Actions**](https://golang.org/pkg/text/template/#hdr-Actions) adalah *predefined* keyword yang sudah disediakan Go, biasa dimanfaatkan dalam pembuatan template. 
 
 Sebenarnya pada dua bab sebelumnya, secara tidak sadar kita telah menggunakan beberapa jenis actions, diantaranya:
 
@@ -60,7 +60,7 @@ func main() {
 
 Pada route handler `/` di atas, variabel objek `person` dibuat, lalu disisipkan sebagai data pada view `view.html` yang sebelumya sudah diparsing.
 
-Perlu diketahui, ketika data yang disisipkan ke view berbentuk `map`, maka `key` (yang nantinya akan menjadi nama variabel) boleh dituliskan dalam huruf kecil. Sedangkan jika berupa variabel objek cetakan `struct`, property harus dituliskan public (huruf pertama kapital).
+Perlu diketahui, ketika data yang disisipkan ke view berbentuk `map`, maka `key` (yang nantinya akan menjadi nama variabel) boleh dituliskan dalam huruf kecil. Sedangkan jika berupa variabel objek `struct`, maka property harus dituliskan public (huruf pertama kapital).
 
 > Data yang disisipkan ke view, jika tipe nya adalah struct, maka hanya properties ber-modifier public (ditandai dengan huruf kapital di awal nama property) yang bisa diakses dari view.
 
@@ -243,3 +243,10 @@ Untuk seleksi kondisi yang kondisinya adalah bersumber dari variabel bertipe `bo
 	<p>not true (false)</p>
 {{end}}
 ```
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.6-template-actions-variables">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.6...</a>
+</div>

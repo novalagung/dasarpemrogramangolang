@@ -128,3 +128,10 @@ Setelah data dari form sudah ditangkap oleh back-end, data ditampung dalam varia
 OK, sekarang coba jalankan program yang telah kita buat, dan cek hasilnya.
 
 ![Form Value](images/B.12_1_form.png)
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.12-form-value">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.12...</a>
+</div>

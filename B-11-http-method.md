@@ -1,8 +1,8 @@
 # B.11. HTTP Method: POST & GET
 
-Setelah sebelumnya kita telah mempelajari banyak hal yang berhubungan dengan template view, kali ini topik yang terpilih sedikit berbeda, yaitu mengenai penanganan http request di back end.
+Setelah sebelumnya kita telah mempelajari banyak hal yang berhubungan dengan template view, kali ini topik yang terpilih adalah berbeda, yaitu mengenai penanganan http request di back end.
 
-Sebuah route handler pada dasarnya bisa menerima segala jenis request dalam artian apapun HTTP method-nya. Seperti **POST**, **GET**, dan atau lainnya. Untuk memisah request berdasarkan method-nya, bisa menggunakan seleksi kondisi.
+Sebuah route handler pada dasarnya bisa menerima segala jenis request, dalam artian: apapun jenis HTTP method-nya maka akan tetap masuk ke satu handler (seperti **POST**, **GET**, dan atau lainnya). Untuk memisah request berdasarkan method-nya, bisa menggunakan seleksi kondisi.
 
 > Pada bab lain kita akan belajar teknik routing yg lebih advance dengan bantuan routing library.
 
@@ -18,11 +18,12 @@ import "fmt"
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "POST" {
+		switch r.Method {
+		case "POST":
 			w.Write([]byte("post"))
-		} else if r.Method == "GET" {
+		case "GET":
 			w.Write([]byte("get"))
-		} else {
+		default:
 			http.Error(w, "", http.StatusBadRequest)
 		}
 	})
@@ -38,7 +39,7 @@ Pada contoh di atas, request ke rute `/` dengan method POST akan menghasilkan ou
 
 ## B.11.2. Test
 
-Gunakan [postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en), atau tools sejenisnya untuk mempermudah testing. Berikut adalah contoh request dengan method GET.
+Gunakan [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en), atau tools sejenisnya untuk mempermudah testing. Berikut adalah contoh request dengan method GET.
 
 ![Request GET](images/B.11_1_get.png)
 
@@ -49,3 +50,10 @@ Sedangkan di bawah ini adalah untuk method POST.
 Jika method yang digunakan adalah selain POST dan GET, maka sesuai source code di atas, harusnya request akan menghasilkan response **400 Bad Request**. Di bawah ini adalah contoh request dengan method **PUT**.
 
 ![400 Bad Request](images/B.11_3_bad_request.png)
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.11-http-method">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.11...</a>
+</div>

@@ -220,12 +220,15 @@ Mari kita praktekan. Ubah handler rute `/index` dan `/about`. Gunakan `template.
 	}
 	```
 
-Rute `/index` memakai view `_header.html`, `_message.html`, dan `index.html`; sedangkan rute `/about` tidak memakai `index.html`, melainkan `about.html`.
+Rute `/index` memakai view `_header.html`, `_message.html`, dan `index.html`; sedangkan rute `/about` tidak memakai `index.html`, melainkan menggunakan `about.html`.
 
 Wrap fungsi `template.ParseFiles()` dalam `template.Must()`. Fungsi ini berguna untuk deteksi error pada saat membuat instance `*template.Template` baru atau ketika sedang mengolahnya. Ketika ada error, `panic` dimunculkan.
 
-Jalankan aplikasi untuk mengetes hasilnya.
+Jalankan aplikasi untuk test hasilnya.
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.5-template-render-partial-html)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.5-template-render-partial-html">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.5...</a>
+</div>

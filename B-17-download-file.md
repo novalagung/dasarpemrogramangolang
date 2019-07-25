@@ -1,8 +1,8 @@
 # B.17. Download File
 
-Setelah sebelumnya belajar cara untuk handle upload file, kali ini kita akan belajar bagaimana cara membuat endpoint yang outputnya adalah download file.
+Setelah sebelumnya belajar cara untuk handle upload file, kali ini kita akan belajar bagaimana cara membuat handler yang hasilnya adalah download file.
 
-Sebenarnya download file bisa dengan mudah di-implementasikan menggunakan fungsi `http.Handle()`, dengan langsung mengakses url dari public assets di browser. Namun outcome dari teknik ini sangat tergantung pada browser. Tiap browser memiliki behaviour berbeda, ada yang file tidak di-download melainkan dibuka di tab, ada yang ter-download.
+Sebenarnya download file bisa dengan mudah di-implementasikan menggunakan teknik routing static file, langsung akses url dari public assets di browser. Namun outcome dari teknik ini sangat tergantung pada browser. Tiap browser memiliki behaviour berbeda, ada yang file tidak di-download melainkan dibuka di tab, ada yang ter-download.
 
 Dengan menggunakan teknik berikut, file pasti akan ter-download.
 
@@ -174,7 +174,7 @@ func handleListFiles(w http.ResponseWriter, r *http.Request) {
 
 Fungsi `os.Getwd()` mengembalikan informasi absolute path dimana aplikasi di-eksekusi. Path tersebut kemudian di gabung dengan folder bernama `files` lewat fungsi `filepath.Join`. 
 
-> Fungsi `filepath.Join` akan menggabungkan item-item dengan path separator sesuai dengan sistem operasi dimana program dijalankan. `\` untuk Wind\*ws dan `/` untuk \*nix.
+> Fungsi `filepath.Join` akan menggabungkan item-item dengan path separator sesuai dengan sistem operasi dimana program dijalankan. `\` untuk Windows dan `/` untuk Linux/Unix.
 
 Fungsi `filepath.Walk` berguna untuk membaca isi dari sebuah direktori, apa yang ada didalamnya (file maupun folder) akan di-loop. Dengan memanfaatkan callback parameter kedua fungsi ini (yang bertipe `filepath.WalkFunc`), kita bisa mengamil informasi tiap item satu-per satu.
 
@@ -216,3 +216,10 @@ Objek file yang direpresentasikan variabel `f`, isinya di-copy ke objek response
 Jalankan program, akses rute `/`. List semua file dalam folder `files` muncul di sana. Klik salah satu file untuk men-download-nya.
 
 ![Download file](images/B.17_2_download.png)
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.17-download-file">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.17...</a>
+</div>
