@@ -82,3 +82,7 @@ Fungsi `http.StripPrefix()` ini berguna untuk menghapus prefix dari endpoint yan
  * ... dan seterusnya
 
 Routing static assets menjadi valid, karena file yang di-request akan cocok dengan path folder dari file yang di request.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.3-routing-static-assets)

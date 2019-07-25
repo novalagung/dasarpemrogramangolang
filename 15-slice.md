@@ -257,4 +257,7 @@ fmt.Println(cap(bFruits)) // cap: 2
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.15-slice)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.15-slice">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.15...</a>
+</div>

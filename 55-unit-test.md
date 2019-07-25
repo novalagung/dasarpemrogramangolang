@@ -188,4 +188,7 @@ Fungsi `assert.Equal()` digunakan untuk uji perbandingan. Parameter ke-2 dibandi
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.55-unit-test)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.55-unit-test">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.55...</a>
+</div>

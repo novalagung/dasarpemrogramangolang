@@ -82,7 +82,7 @@ Karena semua file html sudah diparsing di awal, maka untuk render template terte
 
 ## B.5.3. Front End
 
-#### • Template `index.html`
+## B.5.3.1. Template `index.html`
 
 OK, sekarang waktunya untuk mulai menyiapkan template view. Ada 4 buah template yang harus kita siapkan satu per satu. 
 
@@ -112,7 +112,7 @@ Pada kode di atas terlihat bahwa ada beberapa kode yang ditulis dengan notasinya
  - Statement <code>\{\{.name\}\}</code> akan memunculkan data, `name`, yang data ini sudah disisipkan oleh back end pada saat rendering.
  - Statement <code>\{\{end\}\}</code> adalah penanda batas akhir pendefinisian template.
 
-#### • Template `about.html`
+## B.5.3.2. Template `about.html`
 
 Template ke-2, `about.html` diisi dengan dengan kode yang sama seperti pada `index.html`, hanya berbeda di bagian nama template dan beberapa text.
 
@@ -132,7 +132,7 @@ Template ke-2, `about.html` diisi dengan dengan kode yang sama seperti pada `ind
 {{end}}
 ```
 
-#### • Template `_header.html`
+## B.5.3.3. Template `_header.html`
 
 Buka file `_header.html`, definisikan template bernama `_header` dengan isi adalah judul halaman.
 
@@ -144,9 +144,9 @@ Buka file `_header.html`, definisikan template bernama `_header` dengan isi adal
 
 > Nama file bisa ditulis dengan diawali karakter underscore atau `_`. Pada bab ini, nama file yang diawali `_` kita asumsikan sebagai template parsial, template yang nantinya di-include-kan ke template utama.
 
-#### • Template `_message.html`
+## B.5.3.4. Template `_message.html`
 
-Definisikan juga template `_message` pada file `_message.html`. Isinya sebuah pesan.
+Definisikan juga template `_message` pada file `_message.html` dengan isi sebuah text.
 
 ```html
 {{define "_message"}}
@@ -154,7 +154,7 @@ Definisikan juga template `_message` pada file `_message.html`. Isinya sebuah pe
 {{end}}
 ```
 
-## B.5.5. Test
+## B.5.5. Run & Test
 
 Jalankan aplikasi, test via browser.
 
@@ -225,3 +225,7 @@ Rute `/index` memakai view `_header.html`, `_message.html`, dan `index.html`; se
 Wrap fungsi `template.ParseFiles()` dalam `template.Must()`. Fungsi ini berguna untuk deteksi error pada saat membuat instance `*template.Template` baru atau ketika sedang mengolahnya. Ketika ada error, `panic` dimunculkan.
 
 Jalankan aplikasi untuk mengetes hasilnya.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.5-template-render-partial-html)

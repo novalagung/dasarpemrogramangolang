@@ -169,4 +169,7 @@ func main() {
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.57-mutex)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.57-mutex">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.57...</a>
+</div>

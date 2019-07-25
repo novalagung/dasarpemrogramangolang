@@ -129,4 +129,7 @@ Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.51-web-json-api)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.51-web-json-api">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.51...</a>
+</div>

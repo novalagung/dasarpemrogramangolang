@@ -1,13 +1,13 @@
 # B.6. Template: Actions & Variables
 
-[**Actions**](https://golang.org/pkg/text/template/#hdr-Actions) adalah *predefined* keyword yang sudah disiapkan oleh golang, yang biasa dimanfaatkan dalam pembuatan template. 
+[**Actions**](https://golang.org/pkg/text/template/#hdr-Actions) adalah *predefined* keyword yang sudah disiapkan oleh golang, biasa dimanfaatkan dalam pembuatan template. 
 
 Sebenarnya pada dua bab sebelumnya, secara tidak sadar kita telah menggunakan beberapa jenis actions, diantaranya:
 
  - Penggunaan **pipeline output**. Nilai yang diapit tanda <code>\{\{ \}\}</code>, yang nantinya akan dimunculkan di layar sebagai output, contohnya: <code>\{\{"hello world"\}\}</code>.
  - Include template lain menggunakan keyword `template`, contohnya: <code>\{\{template "name"\}\}</code>.
 
-Pada bab ini, kita akan belajar lebih banyak lagi tentang actions lain yang disediakan golang, juga cara pembuatan dan pemanfaatan variabel pada template view.
+Pada bab ini, kita akan belajar lebih banyak lagi tentang actions lain yang disediakan Go, juga cara pembuatan dan pemanfaatan variabel pada template view.
 
 ## B.6.1. Persiapan
 
@@ -33,7 +33,7 @@ type Person struct {
 }
 ```
 
-Pada kode di atas, dua buah struct disiapkan, `Info` dan `Person` (yang dimana struct `Info` di-embed ke dalam struct `Person`). Kedua struct tersebut nantinya akan digunakan untuk mencetak objek, yang kemudian object tersebut disisipkan kedalam view.
+Pada kode di atas, dua buah struct disiapkan, `Info` dan `Person` (yang dimana struct `Info` di-embed ke dalam struct `Person`). Kedua struct tersebut nantinya akan digunakan untuk pembuatan objek, yang kemudian object tersebut disisipkan kedalam view.
 
 Selanjutnya, siapkan fungsi `main()`, dengan didalamnya berisikan 1 buah route handler `/`, dan juga kode untuk menjalankan server pada port `9000`.
 
@@ -122,7 +122,7 @@ Jika ingin menampilkan isi variabel, tuliskan sebagai pipeline.
 
 ## B.6.4. Perulangan
 
-Actions `range` digunakan untuk melakukan perulangan pada template view. Keyword ini bisa diterapkan pada tipe data `map` atau array. Cara penggunaannya sedikit berbeda dibanding penggunaan range pada Golang. Silakan perhatikan contoh berikut.
+Actions `range` digunakan untuk melakukan perulangan pada template view. Keyword ini bisa diterapkan pada tipe data `map` atau array. Cara penggunaannya sedikit berbeda dibanding penggunaan range pada Go. Silakan perhatikan contoh berikut.
 
 ```html
 <tr>

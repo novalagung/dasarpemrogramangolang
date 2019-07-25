@@ -80,4 +80,7 @@ Cukup mudah bukan?
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.32-channel-select)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.32-channel-select">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.32...</a>
+</div>

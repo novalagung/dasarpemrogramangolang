@@ -146,4 +146,7 @@ Output program:
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.19-fungsi-variadic)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.19-fungsi-variadic">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.19...</a>
+</div>

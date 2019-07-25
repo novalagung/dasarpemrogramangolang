@@ -176,4 +176,7 @@ Pada bab 24 dijelaskan bahwa method pointer bisa diakses lewat variabel objek bi
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.26-interface)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.26-interface">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.26...</a>
+</div>

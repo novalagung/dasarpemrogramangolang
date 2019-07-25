@@ -157,7 +157,7 @@ Perlu diketahui, bahwa isi variabel underscore tidak dapat ditampilkan. Data yan
 
 ## A.8.6. Deklarasi Variabel Menggunakan Keyword `new`
 
-Keyword `new` digunakan untuk mencetak data **pointer** dengan tipe data tertentu. Nilai data default-nya akan menyesuaikan tipe datanya.
+Keyword `new` digunakan untuk membuat variabel **pointer** dengan tipe data tertentu. Nilai data default-nya akan menyesuaikan tipe datanya.
 
 ```go
 name := new(string)
@@ -182,4 +182,7 @@ Dan lagi, mungkin banyak yang akan bingung. Ketika sudah masuk ke pembahasan mas
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.8-variabel)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.8-variabel">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.8...</a>
+</div>

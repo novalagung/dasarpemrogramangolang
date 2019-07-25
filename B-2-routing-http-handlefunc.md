@@ -1,25 +1,26 @@
 # B.2. Routing `http.HandleFunc`
 
-Dalam Golang, routing bisa dilakukan dengan beberapa cara, diantaranya:
+Dalam Go, routing bisa dilakukan dengan beberapa cara, diantaranya:
 
  1. Dengan memanfaatkan fungsi `http.HandleFunc()`
  2. Mengimplementasikan interface `http.Handler` pada suatu struct, untuk kemudian digunakan pada fungsi `http.Handle()`
  3. Membuat multiplexer sendiri dengan memanfaatkan struct `http.ServeMux`
+ 4. Dan lainnya
 
-Di buku ini ketiga cara tersebut akan dibahas. Namun khusus pada bab ini saja, hanya `http.HandleFunc()` yang kita pelajari.
+Pada buku ini, kesemua cara tersebut akan dibahas, namun khusus pada bab ini saja, hanya `http.HandleFunc()` yang kita pelajari.
 
-> Metode routing cara pertama dan cara kedua memiliki kesamaan yaitu sama-sama menggunakan `DefaultServeMux` untuk pencocokan rute yang diregistrasikan. Mengenai apa itu `DefaultServeMux` akan kita bahas lebih mendetail pada bab lain.
+> Metode routing cara pertama dan cara kedua memiliki kesamaan yaitu sama-sama menggunakan `DefaultServeMux` untuk pencocokan rute/endpoint yang diregistrasikan. Mengenai apa itu `DefaultServeMux` akan kita bahas lebih mendetail pada bab lain.
 
 ## B.2.1. Penggunaan `http.HandleFunc()`
 
-Seperti yang sudah dijelaskan sekilas pada bab sebelumnya, fungsi `http.HandleFunc()` digunakan untuk registrasi rute dan handler-nya.
+Seperti yang sudah dijelaskan sekilas pada bab sebelumnya, fungsi `http.HandleFunc()` digunakan untuk registrasi rute/endpoint dan handler-nya.
 
 Penggunaan fungsi ini cukup mudah, panggil saja fungsi lalu isi dua parameternya.
 
- 1. Parameter ke-1, adalah rute. Sebagai contoh: `/`, `/index`, `/about`.
+ 1. Parameter ke-1, adalah rute (atau endpoint). Sebagai contoh: `/`, `/index`, `/about`.
  2. Parameter ke-2, berisikan handler untuk rute bersangkutan. Sebagai contoh handler untuk rute `/` bertugas untuk menampilkan output berupa html `<p>hello</p>`.
 
-Agar lebih mudah dipahami mari kita praktekan. Siapkan sebuah file `main.go` dengan package adalah `main`, dan import package `net/http` didalamnya.
+Agar lebih mudah dipahami mari langsung praktek. Siapkan file `main.go` dengan package adalah `main`, dan import package `net/http` didalamnya.
 
 ```go
 package main
@@ -64,10 +65,14 @@ func main() {
 }
 ```
 
-## B.2.2. Test
+## B.2.2. Run & Test
 
 Tes dan lihat hasilnya.
 
 ![Rute `/data` mengembalikan data json](images/B.2_1_routing.png)
 
-Dalam routing, handler bisa berupa fungsi, closure, ataupun anonymous function. Yang terpenting adalah skema fungsi-nya sesuai dengan `func (http.ResponseWriter, *http.Request)`.
+Dalam routing, handler bisa berupa fungsi, closure, ataupun anonymous function; bebas, yang terpenting adalah skema fungsi-nya sesuai dengan `func (http.ResponseWriter, *http.Request)`.
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.2-routing-http-handlefunc)

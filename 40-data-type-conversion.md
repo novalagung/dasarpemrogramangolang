@@ -244,4 +244,7 @@ Kombinasi `switch` - `case` bisa dimanfaatkan untuk deteksi tipe konkret data ya
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.40-data-type-conversion)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.40-konversi-data">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.40...</a>
+</div>

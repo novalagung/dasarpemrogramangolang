@@ -24,7 +24,7 @@ func (s Superhero) SayHello(from string, message string) string {
 }
 ```
 
-Struct `Superhero` di atas nantinya digunakan untuk mencetak objek yang kemudian disisipkan ke template view.
+Struct `Superhero` di atas nantinya digunakan untuk membuat objek yang kemudian disisipkan ke template view.
 
 Selanjutnya buat fungsi `main()`, isi dengan handler untuk rute `/`. Secara umum isi dari file `main.go` ini mirip seperti yang ada pada bab sebelumnya.
 

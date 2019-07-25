@@ -153,4 +153,7 @@ func main() {
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.47-file)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.47-file">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.47...</a>
+</div>

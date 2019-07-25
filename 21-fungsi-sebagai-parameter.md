@@ -99,4 +99,7 @@ Variabel `result` bernilai `true` karena string `"ang"` merupakan bagian dari st
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.21-fungsi-sebagai-parameter)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.21-fungsi-sebagai-parameter">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.21...</a>
+</div>

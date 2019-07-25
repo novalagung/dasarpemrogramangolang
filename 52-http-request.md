@@ -172,4 +172,7 @@ Kita telah mempelajari bagaimana cara membuat http request sederhana untuk kirim
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.52-http-request)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.52-http-request">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.52...</a>
+</div>

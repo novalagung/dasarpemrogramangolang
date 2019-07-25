@@ -133,4 +133,7 @@ for _, each := range fruits {
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.27-interface-kosong)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.27-interface-kosong">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.27...</a>
+</div>

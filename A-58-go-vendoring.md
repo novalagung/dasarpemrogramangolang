@@ -76,4 +76,7 @@ Pembahasan mengenai Dep ada di bab selanjutnya.
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.58-vendoring)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.58-vendoring">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.58...</a>
+</div>

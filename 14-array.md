@@ -196,4 +196,7 @@ Parameter pertama keyword `make` diisi dengan tipe data elemen array yang diingi
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.14-array)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.14-array">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.14...</a>
+</div>

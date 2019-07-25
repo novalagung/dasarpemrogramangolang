@@ -171,4 +171,7 @@ Output program:
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.20-fungsi-closure)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.20-fungsi-closure">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.20...</a>
+</div>

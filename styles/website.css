@@ -6,6 +6,17 @@
     pointer-events: none;
     height: 20px;
 }
+
+.source-code-link {
+    border: 1px solid #c9ffce;
+    background-color: #e7ffe9;
+    padding: 10px 10px;
+    text-align: center;
+}
+.source-code-link .source-code-link-message {
+    font-weight: bold;
+}
+
 #disqus_thread {
     margin-top: 40px;
 }

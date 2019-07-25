@@ -157,4 +157,7 @@ fmt.Println(str) // "EAT!"
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.41-strings)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.41-fungsi-string">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.41...</a>
+</div>

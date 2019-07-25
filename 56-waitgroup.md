@@ -69,4 +69,7 @@ Kombinasi yang tepat antara `sync.WaitGroup` dan channel sangat penting, keduany
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.56-waitgroup)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.56-waitgroup">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.56...</a>
+</div>

@@ -52,4 +52,7 @@ Selain `.Output()` ada sangat banyak sekali API untuk keperluan komunikasi denga
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.46-exec)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.46-exec">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.46...</a>
+</div>

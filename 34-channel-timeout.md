@@ -66,4 +66,7 @@ Muncul output setiap kali ada penerimaan data dengan delay waktu acak. Ketika ti
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.34-channel-timeout)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.34-channel-timeout">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.34...</a>
+</div>

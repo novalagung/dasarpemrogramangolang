@@ -213,4 +213,7 @@ Kode di atas menghasilkan error karena format tidak sesuai dengan skema data yan
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.38-time-parsing-format)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.38-time-parsing-format">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.38...</a>
+</div>

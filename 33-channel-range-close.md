@@ -71,4 +71,7 @@ Dan sebaliknya pada fungsi `printMessage(ch <-chan string)`, channel `ch` hanya 
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.33-channel-range-close)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.33-channel-range-close">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.33...</a>
+</div>

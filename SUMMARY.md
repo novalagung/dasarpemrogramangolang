@@ -1,7 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
-* A. Pemrograman Golang Dasar
+* A. Pemrograman Go Dasar
     * [A.1. Berkenalan Dengan Golang](1-berkenalan-dengan-golang.md)
     * [A.2. Instalasi Golang](2-instalasi-golang.md)
     * [A.3. GOPATH Dan Workspace](3-gopath-dan-workspace.md)
@@ -62,7 +62,8 @@
     * [A.58. Go Vendoring](A-58-go-vendoring.md)
     * [A.59. Dep - Go Dependency Management Tool](A-59-go-dep.md)
     * [A.60. Go Modules](A-60-go-modules.md)
-* B. Pemrograman Web Golang Dasar
+    * [A.61. Time & Timezone Location](A-61-time-timezone-location.md)
+* B. Pemrograman Web Go Dasar
     * [B.1. Golang Web App: Hello World](B-1-golang-web-hello-world.md)
     * [B.2. Routing http.HandleFunc](B-2-routing-http-handlefunc.md)
     * [B.3. Routing Static Assets](B-3-routing-static-assets.md)
@@ -85,7 +86,7 @@
     * [B.20. Custom Multiplexer](B-20-custom-mux-multiplexer.md)
     * [B.21. HTTP Cookie](B-21-cookie.md)
     * [B.22. Configuration File](B-22-configuration-file.md)
-* C. Pemrograman Web Golang Lanjut
+* C. Pemrograman Go Lanjut
     * [C.1. Echo Framework & Routing](C-1-echo-routing.md)
     * [C.2. Parsing HTTP Request Payload (Echo)](C-2-parsing-http-request-payload-echo.md)
     * [C.3. HTTP Request Payload Validation (Validator v9, Echo)](C-3-http-request-payload-validation.md)
@@ -118,4 +119,4 @@
     * [C.31. Context: Value, Timeout, & Cancellation](C-31-golang-context.md)
     * [C.32. JSON Web Token (JWT)](C-32-golang-jwt.md)
     * [C.33. LDAP Authentication](C-33-golang-ldap-authentication.md)
-    * [C.32. SSO SAML (Service Provider)](C-34-golang-sso-saml-sp.md)
+    <!-- * [C.32. SSO SAML (Service Provider)](C-34-golang-sso-saml-sp.md) -->

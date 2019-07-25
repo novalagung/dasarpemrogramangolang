@@ -145,4 +145,7 @@ Outputnya: **hello world! how are you**.
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.6-hello-world).
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.6-hello-world">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.6...</a>
+</div>

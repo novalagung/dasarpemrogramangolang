@@ -86,4 +86,7 @@ Bisa dilihat pada kode di atas, untuk menampung inputan text `trafalgar d law`, 
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.29-goroutine)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.29-goroutine">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.29...</a>
+</div>

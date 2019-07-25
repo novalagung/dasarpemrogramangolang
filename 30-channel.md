@@ -158,4 +158,7 @@ fmt.Println(message)
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.30-channel)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.30-channel">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.30...</a>
+</div>

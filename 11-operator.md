@@ -92,4 +92,7 @@ Template `\t` digunakan untuk menambahkan indent tabulasi. Biasa dimanfaatkan un
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.11-operator)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.11-operator">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.11...</a>
+</div>

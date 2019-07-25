@@ -62,4 +62,7 @@ $ dep ensure -update github.com/novalagung/gubrak
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.59-dep)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.59-dep">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.59...</a>
+</div>

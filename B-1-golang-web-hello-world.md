@@ -1,10 +1,10 @@
 # B.1. Golang Web App: Hello World
 
-Pada bab pertama ini, kita akan belajar bagaimana cara membuat aplikasi web "Hello World" sederhana menggunakan Golang.
+Pada serial bab B ini, kita masih tetap akan belajar tentang topik fundamental atau dasar tapi lebih spesifik ke arah web development. Kita awali dengan pembahasan bagaimana cara membuat aplikasi web "Hello World" sederhana menggunakan Go.
 
 ## B.1.1. Pembuatan Aplikasi
 
-Pertama buat folder projek baru dengan isi `main.go`, tentukan package-nya sebagai `main`, lalu import package `fmt` dan `net/http`.
+Mari belajar dengan praktek langsung. Pertama buat folder projek baru dengan isi `main.go`, tentukan package-nya sebagai `main`, lalu import package `fmt` dan `net/http`.
 
 ```go
 package main
@@ -18,9 +18,7 @@ Setelah itu, siapkan dua buah fungsi, masing-masing fungsi memiliki skema parame
  - Parameter ke-1 bertipe `http.ResponseWrite`
  - Parameter ke-2 bertipe `*http.Request`
 
-Fungsi dengan struktur di atas diperlukan oleh `http.HandleFunc` untuk keperluan penanganan request ke rute yang ditentukan. 
-
-Berikut merupakan dua fungsi yang dimaksud.
+Fungsi dengan struktur di atas diperlukan oleh `http.HandleFunc` untuk keperluan penanganan request ke rute yang ditentukan. Berikut merupakan dua fungsi yang dimaksud.
 
 ```go
 func handlerIndex(w http.ResponseWriter, r *http.Request) {
@@ -59,11 +57,9 @@ Fungsi `http.HandleFunc()` digunakan untuk routing. Parameter pertama adalah rut
 
 Fungsi `http.ListenAndServe()` digunakan membuat sekaligus start server baru, dengan parameter pertama adalah alamat web server yang diiginkan (bisa diisi host, host & port, atau port saja). Parameter kedua merupakan object mux atau multiplexer. 
 
-> Dalam chapter ini kita menggunakan default mux yang sudah disediakan oleh golang, jadi untuk parameter ke-2 cukup isi dengan `nil`.
+> Dalam chapter ini kita menggunakan default mux yang sudah disediakan oleh Go, jadi untuk parameter ke-2 cukup isi dengan `nil`.
 
-## B.1.2. Testing
-
-Program sudah siap, jalankan menggunakan `go run`.
+Ok, sekarang program sudah siap, jalankan menggunakan `go run`.
 
 ![Jalankan program](images/B.1_1_start_server.png)
 
@@ -73,7 +69,7 @@ Cek pada browser rute yang sudah dibuat, output akan muncul.
 
 Berikut merupakan penjelasan detail per-bagian program yang telah kita buat dari contoh di atas.
 
-## B.1.3. Penggunaan `http.HandleFunc()`
+### B.1.1.1. Penggunaan `http.HandleFunc()`
 
 Fungsi ini digunakan untuk **routing**, menentukan aksi dari sebuah url tertentu ketika diakses (di sini url tersebut kita sebut sebagai rute/route). Rute dituliskan dalam `string` sebagai parameter pertama, dan aksi-nya sendiri dibungkus dalam fungsi (bisa berupa closure) yang ditempatkan pada parameter kedua (kita sebut sebagai handler).
 
@@ -87,7 +83,7 @@ Ketika rute-rute tersebut diakses lewat browser, outpunya adalah isi-handler dar
 
 > Pada contoh di atas, ketika rute yang tidak terdaftar diakses, secara otomatis handler rute `/` akan terpanggil.
 
-## B.1.4. Penjelasan Mengenai **Handler**
+### B.1.1.2. Penjelasan Mengenai **Handler**
 
 Route handler atau handler atau parameter kedua fungsi `http.HandleFunc()`, adalah sebuah fungsi dengan ber-skema `func (ResponseWriter, *Request)`. 
 
@@ -109,7 +105,7 @@ Pada contoh program yang telah kita buat, handler `Index()` memunculkan text `"W
 
 Sebuah handler bisa dipergunakan pada banyak rute, bisa dilihat pada di atas handler `Index()` digunakan pada rute `/` dan `/index`.
 
-## B.1.5. Penggunaan `http.ListenAndServe()`
+### B.1.1.3. Penggunaan `http.ListenAndServe()`
 
 Fungsi ini digunakan untuk membuat web server baru. Pada contoh yang telah dibuat, web server di-*start* pada port `9000` (bisa dituliskan dalam bentuk `localhost:9000` atau cukup `:9000` saja).
 
@@ -123,7 +119,7 @@ Fungsi `http.ListenAndServe()` bersifat blocking, menjadikan semua statement set
 
 Fungsi ini mengembalikan nilai balik ber-tipe `error`. Jika proses pembuatan web server baru gagal, maka kita bisa mengetahui root-cause nya apa.
 
-## B.1.6. Web Server Menggunakan `http.Server`
+## B.1.2. Web Server Menggunakan `http.Server`
 
 Selain menggunakan `http.ListenAndServe()`, ada cara lain yang bisa diterapkan untuk start web server, yaitu dengan memanfaatkan struct `http.Server`.
 
@@ -143,7 +139,7 @@ if err != nil {
 
 Informasi host/port perlu dimasukan dalam property `.Addr` milik objek server. Lalu dari objek tersebut panggil method `.ListenAndServe()` untuk start web server.
 
-Kelebihan menggunakan `http.Server` salah satunya adalah kemampuan untuk mengubah beberapa konfigurasi default web server golang. 
+Kelebihan menggunakan `http.Server` salah satunya adalah kemampuan untuk mengubah beberapa konfigurasi default web server Go. 
 
 Contoh, pada kode berikut, timeout untuk read request dan write request di ubah menjadi 10 detik.
 
@@ -154,3 +150,6 @@ server.WriteTimeout = time.Second * 10
 
 Ada banyak lagi property dari struct `http.Server` ini, yang pastinya akan dibahas pada bab-bab selanjutnya.
 
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.1-golang-web-hello-world)

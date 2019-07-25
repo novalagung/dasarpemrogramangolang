@@ -82,4 +82,7 @@ fmt.Println(decodedString)
 
 ---
 
-Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.43-encoding-base64)
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.43-encode-decode-base64">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.43...</a>
+</div>

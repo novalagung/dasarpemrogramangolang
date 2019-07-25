@@ -2,7 +2,7 @@
 
 Pada bagian ini kita akan belajar bagaimana cara render file **template** ber-tipe **HTML**, untuk ditampilkan pada browser. 
 
-Terdapat banyak jenis template pada golang, yang akan kita pakai adalah template HTML. Package `html/template` menyediakan banyak sekali fungsi untuk kebutuhan rendering dan parsing file template jenis ini.
+Terdapat banyak jenis template pada Go, yang akan kita pakai adalah template HTML. Package `html/template` berisi banyak sekali fungsi untuk kebutuhan rendering dan parsing file template jenis ini.
 
 ## B.4.1. Struktur Aplikasi
 
@@ -135,3 +135,7 @@ func main() {
 Jalankan aplikasi untuk test hasil.
 
 ![CSS berhasil di-load](images/B.4_3_static_route.png)
+
+---
+
+Source code praktek pada bab ini tersedia di [Github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.4-template-render-html)
