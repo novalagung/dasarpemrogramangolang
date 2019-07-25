@@ -2,7 +2,7 @@
 
 HTTP Basic Auth adalah salah satu teknik otentikasi http request. Metode ini membutuhkan informasi username dan password untuk disisipkan dalam header request (dengan format tertentu), jadi cukup sederhana, tidak memerlukan cookies maupun session. Lebih jelasnya silakan baca [RFC-7617](https://tools.ietf.org/html/rfc7617).
 
-Informasi username dan password tidak serta merta disisipkan dalam header, informasi tersebut harus di-encode terlebih dahulu ke dalam format yg sudah ditentukan sesuai spesifikasi, lalu dimasukan ke header. 
+Informasi username dan password tidak serta merta disisipkan dalam header, informasi tersebut harus di-encode terlebih dahulu ke dalam format yg sudah ditentukan sesuai spesifikasi, sebelum dimasukan ke header. 
 
 Berikut adalah contoh penulisan basic auth.
 
@@ -94,11 +94,10 @@ func OutputJSON(w http.ResponseWriter, o interface{}) {
 
     w.Header().Set("Content-Type", "application/json")
     w.Write(res)
-    w.Write([]byte("\n"))
 }
 ```
 
-Konversi dari objek atau slice ke JSON string bisa dilakukan dengan memanfaatkan `json.Marshal`. Untuk lebih jelasnya silakan baca [Dasar Pemrograman Golang, Bab 50, tentang JSON](https://dasarpemrogramangolang.novalagung.com/50-json.html).
+Konversi dari objek atau slice ke JSON string bisa dilakukan dengan memanfaatkan `json.Marshal`. Untuk lebih jelasnya silakan baca lagi [Bab A.50. JSON](/50-json.html).
 
 ## B.18.3. Data `Student`
 
@@ -150,7 +149,7 @@ func init() {
 
 Selanjutnya, kita perlu menyiapkan beberapa fungsi yg digunakan pada `main.go`, yaitu `Auth()` dan `AllowOnlyGET()`.
 
-#### • Fungsi `Auth()`
+### B.18.5.1. Fungsi `Auth()`
 
 Buka `middleware.go`, siapkan fungsi `Auth()`.
 
@@ -189,7 +188,7 @@ Fungsi `r.BasicAuth()` mengembalikan 3 informasi:
 
 Jika basic auth request tidak valid, maka tampilkan pesan error sebagai nilai balik. Sedangkan jika basic auth adalah valid, maka dilanjutkan ke proses otentikasi, mengecek apakah username dan password yang dikirim cocok dengan username dan password yang ada di aplikasi kita.
 
-#### • Fungsi `AllowOnlyGET()`
+### B.18.5.2. Fungsi `AllowOnlyGET()`
 
 Fungsi ini bertugas untuk memastikan bahwa request yang diperbolehkan hanya yang ber-method `GET`. Selainnya, maka akan dianggap invalid request.
 
@@ -224,3 +223,10 @@ $ curl -X GET --user batman:secret http://localhost:9000/student?id=s001
 ```
 
 ![Consume API](images/B.18_3_test_api.png)
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.18-http-basic-auth">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.18...</a>
+</div>

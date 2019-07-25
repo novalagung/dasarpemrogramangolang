@@ -16,7 +16,7 @@ OK, langsung saja, pertama siapkan proyek dengan struktur seperti pada gambar di
 
 ![Struktur proyek](images/B.14_1_structure.png)
 
-> Silakan unduh file js jQuery dari situs official jQuery.
+> Silakan unduh file js jQuery dari situs official-nya.
 
 ## B.14.2. Front End - HTML
 
@@ -48,25 +48,19 @@ Selanjutnya, pada tag `<form />` tambahkan tabel sederhana berisikan inputan-inp
 ```html
 <table noborder>
 	<tr>
-		<td>
-			<label>Name :</label>
-		</td>
+		<td><label>Name :</label></td>
 		<td>
 			<input required type="text" name="name" placeholder="Type name here" />
 		</td>
 	</tr>
 	<tr>
-		<td>
-			<label>Age :</label>
-		</td>
+		<td><label>Age :</label></td>
 		<td>
 			<input required type="number" name="age" placeholder="Set age" />
 		</td>
 	</tr>
 	<tr>
-		<td>
-			<label>Gender :</label>
-		</td>
+		<td><label>Gender :</label></td>
 		<td>
 			<select name="gender" required style="width: 100%;">
 				<option value="">Select one</option>
@@ -85,7 +79,7 @@ Selanjutnya, pada tag `<form />` tambahkan tabel sederhana berisikan inputan-inp
 
 ## B.14.3. Front End - HTML
 
-Sekarang kita masuk ke bagian paling menyenangkan, yaitu javascript. Siapkan sebuah event `submit` pada `#user-form`. Dalam event tersebut event submit default milik `<form />` di-override, diganti dengan AJAX request.
+Sekarang kita masuk ke bagian paling menyenangkan/menyebalkan (tergantung taste), yaitu javascript. Siapkan sebuah event `submit` pada `#user-form`. Dalam event tersebut default handler event submit milik `<form />` di-override, diganti dengan AJAX request.
 
 ```js
 $("#user-form").on("submit", function (e) {
@@ -194,3 +188,10 @@ Jalankan program, test hasilnya di browser.
 Gunakan fasilitas Developer Tools pada Chrome untuk melihat detail dari request.
 
 ![Request](images/B.14_3_inspect.png)
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.14-ajax-json-payload">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.14...</a>
+</div>

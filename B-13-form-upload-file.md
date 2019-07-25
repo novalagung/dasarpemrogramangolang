@@ -1,6 +1,6 @@
 # B.13. Form Upload File
 
-Pada bagian ini kita akan belajar bagaimana cara meng-handle upload file lewat form. Caranya beberapa bagian mirip seperti pada bab sebelumnya, hanya perlu ditambahkan proses untuk handling file yang di-upload. File tersebut disimpan ke dalam path/folder tertentu.
+Pada bagian ini kita akan belajar bagaimana cara meng-handle upload file lewat form. Di beberapa bagian caranya mirip seperti pada bab sebelumnya, hanya perlu ditambahkan proses untuk handling file yang di-upload. File tersebut disimpan ke dalam path/folder tertentu.
 
 ## B.13.1. Struktur Folder Proyek
 
@@ -161,10 +161,17 @@ Fungsi `os.OpenFile` digunakan untuk membuka file. Fungsi ini membutuhkan 3 buah
 
 Fungsi `io.Copy` akan mengisi konten file parameter pertama (`targetFile`) dengan isi parameter kedua (`uploadedFile`). File kosong yang telah kita buat tadi akan diisi dengan data file yang tersimpan di memory.
 
-> Pada bab lain kita akan belajar cara handling file upload dengan metode yang lebih efektif dan hemat memori, yaitu menggunakan `MultipartReader`.
+> Nantinya pada salah satu pembahasan di [Bab B.16. AJAX Multiple File Upload](/B-16-ajax-multi-upload.html) akan dijelaskan cara handling file upload dengan metode yang lebih efektif dan hemat memori, yaitu menggunakan `MultipartReader`.
 
 ## B.13.4. Testing
 
 Jalankan program, test hasilnya lewat browser.
 
 ![Test upload](images/B.13_2_files.png)
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.13-form-upload-file">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.13...</a>
+</div>

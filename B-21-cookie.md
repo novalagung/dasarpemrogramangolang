@@ -1,15 +1,14 @@
 # B.21. HTTP Cookie
 
-Cookie adalah data dalam bentuk teks yang disimpan pada komputer (oleh web browser) ketika pengunjung sedang surfing ke sebuah situs. Cookie dapat dibuat dari sisi front end (javascript) maupun back end (dalam konteks ini golang).
+Cookie adalah data dalam bentuk teks yang disimpan pada komputer (oleh web browser) ketika pengunjung sedang surfing ke sebuah situs. Cookie dapat dibuat dari sisi front end (javascript) maupun back end (dalam konteks ini Go).
 
 Cookie merupakan salah satu aspek penting dalam pengembangan aplikasi web. Sangat sering kita membutuhkan sebuah data bisa disimpan dan diakses untuk keperluan aplikasi web kita, seperti pengecekan preferensi pengunjung, pengecekan status login tidak nya user.
 
-Pada bab ini kita akan belajar bagaimana cara membuat dan mengakses cookie di golang.
+Pada bab ini kita akan belajar bagaimana cara membuat dan mengakses cookie di Go.
 
 ## B.21.1. Praktek
 
 Buat sebuah folder proyek, siapkan satu buah file `main.go`. Buat fungsi `main()`, registrasikan dua buah rute.
-
 
 ```go
 package main
@@ -34,7 +33,7 @@ func main() {
 }
 ```
 
-Variabel `cookieName` berisikan string, akan kita gunakan sebagai nama cookie.
+Variabel `cookieName` berisikan string, nantinya digunakan sebagai nama cookie.
 
  - Rute `/` bertugas untuk membuat cookie baru (jika belum ada atau cookie sudah ada namun expired).
  - Rute `/delete` mempunyai tugas untuk menghapus cookie, lalu redirect ke `/` sehingga cookie baru akan dibuat
@@ -74,7 +73,7 @@ Pembuatan cookie cukup mudah, tinggal cetak saja objek baru dari struct `http.Co
 
 Jika `c.Value` adalah kosong, kita asumsikan bahwa cookie belum pernah dibuat (atau expired), maka kita buat cookie baru dengan data adalah random string. 
 
-> Untuk mempermudah generate random string, kita gunakan library bernama [gubrak](https://github.com/novalagung/gubrak). Fungsi `gubrak.RandomString(32)` akan menghasilkan string ajak 32 karakter.
+> Untuk mempermudah generate random string, kita gunakan library bernama [gubrak](https://github.com/novalagung/gubrak). Fungsi `gubrak.RandomString(32)` akan menghasilkan string 32 karakter.
 
 Cookie bisa expired. Lama cookie aktif ditentukan lewat property `Expires`. Pada kode di atas expiration duration kita set selama 5 menit.
 
@@ -118,8 +117,15 @@ Objek cookie memiliki beberapa property, beberapa diantaranya:
 | Expires | `time.Time` | Durasi cookie, ditulis dalam tipe `time.Time` |
 | MaxAge | `int` | Durasi cookie, ditulis dalam detik (numerik) |
 | Secure | `bool` | Scope cookie dalam konteks protocol yang digunakan ketika pengaksesan web. Proprty ini hanya berguna pada saat web server SSL/TLS enabled.<br /><ul><li>Jika <code>false</code>, maka cookie yang disimpan ketika web diakses menggunakan protocol <code>http://</code>, tetap bisa diakses lewat <code>https://</code>, dan berlaku juga untuk kebalikannya.</li><li>Jika <code>true</code>, pada saat pengaksesan lewat protokol <code>https://</code>, maka data cookie akan di-enkripsi. Sedangkan pada pengaksesan lewat protokol <code>http://</code> cookie disimpan seperti biasa (tanpa dienkripsi). Jika dalam satu web server, dua protokol tersebut bisa diakses, <code>https://</code> dan <code>https://</code>, maka aturan di atas tetap berlaku untuk masing-masing protokol, dengan catatan data yang disimpan lewat <code>https://</code> hanya bisa diakses lewat protokol tersebut.</li></ul> |
-| HttpOnly | `bool` | <ul><li>Jika <code>false</code>, maka cookie bisa dibuat lewat back end (golang), maupun lewat front end (javascript)</li><li>Jika <code>true</code>, maka cookie hanya bisa diciptakan dari back end</li></ul> |
+| HttpOnly | `bool` | <ul><li>Jika <code>false</code>, maka cookie bisa dibuat lewat back end (Go), maupun lewat front end (javascript)</li><li>Jika <code>true</code>, maka cookie hanya bisa diciptakan dari back end</li></ul> |
 
 ---
 
  - [Gubrak](https://github.com/novalagung/gubrak), by Noval Agung, MIT license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.21-cookie">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.21...</a>
+</div>

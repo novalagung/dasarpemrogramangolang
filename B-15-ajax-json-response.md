@@ -1,6 +1,6 @@
 # B.15. AJAX JSON Response
 
-Pada bab sebelumnya, kita belajar cara untuk memproses request dengan paylaod JSON string. Pada bab ini kita akan belajar untuk membuat satu endpoint yang mengembalikan data JSON string.
+Pada bab sebelumnya, kita belajar cara untuk memproses request dengan paylaod bertipe JSON. Pada bab ini kita akan belajar untuk membuat satu endpoint yang mengembalikan data JSON string.
 
 ## B.15.1. Praktek
 
@@ -50,7 +50,7 @@ Cara mengkonversi data ke bentuk json cukup mudah, bisa menggunakan `json.Marsha
 
 > Untuk mengambil bentuk string dari hasil konversi JSON, cukup lakukan casting pada data slice bytes tersebut. Contoh: `string(jsonInBytes)`
 
-Karena nilai balik konversi sudah dalam bentuk bytes, maka langsung saja panggil method `Write()` milik `http.ResponseWriter` dan sisipkan data json sebagai argument.
+Karena nilai balik konversi sudah dalam bentuk bytes, maka langsung saja panggil method `Write()` milik `http.ResponseWriter` dan sisipkan data json sebagai argument pemanggilan method.
 
 Jangan lupa juga untuk menambahkan response header `Content-Type: application/json`.
 
@@ -81,3 +81,10 @@ if err != nil {
 ```
 
 Kode di atas hasilnya ekuivalen dengan penggunaan `json.Marshal`.
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.15-ajax-json-response">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.15...</a>
+</div>

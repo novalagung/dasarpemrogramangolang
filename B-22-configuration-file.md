@@ -184,7 +184,7 @@ if err != nil {
 
 Objek baru bernama `server` telah dibuat dari struct `http.Server`. Untuk start server cukup panggil method `ListenAndServe()` milik objek tersebut.
 
-Dengan memanfaatkan struct ini, kita bisa meng-custom beberapa konfigurasi default pada golang web server. Di antaranya seperti `ReadTimeout` dan `WriteTimeout`.
+Dengan memanfaatkan struct ini, kita bisa meng-custom beberapa konfigurasi default pada Go web server. Di antaranya seperti `ReadTimeout` dan `WriteTimeout`.
 
 Pada kode di atas bisa kita lihat, ada 4 buah properti milik `server` di-isi.
 
@@ -198,3 +198,10 @@ Terakhir jalankan aplikasi, akses dua buah endpoint yang sudah dibuat, lalu coba
 ![Structure](images/B.22_2_log.png)
 
 Coba ubah konfigurasi pada `config.json` nilai `log.verbose` menjadi `false`. Lalu restart aplikasi, maka log tidak muncul.
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.22-configuration-file">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.22...</a>
+</div>

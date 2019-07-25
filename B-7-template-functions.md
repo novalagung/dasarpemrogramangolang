@@ -1,6 +1,6 @@
 # B.7. Template: Functions
 
-Golang menyediakan beberapa predefiend function yang bisa digunakan dalam file template. Pada bab ini kita akan membahas beberapa diantaranya beserta cara penggunaannya. Cara pemanggilan fungsi atau method sebuah objek pada file template sedikit berbeda dibanding seperti pada bab sebelumnya.
+Go menyediakan beberapa *predefiend* function yang bisa digunakan dalam file template. Pada bab ini kita akan membahas beberapa diantaranya beserta cara penggunaannya. Cara pemanggilan fungsi atau method sebuah objek pada file template sedikit berbeda dibanding seperti pada bab sebelumnya.
 
 ## B.7.1. Persiapan
 
@@ -84,7 +84,7 @@ Bisa dilihat bahwa cara untuk menggunakan fungsi pada file template, adalah cuku
 {{namaFungsi param1 param2 param3 param4}}
 ```
 
-Selain fungsi `html`, ada juga beberapa fungsi lain yang sudah disediakan oleh golang.
+Selain fungsi `html`, ada juga beberapa fungsi lain yang sudah disediakan oleh Go.
 
  - Fungsi `js` digunakan untuk meng-escape string **javascript**
  - Fungsi `urlquery` digunakan untuk meng-escape string url query
@@ -154,7 +154,7 @@ Test hasilnya pada browser.
 
 ## B.7.5. Fungsi String
 
-Golang juga menyediakan beberapa fungsi string yang bisa dimanfaatkan, yaitu: 
+Go juga menyediakan beberapa fungsi string yang bisa dimanfaatkan, yaitu: 
 
  - `print` (merupakan alias dari `fmt.Sprint`)
  - `printf` (merupakan alias dari `fmt.Sprintf`)
@@ -178,7 +178,7 @@ Jika merasa sedikit bingung memahami statement di atas, mungkin analogi berikut 
 // template view
 printf "%s because I'm %s" "You know why?" "Batman!"
 
-// golang
+// go
 fmt.Sprintf("%s because I'm %s", "You know why?", "Batman!")
 ```
 
@@ -227,3 +227,10 @@ Selain fungsi operator perbandingan, terdapat juga operator logika `or`, `and`, 
 Output:
 
 ![Fungsi `or`, `and`, dan `not`](images/B.7_6_or_and_not.png)
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.7-template-functions">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.7...</a>
+</div>
