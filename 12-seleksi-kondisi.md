@@ -146,7 +146,7 @@ default:
 
 Seperti yang sudah dijelaskan sebelumnya, bahwa switch pada Go memiliki perbedaan dengan bahasa lain. Ketika sebuah `case` terpenuhi, pengecekkan kondisi tidak akan diteruskan ke case-case setelahnya.
 
-Keyword `fallthrough` digunakan untuk memaksa proses pengecekkan diteruskan ke `case` selanjutnya.
+Keyword `fallthrough` digunakan untuk memaksa proses pengecekkan diteruskan ke `case` selanjutnya dengan **tanpa menghiraukan nilai kondisinya**, jadi case di pengecekan selanjutnya tersebut selalu dianggap benar (meskipun aslinya adalah salah).
 
 ```go
 var point = 6
