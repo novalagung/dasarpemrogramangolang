@@ -202,7 +202,7 @@ Hasilnya:
 Coba tembak langsung endpoint nya lewat CURL.
 
 ```bash
-$ curl -X POST http://localhost:9000/user \
+$ curl -X POST http://localhost:9000/sayhello \
      -H 'Content-Type: application/json' \
      -d '{"name":"noval","gender":"male"}'
 ```
