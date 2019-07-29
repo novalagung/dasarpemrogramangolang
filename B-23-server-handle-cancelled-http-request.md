@@ -104,6 +104,14 @@ go func() {
 }()
 ```
 
+Jalankan ulang program kemudian test.
+
+```go
+curl -X POST http://localhost:8080/ -H 'Content-Type: application/json' -d '{}'
+```
+
+![Cancelled client http request](images/B.23_2_cancelled request_with_payload.png)
+
 ---
 
 <div class="source-code-link">
