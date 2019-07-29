@@ -1,0 +1,39 @@
+.no-link {
+    pointer-events: none;
+}
+.gitbook-link {
+    visibility: hidden;
+    pointer-events: none;
+    height: 20px;
+}
+
+.source-code-link {
+    border: 1px solid #c9ffce;
+    background-color: #e7ffe9;
+    padding: 10px 10px;
+    text-align: center;
+}
+.source-code-link .source-code-link-message {
+    font-weight: bold;
+}
+
+#disqus_thread {
+    margin-top: 40px;
+}
+#disqus_thread + #disqus_thread {
+    display: none;
+}
+#disqus_thread:before {
+    background-color: #e7e9ee;
+    content: " ";
+    display: block;
+    height: 1px;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+#disqus_thread > iframe:nth-child(1) {
+    padding-top: 30px;
+}
+#disqus_thread > iframe[src*=ads] {
+    display: none;
+}
