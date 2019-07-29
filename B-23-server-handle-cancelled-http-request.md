@@ -1,4 +1,4 @@
-B.23. Server Handler untuk Cancelled Client HTTP Request
+# B.23. Server Handler untuk Cancelled Client HTTP Request
 
 Dalam konteks web application, kadang kala sebuah http request butuh waktu cukup lama untuk selesai, bisa jadi karena kode yang kurang dioptimasi, atau proses nya lama, atau mungkin faktor lainnya. Dari sisi client, biasanya ada handler untuk cancel request jika melebihi batas timeout yang sudah didefinisikan, dan ketika itu terjadi di client akan sangat mudah untuk antisipasinya.
 
