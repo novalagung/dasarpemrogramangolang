@@ -86,6 +86,7 @@
     * [B.20. Custom Multiplexer](B-20-custom-mux-multiplexer.md)
     * [B.21. HTTP Cookie](B-21-cookie.md)
     * [B.22. Configuration File](B-22-configuration-file.md)
+    * [B.23. Server Handler untuk Cancelled Client HTTP Request](B-23-server-handle-cancelled-http-request.md)
 * C. Pemrograman Go Lanjut
     * [C.1. Echo Framework & Routing](C-1-echo-routing.md)
     * [C.2. Parsing HTTP Request Payload (Echo)](C-2-parsing-http-request-payload-echo.md)
