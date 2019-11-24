@@ -24,6 +24,8 @@ Cakupan network resources mulai dari hardware seperti komputer (atau lebih tingg
 
 Dengan terhubungnya resources tersebut, akan mudah bagi kita untuk mengelola banyak hal yang berhubungan dengan network. Contoh misalnya membuat aplikasi yang bisa login menggunakan credentials email kantor, atau banyak lainnya.
 
+<div id="ads">&nbsp;</div>
+
 Selain itu, juga LDAP sering dimanfaatkan dalam implementasi SSO (Single sign-on).
 
 ### Bind Operation

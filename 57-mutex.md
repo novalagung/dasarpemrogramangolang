@@ -75,6 +75,8 @@ Pada kode diatas, disiapkan sebuah instance `sync.WaitGroup` bernama `wg`, dan v
 
 Setelahnya dijalankan perulangan sebanyak 1000 kali, yang ditiap perulanganya dijalankan sebuah goroutine baru. Didalam goroutine tersebut, terdapat perulangan lagi, sebanyak 1000 kali. Dalam perulangan tersebut nilai property `val` dinaikkan sebanyak 1 lewat method `Add()`.
 
+<div id="ads">&nbsp;</div>
+
 Dengan demikian, ekspektasi nilai akhir `meter.val` harusnya adalah 1000000.
 
 Di akhir, `wg.Wait()` dipanggil, dan nilai variabel counter `meter` diambil lewat `meter.Value()` untuk kemudian ditampilkan.

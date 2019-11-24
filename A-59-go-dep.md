@@ -2,6 +2,8 @@
 
 Dep adalah Go Official Package Management Tools, diperkenalkan pada go versi `go1.9`. Pada bab ini kita akan belajar penggunaannya.
 
+<div id="ads">&nbsp;</div>
+
 Dengan menggunakan Dep, maka semua 3rd party libraries yang dipakai dalam suatu project akan dicatat dan ditempatkan di dalam sub folder `vendor` pada project tersebut.
 
 > Jika kawan-kawan menggunakan `$GOPATH`, silakan memanfaatkan Dep ini untuk manajemen dependensi. Tetapi jika menggunakan [Go Modules](/A-60-go-modules.html) penulis sarankan untuk menggunakan fasilitas package manager yang sudah ter-bundle dalam Go Modules.

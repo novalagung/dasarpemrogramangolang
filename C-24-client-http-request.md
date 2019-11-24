@@ -69,6 +69,8 @@ func ActionData(w http.ResponseWriter, r *http.Request) {
 
 Isi dari `r.Body` kita decode ke objek `payload` yang bertipe `map[string]interface{}`. Setelah proses decoding selesai, terdapat pengecekan ada tidaknya property `Name` dalam payload. Jika tidak ada maka dianggap bad request.
 
+<div id="ads">&nbsp;</div>
+
 Setelah itu, buat objek `data` dengan 2 property, yang salah satunya berisi kombinasi string dari payload `.Name`.
 
 ```go

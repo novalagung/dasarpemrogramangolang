@@ -107,6 +107,8 @@ $("#user-form").on("submit", function (e) {
 
 Value semua inputan diambil lalu dimasukkan dalam sebuah objek lalu di stringify (agar menjadi JSON string), untuk kemudian di jadikan sebagai payload request. Bisa dilihat pada kode AJAX di atas, `contentType` nilainya adalah `application/json`. 
 
+<div id="ads">&nbsp;</div>
+
 Respon dari ajax di atas akan dimunculkan pada `<p class="message"></p>`.
 
 ## B.14.4. Back End

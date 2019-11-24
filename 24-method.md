@@ -32,6 +32,8 @@ Cara deklarasi method sama seperti fungsi, hanya saja perlu ditambahkan deklaras
 
 `func (s student) sayHello()` maksudnya adalah fungsi `sayHello` dideklarasikan sebagai method milik struct `student`. Pada contoh di atas struct `student` memiliki dua buah method, yaitu `sayHello()` dan `getNameAt()`.
 
+<div id="ads">&nbsp;</div>
+
 Contoh pemanfaatan method bisa dilihat pada kode berikut.
 
 ```go

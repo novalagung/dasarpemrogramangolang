@@ -6,6 +6,8 @@ Pada bab ini kita akan belajar penerapan web socket di golang, untuk membuat seb
 
 Seperti biasanya proses belajar dilakukan sambil praktek. Kita buat aplikasi chatting minimalis, dengan kode se-sedikit mungkin agar mudah dipahami, development dilakukan *from scratch*.
 
+<div id="ads">&nbsp;</div>
+
 Nantinya saat testing akan ada banyak user terhubung dengan socket server, dalam satu room. Setiap pesan yang ditulis oleh salah seorang user, bisa dibaca oleh semua user lainnya.
 
 Kurang lebih aplikasi yang kita kembangkan seperti gambar di bawah ini.

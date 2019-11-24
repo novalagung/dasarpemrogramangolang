@@ -4,6 +4,8 @@ Go mengenal beberapa jenis tipe data, diantaranya adalah tipe data numerik (desi
 
 Di bab-bab sebelumnya secara tak sadar kita sudah mengaplikasikan beberapa tipe data, seperti `string` dan tipe numerik `int`.
 
+<div id="ads">&nbsp;</div>
+
 Pada bab ini akan dijelaskan beberapa macam tipe data standar yang disediakan oleh Go, beserta cara penggunaannya.
 
 ## A.9.1. Tipe Data Numerik Non-Desimal

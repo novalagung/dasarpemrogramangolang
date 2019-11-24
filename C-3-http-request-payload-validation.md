@@ -39,6 +39,8 @@ Kurang lebih berikut adalah penjelasan singkat mengenai beberapa rule yang kita 
 
 Jika sebuah field membutuhkan dua atau lebih rule, maka tulis kesemuanya dengan delimiter tanda koma (`,`).
 
+<div id="ads">&nbsp;</div>
+
 OK, selanjutnya buat struct baru `CustomValidator` dengan isi sebuah property bertipe `*validator.Validate` dan satu buah method ber-skema `Validate(interface{})error`. Objek cetakan struct ini akan kita gunakan sebagai pengganti default validator milik echo.
 
 ```go

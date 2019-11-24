@@ -4,6 +4,8 @@ Session adalah sebuah konsep penyimpanan data yang shared antar http request. Se
 
 Di back end, SessionData disimpan dalam media database, atau memory, atau fasilitas penyimpanan lainnya. Bisa saja sebenarnya jika SessionData juga disimpan dalam cookie, dengan memanfaatkan secure cookie maka SessionData tersebut ter-enkripsi dan aman dari peretas. Memang aman, tapi jelasnya lebih aman kalau disimpan di sisi server.
 
+<div id="ads">&nbsp;</div>
+
 Pada bab ini kita akan mempelajari penerapan session di golang menggunakan beberapa jenis media penyimpanan, yaitu mongo db, postgres sql db, dan secure cookie.
 
 ## C.10.1. Manage Session Menggunakan Gorilla Sessions

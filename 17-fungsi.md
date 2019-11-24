@@ -35,6 +35,8 @@ Pada kode di atas, sebuah fungsi baru dibuat dengan nama `printMessage` memiliki
 
 Fungsi tersebut dipanggil dalam `main`, dengan disisipkan 2 buah data sebagai parameter, data pertama adalah string `"hallo"` yang ditampung parameter `message`, dan parameter ke 2 adalah slice string `names` yang nilainya ditampung oleh parameter `arr`.
 
+<div id="ads">&nbsp;</div>
+
 Di dalam `printMessage`, nilai `arr` yang merupakan slice string digabungkan menjadi sebuah string dengan pembatas adalah karakter **spasi**. Penggabungan slice dapat dilakukan dengan memanfaatkan fungsi `strings.Join()` (berada di dalam package `strings`).
 
 ![Contoh penggunaan fungsi](images/A.17_1_function.png)

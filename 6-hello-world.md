@@ -33,6 +33,8 @@ File program disini maksudnya adalah file yang berisikan kode program Go, bereks
 
 Di dalam project yang telah dibuat (`$GOPATH/src/belajar-golang/`), siapkan sebuah file dengan nama bebas, yang jelas harus ber-ekstensi `.go`. Pada contoh ini saya menggunakan nama file `bab6-hello-world.go`.
 
+<div id="ads">&nbsp;</div>
+
 Pembuatan file program juga akan dilakukan lewat editor. Caranya silakan ikut petunjuk berikut.
 
  1. Klik kanan di folder `belajar-golang`.

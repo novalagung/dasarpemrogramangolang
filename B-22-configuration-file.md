@@ -76,6 +76,8 @@ Bisa dilihat pada kode di atas, struct bernama `_Configuration` dibuat. Struct i
 
 Dari struct tersebut tercetak private objek bernama `shared`. Variabel inilah yang nantinya akan dikembalikan lewat fungsi yang akan kita buat.
 
+<div id="ads">&nbsp;</div>
+
 Selanjutnya, isi `init()` dengan beberapa proses: membaca file json, lalu di decode ke object `shared`. 
 
 Dengan menuliskan proses barusan ke fungsi `init()`, pada saat package `conf` ini di import ke package lain maka file `config.json` akan otomatis di parsing. Dan dengan menambahkan sedikit validasi, parsing hanya akan terjadi sekali di awal.

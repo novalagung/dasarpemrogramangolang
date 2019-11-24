@@ -35,6 +35,8 @@ func main() {
 
 Struct `*http.Request` memiliki property bernama `Method` yang bisa digunakan untuk mengecek method daripada request yang sedang berjalan.
 
+<div id="ads">&nbsp;</div>
+
 Pada contoh di atas, request ke rute `/` dengan method POST akan menghasilkan output text `post`, sedangkan method GET menghasilkan output text `get`.
 
 ## B.11.2. Test

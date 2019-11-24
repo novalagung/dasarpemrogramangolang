@@ -2,6 +2,8 @@
 
 Reporting pada aplikasi web, selain ke bentuk file excel biasanya ke bentuk file pdf. Pada bab ini kita akan mempelajari cara membuat file pdf di golang menggunakan [gofpdf](https://github.com/jung-kurt/gofpdf).
 
+<div id="ads">&nbsp;</div>
+
 **gofpdf** adalah library yang berguna untuk membuat dokumen PDF dari golang. Penggunannya tidak terlalu sulit. Jadi mari belajar sambil praktek seperti biasanya. 
 
 ## C.18.1. Membuat PDF Menggunakan gofpdf

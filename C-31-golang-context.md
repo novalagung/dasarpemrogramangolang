@@ -80,6 +80,8 @@ Cara mengakses context request adalah lewat method `.Context()` milik objek requ
 
 Untuk sekarang, tugas dari endpoint `/api/search` hanya menampilkan data tersebut, tidak lebih.
 
+<div id="ads">&nbsp;</div>
+
 Selanjutnya siapkan middleware `MiddlewareUtility`. Di dalamnya, ada pengecekan header `Referer`, jika ada maka dijadikan value data `from` (yang kemudian disimpan pada context); sedangkan jika tidak ada maka value-nya berasal dari property `.Host` milik objek request.
 
 ```go

@@ -23,6 +23,8 @@ Solusi dari masalah tersebut adalah, mengkonversi fungsi-fungsi di atas menjadi 
 
 Interface `http.Handler` merupakan tipe data paling populer di Go untuk keperluan manajemen middleware. Struct yang mengimplementasikan interface ini diwajibkan memilik method dengan skema `ServeHTTP(ResponseWriter, *Request)`.
 
+<div id="ads">&nbsp;</div>
+
 Di Go sendiri objek utama untuk keperluan routing yaitu `mux` atau multiplexer, adalah mengimplementasikan interface `http.Handler` ini.
 
 Dengan memanfaatkan interface ini, kita akan membuat beberapa middleware. Fungsi  pengecekan otentikasi dan pengecekan method akan kita ubah menjadi middleware terpisah.

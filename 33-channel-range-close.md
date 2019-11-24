@@ -55,6 +55,8 @@ Berikut adalah penjelasan tambahan mengenai channel.
 
 Ada yang unik dengan fitur parameter channel yang disediakan oleh Go. Level akses channel bisa ditentukan, apakah hanya sebagai penerima, pengirim, atau penerima sekaligus pengirim. Konsep ini disebut dengan **channel direction**.
 
+<div id="ads">&nbsp;</div>
+
 Cara pemberian level akses adalah dengan menambahkan tanda `<-` sebelum atau setelah keyword `chan`. Untuk lebih jelasnya bisa dilihat di list berikut.
 
 | Sintaks | Penjelasan |

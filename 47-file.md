@@ -47,6 +47,8 @@ Fungsi `os.Stat()` mengembalikan 2 data, yaitu informasi tetang path yang dicari
 
 Fungsi `os.Create()` digunakan untuk membuat file pada path tertentu. Fungsi ini mengembalikan objek `*os.File` dari file yang bersangkutan. File yang baru terbuat statusnya adalah otomatis **open**, maka dari itu perlu untuk di-**close** menggunakan method `file.Close()` setelah file tidak digunakan lagi.
 
+<div id="ads">&nbsp;</div>
+
 Membiarkan file terbuka ketika sudah tak lagi digunakan bukan hal yang baik, karena efeknya ke memory dan akses ke file itu sendiri, file akan di-lock sehingga tidak bisa digunakan oleh proses lain selama belum status file masih open atau belum di-close.
 
 ![Membuat file baru](images/A.47_1_create.png)

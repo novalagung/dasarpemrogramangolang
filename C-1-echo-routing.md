@@ -10,6 +10,8 @@ Echo adalah framework bahasa golang untuk pengembangan aplikasi web. Framework i
 
 Salah satu dependensi yang ada didalamnya adalah router, dan pada bab ini kita akan mempelajarinya.
 
+<div id="ads">&nbsp;</div>
+
 Dari banyak routing library yang sudah penulis gunakan, hampir kesemuanya mempunyai kemiripan dalam hal penggunaannya, cukup panggil fungsi/method yang dipilih (biasanya namanya sama dengan HTTP Method), lalu sisipkan rute pada parameter pertama dan handler pada parameter kedua.
 
 Berikut contoh sederhana penggunaan echo framework.

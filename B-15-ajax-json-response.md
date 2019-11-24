@@ -52,6 +52,8 @@ Cara mengkonversi data ke bentuk json cukup mudah, bisa menggunakan `json.Marsha
 
 Karena nilai balik konversi sudah dalam bentuk bytes, maka langsung saja panggil method `Write()` milik `http.ResponseWriter` dan sisipkan data json sebagai argument pemanggilan method.
 
+<div id="ads">&nbsp;</div>
+
 Jangan lupa juga untuk menambahkan response header `Content-Type: application/json`.
 
 ## B.15.2. Testing

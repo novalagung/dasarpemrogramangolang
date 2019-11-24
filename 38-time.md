@@ -44,6 +44,8 @@ time.Date(tahun, bulan, tanggal, jam, menit, detik, nanodetik, timezone)
 
 Objek cetakan fungsi `time.Now()`, informasi timezone-nya adalah relatif terhadap lokasi kita. Karena kebetulan penulis berlokasi di Jawa Timur, maka akan terdeteksi masuk dalam **GMT+7** atau **WIB**. Berbeda dengan variabel `time2` yang lokasinya sudah kita tentukan secara eksplisit yaitu **UTC**.
 
+<div id="ads">&nbsp;</div>
+
 Selain menggunakan `time.UTC` untuk penentuan lokasi, tersedia juga `time.Local` yang nilainya adalah relatif terhadap date-time lokal kita.
 
 ## A.38.2. Method Milik `time.Time`

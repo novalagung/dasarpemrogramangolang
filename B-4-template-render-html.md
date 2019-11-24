@@ -34,6 +34,8 @@ func main() {
 
 Handler rute `/` akan kita isi dengan proses untuk rendering template html untuk ditampilkan ke layar browser. Beberapa data disisipkan dalam proses rendering template.
 
+<div id="ads">&nbsp;</div>
+
 Silakan tulis kode berikut di dalam handler rute `/`.
 
 ```go

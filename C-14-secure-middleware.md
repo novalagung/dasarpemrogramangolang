@@ -38,6 +38,8 @@ func main() {
 Perlu diketahui, aplikasi di atas di-start dengan SSL/TLS enabled. Dua buah file dibutuhkan, yaitu file certificate `server.crt` dan file private key `server.key`. Silakan unduh kedua file tersebut dari source code di
 [github, bab B14](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.14). Pada bab [B.22 HTTPS/TLS Web Server](/B-22-https-tls.html) nantinya akan kita pelajari lebih lanjut mengenai cara generate kedua file di atas hingga cara penggunannya.
 
+<div id="ads">&nbsp;</div>
+
 Kembali ke pembahasan, sekarang tambahkan secure middleware. Import package-nya, buat instance middleware, lalu registrasikan ke echo.
 
 ```go

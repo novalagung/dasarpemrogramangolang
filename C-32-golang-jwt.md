@@ -22,6 +22,8 @@ Umumnya pada aplikasi yang menerapkan teknik otorisasi menggunakan token, token 
 
 Nantinya di setiap http call, token yang disertakan pada request header dicocokan dengan token yang ada di database, dilanjutkan dengan pengecekan grant/group/sejenisnya, untuk menentukan apakah request tersebut adalah verified request yang memang berhak mengakses endpoint.
 
+<div id="ads">&nbsp;</div>
+
 Pada aplikasi yang menerapkan JWT, yang terjadi sedikit berbeda. Token adalah hasil dari proses kombinasi, encoding, dan enkripsi terhadap beberapa informasi. Nantinya pada sebuah http call, pengecekan token tidak dilakukan dengan membandingkan token yang ada di request vs token yang tersimpan di database, karena memang token pada JWT tidak disimpan di database. Pengecekan token dilakukan dengan cara mengecek hasil decode dan decrypt token yang ditautkan dalam request.
 
 > Ada kalanya token JWT perlu juga untuk disimpan di back-end, misalnya untuk keperluan auto-invalidate session pada multiple login, atau kasus lainnya.

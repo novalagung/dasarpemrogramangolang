@@ -15,6 +15,8 @@ var name *string
 
 Nilai default variabel pointer adalah `nil` (kosong). Variabel pointer tidak bisa menampung nilai yang bukan pointer, dan sebaliknya variabel biasa tidak bisa menampung nilai pointer.
 
+<div id="ads">&nbsp;</div>
+
 Ada dua hal penting yang perlu diketahui mengenai pointer:
 
 - Variabel biasa bisa diambil nilai pointernya, caranya dengan menambahkan tanda **ampersand** (`&`) tepat sebelum nama variabel. Metode ini disebut dengan **referencing**.

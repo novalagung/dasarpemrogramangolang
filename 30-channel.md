@@ -77,6 +77,8 @@ fmt.Println(message1)
 
 Penerimaan channel bersifat blocking. Artinya statement `var message1 = <-messages` hingga setelahnya tidak akan dieksekusi sebelum ada data yang dikirim lewat channel.
 
+<div id="ads">&nbsp;</div>
+
 Kesemua data yang dikirim dari tiga goroutine berbeda tersebut datanya akan diterima secara berurutan oleh `message1`, `message2`, `message3`; untuk kemudian ditampilkan.
 
 ![Implementasi channel](images/A.30_2_channel.png)

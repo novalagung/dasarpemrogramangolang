@@ -27,6 +27,8 @@ func filter(data []string, callback func(string) bool) []string {
 
 Parameter `callback` merupakan sebuah closure yang dideklarasikan bertipe `func(string) bool`. Closure tersebut dipanggil di tiap perulangan dalam fungsi `filter()`.
 
+<div id="ads">&nbsp;</div>
+
 Fungsi `filter()` sendiri kita buat untuk filtering data array (yang datanya didapat dari parameter pertama), dengan kondisi filter bisa ditentukan sendiri. Di bawah ini adalah contoh pemanfaatan fungsi tersebut.
 
 ```go

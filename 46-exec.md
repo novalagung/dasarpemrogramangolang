@@ -32,7 +32,9 @@ Fungsi `exec.Command()` digunakan untuk menjalankan command. Fungsi tersebut bis
 
 ## A.46.2. Rekomendasi Penggunaan Exec
 
-Kadang kala, pada saat eksekusi command yang sudah jelas-jelas ada (seperti `ls`, `dir`, atau lainnya) kita menemui error yang mengatakan command not found. Hal itu terjadi karena executable dari command-command tersebut tidak ada. Seperti di windows tidak ada `dir.exe` dan lainnya. Di OS non-windows-pun juga demikian
+Kadang kala, pada saat eksekusi command yang sudah jelas-jelas ada (seperti `ls`, `dir`, atau lainnya) kita menemui error yang mengatakan command not found. Hal itu terjadi karena executable dari command-command tersebut tidak ada. Seperti di windows tidak ada `dir.exe` dan lainnya. Di OS non-windows-pun juga demikian.
+
+<div id="ads">&nbsp;</div>
 
 Untuk mengatasi masalah ini, tambahkan `bash -c` pada linux/nix command atau `cmd /C` untuk windows.
 

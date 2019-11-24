@@ -43,6 +43,8 @@ data = map[string]interface{}{
 
 Pada kode di atas, disiapkan variabel `data` dengan tipe `map[string]interface{}`, yaitu sebuah koleksi dengan key bertipe `string` dan nilai bertipe interface kosong `interface{}`.
 
+<div id="ads">&nbsp;</div>
+
 Kemudian variabel tersebut di-inisialisasi, ditambahkan lagi kurung kurawal setelah keyword deklarasi untuk kebutuhan pengisian data, `map[string]interface{}{ /* data */ }`.
 
 Dari situ terlihat bahwa `interface{}` bukanlah sebuah objek, melainkan tipe data.

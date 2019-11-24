@@ -54,6 +54,8 @@ Juga, perlu diperhatikan, argument ke-2 fungsi unmarshal harus diisi dengan **po
 
 Jika kita perhatikan lagi, pada struct `User`, salah satu property-nya yaitu `FullName` memiliki **tag** `json:"Name"`. Tag tersebut digunakan untuk mapping informasi json ke property yang bersangkutan.
 
+<div id="ads">&nbsp;</div>
+
 Data json yang akan diparsing memiliki 2 property yaitu `Name` dan `Age`. Kebetulan penulisan `Age` pada data json dan pada struktur struct adalah sama, berbeda dengan `Name` yang tidak ada pada struct.
 
 Dengan menambahkan tag json, maka property `FullName` struct akan secara cerdas menampung data json property `Name`.

@@ -43,6 +43,8 @@ Perlu diketahui, fungsi yang digunakan harus sesuai dengan tipe data nilai yang 
 
 Diperlukan adanya pengecekan tipe data nilai yang disimpan, agar pengambilan nilai bisa tepat. Salah satunya bisa dengan cara seperti kode di atas, yaitu dengan mengecek dahulu apa jenis tipe datanya menggunakan method `Kind()`, setelah itu diambil nilainya dengan method yang sesuai.
 
+<div id="ads">&nbsp;</div>
+
 List konstanta tipe data dan method yang bisa digunakan dalam refleksi di Go bisa dilihat di https://godoc.org/reflect#Kind
 
 ## Pengaksesan Nilai Dalam Bentuk `interface{}`

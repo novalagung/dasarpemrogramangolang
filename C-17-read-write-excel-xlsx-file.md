@@ -70,6 +70,8 @@ Penulisan cell dilakukan lewat method `.SetCellValue()` milik objek excel. Peman
 
 Pada kode di atas, cell `A1`, `B1`, dan `C1` disiapkan dan diaktifkan filter didalamnya. Cara mengeset filter pada cell sendiri dilakukan lewat method `.AutoFilter()`. Tentukan range lokasi cell sebagai parameter.
 
+<div id="ads">&nbsp;</div>
+
 Statement `xlsx.AutoFilter(sheet1Name, "A1", "C1", "")` artinya filter diaktifkan pada sheet `sheet1Name` mulai cell `A1` hingga `C1`.
 
 Lalu lakukan perulangan pada `data`. Tulis tiap map item sebagai cell berurutan per row setelah cell header.

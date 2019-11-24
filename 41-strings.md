@@ -2,6 +2,8 @@
 
 Go menyediakan package `strings`, isinya banyak fungsi untuk keperluan pengolahan data string. Bab ini berisi pembahasan mengenai beberapa fungsi yang ada di dalam package tersebut.
 
+<div id="ads">&nbsp;</div>
+
 ## A.41.1. Fungsi `strings.Contains()`
 
 Dipakai untuk deteksi apakah string (parameter kedua) merupakan bagian dari string lain (parameter pertama). Nilai kembaliannya berupa `bool`.

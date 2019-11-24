@@ -29,6 +29,8 @@ func main() {
 
 Pada saat eksekusi program disisipkan juga argument-nya. Sebagai contoh disisipkan 3 buah data sebagai argumen, yaitu: `banana`, `potato`, dan `ice cream`.
 
+<div id="ads">&nbsp;</div>
+
 Untuk eksekusinya sendiri bisa menggunakan `go run` ataupun dengan cara build-execute.
 
  - Menggunakan `go run`

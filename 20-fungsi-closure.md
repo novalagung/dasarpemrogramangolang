@@ -74,6 +74,8 @@ Bisa dilihat pada statement di atas, data bertipe array dan numerik ditampilkan 
 
 Closure jenis ini dieksekusi langsung pada saat deklarasinya. Biasa digunakan untuk membungkus proses yang hanya dilakukan sekali, bisa mengembalikan nilai, bisa juga tidak.
 
+<div id="ads">&nbsp;</div>
+
 Di bawah ini merupakan contoh sederhana penerapan metode IIFE untuk filtering data array.
 
 ```go

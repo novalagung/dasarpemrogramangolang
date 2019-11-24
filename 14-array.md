@@ -92,6 +92,8 @@ Array multidimensi adalah array yang tiap elemennya juga berupa array (dan bisa 
 
 Cara deklarasi array multidimensi secara umum sama dengan cara deklarasi array biasa, dengan cara menuliskan data array dimensi selanjutnya sebagai elemen array dimensi sebelumnya.
 
+<div id="ads">&nbsp;</div>
+
 Khusus untuk array yang merupakan sub dimensi atau elemen, boleh tidak dituliskan jumlah datanya. Contohnya bisa dilihat pada deklarasi variabel `numbers2` di kode berikut.
 
 ```go

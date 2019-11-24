@@ -50,6 +50,8 @@ Fungsi `http.HandleFunc()` memiliki 2 buah parameter yang harus diisi. Parameter
 
 Pada pendaftaran rute `/index`, callback-nya adalah fungsi `index()`, hal seperti ini diperbolehkan asalkan tipe dari fungsi tersebut sesuai.
 
+<div id="ads">&nbsp;</div>
+
 Fungsi `http.listenAndServe()` digunakan untuk menghidupkan server sekaligus menjalankan aplikasi menggunakan server tersebut. Di Go, 1 web aplikasi adalah 1 buah server berbeda.
 
 Pada contoh di atas, server dijalankan pada port `8080`.

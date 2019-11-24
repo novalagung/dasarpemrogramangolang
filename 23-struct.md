@@ -50,6 +50,8 @@ Property variabel objek bisa diakses nilainya menggunakan notasi titik, contohny
 
 Cara inisialisasi variabel objek adalah dengan menambahkan kurung kurawal setelah nama struct. Nilai masing-masing property bisa diisi pada saat inisialisasi.
 
+<div id="ads">&nbsp;</div>
+
 Pada contoh berikut, terdapat 3 buah variabel objek yang dideklarasikan dengan cara berbeda.
 
 ```go

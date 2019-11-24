@@ -54,6 +54,8 @@ Untuk memunculkan nilai `bool` menggunakan `fmt.Printf()`, bisa gunakan layout f
 
 Operator ini digunakan untuk mencari benar tidaknya kombinasi data bertipe `bool` (bisa berupa variabel bertipe `bool`, atau hasil dari operator perbandingan).
 
+<div id="ads">&nbsp;</div>
+
 Beberapa operator logika standar yang bisa digunakan:
 
 | Tanda | Penjelasan |

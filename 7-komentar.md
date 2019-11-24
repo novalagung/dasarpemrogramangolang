@@ -28,6 +28,8 @@ Mari kita praktekan kode di atas. Siapkan file program baru dalam project folder
 
 Hasilnya hanya tulisan **hello world** saja yang muncul di layar, karena semua yang di awali tanda double slash `//` diabaikan oleh compiler.
 
+<div id="ads">&nbsp;</div>
+
 ## A.7.2. Komentar Multiline
 
 Komentar yang cukup panjang akan lebih rapi jika ditulis menggunakan teknik komentar multiline. Ciri dari komentar jenis ini adalah penulisannya diawali dengan tanda `/*` dan diakhiri `*/`.

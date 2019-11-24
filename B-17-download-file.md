@@ -4,6 +4,8 @@ Setelah sebelumnya belajar cara untuk handle upload file, kali ini kita akan bel
 
 Sebenarnya download file bisa dengan mudah di-implementasikan menggunakan teknik routing static file, langsung akses url dari public assets di browser. Namun outcome dari teknik ini sangat tergantung pada browser. Tiap browser memiliki behaviour berbeda, ada yang file tidak di-download melainkan dibuka di tab, ada yang ter-download.
 
+<div id="ads">&nbsp;</div>
+
 Dengan menggunakan teknik berikut, file pasti akan ter-download.
 
 ## B.17.1. Struktur Folder Proyek

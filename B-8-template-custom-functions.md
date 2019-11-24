@@ -27,6 +27,8 @@ Ada 2 hal yang perlu diperhatikan dari kode di atas. Pertama, terdapat dua buah 
 
 Kedua fungsi tersebut adalah fungsi kustom yang akan kita buat.
 
+<div id="ads">&nbsp;</div>
+
 Hal ke-2, terdapat 1 baris statement yang penulisannya agak unik, yaitu `{{"</h2>" | unescape}}`. Statement tersebut maknanya adalah string `"</h2>"` digunakan sebagai parameter dalam pemanggilan fungsi `unescape`. Tanda pipe atau `|` adalah penanda bahwa parameter dituliskan terlebih dahulu sebelum nama fungsi nya.
 
 ## B.8.2. Back End

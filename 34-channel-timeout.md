@@ -2,6 +2,8 @@
 
 Teknik channel timeout digunakan untuk mengontrol penerimaan data dari channel mengacu ke kapan waktu diterimanya data, dengan durasi timeout bisa kita tentukan sendiri.
 
+<div id="ads">&nbsp;</div>
+
 Ketika tidak ada aktivitas penerimaan data dalam durasi yang sudah ditentukan, maka blok timeout dieksekusi.
 
 ## A.34.1. Penerapan Channel Timeout

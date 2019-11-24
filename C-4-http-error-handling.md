@@ -20,6 +20,8 @@ e.HTTPErrorHandler = func(err error, c echo.Context) {
 
 Pada kode di atas, objek `report` menampung objek error setelah di casting ke tipe `echo.HTTPError`. Error tipe ini adalah error-error yang berhubungan dengan http, yang di-handle oleh echo. Untuk error yang bukan dari echo, tipe nya adalah `error` biasa. Pada kode di atas kita standarkan, semua jenis error harus berbentuk `echo.HTTPError`.
 
+<div id="ads">&nbsp;</div>
+
 Selanjutnya objek error tersebut kita tampilkan ke console dan juga ke browser dalam bentuk JSON.
 
 OK, jalankan aplikasi, lalu test hasilnya.

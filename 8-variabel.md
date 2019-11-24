@@ -27,6 +27,8 @@ func main() {
 
 Keyword `var` di atas digunakan untuk deklarasi variabel, contohnya bisa dilihat pada `firstName` dan `lastName`.
 
+<div id="ads">&nbsp;</div>
+
 Nilai variabel `firstName` diisi langsung ketika deklarasi, berbeda dibanding `lastName` yang nilainya diisi setelah baris kode deklarasi, hal seperti ini diperbolehkan di Go.
 
 ![Menampilkan isi variabel](images/A.8_1_variabel.png)

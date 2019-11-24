@@ -28,6 +28,8 @@ SAML merupakan protokol open standard untuk otentikasi dan otorisasi antara peny
 
 SAML adalah standar yang paling banyak digunakan dalam platform berbentuk layanan enterprise (Sass/PaaS), seperti Github, Atlassian JIRA, Sales Force menerapkan SAML pada platform mereka, lebih detailnya silakan cek https://en.wikipedia.org/wiki/SAML-based_products_and_services.
 
+<div id="ads">&nbsp;</div>
+
 Dalam SAML, ada 3 buah role penting:
 
 1. Manusia atau pengguna aplikasi (disini kita sebut sebagai *principal*)
@@ -35,6 +37,8 @@ Dalam SAML, ada 3 buah role penting:
 3. Penyedia Identitas atau IDP, contoh: Google sendiri
 
 > Penulis kurang tau apakah otentikasi pada Google menggunakan SAML atau tidak, tapi yang jelas mereka menerapkan SAML dan juga OpenID di beberapa service mereka. Di atas dicontohkan menggunakan produk Google, hanya sebagai analogi untuk mempermudah memahami SAML.
+
+![SAML flow](https://upload.wikimedia.org/wikipedia/en/0/04/Saml2-browser-sso-redirect-post.png)
 
 ## C.34.2. Cara Kerja SAML
 

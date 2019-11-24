@@ -10,6 +10,8 @@ Penulis coba contohkan dengan sebuah kasus untuk mempermudah pembaca memahami pe
 
 Dimisalkan, ada dua buah projek yang sedang di-develop, `project-one` dan `project-two`. Keduanya depend terhadap salah satu 3rd party library yg sama, [gubrak](https://github.com/novalagung/gubrak). Di dalam `project-one`, versi gubrak yang digunakan adalah `v0.9.1-alpha`, sedangkan di `project-two` versi `v1.0.0` digunakan. Pada `project-one` versi yang digunakan cukup tua karena proses pengembangannya sudah agak lama, dan aplikasinya sendiri sudah stabil, jika di upgrade paksa ke gubrak versi `v1.0.0` kemungkinan besar terjadi error dan panic.
 
+<div id="ads">&nbsp;</div>
+
 Kedua projek tersebut pastinya akan lookup gubrak ke direktori yang sama, yaitu `$GOPATH/src/github.com/novalagung/gubrak`. Efeknya, ketika sedang bekerja pada `project-one`, harus dipastikan current revision pada repository gubrak di lokal adalah sesuai dengan versi `v1.0.0`. Dan, ketika mengerjakan `project-two` maka current revision gubrak harus sesuai dengan versi `v0.9.1-alpha`. Repot sekali bukan?
 
 Setelah beberapa waktu, akhirnya `go1.6` rilis, dengan membawa kabar baik, yaitu rilisnya fasilitas baru **vendoring**. Vendoring ini berguna untuk men-centralize packages atau dependencies atau 3rd party libraries yang digunakan dalam spesifik project.

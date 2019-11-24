@@ -71,6 +71,8 @@ Pada kode di atas, ketika `storedCookie` nilainya bukanlah `nil` (berarti cookie
 
 Pembuatan cookie cukup mudah, tinggal cetak saja objek baru dari struct `http.Cookie`.
 
+<div id="ads">&nbsp;</div>
+
 Jika `c.Value` adalah kosong, kita asumsikan bahwa cookie belum pernah dibuat (atau expired), maka kita buat cookie baru dengan data adalah random string. 
 
 > Untuk mempermudah generate random string, kita gunakan library bernama [gubrak](https://github.com/novalagung/gubrak). Fungsi `gubrak.RandomString(32)` akan menghasilkan string 32 karakter.

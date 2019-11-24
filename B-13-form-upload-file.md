@@ -150,6 +150,8 @@ w.Write([]byte("done"))
 
 Fungsi `filepath.Ext` digunakan untuk mengambil ekstensi dari sebuah file. Pada kode di atas, `handler.Filename` yang berisi nama file terupload diambil ekstensinya, lalu digabung dengan `alias` yang sudah terisi.
 
+<div id="ads">&nbsp;</div>
+
 Fungsi `filepath.Join` berguna untuk pembentukan path.
 
 Fungsi `os.OpenFile` digunakan untuk membuka file. Fungsi ini membutuhkan 3 buah parameter:

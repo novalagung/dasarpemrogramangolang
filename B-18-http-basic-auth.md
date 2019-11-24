@@ -2,7 +2,7 @@
 
 HTTP Basic Auth adalah salah satu teknik otentikasi http request. Metode ini membutuhkan informasi username dan password untuk disisipkan dalam header request (dengan format tertentu), jadi cukup sederhana, tidak memerlukan cookies maupun session. Lebih jelasnya silakan baca [RFC-7617](https://tools.ietf.org/html/rfc7617).
 
-Informasi username dan password tidak serta merta disisipkan dalam header, informasi tersebut harus di-encode terlebih dahulu ke dalam format yg sudah ditentukan sesuai spesifikasi, sebelum dimasukan ke header. 
+Informasi username dan password tidak serta merta disisipkan dalam header, informasi tersebut harus di-encode terlebih dahulu ke dalam format yg sudah ditentukan sesuai spesifikasi, sebelum dimasukan ke header.
 
 Berikut adalah contoh penulisan basic auth.
 
@@ -29,6 +29,8 @@ Ok, mari kita praktekan. Pada bab ini kita akan membuat sebuah web service seder
  - Endpoint `/student?id=s001`, menampilkan data siswa sesuai dengan id yang di minta.
 
 Data siswa sendiri merupakan slice object yang disimpan di variabel global.
+
+<div id="ads">&nbsp;</div>
 
 OK, langsung saja kita praktekan. Siapkan 3 buah file berikut, tempatkan dalam satu folder proyek.
 

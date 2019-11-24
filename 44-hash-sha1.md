@@ -43,6 +43,8 @@ Salt dalam konteks kriptografi adalah data acak yang digabungkan pada data asli 
 
 Hash merupakan enkripsi satu arah dengan lebar data yang sudah pasti, sangat mungkin sekali kalau hasil hash untuk beberapa data adalah sama. Disinilah kegunaan **salt**, teknik ini berguna untuk mencegah serangan menggunakan metode pencocokan data-data yang hasil hash-nya adalah sama *(dictionary attack)*.
 
+<div id="ads">&nbsp;</div>
+
 Langsung saja kita praktekan. Pertama import package yang dibutuhkan. Lalu buat fungsi untuk hash menggunakan salt dari waktu sekarang.
 
 ```go

@@ -6,6 +6,8 @@ Pada bab ini kita akan belajar cara melakukan pertukaran data lewat FTP (File Tr
 
 Sebelum memulai, ada satu hal penting yang perlu dipersiapkan, yaitu sebuah server dengan FTP server ter-install. Jika tidak ada, bisa menggunakan library [ftpd](https://github.com/goftp/ftpd) untuk set up ftp server di local (untuk keperluan belajar).
 
+<div id="ads">&nbsp;</div>
+
 Dalam server tersebut, siapkan beberapa file dan folder dengan struktur sebagai berikut.
 
 ![FTP folder structure](images/C.26_1_ftp_folder_structure.png)

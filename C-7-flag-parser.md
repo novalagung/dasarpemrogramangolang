@@ -19,6 +19,8 @@ $ ./main "My Application" 4000
 
 Argument `ArgAppName` mandatory, harus diisi, sedangkan argument `ArgPort` adalah opsional (ada nilai default-nya).
 
+<div id="ads">&nbsp;</div>
+
 OK, mari kita praktekan. Buat folder projek baru dengan isi satu buah main file. Siapkan dua buah property untuk menampung `appName` dan `port`, dan satu buah fungsi `main()`.
 
 ```go

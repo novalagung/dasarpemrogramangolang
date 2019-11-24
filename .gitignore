@@ -89,3 +89,6 @@ typings/
 
 # Serverless directories
 .serverless
+
+# custom
+ads.txt

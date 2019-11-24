@@ -36,6 +36,8 @@ for true {
 
 Fungsi ini sedikit berbeda dengan `time.Sleep()`. Fungsi `time.NewTimer()` mengembalikan objek bertipe `*time.Timer` yang memiliki property `C` yang bertipe channel.
 
+<div id="ads">&nbsp;</div>
+
 Cara kerja fungsi ini: setelah jeda waktu yang ditentukan sebuah data akan dikirimkan lewat channel `C`. Penggunaan fungsi ini harus diikuti dengan statement untuk penerimaan data dari channel `C`.
 
 Untuk lebih jelasnya silakan perhatikan kode berikut.

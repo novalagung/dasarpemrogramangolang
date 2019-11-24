@@ -38,6 +38,8 @@ Syarat yang dibutuhkan untuk routing static assets masih sama dengan routing han
 
 Fungsi `http.FileServer()` mengembalikan objek ber-tipe `http.Handler`. Fungsi ini berguna untuk men-serve semua http request, dengan konten yang didefinisikan pada parameter. Pada konteks ini yang di-maksud adalah `http.Dir("assets")`. Semua konten, entah file ataupun folder, yang ada di dalam folder `assets` akan di proses dalam handler.
 
+<div id="ads">&nbsp;</div>
+
 Jalankan `main.go`, lalu test hasilnya di browser `http://localhost:9000/static/`.
 
 ![Structure](images/B.3_2_preview.png)

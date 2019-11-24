@@ -27,6 +27,8 @@ Konstanta bernama `view` bertipe `string` disiapkan, dengan isi adalah string ht
 
 Kemudian buat fungsi `main()`, isinya adalah route handler `/index`. Dalam handler tersebut, string html `view` diparsing lalu dirender sebagai output.
 
+<div id="ads">&nbsp;</div>
+
 Tambahkan juga rute `/`, yang isinya adalah me-redirect request secara paksa ke `/index` menggunakan fungsi `http.Redirect()`.
 
 ```go

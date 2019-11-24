@@ -12,6 +12,8 @@ Sebenarnya masih ada satu masalah yang masih belum terselesaikan yang berhubunga
 
 Perlu diketahui, meskipun sebuah project sudah menerapkan vendoring (semua 3rd party sudah ada di sub folder `vendor`), project itu sendiri masih harus ditempatkan dalam workspace!
 
+<div id="ads">&nbsp;</div>
+
 Silakan lihat gambar di bawah ini untuk pembuktian. Di dalam project `chapter-A.60-go-modules` terdapat package `models` yang harus di-import. Karena project tidak ditempatkan dalam workspace, eksekusinya gagal.
 
 ![Import error](images/A.60_1_import_error.png)

@@ -41,6 +41,8 @@ func getMax(numbers []int, ch chan int) {
 
 Kedua fungsi tersebut dijalankan sebagai goroutine. Di akhir blok masing-masing fungsi, hasil kalkulasi dikirimkan via channel yang sudah dipersiapkan, yaitu `ch1` untuk menampung data rata-rata, `ch2` untuk data nilai tertinggi.
 
+<div id="ads">&nbsp;</div>
+
 Ok lanjut, buat implementasinya pada fungsi `main()`.
 
 ```go

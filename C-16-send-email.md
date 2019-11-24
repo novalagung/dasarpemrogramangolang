@@ -45,6 +45,8 @@ func main() {
 
 Dalam implementasinya, untuk bisa mengirim email, dibutuhkan mail server. Karena kita menggunakan email google, maka mail server milik google digunakan.
 
+<div id="ads">&nbsp;</div>
+
 Pada kode di atas, konstanta dengan prefix `CONFIG_` adalah konfigurasi yang diperlukan untuk terhubung dengan mail server. Sesuaikan `CONFIG_EMAIL` dan `CONFIG_PASSWORD` dengan akun yang digunakan.
 
 Di dalam fungsi main bisa dilihat, fungsi `sendMail()` dipanggil untuk mengirim email, dengan empat buah parameter disisipkan.

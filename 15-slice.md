@@ -25,6 +25,8 @@ Kalau perbedannya hanya di penentuan alokasi pada saat inisialisasi, kenapa tida
 
 Sebenarnya slice dan array tidak bisa dibedakan karena merupakan sebuah kesatuan. Array adalah kumpulan nilai atau elemen, sedang slice adalah referensi tiap elemen tersebut.
 
+<div id="ads">&nbsp;</div>
+
 Slice bisa dibentuk dari array yang sudah didefinisikan, caranya dengan memanfaatkan teknik **2 index** untuk mengambil elemen-nya. Contoh bisa dilihat pada kode berikut.
 
 ```go

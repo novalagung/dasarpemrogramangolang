@@ -57,6 +57,8 @@ Jika request adalah POST, maka data yang di-encode ke JSON dijadikan sebagai res
 
 Statement `w.Header().Set("Content-Type", "application/json")` digunakan untuk menentukan tipe response, yaitu sebagai JSON. Sedangkan `r.Write()` digunakan untuk mendaftarkan data sebagai response.
 
+<div id="ads">&nbsp;</div>
+
 Selebihnya, jika request tidak valid, response di set sebagai error menggunakan fungsi `http.Error()`.
 
 Siapkan juga handler untuk endpoint `/user`. Perbedaan endpoint ini dengan `/users` di atas adalah:

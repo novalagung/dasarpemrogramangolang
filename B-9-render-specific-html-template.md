@@ -65,6 +65,8 @@ func main() {
 
 Pada kode di atas bisa dilihat, terdapat 2 rute yang masing-masing memparsing file yang sama, tapi spesifik template yang dipilih untuk di-render berbeda.
 
+<div id="ads">&nbsp;</div>
+
 Contoh di rute `/`, sebuah template dialokasikan dengan nama `index`, kemudian di-parsing-lah view bernama `view.html` menggunakan method `ParseFiles()`. Golang secara cerdas akan melakukan mencari dalam file view tersebut, apakah ada template yang namanya adalah `index` atau tidak. Jika ada akan ditampilkan. Hal ini juga berlaku pada rute `/test`, jika isi dari template bernama `test` akan ditampilkan tiap kali rute tersebut diakses.
 
 ## B.9.3. Test

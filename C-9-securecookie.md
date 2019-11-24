@@ -8,6 +8,8 @@ Cookie memiliki beberapa atribut, diantaranya adalah `secure`. Dengan mengaktifk
 
 Lalu bagaimana cara untuk membuat cookie aman pada aplikasi yang meng-enable SSL/TLS maupun yang tidak? caranya adalah dengan menambahkan step enkripsi data sebelum disimpan dalam cookie (dan men-decrypt data tersebut saat membaca).
 
+<div id="ads">&nbsp;</div>
+
 Gorilla toolkit menyediakan library bernama [securecookie](https://github.com/gorilla/securecookie), berguna untuk mempermudah enkripsi informasi cookie, dengan penerapan yang mudah. Pada bab ini kita akan mempelajari penggunaannya.
 
 ## C.9.1. Create & Read Secure Cookie

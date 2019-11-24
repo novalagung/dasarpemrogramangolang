@@ -11,6 +11,8 @@ Payload dalam HTTP request bisa dikirimkan dalam berbagai bentuk. Kita akan memp
 
 Secara tidak sadar, kita sudah sering menggunakan jenis payload form data. Contohnya pada html form, ketika event submit di-trigger, data dikirim ke destinasi dalam bentuk form data. Indikatornya adalah data tersebut ditampung dalam request body, dan isi request header `Content-Type` adalah `application/x-www-form-urlencoded` (atau `multipart/form-data`).
 
+<div id="ads">&nbsp;</div>
+
 JSON payload dan XML payload sebenarnya sama dengan Form Data, pembedanya adalah header`Content-Type` masing-masing request. Untuk JSON payload isi header tersebut adalah `application/json`, sedang untuk XML payload adalah `application/xml`.
 
 Sedang jenis request query string adalah yang paling berbeda. Data tidak disisipkan dalam request body, melainkan pada url nya dalam bentuk key-value.

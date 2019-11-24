@@ -60,6 +60,8 @@ Cara ke-4 adalah perulangan dengan menggunakan kombinasi keyword `for` dan `rang
 
 Keyword `break` digunakan untuk menghentikan secara paksa sebuah perulangan, sedangkan `continue` dipakai untuk memaksa maju ke perulangan berikutnya.
 
+<div id="ads">&nbsp;</div>
+
 Berikut merupakan contoh penerapan `continue` dan `break`. Kedua keyword tersebut dimanfaatkan untuk menampilkan angka genap berurutan yang lebih besar dari 0 dan dibawah 8.
 
 ```go

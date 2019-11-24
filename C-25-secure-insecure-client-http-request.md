@@ -9,6 +9,8 @@ Pada bab ini topik yang dibahas adalah cara melakukan http request ke SSL/TLS-en
 
 Sebelum masuk ke inti pembahasan, kita perlu mempelajari terlebih dahulu tentang pembeda antara secure request dan http request biasa.
 
+<div id="ads">&nbsp;</div>
+
 Dalam secure request, sebelum data benar-benar diterima oleh server, terjadi proses negosiasi antara client (yg men-dispatch request) dan server (tujuan request), proses ini biasa disebut dengan handshake.
 
 Proses negosiasi tersebut dipecah menjadi 5 fase.

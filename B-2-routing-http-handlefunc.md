@@ -15,6 +15,8 @@ Pada buku ini, kesemua cara tersebut akan dibahas, namun khusus pada bab ini saj
 
 Seperti yang sudah dijelaskan sekilas pada bab sebelumnya, fungsi `http.HandleFunc()` digunakan untuk registrasi rute/endpoint dan handler-nya.
 
+<div id="ads">&nbsp;</div>
+
 Penggunaan fungsi ini cukup mudah, panggil saja fungsi lalu isi dua parameternya.
 
  1. Parameter ke-1, adalah rute (atau endpoint). Sebagai contoh: `/`, `/index`, `/about`.

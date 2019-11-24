@@ -68,6 +68,8 @@ if err != nil {
 
 Statement di atas mengembalikan salah satunya objek `goquery.Document`, yang ditampung dalam `doc`. Kalau dianalogikan dalam jQuery, objek `doc` adalah instance objek hasil `$(selector)`.
 
+<div id="ads">&nbsp;</div>
+
 Dari objek `goquery.Document`, gunakan API yang tersedia untuk melakukan operasi sesuai kebutuhan. Kita akan ambil semua element artikel sesuai dengan skema html yang ada pada website target.
 
 ![Website structure](images/C.20_2_structure.png)

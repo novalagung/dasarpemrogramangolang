@@ -19,6 +19,8 @@ $ go run bab5.go
 
 Command `go run` hanya bisa digunakan pada file yang package-nya adalah **main**. Lebih jelasnya dibahas pada bab selanjutnya (bab 6).
 
+<div id="ads">&nbsp;</div>
+
 Jika ada banyak file yang ber-package `main`, dan file-file tersebut di-import di file utama, maka eksekusinya adalah dengan menyisipkan semua file sebagai argument `go run` (lebih jelasnya akan dibahas pada bab 25). Contohnya bisa dilihat pada kode berikut.
 
 ```bash

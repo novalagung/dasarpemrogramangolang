@@ -37,6 +37,8 @@ Mari langsung kita praktekan, siapkan folder projek baru. Buat satu buah file `d
 
 Silakan perhatikan xml di atas, akan kita ambil semua element `article` beserta isinya, untuk kemudian ditampung dalam slice.
 
+<div id="ads">&nbsp;</div>
+
 Buat file main, didalamnya, buat objek dokumen bertipe `etree.Document` lewat fungsi `etree.NewDocument()`. Dari objek tersebut, baca file xml yang sudah dibuat, gunakan method `.ReadFromFile()` untuk melakukan proses baca file.
 
 ```go

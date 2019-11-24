@@ -64,6 +64,8 @@ Berikut merupakan penjelasan tambahan dari kode yang telah kita tulis.
 
 Fungsi `fmt.Sprintf()` pada dasarnya sama dengan `fmt.Printf()`, hanya saja fungsi ini tidak menampilkan nilai, melainkan mengembalikan nilainya dalam bentuk string. Pada kasus di atas, nilai kembalian `fmt.Sprintf()` ditampung oleh variabel `msg`.
 
+<div id="ads">&nbsp;</div>
+
 Selain `fmt.Sprintf()`, ada juga `fmt.Sprint()` dan `fmt.Sprintln()`.
 
 ### A.19.1.2. Penggunaan Fungsi `float64()`

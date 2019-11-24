@@ -2,6 +2,8 @@
 
 Middleware adalah sebuah blok kode yang dipanggil sebelum ataupun sesudah http request di-proses. Middleware biasanya dibuat per-fungsi-nya, contohnya: middleware autentikasi, middleware untuk logging, middleware untuk gzip compression, dan lainnya.
 
+<div id="ads">&nbsp;</div>
+
 Pada bab ini kita akan belajar cara membuat dan me-manage middleware.
 
 ## C.6.1. Custom Middleware
