@@ -6,13 +6,14 @@ rm -rf _book/_book_git
 gitbook pdf ./ ./dasarpemrogramangolang.pdf
 gitbook epub ./ ./dasarpemrogramangolang.epub
 gitbook mobi ./ ./dasarpemrogramangolang.mobi
-go run file-title-renamer.go
+go run book-injector.go
 
 cd _book
 cp ./../dasarpemrogramangolang.pdf ./
 cp ./../dasarpemrogramangolang.epub ./
 cp ./../dasarpemrogramangolang.mobi ./
 echo 'dasarpemrogramangolang.novalagung.com' > CNAME
+echo 'google.com, pub-1417781814120840, DIRECT, f08c47fec0942fa0' > ads.txt
 rm -rf .git
 rm -rf .gitignore
 rm -rf *.psd

@@ -35,6 +35,8 @@ Lokasi folder yang akan dijadikan sebagai workspace bisa ditentukan sendiri. And
 
     ![Pengecekan `GOPATH` di sistem operasi non-Windows](images/A.3_1_path.png)
 
+<div id="ads">&nbsp;</div>
+
 Setelah `GOPATH` berhasil dikenali, perlu disiapkan 3 buah sub folder didalamnya, dengan kriteria sebagai berikut:
 
  - Folder `src`, adalah path dimana project Go disimpan

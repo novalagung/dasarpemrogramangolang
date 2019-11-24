@@ -4,6 +4,8 @@ Hal pertama yang perlu dilakukan sebelum bisa menggunakan Go adalah meng-install
 
 Disini penulis mencoba meringkas petunjuk instalasi di link tersebut, agar lebih mudah untuk diikuti terutama untuk pembaca yang baru belajar.
 
+<div id="ads">&nbsp;</div>
+
 > Go yang digunakan adalah versi **1.12.7**. Direkomendasikan menggunakan versi tersebut, atau versi lain minimal **1.11** ke atas.
 
 Link untuk download installer go: https://golang.org/dl/. Anda bisa langsung unduh dari URL tersebut lalu lakukan instalasi sendiri, atau bisa mengikuti petunjuk di bab ini.

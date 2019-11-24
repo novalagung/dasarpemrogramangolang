@@ -1,8 +1,8 @@
 # C.31. Context: Value, Timeout, & Cancellation
 
-Pada bab ini kita akan belajar pemanfaatan `context.Context` untuk penyisipan dan pembacaan data pada objek `*http.Request`, dan juga untuk handling timeout dan cancelation request.
+Pada bab ini kita akan belajar mengenai pemanfaatan `context.Context` untuk menyisipkan dan membaca data context pada objek `*http.Request`, dan juga untuk handling timeout dan cancelation request.
 
-Sebuah aplikasi web service kecil akan dibuat, tugasnya melakukan pencarian data. Natinya akan dibuat juga middleware `MiddlewareUtility`, tugasnya menyisipkan informasi origin dispatcher request, ke dalam context request, sebelum akhirnya sampai pada handler endpoint yg sedang diakses.
+Proses pembelajaran dilakukan dengan praktek membuat sebuah aplikasi web service kecil, yang tugasnya melakukan pencarian data. Natinya akan dibuat juga middleware `MiddlewareUtility`, tugasnya menyisipkan informasi origin dispatcher request, ke dalam context request, sebelum akhirnya sampai pada handler endpoint yg sedang diakses.
 
 ## C.31.1. Context Value
 
@@ -117,23 +117,23 @@ Objek `ctx` yang merupakan `context.Context`, kita tempeli data `from`. Cara mel
 
 Fungsi `.WithValue()` di atas mengembalikan objek context, isinya adalah objek context yang disisipkan di parameter pertama pemanggilan fungsi, tapi sudah disisipi data dengan key dari parameter ke-2 dan value dari parameter ke-3. Jadi tampung saja objek context kembalian statement ini ke objek yang sama, yaitu `ctx`.
 
-Ok, sekarang objek ctx sudah dimodifikasi, objek ini perlu untuk ditempelkan lagi ke objek request. Caranya dengan mengakses method `.WithContext()` milik objek request, lalu gunakan nilai baliknya pada `next.ServeHTTP()`.
+Ok, sekarang objek `ctx` sudah dimodifikasi. Objek ini perlu untuk ditempelkan lagi ke objek request. Caranya dengan mengakses method `.WithContext()` milik objek request, lalu gunakan nilai baliknya pada `next.ServeHTTP()`.
 
 Jalankan aplikasi, hasilnya kurang lebih seperti gambar berikut.
 
 ![Context example](images/C.31_1_context_example.png)
 
-O iya, penulis tidak menggunakan http://localhost untuk mengakses aplikasi, melainkan menggunakan `http://mysampletestapp.com`. Domain ini sudah saya arahkan ke 127.0.0.1.
+O iya, penulis tidak menggunakan `http://localhost` untuk mengakses aplikasi, melainkan menggunakan `http://mysampletestapp.com`, dengan catatan domain ini sudah saya arahkan ke 127.0.0.1.
 
 ![Etc Host](images/C.31_2_etc_hosts.png)
 
-Ok, untuk sekarang sepertinya cukup jelas mengenai penggunaan context pada objek http request. Tinggal kembangkan saja sesuai kebutuhan. Salah satu contoh lainnya, bisa menggunakan context untuk menyimpan data session (yang diambil dari database sessuai dengan session id nya).
+Ok, untuk sekarang sepertinya cukup jelas mengenai penggunaan context pada objek http request. Tinggal kembangkan saja sesuai kebutuhan, seperti contohnya: context untuk menyimpan data session, yang diambil dari database sessuai dengan session id nya.
 
 ## C.31.2. Context Timeout & Cancelation
 
-Kita akan selesaikan program yang sudah dibuat. Nantinya endpoint `/api/search` akan melakukan pencarian ke google sesuai dengan keyword yang diinginkan. Pencarian dilakukan dengan memanfaatkan [Custom Search JSON API](https://developers.google.com/custom-search/json-api/v1/overview).
+Melanjutkan program yang sudah dibuat, nantinya pada endpoint `/api/search` akan dilakukan sebuah pencarian ke Google sesuai dengan keyword yang diinginkan. Pencarian dilakukan dengan memanfaatkan [Custom Search JSON API](https://developers.google.com/custom-search/json-api/v1/overview) milik Google.
 
-Ubah isi handler endpoint tersebut menjadi seperti berikut.
+Sekarang ubah isi handler endpoint tersebut menjadi seperti berikut.
 
 ```go
 mux.HandleFunc("/api/search", func(w http.ResponseWriter, r *http.Request) {
@@ -155,7 +155,7 @@ mux.HandleFunc("/api/search", func(w http.ResponseWriter, r *http.Request) {
 })
 ```
 
-Proses pencarian dilakukan secara asynchronous lewat fungsi `doSearch()` yang nantinya akan kita buat. Pemanggilannya menggunakan keyword `go` dan disisipkan beberapa parameter yang dua diantaranya bertipe channel.
+Proses pencarian dilakukan secara *asynchronous* lewat fungsi `doSearch()` yang nantinya akan kita buat. Pemanggilannya menggunakan keyword `go` dan disisipkan beberapa parameter yang dua diantaranya bertipe channel.
 
  - Channel `chanRes`, digunakan jika proses pencarian sukses. Data hasil pencarian dilempar ke main routine lewat channel ini, untuk kemudian diteruskan sebagai response endpoint
  - Channel `chanErr`, digunakan untuk pass objek error, jika memang terjadi error.
@@ -316,3 +316,10 @@ Error message:
 Error di atas muncul karena, host `localhost` belum didaftarkan pada API console. Berbeda dengan `mysampletestapp.com` yang sudah didaftarkan, host ini berhak mengakses menggunakan API key yang kita gunakan.
 
 ![Api configuration](images/C.31_5_api_hostname.png)
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-C.31-context">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-C.31...</a>
+</div>

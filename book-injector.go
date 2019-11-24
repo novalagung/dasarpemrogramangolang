@@ -11,6 +11,8 @@ import (
 	"strings"
 )
 
+var adsMode = "per page"
+
 func main() {
 	bookNameFlag := flag.String("name", "Dasar Pemrograman Golang", "Book Name")
 	flag.Parse()
@@ -65,14 +67,25 @@ func main() {
 
 			newTitle = strings.Replace(newTitle, "· GitBook", fmt.Sprintf("- %s", bookName), -1)
 		}
-
-		newHtmlString := htmlString
+		htmlString = strings.Replace(htmlString, oldTitle, newTitle, -1)
+		
 		if isLandingPage {
-			newHtmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description">`, -1)
+			if adsMode == "auto" {
+				htmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-1417781814120840", enable_page_level_ads: true }); </script>`, -1)
+			} else {
+				htmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description">`, -1)
+			}
+		} else {
+			if adsMode == "auto" {
+				htmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content=""name="description"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-1417781814120840", enable_page_level_ads: true }); </script>`, -1)
+			}
 		}
-		newHtmlString = strings.Replace(newHtmlString, oldTitle, newTitle, -1)
 
-		err = ioutil.WriteFile(path, []byte(newHtmlString), info.Mode())
+		if adsMode == "per page" {
+			htmlString = strings.Replace(htmlString, `<div id="ads">&#xA0;</div>`, `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-1417781814120840" data-ad-slot="1734695799"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>`, -1)
+		}
+
+		err = ioutil.WriteFile(path, []byte(htmlString), info.Mode())
 		if err != nil {
 			return err
 		}
@@ -98,6 +111,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+
 
 	fmt.Println("  ==>", siteMapPath)
 }

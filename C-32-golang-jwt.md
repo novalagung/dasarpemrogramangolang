@@ -1,10 +1,10 @@
 # C.32. JSON Web Token (JWT)
 
-Pada bab ini kita akan belajar JSON Web Token (JWT) dan cara penerapannya di bahasa golang. 
+Pada bab ini kita akan belajar tentang JSON Web Token (JWT) dan cara penerapannya di bahasa Go. 
 
 ## C.31.1. Definisi
 
-JWT merupakan salah satu standar JSON ([RFC 7519](https://tools.ietf.org/html/rfc7519)) untuk akses token. Token dibentuk dari kombinasi beberapa informasi yang di-encode dan di-enkripsi. Informasi yang dimaksud adalah header, payload, dan signature.
+JWT merupakan salah satu standar JSON ([RFC 7519](https://tools.ietf.org/html/rfc7519)) untuk keperluan akses token. Token dibentuk dari kombinasi beberapa informasi yang di-encode dan di-enkripsi. Informasi yang dimaksud adalah header, payload, dan signature.
 
 Contoh JWT:
 
@@ -18,9 +18,13 @@ Skema JWT:
  - **Payload**, isinya adalah data penting untuk keperluan otentikasi, seperti *grant*, *group*, kapan login terjadi, dan atau lainnya. Data ini dalam konteks JWT biasa disebut dengan **CLAIMS**. 
  - **Signature**, isinya adalah hasil dari enkripsi data menggunakan algoritma kriptografi. Data yang dimaksud adalah gabungan dari (encoded) header, (encoded) payload, dan secret key.
 
-Umumnya pada aplikasi yang menerapkan teknik otorisasi menggunakan token, data token tersebut di-generate di back end secara acak (menggunakan algoritma tertentu) lalu disimpan di database bersamaan dengan data user. Token tersebut tidak ada isinya, hanya random string (atau mungkin saja tidak). Nantinya ketika ada request, token yang disertakan di request dicocokan dengan token yang ada di database, dilanjutkan dengan pengecekan grant/group/sejenisnya, untuk menentukan apakah request tersebut adalah verified request yang memang berhak mengakses endpoint.
+Umumnya pada aplikasi yang menerapkan teknik otorisasi menggunakan token, token di-generate di back end secara acak (menggunakan algoritma tertentu) lalu disimpan di database bersamaan dengan data user. Token tersebut bisa jadi tidak ada isinya, hanya random string, atau mungkin saja ada isinya.
 
-Pada aplikasi yang menerapkan JWT, yang terjadi berbeda. Token adalah hasil dari proses kombinasi, encoding, dan enkripsi terhadap beberapa informasi. Nantinya pada sebuah request, pengecekan token tidak dilakukan dengan membandingkan token yang ada di request vs token yang tersimpan di database, karena memang token pada JWT tidak disimpan di database. Pengecekan token dilakukan dengan cara mengecek hasil decode dan decrypt token yang ditautkan dalam request.
+Nantinya di setiap http call, token yang disertakan pada request header dicocokan dengan token yang ada di database, dilanjutkan dengan pengecekan grant/group/sejenisnya, untuk menentukan apakah request tersebut adalah verified request yang memang berhak mengakses endpoint.
+
+Pada aplikasi yang menerapkan JWT, yang terjadi sedikit berbeda. Token adalah hasil dari proses kombinasi, encoding, dan enkripsi terhadap beberapa informasi. Nantinya pada sebuah http call, pengecekan token tidak dilakukan dengan membandingkan token yang ada di request vs token yang tersimpan di database, karena memang token pada JWT tidak disimpan di database. Pengecekan token dilakukan dengan cara mengecek hasil decode dan decrypt token yang ditautkan dalam request.
+
+> Ada kalanya token JWT perlu juga untuk disimpan di back-end, misalnya untuk keperluan auto-invalidate session pada multiple login, atau kasus lainnya.
 
 Mungkin sekilas terlihat mengerikan, terlihat sangat gampang sekali untuk di-retas, buktinya adalah data otorisasi bisa dengan mudah diambil dari token JWT. Dan penulis sampaikan, bahwa ini adalah presepsi yang salah.
 
@@ -48,7 +52,7 @@ $ tree .
 0 directories, 3 files
 ```
 
-#### File `middleware.go`
+### File `middleware.go`
 
 Isi file `middleware.go` dengan kode middleware yang sudah biasa kita gunakan.
 
@@ -77,7 +81,7 @@ func (c *CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-#### File `users.json`
+### File `users.json`
 
 Juga isi file `users.json` yang merupakan database aplikasi. Silakan tambahkan data JSON berikut.
 
@@ -95,9 +99,9 @@ Juga isi file `users.json` yang merupakan database aplikasi. Silakan tambahkan d
 }]
 ```
 
-#### File `main.go`
+### File `main.go`
 
-Sekarang kita fokus ke file `main.go`. Import packages yang diperlukan. Salah satu dari packages tersebut adalah [jwt-go](https://github.com/dgrijalva/jwt-go), yang digunakan untuk keperluan operasi JWT.
+Sekarang kita fokus ke file `main.go`. Import packages yang diperlukan. Salah satu dari packages tersebut adalah [jwt-go](https://github.com/dgrijalva/jwt-go), yang digunakan untuk keperluan JWT.
 
 ```go
 package main
@@ -187,7 +191,7 @@ Fungsi `authenticateUser()` memiliki dua nilai balik yang ditampung oleh variabe
 
 Selanjutnya kita akan buat objek claims. Objek ini harus memenuhi persyaratan interface `jwt.Claims`. Objek claims bisa dibuat dari tipe `map` dengan cara membungkusnya dalam fungsi `jwt.MapClaims()`; atau dengan meng-embed interface `jwt.StandardClaims` pada struct baru, dan cara inilah yang akan kita pakai.
 
-Seperti yang sudah kita bahas di awal, bahwa claims isinya adalah data-data untuk keperluan otentikasi. Dalam prakteknya, claims merupakan sebuah objek yang memilik banyak property atau fields. Nah, objek claims **harus** memiliki fields yang termasuk di dalam list [JWT Standard Fields](https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields). Interface `jwt.StandardClaims` merupakan representasi dari fields yang dimaksud.
+Seperti yang sudah kita bahas di awal, bahwa claims isinya adalah data-data untuk keperluan otentikasi. Dalam prakteknya, claims merupakan sebuah objek yang memilik banyak property atau fields. Nah, objek claims **harus** memiliki fields yang termasuk di dalam list [JWT Standard Fields](https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields). Dengan meng-embed interface `jwt.StandardClaims`, maka fields pada struct dianggal sudah terwakili.
 
 Pada aplikasi yang sedang kita kembangkan, claims selain menampung standard fields, juga menampung beberapa informasi lain, oleh karena itu kita perlu buat `struct` baru yang meng-embed `jwt.StandardClaims`.
 
@@ -340,7 +344,7 @@ r = r.WithContext(ctx)
 next.ServeHTTP(w, r)
 ```
 
-#### Handler Index
+### Handler Index
 
 Terakhir, kita perlu menyiapkan handler untuk rute `/index`.
 
@@ -358,7 +362,7 @@ Informasi `userInfo` diambil dari context, lalu ditampilkan sebagai response end
 
 Jalankan aplikasi, lalu test menggunakan curl.
 
-#### Otentikasi
+### Otentikasi
 
 ```bash
 curl -X POST --user noval:kaliparejaya123 http://localhost:8080/login
@@ -368,7 +372,7 @@ Output:
 
 ![JWT Authentication](images/C.32_2_jwt_authentication.png)
 
-#### Mengakses Endpoint
+### Mengakses Endpoint
 
 Test endpoint `/index`. Sisipkan token yang dikembalikan pada saat otentikasi, sebagai value header otorisasi dengan skema `Authorization: Bearer <token>`. 
 
@@ -385,3 +389,15 @@ Output:
 Semua berjalan sesuai harapan. Agar lebih meyakinkan, coba lakukan beberapa test dengan skenario yg salah, seperti:
 
 ![JWT Error](images/C.32_4_invalid_jwt_token.png)
+
+---
+
+ - [JWT Go](https://github.com/dgrijalva/jwt-go), by Dave Grijalva, MIT License
+ - [Gubrak](https://github.com/novalagung/gubrak), by Noval Agung, MIT License
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-C.32-golang-jwt">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-C.32...</a>
+</div>

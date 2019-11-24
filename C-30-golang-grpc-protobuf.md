@@ -1,16 +1,16 @@
 # C.30. gRPC + Protobuf
 
-Pada bab ini kita akan belajar tentang penerapan gRPC dan protobuf pada bahasa golang.
+Pada bab ini kita akan belajar tentang penerapan **gRPC** dan **protobuf** pada bahasa Go.
 
-Kita akan buat satu buah folder projek besar, didalamnya terdapat 3 buah aplikasi. Dua diantaranya merupakan aplikasi server, rpc server. Dan yang satu adalah aplikasi client. Aplikasi client akan berkomunikasi dengan kedua aplikasi server.
+Kita akan buat satu buah folder projek besar, didalamnya terdapat 3 buah aplikasi. Dua diantaranya merupakan aplikasi server, lebih tepatnya rpc server, dan yang satu lagi aplikasi client. Aplikasi client akan berkomunikasi dengan kedua aplikasi server.
 
 Bisa dibilang ini adalah contoh super sederhana (dan asal-asalan) tentang penerapan [microservices architecture](https://en.wikipedia.org/wiki/Microservices).
 
-> BEWARE: Tutorial ini sangat panjang! Dan jangan ber-ekspektasi terlalu tinggi, karena target pembaca adalah orang yang baru belajar golang, gRPC, dan protobuf.
+> BEWARE: Tutorial ini sangat panjang! Dan jangan ber-ekspektasi terlalu tinggi, karena target pembaca adalah orang yang baru belajar Go, gRPC, dan protobuf.
 
 ## C.30.1. Definisi
 
-gRPC adalah RPC framework buatan google. gRPC menggunakan RPC untuk transport dan protobuf di bagian antarmuka-nya.
+gRPC adalah salah satu RPC framework, dibuat oleh Google. gRPC menggunakan protokol RPC untuk transport dan protobuf di bagian antarmuka-nya.
 
 > Remote Procedure Call (RPC) adalah sebuah metode yang memungkinkan kita untuk mengakses sebuah prosedur yang berada di komputer lain. Untuk dapat melakukan ini sebuah server harus menyediakan layanan remote procedure.
 
@@ -43,18 +43,18 @@ novalagung:chapter-b.30 $ tree .
 
 Projek kali ini cukup kompleks, dibawah ini merupakan penjelasan per bagian dari struktur projek di atas.
 
-#### • Folder `common`
+### • Folder `common`
 
 Folder `common`, berisikan 2 buah sub folder, `config` dan `model`.
 
  - Folder `config` berisikan informasi shared atau global, yang digunakan aplikasi client maupun server.
  - Folder `model` berisikan file `.proto`. Silakan salin file `garage.proto` dan `user.proto` pada bab sebelumnya ke folder tersebut.
 
-#### • Folder `client`
+### • Folder `client`
 
 Isinya adalah satu buah file main, yang nantinya di jalankan sebagai aplikasi client. Aplikasi client ini akan berkomunikasi dengan 2 buah aplikasi server.
 
-#### • Folder `services`
+### • Folder `services`
 
 Satu buah file proto untuk satu aplikasi rpc server (service). Karena ada dua file proto, berarti jelasnya ada dua aplikasi rpc server, `service-user` dan `service-garage`. Folder `services` ini menampung kedua aplikasi service tersebut.
 
@@ -77,11 +77,11 @@ const (
 
 Setelah kedua file `user.proto` dan `garage.proto` pada bab sebelumnya disalin, kita perlu menambahkan pendefinisian service pada masing-masing file proto.
 
-Keyword `service` digunakan untuk membuat service. Service ini nantinya juga ikut di konversi ke bentuk golang (menjadi interface), lewat command `protoc`. Di aplikasi rpc server, nantinya harus dibuat implementasi dari interface tersebut.
+Keyword `service` digunakan untuk membuat service. Service ini nantinya juga ikut di konversi ke bentuk Go (menjadi interface), lewat command `protoc`. Di aplikasi rpc server, nantinya harus dibuat implementasi dari interface tersebut.
 
 OK, sekarang tambahkan kode berikut ke file proto.
 
-#### • Service `Users`
+### • Service `Users`
 
 Buka file `user.proto`, tambahkan kode berikut di akhir baris.
 
@@ -131,7 +131,7 @@ Setelah di-compile, dua buah interface terbuat dengan skema nama `<interfacename
   ```
   Interface ini nantinya harus diimplementasikan di aplikasi rpc client.
 
-#### • Service `Garages`
+### • Service `Garages`
 
 Pada file `garage.proto`, definisikan service `Garages` dengan isi dua buah method, `Add()` dan `List()`.
 
@@ -192,7 +192,9 @@ Command yang sebelumnya digunakan untuk kompilasi:
 $ protoc --go_out=. *.proto
 ```
 
-Command tersebut tidak meng-generate service menjadi interface. Pada argument `--go_out` perlu diubah sedikit agar service dan rpc method ikut di-generate. Gunakan command berikut.
+Command tersebut tidak meng-generate service menjadi interface. Pada argument `--go_out` perlu diubah sedikit agar service dan rpc method ikut di-generate.
+
+Gunakan command berikut.
 
 ```bash
 $ protoc --go_out=plugins=grpc:. *.proto
@@ -400,7 +402,7 @@ func main() {
 }
 ```
 
-#### • Test rpc client user
+### • Test rpc client user
 
 Selanjutnya akses fungsi `serviceUser()` untuk memperoleh objek rpc client user. Dari situ eksekusi method `.Register()`.
 
@@ -438,7 +440,7 @@ Bisa dilihat pada gambar berikut, pemanggilan method `.List()` juga sukses. Dua 
 
 ![gRPC Test 2](images/C.30_2_grpc_test2.png)
 
-#### • Test rpc client garage
+### • Test rpc client garage
 
 Tambahkan beberapa statement untuk memanggil method yang ada di `service-garage`.
 
@@ -510,3 +512,10 @@ OK, jika anda membaca sampai baris ini, berarti anda telah berhasil sabar dalam 
 
  - [Protobuf](https://github.com/golang/protobuf), by Google, BSD-3-Clause License
  - [gRPC](https://github.com/grpc/grpc), by Google, Apache-2.0 License
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-C.30-golang-grpc-protobuf">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-C.30...</a>
+</div>
