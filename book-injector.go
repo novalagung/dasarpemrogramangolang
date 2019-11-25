@@ -71,18 +71,18 @@ func main() {
 		
 		if isLandingPage {
 			if adsMode == "auto" {
-				htmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-1417781814120840", enable_page_level_ads: true }); </script>`, -1)
+				htmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description"><script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-1417781814120840", enable_page_level_ads: true }); </script>`, -1)
 			} else {
 				htmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description">`, -1)
 			}
 		} else {
 			if adsMode == "auto" {
-				htmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content=""name="description"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-1417781814120840", enable_page_level_ads: true }); </script>`, -1)
+				htmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content=""name="description"><script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-1417781814120840", enable_page_level_ads: true }); </script>`, -1)
 			}
 		}
 
 		if adsMode == "per page" {
-			htmlString = strings.Replace(htmlString, `<div id="ads">&#xA0;</div>`, `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-1417781814120840" data-ad-slot="1734695799"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>`, -1)
+			htmlString = strings.Replace(htmlString, `<div id="ads">&#xA0;</div>`, `<script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-1417781814120840" data-ad-slot="1734695799"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>`, -1)
 		}
 
 		err = ioutil.WriteFile(path, []byte(htmlString), info.Mode())
