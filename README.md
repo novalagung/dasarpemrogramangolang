@@ -33,4 +33,4 @@ Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi we
 
 Ebook ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan saran, silakan drop email ke [caknopal@gmail.com](mailto:caknopal@gmail.com).
 
-Buku ini merupakan projek open source, jadi teruntuk yang ingin berkontribusi silakan langsung saja.
+Buku ini merupakan projek open source, jadi untuk yang ingin berkontribusi silakan langsung saja. Cek juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTORS.html) untuk melihat list kontributor.
