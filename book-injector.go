@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -11,17 +10,10 @@ import (
 	"strings"
 )
 
-var adsMode = "per page"
-
 func main() {
-	bookNameFlag := flag.String("name", "Dasar Pemrograman Golang", "Book Name")
-	flag.Parse()
-
-	bookName := *bookNameFlag
-	if bookName == "" {
-		log.Fatal("-name argument is required")
-		return
-	}
+	bookName := "Dasar Pemrograman Golang"
+	adClient := "ca-pub-1417781814120840"
+	adSlot := "1734695799"
 
 	regex := regexp.MustCompile(`<title>(.*?)<\/title>`)
 
@@ -29,10 +21,12 @@ func main() {
 	bookPath := filepath.Join(basePath, "_book")
 
 	err := filepath.Walk(bookPath, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
 		if info.IsDir() {
 			return nil
 		}
-
 		if filepath.Ext(info.Name()) != ".html" {
 			return nil
 		}
@@ -68,22 +62,22 @@ func main() {
 			newTitle = strings.Replace(newTitle, "· GitBook", fmt.Sprintf("- %s", bookName), -1)
 		}
 		htmlString = strings.Replace(htmlString, oldTitle, newTitle, -1)
-		
+
 		if isLandingPage {
-			if adsMode == "auto" {
-				htmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description"><script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-1417781814120840", enable_page_level_ads: true }); </script>`, -1)
-			} else {
-				htmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description">`, -1)
-			}
-		} else {
-			if adsMode == "auto" {
-				htmlString = strings.Replace(htmlString, `<meta content=""name="description">`, `<meta content=""name="description"><script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-1417781814120840", enable_page_level_ads: true }); </script>`, -1)
-			}
+			htmlString = strings.Replace(
+				htmlString,
+				`<meta content=""name="description">`,
+				fmt.Sprintf(`<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description"><script data-ad-client="%s" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "%s", enable_page_level_ads: true }); </script>`, adClient, adClient),
+				-1,
+			)
 		}
 
-		if adsMode == "per page" {
-			htmlString = strings.Replace(htmlString, `<div id="ads">&#xA0;</div>`, `<script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-1417781814120840" data-ad-slot="1734695799"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>`, -1)
-		}
+		htmlString = strings.Replace(
+			htmlString,
+			`<div id="ads">&#xA0;</div>`,
+			fmt.Sprintf(`<script data-ad-client="%s" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="%s" data-ad-slot="%s"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>`, adClient, adClient, adSlot),
+			-1,
+		)
 
 		err = ioutil.WriteFile(path, []byte(htmlString), info.Mode())
 		if err != nil {
@@ -112,8 +106,5 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-
 	fmt.Println("  ==>", siteMapPath)
 }
-
-//

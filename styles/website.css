@@ -1,3 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700&display=swap');
+body {
+    font-family: Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+}
+#book-search-input {
+    position: relative;
+}
+#book-search-input:after {
+    content: "Dasar Pemrograman Golang";
+    padding-top: 17px;
+    padding-left: 15px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    z-index: 1;
+    position: absolute;
+}
+.book-summary {
+    background-color: #ffffff;
+}
+.book-summary::-webkit-scrollbar {
+    width: 4px;
+}
+.book-summary::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+}
+.book-summary:hover::-webkit-scrollbar-thumb {
+    background: hsla(0,0%,53%,.4);
+}
+.book-summary:hover::-webkit-scrollbar-track {
+    background: hsla(0,0%,53%,.1);
+}
+.book-summary li.active>a:before {
+    content: " ";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #008cff;
+}
+.book-summary li.active>a {
+    font-weight: bold;
+}
+
 .no-link {
     pointer-events: none;
 }
