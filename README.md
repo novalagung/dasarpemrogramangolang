@@ -18,7 +18,7 @@ Ada total sekitar <b>110 bab</b> yang dibahas dalam ebook ini. Bab-bab tersebut 
 	</li>
 </ol>
 
-Ebook Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, selama tidak melanggar aturan lisensi [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0) untuk versi 2.2019.11.27. Di versi terdahulu lisensi ebook yang dipergunakan adalah [GNU LGPL 2.1](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html).
+Ebook Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, selama tidak melanggar aturan lisensi [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0) untuk versi mulai dari 2.2019.11.27. Di versi terdahulu lisensi ebook yang dipergunakan adalah [GNU LGPL 2.1](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html).
 
 Source code contoh-contoh program bisa diunduh di [github.com/novalagung/dasarpemrogramangolang-example](https://github.com/novalagung/dasarpemrogramangolang-example). Dianjurkan untuk tidak copy-paste dari source code dalam belajar, usahakan untuk menulis sendiri kode program, agar cepat terbiasa dengan bahasa Go.
 
