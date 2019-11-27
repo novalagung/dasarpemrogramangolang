@@ -1,0 +1,42 @@
+{
+    "plugins": [
+        "ga",
+        "html-minifier",
+        "disqus",
+        "meta",
+        "sitemap",
+        "scripts"
+    ],
+    "pluginsConfig": {
+        "ga": {
+            "token": "UA-27602984-29"
+        },
+        "disqus": {
+            "shortName": "dasarpemrogramangolang"
+        },
+        "meta": {
+            "data": [{
+                "name": "google-site-verification",
+                "content": "UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"
+            }, {
+                "name": "og:image",
+                "content": "https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"
+            }, {
+                "name": "twitter:image",
+                "content": "https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"
+            }]
+        },
+        "sitemap": {
+            "hostname": "https://dasarpemrogramangolang.novalagung.com/"
+        },
+        "scripts": {
+            "files": []
+        }
+    },
+    "styles": {
+        "website": "website.css"
+    },
+    "lunr": {
+        "maxIndexSize": 1000000000
+    }
+}

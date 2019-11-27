@@ -1,0 +1,70 @@
+name: Update website
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  job_deploy_website:
+    name: 'Deploy website'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+    - name: 'Installing gitbook cli'
+      run: npm install -g gitbook-cli
+    - name: 'Generating distributable files'
+      run: |
+        cp book.json.template book.json
+        gitbook install
+        gitbook build
+        go run website-adjustment.go
+        cd _book
+        rm -rf LICENSE
+        rm -rf book*
+        rm -rf .git
+        rm -rf .gitignore
+        rm -rf .github
+        rm -rf *.md
+        rm -rf *.sh
+        rm -rf *.psd
+        rm -rf *.go
+    - uses: peaceiris/actions-gh-pages@v2.5.0
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: ./_book
+  job_deploy_ebooks:
+    name: 'Deploy ebooks'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: 'Installing gitbook cli'
+      run: npm install -g gitbook-cli
+    - name: 'Installing calibre'
+      run: sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
+    - name: 'Preparing for ebooks generations'
+      run: |
+        cp book.json.template book.json
+        mkdir _book
+        gitbook install
+    - name: 'Generating ebook in pdf'
+      run: gitbook pdf ./ ./_book/dasarpemrogramangolang.pdf
+    - name: 'Generating ebook in epub'
+      run: gitbook epub ./ ./_book/dasarpemrogramangolang.epub
+    - name: 'Generating ebook in mobi'
+      run: gitbook mobi ./ ./_book/dasarpemrogramangolang.mobi
+    - uses: peaceiris/actions-gh-pages@v2.5.0
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        PUBLISH_BRANCH: ebooks
+        PUBLISH_DIR: ./_book

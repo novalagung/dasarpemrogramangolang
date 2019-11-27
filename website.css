@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700&display=swap');
+body {
+    font-family: Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+}
+#book-search-input {
+    position: relative;
+}
+#book-search-input:after {
+    content: "Dasar Pemrograman Golang";
+    padding-top: 17px;
+    padding-left: 15px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    z-index: 1;
+    position: absolute;
+}
+.book-summary {
+    background-color: #ffffff;
+}
+.book-summary::-webkit-scrollbar {
+    width: 4px;
+}
+.book-summary::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+}
+.book-summary:hover::-webkit-scrollbar-thumb {
+    background: hsla(0,0%,53%,.4);
+}
+.book-summary:hover::-webkit-scrollbar-track {
+    background: hsla(0,0%,53%,.1);
+}
+.book-summary li.active>a:before {
+    content: " ";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #008cff;
+}
+.book-summary li.active>a {
+    font-weight: bold;
+}
+
+.no-link {
+    pointer-events: none;
+}
+.gitbook-link {
+    visibility: hidden;
+    pointer-events: none;
+    height: 20px;
+}
+
+.source-code-link {
+    border: 1px solid #c9ffce;
+    background-color: #e7ffe9;
+    padding: 10px 10px;
+    text-align: center;
+}
+.source-code-link .source-code-link-message {
+    font-weight: bold;
+}
+
+ins.adsbygoogle {
+    margin-bottom: 1em;
+}
+
+#disqus_thread {
+    margin-top: 40px;
+}
+#disqus_thread + #disqus_thread {
+    display: none;
+}
+#disqus_thread:before {
+    background-color: #e7e9ee;
+    content: " ";
+    display: block;
+    height: 1px;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+#disqus_thread > iframe:nth-child(1) {
+    padding-top: 30px;
+}
+#disqus_thread > iframe[src*=ads] {
+    display: none;
+}
