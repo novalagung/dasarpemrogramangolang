@@ -151,5 +151,5 @@ Warning `NET::ERR_CERT_AUTHORITY_INVALID` muncul ketika mengakses sebuah website
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.22-https-tls">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.22...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.22-https-tls">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.22...</a>
 </div>

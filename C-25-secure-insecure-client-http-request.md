@@ -186,5 +186,5 @@ Tujuan mengapa penulis tambahkan sub bab **Konfigurasi SSL/TLS Lanjutan** ini ad
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.25-secure-insecure-client-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.25...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.25-secure-insecure-client-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.25...</a>
 </div>

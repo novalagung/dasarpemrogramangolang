@@ -190,5 +190,5 @@ Jalankan aplikasi server, buka prompt terminal/CMD baru, lalu jalankan aplikasi 
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.24-client-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.24...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.24-client-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.24...</a>
 </div>

@@ -178,5 +178,5 @@ Jalankan aplikasi, lalu cek hasilnya email yang dikirim di inbox.
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.16-send-email">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.16...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.16-send-email">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.16...</a>
 </div>

@@ -221,5 +221,5 @@ Lewat teknik pencegahan ini, bukan berarti serangan CSRF tidak bisa dilakukan, s
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.13-csrf">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.13...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.13-csrf">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.13...</a>
 </div>

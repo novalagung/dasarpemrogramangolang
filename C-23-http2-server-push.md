@@ -163,5 +163,5 @@ Selain dari kolom protocol, penanda server push bisa dilihat juga lewat grafik *
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.23-http2-server-push">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.23...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.23-http2-server-push">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.23...</a>
 </div>
