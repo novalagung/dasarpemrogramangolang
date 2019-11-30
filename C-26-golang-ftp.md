@@ -289,3 +289,10 @@ Jalankan aplikasi, cek hasilnya. Untuk memvalidasi bahwa file di client dan di s
 
  - [ftpd](https://github.com/goftp/ftpd), by Lunny Xiao
  - [ftp](https://github.com/jlaffaye/ftp), by Julien Laffaye, ISC license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.26-golang-ftp">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.26...</a>
+</div>

@@ -203,5 +203,5 @@ Coba ubah konfigurasi pada `config.json` nilai `log.verbose` menjadi `false`. La
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.22-configuration-file">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.22...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.22-configuration-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.22...</a>
 </div>

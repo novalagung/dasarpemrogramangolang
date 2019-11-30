@@ -137,3 +137,10 @@ e.Logger.Fatal(e.Start(":9000"))
 
  - [Gzip Handler](https://github.com/NYTimes/gziphandler), by The New York Times team, Apache-2.0 license
  - [Echo](https://github.com/labstack/echo), by Vishal Rana (Lab Stack), MIT license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.15-http-gzip-compression">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.15...</a>
+</div>

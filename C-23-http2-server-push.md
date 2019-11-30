@@ -158,3 +158,10 @@ Berikut merupakan variasi nilai pada kolom protocol.
  - **h2c**, kependekan dari "HTTP 2 Cleartext". HTTP/2 lewat kanal yang tidak ter-enkripsi.
 
 Selain dari kolom protocol, penanda server push bisa dilihat juga lewat grafik **Waterfall**. Garis warna ungu muda pada grafik tersebut adalah start time. Untuk endpoint yang di push maka bar chart akan muncul sebelum garis ungu atau start time.
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.23-http2-server-push">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.23...</a>
+</div>

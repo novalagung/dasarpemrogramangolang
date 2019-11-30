@@ -83,3 +83,10 @@ Coba jalankan aplikasi untuk melihat hasilnya. Buka generated file `file.pdf`, i
 ---
 
 - [gofpdf](https://github.com/jung-kurt/gofpdf), by Kurt Jung, MIT license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.18-write-pdf-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.18...</a>
+</div>

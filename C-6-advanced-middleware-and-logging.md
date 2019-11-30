@@ -267,3 +267,10 @@ Satu kata, *cantik*.
 
  - [Echo](https://github.com/labstack/echo), by Vishal Rana (Lab Stack), MIT license
  - [Logrus](https://github.com/sirupsen/logrus), by Simon Eskildsen, MIT license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.6-advanced-middleware-and-logging">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.6...</a>
+</div>

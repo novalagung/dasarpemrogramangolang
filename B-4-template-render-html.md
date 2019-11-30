@@ -140,5 +140,5 @@ Jalankan aplikasi untuk test hasil.
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.4-template-render-html">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.4...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.4-template-render-html">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.4...</a>
 </div>

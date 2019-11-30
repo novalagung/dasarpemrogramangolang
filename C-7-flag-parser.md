@@ -332,3 +332,10 @@ Cobra merupakan library yang didesain khusus untuk development aplikasi berbasis
 
  - [Kingpin](https://github.com/alecthomas/kingpin), by Alec Thomas, MIT license
  - [Cobra](https://github.com/alecthomas/cobra), by Alec Thomas, MIT license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.7-flag-parser">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.7...</a>
+</div>

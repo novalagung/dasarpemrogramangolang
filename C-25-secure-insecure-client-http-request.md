@@ -181,3 +181,10 @@ if err != nil {
 ```
 
 Tujuan mengapa penulis tambahkan sub bab **Konfigurasi SSL/TLS Lanjutan** ini adalah agar pembaca tau bahwa konfigurasi SSL/TLS yang compleks bisa dilakukan dengan mudah dalam aplikasi web golang. Mengenai pembahasan tiap-tiap property silakan pelajari sendiri.
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.25-secure-insecure-client-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.25...</a>
+</div>

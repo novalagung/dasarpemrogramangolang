@@ -59,5 +59,5 @@ Lakukan tes dan lihat hasilnya.
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.10-render-html-string">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.10...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.10-render-html-string">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.10...</a>
 </div>

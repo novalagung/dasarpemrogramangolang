@@ -160,5 +160,5 @@ fmt.Println(message)
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.30-channel">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.30...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.30-channel">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.30...</a>
 </div>

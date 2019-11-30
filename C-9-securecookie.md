@@ -149,3 +149,10 @@ http.SetCookie(c.Response(), cookie)
  - [Echo](https://github.com/labstack/echo), by Vishal Rana (Lab Stack), MIT license
  - [Gorilla Securecookie](https://github.com/gorilla/securecookie), by Gorilla web toolkit team, BSD-3-Clause license
  - [Gubrak](https://github.com/novalagung/gubrak), by Noval Agung, MIT license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.9-securecookie">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.9...</a>
+</div>

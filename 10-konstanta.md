@@ -43,5 +43,5 @@ Bila menggunakan `fmt.Println()` tidak perlu menambahkan spasi di tiap kata, kar
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.10-konstanta">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.10...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.10-konstanta">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.10...</a>
 </div>

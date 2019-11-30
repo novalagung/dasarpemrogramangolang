@@ -109,5 +109,5 @@ Bab selanjutnya akan membahas lebih detail mengenai penggunaan method `ParseFile
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.8-template-custom-functions">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.8...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.8-template-custom-functions">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.8...</a>
 </div>

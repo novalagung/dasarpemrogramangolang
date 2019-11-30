@@ -121,5 +121,5 @@ Nantinya kita akan sering bertemu dengan `nil` setelah masuk pada pembahasan bab
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.9-tipe-data">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.9...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.9-tipe-data">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.9...</a>
 </div>

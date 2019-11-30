@@ -173,3 +173,10 @@ Jalankan aplikasi, lalu cek hasilnya email yang dikirim di inbox.
 ---
 
  - [Gomail v2](https://gopkg.in/gomail.v2), by Alexandre Cesaro, MIT license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.16-send-email">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.16...</a>
+</div>

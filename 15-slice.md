@@ -259,5 +259,5 @@ fmt.Println(cap(bFruits)) // cap: 2
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.15-slice">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.15...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.15-slice">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.15...</a>
 </div>

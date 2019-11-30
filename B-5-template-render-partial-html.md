@@ -230,5 +230,5 @@ Jalankan aplikasi untuk test hasilnya.
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.5-template-render-partial-html">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.5...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.5-template-render-partial-html">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.5...</a>
 </div>

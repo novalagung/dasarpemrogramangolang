@@ -270,3 +270,10 @@ Jalankan aplikasi, lihat hasilnya.
 ---
 
  - [etree](https://github.com/beevik/etree), by Brett Vickers, BSD-2-Clause license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.21-xml-parser">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.21...</a>
+</div>

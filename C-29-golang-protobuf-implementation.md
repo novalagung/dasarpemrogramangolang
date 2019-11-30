@@ -380,3 +380,10 @@ Pada bab selanjutnya kita akan belajar tentang penerapan gRPC dan protobuf.
 ---
 
  - [Protobuf](https://github.com/golang/protobuf), by Google, BSD-3-Clause License
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.29-golang-protobuf-implementation">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.29...</a>
+</div>

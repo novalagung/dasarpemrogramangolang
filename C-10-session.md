@@ -219,7 +219,7 @@ Dari mgo session akses database lewat method `.DB()`, lalu akses collection yang
 
 Statement `mongostore.NewMongoStore()` digunakan untuk membuat mongo db store. Ada beberapa parameter yang diperlukan: objek collection mongo di atas, dan dua lagi lainnya adalah authentication key dan encryption key.
 
-Jika pembaca merasa bingung, silakan langsung buka source code untuk [bab B.10 ini di github](https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-C.10), mungkin membantu.
+Jika pembaca merasa bingung, silakan langsung buka source code untuk [bab B.10 ini di github](https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.10), mungkin membantu.
 
 ## C.10.7. Postgres SQL Store
 
@@ -306,3 +306,10 @@ Tujuan dari kode yang kita tulis kurang lebih sebagai berikut.
  - [PG Store](https://github.com/antonlindstrom/pgstore), by Anton Lindström, MIT License
  - [Mongo Store](https://github.com/kidstuff/mongostore), by Nguyễn Văn Cao Nguyên, BSD-3-Clause License
  - [Mgo v2, Golang Mongo Driver](https://labix.org/mgo), by Gustavo Niemeyer, Simplified BSD License
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.10-session">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.10...</a>
+</div>

@@ -40,5 +40,5 @@ Selain itu, query yang ada pada url akan otomatis diparsing juga, menjadi bentuk
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.49-url-parsing">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.49...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.49-url-parsing">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.49...</a>
 </div>

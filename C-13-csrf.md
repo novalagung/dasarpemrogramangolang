@@ -216,3 +216,10 @@ Lewat teknik pencegahan ini, bukan berarti serangan CSRF tidak bisa dilakukan, s
 ---
 
  - [Echo](https://github.com/labstack/echo), by Vishal Rana (Lab Stack), MIT license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.13-csrf">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.13...</a>
+</div>

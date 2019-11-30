@@ -228,5 +228,5 @@ $ curl -X GET --user batman:secret http://localhost:9000/student?id=s001
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.18-http-basic-auth">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.18...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.18-http-basic-auth">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.18...</a>
 </div>

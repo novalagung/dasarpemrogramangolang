@@ -173,5 +173,5 @@ Dibanding metode pada bab sebelumnya, dengan teknik ini kita bisa sangat mudah m
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.19-middleware-using-http-handler">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.19...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.19-middleware-using-http-handler">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.19...</a>
 </div>

@@ -164,5 +164,5 @@ fmt.Printf("%#v \n", str)
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.42-regexp">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.42...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.42-regexp">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.42...</a>
 </div>

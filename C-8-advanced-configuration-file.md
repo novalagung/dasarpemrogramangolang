@@ -143,3 +143,10 @@ Penggunaan fasilitas watcher memerlukan tambahan 3rd party library [fsnotify](ht
  - [Echo](https://github.com/labstack/echo), by Vishal Rana (Lab Stack), MIT license
  - [fsnotify](https://github.com/fsnotify/fsnotify), by fsnotify team, BSD-3-Clause license
  - [Viper](https://github.com/spf13/viper), by Steve Francia, MIT license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.8-advanced-configuration-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.8...</a>
+</div>

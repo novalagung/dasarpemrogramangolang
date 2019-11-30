@@ -399,5 +399,5 @@ Semua berjalan sesuai harapan. Agar lebih meyakinkan, coba lakukan beberapa test
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-C.32-golang-jwt">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-C.32...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.32-golang-jwt">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.32...</a>
 </div>

@@ -399,3 +399,10 @@ Ketika salah satu user leave, pesan **User XXX: disconnected** akan di-broadcast
 
  - [Gorilla Web Socket](https://github.com/gorilla/websocket), by Gary Burd, BSD-2-Clause License
  - [Gubrak](https://github.com/novalagung/gubrak), by Noval Agung, MIT License
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.28-golang-web-socket">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.28...</a>
+</div>

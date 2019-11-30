@@ -154,5 +154,5 @@ Ada banyak lagi property dari struct `http.Server` ini, yang pastinya akan dibah
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.1-golang-web-hello-world">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.1...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.1-golang-web-hello-world">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.1...</a>
 </div>

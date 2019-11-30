@@ -106,3 +106,9 @@ Nah, di bab selanjutnya kita akan belajar cara membuat custom error handler untu
  - [Echo](https://github.com/labstack/echo), by Vishal Rana (Lab Stack), MIT license
  - [Validator v9](https://github.com/go-playground/validator/tree/v9), by Dean Karn (Go Playground), MIT license
 
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.3-http-request-payload-validation">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.3...</a>
+</div>

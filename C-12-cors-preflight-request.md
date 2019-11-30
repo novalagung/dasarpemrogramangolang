@@ -292,3 +292,10 @@ Berikut adalah list konfigurasi yang bisa dimanfaatkan dari library ini.
 <!-- https://www.html5rocks.com/en/tutorials/cors/ -->
 <!-- https://stackoverflow.com/questions/12320467/jquery-cors-content-type-options -->
 <!-- https://stackoverflow.com/questions/22343384/the-access-control-allow-origin-header-contains-multiple-values -->
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.12-cors-preflight-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.12...</a>
+</div>

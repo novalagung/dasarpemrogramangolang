@@ -186,3 +186,10 @@ Jalankan aplikasi, lihat hasilnya.
 
  - [goquery](https://github.com/PuerkitoBio/goquery), by Martin Angers, BSD-3-Clause license
  - [gohtml](https://github.com/yosssi/gohtml), by Keiji Yoshida, MIT license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.20-scraping-parsing-html">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.20...</a>
+</div>

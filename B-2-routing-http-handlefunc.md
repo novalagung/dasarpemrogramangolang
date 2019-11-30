@@ -77,5 +77,5 @@ Dalam routing, handler bisa berupa fungsi, closure, ataupun anonymous function; 
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.2-routing-http-handlefunc">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.2...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.2-routing-http-handlefunc">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.2...</a>
 </div>

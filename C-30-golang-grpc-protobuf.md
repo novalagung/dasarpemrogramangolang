@@ -517,5 +517,5 @@ OK, jika anda membaca sampai baris ini, berarti anda telah berhasil sabar dalam 
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-C.30-golang-grpc-protobuf">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-C.30...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.30-golang-grpc-protobuf">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.30...</a>
 </div>

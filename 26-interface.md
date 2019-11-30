@@ -178,5 +178,5 @@ Pada bab 24 dijelaskan bahwa method pointer bisa diakses lewat variabel objek bi
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.26-interface">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.26...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.26-interface">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.26...</a>
 </div>

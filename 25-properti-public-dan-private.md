@@ -326,5 +326,5 @@ Dalam sebuah package diperbolehkan ada banyak fungsi `init()` (urutan eksekusiny
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.25-property-public-private">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.25...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.25-property-public-private">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.25...</a>
 </div>

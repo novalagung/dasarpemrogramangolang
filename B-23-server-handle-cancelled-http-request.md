@@ -116,5 +116,5 @@ curl -X POST http://localhost:8080/ -H 'Content-Type: application/json' -d '{}'
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.23-handle-cancelled-http-request">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.23...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.23-handle-cancelled-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.23...</a>
 </div>

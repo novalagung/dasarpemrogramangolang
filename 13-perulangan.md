@@ -131,5 +131,5 @@ Pada `for` bagian dalam, terdapat seleksi kondisi untuk pengecekan nilai `i`. Ke
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.13-perulangan">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.13...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.13-perulangan">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.13...</a>
 </div>

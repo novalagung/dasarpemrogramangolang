@@ -327,5 +327,5 @@ if len(result) > 0 {
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.54-mongodb">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.54...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.54-mongodb">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.54...</a>
 </div>

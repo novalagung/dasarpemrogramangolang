@@ -146,3 +146,10 @@ Coba test juga menggunakan browser, jika menggunakan chrome maka akan muncul war
 ![browser example](images/C.22_4_browser_example.png)
 
 Warning `NET::ERR_CERT_AUTHORITY_INVALID` muncul ketika mengakses sebuah website menggunakan protokol `https` yang dimana website ini mengaplikasikan **self-signed certificate**, bukan menggunakan certificate yang sudah diverifikasi oleh CA.
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.22-https-tls">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.22...</a>
+</div>

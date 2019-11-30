@@ -126,5 +126,5 @@ Sampai bab ini yang kita pelajari adalah dasar-dasar pemrograman Go, di bahas pe
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-A.48-web">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-A.48...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.48-web">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.48...</a>
 </div>

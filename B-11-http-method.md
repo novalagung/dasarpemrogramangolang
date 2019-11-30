@@ -55,5 +55,5 @@ Jika method yang digunakan adalah selain POST dan GET, maka sesuai source code d
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang/tree/master/chapter-B.11-http-method">https://github.com/novalagung/dasarpemrogramangolang/.../chapter-B.11...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.11-http-method">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.11...</a>
 </div>

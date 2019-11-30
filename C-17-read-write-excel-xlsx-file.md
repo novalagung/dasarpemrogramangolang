@@ -188,3 +188,10 @@ Jalankan aplikasi untuk mengecek hasilnya.
 ---
 
  - [Excelize](https://github.com/360EntSecGroup-Skylar/excelize), by 360 Enterprise Security Group Team, BSD 3 Clause license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.17-read-write-excel-xlsx-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.17...</a>
+</div>

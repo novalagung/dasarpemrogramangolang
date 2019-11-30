@@ -168,3 +168,10 @@ Cara ini cocok digunakan untuk konversi data HTML yang isinya muncul pada saat p
 - [gofpdf](https://github.com/jung-kurt/gofpdf), by Kurt Jung, MIT license
 - [wkhtmltopdf](https://github.com/wkhtmltopdf/wkhtmltopdf), by Ashish Kulkarni, LGPL-3.0 license
 - [go-wkhtmltopdf](https://github.com/SebastiaanKlippert/go-wkhtmltopdf), by Sebastiaan Klippert, MIT license
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-chapter-C.19-convert-html-to-pdf">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.19...</a>
+</div>
