@@ -92,7 +92,7 @@ Meski kode program di atas sangat sederhana, mungkin akan muncul beberapa pertan
 
 Setiap file program harus memiliki package. Setiap project harus ada minimal satu file dengan nama package `main`. File yang ber-package `main`, akan di eksekusi pertama kali ketika program di jalankan.
 
-Cara menentikan package dengan menggunakan keyword `package`, berikut adalah contoh penulisannya.
+Cara menentukan package dengan menggunakan keyword `package`, berikut adalah contoh penulisannya.
 
 ```go
 package <nama-package>
