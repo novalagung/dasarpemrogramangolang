@@ -34,3 +34,33 @@ Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi we
 Ebook ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan saran, silakan drop email ke [caknopal@gmail.com](mailto:caknopal@gmail.com).
 
 Buku ini merupakan projek open source, jadi untuk yang ingin berkontribusi silakan langsung saja. Cek juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTORS.html) untuk melihat list kontributor.
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/novalagung/dasarpemrogramangolang/graphs/contributors"><img src="https://opencollective.com/novalagung/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/novalagung/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/novalagung"><img src="https://opencollective.com/novalagung/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/novalagung/contribute)]
+
+<a href="https://opencollective.com/novalagung/organization/0/website"><img src="https://opencollective.com/novalagung/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/novalagung/organization/1/website"><img src="https://opencollective.com/novalagung/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/novalagung/organization/2/website"><img src="https://opencollective.com/novalagung/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/novalagung/organization/3/website"><img src="https://opencollective.com/novalagung/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/novalagung/organization/4/website"><img src="https://opencollective.com/novalagung/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/novalagung/organization/5/website"><img src="https://opencollective.com/novalagung/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/novalagung/organization/6/website"><img src="https://opencollective.com/novalagung/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/novalagung/organization/7/website"><img src="https://opencollective.com/novalagung/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/novalagung/organization/8/website"><img src="https://opencollective.com/novalagung/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/novalagung/organization/9/website"><img src="https://opencollective.com/novalagung/organization/9/avatar.svg"></a>
