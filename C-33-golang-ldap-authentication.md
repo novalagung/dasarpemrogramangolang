@@ -66,6 +66,14 @@ Pertama kita buat terlebih dahulu aplikasi web sederhana, dengan dua buah rute d
 - Landing page, memunculkan form login
 - Action login endpoint, untuk handle proses login
 
+Siapkan dulu projeknya:
+
+```bash
+mkdir chapter-c33
+cd chapter-c33
+go mod init chapter-c33
+```
+
 Buat file `main.go`, lalu siapkan html string untuk login form.
 
 ```go
@@ -167,7 +175,11 @@ const (
 )
 ```
 
-3rd party lib [https://github.com/go-ldap/ldap](github.com/go-ldap/ldap) kita gunakan untuk melakukan operasi client-server dengan directory server. Silakan `go get` terlebih dahulu jika belum.
+3rd party lib [https://github.com/go-ldap/ldap](github.com/go-ldap/ldap) v3 kita gunakan untuk melakukan operasi client-server dengan directory server. Silakan `go get` terlebih dahulu jika belum.
+
+```bash
+go get -u github.com/go-ldap/ldap/v3
+```
 
 Beberapa konstanta di atas isinya sesuai dengan credentials directory server test yang di atas sudah kita bahas. Diluar itu ada satu tambahan konstanta, yaitu `ldapSearchDN`, nantinya kita perlukan dalam melakukan operasi search.
 

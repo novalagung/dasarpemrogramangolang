@@ -40,21 +40,21 @@ Kita akan buat sebuah aplikasi RESTful web service sederhana, isinya dua buah en
  - Token didapat dari proses otentikasi ke endpoint `/login` dengan menyisipkan username dan password.
  - Pada aplikasi yang sudah kita buat, sudah ada data list user yang tersimpan di database (sebenarnya bukan di-database, tapi di file json).
 
-Ok, sekarang siapkan folder projek dengan skema seperti berikut:
+Ok, sekarang siapkan folder projek baru.
 
 ```bash
-$ tree .
-.
-├── main.go
-├── middleware.go
-└── users.json
+mkdir chapter-c32
+cd chapter-c32
+go mod init chapter-c32
 
-0 directories, 3 files
+touch main.go
+tocuh middleware.go
+tocuh users.json
 ```
 
 ### File `middleware.go`
 
-Isi file `middleware.go` dengan kode middleware yang sudah biasa kita gunakan.
+Lanjut isi file `middleware.go` dengan kode middleware yang sudah biasa kita gunakan.
 
 ```go
 package main
@@ -102,6 +102,11 @@ Juga isi file `users.json` yang merupakan database aplikasi. Silakan tambahkan d
 ### File `main.go`
 
 Sekarang kita fokus ke file `main.go`. Import packages yang diperlukan. Salah satu dari packages tersebut adalah [jwt-go](https://github.com/dgrijalva/jwt-go), yang digunakan untuk keperluan JWT.
+
+```bash
+go get -u github.com/dgrijalva/jwt-go@v3.2.0
+go get -u github.com/novalagung/gubrak@v2.0.0
+```
 
 ```go
 package main
@@ -259,9 +264,9 @@ func authenticateUser(username, password string) (bool, M) {
 		return false, nil
 	}
 
-	res, _ := gubrak.Find(data, func(each M) bool {
+	res := gubrak.From(data).Find(func(each M) bool {
 		return each["username"] == username && each["password"] == password
-	})
+	}).Result()
 
 	if res != nil {
 		resM := res.(M)
