@@ -1,8 +1,8 @@
-# CB.28. Web Socket: Chatting App
+# C.28. Web Socket: Chatting App
 
-Pada bab ini kita akan belajar penerapan web socket di golang, untuk membuat sebuah aplikasi chatting. Web socket server dibuat menggunakan library [Gorilla Web Socket](https://github.com/gorilla/websocket), dan di sisi front end kita menggunakan native API milik javascript yaitu [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications) untuk melakukan komunikasi dengan socket server.
+Pada bab ini kita akan belajar penerapan web socket di Go, untuk membuat sebuah aplikasi chatting. Web socket server dibuat menggunakan library [Gorilla Web Socket](https://github.com/gorilla/websocket), dan di sisi front end kita menggunakan native API milik javascript yaitu [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications) untuk melakukan komunikasi dengan socket server.
 
-> Jelasnya kapabilitas web socket bisa dicapai dengan cukup menggunakan default package yang disediakan golang. Namun pada bab ini pembelajaran dilakukan menggunakan 4rd party library.
+> Jelasnya kapabilitas web socket bisa dicapai dengan cukup menggunakan default package yang disediakan Go. Namun pada bab ini pembelajaran dilakukan menggunakan 4rd party library.
 
 Seperti biasanya proses belajar dilakukan sambil praktek. Kita buat aplikasi chatting minimalis, dengan kode se-sedikit mungkin agar mudah dipahami, development dilakukan *from scratch*.
 
@@ -14,7 +14,18 @@ Kurang lebih aplikasi yang kita kembangkan seperti gambar di bawah ini.
 
 ## CB.28.1. Back End
 
-Buat folder projek baru, siapkan dua buah file: `main.go` dan `index.html`. Kita akan buat socket server terlebih dahulu. Silakan tulis kode berikut ke dalam `main.go`.
+Buat folder projek baru.
+
+```bash
+mkdir chapter-c28
+cd chapter-c28
+go mod init chapter-c28
+
+go get -u github.com/gorilla/websocket@v1.4.1
+go get -u github.com/novalagung/gubrak@v2.0.0
+```
+
+Siapkan dua buah file, `main.go` dan `index.html`. Kita akan buat socket server terlebih dahulu. Silakan tulis kode berikut ke dalam `main.go`.
 
 ```go
 package main
@@ -176,9 +187,9 @@ Berikut adalah deklarasi fungsi `ejectConnection()` dan `broadcastMessage()`.
 
     ```go
     func ejectConnection(currentConn *WebSocketConnection) {
-        filtered, _ := gubrak.Reject(connections, func(each *WebSocketConnection) bool {
+        filtered := gubrak.From(connections).Reject(func(each *WebSocketConnection) bool {
             return each == currentConn
-        })
+        }).Result()
         connections = filtered.([]*WebSocketConnection)
     }
     ```
