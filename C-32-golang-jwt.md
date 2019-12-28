@@ -47,9 +47,14 @@ mkdir chapter-c32
 cd chapter-c32
 go mod init chapter-c32
 
-touch main.go
-tocuh middleware.go
-tocuh users.json
+# then prepare underneath structures
+
+tree .
+.
+├── go.mod
+├── main.go
+├── middleware.go
+└── users.json
 ```
 
 ### File `middleware.go`

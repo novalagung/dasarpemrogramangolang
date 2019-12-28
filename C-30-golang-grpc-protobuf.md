@@ -14,13 +14,33 @@ gRPC adalah salah satu RPC framework, dibuat oleh Google. gRPC menggunakan proto
 
 > Remote Procedure Call (RPC) adalah sebuah metode yang memungkinkan kita untuk mengakses sebuah prosedur yang berada di komputer lain. Untuk dapat melakukan ini sebuah server harus menyediakan layanan remote procedure.
 
-## C.30.2. Struktur Aplikasi
+## C.30.2 Prerequisites
+
+- Go
+- Protobuf. Panduan instalasi: http://google.github.io/proto-lens/installing-protoc.html
+- protoc-gen-go. Untuk pengguna Go Modules, pastikan binary-nya terdaftar dalam shell path!
+
+## C.30.3. Struktur Aplikasi
 
 Siapkan satu project baru dengan struktur sebagai berikut.
 
 ```bash
-novalagung:chapter-b.30 $ tree .
+# perform go get outside of go mod project, so the binary will be stored in $GOPATH/bin.
+# more details, take a look at https://stackoverflow.com/a/30097929/1467988
+go get -u github.com/golang/protobuf/protoc-gen-go
+
+mkdir chapter-c30
+cd chapter-c30
+go mod init chapter-c30
+
+go get -u github.com/golang/protobuf@v1.3.2
+go get -u google.golang.org/grpc@v1.26.0
+
+# then prepare underneath structures
+
+tree .
 .
+├── go.mod
 ├── common
 │   ├── config
 │   │   └── config.go
@@ -60,7 +80,7 @@ Satu buah file proto untuk satu aplikasi rpc server (service). Karena ada dua fi
 
 File `garage.proto` dan `user.proto` tidak dijadikan satu dalam respektif folder `service-garage` dan `service-user`, karena kedua file ini juga digunakan pada aplikasi client, itulah kenapa file ini dipisah ke dalam folder `common/model`.
 
-## C.30.3. File Konfigurasi pada folder `common/config`
+## C.30.4. File Konfigurasi pada folder `common/config`
 
 Siapkan file bernama `config.go` dalam `common/config`. Di dalam file config ini didefinisikan dua buah konstanta yaitu port untuk service user dan garage. Nantinya aplikasi server di start menggunakan port ini.
 
@@ -73,7 +93,7 @@ const (
 )
 ```
 
-## C.30.4. Proto Model pada folder `common/model`
+## C.30.5. Proto Model pada folder `common/model`
 
 Setelah kedua file `user.proto` dan `garage.proto` pada bab sebelumnya disalin, kita perlu menambahkan pendefinisian service pada masing-masing file proto.
 
@@ -184,23 +204,15 @@ Sama seperti service `Users`, service `Garages` juga akan di-compile menjadi int
   }
   ```
 
-## C.30.5. Kompilasi File `.proto`
+## C.30.6. Kompilasi File `.proto`
 
-Command yang sebelumnya digunakan untuk kompilasi:
-
-```bash
-$ protoc --go_out=. *.proto
-```
-
-Command tersebut tidak meng-generate service menjadi interface. Pada argument `--go_out` perlu diubah sedikit agar service dan rpc method ikut di-generate.
-
-Gunakan command berikut.
+Gunakan command berikut untuk generate file .go dari file .proto yang sudah kita buat:
 
 ```bash
-$ protoc --go_out=plugins=grpc:. *.proto
+PATH=$PATH:$GOPATH/bin/ protoc --go_out=plugins=grpc:. *.proto
 ```
 
-## C.30.6. Aplikasi Server `service-user`
+## C.30.7. Aplikasi Server `service-user`
 
 Buka file `services/service-user/main.go`, import package yang dibutuhkan.
 
@@ -212,10 +224,11 @@ import (
 	"log"
 	"net"
 
+	"chapter-c30/common/config"
+	"chapter-c30/common/model"
+
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
-	"dasarpemrogramangolang/chapter-B.30/common/config"
-	"dasarpemrogramangolang/chapter-B.30/common/model"
 )
 ```
 
@@ -279,7 +292,7 @@ if err != nil {
 log.Fatal(srv.Serve(l))
 ```
 
-## C.30.6. Aplikasi Server `service-garage`
+## C.30.8. Aplikasi Server `service-garage`
 
 Buat file `services/service-garage/main.go`, import package yang sama seperti pada `service-user`. Lalu buat objek `localStorage` dari struct `*model.GarageListByUser`.
 
@@ -346,7 +359,7 @@ func main() {
 }
 ```
 
-## C.30.7. Aplikasi Client & Testing
+## C.30.9. Aplikasi Client & Testing
 
 Buat file `client/main.go`, import package yang sama seperti pada `service-user` maupun `service-garage`. Lalu siapkan dua buah method yang mengembalikan rpc client yang terhubung ke dua service yang sudah kita buat.
 
