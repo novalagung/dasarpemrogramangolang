@@ -69,7 +69,7 @@ Tampilannya kurang lebih seperti pada screenshot berikut.
 <!-- ```bash
 $ export GOBIN=$GOPATH/bin
 $ cd $GOROOT/src/crypto/tls
-$ go install generate_cert.go
+go install generate_cert.go
 
 $ cd $GOPATH/src/your/project
 $ generate_cert -host localhost -ca

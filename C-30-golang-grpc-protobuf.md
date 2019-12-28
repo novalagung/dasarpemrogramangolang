@@ -16,9 +16,7 @@ gRPC adalah salah satu RPC framework, dibuat oleh Google. gRPC menggunakan proto
 
 ## C.30.2 Prerequisites
 
-- Go
-- Protobuf. Panduan instalasi: http://google.github.io/proto-lens/installing-protoc.html
-- protoc-gen-go. Untuk pengguna Go Modules, pastikan binary-nya terdaftar dalam shell path!
+Sekedar informasi bahwa sebelum mulai mengikuti pembelajaran pada bab ini, DIWAJIBKAN untuk mengikuti pembahasan pada bab sebelumnya [C.29. Protobuf](/C-29-golang-protobuf-implementation.html).
 
 ## C.30.3. Struktur Aplikasi
 

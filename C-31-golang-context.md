@@ -9,7 +9,13 @@ Proses pembelajaran dilakukan dengan praktek membuat sebuah aplikasi web service
 Ok, langsung saja, siapkan folder projek baru dengan struktur seperti berikut.
 
 ```bash
-novalagung:1-simple $ tree .
+mkdir chapter-c31
+cd chapter-c31
+go mod init chapter-c31
+
+# then prepare underneath structures
+
+tree .
 .
 ├── main.go
 └── middleware.go

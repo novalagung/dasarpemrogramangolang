@@ -17,7 +17,7 @@ Link untuk download installer go: https://golang.org/dl/. Anda bisa langsung und
  3. Buka **Command Prompt** / **CMD**, eksekusi perintah untuk mengecek versi Go.
 
     ```bash
-    $ go version
+    go version
     ```
 
  4. Jika output adalah sama dengan Go yang ter-install, menandakan instalasi berhasil.
@@ -50,7 +50,7 @@ Cara termudah instalasi Go di **Mac OS** adalah menggunakan [homebrew](http://br
  4. Jalankan command untuk mengecek versi Go.
 
     ```bash
-    $ go version
+    go version
     ```
 
  5. Jika output adalah sama dengan Go yang ter-install, menandakan instalasi berhasil.
@@ -79,7 +79,7 @@ Cara termudah instalasi Go di **Mac OS** adalah menggunakan [homebrew](http://br
  4. Selanjutnya, eksekusi perintah berikut untuk mengetes apakah Go sudah terinstal dengan benar.
 
     ```bash
-    $ go version
+    go version
     ```
 
  5. Jika output adalah sama dengan Go yang ter-install, menandakan instalasi berhasil.

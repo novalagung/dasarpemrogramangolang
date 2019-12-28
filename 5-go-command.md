@@ -12,7 +12,7 @@ Berikut adalah contoh penerapan `go run` untuk eksekusi file program `bab5.go` y
 
 ```bash
 $ cd $GOPATH/src/belajar-golang
-$ go run bab5.go
+go run bab5.go
 ```
 
 ![Eksekusi file program menggunakan `go run`](images/A.5_1_go_run.png)
@@ -22,7 +22,7 @@ Command `go run` hanya bisa digunakan pada file yang package-nya adalah **main**
 Jika ada banyak file yang ber-package `main`, dan file-file tersebut di-import di file utama, maka eksekusinya adalah dengan menyisipkan semua file sebagai argument `go run` (lebih jelasnya akan dibahas pada bab 25). Contohnya bisa dilihat pada kode berikut.
 
 ```bash
-$ go run bab5.go library.go
+go run bab5.go library.go
 ```
 
 ![Eksekusi banyak file main](images/A.5_2_go_run_multi.png)
@@ -30,7 +30,7 @@ $ go run bab5.go library.go
 Atau bisa dengan menggunakan `*.go`, tanpa tidak perlu menuliskan nama-nama file program yang ada.
 
 ```bash
-$ go run *.go
+go run *.go
 ```
 
 ## A.5.2. Command `go test`
@@ -40,7 +40,7 @@ Go menyediakan package `testing`, berguna untuk keperluan unit testing. File yan
 Berikut adalah contoh penggunaan command `go test` untuk testing file `bab5_test.go`.
 
 ```bash
-$ go test bab5_test.go
+go test bab5_test.go
 ```
 
 ![Unit testing menggunakan `go test`](images/A.5_3_go_test.png)
@@ -66,7 +66,7 @@ Command `go install` memiliki fungsi yang sama dengan `go build`, hanya saja set
 Target eksekusi harus berupa folder proyek (bukan file `.go`), dan path folder tersebut dituliskan relatif terhadap `$GOPATH/src`. Contoh:
 
 ```bash
-$ go install github.com/novalagung/godong
+go install github.com/novalagung/godong
 ```
 
 `go install` menghasilkan output berbeda untuk package `main` dan non-main.
@@ -88,7 +88,7 @@ Pada kode di atas bisa dilihat command `go install` dieksekusi 2 kali.
 Command ini berbeda dengan command-command yang sudah dibahas di atas. `go get` digunakan untuk men-download package. Sebagai contoh saya ingin men-download package **Mgo**.
 
 ```bash
-$ go get gopkg.in/mgo.v2
+go get gopkg.in/mgo.v2
 $ ls $GOPATH/src/gopkg.in/mgo.v2
 ```
 

@@ -7,7 +7,7 @@ Pada bab ini kita akan belajar parsing HTML dengan cara yang lebih mudah, tidak 
 Sebelum dimulai, unduh terlebih dahulu package-nya menggunakan `go get`.
 
 ```bash
-$ go get -u github.com/PuerkitoBio/goquery
+go get -u github.com/PuerkitoBio/goquery
 ```
 
 > Untuk proses scraping konten html-nya sendiri dilakukan cukup dengan menggunakan fungsi `.Get()` milik package `net/http`.

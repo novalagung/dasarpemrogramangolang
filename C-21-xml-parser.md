@@ -3,7 +3,7 @@
 Pada bab ini kita akan belajar cara parsing file xml, dan cara membuat xml baru. Library yang digunakan adalah [etree](https://github.com/beevik/etree), silakan `go get` terlebih dahulu.
 
 ```go
-$ go get -u github.com/beevik/etree
+go get -u github.com/beevik/etree
 ```
 
 ## C.21.1. Membaca dan Parsing File XML

@@ -221,7 +221,7 @@ Pada bagian ini kita akan mengkombinasikan library CORS golang buatan Olivier Po
 Pertama `go get` dulu library-nya.
 
 ```bash
-$ go get https://github.com/rs/cors
+go get https://github.com/rs/cors
 ```
 
 Buat file baru, import library yang diperlukan lalu buat fungsi main.

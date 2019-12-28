@@ -81,7 +81,7 @@ Image size adalah 137 KB, dan response time adalah 18 ms.
 Selanjutnya kita akan coba menerapkan middleware gzip pada program kecil di atas. Pertama unduh dependency gziphandler terlebih dahulu menggunakan `go get`.
 
 ```bash
-$ go get -u github.com/NYTimes/gziphandler
+go get -u github.com/NYTimes/gziphandler
 ```
 
 Import library yang sudah ter-unduh pada file main, lalu bungkus multiplexer `mux` menggunakan `gziphandler.GzipHandler()`, mux tersebut dimasukan ke property `server.Handler`.

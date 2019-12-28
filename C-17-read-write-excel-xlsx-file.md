@@ -7,7 +7,7 @@ Pada bab ini kita akan belajar tentang pengolahan file excel menggunakan [exceli
 Dokumentasi lengkap mengenai excelize bisa dilihat di https://xuri.me/excelize/en. Silakan `go get` untuk mengunduh library ini.
 
 ```bash
-$ go get github.com/360EntSecGroup-Skylar/excelize
+go get github.com/360EntSecGroup-Skylar/excelize
 ```
 
 ## C.17.1. Membuat File Excel `.xlsx`

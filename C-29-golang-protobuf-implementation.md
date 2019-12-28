@@ -1,12 +1,10 @@
 # C.29. Protobuf
 
-Pada bab ini kita akan belajar tentang penggunaan protobuf (Protocol Buffers) di golang.
-
-Perlu diketahui, topik gRPC tidak kita pelajari pada bab ini, melainkan pada bab selanjutnya.
+Pada bab ini kita akan belajar tentang penggunaan protobuf (Protocol Buffers) di Go. Topik gRPC kita pelajari pada bab selanjutnya (bukan pada bab ini).
 
 ## C.29.1. Definisi
 
-Protocol Buffers adalah metode untuk serialisasi data terstruktur, yang dibuat oleh Google. Protobuf cocok digunakan pada aplikasi yang berkomunikasi dengan aplikasi lain. Protobuf bisa dipakai di banyak platform, contoh: komunikasi antara aplikasi mobile iOS dan Golang Web Service, bisa menggunakan protobuf.
+Protocol Buffers adalah metode untuk serialisasi data terstruktur, yang dibuat oleh Google. Protobuf cocok digunakan pada aplikasi yang berkomunikasi dengan aplikasi lain. Protobuf bisa dipakai di banyak platform, contoh: komunikasi antara aplikasi mobile iOS dan Go Web Service, bisa menggunakan protobuf.
 
 Protobuf hanya bertugas di bagian serialisasi data saja, untuk komunikasi antar service atau antar aplikasi sendiri menggunakan gRPC.
 
@@ -26,7 +24,7 @@ Cukup bisa dipahami bukan?
 
 Sederhananya protobuf itu mirip seperti JSON atau XML, tapi lebih terstruktur. Perbedaannya adalah pada protobuf skema model harus didefinisikan di awal (*schema on write*).
 
-Skema tersebut didefinisikan dalam file berekstensi `.proto`. Dari file tersebut di generate-lah file model sesuai bahasa yang dipilih. Misalkan bahasa yang digunakan adalah java, maka nantinya terbentuk pojo; misal bahasa adalah php nantinya class di-generate; jika bahasa golang maka struct di-generate, dan seterusnya.
+Skema tersebut didefinisikan dalam file berekstensi `.proto`. Dari file tersebut di generate-lah file model sesuai bahasa yang dipilih. Misalkan bahasa yang digunakan adalah java, maka nantinya terbentuk pojo; misal bahasa adalah php nantinya class di-generate; jika bahasa Go maka struct di-generate, dan seterusnya.
 
 > gRPC dan protobuf adalah salah satu pilihan terbaik untuk diterapkan pada aplikasi yang mengadopsi konsep microservices.
 
@@ -36,27 +34,33 @@ Schema yang ditulis dalam `.proto` di-compile ke bentuk file sesuai bahasa yang 
 
 Silakan merujuk ke http://google.github.io/proto-lens/installing-protoc.html untuk mengetahui cara instalasi `protoc` sesuai sistem operasi yang dibutuhkan.
 
-Selain `protoc`, masih ada satu lagi yang perlu di install, yaitu protobuf runtime untuk golang (karena di sini kita menggunakan bahasa golang). Cara instalasinya cukup mudah:
+Selain `protoc`, masih ada satu lagi yang perlu di install, yaitu protobuf runtime untuk Go (karena di sini kita menggunakan bahasa Go). Cara instalasinya cukup mudah:
 
 ```bash
-$ go get -u github.com/golang/protobuf/proto
-$ go get -u github.com/golang/protobuf/protoc-gen-go
+go get -u github.com/golang/protobuf/protoc-gen-go
 ```
 
-> Protobuf runtime tersedia untuk banyak bahasa selain golang, selengkapnya silakan cek https://github.com/protocolbuffers/protobuf.
+Wajib mengeksekusi command di atas di luar Go Modules, agar dependency tersebut binary nya tersimpan dalam $GOPATH/bin. Jika tidak, maka bisa muncul masalah (see https://stackoverflow.com/a/30097929/1467988).
+
+> Protobuf runtime tersedia untuk banyak bahasa selain Go, selengkapnya silakan cek https://github.com/protocolbuffers/protobuf.
 
 ## C.29.3. Pembuatan File `.Proto`
 
 Siapkan satu buah folder dengan skema seperti berikut.
 
 ```bash
-novalagung:src $ tree .
+mkdir chapter-c29
+cd chapter-c29
+go mod init chapter-c29
+
+# then prepare underneath structures
+
+tree .
 .
-└── yourproject
-    ├── main.go
-    └── model
-        ├── garage.proto
-        └── user.proto
+├── main.go
+└── model
+    ├── garage.proto
+    └── user.proto
 ```
 
 Folder `yourproject/model` berisikan file-file `.proto` (dua buah file proto didefinisikan). Dari kedua file di atas akan di-generate file model `.go` menggunakan command `protoc`. Nantinya generated file tersebut dipakai dalam `main.go`.
@@ -81,11 +85,11 @@ Bahasa yang digunakan dalam file proto sangat minimalis, dan cukup mudah untuk d
 
 Statement `syntax = "proto3";`, artinya adalah versi proto yang digunakan adalah `proto3`. Ada juga versi `proto2`, namun kita tidak menggunakannya.
 
-Statement `package model;`, digunakan untuk menge-set nama package dari file yang nantinya di-generate. File `user.proto` akan di-compile, menghasilkan file `user.pb.go`. File golang tersebut package-nya adalah sesuai dengan yang sudah didefinisikan di statement, pada contoh ini `model`.
+Statement `package model;`, digunakan untuk menge-set nama package dari file yang nantinya di-generate. File `user.proto` akan di-compile, menghasilkan file `user.pb.go`. File Go tersebut package-nya adalah sesuai dengan yang sudah didefinisikan di statement, pada contoh ini `model`.
 
 Statement `enum UserGender` digunakan untuk pendefinisian enum. Tulis nama-nama enum beserta value di dalam kurung kurawal. Keyword `UserGender` sendiri nantinya menjadi tipe enum. Value enum di protobuf hanya bisa menggunakan tipe data numerik int.
 
-Setelah proses kompilasi ke bentuk golang, kode di atas kurang lebihnya akan menjadi seperti berikut.
+Setelah proses kompilasi ke bentuk Go, kode di atas kurang lebihnya akan menjadi seperti berikut.
 
 ```go
 package model
@@ -124,7 +128,7 @@ Di dalam `User`, dideklarasikan property `id`, `name`, dan `password` yang berti
 
 Selain `User`, model `UserList` juga didefinisikan. Isinya hanya satu property yaitu `list` yang tipe-nya adalah `User`. Keyword repeated pada property digunakan untuk pendefinisian tipe array atau slice. Statement `repeated User` adalah ekuivalen dengan `[]*User` (tipe element slice pasti pointer).
 
-Kode protobuf di atas menghasilkan kode golang berikut.
+Kode protobuf di atas menghasilkan kode Go berikut.
 
 ```go
 type User struct {
@@ -181,7 +185,7 @@ Selain array/slice, tipe `map` juga bisa digunakan pada protobuf. Gunakan keywor
 
 > Penulisan tipe data map mirip seperti penulisan HashMap pada java yang disisipkan juga tipe generics-nya.
 
-Kembali ke topik, dua message di atas akan menghasilkan kode golang berikut.
+Kembali ke topik, dua message di atas akan menghasilkan kode Go berikut.
 
 ```go
 type GarageList struct {
@@ -195,11 +199,14 @@ type GarageListByUser struct {
 
 ## C.29.4. Kompilasi File `.Proto`
 
-File `.proto` sudah siap, sekarang saatnya untuk meng-compile file-file tersebut agar menjadi `.go`. Kompilasi dilakukan lewat command `protoc`. Agar output berupa file golang, maka gunakan flag `--go_out`. Lebih jelasnya silakan ikut command berikut.
+File `.proto` sudah siap, sekarang saatnya untuk meng-compile file-file tersebut agar menjadi `.go`. Kompilasi dilakukan lewat command `protoc`. Agar output berupa file Go, maka gunakan flag `--go_out`. Lebih jelasnya silakan ikut command berikut.
 
 ```bash
-novalagung:model $ protoc --go_out=. *.proto
-novalagung:model $ tree .
+cd chapter-c29/model
+
+PATH=$PATH:$GOPATH/bin/ protoc --go_out=. *.proto
+
+tree .
 .
 ├── garage.pb.go
 ├── garage.proto
@@ -224,7 +231,7 @@ import (
     "os"
 
     // sesuaikan dengan struktuk folder projek masing2
-    "dasarpemrogramangolang/chapter-B.29/model"
+    "chapter-c29/model"
 )
 
 func main() {
@@ -327,6 +334,10 @@ fmt.Printf("# ==== As JSON String\n       %v \n", jsonString)
 ```
 
 Di atas kita membuat banyak objek lewat generated struct. Objek tersebut bisa dikonversi ke bentuk JSON string, caranya dengan memanfaatkan package [github.com/golang/protobuf/jsonpb](https://github.com/golang/protobuf/). Lakukan `go get` pada package jika belum punya, dan jangan lupa untuk meng-importnya pada file yang sedang dibuat.
+
+```bash
+go get -u github.com/golang/protobuf@v1.3.2
+```
 
 Kembali ke pembahasan, buat objek pointer baru dari struct `jsonpb.Marshaler`, lalu akses method `.Marshal()`. Sisipkan objek bertipe `io.Writer` penampung hasil konversi sebagai parameter pertama (pada contoh di atas kita gunakan `bytes.Buffer`). Lalu sisipkan juga objek proto yang ingin dikonversi sebagai parameter kedua.
 

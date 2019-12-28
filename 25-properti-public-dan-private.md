@@ -265,7 +265,7 @@ func main() {
 Sekarang terdapat 2 file berbeda (`main.go` dan `partial.go`) dengan package adalah sama, `main`. Pada saat **go build** atau **go run**, semua file dengan nama package `main` harus dituliskan sebagai argumen command.
 
 ```
-$ go run main.go partial.go
+go run main.go partial.go
 ```
 
 Fungsi `sayHello` pada file `partial.go` bisa dikenali meski level aksesnya adalah private. Hal ini karena kedua file tersebut (`main.go` dan `partial.go`) memiliki package yang sama.
