@@ -5,4 +5,5 @@ Jika anda menjadi kontributor projek e-book ini, silahkan tulis nama lewat *pull
 - [Edi Santoso](https://github.com/repodevs)
 - [Ma'mur Rezeki](https://github.com/erzqy)
 - [MH Rohman Masyhar](https://github.com/rohmanhm)
+- [Mulia Nasution](https://github.com/mul14)
 - [Noval Agung Prayogo](https://github.com/novalagung)
