@@ -8,3 +8,4 @@ Jika anda menjadi kontributor projek e-book ini, silahkan tulis nama lewat *pull
 - [Mulia Nasution](https://github.com/mul14)
 - [Noval Agung Prayogo](https://github.com/novalagung)
 - [Wanda Ichsanul Isra](https://github.com/wlisrausr)
+- [Yofriadi Yahya](https://github.com/yofriadi)
