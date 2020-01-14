@@ -132,7 +132,7 @@ Berikut merupakan penjelasan tambahan untuk kode di atas.
 
 ### A.30.2.1. Iterasi Data Slice/Array Langsung Pada Saat Inisialisasi
 
-Data slice yang baru di-inisialisasi bisa langsung di-iterasi, caranya mudah dengan menuliskanya langsung setelah keyword `range`.
+Data slice yang baru di-inisialisasi bisa langsung di-iterasi, caranya mudah dengan menuliskannya langsung setelah keyword `range`.
 
 ```go
 for _, each := range []string{"wick", "hunt", "bourne"} {

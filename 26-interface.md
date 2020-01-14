@@ -155,7 +155,7 @@ func (k *kubus) keliling() float64 {
 
 Objek hasil cetakan struct `kubus` di atas, nantinya akan ditampung oleh objek cetakan interface `hitung` yang isinya merupakan gabungan interface `hitung2d` dan `hitung3d`.
 
-Terakhhir, buat implementasi-nya di main.
+Terakhir, buat implementasi-nya di main.
 
 ```go
 func main() {
