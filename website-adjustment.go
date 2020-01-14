@@ -40,15 +40,15 @@ func main() {
 		htmlString = strings.Replace(htmlString, ` lang="" xml:lang=""`, "", -1)
 
 		// ==== remove colon from id for EPUB validation
-		re, err := regexp.Compile(`id=\"(.*?)\"`)
-		if err != nil {
-			return err
-		}
-		for _, each := range re.FindAllString(htmlString, -1) {
-			fmt.Println(each)
-			newID := strings.Replace(each, "-", "_", -1)
-			htmlString = strings.Replace(htmlString, each, newID, -1)
-		}
+		// re, err := regexp.Compile(`id=\"(.*?)\"`)
+		// if err != nil {
+		// 	return err
+		// }
+		// for _, each := range re.FindAllString(htmlString, -1) {
+		// 	fmt.Println(each)
+		// 	newID := strings.Replace(each, "-", "_", -1)
+		// 	htmlString = strings.Replace(htmlString, each, newID, -1)
+		// }
 
 		// ==== adjust title for SEO purpose
 		oldTitle := regex.FindString(htmlString)
