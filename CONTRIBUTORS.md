@@ -7,3 +7,4 @@ Jika anda menjadi kontributor projek e-book ini, silahkan tulis nama lewat *pull
 - [MH Rohman Masyhar](https://github.com/rohmanhm)
 - [Mulia Nasution](https://github.com/mul14)
 - [Noval Agung Prayogo](https://github.com/novalagung)
+- [Wanda Ichsanul Isra](https://github.com/wlisrausr)
