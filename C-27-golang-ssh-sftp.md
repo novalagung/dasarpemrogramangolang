@@ -4,7 +4,7 @@ Pada bab ini kita akan belajar cara untuk me-remote server lewat protokol SSH (S
 
 > Protokol SSH digunakan untuk melakukan remote login secara aman/secure ke server tujuan. Komunikasi yang terjadi lewat SSH di-encrypt sehingga aman.
 
-Golang menyediakan package [golang.org/x/crypto/ssh](https://godoc.org/golang.org/x/crypto/ssh), berisi cukup banyak API untuk keperluan operasi yang berhubungan dengan protokol SSH.
+Go menyediakan package [golang.org/x/crypto/ssh](https://godoc.org/golang.org/x/crypto/ssh), berisi cukup banyak API untuk keperluan operasi yang berhubungan dengan protokol SSH.
 
 ## C.27.1. Otentikasi SSH
 

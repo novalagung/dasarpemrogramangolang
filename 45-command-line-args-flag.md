@@ -34,13 +34,13 @@ Untuk eksekusinya sendiri bisa menggunakan `go run` ataupun dengan cara build-ex
  - Menggunakan `go run`
 
     ```
-    $ go run bab45.go banana potato "ice cream"
+    go run bab45.go banana potato "ice cream"
     ```
 
  - Menggunakan `go build`
 
     ```
-    $ go build bab45.go
+    go build bab45.go
     $ ./bab45 banana potato "ice cream"
     ```
 
@@ -73,7 +73,7 @@ func main() {
 Cara penulisan arguments menggunakan flag:
 
 ```
-$ go run bab45.go -name="john wick" -age=28
+go run bab45.go -name="john wick" -age=28
 ```
 
 Tiap argument harus ditentukan key, tipe data, dan nilai default-nya. Contohnya seperti pada `flag.String()` di atas. Agar lebih mudah dipahami, mari kita bahas kode berikut.

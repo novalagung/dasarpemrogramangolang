@@ -75,7 +75,7 @@ Setelah kode disalin, buka terminal (atau CMD bagi pengguna Windows), lalu masuk
 Jalankan program dengan perintah `go run`.
 
 ```bash
-$ go run bab6-hello-world.go
+go run bab6-hello-world.go
 ```
 
 Hasilnya, muncul tulisan **hello world** di layar console.

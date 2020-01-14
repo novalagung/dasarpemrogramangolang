@@ -9,7 +9,7 @@ Reporting pada aplikasi web, selain ke bentuk file excel biasanya ke bentuk file
 Pertama `go get` library-nya.
 
 ```bash
-$ go get -u github.com/jung-kurt/gofpdf
+go get -u github.com/jung-kurt/gofpdf
 ```
 
 Buat folder projek baru, isi main dengan kode berikut.

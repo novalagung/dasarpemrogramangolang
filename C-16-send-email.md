@@ -119,7 +119,7 @@ Dengan library [gomail](https://gopkg.in/gomail.v2), pengiriman email bisa dilak
 Mari langsung kita praktekan. Unduh terlebih dahulu library-nya.
 
 ```bash
-$ go get -u gopkg.in/gomail.v2
+go get -u gopkg.in/gomail.v2
 ```
 
 Lalu tulis kode berikut.
