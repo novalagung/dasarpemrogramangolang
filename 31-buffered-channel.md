@@ -1,6 +1,6 @@
 # A.31. Buffered Channel
 
-Proses transfer data pada channel secara default dilakukan dengan cara **un-buffered**, tidak di-buffer di memori. Ketika terjadi proses kirim data via channel dari sebuah goroutine, maka harus ada goroutine lain yang bertugas menerima data dari channel yang sama, dengan proses serah-terima yang bersifat blocking. Maksudnya, baris kode setelah kode pengiriman dan penerimaan data tidak akan akan diproses sebelum proses serah-terima itu sendiri selesai.
+Proses transfer data pada channel secara default dilakukan dengan cara **un-buffered**, tidak di-buffer di memori. Ketika terjadi proses kirim data via channel dari sebuah goroutine, maka harus ada goroutine lain yang bertugas menerima data dari channel yang sama, dengan proses serah-terima yang bersifat blocking. Maksudnya, baris kode setelah kode pengiriman dan penerimaan data tidak akan diproses sebelum proses serah-terima itu sendiri selesai.
 
 Buffered channel sedikit berbeda. Pada channel jenis ini, ditentukan angka jumlah buffer-nya. Angka tersebut menjadi penentu jumlah data yang bisa dikirimkan bersamaan. Selama jumlah data yang dikirim tidak melebihi jumlah buffer, maka pengiriman akan berjalan **asynchronous** (tidak blocking).
 
@@ -12,7 +12,7 @@ Proses pengiriman data pada buffered channel adalah *asynchronous* ketika jumlah
 
 ## A.31.1. Penerapan Buffered Channel
 
-Penerapan buffered channel pada dasarnya mirip seperti channel biasa. Perbedannya hanya pada penulisan deklarasinya, perlu ditambahkan angka buffer sebagai argumen `make()`.
+Penerapan buffered channel pada dasarnya mirip seperti channel biasa. Perbedaannya hanya pada penulisan deklarasinya, perlu ditambahkan angka buffer sebagai argumen `make()`.
 
 Berikut adalah contoh penerapan buffered channel. Program dibawah ini merupakan pembuktian bahwa pengiriman data lewat buffered channel adalah asynchronous selama jumlah data yang sedang di-buffer oleh channel tidak melebihi kapasitas buffer.
 

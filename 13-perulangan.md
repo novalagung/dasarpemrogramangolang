@@ -81,7 +81,7 @@ Kode di atas akan lebih mudah dicerna jika dijelaskan secara berurutan. Berikut 
  1. Dilakukan perulangan mulai angka 1 hingga 10 dengan `i` sebagai variabel iterasi.
  2. Ketika `i` adalah ganjil (dapat diketahui dari `i % 2`, jika hasilnya `1`, berarti ganjil), maka akan dipaksa lanjut ke perulangan berikutnya.
  3. Ketika `i` lebih besar dari 8, maka perulangan akan berhenti.
- 4. Nilai `m` ditampilkan.
+ 4. Nilai `i` ditampilkan.
 
 ![Penerapan keyword `for`, `break`, dan `continue`](images/A.13_2_for_break_continue.png)
 

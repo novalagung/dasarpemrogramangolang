@@ -36,10 +36,24 @@ func main() {
 		}
 		htmlString := string(buf)
 
+		// ==== remove invalid lang tag for EPUB validation
+		htmlString = strings.Replace(htmlString, ` lang="" xml:lang=""`, "", -1)
+
+		// ==== remove colon from id for EPUB validation
+		// re, err := regexp.Compile(`id=\"(.*?)\"`)
+		// if err != nil {
+		// 	return err
+		// }
+		// for _, each := range re.FindAllString(htmlString, -1) {
+		// 	fmt.Println(each)
+		// 	newID := strings.Replace(each, "-", "_", -1)
+		// 	htmlString = strings.Replace(htmlString, each, newID, -1)
+		// }
+
+		// ==== adjust title for SEO purpose
 		oldTitle := regex.FindString(htmlString)
 		oldTitle = strings.Replace(oldTitle, "<title>", "", -1)
 		oldTitle = strings.Replace(oldTitle, "</title>", "", -1)
-
 		isLandingPage := false
 		newTitle := oldTitle
 		if newTitle == "Introduction · GitBook" {
@@ -62,12 +76,12 @@ func main() {
 		}
 		htmlString = strings.Replace(htmlString, oldTitle, newTitle, -1)
 
+		// ==== adjust meta for SEO purpose
 		metaToFind := `<meta content=""name="description">`
 		metaReplacement := metaToFind
 		if isLandingPage {
 			metaReplacement = `<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description">`
 		}
-
 		htmlString = strings.Replace(htmlString, metaToFind, fmt.Sprintf(`%s<script data-ad-client="%s" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "%s", enable_page_level_ads: true }); </script>`, metaReplacement, adClient, adClient), -1)
 
 		err = ioutil.WriteFile(path, []byte(htmlString), info.Mode())
