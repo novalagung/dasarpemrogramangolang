@@ -2,7 +2,7 @@
 
 Pada bab ini kita akan belajar mengenai pemanfaatan `context.Context` untuk menyisipkan dan membaca data context pada objek `*http.Request`, dan juga untuk handling timeout dan cancelation request.
 
-Proses pembelajaran dilakukan dengan praktek membuat sebuah aplikasi web service kecil, yang tugasnya melakukan pencarian data. Natinya akan dibuat juga middleware `MiddlewareUtility`, tugasnya menyisipkan informasi origin dispatcher request, ke dalam context request, sebelum akhirnya sampai pada handler endpoint yg sedang diakses.
+Proses pembelajaran dilakukan dengan praktek membuat sebuah aplikasi web service kecil, yang tugasnya melakukan pencarian data. Nantinya akan dibuat juga middleware `MiddlewareUtility`, tugasnya menyisipkan informasi origin dispatcher request, ke dalam context request, sebelum akhirnya sampai pada handler endpoint yg sedang diakses.
 
 ## C.31.1. Context Value
 
@@ -168,7 +168,7 @@ Proses pencarian dilakukan secara *asynchronous* lewat fungsi `doSearch()` yang 
 
 Ok, lanjut, siapkan dua buah konstanta baru.
 
- - Konstanta `SEARCH_MAX_DURATION`, digunakan untuk menge-set max response time. Jika melebihi, maka request lagsung di-cancel.
+ - Konstanta `SEARCH_MAX_DURATION`, digunakan untuk menge-set max response time. Jika melebihi, maka request langsung di-cancel.
  ```go
  var SEARCH_MAX_DURATION = 4 * time.Second
  ```
@@ -226,7 +226,7 @@ client.Transport = transport
 
 Objek `ctx` yang di-pass dari luar, dibungkus lagi menggunakan `context.WithTimeout()`. Fungsi ini mengembalikan objek context yang sudah ditambahi data deadline. Tepat setelah statement ini dieksekusi, dalam durasi `SEARCH_MAX_DURATION` context akan di-cancel.
 
-> Pengesetan deadline context bisa dilakukan lewat `context.WithTimeout()`, atau bisa juga lewat `context.WithDeadline()`. Perbedaannya pada fungs `.WithDeadline()` parameter yang disisipkan bertipe `time.Time`.
+> Pengesetan deadline context bisa dilakukan lewat `context.WithTimeout()`, atau bisa juga lewat `context.WithDeadline()`. Perbedaannya pada fungsi `.WithDeadline()` parameter yang disisipkan bertipe `time.Time`.
 
 Disiapkan juga objek `req` yang merupakan objek request. Objek ini dibungkus menggunakan `req.WithContext()` dengan isi parameter objek `ctx`, menjadikan objek context yang sudah kita buat tertempel pada request ini. Kegunaannya nanti akan dibahas.
 
