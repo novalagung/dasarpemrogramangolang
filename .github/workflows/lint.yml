@@ -1,0 +1,26 @@
+name: 'lint on merge request'
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  job_lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+    - name: 'Installing gitbook cli'
+      run: npm install -g gitbook-cli
+    - name: 'Generating distributable files'
+      run: |
+        gitbook install
+        gitbook build
+        go run website-adjustment.go
