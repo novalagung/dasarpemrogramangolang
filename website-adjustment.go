@@ -8,7 +8,10 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"time"
 )
+
+var BASE_VERSION = 2
 
 func main() {
 	bookName := "Dasar Pemrograman Golang"
@@ -97,16 +100,30 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	siteMapPath := filepath.Join(basePath, "_book", "sitemap.xml")
+	// index adjustment
+	indexPath := filepath.Join(basePath, "_book", "index.html")
 
-	buf, err := ioutil.ReadFile(siteMapPath)
+	buf, err := ioutil.ReadFile(indexPath)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	htmlString := string(buf)
-	newHtmlString := strings.Replace(htmlString, `<changefreq>weekly</changefreq>`, `<changefreq>daily</changefreq>`, -1)
+	indexContent := strings.Replace(string(buf), `((VERSION))`, fmt.Sprintf("%d.%s", BASE_VERSION, time.Now().Format("2006.01.02.150405")), -1)
 
-	err = ioutil.WriteFile(siteMapPath, []byte(newHtmlString), 0644)
+	err = ioutil.WriteFile(indexPath, []byte(indexContent), 0644)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	// sitemap adjustment
+	siteMapPath := filepath.Join(basePath, "_book", "sitemap.xml")
+
+	buf, err = ioutil.ReadFile(siteMapPath)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	sitemapContent := strings.Replace(string(buf), `<changefreq>weekly</changefreq>`, `<changefreq>daily</changefreq>`, -1)
+
+	err = ioutil.WriteFile(siteMapPath, []byte(sitemapContent), 0644)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
