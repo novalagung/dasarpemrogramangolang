@@ -60,7 +60,7 @@ Selanjutnya siapkan fungsi untuk membuat satu buah mongo connection. Dari objek 
 func connect() (*mongo.Database, error) {
 	clientOptions := options.Client()
 	clientOptions.ApplyURI("mongodb://localhost:27017")
-	client, err := mongo.NewClient(client)
+	client, err := mongo.NewClient(clientOptions)
 	if err != nil {
 		return nil, err
 	}

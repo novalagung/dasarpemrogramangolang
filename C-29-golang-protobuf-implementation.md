@@ -118,7 +118,7 @@ message UserList {
 }
 ```
 
-> Untuk mengurangi moskimunikasi, penulis gunakan istilah **model** untuk `message` pada kode di atas.
+> Untuk mengurangi miskomunikasi, penulis gunakan istilah **model** untuk `message` pada kode di atas.
 
 Model didefinisikan menggunakan keyword `message` diikuti dengan nama model-nya. Di dalam kurung kurawal, ditulis property-property model dengan skema penulisan `<tipe data> <nama property> = <numbered field>`.
 

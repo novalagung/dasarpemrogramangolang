@@ -1,4 +1,4 @@
-name: Update website
+name: 'deploy website and ebooks'
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   job_deploy_website:
-    name: 'Deploy website'
+    name: 'deploy website'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -41,7 +41,7 @@ jobs:
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: ./_book
   job_deploy_ebooks:
-    name: 'Deploy ebooks'
+    name: 'deploy ebooks'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1

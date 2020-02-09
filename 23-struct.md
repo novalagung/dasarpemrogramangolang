@@ -140,7 +140,7 @@ Khusus untuk properti yang bukan properti asli (properti turunan dari struct lai
 
 ## A.23.6. Embedded Struct Dengan Nama Property Yang Sama
 
-Jika salah satu nama properti sebuah struct memiliki kesamaan dengan properti milik struct lain yang di-embed, maka pengaksesan property-nya harus dilakukan secara explisit atau jelas. Contoh bisa dilihat di kode berikut.
+Jika salah satu nama properti sebuah struct memiliki kesamaan dengan properti milik struct lain yang di-embed, maka pengaksesan property-nya harus dilakukan secara eksplisit atau jelas. Contoh bisa dilihat di kode berikut.
 
 ```go
 package main
