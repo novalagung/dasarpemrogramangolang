@@ -1,6 +1,6 @@
 # C.32. JSON Web Token (JWT)
 
-Pada bab ini kita akan belajar tentang JSON Web Token (JWT) dan cara penerapannya di bahasa Go. 
+Pada bab ini kita akan belajar tentang JSON Web Token (JWT) dan cara penerapannya di bahasa Go.
 
 ## C.31.1. Definisi
 
@@ -15,7 +15,7 @@ Skema JWT:
 ![JWT scheme](images/C.32_1_jwt_scheme.png)
 
  - **Header**, isinya adalah jenis algoritma yang digunakan untuk generate signature.
- - **Payload**, isinya adalah data penting untuk keperluan otentikasi, seperti *grant*, *group*, kapan login terjadi, dan atau lainnya. Data ini dalam konteks JWT biasa disebut dengan **CLAIMS**. 
+ - **Payload**, isinya adalah data penting untuk keperluan otentikasi, seperti *grant*, *group*, kapan login terjadi, dan atau lainnya. Data ini dalam konteks JWT biasa disebut dengan **CLAIMS**.
  - **Signature**, isinya adalah hasil dari enkripsi data menggunakan algoritma kriptografi. Data yang dimaksud adalah gabungan dari (encoded) header, (encoded) payload, dan secret key.
 
 Umumnya pada aplikasi yang menerapkan teknik otorisasi menggunakan token, token di-generate di back end secara acak (menggunakan algoritma tertentu) lalu disimpan di database bersamaan dengan data user. Token tersebut bisa jadi tidak ada isinya, hanya random string, atau mungkin saja ada isinya.
@@ -110,7 +110,7 @@ Sekarang kita fokus ke file `main.go`. Import packages yang diperlukan. Salah sa
 
 ```bash
 go get -u github.com/dgrijalva/jwt-go@v3.2.0
-go get -u github.com/novalagung/gubrak@v2.0.0
+go get -u github.com/novalagung/gubrak/v2
 ```
 
 ```go
@@ -127,7 +127,7 @@ import (
 	"strings"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/novalagung/gubrak"
+	gubrak "github.com/novalagung/gubrak/v2"
 )
 ```
 
@@ -142,7 +142,7 @@ var JWT_SIGNING_METHOD = jwt.SigningMethodHS256
 var JWT_SIGNATURE_KEY = []byte("the secret of kalimdor")
 ```
 
-Kemudian buat fungsi `main()`, siapkan didalmnya sebuah `mux` baru, dan daftarkan middleware `MiddlewareJWTAuthorization` dan dua buah rute `/index` dan `/login`. 
+Kemudian buat fungsi `main()`, siapkan didalmnya sebuah `mux` baru, dan daftarkan middleware `MiddlewareJWTAuthorization` dan dua buah rute `/index` dan `/login`.
 
 ```go
 func main() {
@@ -184,7 +184,7 @@ func HandlerLogin(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Handler ini bertugas untuk meng-otentikasi client/consumer. Data username dan password dikirimkan ke endpoint dalam bentuk [Basic Auth](https://dasarpemrogramangolang.novalagung.com/B-18-http-basic-auth.html). Data tersebut kemudian disisipkan dalam pemanggilan fungsi otentikasi `authenticateUser()`, yang nantinya juga akan kita buat. 
+Handler ini bertugas untuk meng-otentikasi client/consumer. Data username dan password dikirimkan ke endpoint dalam bentuk [Basic Auth](https://dasarpemrogramangolang.novalagung.com/B-18-http-basic-auth.html). Data tersebut kemudian disisipkan dalam pemanggilan fungsi otentikasi `authenticateUser()`, yang nantinya juga akan kita buat.
 
 ```go
 ok, userInfo := authenticateUser(username, password)
@@ -201,7 +201,7 @@ Fungsi `authenticateUser()` memiliki dua nilai balik yang ditampung oleh variabe
 
 Selanjutnya kita akan buat objek claims. Objek ini harus memenuhi persyaratan interface `jwt.Claims`. Objek claims bisa dibuat dari tipe `map` dengan cara membungkusnya dalam fungsi `jwt.MapClaims()`; atau dengan meng-embed interface `jwt.StandardClaims` pada struct baru, dan cara inilah yang akan kita pakai.
 
-Seperti yang sudah kita bahas di awal, bahwa claims isinya adalah data-data untuk keperluan otentikasi. Dalam prakteknya, claims merupakan sebuah objek yang memilik banyak property atau fields. Nah, objek claims **harus** memiliki fields yang termasuk di dalam list [JWT Standard Fields](https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields). Dengan meng-embed interface `jwt.StandardClaims`, maka fields pada struct dianggal sudah terwakili.
+Seperti yang sudah kita bahas di awal, bahwa claims isinya adalah data-data untuk keperluan otentikasi. Dalam prakteknya, claims merupakan sebuah objek yang memilik banyak property atau fields. Nah, objek claims **harus** memiliki fields yang termasuk di dalam list [JWT Standard Fields](https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields). Dengan meng-embed interface `jwt.StandardClaims`, maka fields pada struct dianggap sudah terwakili.
 
 Pada aplikasi yang sedang kita kembangkan, claims selain menampung standard fields, juga menampung beberapa informasi lain, oleh karena itu kita perlu buat `struct` baru yang meng-embed `jwt.StandardClaims`.
 
@@ -384,7 +384,7 @@ Output:
 
 ### Mengakses Endpoint
 
-Test endpoint `/index`. Sisipkan token yang dikembalikan pada saat otentikasi, sebagai value header otorisasi dengan skema `Authorization: Bearer <token>`. 
+Test endpoint `/index`. Sisipkan token yang dikembalikan pada saat otentikasi, sebagai value header otorisasi dengan skema `Authorization: Bearer <token>`.
 
 ```bash
 curl -X GET \
