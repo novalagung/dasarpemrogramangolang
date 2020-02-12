@@ -123,3 +123,5 @@
     * [C.32. JSON Web Token (JWT)](C-32-golang-jwt.md)
     * [C.33. LDAP Authentication](C-33-golang-ldap-authentication.md)
     * [C.32. SSO SAML (Service Provider)](C-34-golang-sso-saml-sp.md)
+* D. Studi Kasus
+    * [D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover](D-1-insert-1mil-csv-record-into-db-in-a-minute.md)

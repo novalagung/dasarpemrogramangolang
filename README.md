@@ -4,7 +4,7 @@
 
 Ebook ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga bab yang sifatnya advance.
 
-Ada total sekitar <b>110 bab</b> yang dibahas dalam ebook ini. Bab-bab tersebut dibagi menjadi 3 kategori besar yang berurutan dan berkesinambungan satu sama lain.
+Ada total sekitar <b>110 bab</b> yang dibahas dalam ebook ini. Bab-bab tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.
 
 <ol type="A">
 	<li>
@@ -15,6 +15,9 @@ Ada total sekitar <b>110 bab</b> yang dibahas dalam ebook ini. Bab-bab tersebut 
 	</li>
 	<li>
 		<b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa diantaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
+	</li>
+	<li>
+		<b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus pada penerapan aplikasi Go di real project.
 	</li>
 </ol>
 
