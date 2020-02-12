@@ -63,7 +63,7 @@ Jika pembaca ingin menggunakan driver lain, juga silakan.
 
 ## D.1.3. Praktek
 
-### D.1.3.1. Definisi Konstanta
+#### Definisi Konstanta
 
 Ada beberapa konstanta yang perlu dipersiapkan. Pertama connection string untuk komunikasi ke database server. Sesuaikan value nya dengan yang dipergunakan.
 
@@ -101,7 +101,7 @@ Terakhir, siapkan variabel untuk menamping data header dari pembacaan CSV nanti.
 var dataHeaders = make([]string, 0)
 ```
 
-### D.1.3.2. Fungsi Buka Koneksi Database
+#### Fungsi Buka Koneksi Database
 
 Buat fungsi untuk buka koneksi database, yg dikembalikan objek database kembalian fungsi `sql.Open()`.
 
@@ -131,7 +131,7 @@ O iya jangan lupa untuk import driver nya.
 import _ "github.com/go-sql-driver/mysql"
 ```
 
-### D.1.3.3. Fungsi Baca CSV
+#### Fungsi Baca CSV
 
 Buka file CSV, lalu gunakan objek file untuk membuat objek CSV reader baru.
 
@@ -149,7 +149,7 @@ func openCsvFile() (*csv.Reader, *os.File, error) {
 }
 ```
 
-### D.1.3.4. Fungsi Menjalankan Workers
+#### Fungsi Menjalankan Workers
 
 Ok, sekarang kita mulai masuk ke aspek konkurensi dari pembahasan ini. Siapkan fungsi yang isinya men-dispatch beberapa goroutine sejumlah `totalWorker`.
 
@@ -181,7 +181,7 @@ Fungsi `doTheJob()` yang nantinya kita buat, isinya adalah operasi insert data k
 
 Idealnya di akhir aplikasi akan terjadi pemanggilan `wg.Done()` sejumlah 1jt karena ada 1jt jobs.
 
-### D.1.3.5. Fungsi Baca CSV dan Pengiriman Jobs ke Worker
+#### Fungsi Baca CSV dan Pengiriman Jobs ke Worker
 
 Proses pembacaan CSV, apapun metodenya pasti yang dijalankan adalah membaca data dari line ke line dari baris paling bawah.
 
@@ -221,7 +221,7 @@ Setelah proses baca data selesai, channel di close. Karena pengiriman dan peneri
 
 Jika blok kode perulangan dalam fungsi di atas selesai, maka sudah tidak ada lagi operasi kirim terima data, maka kita close channelnya.
 
-### D.1.3.6. Fungsi Insert Data ke Database
+#### Fungsi Insert Data ke Database
 
 ```go
 func doTheJob(workerIndex, counter int, db *sql.DB, values []interface{}) {
