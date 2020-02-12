@@ -26,7 +26,7 @@ Failover merupakan mekanisme backup ketika sebuah proses gagal. Pada konteks ini
 
 ## D.1.2. Persiapan
 
-File [majestic-million-csv]([https://blog.majestic.com/development/majestic-million-csv-daily/](https://blog.majestic.com/development/majestic-million-csv-daily/)) digunakan sebagai bahan dalam praktek. File tersebut gratis dengan lisensi CCA3. Isinya adalah list dari top website berjumlah 1jt.
+File [majestic-million-csv]([https://blog.majestic.com/development/majestic-million-csv-daily/](https://blog.majestic.com/development/majestic-million-csv-daily/) digunakan sebagai bahan dalam praktek. File tersebut gratis dengan lisensi CCA3. Isinya adalah list dari top website berjumlah 1jt.
 
 Silakan download file nya disini http://downloads.majestic.com/majestic_million.csv.
 
@@ -274,8 +274,12 @@ Pada kode di atas bisa dilihat bahwa kode insert dibungkus dalam IIFE dalam sebu
 Kenapa butuh perulangan? keyword `for` di atas perannya sangat penting. Disini diterapkan mekanisme failover dimana ketika proses insert gagal akan di recover dan di-retry ulang.
 
 Nah jadi ketika operasi insert di atas gagal, maka error tetap di tampilkan tapi kemudian diulang kembali insert data yang gagal tadi, hingga sukses.
-*emphasized text*
-O iya, di atas juga ada fungsi `generateQuestionsMark()`, digunakan untuk membantu pembentukan query insert data secara dinamis.
+
+O iya, mengenai kode untuk manajemen db connection poll mana ya? sepertinya tidak ada. Yups, memang tidak ada. As per Go official documentation untuk package `sql/database`, connection pool di manage oleh Go, kita engineer cukup panggil method `.Conn()` milik `*sql.DB` untuk mengambil pool item, yang pool item ini bisa berupa connection lama yang di reuse atau connection yang baru dibuat.
+
+> Conn returns a single connection by either opening a new connection or returning an existing connection from the connection pool. Conn will block until either a connection is returned or ctx is canceled. Queries run on the same Conn will be run in the same database session.<br />Every Conn must be returned to the database pool after use by calling Conn.Close.
+
+Btw, di atas juga ada satu fungsi lagi, `generateQuestionsMark()`, gunanya untuk membantu pembentukan query insert data secara dinamis.
 
 #### Fungsi Main
 
