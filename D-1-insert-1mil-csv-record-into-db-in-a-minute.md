@@ -281,7 +281,7 @@ O iya, di atas juga ada fungsi `generateQuestionsMark()`, digunakan untuk memban
 
 Ok, sekarang mari kita coba eksekusi program-nya.
 
-![Preview](D.1-insert-1mil-csv-record-into-db-in-a-minute.png)
+![Preview](images/D.1-insert-1mil-csv-record-into-db-in-a-minute.png)
 
 Nah, bisa dilihat operasi insert selesai dalam waktu sekitar 1 menitan. Saya menggunakan laptop dengan spek berikut untuk run program:
 
