@@ -17,7 +17,7 @@ Ada total sekitar <b>110 bab</b> yang dibahas dalam ebook ini. Bab-bab tersebut 
 		<b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa diantaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
 	</li>
 	<li>
-		<b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus pada penerapan aplikasi Go di real project.
+		<b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
 	</li>
 </ol>
 
