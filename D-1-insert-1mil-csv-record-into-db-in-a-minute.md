@@ -294,3 +294,16 @@ Kalau diperhatikan, hanya 25.8% utilisasi CPU, dan hanya 12MB saja resource RAM 
 > Kecepatan aplikasi sangat tergantung dengan spesifikasi hardware laptop/server yang dipakai.
 
 Kalau dibandingkan dengan operasi insert data secara sekuensial, yang tanpa worker pool dan tanpa db connection pool, memakan waktu hingga **20 MENIT!**. Metode pada bab ini jauh lebih cepat.
+
+Praktek pada bab ini sifatnya adalah POC, jadi sangat mungkin diperlukan penyesuaian untuk kasus nyata. Kode di atas sebenarnya juga masih bisa di optimize lagi dari banyak sisi.
+
+---
+
+ - [go-sql-driver/mysql](https://github.com/go-sql-driver/mysql), by Go SQL Driver Team, Mozilla Public License 2.0
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-D.1-insert-1mil-csv-record-into-db-in-a-minute">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-D.1...</a>
+</div>
