@@ -277,6 +277,40 @@ Nah jadi ketika operasi insert di atas gagal, maka error tetap di tampilkan tapi
 *emphasized text*
 O iya, di atas juga ada fungsi `generateQuestionsMark()`, digunakan untuk membantu pembentukan query insert data secara dinamis.
 
+#### Fungsi Main
+
+Terakhir, panggil semua fungsi yang sudah dibuat pada main.
+
+```go
+func main() {
+	start := time.Now()
+
+	db, err := openDbConnection()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	csvReader, csvFile, err := openCsvFile()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	defer csvFile.Close()
+
+	jobs := make(chan []interface{}, 0)
+	wg := new(sync.WaitGroup)
+
+	go dispatchWorkers(db, jobs, wg)
+	readCsvFilePerLineThenSendToWorker(csvReader, jobs, wg)
+
+	wg.Wait()
+
+	duration := time.Since(start)
+	fmt.Println("done in", int(math.Ceil(duration.Seconds())), "seconds")
+}
+```
+
+Di akhir fungsi main ditambahkan log untuk benchmark performa.
+
 ## D.1.4. Eksekusi Program
 
 Ok, sekarang mari kita coba eksekusi program-nya.
