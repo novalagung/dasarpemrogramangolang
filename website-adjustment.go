@@ -109,6 +109,16 @@ func main() {
 	}
 	indexContent := strings.Replace(string(buf), `((VERSION))`, fmt.Sprintf("%d.%s", BASE_VERSION, time.Now().Format("2006.01.02.150405")), -1)
 
+	// inject github stars button
+	button := `<div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);">
+		<a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star dasarpemrogramangolang</a>
+		&nbsp;
+		<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a>
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</div>`
+	indexContent = strings.Replace(indexContent, `</body>`, fmt.Sprintf("%s</body>", button), -1)
+
+	// update file
 	err = ioutil.WriteFile(indexPath, []byte(indexContent), 0644)
 	if err != nil {
 		log.Fatal(err.Error())
