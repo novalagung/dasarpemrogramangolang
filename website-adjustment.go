@@ -88,13 +88,16 @@ func main() {
 		htmlString = strings.Replace(htmlString, metaToFind, fmt.Sprintf(`%s<script data-ad-client="%s" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "%s", enable_page_level_ads: true }); </script>`, metaReplacement, adClient, adClient), -1)
 
 		// ==== inject github stars button
-		button := `<div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);">
-			<a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star dasarpemrogramangolang</a>
+		buttons := `<div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);">
+			<a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>
 			&nbsp;
 			<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a>
 			<script async defer src="https://buttons.github.io/buttons.js"></script>
 		</div>`
-		htmlString = strings.Replace(htmlString, `</body>`, fmt.Sprintf("%s</body>", button), -1)
+		htmlString = strings.Replace(htmlString, `</body>`, fmt.Sprintf("%s</body>", buttons), -1)
+
+		buttonScript := `<script async defer src="https://buttons.github.io/buttons.js"></script>`
+		htmlString = strings.Replace(htmlString, `</head>`, fmt.Sprintf("%s</head>", buttonScript), -1)
 
 		// ==== update file
 		err = ioutil.WriteFile(path, []byte(htmlString), info.Mode())
