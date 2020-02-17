@@ -6,7 +6,7 @@ Go memiliki web server sendiri, dan web server tersebut berada di dalam Go, tdak
 
 Di bab ini kita akan belajar cara pembuatan aplikasi web sederhanda dan pemanfaatan template untuk mendesain view.
 
-## A.48.1. Membuat Aplikasi Web Sederhanda
+## A.48.1. Membuat Aplikasi Web Sederhana
 
 Package `net/http` memiliki banyak sekali fungsi yang bisa dimanfaatkan. Di bagian ini kita akan mempelajari beberapa fungsi penting seperti *routing* dan *start server*.
 
