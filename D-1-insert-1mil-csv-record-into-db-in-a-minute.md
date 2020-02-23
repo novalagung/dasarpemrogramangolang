@@ -26,7 +26,7 @@ Failover merupakan mekanisme backup ketika sebuah proses gagal. Pada konteks ini
 
 ## D.1.2. Persiapan
 
-File [majestic-million-csv]([https://blog.majestic.com/development/majestic-million-csv-daily/](https://blog.majestic.com/development/majestic-million-csv-daily/) digunakan sebagai bahan dalam praktek. File tersebut gratis dengan lisensi CCA3. Isinya adalah list dari top website berjumlah 1jt.
+File [majestic-million-csv](https://blog.majestic.com/development/majestic-million-csv-daily/) digunakan sebagai bahan dalam praktek. File tersebut gratis dengan lisensi CCA3. Isinya adalah list dari top website berjumlah 1jt.
 
 Silakan download file nya disini http://downloads.majestic.com/majestic_million.csv.
 
@@ -95,7 +95,7 @@ Path dari file CSV. Karena file berada satu level dengan `main.go` maka tulis sa
 const csvFile = "majestic_million.csv"
 ```
 
-Terakhir, siapkan variabel untuk menamping data header dari pembacaan CSV nanti.
+Terakhir, siapkan variabel untuk menampung data header dari pembacaan CSV nanti.
 
 ```go
 var dataHeaders = make([]string, 0)
@@ -157,7 +157,7 @@ Tiap-tiap goroutine tersebut adalah worker atau pekerja, yang tugasnya nanti aka
 
 Saat aplikasi dijalankan, sejumlah 100 worker akan berlomba-lomba menyelesaikan job insert data sejumlah 1jt data.
 
-1 job adalah 1 data, maka rata-rata setiap worker akan menyelesaikan operasi insert sekitar 10k. Tapi ini jelasnya tidak pasti karena worker akan berkompetisi dalam penjeleasaian job, jadi sangat besar kemungkinan akan ada job yang menyelesaikan lebih dari 10k jobs, ataupun yg dibawah 10k jobs.
+1 job adalah 1 data, maka rata-rata setiap worker akan menyelesaikan operasi insert sekitar 10k. Tapi ini jelasnya tidak pasti karena worker akan berkompetisi dalam penyelesaian job, jadi sangat besar kemungkinan akan ada job yang menyelesaikan lebih dari 10k jobs, ataupun yg dibawah 10k jobs.
 
 ```go
 func dispatchWorkers(db *sql.DB, jobs <-chan []interface{}, wg *sync.WaitGroup) {
@@ -175,7 +175,7 @@ func dispatchWorkers(db *sql.DB, jobs <-chan []interface{}, wg *sync.WaitGroup) 
 }
 ```
 
-Bisa dilihat dalam fungsi di atas, di dalam goroutine/worker, isi channel jobs (yang berupa data dari proses pembacaan CSV), didistribusikan ke worker, ke goroutine. 
+Bisa dilihat dalam fungsi di atas, di dalam goroutine/worker, isi channel jobs (yang berupa data dari proses pembacaan CSV), didistribusikan ke worker, ke goroutine.
 
 Fungsi `doTheJob()` yang nantinya kita buat, isinya adalah operasi insert data ke database server. Setiap satu operasi insert selesai, `wg.Done()` untuk menandai bahwa 1 job adalah selesai.
 
@@ -217,7 +217,7 @@ func readCsvFilePerLineThenSendToWorker(csvReader *csv.Reader, jobs chan<- []int
 
 Data dibaca dalam perulangan per baris. Pada pembacaan pertama, rows akan ditampung ke variabel `dataHeaders`. Selanjutnya, data dikirimkan ke worker lewat channel `jobs`.
 
-Setelah proses baca data selesai, channel di close. Karena pengiriman dan penerimaan data pada channel bersifat synchronous untuk unbuffered channel. Jadi aman untuk berasumsi bahwa ketika semua data berhasil dikirim, maka semua data tersebut juga berhasil diterima. 
+Setelah proses baca data selesai, channel di close. Karena pengiriman dan penerimaan data pada channel bersifat synchronous untuk unbuffered channel. Jadi aman untuk berasumsi bahwa ketika semua data berhasil dikirim, maka semua data tersebut juga berhasil diterima.
 
 Jika blok kode perulangan dalam fungsi di atas selesai, maka sudah tidak ada lagi operasi kirim terima data, maka kita close channelnya.
 
