@@ -114,7 +114,7 @@ func main() {
     if valid, err := validate(name); valid {
         fmt.Println("halo", name)
     } else {
-        fmt.Println(err.Error())
+        panic(err.Error())
         fmt.Println("end")
     }
 }
