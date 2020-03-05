@@ -10,7 +10,7 @@ Jika dirasa masih bingung perihal Go Modules, penulis anjurkan untuk mengikuti p
 
 ## A.3.1. Variabel `GOPATH`
 
-**GOPATH** adalah variabel yang digunakan oleh Go sebagai rujukan lokasi dimana semua folder project disimpan. Gopath berisikian 3 buah sub folder: `src`, `bin`, dan `pkg`.
+**GOPATH** adalah variabel yang digunakan oleh Go sebagai rujukan lokasi dimana semua folder project disimpan. Gopath berisikan 3 buah sub folder: `src`, `bin`, dan `pkg`.
 
 Project di Go **harus** ditempatkan dalam `$GOPATH/src`. Sebagai contoh anda ingin membuat project dengan nama `belajar`, maka **harus** dibuatkan sebuah folder dengan nama `belajar`, ditempatkan dalam `src` (`$GOPATH/src/belajar`).
 
