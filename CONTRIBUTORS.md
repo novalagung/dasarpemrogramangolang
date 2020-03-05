@@ -4,6 +4,7 @@ Jika anda menjadi kontributor projek e-book ini, silahkan tulis nama lewat *pull
 
 - [Akul Nurislamimanudin](https://github.com/akulnurislam)
 - [Edi Santoso](https://github.com/repodevs)
+- [Faizar Septiawan](https://github.com/icarrr)
 - [I Gede Tirtanata](https://github.com/gedenata)
 - [Ma'mur Rezeki](https://github.com/erzqy)
 - [MH Rohman Masyhar](https://github.com/rohmanhm)
