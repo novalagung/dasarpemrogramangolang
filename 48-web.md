@@ -1,16 +1,16 @@
 # A.48. Web
 
-Go menyediakan package `net/http`, berisi berbagai macam fitur untuk keperluan pembuatan aplikasi berbasi web. Termasuk didalamnya web server, routing, templating, dan lainnya.
+Go menyediakan package `net/http`, berisi berbagai macam fitur untuk keperluan pembuatan aplikasi berbasis web. Termasuk di dalamnya web server, routing, templating, dan lainnya.
 
-Go memiliki web server sendiri, dan web server tersebut berada di dalam Go, tdak seperti bahasa lain yang server nya terpisah dan perlu di-instal sendiri (seperti PHP yang memerlukan Apache, .NET yang memerlukan IIS).
+Go memiliki web server sendiri, dan web server tersebut berada di dalam Go, tidak seperti bahasa lain yang servernya terpisah dan perlu diinstal sendiri (seperti PHP yang memerlukan Apache, .NET yang memerlukan IIS).
 
-Di bab ini kita akan belajar cara pembuatan aplikasi web sederhanda dan pemanfaatan template untuk mendesain view.
+Di bab ini kita akan belajar cara pembuatan aplikasi web sederhana dan pemanfaatan template untuk mendesain view.
 
 ## A.48.1. Membuat Aplikasi Web Sederhana
 
 Package `net/http` memiliki banyak sekali fungsi yang bisa dimanfaatkan. Di bagian ini kita akan mempelajari beberapa fungsi penting seperti *routing* dan *start server*.
 
-Program dibawah ini merupakan contoh sederhana untuk memunculkan text di web ketika url tertentu diakses.
+Program di bawah ini merupakan contoh sederhana untuk memunculkan text di web ketika url tertentu diakses.
 
 ```go
 package main
@@ -60,9 +60,9 @@ Untuk menghentikan web server, tekan **CTRL+C** pada terminal atau CMD, dimana p
 
 ## A.48.2. Penggunaan Template Web
 
-Template engine memberikan kemudahan dalam mendesain tampilan view aplikasi website. Dan kabar baiknya Go menyediakan engine template sendiri, dengan banyak fitur yang tersedia didalamnya.
+Template engine memberikan kemudahan dalam mendesain tampilan view aplikasi website. Dan kabar baiknya Go menyediakan engine template sendiri, dengan banyak fitur yang tersedia di dalamnya.
 
-Di sini kita akan belajar contoh sederhana penggunaan template untuk menampilkan data. Pertama siapkan dahulu template nya. Buat file `template.html` lalu isi dengan kode berikut.
+Di sini kita akan belajar contoh sederhana penggunaan template untuk menampilkan data. Pertama siapkan dahulu templatenya. Buat file `template.html` lalu isi dengan kode berikut.
 
 ```html
 <html>
@@ -120,7 +120,7 @@ Pada contoh di atas, statement di view `{{.Name}}` akan menampilkan isi dari `da
 
 ## A.48.3. Advance Web Programming
 
-Sampai bab ini yang kita pelajari adalah dasar-dasar pemrograman Go, di bahas per topik adalah per bab. Nantinya jika sudah masuk [Bab B.1. Golang Web App: Hello World](/B-1-golang-web-hello-world.html) hingga seterusnya akan membahas mostly mengenai pemrograman web, jadi sabar dulu. Mari kita selesaikan dulu yang fundamental sebelum masuk ke web development.
+Sampai bab ini yang kita pelajari adalah dasar-dasar pemrograman Go, dibahas per topik adalah per bab. Nantinya jika sudah masuk [Bab B.1. Golang Web App: Hello World](/B-1-golang-web-hello-world.html) hingga seterusnya akan lebih banyak membahas mengenai pemrograman web, jadi sabar dulu. Mari kita selesaikan dulu yang fundamental sebelum masuk ke web development.
 
 ---
 
