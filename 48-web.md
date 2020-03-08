@@ -62,7 +62,7 @@ Untuk menghentikan web server, tekan **CTRL+C** pada terminal atau CMD, dimana p
 
 Template engine memberikan kemudahan dalam mendesain tampilan view aplikasi website. Dan kabar baiknya Go menyediakan engine template sendiri, dengan banyak fitur yang tersedia di dalamnya.
 
-Di sini kita akan belajar contoh sederhana penggunaan template untuk menampilkan data. Pertama siapkan dahulu templatenya. Buat file `template.html` lalu isi dengan kode berikut.
+Di sini kita akan belajar contoh sederhana penggunaan template untuk menampilkan data. Pertama siapkan dahulu template-nya. Buat file `template.html` lalu isi dengan kode berikut.
 
 ```html
 <html>
