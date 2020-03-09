@@ -11,7 +11,7 @@ Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
  1. Instal mongo-go-driver menggunakan `go get`.
 
     ```
-    go get https://github.com/mongodb/mongo-go-driver
+    go get github.com/mongodb/mongo-go-driver
     ```
 
  2. Pastikan sudah terinstal MongoDB di komputer anda, dan jangan lupa untuk menjalankan daemon-nya. Jika belum, [download](ihttps://www.mongodb.org/downloads) dan install terlebih dahulu.
