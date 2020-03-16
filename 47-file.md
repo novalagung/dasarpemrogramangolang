@@ -94,7 +94,7 @@ import "io"
 
 func readFile() {
     // buka file
-    var file, err = os.OpenFile(path, os.O_RDWR, 0644)
+    var file, err = os.OpenFile(path, os.O_RDONLY, 0644)
 	if isError(err) { return }
 	defer file.Close()
 
