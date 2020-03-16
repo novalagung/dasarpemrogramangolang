@@ -90,7 +90,7 @@ func main() {
 }
 ```
 
-Jalankan program untuk test hasil.
+Ok, terakhir sebelum memulai testing, run terlebih dahulu aplikasi pada bab sebelumya [A.51. Web Service API (JSON Data)](/51-web-json-api.html) (jika belum). Kemudian start prompt cmd/terminal baru dan jalankan program yang barusan kita buat pada bab ini.
 
 ![HTTP Request](images/A.52_1_http_request.png)
 
