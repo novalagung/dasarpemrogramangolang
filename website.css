@@ -12,6 +12,7 @@ body {
     bottom: 0;
     right: 17px;
     left: 300px;
+    z-index: 1000;
 }
 .book-summary ul.summary li a, .book-summary ul.summary li span {
     text-overflow: initial;
