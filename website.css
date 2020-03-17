@@ -109,3 +109,12 @@ ins.adsbygoogle {
 #disqus_thread > iframe[src*=ads] {
     display: none;
 }
+.book-summary {
+    left: -460px;
+    width: 460px;
+}
+@media (min-width: 600px) {
+    .book.with-summary .book-body {
+        left: 460px;
+    }
+}
