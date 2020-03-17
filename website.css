@@ -4,14 +4,14 @@ body {
 }
 .book-news {
     display: block;
-    padding: 18px 0px;
+    padding: 18px 100px;
     text-align: center;
     background-color: #0099ea;
     color: white;
     position: fixed;
     bottom: 0;
-    right: 0;
-    left: 470px;
+    right: 17px;
+    left: 300px;
 }
 .book-summary ul.summary li a, .book-summary ul.summary li span {
     text-overflow: initial;
