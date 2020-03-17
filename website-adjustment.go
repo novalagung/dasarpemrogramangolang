@@ -96,6 +96,9 @@ func main() {
 		</div>`
 		htmlString = strings.Replace(htmlString, `</body>`, fmt.Sprintf("%s</body>", buttons), -1)
 
+		newsSection := `<a href="https://devops.novalagung.com/en/" target="_blank" class="book-news">Hi all, I just released another ebook. This new one focus on devops implementation of various stacks rather than specific programming topic. Only few articles have been published, more are coming. Have a look! https://devops.novalagung.com/en/</a>`
+		htmlString = strings.Replace(htmlString, `<div class="body-inner">`, fmt.Sprintf(`<div class="body-inner">%s`, newsSection), -1)
+
 		buttonScript := `<script async defer src="https://buttons.github.io/buttons.js"></script>`
 		htmlString = strings.Replace(htmlString, `</head>`, fmt.Sprintf("%s</head>", buttonScript), -1)
 
