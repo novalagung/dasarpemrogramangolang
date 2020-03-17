@@ -2,18 +2,6 @@
 body {
     font-family: Source Sans Pro, Helvetica Neue, Arial, sans-serif;
 }
-.book-news {
-    display: block;
-    padding: 18px 100px;
-    text-align: center;
-    background-color: #0099ea;
-    color: white;
-    position: fixed;
-    bottom: 0;
-    right: 17px;
-    left: 300px;
-    z-index: 1000;
-}
 .book-summary ul.summary li a, .book-summary ul.summary li span {
     text-overflow: initial;
     white-space: normal;
@@ -117,4 +105,20 @@ ins.adsbygoogle {
     .book.with-summary .book-body {
         left: 460px;
     }
+}
+.book-news {
+    display: block;
+    padding: 18px 100px;
+    text-align: center;
+    background-color: #0099ea;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    right: 17px;
+    left: 460px;
+    z-index: 1000;
+}
+.summary hr {
+    height: 1px;
+    background-color: #efefef;
 }
