@@ -2,6 +2,25 @@
 body {
     font-family: Source Sans Pro, Helvetica Neue, Arial, sans-serif;
 }
+.book-news {
+    display: block;
+    padding: 18px 0px;
+    text-align: center;
+    background-color: #0099ea;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 470px;
+}
+.book-summary ul.summary li a, .book-summary ul.summary li span {
+    text-overflow: initial;
+    white-space: normal;
+    line-height: 1.4em;
+}
+.book-body .body-inner {
+    padding-bottom: 100px;
+}
 #book-search-input {
     position: relative;
 }
