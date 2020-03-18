@@ -1,6 +1,6 @@
 # A.1. Berkenalan Dengan Golang
 
-**[Golang](https://github.com/golang/go)** (atau biasa disebut dengan **Go**) adalah bahasa pemrograman baru yang dikembangkan di **Google** oleh **[Robert Griesemer](https://github.com/griesemer)**, **[Rob Pike](https://github.com/robpike)**, dan **[Ken Thompson](https://github.com/ken)** pada tahun 2007 dan mulai diperkenalkan ke publik tahun 2009.
+**[Golang](https://golang.org/)** (atau biasa disebut dengan **Go**) adalah bahasa pemrograman baru yang dikembangkan di **Google** oleh **[Robert Griesemer](https://github.com/griesemer)**, **[Rob Pike](https://en.wikipedia.org/wiki/Rob_Pike)**, dan **[Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson)** pada tahun 2007 dan mulai diperkenalkan ke publik tahun 2009.
 
 Penciptaan bahasa Go didasari bahasa **C** dan **C++**, oleh karena itu gaya sintaksnya mirip.
 
