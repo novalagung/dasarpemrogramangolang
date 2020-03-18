@@ -2,6 +2,14 @@
 body {
     font-family: Source Sans Pro, Helvetica Neue, Arial, sans-serif;
 }
+.book-summary ul.summary li a, .book-summary ul.summary li span {
+    text-overflow: initial;
+    white-space: normal;
+    line-height: 1.4em;
+}
+.book-body .body-inner {
+    padding-bottom: 100px;
+}
 #book-search-input {
     position: relative;
 }
@@ -88,4 +96,29 @@ ins.adsbygoogle {
 }
 #disqus_thread > iframe[src*=ads] {
     display: none;
+}
+.book-summary {
+    left: -460px;
+    width: 460px;
+}
+@media (min-width: 600px) {
+    .book.with-summary .book-body {
+        left: 460px;
+    }
+}
+.book-news {
+    display: block;
+    padding: 18px 100px;
+    text-align: center;
+    background-color: #0099ea;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    right: 17px;
+    left: 460px;
+    z-index: 1000;
+}
+.summary hr {
+    height: 1px;
+    background-color: #efefef;
 }

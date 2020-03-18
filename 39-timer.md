@@ -49,7 +49,7 @@ fmt.Println("finish")
 
 Statement `var timer = time.NewTimer(4 * time.Second)` mengindikasikan bahwa nantinya akan ada data yang dikirimkan ke channel `timer.C` setelah 4 detik berlalu. Baris kode `<-timer.C` menandakan penerimaan data dari channel `timer.C`. Karena penerimaan channel sendiri sifatnya adalah blocking, maka statement `fmt.Println("finish")` baru akan dieksekusi setelah **4 detik**.
 
-Hasil program di atas adalah tulisan `"start"` muncul, lalu setelah 4 detik tulisan `"expired"` muncul.
+Hasil program di atas adalah tulisan `"start"` muncul, lalu setelah 4 detik tulisan `"finish"` muncul.
 
 ## A.39.4. Fungsi `time.AfterFunc()`
 
