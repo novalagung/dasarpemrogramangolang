@@ -21,3 +21,26 @@ Dengan meng-instal Go Extension, maka programming menggunakan bahasa ini akan me
 Cara instalasi ekstensi sendiri cukup mudah, klik `View -> Extension` atau klik ikon *Extension Marketplace* di sebelah kiri (silakan lihat gambar berikut, deretan button paling kiri yang dilingkari merah). Setelah itu ketikkan **Go** pada inputan search, silakan install ekstensi Go buatan Microsoft, biasanya muncul paling atas sendiri.
 
 ![VSCode Go extension](images/A.4_2_vscode_go_extension.png)
+
+## A.4.3. Instalasi Editorconfig
+
+[Editorconfig](https://editorconfig.org/) membantu kita supaya *coding style* kita konsisten untuk dibaca oleh banyak developer dan dimuat di berbagai macam **IDE**. Instalasinya di *VSCode* cukup mudah, kita bisa temukan *extension*-nya dan klik install seperti pada gambar berikut.
+
+![VSCode Editorconfig extension](images/A.4_3_vscode_editorconfig_extension.png)
+
+Editorconfig pada sebuah proyek (biasanya berada di root direktori proyek tersebut) berupa konfigurasi format file `.editorconfig` yang berisi definisi style penulisan yang menyesuaikan dengan standar penulisan masing-masing bahasa pemrograman. Misalnya untuk [*style guide* **GO**](https://golang.org/doc/effective_go.html) kita bisa mulai dengan menggunakan konfigurasi sederhana sebagai berikut:
+
+```
+root = true
+
+[*]
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[{Makefile,go.mod,go.sum,*.go}]
+indent_style = tab
+indent_size = 8
+```
