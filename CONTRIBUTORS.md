@@ -1,6 +1,6 @@
 # Contributors
 
-Jika anda menjadi kontributor projek e-book ini, silahkan tulis nama lewat *pull request* ke [CONTRIBUTORS.md](https://github.com/novalagung/dasarpemrogramangolang/blob/master/CONTRIBUTORS.md) dalam *ascending order*.
+Projek Dasar Pemrograman Golang adalah Open Source, maka siapapun bebas untuk berkontribusi di sini. Berikut adalah list nama kontributor yang sudah berbaik hati menyisihkan waktunya untuk membantu pengembangan projek ini.
 
 - [Akul Nurislamimanudin](https://github.com/akulnurislam)
 - [Edi Santoso](https://github.com/repodevs)
