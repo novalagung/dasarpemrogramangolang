@@ -4,8 +4,7 @@
         "html-minifier",
         "disqus",
         "meta",
-        "sitemap",
-        "scripts"
+        "sitemap"
     ],
     "pluginsConfig": {
         "ga": {
@@ -28,13 +27,10 @@
         },
         "sitemap": {
             "hostname": "https://dasarpemrogramangolang.novalagung.com/"
-        },
-        "scripts": {
-            "files": []
         }
     },
     "styles": {
-        "website": "website.css"
+        "website": "adjustment.css"
     },
     "lunr": {
         "maxIndexSize": 1000000000

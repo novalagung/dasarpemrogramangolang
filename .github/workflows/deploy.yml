@@ -22,9 +22,10 @@ jobs:
     - name: 'Generating distributable files'
       run: |
         cp book.json.template book.json
+        go run adjustment.go -type=pre
         gitbook install
         gitbook build
-        go run website-adjustment.go
+        go run adjustment.go -type=post
         cd _book
         rm -rf LICENSE
         rm -rf book*
