@@ -47,11 +47,6 @@ func preAdjustment() {
 	versionReplacement := fmt.Sprintf("%d.%s", baseVersion, time.Now().Format("2006.01.02.150405"))
 	mdString = strings.Replace(mdString, versionToFind, versionReplacement, -1)
 
-	// ==== adjust files' link to avoid cached download
-	mdString = strings.Replace(mdString, `/ebooks/dasarpemrogramangolang.pdf`, `/ebooks/dasarpemrogramangolang.pdf?v=`+versionReplacement, -1)
-	mdString = strings.Replace(mdString, `/ebooks/dasarpemrogramangolang.epub`, `/ebooks/dasarpemrogramangolang.epub?v=`+versionReplacement, -1)
-	mdString = strings.Replace(mdString, `/ebooks/dasarpemrogramangolang.mobi`, `/ebooks/dasarpemrogramangolang.mobi?v=`+versionReplacement, -1)
-
 	err = ioutil.WriteFile(readmePath, []byte(mdString), 0644)
 	if err != nil {
 		log.Fatal(err.Error())
