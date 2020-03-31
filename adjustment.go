@@ -121,7 +121,7 @@ func postAdjustment() {
 
 		// ===== inject banner of new ebook
 		bannerToFind := `</body>`
-		bannerReplacement := `<a href="https://devops.novalagung.com/en/" target="_blank" class="book-news">Hi all, I just released another ebook. This new one focus on devops implementation of various stacks rather than specific programming topic. Only few articles have been published, more are coming. Have a look! https://devops.novalagung.com/en/</a></body>`
+		bannerReplacement := `<a href="https://devops.novalagung.com/" target="_blank" class="book-news">Hi all, I just released another ebook. This new one focus on devops implementation of various stacks rather than specific programming topic, and the good news it is available on Bahasa and English languages. Only few articles have been published, more are coming. Have a look! https://devops.novalagung.com/</a></body>`
 		htmlString = strings.Replace(htmlString, bannerToFind, bannerReplacement, -1)
 
 		// ==== update file
