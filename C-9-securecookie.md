@@ -86,12 +86,12 @@ Setelah cookie diambil menggunakan `c.Request().Cookie()`, data didalamnya perlu
 OK, sekarang buat fungsi `main()`, lalu isi dengan kode di bawah ini.
 
 ```go
-const COOKIE_NAME = "data"
+const CookieName = "data"
 
 e := echo.New()
 
 e.GET("/index", func(c echo.Context) error {
-    data, err := getCookie(c, COOKIE_NAME)
+    data, err := getCookie(c, CookieName)
     if err != nil && err != http.ErrNoCookie && err != securecookie.ErrMacInvalid {
         return err
     }
@@ -99,7 +99,7 @@ e.GET("/index", func(c echo.Context) error {
     if data == nil {
         data = M{"Message": "Hello", "ID": gubrak.RandomString(32)}
 
-        err = setCookie(c, COOKIE_NAME, data)
+        err = setCookie(c, CookieName, data)
         if err != nil {
             return err
         }
@@ -111,9 +111,9 @@ e.GET("/index", func(c echo.Context) error {
 e.Logger.Fatal(e.Start(":9000"))
 ```
 
-Konstanta `COOKIE_NAME` disiapkan, kita gunakan sebagai identifier cookie. Dan sebuah rute juga disiapkan dengan tugas menampilkan data cookie jika sudah ada, dan membuat cookie baru jika belum ada. 
+Konstanta `CookieName` disiapkan, kita gunakan sebagai identifier cookie. Dan sebuah rute juga disiapkan dengan tugas menampilkan data cookie jika sudah ada, dan membuat cookie baru jika belum ada. 
 
-Dalam handler rute, terdapat beberapa proses terjadi. Pertama, objek cookie dengan identifier `COOKIE_NAME` diambil, jika muncul error, dan jenisnya adalah selain error karena cookie tidak ada, dan error-nya selain *invalid cookie*, maka kembalikan objek error tersebut.
+Dalam handler rute, terdapat beberapa proses terjadi. Pertama, objek cookie dengan identifier `CookieName` diambil, jika muncul error, dan jenisnya adalah selain error karena cookie tidak ada, dan error-nya selain *invalid cookie*, maka kembalikan objek error tersebut.
 
 > `http.ErrNoCookie` adalah variabel penanda error karena cookie kosong, sedangkan `securecookie.ErrMacInvalid` adalah representasi dari invalid cookie.
 
