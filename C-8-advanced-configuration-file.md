@@ -6,7 +6,7 @@ Kekurangan dari teknik menyimpan konfigurasi dalam object struct adalah, pada sa
 
 ## C.8.1. JSON Configuration
 
-Mari langsung kita praktekan. Buat projek baru seperti biasa, buat file konfigurasi `app.conf.json`, isi dengan data berikut.
+Mari langsung kita praktekan. Buat projek baru seperti biasa, buat file konfigurasi `app.config.json`, isi dengan data berikut.
 
 ```json
 {
