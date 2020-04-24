@@ -12,7 +12,7 @@ Csrf token sendiri merupakan sebuah random string yang di-generate setiap kali h
 
 Lebih detailnya silakan merujuk ke https://en.wikipedia.org/wiki/Cross-site_request_forgery.
 
-## B.14.2. Praktek: Back End
+## C.13.2. Praktek: Back End
 
 Di golang, pencegahan CSRF bisa dilakukan dengan membuat middleware untuk pengecekan setiap request POST yang masuk. Cukup mudah sebenarnya, namun agar lebih mudah lagi kita akan gunakan salah satu middleware milik echo framework untuk belajar.
 
@@ -20,7 +20,7 @@ Di setiap halaman, jika di dalam html nya terdapat form, maka harus disisipkan t
 
 Di tiap POST request hasil dari form submit, token tersebut harus ikut dikirimkan. Proses validasi token sendiri di-handle oleh middleware.
 
-Mari kita praktekan, siapkan projek baru. Buat file main, isi dengan kode berikut.
+Mari kita praktekkan, siapkan projek baru. Buat file `main.go`, isi dengan kode berikut.
 
 ```go
 package main
@@ -51,26 +51,26 @@ Nantinya akan ada endpoint `/index`, isinya menampilkan html form. Objek `tmpl` 
 Siapkan routing untuk `/index`, dan registrasikan middleware CSRF.
 
 ```go
-const CSRF_TOKEN_HEADER = "X-Csrf-Token"
-const CSRF_KEY = "csrf_token"
+const CSRFTokenHeader = "X-CSRF-Token"
+const CSRFKey = "csrf_token"
 
 e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
-    TokenLookup: "header:" + CSRF_TOKEN_HEADER,
-    ContextKey:  CSRF_KEY,
+    TokenLookup: "header:" + CSRFTokenHeader,
+    ContextKey:  CSRFKey,
 }))
 
 e.GET("/index", func(c echo.Context) error {
     data := make(M)
-    data[CSRF_KEY] = c.Get(CSRF_KEY)
+    data[CSRFKey] = c.Get(CSRFKey)
     return tmpl.Execute(c.Response(), data)
 })
 ```
 
 Objek middleware CSRF dibuat lewat statement `middleware.CSRF()`, konfigurasi default digunakan. Atau bisa juga dibuat dengan disertakan konfigurasi custom, lewat `middleware.CSRFWithConfig()` seperti pada kode di atas.
 
-Property `ContextKey` digunakan untuk mengakses token csrf yang tersimpan di `echo.Context`, pembuatan token sendiri terjadi pada saat ada http request GET masuk. 
+Property `ContextKey` digunakan untuk mengakses token csrf yang tersimpan di `echo.Context`, pembuatan token sendiri terjadi pada saat ada http request GET masuk.
 
-Property tersebut kita isi dengan konstanta `CSRF_KEY`, maka dalam pengambilan token cukup panggil `c.Get(CSRF_KEY)`. Token kemudian disisipkan sebagai data pada saat rendering `view.html`.
+Property tersebut kita isi dengan konstanta `CSRFKey`, maka dalam pengambilan token cukup panggil `c.Get(CSRFKey)`. Token kemudian disisipkan sebagai data pada saat rendering `view.html`.
 
 Property `TokenLookup` adalah acuan di bagian mana informasi csrf disisipkan dalam objek request, apakah dari header, query string, atau form data. Ini penting karena dibutuhkan oleh middleware yang bersangkutan untuk memvalidasi token tersebut. Bisa dilihat, kita memilih `header:X-Csrf-Token`, artinya csrf token dalam request akan disisipkan dalam header dengan key adalah `X-Csrf-Token`.
 
