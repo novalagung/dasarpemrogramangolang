@@ -12,7 +12,7 @@ Csrf token sendiri merupakan sebuah random string yang di-generate setiap kali h
 
 Lebih detailnya silakan merujuk ke https://en.wikipedia.org/wiki/Cross-site_request_forgery.
 
-## B.14.2. Praktek: Back End
+## C.13.2. Praktek: Back End
 
 Di golang, pencegahan CSRF bisa dilakukan dengan membuat middleware untuk pengecekan setiap request POST yang masuk. Cukup mudah sebenarnya, namun agar lebih mudah lagi kita akan gunakan salah satu middleware milik echo framework untuk belajar.
 
@@ -20,7 +20,7 @@ Di setiap halaman, jika di dalam html nya terdapat form, maka harus disisipkan t
 
 Di tiap POST request hasil dari form submit, token tersebut harus ikut dikirimkan. Proses validasi token sendiri di-handle oleh middleware.
 
-Mari kita praktekan, siapkan projek baru. Buat file main, isi dengan kode berikut.
+Mari kita praktekkan, siapkan projek baru. Buat file `main.go`, isi dengan kode berikut.
 
 ```go
 package main
@@ -51,28 +51,28 @@ Nantinya akan ada endpoint `/index`, isinya menampilkan html form. Objek `tmpl` 
 Siapkan routing untuk `/index`, dan registrasikan middleware CSRF.
 
 ```go
-const CSRF_TOKEN_HEADER = "X-Csrf-Token"
-const CSRF_KEY = "csrf_token"
+const CSRFTokenHeader = "X-CSRF-Token"
+const CSRFKey = "csrf"
 
 e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
-    TokenLookup: "header:" + CSRF_TOKEN_HEADER,
-    ContextKey:  CSRF_KEY,
+    TokenLookup: "header:" + CSRFTokenHeader,
+    ContextKey:  CSRFKey,
 }))
 
 e.GET("/index", func(c echo.Context) error {
     data := make(M)
-    data[CSRF_KEY] = c.Get(CSRF_KEY)
+    data[CSRFKey] = c.Get(CSRFKey)
     return tmpl.Execute(c.Response(), data)
 })
 ```
 
 Objek middleware CSRF dibuat lewat statement `middleware.CSRF()`, konfigurasi default digunakan. Atau bisa juga dibuat dengan disertakan konfigurasi custom, lewat `middleware.CSRFWithConfig()` seperti pada kode di atas.
 
-Property `ContextKey` digunakan untuk mengakses token csrf yang tersimpan di `echo.Context`, pembuatan token sendiri terjadi pada saat ada http request GET masuk. 
+Property `ContextKey` digunakan untuk mengakses token csrf yang tersimpan di `echo.Context`, pembuatan token sendiri terjadi pada saat ada http request GET masuk.
 
-Property tersebut kita isi dengan konstanta `CSRF_KEY`, maka dalam pengambilan token cukup panggil `c.Get(CSRF_KEY)`. Token kemudian disisipkan sebagai data pada saat rendering `view.html`.
+Property tersebut kita isi dengan konstanta `CSRFKey`, maka dalam pengambilan token cukup panggil `c.Get(CSRFKey)`. Token kemudian disisipkan sebagai data pada saat rendering `view.html`.
 
-Property `TokenLookup` adalah acuan di bagian mana informasi csrf disisipkan dalam objek request, apakah dari header, query string, atau form data. Ini penting karena dibutuhkan oleh middleware yang bersangkutan untuk memvalidasi token tersebut. Bisa dilihat, kita memilih `header:X-Csrf-Token`, artinya csrf token dalam request akan disisipkan dalam header dengan key adalah `X-Csrf-Token`.
+Property `TokenLookup` adalah acuan di bagian mana informasi csrf disisipkan dalam objek request, apakah dari header, query string, atau form data. Ini penting karena dibutuhkan oleh middleware yang bersangkutan untuk memvalidasi token tersebut. Bisa dilihat, kita memilih `header:X-CSRF-Token`, artinya csrf token dalam request akan disisipkan dalam header dengan key adalah `X-CSRF-Token`.
 
 > Isi value `TokenLookup` dengan `"form:<name>"` jika token disispkan dalam form data request, dan `"query:<name>"` jika token disisipkan dalam query string.
 
@@ -92,7 +92,7 @@ e.POST("/sayhello", func(c echo.Context) error {
 
 Pada handler endpoint `/sayhello` tidak ada pengecekan token csrf, karena sudah ditangani secara implisit oleh middleware.
 
-## B.14.3. Front End
+## C.13.3. Front End
 
 Buat `view.html`, lalu isi kode berikut.
 
@@ -117,7 +117,7 @@ Buat `view.html`, lalu isi kode berikut.
             </select>
         </div>
         <div>
-            <input type="hidden" name="csrf_token" value="{{ .csrf_token }}">
+            <input type="hidden" name="csrf" value="{{ .csrf }}">
             <button type="submit">Submit</button>
         </div>
     </form>
@@ -133,7 +133,7 @@ Buat `view.html`, lalu isi kode berikut.
 
 Bisa dilihat, sebuah form disiapkan dengan isi 2 inputan dan satu buah tombol submit.
 
-Sebenarnya ada tiga inputan, namun yang satu adalah hidden. Inputan tersebut berisi nilai `csrf_token` yang disisipkan dari back end. 
+Sebenarnya ada tiga inputan, namun yang satu adalah hidden. Inputan tersebut berisi nilai `csrf` yang disisipkan dari back end.
 
 Pada saat tombol submit di-klik, token tersebut harus disisipkan dalam AJAX request yang mengarah ke `/sayhello`.
 
@@ -161,8 +161,8 @@ $(function () {
             contentType: 'application/json',
             data: payload,
             beforeSend: function(req) {
-                var csrfToken = self.find('[name=csrf_token]').val()
-                req.setRequestHeader("X-Csrf-Token", csrfToken)
+                var csrfToken = self.find('[name=csrf]').val()
+                req.setRequestHeader("X-CSRF-Token", csrfToken)
             },
         }).then(function (res) {
             alert(res)
@@ -174,9 +174,9 @@ $(function () {
 })
 ```
 
-Tambahkan header `X-Csrf-Token` di AJAX request seperti pada kode di atas, isinya diambil dari inputan hidden `csrf_token`. Nama header sendiri menggunakan `X-Csrf-Token`.
+Tambahkan header `X-CSRF-Token` di AJAX request seperti pada kode di atas, isinya diambil dari inputan hidden `csrf`. Nama header sendiri menggunakan `X-CSRF-Token`.
 
-Karena di konfigurasi middleware csrf di back end `TokenLookup` adalah `header:X-Csrf-Token`, maka header dengan nama `X-Csrf-Token` dipilih.
+Karena di konfigurasi middleware csrf di back end `TokenLookup` adalah `header:X-CSRF-Token`, maka header dengan nama `X-CSRF-Token` dipilih.
 
 ## C.13.4. Testing
 
