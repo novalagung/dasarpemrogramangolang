@@ -3,6 +3,7 @@
 Projek Dasar Pemrograman Golang adalah Open Source, maka siapapun bebas untuk berkontribusi di sini. Berikut adalah list nama kontributor yang sudah berbaik hati menyisihkan waktunya untuk membantu pengembangan projek ini.
 
 - [Akul Nurislamimanudin](https://github.com/akulnurislam)
+- [Amin Rasul Kamsena](https://github.com/seno-ark)
 - [Edi Santoso](https://github.com/repodevs)
 - [Faizar Septiawan](https://github.com/icarrr)
 - [Gusman Widodo](https://github.com/gusmanwidodo)
