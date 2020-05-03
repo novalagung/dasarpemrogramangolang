@@ -403,7 +403,7 @@ Semua berjalan sesuai harapan. Agar lebih meyakinkan, coba lakukan beberapa test
 ---
 
  - [JWT Go](https://github.com/dgrijalva/jwt-go), by Dave Grijalva, MIT License
- - [Gubrak](https://github.com/novalagung/gubrak), by Noval Agung, MIT License
+ - [Gubrak v2](https://github.com/novalagung/gubrak), by Noval Agung, MIT License
 
 ---
 

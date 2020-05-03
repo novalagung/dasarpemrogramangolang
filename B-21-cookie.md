@@ -15,7 +15,7 @@ package main
 
 import (
     "fmt"
-    "github.com/novalagung/gubrak"
+    gubrak "github.com/novalagung/gubrak/v2"
     "net/http"
     "time"
 )
@@ -73,7 +73,7 @@ Pembuatan cookie cukup mudah, tinggal cetak saja objek baru dari struct `http.Co
 
 Jika `c.Value` adalah kosong, kita asumsikan bahwa cookie belum pernah dibuat (atau expired), maka kita buat cookie baru dengan data adalah random string. 
 
-> Untuk mempermudah generate random string, kita gunakan library bernama [gubrak](https://github.com/novalagung/gubrak). Fungsi `gubrak.RandomString(32)` akan menghasilkan string 32 karakter.
+> Untuk mempermudah generate random string, kita gunakan library bernama [gubrak](https://github.com/novalagung/gubrak/v2). Fungsi `gubrak.RandomString(32)` akan menghasilkan string 32 karakter.
 
 Cookie bisa expired. Lama cookie aktif ditentukan lewat property `Expires`. Pada kode di atas expiration duration kita set selama 5 menit.
 
@@ -121,7 +121,7 @@ Objek cookie memiliki beberapa property, beberapa diantaranya:
 
 ---
 
- - [Gubrak](https://github.com/novalagung/gubrak), by Noval Agung, MIT license
+ - [Gubrak v2](https://github.com/novalagung/gubrak), by Noval Agung, MIT license
 
 ---
 
