@@ -4,6 +4,7 @@
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/CONTRIBUTORS.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/1-berkenalan-dengan-golang.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/2-instalasi-golang.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/3-setup-go-project-dengan-go-modules.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/3-gopath-dan-workspace.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/4-instalasi-editor.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/5-go-command.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
@@ -60,8 +61,6 @@
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/56-waitgroup.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/57-mutex.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/A-58-go-vendoring.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://dasarpemrogramangolang.novalagung.com/A-59-go-dep.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://dasarpemrogramangolang.novalagung.com/A-60-go-modules.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-1-golang-web-hello-world.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-2-routing-http-handlefunc.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-3-routing-static-assets.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
