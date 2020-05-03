@@ -141,8 +141,3 @@ ins.adsbygoogle {
     left: 460px;
     z-index: 1000;
 }
-
-.summary hr {
-    height: 1px;
-    background-color: #efefef;
-}
