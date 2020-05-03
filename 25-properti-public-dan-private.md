@@ -39,7 +39,7 @@ Penentuan hak akses yang tepat untuk tiap komponen sangatlah penting.
 
 Di Go cara menentukan level akses atau modifier sangat mudah, penandanya adalah **character case** huruf pertama nama fungsi, struct, variabel, atau lainnya. Ketika namanya diawali dengan huruf kapital menandakan kalau *exported* (atau *public*). Dan sebaliknya, jika diawali huruf kecil, berarti *unexported* (atau private).
 
-## A.25.2. Penggunaan Package, Import, Dan Hak Akses Exported (Public) dan Unexported (Private)
+## A.25.2. Penggunaan Package, Import, Dan Hak Akses *Exported* dan *Unexported*
 
 Agar lebih mudah dipahami, maka langsung saja kita praktekan.
 
@@ -127,7 +127,7 @@ Coba jalankan lagi.
 
 ![Contoh penerapan pemanggilan fungsi dari package berbeda](images/A.25_2_success.png)
 
-## A.25.3. Penggunaan Exported & Unexported Pada Struct Dan Propertinya
+## A.25.3. Penggunaan Hak Akses *Exported* dan *Unexported* pada Struct dan Propertinya
 
 Level akses *exported* (atau public) dan *unexported* (atau private) juga bisa diterapkan di fungsi, struct, method, maupun property variabel. Cara penggunaannya sama seperti pada pembahasan sebelumnya, yaitu dengan menentukan **character case** huruf pertama nama komponen, apakah huruf besar atau kecil.
 
