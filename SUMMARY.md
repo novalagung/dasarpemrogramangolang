@@ -29,7 +29,7 @@
   * [A.22. Pointer](22-pointer.md)
   * [A.23. Struct](23-struct.md)
   * [A.24. Method](24-method.md)
-  * [A.25. Property Public & Private](25-properti-public-dan-private.md)
+  * [A.25. Exported Dan Unexported](25-properti-public-dan-private.md)
   * [A.26. Interface](26-interface.md)
   * [A.27. Interface Kosong](27-interface-kosong.md)
   * [A.28. Reflect](28-reflect.md)

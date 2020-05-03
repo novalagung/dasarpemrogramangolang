@@ -1,4 +1,4 @@
-# A.25. Property Public Dan Private
+# A.25. Exported Dan Unexported
 
 Bab ini membahas mengenai *modifier* public dan private dalam Go. Kapan sebuah struct, fungsi, atau method bisa diakses dari package lain dan kapan tidak.
 
