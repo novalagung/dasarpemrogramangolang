@@ -11,6 +11,7 @@ Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
  1. Instal mongo-go-driver menggunakan `go get`.
 
     ```
+	cd <folder-project>
     go get github.com/mongodb/mongo-go-driver
     ```
 

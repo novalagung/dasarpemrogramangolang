@@ -22,7 +22,7 @@ cd chapter-c28
 go mod init chapter-c28
 
 go get -u github.com/gorilla/websocket@v1.4.1
-go get -u github.com/novalagung/gubrak@v2.0.0
+go get -u github.com/novalagung/gubrak/v2
 ```
 
 Siapkan dua buah file, `main.go` dan `index.html`. Kita akan buat socket server terlebih dahulu. Silakan tulis kode berikut ke dalam `main.go`.
@@ -33,7 +33,7 @@ package main
 import (
     "fmt"
     "github.com/gorilla/websocket"
-    "github.com/novalagung/gubrak"
+    gubrak "github.com/novalagung/gubrak/v2"
     "io/ioutil"
     "log"
     "net/http"
@@ -409,7 +409,7 @@ Ketika salah satu user leave, pesan **User XXX: disconnected** akan di-broadcast
 ---
 
  - [Gorilla Web Socket](https://github.com/gorilla/websocket), by Gary Burd, BSD-2-Clause License
- - [Gubrak](https://github.com/novalagung/gubrak), by Noval Agung, MIT License
+ - [Gubrak v2](https://github.com/novalagung/gubrak), by Noval Agung, MIT License
 
 ---
 

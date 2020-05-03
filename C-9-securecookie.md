@@ -25,7 +25,7 @@ package main
 import (
     "github.com/gorilla/securecookie"
     "github.com/labstack/echo"
-    "github.com/novalagung/gubrak"
+    gubrak "github.com/novalagung/gubrak/v2"
     "net/http"
     "time"
 )
@@ -119,7 +119,7 @@ Dalam handler rute, terdapat beberapa proses terjadi. Pertama, objek cookie deng
 
 Lalu, kita cek data cookie yang dikembalikan, jika kosong (bisa karena cookie belum dibuat ataupun sudah ada tetapi datanya kosong) maka buat data baru untuk disimpan dalam cookie. Data tersebut bertipe `map`, salah satu elemen map tersebut ada yg value-nya adalah random.
 
-> Pada kode di atas, generate random string dilakukan dengan memanfaatkan 3rd party library [gubrak](https://github.com/novalagung/gubrak).
+> Pada kode di atas, generate random string dilakukan dengan memanfaatkan 3rd party library [Gubrak v2](https://github.com/novalagung/gubrak).
 
 Pengaksesan rute akan memunculkan data yang sama. Karena pembuatan cookie hanya dilakukan ketika datanya kosong atau cookie nya belum dibuat.
 
@@ -148,7 +148,7 @@ http.SetCookie(c.Response(), cookie)
 
  - [Echo](https://github.com/labstack/echo), by Vishal Rana (Lab Stack), MIT license
  - [Gorilla Securecookie](https://github.com/gorilla/securecookie), by Gorilla web toolkit team, BSD-3-Clause license
- - [Gubrak](https://github.com/novalagung/gubrak), by Noval Agung, MIT license
+ - [Gubrak v2](https://github.com/novalagung/gubrak), by Noval Agung, MIT license
 
 ---
 
