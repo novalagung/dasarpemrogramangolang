@@ -1,6 +1,6 @@
-# A.25. Exported Dan Unexported
+# A.25. Properti Public dan Private (Exported vs Unexported)
 
-Bab ini membahas mengenai *modifier* public dan private dalam Go. Kapan sebuah struct, fungsi, atau method bisa diakses dari package lain dan kapan tidak.
+Bab ini membahas mengenai *property modifier* public dan private dalam Go. Kapan sebuah struct, fungsi, atau method bisa diakses dari package lain dan kapan tidak.
 
 Di Go sebenarnya tidak ada istilah *public modifier* dan *private modifier*. Yang ada adalah **exported** yang kalau di bahasa lain ekuivalen dengan *public modifier*, dan **unexported** untuk *private modifier*.
 
