@@ -61,9 +61,6 @@
   * [A.55. Unit Test](55-unit-test.md)
   * [A.56. WaitGroup](56-waitgroup.md)
   * [A.57. Mutex](57-mutex.md)
-  * [A.58. Go Vendoring](A-58-go-vendoring.md)
-  * [A.59. Dep - Go Dependency Management Tool](A-59-go-dep.md)
-  * [A.60. Go Modules](A-60-go-modules.md)
   <!-- * [A.61. Time & Timezone Location](A-61-time-timezone-location.md) -->
   <!-- * [A.62. Dockerize Go](A-61-time-timezone-location.md) -->
   <!-- worker pool -->

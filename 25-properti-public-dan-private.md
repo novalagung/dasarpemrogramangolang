@@ -180,7 +180,7 @@ Output:
 
 ![Error lain muncul saat menjalankan program](images/A.25_4_error.png)
 
-Error masih tetap muncul, tapi kali ini berbeda. Error yang baru ini disebabkan karena salah satu properti dari struct `Student` adalah *unexported* (atau *private*). Properti yg dimaksud adalah `grade`. Ubah ke bentuk *exported*, lalu jalankan lagi.
+Error masih tetap muncul, tapi kali ini berbeda. Error yang baru ini disebabkan karena salah satu properti dari struct `Student` adalah *unexported*. Properti yg dimaksud adalah `grade`. Ubah ke bentuk *exported*, lalu jalankan lagi.
 
 ```go
 // pada library/library.go

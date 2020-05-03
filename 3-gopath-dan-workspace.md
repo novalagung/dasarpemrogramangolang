@@ -8,7 +8,7 @@ Ada beberapa hal yang perlu disiapkan sebelum bisa masuk ke sesi pembuatan aplik
 
 **GOPATH** adalah variabel yang digunakan oleh Go sebagai rujukan lokasi dimana semua folder project disimpan. Gopath berisikan 3 buah sub folder: `src`, `bin`, dan `pkg`.
 
-Project di Go **harus** ditempatkan dalam `$GOPATH/src`. Sebagai contoh anda ingin membuat project dengan nama `belajar`, maka **harus** dibuatkan sebuah folder dengan nama `belajar`, ditempatkan dalam `src` (`$GOPATH/src/belajar`).
+Project di Go bisa ditempatkan dalam `$GOPATH/src`. Sebagai contoh anda ingin membuat project dengan nama `belajar`, maka **harus** dibuatkan sebuah folder dengan nama `belajar`, ditempatkan dalam `src` (`$GOPATH/src/belajar`).
 
 > Path separator yang digunakan sebagai contoh di buku ini adalah slash `/`. Khusus pengguna Windows, path separator adalah backslah `\`.
 
