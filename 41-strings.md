@@ -115,10 +115,10 @@ Digunakan untuk memisah string (parameter pertama) dengan tanda pemisah bisa dit
 
 ```go
 var string1 = strings.Split("the dark knight", " ")
-fmt.Println(string1) // output: "the", "dark", "knight"
+fmt.Println(string1) // output: ["the", "dark", "knight"]
 
 var string2 = strings.Split("batman", "")
-fmt.Println(string2) // output: "b", "a", "t", "m", "a", "n"
+fmt.Println(string2) // output: ["b", "a", "t", "m", "a", "n"]
 ```
 
 String `"the dark knight"` dipisah oleh karakter spasi `" "`, hasilnya kemudian ditampung oleh `string1`.

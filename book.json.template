@@ -1,7 +1,6 @@
 {
     "plugins": [
         "ga",
-        "html-minifier",
         "disqus",
         "meta",
         "sitemap"

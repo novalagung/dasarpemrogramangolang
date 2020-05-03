@@ -2,6 +2,9 @@
 
 * [Introduction](README.md)
 * [Contributors](CONTRIBUTORS.md)
+
+<hr>
+
 * A. Pemrograman Go Dasar
   * [A.1. Berkenalan Dengan Golang](1-berkenalan-dengan-golang.md)
   * [A.2. Instalasi Golang](2-instalasi-golang.md)
@@ -66,6 +69,9 @@
   <!-- * [A.61. Time & Timezone Location](A-61-time-timezone-location.md) -->
   <!-- * [A.62. Dockerize Go](A-61-time-timezone-location.md) -->
   <!-- worker pool -->
+
+<hr>
+
 * B. Pemrograman Web Go Dasar
   * [B.1. Golang Web App: Hello World](B-1-golang-web-hello-world.md)
   * [B.2. Routing http.HandleFunc](B-2-routing-http-handlefunc.md)
@@ -90,6 +96,9 @@
   * [B.21. HTTP Cookie](B-21-cookie.md)
   * [B.22. Configuration File](B-22-configuration-file.md)
   * [B.23. Cancelled HTTP Request Handler](B-23-server-handle-cancelled-http-request.md)
+
+<hr>
+
 * C. Pemrograman Go Lanjut
   * [C.1. Echo Framework & Routing](C-1-echo-routing.md)
   * [C.2. Parsing HTTP Request Payload (Echo)](C-2-parsing-http-request-payload-echo.md)
@@ -124,5 +133,8 @@
   * [C.32. JSON Web Token (JWT)](C-32-golang-jwt.md)
   * [C.33. LDAP Authentication](C-33-golang-ldap-authentication.md)
   * [C.34. SSO SAML (Service Provider)](C-34-golang-sso-saml-sp.md)
+
+<hr>
+
 * D. Studi Kasus
   * [D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover](D-1-insert-1mil-csv-record-into-db-in-a-minute.md)
