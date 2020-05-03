@@ -1,8 +1,8 @@
-# A.3.A. GOPATH Dan Workspace
+# A.3.B. GOPATH Dan Workspace
 
 > PERINGATAN! Setup Go project menggunakan GOPATH kurang dianjurkan untuk Go versi terbaru. Lebih baik gunakan [Go Modules](3-setup-go-project-dengan-go-modules.md). Tapi meski demikian, bukan berarti GOPATH tidak berguna sama sekali, jadi silakan ikuti panduan berikut jika mau.
 
-## A.3.A.1. Variabel `GOPATH`
+## A.3.B.1. Variabel `GOPATH`
 
 **GOPATH** adalah variabel yang digunakan oleh Go sebagai rujukan lokasi dimana semua folder project disimpan, kecuali untuk yg diinisialisasi menggunakan Go Modules. GOPATH berisikan 3 buah sub-folder: `src`, `bin`, dan `pkg`.
 
@@ -10,7 +10,7 @@ Project di Go bisa ditempatkan dalam `$GOPATH/src`. Sebagai contoh anda ingin me
 
 > Path separator yang digunakan sebagai contoh di buku ini adalah slash `/`. Khusus pengguna Windows, path separator adalah backslah `\`.
 
-## A.3.A.2. Setup Workspace
+## A.3.B.2. Setup Workspace
 
 Lokasi folder yang akan dijadikan sebagai workspace bisa ditentukan sendiri. Anda bisa menggunakan alamat folder mana saja, bebas, tapi jangan gunakan path tempat dimana Go ter-*install* (tidak boleh sama dengan `GOROOT`). Lokasi tersebut harus didaftarkan dalam path variable dengan nama `GOPATH`. Sebagai contoh, penulis memilih path `$HOME/Documents/go`, maka saya daftarkan alamat tersebut. Caranya:
 
