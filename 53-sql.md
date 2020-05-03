@@ -18,6 +18,7 @@ Pada bab ini kita akan belajar bagaimana berkomunikasi dengan database MySQL men
 Unduh driver mysql menggunakan `go get`.
 
 ```
+cd <folder-project>
 go get github.com/go-sql-driver/mysql
 ```
 

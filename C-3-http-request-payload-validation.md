@@ -1,6 +1,6 @@
 # C.3. HTTP Request Payload Validation (Validator v9, Echo)
 
-Pada bab ini kita akan belajar cara validasi payload request di sisi back end. Library yang kita gunakan adalah [gopkg.in/go-playground/validator.v9](https://github.com/go-playground/validator), library ini sangat berguna untuk keperluan validasi data.
+Pada bab ini kita akan belajar cara validasi payload request di sisi back end. Library yang kita gunakan adalah [github.com/go-playground/validator/v10](https://github.com/go-playground/validator), library ini sangat berguna untuk keperluan validasi data.
 
 ## C.3.1. Payload Validation
 
@@ -13,7 +13,7 @@ package main
 
 import (
     "github.com/labstack/echo"
-    "gopkg.in/go-playground/validator.v9"
+    "github.com/go-playground/validator/v10"
     "net/http"
 )
 

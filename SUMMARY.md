@@ -8,7 +8,7 @@
 * A. Pemrograman Go Dasar
   * [A.1. Berkenalan Dengan Golang](1-berkenalan-dengan-golang.md)
   * [A.2. Instalasi Golang](2-instalasi-golang.md)
-  * Setup Project dan GOPATH
+  * A.3. Setup Project dan GOPATH
     * [A.3.A. Go Modules](3-setup-go-project-dengan-go-modules.md)
     * [A.3.B. GOPATH Dan Workspace](3-gopath-dan-workspace.md)
   * [A.4. Instalasi Editor](4-instalasi-editor.md)
@@ -32,7 +32,7 @@
   * [A.22. Pointer](22-pointer.md)
   * [A.23. Struct](23-struct.md)
   * [A.24. Method](24-method.md)
-  * [A.25. Property Public & Private](25-properti-public-dan-private.md)
+  * [A.25. Properti Public dan Private (Exported vs Unexported)](25-properti-public-dan-private.md)
   * [A.26. Interface](26-interface.md)
   * [A.27. Interface Kosong](27-interface-kosong.md)
   * [A.28. Reflect](28-reflect.md)
@@ -65,6 +65,7 @@
   * [A.55. Unit Test](55-unit-test.md)
   * [A.56. WaitGroup](56-waitgroup.md)
   * [A.57. Mutex](57-mutex.md)
+  * [A.58. Go Vendoring](A-58-go-vendoring.md)
   <!-- * [A.61. Time & Timezone Location](A-61-time-timezone-location.md) -->
   <!-- * [A.62. Dockerize Go](A-61-time-timezone-location.md) -->
   <!-- worker pool -->

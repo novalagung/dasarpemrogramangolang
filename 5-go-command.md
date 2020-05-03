@@ -64,7 +64,14 @@ Berbeda dengan `go build`, *command* ini menghasilkan file *executable* atau *bi
 
 Pada contoh di atas, projek `program-pertama` di-build, menghasilkan file baru pada folder yang sama, yaitu `program-pertama.exe`, yang kemudian dieksekusi. *Default*-nya nama projek akan otomatis dijadikan nama *binary*.
 
-> Untuk sistem operasi non-windows, tidak perlu menambahkan suffix `.exe` pada nama *binary* 
+Untuk nama executable sendiri bisa diubah menggunakan flag `-o`. Contoh:
+
+```
+go build -o <nama-executable>
+go build -o program.exe
+```
+
+> Untuk sistem operasi non-windows, tidak perlu menambahkan suffix `.exe` pada nama *binary*
 
 ## A.5.4. Command `go get`
 
@@ -80,4 +87,18 @@ dir
 
 Pada contoh di atas, `github.com/segmentio/kafka-go` adalah URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder dimana *command* `go get` dieksekusi, menjadikan projek tersebut bisa meng-*import* package terunduh.
 
+Untuk mengunduh dependensi versi terbaru, gunakan flag `-u` pada command `go get`, misalnya:
+
+```
+go get -u github.com/segmentio/kafka-go
+```
+
 Command `go get` **harus dijalankan dalam folder project**. Jika dijalankan di-luar project maka akan diunduh ke pada GOPATH.
+
+## A.5.5. Command `go mod tidy`
+
+*Command* `go mod tidy` digunakan untuk memvalidasi dependensi. Jika ada dependensi yang belum ter-download, maka akan otomatis di-download.
+
+## A.5.6. Command `go mod vendor`
+
+Command ini digunakan untuk vendoring. Lebih detailnya akan dibahas di akhir serial chapter A, pada bab [A.58. Go Vendoring](A-58-go-vendoring.md).

@@ -168,7 +168,7 @@ Selanjutnya, siapkan commands dalam slice, untuk mempermudah eksekusinya. Lakuka
 
 ```go
 commands := []string{
-    "cd /where/is/the/gopath",
+    "cd /where/is/the/path",
     "cd src/myproject",
     "ls",
     "exit",
