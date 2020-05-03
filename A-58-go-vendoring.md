@@ -1,55 +1,36 @@
 # A.58. Go Vendoring
 
-Pada bagian ini kita akan belajar cara pemanfaatan vendoring untuk mempermudah manajemen package atau dependency dalam project Go.
+Pada bagian ini kita akan belajar cara pemanfaatan vendoring untuk menyimpan dependensi di lokal.
 
-Pada [Bab A.3. GOPATH Dan Workspace](/3-gopath-dan-workspace.html) sudah disinggung bahwa project Go harus ditempatkan didalam workspace, lebih spesifiknya dalam folder `$GOPATH/src/`. Aturan ini cukup memicu perdebatan di komunitas, karena menghasilkan efek negatif terhadap beberapa hal, yang salah satunya adalah: dependency management yang dirasa susah.
+## A.58.1. Penjelasan
 
-## A.58.1. Perbandingan Project Yang Menerapkan Vendoring vs Tidak
+Vendoring di Go merupakan kapabilitas untuk mengunduh semua dependency atau *3rd party*, untuk disimpan di lokal dalam folder project, dalam folder bernama `vendor`.
 
-Penulis coba contohkan dengan sebuah kasus untuk mempermudah pembaca memahami permasalahan yang ada dalam dependency management di Go.
+Dengan adanya folder tersebut, maka Go tidak akan *lookup* 3rd party ke cache folder, melainkan langsung mempergunakan yang ada dalam folder `vendor`. Jadi tidak perlu download lagi dari internet.
 
-Dimisalkan, ada dua buah projek yang sedang di-develop, `project-one` dan `project-two`. Keduanya depend terhadap salah satu 3rd party library yg sama, [gubrak](https://github.com/novalagung/gubrak). Di dalam `project-one`, versi gubrak yang digunakan adalah `v0.9.1-alpha`, sedangkan di `project-two` versi `v1.0.0` digunakan. Pada `project-one` versi yang digunakan cukup tua karena proses pengembangannya sudah agak lama, dan aplikasinya sendiri sudah stabil, jika di upgrade paksa ke gubrak versi `v1.0.0` kemungkinan besar terjadi error dan panic.
+Ok lanjut.
 
-Kedua projek tersebut pastinya akan lookup gubrak ke direktori yang sama, yaitu `$GOPATH/src/github.com/novalagung/gubrak`. Efeknya, ketika sedang bekerja pada `project-one`, harus dipastikan current revision pada repository gubrak di lokal adalah sesuai dengan versi `v1.0.0`. Dan, ketika mengerjakan `project-two` maka current revision gubrak harus sesuai dengan versi `v0.9.1-alpha`. Repot sekali bukan?
+## A.58.2. Praktek Vendoring
 
-Setelah beberapa waktu, akhirnya `go1.6` rilis, dengan membawa kabar baik, yaitu rilisnya fasilitas baru **vendoring**. Vendoring ini berguna untuk men-centralize packages atau dependencies atau 3rd party libraries yang digunakan dalam spesifik project.
+Kita akan coba praktekan untuk vendoring sebuah 3rd party bernama [gubrak](https://github.com/novalagung/gubrak/v2).
 
-Penggunaannya sendiri sangat mudah, cukup tempatkan 3rd party library ke-dalam folder `vendor`, yang berada di dalam masing-masing project. By default go akan memprioritaskan lookup pada folder `vendor`.
-
-> Folder vendor ini kegunaannya sama seperti folder `node_modules` dalam project javascript.
-
-Kita kembali ke contoh, library gubrak dipindahkan ke folder `vendor` dalam `project-one`, maka struktur project tersebut plus vendoring menjadi seperti berikut.
+Buat folder project baru dengan nama `belajar-vendor` dengan isi satu file `main.go`. Lalu go get library gubrak.
 
 ```bash
-$GOPATH/src/project-one
-$GOPATH/src/project-one/vendor/github.com/novalagung/gubrak
+mkdir belajar-vendor
+cd belajar-vendor
+go mod init belajar-vendor
+go get -u github.com/novalagung/gubrak/v2
 ```
 
-Source code library gubrak dalam folder `vendor` harus ditempatkan sesuai dengan struktur-nya.
-
-```bash
-$ tree .
-.
-├── main.go
-└── vendor
-    └── github.com
-        └── novalagung
-            └── gubrak
-                ├── date.go
-                ├── is.go
-                └── ...
-
-4 directories, N files
-```
-
-Isi `project-one/main.go` sendiri cukup sederhana, sebuah program kecil yang menampilkan angka random dengan range 10-20.
+Isi `main.go` dengan blok kode berikut, untuk menampilkan angka random dengan range 10-20.
 
 ```go
 package main
 
 import (
 	"fmt"
-	"github.com/novalagung/gubrak"
+	gubrak "github.com/novalagung/gubrak/v2"
 )
 
 func main() {
@@ -57,22 +38,35 @@ func main() {
 }
 ```
 
-Ketika di build, dengan flag `-v` terlihat perbedaan antara projek yang menerapkan vendoring maupun yang tidak.
+Setelah itu jalankan command `go mod vendor` untuk vendoring *3rd party library* yang dipergunakan, dalam contoh ini adlah gubrak.
 
-- Untuk yang tidak menggunakan vendor folder, maka akan lookup ke folder library yang digunakan, di `$GOPATH`.
-- Untuk project yang menerapkan vendoring, maka tetap lookup juga, tetapi dalam sub folder `vendor` yang ada di dalam projek tersebut.
+![Vendoring](imags/A.58_1_vendor.png)
 
-![Using vendor vs not using vendor](images/A.58_1_vendor_vs_nope.png)
+Bisa dilihat, sekarang library gubrak *source code*-nya disimpan dalam folder `vendor`. Nah ini juga akan berlaku untuk semua *library* lainnya yg digunakan jika ada.
 
-## A.58.2. Manajemen Dependencies Dalam Folder `vendor`
+## A.58.3 Build dan Run Project yang Menerapkan Vendoring
 
-Cara menambahkan dependency ke folder `vendor` bisa dengan cara copy-paste, yang tetapi jelasnya adalah tidak praktis (dan bisa menimbulkan masalah). Cara yang lebih benar adalah dengan menggunakan package management tools.
+Untuk membuat proses build lookup ke folder vendor, kita tidak perlu melakukan apa-apa, setidaknya jika versi Go yang diinstall adalah 1.14 ke atas. Maka command build maupun run masih sama.
 
-Di go, ada sangat banyak sekali package management tools. Sangat. Banyak. Sekali. Silakan cek di [PackageManagementTools](https://github.com/golang/go/wiki/PackageManagementTools) untuk lebih detailnya.
+```
+go run main.go
+go build -o executable
+```
 
-Pembaca bebas memilih untuk menggunakan package management tools yang mana. Namun di buku ini, **Dep** akan kita bahas. Dep sendiri merupakan official package management tools untuk Go dari Go Team.
+Untuk yg menggunakan versi Go dibawah 1.14, penulis sarankan untuk upgrade. Atau bisa gunakan flag `-mod=vendor` untuk memaksa Go lookup ke folder `vendor`.
 
-Pembahasan mengenai Dep ada di bab selanjutnya.
+```
+go run -mod=vendor main.go
+go build -mod=vendor -o executable
+```
+
+## A.58.3. Manfaat Vendoring
+
+Manfaat vendoring adalah pada sisi kompatibilitas dan kestabilan 3rd party. Jadi dengan vendor, misal 3rd party yang kita gunakan di itu ada update yg sifatnya tidak *backward compatible*, maka aplikasi kita tetap aman karena menggunakan yang ada dalam folder `vendor`.
+
+Jika tidak menggunakan vendoring, maka bisa saja saat `go mod tidy` sukses, namun sewaktu build error, karena ada fungsi yg tidak kompatibel lagi misalnya.
+
+Untuk penggunaan vendor apakah wajib? menurut saya tidak. Sesuaikan kebutuhan saja.
 
 ---
 
