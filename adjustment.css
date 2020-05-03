@@ -1,19 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700&display=swap');
+
+/* base font */
 body {
     font-family: Source Sans Pro, Helvetica Neue, Arial, sans-serif;
 }
-.book-summary ul.summary li a, .book-summary ul.summary li span {
-    text-overflow: initial;
-    white-space: normal;
-    line-height: 1.4em;
-}
-.book-body .body-inner {
-    padding-bottom: 100px;
-}
-#book-search-input {
+
+/* disable search bar, replace it with the book title instead */
+.book-summary #book-search-input {
     position: relative;
 }
-#book-search-input:after {
+.book-summary #book-search-input:after {
     content: "Dasar Pemrograman Golang";
     padding-top: 17px;
     padding-left: 15px;
@@ -25,9 +21,21 @@ body {
     z-index: 1;
     position: absolute;
 }
+
+/* disable word wrap at left sidebar */
+.book-summary ul.summary li a, .book-summary ul.summary li span {
+    text-overflow: initial;
+    white-space: normal;
+    line-height: 1.4em;
+    padding: 9px 15px;
+}
+
+/* sidebar background */
 .book-summary {
     background-color: #ffffff;
 }
+
+/* sidebar scroll beautification */
 .book-summary::-webkit-scrollbar {
     width: 4px;
 }
@@ -41,6 +49,8 @@ body {
 .book-summary:hover::-webkit-scrollbar-track {
     background: hsla(0,0%,53%,.1);
 }
+
+/* sidebar active link */
 .book-summary li.active>a:before {
     content: " ";
     position: absolute;
@@ -54,15 +64,32 @@ body {
     font-weight: bold;
 }
 
-.no-link {
-    pointer-events: none;
+/* make the sidebar wider, and adjust the content to match it */
+.book-summary {
+    left: -460px;
+    width: 460px;
 }
+@media (min-width: 600px) {
+    .book.with-summary .book-body {
+        left: 460px;
+    }
+}
+
+/* hide the header because each post already has it's h1 */
+/* also hide the unused navigation buttons (except font settings) */
+.book-header > h1,
+.book-header > .pull-right:not(.font-settings) {
+    display: none;
+}
+
+/* hide the "published by gitbook" footer */
 .gitbook-link {
     visibility: hidden;
     pointer-events: none;
     height: 20px;
 }
 
+/* source code link for each content */
 .source-code-link {
     border: 1px solid #c9ffce;
     background-color: #e7ffe9;
@@ -73,10 +100,12 @@ body {
     font-weight: bold;
 }
 
+/* google ads */
 ins.adsbygoogle {
     margin-bottom: 1em;
 }
 
+/* disquss block */
 #disqus_thread {
     margin-top: 40px;
 }
@@ -97,14 +126,10 @@ ins.adsbygoogle {
 #disqus_thread > iframe[src*=ads] {
     display: none;
 }
-.book-summary {
-    left: -460px;
-    width: 460px;
-}
-@media (min-width: 600px) {
-    .book.with-summary .book-body {
-        left: 460px;
-    }
+
+/* bottom news banner and body adjustment */
+.book-body .body-inner {
+    padding-bottom: 100px;
 }
 .book-news {
     display: block;
@@ -117,8 +142,4 @@ ins.adsbygoogle {
     right: 17px;
     left: 460px;
     z-index: 1000;
-}
-.summary hr {
-    height: 1px;
-    background-color: #efefef;
 }
