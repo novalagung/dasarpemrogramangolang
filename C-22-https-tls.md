@@ -62,25 +62,6 @@ Tampilannya kurang lebih seperti pada screenshot berikut.
 
 > Selain `.crt` dan `.key`, ada ekstensi lain lagi seperti `.pem`. Format `.pem` ini merupakan jenis encoding yang sangat sering digunakan pada file kriptografi sejenis `.key` dan `.crt`. File `.crt` dan `.key` bisa di konversi ke `.pem`, dan juga sebaliknya.
 
-<!-- ## C.22.3 Generate Private Key & Public Key Menggunakan `generate_cert.go` -->
-
-<!-- Golang menyediakan file [generate_cert.go](https://golang.org/src/crypto/tls/generate_cert.go) berada dalam `$GOROOT/src/crypto/tls`. File tersebut bisa digunakan juga untuk generate private key dan certificate. -->
-
-<!-- ```bash
-$ export GOBIN=$GOPATH/bin
-$ cd $GOROOT/src/crypto/tls
-go install generate_cert.go
-
-$ cd $GOPATH/src/your/project
-$ generate_cert -host localhost -ca
-``` -->
-
-<!-- Hasil command tersebut adalah dua buah file, `key.pem` yang merupakan private key, dan file *self-signed* certificate `cert.pem`. Kedua file tersebut ekstensinya adalah `.pem`, berbeda dengan hasil generate menggunakan `openssl`. Format `.pem` adalah jenis encoding yang sangat sering digunakan pada file kriptografi sejenis `.key` dan `.crt`. -->
-
-<!-- > File `.crt` dan `.key` bisa di konversi ke `.pem`, dan juga sebaliknya. -->
-
-<!-- Silakan pilih salah satu cara yang pembaca sukai. -->
-
 ## C.22.3. Project Structure
 
 Buat sebuah projek folder, copy 2 file yang telah ter-generate ke dalamnya. Lalu siapkan file `main.go`.

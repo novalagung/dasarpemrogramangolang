@@ -2,6 +2,8 @@
 
 Bab ini membahas mengenai *modifier* public dan private dalam Go. Kapan sebuah struct, fungsi, atau method bisa diakses dari package lain dan kapan tidak.
 
+Di Go sebenarnya tidak ada istilah *public modifier* dan *private modifier*. Yang ada adalah **exported** yang kalau di bahasa lain ekuivalen dengan *public modifier*, dan **unexported** untuk *private modifier*.
+
 ## A.25.0. PERINGATAN
 
 Peringatan ini ditulis karena sudah terlalu banyak email yang penulis dapati, perihal error yang muncul ketika mempraktekan beberapa kode pada bab ini.
@@ -16,32 +18,34 @@ Kesimpulan dari email-email yang penulis dapati: **pembaca bingung karena mendap
 
 > Oleh karena itu, JANGAN CUMA COPAS SOURCE KODE, BACA, PELAJARI, DAN PAHAMI! *No hard feeling* 👌😁
 
-## A.25.1. Package Public & Private
+## A.25.1. Exported Package dan Unexported Package
 
-Pengembangan aplikasi dalam *real development* pasti membutuhkan banyak sekali file program. Tidak mungkin dalam satu project semua file memiliki nama package `main`, biasanya akan dipisah sebagai package berbeda sesuai bagiannya.
+Pengembangan aplikasi dalam *real development* pasti membutuhkan banyak sekali file program. Tidak mungkin dalam sebuah project semua file memiliki nama package `main`, biasanya akan dipisah sebagai package berbeda sesuai bagiannya.
 
-Project folder selain berisikan file-file `.go` juga bisa berisikan folder. Di bahasa Go, setiap satu folder atau subfolder adalah satu package, file-file yang ada didalamnya harus memiliki nama package yang berbeda dengan file di folder lain.
+Project folder selain berisikan file-file `.go` juga bisa berisikan sub-folder lainnya. Di Go, setiap folder atau sub-folder adalah satu package, file-file yang ada di dalam sebuah folder package-nya harus sama. Dan package pada file-file tersebut harus berbeda dengan package pada file-file lainnya yang berada pada folder berbeda.
 
-Dalam sebuah package, biasanya kita menulis sangat banyak komponen, entah itu fungsi, struct, variabel, atau lainnya. Komponen tersebut bisa leluasa digunakan dalam package yang sama. Contoh sederhananya seperti program yang telah kita praktekan di bab sebelum-sebelumnya, dalam package `main` ada banyak yang di-define: fungsi, variabel, closure, struct, dan lainnya; kesemuanya bisa langsung dimanfaatkan.
+> Jadi mudahnya, 1 folder adalah 1 package.
 
-Jika dalam satu program terdapat lebih dari 1 package, atau ada package lain selain `main`, tidak bisa komponen dalam package lain tersebut diakses secara bebas dari `main`, karena tiap komponen memiliki hak akses.
+Dalam sebuah package, biasanya kita menulis sangat banyak komponen, entah itu fungsi, struct, variabel, atau lainnya. Komponen tersebut bisa leluasa digunakan dalam package yang sama. Contoh sederhananya seperti program yang telah kita praktekan di bab sebelum-sebelumnya, dalam package `main` ada banyak yang di-*define*: fungsi, variabel, closure, struct, dan lainnya; kesemuanya bisa langsung dimanfaatkan.
 
-Ada 2 jenis hak akses:
+Jika dalam satu program terdapat lebih dari 1 package, atau ada package lain selain `main`, maka komponen dalam package lain tersebut tidak bisa diakses secara bebas dari file yang package-nya `main`, karena tiap komponen memiliki hak akses.
 
- - Akses Public, menandakan komponen tersebut diperbolehkan untuk diakses dari package lain yang berbeda
- - Akses Private, berarti komponen hanya bisa diakses dalam package yang sama, bisa dalam satu file saja atau dalam beberapa file yang masih 1 folder.
+Ada 2 jenis hak akses di Go:
+
+ - Hak akses **Exported** atau **public**. Menandakan komponen tersebut diperbolehkan untuk diakses dari package lain yang berbeda
+ - Hak akses **Unexported** atau **private**. Berarti komponen hanya bisa diakses dalam package yang sama, bisa dalam satu file saja atau dalam beberapa file yang masih 1 folder.
 
 Penentuan hak akses yang tepat untuk tiap komponen sangatlah penting.
 
-Di Go cara menentukan level akses atau modifier sangat mudah, penandanya adalah **character case** karakter pertama nama fungsi, struct, variabel, atau lainnya. Ketika namanya diawali dengan huruf kapital menandakan bahwa modifier-nya public. Dan sebaliknya, jika diawali huruf kecil, berarti private.
+Di Go cara menentukan level akses atau modifier sangat mudah, penandanya adalah **character case** huruf pertama nama fungsi, struct, variabel, atau lainnya. Ketika namanya diawali dengan huruf kapital menandakan kalau *exported* (atau *public*). Dan sebaliknya, jika diawali huruf kecil, berarti *unexported* (atau private).
 
-## A.25.2. Penggunaan Package, Import, Dan Modifier Public & Private
+## A.25.2. Penggunaan Package, Import, Dan Hak Akses *Exported* dan *Unexported*
 
 Agar lebih mudah dipahami, maka langsung saja kita praktekan.
 
-Pertama buat folder proyek baru bernama `belajar-golang-level-akses` di dalam folder `$GOPATH/src`, didalamnya buat file baru bernama `main.go`, set nama package file tersebut sebagai **main**.
+Pertama buat folder proyek baru bernama `belajar-golang-level-akses`, inisialisasi sebagai projek dengan nama yang sama. Kemudian buat file baru bernama `main.go` di dalamnya, lalu set nama package file tersebut sebagai **main**.
 
-Selanjutnya buat folder baru bernama `library` di dalam folder baru yang sudah dibuat tadi. Didalamnya buat file baru `library.go`, set nama package-nya **library**.
+Kemudian, buat sub-folder baru bernama `library` di dalam folder `belajar-golang-level-akses`. Didalam folder `library`, buat file baru `library.go`, set nama package-nya **library**.
 
 ![Struktur folder dan file](images/A.25_1_folder_structure.png)
 
@@ -83,11 +87,11 @@ func main() {
 
 Bisa dilihat bahwa package `library` yang telah dibuat tadi, di-import ke dalam package `main`.
 
-Folder utama atau root folder dalam project yang sedang digarap adalah `belajar-golang-level-akses`, sehingga untuk import package lain yang merupakan subfolder, harus dituliskan lengkap path folder nya, seperti `"belajar-golang-level-akses/library"`.
+Folder utama atau root folder dalam project yang sedang digarap adalah `belajar-golang-level-akses`, sehingga untuk import package lain yang merupakan subfolder, harus dituliskan lengkap path folder nya, seperti `belajar-golang-level-akses/library`.
 
-Penanda root folder adalah, file di dalam folder tersebut package-nya `main`, dan file tersebut dijalankan menggunakan `go run`.
+Penanda root folder adalah tempat dimana file `go.mod` berada.
 
-Perhatikan kode berikut.
+Ok, kita lanjut. Perhatikan kode berikut.
 
 ```go
 library.SayHello()
@@ -100,7 +104,7 @@ OK, sekarang coba jalankan kode yang sudah disiapkan di atas, hasilnya error.
 
 ![Error saat menjalankan program](images/A.25_2_error.png)
 
-Error di atas disebabkan karena fungsi `introduce()` yang berada dalam package `library` memiliki level akses **private**, fungsi ini tidak bisa diakses dari package lain (pada kasus ini `main`). Agar bisa diakses, solusinya bisa dengan menjadikannya public, atau diubah cara pemanggilannya. Disini kita menggunakan cara ke-2.
+Error di atas disebabkan karena fungsi `introduce()` yang berada dalam package `library` memiliki level akses *undexported* (atau *private*), fungsi ini tidak bisa diakses dari package lain (pada kasus ini `main`). Agar bisa diakses, solusinya bisa dengan menjadikannya ke bentuk *exported* (atau *public*), atau diubah cara pemanggilannya. Disini kita menggunakan cara ke-2.
 
 Tambahkan parameter `name` pada fungsi `SayHello()`, lalu panggil fungsi `introduce()` dengan menyisipkan parameter `name` dari dalam fungsi `SayHello()`.
 
@@ -123,9 +127,9 @@ Coba jalankan lagi.
 
 ![Contoh penerapan pemanggilan fungsi dari package berbeda](images/A.25_2_success.png)
 
-## A.25.3. Penggunaan Public & Private Pada Struct Dan Propertinya
+## A.25.3. Penggunaan Hak Akses *Exported* dan *Unexported* pada Struct dan Propertinya
 
-Level akses private dan public juga bisa diterapkan di fungsi, struct, method, maupun property variabel. Cara penggunaannya sama seperti pada pembahasan sebelumnya, yaitu dengan menentukan **character case** huruf pertama nama komponen, apakah huruf besar atau kecil.
+Level akses *exported* (atau public) dan *unexported* (atau private) juga bisa diterapkan di fungsi, struct, method, maupun property variabel. Cara penggunaannya sama seperti pada pembahasan sebelumnya, yaitu dengan menentukan **character case** huruf pertama nama komponen, apakah huruf besar atau kecil.
 
 Belajar tentang level akses di Go akan lebih cepat jika langsung praktek. Oleh karena itu langsung saja. Hapus isi file `library.go`, buat struct baru dengan nama `student` didalamnya.
 
@@ -157,7 +161,7 @@ Setelah itu jalankan program.
 
 ![Error saat menjalankan program](images/A.25_3_error.png)
 
-Error muncul lagi, kali ini penyebabnya adalah karena struct `student` masih di set sebagai private. Ganti menjadi public (dengan cara mengubah huruf awalnya menjadi huruf besar) lalu jalankan.
+Error muncul lagi, kali ini penyebabnya adalah karena struct `student` masih di set sebagai *unexported*. Ganti ke bentuk *exported* dengan cara mengubah huruf awalnya menjadi huruf besar, kemudian jalankan ulang.
 
 ```go
 // pada library/library.go
@@ -167,7 +171,7 @@ type Student struct {
 }
 
 // pada main.go
-var s1 = library.student{"ethan", 21}
+var s1 = library.Student{"ethan", 21}
 fmt.Println("name ", s1.Name)
 fmt.Println("grade", s1.grade)
 ```
@@ -176,7 +180,7 @@ Output:
 
 ![Error lain muncul saat menjalankan program](images/A.25_4_error.png)
 
-Error masih tetap muncul, tapi kali ini berbeda. Error yang baru ini disebabkan karena salah satu properti dari struct `Student` bermodifier private. Properti yg dimaksud adalah `grade`. Ubah menjadi public, lalu jalankan lagi.
+Error masih tetap muncul, tapi kali ini berbeda. Error yang baru ini disebabkan karena salah satu properti dari struct `Student` adalah *unexported*. Properti yg dimaksud adalah `grade`. Ubah ke bentuk *exported*, lalu jalankan lagi.
 
 ```go
 // pada library/library.go
@@ -191,7 +195,7 @@ fmt.Println("name ", s1.Name)
 fmt.Println("grade", s1.Grade)
 ```
 
-Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` yang berada di package lain, selain nama stuct-nya harus bermodifier public, properti yang diakses juga harus public.
+Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` yang berada di package lain, selain nama stuct-nya harus berbentuk *exported*, properti yang diakses juga harus *exported* juga.
 
 ![Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda](images/A.25_4_success.png)
 
@@ -240,7 +244,7 @@ Langsung saja kita praktekan, buat file baru dalam `belajar-golang-level-akses` 
 
 ![File `partial.go` disiapkan setara dengan file `main.go`](images/A.25_5_structure.png)
 
-Tulis kode berikut pada file `partial.go`. File ini kita set package-nya **main** (sama dengan nama package file `main.go`).
+Tulis kode berikut pada file `partial.go`. File ini kita set package-nya `main` (sama dengan nama package file `main.go`).
 
 ```go
 package main
@@ -262,17 +266,17 @@ func main() {
 }
 ```
 
-Sekarang terdapat 2 file berbeda (`main.go` dan `partial.go`) dengan package adalah sama, `main`. Pada saat **go build** atau **go run**, semua file dengan nama package `main` harus dituliskan sebagai argumen command.
+Sekarang terdapat 2 file berbeda (`main.go` dan `partial.go`) dengan package adalah sama, `main`. Pada saat `go build` atau `go run`, semua file dengan nama package `main` harus dituliskan sebagai argumen command.
 
 ```
 go run main.go partial.go
 ```
 
-Fungsi `sayHello` pada file `partial.go` bisa dikenali meski level aksesnya adalah private. Hal ini karena kedua file tersebut (`main.go` dan `partial.go`) memiliki package yang sama.
+Fungsi `sayHello` pada file `partial.go` bisa dikenali meski level aksesnya adalah *unexported*. Hal ini karena kedua file tersebut (`main.go` dan `partial.go`) memiliki package yang sama.
 
 > Cara lain untuk menjalankan program bisa dengan perintah `go run *.go`, dengan cara ini tidak perlu menuliskan nama file nya satu per satu.
 
-![Pemanggilan fungsi private dari dalam package yang sama](images/A.25_6_multi_main.png)
+![Pemanggilan fungsi unexported dari dalam package yang sama](images/A.25_6_multi_main.png)
 
 ## A.25.6.1. Fungsi `init()`
 

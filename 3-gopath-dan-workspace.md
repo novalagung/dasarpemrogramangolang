@@ -1,20 +1,18 @@
-# A.3.A. GOPATH Dan Workspace
+# A.3.B. GOPATH Dan Workspace
 
-> PERINGATAN! Setup Go project menggunakan GOPATH kurang dianjurkan untuk Go versi terbaru. Lebih baik gunakan [Go Modules](3-setup-go-project-dengan-go-modules.md).
+> PERINGATAN! Setup Go project menggunakan GOPATH kurang dianjurkan untuk Go versi terbaru. Lebih baik gunakan [Go Modules](3-setup-go-project-dengan-go-modules.md). Tapi meski demikian, bukan berarti GOPATH tidak berguna sama sekali, jadi silakan ikuti panduan berikut jika mau.
 
-Ada beberapa hal yang perlu disiapkan sebelum bisa masuk ke sesi pembuatan aplikasi menggunakan Go, yaitu setup workspace untuk Project yang akan dibuat. Dan di bab ini kita akan belajar bagaimana caranya.
+## A.3.B.1. Variabel `GOPATH`
 
-## A.3.A.1. Variabel `GOPATH`
+**GOPATH** adalah variabel yang digunakan oleh Go sebagai rujukan lokasi dimana semua folder project disimpan, kecuali untuk yg diinisialisasi menggunakan Go Modules. GOPATH berisikan 3 buah sub-folder: `src`, `bin`, dan `pkg`.
 
-**GOPATH** adalah variabel yang digunakan oleh Go sebagai rujukan lokasi dimana semua folder project disimpan. Gopath berisikan 3 buah sub folder: `src`, `bin`, dan `pkg`.
-
-Project di Go **harus** ditempatkan dalam `$GOPATH/src`. Sebagai contoh anda ingin membuat project dengan nama `belajar`, maka **harus** dibuatkan sebuah folder dengan nama `belajar`, ditempatkan dalam `src` (`$GOPATH/src/belajar`).
+Project di Go bisa ditempatkan dalam `$GOPATH/src`. Sebagai contoh anda ingin membuat project dengan nama `belajar`, maka **harus** dibuatkan sebuah folder dengan nama `belajar`, ditempatkan dalam `src` (`$GOPATH/src/belajar`).
 
 > Path separator yang digunakan sebagai contoh di buku ini adalah slash `/`. Khusus pengguna Windows, path separator adalah backslah `\`.
 
-## A.3.A.2. Setup Workspace
+## A.3.B.2. Setup Workspace
 
-Lokasi folder yang akan dijadikan sebagai workspace bisa ditentukan sendiri. Anda bisa menggunakan alamat folder mana saja, bebas, tapi jangan gunakan path tempat dimana Go ter-install (tidak boleh sama dengan `GOROOT`). Lokasi tersebut harus didaftarkan dalam path variable dengan nama `GOPATH`. Sebagai contoh, penulis memilih path `$HOME/Documents/go`, maka saya daftarkan alamat tersebut. Caranya:
+Lokasi folder yang akan dijadikan sebagai workspace bisa ditentukan sendiri. Anda bisa menggunakan alamat folder mana saja, bebas, tapi jangan gunakan path tempat dimana Go ter-*install* (tidak boleh sama dengan `GOROOT`). Lokasi tersebut harus didaftarkan dalam path variable dengan nama `GOPATH`. Sebagai contoh, penulis memilih path `$HOME/Documents/go`, maka saya daftarkan alamat tersebut. Caranya:
 
  - Bagi pengguna **Windows**, tambahkan path folder tersebut ke **path variable** dengan nama `GOPATH`. Setelah variabel terdaftar, cek apakah path sudah terdaftar dengan benar.
 

@@ -16,7 +16,7 @@ go mod init hello-world
 
 ![Inisialisasi project](images/A.6_1_init_project.png)
 
-## A.6.2. Load Projek Dolder ke Editor
+## A.6.2. Load Projek Folder ke Editor
 
 Buka editor, disini penulis menggunakan VSCode. Cari menu untuk menambahkan projek, lalu pilih projek folder `hello-world`. Untuk beberapa jenis editor, cara load projek bisa cukup dengan klik-drag folder tersebut ke editor.
 
