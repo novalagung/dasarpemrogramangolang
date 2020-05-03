@@ -5,8 +5,9 @@
 * A. Pemrograman Go Dasar
     * [A.1. Berkenalan Dengan Golang](1-berkenalan-dengan-golang.md)
     * [A.2. Instalasi Golang](2-instalasi-golang.md)
-    * [A.3. GOPATH Dan Workspace](3-gopath-dan-workspace.md)
-    * [A.4. Instalasi Editor](4-instalasi-editor.md)
+    * [A.3. Go Modules](3-go-modules.md)
+    <!-- * [A.3. GOPATH Dan Workspace](3-gopath-dan-workspace.md) -->
+    <!-- * [A.4. Instalasi Editor](4-instalasi-editor.md)
     * [A.5. Command](5-go-command.md)
     * [A.6. Program Pertama: Hello World](6-hello-world.md)
     * [A.7. Komentar](7-komentar.md)
@@ -62,10 +63,10 @@
     * [A.57. Mutex](57-mutex.md)
     * [A.58. Go Vendoring](A-58-go-vendoring.md)
     * [A.59. Dep - Go Dependency Management Tool](A-59-go-dep.md)
-    * [A.60. Go Modules](A-60-go-modules.md)
+    * [A.60. Go Modules](A-60-go-modules.md) -->
     <!-- * [A.61. Time & Timezone Location](A-61-time-timezone-location.md) -->
     <!-- worker pool -->
-* B. Pemrograman Web Go Dasar
+<!-- * B. Pemrograman Web Go Dasar
     * [B.1. Golang Web App: Hello World](B-1-golang-web-hello-world.md)
     * [B.2. Routing http.HandleFunc](B-2-routing-http-handlefunc.md)
     * [B.3. Routing Static Assets](B-3-routing-static-assets.md)
@@ -124,4 +125,4 @@
     * [C.33. LDAP Authentication](C-33-golang-ldap-authentication.md)
     * [C.34. SSO SAML (Service Provider)](C-34-golang-sso-saml-sp.md)
 * D. Studi Kasus
-    * [D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover](D-1-insert-1mil-csv-record-into-db-in-a-minute.md)
+    * [D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover](D-1-insert-1mil-csv-record-into-db-in-a-minute.md) -->
