@@ -1,6 +1,6 @@
 # A.8. Variabel
 
-Go mengadopsi dua jenis penulisan variabel, yang dituliskan tipe data-nya dan yang tidak. Kedua cara tersebut valid dan tujuannya sama, pembedanya hanya cara penulisannya saja.
+Go mengadopsi dua jenis penulisan variabel, yaitu yang dituliskan tipe data-nya, dan juga yang tidak. Kedua cara tersebut valid dan tujuannya sama, pembedanya hanya cara penulisannya saja.
 
 Pada bab ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel.
 
@@ -8,7 +8,7 @@ Pada bab ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel.
 
 Go memiliki aturan cukup ketat dalam hal penulisan variabel. Ketika deklarasi, tipe data yg digunakan harus dituliskan juga. Istilah lain dari konsep ini adalah **manifest typing**.
 
-Berikut adalah contoh cara pembuatan variabel yang tipe datanya harus ditulis.
+Berikut adalah contoh cara pembuatan variabel yang tipe datanya harus ditulis. Silakan tulis pada projek baru atau pada projek yang sudah ada, bebas. Pastikan saja untuk setipa projek baru untuk tidak lupa inisialisasi projek menggunakan command `go mod init <nama-project>`. Ok lanjut.
 
 ```go
 package main
@@ -33,7 +33,7 @@ Nilai variabel `firstName` diisi langsung ketika deklarasi, berbeda dibanding `l
 
 ## A.8.2. Deklarasi Variabel Menggunakan Keyword `var`
 
-Pada kode di atas bisa dilihat bagaimana sebuah variabel dideklarasikan dan di-set nilainya. Keyword `var` digunakan untuk membuat variabel baru.
+Pada kode di atas bisa dilihat bagaimana sebuah variabel dideklarasikan dan diisi nilainya. Keyword `var` digunakan untuk membuat variabel baru.
 
 Skema penggunaan keyword var:
 
@@ -57,7 +57,7 @@ Fungsi ini digunakan untuk menampilkan output dalam bentuk tertentu. Kegunaannya
 
 Perhatikan bagian `"halo %s %s!\n"`, karakter `%s` disitu akan diganti dengan data `string` yang berada di parameter ke-2, ke-3, dan seterusnya.
 
-Ketiga baris kode di bawah ini menghasilkan output yang sama, meskipun cara penulisannya berbeda.
+Contoh lain, ketiga baris kode berikut ini akan menghasilkan output yang sama, meskipun cara penulisannya berbeda.
 
 ```go
 fmt.Printf("halo john wick!\n")
@@ -65,13 +65,13 @@ fmt.Printf("halo %s %s!\n", firstName, lastName)
 fmt.Println("halo", firstName, lastName + "!")
 ```
 
-Tanda plus (`+`) jika ditempatkan di antara string, fungsinya adalah untuk penggabungan string (istilah lainnya: concatenation).
+Tanda plus (`+`) jika ditempatkan di antara string, fungsinya adalah untuk penggabungan string atau *string concatenation*.
 
-Fungsi `fmt.Printf()` tidak menghasilkan baris baru di akhir text, oleh karena itu digunakanlah literal `\n` untuk memunculkan baris baru di akhir. Hal ini sangat berbeda jika dibandingkan dengan fungsi `fmt.Println()` yang secara otomatis menghasilkan new line (baris baru) di akhir.
+Fungsi `fmt.Printf()` tidak menghasilkan baris baru di akhir text, oleh karena itu digunakanlah literal *newline* yaitu `\n`, untuk memunculkan baris baru di akhir. Hal ini sangat berbeda jika dibandingkan dengan fungsi `fmt.Println()` yang secara otomatis menghasilkan new line (baris baru) di akhir.
 
 ## A.8.3. Deklarasi Variabel Tanpa Tipe Data
 
-Selain **manifest typing**, Go juga mengadopsi metode **type inference**, yaitu metode deklarasi variabel yang tipe data-nya ditentukan oleh tipe data nilainya, cara kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword `var` dan tipe data tidak perlu ditulis.
+Selain *manifest typing*, Go juga mengadopsi konsep **type inference**, yaitu metode deklarasi variabel yang tipe data-nya ditentukan oleh tipe data nilainya, cara kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword `var` dan tipe data tidak perlu ditulis.
 
 ```go
 var firstName string = "john"
@@ -135,11 +135,11 @@ one, isFriday, twoPointTwo, say := 1, true, 2.2, "hello"
 
 ## A.8.5. Variabel Underscore `_`
 
-Go memiliki aturan unik yang jarang dimiliki bahasa lain, yaitu tidak boleh ada satupun variabel yang menganggur. Artinya, semua variabel yang dideklarasikan harus digunakan. Jika ada variabel yang tidak digunakan tapi dideklarasikan, error akan muncul dan program tidak bisa di-run ataupun di-compile.
+Go memiliki aturan unik yang jarang dimiliki bahasa lain, yaitu tidak boleh ada satupun variabel yang menganggur. Artinya, semua variabel yang dideklarasikan harus digunakan. Jika ada variabel yang tidak digunakan tapi dideklarasikan, error akan muncul pada saat kompilasi dan program tidak akan bisa di-run.
 
 ![Variabel pengangguran](images/A.8_2_unused_variabel.png)
 
-Underscore (`_`) adalah predefined variabel yang bisa dimanfaatkan untuk menampung nilai yang tidak dipakai. Bisa dibilang variabel ini merupakan keranjang sampah.
+*Underscore* (`_`) adalah *predefined variable* yang bisa dimanfaatkan untuk menampung nilai yang tidak dipakai. Bisa dibilang variabel ini merupakan keranjang sampah.
 
 ```go
 _ = "belajar Golang"
