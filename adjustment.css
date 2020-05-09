@@ -26,6 +26,8 @@ body {
 .book-summary ul.summary li a, .book-summary ul.summary li span {
     text-overflow: initial;
     white-space: normal;
+    line-height: 1.4em;
+    padding: 9px 15px;
 }
 
 /* sidebar background */
