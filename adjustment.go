@@ -111,18 +111,23 @@ func postAdjustment() {
 
 		// ==== inject github stars button
 		buttonToFind := `</body>`
-		buttonReplacement := `<div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div></body>`
+		buttonReplacement := `<div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div>`+buttonToFind
 		htmlString = strings.Replace(htmlString, buttonToFind, buttonReplacement, -1)
 
 		// ==== inject github stars js script
 		buttonScriptToFind := `</head>`
-		buttonScriptReplacement := `<script async defer src="https://buttons.github.io/buttons.js"></script></head>`
+		buttonScriptReplacement := `<script async defer src="https://buttons.github.io/buttons.js"></script>`+buttonScriptToFind
 		htmlString = strings.Replace(htmlString, buttonScriptToFind, buttonScriptReplacement, -1)
 
 		// ===== inject banner of new ebook
 		bannerToFind := `</body>`
-		bannerReplacement := `<a href="https://devops.novalagung.com/" target="_blank" class="book-news">Hi all, I just released another ebook. This new one focus on devops implementation of various stacks rather than specific programming topic, and the good news it is available on Bahasa and English languages. Only few articles have been published, more are coming. Have a look! https://devops.novalagung.com/</a></body>`
+		bannerReplacement := `<a href="https://devops.novalagung.com/" target="_blank" class="book-news">Halo semua, Saya telah merilis ebook baru lo, tentang devops. Di ebook tersebut fokus tentang pembahasan banyak sekali stacks/teknologi devops, jadi tidak hanya membahas satu stack saja. Dan kabar baiknya tersedia dalam dua bahasa, Indonesia dan Inggris. Yuk mampir https://devops.novalagung.com/</a>`+bannerToFind
 		htmlString = strings.Replace(htmlString, bannerToFind, bannerReplacement, -1)
+
+		// ===== inject info banner if exists
+		infoBannerToFind := `</body>`
+		infoBannerReplacement := `<div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 0 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script>`+infoBannerToFind
+		htmlString = strings.Replace(htmlString, infoBannerToFind, infoBannerReplacement, -1)
 
 		// ==== update file
 		err = ioutil.WriteFile(path, []byte(htmlString), info.Mode())
