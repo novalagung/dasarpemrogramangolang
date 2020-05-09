@@ -143,3 +143,36 @@ ins.adsbygoogle {
     left: 460px;
     z-index: 1000;
 }
+
+/* banner */
+.banner-container {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.15);
+    z-index: 99999;
+    backdrop-filter: blur(2px);
+}
+.banner-container > div {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+.banner-container a {
+    width: 800px;
+    height: 494px;
+    position: absolute;
+    top: 50%;
+    margin-top: -247px;
+    z-index: 99999;
+    left: 50%;
+    margin-left: -400px;
+}
+.banner-container a img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
