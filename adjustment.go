@@ -161,6 +161,6 @@ func postAdjustment() {
 	fmt.Println("  ==>", siteMapPath)
 }
 
-func getVersion()string{
+func getVersion() string {
 	return fmt.Sprintf("%d.%s", baseVersion, time.Now().Format("2006.01.02.150405"))
 }
