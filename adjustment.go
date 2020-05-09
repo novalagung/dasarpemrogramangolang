@@ -44,8 +44,7 @@ func preAdjustment() {
 
 	// ==== adjust version
 	versionToFind := `((VERSION))`
-	versionReplacement := fmt.Sprintf("%d.%s", baseVersion, time.Now().Format("2006.01.02.150405"))
-	mdString = strings.Replace(mdString, versionToFind, versionReplacement, -1)
+	mdString = strings.Replace(mdString, versionToFind, getVersion(), -1)
 
 	err = ioutil.WriteFile(readmePath, []byte(mdString), 0644)
 	if err != nil {
@@ -114,6 +113,11 @@ func postAdjustment() {
 		buttonReplacement := `<div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div>`+buttonToFind
 		htmlString = strings.Replace(htmlString, buttonToFind, buttonReplacement, -1)
 
+		// ==== inject adjustment css
+		adjustmentCSSToFind:=`</head>`
+		adjustmentCSSReplacement:=`<link rel="stylesheet" href="/adjustment.css?v=`+getVersion()+`">`+adjustmentCSSToFind 
+		htmlString = strings.Replace(htmlString, adjustmentCSSToFind, adjustmentCSSReplacement, -1)
+
 		// ==== inject github stars js script
 		buttonScriptToFind := `</head>`
 		buttonScriptReplacement := `<script async defer src="https://buttons.github.io/buttons.js"></script>`+buttonScriptToFind
@@ -126,7 +130,7 @@ func postAdjustment() {
 
 		// ===== inject info banner if exists
 		infoBannerToFind := `</body>`
-		infoBannerReplacement := `<div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png?v=1"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 0 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script>`+infoBannerToFind
+		infoBannerReplacement := `<div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png?v=`+getVersion()+`"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 0 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script>`+infoBannerToFind
 		htmlString = strings.Replace(htmlString, infoBannerToFind, infoBannerReplacement, -1)
 
 		// ==== update file
@@ -155,4 +159,8 @@ func postAdjustment() {
 		log.Fatal(err.Error())
 	}
 	fmt.Println("  ==>", siteMapPath)
+}
+
+func getVersion()string{
+	return fmt.Sprintf("%d.%s", baseVersion, time.Now().Format("2006.01.02.150405"))
 }
