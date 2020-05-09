@@ -1,10 +1,10 @@
-# C.8. Advanced Configuration File (Viper)
+# C.8.A. Advanced Configuration Menggunakan Viper
 
-Pada bab ini kita akan belajar cara mudah parsing file konfigurasi menggunakan [Viper](http://github.com/spf13/viper). Inti dari bab ini sebenarnya adalah sama dengan yang sudah dibahas pada bab [B-22 - Configuration](/B-22-configuration.html), hanya saja disini proses parsing di-handle oleh 3rd party dengan tidak menggunakan struct untuk pengaksesannya.
+Pada bab ini kita akan belajar cara mudah manajemen konfigurasi file JSON menggunakan [Viper](http://github.com/spf13/viper) library. Inti dari bab ini sebenarnya adalah sama dengan yang sudah dibahas pada bab [B.22 - Simple Configuration File](/B-22-simple-configuration-file.md), hanya saja disini proses parsing di-handle oleh 3rd party dengan tidak menggunakan struct untuk pengaksesannya.
 
-Kekurangan dari teknik menyimpan konfigurasi dalam object struct adalah, pada saat ada kebutuhan untuk menambah atau merubah isi konfigurasi file, maka mengharuskan developer juga mengubah skema struct penampung.
+Kekurangan dari teknik menyimpan konfigurasi dalam object struct adalah, pada saat ada kebutuhan untuk menambah atau merubah isi konfigurasi file, maka mengharuskan developer juga mengubah skema struct penampung. Pada bagian ini, pengaksesan property konfigurasi dilakukan lewat notasi string konfigurasinya.
 
-## C.8.1. JSON Configuration
+## C.8.A.1. JSON Configuration
 
 Mari langsung kita praktekan. Buat projek baru seperti biasa, buat file konfigurasi `app.config.json`, isi dengan data berikut.
 
@@ -26,7 +26,6 @@ Selanjutnya buat `main.go`, lakukan parsing pada file konfigurasi.
 package main
 
 import (
-    "fmt"
     "github.com/labstack/echo"
     "github.com/spf13/viper"
     "net/http"
@@ -69,12 +68,11 @@ Fungsi `.ReadInConfig()` digunakan untuk memproses file-file konfigurasi sesuai 
 OK, kembali ke bagian tulis-menulis kode. Tambahkan beberapa kode untuk print nama aplikasi, sebuah rute, dan start web server.
 
 ```go
-fmt.Println("Starting", viper.GetString("appName"))
-
 e.GET("/index", func(c echo.Context) (err error) {
     return c.JSON(http.StatusOK, true)
 })
 
+e.Logger.Print("Starting", viper.GetString("appName"))
 e.Logger.Fatal(e.Start(":" + viper.GetString("server.port")))
 ```
 
@@ -105,9 +103,9 @@ Jalankan aplikasi untuk test hasilnya.
 
 ![Sample output](images/C.8_1_app.png)
 
-## C.8.2. YAML Configuration
+## C.8.A.2. YAML Configuration
 
-Cara menggunakan viper pada file konfigurasi bertipe `.yaml` kurang lebih sama seperti pada file `.json`. Cukup ubah config type nya dan semua akan beres dengan sendirinya.
+Cara penerapan viper pada file konfigurasi bertipe `.yaml` kurang lebih sama seperti pada file `.json`. Cukup ubah config type nya dan semua akan beres dengan sendirinya.
 
 Mari kita langsung praktekan saja. Buat file konfigurasi baru `app.config.yaml` dengan isi berikut.
 
@@ -125,7 +123,7 @@ viper.SetConfigType("yaml")
 
 Jalankan aplikasi, dan hasilnya sama seperti sebelumnya.
 
-## C.8.3. Watcher Configuration
+## C.8.A.3. Watcher Configuration
 
 Viper memiliki banyak fitur, satu diantaranya adalah mengaktifkan watcher pada file konfigurasi. Dengan adanya watcher, maka kita bisa membuat callback yang akan dipanggil setiap kali ada perubahan konfigurasi.
 
@@ -136,7 +134,7 @@ viper.OnConfigChange(func(e fsnotify.Event) {
 })
 ```
 
-Penggunaan fasilitas watcher memerlukan tambahan 3rd party library [fsnotify](https://github.com/fsnotify/fsnotify).
+Penggunaan fasilitas watcher memerlukan tambahan 3rd party library [fsnotify](https://github.com/fsnotify/fsnotify), jadi jangan lupa juga untuk meng-*import*-nya.
 
 ---
 
@@ -148,5 +146,5 @@ Penggunaan fasilitas watcher memerlukan tambahan 3rd party library [fsnotify](ht
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.8-advanced-configuration-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.8...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.8.A-advanced-configuration-viper">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.8.A...</a>
 </div>
