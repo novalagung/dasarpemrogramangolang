@@ -94,7 +94,7 @@
   * [B.19. Middleware http.Handler](B-19-middleware-using-http-handler.md)
   * [B.20. Custom Multiplexer](B-20-custom-mux-multiplexer.md)
   * [B.21. HTTP Cookie](B-21-cookie.md)
-  * [B.22. Configuration File](B-22-configuration-file.md)
+  * [B.22. Simple Configuration](B-22-simple-configuration.md)
   * [B.23. Cancelled HTTP Request Handler](B-23-server-handle-cancelled-http-request.md)
 
 <hr>
@@ -107,7 +107,9 @@
   * [C.5. Template Rendering in Echo](C-5-echo-template-rendering.md)
   * [C.6. Advanced Middleware & Logging (Logrus, Echo Logger)](C-6-advanced-middleware-and-logging.md)
   * [C.7. CLI Flag Parser (Kingpin)](C-7-flag-parser.md)
-  * [C.8. Advanced Configuration File (Viper)](C-8-advanced-configuration-file.md)
+  * C.8. Advanced Configuration File
+    * [C.8.A. Advanced Configuration: Viper](C-8-A-advanced-configuration-viper.md)
+    * [C.8.B. Best Practice Configuration: Environment Variable](C-8-B-best-practice-configuration-env-var.md)
   * [C.9. Secure Cookie (Gorilla Securecookie)](C-9-securecookie.md)
   * [C.10. Session (Gorilla Session)](C-10-session.md)
   * [C.12. CORS & Preflight Request](C-12-cors-preflight-request.md)
@@ -133,6 +135,8 @@
   * [C.32. JSON Web Token (JWT)](C-32-golang-jwt.md)
   * [C.33. LDAP Authentication](C-33-golang-ldap-authentication.md)
   * [C.34. SSO SAML (Service Provider)](C-34-golang-sso-saml-sp.md)
+  * [C.35. Dockerize Go App](/C-35-dockerize-golang.md)
+  * [C.35. Orchestrate Go App using Docker Compose](/C-36-orchestrate-golang-using-docker-compose.md) 
 
 <hr>
 
