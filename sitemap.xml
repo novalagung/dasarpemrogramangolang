@@ -82,7 +82,7 @@
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-19-middleware-using-http-handler.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-20-custom-mux-multiplexer.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-21-cookie.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://dasarpemrogramangolang.novalagung.com/B-22-configuration-file.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/B-22-simple-configuration.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-23-server-handle-cancelled-http-request.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-1-echo-routing.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-2-parsing-http-request-payload-echo.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
@@ -91,7 +91,8 @@
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-5-echo-template-rendering.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-6-advanced-middleware-and-logging.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-7-flag-parser.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://dasarpemrogramangolang.novalagung.com/C-8-advanced-configuration-file.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/C-8-A-advanced-configuration-viper.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/C-8-B-best-practice-configuration-env-var.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-9-securecookie.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-10-session.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-12-cors-preflight-request.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
@@ -117,5 +118,7 @@
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-32-golang-jwt.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-33-golang-ldap-authentication.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-34-golang-sso-saml-sp.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/C-35-dockerize-golang.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/C-36-orchestrate-golang-using-docker-compose.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/D-1-insert-1mil-csv-record-into-db-in-a-minute.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 </urlset>
