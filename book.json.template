@@ -28,9 +28,6 @@
             "hostname": "https://dasarpemrogramangolang.novalagung.com/"
         }
     },
-    "styles": {
-        "website": "adjustment.css?v=1"
-    },
     "lunr": {
         "maxIndexSize": 1000000000
     }
