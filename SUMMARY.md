@@ -107,7 +107,7 @@
   * [C.5. Template Rendering in Echo](C-5-echo-template-rendering.md)
   * [C.6. Advanced Middleware & Logging (Logrus, Echo Logger)](C-6-advanced-middleware-and-logging.md)
   * [C.7. CLI Flag Parser (Kingpin)](C-7-flag-parser.md)
-  * C.8. Advanced Configuration File
+  * C.8. Advanced Configuration
     * [C.8.A. Advanced Configuration: Viper](C-8-A-advanced-configuration-viper.md)
     * [C.8.B. Best Practice Configuration: Environment Variable](C-8-B-best-practice-configuration-env-var.md)
   * [C.9. Secure Cookie (Gorilla Securecookie)](C-9-securecookie.md)
