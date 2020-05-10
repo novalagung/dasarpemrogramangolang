@@ -8,7 +8,7 @@ Kali ini topik yang dipilih adalah SAML SSO versi 2.0. Kita akan pelajari cara p
 
 Sebelum kita masuk ke bagian tulis menulis kode, alangkah baiknya sedikit membahas tentang definisi dari SSO dan SAML itu sendiri.
 
-### SSO
+#### • SSO
 
 SSO atau Single Sign-On merupakan servis untuk otentikasi dan manajemen session. Dengan SSO, maka akses ke banyak aplikasi cukup bisa sekali otentikasi saja. Contoh SSO:
 
@@ -20,7 +20,7 @@ SSO atau Single Sign-On merupakan servis untuk otentikasi dan manajemen session.
 
 Ada beberapa jenis penerapan SSO yang bisa dipilih, salah satunya adalah **Security Assertion Markup Language** atau **SAML** yang akan kita bahas pada bab ini.
 
-### SAML
+#### • SAML
 
 SAML merupakan protokol open standard untuk otentikasi dan otorisasi antara penyedia layanan (**Service Provider**) dan penyedia identitas (**Identity Provider**). SAML berbasis *assertion* berupa XML.
 
@@ -42,7 +42,7 @@ Agar lebih mudah dipahami, kita gunakan contoh. Ada dua buah website/aplikasi ya
 
 Aplikasi **ngemail** dan **ndeloktipi** menggunakan satu penyedia identitas yaitu http://loginomrene.com. Jadi **loginomrene** ini merupakan IDP atau Identity Provider.
 
-### 1. User request *target resource* ke SP
+#### 1. User request *target resource* ke SP
 
 Suatu ketika ada sebuah user yang ingin mengakses **ngemail** untuk mengirim sebuah email ke temannya. User tersebut sudah terdaftar sebelumnya. User langsung mengakses url berikut di browser.
 
@@ -54,7 +54,7 @@ Yang terjadi ketika user browser website tersebut, si SP (dalam konteks ini **ng
 
 > Target resource disini yang dimaksud adalah http://ngemail.com/ngirimemailsaiki
 
-### 2. SP merespon dengan URL untuk SSO login di IDP
+#### 2. SP merespon dengan URL untuk SSO login di IDP
 
 Karena user belum memiliki ijin akses, maka SP membalas request dari browser tersebut dengan balasan berupa url halaman login SSO di IDP.
 
@@ -64,13 +64,13 @@ http://loginomrene.com/SAML2/SSO/Redirect?SAMLRequest=request
 
 > Isi dari query string `SAMLRequest` adalah sebuah XML `<samlp:AuthnRequest>...</samlp:AuthnRequest>` yang di-encode dalam base64 encoding.
 
-### 3. Browser request laman SSO login ke IDP
+#### 3. Browser request laman SSO login ke IDP
 
 Setelah aplikasi menerima balasan atas request pada point 1, dilakukan redirect ke URL halaman SSO login pada point 2.
 
 IDP kemudian menerima request tersebut, lalu memproses `AuthnRequest` yang dikirim via query string untuk kemudian dilakukan security check.
 
-### 4. IDP merespon browser dengan menampilkan halaman login
+#### 4. IDP merespon browser dengan menampilkan halaman login
 
 Jika hasil pengecekan yang dilakukan oleh IDP adalah: user belum memiliki akses login, maka IDP merespon browser dengan menampilkan halaman login HTML.
 
@@ -84,7 +84,7 @@ Jika hasil pengecekan yang dilakukan oleh IDP adalah: user belum memiliki akses 
 
 > Isi dari input name `SAMLResponse` adalah sebuah XML `<samlp:Response></samlp:Response>` yang di-encode dalam base64 encoding.
 
-### 5. Submit POST ke SP untuk keperluan asertasi (istilahnya *Assertion Consumer Service*)
+#### 5. Submit POST ke SP untuk keperluan asertasi (istilahnya *Assertion Consumer Service*)
 
 User kemudian melakukan login di halaman otentikasi SSO pada point 4, username password atau credentials di-isi, tombol submit di klik. Request baru di-dispatch dengan tujuan url adalah action url form tersebut. Pada point 4 bisa dilihat bahwa action url adalah berikut.
 
@@ -92,11 +92,11 @@ User kemudian melakukan login di halaman otentikasi SSO pada point 4, username p
 https://loginomrene.com/SAML2/SSO/POST
 ```
 
-### 6. SP merespon dengan redirect ke *target resource*
+#### 6. SP merespon dengan redirect ke *target resource*
 
 SP menerima request tersebut, kemudian mempersiapkan ijin akses/token (yang disebut *security context*). Setelahnya SP merespon request tersebut dengan redirect ke *target resource*, pada contoh ini adalah url http://ngemail.com/ngirimemailsaiki (url point 1).
 
-### 7. User request *target resource* ke SP
+#### 7. User request *target resource* ke SP
 
 Pada bagian ini user melakukan request target resource ke SP untuk kedua kalinya setelah point pertama. Bedanya pada point pertama, requet dilakukan secara eksplisit olah user/browser, sedang kali ini request merupakan hasil redirect point 6.
 
@@ -106,7 +106,7 @@ http://ngemail.com/ngirimemailsaiki
 
 Perbedaan kedua adalah, kali ini user memiliki ijin akses.
 
-### 8. SP merespon dengan balasan *target resource* yang diminta
+#### 8. SP merespon dengan balasan *target resource* yang diminta
 
 Karena user memiliki security context, maka SP merespon dengan balasan berupa target resource yang diminta, walhasil halaman http://ngemail.com/ngirimemailsaiki muncul.
 

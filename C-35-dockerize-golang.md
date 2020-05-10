@@ -14,23 +14,23 @@ Pastikan Docker Engine ter-*install* untuk pengguna Windows atau MacOS. Untuk pe
 
 ## C.35.2. Istilah Dalam Docker
 
-#### Container
+#### • Container
 
 Container adalah sebuah environment ter-isolasi, merupakan bentuk virtualisasi yang lebih kecil dan ringan dibanding VM (Virtual Machine). Virtualisasi pada container disebut dengan *Containerization*.
 
-#### Docker Container
+#### • Docker Container
 
 Docker container adalah sebuah container yang di-manage oleh Docker Engine.
 
-#### Docker Engine
+#### • Docker Engine
 
 Docker engine merupakan *daemon* yang bertugas untuk manajemen container-container.
 
-#### Docker Image
+#### • Docker Image
 
 Docker Image adalah sebuah file yang di-*generate* oleh docker, yang file tersebut nantinya digunakan untuk basis pembuatan dan eksekusi container.
 
-#### Containerize dan Dockerize
+#### • Containerize dan Dockerize
 
 Containerize merupakan istilah terhadap aplikasi yang di-*build* ke bentuk Image. Sedangkan Dockerize merupakan istilah untuk containerize menggunakan Docker. Perlu diketahui bahwa penyedia container tidak hanya Docker saja, ada banyak engine container lainnya yang bisa dipergunakan.
 
@@ -148,38 +148,38 @@ ENTRYPOINT ["/app/binary"]
 
 Berikut adalah penjelasan per baris dari kode di atas.
 
-#### Statement `FROM golang:alpine`
+#### 1. Statement `FROM golang:alpine`
 
 Keyword `FROM` ini digunakan untuk inisialisasi *build stage* dan juga menentukan basis Image yang digunakan. Informasi `golang:alpine` disini adalah basis image yang dimaksud, yaitu image bernama `golang` dengan tag bernama `alpine` yang tersedia di laman officila Docker Hub Golang https://hub.docker.com/_/golang.
 
 Dalam Image `golang:alpine` sudah tersedia beberapa utilitas untuk keperluan *build* aplikasi Golang. Image `golang:alpine` basisnya adalah Alpine OS.
 
-#### Statement `RUN apk update && apk add --no-cache git`
+#### 2. Statement `RUN apk update && apk add --no-cache git`
 
 Keyword `RUN` digunakan untuk menjalankan shell comamnd. Argument setelahnya, yaitu `apk update && apk add --no-cache git` akan dijalankan di Image `golang:alpine` yang sudah di-set sebelumnya. Command tersebut merupakan command Alpine OS yang kurang lebih gunanya adalah berikut:
 
 * Command `apk update` digunakan untuk meng-*update* *index packages* pada OS.
 * Command `apk add --no-cache git` digunakan untuk meng-*install* Git. Kebetulan pada basis image `golang:alpine` *by default* Git adalah tidak tersedia. Jadi harus di-*install* terlebih dahulu. Git ini nantinya digunakan sewaktu `go get` dependensi lewat command `go mod tidy`. Meskipun pada contoh aplikasi hello world tidak menggunakan dependensi eksternal, *install* saja tidak apa.
 
-#### Statement `WORKDIR /app`
+#### 3. Statement `WORKDIR /app`
 
 Digunakan untuk menentukan *working directory* yang pada konteks ini adalah `/app`. Statement ini menjadikan semua statement `RUN` di bawahnya akan dieksekusi pada *working directory*.
 
-#### Statement `COPY . .`
+#### 4. Statement `COPY . .`
 
 Digunakan untuk meng-*copy* file pada argument pertama yaitu `.` yang merepresentasikan direktori yang aktif pada host atau komputer kita (yang isinya file `main.go`, `go.mod`, dan `Dockerfile`), untuk kemudian di-*paste* ke dalam Image ke *working directory* yaitu `/app`. 
 
 Dengan ini isi `/app` adalah sama persis seperti isi folder project hello world.
 
-#### Statement `RUN go mod tidy`
+#### 5. Statement `RUN go mod tidy`
 
 Digunakan untuk validasi dependensi, dan meng-automatisasi proses *download* jika dependensi yang ditemukan belum ter-*download*. Command ini akan mengeksekusi `go get` jika butuh untuk unduh dependensi, makanya kita perlu install Git.
 
-#### Statement `RUN go build -o binary`
+#### 6. Statement `RUN go build -o binary`
 
 Command `go build` digunakan untuk build *binary* atau *executable* dari kode program Go. Dengan ini *source code* dalam *working directory* akan di-*build* ke *executable* dengan nama `binary`.
 
-#### Statement `ENTRYPOINT ["/app/binary"]`
+#### 7. Statement `ENTRYPOINT ["/app/binary"]`
 
 Statement ini digunakan untuk menentukan entrypoint container sewaktu dijalankan. Jadi khusus statement `ENTRYPOINT` ini pada contoh di atas adalah yang efeknya baru kelihatan ketika Image di-*run* ke container. Sewaktu proses *build* aplikasi ke Image maka efeknya belum terlihat.
 
@@ -189,7 +189,7 @@ Ok, file `Dockerfile` sudah siap, mari kita lanjut ke proses *build* dan *start 
 
 ## C.35.6. *Build Image* dan *Create Container*
 
-#### Build Image
+#### • Build Image
 
 Pertama masuk ke direktori folder projek, lalu jalankan *command* `docker build` berikut.
 
@@ -204,7 +204,7 @@ Kurang lebih outputnya seperti gambar berikut. O iya gunakan *command* `docker i
 
 ![Build Image](images/c-35-2-build-image.png)
 
-#### Create Container
+#### • Create Container
 
 Image sudah siap, sekarang mari kita buat container baru menggunakan basis image `my-image-hello-world`. *Command*-nya kurang lebih berikut:
 
@@ -227,7 +227,7 @@ Semoga cukup jelas penjabaran di atas. Setelah container berhasil dibuat, cek me
 
 ![Create Container](images/c-35-3-create-container.png)
 
-#### Start Container
+#### • Start Container
 
 Ok, sekarang container juga sudah dibuat, lanjut untuk *start* container tersebut, caranya menggunakan command `docker container start`. Jika sudah, coba cek di browser aplikasi web hello world, harusnya sudah bisa diakses.
 
@@ -244,7 +244,7 @@ Jika mengalami error saat start container, bisa jadi karena port `8080` sudak di
 
 O iya, pada image di atas juga bisa dilihat penggunaan *command* `docker container ls` untuk memunculkan list container yang sedand *running* atau aktif. Untuk menampilkan semua container (aktif maupun non-aktif), cukup dengan menambahkan flag `-a` atau `--all`.
 
-#### Stop Container
+#### • Stop Container
 
 Untuk stop container bisa dengan *command* `docker container stop <nama-container-atau-container-id>`.
 
@@ -253,7 +253,7 @@ docker container stop my-container-hello-world
 docker container ls
 ```
 
-#### Hapus Container
+#### • Hapus Container
 
 Untuk hapus container bisa dengan *command* `docker container rm <nama-container-atau-container-id>`.
 
@@ -262,7 +262,7 @@ docker container rm my-container-hello-world
 docker container ls
 ```
 
-#### Hapus Image
+#### • Hapus Image
 
 Untuk hapus image bisa dengan *command* `docker image rm <nama-image-atau-image-id>`. O iya, untuk penghapusan image, harus dipastikan terlebih dahulu tidak ada container yang running menggunakan basis image yang ingin dihapus.
 
@@ -279,14 +279,14 @@ Atau bisa juga menggunakan *command* `docker run`. *Command* ini akan membuat co
 
 Mungkin perbandingannya seperti ini:
 
-#### Jalankan container lewat `create` lalu `start`
+#### • Jalankan container lewat `create` lalu `start`
 
 ```bash
 docker container create --name my-container-hello-world -e PORT=8080 -e INSTANCE_ID="my first instance" -p 8080:8080 my-image-hello-world
 docker container start my-container-hello-world
 ```
 
-#### Jalankan container lewat `run`
+#### • Jalankan container lewat `run`
 
 ```bash
 docker container run --name my-container-hello-world -e PORT=8080 -e INSTANCE_ID="my first instance" -p 8080:8080 my-image-hello-world
@@ -300,11 +300,11 @@ O iya, khusus untuk *command* `docker run` biasanya dijalankan dengan tambahan b
 docker container run --name my-container-hello-world --rm -it -e PORT=8080 -e INSTANCE_ID="my first instance" -p 8080:8080 my-image-hello-world
 ```
 
-#### Flag `--rm`
+#### • Flag `--rm`
 
 Flag ini digunakan untuk meng-automatisasi proses penghapusan container sewaktu container tersebut di stop. Jadi kita tidak perlu delete manual pakai `docker container rm`. Hal ini sangat membantu karena *command* `docker run` akan membuat container baru setiap dijalankan. Tapi sebenarnya pada contoh sebelumnya kita tidak perlu khawatir akan dibuat container baru karena sudah ada flag `--name`. Flag tersebut digunakan untuk menentukan nama container, yang dimana nama container harus unik. Jadi kalau ada duplikasi pasti langsung error. Nah dari sini berarti kalau temen-temen tidak pakai `--name` sangat dianjurkan paka `--rm` dalam penerapan `docker run`.
 
-#### Flag `-it`
+#### • Flag `-it`
 
 Flag ini merupakan flag gabungan antara `-i` yang digunakan untuk meng-enable *interactive mode* dan `-t` untuk *enable* `TTY`. Dengan ini kita bisa masuk ke mode interaktif yang dimana jika kita terminate atau kill command menggunakan `CTRL + C` atau `CMD + C` (untuk mac), maka otomatis container akan di stop.
 

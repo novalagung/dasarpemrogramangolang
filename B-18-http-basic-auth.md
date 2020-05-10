@@ -149,7 +149,7 @@ func init() {
 
 Selanjutnya, kita perlu menyiapkan beberapa fungsi yg digunakan pada `main.go`, yaitu `Auth()` dan `AllowOnlyGET()`.
 
-### B.18.5.1. Fungsi `Auth()`
+#### • Fungsi `Auth()`
 
 Buka `middleware.go`, siapkan fungsi `Auth()`.
 
@@ -188,7 +188,7 @@ Fungsi `r.BasicAuth()` mengembalikan 3 informasi:
 
 Jika basic auth request tidak valid, maka tampilkan pesan error sebagai nilai balik. Sedangkan jika basic auth adalah valid, maka dilanjutkan ke proses otentikasi, mengecek apakah username dan password yang dikirim cocok dengan username dan password yang ada di aplikasi kita.
 
-### B.18.5.2. Fungsi `AllowOnlyGET()`
+#### • Fungsi `AllowOnlyGET()`
 
 Fungsi ini bertugas untuk memastikan bahwa request yang diperbolehkan hanya yang ber-method `GET`. Selainnya, maka akan dianggap invalid request.
 
