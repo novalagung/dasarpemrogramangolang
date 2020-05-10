@@ -2,7 +2,11 @@
 
 Pada chapter ini kita akan praktek men-*dockerize* aplikasi Go, membungkus aplikasi hello world sebagai docker image untuk kemudian di jalankan sebagai container.
 
-Kita tidak akan membahas docker secara detail ya, hanya pengenalannya saja. Untuk teman-teman yang tertarik belajar docker secara komprehensif mulai dari awal, hingga masuk ke docker compose kemudian kubernetes *from zero to hero*, bisa *enroll* course Udemy [Praktis Belajar Docker dan Kubernetes untuk Pemula](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/).
+Kita tidak akan membahas docker secara detail ya, hanya pengenalannya saja. Untuk teman-teman yang tertarik belajar docker secara komprehensif mulai dari awal, hingga masuk ke docker compose kemudian kubernetes *from zero to hero*, bisa *enroll* course Udemy [Praktis Belajar Docker dan Kubernetes untuk Pemula](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/) berikut.
+
+<a href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/" target="_blank">
+    <img src="https://dasarpemrogramangolang.novalagung.com/images/banner.png" style="border: none;">
+</a>
 
 ## C.35.1. Prerequisities
 
@@ -242,7 +246,7 @@ O iya, pada image di atas juga bisa dilihat penggunaan *command* `docker contain
 
 #### Stop Container
 
-Untuk stop container bisa dengan *command* `docker container stop`.
+Untuk stop container bisa dengan *command* `docker container stop <nama-container-atau-container-id>`.
 
 ```bash
 docker container stop my-container-hello-world
