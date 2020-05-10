@@ -1,4 +1,4 @@
-# C.35. Dockerize Go App
+# C.35. Dockerize Aplikasi Golang
 
 Pada chapter ini kita akan praktek men-*dockerize* aplikasi Go, membungkus aplikasi hello world sebagai docker image untuk kemudian di jalankan sebagai container.
 
