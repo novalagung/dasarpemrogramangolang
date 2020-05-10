@@ -176,3 +176,14 @@ ins.adsbygoogle {
     height: 100%;
     object-fit: cover;
 }
+@media (max-width: 800px) {
+    .banner-container a {
+        width: auto;
+        left: 0;
+        margin-left: 0;
+        right: 0;
+        margin-right: 0;
+        height: auto;
+        margin-top: -100px;
+    }
+}
