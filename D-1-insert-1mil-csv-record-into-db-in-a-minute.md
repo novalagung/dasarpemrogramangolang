@@ -319,7 +319,7 @@ Di akhir fungsi main ditambahkan log untuk benchmark performa.
 
 Ok, sekarang mari kita coba eksekusi program-nya.
 
-![Preview](images/D.1-insert-1mil-csv-record-into-db-in-a-minute.png)
+![Preview](images/d-1-insert-1mil-csv-record-into-db-in-a-minute.png)
 
 Nah, bisa dilihat operasi insert selesai dalam waktu sekitar 1 menitan. Saya menggunakan laptop dengan spek berikut untuk run program:
 

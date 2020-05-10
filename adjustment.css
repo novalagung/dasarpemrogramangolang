@@ -75,6 +75,11 @@ body {
     }
 }
 
+/* content image stylesheets */
+#book-search-results .markdown-section img {
+    border: 3px solid #d4d4d4;
+}
+
 /* hide the header because each post already has it's h1 */
 /* also hide the unused navigation buttons (except font settings) */
 .book-header > h1,
