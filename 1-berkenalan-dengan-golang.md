@@ -1,4 +1,4 @@
-# Belajar Golang (Perkenalan)
+# Belajar Golang
 
 **[Golang](https://golang.org/)** (atau biasa disebut dengan **Go**) adalah bahasa pemrograman baru yang dikembangkan di **Google** oleh **[Robert Griesemer](https://github.com/griesemer)**, **[Rob Pike](https://en.wikipedia.org/wiki/Rob_Pike)**, dan **[Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson)** pada tahun 2007 dan mulai diperkenalkan ke publik tahun 2009.
 
