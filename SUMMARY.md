@@ -1,7 +1,7 @@
 # Summary
 
 * [Dasar Pemrograman Golang](README.md)
-* [Contributors](CONTRIBUTORS.md)
+* [Kontributor](CONTRIBUTORS.md)
 
 <hr>
 

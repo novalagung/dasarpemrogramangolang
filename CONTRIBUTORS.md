@@ -1,6 +1,10 @@
 # Contributors
 
-Projek Dasar Pemrograman Golang adalah Open Source, maka siapapun bebas untuk berkontribusi di sini. Berikut adalah list nama kontributor yang sudah berbaik hati menyisihkan waktunya untuk membantu pengembangan projek ini.
+E-book Dasar Pemrograman Golang adalah pryek *open source*. Siapapun bebas untuk berkontribusi di sini, bisa dalam bentuk perbaikan *typo*, update kalimat, maupun submit tulisan baru. Bagi teman-teman yang berminat untuk berkontribusi, silakan *fork* https://github.com/novalagung/dasarpemrogramangolang, kemudian langsung saja buat *issue* dan relevan *pull request* untuk issue tersebut 😊.
+
+---
+
+Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan waktunya untuk membantu pengembangan e-book ini.
 
 - [Akul Nurislamimanudin](https://github.com/akulnurislam)
 - [Amin Rasul Kamsena](https://github.com/seno-ark)
