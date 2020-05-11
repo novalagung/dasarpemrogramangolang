@@ -148,7 +148,7 @@ Berikut adalah penampakan contoh run program lewat bat-file di Windows.
 
 Memang saya setuju jika lebih butuh *effort* baik dari sisi programming maupun dari sisi eksekusi program-nya. Tapi *trust me*, pada production yang notabene *deployment* di-automatisasi (entah itu container based, pakai orchestrator, maupun tidak), pasti lebih mudah.
 
-Mungkin dari sini temen-temen bisa lanjut ke bab [C.35 - Dockerize Aplikasi Golang](/C-35-dockerize-golang.html) atau ke [C.35 - Orchestrate Go App using Docker Compose](/C-36-orchestrate-golang-using-docker-compose.html) untuk melihat praktek nyata penerapan konfigurasi via *env var*.
+Mungkin dari sini temen-temen bisa lanjut ke bab [C.35 - Dockerize Aplikasi Golang](/C-35-dockerize-golang.html) untuk melihat praktek nyata penerapan konfigurasi via *env var*.
 
 ---
 

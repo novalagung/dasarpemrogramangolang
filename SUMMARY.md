@@ -1,6 +1,6 @@
 # Summary
 
-* [Introduction](README.md)
+* [Dasar Pemrograman Golang](README.md)
 * [Contributors](CONTRIBUTORS.md)
 
 <hr>
@@ -136,7 +136,6 @@
   * [C.33. LDAP Authentication](C-33-golang-ldap-authentication.md)
   * [C.34. SSO SAML (Service Provider)](C-34-golang-sso-saml-sp.md)
   * [C.35. Dockerize Aplikasi Golang](/C-35-dockerize-golang.md)
-  * [C.35. Orchestrate Go App using Docker Compose](/C-36-orchestrate-golang-using-docker-compose.md) 
 
 <hr>
 
