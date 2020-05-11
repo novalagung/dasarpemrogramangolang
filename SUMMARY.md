@@ -6,7 +6,7 @@
 <hr>
 
 * A. Pemrograman Go Dasar
-  * [A.1. Berkenalan Dengan Golang](1-berkenalan-dengan-golang.md)
+  * [A.1. Belajar Golang (Perkenalan)](1-berkenalan-dengan-golang.md)
   * [A.2. Instalasi Golang](2-instalasi-golang.md)
   * A.3. Setup Project dan GOPATH
     * [A.3.A. Go Modules](3-setup-go-project-dengan-go-modules.md)
