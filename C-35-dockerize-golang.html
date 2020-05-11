@@ -70,14 +70,12 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="C-36-orchestrate-golang-using-docker-compose.md" />
-    
     
     <link rel="prev" href="C-34-golang-sso-saml-sp.html" />
     
 
 
-    <link rel="stylesheet" href="/adjustment.css?v=2.2020.05.10.060451"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
+    <link rel="stylesheet" href="/adjustment.css?v=2.2020.05.11.100227"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
     <body>
         
 <div class="book">
@@ -108,7 +106,7 @@
                 <a href="./">
             
                     
-                    Introduction
+                    Dasar Pemrograman Golang
             
                 </a>
             
@@ -1761,19 +1759,6 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.35" data-path="C-36-orchestrate-golang-using-docker-compose.md">
-            
-                <span>
-            
-                    
-                    C.35. Orchestrate Go App using Docker Compose
-            
-                </a>
-            
-
-            
-        </li>
-    
 
             </ul>
             
@@ -1872,15 +1857,15 @@
 <h2 id="c351-prerequisities">C.35.1. Prerequisities</h2>
 <p>Pastikan Docker Engine ter-<em>install</em> untuk pengguna Windows atau MacOS. Untuk pengguna Linux/Unix, install saja Docker Engine. Silakan merujuk ke laman panduan instalasi <a href="https://docs.docker.com/get-docker/" target="_blank">https://docs.docker.com/get-docker/</a> jika belum meng-<em>install</em> Docker-nya.</p>
 <h2 id="c352-istilah-dalam-docker">C.35.2. Istilah Dalam Docker</h2>
-<h4 id="container">Container</h4>
+<h4 id="container">&#x2022; Container</h4>
 <p>Container adalah sebuah environment ter-isolasi, merupakan bentuk virtualisasi yang lebih kecil dan ringan dibanding VM (Virtual Machine). Virtualisasi pada container disebut dengan <em>Containerization</em>.</p>
-<h4 id="docker-container">Docker Container</h4>
+<h4 id="docker-container">&#x2022; Docker Container</h4>
 <p>Docker container adalah sebuah container yang di-manage oleh Docker Engine.</p>
-<h4 id="docker-engine">Docker Engine</h4>
+<h4 id="docker-engine">&#x2022; Docker Engine</h4>
 <p>Docker engine merupakan <em>daemon</em> yang bertugas untuk manajemen container-container.</p>
-<h4 id="docker-image">Docker Image</h4>
+<h4 id="docker-image">&#x2022; Docker Image</h4>
 <p>Docker Image adalah sebuah file yang di-<em>generate</em> oleh docker, yang file tersebut nantinya digunakan untuk basis pembuatan dan eksekusi container.</p>
-<h4 id="containerize-dan-dockerize">Containerize dan Dockerize</h4>
+<h4 id="containerize-dan-dockerize">&#x2022; Containerize dan Dockerize</h4>
 <p>Containerize merupakan istilah terhadap aplikasi yang di-<em>build</em> ke bentuk Image. Sedangkan Dockerize merupakan istilah untuk containerize menggunakan Docker. Perlu diketahui bahwa penyedia container tidak hanya Docker saja, ada banyak engine container lainnya yang bisa dipergunakan.</p>
 <h2 id="c353-pembuatan-aplikasi-hello-world">C.35.3. Pembuatan Aplikasi Hello World</h2>
 <p>Sebelum masuk ke aspek docker, mari kita siapkan dulu aplikasi web sederhana yang nantinya akan di-<em>build</em> ke bentuk Image. O iya, jangan lupa inisialisasi projeknya ya menggunakan perintah <code>go mod init hello-world</code>.</p>
@@ -1967,30 +1952,30 @@ go run main.go
 <span class="hljs-keyword">ENTRYPOINT</span> <span class="bash">[<span class="hljs-string">&quot;/app/binary&quot;</span>]
 </span></code></pre>
 <p>Berikut adalah penjelasan per baris dari kode di atas.</p>
-<h4 id="statement-from-golangalpine">Statement <code>FROM golang:alpine</code></h4>
+<h4 id="1-statement-from-golangalpine">1. Statement <code>FROM golang:alpine</code></h4>
 <p>Keyword <code>FROM</code> ini digunakan untuk inisialisasi <em>build stage</em> dan juga menentukan basis Image yang digunakan. Informasi <code>golang:alpine</code> disini adalah basis image yang dimaksud, yaitu image bernama <code>golang</code> dengan tag bernama <code>alpine</code> yang tersedia di laman officila Docker Hub Golang <a href="https://hub.docker.com/_/golang" target="_blank">https://hub.docker.com/_/golang</a>.</p>
 <p>Dalam Image <code>golang:alpine</code> sudah tersedia beberapa utilitas untuk keperluan <em>build</em> aplikasi Golang. Image <code>golang:alpine</code> basisnya adalah Alpine OS.</p>
-<h4 id="statement-run-apk-update--apk-add---no-cache-git">Statement <code>RUN apk update &amp;&amp; apk add --no-cache git</code></h4>
+<h4 id="2-statement-run-apk-update--apk-add---no-cache-git">2. Statement <code>RUN apk update &amp;&amp; apk add --no-cache git</code></h4>
 <p>Keyword <code>RUN</code> digunakan untuk menjalankan shell comamnd. Argument setelahnya, yaitu <code>apk update &amp;&amp; apk add --no-cache git</code> akan dijalankan di Image <code>golang:alpine</code> yang sudah di-set sebelumnya. Command tersebut merupakan command Alpine OS yang kurang lebih gunanya adalah berikut:</p>
 <ul>
 <li>Command <code>apk update</code> digunakan untuk meng-<em>update</em> <em>index packages</em> pada OS.</li>
 <li>Command <code>apk add --no-cache git</code> digunakan untuk meng-<em>install</em> Git. Kebetulan pada basis image <code>golang:alpine</code> <em>by default</em> Git adalah tidak tersedia. Jadi harus di-<em>install</em> terlebih dahulu. Git ini nantinya digunakan sewaktu <code>go get</code> dependensi lewat command <code>go mod tidy</code>. Meskipun pada contoh aplikasi hello world tidak menggunakan dependensi eksternal, <em>install</em> saja tidak apa.</li>
 </ul>
-<h4 id="statement-workdir-app">Statement <code>WORKDIR /app</code></h4>
+<h4 id="3-statement-workdir-app">3. Statement <code>WORKDIR /app</code></h4>
 <p>Digunakan untuk menentukan <em>working directory</em> yang pada konteks ini adalah <code>/app</code>. Statement ini menjadikan semua statement <code>RUN</code> di bawahnya akan dieksekusi pada <em>working directory</em>.</p>
-<h4 id="statement-copy--">Statement <code>COPY . .</code></h4>
+<h4 id="4-statement-copy--">4. Statement <code>COPY . .</code></h4>
 <p>Digunakan untuk meng-<em>copy</em> file pada argument pertama yaitu <code>.</code> yang merepresentasikan direktori yang aktif pada host atau komputer kita (yang isinya file <code>main.go</code>, <code>go.mod</code>, dan <code>Dockerfile</code>), untuk kemudian di-<em>paste</em> ke dalam Image ke <em>working directory</em> yaitu <code>/app</code>. </p>
 <p>Dengan ini isi <code>/app</code> adalah sama persis seperti isi folder project hello world.</p>
-<h4 id="statement-run-go-mod-tidy">Statement <code>RUN go mod tidy</code></h4>
+<h4 id="5-statement-run-go-mod-tidy">5. Statement <code>RUN go mod tidy</code></h4>
 <p>Digunakan untuk validasi dependensi, dan meng-automatisasi proses <em>download</em> jika dependensi yang ditemukan belum ter-<em>download</em>. Command ini akan mengeksekusi <code>go get</code> jika butuh untuk unduh dependensi, makanya kita perlu install Git.</p>
-<h4 id="statement-run-go-build--o-binary">Statement <code>RUN go build -o binary</code></h4>
+<h4 id="6-statement-run-go-build--o-binary">6. Statement <code>RUN go build -o binary</code></h4>
 <p>Command <code>go build</code> digunakan untuk build <em>binary</em> atau <em>executable</em> dari kode program Go. Dengan ini <em>source code</em> dalam <em>working directory</em> akan di-<em>build</em> ke <em>executable</em> dengan nama <code>binary</code>.</p>
-<h4 id="statement-entrypoint-appbinary">Statement <code>ENTRYPOINT [&quot;/app/binary&quot;]</code></h4>
+<h4 id="7-statement-entrypoint-appbinary">7. Statement <code>ENTRYPOINT [&quot;/app/binary&quot;]</code></h4>
 <p>Statement ini digunakan untuk menentukan entrypoint container sewaktu dijalankan. Jadi khusus statement <code>ENTRYPOINT</code> ini pada contoh di atas adalah yang efeknya baru kelihatan ketika Image di-<em>run</em> ke container. Sewaktu proses <em>build</em> aplikasi ke Image maka efeknya belum terlihat.</p>
 <p>Dengan statement tersebut nantinya sewaktu container jalan, maka executable <code>binary</code> yang merupakan aplikasi hello world kita, itu dijalankan di container sebagai entrypoint.</p>
 <p>Ok, file <code>Dockerfile</code> sudah siap, mari kita lanjut ke proses <em>build</em> dan <em>start container</em>.</p>
 <h2 id="c356-build-image-dan-create-container">C.35.6. <em>Build Image</em> dan <em>Create Container</em></h2>
-<h4 id="build-image">Build Image</h4>
+<h4 id="build-image">&#x2022; Build Image</h4>
 <p>Pertama masuk ke direktori folder projek, lalu jalankan <em>command</em> <code>docker build</code> berikut.</p>
 <pre><code class="lang-bash"><span class="hljs-built_in">cd</span> folder-projek
 docker build -t my-image-hello-world .
@@ -1998,7 +1983,7 @@ docker build -t my-image-hello-world .
 <p><em>Command</em> di atas akan melakukan proses <em>build</em> Image pada file yang ada di dalam <code>.</code> yang merupakan isi folder projek. Projek akan di-<em>build</em> ke sebuah Image dengan nama adalah <code>my-image-hello-world</code>. Flag <code>-t</code> digunakan untuk menentukan nama Image.</p>
 <p>Kurang lebih outputnya seperti gambar berikut. O iya gunakan <em>command</em> <code>docker images</code> untuk menampilkan list semua image yang ada di lokal.</p>
 <p><img src="images/c-35-2-build-image.png" alt="Build Image"></p>
-<h4 id="create-container">Create Container</h4>
+<h4 id="create-container">&#x2022; Create Container</h4>
 <p>Image sudah siap, sekarang mari kita buat container baru menggunakan basis image <code>my-image-hello-world</code>. <em>Command</em>-nya kurang lebih berikut:</p>
 <pre><code class="lang-bash">docker container create --name my-container-hello-world <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
 </code></pre>
@@ -2015,7 +2000,7 @@ docker build -t my-image-hello-world .
 </ol>
 <p>Semoga cukup jelas penjabaran di atas. Setelah container berhasil dibuat, cek menggunakan <em>command</em> <code>docker container ls -a</code> untuk menampilkan list semua container baik yang sedang running maupun tidak.</p>
 <p><img src="images/c-35-3-create-container.png" alt="Create Container"></p>
-<h4 id="start-container">Start Container</h4>
+<h4 id="start-container">&#x2022; Start Container</h4>
 <p>Ok, sekarang container juga sudah dibuat, lanjut untuk <em>start</em> container tersebut, caranya menggunakan command <code>docker container start</code>. Jika sudah, coba cek di browser aplikasi web hello world, harusnya sudah bisa diakses.</p>
 <pre><code class="lang-bash">docker container start my-container-hello-world
 docker container ls
@@ -2024,17 +2009,17 @@ docker container ls
 <p>Bisa dilihat, sekarang aplikasi web hello world sudah bisa diakses dari host/komputer yang aplikasi tersebut running dalam container docker.</p>
 <p>Jika mengalami error saat start container, bisa jadi karena port <code>8080</code> sudak dialokasikan untuk proses lain. Solusi untuk kasus ini adalah <em>kill</em> saja proses yang menggunakan port tersebut, atau <em>rebuild image</em> dan <em>create container</em> ulang tapi menggunakan port lainnya, selain <code>8080</code>.</p>
 <p>O iya, pada image di atas juga bisa dilihat penggunaan <em>command</em> <code>docker container ls</code> untuk memunculkan list container yang sedand <em>running</em> atau aktif. Untuk menampilkan semua container (aktif maupun non-aktif), cukup dengan menambahkan flag <code>-a</code> atau <code>--all</code>.</p>
-<h4 id="stop-container">Stop Container</h4>
+<h4 id="stop-container">&#x2022; Stop Container</h4>
 <p>Untuk stop container bisa dengan <em>command</em> <code>docker container stop &lt;nama-container-atau-container-id&gt;</code>.</p>
 <pre><code class="lang-bash">docker container stop my-container-hello-world
 docker container ls
 </code></pre>
-<h4 id="hapus-container">Hapus Container</h4>
+<h4 id="hapus-container">&#x2022; Hapus Container</h4>
 <p>Untuk hapus container bisa dengan <em>command</em> <code>docker container rm &lt;nama-container-atau-container-id&gt;</code>.</p>
 <pre><code class="lang-bash">docker container rm my-container-hello-world
 docker container ls
 </code></pre>
-<h4 id="hapus-image">Hapus Image</h4>
+<h4 id="hapus-image">&#x2022; Hapus Image</h4>
 <p>Untuk hapus image bisa dengan <em>command</em> <code>docker image rm &lt;nama-image-atau-image-id&gt;</code>. O iya, untuk penghapusan image, harus dipastikan terlebih dahulu tidak ada container yang running menggunakan basis image yang ingin dihapus.</p>
 <pre><code class="lang-bash">docker image rm my-image-hello-world
 docker images
@@ -2043,20 +2028,20 @@ docker images
 <p>Untuk run container sebenarnya ada dua cara ya, yang pertama seperti contoh di atas dengan membuat container nya terlebih dahulu menggunakan <em>command</em> <code>docker container create</code> kemudian di start menggunakan <em>command</em> <code>docker container start</code>.</p>
 <p>Atau bisa juga menggunakan <em>command</em> <code>docker run</code>. <em>Command</em> ini akan membuat container baru kemudian otomatis menjalankannya. Tapi saya sampaikan bahwa lewat cara ini tidak ada pengecekan apakah container sudah dibuat atau tidak sebelumnya, pasti akan dibuat container baru.</p>
 <p>Mungkin perbandingannya seperti ini:</p>
-<h4 id="jalankan-container-lewat-create-lalu-start">Jalankan container lewat <code>create</code> lalu <code>start</code></h4>
+<h4 id="jalankan-container-lewat-create-lalu-start">&#x2022; Jalankan container lewat <code>create</code> lalu <code>start</code></h4>
 <pre><code class="lang-bash">docker container create --name my-container-hello-world <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
 docker container start my-container-hello-world
 </code></pre>
-<h4 id="jalankan-container-lewat-run">Jalankan container lewat <code>run</code></h4>
+<h4 id="jalankan-container-lewat-run">&#x2022; Jalankan container lewat <code>run</code></h4>
 <pre><code class="lang-bash">docker container run --name my-container-hello-world <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
 </code></pre>
 <p>Bisa dilihat bukan bedanya, hanya sedikit.</p>
 <p>O iya, khusus untuk <em>command</em> <code>docker run</code> biasanya dijalankan dengan tambahan beberapa flag agar lebih mudah kontrol-nya, yaitu ditambahkan flag <code>--rm</code> dan <code>-it</code>.</p>
 <pre><code class="lang-bash">docker container run --name my-container-hello-world --rm -it <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
 </code></pre>
-<h4 id="flag---rm">Flag <code>--rm</code></h4>
+<h4 id="flag---rm">&#x2022; Flag <code>--rm</code></h4>
 <p>Flag ini digunakan untuk meng-automatisasi proses penghapusan container sewaktu container tersebut di stop. Jadi kita tidak perlu delete manual pakai <code>docker container rm</code>. Hal ini sangat membantu karena <em>command</em> <code>docker run</code> akan membuat container baru setiap dijalankan. Tapi sebenarnya pada contoh sebelumnya kita tidak perlu khawatir akan dibuat container baru karena sudah ada flag <code>--name</code>. Flag tersebut digunakan untuk menentukan nama container, yang dimana nama container harus unik. Jadi kalau ada duplikasi pasti langsung error. Nah dari sini berarti kalau temen-temen tidak pakai <code>--name</code> sangat dianjurkan paka <code>--rm</code> dalam penerapan <code>docker run</code>.</p>
-<h4 id="flag--it">Flag <code>-it</code></h4>
+<h4 id="flag--it">&#x2022; Flag <code>-it</code></h4>
 <p>Flag ini merupakan flag gabungan antara <code>-i</code> yang digunakan untuk meng-enable <em>interactive mode</em> dan <code>-t</code> untuk <em>enable</em> <code>TTY</code>. Dengan ini kita bisa masuk ke mode interaktif yang dimana jika kita terminate atau kill command menggunakan <code>CTRL + C</code> atau <code>CMD + C</code> (untuk mac), maka otomatis container akan di stop.</p>
 <p>Nah dengan menggabungkan flag <code>--rm</code> dan flag <code>-it</code> kita bisa dengan mudah stop kemudian hapus container.</p>
 <p>Selain itu ada juga flag yang mungkin penting yaitu <code>-d</code> atau dettach. Flag ini bisa digabung dengan <code>-it</code>. Dettach adalah mode dimana ketika command <code>docker run</code> dijalankan, command akan langsung selesai. Dari sini untuk stop container berarti harus menggunakan command <code>docker stop</code>. Contoh:</p>
@@ -2095,14 +2080,10 @@ docker container stop my-container-hello-world
 
             
                 
-                <a href="C-34-golang-sso-saml-sp.html" class="navigation navigation-prev " aria-label="Previous page: C.34. SSO SAML (Service Provider)">
+                <a href="C-34-golang-sso-saml-sp.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: C.34. SSO SAML (Service Provider)">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="C-36-orchestrate-golang-using-docker-compose.md" class="navigation navigation-next " aria-label="Next page: C.35. Orchestrate Go App using Docker Compose">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -2111,7 +2092,7 @@ docker container stop my-container-hello-world
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.35. Dockerize Aplikasi Golang","level":"4.1.34","depth":2,"next":{"title":"C.35. Orchestrate Go App using Docker Compose","level":"4.1.35","depth":2,"path":"C-36-orchestrate-golang-using-docker-compose.md","ref":"C-36-orchestrate-golang-using-docker-compose.md","articles":[]},"previous":{"title":"C.34. SSO SAML (Service Provider)","level":"4.1.33","depth":2,"path":"C-34-golang-sso-saml-sp.md","ref":"C-34-golang-sso-saml-sp.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"C-35-dockerize-golang.md","mtime":"2020-05-10T06:03:31.623Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-10T06:04:27.883Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.35. Dockerize Aplikasi Golang","level":"4.1.34","depth":2,"next":{"title":"D. Studi Kasus","level":"5.1","depth":1,"ref":"","articles":[{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"5.1.1","depth":2,"path":"D-1-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-1-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]}]},"previous":{"title":"C.34. SSO SAML (Service Provider)","level":"4.1.33","depth":2,"path":"C-34-golang-sso-saml-sp.md","ref":"C-34-golang-sso-saml-sp.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"C-35-dockerize-golang.md","mtime":"2020-05-11T10:01:10.265Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-11T10:02:03.658Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2157,6 +2138,6 @@ docker container stop my-container-hello-world
         
     
 
-    <div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div><a href="https://devops.novalagung.com/" target="_blank" class="book-news">Halo semua, Saya telah merilis ebook baru lo, tentang devops. Di ebook tersebut fokus tentang pembahasan banyak sekali stacks/teknologi devops, jadi tidak hanya membahas satu stack saja. Dan kabar baiknya tersedia dalam dua bahasa, Indonesia dan Inggris. Yuk mampir https://devops.novalagung.com/</a><div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png?v=2.2020.05.10.060451"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 0 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script></body>
+    <div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div><a href="https://devops.novalagung.com/" target="_blank" class="book-news">Halo semua, Saya telah merilis ebook baru lo, tentang devops. Di ebook tersebut fokus tentang pembahasan banyak sekali stacks/teknologi devops, jadi tidak hanya membahas satu stack saja. Dan kabar baiknya tersedia dalam dua bahasa, Indonesia dan Inggris. Yuk mampir https://devops.novalagung.com/</a><div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png?v=2.2020.05.11.100227"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 0 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script></body>
 </html>
 

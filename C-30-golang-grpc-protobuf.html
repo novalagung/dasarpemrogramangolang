@@ -77,7 +77,7 @@
     
 
 
-    <link rel="stylesheet" href="/adjustment.css?v=2.2020.05.10.060451"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
+    <link rel="stylesheet" href="/adjustment.css?v=2.2020.05.11.100227"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
     <body>
         
 <div class="book">
@@ -108,7 +108,7 @@
                 <a href="./">
             
                     
-                    Introduction
+                    Dasar Pemrograman Golang
             
                 </a>
             
@@ -1761,19 +1761,6 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.35" data-path="C-36-orchestrate-golang-using-docker-compose.md">
-            
-                <span>
-            
-                    
-                    C.35. Orchestrate Go App using Docker Compose
-            
-                </a>
-            
-
-            
-        </li>
-    
 
             </ul>
             
@@ -1915,15 +1902,15 @@ tree .
 7 directories, 7 files
 </code></pre>
 <p>Projek kali ini cukup kompleks, dibawah ini merupakan penjelasan per bagian dari struktur projek di atas.</p>
-<h3 id="folder-common">&#x2022; Folder <code>common</code></h3>
+<h4 id="folder-common">&#x2022; Folder <code>common</code></h4>
 <p>Folder <code>common</code>, berisikan 2 buah sub folder, <code>config</code> dan <code>model</code>.</p>
 <ul>
 <li>Folder <code>config</code> berisikan informasi shared atau global, yang digunakan aplikasi client maupun server.</li>
 <li>Folder <code>model</code> berisikan file <code>.proto</code>. Silakan salin file <code>garage.proto</code> dan <code>user.proto</code> pada bab sebelumnya ke folder tersebut.</li>
 </ul>
-<h3 id="folder-client">&#x2022; Folder <code>client</code></h3>
+<h4 id="folder-client">&#x2022; Folder <code>client</code></h4>
 <p>Isinya adalah satu buah file main, yang nantinya di jalankan sebagai aplikasi client. Aplikasi client ini akan berkomunikasi dengan 2 buah aplikasi server.</p>
-<h3 id="folder-services">&#x2022; Folder <code>services</code></h3>
+<h4 id="folder-services">&#x2022; Folder <code>services</code></h4>
 <p>Satu buah file proto untuk satu aplikasi rpc server (service). Karena ada dua file proto, berarti jelasnya ada dua aplikasi rpc server, <code>service-user</code> dan <code>service-garage</code>. Folder <code>services</code> ini menampung kedua aplikasi service tersebut.</p>
 <p>File <code>garage.proto</code> dan <code>user.proto</code> tidak dijadikan satu dalam respektif folder <code>service-garage</code> dan <code>service-user</code>, karena kedua file ini juga digunakan pada aplikasi client, itulah kenapa file ini dipisah ke dalam folder <code>common/model</code>.</p>
 <h2 id="c304-file-konfigurasi-pada-folder-commonconfig">C.30.4. File Konfigurasi pada folder <code>common/config</code></h2>
@@ -1939,7 +1926,7 @@ tree .
 <p>Setelah kedua file <code>user.proto</code> dan <code>garage.proto</code> pada bab sebelumnya disalin, kita perlu menambahkan pendefinisian service pada masing-masing file proto.</p>
 <p>Keyword <code>service</code> digunakan untuk membuat service. Service ini nantinya juga ikut di konversi ke bentuk Go (menjadi interface), lewat command <code>protoc</code>. Di aplikasi rpc server, nantinya harus dibuat implementasi dari interface tersebut.</p>
 <p>OK, sekarang tambahkan kode berikut ke file proto.</p>
-<h3 id="service-users">&#x2022; Service <code>Users</code></h3>
+<h4 id="service-users">&#x2022; Service <code>Users</code></h4>
 <p>Buka file <code>user.proto</code>, tambahkan kode berikut di akhir baris.</p>
 <pre><code class="lang-protobuf"><span class="hljs-comment">// ...</span>
 
@@ -1978,7 +1965,7 @@ tree .
 <p>Interface ini nantinya harus diimplementasikan di aplikasi rpc client.</p>
 </li>
 </ul>
-<h3 id="service-garages">&#x2022; Service <code>Garages</code></h3>
+<h4 id="service-garages">&#x2022; Service <code>Garages</code></h4>
 <p>Pada file <code>garage.proto</code>, definisikan service <code>Garages</code> dengan isi dua buah method, <code>Add()</code> dan <code>List()</code>.</p>
 <pre><code class="lang-protobuf"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;google/protobuf/Empty.proto&quot;</span>;
 
@@ -2195,7 +2182,7 @@ log.Fatal(srv.Serve(l))
   <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<h3 id="test-rpc-client-user">&#x2022; Test rpc client user</h3>
+<h4 id="test-rpc-client-user">&#x2022; Test rpc client user</h4>
 <p>Selanjutnya akses fungsi <code>serviceUser()</code> untuk memperoleh objek rpc client user. Dari situ eksekusi method <code>.Register()</code>.</p>
 <pre><code class="lang-go">user := serviceUser()
 
@@ -2221,7 +2208,7 @@ log.Println(<span class="hljs-keyword">string</span>(res1String))
 </code></pre>
 <p>Bisa dilihat pada gambar berikut, pemanggilan method <code>.List()</code> juga sukses. Dua buah data yang sebelumnya didaftarkan muncul.</p>
 <p><img src="images/C.30_2_grpc_test2.png" alt="gRPC Test 2"></p>
-<h3 id="test-rpc-client-garage">&#x2022; Test rpc client garage</h3>
+<h4 id="test-rpc-client-garage">&#x2022; Test rpc client garage</h4>
 <p>Tambahkan beberapa statement untuk memanggil method yang ada di <code>service-garage</code>.</p>
 <ul>
 <li><p>Menambahkan garage untuk user <code>user1</code>:</p>
@@ -2330,7 +2317,7 @@ log.Println(<span class="hljs-keyword">string</span>(res3String))
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.30. gRPC + Protobuf","level":"4.1.29","depth":2,"next":{"title":"C.31. Context: Value, Timeout, & Cancellation","level":"4.1.30","depth":2,"path":"C-31-golang-context.md","ref":"C-31-golang-context.md","articles":[]},"previous":{"title":"C.29. Protobuf","level":"4.1.28","depth":2,"path":"C-29-golang-protobuf-implementation.md","ref":"C-29-golang-protobuf-implementation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"C-30-golang-grpc-protobuf.md","mtime":"2020-05-10T06:03:31.623Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-10T06:04:27.883Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.30. gRPC + Protobuf","level":"4.1.29","depth":2,"next":{"title":"C.31. Context: Value, Timeout, & Cancellation","level":"4.1.30","depth":2,"path":"C-31-golang-context.md","ref":"C-31-golang-context.md","articles":[]},"previous":{"title":"C.29. Protobuf","level":"4.1.28","depth":2,"path":"C-29-golang-protobuf-implementation.md","ref":"C-29-golang-protobuf-implementation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"C-30-golang-grpc-protobuf.md","mtime":"2020-05-11T10:01:10.265Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-11T10:02:03.658Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2376,6 +2363,6 @@ log.Println(<span class="hljs-keyword">string</span>(res3String))
         
     
 
-    <div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div><a href="https://devops.novalagung.com/" target="_blank" class="book-news">Halo semua, Saya telah merilis ebook baru lo, tentang devops. Di ebook tersebut fokus tentang pembahasan banyak sekali stacks/teknologi devops, jadi tidak hanya membahas satu stack saja. Dan kabar baiknya tersedia dalam dua bahasa, Indonesia dan Inggris. Yuk mampir https://devops.novalagung.com/</a><div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png?v=2.2020.05.10.060451"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 0 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script></body>
+    <div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div><a href="https://devops.novalagung.com/" target="_blank" class="book-news">Halo semua, Saya telah merilis ebook baru lo, tentang devops. Di ebook tersebut fokus tentang pembahasan banyak sekali stacks/teknologi devops, jadi tidak hanya membahas satu stack saja. Dan kabar baiknya tersedia dalam dua bahasa, Indonesia dan Inggris. Yuk mampir https://devops.novalagung.com/</a><div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png?v=2.2020.05.11.100227"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 0 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script></body>
 </html>
 

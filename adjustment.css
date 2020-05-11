@@ -8,6 +8,10 @@ body {
 /* disable search bar, replace it with the book title instead */
 .book-summary #book-search-input {
     position: relative;
+    opacity: 0;
+    overflow: hidden;
+    height: 0px;
+    padding: 0;
 }
 .book-summary #book-search-input:after {
     content: "Dasar Pemrograman Golang";
@@ -73,11 +77,6 @@ body {
     .book.with-summary .book-body {
         left: 460px;
     }
-}
-
-/* content image stylesheets */
-#book-search-results .markdown-section img {
-    border: 3px solid #d4d4d4;
 }
 
 /* hide the header because each post already has it's h1 */
