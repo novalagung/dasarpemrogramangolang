@@ -16,6 +16,7 @@ Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan wakt
 - [MH Rohman Masyhar](https://github.com/rohmanhm)
 - [Mulia Nasution](https://github.com/mul14)
 - [Noval Agung Prayogo](https://github.com/novalagung)
+- [Sal Prima](https://github.com/salprima)
 - [Seno](https://github.com/seno-ark)
 - [Teuku Mulia Ichsan](https://github.com/teukumulya-ichsan)
 - [Wanda Ichsanul Isra](https://github.com/wlisrausr)
