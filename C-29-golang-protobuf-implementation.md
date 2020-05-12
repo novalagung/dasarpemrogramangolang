@@ -203,7 +203,7 @@ File `.proto` sudah siap, sekarang saatnya untuk meng-compile file-file tersebut
 ```bash
 cd chapter-c29/model
 
-PATH=$PATH:$GOPATH/bin/ protoc --go_out=plugins=grpc:. *.proto
+PATH=$PATH:$GOPATH/bin/ protoc --go_out=. *.proto
 
 tree .
 .

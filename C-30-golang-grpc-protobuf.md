@@ -208,7 +208,7 @@ Sama seperti service `Users`, service `Garages` juga akan di-compile menjadi int
 Gunakan command berikut untuk generate file .go dari file .proto yang sudah kita buat:
 
 ```bash
-PATH=$PATH:$GOPATH/bin/ protoc --go_out=. *.proto
+PATH=$PATH:$GOPATH/bin/ protoc --go_out=plugins=grpc:. *.proto
 ```
 
 Perhatikan baik-baik command di atas, Pada flag `--go_out` isinya adalah `plugins=grpc:.`, ada `plugins=grpc` disitu (berbeda dibanding pada bab sebelumnya yang isinya langsung `.`).
