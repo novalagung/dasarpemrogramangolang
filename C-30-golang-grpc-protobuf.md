@@ -16,7 +16,7 @@ gRPC adalah salah satu RPC framework, dibuat oleh Google. gRPC menggunakan proto
 
 ## C.30.2 Prerequisites
 
-Sekedar informasi bahwa sebelum mulai mengikuti pembelajaran pada bab ini, DIWAJIBKAN untuk mengikuti pembahasan pada bab sebelumnya [C.29. Protobuf](/C-29-golang-protobuf-implementation.html).
+Sekedar informasi bahwa sebelum mulai mengikuti pembelajaran pada bab ini, **WAJIB HUKUMNYA** untuk mengikuti pembahasan pada bab sebelumnya [C.29. Protobuf](/C-29-golang-protobuf-implementation.html) terlebih dahulu.
 
 ## C.30.3. Struktur Aplikasi
 
@@ -35,7 +35,6 @@ go get -u github.com/golang/protobuf@v1.3.2
 go get -u google.golang.org/grpc@v1.26.0
 
 # then prepare underneath structures
-
 tree .
 .
 ├── go.mod
@@ -59,7 +58,9 @@ tree .
 7 directories, 7 files
 ```
 
-Projek kali ini cukup kompleks, dibawah ini merupakan penjelasan per bagian dari struktur projek di atas.
+Salah satu pembeda yang paling terlihat dibanding chapter sebelumnya adalah disini kita go get package `google.golang.org/grpc`. Package ini diperlukan oleh generator untuk bisa memahami dan men-*generate* spesifikasi `service`. Lebih jelasnya akan kita bahas sambil praktek.
+
+Lanjut. Di bawah ini merupakan penjelasan per bagian dari struktur projek di atas.
 
 #### • Folder `common`
 
@@ -202,13 +203,17 @@ Sama seperti service `Users`, service `Garages` juga akan di-compile menjadi int
   }
   ```
 
-## C.30.6. Kompilasi File `.proto`
+## C.30.6. Kompilasi File `.proto` Dengan Enable Plugin `grpc`
 
 Gunakan command berikut untuk generate file .go dari file .proto yang sudah kita buat:
 
 ```bash
 PATH=$PATH:$GOPATH/bin/ protoc --go_out=plugins=grpc:. *.proto
 ```
+
+Perhatikan baik-baik command di atas, Pada flag `--go_out` isinya adalah `plugins=grpc:.`, ada `plugins=grpc` disitu (berbeda dibanding pada bab sebelumnya yang isinya langsung `.`).
+
+Plugin `grpc` ini dipergunakan untuk men-*generate* **service bindings behaviour** yang ada pada gRPC. Seperti yang kita telah praktekan bahwa di atas kita menuliskan definisi `service`. Dengan menambahkan `plugins=grpc` maka definisi `service` tersebut akan bisa dipahami oleh generator untuk kemudian di-*transform* menjadi definisi interface beserta isi method-nya.
 
 ## C.30.7. Aplikasi Server `service-user`
 
