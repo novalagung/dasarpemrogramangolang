@@ -16,7 +16,7 @@ gRPC adalah salah satu RPC framework, dibuat oleh Google. gRPC menggunakan proto
 
 ## C.30.2 Prerequisites
 
-Sekedar informasi bahwa sebelum mulai mengikuti pembelajaran pada bab ini, DIWAJIBKAN untuk mengikuti pembahasan pada bab sebelumnya [C.29. Protobuf](/C-29-golang-protobuf-implementation.html).
+Sekedar informasi bahwa sebelum mulai mengikuti pembelajaran pada bab ini, **WAJIB HUKUMNYA** untuk mengikuti pembahasan pada bab sebelumnya [C.29. Protobuf](/C-29-golang-protobuf-implementation.html) terlebih dahulu.
 
 ## C.30.3. Struktur Aplikasi
 
@@ -35,7 +35,6 @@ go get -u github.com/golang/protobuf@v1.3.2
 go get -u google.golang.org/grpc@v1.26.0
 
 # then prepare underneath structures
-
 tree .
 .
 ├── go.mod
@@ -59,20 +58,22 @@ tree .
 7 directories, 7 files
 ```
 
-Projek kali ini cukup kompleks, dibawah ini merupakan penjelasan per bagian dari struktur projek di atas.
+Salah satu pembeda yang paling terlihat dibanding chapter sebelumnya adalah disini kita go get package `google.golang.org/grpc`. Package ini diperlukan oleh generator untuk bisa memahami dan men-*generate* spesifikasi `service`. Lebih jelasnya akan kita bahas sambil praktek.
 
-### • Folder `common`
+Lanjut. Di bawah ini merupakan penjelasan per bagian dari struktur projek di atas.
+
+#### • Folder `common`
 
 Folder `common`, berisikan 2 buah sub folder, `config` dan `model`.
 
  - Folder `config` berisikan informasi shared atau global, yang digunakan aplikasi client maupun server.
  - Folder `model` berisikan file `.proto`. Silakan salin file `garage.proto` dan `user.proto` pada bab sebelumnya ke folder tersebut.
 
-### • Folder `client`
+#### • Folder `client`
 
 Isinya adalah satu buah file main, yang nantinya di jalankan sebagai aplikasi client. Aplikasi client ini akan berkomunikasi dengan 2 buah aplikasi server.
 
-### • Folder `services`
+#### • Folder `services`
 
 Satu buah file proto untuk satu aplikasi rpc server (service). Karena ada dua file proto, berarti jelasnya ada dua aplikasi rpc server, `service-user` dan `service-garage`. Folder `services` ini menampung kedua aplikasi service tersebut.
 
@@ -99,7 +100,7 @@ Keyword `service` digunakan untuk membuat service. Service ini nantinya juga iku
 
 OK, sekarang tambahkan kode berikut ke file proto.
 
-### • Service `Users`
+#### • Service `Users`
 
 Buka file `user.proto`, tambahkan kode berikut di akhir baris.
 
@@ -149,7 +150,7 @@ Setelah di-compile, dua buah interface terbuat dengan skema nama `<interfacename
   ```
   Interface ini nantinya harus diimplementasikan di aplikasi rpc client.
 
-### • Service `Garages`
+#### • Service `Garages`
 
 Pada file `garage.proto`, definisikan service `Garages` dengan isi dua buah method, `Add()` dan `List()`.
 
@@ -202,13 +203,17 @@ Sama seperti service `Users`, service `Garages` juga akan di-compile menjadi int
   }
   ```
 
-## C.30.6. Kompilasi File `.proto`
+## C.30.6. Kompilasi File `.proto` Dengan Enable Plugin `grpc`
 
 Gunakan command berikut untuk generate file .go dari file .proto yang sudah kita buat:
 
 ```bash
 PATH=$PATH:$GOPATH/bin/ protoc --go_out=plugins=grpc:. *.proto
 ```
+
+Perhatikan baik-baik command di atas, Pada flag `--go_out` isinya adalah `plugins=grpc:.`, ada `plugins=grpc` disitu (berbeda dibanding pada bab sebelumnya yang isinya langsung `.`).
+
+Plugin `grpc` ini dipergunakan untuk men-*generate* **service bindings behaviour** yang ada pada gRPC. Seperti yang kita telah praktekan bahwa di atas kita menuliskan definisi `service`. Dengan menambahkan `plugins=grpc` maka definisi `service` tersebut akan bisa dipahami oleh generator untuk kemudian di-*transform* menjadi definisi interface beserta isi method-nya.
 
 ## C.30.7. Aplikasi Server `service-user`
 
@@ -413,7 +418,7 @@ func main() {
 }
 ```
 
-### • Test rpc client user
+#### • Test rpc client user
 
 Selanjutnya akses fungsi `serviceUser()` untuk memperoleh objek rpc client user. Dari situ eksekusi method `.Register()`.
 
@@ -451,7 +456,7 @@ Bisa dilihat pada gambar berikut, pemanggilan method `.List()` juga sukses. Dua 
 
 ![gRPC Test 2](images/C.30_2_grpc_test2.png)
 
-### • Test rpc client garage
+#### • Test rpc client garage
 
 Tambahkan beberapa statement untuk memanggil method yang ada di `service-garage`.
 

@@ -54,7 +54,6 @@ cd chapter-c29
 go mod init chapter-c29
 
 # then prepare underneath structures
-
 tree .
 .
 ├── main.go
