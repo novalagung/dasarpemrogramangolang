@@ -8,8 +8,12 @@ body {
 /* disable search bar, replace it with the book title instead */
 .book-summary #book-search-input {
     position: relative;
+    opacity: 0;
+    overflow: hidden;
+    height: 0px;
+    padding: 0;
 }
-.book-summary #book-search-input:after {
+/* .book-summary #book-search-input:after {
     content: "Dasar Pemrograman Golang";
     padding-top: 17px;
     padding-left: 15px;
@@ -20,7 +24,7 @@ body {
     background-color: #ffffff;
     z-index: 1;
     position: absolute;
-}
+} */
 
 /* disable word wrap at left sidebar */
 .book-summary ul.summary li a, .book-summary ul.summary li span {
@@ -175,4 +179,15 @@ ins.adsbygoogle {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+@media (max-width: 800px) {
+    .banner-container a {
+        width: auto;
+        left: 0;
+        margin-left: 0;
+        right: 0;
+        margin-right: 0;
+        height: auto;
+        margin-top: -100px;
+    }
 }

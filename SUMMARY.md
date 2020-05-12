@@ -1,12 +1,12 @@
 # Summary
 
-* [Introduction](README.md)
-* [Contributors](CONTRIBUTORS.md)
+* [Dasar Pemrograman Golang](README.md)
+* [Kontributor](CONTRIBUTORS.md)
 
 <hr>
 
 * A. Pemrograman Go Dasar
-  * [A.1. Berkenalan Dengan Golang](1-berkenalan-dengan-golang.md)
+  * [A.1. Belajar Golang (Perkenalan)](1-berkenalan-dengan-golang.md)
   * [A.2. Instalasi Golang](2-instalasi-golang.md)
   * A.3. Setup Project dan GOPATH
     * [A.3.A. Go Modules](3-setup-go-project-dengan-go-modules.md)
@@ -135,8 +135,7 @@
   * [C.32. JSON Web Token (JWT)](C-32-golang-jwt.md)
   * [C.33. LDAP Authentication](C-33-golang-ldap-authentication.md)
   * [C.34. SSO SAML (Service Provider)](C-34-golang-sso-saml-sp.md)
-  * [C.35. Dockerize Go App](/C-35-dockerize-golang.md)
-  * [C.35. Orchestrate Go App using Docker Compose](/C-36-orchestrate-golang-using-docker-compose.md) 
+  * [C.35. Dockerize Aplikasi Golang](/C-35-dockerize-golang.md)
 
 <hr>
 

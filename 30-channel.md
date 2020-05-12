@@ -130,7 +130,7 @@ Passing data bertipe channel lewat parameter sifatnya **pass by reference**, yan
 
 Berikut merupakan penjelasan tambahan untuk kode di atas.
 
-### A.30.2.1. Iterasi Data Slice/Array Langsung Pada Saat Inisialisasi
+#### • Iterasi Data Slice/Array Langsung Pada Saat Inisialisasi
 
 Data slice yang baru di-inisialisasi bisa langsung di-iterasi, caranya mudah dengan menuliskannya langsung setelah keyword `range`.
 
@@ -140,7 +140,7 @@ for _, each := range []string{"wick", "hunt", "bourne"} {
 }
 ```
 
-### A.30.2.2. Eksekusi Goroutine Pada IIFE
+#### • Eksekusi Goroutine Pada IIFE
 
 Eksekusi goroutine tidak harus pada fungsi atau closure yang sudah terdefinisi. Sebuah IIFE juga bisa dijalankan sebagai goroutine baru. Caranya dengan langsung menambahkan keyword `go` pada waktu deklarasi-eksekusi IIFE-nya.
 

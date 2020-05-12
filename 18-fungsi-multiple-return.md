@@ -88,11 +88,11 @@ Karena variabel nilai balik sudah ditentukan di awal, untuk mengembalikan nilai 
 
 Ada beberapa hal baru dari kode di atas yang perlu dibahas, seperti `math.Pow()` dan `math.Pi`. Berikut adalah penjelasannya.
 
-### A.18.2.1. Penggunaan Fungsi `math.Pow()`
+#### • Penggunaan Fungsi `math.Pow()`
 
 Fungsi `math.Pow()` digunakan untuk memangkat nilai. `math.Pow(2, 3)` berarti 2 pangkat 3, hasilnya 8. Fungsi ini berada dalam package `math`.
 
-### A.18.2.2. Penggunaan Konstanta `math.Pi`
+#### • Penggunaan Konstanta `math.Pi`
 
 `math.Pi` adalah konstanta bawaan `package math` yang merepresentasikan **Pi** atau **22/7**.
 

@@ -20,7 +20,7 @@ const lastName = "wick"
 fmt.Print("nice to meet you ", lastName, "!\n")
 ```
 
-### A.10.1.1. Penggunaan Fungsi `fmt.Print()`
+#### • Penggunaan Fungsi `fmt.Print()`
 
 Fungsi ini memiliki peran yang sama seperti fungsi `fmt.Println()`, pembedanya fungsi `fmt.Print()` tidak menghasilkan baris baru di akhir outputnya.
 
