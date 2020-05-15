@@ -27,7 +27,7 @@ Versi e-book: **((VERSION))**, dan versi Go **1.14**.
 
 Source code contoh-contoh program bisa diunduh di [github.com/novalagung/dasarpemrogramangolang-example](https://github.com/novalagung/dasarpemrogramangolang-example). Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.
 
-### Download E-book (.pdf / .epub / .mobi)
+### Download E-book (pdf, epub, mobi)
 
 Ebook ini bisa di-download dalam beberapa pilihan format:
 - [PDF](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=((VERSION)))
@@ -46,10 +46,6 @@ Anda juga bisa membantu kami secara finansial lewat donasi di beberapa platform 
 	<span><a href="https://www.paypal.me/novalagung" title="Donate via Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
 </div>
 
-### Status Fossa
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large)
-
 ### Kontribusi
 
 Ebook ini merupakan projek open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Cek juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTORS.html) untuk melihat list kontributor.
@@ -59,6 +55,10 @@ Ebook ini merupakan projek open source, jadi teruntuk siapapun yang ingin berkon
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 Ebook Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, selama tidak melanggar aturan lisensi [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0) untuk versi mulai dari 2.2019.11.27. Di versi terdahulu lisensi ebook yang dipergunakan adalah [GNU LGPL 2.1](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html).
+
+### Status Fossa
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large)
 
 ### Author
 
