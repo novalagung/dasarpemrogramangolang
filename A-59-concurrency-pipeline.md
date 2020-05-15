@@ -1,4 +1,4 @@
-# A.59. Concurrency: Pipeline
+# A.59. Concurrency Pattern: Pipeline
 
 Kita sudah membahas beberapa kali tentang *concurrency* atau konkurensi di Go programming. Pada chapter ini kita akan belajar salah satu best practice konkurensi dalam Go, yaitu *pipeline*, yang merupakan satu diantara banyak *concurrency pattern* yang ada di Go.
 
@@ -82,10 +82,6 @@ const contentLength = 5000
 
 var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.59-pipeline-temp")
 ```
-
-> Pastikan projek di-setup via [A.3.A. Go Modules](https://dasarpemrogramangolang.novalagung.com/3-setup-go-project-dengan-go-modules.html) ya, dan untuk library [Gubrak v2](https://github.com/novalagung/gubrak) di-`go get` dalam folder projek tersebut.
-
-> Jika projek di-setup via [A.3.B. GOPATH](https://dasarpemrogramangolang.novalagung.com/3-gopath-dan-workspace.html), maka `go get` library gubrak bisa dilakukan dari manapun, tapi pastikan yg di-import adalah `github.com/novalagung/gubrak`, bukan `github.com/novalagung/gubrak/v2`.
 
 Kemudian siapkan fungsi `init()` dan `main()`, yang isinya statement pemanggilan fungsi `generate()`. Selain itu juga ada beberapa statement untuk keperluan *benchmark* performa dari sisi *execution time*.
 
