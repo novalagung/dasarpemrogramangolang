@@ -23,11 +23,7 @@ Ada total sekitar <b>110 bab</b> yang dibahas dalam ebook ini. Bab-bab tersebut 
 
 Versi e-book: **((VERSION))**, dan versi Go **1.14**.
 
-## Source Code Praktek
-
-Source code contoh-contoh program bisa diunduh di [github.com/novalagung/dasarpemrogramangolang-example](https://github.com/novalagung/dasarpemrogramangolang-example). Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.
-
-## Download E-book (pdf, epub, mobi)
+## Download File E-book (pdf, epub, mobi)
 
 Ebook ini bisa di-download dalam beberapa pilihan format:
 - [PDF](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=((VERSION)))
@@ -35,6 +31,10 @@ Ebook ini bisa di-download dalam beberapa pilihan format:
 - [Mobi](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=((VERSION)))
 
 Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.
+
+## Source Code Praktek
+
+Source code contoh-contoh program bisa diunduh di [github.com/novalagung/dasarpemrogramangolang-example](https://github.com/novalagung/dasarpemrogramangolang-example). Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.
 
 ## Donasi
 
