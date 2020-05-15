@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>A.50. Golang JSON - Dasar Pemrograman Golang</title>
+        <title>A.61. Golang Concurrency Pattern: Context Cancellation pada Pipeline - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -70,10 +70,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="51-web-json-api.html" />
     
-    
-    <link rel="prev" href="49-url-parsing.html" />
+    <link rel="prev" href="A-60-worker-pool-queue.html" />
     
 
 
@@ -819,7 +817,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.1.50" data-path="50-json.html">
+        <li class="chapter " data-level="2.1.50" data-path="50-json.html">
             
                 <a href="50-json.html">
             
@@ -962,7 +960,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.61" data-path="A-61-pipeline-context-cancellation.html">
+        <li class="chapter active" data-level="2.1.61" data-path="A-61-pipeline-context-cancellation.html">
             
                 <a href="A-61-pipeline-context-cancellation.html">
             
@@ -1874,7 +1872,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >A.50. JSON</a>
+        <a href="." >A.61. Concurrency Pattern: Context Cancellation pada Pipeline</a>
     </h1>
 </div>
 
@@ -1889,105 +1887,8 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="a50-json">A.50. JSON</h1>
-<p><strong>JSON</strong> atau <em>Javascript Object Notation</em> adalah notasi standar yang umum digunakan untuk komunikasi data dalam web. JSON merupakan subset dari <em>javascript</em>.</p>
-<p>Go menyediakan package <code>encoding/json</code> yang berisikan banyak fungsi untuk kebutuhan operasi json.</p>
-<p>Di bab ini, kita akan belajar cara untuk konverstri string yang berbentuk json menjadi objek Go, dan sebaliknya.</p>
-<h2 id="a501-decode-json-ke-variabel-objek-struct">A.50.1. Decode JSON Ke Variabel Objek Struct</h2>
-<p>Di Go, data json dituliskan sebagai <code>string</code>. Dengan menggunakan <code>json.Unmarshal</code>, json string bisa dikonversi menjadi bentuk objek, entah itu dalam bentuk <code>map[string]interface{}</code> ataupun objek struct.</p>
-<p>Program berikut ini adalah contoh cara decoding json ke bentuk objek. Pertama import package yang dibutuhkan, lalu siapkan struct <code>User</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
-
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;encoding/json&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
-
-<span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> {
-    FullName <span class="hljs-keyword">string</span> <span class="hljs-string">`json:&quot;Name&quot;`</span>
-    Age      <span class="hljs-keyword">int</span>
-}
-</code></pre>
-<p>Struct <code>User</code> ini nantinya digunakan untuk membuat variabel baru penampung hasil decode json string. Proses decode sendiri dilakukan lewat fungsi <code>json.Unmarshal()</code>, dengan json string tersebut dimasukan ke statement fungsi tersebut.</p>
-<p>Silakan tulis kode berikut.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
-    <span class="hljs-keyword">var</span> jsonString = <span class="hljs-string">`{&quot;Name&quot;: &quot;john wick&quot;, &quot;Age&quot;: 27}`</span>
-    <span class="hljs-keyword">var</span> jsonData = []<span class="hljs-keyword">byte</span>(jsonString)
-
-    <span class="hljs-keyword">var</span> data User
-
-    <span class="hljs-keyword">var</span> err = json.Unmarshal(jsonData, &amp;data)
-    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-        fmt.Println(err.Error())
-        <span class="hljs-keyword">return</span>
-    }
-
-    fmt.Println(<span class="hljs-string">&quot;user :&quot;</span>, data.FullName)
-    fmt.Println(<span class="hljs-string">&quot;age  :&quot;</span>, data.Age)
-}
-</code></pre>
-<p>Fungsi unmarshal hanya menerima data json dalam bentuk <code>[]byte</code>, maka dari itu data json string pada kode di atas di-casting terlebih dahulu ke tipe <code>[]byte</code> sebelum dipergunakan pada fungsi unmarshal.</p>
-<p>Juga, perlu diperhatikan, argument ke-2 fungsi unmarshal harus diisi dengan <strong>pointer</strong> dari objek yang nantinya akan menampung hasilnya.</p>
-<p><img src="images/A.50_1_decode.png" alt="Decode data json ke variabel objek"></p>
-<p>Jika kita perhatikan lagi, pada struct <code>User</code>, salah satu property-nya yaitu <code>FullName</code> memiliki <strong>tag</strong> <code>json:&quot;Name&quot;</code>. Tag tersebut digunakan untuk mapping informasi json ke property yang bersangkutan.</p>
-<p>Data json yang akan diparsing memiliki 2 property yaitu <code>Name</code> dan <code>Age</code>. Kebetulan penulisan <code>Age</code> pada data json dan pada struktur struct adalah sama, berbeda dengan <code>Name</code> yang tidak ada pada struct.</p>
-<p>Dengan menambahkan tag json, maka property <code>FullName</code> struct akan secara cerdas menampung data json property <code>Name</code>.</p>
-<blockquote>
-<p>Pada kasus decoding data json string ke variabel objek struct, semua level akses property struct penampung harus publik.</p>
-</blockquote>
-<h2 id="a502-decode-json-ke-mapstringinterface--interface">A.50.2. Decode JSON Ke <code>map[string]interface{}</code> &amp; <code>interface{}</code></h2>
-<p>Tak hanya ke objek cetakan struct, target decoding data json juga bisa berupa variabel bertipe <code>map[string]interface{}</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">var</span> data1 <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
-json.Unmarshal(jsonData, &amp;data1)
-
-fmt.Println(<span class="hljs-string">&quot;user :&quot;</span>, data1[<span class="hljs-string">&quot;Name&quot;</span>])
-fmt.Println(<span class="hljs-string">&quot;age  :&quot;</span>, data1[<span class="hljs-string">&quot;Age&quot;</span>])
-</code></pre>
-<p>Variabel bertipe <code>interface{}</code> juga bisa digunakan untuk menampung hasil decode. Dengan catatan pada pengaksesan nilai property, harus dilakukan casting terlebih dahulu ke <code>map[string]interface{}</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">var</span> data2 <span class="hljs-keyword">interface</span>{}
-json.Unmarshal(jsonData, &amp;data2)
-
-<span class="hljs-keyword">var</span> decodedData = data2.(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{})
-fmt.Println(<span class="hljs-string">&quot;user :&quot;</span>, decodedData[<span class="hljs-string">&quot;Name&quot;</span>])
-fmt.Println(<span class="hljs-string">&quot;age  :&quot;</span>, decodedData[<span class="hljs-string">&quot;Age&quot;</span>])
-</code></pre>
-<h2 id="a503-decode-array-json-ke-array-objek">A.50.3. Decode Array JSON Ke Array Objek</h2>
-<p>Decode data dari array json ke slice/array objek masih sama, siapkan saja variabel penampung hasil decode dengan tipe slice struct. Contohnya bisa dilihat pada kode berikut.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">var</span> jsonString = <span class="hljs-string">`[
-    {&quot;Name&quot;: &quot;john wick&quot;, &quot;Age&quot;: 27},
-    {&quot;Name&quot;: &quot;ethan hunt&quot;, &quot;Age&quot;: 32}
-]`</span>
-
-<span class="hljs-keyword">var</span> data []User
-
-<span class="hljs-keyword">var</span> err = json.Unmarshal([]<span class="hljs-keyword">byte</span>(jsonString), &amp;data)
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    fmt.Println(err.Error())
-    <span class="hljs-keyword">return</span>
-}
-
-fmt.Println(<span class="hljs-string">&quot;user 1:&quot;</span>, data[<span class="hljs-number">0</span>].FullName)
-fmt.Println(<span class="hljs-string">&quot;user 2:&quot;</span>, data[<span class="hljs-number">1</span>].FullName)
-</code></pre>
-<h2 id="a504-encode-objek-ke-json-string">A.50.4. Encode Objek Ke JSON String</h2>
-<p>Setelah sebelumnya dijelaskan beberapa cara decode data dari json string ke objek, sekarang kita akan belajar cara <strong>encode</strong> data objek ke bentuk json string.</p>
-<p>Fungsi <code>json.Marshal</code> digunakan untuk encoding data ke json string. Sumber data bisa berupa variabel objek cetakan struct, <code>map[string]interface{}</code>, atau slice.</p>
-<p>Pada contoh berikut, data slice struct dikonversi ke dalam bentuk json string. Hasil konversi berupa <code>[]byte</code>, casting terlebih dahulu ke tipe <code>string</code> agar bisa ditampilkan bentuk json string-nya.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">var</span> object = []User{{<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-number">27</span>}, {<span class="hljs-string">&quot;ethan hunt&quot;</span>, <span class="hljs-number">32</span>}}
-<span class="hljs-keyword">var</span> jsonData, err = json.Marshal(object)
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    fmt.Println(err.Error())
-    <span class="hljs-keyword">return</span>
-}
-
-<span class="hljs-keyword">var</span> jsonString = <span class="hljs-keyword">string</span>(jsonData)
-fmt.Println(jsonString)
-</code></pre>
-<p>Output:</p>
-<p><img src="images/A.50_2_encode.png" alt="Encode data ke JSON"></p>
-<hr>
-<div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.50-json" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.50...</a>
-</div>
+                                <h1 id="a61-concurrency-pattern-context-cancellation-pada-pipeline">A.61. Concurrency Pattern: Context Cancellation pada Pipeline</h1>
+<p>In progress.</p>
 
                                 
                                 </section>
@@ -2015,14 +1916,10 @@ fmt.Println(jsonString)
 
             
                 
-                <a href="49-url-parsing.html" class="navigation navigation-prev " aria-label="Previous page: A.49. URL Parsing">
+                <a href="A-60-worker-pool-queue.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: A.60. Concurrency Pattern: Simple Worker Pool Queue">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="51-web-json-api.html" class="navigation navigation-next " aria-label="Next page: A.51. Web Service API (JSON Data)">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -2031,7 +1928,7 @@ fmt.Println(jsonString)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.50. JSON","level":"2.1.50","depth":2,"next":{"title":"A.51. Web Service API (JSON Data)","level":"2.1.51","depth":2,"path":"51-web-json-api.md","ref":"51-web-json-api.md","articles":[]},"previous":{"title":"A.49. URL Parsing","level":"2.1.49","depth":2,"path":"49-url-parsing.md","ref":"49-url-parsing.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"50-json.md","mtime":"2020-05-15T16:33:52.528Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-15T16:34:44.665Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.61. Concurrency Pattern: Context Cancellation pada Pipeline","level":"2.1.61","depth":2,"next":{"title":"B. Pemrograman Web Go Dasar","level":"3.1","depth":1,"ref":"","articles":[{"title":"B.1. Golang Web App: Hello World","level":"3.1.1","depth":2,"path":"B-1-golang-web-hello-world.md","ref":"B-1-golang-web-hello-world.md","articles":[]},{"title":"B.2. Routing http.HandleFunc","level":"3.1.2","depth":2,"path":"B-2-routing-http-handlefunc.md","ref":"B-2-routing-http-handlefunc.md","articles":[]},{"title":"B.3. Routing Static Assets","level":"3.1.3","depth":2,"path":"B-3-routing-static-assets.md","ref":"B-3-routing-static-assets.md","articles":[]},{"title":"B.4. Template: Render HTML Template","level":"3.1.4","depth":2,"path":"B-4-template-render-html.md","ref":"B-4-template-render-html.md","articles":[]},{"title":"B.5. Template: Render Partial HTML Template","level":"3.1.5","depth":2,"path":"B-5-template-render-partial-html.md","ref":"B-5-template-render-partial-html.md","articles":[]},{"title":"B.6. Template: Actions & Variables","level":"3.1.6","depth":2,"path":"B-6-template-actions-variables.md","ref":"B-6-template-actions-variables.md","articles":[]},{"title":"B.7. Template: Functions","level":"3.1.7","depth":2,"path":"B-7-template-functions.md","ref":"B-7-template-functions.md","articles":[]},{"title":"B.8. Template: Custom Functions","level":"3.1.8","depth":2,"path":"B-8-template-custom-functions.md","ref":"B-8-template-custom-functions.md","articles":[]},{"title":"B.9. Template: Render Specific HTML Template","level":"3.1.9","depth":2,"path":"B-9-render-specific-html-template.md","ref":"B-9-render-specific-html-template.md","articles":[]},{"title":"B.10. Template: Render HTML String","level":"3.1.10","depth":2,"path":"B-10-render-html-string.md","ref":"B-10-render-html-string.md","articles":[]},{"title":"B.11. HTTP Method: POST & GET","level":"3.1.11","depth":2,"path":"B-11-http-method.md","ref":"B-11-http-method.md","articles":[]},{"title":"B.12. Form Value","level":"3.1.12","depth":2,"path":"B-12-form-value.md","ref":"B-12-form-value.md","articles":[]},{"title":"B.13. Form Upload File","level":"3.1.13","depth":2,"path":"B-13-form-upload-file.md","ref":"B-13-form-upload-file.md","articles":[]},{"title":"B.14. AJAX JSON Payload","level":"3.1.14","depth":2,"path":"B-14-ajax-json-payload.md","ref":"B-14-ajax-json-payload.md","articles":[]},{"title":"B.15. AJAX JSON Response","level":"3.1.15","depth":2,"path":"B-15-ajax-json-response.md","ref":"B-15-ajax-json-response.md","articles":[]},{"title":"B.16. AJAX Multiple File Upload","level":"3.1.16","depth":2,"path":"B-16-ajax-multi-upload.md","ref":"B-16-ajax-multi-upload.md","articles":[]},{"title":"B.17. Download File","level":"3.1.17","depth":2,"path":"B-17-download-file.md","ref":"B-17-download-file.md","articles":[]},{"title":"B.18. HTTP Basic Auth","level":"3.1.18","depth":2,"path":"B-18-http-basic-auth.md","ref":"B-18-http-basic-auth.md","articles":[]},{"title":"B.19. Middleware http.Handler","level":"3.1.19","depth":2,"path":"B-19-middleware-using-http-handler.md","ref":"B-19-middleware-using-http-handler.md","articles":[]},{"title":"B.20. Custom Multiplexer","level":"3.1.20","depth":2,"path":"B-20-custom-mux-multiplexer.md","ref":"B-20-custom-mux-multiplexer.md","articles":[]},{"title":"B.21. HTTP Cookie","level":"3.1.21","depth":2,"path":"B-21-cookie.md","ref":"B-21-cookie.md","articles":[]},{"title":"B.22. Simple Configuration","level":"3.1.22","depth":2,"path":"B-22-simple-configuration.md","ref":"B-22-simple-configuration.md","articles":[]},{"title":"B.23. Cancelled HTTP Request Handler","level":"3.1.23","depth":2,"path":"B-23-server-handle-cancelled-http-request.md","ref":"B-23-server-handle-cancelled-http-request.md","articles":[]}]},"previous":{"title":"A.60. Concurrency Pattern: Simple Worker Pool Queue","level":"2.1.60","depth":2,"path":"A-60-worker-pool-queue.md","ref":"A-60-worker-pool-queue.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-61-pipeline-context-cancellation.md","mtime":"2020-05-15T16:33:52.528Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-15T16:34:44.665Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
