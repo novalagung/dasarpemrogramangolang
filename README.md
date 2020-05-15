@@ -50,7 +50,7 @@ Anda juga bisa membantu kami secara finansial lewat donasi di beberapa platform 
 
 Ebook ini merupakan projek open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Cek juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTORS.html) untuk melihat list kontributor.
 
-## Lisensi dan Status Fossa
+## Lisensi dan Status FOSSA
 
 Ebook Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, selama tidak melanggar aturan lisensi [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0) untuk versi mulai dari 2.2019.11.27. Di versi terdahulu lisensi ebook yang dipergunakan adalah [GNU LGPL 2.1](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html).
 
