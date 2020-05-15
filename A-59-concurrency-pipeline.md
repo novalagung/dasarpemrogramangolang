@@ -23,28 +23,30 @@ Dan akan lebih bagus lagi, jika di masing-masing proses backup database tersebut
 
 Silakan perhatikan visualisasi berikut. Kolom merupakan representase goroutine yang berjalan secara bersamaan. Tapi karena ketiga goroutine tersebut merupakan serangkaian proses, jadi eksekusinya harus urut. Sedangkan baris/row representasi dari *sequence* atau urutan.
 
-| sequence | goroutine proses A | goroutine proses B | goroutine proses C |
-|:--------:|:------------------:|:------------------:|:------------------:|
-|     1    |        db1         |         -          |         -          |
-|     2    |        db2         |        db1         |         -          |
-|     3    |        db3         |        db1         |         -          |
-|     4    |        db4         |        db2         |        db1         |
-|     5    |        db5         |        db3         |        db2         |
-|     6    |        db5         |        db4         |        db3         |
-|     7    |        db6         |        db5         |        db4         |
-|    ...   |        ...         |        ...         |        ...         |
+| sequence | pipeline A | pipeline B | pipeline C |
+|:--------:|:----------:|:----------:|:----------:|
+|     1    |    db1     |     -      |     -      |
+|     2    |    db2     |    db1     |     -      |
+|     3    |    db3     |    db1     |     -      |
+|     4    |    db4     |    db2     |    db1     |
+|     5    |    db5     |    db3     |    db2     |
+|     6    |    db5     |    db4     |    db3     |
+|     7    |    db6     |    db5     |    db4     |
+|    ...   |    ...     |    ...     |    ...     |
 
-1. Sequence 1: goroutine A akan melakukan proses dump dari dari `db1`. Pada waktu yang sama, goroutine B dan C menganggur.
-2. Sequence 2: proses dump `db1` telah selesai, maka lanjut ke *next stage* yaitu proses archive data dump `db1` yang dilakukan oleh goroutine B. Dan pada waktu yang sama juga, goroutine proses A menjalankan proses dump `db2`. Goroutine C masih menganggur.
-3. Sequence 3: goroutine A menjalankan proses dump `db3`. Pada waktu yang sama goroutine B belum menjalankan proses archiving `db2` yang sudah di-dump karena archiving `db1` masih belum selesai. Goroutine C masih menganggur.
-4. Sequence 4: proses archiving `db1` sudah selesai, maka lanjut ke *next stage* yaitu kirim archive ke server backup yang prosesnya di-handle oleh goroutine C. Pada saat yang sama, goroutine B mulai menjalankan archiving data dump `db2` dan goroutine A dumping `db4`.
+Di Go, umumnya proses yang berupa goroutine yang eksekusinya adalah concurrent tapi secara flow adalah harus berurutan, itu disebut dengan **pipeline**. Jadi untuk sementara anggap saja pipeline A sebuah goroutine untuk proses A, pipeline B adalah goroutine proses B, dst.
+
+Untuk mempermudah memahami tabel di atas silakan ikuti penjelasan beruntun berikut:
+
+1. Sequence 1: pipeline A akan melakukan proses dump dari dari `db1`. Pada waktu yang sama, pipeline B dan C menganggur.
+2. Sequence 2: proses dump `db1` telah selesai, maka lanjut ke *next stage* yaitu proses archive data dump `db1` yang dilakukan oleh pipeline B. Dan pada waktu yang sama juga, pipeline A menjalankan proses dump `db2`. Pipeline C masih menganggur.
+3. Sequence 3: pipeline A menjalankan proses dump `db3`. Pada waktu yang sama pipeline B belum menjalankan proses archiving `db2` yang sudah di-dump karena archiving `db1` masih belum selesai. Pipeline C masih menganggur.
+4. Sequence 4: proses archiving `db1` sudah selesai, maka lanjut ke *next stage* yaitu kirim archive ke server backup yang prosesnya di-handle oleh pipeline C. Pada saat yang sama, pipeline B mulai menjalankan archiving data dump `db2` dan pipeline A dumping `db4`.
 5. ... dan seterusnya.
 
-Pada contoh ini kita asumsikan proses A hanya satu goroutine, proses B juga satu goroutine, demikian juga proses C. Dalam implementasinya nanti bisa saja ada banyak goroutine untuk masing-masing proses (banyak goroutine proses A, banyak goroutine proses B, banyak goroutine proses C).
+Pada contoh ini kita asumsikan pipeline A adalah hanya satu goroutine, pipeline B juga satu goroutine, demikian juga pipeline C. Tapi sebenarnya dalam implementasi *real world* bisa saja ada banyak goroutine untuk masing-masing pipeline (banyak goroutine untuk pipeline A, banyak goroutine untuk pipeline B, banyak goroutine untuk pipeline C).
 
 Semoga cukup jelas ya. Gpp kalau bingung, nanti kita sambil praktek juga jadi bisa saja temen-temen mulai benar-benar pahamnya setelah praktek.
-
-> Di Go, umumnya goroutine proses sekuensial disebut dengan istilah `pipeline`. Jadi berdasarkan contoh di atas akan ada 3 pipeline yaitu: `pipeline A`, `pipeline B`, dan `pipeline C`.
 
 ## A.59.2. Seknario Praktek
 
@@ -69,11 +71,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"os"
 	"path/filepath"
 	"time"
-
-	gubrak "github.com/novalagung/gubrak/v2"
 )
 
 const totalFile = 3000
@@ -86,30 +87,51 @@ var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.59-pipeline-temp")
 
 > Jika projek di-setup via [A.3.B. GOPATH](https://dasarpemrogramangolang.novalagung.com/3-gopath-dan-workspace.html), maka `go get` library gubrak bisa dilakukan dari manapun, tapi pastikan yg di-import adalah `github.com/novalagung/gubrak`, bukan `github.com/novalagung/gubrak/v2`.
 
-Kemudian siapkan fungsi `main()`, yang isinya statement pemanggilan fungsi `generate`. Dalam fungsi `main()` tersebut penulis tambahkan statement untuk *benchmark* performa dari sisi *execution time*.
+Kemudian siapkan fungsi `init()` dan `main()`, yang isinya statement pemanggilan fungsi `generate()`. Selain itu juga ada beberapa statement untuk keperluan *benchmark* performa dari sisi *execution time*.
+
+Sedangkan dalam fungsi `init()` ada statement untuk inisialisasi nilai seed random source, ini penting karena dibutuhkan oleh fungsi generate random string yang juga akan kita buat.
 
 ```go
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
 func main() {
 	log.Println("start")
 	start := time.Now()
 
-	generate()
+	generateFiles()
 
 	duration := time.Since(start)
 	log.Println("done in", duration.Seconds(), "seconds")
 }
 ```
 
-Lalu siapkan fungsi `generate()`-nya. isinya kurang lebih adalah generate banyak file sejumlah `totalFile`. Lalu di tiap-tiap file di-isi dengan *random string* dengan lebar sepanjang `contentLength`. Untuk nama file-nya sendiri, formatnya adalah `file-<index>.txt`.
+Sekarang siapkan fungsi `randomString()`-nya:
 
 ```go
-func generate() {
+func randomString(length int) string {
+	letters := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+	b := make([]rune, length)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+
+	return string(b)
+}
+```
+
+Lalu siapkan fungsi `generateFiles()`-nya. isinya kurang lebih adalah generate banyak file sejumlah `totalFile`. Lalu di tiap-tiap file di-isi dengan *random string* dengan lebar sepanjang `contentLength`. Untuk nama file-nya sendiri, formatnya adalah `file-<index>.txt`.
+
+```go
+func generateFiles() {
 	os.RemoveAll(tempPath)
 	os.MkdirAll(tempPath, os.ModePerm)
 
 	for i := 0; i < totalFile; i++ {
 		filename := filepath.Join(tempPath, fmt.Sprintf("file-%d.txt", i))
-		content := gubrak.RandomString(contentLength)
+		content := randomString(contentLength)
 		err := ioutil.WriteFile(filename, []byte(content), os.ModePerm)
 		if err != nil {
 			log.Println("Error writing file", filename)
@@ -178,12 +200,12 @@ func proceed() {
 	counterRenamed := 0
 	err := filepath.Walk(tempPath, func(path string, info os.FileInfo, err error) error {
 
-        // if there is an error, return immediatelly
+		// if there is an error, return immediatelly
 		if err != nil {
 			return err
-        }
-        
-        // if it is a sub directory, return immediatelly
+		}
+
+		// if it is a sub directory, return immediatelly
 		if info.IsDir() {
 			return nil
 		}
@@ -286,7 +308,7 @@ func main() {
 	start := time.Now()
 
 	// pipeline 1: loop all files and read it
-    chanFileContent := readFiles()
+	chanFileContent := readFiles()
 
     // ...
 }
@@ -440,12 +462,12 @@ Tambahkan statement pipeline ketiga, yaitu pemanggilan fungsi Fan-out `rename()`
 func main() {
     // ...
 
-	// pipeline 3: rename old files
+	// pipeline 3: rename files
 	chanRename1 := rename(chanFileSum)
 	chanRename2 := rename(chanFileSum)
 	chanRename3 := rename(chanFileSum)
 	chanRename4 := rename(chanFileSum)
-    chanRename := mergeChanFileInfo(chanRename1, chanRename2, chanRename3, chanRename4)
+	chanRename := mergeChanFileInfo(chanRename1, chanRename2, chanRename3, chanRename4)
     
     // ...
 }
@@ -486,23 +508,42 @@ Serangkaian proses yang sudah kita setup punya ketergantungan tinggi satu sama l
 func main() {
     // ...
 
-    // print output
-    counterRenamed := 0
-    counterTotal := 0
-    for fileInfo := range chanRename {
-        if fileInfo.IsRenamed {
-            counterRenamed++
-        }
-        counterTotal++
-    }
+	// print output
+	counterRenamed := 0
+	counterTotal := 0
+	for fileInfo := range chanRename {
+		if fileInfo.IsRenamed {
+			counterRenamed++
+		}
+		counterTotal++
+	}
 
-    log.Printf("%d/%d files renamed", counterRenamed, counterTotal)
+	log.Printf("%d/%d files renamed", counterRenamed, counterTotal)
 
-    duration := time.Since(start)
-    log.Println("done in", duration.Seconds(), "seconds")
+	duration := time.Since(start)
+	log.Println("done in", duration.Seconds(), "seconds")
 }
 ```
 
 Kita lakukan perulangan terhadap channel tersebut, lalu hitung jumlah file yang ditemukan vs jumlah file yang berhasil di-rename. Idealnya keduanya nilainya adalah sama, yaitu `3000`.
 
 Ok, sekarang program sudah siap. Mari kita jalankan untuk melihat hasilnya.
+
+![Rename file concurrently](images/A.59_3_rename_concurrently.png)
+
+Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu `1.17` detik, sedangkan dengan metode pipeline butuh hanya `0.72` detik. Bedanya hampir **40%**! dan ini hanya 3000 file saja, bayangkan kalau jutaan file, mungkin lebih kerasa perbandingan performnya.
+
+## A.59.6. Kesimpulan
+
+Pipeline concurrency pattern sangat bagus untuk diterapkan pada kasus yang proses-nya bisa di-klasifikasi menjadi sub-proses kecil-kecil yang secara I/O tidak saling tunggu (tapi secara flow harus berurutan).
+
+Untuk banyak kasus, metode pipeline ini sangat tepat guna. Kita bisa dengan mudah mengontrol penggunaan resource seperti **CPU** dengan cara menentukan angka ideal jumlah worker untuk masing-masing pipeline, tapi untuk bagian ini butuh *test and try*, karena tidak selalu banyak worker itu menghasilkan proses yang lebih cepat. Bisa jadi karena terlalu banyak worker malah lebih lambat. Jadi silakan lakukan testing saja, sesuaikan dengan spesifikasi CPU laptop/komputer/server yang digunakan.
+
+Ok sekian untuk chapter panjang ini.
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.59-pipeline">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.59...</a>
+</div>
