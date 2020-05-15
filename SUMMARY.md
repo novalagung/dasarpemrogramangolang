@@ -66,9 +66,8 @@
   * [A.56. WaitGroup](56-waitgroup.md)
   * [A.57. Mutex](57-mutex.md)
   * [A.58. Go Vendoring](A-58-go-vendoring.md)
-  <!-- * [A.61. Time & Timezone Location](A-61-time-timezone-location.md) -->
-  <!-- * [A.62. Dockerize Go](A-61-time-timezone-location.md) -->
-  <!-- worker pool -->
+  * [A.59. Concurrency: Pipeline](A-59-concurrency-pipeline.md)
+  <!-- * [A.99. Time & Timezone Location](A-61-time-timezone-location.md) -->
 
 <hr>
 
