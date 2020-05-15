@@ -1,4 +1,6 @@
 # Dasar Pemrograman Golang
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_shield)
+
 
 [Golang](https://golang.org/), atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang [menggunakan bahasa ini](https://github.com/golang/go/wiki/GoUsers) dalam pengembangan produk-produk mereka, hingga level production tentunya.
 
@@ -37,3 +39,7 @@ Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi we
 Ebook ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan saran, silakan drop email ke [caknopal@gmail.com](mailto:caknopal@gmail.com).
 
 Ebook ini merupakan projek open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Cek juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTORS.html) untuk melihat list kontributor.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large)
