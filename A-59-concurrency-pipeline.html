@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>A.59. Golang Concurrency Pattern: Pipeline - Dasar Pemrograman Golang</title>
+        <title>Golang Concurrency Pattern: Pipeline - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -70,14 +70,14 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="A-60-worker-pool-queue.html" />
+    <link rel="next" href="A-60-simplified-fan-in-fan-out-pipeline.html" />
     
     
     <link rel="prev" href="A-58-go-vendoring.html" />
     
 
 
-    <link rel="stylesheet" href="/adjustment.css?v=2.2020.05.15.163611"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
+    <link rel="stylesheet" href="/adjustment.css?v=2.2020.05.16.165311"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
     <body>
         
 <div class="book">
@@ -949,12 +949,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.60" data-path="A-60-worker-pool-queue.html">
+        <li class="chapter " data-level="2.1.60" data-path="A-60-simplified-fan-in-fan-out-pipeline.html">
             
-                <a href="A-60-worker-pool-queue.html">
+                <a href="A-60-simplified-fan-in-fan-out-pipeline.html">
             
                     
-                    A.60. Concurrency Pattern: Simple Worker Pool Queue
+                    A.60. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline
             
                 </a>
             
@@ -967,7 +967,7 @@
                 <a href="A-61-pipeline-context-cancellation.html">
             
                     
-                    A.61. Concurrency Pattern: Context Cancellation pada Pipeline
+                    A.61. Concurrency Pattern: Context Cancellation Pipeline
             
                 </a>
             
@@ -1893,10 +1893,10 @@
 <p>Kita sudah membahas beberapa kali tentang <em>concurrency</em> atau konkurensi di Go programming. Pada chapter ini kita akan belajar salah satu best practice konkurensi dalam Go, yaitu <em>pipeline</em>, yang merupakan satu diantara banyak <em>concurrency pattern</em> yang ada di Go.</p>
 <p>Go memiliki beberapa API untuk keperluan konkurensi, diantara <em>goroutine</em> dan <em>channel</em>. Dengan memanfaatkan APIs yang ada kita bisa mementuk sebuah <em>streaming data pipeline</em> yang benefitnya adalah efisiensi penggunaan I/O dan efisiensi penggunaan banyak CPU.</p>
 <h2 id="a591-konsep-pipeline">A.59.1. Konsep <em>Pipeline</em></h2>
-<p>Definisi <em>pipeline</em> yang paling mudah versi penulis adalah <strong>beberapa/banyak proses yang berjalan secara konkuren yang masing-masing proses merupakan serangkaian tahapan proses yang berhubungan satu sama lain</strong>.</p>
-<p>Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database secara rutin, yang dimana database yang di backup ada di banyak tempat misalnya. Jadi ada banyak aplikasi yang datanya perlu di-backup. Untuk backup-nya sendiri kita pake program Go, bukan <em>shell script</em>. Mungkin secara garis besar serangkaian tahapan proses yang akan dijalankan adalah berikut:</p>
+<p>Definisi <em>pipeline</em> yang paling mudah versi penulis adalah <strong>beberapa/banyak proses yang berjalan secara konkuren yang masing-masing proses merupakan bagian dari serangkaian tahapan proses yang berhubungan satu sama lain</strong>.</p>
+<p>Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database secara rutin, yang dimana database yang di backup ada banyak. Untuk backup-nya sendiri kita pake program Go, bukan <em>shell script</em>. Mungkin secara garis besar serangkaian tahapan proses yang akan dijalankan adalah berikut:</p>
 <ol>
-<li>Kita perlu data <em>list</em> dari semua database yang harus di-backup, beserta alamat akses dan kredensial-nya tentunya.</li>
+<li>Kita perlu data <em>list</em> dari semua database yang harus di-backup, beserta alamat akses dan kredensial-nya.</li>
 <li>Kita jalankan proses backup, bisa secara sekuensial (setelah <code>db1</code> selesai, lanjut <code>db2</code>, lanjut <code>db3</code>, dst), atau secara paralel (proses backup <code>db1</code>, <code>db2</code>, <code>db3</code>, dan lainnya dijalankan secara bersamaan).</li>
 <li>Di masing-masing proses backup database sendiri ada beberapa proses yang dijalankan:
 A. Lakukan operasi <em>dump</em> terhadap database, outputnya berupa banyak file disimpan ke sebuah folder.
@@ -1977,7 +1977,7 @@ C. File archive di-kirim ke server backup, sebagai contoh AWS S3.</li>
 </ol>
 <p>Pada contoh ini kita asumsikan pipeline A adalah hanya satu goroutine, pipeline B juga satu goroutine, demikian juga pipeline C. Tapi sebenarnya dalam implementasi <em>real world</em> bisa saja ada banyak goroutine untuk masing-masing pipeline (banyak goroutine untuk pipeline A, banyak goroutine untuk pipeline B, banyak goroutine untuk pipeline C).</p>
 <p>Semoga cukup jelas ya. Gpp kalau bingung, nanti kita sambil praktek juga jadi bisa saja temen-temen mulai benar-benar pahamnya setelah praktek.</p>
-<h2 id="a592-seknario-praktek">A.59.2. Seknario Praktek</h2>
+<h2 id="a592-skenario-praktek">A.59.2. Skenario Praktek</h2>
 <p>Ok, penjabaran teori sepanjang sungai <code>nil</code> tidak akan banyak membawa penjelasan yang real kalau tidak diiringi dengan praktek. So, mari kita mulai praktek.</p>
 <p>Penulis sarankan untuk benar-benar memahami setiap bagian praktek ini, karena topik ini merupakan pembahasan yang cukup berat untuk pemulai, tapi masih dalam klasifikasi fundamental kalau di Go programming. Bingung tidak apa, nanti bisa di-ulang-ulang, yang penting tidak sekadar <em>copy-paste</em>.</p>
 <p>Untuk skenario praktek kita tidak menggunakan analogi backup database di atas ya, karena untuk setup environment-nya butuh banyak <em>effort</em>. Skenario praktek yang kita pakai adalah mencari <a href="https://en.wikipedia.org/wiki/Md5sum" target="_blank">md5 sum</a> dari banyak file, kemudian menggunakan hash dari content-nya sebagai nama file. Jadi file yang lama akan di-rename dengan nama baru yaitu hash dari konten file tersebut.</p>
@@ -2404,7 +2404,7 @@ C. File archive di-kirim ke server backup, sebagai contoh AWS S3.</li>
                 </a>
                 
                 
-                <a href="A-60-worker-pool-queue.html" class="navigation navigation-next " aria-label="Next page: A.60. Concurrency Pattern: Simple Worker Pool Queue">
+                <a href="A-60-simplified-fan-in-fan-out-pipeline.html" class="navigation navigation-next " aria-label="Next page: A.60. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2415,7 +2415,7 @@ C. File archive di-kirim ke server backup, sebagai contoh AWS S3.</li>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.59. Concurrency Pattern: Pipeline","level":"2.1.59","depth":2,"next":{"title":"A.60. Concurrency Pattern: Simple Worker Pool Queue","level":"2.1.60","depth":2,"path":"A-60-worker-pool-queue.md","ref":"A-60-worker-pool-queue.md","articles":[]},"previous":{"title":"A.58. Go Vendoring","level":"2.1.58","depth":2,"path":"A-58-go-vendoring.md","ref":"A-58-go-vendoring.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-59-concurrency-pipeline.md","mtime":"2020-05-15T16:34:44.854Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-15T16:35:42.577Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.59. Concurrency Pattern: Pipeline","level":"2.1.59","depth":2,"next":{"title":"A.60. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"2.1.60","depth":2,"path":"A-60-simplified-fan-in-fan-out-pipeline.md","ref":"A-60-simplified-fan-in-fan-out-pipeline.md","articles":[]},"previous":{"title":"A.58. Go Vendoring","level":"2.1.58","depth":2,"path":"A-58-go-vendoring.md","ref":"A-58-go-vendoring.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-59-concurrency-pipeline.md","mtime":"2020-05-16T16:51:54.768Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-16T16:52:47.578Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2461,6 +2461,6 @@ C. File archive di-kirim ke server backup, sebagai contoh AWS S3.</li>
         
     
 
-    <div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div><a href="https://devops.novalagung.com/" target="_blank" class="book-news">Halo semua, Saya telah merilis ebook baru lo, tentang devops. Di ebook tersebut fokus tentang pembahasan banyak sekali stacks/teknologi devops, jadi tidak hanya membahas satu stack saja. Dan kabar baiknya tersedia dalam dua bahasa, Indonesia dan Inggris. Yuk mampir https://devops.novalagung.com/</a><div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png?v=2.2020.05.15.163611"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 0 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script></body>
+    <div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div><div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png?v=2.2020.05.16.165311"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 0 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script></body>
 </html>
 

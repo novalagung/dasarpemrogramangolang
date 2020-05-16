@@ -62,7 +62,7 @@
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/57-mutex.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/A-58-go-vendoring.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/A-59-concurrency-pipeline.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://dasarpemrogramangolang.novalagung.com/A-60-worker-pool-queue.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/A-60-simplified-fan-in-fan-out-pipeline.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/A-61-pipeline-context-cancellation.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-1-golang-web-hello-world.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-2-routing-http-handlefunc.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
