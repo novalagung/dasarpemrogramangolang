@@ -4,7 +4,7 @@
 
 Penciptaan bahasa Go didasari bahasa **C** dan **C++**, oleh karena itu gaya sintaksnya mirip.
 
-## A.1.1. Kelebihan Go
+#### Kelebihan Go
 
 Go memiliki kelebihan dibanding bahasa lainnya, beberapa di antaranya:
 

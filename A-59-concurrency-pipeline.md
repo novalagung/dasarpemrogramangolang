@@ -6,11 +6,11 @@ Go memiliki beberapa API untuk keperluan konkurensi, diantara *goroutine* dan *c
 
 ## A.59.1. Konsep *Pipeline*
 
-Definisi *pipeline* yang paling mudah versi penulis adalah **beberapa/banyak proses yang berjalan secara konkuren yang masing-masing proses merupakan serangkaian tahapan proses yang berhubungan satu sama lain**.
+Definisi *pipeline* yang paling mudah versi penulis adalah **beberapa/banyak proses yang berjalan secara konkuren yang masing-masing proses merupakan bagian dari serangkaian tahapan proses yang berhubungan satu sama lain**.
 
-Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database secara rutin, yang dimana database yang di backup ada di banyak tempat misalnya. Jadi ada banyak aplikasi yang datanya perlu di-backup. Untuk backup-nya sendiri kita pake program Go, bukan *shell script*. Mungkin secara garis besar serangkaian tahapan proses yang akan dijalankan adalah berikut:
+Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database secara rutin, yang dimana database yang di backup ada banyak. Untuk backup-nya sendiri kita pake program Go, bukan *shell script*. Mungkin secara garis besar serangkaian tahapan proses yang akan dijalankan adalah berikut:
 
-1. Kita perlu data *list* dari semua database yang harus di-backup, beserta alamat akses dan kredensial-nya tentunya.
+1. Kita perlu data *list* dari semua database yang harus di-backup, beserta alamat akses dan kredensial-nya.
 2. Kita jalankan proses backup, bisa secara sekuensial (setelah `db1` selesai, lanjut `db2`, lanjut `db3`, dst), atau secara paralel (proses backup `db1`, `db2`, `db3`, dan lainnya dijalankan secara bersamaan).
 3. Di masing-masing proses backup database sendiri ada beberapa proses yang dijalankan:
    A. Lakukan operasi *dump* terhadap database, outputnya berupa banyak file disimpan ke sebuah folder.
@@ -48,7 +48,7 @@ Pada contoh ini kita asumsikan pipeline A adalah hanya satu goroutine, pipeline 
 
 Semoga cukup jelas ya. Gpp kalau bingung, nanti kita sambil praktek juga jadi bisa saja temen-temen mulai benar-benar pahamnya setelah praktek.
 
-## A.59.2. Seknario Praktek
+## A.59.2. Skenario Praktek
 
 Ok, penjabaran teori sepanjang sungai `nil` tidak akan banyak membawa penjelasan yang real kalau tidak diiringi dengan praktek. So, mari kita mulai praktek.
 

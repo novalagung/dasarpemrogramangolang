@@ -67,8 +67,8 @@
   * [A.57. Mutex](57-mutex.md)
   * [A.58. Go Vendoring](A-58-go-vendoring.md)
   * [A.59. Concurrency Pattern: Pipeline](A-59-concurrency-pipeline.md)
-  * [A.60. Concurrency Pattern: Simple Worker Pool Queue](A-60-worker-pool-queue.md)
-  * [A.61. Concurrency Pattern: Context Cancellation pada Pipeline](A-61-pipeline-context-cancellation.md)
+  * [A.60. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](A-60-simplified-fan-in-fan-out-pipeline.md)
+  * [A.61. Concurrency Pattern: Context Cancellation Pipeline](A-61-pipeline-context-cancellation.md)
   <!-- * [A.99. Time & Timezone Location](A-61-time-timezone-location.md) -->
 
 <hr>

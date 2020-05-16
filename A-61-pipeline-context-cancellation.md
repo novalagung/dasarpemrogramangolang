@@ -1,3 +1,3 @@
-# A.61. Concurrency Pattern: Context Cancellation pada Pipeline
+# A.61. Concurrency Pattern: Context Cancellation Pipeline
 
 In progress.
