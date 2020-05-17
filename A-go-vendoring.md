@@ -40,7 +40,7 @@ func main() {
 
 Setelah itu jalankan command `go mod vendor` untuk vendoring *3rd party library* yang dipergunakan, dalam contoh ini adlah gubrak.
 
-![Vendoring](images/A_go_vendoring_1_vendor.png)
+![Vendoring](images/a_go_vendoring_1_vendor.png)
 
 Bisa dilihat, sekarang library gubrak *source code*-nya disimpan dalam folder `vendor`. Nah ini juga akan berlaku untuk semua *library* lainnya yg digunakan jika ada.
 

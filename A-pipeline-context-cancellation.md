@@ -176,7 +176,7 @@ func createFiles(chanIn <-chan FileInfo, numberOfWorkers int) <-chan FileInfo {
 
 Hasil eksekusi program:
 
-![Concurrent without cancellation](images/A_pipeline_context_cancellation_1_concurrent_without_cancellation.png)
+![Concurrent without cancellation](images/a_pipeline_context_cancellation_1_concurrent_without_cancellation.png)
 
 ## A.61.3. Program Generate Dummy File *Concurrently* dan Mekanisme *Cancellation*
 
@@ -414,13 +414,13 @@ Penambahannya juga sama seperti fungsi-fungsi yang lain, yaitu dengan menambahka
 
 Jalankan program ke-dua, lihat hasilnya. Karena sebelumnya kita sudah set durasi timeout adalah **3 detik**, maka jika proses belum selesai sebelum durasi tersebut akan di-cancel secara paksa.
 
-![Context timeout](images/A_pipeline_context_cancellation_2_context_timeout.png)
+![Context timeout](images/a_pipeline_context_cancellation_2_context_timeout.png)
 
 Cukup mudah bukan?
 
 Silakan coba modifikasi durasinya dengan nilai lebih besar, misalnya **15 detik**, lalu coba jalankan.
 
-![Concurrent without cancellation](images/A_pipeline_context_cancellation_1_concurrent_without_cancellation.png)
+![Concurrent without cancellation](images/a_pipeline_context_cancellation_1_concurrent_without_cancellation.png)
 
 Bisa dilihat, di gambar di atas, jika program selesai sebelum **15 detik** maka aman.
 

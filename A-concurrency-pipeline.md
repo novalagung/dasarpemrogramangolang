@@ -146,7 +146,7 @@ O iya untuk logging pembuatan file saya tampilkan setiap 100 file di-generate, a
 
 Oke, generator sudah siap, jalankan.
 
-![Generate dummy files](images/A_concurrency_pipeline_1_generate_dummy_files.png)
+![Generate dummy files](images/a_concurrency_pipeline_1_generate_dummy_files.png)
 
 Bisa dilihat sebanyak 3000 dummy file di-generate pada folder temporary os, di sub folder `chapter-A.59-pipeline-temp`.
 
@@ -246,7 +246,7 @@ Cukup panjang isi fungsi ini, tapi isinya cukup *straightforward* kok.
 
 Semoga cukup jelas. Kalo iya, jalankan programnya.
 
-![Generate dummy files](images/A_concurrency_pipeline_2_rename_sequentially.png)
+![Generate dummy files](images/a_concurrency_pipeline_2_rename_sequentially.png)
 
 Selesai dalam waktu **1,17 detik**, lumayan untuk eksekusi proses sekuensial.
 
@@ -525,7 +525,7 @@ Kita lakukan perulangan terhadap channel tersebut, lalu hitung jumlah file yang 
 
 Ok, sekarang program sudah siap. Mari kita jalankan untuk melihat hasilnya.
 
-![Rename file concurrently](images/A_concurrency_pipeline_3_rename_concurrently.png)
+![Rename file concurrently](images/a_concurrency_pipeline_3_rename_concurrently.png)
 
 Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu `1.17` detik, sedangkan dengan metode pipeline butuh hanya `0.72` detik. Bedanya hampir **40%**! dan ini hanya 3000 file saja, bayangkan kalau jutaan file, mungkin lebih kerasa perbandingan performnya.
 
