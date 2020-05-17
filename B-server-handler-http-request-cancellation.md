@@ -1,10 +1,12 @@
-# B.23. Server Handler untuk Cancelled Client HTTP Request
+# B.23. Server Handler HTTP Request Cancellation
 
 Dalam konteks web application, kadang kala sebuah http request butuh waktu cukup lama untuk selesai, bisa jadi karena kode yang kurang dioptimasi, atau prosesnya memang lama, atau mungkin faktor lainnya. Dari sisi client, biasanya ada handler untuk cancel request jika melebihi batas timeout yang sudah didefinisikan, dan ketika itu terjadi di client akan sangat mudah untuk antisipasinya.
 
 Berbeda dengan handler di back end-nya, by default request yang sudah di-cancel oleh client tidak terdeteksi (proses di back end akan tetap lanjut). Umumnya tidak ada masalah mengenai ini, tapi ada kalanya kita perlu men-treat cancelled request dengan baik untuk keperluan lain (logging, atau lainnya).
 
 Pada bab ini kita akan belajar caranya.
+
+> Bab ini fokus terhadap cancellation pada client http request. Untuk cancellation pada proses konkuren silakan merujuk ke [A.61. Concurrency Pattern: Context Cancellation Pipeline](A-pipeline-context-cancellation.md).
 
 ## B.32.1. Praktek
 
@@ -80,7 +82,7 @@ Jalankan kode lalu test hasilnya.
 curl -X GET http://localhost:8080/
 ```
 
-![Cancelled client http request](images/B.23_1_cancelled_request_get.png)
+![Cancelled client http request](images/b_server_handler_http_request_cancellation_1_cancelled_request_get.png)
 
 Pada gambar di atas terdapat dua request, yg pertama sukses dan yang kedua adalah cancelled. Pesan `request cancelled` muncul ketika client http request dibatalkan.
 
@@ -110,11 +112,11 @@ Jalankan ulang program kemudian test.
 curl -X POST http://localhost:8080/ -H 'Content-Type: application/json' -d '{}'
 ```
 
-![Cancelled client http request](images/B.23_2_cancelled request_with_payload.png)
+![Cancelled client http request](images/b_server_handler_http_request_cancellation_2_cancelled request_with_payload.png)
 
 ---
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.23-handle-cancelled-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.23...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B-server-handler-http-request-cancellation">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>

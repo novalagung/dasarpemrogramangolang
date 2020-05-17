@@ -63,13 +63,13 @@
   * [A.53. SQL](53-sql.md)
   * [A.54. NoSQL MongoDB](54-mongodb.md)
   * [A.55. Unit Test](55-unit-test.md)
-  * [A.56. WaitGroup](56-waitgroup.md)
-  * [A.57. Mutex](57-mutex.md)
-  * [A.58. Go Vendoring](A-58-go-vendoring.md)
-  * [A.59. Concurrency Pattern: Pipeline](A-59-concurrency-pipeline.md)
-  * [A.60. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](A-60-simplified-fan-in-fan-out-pipeline.md)
-  * [A.61. Concurrency Pattern: Context Cancellation Pipeline](A-61-pipeline-context-cancellation.md)
-  <!-- * [A.99. Time & Timezone Location](A-61-time-timezone-location.md) -->
+  * [A.56. sync.WaitGroup](56-waitgroup.md)
+  * [A.57. sync.Mutex](57-mutex.md)
+  * [A.58. Go Vendoring](A-go-vendoring.md)
+  * [A.59. Concurrency Pattern: Pipeline](A-concurrency-pipeline.md)
+  * [A.60. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](A-simplified-fan-in-fan-out-pipeline.md)
+  * [A.61. Concurrency Pattern: Context Cancellation Pipeline](A-pipeline-context-cancellation.md)
+  <!-- * [A.99. Time & Timezone Location] -->
 
 <hr>
 
@@ -96,7 +96,7 @@
   * [B.20. Custom Multiplexer](B-20-custom-mux-multiplexer.md)
   * [B.21. HTTP Cookie](B-21-cookie.md)
   * [B.22. Simple Configuration](B-22-simple-configuration.md)
-  * [B.23. Cancelled HTTP Request Handler](B-23-server-handle-cancelled-http-request.md)
+  * [B.23. Server Handler HTTP Request Cancellation](B-server-handler-http-request-cancellation.md)
 
 <hr>
 
@@ -129,16 +129,16 @@
   * [C.25. Secure & Insecure Client HTTP Request](C-25-secure-insecure-client-http-request.md)
   * [C.26. FTP](C-26-golang-ftp.md)
   * [C.27. SSH & SFTP](C-27-golang-ssh-sftp.md)
-  * [C.28. Web Socket: Chatting App](C-28-golang-web-socket.md)
   * [C.29. Protobuf](C-29-golang-protobuf-implementation.md)
   * [C.30. gRPC + Protobuf](C-30-golang-grpc-protobuf.md)
-  * [C.31. Context: Value, Timeout, & Cancellation](C-31-golang-context.md)
   * [C.32. JSON Web Token (JWT)](C-32-golang-jwt.md)
   * [C.33. LDAP Authentication](C-33-golang-ldap-authentication.md)
   * [C.34. SSO SAML (Service Provider)](C-34-golang-sso-saml-sp.md)
-  * [C.35. Dockerize Aplikasi Golang](/C-35-dockerize-golang.md)
+  * [C.35. Dockerize Aplikasi Golang](/C-dockerize-golang.md)
 
 <hr>
 
 * D. Studi Kasus
-  * [D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover](D-1-insert-1mil-csv-record-into-db-in-a-minute.md)
+  * [D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover](D-insert-1mil-csv-record-into-db-in-a-minute.md)
+  * [D.2. Google API Search Dengan Timeout](D-google-api-search.md)
+  * [D.3. Web Socket: Chatting App](D-golang-web-socket-chatting-app.md)

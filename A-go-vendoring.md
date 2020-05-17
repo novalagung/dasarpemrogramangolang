@@ -40,7 +40,7 @@ func main() {
 
 Setelah itu jalankan command `go mod vendor` untuk vendoring *3rd party library* yang dipergunakan, dalam contoh ini adlah gubrak.
 
-![Vendoring](images/A.58_1_vendor.png)
+![Vendoring](images/a_go_vendoring_1_vendor.png)
 
 Bisa dilihat, sekarang library gubrak *source code*-nya disimpan dalam folder `vendor`. Nah ini juga akan berlaku untuk semua *library* lainnya yg digunakan jika ada.
 
@@ -72,5 +72,5 @@ Untuk penggunaan vendor apakah wajib? menurut saya tidak. Sesuaikan kebutuhan sa
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.58-vendoring">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.58...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A-go-vendoring">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>

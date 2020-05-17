@@ -1,4 +1,4 @@
-# C.28. Web Socket: Chatting App
+# D.3. Web Socket: Chatting App
 
 Pada bab ini kita akan belajar penerapan web socket di Go, untuk membuat sebuah aplikasi chatting. Web socket server dibuat menggunakan library [Gorilla Web Socket](https://github.com/gorilla/websocket), dan di sisi front end kita menggunakan native API milik javascript yaitu [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications) untuk melakukan komunikasi dengan socket server.
 
@@ -10,9 +10,9 @@ Nantinya saat testing akan ada banyak user terhubung dengan socket server, dalam
 
 Kurang lebih aplikasi yang kita kembangkan seperti gambar di bawah ini.
 
-![Chatting App](images/C.28_3_chatting.png)
+![Chatting App](images/d_golang_web_socket_chatting_app_3_chatting.png)
 
-## CB.28.1. Back End
+## D.3.1. Back End
 
 Buat folder projek baru.
 
@@ -216,7 +216,7 @@ Method `.WriteJSON()` milik `websocket.Conn` digunakan untuk mengirim data dari 
 
 Bagian back end sudah cukup. Sekarang lanjut ke layer front end.
 
-## CB.28.2. Front End
+## D.3.2. Front End
 
 Siapkan terlebih dahulu basis layout front end. Ada dua section penting yg harus disiapkan.
 
@@ -291,7 +291,7 @@ Tambahkan beberapa stylesheet agar terlihat cantik.
 
 Tampilan sekilas aplikasi bisa dilihat pada gambar di bawah ini.
 
-![Chatting App Template](images/C.28_1_template.png)
+![Chatting App Template](images/d_golang_web_socket_chatting_app_1_template.png)
 
 OK, sekarang saatnya masuk ke bagian yang paling disukai anak jaman now (?), yaitu javascript. Siapkan beberapa property, satu untuk menampung objek client socket server, dan satu lagi menampung element container (element inilah yang nantinya akan diisi message yang di-broadcast oleh server).
 
@@ -323,7 +323,7 @@ Fungsi `app.init()` dipanggil pada event `window.onload`.
 
 Di saat pertama kali page load, muncul prompt yang meminta inputan nama user. Nantinya user yang diinput dijadikan sebagai *current* username pada aplikasi chatting ini.
 
-![Prompt Username](images/C.28_2_prompt_username.png)
+![Prompt Username](images/d_golang_web_socket_chatting_app_2_prompt_username.png)
 
 Property `app.ws` digunakan untuk menampung objek client web socket. Dari objek tersebut, buat 3 buah event listener. Tulis deklarasi event-nya dalam `app.init`.
 
@@ -392,11 +392,11 @@ app.doSendMessage = function () {
 
 OK, aplikasi sudah siap, mari lanjut ke bagian testing.
 
-## CB.28.3. Testing
+## D.3.3. Testing
 
 Buka beberapa tab, gunakan username apa saja di masing-masing tab. Coba berinteraksi satu sama lain.
 
-![Chatting App](images/C.28_3_chatting.png)
+![Chatting App](images/d_golang_web_socket_chatting_app_3_chatting.png)
 
 Bisa dilihat, ketika ada user baru, semua client yang sudah terhubung mendapat pesan **User XXX: connected**. 
 
@@ -404,7 +404,7 @@ Pesan yang ditulis oleh satu client bisa dilihat oleh client lainnya.
 
 Ketika salah satu user leave, pesan **User XXX: disconnected** akan di-broadcast ke semua user lainnya. Pada gambar di bawah ini dicontohkan user **Noval Agung** leave.
 
-![User leave chat room](images/C.28_4_user_leave.png)
+![User leave chat room](images/d_golang_web_socket_chatting_app_4_user_leave.png)
 
 ---
 
@@ -415,5 +415,5 @@ Ketika salah satu user leave, pesan **User XXX: disconnected** akan di-broadcast
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.28-golang-web-socket">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.28...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-D-golang-web-socket-chatting-app">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>

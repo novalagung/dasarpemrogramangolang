@@ -56,6 +56,8 @@ Output program di atas.
 
 ![Contoh penerapan `sync.WaitGroup`](images/A.56_1_waitgroup.png)
 
+> `sync.WaitGroup` merupakan salah satu tipe yang *thread safe*. Kita tidak perlu khawatir terhadap potensi *race condition* karena variabel bertipe ini aman untuk digunakan di banyak goroutine secara paralel.
+
 ## A.56.2. Perbedaan WaitGroup Dengan Channel
 
 Bukan sebuah perbandingan yang valid, tapi jika dibandingkan maka perbedaan antara channel dan `sync.WaitGroup` kurang lebih sebagai berikut:
