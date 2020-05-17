@@ -1,6 +1,6 @@
 # A.60. Concurrency Pattern: Simplified Fan-out Fan-in Pipeline
 
-Pada chapter sebelumnya, yaitu [A.59. Concurrency Pattern: Pipeline](/A-59-concurrency-pipeline.html), kita telah mempelajari tentang pipeline pattern, yang dimana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-*handle* jenis kasus sekarangkain proses yang berjalan secara konkuren.
+Pada chapter sebelumnya, yaitu [A.59. Concurrency Pattern: Pipeline](/A-concurrency-pipeline.html), kita telah mempelajari tentang pipeline pattern, yang dimana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-*handle* jenis kasus sekarangkain proses yang berjalan secara konkuren.
 
 > Penulis sangat anjurkan untuk mencoba mempelajari praktek chapter sebelumnya terlebih dahulu jika belum. Karena chapter kali ini ada hubungannya dengan chapter tersebut.
 
@@ -12,11 +12,11 @@ Ok, agar lebih jelas mari kita mulai praktek.
 
 ## A.60.1. Skenario Praktek
 
-Kita akan modifikasi file program [`1-dummy-file-generator.go` yang pada chapter sebelumnya sudah dibuat](/A-59-concurrency-pipeline.html). Kita rubah mekanisme generate dummy files-nya dari sekuensial ke konkuren.
-
-Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi sekuensialnya. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan merujuk ke chapter sebelumnya saja, disini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
+Kita akan modifikasi file program [`1-dummy-file-generator.go` yang pada chapter sebelumnya sudah dibuat](/A-concurrency-pipeline.html). Kita rubah mekanisme generate dummy files-nya dari sekuensial ke konkuren.
 
 ## A.60.2. Program Generate Dummy File *Sequentially*
+
+Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi sekuensialnya. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan merujuk ke chapter sebelumnya saja, disini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
 
 Siapkan folder projek baru, isinya satu buah file `1-generate-dummy-files-sequentially.go`.
 
@@ -101,7 +101,7 @@ Pada bagian fungsi `generateFiles()` kali ini sedikit berbeda dibanding sebelumn
 
 Kita lanjut dulu saja. Berikut adalah output jika program di atas di-run.
 
-![Generate dummy files sequentially](images/A.60_1_generate_dummy_files_sequentially.png)
+![Generate dummy files sequentially](images/A_simplified_fan_in_fan_out_pipeline_1_generate_dummy_files_sequentially.png)
 
 ## A.60.3. Program Generate Dummy File *Concurrently*
 
@@ -325,16 +325,23 @@ Saya akan coba jalankan program pertama dan kedua, lalu mari kita lihat perbedaa
 
 #### • Program Generate Dummy File *Sequentially*
 
-![Generate dummy files sequentially](images/A.60_2_benchmark.png)
+![Generate dummy files sequentially](images/A_simplified_fan_in_fan_out_pipeline_2_benchmark.png)
 
 Testing di awal chapter ini hasilnya butuh sekitar **19 detik** untuk menyelesaikan generate dummy files sebanyak 3000 secara sekuensial. Tapi kali ini lebih lambat, yaitu **23 detik** dan ini wajar, karena di tiap operasi kita munculkan log ke stdout (via `log.Println()`).
 
 #### • Program Generate Dummy File *Concurrently*
 
-![Generate dummy files concurrently](images/A.60_3_concurrent.png)
+![Generate dummy files concurrently](images/A_simplified_fan_in_fan_out_pipeline_3_concurrent.png)
 
 Bandingkan dengan ini, **3 detik** saja! luar biasa sekali bukan beda performanya. Dan pastinya akan lebih cepat lagi kalau kita hapus statement untuk logging ke stdout (`log.Println()`).
 
 Nah dari sini semoga cukup jelas ya bedanya kalau dari sisi performa. Inilah pentingnya kenapa konkurensi di Go harus diterapkan (untuk kasus yang memang bisa di-konkurensikan prosesnya). Tapi temen-temen juga harus hati-hati dalam mendesain pipeline dan menentukan jumlah workernya, karena jika tidak tepat bisa makan *resources* seperti CPU dan RAM cukup tinggi.
 
 > Untuk menentukan jumlah worker yang ideal, caranya adalah dengan coba-coba dan disesuaikan dengan spesifikasi server/laptopnya. Jadi tidak ada angka yang pasti berapa jumlah worker ideal. Sangat tergantung ke banyak hal (jenis proses, jumlah pipeline, jumlah worker per pipeline, spesifikasi hardware, dsb).
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A-simplified-fan-in-fan-out-pipeline">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
+</div>

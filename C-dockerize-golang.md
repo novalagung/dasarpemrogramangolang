@@ -120,7 +120,7 @@ export INSTANCE_ID="my first instance"
 go run main.go
 ```
 
-![Hello world](images/c-35-1-start-hello-world.png)
+![Hello world](images/c_dockerize_golang_1_start_hello_world.png)
 
 Ok bisa dilihat aplikasi berjalan sesuai harapan. Selanjutnya kita akan *dockerize* aplikasi hello world ini.
 
@@ -202,7 +202,7 @@ docker build -t my-image-hello-world .
 
 Kurang lebih outputnya seperti gambar berikut. O iya gunakan *command* `docker images` untuk menampilkan list semua image yang ada di lokal.
 
-![Build Image](images/c-35-2-build-image.png)
+![Build Image](images/c_dockerize_golang_2_build_image.png)
 
 #### • Create Container
 
@@ -225,7 +225,7 @@ Command di atas akan menjalankan sebuah proses yang isinya kurang lebih berikut:
  
 Semoga cukup jelas penjabaran di atas. Setelah container berhasil dibuat, cek menggunakan *command* `docker container ls -a` untuk menampilkan list semua container baik yang sedang running maupun tidak.
 
-![Create Container](images/c-35-3-create-container.png)
+![Create Container](images/c_dockerize_golang_3_create_container.png)
 
 #### • Start Container
 
@@ -236,7 +236,7 @@ docker container start my-container-hello-world
 docker container ls
 ```
 
-![Start Container](images/c-35-4-start-container.png)
+![Start Container](images/c_dockerize_golang_4_start_container.png)
 
 Bisa dilihat, sekarang aplikasi web hello world sudah bisa diakses dari host/komputer yang aplikasi tersebut running dalam container docker.
 
@@ -321,5 +321,5 @@ docker container stop my-container-hello-world
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.35-dockerize-golang">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.35...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C-dockerize-golang">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>

@@ -319,7 +319,7 @@ Di akhir fungsi main ditambahkan log untuk benchmark performa.
 
 Ok, sekarang mari kita coba eksekusi program-nya.
 
-![Preview](images/d-1-insert-1mil-csv-record-into-db-in-a-minute.png)
+![Preview](images/d_insert_1mil_csv_record_into_db_in_a_minute_1_preview.png)
 
 Nah, bisa dilihat operasi insert selesai dalam waktu sekitar 1 menitan. Saya menggunakan laptop dengan spek berikut untuk run program:
 
@@ -343,5 +343,5 @@ Praktek pada bab ini sifatnya adalah POC, jadi sangat mungkin diperlukan penyesu
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-D.1-insert-1mil-csv-record-into-db-in-a-minute">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-D.1...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-D-insert-1mil-csv-record-into-db-in-a-minute">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>

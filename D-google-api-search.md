@@ -1,12 +1,12 @@
-# C.31. Context: Value, Timeout, & Cancellation
+# D.2. Google API Search Dengan Timeout
 
-Pada bab ini kita akan belajar mengenai pemanfaatan `context.Context` untuk menyisipkan dan membaca data context pada objek `*http.Request`, dan juga untuk handling timeout dan cancelation request.
+Pada bab ini kita akan mencoba studi kasus yaitu membuat web service API untuk *wrap* pencarian ke Google Search API.
 
 Proses pembelajaran dilakukan dengan praktek membuat sebuah aplikasi web service kecil, yang tugasnya melakukan pencarian data. Nantinya akan dibuat juga middleware `MiddlewareUtility`, tugasnya menyisipkan informasi origin dispatcher request, ke dalam context request, sebelum akhirnya sampai pada handler endpoint yg sedang diakses.
 
-## C.31.1. Context Value
+## D.2.1. Context Value
 
-Ok, langsung saja, siapkan folder projek baru dengan struktur seperti berikut.
+Ok, langsung saja, siapkan folder projek projek baru dengan struktur seperti berikut.
 
 ```bash
 mkdir chapter-c31
@@ -14,7 +14,6 @@ cd chapter-c31
 go mod init chapter-c31
 
 # then prepare underneath structures
-
 tree .
 .
 ├── main.go
@@ -51,7 +50,6 @@ func (c *CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 ```
 
 Lalu pada file `main.go`, buat satu buah endpoint `/api/search`, dengan isi handler menampilkan data `from` yang diambil dari request context. Data `from` ini di set ke dalam request context oleh middleware `MiddlewareUtility`.
-
 
 ```go
 package main
@@ -113,9 +111,7 @@ Objek request context bisa didapat lewat pengaksesan method `.Context()` milik `
 
 Pada kode di atas, jika context adalah `nil`, maka di-inisialisasi dengan context baru lewat `context.Background()`.
 
-> Selain lewat `context.Background()`, pembuatan context juga bisa dilakukan lewat `context.TODO()`. Mengenai perbedaannya silakan cek [di laman dokumentasi `context`](https://golang.org/pkg/context/#Background).
-
-Objek `ctx` yang merupakan `context.Context`, kita tempeli data `from`. Cara melakukannya dengan memanggil statement `context.WithValue()` dengan disisipi 3 buah parameter.
+Objek `ctx` yang merupakan `context.Context` disini kita tempeli data `from`. Cara melakukannya dengan memanggil statement `context.WithValue()` dengan disisipi 3 buah parameter.
 
  1. Parameter ke-1, isinya adalah objek context.
  2. Parameter ke-2, isinya key dari data yang akan disimpan.
@@ -127,15 +123,15 @@ Ok, sekarang objek `ctx` sudah dimodifikasi. Objek ini perlu untuk ditempelkan l
 
 Jalankan aplikasi, hasilnya kurang lebih seperti gambar berikut.
 
-![Context example](images/C.31_1_context_example.png)
+![Context example](images/d_google_api_search_1_context_example.png)
 
 O iya, penulis tidak menggunakan `http://localhost` untuk mengakses aplikasi, melainkan menggunakan `http://mysampletestapp.com`, dengan catatan domain ini sudah saya arahkan ke 127.0.0.1.
 
-![Etc Host](images/C.31_2_etc_hosts.png)
+![Etc Host](images/d_google_api_search_2_etc_hosts.png)
 
 Ok, untuk sekarang sepertinya cukup jelas mengenai penggunaan context pada objek http request. Tinggal kembangkan saja sesuai kebutuhan, seperti contohnya: context untuk menyimpan data session, yang diambil dari database sessuai dengan session id nya.
 
-## C.31.2. Context Timeout & Cancelation
+## D.2.2. Context Timeout & Cancellation
 
 Melanjutkan program yang sudah dibuat, nantinya pada endpoint `/api/search` akan dilakukan sebuah pencarian ke Google sesuai dengan keyword yang diinginkan. Pencarian dilakukan dengan memanfaatkan [Custom Search JSON API](https://developers.google.com/custom-search/json-api/v1/overview) milik Google.
 
@@ -298,11 +294,11 @@ Jika di-summary, maka yang dilakukan oleh fungsi `doSearch` kurang lebih sebagai
 
 Jalankan, lihat hasilnya.
 
-![Request response OK](images/C.31_3_result_ok.png)
+![Request response OK](images/d_google_api_search_3_result_ok.png)
 
 Informasi tambahan: best practice mengenai cancelation context adalah untuk selalu menambahkan `defer cancel()` setelah (cancelation) context dibuat. Lebih detailnya silakan baca https://blog.golang.org/context.
 
-## C.31.3. Google Search API Restrictions Referer
+## D.2.3. Google Search API Restrictions Referer
 
 Di bagian awal bab ini, kita belajar mengenai context value. Kenapa penulis memilih menggunakan context untuk menyisipkan data referer, kenapa tidak contoh yg lebih umum seperti session dan lainnya? sebenarnya ada alasannya.
 
@@ -313,7 +309,7 @@ Silakan coba akses kedua url berikut.
 
 Harusnya yang dikembalikan sama, tapi kenyataannya pengaksesan lewat url `localhost` menghasilkan error.
 
-![Request response fail](images/C.31_4_result_fail.png)
+![Request response fail](images/d_google_api_search_4_result_fail.png)
 
 Error message:
 
@@ -321,11 +317,11 @@ Error message:
 
 Error di atas muncul karena, host `localhost` belum didaftarkan pada API console. Berbeda dengan `mysampletestapp.com` yang sudah didaftarkan, host ini berhak mengakses menggunakan API key yang kita gunakan.
 
-![Api configuration](images/C.31_5_api_hostname.png)
+![Api configuration](images/d_google_api_search_5_api_hostname.png)
 
 ---
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.31-context">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.31...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-D-google-api-search">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>

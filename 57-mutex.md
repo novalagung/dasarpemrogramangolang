@@ -167,6 +167,8 @@ func main() {
 }
 ```
 
+> `sync.Mutex` merupakan salah satu tipe yang *thread safe*. Kita tidak perlu khawatir terhadap potensi *race condition* karena variabel bertipe ini aman untuk digunakan di banyak goroutine secara paralel.
+
 ---
 
 <div class="source-code-link">
