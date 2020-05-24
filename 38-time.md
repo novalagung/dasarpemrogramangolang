@@ -92,7 +92,7 @@ Contoh penerapannya bisa dilihat di kode berikut.
 
 ```go
 var layoutFormat, value string
-var date-time.Time
+var date time.Time
 
 layoutFormat = "2006-01-02 15:04:05"
 value = "2015-09-02 08:04:00"
