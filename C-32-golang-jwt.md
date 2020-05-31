@@ -2,7 +2,7 @@
 
 Pada bab ini kita akan belajar tentang JSON Web Token (JWT) dan cara penerapannya di bahasa Go.
 
-## C.31.1. Definisi
+## C.32.1. Definisi
 
 JWT merupakan salah satu standar JSON ([RFC 7519](https://tools.ietf.org/html/rfc7519)) untuk keperluan akses token. Token dibentuk dari kombinasi beberapa informasi yang di-encode dan di-enkripsi. Informasi yang dimaksud adalah header, payload, dan signature.
 
