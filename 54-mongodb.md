@@ -40,7 +40,7 @@ import (
 
 Siapkan satu object context dan struct `student`. Rencananya satu buah document kita buat sebagai satu buah objek `student`.
 
-Perlu diketahui bahwa pada bab ini tidak dijelaskan tentang apa itu context. Silakan merujuk ke [Bab C.31. Context: Value, Timeout, & Cancellation](/C-31-golang-context.html) untuk mempelajarinya. Menggunakan satu context background untuk semua operasi sangat tidak dianjurkan, tapi pada bab ini kita terapkan demikian agar tidak menambah kebingungan pembaca yang masih proses belajar. Context sendiri fungsinya sangat banyak, untuk kasus sejenis biasanya digunakan untuk handle operation timeout atau lainnya. 
+Perlu diketahui bahwa pada bab ini tidak dijelaskan tentang apa itu context. Silakan merujuk ke [D.2. Google API Search Dengan Timeout](https://dasarpemrogramangolang.novalagung.com/D-google-api-search.html) untuk mempelajarinya. Menggunakan satu context background untuk semua operasi sangat tidak dianjurkan, tapi pada bab ini kita terapkan demikian agar tidak menambah kebingungan pembaca yang masih proses belajar. Context sendiri fungsinya sangat banyak, untuk kasus sejenis biasanya digunakan untuk handle operation timeout atau lainnya. 
 
 ```go
 var ctx = context.Background()
