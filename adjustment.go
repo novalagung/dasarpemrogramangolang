@@ -105,13 +105,17 @@ func postAdjustment() {
 		htmlString = strings.Replace(htmlString, oldTitle, newTitle, -1)
 
 		// ==== adjust meta for SEO purpose
-		metaToFind := `<meta content=""name="description">`
 		metaReplacement := ""
 		if isLandingPage {
 			metaReplacement = `<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description">`
 		}
-		metaReplacement = metaReplacement + `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "` + adClient + `", enable_page_level_ads: true }); </script>`
-		htmlString = strings.Replace(htmlString, metaToFind, metaReplacement, -1)
+		htmlString = strings.Replace(htmlString, `<meta name="description" content="">`, metaReplacement, -1)
+
+		// ==== google ads
+		googleAdsToFind := `</head>`
+		// googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">` + `</script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "` + adClient + `", enable_page_level_ads: true }); </script>` + googleAdsToFind
+		googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">` + googleAdsToFind
+		htmlString = strings.Replace(htmlString, googleAdsToFind, googleAdsReplacement, -1)
 
 		// ==== inject github stars button
 		buttonToFind := `</body>`
@@ -138,7 +142,7 @@ func postAdjustment() {
 		// bannerReplacement := `<a href="https://devops.novalagung.com/" target="_blank" class="book-news">Halo semua, Saya telah merilis ebook baru lo, tentang devops. Di ebook tersebut fokus tentang pembahasan banyak sekali stacks/teknologi devops, jadi tidak hanya membahas satu stack saja. Dan kabar baiknya tersedia dalam dua bahasa, Indonesia dan Inggris. Yuk mampir https://devops.novalagung.com/</a>` + bannerToFind
 		// htmlString = strings.Replace(htmlString, bannerToFind, bannerReplacement, -1)
 
-		// ===== inject info banner if exists
+		// ===== inject popup info banner if exists
 		infoBannerToFind := `</body>`
 		infoBannerReplacement := `<div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png?v=` + getVersion() + `"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 0 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script>` + infoBannerToFind
 		htmlString = strings.Replace(htmlString, infoBannerToFind, infoBannerReplacement, -1)
