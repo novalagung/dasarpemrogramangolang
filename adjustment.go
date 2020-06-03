@@ -114,7 +114,7 @@ func postAdjustment() {
 		// ==== google ads
 		googleAdsToFind := `</head>`
 		// googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">` + `</script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "` + adClient + `", enable_page_level_ads: true }); </script>` + googleAdsToFind
-		googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">` + googleAdsToFind
+		googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>` + googleAdsToFind
 		htmlString = strings.Replace(htmlString, googleAdsToFind, googleAdsReplacement, -1)
 
 		// ==== inject github stars button
