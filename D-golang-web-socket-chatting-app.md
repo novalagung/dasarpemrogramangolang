@@ -17,9 +17,9 @@ Kurang lebih aplikasi yang kita kembangkan seperti gambar di bawah ini.
 Buat folder projek baru.
 
 ```bash
-mkdir chapter-c28
-cd chapter-c28
-go mod init chapter-c28
+mkdir chapter-d3
+cd chapter-d3
+go mod init chapter-d3
 
 go get -u github.com/gorilla/websocket@v1.4.1
 go get -u github.com/novalagung/gubrak/v2

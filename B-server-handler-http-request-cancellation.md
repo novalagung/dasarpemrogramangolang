@@ -12,7 +12,7 @@ Pada bab ini kita akan belajar caranya.
 
 Dari objek `*http.Request` bisa diambil objek context lewat method `.Context()`, dan dari context tersebut kita bisa mendeteksi apakah sebuah request di-cancel atau tidak oleh client.
 
-> Pada bab ini kita tidak membahas secara rinci apa itu context. Silakan langsung merujuk ke [Bab C.31. Context: Value, Timeout, & Cancellation](https://dasarpemrogramangolang.novalagung.com/C-31-golang-context.html) untuk lebih detailnya.
+> Pada bab ini kita tidak membahas secara rinci apa itu context. Silakan langsung merujuk ke [Bab D.2. Google API Search Dengan Timeout](https://dasarpemrogramangolang.novalagung.com/D-google-api-search.html) untuk lebih detailnya.
 
 Object context memiliki method `.Done()` yang nilai baliknya berupa channel. Dari channel tersebut kita bisa deteksi apakah request di-cancel atau tidak, caranya dengan cara mengecek apakah ada data yang terkirim lewat channel tersebut, jika ada maka lakukan pengecekan pada error message-nya, jika ada keterangan `"cancelled"` maka diasumsikan request tersebut dibatalkan.
 
