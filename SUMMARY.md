@@ -5,8 +5,12 @@
 
 <hr>
 
+* [Course Mendeploy Aplikasi Go ke Docker dan Kubernetes](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/)
+
+<hr>
+
 * A. Pemrograman Go Dasar
-  * [A.1. Belajar Golang GRATIS](1-berkenalan-dengan-golang.md)
+  * [A.1. Belajar Golang](1-berkenalan-dengan-golang.md)
   * [A.2. Instalasi Golang](2-instalasi-golang.md)
   * A.3. Setup Project dan GOPATH
     * [A.3.A. Go Modules](3-setup-go-project-dengan-go-modules.md)

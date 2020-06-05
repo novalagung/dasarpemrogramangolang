@@ -93,6 +93,9 @@ func postAdjustment() {
 				}
 				newTitle = strings.Join(titleParts, ".")
 			}
+			if newTitle == "Belajar Golang" {
+				newTitle = "Belajar Golang Gratis Mulai Dari 0"
+			}
 			newTitle = strings.Replace(newTitle, "· GitBook", fmt.Sprintf("- %s", bookName), -1)
 
 			// ==== remove the "A.2"-ish from the title
@@ -143,9 +146,9 @@ func postAdjustment() {
 		// htmlString = strings.Replace(htmlString, bannerToFind, bannerReplacement, -1)
 
 		// ===== inject popup info banner if exists
-		infoBannerToFind := `</body>`
-		infoBannerReplacement := `<div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png?v=` + getVersion() + `"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 1 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script>` + infoBannerToFind
-		htmlString = strings.Replace(htmlString, infoBannerToFind, infoBannerReplacement, -1)
+		// infoBannerToFind := `</body>`
+		// infoBannerReplacement := `<div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png?v=` + getVersion() + `"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 1 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script>` + infoBannerToFind
+		// htmlString = strings.Replace(htmlString, infoBannerToFind, infoBannerReplacement, -1)
 
 		// ==== update file
 		err = ioutil.WriteFile(path, []byte(htmlString), info.Mode())
