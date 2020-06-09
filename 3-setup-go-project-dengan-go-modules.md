@@ -25,7 +25,7 @@ go mod init project-pertama
 dir
 ```
 
-Bisa dilihat pada *command* di atas ada direktori `projek-pertama`, dibuat. Setelah masuk ke direktori tersebut, perintah `go mod init project-pertama` dijalankan. Degan ini maka kita telah menginisialisasi direktori `projek-pertama` sebagai sebuah project Go dengan nama `project-pertama` (kebetulan di sini nama projek sama dengan nama direktori-nya).
+Bisa dilihat pada *command* di atas ada direktori `projek-pertama`, dibuat. Setelah masuk ke direktori tersebut, perintah `go mod init project-pertama` dijalankan. Dengan ini maka kita telah menginisialisasi direktori `projek-pertama` sebagai sebuah project Go dengan nama `project-pertama` (kebetulan di sini nama projek sama dengan nama direktori-nya).
 
 ![Init project](images/A.3_1_initmodule.png)
 
@@ -36,7 +36,7 @@ go mod init <nama-project>
 go mod init project-pertama
 ```
 
-Untuk nama project, umumnya adalah disamakan dengan nama direktori, tapi saja sebenarnya menggunakan nama yang lain.
+Untuk nama project, umumnya adalah disamakan dengan nama direktori, tapi bisa saja sebenarnya menggunakan nama yang lain.
 
 > Nama project dan Nama module merupakan istilah yang sama.
 
