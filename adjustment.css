@@ -44,11 +44,11 @@ body {
     color: white;
     margin-left: 5px;
     background-color: #ec882f;
-    -webkit-animation: block-promo-bg-animate 2s infinite;
-    -moz-animation: block-promo-bg-animate 2s infinite;
-    -o-animation: block-promo-bg-animate 2s infinite;
-    -ms-animation: block-promo-bg-animate 2s infinite;
-    animation: block-promo-bg-animate 2s infinite;
+    -webkit-animation: block-promo-bg-animate 3s infinite;
+    -moz-animation: block-promo-bg-animate 3s infinite;
+    -o-animation: block-promo-bg-animate 3s infinite;
+    -ms-animation: block-promo-bg-animate 3s infinite;
+    animation: block-promo-bg-animate 3s infinite;
 }
 @keyframes block-promo-bg-animate {
     0% { background-color: #008cff; }
