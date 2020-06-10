@@ -70,12 +70,12 @@ body {
 
 /* make the sidebar wider, and adjust the content to match it */
 .book-summary {
-    left: -460px;
-    width: 460px;
+    left: -480px;
+    width: 480px;
 }
 @media (min-width: 600px) {
     .book.with-summary .book-body {
-        left: 460px;
+        left: 480px;
     }
 }
 
@@ -144,7 +144,7 @@ ins.adsbygoogle {
     position: fixed;
     bottom: 0;
     right: 17px;
-    left: 460px;
+    left: 480px;
     z-index: 1000;
 }
 
