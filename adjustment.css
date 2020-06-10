@@ -51,9 +51,9 @@ body {
     animation: block-promo-bg-animate 2s infinite;
 }
 @keyframes block-promo-bg-animate {
-    0% { background-color: #ec882f; }
-    50% { background-color: #e67613; }
-    100% { background-color: #ec882f; }
+    0% { background-color: #008cff; }
+    50% { background-color: #004986; }
+    100% { background-color: #008cff; }
 }
 
 /* sidebar scroll beautification */
