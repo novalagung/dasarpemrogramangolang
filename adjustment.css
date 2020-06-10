@@ -41,6 +41,7 @@ body {
 
 /* sidebar ads animation */
 .book-summary .summary > li:nth-child(4) a {
+    color: white;
     margin-left: 5px;
     background-color: #ec882f;
     -webkit-animation: block-promo-bg-animate 2s infinite;
