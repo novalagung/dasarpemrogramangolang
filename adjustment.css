@@ -40,7 +40,7 @@ body {
 }
 
 /* sidebar ads animation */
-.book-summary .summary li:nth-child(4) {
+.book-summary .summary > li:nth-child(4) {
     color: #ffffff;
     margin-left: 5px;
     background-color: #1abc9c;
@@ -51,9 +51,9 @@ body {
     animation: block-promo-bg-animate 2s infinite;
 }
 @keyframes block-promo-bg-animate {
-  0% { background-color: #1abc9c; }
-  50% { background-color: #16a085; }
-  100% { background-color: #1abc9c; }
+    0% { background-color: #e67e22; }
+    50% { background-color: #d35400; }
+    100% { background-color: #e67e22; }
 }
 
 /* sidebar scroll beautification */
@@ -87,12 +87,12 @@ body {
 
 /* make the sidebar wider, and adjust the content to match it */
 .book-summary {
-    left: -480px;
-    width: 480px;
+    left: -500px;
+    width: 500px;
 }
 @media (min-width: 600px) {
     .book.with-summary .book-body {
-        left: 480px;
+        left: 500px;
     }
 }
 
@@ -161,7 +161,7 @@ ins.adsbygoogle {
     position: fixed;
     bottom: 0;
     right: 17px;
-    left: 480px;
+    left: 500px;
     z-index: 1000;
 }
 
