@@ -39,6 +39,23 @@ body {
     background-color: #ffffff;
 }
 
+/* sidebar ads animation */
+.book-summary .summary li:nth-child(4) {
+    color: #ffffff;
+    margin-left: 5px;
+    background-color: #1abc9c;
+    -webkit-animation: block-promo-bg-animate 2s infinite;
+    -moz-animation: block-promo-bg-animate 2s infinite;
+    -o-animation: block-promo-bg-animate 2s infinite;
+    -ms-animation: block-promo-bg-animate 2s infinite;
+    animation: block-promo-bg-animate 2s infinite;
+}
+@keyframes block-promo-bg-animate {
+  0% { background-color: #1abc9c; }
+  50% { background-color: #16a085; }
+  100% { background-color: #1abc9c; }
+}
+
 /* sidebar scroll beautification */
 .book-summary::-webkit-scrollbar {
     width: 4px;
