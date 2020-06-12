@@ -66,7 +66,7 @@ fmt.Println("student 2 :", s2.name)
 fmt.Println("student 3 :", s3.name)
 ```
 
-Pada kode di atas, variabel `s1` menampung objek cetakan `student`. Vartiabel tersebut kemudian di-set nilai property-nya.
+Pada kode di atas, variabel `s1` menampung objek cetakan `student`. Variabel tersebut kemudian di-set nilai property-nya.
 
 Variabel objek `s2` dideklarasikan dengan metode yang sama dengan `s1`, pembedanya di `s2` nilai propertinya di isi langsung ketika deklarasi. Nilai pertama akan menjadi nilai property pertama (yaitu `name`), dan selanjutnya berurutan.
 
