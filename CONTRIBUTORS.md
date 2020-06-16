@@ -23,3 +23,4 @@ Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan wakt
 - [Teuku Mulia Ichsan](https://github.com/teukumulya-ichsan)
 - [Wanda Ichsanul Isra](https://github.com/wlisrausr)
 - [Yofriadi Yahya](https://github.com/yofriadi)
+- [Ibnul Mutaki](https://github.com/cacing69)
