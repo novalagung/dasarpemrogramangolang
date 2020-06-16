@@ -92,7 +92,7 @@ Tulisan `"expired"` akan muncul setelah 4 detik.
 
 Selain fungsi-fungsi untuk keperluan timer, Go juga menyediakan fungsi scheduler (yang disini kita sebut sebagai ticker).
 
-Cara penggunaan ticker cukup mudah, buat objek ticker baru menggunakan `time.NewTicker()` isi argument dengan durasi yang diinginkan. Dari objek tersebut kita bisa akses properti `.C` yang merupakan channel. Setiap durasi yang sudah ditentikan, objek ticker akan mengirimkan informasi date-time via channel tersebut.
+Cara penggunaan ticker cukup mudah, buat objek ticker baru menggunakan `time.NewTicker()` isi argument dengan durasi yang diinginkan. Dari objek tersebut kita bisa akses properti `.C` yang merupakan channel. Setiap durasi yang sudah ditentukan, objek ticker akan mengirimkan informasi date-time via channel tersebut.
 
 ```go
 package main
