@@ -13,6 +13,7 @@ Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan wakt
 - [Faizar Septiawan](https://github.com/icarrr)
 - [Gusman Widodo](https://github.com/gusmanwidodo)
 - [I Gede Tirtanata](https://github.com/gedenata)
+- [Ibnul Mutaki](https://github.com/cacing69)
 - [Ma'mur Rezeki](https://github.com/erzqy)
 - [MH Rohman Masyhar](https://github.com/rohmanhm)
 - [Mulia Nasution](https://github.com/mul14)
