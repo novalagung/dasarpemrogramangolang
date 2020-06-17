@@ -116,7 +116,7 @@ Sebagai contoh, pada kode di atas `.InsertOne()` digunakan untuk insert satu dat
 // mongodb
 db.getCollection("student").insertOne({ name: "Wick", Grade: 2 })
 
-// mongo-do-driver
+// mongo-go-driver
 db.Collection("student").InsertOne(ctx, student{ name: "Wick", Grade: 2})
 ```
 
@@ -179,7 +179,7 @@ Berikut adalah skema perbandingan contoh operasi get data menggunakan mongo quer
 // mongodb
 db.getCollection("student").find({"name": "Wick"})
 
-// mongo-do-driver
+// mongo-go-driver
 db.Collection("student").Find(ctx, bson.M{"name": "Wick"})
 ```
 
@@ -225,7 +225,7 @@ Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.
 // mongodb
 db.getCollection("student").update({"name": "Wick"}, { "$set": {"name": "Wick", "Grade": 2} })
 
-// mongo-do-driver
+// mongo-go-driver
 db.Collection("student").UpdateOne(ctx, bson.M{"name": "Wick"}, bson.M{"$set": student{"John Wick", 2}})
 ```
 
@@ -266,7 +266,7 @@ Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.
 // mongodb
 db.getCollection("student").delete({"name": "John Wick"})
 
-// mongo-do-driver
+// mongo-go-driver
 db.Collection("student").DeleteMany(ctx, bson.M{"name": "John Wick"})
 ```
 
