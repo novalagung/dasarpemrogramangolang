@@ -247,7 +247,7 @@ func generateFileIndexes() <-chan FileInfo {
 
 Setelah dipastikan semua job terkirim, kita close channel output `chanOut` tersebut.
 
-#### • Fungsi `dispatchWorkers()`
+#### • Fungsi `createFiles()`
 
 Bagian ini merupakan yang paling butuh *effort* untuk dipahami. Jadi fungsi `createFiles()` seperti yang sudah saja jelaskan secara singkat di atas, fungsi ini merupakan fungsi gabungan Fan-out (menerima channel output dari pipeline sebelumnya) dan juga Fan-in (menjalankan beberapa worker untuk memproses channel output dari pipeline sebelumnya, lalu output masing-masing worker yang juga merupakan channel - langsung di merge jadi satu channel saja).
 
