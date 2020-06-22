@@ -308,7 +308,7 @@ func createFiles(chanIn <-chan FileInfo, numberOfWorkers int) <-chan FileInfo {
 Penjelasan:
 
 1. Pertama-tama, kita siapkan `chanOut` yang merupakan channel output Fan-in dari worker-worker yang ada. Channel ini langsung dijadikan nilai balik fungsi `createFiles()`. Saya gunakan kata **langsung** disitu karena semua proses lainnya selain deklarasi channel dan waitgroup - adalah berjalan secara asynchronous via goroutine.
-2. Kemudian objek `sync.WaitGroup` didefinisikan, lalu di-*notify* bahwa akan ada sejumlah `numberOfWorkers` workers berjalan secara konkuren dan harus ditunggu. Jadi waitgroup ini untuk kerluan manajemen worker-nya.
+2. Kemudian objek `sync.WaitGroup` didefinisikan, lalu di-*notify* bahwa akan ada sejumlah `numberOfWorkers` workers berjalan secara konkuren dan harus ditunggu. Jadi waitgroup ini untuk keperluan manajemen worker-nya.
 3. Jalankan goroutine yang isinya dispatch sejumlah `numberOfWorkers` workers. Karena pada bagian ini ada goroutine dalam perulangan, maka informasi perulangan yang akan digunakan di dalam goroutine harus dijadikan argumen eksekusi goroutine (dalam contoh ini `workerIndex`).
 4. Pantau channel `chanIn`, setiap ada job yg masuk maka kerjakan.
 5. Output dari eksekusi job ada dua yaitu: error, atau tidak error. Informasi *truthy* ini disimpan dalam objek `FileInfo` result yang kemudian di-kirim ke `chanOut`.
