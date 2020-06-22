@@ -214,7 +214,7 @@ func generateFiles() {
 Isi fungsi generate files ini secara garis besar ada 3:
 
 * Pipeline 1, bertugas men-*dispatch* goroutine untuk distribusi jobs.
-* Pipleine 2, bertugas men-*dispatch* goroutine untuk start worker yang masing-masing worker punya tugas utama yaitu membuat files.
+* Pipeline 2, bertugas men-*dispatch* goroutine untuk start worker yang masing-masing worker punya tugas utama yaitu membuat files.
 * Terakhir, tracking channel dari Fan-in nilai balik fungsi pipeline ke-2.
 
 Fungsi `generateFileIndexes()` nantinya akan mengembalikan channel `chanFileIndex` yang fungsi dari channel ini adalah untuk media komunikasi antara proses dalam fungsi `generateFileIndexes()` (yaitu distribusi jobs) dengan proses dalam fungsi selanjutnya yaitu `createFiles()`.
