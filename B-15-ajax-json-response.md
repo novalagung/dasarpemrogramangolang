@@ -1,6 +1,6 @@
 # B.15. AJAX JSON Response
 
-Pada bab sebelumnya, kita belajar cara untuk memproses request dengan paylaod bertipe JSON. Pada bab ini kita akan belajar untuk membuat satu endpoint yang mengembalikan data JSON string.
+Pada bab sebelumnya, kita belajar cara untuk memproses request dengan payload bertipe JSON. Pada bab ini kita akan belajar untuk membuat satu endpoint yang mengembalikan data JSON string.
 
 ## B.15.1. Praktek
 
