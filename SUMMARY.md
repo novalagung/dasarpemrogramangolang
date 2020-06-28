@@ -15,6 +15,7 @@
   * A.3. Setup Project dan GOPATH
     * [A.3.A. Go Modules](3-setup-go-project-dengan-go-modules.md)
     * [A.3.B. GOPATH Dan Workspace](3-gopath-dan-workspace.md)
+    * [A.3.C. Go Naming Convention](3-go-naming-convention.md)
   * [A.4. Instalasi Editor](4-instalasi-editor.md)
   * [A.5. Go Command](5-go-command.md)
   * [A.6. Program Pertama: Hello World](6-hello-world.md)
