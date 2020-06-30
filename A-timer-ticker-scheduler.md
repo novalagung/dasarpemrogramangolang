@@ -1,8 +1,8 @@
-# A.39. Timer, Ticker, & Scheduler
+# A.39.A. Timer, Ticker, & Scheduler
 
 Ada beberapa fungsi dalam package `time` yang bisa dimanfaatkan untuk menunda atau mengatur jadwal eksekusi sebuah proses dalam jeda waktu tertentu.
 
-## A.39.1. Fungsi `time.Sleep()`
+## A.39.A.1. Fungsi `time.Sleep()`
 
 Fungsi ini digunakan untuk menghentikan program sejenak. `time.Sleep()` bersifat **blocking**, statement dibawahnya tidak akan dieksekusi sampai pemberhentian usai. Contoh sederhana penerapan bisa dilihat pada kode berikut.
 
@@ -21,7 +21,7 @@ func main () {
 
 Hasilnya, tulisan `"start"` muncul, lalu 4 detik kemudian tulisan `"after 4 seconds"` muncul.
 
-## A.39.2. Scheduler Menggunakan `time.Sleep()`
+## A.39.A.2. Scheduler Menggunakan `time.Sleep()`
 
 Selain untuk blocking proses, fungsi `time.Sleep()` ini bisa dimanfaatkan untuk membuat scheduler sederhana, contohnya seperti berikut, scheduler untuk menampilkan pesan halo setiap 1 detik.
 
@@ -32,7 +32,7 @@ for true {
 }
 ```
 
-## A.39.3. Fungsi `time.NewTimer()`
+## A.39.A.3. Fungsi `time.NewTimer()`
 
 Fungsi ini sedikit berbeda dengan `time.Sleep()`. Fungsi `time.NewTimer()` mengembalikan objek bertipe `*time.Timer` yang memiliki property `C` yang bertipe channel.
 
@@ -51,7 +51,7 @@ Statement `var timer = time.NewTimer(4 * time.Second)` mengindikasikan bahwa nan
 
 Hasil program di atas adalah tulisan `"start"` muncul, lalu setelah 4 detik tulisan `"finish"` muncul.
 
-## A.39.4. Fungsi `time.AfterFunc()`
+## A.39.A.4. Fungsi `time.AfterFunc()`
 
 Fungsi `time.AfterFunc()` memiliki 2 parameter. Parameter pertama adalah durasi timer, dan parameter kedua adalah *callback* nya. Callback tersebut akan dieksekusi jika waktu sudah memenuhi durasi timer.
 
@@ -77,7 +77,7 @@ Beberapa hal yang perlu diketahui dalam menggunakan fungsi ini:
  - Jika tidak ada serah terima data lewat channel, maka eksekusi `time.AfterFunc()` adalah asynchronous (tidak blocking).
  - Jika ada serah terima data lewat channel, maka fungsi akan tetap berjalan asynchronous hingga baris kode dimana penerimaan data channel dilakukan. Proses blocking nya berada pada baris kode penerimaan channel.
 
-## A.39.5. Fungsi `time.After()`
+## A.39.A.5. Fungsi `time.After()`
 
 Kegunaan fungsi ini mirip seperti `time.Sleep()`. Perbedaannya adalah, fungsi `timer.After()` akan mengembalikan data channel, sehingga perlu menggunakan tanda `<-` dalam penerapannya.
 
@@ -88,7 +88,7 @@ fmt.Println("expired")
 
 Tulisan `"expired"` akan muncul setelah 4 detik.
 
-## A.39.6. Scheduler Menggunakan Ticker
+## A.39.A.6. Scheduler Menggunakan Ticker
 
 Selain fungsi-fungsi untuk keperluan timer, Go juga menyediakan fungsi scheduler (yang disini kita sebut sebagai ticker).
 
@@ -134,7 +134,7 @@ Sebelum blok kode perulangan `for`, bisa kita lihat ada goroutine baru di-dispat
 
 Jadi, selama 10 detik, di setiap detiknya akan muncul pesan halo.
 
-## A.39.7. Kombinasi Timer & Goroutine
+## A.39.A.7. Kombinasi Timer & Goroutine
 
 Berikut merupakan contoh penerapan timer dan goroutine. Program di bawah ini adalah program tanya-jawab sederhana. Sebuah pertanyaan muncul dan user harus menginputkan jawaban dalam waktu tidak lebih dari 5 detik. Jika 5 detik berlalu dan belum ada jawaban, maka akan muncul pesan *time out*.
 
@@ -192,11 +192,11 @@ func main() {
 
 Ketika user tidak menginputkan apa-apa dalam kurun waktu 5 detik, maka akan muncul pesan timeout, lalu program dihentikan.
 
-![Penerapan timer dalam goroutine](images/A.39_1_timer.png)
+![Penerapan timer dalam goroutine](images/a_timer_ticker_scheduler_1_timer.png)
 
 ---
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.39-timer-ticker-scheduler">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.39...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A-timer-ticker-scheduler">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>
