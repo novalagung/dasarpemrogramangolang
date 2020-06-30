@@ -9,9 +9,9 @@ Proses pembelajaran dilakukan dengan praktek membuat sebuah aplikasi web service
 Ok, langsung saja, siapkan folder projek projek baru dengan struktur seperti berikut.
 
 ```bash
-mkdir chapter-c31
-cd chapter-c31
-go mod init chapter-c31
+mkdir chapter-d2
+cd chapter-d2
+go mod init chapter-d2
 
 # then prepare underneath structures
 tree .

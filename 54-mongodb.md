@@ -40,7 +40,7 @@ import (
 
 Siapkan satu object context dan struct `student`. Rencananya satu buah document kita buat sebagai satu buah objek `student`.
 
-Perlu diketahui bahwa pada bab ini tidak dijelaskan tentang apa itu context. Silakan merujuk ke [Bab C.31. Context: Value, Timeout, & Cancellation](/C-31-golang-context.html) untuk mempelajarinya. Menggunakan satu context background untuk semua operasi sangat tidak dianjurkan, tapi pada bab ini kita terapkan demikian agar tidak menambah kebingungan pembaca yang masih proses belajar. Context sendiri fungsinya sangat banyak, untuk kasus sejenis biasanya digunakan untuk handle operation timeout atau lainnya. 
+Perlu diketahui bahwa pada bab ini tidak dijelaskan tentang apa itu context. Silakan merujuk ke [D.2. Google API Search Dengan Timeout](https://dasarpemrogramangolang.novalagung.com/D-google-api-search.html) untuk mempelajarinya. Menggunakan satu context background untuk semua operasi sangat tidak dianjurkan, tapi pada bab ini kita terapkan demikian agar tidak menambah kebingungan pembaca yang masih proses belajar. Context sendiri fungsinya sangat banyak, untuk kasus sejenis biasanya digunakan untuk handle operation timeout atau lainnya. 
 
 ```go
 var ctx = context.Background()
@@ -116,7 +116,7 @@ Sebagai contoh, pada kode di atas `.InsertOne()` digunakan untuk insert satu dat
 // mongodb
 db.getCollection("student").insertOne({ name: "Wick", Grade: 2 })
 
-// mongo-do-driver
+// mongo-go-driver
 db.Collection("student").InsertOne(ctx, student{ name: "Wick", Grade: 2})
 ```
 
@@ -179,7 +179,7 @@ Berikut adalah skema perbandingan contoh operasi get data menggunakan mongo quer
 // mongodb
 db.getCollection("student").find({"name": "Wick"})
 
-// mongo-do-driver
+// mongo-go-driver
 db.Collection("student").Find(ctx, bson.M{"name": "Wick"})
 ```
 
@@ -225,7 +225,7 @@ Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.
 // mongodb
 db.getCollection("student").update({"name": "Wick"}, { "$set": {"name": "Wick", "Grade": 2} })
 
-// mongo-do-driver
+// mongo-go-driver
 db.Collection("student").UpdateOne(ctx, bson.M{"name": "Wick"}, bson.M{"$set": student{"John Wick", 2}})
 ```
 
@@ -266,7 +266,7 @@ Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.
 // mongodb
 db.getCollection("student").delete({"name": "John Wick"})
 
-// mongo-do-driver
+// mongo-go-driver
 db.Collection("student").DeleteMany(ctx, bson.M{"name": "John Wick"})
 ```
 
