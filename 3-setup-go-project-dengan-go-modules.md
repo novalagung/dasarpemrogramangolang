@@ -40,7 +40,7 @@ Untuk nama project, umumnya adalah disamakan dengan nama direktori, tapi bisa sa
 
 > Nama project dan Nama module merupakan istilah yang sama.
 
-Eksekusi perintah `go mod init` menghasilkan satu buah file baru bernama `go.mod`. File ini digunakan oleh Go toolchain untuk menandai bahwa folder dimana file tersebut berada adalah folder projek. Jadi jangan di hapus ya command tersebut.
+Eksekusi perintah `go mod init` menghasilkan satu buah file baru bernama `go.mod`. File ini digunakan oleh Go toolchain untuk menandai bahwa folder dimana file tersebut berada adalah folder projek. Jadi jangan di hapus ya file tersebut.
 
 ---
 
