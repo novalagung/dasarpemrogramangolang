@@ -2,7 +2,7 @@
 
 Pada bab ini kita akan belajar cara mudah routing menggunakan [Echo Framework](https://echo.labstack.com/). 
 
-Mulai bab C1 hingga C6 kita akan mempelajari banyak aspek dalam framework Echo dan mengkobinasikannya dengan beberapa library lain.
+Mulai bab C1 hingga C6 kita akan mempelajari banyak aspek dalam framework Echo dan mengkombinasikannya dengan beberapa library lain.
 
 # C.1.1 Echo Framework
 
