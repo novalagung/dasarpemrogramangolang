@@ -22,7 +22,7 @@ Kalau diperhatikan pada kasus di atas, mungkin akan lebih bagus dari segi perfor
 
 Dan akan lebih bagus lagi, jika di masing-masing proses backup database tersebut, proses A, B, dan C dijalankan secara konkuren. Dengan menjadikan ketiga proses tersebut (A, B, C) sebagai proses konkuren, maka I/O akan lebih efisien. Nantinya antara proses A, B, dan C eksekusinya akan tetap berurutan (karena memang harus berjalan secara urut. Tidak boleh kalau misal B lebih dulu dieksekusi kemudian A); akan tetapi, ketika goroutine yang bertanggung jawab untuk eksekusi proses A selesai, kita bisa lanjut dengan eksekusi proses B (yang memang *next stage*-nya proses A) plus eksekusi proses A lainnya (database lain) secara paralel. Jadi goroutine yang handle A ini ga sampai menganggur.
 
-Silakan perhatikan visualisasi berikut. Kolom merupakan representase goroutine yang berjalan secara bersamaan. Tapi karena ketiga goroutine tersebut merupakan serangkaian proses, jadi eksekusinya harus urut. Sedangkan baris/row representasi dari *sequence* atau urutan.
+Silakan perhatikan visualisasi berikut. Kolom merupakan representasi dari goroutine yang berjalan secara bersamaan. Tapi karena ketiga goroutine tersebut merupakan serangkaian proses, jadi eksekusinya harus urut. Sedangkan baris/row representasi dari *sequence* atau urutan.
 
 | sequence | pipeline A | pipeline B | pipeline C |
 |:--------:|:----------:|:----------:|:----------:|
@@ -255,7 +255,7 @@ Ok, aplikasi sudah siap. Selanjutnya kita akan refactor aplikasi tersebut ke ben
 
 ## A.59.5. Program 3: Lakukan Proses Secara Concurrent Menggunakan Pipeline
 
-Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kalau dilihat dari prespektif bisnis logic, tapi metode yang kita terapkan dari sisi engineering berbeda. Disini kita akan terapkan *pipeline*. Bisnis logic akan dipecah menjadi 3 yang kesemuanya dieksekusi secara konkuren, yaitu:
+Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kalau dilihat dari perspektif bisnis logic, tapi metode yang kita terapkan dari sisi engineering berbeda. Disini kita akan terapkan *pipeline*. Bisnis logic akan dipecah menjadi 3 yang kesemuanya dieksekusi secara konkuren, yaitu:
 
 - Proses baca file
 - Proses perhitungan md5 hash sum
