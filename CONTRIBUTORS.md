@@ -9,6 +9,7 @@ Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan wakt
 - [Acep Saepudin](https://github.com/acepsaepudin)
 - [Akul Nurislamimanudin](https://github.com/akulnurislam)
 - [Amin Rasul Kamsena](https://github.com/seno-ark)
+- [Andreas Giovani](https://github.com/compatc)
 - [Burhanudin Yahya](https://github.com/burhanudinyahya)
 - [cacing69](https://github.com/cacing69)
 - [Edi Santoso](https://github.com/repodevs)
