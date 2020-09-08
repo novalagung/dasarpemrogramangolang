@@ -188,7 +188,7 @@ Dengan memanfaatkan struct ini, kita bisa meng-custom beberapa konfigurasi defau
 
 Pada kode di atas bisa kita lihat, ada 4 buah properti milik `server` di-isi.
 
- - `server.Handler`. Properti ini wajib di isi dengan cusom mux yang dibuat.
+ - `server.Handler`. Properti ini wajib di isi dengan custom mux yang dibuat.
  - `server.ReadTimeout`. Adalah timeout ketika memproses sebuah request. Kita isi dengan nilai dari configurasi.
  - `server.WriteTimeout`. Adalah timeout ketika memproses response.
  - `server.Addr`. Port yang digunakan web server pada saat start.
