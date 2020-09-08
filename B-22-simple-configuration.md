@@ -118,7 +118,7 @@ func Configuration() _Configuration {
 
 ## B.22.4. Routing & Server
 
-Masuk ke bagian implementasi, buka `main.go`, lalu buat cusom mux.
+Masuk ke bagian implementasi, buka `main.go`, lalu buat custom mux.
 
 ```go
 package main
