@@ -134,7 +134,7 @@ Digunakan untuk konversi `bool` ke `string`.
 var bul = true
 var str = strconv.FormatBool(bul)
 
-fmt.Println(str) // 124
+fmt.Println(str) // true
 ```
 
 ## A.40.2. Konversi Data Menggunakan Teknik Casting

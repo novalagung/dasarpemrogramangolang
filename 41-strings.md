@@ -111,7 +111,7 @@ Pada contoh di atas, string `"na"` diulang sebanyak 4 kali. Hasilnya adalah: `"n
 
 ## A.41.8. Fungsi `strings.Split()`
 
-Digunakan untuk memisah string (parameter pertama) dengan tanda pemisah bisa ditentukan sendiri (parameter kedua). Hasilnya berupa array string.
+Digunakan untuk memisah string (parameter pertama) dengan tanda pemisah bisa ditentukan sendiri (parameter kedua). Hasilnya berupa slice string.
 
 ```go
 var string1 = strings.Split("the dark knight", " ")
@@ -123,11 +123,11 @@ fmt.Println(string2) // output: ["b", "a", "t", "m", "a", "n"]
 
 String `"the dark knight"` dipisah oleh karakter spasi `" "`, hasilnya kemudian ditampung oleh `string1`.
 
-Untuk memisah string menjadi array tiap 1 string, gunakan pemisah string kosong `""`. Bisa dilihat contohnya pada variabel `string2`.
+Untuk memisah string menjadi slice tiap 1 string, gunakan pemisah string kosong `""`. Bisa dilihat contohnya pada variabel `string2`.
 
 ## A.41.9. Fungsi `strings.Join()`
 
-Memiliki kegunaan berkebalikan dengan `strings.Split()`. Digunakan untuk menggabungkan array string (parameter pertama) menjadi sebuah string dengan pemisah tertentu (parameter kedua.
+Memiliki kegunaan berkebalikan dengan `strings.Split()`. Digunakan untuk menggabungkan slice string (parameter pertama) menjadi sebuah string dengan pemisah tertentu (parameter kedua.
 
 ```go
 var data = []string{"banana", "papaya", "tomato"}
@@ -135,7 +135,7 @@ var str = strings.Join(data, "-")
 fmt.Println(str) // "banana-papaya-tomato"
 ```
 
-Array `data` digabungkan menjadi satu dengan pemisah tanda *dash* (`-`).
+Slice `data` digabungkan menjadi satu dengan pemisah tanda *dash* (`-`).
 
 ## A.41.10. Fungsi `strings.ToLower()`
 
