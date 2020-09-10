@@ -28,17 +28,17 @@ func main() {
 
     var res1 = regex.FindAllString(text, 2)
     fmt.Printf("%#v \n", res1)
-    // ["banana", "burger"]
+    // []string{"banana", "burger"}
 
     var res2 = regex.FindAllString(text, -1)
     fmt.Printf("%#v \n", res2)
-    // ["banana", "burger", "soup"]
+    // []string{"banana", "burger", "soup"}
 }
 ```
 
 Ekspresi `[a-z]+` maknanya adalah, semua string yang merupakan alphabet yang hurufnya kecil. Ekspresi tersebut di-compile oleh `regexp.Compile()` lalu disimpan ke variabel objek `regex` bertipe `regexp.*Regexp`.
 
-Struct `regexp.Regexp` memiliki banyak method, salah satunya adalah `FindAllString()`, berfungsi untuk mencari semua string yang sesuai dengan ekspresi regex, dengan kembalian berupa array string.
+Struct `regexp.Regexp` memiliki banyak method, salah satunya adalah `FindAllString()`, berfungsi untuk mencari semua string yang sesuai dengan ekspresi regex, dengan kembalian berupa slice string.
 
 Jumlah hasil pencarian dari `regex.FindAllString()` bisa ditentukan. Contohnya pada `res1`, ditentukan maksimal `2` data saja pada nilai kembalian. Jika batas di set `-1`, maka akan mengembalikan semua data.
 
@@ -152,12 +152,12 @@ Digunakan untuk memisah string dengan pemisah adalah substring yang memenuhi kri
 Jumlah karakter yang akan di split bisa ditentukan dengan mengisi parameter kedua fungsi `regex.Split()`. Jika di-isi `-1` maka semua karakter yang memenuhi regex akan di-replace. Contoh lain, jika di-isi `2`, maka hanya 2 karakter pertama yang memenuhi regex akan di-replace.
 
 ```go
-var text = "banana,burger,soup"
-var regex, _ = regexp.Compile(`[a-z]+`)
+var text = "banana burger soup"
+var regex, _ = regexp.Compile(`[a-b]+`)
 
 var str = regex.Split(text, -1)
 fmt.Printf("%#v \n", str)
-// ["", ",", ",", ""]
+// []string{"", "n", "n", " ", "urger soup"}
 ```
 
 ---
