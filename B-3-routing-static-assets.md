@@ -59,7 +59,7 @@ Jika dilihat pada struktur folder yang sudah di-buat, di dalam folder `assets` t
 
 > Fungsi `http.Dir()` berguna untuk adjustment path parameter. Separator dari path yang di-definisikan akan otomatis di-konversi ke path separator sesuai sistem operasi.
 
-Contoh selainjutnya, silakan perhatikan kode berikut.
+Contoh selanjutnya, silakan perhatikan kode berikut.
 
 ```go
 http.Handle("/static", http.FileServer(http.Dir("assets")))

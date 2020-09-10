@@ -144,7 +144,7 @@ Output program di atas, sama dengan output program sebelumnya, hanya cara yang d
 
 Kadang kala ketika *looping* menggunakan `for` - `range`, ada kemungkinan dimana data yang dibutuhkan adalah elemen-nya saja, indeks-nya tidak. Sedangkan kode di atas, `range` mengembalikan 2 data, yaitu indeks dan elemen.
 
-Seperti yang sudah diketahui, bahwa di Go tidak memperbolehkan adanya variabel yang menaggur atau tidak dipakai. Jika dipaksakan, error akan muncul, contohnya seperti kode berikut.
+Seperti yang sudah diketahui, bahwa di Go tidak memperbolehkan adanya variabel yang menganggur atau tidak dipakai. Jika dipaksakan, error akan muncul, contohnya seperti kode berikut.
 
 ```go
 var fruits = [4]string{"apple", "grape", "banana", "melon"}
