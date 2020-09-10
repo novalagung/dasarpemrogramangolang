@@ -149,16 +149,18 @@ Pada contoh di atas, jika salah satu substring yang *match* adalah `"burger"` ma
 
 Digunakan untuk memisah string dengan pemisah adalah substring yang memenuhi kriteria regexp yang telah ditentukan.
 
-Jumlah karakter yang akan di split bisa ditentukan dengan mengisi parameter kedua fungsi `regex.Split()`. Jika di-isi `-1` maka semua karakter yang memenuhi regex akan di-replace. Contoh lain, jika di-isi `2`, maka hanya 2 karakter pertama yang memenuhi regex akan di-replace.
+Jumlah karakter yang akan di split bisa ditentukan dengan mengisi parameter kedua fungsi `regex.Split()`. Jika di-isi `-1` maka semua karakter yang memenuhi kriteria regex akan menjadi *separator* dalam operasi pemisahan/split. Contoh lain, jika di-isi `2`, maka hanya 2 karakter pertama yang memenuhi kriteria regex akan menjadi *separator* dalam split tersebut.
 
 ```go
 var text = "banana burger soup"
-var regex, _ = regexp.Compile(`[a-b]+`)
+var regex, _ = regexp.Compile(`[a-b]+`) // split dengan separator adalah karakter "a" dan/atau "b"
 
 var str = regex.Split(text, -1)
 fmt.Printf("%#v \n", str)
 // []string{"", "n", "n", " ", "urger soup"}
 ```
+
+Pada contoh di atas, ekspresi regexp `[a-b]+` digunakan sebagai kriteria split. Maka karakter `a` dan/atau `b` akan menjadi separator.
 
 ---
 
