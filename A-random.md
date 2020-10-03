@@ -17,7 +17,7 @@ Sedikit ilustrasi mengenai korelasi antara seed dengan RNG, agar lebih jelas.
 - Misalkan lagi, fungsi RNG di-eksekusi lagi, maka angka random ketiga pasti `8532807521486154107`.
 - Jadi untuk seed angka `10`, akan selalu menghasilkan angka random ke-1: `5221277731205826435`, ke-2: `3852159813000522384`, ke-3 `8532807521486154107`. Meskipun fungsi random dijalankan di program yang berbeda, di waktu yang berbeda, di environment yang berbeda, jika seed adalah `10` maka deret angka random yang dihasilkan pasti sama seperti contoh di atas.
 
-## 3.38.2. Package `math/rand`
+## A.38.2. Package `math/rand`
 
 Di Go terdapat sebuah package yaitu `math/rand` yang isinya banyak sekali API untuk keperluan penciptaan angka random. Package ini mengadopsi **PRNG** atau *pseudo-random* number generator. Deret angka random yang dihasilkan sangat tergantung dengan angka **seed** yang digunakan.
 
@@ -50,7 +50,7 @@ Coba jalankan program di atas beberapa kali, hasilnya pasti selalu sama untuk an
 
 ![Random Golang](images/a_random_1.png)
 
-## 3.38.3. Unique Seed
+## A.38.3. Unique Seed
 
 Lalu bagaimana cara agar angka yang dihasilkan selalu berbeda setiap kali dipanggil? Apakah harus set ulang seed-nya? Jangan, karena kalau seed di-set ulang maka urutan deret random akan berubah. Seed hanya perlu di set sekali di awal. Lha, terus bagaimana?
 
@@ -69,7 +69,7 @@ fmt.Println(rand.Int())
 
 Bisa dilihat, setiap program dieksekusi angka random nya selalu berbeda, hal ini karena seed yang digunakan pasti berbeda satu sama lain saat program dijalankan. Seed-nya adalah angka unix nano dari waktu sekarang.
 
-## 3.38.4. Random Tipe Data Numerik Lainnya
+## A.38.4. Random Tipe Data Numerik Lainnya
 
 Di dalam package `math/rand`, ada banyak fungsi untuk generate angka random. Fungsi `rand.Int()` hanya salah satu dari fungsi yang tersedia didalam package tersebut, yang gunanya adalah menghasilkan angka random bertipe `int`.
 
@@ -77,11 +77,11 @@ Selain itu, ada juga `rand.Float32()` yang menghasilkan angka random bertipe `fl
 
 lebih detailnya silakan merujuk ke https://golang.org/pkg/math/rand/
 
-## 3.38.5. Angka Random Index Tertentu
+## A.38.5. Angka Random Index Tertentu
 
 Gunakan fungsi `rand.Intn(n)` untuk mendapatkan angka random pada indeks ke `n`. Dengan ini tidak perlu memanggil `rand.Int()` tiga kali untuk mendapatkan angka random ke-tiga, melainkan cukup gunakan `rand.Intn(2)` (indeks dari 0 ya).
 
-## 3.38.6. Random Tipe Data String
+## A.38.6. Random Tipe Data String
 
 Untuk menghasilkan data random string, ada banyak cara yang bisa digunakan, salah satunya adalah dengan memafaatkan alfabet dan hasil random numerik.
 
