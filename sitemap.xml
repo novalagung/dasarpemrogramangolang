@@ -40,8 +40,10 @@
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/35-defer-exit.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/36-error-panic-recover.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/37-string-format.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://dasarpemrogramangolang.novalagung.com/38-time.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://dasarpemrogramangolang.novalagung.com/39-timer.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/A-random.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/A-time-parsing-format.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/A-timer-ticker-scheduler.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/A-time-duration.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/40-data-type-conversion.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/41-strings.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/42-regex.html</loc> <changefreq>daily</changefreq> <priority>0.5</priority> </url>
