@@ -113,7 +113,7 @@ func main() {
 
 Jalankan program, sekarang web server sudah live dan bisa dikonsumsi datanya.
 
-![Web API Server dijalankan](images/a_web_service_1_server.png)
+![Web API Server dijalankan](images/A_web_service_1_server.png)
 
 ## A.51.2. Test Web Service API
 
@@ -121,11 +121,11 @@ Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-
 
  - Test endpoint `/users`, apakah data yang dikembalikan sudah benar.
 
-    ![Test `/users`](images/a_web_service_2_test_api_users.png)
+    ![Test `/users`](images/A_web_service_2_test_api_users.png)
 
  - Test endpoint `/user`, isi form data `id` dengan nilai `E001`.
 
-    ![Test `/user`](images/a_web_service_3_test_api_user.png)
+    ![Test `/user`](images/A_web_service_3_test_api_user.png)
 
 ---
 

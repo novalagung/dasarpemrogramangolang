@@ -28,7 +28,7 @@ func main() {
 
 Fungsi `exec.Command()` digunakan untuk menjalankan command. Fungsi tersebut bisa langsung di-chain dengan method `Output()`, jika ingin mendapatkan outputnya. Output yang dihasilkan berbentuk `[]byte`, gunakan cast ke string untuk mengambil bentuk string-nya.
 
-![Ekeskusi command menggunakan exec](images/A.46_1_exec.png)
+![Ekeskusi command menggunakan exec](images/A_exec_1_exec.png)
 
 ## A.46.2. Rekomendasi Penggunaan Exec
 

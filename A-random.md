@@ -48,7 +48,7 @@ Fungsi `rand.Seed()` digunakan untuk penentuan nilai seed. Fungsi `rand.Int()` d
 
 Coba jalankan program di atas beberapa kali, hasilnya pasti selalu sama untuk angka random ke-1, ke-2, dan seterusnya.
 
-![Random Golang](images/a_random_1.png)
+![Random Golang](images/A_random_1.png)
 
 ## A.38.3. Unique Seed
 
@@ -65,7 +65,7 @@ fmt.Println(rand.Int())
 fmt.Println(rand.Int())
 ```
 
-![Random Golang with unix nano seed](images/a_random_2.png)
+![Random Golang with unix nano seed](images/A_random_2.png)
 
 Bisa dilihat, setiap program dieksekusi angka random nya selalu berbeda, hal ini karena seed yang digunakan pasti berbeda satu sama lain saat program dijalankan. Seed-nya adalah angka unix nano dari waktu sekarang.
 

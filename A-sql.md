@@ -22,7 +22,7 @@ cd <folder-project>
 go get github.com/go-sql-driver/mysql
 ```
 
-![Download mysql driver](images/a_sql_go_get_driver.png)
+![Download mysql driver](images/A_sql_1_go_get_driver.png)
 
 ## A.53.2. Setup Database
 
@@ -176,7 +176,7 @@ func main() {
 
 Output:
 
-![Membaca data dari database server](images/A.53_2_sql_query.png)
+![Membaca data dari database server](images/A_sql_2_sql_query.png)
 
 ## A.53.4. Membaca 1 Record Data Menggunakan Method `QueryRow()`
 
@@ -219,7 +219,7 @@ err = db.
 
 Sekarang jalankan program. Outputnya akan muncul data record sesuai id.
 
-![Penggunaan `QueryRow()`](images/A.53_3_sql_query_row.png)
+![Penggunaan `QueryRow()`](images/A_sql_3_sql_query_row.png)
 
 ## A.53.5. Eksekusi Query Menggunakan `Prepare()`
 
@@ -262,7 +262,7 @@ func main() {
 
 Method `Prepare()` digunakan untuk deklarasi query, yang mengembalikan objek bertipe `sql.*Stmt`. Dari objek tersebut, dipanggil method `QueryRow()` beberapa kali dengan isi value untuk `id` berbeda-beda untuk tiap pemanggilannya.
 
-![Prepared statement](images/A.53_4_prepared_statement.png)
+![Prepared statement](images/A_sql_4_prepared_statement.png)
 
 ## A.53.6. Insert, Update, & Delete Data Menggunakan `Exec()`
 

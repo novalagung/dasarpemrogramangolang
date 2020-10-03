@@ -52,7 +52,7 @@ Di atas kita gunakan `5 * time.Second` sebagai argumen `time.Sleep()`, maka deng
 
 Sekarang jalankan program yang sudah dibuat.
 
-![Time Duration](images/a_time_duration_1.png)
+![Time Duration](images/A_time_duration_1.png)
 
 Bisa dilihat, hasilnya adalah semua statement dibawah `time.Sleep()` dieksekusi setelah 5 detik berlalu. Ini merupakan contoh penggunaan tipe data durasi pada fungsi `time.Sleep()`.
 

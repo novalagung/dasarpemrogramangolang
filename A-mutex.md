@@ -81,7 +81,7 @@ Di akhir, `wg.Wait()` dipanggil, dan nilai variabel counter `meter` diambil lewa
 
 Jalankan program, lihat hasilnya.
 
-![Contoh race condition](images/a_mutex_1_race_condition.png)
+![Contoh race condition](images/A_mutex_1_race_condition.png)
 
 Nilai `meter.val` tidak genap 1000000? kenapa bisa begitu? Padahal seharusnya tidak ada masalah dalam kode yang kita tulis di atas.
 
@@ -91,7 +91,7 @@ Inilah yang disebut dengan race condition, data yang diakses bersamaan dalam 1 w
 
 Go menyediakan fitur untuk [deteksi race condition](http://blog.golang.org/race-detector). Cara penggunaannya adalah dengan menambahkan flag `-race` pada saat eksekusi aplikasi.
 
-![Race detector](images/a_mutex_2_race_detector.png)
+![Race detector](images/A_mutex_2_race_detector.png)
 
 Terlihat pada gambar diatas, ada pesan memberitahu terdapat kemungkinan data race pada program yang kita jalankan.
 
@@ -128,7 +128,7 @@ Di contoh di atas, pada saat bagian pengambilan nilai, mutex tidak dipasang, kar
 
 Coba jalankan program, dan lihat hasilnya.
 
-![Mutex](images/a_mutex_3_mutex.png)
+![Mutex](images/A_mutex_3_mutex.png)
 
 Pada contoh di atas, mutex diterapkan dengan cara di-embed ke objek yang memerlukan proses lock-unlock, menjadikan variabel mutex tersebut adalah eksklusif untuk objek tersebut saja. Cara ini merupakan cara yang dianjurkan. Meskipun demikian, mutex tetap bisa digunakan dengan cara tanpa ditempelkan ke objek yang memerlukan lock-unlock. Contohnya bisa dilihat dibawah ini.
 

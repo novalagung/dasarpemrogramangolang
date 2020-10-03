@@ -49,7 +49,7 @@ Fungsi `os.Create()` digunakan untuk membuat file pada path tertentu. Fungsi ini
 
 Membiarkan file terbuka ketika sudah tak lagi digunakan bukan hal yang baik, karena efeknya ke memory dan akses ke file itu sendiri, file akan di-lock sehingga tidak bisa digunakan oleh proses lain selama status file masih open atau belum di-close.
 
-![Membuat file baru](images/A.47_1_create.png)
+![Membuat file baru](images/A_file_1_create.png)
 
 ## A.47.2. Mengedit Isi File
 
@@ -82,7 +82,7 @@ func main() {
 
 Pada program di atas, file dibuka dengan level akses **read** dan **write** dengan kode permission **0664**. Setelah itu, beberapa string diisikan kedalam file tersebut menggunakan `WriteString()`. Di akhir, semua perubahan terhadap file akan disimpan dengan dipanggilnya `Sync()`.
 
-![Mengedit file](images/A.47_2_write.png)
+![Mengedit file](images/A_file_2_write.png)
 
 ## A.47.3. Membaca Isi File
 
@@ -130,7 +130,7 @@ Variabel `text` disiapkan bertipe slice `[]byte` dengan alokasi elemen 1024. Var
 
 Error yang muncul ketika eksekusi `file.Read()` akan di-filter, ketika error tersebut adalah selain `io.EOF` maka proses baca file akan berlanjut. Error `io.EOF` sendiri menandakan bahwa file yang sedang dibaca adalah baris terakhir isi atau **end of file**.
 
-![Membaca isi file](images/A.47_3_read.png)
+![Membaca isi file](images/A_file_3_read.png)
 
 ## A.47.4. Menghapus File
 
@@ -149,7 +149,7 @@ func main() {
 }
 ```
 
-![Menghapus file](images/A.47_4_delete.png)
+![Menghapus file](images/A_file_4_delete.png)
 
 ---
 

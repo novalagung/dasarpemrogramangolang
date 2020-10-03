@@ -192,7 +192,7 @@ func main() {
 
 Ketika user tidak menginputkan apa-apa dalam kurun waktu 5 detik, maka akan muncul pesan timeout, lalu program dihentikan.
 
-![Penerapan timer dalam goroutine](images/a_timer_ticker_scheduler_1_timer.png)
+![Penerapan timer dalam goroutine](images/A_timer_ticker_scheduler_1_timer.png)
 
 ---
 

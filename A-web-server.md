@@ -1,4 +1,4 @@
-# A.48. Web
+# A.48. Web Server
 
 Go menyediakan package `net/http`, berisi berbagai macam fitur untuk keperluan pembuatan aplikasi berbasis web. Termasuk di dalamnya web server, routing, templating, dan lainnya.
 
@@ -36,11 +36,11 @@ func main() {
 
 Jalankan program tersebut.
 
-![Eksekusi program](images/A.48_0_start_server.png)
+![Eksekusi program](images/A_web_server_1_start_server.png)
 
 Jika muncul dialog **Do you want the application “bab48” to accept incoming network connections?** atau sejenis, pilih allow. Setelah itu, buka url [http://localhost/](http://localhost/) dan [http://localhost/index](http://localhost/index/) lewat browser.
 
-![Contoh penerapan net/http](images/A.48_1_web.png)
+![Contoh penerapan net/http](images/A_web_server_3_web_server.png)
 
 Fungsi `http.HandleFunc()` digunakan untuk routing aplikasi web. Maksud dari routing adalah penentuan aksi ketika url tertentu diakses oleh user.
 
@@ -110,7 +110,7 @@ func main() {
 
 Jalankan, lalu buka [http://localhost:8080/](http://localhost:8080/), maka data `Nama` dan `Message` akan muncul di view.
 
-![Penggunaan template](images/A.48_2_template.png)
+![Penggunaan template](images/A_web_server_3_template.png)
 
 Fungsi `template.ParseFiles()` digunakan untuk parsing template, mengembalikan 2 data yaitu instance template-nya dan error (jika ada). Pemanggilan method `Execute()` akan membuat hasil parsing template ditampilkan ke layar web browser.
 

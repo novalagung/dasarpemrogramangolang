@@ -101,7 +101,7 @@ Pada bagian fungsi `generateFiles()` kali ini sedikit berbeda dibanding sebelumn
 
 Kita lanjut dulu saja. Berikut adalah output jika program di atas di-run.
 
-![Generate dummy files sequentially](images/a_simplified_fan_in_fan_out_pipeline_1_generate_dummy_files_sequentially.png)
+![Generate dummy files sequentially](images/A_simplified_fan_in_fan_out_pipeline_1_generate_dummy_files_sequentially.png)
 
 ## A.60.3. Program Generate Dummy File *Concurrently*
 
@@ -325,13 +325,13 @@ Saya akan coba jalankan program pertama dan kedua, lalu mari kita lihat perbedaa
 
 #### • Program Generate Dummy File *Sequentially*
 
-![Generate dummy files sequentially](images/a_simplified_fan_in_fan_out_pipeline_2_benchmark.png)
+![Generate dummy files sequentially](images/A_simplified_fan_in_fan_out_pipeline_2_benchmark.png)
 
 Testing di awal chapter ini hasilnya butuh sekitar **19 detik** untuk menyelesaikan generate dummy files sebanyak 3000 secara sekuensial. Tapi kali ini lebih lambat, yaitu **23 detik** dan ini wajar, karena di tiap operasi kita munculkan log ke stdout (via `log.Println()`).
 
 #### • Program Generate Dummy File *Concurrently*
 
-![Generate dummy files concurrently](images/a_simplified_fan_in_fan_out_pipeline_3_concurrent.png)
+![Generate dummy files concurrently](images/A_simplified_fan_in_fan_out_pipeline_3_concurrent.png)
 
 Bandingkan dengan ini, **3 detik** saja! luar biasa sekali bukan beda performanya. Dan pastinya akan lebih cepat lagi kalau kita hapus statement untuk logging ke stdout (`log.Println()`).
 

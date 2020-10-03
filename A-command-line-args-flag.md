@@ -46,7 +46,7 @@ Untuk eksekusinya sendiri bisa menggunakan `go run` ataupun dengan cara build-ex
 
 Variabel `os.Args` mengembalikan tak hanya arguments saja, tapi juga path file executable (jika eksekusi-nya menggunakan `go run` maka path akan merujuk ke folder temporary). Gunakan `os.Args[1:]` untuk mengambil slice arguments-nya saja.
 
-![Pemanfaatan arguments](images/A.45_1_argument.png)
+![Pemanfaatan arguments](images/A_cli_flag_arg_1_argument.png)
 
 Bisa dilihat pada kode di atas, bahwa untuk data argumen yang ada karakter spasi nya (<code> </code>), maka harus diapit tanda petik (`"`), agar tidak dideteksi sebagai 2 argumen.
 
@@ -87,7 +87,7 @@ Kode tersebut maksudnya adalah, disiapkan flag bertipe `string`, dengan key adal
 
 Nilai balik fungsi `flag.String()` adalah string pointer, jadi perlu di-*dereference* terlebih dahulu agar bisa mendapatkan nilai aslinya (`*dataName`).
 
-![Contoh penggunaan flag](images/A.45_2_flag.png)
+![Contoh penggunaan flag](images/A_cli_flag_arg_2_flag.png)
 
 Flag yang nilainya tidak di set, secara otomatis akan mengembalikan nilai default.
 
@@ -127,7 +127,7 @@ Tinggal tambahkan suffix `Var` pada pemanggilan nama fungsi flag yang digunakan 
 
 Kegunaan dari parameter terakhir method-method flag adalah untuk memunculkan hints atau petunjuk arguments apa saja yang bisa dipakai, ketika argument `--help` ditambahkan saat eksekusi program.
 
-![Contoh penggunaan flag](images/A.45_3_flag_info.png)
+![Contoh penggunaan flag](images/A_cli_flag_arg_3_flag_info.png)
 
 ---
 
