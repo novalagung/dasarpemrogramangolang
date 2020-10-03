@@ -82,7 +82,7 @@ Jalankan kode lalu test hasilnya.
 curl -X GET http://localhost:8080/
 ```
 
-![Cancelled client http request](images/b_server_handler_http_request_cancellation_1_cancelled_request_get.png)
+![Cancelled client http request](images/B_server_handler_http_request_cancellation_1_cancelled_request_get.png)
 
 Pada gambar di atas terdapat dua request, yg pertama sukses dan yang kedua adalah cancelled. Pesan `request cancelled` muncul ketika client http request dibatalkan.
 
@@ -112,7 +112,7 @@ Jalankan ulang program kemudian test.
 curl -X POST http://localhost:8080/ -H 'Content-Type: application/json' -d '{}'
 ```
 
-![Cancelled client http request](images/b_server_handler_http_request_cancellation_2_cancelled request_with_payload.png)
+![Cancelled client http request](images/B_server_handler_http_request_cancellation_2_cancelled request_with_payload.png)
 
 ---
 

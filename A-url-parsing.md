@@ -34,7 +34,7 @@ Fungsi `url.Parse()` digunakan untuk parsing string ke bentuk url. Mengembalikan
 
 Selain itu, query yang ada pada url akan otomatis diparsing juga, menjadi bentuk `map[string][]string`, dengan key adalah nama elemen query, dan value array string yang berisikan value elemen query.
 
-![Pengaksesan elemen URL](images/A.49_1_parse_url.png)
+![Pengaksesan elemen URL](images/A_url_parsing_1_parse_url.png)
 
 ---
 

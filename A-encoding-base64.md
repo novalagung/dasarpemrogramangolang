@@ -30,7 +30,7 @@ Variabel `data` yang bertipe `string`, harus di-casting terlebih dahulu kedalam 
 
 Sedangkan pada fungsi decode `base64.StdEncoding.DecodeString()`, data base64 bertipe `string` di-decode kembali ke string aslinya, tapi bertipe `[]byte`. Ekspresi `string(decodedByte)` menjadikan data `[]byte` tersebut berubah menjadi string.
 
-![Encode & decode data string](images/A.43_1_encode_decode.png)
+![Encode & decode data string](images/A_encoding_base64_1_encode_decode.png)
 
 ## A.43.2. Penerapan Fungsi `Encode()` & `Decode()`
 

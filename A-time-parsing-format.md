@@ -34,7 +34,7 @@ func main() {
 
 Fungsi `time.Now()` mengembalikan objek `time.Time` dengan informasi adalah date-time tepat ketika statement tersebut dijalankan. Bisa dilihat pada saat di-print muncul informasi date-time sesuai dengan tanggal program tersebut dieksekusi.
 
-![Penggunaan time](images/a_time_parsing_format_1_time_instance.png)
+![Penggunaan time](images/A_time_parsing_format_1_time_instance.png)
 
 Fungsi `time.Date()` digunakan untuk membuat objek `time.Time` baru yang informasi date-time-nya kita tentukan sendiri. Fungsi ini memiliki 8 buah parameter *mandatory* dengan skema bisa dilihat di kode berikut:
 
@@ -107,7 +107,7 @@ fmt.Println(value, "\t\t->", date.String())
 // 2015-09-02 00:00:00 +0700 WIB
 ```
 
-![Contoh penggunaan **time.Parse**](images/a_time_parsing_format_2_time_parse.png)
+![Contoh penggunaan **time.Parse**](images/A_time_parsing_format_2_time_parse.png)
 
 Layout format date-time di Go berbeda dibanding bahasa lain. Umumnya layout format yang digunakan adalah seperti `"DD/MM/YYYY"`, di Go tidak.
 
@@ -190,7 +190,7 @@ fmt.Println("dateS2", dateS2)
 
 Variabel `date` di atas berisikan hasil parsing data dengan format `time.RFC822`. Data tersebut kemudian diformat sebagai string 2 kali dengan layout format berbeda.
 
-![Contoh penggunaan method `Format()`](images/a_time_parsing_format_3_time_format.png)
+![Contoh penggunaan method `Format()`](images/A_time_parsing_format_3_time_format.png)
 
 ## A.39.A.6. Handle Error Parsing `time.Time`
 
@@ -209,7 +209,7 @@ fmt.Println(date)
 
 Kode di atas menghasilkan error karena format tidak sesuai dengan skema data yang akan diparsing. Layout format yang seharusnya digunakan adalah `06 Jan 15 03:04 MST`.
 
-![Error parsing time.Time](images/a_time_parsing_format_4_error_parse.png)
+![Error parsing time.Time](images/A_time_parsing_format_4_error_parse.png)
 
 ---
 

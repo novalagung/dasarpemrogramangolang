@@ -50,7 +50,7 @@ Fungsi unmarshal hanya menerima data json dalam bentuk `[]byte`, maka dari itu d
 
 Juga, perlu diperhatikan, argument ke-2 fungsi unmarshal harus diisi dengan **pointer** dari objek yang nantinya akan menampung hasilnya.
 
-![Decode data json ke variabel objek](images/A.50_1_decode.png)
+![Decode data json ke variabel objek](images/A_json_1_decode.png)
 
 Jika kita perhatikan lagi, pada struct `User`, salah satu property-nya yaitu `FullName` memiliki **tag** `json:"Name"`. Tag tersebut digunakan untuk mapping informasi json ke property yang bersangkutan.
 
@@ -127,7 +127,7 @@ fmt.Println(jsonString)
 
 Output:
 
-![Encode data ke JSON](images/A.50_2_encode.png)
+![Encode data ke JSON](images/A_json_2_encode.png)
 
 ---
 

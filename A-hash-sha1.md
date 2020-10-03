@@ -35,7 +35,7 @@ Variabel hasil dari `sha1.New()` adalah objek bertipe `hash.Hash`, memiliki dua 
 
 Untuk mengambil bentuk heksadesimal string dari data yang sudah di-hash, bisa memanfaatkan fungsi `fmt.Sprintf` dengan layout format `%x`.
 
-![Hashing menggunakan SHA1](images/A.44_1_hash_sha1.png)
+![Hashing menggunakan SHA1](images/A_hash_1_hash_sha1.png)
 
 ## A.44.2. Metode Salting Pada Hash SHA1
 
@@ -91,7 +91,7 @@ func main() {
 
 Hasil ekripsi fungsi `doHashUsingSalt` akan selalu beda, karena salt yang digunakan adalah waktu.
 
-![Hashing dengan salt](images/A.44_2_hash_salt_sha1.png)
+![Hashing dengan salt](images/A_hash_2_hash_salt_sha1.png)
 
 Metode ini sering dipakai untuk enkripsi password user. Salt dan data hasil hash harus disimpan pada database, karena digunakan dalam pencocokan password setiap user melakukan login.
 

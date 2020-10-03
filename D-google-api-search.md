@@ -123,11 +123,11 @@ Ok, sekarang objek `ctx` sudah dimodifikasi. Objek ini perlu untuk ditempelkan l
 
 Jalankan aplikasi, hasilnya kurang lebih seperti gambar berikut.
 
-![Context example](images/d_google_api_search_1_context_example.png)
+![Context example](images/D_google_api_search_1_context_example.png)
 
 O iya, penulis tidak menggunakan `http://localhost` untuk mengakses aplikasi, melainkan menggunakan `http://mysampletestapp.com`, dengan catatan domain ini sudah saya arahkan ke 127.0.0.1.
 
-![Etc Host](images/d_google_api_search_2_etc_hosts.png)
+![Etc Host](images/D_google_api_search_2_etc_hosts.png)
 
 Ok, untuk sekarang sepertinya cukup jelas mengenai penggunaan context pada objek http request. Tinggal kembangkan saja sesuai kebutuhan, seperti contohnya: context untuk menyimpan data session, yang diambil dari database sessuai dengan session id nya.
 
@@ -294,7 +294,7 @@ Jika di-summary, maka yang dilakukan oleh fungsi `doSearch` kurang lebih sebagai
 
 Jalankan, lihat hasilnya.
 
-![Request response OK](images/d_google_api_search_3_result_ok.png)
+![Request response OK](images/D_google_api_search_3_result_ok.png)
 
 Informasi tambahan: best practice mengenai cancelation context adalah untuk selalu menambahkan `defer cancel()` setelah (cancelation) context dibuat. Lebih detailnya silakan baca https://blog.golang.org/context.
 
@@ -309,7 +309,7 @@ Silakan coba akses kedua url berikut.
 
 Harusnya yang dikembalikan sama, tapi kenyataannya pengaksesan lewat url `localhost` menghasilkan error.
 
-![Request response fail](images/d_google_api_search_4_result_fail.png)
+![Request response fail](images/D_google_api_search_4_result_fail.png)
 
 Error message:
 
@@ -317,7 +317,7 @@ Error message:
 
 Error di atas muncul karena, host `localhost` belum didaftarkan pada API console. Berbeda dengan `mysampletestapp.com` yang sudah didaftarkan, host ini berhak mengakses menggunakan API key yang kita gunakan.
 
-![Api configuration](images/d_google_api_search_5_api_hostname.png)
+![Api configuration](images/D_google_api_search_5_api_hostname.png)
 
 ---
 
