@@ -147,7 +147,7 @@ Digunakan untuk **escape** string. Meskipun string yang dipakai menggunakan lite
 
 ```go
 fmt.Printf("%q\n", `" name \ height "`)
-// "\" name \\\\ height \""
+// "\" name \\ height \""
 ```
 
 ## A.37.11. Layout Format `%s`

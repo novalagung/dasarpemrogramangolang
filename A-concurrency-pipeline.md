@@ -13,15 +13,16 @@ Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database 
 1. Kita perlu data *list* dari semua database yang harus di-backup, beserta alamat akses dan kredensial-nya.
 2. Kita jalankan proses backup, bisa secara sekuensial (setelah `db1` selesai, lanjut `db2`, lanjut `db3`, dst), atau secara paralel (proses backup `db1`, `db2`, `db3`, dan lainnya dijalankan secara bersamaan).
 3. Di masing-masing proses backup database sendiri ada beberapa proses yang dijalankan:
-   A. Lakukan operasi *dump* terhadap database, outputnya berupa banyak file disimpan ke sebuah folder.
-   B. File-file hasil dump kemudian di-*archive* ke bentuk `.zip` atau `.tar.gz` (misalnya).
-   C. File archive di-kirim ke server backup, sebagai contoh AWS S3.
+
+    * A. Lakukan operasi *dump* terhadap database, outputnya berupa banyak file disimpan ke sebuah folder.
+    * B. File-file hasil dump kemudian di-*archive* ke bentuk `.zip` atau `.tar.gz` (misalnya).
+    * C. File archive di-kirim ke server backup, sebagai contoh AWS S3.
 
 Kalau diperhatikan pada kasus di atas, mungkin akan lebih bagus dari segi performansi kalau proses backup banyak database tersebut dilakukan secara parallel. Dan untuk ini penulis setuju.
 
 Dan akan lebih bagus lagi, jika di masing-masing proses backup database tersebut, proses A, B, dan C dijalankan secara konkuren. Dengan menjadikan ketiga proses tersebut (A, B, C) sebagai proses konkuren, maka I/O akan lebih efisien. Nantinya antara proses A, B, dan C eksekusinya akan tetap berurutan (karena memang harus berjalan secara urut. Tidak boleh kalau misal B lebih dulu dieksekusi kemudian A); akan tetapi, ketika goroutine yang bertanggung jawab untuk eksekusi proses A selesai, kita bisa lanjut dengan eksekusi proses B (yang memang *next stage*-nya proses A) plus eksekusi proses A lainnya (database lain) secara paralel. Jadi goroutine yang handle A ini ga sampai menganggur.
 
-Silakan perhatikan visualisasi berikut. Kolom merupakan representase goroutine yang berjalan secara bersamaan. Tapi karena ketiga goroutine tersebut merupakan serangkaian proses, jadi eksekusinya harus urut. Sedangkan baris/row representasi dari *sequence* atau urutan.
+Silakan perhatikan visualisasi berikut. Kolom merupakan representasi dari goroutine yang berjalan secara bersamaan. Tapi karena ketiga goroutine tersebut merupakan serangkaian proses, jadi eksekusinya harus urut. Sedangkan baris/row representasi dari *sequence* atau urutan.
 
 | sequence | pipeline A | pipeline B | pipeline C |
 |:--------:|:----------:|:----------:|:----------:|
@@ -52,7 +53,7 @@ Semoga cukup jelas ya. Gpp kalau bingung, nanti kita sambil praktek juga jadi bi
 
 Ok, penjabaran teori sepanjang sungai `nil` tidak akan banyak membawa penjelasan yang real kalau tidak diiringi dengan praktek. So, mari kita mulai praktek.
 
-Penulis sarankan untuk benar-benar memahami setiap bagian praktek ini, karena topik ini merupakan pembahasan yang cukup berat untuk pemulai, tapi masih dalam klasifikasi fundamental kalau di Go programming. Bingung tidak apa, nanti bisa di-ulang-ulang, yang penting tidak sekadar *copy-paste*.
+Penulis sarankan untuk benar-benar memahami setiap bagian praktek ini, karena topik ini merupakan pembahasan yang cukup berat untuk pemula, tapi masih dalam klasifikasi fundamental kalau di Go programming. Bingung tidak apa, nanti bisa di-ulang-ulang, yang penting tidak sekadar *copy-paste*.
 
 Untuk skenario praktek kita tidak menggunakan analogi backup database di atas ya, karena untuk setup environment-nya butuh banyak *effort*. Skenario praktek yang kita pakai adalah mencari [md5 sum](https://en.wikipedia.org/wiki/Md5sum) dari banyak file, kemudian menggunakan hash dari content-nya sebagai nama file. Jadi file yang lama akan di-rename dengan nama baru yaitu hash dari konten file tersebut.
 
@@ -254,7 +255,7 @@ Ok, aplikasi sudah siap. Selanjutnya kita akan refactor aplikasi tersebut ke ben
 
 ## A.59.5. Program 3: Lakukan Proses Secara Concurrent Menggunakan Pipeline
 
-Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kalau dilihat dari prespektif bisnis logic, tapi metode yang kita terapkan dari sisi engineering berbeda. Disini kita akan terapkan *pipeline*. Bisnis logic akan dipecah menjadi 3 yang kesemuanya dieksekusi secara konkuren, yaitu:
+Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kalau dilihat dari perspektif bisnis logic, tapi metode yang kita terapkan dari sisi engineering berbeda. Disini kita akan terapkan *pipeline*. Bisnis logic akan dipecah menjadi 3 yang kesemuanya dieksekusi secara konkuren, yaitu:
 
 - Proses baca file
 - Proses perhitungan md5 hash sum

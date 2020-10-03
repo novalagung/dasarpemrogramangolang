@@ -40,7 +40,7 @@ Untuk mengatasi masalah ini, tambahkan `bash -c` pada linux/nix command atau `cm
 if runtime.GOOS == "windows" {
     output, err = exec.Command("cmd", "/C", "git config user.name").Output()
 } else {
-    output, err = exec.Command("bash", "-c", "git config user.name")
+    output, err = exec.Command("bash", "-c", "git config user.name").Output()
 }
 ```
 

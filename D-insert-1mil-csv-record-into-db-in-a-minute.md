@@ -1,6 +1,6 @@
 # D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover.
 
-Pada bab ini kita akan praktek penerapan salah satu teknik concurrent programming di Go yaitu worker pool, dikombinasikan dengan database connection pool, untuk membaca 1jt rows data dari sebuah file csv untuk kemudian di-insert-kan ke mysql server.
+Pada bab ini kita akan praktek penerapan salah satu teknik concurrent programming di Go yaitu worker pool, dikombinasikan dengan database connection pool, untuk membaca 1 juta rows data dari sebuah file csv untuk kemudian di-insert-kan ke mysql server.
 
 Pada bagian insert data kita terapkan mekanisme failover, jadi ketika ada operasi insert gagal, maka akan otomatis di recover dan di retry. Jadi idealnya di akhir, semua data, sejumlah satu juta, akan berhasil di-insert.
 
@@ -26,7 +26,7 @@ Failover merupakan mekanisme backup ketika sebuah proses gagal. Pada konteks ini
 
 ## D.1.2. Persiapan
 
-File [majestic-million-csv](https://blog.majestic.com/development/majestic-million-csv-daily/) digunakan sebagai bahan dalam praktek. File tersebut gratis dengan lisensi CCA3. Isinya adalah list dari top website berjumlah 1jt.
+File [majestic-million-csv](https://blog.majestic.com/development/majestic-million-csv-daily/) digunakan sebagai bahan dalam praktek. File tersebut gratis dengan lisensi CCA3. Isinya adalah list dari top website berjumlah 1 juta.
 
 Silakan download file nya disini http://downloads.majestic.com/majestic_million.csv.
 
@@ -155,7 +155,7 @@ Ok, sekarang kita mulai masuk ke aspek konkurensi dari pembahasan ini. Siapkan f
 
 Tiap-tiap goroutine tersebut adalah worker atau pekerja, yang tugasnya nanti akan meng-insert data ke database.
 
-Saat aplikasi dijalankan, sejumlah 100 worker akan berlomba-lomba menyelesaikan job insert data sejumlah 1jt data.
+Saat aplikasi dijalankan, sejumlah 100 worker akan berlomba-lomba menyelesaikan job insert data sejumlah 1 juta data.
 
 1 job adalah 1 data, maka rata-rata setiap worker akan menyelesaikan operasi insert sekitar 10k. Tapi ini jelasnya tidak pasti karena worker akan berkompetisi dalam penyelesaian job, jadi sangat besar kemungkinan akan ada job yang menyelesaikan lebih dari 10k jobs, ataupun yg dibawah 10k jobs.
 
@@ -179,7 +179,7 @@ Bisa dilihat dalam fungsi di atas, di dalam goroutine/worker, isi channel jobs (
 
 Fungsi `doTheJob()` yang nantinya kita buat, isinya adalah operasi insert data ke database server. Setiap satu operasi insert selesai, `wg.Done()` untuk menandai bahwa 1 job adalah selesai.
 
-Idealnya di akhir aplikasi akan terjadi pemanggilan `wg.Done()` sejumlah 1jt karena ada 1jt jobs.
+Idealnya di akhir aplikasi akan terjadi pemanggilan `wg.Done()` sejumlah 1 juta karena ada 1 juta jobs.
 
 #### • Fungsi Baca CSV dan Pengiriman Jobs ke Worker
 

@@ -54,6 +54,8 @@ jobs:
         go-version: 1.14
     - name: 'Installing gitbook cli'
       run: npm install -g gitbook-cli
+    - name: 'Installing svgexport'
+      run: npm install -g svgexport
     - name: 'Installing calibre'
       run: sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
     - name: 'Preparing for ebooks generations'
