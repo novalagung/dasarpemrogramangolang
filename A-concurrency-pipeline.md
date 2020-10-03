@@ -1,10 +1,10 @@
-# A.59. Concurrency Pattern: Pipeline
+# A.62. Concurrency Pattern: Pipeline
 
 Kita sudah membahas beberapa kali tentang *concurrency* atau konkurensi di Go programming. Pada chapter ini kita akan belajar salah satu best practice konkurensi dalam Go, yaitu *pipeline*, yang merupakan satu diantara banyak *concurrency pattern* yang ada di Go.
 
 Go memiliki beberapa API untuk keperluan konkurensi, diantara *goroutine* dan *channel*. Dengan memanfaatkan APIs yang ada kita bisa mementuk sebuah *streaming data pipeline* yang benefitnya adalah efisiensi penggunaan I/O dan efisiensi penggunaan banyak CPU.
 
-## A.59.1. Konsep *Pipeline*
+## A.62.1. Konsep *Pipeline*
 
 Definisi *pipeline* yang paling mudah versi penulis adalah **beberapa/banyak proses yang berjalan secara konkuren yang masing-masing proses merupakan bagian dari serangkaian tahapan proses yang berhubungan satu sama lain**.
 
@@ -49,7 +49,7 @@ Pada contoh ini kita asumsikan pipeline A adalah hanya satu goroutine, pipeline 
 
 Semoga cukup jelas ya. Gpp kalau bingung, nanti kita sambil praktek juga jadi bisa saja temen-temen mulai benar-benar pahamnya setelah praktek.
 
-## A.59.2. Skenario Praktek
+## A.62.2. Skenario Praktek
 
 Ok, penjabaran teori sepanjang sungai `nil` tidak akan banyak membawa penjelasan yang real kalau tidak diiringi dengan praktek. So, mari kita mulai praktek.
 
@@ -59,7 +59,7 @@ Untuk skenario praktek kita tidak menggunakan analogi backup database di atas ya
 
 Agar skenario ini bisa kita eksekusi, kita perlu siapkan dulu sebuah program untuk *generate dummy files*.
 
-## A.59.3. Program 1: Generate Dummy File
+## A.62.3. Program 1: Generate Dummy File
 
 Buat projek baru dengan nama bebas <span style="text-decoration: line-through">loss gak reweellll</span> beserta satu buah file bernama `1-dummy-file-generator.go`.
 
@@ -147,11 +147,11 @@ O iya untuk logging pembuatan file saya tampilkan setiap 100 file di-generate, a
 
 Oke, generator sudah siap, jalankan.
 
-![Generate dummy files](images/a_concurrency_pipeline_1_generate_dummy_files.png)
+![Generate dummy files](images/A_concurrency_pipeline_1_generate_dummy_files.png)
 
 Bisa dilihat sebanyak 3000 dummy file di-generate pada folder temporary os, di sub folder `chapter-A.59-pipeline-temp`.
 
-## A.59.4. Program 2: Baca Semua Files, Cari MD5 Hash-nya, Lalu Gunakan Hash Untuk Rename File
+## A.62.4. Program 2: Baca Semua Files, Cari MD5 Hash-nya, Lalu Gunakan Hash Untuk Rename File
 
 Sesuai judul sub bagian, kita akan buat satu file program lagi, yang isinya kurang lebih adalah melakukan pembacaan terhadap semua dummy file yang sudah di-generate untuk kemudian dicari *hash*-nya, lalu menggunakan value hash tersebut sebagai nama file baru masing-masing file.
 
@@ -247,13 +247,13 @@ Cukup panjang isi fungsi ini, tapi isinya cukup *straightforward* kok.
 
 Semoga cukup jelas. Kalo iya, jalankan programnya.
 
-![Generate dummy files](images/a_concurrency_pipeline_2_rename_sequentially.png)
+![Generate dummy files](images/A_concurrency_pipeline_2_rename_sequentially.png)
 
 Selesai dalam waktu **1,17 detik**, lumayan untuk eksekusi proses sekuensial.
 
 Ok, aplikasi sudah siap. Selanjutnya kita akan refactor aplikasi tersebut ke bentuk konkuren menggunakan metode *pipeline*.
 
-## A.59.5. Program 3: Lakukan Proses Secara Concurrent Menggunakan Pipeline
+## A.62.5. Program 3: Lakukan Proses Secara Concurrent Menggunakan Pipeline
 
 Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kalau dilihat dari perspektif bisnis logic, tapi metode yang kita terapkan dari sisi engineering berbeda. Disini kita akan terapkan *pipeline*. Bisnis logic akan dipecah menjadi 3 yang kesemuanya dieksekusi secara konkuren, yaitu:
 
@@ -526,11 +526,11 @@ Kita lakukan perulangan terhadap channel tersebut, lalu hitung jumlah file yang 
 
 Ok, sekarang program sudah siap. Mari kita jalankan untuk melihat hasilnya.
 
-![Rename file concurrently](images/a_concurrency_pipeline_3_rename_concurrently.png)
+![Rename file concurrently](images/A_concurrency_pipeline_3_rename_concurrently.png)
 
 Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu `1.17` detik, sedangkan dengan metode pipeline butuh hanya `0.72` detik. Bedanya hampir **40%**! dan ini hanya 3000 file saja, bayangkan kalau jutaan file, mungkin lebih kerasa perbandingan performnya.
 
-## A.59.6. Kesimpulan
+## A.62.6. Kesimpulan
 
 Pipeline concurrency pattern sangat bagus untuk diterapkan pada kasus yang proses-nya bisa di-klasifikasi menjadi sub-proses kecil-kecil yang secara I/O tidak saling tunggu (tapi secara flow harus berurutan).
 

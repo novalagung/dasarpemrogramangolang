@@ -16,7 +16,7 @@ gRPC adalah salah satu RPC framework, dibuat oleh Google. gRPC menggunakan proto
 
 ## C.30.2 Prerequisites
 
-Sekedar informasi bahwa sebelum mulai mengikuti pembelajaran pada bab ini, **WAJIB HUKUMNYA** untuk mengikuti pembahasan pada bab sebelumnya [C.29. Protobuf](/C-29-golang-protobuf-implementation.html) terlebih dahulu.
+Sekedar informasi bahwa sebelum mulai mengikuti pembelajaran pada chapter ini, **WAJIB HUKUMNYA** untuk mengikuti pembahasan pada chapter sebelumnya [C. Protobuf](/C-29-golang-protobuf-implementation.html) terlebih dahulu.
 
 ## C.30.3. Struktur Aplikasi
 

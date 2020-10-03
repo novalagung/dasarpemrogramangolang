@@ -184,7 +184,7 @@ func HandlerLogin(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Handler ini bertugas untuk meng-otentikasi client/consumer. Data username dan password dikirimkan ke endpoint dalam bentuk [Basic Auth](https://dasarpemrogramangolang.novalagung.com/B-18-http-basic-auth.html). Data tersebut kemudian disisipkan dalam pemanggilan fungsi otentikasi `authenticateUser()`, yang nantinya juga akan kita buat.
+Handler ini bertugas untuk meng-otentikasi client/consumer. Data username dan password dikirimkan ke endpoint dalam bentuk [Basic Auth](/B-18-http-basic-auth.html). Data tersebut kemudian disisipkan dalam pemanggilan fungsi otentikasi `authenticateUser()`, yang nantinya juga akan kita buat.
 
 ```go
 ok, userInfo := authenticateUser(username, password)

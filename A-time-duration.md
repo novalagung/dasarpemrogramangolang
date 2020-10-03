@@ -1,4 +1,4 @@
-# A.39.C. Time Duration
+# A.42. Time Duration
 
 Pada chapter ini kita akan belajar tentang tipe waktu durasi yaitu `time.Duration`.
 
@@ -6,7 +6,7 @@ Tipe `time.Duration` ini merepresentasikan durasi, contohnya seperti 1 menit, 2 
 
 Tipe durasi ini sangat berguna untuk banyak hal, seperti *benchmarking* durasi ataupun operasi-operasi lainnya yang membutuhkan informasi durasi.
 
-## A.39.C.1. Praktek 
+## A.42.1. Praktek 
 
 Mari kita bahas sambil praktek. Silakan tulis kode berikut lalu jalankan.
 
@@ -52,11 +52,11 @@ Di atas kita gunakan `5 * time.Second` sebagai argumen `time.Sleep()`, maka deng
 
 Sekarang jalankan program yang sudah dibuat.
 
-![Time Duration](images/a_time_duration_1.png)
+![Time Duration](images/A_time_duration_1.png)
 
 Bisa dilihat, hasilnya adalah semua statement dibawah `time.Sleep()` dieksekusi setelah 5 detik berlalu. Ini merupakan contoh penggunaan tipe data durasi pada fungsi `time.Sleep()`.
 
-## A.39.C.2. Kalkulasi Durasi Menggunakan `time.Since()`.
+## A.42.2. Kalkulasi Durasi Menggunakan `time.Since()`.
 
 Pada kode di atas, variabel `duration` berisi durasi atau lama waktu antara kapan variabel `start` di-inisialisasi hingga kapan variabel `duration` ini statement-nya dieksekusi.
 
@@ -64,13 +64,13 @@ Cara menghitung durasi bisa menggunakan `time.Since()`. Isi argumen fungsi terse
 
 Pada contoh di atas, karena ada statement `time.Sleep(5 * time.Second)` maka idealnya `time.Since(start)` isinya adalah 5 detik (mungkin lebih sedikit, sekian mili/micro/nano-second, karena eksekusi statement juga butuh waktu).
 
-## A.39.C.3. Method `time.Duration`
+## A.42.3. Method `time.Duration`
 
 Tipe `time.Duration` memiliki beberapa method yang sangat-sangat berguna untuk keperluan mengambil nilai durasinya dalam unit tertentu. Misalnya, objek durasi tersebut ingin di-ambil nilainya dalam satuan unit detik, maka gunakan `.Seconds()`. Jika ingin dalam bentuk menit, maka gunakan `.Minutes()`, dan lainnya.
 
 Pada contoh di atas, kita mengambil nilai durasi waktu dalam tiga bentuk, yaitu detik, menit, dan jam. Caranya cukup akses saja method-nya, maka kita akan langsung dapat nilainya, tanpa perlu memikirkan operasi aritmatik konversinya. Cukup mudah bukan.
 
-## A.39.C.4. Kalkulasi Durasi Antara 2 Objek Waktu
+## A.42.4. Kalkulasi Durasi Antara 2 Objek Waktu
 
 Di atas kita sudah membahas cara hitung durasi menggunakan `time.Since()` antara sebuah objek waktu vs kapan statement di-eksekusi. Pada bagian ini, masih mirip, perbedannya adalah hitung durasi dilakukan pada 2 objek waktu.
 
@@ -90,7 +90,7 @@ fmt.Println("time elapsed in hours:", duration.Hours())
 
 Method `.Sub()` milik objek `time.Time` digunakan untuk mencari selisih waktu. Pada contoh di atas, durasi antara waktu `t1` dan waktu `t2` dihitung. Method `.Sub()` ini menghasilkan nilai balik bertipe `time.Duration`.
 
-## A.39.C.5. Konversi Angka ke `time.Duration` 
+## A.42.5. Konversi Angka ke `time.Duration` 
 
 Kita bisa mengalikan angka literal dengan konstanta `time.Duration` untuk menciptakan variabel/objek bertipe durasi. Contohnya seperti yang sudah kita terapkan sebelumnya, yaitu `5 * time.Second` yang menghasilkan data durasi 5 detik. Contoh lainnya:
 

@@ -97,7 +97,7 @@ func OutputJSON(w http.ResponseWriter, o interface{}) {
 }
 ```
 
-Konversi dari objek atau slice ke JSON string bisa dilakukan dengan memanfaatkan `json.Marshal`. Untuk lebih jelasnya silakan baca lagi [Bab A.50. JSON](/50-json.html).
+Konversi dari objek atau slice ke JSON string bisa dilakukan dengan memanfaatkan `json.Marshal`. Untuk lebih jelasnya silakan baca lagi [Bab A. JSON](/A-json.html).
 
 ## B.18.3. Data `Student`
 

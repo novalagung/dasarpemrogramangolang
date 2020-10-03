@@ -10,7 +10,7 @@ Nantinya saat testing akan ada banyak user terhubung dengan socket server, dalam
 
 Kurang lebih aplikasi yang kita kembangkan seperti gambar di bawah ini.
 
-![Chatting App](images/d_golang_web_socket_chatting_app_3_chatting.png)
+![Chatting App](images/D_golang_web_socket_chatting_app_3_chatting.png)
 
 ## D.3.1. Back End
 
@@ -291,7 +291,7 @@ Tambahkan beberapa stylesheet agar terlihat cantik.
 
 Tampilan sekilas aplikasi bisa dilihat pada gambar di bawah ini.
 
-![Chatting App Template](images/d_golang_web_socket_chatting_app_1_template.png)
+![Chatting App Template](images/D_golang_web_socket_chatting_app_1_template.png)
 
 OK, sekarang saatnya masuk ke bagian yang paling disukai anak jaman now (?), yaitu javascript. Siapkan beberapa property, satu untuk menampung objek client socket server, dan satu lagi menampung element container (element inilah yang nantinya akan diisi message yang di-broadcast oleh server).
 
@@ -323,7 +323,7 @@ Fungsi `app.init()` dipanggil pada event `window.onload`.
 
 Di saat pertama kali page load, muncul prompt yang meminta inputan nama user. Nantinya user yang diinput dijadikan sebagai *current* username pada aplikasi chatting ini.
 
-![Prompt Username](images/d_golang_web_socket_chatting_app_2_prompt_username.png)
+![Prompt Username](images/D_golang_web_socket_chatting_app_2_prompt_username.png)
 
 Property `app.ws` digunakan untuk menampung objek client web socket. Dari objek tersebut, buat 3 buah event listener. Tulis deklarasi event-nya dalam `app.init`.
 
@@ -396,7 +396,7 @@ OK, aplikasi sudah siap, mari lanjut ke bagian testing.
 
 Buka beberapa tab, gunakan username apa saja di masing-masing tab. Coba berinteraksi satu sama lain.
 
-![Chatting App](images/d_golang_web_socket_chatting_app_3_chatting.png)
+![Chatting App](images/D_golang_web_socket_chatting_app_3_chatting.png)
 
 Bisa dilihat, ketika ada user baru, semua client yang sudah terhubung mendapat pesan **User XXX: connected**. 
 
@@ -404,7 +404,7 @@ Pesan yang ditulis oleh satu client bisa dilihat oleh client lainnya.
 
 Ketika salah satu user leave, pesan **User XXX: disconnected** akan di-broadcast ke semua user lainnya. Pada gambar di bawah ini dicontohkan user **Noval Agung** leave.
 
-![User leave chat room](images/d_golang_web_socket_chatting_app_4_user_leave.png)
+![User leave chat room](images/D_golang_web_socket_chatting_app_4_user_leave.png)
 
 ---
 
