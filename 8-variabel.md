@@ -29,7 +29,7 @@ Keyword `var` di atas digunakan untuk deklarasi variabel, contohnya bisa dilihat
 
 Nilai variabel `firstName` diisi langsung ketika deklarasi, berbeda dibanding `lastName` yang nilainya diisi setelah baris kode deklarasi, hal seperti ini diperbolehkan di Go.
 
-![Menampilkan isi variabel](images/A.8_1_variabel.png)
+![Menampilkan isi variabel](images/A_variabel_1_variabel.png)
 
 ## A.8.2. Deklarasi Variabel Menggunakan Keyword `var`
 
@@ -137,7 +137,7 @@ one, isFriday, twoPointTwo, say := 1, true, 2.2, "hello"
 
 Go memiliki aturan unik yang jarang dimiliki bahasa lain, yaitu tidak boleh ada satupun variabel yang menganggur. Artinya, semua variabel yang dideklarasikan harus digunakan. Jika ada variabel yang tidak digunakan tapi dideklarasikan, error akan muncul pada saat kompilasi dan program tidak akan bisa di-run.
 
-![Variabel pengangguran](images/A.8_2_unused_variabel.png)
+![Variabel pengangguran](images/A_variabel_2_unused_variabel.png)
 
 *Underscore* (`_`) adalah *reserved variable* yang bisa dimanfaatkan untuk menampung nilai yang tidak dipakai. Bisa dibilang variabel ini merupakan keranjang sampah.
 

@@ -29,7 +29,7 @@ Cara menge-set nilai pada sebuah map adalah dengan menuliskan variabel-nya, kemu
 
 Pengisian data pada map bersifat **overwrite**, ketika variabel sudah memiliki item dengan key yang sama, maka value lama akan ditimpa dengan value baru.
 
-![Pengaksesan data map](images/A.16_1_map_set_get.png)
+![Pengaksesan data map](images/A_map_1_map_set_get.png)
 
 Pada pengaksesan item menggunakan key yang belum tersimpan di map, akan dikembalikan nilai default tipe data value-nya. Contohnya seperti pada kode di atas, `chicken["mei"]` menghasilkan nilai 0 (nilai default tipe `int`), karena belum ada item yang tersimpan menggunakan key `"mei"`.
 
@@ -89,7 +89,7 @@ for key, val := range chicken {
 }
 ```
 
-![Perulangan Map](images/A.16_2_map_for_range.png)
+![Perulangan Map](images/A_map_2_map_for_range.png)
 
 ## A.16.4. Menghapus Item Map
 
@@ -109,7 +109,7 @@ fmt.Println(chicken)
 
 Item yang memiliki key `"januari"` dalam variabel `chicken` akan dihapus.
 
-![Hapus item Map](images/A.16_3_map_delete_item.png)
+![Hapus item Map](images/A_map_3_map_delete_item.png)
 
 Fungsi `len()` jika digunakan pada map akan mengembalikan jumlah item.
 

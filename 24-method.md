@@ -46,7 +46,7 @@ func main() {
 
 Output:
 
-![Penggunaan method](images/A.24_1_method.png)
+![Penggunaan method](images/A_method_1_method.png)
 
 Cara mengakses method sama seperti pengaksesan properti berupa variabel. Tinggal panggil saja methodnya.
 
@@ -108,7 +108,7 @@ func main() {
 
 Output:
 
-![Penggunaan method pointer](images/A.24_2_method_pointer.png)
+![Penggunaan method pointer](images/A_method_2_method_pointer.png)
 
 Setelah eksekusi statement `s1.changeName1("jason bourne")`, nilai `s1.name` tidak berubah. Sebenarnya nilainya berubah tapi hanya dalam method `changeName1()` saja, nilai pada reference di objek-nya tidak berubah. Karena itulah ketika objek di print value dari `s1.name` tidak berubah.
 

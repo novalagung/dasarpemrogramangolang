@@ -16,7 +16,7 @@ fmt.Println(names[0], names[1], names[2], names[3])
 
 Variabel `names` dideklarasikan sebagai `array string` dengan alokasi elemen `4` slot. Cara mengisi slot elemen array bisa dilihat di kode di atas, yaitu dengan langsung mengakses elemen menggunakan indeks, lalu mengisinya.
 
-![Menampilkan elemen array](images/A.14_0_array.png)
+![Menampilkan elemen array](images/A_array_0_array.png)
 
 ## A.14.1. Pengisian Elemen Array yang Melebihi Alokasi Awal
 
@@ -46,7 +46,7 @@ fmt.Println("Isi semua element \t", fruits)
 
 Penggunaan fungsi `fmt.Println()` pada data array tanpa mengakses indeks tertentu, akan menghasilkan output dalam bentuk string dari semua array yang ada. Teknik ini biasa digunakan untuk **debugging** data array.
 
-![Menghitung jumlah elemen dan menampilkan isi array](images/A.14_1_array_initialization_and_len.png)
+![Menghitung jumlah elemen dan menampilkan isi array](images/A_array_1_array_initialization_and_len.png)
 
 Fungsi `len()` dipakai untuk menghitung jumlah elemen sebuah array.
 
@@ -84,7 +84,7 @@ fmt.Println("jumlah elemen \t:", len(numbers))
 
 Variabel `numbers` akan secara otomatis memiliki jumlah elemen `5`, karena pada saat deklarasi disiapkan 5 buah elemen.
 
-![Deklarasi array menggunakan tanda 3 titik](images/A.14_1_1_array_dots.png)
+![Deklarasi array menggunakan tanda 3 titik](images/A_array_1_1_array_dots.png)
 
 ## A.14.5. Array Multidimensi
 
@@ -104,7 +104,7 @@ fmt.Println("numbers2", numbers2)
 
 Kedua array di atas memiliki elemen yang sama.
 
-![Array multidimensi](images/A.14_2_array_multidimension.png)
+![Array multidimensi](images/A_array_2_array_multidimension.png)
 
 ## A.14.6. Perulangan Elemen Array Menggunakan Keyword `for`
 
@@ -122,7 +122,7 @@ for i := 0; i < len(fruits); i++ {
 
 Perulangan di atas dijalankan sebanyak jumlah elemen array `fruits` (bisa diketahui dari kondisi `i < len(fruits`). Di tiap perulangan, elemen array diakses lewat variabel iterasi `i`.
 
-![Iterasi elemen array](images/A.14_3_for_range.png)
+![Iterasi elemen array](images/A_array_3_for_range.png)
 
 ## A.14.7. Perulangan Elemen Array Menggunakan Keyword `for` - `range`
 
@@ -156,7 +156,7 @@ for i, fruit := range fruits {
 
 Hasil dari kode program di atas:
 
-![Error karena ada variabel yang tidak digunakan](images/A.14_4_for_range_error.png)
+![Error karena ada variabel yang tidak digunakan](images/A_array_4_for_range_error.png)
 
 Disinilah salah satu kegunaan variabel pengangguran, atau underscore (`_`). Tampung saja nilai yang tidak ingin digunakan ke underscore.
 
@@ -170,7 +170,7 @@ for _, fruit := range fruits {
 
 Pada kode di atas, yang sebelumnya adalah variabel `i` diganti dengan `_`, karena kebetulan variabel `i` tidak digunakan.
 
-![For range tanpa indeks](images/A.14_5_for_range_underscore.png)
+![For range tanpa indeks](images/A_array_5_for_range_underscore.png)
 
 Jika yang dibutuhkan hanya indeks elemen-nya saja, bisa gunakan 1 buah variabel setelah keyword `for`.
 

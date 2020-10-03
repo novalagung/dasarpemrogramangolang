@@ -45,7 +45,7 @@ func main() {
 
 Setelah 20 data sukses dikirim dan diterima, channel `ch` di-non-aktifkan (`close(ch)`). Membuat perulangan data channel dalam `printMessage()` juga akan berhenti.
 
-![Penerapan for-range-close pada channel](images/A.33_1_for_range_close.png)
+![Penerapan for-range-close pada channel](images/A_channel_range_close_1_for_range_close.png)
 
 ---
 

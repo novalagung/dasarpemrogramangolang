@@ -14,13 +14,13 @@ cd hello-world
 go mod init hello-world
 ```
 
-![Inisialisasi project](images/A.6_1_init_project.png)
+![Inisialisasi project](images/A_hello_world_1_init_project.png)
 
 ## A.6.2. Load Projek Folder ke Editor
 
 Buka editor, disini penulis menggunakan VSCode. Cari menu untuk menambahkan projek, lalu pilih projek folder `hello-world`. Untuk beberapa jenis editor, cara load projek bisa cukup dengan klik-drag folder tersebut ke editor.
 
-![Load project folder ke editor](images/A.6_2_load_project_to_editor.png)
+![Load project folder ke editor](images/A_hello_world_2_load_project_to_editor.png)
 
 ## A.6.3. Menyiapkan File Program
 
@@ -30,7 +30,7 @@ Di dalam project yang telah dibuat, siapkan sebuah file dengan nama bebas, yang 
 
 Pembuatan file program bisa dilakukan lewat CLI atau browser, atau juga lewat editor. Pastikan file dibuat dalam projek folder ya.
 
-![File program](images/A.6_3_new_file_on_editor.png)
+![File program](images/A_hello_world_3_new_file_on_editor.png)
 
 ## A.6.4. Program Pertama: Hello Word
 
@@ -57,7 +57,7 @@ go run main.go
 
 Hasilnya, muncul tulisan **hello world** di layar console.
 
-![Menjalankan program](images/A.6_4_execute_hello_world.png)
+![Menjalankan program](images/A_hello_world_4_execute_hello_world.png)
 
 Selamat! Anda telah berhasil membuat program Go!
 

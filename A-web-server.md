@@ -40,7 +40,7 @@ Jalankan program tersebut.
 
 Jika muncul dialog **Do you want the application “bab48” to accept incoming network connections?** atau sejenis, pilih allow. Setelah itu, buka url [http://localhost/](http://localhost/) dan [http://localhost/index](http://localhost/index/) lewat browser.
 
-![Contoh penerapan net/http](images/A_web_server_3_web_server.png)
+![Contoh penerapan net/http](images/A_web_server_2_web_server.png)
 
 Fungsi `http.HandleFunc()` digunakan untuk routing aplikasi web. Maksud dari routing adalah penentuan aksi ketika url tertentu diakses oleh user.
 

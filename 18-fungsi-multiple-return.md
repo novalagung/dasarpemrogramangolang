@@ -53,7 +53,7 @@ func main() {
 
 Output program:
 
-![Penerapan teknik multiple return](images/A.18_1_multiple_return.png)
+![Penerapan teknik multiple return](images/A_fungsi_multiple_return_1_multiple_return.png)
 
 Karena fungsi tersebut memiliki banyak nilai balik, maka pada pemanggilannya harus disiapkan juga banyak variabel untuk menampung nilai kembalian yang ada (sesuai jumlah nilai balik fungsi).
 

@@ -74,7 +74,7 @@ Pada kode di atas, pengiriman data pada channel `ch1` dan `ch2` dikontrol menggu
 
 Karena ada 2 buah channel, maka perlu disiapkan perulangan 2 kali sebelum penggunaan keyword `select`.
 
-![Contoh penerapan channel select](images/A.32_1_channel_select.png)
+![Contoh penerapan channel select](images/A_channel_select_1_channel_select.png)
 
 Cukup mudah bukan?
 

@@ -21,7 +21,7 @@ func main() {
 
 Output:
 
-![Penerapan `defer`](images/A.35_1_defer.png)
+![Penerapan `defer`](images/A_defer_exit_1_defer.png)
 
 Keyword `defer` di atas akan mengakhirkan ekseusi `fmt.Println("halo")`, efeknya pesan `"halo"` akan muncul setelah `"selamat datang"`.
 
@@ -47,7 +47,7 @@ func orderSomeFood(menu string) {
 
 Output:
 
-![Penerapan `defer` dengan `return`](images/A.35_2_defer_return.png)
+![Penerapan `defer` dengan `return`](images/A_defer_exit_2_defer_return.png)
 
 Info tambahan, ketika ada banyak statement yang di-defer, maka kesemuanya akan dieksekusi di akhir secara berurutan.
 
@@ -126,7 +126,7 @@ func main() {
 
 Meskipun `defer fmt.Println("halo")` ditempatkan sebelum `os.Exit()`, statement tersebut tidak akan dieksekusi, karena di-tengah fungsi program dihentikan secara paksa.
 
-![Penerapan `exit`](images/A.35_3_exit.png)
+![Penerapan `exit`](images/A_defer_exit_3_exit.png)
 
 ---
 

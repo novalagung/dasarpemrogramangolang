@@ -44,7 +44,7 @@ Semua property variabel objek pada awalnya memiliki zero value sesuai tipe datan
 
 Property variabel objek bisa diakses nilainya menggunakan notasi titik, contohnya `s1.name`. Nilai property-nya juga bisa diubah, contohnya  `s1.grade = 2`.
 
-![Pengaksesan property variabel objek](images/A.23_1_struct.png)
+![Pengaksesan property variabel objek](images/A_struct_1_struct.png)
 
 ## A.23.3. Inisialisasi Object Struct
 
@@ -97,7 +97,7 @@ fmt.Println("student 4, name :", s2.name)
 
 Meskipun `s2` bukan variabel asli, property nya tetap bisa diakses seperti biasa. Inilah keistimewaan property dalam objek pointer, tanpa perlu di-dereferensi nilai asli property tetap bisa diakses. Pengisian nilai pada property tersebut juga bisa langsung menggunakan nilai asli, contohnya seperti `s2.name = "ethan"`.
 
-![Variabel objek pointer](images/A.23_2_pointer_object.png)
+![Variabel objek pointer](images/A_struct_2_pointer_object.png)
 
 ## A.23.5. Embedded Struct
 

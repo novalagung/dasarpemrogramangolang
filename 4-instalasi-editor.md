@@ -12,7 +12,7 @@ Pada bab ini akan dijelaskan bagaimana cara instalasi editor Visual Studio Code.
  2. Jalankan *installer*.
  3. Setelah selesai, jalankan editornya.
 
-![Tampilan Visual Studio Code](images/A.4_1_visual_studio_code.png)
+![Tampilan Visual Studio Code](images/A_instalasi_editor_1_visual_studio_code.png)
 
 ## A.4.2. Instalasi Extensi Go
 
@@ -20,13 +20,13 @@ Dengan meng-*install* Go Extension pada VSCode, maka development akan menjadi le
 
 Cara instalasi ekstensi sendiri cukup mudah, klik `View -> Extension` atau klik ikon *Extension Marketplace* di sebelah kiri (silakan lihat gambar berikut, deretan button paling kiri yang dilingkari merah). Setelah itu ketikan **Go** pada inputan search, silakan install ekstensi Go buatan Microsoft, biasanya muncul paling atas sendiri.
 
-![VSCode Go extension](images/A.4_2_vscode_go_extension.png)
+![VSCode Go extension](images/A_instalasi_editor_2_vscode_go_extension.png)
 
 ## A.4.3. Setup Editorconfig
 
 [Editorconfig](https://editorconfig.org/) membantu kita supaya *coding style* menjadi konsisten untuk dibaca oleh banyak developer, dan juga ketika dimuat pada berbagai macam **IDE**. Instalasinya di VSCode cukup mudah, cari saja *extension*-nya kemudian klik *install* seperti pada gambar berikut.
 
-![VSCode Editorconfig extension](images/A.4_3_vscode_editorconfig_extension.png)
+![VSCode Editorconfig extension](images/A_instalasi_editor_3_vscode_editorconfig_extension.png)
 
 Editorconfig pada sebuah proyek (biasanya berada di root direktori proyek tersebut) berupa konfigurasi format file `.editorconfig` yang berisi definisi style penulisan yang menyesuaikan dengan standar penulisan masing-masing bahasa pemrograman. Misalnya untuk [*style guide* **GO**](https://golang.org/doc/effective_go.html) kita bisa mulai dengan menggunakan konfigurasi sederhana sebagai berikut:
 

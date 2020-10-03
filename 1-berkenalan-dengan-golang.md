@@ -21,4 +21,4 @@ Sudah banyak industri dan perusahaan yg menggunakan Go sampai level production, 
 
 Di buku ini (terutama semua serial bab A) kita akan belajar tentang dasar pemrograman Go, mulai dari 0.
 
-![The Go Logo](images/A.1_1_logo.png)
+![The Go Logo](images/A_introduction_1_logo.png)

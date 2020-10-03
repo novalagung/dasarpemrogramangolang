@@ -46,7 +46,7 @@ fmt.Printf("nilai %d (%t) \n", value, isEqual)
 
 Pada kode di atas, terdapat statement operasi aritmatika yang hasilnya ditampung oleh variabel `value`. Selanjutnya, variabel tersebut tersebut dibandingkan dengan angka **2** untuk dicek apakah nilainya sama. Jika iya, maka hasilnya adalah `true`, jika tidak maka `false`. Nilai hasil operasi perbandingan tersebut kemudian disimpan dalam variabel `isEqual`.
 
-![Penggunaan operator perbandingan](images/A.11_1_operator_comparison.png)
+![Penggunaan operator perbandingan](images/A_operator_1_operator_comparison.png)
 
 Untuk memunculkan nilai `bool` menggunakan `fmt.Printf()`, bisa gunakan layout format `%t`.
 
@@ -80,7 +80,7 @@ fmt.Printf("!left \t\t(%t) \n", leftReverse)
 
 Hasil dari operator logika sama dengan hasil dari operator perbandingan, yaitu berupa boolean.
 
-![Penerapan operator logika](images/A.11_2_operator_logical.png)
+![Penerapan operator logika](images/A_operator_2_operator_logical.png)
 
 Berikut penjelasan statemen operator logika pada kode di atas.
 

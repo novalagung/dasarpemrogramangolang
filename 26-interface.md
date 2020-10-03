@@ -87,7 +87,7 @@ Perhatikan kode di atas. Variabel objek `bangunDatar` bertipe interface `hitung`
 
 Dari variabel tersebut, method `luas()` dan `keliling()` diakses. Secara otomatis Golang akan mengarahkan pemanggilan method pada interface ke method asli milik struct yang bersangkutan.
 
-![Pemanfaatan interface](images/A.26_1_interface.png)
+![Pemanfaatan interface](images/A_interface_1_interface.png)
 
 Method `jariJari()` pada struct `lingkaran` tidak akan bisa diakses karena tidak terdefinisi dalam interface `hitung`. Pengaksesannya dengan paksa akan menyebabkan error.
 
@@ -172,7 +172,7 @@ Bisa dilihat di kode di atas, lewat interface `hitung`, method `luas`, `keliling
 
 Pada bab 24 dijelaskan bahwa method pointer bisa diakses lewat variabel objek biasa dan variabel objek pointer. Variabel objek yang dicetak menggunakan struct yang memiliki method pointer, jika ditampung kedalam variabel interface, harus diambil referensi-nya terlebih dahulu. Contohnya bisa dilihat pada kode di atas `var bangunRuang hitung = &kubus{4}`.
 
-![Embedded interface](images/A.26_2_embedded_interface.png)
+![Embedded interface](images/A_interface_2_embedded_interface.png)
 
 ---
 

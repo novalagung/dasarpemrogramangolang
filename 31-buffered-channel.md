@@ -8,7 +8,7 @@ Ketika jumlah data yang dikirim sudah melewati batas buffer, maka pengiriman dat
 
 Proses pengiriman data pada buffered channel adalah *asynchronous* ketika jumlah data yang dikirim tidak melebihi batas buffer. Namun pada bagian channel penerimaan data selalu bersifat *synchronous*.
 
-![Analogi buffered channel](images/A.31_1_anatomy.png)
+![Analogi buffered channel](images/A_buffered_channel_1_anatomy.png)
 
 ## A.31.1. Penerapan Buffered Channel
 
@@ -45,7 +45,7 @@ Pada kode di atas, parameter kedua fungsi `make()` adalah representasi jumlah bu
 
 Bisa dilihat terdapat IIFE goroutine yang isinya proses penerimaan data dari channel `messages`, untuk kemudian datanya ditampilkan. Setelah goroutine tersebut dieksekusi, perulangan dijalankan dengan di-masing-masing perulangan dilakukan pengiriman data. Total ada 5 data dikirim lewat channel `messages` secara sekuensial.
 
-![Implementasi buffered channel](images/A.31_2_buffered_channel.png)
+![Implementasi buffered channel](images/A_buffered_channel_2_buffered_channel.png)
 
 Bisa dilihat output di atas, pada proses pengiriman data ke-4, diikuti dengan proses penerimaan data; yang kedua proses tersebut berlangsung secara blocking.
 

@@ -29,7 +29,7 @@ cd project-pertama
 go run main.go
 ```
 
-![Eksekusi file program menggunakan `go run`](images/A.5_1_go_run.png)
+![Eksekusi file program menggunakan `go run`](images/A_go_command_1_go_run.png)
 
 *Command* `go run` hanya bisa digunakan pada file yang nama package-nya adalah `main`. Lebih jelasnya dibahas pada bab selanjutnya ([A.6. Program Pertama: Hello World](6-hello-world.md)).
 
@@ -50,7 +50,7 @@ Berikut adalah contoh penggunaan *command* `go test` untuk testing file `main_te
 go test main_test.go
 ```
 
-![Unit testing menggunakan `go test`](images/A.5_3_go_test.png)
+![Unit testing menggunakan `go test`](images/A_go_command_3_go_test.png)
 
 ## A.5.3. Command `go build`
 
@@ -60,7 +60,7 @@ Sebenarnya ketika eksekusi program menggunakan `go run`, terjadi proses kompilas
 
 Berbeda dengan `go build`, *command* ini menghasilkan file *executable* atau *binary* pada folder yang sedang aktif. Contohnya bisa dilihat pada kode berikut.
 
-![Kompilasi file program menghasilkan file executable](images/A.5_4_go_build.png)
+![Kompilasi file program menghasilkan file executable](images/A_go_command_4_go_build.png)
 
 Pada contoh di atas, projek `program-pertama` di-build, menghasilkan file baru pada folder yang sama, yaitu `program-pertama.exe`, yang kemudian dieksekusi. *Default*-nya nama projek akan otomatis dijadikan nama *binary*.
 
@@ -83,7 +83,7 @@ go get github.com/segmentio/kafka-go
 dir
 ```
 
-![Download package menggunakan `go get`](images/A.5_6_go_get.png)
+![Download package menggunakan `go get`](images/A_go_command_6_go_get.png)
 
 Pada contoh di atas, `github.com/segmentio/kafka-go` adalah URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder dimana *command* `go get` dieksekusi, menjadikan projek tersebut bisa meng-*import* package terunduh.
 

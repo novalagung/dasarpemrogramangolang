@@ -62,7 +62,7 @@ func main() {
 
 Muncul output setiap kali ada penerimaan data dengan delay waktu acak. Ketika tidak ada aktifitas penerimaan dari channel dalam durasi 5 detik, perulangan pengecekkan channel diberhentikan.
 
-![Channel timeout](images/A.34_1_channel_delay.png)
+![Channel timeout](images/A_channel_timeout_1_channel_delay.png)
 
 ---
 

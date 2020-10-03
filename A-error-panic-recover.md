@@ -48,7 +48,7 @@ Setelah itu dilakukan pengecekkan, ketika tidak ada error, `number` ditampilkan.
 
 Pesan error bisa didapat dari method `Error()` milik tipe `error`.
 
-![Penerapan error](images/A.36_1_error.png)
+![Penerapan error](images/A_error_panic_recover_1_error.png)
 
 ## A.36.2. Membuat Custom Error
 
@@ -95,7 +95,7 @@ Fungsi `strings.TrimSpace()` digunakan untuk menghilangkan karakter spasi sebelu
 
 Ketika inputan tidak valid, maka error baru dibuat dengan memanfaatkan fungsi `errors.New()`. Selain itu objek error juga bisa dibuat lewat fungsi `fmt.Errorf()`.
 
-![Custom error](images/A.36_2_custom_error.png)
+![Custom error](images/A_error_panic_recover_2_custom_error.png)
 
 ## A.36.3. Penggunaan `panic`
 
@@ -122,7 +122,7 @@ func main() {
 
 Jalankan program lalu langsung tekan enter, maka panic error muncul dan baris kode setelahnya tidak dijalankan.
 
-![Menampilkan error menggunakan panic](images/A.36_3_panic.png)
+![Menampilkan error menggunakan panic](images/A_error_panic_recover_3_panic.png)
 
 ## A.36.4. Penggunaan `recover`
 
@@ -159,7 +159,7 @@ func main() {
 
 Output:
 
-![Handle panic menggunakan recover](images/A.36_4_recover.png)
+![Handle panic menggunakan recover](images/A_error_panic_recover_4_recover.png)
 
 ## A.36.5. Pemanfaatan `recover` pada IIFE
 

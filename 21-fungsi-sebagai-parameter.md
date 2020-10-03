@@ -58,7 +58,7 @@ Ada cukup banyak hal yang terjadi didalam tiap pemanggilan fungsi `filter()` di 
  5. Di dalam fungsi `filter()` sendiri, ada proses seleksi kondisi (yang nilainya didapat dari hasil eksekusi closure `callback`). Ketika kondisinya bernilai `true`, maka data elemen yang sedang diulang dinyatakan lolos proses filtering.
  6. Data yang lolos ditampung variabel `result`. Variabel tersebut dijadikan sebagai nilai balik fungsi `filter()`.
 
-![Filtering data](images/A.21_1_filtering.png)
+![Filtering data](images/A_fungsi_sebagai_parameter_1_filtering.png)
 
 Pada `dataContainsO`, parameter kedua fungsi `filter()` berisikan statement untuk deteksi apakah terdapat substring `"o"` di dalam nilai variabel `each` (yang merupakan data tiap elemen), jika iya, maka kondisi filter bernilai `true`, dan sebaliknya.
 

@@ -37,7 +37,7 @@ Fungsi tersebut dipanggil dalam `main`, dengan disisipkan 2 buah data sebagai pa
 
 Di dalam `printMessage`, nilai `arr` yang merupakan slice string digabungkan menjadi sebuah string dengan pembatas adalah karakter **spasi**. Penggabungan slice dapat dilakukan dengan memanfaatkan fungsi `strings.Join()` (berada di dalam package `strings`).
 
-![Contoh penggunaan fungsi](images/A.17_1_function.png)
+![Contoh penggunaan fungsi](images/A_fungsi_1_function.png)
 
 ## A.17.2. Fungsi Dengan Return Value / Nilai Balik
 
@@ -75,7 +75,7 @@ func randomWithRange(min, max int) int {
 
 Fungsi `randomWithRange` bertugas untuk *generate* angka acak sesuai dengan range yang ditentukan, yang kemudian angka tersebut dijadikan nilai kembalian fungsi.
 
-![Fungsi dengan nilai balik](images/A.17_2_function_return_type.png)
+![Fungsi dengan nilai balik](images/A_fungsi_2_function_return_type.png)
 
 Cara menentukan tipe data nilai balik fungsi adalah dengan menuliskan tipe data yang diinginkan setelah kurung parameter. Bisa dilihat pada kode di atas, bahwa `int` merupakan tipe data nilai balik fungsi `randomWithRange`.
 
@@ -163,7 +163,7 @@ Fungsi `divideNumber` didesain tidak memiliki nilai balik. Fungsi ini dibuat unt
 
 Didalamnya terdapat proses validasi nilai variabel pembagi, jika nilainya adalah 0, maka akan ditampilkan pesan bahwa pembagian tidak bisa dilakukan, lalu proses dihentikan pada saat itu juga (dengan memanfaatkan keyword `return`). Jika nilai pembagi valid, maka proses pembagian diteruskan.
 
-![Keyword return menjadikan proses dalam fungsi berhenti](images/A.17_3_function_return_as_break.png)
+![Keyword return menjadikan proses dalam fungsi berhenti](images/A_fungsi_3_function_return_as_break.png)
 
 ---
 

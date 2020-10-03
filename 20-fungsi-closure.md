@@ -52,7 +52,7 @@ var min, max = getMinMax(numbers)
 
 Output program:
 
-![Penerapan closure](images/A.20_1_closure.png)
+![Penerapan closure](images/A_fungsi_closure_1_closure.png)
 
 ---
 
@@ -102,7 +102,7 @@ func main() {
 
 Output program:
 
-![Penerapan IIFE](images/A.20_2_iife.png)
+![Penerapan IIFE](images/A_fungsi_closure_2_iife.png)
 
 Ciri khas IIFE adalah adanya kurung parameter tepat setelah deklarasi closure berakhir. Jika ada parameter, bisa juga dituliskan dalam kurung parameternya.
 
@@ -167,7 +167,7 @@ func main() {
 
 Output program:
 
-![Kombinasi parameter biasa dan variadic](images/A.20_3_combination.png)
+![Kombinasi parameter biasa dan variadic](images/A_fungsi_closure_3_combination.png)
 
 ---
 

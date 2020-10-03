@@ -36,7 +36,7 @@ func calculate(numbers ...int) float64 {
 
 Output program:
 
-![Contoh penerapan parameter variadic](images/A.19_1_variadic_param.png)
+![Contoh penerapan parameter variadic](images/A_fungsi_variadic_1_variadic_param.png)
 
 Bisa dilihat pada fungsi `calculate()`, parameter `numbers` dideklarasikan dengan disisipkan tanda 3 titik (`...`), menandakan bahwa `numbers` adalah sebuah parameter variadic dengan tipe data `int`.
 
@@ -142,7 +142,7 @@ func main() {
 
 Output program:
 
-![Kombinasi parameter biasa dan variadic](images/A.19_2_parameter_combination.png)
+![Kombinasi parameter biasa dan variadic](images/A_fungsi_variadic_2_parameter_combination.png)
 
 ---
 

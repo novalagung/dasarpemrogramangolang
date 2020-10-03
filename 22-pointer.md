@@ -35,7 +35,7 @@ fmt.Println("numberB (address) :", numberB)  // 0xc20800a220
 
 Variabel `numberB` dideklarasikan bertipe pointer `int` dengan nilai awal adalah referensi variabel `numberA` (bisa dilihat pada kode `&numberA`). Dengan ini, variabel `numberA` dan `numberB` menampung data dengan referensi alamat memori yang sama.
 
-![Penggunaan variabel pointer](images/A.22_1_pointer.png)
+![Penggunaan variabel pointer](images/A_pointer_1_pointer.png)
 
 Variabel pointer jika di-print akan menghasilkan string alamat memori (dalam notasi heksadesimal), contohnya seperti `numberB` yang diprint menghasilkan `0xc20800a220`.
 
@@ -66,7 +66,7 @@ fmt.Println("numberB (address) :", numberB)
 
 Variabel `numberA` dan `numberB` memiliki referensi memori yang sama. Perubahan pada salah satu nilai variabel tersebut akan memberikan efek pada variabel lainnya. Pada contoh di atas, `numberA` nilainya di ubah menjadi `5`. membuat nilai asli variabel `numberB` ikut berubah menjadi `5`.
 
-![Variabel pointer diubah nilainya](images/A.22_2_pointer_change.png)
+![Variabel pointer diubah nilainya](images/A_pointer_2_pointer_change.png)
 
 ## A.22.3. Parameter Pointer
 
@@ -96,7 +96,7 @@ Fungsi `change()` kemudian diimplementasikan di `main`. Variabel `number` yang n
 
 Nilai variabel `number` berubah menjadi `10` karena perubahan yang terjadi di dalam fungsi `change` adalah pada variabel pointer.
 
-![Fungsi berparameter pointer](images/A.22_3_pointer_parameter.png)
+![Fungsi berparameter pointer](images/A_pointer_3_pointer_parameter.png)
 
 ---
 

@@ -28,7 +28,7 @@ if point == 10 {
 
 Dari ke-empat kondisi di atas, yang terpenuhi adalah `if point > 5`, karena nilai variabel `point` memang lebih besar dari `5`. Maka blok kode tepat dibawah kondisi tersebut akan dieksekusi (blok kode ditandai kurung kurawal buka dan tutup), hasilnya text `"lulus"` muncul sebagai output.
 
-![Seleksi kondisi `if` - `else`](images/A.12_1_if_else.png)
+![Seleksi kondisi `if` - `else`](images/A_seleksi_kondisi_1_if_else.png)
 
 Skema if else Go sama seperti pada pemrograman umumnya. Yaitu di awal seleksi kondisi menggunakan `if`, dan ketika kondisinya tidak terpenuhi akan menuju ke `else` (jika ada). Ketika ada banyak kondisi, gunakan `else if`.
 
@@ -170,7 +170,7 @@ default:
 
 Setelah pengecekkan `case (point < 8) && (point > 3)` selesai, akan dilanjut ke pengecekkan `case point < 5`, karena ada `fallthrough` di situ.
 
-![Penggunaan `fallthrough` dalam `switch`](images/A.12_2_fallthrough.png)
+![Penggunaan `fallthrough` dalam `switch`](images/A_seleksi_kondisi_2_fallthrough.png)
 
 ## A.12.8. Seleksi Kondisi Bersarang
 

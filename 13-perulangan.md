@@ -16,7 +16,7 @@ for i := 0; i < 5; i++ {
 
 Perulangan di atas hanya akan berjalan ketika variabel `i` bernilai dibawah `5`, dengan ketentuan setiap kali perulangan, nilai variabel `i` akan di-iterasi atau ditambahkan 1 (`i++` artinya ditambah satu, sama seperti `i = i + 1`). Karena `i` pada awalnya bernilai 0, maka perulangan akan berlangsung 5 kali, yaitu ketika `i` bernilai 0, 1, 2, 3, dan 4.
 
-![Penggunaan `for`](images/A.13_1_for.png)
+![Penggunaan `for`](images/A_perulangan_1_for.png)
 
 ## A.13.2. Penggunaan Keyword `for` Dengan Argumen Hanya Kondisi
 
@@ -83,7 +83,7 @@ Kode di atas akan lebih mudah dicerna jika dijelaskan secara berurutan. Berikut 
  3. Ketika `i` lebih besar dari 8, maka perulangan akan berhenti.
  4. Nilai `i` ditampilkan.
 
-![Penerapan keyword `for`, `break`, dan `continue`](images/A.13_2_for_break_continue.png)
+![Penerapan keyword `for`, `break`, dan `continue`](images/A_perulangan_2_for_break_continue.png)
 
 ## A.13.6. Perulangan Bersarang
 
@@ -101,7 +101,7 @@ for i := 0; i < 5; i++ {
 
 Pada kode di atas, untuk pertama kalinya fungsi `fmt.Println()` dipanggil tanpa disisipkan parameter. Cara seperti ini bisa digunakan untuk menampilkan baris baru. Kegunaannya sama seperti output dari statement `fmt.Print("\n")`.
 
-![Perulangan bersarang](images/A.13_3_nested_for.png)
+![Perulangan bersarang](images/A_perulangan_3_nested_for.png)
 
 ## A.13.7. Pemanfaatan Label Dalam Perulangan
 
@@ -125,7 +125,7 @@ Tepat sebelum keyword `for` terluar, terdapat baris kode `outerLoop:`. Maksud da
 
 Pada `for` bagian dalam, terdapat seleksi kondisi untuk pengecekan nilai `i`. Ketika nilai tersebut sama dengan `3`, maka `break` dipanggil dengan target adalah perulangan yang dilabeli `outerLoop`, perulangan tersebut akan dihentikan.
 
-![Penerapan label dalam perulangan](images/A.13_4_for_label.png)
+![Penerapan label dalam perulangan](images/A_perulangan_4_for_label.png)
 
 ---
 

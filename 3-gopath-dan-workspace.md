@@ -27,7 +27,7 @@ Lokasi folder yang akan dijadikan sebagai workspace bisa ditentukan sendiri. And
 
     Cek apakah path sudah terdaftar dengan benar.
 
-    ![Pengecekan `GOPATH` di sistem operasi non-Windows](images/A.3_1_path.png)
+    ![Pengecekan `GOPATH` di sistem operasi non-Windows](images/A_gopath_workspace_1_path.png)
 
 Setelah `GOPATH` berhasil dikenali, perlu disiapkan 3 buah sub folder didalamnya, dengan kriteria sebagai berikut:
 
@@ -35,6 +35,6 @@ Setelah `GOPATH` berhasil dikenali, perlu disiapkan 3 buah sub folder didalamnya
  - Folder `pkg`, berisi file hasil kompilasi
  - Folder `bin`, berisi file executable hasil build
 
-![Struktur folder dalam worskpace](images/A.3_2_workspace.png)
+![Struktur folder dalam worskpace](images/A_gopath_workspace_2_workspace.png)
 
 Struktur diatas merupakan struktur standar workspace Go. Jadi pastikan penamaan dan hirarki folder adalah sama.

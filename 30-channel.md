@@ -2,7 +2,7 @@
 
 **Channel** digunakan untuk menghubungkan goroutine satu dengan goroutine lain. Mekanisme yang dilakukan adalah serah-terima data lewat channel tersebut. Dalam komunikasinya, sebuah channel difungsikan sebagai pengirim di sebuah goroutine, dan juga sebagai penerima di goroutine lainnya. Pengiriman dan penerimaan data pada channel bersifat **blocking** atau **synchronous**.
 
-![Analogi channel](images/A.30_1_analogy.png)
+![Analogi channel](images/A_channel_1_analogy.png)
 
 Pada bab ini kita akan belajar mengenai pemanfaatan channel.
 
@@ -79,7 +79,7 @@ Penerimaan channel bersifat blocking. Artinya statement `var message1 = <-messag
 
 Kesemua data yang dikirim dari tiga goroutine berbeda tersebut datanya akan diterima secara berurutan oleh `message1`, `message2`, `message3`; untuk kemudian ditampilkan.
 
-![Implementasi channel](images/A.30_2_channel.png)
+![Implementasi channel](images/A_channel_2_channel.png)
 
 Dari screenshot output di atas bisa dilihat bahwa text yang dikembalikan oleh `sayHelloTo` tidak selalu berurutan, meskipun penerimaan datanya adalah berurutan. Hal ini dikarenakan, pengiriman data adalah dari 3 goroutine yang berbeda, yang kita tidak tau mana yang prosesnya selesai lebih dulu. Goroutine yang dieksekusi lebih awal belum tentu selesai lebih awal, yang jelas proses yang selesai lebih awal datanya akan diterima lebih awal.
 
@@ -124,7 +124,7 @@ Parameter `what` fungsi `printMessage` bertipe channel `string`, bisa dilihat da
 
 Passing data bertipe channel lewat parameter sifatnya **pass by reference**, yang ditransferkan adalah pointer datanya, bukan nilai datanya.
 
-![Parameter channel](images/A.30_3_channel_param.png)
+![Parameter channel](images/A_channel_3_channel_param.png)
 
 ---
 

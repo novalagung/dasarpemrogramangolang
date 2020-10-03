@@ -31,7 +31,7 @@ func main() {
 }
 ```
 
-![Pemanfaatan reflect](images/A.28_0_reflect.png)
+![Pemanfaatan reflect](images/A_reflect_0_reflect.png)
 
 Fungsi `reflect.valueOf()` memiliki parameter yang bisa menampung segala jenis tipe data. Fungsi tersebut mengembalikan objek dalam tipe `reflect.Value`, yang berisikan informasi mengenai variabel yang bersangkutan.
 
@@ -104,7 +104,7 @@ func main() {
 }
 ```
 
-![Pengaksesan property menggunakan reflect](images/A.28_1_accessing_properties.png)
+![Pengaksesan property menggunakan reflect](images/A_reflect_1_accessing_properties.png)
 
 Didalam method `getPropertyInfo` terjadi beberapa hal. Pertama objek `reflect.Value` dari variabel `s` diambil. Setelah itu dilakukan pengecekan apakah variabel objek tersebut merupakan pointer atau tidak (bisa dilihat dari `if reflectValue.Kind() == reflect.Ptr`, jika bernilai `true` maka variabel adalah pointer). jika ternyata variabel memang pointer, maka perlu diambil objek reflect aslinya dengan cara memanggil method `Elem()`.
 
@@ -147,7 +147,7 @@ func main() {
 }
 ```
 
-![Eksekusi method lewat reflection](images/A.28_2_accessing_method_information.png)
+![Eksekusi method lewat reflection](images/A_reflect_2_accessing_method_information.png)
 
 Pada kode di atas, disiapkan variabel `s1` yang merupakan instance struct `student`. Awalnya property `Name` variabel tersebut berisikan string `"john wick"`.
 

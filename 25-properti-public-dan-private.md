@@ -16,7 +16,7 @@ Bab ini memiliki beberapa perbedaan dibanding lainnya. Jika pembaca mengikuti se
 
 Kesimpulan dari email-email yang penulis dapati: **pembaca bingung karena mendapati error, dan tidak tau cara mengatasi error tersebut. Padahal sudah ada keterangan yang jelas bahwa error tersebut pasti muncul, dan juga sudah dijelaskan cara mengatasinya. Ini kemungkinan besar disebabkan karena pembaca hanya copy-paste source code, tanpa membaca penjelasan-penjelasan yang padahal sudah tertulis cukup mendetail**.
 
-> Oleh karena itu, JANGAN CUMA COPAS SOURCE KODE, BACA, PELAJARI, DAN PAHAMI! *No hard feeling* 👌😁
+> Oleh karena itu, JANGAN CUMA *COPAS* SOURCE KODE, TAPI BACA, PELAJARI, DAN PAHAMI! *No hard feeling* 👌😁
 
 ## A.25.1. Exported Package dan Unexported Package
 
@@ -47,7 +47,7 @@ Pertama buat folder proyek baru bernama `belajar-golang-level-akses`, inisialisa
 
 Kemudian, buat sub-folder baru bernama `library` di dalam folder `belajar-golang-level-akses`. Didalam folder `library`, buat file baru `library.go`, set nama package-nya **library**.
 
-![Struktur folder dan file](images/A.25_1_folder_structure.png)
+![Struktur folder dan file](images/A_properti_public_private_1_folder_structure.png)
 
 Buka file `library.go` lalu isi dengan kode berikut.
 
@@ -102,7 +102,7 @@ Cara pemanggilan fungsi yang berada dalam package lain adalah dengan menuliskan 
 
 OK, sekarang coba jalankan kode yang sudah disiapkan di atas, hasilnya error.
 
-![Error saat menjalankan program](images/A.25_2_error.png)
+![Error saat menjalankan program](images/A_properti_public_private_2_error.png)
 
 Error di atas disebabkan karena fungsi `introduce()` yang berada dalam package `library` memiliki level akses *undexported* (atau *private*), fungsi ini tidak bisa diakses dari package lain (pada kasus ini `main`). Agar bisa diakses, solusinya bisa dengan menjadikannya ke bentuk *exported* (atau *public*), atau diubah cara pemanggilannya. Disini kita menggunakan cara ke-2.
 
@@ -125,7 +125,7 @@ func main() {
 
 Coba jalankan lagi.
 
-![Contoh penerapan pemanggilan fungsi dari package berbeda](images/A.25_2_success.png)
+![Contoh penerapan pemanggilan fungsi dari package berbeda](images/A_properti_public_private_2_success.png)
 
 ## A.25.3. Penggunaan Hak Akses *Exported* dan *Unexported* pada Struct dan Propertinya
 
@@ -159,7 +159,7 @@ func main() {
 
 Setelah itu jalankan program.
 
-![Error saat menjalankan program](images/A.25_3_error.png)
+![Error saat menjalankan program](images/A_properti_public_private_3_error.png)
 
 Error muncul lagi, kali ini penyebabnya adalah karena struct `student` masih di set sebagai *unexported*. Ganti ke bentuk *exported* dengan cara mengubah huruf awalnya menjadi huruf besar, kemudian jalankan ulang.
 
@@ -178,7 +178,7 @@ fmt.Println("grade", s1.grade)
 
 Output:
 
-![Error lain muncul saat menjalankan program](images/A.25_4_error.png)
+![Error lain muncul saat menjalankan program](images/A_properti_public_private_4_error.png)
 
 Error masih tetap muncul, tapi kali ini berbeda. Error yang baru ini disebabkan karena salah satu properti dari struct `Student` adalah *unexported*. Properti yg dimaksud adalah `grade`. Ubah ke bentuk *exported*, lalu jalankan lagi.
 
@@ -197,7 +197,7 @@ fmt.Println("grade", s1.Grade)
 
 Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` yang berada di package lain, selain nama stuct-nya harus berbentuk *exported*, properti yang diakses juga harus *exported* juga.
 
-![Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda](images/A.25_4_success.png)
+![Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda](images/A_properti_public_private_4_success.png)
 
 ## A.25.4. Import Dengan Prefix Tanda Titik
 
@@ -242,7 +242,7 @@ Jika properti yang ingin di akses masih dalam satu package tapi berbeda file, ca
 
 Langsung saja kita praktekan, buat file baru dalam `belajar-golang-level-akses` dengan nama `partial.go`.
 
-![File `partial.go` disiapkan setara dengan file `main.go`](images/A.25_5_structure.png)
+![File `partial.go` disiapkan setara dengan file `main.go`](images/A_properti_public_private_5_structure.png)
 
 Tulis kode berikut pada file `partial.go`. File ini kita set package-nya `main` (sama dengan nama package file `main.go`).
 
@@ -276,7 +276,7 @@ Fungsi `sayHello` pada file `partial.go` bisa dikenali meski level aksesnya adal
 
 > Cara lain untuk menjalankan program bisa dengan perintah `go run *.go`, dengan cara ini tidak perlu menuliskan nama file nya satu per satu.
 
-![Pemanggilan fungsi unexported dari dalam package yang sama](images/A.25_6_multi_main.png)
+![Pemanggilan fungsi unexported dari dalam package yang sama](images/A_properti_public_private_6_multi_main.png)
 
 ## A.25.6.1. Fungsi `init()`
 
@@ -324,7 +324,7 @@ Property variabel objek `Student` akan diisi dan sebuah pesan ditampilkan ke con
 
 Dalam sebuah package diperbolehkan ada banyak fungsi `init()` (urutan eksekusinya adalah sesuai file mana yg terlebih dahulu digunakan). Fungsi ini dipanggil sebelum fungsi `main()`, pada saat eksekusi program.
 
-![Fungsi `init()`](images/A.25_7_init.png)
+![Fungsi `init()`](images/A_properti_public_private_7_init.png)
 
 ---
 

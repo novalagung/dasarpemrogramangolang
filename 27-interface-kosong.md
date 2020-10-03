@@ -27,7 +27,7 @@ func main() {
 
 Keyword `interface` seperti yang kita tau, digunakan untuk pembuatan interface. Tetapi ketika ditambahkan kurung kurawal (`{}`) di belakang-nya (menjadi `interface{}`), maka kegunaannya akan berubah, yaitu sebagai tipe data.
 
-![Segala jenis data bisa ditampung `interface{}`](images/A.27_1_empty_interface.png)
+![Segala jenis data bisa ditampung `interface{}`](images/A_interface_kosong_1_empty_interface.png)
 
 Agar tidak bingung, coba perhatikan kode berikut.
 
@@ -76,7 +76,7 @@ Pertama, variabel `secret` menampung nilai bertipe numerik. Ada kebutuhan untuk 
 
 Pada contoh kedua, `secret` berisikan array string. Kita memerlukan string tersebut untuk digabungkan dengan pemisah tanda koma. Maka perlu di-casting ke `[]string` terlebih dahulu sebelum bisa digunakan di `strings.Join()`, contohnya pada `strings.Join(secret.([]string), ", ")`.
 
-![Casting pada variabel bertipe `interface{}`](images/A.27_2_interface_casting.png)
+![Casting pada variabel bertipe `interface{}`](images/A_interface_kosong_2_interface_casting.png)
 
 Teknik casting pada interface disebut dengan **type assertions**.
 
@@ -97,7 +97,7 @@ fmt.Println(name)
 
 Variabel `secret` dideklarasikan bertipe `interface{}` menampung referensi objek cetakan struct `person`. Cara casting dari `interface{}` ke struct pointer adalah dengan menuliskan nama struct-nya dan ditambahkan tanda asterisk (`*`) di awal, contohnya seperti `secret.(*person)`. Setelah itu barulah nilai asli bisa diakses.
 
-![Casting `interface{}` ke variabel objek](images/A.27_3_interface_pointer.png)
+![Casting `interface{}` ke variabel objek](images/A_interface_kosong_3_interface_pointer.png)
 
 ## A.27.4. Kombinasi Slice, `map`, dan `interface{}`
 

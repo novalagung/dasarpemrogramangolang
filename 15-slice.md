@@ -36,7 +36,7 @@ fmt.Println(newFruits) // ["apple", "grape"]
 
 Kode `fruits[0:2]`  maksudnya adalah pengaksesan elemen dalam slice `fruits` yang **dimulai dari indeks ke-0, hingga elemen sebelum indeks ke-2**. Elemen yang memenuhi kriteria tersebut akan didapat, untuk kemudian disimpan pada variabel lain sebagai slice baru. Pada contoh di atas, `newFruits` adalah slice baru yang tercetak dari slice `fruits`, dengan isi 2 elemen, yaitu `"apple"` dan `"grape"`.
 
-![Memanfaatkan sebuah slice untuk membentuk slice baru](images/A.15_1_array_index.png)
+![Memanfaatkan sebuah slice untuk membentuk slice baru](images/A_slice_1_array_index.png)
 
 Ketika mengakses elemen array menggunakan satu buah indeks (seperti `data[2]`), nilai yang didapat merupakan hasil **copy** dari referensi aslinya. Berbeda dengan pengaksesan elemen menggunakan 2 indeks (seperti `data[0:2]`), nilai yang didapat adalah *reference* elemen atau slice.
 
@@ -96,7 +96,7 @@ Variabel `aFruits`, `bFruits` merupakan slice baru yang terbentuk dari variabel 
 
 Selanjutnya, nilai dari `baFruits[0]` diubah, dan 5 slice tadi ditampilkan lagi. Hasilnya akan ada banyak slice yang elemennya ikut berubah. Yaitu elemen-elemen yang referensi-nya sama dengan referensi elemen `baFruits[0]`.
 
-![Perubahan data elemen slice berpengaruh pada slice lain](images/A.15_2_slice_reference.png)
+![Perubahan data elemen slice berpengaruh pada slice lain](images/A_slice_2_slice_reference.png)
 
 Bisa dilihat pada output di atas, elemen yang sebelumnya bernilai `"grape"` pada variabel `fruits`, `aFruits`, `bFruits`, `aaFruits`, dan `baFruits`; kesemuanya berubah menjadi `"pinnaple"`, karena memiliki referensi yang sama.
 

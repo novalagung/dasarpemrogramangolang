@@ -57,7 +57,7 @@ fmt.Printf("bilangan desimal: %.3f\n", decimalNumber)
 
 Pada kode di atas, variabel `decimalNumber` akan memiliki tipe data `float32`, karena nilainya berada di cakupan tipe data tersebut.
 
-![Tipe data numerik desimal](images/A.9_1_decimal_data_type.png)
+![Tipe data numerik desimal](images/A_tipe_data_1_decimal_data_type.png)
 
 Template `%f` digunakan untuk memformat data numerik desimal menjadi string. Digit desimal yang akan dihasilkan adalah **6 digit**. Pada contoh di atas, hasil format variabel `decimalNumber` adalah `2.620000`. Jumlah digit yang muncul bisa dikontrol menggunakan `%.nf`, tinggal ganti `n` dengan angka yang diinginkan. Contoh: `%.3f` maka akan menghasilkan 3 digit desimal, `%.10f` maka akan menghasilkan 10 digit desimal.
 
@@ -93,7 +93,7 @@ fmt.Println(message)
 
 Ketika dijalankan, output akan muncul sama persisi sesuai nilai variabel `message` di atas. Tanda petik dua akan muncul, baris baru juga muncul, sama persis.
 
-![String menggunakan grave accent](images/A.9_2_unescaped_string.png)
+![String menggunakan grave accent](images/A_tipe_data_2_unescaped_string.png)
 
 ## A.9.5. Nilai `nil` & Zero Value
 
