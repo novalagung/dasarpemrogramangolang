@@ -50,7 +50,7 @@
   * [A.36. Error, Panic, & Recover](36-error-panic-recover.md)
   * [A.37. Layout Format String](37-string-format.md)
   * [A.38. Random](A-random.md)
-  * Time
+  * A.39. Time
     * [A.39.A. Time, Parsing Time, & Format Time](A-time-parsing-format.md)
     * [A.39.B. Timer, Ticker, & Scheduler](A-timer-ticker-scheduler.md)
     * [A.39.C. Time Duration](A-time-duration.md)
