@@ -2,7 +2,7 @@
 
 Di bab ini kita akan belajar cara render template html pada aplikasi yang routingnya menggunakan echo.
 
-Pada dasarnya proses parsing dan rendering template tidak di-handle oleh echo sendiri, melainkan oleh API dari package `html/template`. Jadi bisa dibilang cara render template di echo adalah sama seperti pada aplikasi yang murni menggunakan golang biasa, seperti yang sudah dibahas pada bab [B-4](/B-4-template-render-html.html), [B-5](/B-5-template-render-partial-html.html), [B-9](/B-9-render-specific-html.html), dan [B-10](/B-10-render-html-string.html).
+Pada dasarnya proses parsing dan rendering template tidak di-handle oleh echo sendiri, melainkan oleh API dari package `html/template`. Jadi bisa dibilang cara render template di echo adalah sama seperti pada aplikasi yang murni menggunakan golang biasa, seperti yang sudah dibahas pada bab [Template: Render HTML Template](/B-4-template-render-html.html), [Template: Render Partial HTML Template](/B-5-template-render-partial-html.html), [Template: Render Specific HTML Template](/B-9-render-specific-html.html), dan [Template: Render HTML String](/B-10-render-html-string.html).
 
 Echo menyediakan satu fasilitas yang bisa kita manfaatkan untuk standarisasi rendering template. Cara penggunaannya, dengan meng-override default `.Renderer` property milik echo menggunakan objek cetakan struct, yang dimana pada struct tersebut harus ada method bernama `.Render()` dengan skema sesuai dengan kebutuhan echo. Nah, di dalam method `.Render()` inilah kode untuk parsing dan rendering template ditulis.
 
@@ -120,7 +120,7 @@ Buat file `index.html` dengan isi kode di bawah ini.
 
 Pada rute `/index`, sebuah variabel bernama `data` disiapkan, bertipe `map` dengan isi satu buah item. Data tersebut disisipkan pada saat view di-render, membuatnya bisa diakses dari dalam template html.
 
-Syntax `{{.message}}` artinya menampilkan isi property yang namanya adalah `message` dari current context (yaitu objek data yang disisipkan). Lebih jelasnya silakan baca kembali bab [B-6 - Template Actions & Variables](/B-6-template-actions-variables.html).
+Syntax `{{.message}}` artinya menampilkan isi property yang namanya adalah `message` dari current context (yaitu objek data yang disisipkan). Lebih jelasnya silakan baca kembali bab [B. Template Actions & Variables](/B-6-template-actions-variables.html).
 
 Jalankan aplikasi untuk melihat hasilnya.
 

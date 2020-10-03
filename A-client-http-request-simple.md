@@ -1,12 +1,12 @@
-# A.52. Client HTTP Request
+# A.55. Simple Client HTTP Request
 
 Di bab sebelumnya telah dibahas bagaimana membuat Web Service API yang mem-provide data JSON, pada bab ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
 
-Pastikan anda sudah mempraktekkan apa-apa yang ada pada bab sebelumnya [Bab A.51. Web Service API](/51-web-json-api.html), karena web service yang telah dibuat pada bab tersebut dipergunakan juga pada bab ini.
+Pastikan anda sudah mempraktekkan apa-apa yang ada pada bab sebelumnya [Bab A. Web Service API](/A-web-service-api.html), karena web service yang telah dibuat pada bab tersebut dipergunakan juga pada bab ini.
 
 ![Jalankan web server](images/A_web_service_1_server.png)
 
-## A.52.1. Penggunaan HTTP Request
+## A.55.1. Penggunaan HTTP Request
 
 Package `net/http`, selain berisikan tools untuk keperluan pembuatan web, juga berisikan fungsi-fungsi untuk melakukan http request. Salah satunya adalah `http.NewRequest()` yang akan kita bahas di sini.
 
@@ -90,11 +90,11 @@ func main() {
 }
 ```
 
-Ok, terakhir sebelum memulai testing, run terlebih dahulu aplikasi pada bab sebelumya [A.51. Web Service API (JSON Data)](/51-web-json-api.html) (jika belum). Kemudian start prompt cmd/terminal baru dan jalankan program yang barusan kita buat pada bab ini.
+Ok, terakhir sebelum memulai testing, run terlebih dahulu aplikasi pada bab sebelumya [A. Web Service API](/A-web-service-api.html) (jika belum). Kemudian start prompt cmd/terminal baru dan jalankan program yang barusan kita buat pada bab ini.
 
 ![HTTP Request](images/A_http_request_1_http_request.png)
 
-## A.52.2. HTTP Request Dengan Form Data
+## A.55.2. HTTP Request Dengan Form Data
 
 Untuk menyisipkan data pada sebuah request, ada beberapa hal yang perlu ditambahkan. Yang pertama, import beberapa package lagi, `bytes` dan `net/url`.
 
@@ -166,13 +166,13 @@ Untuk keperluan testing, kita hardcode `ID` nilainya `"E001"`. Jalankan program 
 
 ![HTTP request Form Data](images/A_http_request_2_http_request_form_data.png)
 
-## A.52.3. Secure & Insecure HTTP Request
+## A.55.3. Secure & Insecure HTTP Request
 
-Kita telah mempelajari bagaimana cara membuat http request sederhana untuk kirim data dan juga ambil data. Nantinya pada [Bab C.25. Secure & Insecure Client HTTP Request](/C-25-secure-insecure-client-http-request.html) kita akan belajar cara membuat http client request yang lebih njlimet untuk kasus yang lebih advance, tapi sabar dulu hehe.
+Kita telah mempelajari bagaimana cara membuat http request sederhana untuk kirim data dan juga ambil data. Nantinya pada [Bab C. Secure & Insecure Client HTTP Request](/C-25-secure-insecure-client-http-request.html) kita akan belajar cara membuat http client request yang lebih njlimet untuk kasus yang lebih advance, tapi sabar dulu hehe.
 
 ---
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.52-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.52...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.52-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.55...</a>
 </div>

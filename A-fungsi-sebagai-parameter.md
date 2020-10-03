@@ -1,10 +1,10 @@
-# A.21. Fungsi Sebagai parameter
+# A.22. Fungsi Sebagai parameter
 
 Setelah di bab sebelumnya kita belajar mengenai fungsi yang mengembalikan nilai balik berupa fungsi, kali ini topiknya tidak kalah unik, yaitu fungsi yang digunakan sebagai parameter.
 
 Di Go, fungsi bisa dijadikan sebagai tipe data variabel. Dari situ sangat memungkinkan untuk menjadikannya sebagai parameter juga.
 
-## A.21.1. Penerapan Fungsi Sebagai Parameter
+## A.22.1. Penerapan Fungsi Sebagai Parameter
 
 Cara membuat parameter fungsi adalah dengan langsung menuliskan skema fungsi nya sebagai tipe data. Contohnya bisa dilihat pada kode berikut.
 
@@ -66,7 +66,7 @@ pada contoh ke-2 (`dataLength5`), closure `callback` berisikan statement untuk d
 
 Memang butuh usaha ekstra untuk memahami pemanfaatan closure sebagai parameter fungsi. Tapi setelah paham, penerapan teknik ini pada kondisi yang tepat akan sangat membantu proses pembuatan aplikasi.
 
-## A.21.2. Alias Skema Closure
+## A.22.2. Alias Skema Closure
 
 Kita sudah mempelajari bahwa closure bisa dimanfaatkan sebagai tipe parameter, contohnya seperti pada fungsi `filter()`. Pada fungsi tersebut kebetulan skema tipe parameter closure-nya tidak terlalu panjang, hanya ada satu buah parameter dan satu buah nilai balik.
 
@@ -86,7 +86,7 @@ Skema `func(string) bool` diubah menjadi tipe dengan nama `FilterCallback`. Tipe
 
 Di bawah ini merupakan penjelasan tambahan mengenai fungsi `strings.Contains()`.
 
-## A.21.2.1. Penggunaan Fungsi `string.Contains()`
+## A.22.2.1. Penggunaan Fungsi `string.Contains()`
 
 Inti dari fungsi ini adalah untuk deteksi apakah sebuah substring adalah bagian dari string, jika iya maka akan bernilai `true`, dan sebaliknya. Contoh penggunaannya:
 
@@ -101,5 +101,5 @@ Variabel `result` bernilai `true` karena string `"ang"` merupakan bagian dari st
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.21-fungsi-sebagai-parameter">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.21...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.21-fungsi-sebagai-parameter">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.22...</a>
 </div>

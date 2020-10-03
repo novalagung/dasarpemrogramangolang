@@ -1,10 +1,10 @@
-# A.54. NoSQL MongoDB
+# A.57. NoSQL MongoDB
 
 Go tidak menyediakan interface generic untuk NoSQL, jadi implementasi driver tiap brand NoSQL di Go biasanya berbeda satu dengan lainnya.
 
 Pada bab ini kita akan belajar cara berkomunikasi dengan NoSQL MongoDB server menggunakan official driver untuk go, yaitu [mongo-go-driver](https://github.com/mongodb/mongo-go-driver).
 
-## A.54.1. Persiapan
+## A.57.1. Persiapan
 
 Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
 
@@ -19,7 +19,7 @@ Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
 
  3. Instal juga MongoDB GUI untuk mempermudah browsing data. Bisa menggunakan [MongoChef](http://3t.io/mongochef/), [Robomongo](http://robomongo.org/), atau lainnya.
 
-## A.54.2. Insert Data
+## A.57.2. Insert Data
 
 Cara insert data ke mongodb via Go tidak terlalu sulit. Kita akan mempelajarinya dengan cara praktek langsung. Pertama-tama silakan import package yang dibutuhkan.
 
@@ -124,7 +124,7 @@ Perlu diketahui, bahwa di mongo-go-driver setiap operasi biasanya membutuhkan ob
 
 ![Insert mongo](images/A_mongodb_1_insert.png)
 
-## A.54.3. Membaca Data
+## A.57.3. Membaca Data
 
 Method `.Find()` digunakan untuk membaca atau mencari data. Method ini mengembalikan objek cursor, objek ini harus digunakan dalam perulangan untuk mengambil data yang ditemukan.
 
@@ -183,7 +183,7 @@ db.getCollection("student").find({"name": "Wick"})
 db.Collection("student").Find(ctx, bson.M{"name": "Wick"})
 ```
 
-## A.54.4. Update Data
+## A.57.4. Update Data
 
 Method `.Update()` digunakan untuk update data (jika update hanya diinginkan untuk berlaku pada 1 dokumen saja, maka gunakan `.UpdateOne()`). Method `.Update()` memerlukan 3 buah parameter dalam pemanggilannya.
 
@@ -231,7 +231,7 @@ db.Collection("student").UpdateOne(ctx, bson.M{"name": "Wick"}, bson.M{"$set": s
 
 Selain method `.UpdateOne()` ada juga method `.UpdateMany()`, kegunaan masing-masing bisa dilihat dari nama fungsinya.
 
-## A.54.5. Menghapus Data
+## A.57.5. Menghapus Data
 
 Untuk menghapus data gunakan method `.DeleteOne()` atau `.DeleteMany()`.
 
@@ -270,7 +270,7 @@ db.getCollection("student").delete({"name": "John Wick"})
 db.Collection("student").DeleteMany(ctx, bson.M{"name": "John Wick"})
 ```
 
-## A.54.6. Aggregate Data
+## A.57.6. Aggregate Data
 
 Agregasi data menggunakan driver ini juga cukup mudah, caranya tinggal gunakan method `.Aggregate()` dan sisipkan pipeline query sebagai argument ke-2 pemanggilan method. Eksekusi method tersebut mengembalikan objek cursor. Selebihnya capture result dengan cara yang sama seperti capture cursor operasi `.Find()`.
 
@@ -328,5 +328,5 @@ if len(result) > 0 {
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.54-mongodb">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.54...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.54-mongodb">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.57...</a>
 </div>

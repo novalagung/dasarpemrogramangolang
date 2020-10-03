@@ -1,8 +1,8 @@
-# A.3.A. Go Modules
+# A.3. Go Modules
 
 Pada bagian ini kita akan belajar cara inisialisasi projek menggunakan Go Modules (atau Modules).
 
-## A.3.A.1. Penjelasan
+## A.3.1. Penjelasan
 
 Go modules merupakan manajemen dependensi resmi untuk Go. Modules ini diperkenalkan pertama kali di `go1.11`, sebelum itu pengembangan projek Go dilakukan dalam `GOPATH`.
 
@@ -12,7 +12,7 @@ Modules penggunaannya adalah lewat CLI. Dan jika temen-temen sudah sukses meng-*
 
 > Modules atau Module disini merupakan istilah untuk project ya. Jadi jangan bingung.
 
-## A.3.A.2. Inisialisasi Projek Menggunakan Go Modules
+## A.3.2. Inisialisasi Projek Menggunakan Go Modules
 
 Command `go mod init` digunakan untuk menginisalisasi projek baru.
 
@@ -46,6 +46,6 @@ Eksekusi perintah `go mod init` menghasilkan satu buah file baru bernama `go.mod
 
 Ok, sekian. Cukup itu saja cara inisalisasi projek di Go.
 
-O iya, sebenarnya selain Go Modules, setup projek di Go juga bisa menggunakan [GOPATH](/3-setup-go-project-dengan-go-modules.html). Tapi inisalisasi porjek dengan GOPATH sudah outdate dan kurang dianjurkan untuk projek-projek yang dikembangkan menggunakan Go versi terbaru (1.14 ke atas).
+O iya, sebenarnya selain Go Modules, setup projek di Go juga bisa menggunakan [GOPATH](/A-setup-go-project-dengan-go-modules.html). Tapi inisalisasi porjek dengan GOPATH sudah outdate dan kurang dianjurkan untuk projek-projek yang dikembangkan menggunakan Go versi terbaru (1.14 ke atas).
 
-Jadi setelah bab ini, silakan langsung lanjut ke bab [A.4. Instalasi Editor](4-instalasi-editor.md).
+Jadi setelah bab ini, silakan langsung lanjut ke bab [A. Instalasi Editor](/A-instalasi-editor.html).

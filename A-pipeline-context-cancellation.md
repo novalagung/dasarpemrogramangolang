@@ -1,4 +1,4 @@
-# A.61. Concurrency Pattern: Context Cancellation Pipeline
+# A.64. Concurrency Pattern: Context Cancellation Pipeline
 
 Pada bab ini kita akan belajar tentang salah satu *concurrency pattern* di Go, yaitu **cancellation**. Cancellation merupakan mekanisme untuk menggagalkan secara paksa proses konkuren yang sedang berjalan, entah itu karena ada timeout, ada error, atau ada faktor lain.
 
@@ -6,7 +6,7 @@ Disini kita akan gunakan salah satu API milik Go yang tersedia untuk *cancellati
 
 Context digunakan untuk mendefinisikan tipe *context* yang didalamnya ada beberapa hal yaitu: informasi *deadlines*, signal *cancellation*, dan data untuk keperluan komunikasi antar API atau antar proses.
 
-## A.61.1. Skenario Praktek
+## A.64.1. Skenario Praktek
 
 Kita akan modifikasi file program [`1-generate-dummy-files-concurrently.go` yang pada chapter sebelumnya sudah dibuat](/A-simplified-fan-in-fan-out-pipeline.html). Pada program tersebut akan kita tambahkan mekanisme cancellation ketika ada timeout.
 
@@ -15,7 +15,7 @@ Jadi kurang lebih akan ada dua result:
 - Proses sukses, karena *execution time* dibawah timeout.
 - Proses digagalkan secara paksa ditengah jalan, karena *running time* sudah melebihi batas timeout.
 
-## A.61.2. Program Generate Dummy File *Concurrently*
+## A.64.2. Program Generate Dummy File *Concurrently*
 
 Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi *concurrent* tanpa *cancellation*. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan merujuk ke chapter sebelumnya saja, disini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
 
@@ -178,7 +178,7 @@ Hasil eksekusi program:
 
 ![Concurrent without cancellation](images/A_pipeline_context_cancellation_1_concurrent_without_cancellation.png)
 
-## A.61.3. Program Generate Dummy File *Concurrently* dan Mekanisme *Cancellation*
+## A.64.3. Program Generate Dummy File *Concurrently* dan Mekanisme *Cancellation*
 
 Ok, sekarang kita akan refactor kode tersebut, kita tambahkan mekanisme *cancellation* menggunakan `context.Context` API. Silakan duplikasi file program, lalu ikuti petunjuk berikut.
 
@@ -411,7 +411,7 @@ func createFiles(ctx context.Context, chanIn <-chan FileInfo, numberOfWorkers in
 
 Penambahannya juga sama seperti fungsi-fungsi yang lain, yaitu dengan menambahkan *channel selection*. Ketika ada notifikasi cancel maka perulangan jobs di break. Selebihnya maka harus berjalan seperti normalnya.
 
-## A.61.4. Test Eksekusi Program
+## A.64.4. Test Eksekusi Program
 
 Jalankan program ke-dua, lihat hasilnya. Karena sebelumnya kita sudah set durasi timeout adalah **3 detik**, maka jika proses belum selesai sebelum durasi tersebut akan di-cancel secara paksa.
 
@@ -425,7 +425,7 @@ Silakan coba modifikasi durasinya dengan nilai lebih besar, misalnya **15 detik*
 
 Bisa dilihat, di gambar di atas, jika program selesai sebelum **15 detik** maka aman.
 
-## A.61.5. Cancel Context Secara Paksa (Tanpa Timeout)
+## A.64.5. Cancel Context Secara Paksa (Tanpa Timeout)
 
 Coba lakukan modifikasi sedikit pada bagian pemanggilan generate files, dari:
 

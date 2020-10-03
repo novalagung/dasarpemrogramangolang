@@ -1,4 +1,4 @@
-# A.53. SQL
+# A.56. SQL
 
 Go menyediakan package `database/sql` berisikan generic interface untuk keperluan interaksi dengan database sql. Package ini hanya bisa digunakan ketika **driver** database engine yang dipilih juga ada.
 
@@ -13,7 +13,7 @@ Driver-driver tersebut merupakan project open source yang diinisiasi oleh komuni
 
 Pada bab ini kita akan belajar bagaimana berkomunikasi dengan database MySQL menggunakan driver [Go MySQL Driver](https://github.com/go-sql-driver/mysql).
 
-## A.53.1. Instalasi Driver
+## A.56.1. Instalasi Driver
 
 Unduh driver mysql menggunakan `go get`.
 
@@ -24,7 +24,7 @@ go get github.com/go-sql-driver/mysql
 
 ![Download mysql driver](images/A_sql_1_go_get_driver.png)
 
-## A.53.2. Setup Database
+## A.56.2. Setup Database
 
 > Sebelumnya pastikan sudah ada [mysql server](https://dev.mysql.com/downloads/mysql/) yang terinstal di lokal anda.
 
@@ -47,7 +47,7 @@ INSERT INTO `tb_student` (`id`, `name`, `age`, `grade`) VALUES
 ALTER TABLE `tb_student` ADD PRIMARY KEY (`id`);
 ```
 
-## A.53.3. Membaca Data Dari MySQL Server
+## A.56.3. Membaca Data Dari MySQL Server
 
 Import package yang dibutuhkan, lalu disiapkan struct dengan skema yang sama seperti pada tabel `tb_student` di database. Nantinya struct ini digunakan sebagai tipe data penampung hasil query.
 
@@ -178,7 +178,7 @@ Output:
 
 ![Membaca data dari database server](images/A_sql_2_sql_query.png)
 
-## A.53.4. Membaca 1 Record Data Menggunakan Method `QueryRow()`
+## A.56.4. Membaca 1 Record Data Menggunakan Method `QueryRow()`
 
 Untuk query yang menghasilkan 1 baris record saja, bisa gunakan method `QueryRow()`, dengan metode ini kode menjadi lebih ringkas. Chain dengan method `Scan()` untuk mendapatkan value-nya.
 
@@ -221,7 +221,7 @@ Sekarang jalankan program. Outputnya akan muncul data record sesuai id.
 
 ![Penggunaan `QueryRow()`](images/A_sql_3_sql_query_row.png)
 
-## A.53.5. Eksekusi Query Menggunakan `Prepare()`
+## A.56.5. Eksekusi Query Menggunakan `Prepare()`
 
 Teknik **prepared statement** adalah teknik penulisan query di awal dengan kelebihan bisa di re-use atau digunakan banyak kali untuk eksekusi yang berbeda-beda.
 
@@ -264,7 +264,7 @@ Method `Prepare()` digunakan untuk deklarasi query, yang mengembalikan objek ber
 
 ![Prepared statement](images/A_sql_4_prepared_statement.png)
 
-## A.53.6. Insert, Update, & Delete Data Menggunakan `Exec()`
+## A.56.6. Insert, Update, & Delete Data Menggunakan `Exec()`
 
 Untuk operasi **insert**, **update**, dan **delete**; dianjurkan untuk tidak menggunakan fungsi `sql.Query()` ataupun `sql.QueryRow()` untuk eksekusinya. Direkomendasikan eksekusi perintah-perintah tersebut lewat fungsi `Exec()`, contohnya seperti pada kode berikut.
 
@@ -315,7 +315,7 @@ stmt.Exec("G001", "Galahad", 29, 2)
 _, err := db.Exec("insert into tb_student values (?, ?, ?, ?)", "G001", "Galahad", 29, 2)
 ```
 
-## A.53.7. Koneksi Dengan Engine Database Lain
+## A.56.7. Koneksi Dengan Engine Database Lain
 
 Karena package `database/sql` merupakan interface generic, maka cara untuk koneksi ke engine database lain (semisal Oracle, Postgres, SQL Server) adalah sama dengan cara koneksi ke MySQL. Cukup dengan meng-import driver yang digunakan, lalu mengganti nama driver pada saat pembuatan koneksi baru.
 
@@ -339,5 +339,5 @@ Selengkapya mengenai driver yang tersedia bisa dilihat di [https://github.com/go
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.53-sql">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.53...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.53-sql">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.56...</a>
 </div>

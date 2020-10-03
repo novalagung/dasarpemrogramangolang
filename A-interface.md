@@ -1,10 +1,10 @@
-# A.26. Interface
+# A.27. Interface
 
 Interface adalah kumpulan definisi method yang tidak memiliki isi (hanya definisi saja), yang dibungkus dengan nama tertentu.
 
 Interface merupakan tipe data. Nilai objek bertipe interface zero value-nya adalah `nil`. Interface mulai bisa digunakan jika sudah ada isinya, yaitu objek konkret yang memiliki definisi method minimal sama dengan yang ada di interface-nya.
 
-## A.26.1. Penerapan Interface
+## A.27.1. Penerapan Interface
 
 Yang pertama perlu dilakukan untuk menerapkan interface adalah menyiapkan interface beserta definisi method nya. Keyword `type` dan `interface` digunakan untuk pendefinisian interface.
 
@@ -104,7 +104,7 @@ bangunLingkaran.jariJari()
 
 Perlu diketahui juga, jika ada interface yang menampung objek konkrit dimana struct-nya tidak memiliki salah satu method yang terdefinisi di interface, error juga akan muncul. Intinya kembali ke aturan awal, variabel interface hanya bisa menampung objek yang minimal memiliki semua method yang terdefinisi di interface-nya.
 
-## A.26.2. Embedded Interface
+## A.27.2. Embedded Interface
 
 Interface bisa di-embed ke interface lain, sama seperti struct. Cara penerapannya juga sama, cukup dengan menuliskan nama interface yang ingin di-embed ke dalam interface tujuan.
 
@@ -178,5 +178,5 @@ Pada bab 24 dijelaskan bahwa method pointer bisa diakses lewat variabel objek bi
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.26-interface">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.26...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.26-interface">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.27...</a>
 </div>

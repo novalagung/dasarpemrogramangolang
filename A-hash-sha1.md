@@ -1,4 +1,4 @@
-# A.44. Hash SHA1
+# A.47. Hash SHA1
 
 Hash adalah algoritma enkripsi untuk mengubah text menjadi deretan karakter acak. Jumlah karakter hasil hash selalu sama. Hash termasuk *one-way encription*, membuat hasil dari hash tidak bisa dikembalikan ke text asli.
 
@@ -6,7 +6,7 @@ SHA1 atau **Secure Hash Algorithm 1** merupakan salah satu algoritma hashing yan
 
 Di bab ini kita akan belajar tentang pemanfaatan sha1 dan teknik salting dalam hash.
 
-## A.44.1. Penerapan Hash SHA1
+## A.47.1. Penerapan Hash SHA1
 
 Go menyediakan package `crypto/sha1`, berisikan library untuk keperluan *hashing*. Cara penerapannya cukup mudah, contohnya bisa dilihat pada kode berikut.
 
@@ -37,7 +37,7 @@ Untuk mengambil bentuk heksadesimal string dari data yang sudah di-hash, bisa me
 
 ![Hashing menggunakan SHA1](images/A_hash_1_hash_sha1.png)
 
-## A.44.2. Metode Salting Pada Hash SHA1
+## A.47.2. Metode Salting Pada Hash SHA1
 
 Salt dalam konteks kriptografi adalah data acak yang digabungkan pada data asli sebelum proses hash dilakukan.
 
@@ -99,5 +99,5 @@ Metode ini sering dipakai untuk enkripsi password user. Salt dan data hasil hash
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.44-hash-sha1">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.44...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.44-hash-sha1">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.47...</a>
 </div>

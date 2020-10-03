@@ -1,10 +1,10 @@
-# A.55. Unit Test
+# A.58. Unit Test
 
 Go menyediakan package `testing`, berisikan banyak sekali tools untuk keperluan unit test.
 
 Pada bab ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan [testify](https://github.com/stretchr/testify).
 
-## A.55.1. Persiapan
+## A.58.1. Persiapan
 
 Langsung saja kita praktek. Pertama siapkan terlebih dahulu sebuah struct `Kubus`. Variabel object hasil struct ini nantinya kita gunakan sebagai bahan testing.
 
@@ -32,7 +32,7 @@ func (k Kubus) Keliling() float64 {
 
 Simpan kode di atas dengan nama `bab55.go`.
 
-## A.55.2. Testing
+## A.58.2. Testing
 
 File untuk keperluan testing dipisah dengan file utama, namanya harus berakhiran `_test.go`, dan package-nya harus sama. Pada bab ini, file utama adalah `bab55.go`, maka file testing harus bernama `bab55_test.go`.
 
@@ -101,7 +101,7 @@ Setelah itu jalankan lagi test.
 
 ![Test fail](images/A_unit_test_2_test_fail.png)
 
-## A.55.3. Method Test
+## A.58.3. Method Test
 
 Table berikut berisikan method standar testing yang bisa digunakan di Go.
 
@@ -122,7 +122,7 @@ Table berikut berisikan method standar testing yang bisa digunakan di Go.
 | `Skiped()` | Menampilkan laporan skip |
 | `Parallel()` | Menge-set bahwa eksekusi testing adalah parallel |
 
-## A.55.4. Benchmark
+## A.58.4. Benchmark
 
 Package `testing` selain berisikan tools untuk testing juga berisikan tools untuk benchmarking. Cara pembuatan benchmark sendiri cukup mudah yaitu dengan membuat fungsi yang namanya diawali dengan **Benchmark** dan parameternya bertipe `*testing.B`.
 
@@ -142,7 +142,7 @@ Jalankan test menggunakan argument `-bench=.`, argumen ini digunakan untuk menan
 
 Arti dari `30000000  51.1 ns/op` adalah, fungsi di atas di-test sebanyak **30 juta** kali, hasilnya membutuhkan waktu rata-rata **51 nano detik** untuk run satu fungsi.
 
-## A.55.5. Testing Menggunakan testify
+## A.58.5. Testing Menggunakan testify
 
 Package **testify** berisikan banyak sekali tools yang bisa dimanfaatkan untuk keperluan testing di Go.
 
@@ -190,5 +190,5 @@ Fungsi `assert.Equal()` digunakan untuk uji perbandingan. Parameter ke-2 dibandi
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.55-unit-test">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.55...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.55-unit-test">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.58...</a>
 </div>

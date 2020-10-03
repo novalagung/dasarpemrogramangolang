@@ -1,8 +1,8 @@
-# A.11. Operator
+# A.12. Operator
 
 Bab ini membahas mengenai macam operator yang bisa digunakan di Go. Secara umum terdapat 3 kategori operator: aritmatika, perbandingan, dan logika.
 
-## A.11.1. Operator Aritmatika
+## A.12.1. Operator Aritmatika
 
 Operator aritmatika adalah operator yang digunakan untuk operasi yang sifatnya perhitungan. Go mendukung beberapa operator aritmatika standar, list-nya bisa dilihat di tabel berikut.
 
@@ -20,7 +20,7 @@ Contoh penggunaan:
 var value = (((2 + 6) % 3) * 4 - 2) / 3
 ```
 
-## A.11.2. Operator Perbandingan
+## A.12.2. Operator Perbandingan
 
 Operator perbandingan digunakan untuk menentukan kebenaran suatu kondisi. Hasilnya berupa nilai boolean, `true` atau `false`.
 
@@ -50,7 +50,7 @@ Pada kode di atas, terdapat statement operasi aritmatika yang hasilnya ditampung
 
 Untuk memunculkan nilai `bool` menggunakan `fmt.Printf()`, bisa gunakan layout format `%t`.
 
-## A.11.3. Operator Logika
+## A.12.3. Operator Logika
 
 Operator ini digunakan untuk mencari benar tidaknya kombinasi data bertipe `bool` (bisa berupa variabel bertipe `bool`, atau hasil dari operator perbandingan).
 

@@ -1,10 +1,10 @@
-# A.34. Channel - Timeout
+# A.35. Channel - Timeout
 
 Teknik channel timeout digunakan untuk mengontrol penerimaan data dari channel mengacu ke kapan waktu diterimanya data, dengan durasi timeout bisa kita tentukan sendiri.
 
 Ketika tidak ada aktivitas penerimaan data dalam durasi yang sudah ditentukan, maka blok timeout dieksekusi.
 
-## A.34.1. Penerapan Channel Timeout
+## A.35.1. Penerapan Channel Timeout
 
 Berikut adalah program sederhana contoh pengaplikasian timeout pada channel. Sebuah goroutine baru dijalankan dengan tugas mengirimkan data setiap interval tertentu, dengan durasi interval-nya sendiri adalah acak/random.
 

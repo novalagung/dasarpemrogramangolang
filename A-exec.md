@@ -1,8 +1,8 @@
-# A.46. Exec
+# A.49. Exec
 
 **Exec** digunakan untuk eksekusi perintah command line lewat kode program. Command yang bisa dieksekusi adalah semua command yang bisa dieksekusi di terminal (atau CMD untuk pengguna Windows).
 
-## A.46.1. Penggunaan Exec
+## A.49.1. Penggunaan Exec
 
 Go menyediakan package `exec` berisikan banyak fungsi untuk keperluan eksekusi perintah CLI.
 
@@ -30,7 +30,7 @@ Fungsi `exec.Command()` digunakan untuk menjalankan command. Fungsi tersebut bis
 
 ![Ekeskusi command menggunakan exec](images/A_exec_1_exec.png)
 
-## A.46.2. Rekomendasi Penggunaan Exec
+## A.49.2. Rekomendasi Penggunaan Exec
 
 Kadang kala, pada saat eksekusi command yang sudah jelas-jelas ada (seperti `ls`, `dir`, atau lainnya) kita menemui error yang mengatakan command not found. Hal itu terjadi karena executable dari command-command tersebut tidak ada. Seperti di windows tidak ada `dir.exe` dan lainnya. Di OS non-windows-pun juga demikian.
 
@@ -46,7 +46,7 @@ if runtime.GOOS == "windows" {
 
 Statement `runtime.GOOS` mengembalikan informasi sistim operasi dalam string.
 
-## A.46.3. Method Exec Lainnya
+## A.49.3. Method Exec Lainnya
 
 Selain `.Output()` ada sangat banyak sekali API untuk keperluan komunikasi dengan OS/CLI yang bisa dipergunakan. Detailnya silakan langsung merujuk ke dokumentasi [https://golang.org/pkg/os/exec/](https://golang.org/pkg/os/exec/)
 
@@ -54,5 +54,5 @@ Selain `.Output()` ada sangat banyak sekali API untuk keperluan komunikasi denga
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.46-exec">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.46...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.46-exec">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.49...</a>
 </div>

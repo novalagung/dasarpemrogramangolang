@@ -1,10 +1,10 @@
-# A.43. Encode - Decode Base64
+# A.46. Encode - Decode Base64
 
 Go memiliki package `encoding/base64`, berisikan fungsi-fungsi untuk kebutuhan **encode** dan **decode** data ke base64 dan sebaliknya. Data yang akan di-encode harus bertipe `[]byte`, perlu dilakukan casting untuk data-data yang belum sesuai tipenya.
 
 Ada beberapa cara yang bisa digunakan untuk encode dan decode data, dan di bab ini kita akan mempelajarinya.
 
-## A.43.1. Penerapan Fungsi `EncodeToString()` & `DecodeString()`
+## A.46.1. Penerapan Fungsi `EncodeToString()` & `DecodeString()`
 
 Fungsi `EncodeToString()` digunakan untuk encode data dari bentuk string ke base46. Fungsi `DecodeString()` melakukan kebalikan dari `EncodeToString()`. Berikut adalah contoh penerapannya.
 
@@ -32,7 +32,7 @@ Sedangkan pada fungsi decode `base64.StdEncoding.DecodeString()`, data base64 be
 
 ![Encode & decode data string](images/A_encoding_base64_1_encode_decode.png)
 
-## A.43.2. Penerapan Fungsi `Encode()` & `Decode()`
+## A.46.2. Penerapan Fungsi `Encode()` & `Decode()`
 
 Kedua fungsi ini kegunaannya sama dengan fungsi yang sebelumnya kita bahas, salah satu pembedanya adalah data yang akan dikonversi dan hasilnya bertipe `[]byte`. Penggunaan cara ini cukup panjang karena variabel penyimpan hasil encode maupun decode harus disiapkan terlebih dahulu, dan harus memiliki lebar data sesuai dengan hasil yang akan ditampung (yang nilainya bisa dicari menggunakan fungsi `EncodedLen()` dan `DecodedLen()`).
 
@@ -63,7 +63,7 @@ Dibanding 2 fungsi sebelumnya, fungsi `Encode()` dan `Decode()` memiliki beberap
 
 Pada pemanggilan fungsi encode/decode, variabel `encoded` dan `decoded` tidak disisipkan nilai pointer-nya, cukup di-pass dengan cara biasa, tipe datanya sudah dalam bentuk `[]byte`.
 
-## A.43.3. Encode & Decode Data URL
+## A.46.3. Encode & Decode Data URL
 
 Khusus encode data string yang isinya merupakan URL, lebih efektif menggunakan `URLEncoding` dibandingkan `StdEncoding`.
 
@@ -84,5 +84,5 @@ fmt.Println(decodedString)
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.43-encode-decode-base64">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.43...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.43-encode-decode-base64">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.46...</a>
 </div>

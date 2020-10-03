@@ -1,10 +1,10 @@
-# A.18. Fungsi Multiple Return
+# A.19. Fungsi Multiple Return
 
 Umumnya fungsi hanya memiliki satu buah nilai balik saja. Jika ada kebutuhan dimana data yang dikembalikan harus banyak, biasanya digunakanlah tipe seperti `map`, slice, atau `struct` sebagai nilai balik.
 
 Go menyediakan kapabilitas bagi programmer untuk membuat fungsi memiliki banyak nilai balik. Di bab ini akan dibahas bagaimana penerapannya.
 
-## A.18.1 Penerapan Fungsi Multiple Return
+## A.19.1 Penerapan Fungsi Multiple Return
 
 Cara membuat fungsi yang memiliki banyak nilai balik tidaklah sulit. Tinggal tulis saja pada saat deklarasi fungsi semua tipe data nilai yang dikembalikan, dan pada keyword `return` tulis semua data yang ingin dikembalikan. Contoh bisa dilihat pada berikut.
 
@@ -61,7 +61,7 @@ Karena fungsi tersebut memiliki banyak nilai balik, maka pada pemanggilannya har
 var area, circumference = calculate(diameter)
 ```
 
-## A.18.2 Fungsi Dengan Predefined Return Value
+## A.19.2 Fungsi Dengan Predefined Return Value
 
 Keunikan lainnya yang jarang ditemui di bahasa lain adalah, di Go variabel yang digunakan sebagai nilai balik bisa didefinisikan di-awal.
 
@@ -100,5 +100,5 @@ Fungsi `math.Pow()` digunakan untuk memangkat nilai. `math.Pow(2, 3)` berarti 2 
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.18-fungsi-multiple-return">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.18...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.18-fungsi-multiple-return">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.19...</a>
 </div>

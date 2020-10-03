@@ -1,10 +1,10 @@
-# A.6. Program Pertama: Hello World
+# A.7. Program Pertama: Hello World
 
 Semua persiapan sudah selesai, saatnya masuk pada sesi programming. Program pertama yang akan kita buat adalah aplikasi kecil yang menampilkan text **Hello world**.
 
 Pada bab ini akan dijelaskan secara komprehensif *step-by-step* mulai dari awal. Mulai dari pembuatan project, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi program.
 
-## A.6.1. Inisialisasi Projek
+## A.7.1. Inisialisasi Projek
 
 Buat direktori bernama `hello-world` bebas ditempatkan di mana. Lalu via CLI, masuk ke direktori tersebut dan jalankan *command* untuk inisialisasi projek.
 
@@ -16,13 +16,13 @@ go mod init hello-world
 
 ![Inisialisasi project](images/A_hello_world_1_init_project.png)
 
-## A.6.2. Load Projek Folder ke Editor
+## A.7.2. Load Projek Folder ke Editor
 
 Buka editor, disini penulis menggunakan VSCode. Cari menu untuk menambahkan projek, lalu pilih projek folder `hello-world`. Untuk beberapa jenis editor, cara load projek bisa cukup dengan klik-drag folder tersebut ke editor.
 
 ![Load project folder ke editor](images/A_hello_world_2_load_project_to_editor.png)
 
-## A.6.3. Menyiapkan File Program
+## A.7.3. Menyiapkan File Program
 
 File program disini maksudnya adalah file yang isinya *source code* Go. File ini berekstensi `.go`.
 
@@ -32,7 +32,7 @@ Pembuatan file program bisa dilakukan lewat CLI atau browser, atau juga lewat ed
 
 ![File program](images/A_hello_world_3_new_file_on_editor.png)
 
-## A.6.4. Program Pertama: Hello Word
+## A.7.4. Program Pertama: Hello Word
 
 Setelah project folder dan file program sudah siap, saatnya untuk *programming*.
 
@@ -65,7 +65,7 @@ Selamat! Anda telah berhasil membuat program Go!
 
 Berikut merupakan pembahasan untuk tiap baris kode yang sudah ditulis di atas.
 
-## A.6.5. Penggunaan Keyword `package`
+## A.7.5. Penggunaan Keyword `package`
 
 Setiap file program harus memiliki **package**. Setiap project harus ada minimal satu file dengan nama *package* `main`. File yang ber-*package* `main`, akan di eksekusi pertama kali ketika program di jalankan.
 
@@ -76,7 +76,7 @@ package <nama-package>
 package main
 ```
 
-## A.6.6. Penggunaan Keyword `import`
+## A.7.6. Penggunaan Keyword `import`
 
 Keyword `import` digunakan untuk meng-*import* atau memasukan *package* lain kedalam file program, agar isi dari package yang di-*import* bisa dimanfaatkan.
 
@@ -89,7 +89,7 @@ import "<nama-package>"
 import "fmt"
 ```
 
-## A.6.7. Penggunaan Fungsi `main()`
+## A.7.7. Penggunaan Fungsi `main()`
 
 Dalam sebuah proyek harus ada file program yang didalamnya berisi sebuah fungsi bernama `main()`. Fungsi tersebut harus berada di file yang package-nya bernama `main`.
 
@@ -101,7 +101,7 @@ func main() {
 }
 ```
 
-## A.6.8. Penggunaan Fungsi `fmt.Println()`
+## A.7.8. Penggunaan Fungsi `fmt.Println()`
 
 Fungsi `fmt.Println()` digunakan untuk memunculkan text ke layar (pada konteks ini, terminal atau CMD). Di program pertama yang telah kita buat, fungsi ini memunculkan tulisan **Hello world**.
 
@@ -126,5 +126,5 @@ Contoh statement di atas akan menghasilkan output: **Hello world! how are you**.
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.6-hello-world">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.6...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.6-hello-world">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.7...</a>
 </div>

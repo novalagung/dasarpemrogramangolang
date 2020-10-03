@@ -1,6 +1,6 @@
 # B.19. Middleware `http.Handler`
 
-Pada bab ini, kita akan belajar penggunaan interface `http.Handler` untuk implementasi custom middleware. Kita akan menggunakan sample proyek pada bab sebelumnya [Bab B.18. HTTP Basic Authentication](/B-18-http-basic-auth.html) sebagai dasar bahan pembahasan bab ini.
+Pada bab ini, kita akan belajar penggunaan interface `http.Handler` untuk implementasi custom middleware. Kita akan menggunakan sample proyek pada bab sebelumnya [Bab B. HTTP Basic Authentication](/B-18-http-basic-auth.html) sebagai dasar bahan pembahasan bab ini.
 
 > Apa itu middleware? Istilah middleware berbeda-beda di tiap bahasa/framework. NodeJS dan Rails ada istilah middleware. Pada pemrograman Java Enterprise, istilah filters digunakan. Pada C# istilahnya adalah delegate handlers. Definisi dari middleware sendiri versi penulis, sebuah blok kode yang dipanggil sebelum ataupun sesudah http request di proses.
 

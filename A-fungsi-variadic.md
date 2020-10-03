@@ -1,4 +1,4 @@
-# A.19. Fungsi Variadic
+# A.20. Fungsi Variadic
 
 Go mengadopsi konsep **variadic function** atau pembuatan fungsi dengan parameter sejenis yang tak terbatas. Maksud **tak terbatas** disini adalah jumlah parameter yang disisipkan ketika pemanggilan fungsi bisa berapa saja.
 
@@ -6,7 +6,7 @@ Parameter variadic memiliki sifat yang mirip dengan slice. Nilai dari parameter-
 
 Di bab ini kita akan belajar mengenai cara penerapan fungsi variadic.
 
-## A.19.1. Penerapan Fungsi Variadic
+## A.20.1. Penerapan Fungsi Variadic
 
 Deklarasi parameter variadic sama dengan cara deklarasi variabel biasa, pembedanya adalah pada parameter jenis ini ditambahkan tanda titik tiga kali (`...`) tepat setelah penulisan variabel (sebelum tipe data). Nantinya semua nilai yang disisipkan sebagai parameter akan ditampung oleh variabel tersebut.
 
@@ -78,7 +78,7 @@ Operasi bilangan (perkalian, pembagian, dan lainnya) di Go hanya bisa dilakukan 
 
 ---
 
-## A.19.2. Pengisian Parameter Fungsi Variadic Menggunakan Data Slice
+## A.20.2. Pengisian Parameter Fungsi Variadic Menggunakan Data Slice
 
 Slice bisa digunakan sebagai parameter variadic. Caranya dengan menambahkan tanda titik tiga kali, tepat setelah nama variabel yang dijadikan parameter. Contohnya bisa dilihat pada kode berikut.
 
@@ -105,7 +105,7 @@ var avg = calculate(2, 4, 3, 5, 4, 3, 3, 5, 5, 3)
 
 Pada deklarasi parameter fungsi variadic, tanda 3 titik (`...`) dituliskan sebelum tipe data parameter. Sedangkan pada pemanggilan fungsi dengan menyisipkan parameter array, tanda tersebut dituliskan dibelakang variabelnya.
 
-## A.19.3. Fungsi Dengan Parameter Biasa & Variadic
+## A.20.3. Fungsi Dengan Parameter Biasa & Variadic
 
 Parameter variadic bisa dikombinasikan dengan parameter biasa, dengan syarat parameter variadic-nya harus diposisikan di akhir. Contohnya bisa dilihat pada kode berikut.
 
@@ -148,5 +148,5 @@ Output program:
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.19-fungsi-variadic">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.19...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.19-fungsi-variadic">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.20...</a>
 </div>

@@ -1,4 +1,4 @@
-# A.4. Instalasi Editor
+# A.5. Instalasi Editor
 
 Proses pembuatan aplikasi menggunakan Go akan lebih maksimal jika didukung oleh editor atau **IDE** yang pas. Ada cukup banyak pilihan bagus yang bisa dipertimbangkan, diantaranya: Brackets, JetBrains GoLand, Netbeans, Atom, Brackets, Visual Studio Code, Sublime Text, dan lainnya.
 
@@ -6,7 +6,7 @@ Penulis sarankan untuk memilih editor yang paling nyaman digunakan, preferensi m
 
 Pada bab ini akan dijelaskan bagaimana cara instalasi editor Visual Studio Code.
 
-## A.4.1. Instalasi Editor Visual Studio Code
+## A.5.1. Instalasi Editor Visual Studio Code
 
  1. Download Visual Studio Code di [https://code.visualstudio.com/Download](https://code.visualstudio.com/Download), pilih sesuai dengan sistem operasi yang digunakan.
  2. Jalankan *installer*.
@@ -14,7 +14,7 @@ Pada bab ini akan dijelaskan bagaimana cara instalasi editor Visual Studio Code.
 
 ![Tampilan Visual Studio Code](images/A_instalasi_editor_1_visual_studio_code.png)
 
-## A.4.2. Instalasi Extensi Go
+## A.5.2. Instalasi Extensi Go
 
 Dengan meng-*install* Go Extension pada VSCode, maka development akan menjadi lebih menyenangkan dan mudah. Banyak benefit yang didapat dari ekstensi ini, beberapa diantaranya adalah integrasi dengan kompiler Go, auto lint on save, testing with coverage, fasilitas debugging with breakpoints, dan lainnya.
 
@@ -22,7 +22,7 @@ Cara instalasi ekstensi sendiri cukup mudah, klik `View -> Extension` atau klik 
 
 ![VSCode Go extension](images/A_instalasi_editor_2_vscode_go_extension.png)
 
-## A.4.3. Setup Editorconfig
+## A.5.3. Setup Editorconfig
 
 [Editorconfig](https://editorconfig.org/) membantu kita supaya *coding style* menjadi konsisten untuk dibaca oleh banyak developer, dan juga ketika dimuat pada berbagai macam **IDE**. Instalasinya di VSCode cukup mudah, cari saja *extension*-nya kemudian klik *install* seperti pada gambar berikut.
 

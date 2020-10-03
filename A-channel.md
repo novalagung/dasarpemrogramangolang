@@ -1,4 +1,4 @@
-# A.30. Channel
+# A.31. Channel
 
 **Channel** digunakan untuk menghubungkan goroutine satu dengan goroutine lain. Mekanisme yang dilakukan adalah serah-terima data lewat channel tersebut. Dalam komunikasinya, sebuah channel difungsikan sebagai pengirim di sebuah goroutine, dan juga sebagai penerima di goroutine lainnya. Pengiriman dan penerimaan data pada channel bersifat **blocking** atau **synchronous**.
 
@@ -6,7 +6,7 @@
 
 Pada bab ini kita akan belajar mengenai pemanfaatan channel.
 
-## A.30.1. Penerapan Channel
+## A.31.1. Penerapan Channel
 
 Channel merupakan sebuah variabel, dibuat dengan menggunakan kombinasi keyword `make` dan `chan`. Variabel channel memiliki satu tugas, menjadi pengirim, atau penerima data.
 
@@ -85,7 +85,7 @@ Dari screenshot output di atas bisa dilihat bahwa text yang dikembalikan oleh `s
 
 Karena pengiriman dan penerimaan data lewat channel bersifat **blocking**, tidak perlu memanfaatkan sifat blocking dari fungsi sejenis `fmt.Scanln()` atau lainnya, untuk mengantisipasi goroutine utama `main` selesai sebelum ketiga goroutine di atas selesai.
 
-## A.30.2. Channel Sebagai Tipe Data Parameter
+## A.31.2. Channel Sebagai Tipe Data Parameter
 
 Variabel channel bisa di-pass ke fungsi lain sebagai parameter. Cukup tambahkan keyword `chan` pada deklarasi parameter agar operasi pass channel variabel bisa dilakukan.
 
@@ -160,5 +160,5 @@ fmt.Println(message)
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.30-channel">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.30...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.30-channel">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.31...</a>
 </div>

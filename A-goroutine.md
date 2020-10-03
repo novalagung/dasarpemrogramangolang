@@ -1,4 +1,4 @@
-# A.29. Goroutine
+# A.30. Goroutine
 
 Goroutine mirip dengan thread thread, tapi sebenarnya bukan. Sebuah *native thread* bisa berisikan sangat banyak goroutine. Mungkin lebih pas kalau goroutine disebut sebagai **mini thread**. Goroutine sangat ringan, hanya dibutuhkan sekitar **2kB** memori saja untuk satu buah goroutine. Eksekusi goroutine bersifat *asynchronous*, menjadikannya tidak saling tunggu dengan goroutine lain.
 
@@ -10,7 +10,7 @@ Mulai bab A.29 ini hingga bab A.34, lalu dilanjut bab A.56 dan A.57, kita akan m
 
 > Concurrency atau konkurensi berbeda dengan paralel. Paralel adalah eksekusi banyak proses secara bersamaan. Sedangkan konkurensi adalah komposisi dari sebuah proses. Konkurensi merupakan struktur, sedangkan paralel adalah bagaimana eksekusinya berlangsung.
 
-## A.29.1. Penerapan Goroutine
+## A.30.1. Penerapan Goroutine
 
 Untuk menerapkan goroutine, proses yang akan dieksekusi sebagai goroutine harus dibungkus kedalam sebuah fungsi. Pada saat pemanggilan fungsi tersebut, ditambahkan keyword `go` didepannya, dengan itu goroutine baru akan dibuat dengan tugas adalah menjalankan proses yang ada dalam fungsi tersebut.
 
@@ -55,13 +55,13 @@ Pada gambar di atas, program dieksekusi 2 kali. Hasil eksekusi pertama berbeda d
 
 Berikut adalah penjelasan tambahan tentang beberapa fungsi yang baru kita pelajari di atas.
 
-## A.29.1.1. Penggunaan Fungsi `runtime.GOMAXPROCS()`
+## A.30.1.1. Penggunaan Fungsi `runtime.GOMAXPROCS()`
 
 Fungsi ini digunakan untuk menentukan jumlah core atau processor yang digunakan dalam eksekusi program.
 
 Jumlah yang diinputkan secara otomatis akan disesuaikan dengan jumlah asli *logical processor* yang ada. Jika jumlahnya lebih, maka dianggap menggunakan sejumlah prosesor yang ada.
 
-## A.29.1.2. Penggunaan Fungsi `fmt.Scanln()`
+## A.30.1.2. Penggunaan Fungsi `fmt.Scanln()`
 
 Fungsi ini akan meng-capture semua karakter sebelum user menekan tombol enter, lalu menyimpannya pada variabel.
 
@@ -88,5 +88,5 @@ Bisa dilihat pada kode di atas, untuk menampung inputan text `trafalgar d law`, 
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.29-goroutine">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.29...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.29-goroutine">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.30...</a>
 </div>

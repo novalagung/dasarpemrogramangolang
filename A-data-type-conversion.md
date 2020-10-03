@@ -1,8 +1,8 @@
-# A.40. Konversi Antar Tipe Data
+# A.43. Konversi Antar Tipe Data
 
 Di bab-bab sebelumnya kita sudah mengaplikasikan beberapa cara konversi data, contohnya seperti konversi `string` ↔ `int` menggunakan `strconv`, dan `time.Time` ↔ `string`. Di bab ini kita akan belajar lebih banyak.
 
-## A.40.1. Konversi Menggunakan `strconv`
+## A.43.1. Konversi Menggunakan `strconv`
 
 Package `strconv` berisi banyak fungsi yang sangat membantu kita untuk melakukan konversi. Berikut merupakan beberapa fungsi yang dalam package tersebut.
 
@@ -137,7 +137,7 @@ var str = strconv.FormatBool(bul)
 fmt.Println(str) // true
 ```
 
-## A.40.2. Konversi Data Menggunakan Teknik Casting
+## A.43.2. Konversi Data Menggunakan Teknik Casting
 
 Keyword tipe data bisa digunakan untuk casting, atau konversi antar tipe data. Cara penggunaannya adalah dengan menuliskan tipe data tujuan casting sebagai fungsi, lalu menyisipkan data yang akan dikonversi sebagai parameter fungsi tersebut.
 
@@ -149,7 +149,7 @@ var b int32 = int32(24.00)
 fmt.Println(b) // 24
 ```
 
-## A.40.3. Casting `string` ↔ `byte`
+## A.43.3. Casting `string` ↔ `byte`
 
 String sebenarnya adalah slice/array `byte`. Di Go sebuah karakter biasa (bukan unicode) direpresentasikan oleh sebuah elemen slice byte. Tiap elemen slice berisi data `int` dengan basis desimal, yang merupakan kode ASCII dari karakter dalam string.
 
@@ -189,7 +189,7 @@ var d string = string(104)
 fmt.Println(d) // h
 ```
 
-## A.40.4. Type Assertions Pada Interface Kosong (`interface{}`)
+## A.43.4. Type Assertions Pada Interface Kosong (`interface{}`)
 
 **Type assertions** merupakan teknik untuk mengambil tipe data konkret dari data yang terbungkus dalam `interface{}`. Jadi bisa disimpulkan bahwa teknik type assertions hanya bisa dilakukan pada data bertipe `interface{}`. Lebih jelasnya silakan cek contoh berikut.
 
@@ -246,5 +246,5 @@ Kombinasi `switch` - `case` bisa dimanfaatkan untuk deteksi tipe konkret data ya
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.40-konversi-data">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.40...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.40-konversi-data">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.43...</a>
 </div>

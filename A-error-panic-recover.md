@@ -1,8 +1,8 @@
-# A.36. Error, Panic, dan Recover
+# A.37. Error, Panic, dan Recover
 
 Error merupakan topik yang sangat penting dalam pemrograman Go. Di bagian ini kita akan belajar mengenai pemanfaatan error dan cara membuat custom error sendiri. Selain itu, kita juga akan belajar tentang penggunaan **panic** untuk memunculkan panic error, dan **recover** untuk mengatasinya.
 
-## A.36.1. Pemanfaatan Error
+## A.37.1. Pemanfaatan Error
 
 `error` merupakan sebuah tipe. Error memiliki memiliki 1 buah property berupa method `Error()`, method ini mengembalikan detail pesan error dalam string. Error termasuk tipe yang isinya bisa `nil`.
 
@@ -50,7 +50,7 @@ Pesan error bisa didapat dari method `Error()` milik tipe `error`.
 
 ![Penerapan error](images/A_error_panic_recover_1_error.png)
 
-## A.36.2. Membuat Custom Error
+## A.37.2. Membuat Custom Error
 
 Selain memanfaatkan error hasil kembalian suatu fungsi internal yang tersedia, kita juga bisa membuat objek error sendiri dengan menggunakan fungsi `errors.New()` (harus import package `errors` terlebih dahulu).
 
@@ -97,7 +97,7 @@ Ketika inputan tidak valid, maka error baru dibuat dengan memanfaatkan fungsi `e
 
 ![Custom error](images/A_error_panic_recover_2_custom_error.png)
 
-## A.36.3. Penggunaan `panic`
+## A.37.3. Penggunaan `panic`
 
 Panic digunakan untuk menampilkan *stack trace* error sekaligus menghentikan flow goroutine (karena `main()` juga merupakan goroutine, maka behaviour yang sama juga berlaku). Setelah ada panic, proses akan terhenti, apapun setelah tidak di-eksekusi kecuali proses yang sudah di-defer sebelumnya (akan muncul sebelum panic error).
 
@@ -124,7 +124,7 @@ Jalankan program lalu langsung tekan enter, maka panic error muncul dan baris ko
 
 ![Menampilkan error menggunakan panic](images/A_error_panic_recover_3_panic.png)
 
-## A.36.4. Penggunaan `recover`
+## A.37.4. Penggunaan `recover`
 
 Recover berguna untuk meng-handle panic error. Pada saat panic error muncul, recover men-take-over goroutine yang sedang panic (pesan panic tidak akan muncul).
 
@@ -161,7 +161,7 @@ Output:
 
 ![Handle panic menggunakan recover](images/A_error_panic_recover_4_recover.png)
 
-## A.36.5. Pemanfaatan `recover` pada IIFE
+## A.37.5. Pemanfaatan `recover` pada IIFE
 
 Contoh penerapan recover pada IIFE:
 
@@ -213,5 +213,5 @@ Pada kode di atas, bisa dilihat di dalam perulangan terdapat sebuah IIFE untuk r
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.36-error-panic-recover">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.36...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.36-error-panic-recover">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.37...</a>
 </div>

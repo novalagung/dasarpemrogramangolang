@@ -1,10 +1,10 @@
-# A.51. Web Service API
+# A.54. Web Service API Server
 
 Pada bab ini kita akan mengkombinasikan pembahasan 2 bab sebelumnya, yaitu web programming dan JSON, untuk membuat sebuah web service API dengan tipe data reponse berbentuk JSON.
 
 > Web Service API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML.
 
-## A.51.1. Pembuatan Web API
+## A.54.1. Pembuatan Web API
 
 Pertama siapkan terlebih dahulu struct dan beberapa data sample.
 
@@ -115,7 +115,7 @@ Jalankan program, sekarang web server sudah live dan bisa dikonsumsi datanya.
 
 ![Web API Server dijalankan](images/A_web_service_1_server.png)
 
-## A.51.2. Test Web Service API
+## A.54.2. Test Web Service API
 
 Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-tes. Di sini saya menggunakan Google Chrome plugin bernama [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en) untuk mengetes API yang sudah dibuat.
 
@@ -131,5 +131,5 @@ Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.51-web-json-api">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.51...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.51-web-json-api">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.54...</a>
 </div>

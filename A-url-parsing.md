@@ -1,4 +1,4 @@
-# A.49. URL Parsing
+# A.52. URL Parsing
 
 Data string url bisa dikonversi kedalam bentuk `url.URL`. Dengan menggunakan tipe tersebut akan ada banyak informasi yang bisa kita manfaatkan, diantaranya adalah jenis protokol yang digunakan, path yang diakses, query, dan lainnya.
 
@@ -40,5 +40,5 @@ Selain itu, query yang ada pada url akan otomatis diparsing juga, menjadi bentuk
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.49-url-parsing">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.49...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.49-url-parsing">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.52...</a>
 </div>

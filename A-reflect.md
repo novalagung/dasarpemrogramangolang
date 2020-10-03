@@ -1,4 +1,4 @@
-# A.28. Reflect
+# A.29. Reflect
 
 Reflection adalah teknik untuk inspeksi variabel, mengambil informasi dari variabel tersebut atau bahkan memanipulasinya. Cakupan informasi yang bisa didapatkan lewat reflection sangat luas, seperti melihat struktur variabel, tipe, nilai pointer, dan banyak lagi.
 
@@ -9,7 +9,7 @@ Dari banyak fungsi yang tersedia di dalam package tersebut, ada 2 fungsi yang pa
  - Fungsi `reflect.ValueOf()` akan mengembalikan objek dalam tipe `reflect.Value`, yang berisikan informasi yang berhubungan dengan nilai pada variabel yang dicari
  - Sedangkan `reflect.TypeOf()` mengembalikan objek dalam tipe `reflect.Type`. Objek tersebut berisikan informasi yang berhubungan dengan tipe data variabel yang dicari
 
-## A.28.1. Mencari Tipe Data & Value Menggunakan Reflect
+## A.29.1. Mencari Tipe Data & Value Menggunakan Reflect
 
 Dengan reflection, tipe data dan nilai variabel dapat diketahui dengan mudah. Contoh penerapannya bisa dilihat pada kode berikut.
 
@@ -63,7 +63,7 @@ Fungsi `Interface()` mengembalikan nilai interface kosong atau `interface{}`. Ni
 var nilai = reflectValue.Interface().(int)
 ```
 
-## A.28.2. Pengaksesan Informasi Property Variabel Objek
+## A.29.2. Pengaksesan Informasi Property Variabel Objek
 
 Reflect bisa digunakan untuk mengambil informasi semua property variabel objek cetakan struct, dengan catatan property-property tersebut bermodifier public. Langsung saja kita praktekan, siapkan sebuah struct bernama `student`.
 
@@ -118,7 +118,7 @@ Di tiap perulangan, informasi tiap property struct diambil berurutan dengan lewa
 
 Pengambilan informasi property, selain menggunakan indeks, bisa diambil berdasarkan nama field dengan menggunakan method `FieldByName()`.
 
-## A.28.3. Pengaksesan Informasi Method Variabel Objek
+## A.29.3. Pengaksesan Informasi Method Variabel Objek
 
 Informasi mengenai method juga bisa diakses lewat reflect, syaratnya masih sama seperti pada pengaksesan proprerty, yaitu harus bermodifier public.
 
@@ -167,5 +167,5 @@ Jika eksekusi method diikuti pengisian parameter, maka parameternya harus dituli
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.28-reflect">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.28...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.28-reflect">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.29...</a>
 </div>

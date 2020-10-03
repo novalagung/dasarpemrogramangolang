@@ -1,10 +1,10 @@
-# A.8. Variabel
+# A.9. Variabel
 
 Go mengadopsi dua jenis penulisan variabel, yaitu yang dituliskan tipe data-nya, dan juga yang tidak. Kedua cara tersebut valid dan tujuannya sama, pembedanya hanya cara penulisannya saja.
 
 Pada bab ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel.
 
-## A.8.1. Deklarasi Variabel Beserta Tipe Data
+## A.9.1. Deklarasi Variabel Beserta Tipe Data
 
 Go memiliki aturan cukup ketat dalam hal penulisan variabel. Ketika deklarasi, tipe data yg digunakan harus dituliskan juga. Istilah lain dari konsep ini adalah **manifest typing**.
 
@@ -31,7 +31,7 @@ Nilai variabel `firstName` diisi langsung ketika deklarasi, berbeda dibanding `l
 
 ![Menampilkan isi variabel](images/A_variabel_1_variabel.png)
 
-## A.8.2. Deklarasi Variabel Menggunakan Keyword `var`
+## A.9.2. Deklarasi Variabel Menggunakan Keyword `var`
 
 Pada kode di atas bisa dilihat bagaimana sebuah variabel dideklarasikan dan diisi nilainya. Keyword `var` digunakan untuk membuat variabel baru.
 
@@ -69,7 +69,7 @@ Tanda plus (`+`) jika ditempatkan di antara string, fungsinya adalah untuk pengg
 
 Fungsi `fmt.Printf()` tidak menghasilkan baris baru di akhir text, oleh karena itu digunakanlah literal *newline* yaitu `\n`, untuk memunculkan baris baru di akhir. Hal ini sangat berbeda jika dibandingkan dengan fungsi `fmt.Println()` yang secara otomatis menghasilkan new line (baris baru) di akhir.
 
-## A.8.3. Deklarasi Variabel Tanpa Tipe Data
+## A.9.3. Deklarasi Variabel Tanpa Tipe Data
 
 Selain *manifest typing*, Go juga mengadopsi konsep **type inference**, yaitu metode deklarasi variabel yang tipe data-nya ditentukan oleh tipe data nilainya, cara kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword `var` dan tipe data tidak perlu ditulis.
 
@@ -106,7 +106,7 @@ lastName = "bourne"
 
 > Perlu diketahu, deklarasi menggunakan `:=` hanya bisa dilakukan di dalam blok fungsi.
 
-## A.8.4. Deklarasi Multi Variabel
+## A.9.4. Deklarasi Multi Variabel
 
 Go mendukung metode deklarasi banyak variabel secara bersamaan, caranya dengan menuliskan variabel-variabel-nya dengan pembatas tanda koma (`,`). Untuk pengisian nilainya-pun diperbolehkan secara bersamaan.
 
@@ -133,7 +133,7 @@ Dengan menggunakan teknik type inference, deklarasi multi variabel bisa dilakuka
 one, isFriday, twoPointTwo, say := 1, true, 2.2, "hello"
 ```
 
-## A.8.5. Variabel Underscore `_`
+## A.9.5. Variabel Underscore `_`
 
 Go memiliki aturan unik yang jarang dimiliki bahasa lain, yaitu tidak boleh ada satupun variabel yang menganggur. Artinya, semua variabel yang dideklarasikan harus digunakan. Jika ada variabel yang tidak digunakan tapi dideklarasikan, error akan muncul pada saat kompilasi dan program tidak akan bisa di-run.
 
@@ -155,7 +155,7 @@ Biasanya variabel underscore sering dimanfaatkan untuk menampung nilai balik fun
 
 Perlu diketahui, bahwa isi variabel underscore tidak dapat ditampilkan. Data yang sudah masuk variabel tersebut akan hilang. Ibaratkan variabel underscore seperti blackhole, objek apapun yang masuk kedalamnya, akan terjebak selamanya di-dalam singularity dan tidak akan bisa keluar 😁
 
-## A.8.6. Deklarasi Variabel Menggunakan Keyword `new`
+## A.9.6. Deklarasi Variabel Menggunakan Keyword `new`
 
 Keyword `new` digunakan untuk membuat variabel **pointer** dengan tipe data tertentu. Nilai data default-nya akan menyesuaikan tipe datanya.
 
@@ -170,7 +170,7 @@ Variabel `name` menampung data bertipe **pointer string**. Jika ditampilkan yang
 
 Mungkin untuk sekarang banyak yang akan bingung tentang apa itu pointer, namun tak apa, karena nantinya di [Bab A.22. Pointer](/22-pointer.html) akan dikupas habis topik tersebut.
 
-## A.8.7. Deklarasi Variabel Menggunakan Keyword `make`
+## A.9.7. Deklarasi Variabel Menggunakan Keyword `make`
 
 Keyword ini hanya bisa digunakan untuk pembuatan beberapa jenis variabel saja, yaitu:
 
@@ -184,5 +184,5 @@ Dan lagi, mungkin banyak yang akan bingung. Ketika sudah masuk ke pembahasan mas
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.8-variabel">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.8...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.8-variabel">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.9...</a>
 </div>

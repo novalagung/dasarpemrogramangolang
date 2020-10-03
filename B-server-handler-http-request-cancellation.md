@@ -6,7 +6,7 @@ Berbeda dengan handler di back end-nya, by default request yang sudah di-cancel 
 
 Pada bab ini kita akan belajar caranya.
 
-> Bab ini fokus terhadap cancellation pada client http request. Untuk cancellation pada proses konkuren silakan merujuk ke [A.61. Concurrency Pattern: Context Cancellation Pipeline](A-pipeline-context-cancellation.md).
+> Bab ini fokus terhadap cancellation pada client http request. Untuk cancellation pada proses konkuren silakan merujuk ke [A. Concurrency Pattern: Context Cancellation Pipeline](/A-pipeline-context-cancellation.html).
 
 ## B.32.1. Praktek
 

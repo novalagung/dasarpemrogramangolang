@@ -1,10 +1,10 @@
-# A.45. Arguments & Flag
+# A.48. Arguments & Flag
 
 **Arguments** adalah data opsional yang disisipkan ketika eksekusi program. Sedangkan **flag** merupakan ekstensi dari argument. Dengan flag, penulisan argument menjadi lebih rapi dan terstruktur.
 
 Di bab ini kita akan belajar tentang penggunaan arguments dan flag.
 
-## A.45.1. Penggunaan Arguments
+## A.48.1. Penggunaan Arguments
 
 Data arguments bisa didapat lewat variabel `os.Args` (package `os` perlu di-import terlebih dahulu). Data tersebut tersimpan dalam bentuk array dengan pemisah adalah tanda spasi.
 
@@ -50,7 +50,7 @@ Variabel `os.Args` mengembalikan tak hanya arguments saja, tapi juga path file e
 
 Bisa dilihat pada kode di atas, bahwa untuk data argumen yang ada karakter spasi nya (<code> </code>), maka harus diapit tanda petik (`"`), agar tidak dideteksi sebagai 2 argumen.
 
-## A.45.2. Penggunaan Flag
+## A.48.2. Penggunaan Flag
 
 Flag memiliki kegunaan yang sama seperti arguments, yaitu untuk *parameterize* eksekusi program, dengan penulisan dalam bentuk key-value. Berikut merupakan contoh penerapannya.
 
@@ -104,7 +104,7 @@ Tabel berikut merupakan macam-macam fungsi flag yang tersedia untuk tiap jenis t
 | `flag.Uint(name, defaultValue, usage)` | `*uint` |
 | `flag.Uint64(name, defaultValue, usage)` | `*uint64` |
 
-## A.45.3. Deklarasi Flag Dengan Cara Passing Reference Variabel Penampung Data
+## A.48.3. Deklarasi Flag Dengan Cara Passing Reference Variabel Penampung Data
 
 Sebenarnya ada 2 cara deklarasi flag yang bisa digunakan, dan cara di atas merupakan cara pertama.
 
@@ -133,5 +133,5 @@ Kegunaan dari parameter terakhir method-method flag adalah untuk memunculkan hin
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.45-cli-arguments-flag">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.45...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.45-cli-arguments-flag">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.48...</a>
 </div>

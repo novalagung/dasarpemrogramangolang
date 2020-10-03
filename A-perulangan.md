@@ -1,10 +1,10 @@
-# A.13. Perulangan
+# A.14. Perulangan
 
 Perulangan adalah proses mengulang-ulang eksekusi blok kode tanpa henti, selama kondisi yang dijadikan acuan terpenuhi. Biasanya disiapkan variabel untuk iterasi atau variabel penanda kapan perulangan akan diberhentikan.
 
 Di Go keyword perulangan hanya **for** saja, tetapi meski demikian, kemampuannya merupakan gabungan `for`, `foreach`, dan `while` ibarat bahasa pemrograman lain.
 
-## A.13.1. Perulangan Menggunakan Keyword `for`
+## A.14.1. Perulangan Menggunakan Keyword `for`
 
 Ada beberapa cara standar menggunakan `for`. Cara pertama dengan memasukkan variabel counter perulangan beserta kondisinya setelah keyword. Perhatikan dan praktekan kode berikut.
 
@@ -18,7 +18,7 @@ Perulangan di atas hanya akan berjalan ketika variabel `i` bernilai dibawah `5`,
 
 ![Penggunaan `for`](images/A_perulangan_1_for.png)
 
-## A.13.2. Penggunaan Keyword `for` Dengan Argumen Hanya Kondisi
+## A.14.2. Penggunaan Keyword `for` Dengan Argumen Hanya Kondisi
 
 Cara ke-2 adalah dengan menuliskan kondisi setelah keyword `for` (hanya kondisi). Deklarasi dan iterasi variabel counter tidak dituliskan setelah keyword, hanya kondisi perulangan saja. Konsepnya mirip seperti `while` milik bahasa pemrograman lain.
 
@@ -33,7 +33,7 @@ for i < 5 {
 }
 ```
 
-## A.13.3. Penggunaan Keyword `for` Tanpa Argumen
+## A.14.3. Penggunaan Keyword `for` Tanpa Argumen
 
 Cara ke-3 adalah `for` ditulis tanpa kondisi. Dengan ini akan dihasilkan perulangan tanpa henti (sama dengan `for true`). Pemberhentian perulangan dilakukan dengan menggunakan keyword `break`.
 
@@ -52,11 +52,11 @@ for {
 
 Dalam perulangan tanpa henti di atas, variabel `i` yang nilai awalnya `0` di-inkrementasi. Ketika nilai `i` sudah mencapai `5`, keyword `break` digunakan, dan perulangan akan berhenti.
 
-## A.13.4. Penggunaan Keyword `for` - `range`
+## A.14.4. Penggunaan Keyword `for` - `range`
 
 Cara ke-4 adalah perulangan dengan menggunakan kombinasi keyword `for` dan `range`. Cara ini biasa digunakan untuk me-looping data bertipe array. Detailnya akan dibahas dalam bab selanjutnya (bab 14).
 
-## A.13.5. Penggunaan Keyword `break` & `continue`
+## A.14.5. Penggunaan Keyword `break` & `continue`
 
 Keyword `break` digunakan untuk menghentikan secara paksa sebuah perulangan, sedangkan `continue` dipakai untuk memaksa maju ke perulangan berikutnya.
 
@@ -85,7 +85,7 @@ Kode di atas akan lebih mudah dicerna jika dijelaskan secara berurutan. Berikut 
 
 ![Penerapan keyword `for`, `break`, dan `continue`](images/A_perulangan_2_for_break_continue.png)
 
-## A.13.6. Perulangan Bersarang
+## A.14.6. Perulangan Bersarang
 
 Tak hanya seleksi kondisi yang bisa bersarang, perulangan juga bisa. Cara pengaplikasiannya kurang lebih sama, tinggal tulis blok statement perulangan didalam perulangan.
 
@@ -103,7 +103,7 @@ Pada kode di atas, untuk pertama kalinya fungsi `fmt.Println()` dipanggil tanpa 
 
 ![Perulangan bersarang](images/A_perulangan_3_nested_for.png)
 
-## A.13.7. Pemanfaatan Label Dalam Perulangan
+## A.14.7. Pemanfaatan Label Dalam Perulangan
 
 Di perulangan bersarang, `break` dan `continue` akan berlaku pada blok perulangan dimana ia digunakan saja. Ada cara agar kedua keyword ini bisa tertuju pada perulangan terluar atau perulangan tertentu, yaitu dengan memanfaatkan teknik pemberian **label**.
 
@@ -131,5 +131,5 @@ Pada `for` bagian dalam, terdapat seleksi kondisi untuk pengecekan nilai `i`. Ke
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.13-perulangan">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.13...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.13-perulangan">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.14...</a>
 </div>

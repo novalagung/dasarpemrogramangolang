@@ -1,4 +1,4 @@
-# A.33. Channel - Range dan Close
+# A.34. Channel - Range dan Close
 
 Proses retrieving data dari banyak channel bisa lebih mudah dilakukan dengan memanfaatkan kombinasi keyword `for` - `range`.
 
@@ -6,7 +6,7 @@ Proses retrieving data dari banyak channel bisa lebih mudah dilakukan dengan mem
 
 Channel yang sudah di-close tidak bisa digunakan lagi baik untuk menerima data ataupun untuk mengirim data, itulah mengapa perulangan `for` - `range` juga berhenti.
 
-## A.33.1. Penerapan `for` - `range` - `close` Pada Channel
+## A.34.1. Penerapan `for` - `range` - `close` Pada Channel
 
 Berikut adalah contoh program menggunakan `for` - `range` untuk menerima data dari channel.
 
@@ -51,7 +51,7 @@ Setelah 20 data sukses dikirim dan diterima, channel `ch` di-non-aktifkan (`clos
 
 Berikut adalah penjelasan tambahan mengenai channel.
 
-## A.33.1.1. Channel Direction
+## A.34.1.1. Channel Direction
 
 Ada yang unik dengan fitur parameter channel yang disediakan oleh Go. Level akses channel bisa ditentukan, apakah hanya sebagai penerima, pengirim, atau penerima sekaligus pengirim. Konsep ini disebut dengan **channel direction**.
 
@@ -73,5 +73,5 @@ Dan sebaliknya pada fungsi `printMessage(ch <-chan string)`, channel `ch` hanya 
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.33-channel-range-close">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.33...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.33-channel-range-close">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.34...</a>
 </div>

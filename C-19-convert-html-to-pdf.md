@@ -48,7 +48,7 @@ Silakan unduh installer wkhtmltopdf di https://wkhtmltopdf.org/downloads.html, p
 
 karena wkhtmltopdf merupakan sebuah aplikasi CLI, maka penggunaannya bisa lewat dua cara.
 
- - Cara ke-1: Menggunakan `exec.Command()` untuk mengeksekusi binary. Path file html target disisipkan sebagai argumen command. Silakan merujuk ke referensi [Dasar Pemrograman Golang Bab 46 - Exec](https://dasarpemrogramangolang.novalagung.com/46-exec.html) untuk mempelajari cara penggunaan exec.
+ - Cara ke-1: Menggunakan `exec.Command()` untuk mengeksekusi binary. Path file html target disisipkan sebagai argumen command. Silakan merujuk ke referensi pada chapter [A. Exec](/A-exec.html) untuk mempelajari cara penggunaan exec.
  - Cara ke-2: Menggunakan golang wrapper [go-wkhtmltopdf](github.com/SebastiaanKlippert/go-wkhtmltopdf). Cara ini adalah yang kita pilih.
 
 Secara teknis, go-wkhtmltopdf melakukan hal yang sama dengan cara pertama, yaitu mengeksekusi binary wkhtmltopdf menggunakan `exec.Command()`.

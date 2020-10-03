@@ -1,4 +1,4 @@
-# C.24. Client HTTP Request
+# C.24. Advanced Client HTTP Request
 
 Pada bab ini kita akan belajar tentang topik yang sedikit berbeda dibanding bab sebelumnya, yaitu cara untuk melakukan http request ke sebuah web server.
 

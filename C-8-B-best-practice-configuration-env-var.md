@@ -14,7 +14,7 @@ Selain *reserved env var*, kita bisa juga membuat variabel baru yang hanya digun
 
 ## C.8.B.2. Penggunaan *env var* Sebagai Media Untuk Definisi Konfigurasi Program
 
-Pada chapter [B.22 - Simple Configuration File](/B-22-simple-configuration-file.md) dan juga [C.8.A - Advanced Configuration Menggunakan Viper](C-8-A-advanced-configuration-viper.md), kita telah belajar cara pendefinisian konfigurasi dengan memanfaatkan file seperti JSON maupun YAML.
+Pada chapter [B. Simple Configuration](/B-22-simple-configuration.html) dan juga [C. Advanced Configuration: Viper](/C-8-A-advanced-configuration-viper.html), kita telah belajar cara pendefinisian konfigurasi dengan memanfaatkan file seperti JSON maupun YAML.
 
 Pada chapter kali ini kita akan mendefinisikan konfigurasi yang sama tapi tidak di file, melainkan di *environment variable*.
 
@@ -148,7 +148,7 @@ Berikut adalah penampakan contoh run program lewat bat-file di Windows.
 
 Memang saya setuju jika lebih butuh *effort* baik dari sisi programming maupun dari sisi eksekusi program-nya. Tapi *trust me*, pada production yang notabene *deployment* di-automatisasi (entah itu container based, pakai orchestrator, maupun tidak), pasti lebih mudah.
 
-Mungkin dari sini temen-temen bisa lanjut ke bab [C.35 - Dockerize Aplikasi Golang](/C-35-dockerize-golang.html) untuk melihat praktek nyata penerapan konfigurasi via *env var*.
+Mungkin dari sini temen-temen bisa lanjut ke bab [C. Dockerize Aplikasi Golang](/C-35-dockerize-golang.html) untuk melihat praktek nyata penerapan konfigurasi via *env var*.
 
 ---
 

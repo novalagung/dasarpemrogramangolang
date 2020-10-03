@@ -1,10 +1,10 @@
-# A.22. Pointer
+# A.23. Pointer
 
 Pointer adalah *reference* atau alamat memori. Variabel pointer berarti variabel yang berisi alamat memori suatu nilai. Sebagai contoh sebuah variabel bertipe integer memiliki nilai **4**, maka yang dimaksud pointer adalah **alamat memori dimana nilai 4 disimpan**, bukan nilai 4 itu sendiri.
 
 Variabel-variabel yang memiliki *reference* atau alamat pointer yang sama, saling berhubungan satu sama lain dan nilainya pasti sama. Ketika ada perubahan nilai, maka akan memberikan efek kepada variabel lain (yang referensi-nya sama) yaitu nilainya ikut berubah.
 
-## A.22.1. Penerapan Pointer
+## A.23.1. Penerapan Pointer
 
 Variabel bertipe pointer ditandai dengan adanya tanda **asterisk** (`*`) tepat sebelum penulisan tipe data ketika deklarasi.
 
@@ -41,7 +41,7 @@ Variabel pointer jika di-print akan menghasilkan string alamat memori (dalam not
 
 Nilai asli sebuah variabel pointer bisa didapatkan dengan cara di-dereference terlebih dahulu (bisa dilihat pada kode `*numberB`).
 
-## A.22.2. Efek Perubahan Nilai Pointer
+## A.23.2. Efek Perubahan Nilai Pointer
 
 Ketika salah satu variabel pointer di ubah nilainya, sedang ada variabel lain yang memiliki referensi memori yang sama, maka nilai variabel lain tersebut juga akan berubah.
 
@@ -68,7 +68,7 @@ Variabel `numberA` dan `numberB` memiliki referensi memori yang sama. Perubahan 
 
 ![Variabel pointer diubah nilainya](images/A_pointer_2_pointer_change.png)
 
-## A.22.3. Parameter Pointer
+## A.23.3. Parameter Pointer
 
 Parameter bisa juga didesain sebagai pointer. Cara penerapannya kurang lebih sama, dengan cara mendeklarasikan parameter sebagai pointer.
 
@@ -102,5 +102,5 @@ Nilai variabel `number` berubah menjadi `10` karena perubahan yang terjadi di da
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.22-pointer">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.22...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.22-pointer">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.23...</a>
 </div>

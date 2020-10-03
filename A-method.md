@@ -1,10 +1,10 @@
-# A.24. Method
+# A.25. Method
 
 **Method** adalah fungsi yang menempel pada `type` (bisa `struct` atau tipe data lainnya). Method bisa diakses lewat variabel objek.
 
 Keunggulan method dibanding fungsi biasa adalah memiliki akses ke property struct hingga level *private* (level akses nantinya akan dibahas lebih detail pada bab selanjutnya). Dan juga, dengan menggunakan method sebuah proses bisa di-enkapsulasi dengan baik.
 
-## A.24.1. Penerapan Method
+## A.25.1. Penerapan Method
 
 Cara menerapkan method sedikit berbeda dibanding penggunaan fungsi. Ketika deklarasi, ditentukan juga siapa pemilik method tersebut. Contohnya bisa dilihat pada kode berikut:
 
@@ -65,7 +65,7 @@ func getNameAt(i int) string {
 func (s student) getNameAt(i int) string {
 ```
 
-## A.24.2. Method Pointer
+## A.25.2. Method Pointer
 
 Method pointer adalah method yang variabel objek pemilik method tersebut berupa pointer.
 
@@ -139,7 +139,7 @@ strings.Split("ethan hunt", " ")
 
 Pada contoh di atas, string `"ethan hunt"` dipisah menggunakan separator spasi `" "`. Maka hasilnya terbentuk array berisikan 2 data, `"ethan"` dan `"hunt"`.
 
-## A.24.3. Apakah `fmt.Println()` & `strings.Split()` Juga Merupakan Method?
+## A.25.3. Apakah `fmt.Println()` & `strings.Split()` Juga Merupakan Method?
 
 Setelah tahu apa itu method dan bagaimana penggunaannya, mungkin akan muncul di benak kita bahwa kode seperti `fmt.Println()`, `strings.Split()` dan lainnya-yang-berada-pada-package-lain adalah merupakan method. Tapi sayangnya **bukan**. `fmt` disitu bukanlah variabel objek, dan `Println()` bukan merupakan method-nya.
 
@@ -151,5 +151,5 @@ Lebih detailnya akan dibahas di bab selanjutnya.
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.24-method">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.24...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.24-method">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.25...</a>
 </div>

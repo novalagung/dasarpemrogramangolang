@@ -1,10 +1,10 @@
-# A.25. Properti Public dan Private (Exported vs Unexported)
+# A.26. Properti Public dan Private (Exported vs Unexported)
 
 Bab ini membahas mengenai *property modifier* public dan private dalam Go. Kapan sebuah struct, fungsi, atau method bisa diakses dari package lain dan kapan tidak.
 
 Di Go sebenarnya tidak ada istilah *public modifier* dan *private modifier*. Yang ada adalah **exported** yang kalau di bahasa lain ekuivalen dengan *public modifier*, dan **unexported** untuk *private modifier*.
 
-## A.25.0. PERINGATAN
+## A.26.1. PERINGATAN
 
 Peringatan ini ditulis karena sudah terlalu banyak email yang penulis dapati, perihal error yang muncul ketika mempraktekan beberapa kode pada bab ini.
 
@@ -18,7 +18,7 @@ Kesimpulan dari email-email yang penulis dapati: **pembaca bingung karena mendap
 
 > Oleh karena itu, JANGAN CUMA *COPAS* SOURCE KODE, TAPI BACA, PELAJARI, DAN PAHAMI! *No hard feeling* 👌😁
 
-## A.25.1. Exported Package dan Unexported Package
+## A.26.2. Exported Package dan Unexported Package
 
 Pengembangan aplikasi dalam *real development* pasti membutuhkan banyak sekali file program. Tidak mungkin dalam sebuah project semua file memiliki nama package `main`, biasanya akan dipisah sebagai package berbeda sesuai bagiannya.
 
@@ -39,7 +39,7 @@ Penentuan hak akses yang tepat untuk tiap komponen sangatlah penting.
 
 Di Go cara menentukan level akses atau modifier sangat mudah, penandanya adalah **character case** huruf pertama nama fungsi, struct, variabel, atau lainnya. Ketika namanya diawali dengan huruf kapital menandakan kalau *exported* (atau *public*). Dan sebaliknya, jika diawali huruf kecil, berarti *unexported* (atau private).
 
-## A.25.2. Penggunaan Package, Import, Dan Hak Akses *Exported* dan *Unexported*
+## A.26.3. Penggunaan Package, Import, Dan Hak Akses *Exported* dan *Unexported*
 
 Agar lebih mudah dipahami, maka langsung saja kita praktekan.
 
@@ -127,7 +127,7 @@ Coba jalankan lagi.
 
 ![Contoh penerapan pemanggilan fungsi dari package berbeda](images/A_properti_public_private_2_success.png)
 
-## A.25.3. Penggunaan Hak Akses *Exported* dan *Unexported* pada Struct dan Propertinya
+## A.26.4. Penggunaan Hak Akses *Exported* dan *Unexported* pada Struct dan Propertinya
 
 Level akses *exported* (atau public) dan *unexported* (atau private) juga bisa diterapkan di fungsi, struct, method, maupun property variabel. Cara penggunaannya sama seperti pada pembahasan sebelumnya, yaitu dengan menentukan **character case** huruf pertama nama komponen, apakah huruf besar atau kecil.
 
@@ -199,7 +199,7 @@ Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` y
 
 ![Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda](images/A_properti_public_private_4_success.png)
 
-## A.25.4. Import Dengan Prefix Tanda Titik
+## A.26.5. Import Dengan Prefix Tanda Titik
 
 Seperti yang kita tahu, untuk mengakses fungsi/struct/variabel yg berada di package lain, nama package nya perlu ditulis, contohnya seperti pada penggunaan penggunaan `library.Student` dan `fmt.Println()`.
 
@@ -220,7 +220,7 @@ func main() {
 
 Pada kode di atas package `library` di-import menggunakan tanda titik. Dengan itu, pemanggilan struct `Student` tidak perlu dengan menuliskan nama package nya.
 
-## 25.5. Pemanfaatan Alias Ketika Import Package
+## 25.6. Pemanfaatan Alias Ketika Import Package
 
 Fungsi yang berada di package lain bisa diakses dengan cara menuliskan nama-package diikuti nama fungsi-nya, contohnya seperti `fmt.Println()`. Package yang sudah di-import tersebut bisa diubah namanya dengan cara menggunakan alias pada saat import. Contohnya bisa dilihat pada kode berikut.
 
@@ -236,7 +236,7 @@ func main() {
 
 Pada kode di-atas, package `fmt` di tentukan aliasnya adalah `f`, untuk mengakses `Println()` cukup dengan `f.Println()`.
 
-## A.25.6. Mengakses Properti Dalam File Yang Package-nya Sama
+## A.26.7. Mengakses Properti Dalam File Yang Package-nya Sama
 
 Jika properti yang ingin di akses masih dalam satu package tapi berbeda file, cara mengaksesnya bisa langsung dengan memanggil namanya. Hanya saja ketika eksekusi, file-file lain yang yang nama package-nya sama juga ikut dipanggil.
 
@@ -278,7 +278,7 @@ Fungsi `sayHello` pada file `partial.go` bisa dikenali meski level aksesnya adal
 
 ![Pemanggilan fungsi unexported dari dalam package yang sama](images/A_properti_public_private_6_multi_main.png)
 
-## A.25.6.1. Fungsi `init()`
+## A.26.7.1. Fungsi `init()`
 
 Selain fungsi `main()`, terdapat juga fungsi spesial, yaitu `init()`. Fungsi ini otomatis dipanggil pertama kali ketika aplikasi di-run. Jika fungsi ini berada dalam package main, maka dipanggil lebih dulu sebelum fungsi `main()` dieksekusi.
 

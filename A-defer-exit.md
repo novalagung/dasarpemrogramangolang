@@ -1,8 +1,8 @@
-# A.35. Defer & Exit
+# A.36. Defer & Exit
 
 **Defer** digunakan untuk mengakhirkan eksekusi sebuah statement tepat sebelum blok fungsi selesai. Sedangkan **Exit** digunakan untuk menghentikan program secara paksa (ingat, menghentikan program, tidak seperti `return` yang hanya menghentikan blok kode).
 
-## A.35.1. Penerapan keyword `defer`
+## A.36.1. Penerapan keyword `defer`
 
 Seperti yang sudah dijelaskan secara singkat di atas, bahwa defer digunakan untuk mengakhirkan eksekusi baris kode **dalam skope blok fungsi**. Ketika eksekusi blok sudah hampir selesai, statement yang di-defer dijalankan.
 
@@ -51,7 +51,7 @@ Output:
 
 Info tambahan, ketika ada banyak statement yang di-defer, maka kesemuanya akan dieksekusi di akhir secara berurutan.
 
-## A.35.2. Kombinasi `defer` dan IIFE
+## A.36.2. Kombinasi `defer` dan IIFE
 
 Penulis ingatkan lagi bahwa eksekusi defer adalah di akhir blok fungsi, bukan blok lainnya seperti blok seleksi kondisi.
 
@@ -105,7 +105,7 @@ halo 2
 
 Bisa dilihat `halo 3` muncul sebelum `halo 2`, karena dalam blok seleksi kondisi `if` eksekusi defer terjadi dalam blok fungsi anonymous (IIFE).
 
-## A.35.3. Penerapan Fungsi `os.Exit()`
+## A.36.3. Penerapan Fungsi `os.Exit()`
 
 Exit digunakan untuk menghentikan program secara paksa pada saat itu juga. Semua statement setelah exit tidak akan di eksekusi, termasuk juga defer.
 
@@ -132,5 +132,5 @@ Meskipun `defer fmt.Println("halo")` ditempatkan sebelum `os.Exit()`, statement 
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.35-defer-exit">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.35...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.35-defer-exit">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.36...</a>
 </div>

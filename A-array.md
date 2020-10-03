@@ -1,4 +1,4 @@
-# A.14. Array
+# A.15. Array
 
 Array adalah kumpulan data bertipe sama, yang disimpan dalam sebuah variabel. Array memiliki kapasitas yang nilainya ditentukan pada saat pembuatan, menjadikan elemen/data yang disimpan di array tersebut jumlahnya tidak boleh melebihi yang sudah dialokasikan. Default nilai tiap elemen array pada awalnya tergantung dari tipe datanya. Jika `int` maka tiap element zero value-nya adalah `0`, jika `bool` maka `false`, dan seterusnya. Setiap elemen array memiliki indeks berupa angka yang merepresentasikan posisi urutan elemen tersebut. Indeks array dimulai dari 0.
 
@@ -18,7 +18,7 @@ Variabel `names` dideklarasikan sebagai `array string` dengan alokasi elemen `4`
 
 ![Menampilkan elemen array](images/A_array_0_array.png)
 
-## A.14.1. Pengisian Elemen Array yang Melebihi Alokasi Awal
+## A.15.1. Pengisian Elemen Array yang Melebihi Alokasi Awal
 
 Pengisian elemen array pada indeks yang tidak sesuai dengan alokasi menghasilkan error. Contoh sederhana, jika array memiliki 4 slot, maka pengisian nilai slot 5 seterusnya adalah tidak valid.
 
@@ -31,9 +31,9 @@ names[3] = "law"
 names[4] = "ez" // baris kode ini menghasilkan error
 ```
 
-Solusi dari masalah di atas adalah dengan menggunakan keyword `append`, yang di bab selanjutnya ([Bab A.15. Slice](/15-slice.html)) akan kita bahas.
+Solusi dari masalah di atas adalah dengan menggunakan keyword `append`, yang di bab selanjutnya ([Bab A. Slice](/A-slice.html)) akan kita bahas.
 
-## A.14.2. Inisialisasi Nilai Awal Array
+## A.15.2. Inisialisasi Nilai Awal Array
 
 Pengisian elemen array bisa dilakukan pada saat deklarasi variabel. Caranya dengan menuliskan data elemen dalam kurung kurawal setelah tipe data, dengan pembatas antar elemen adalah tanda koma (`,`).
 
@@ -50,7 +50,7 @@ Penggunaan fungsi `fmt.Println()` pada data array tanpa mengakses indeks tertent
 
 Fungsi `len()` dipakai untuk menghitung jumlah elemen sebuah array.
 
-## A.14.3. Inisialisasi Nilai Array Dengan Gaya Vertikal
+## A.15.3. Inisialisasi Nilai Array Dengan Gaya Vertikal
 
 Elemen array bisa dituliskan dalam bentuk horizontal (seperti yang sudah dicontohkan di atas) ataupun dalam bentuk vertikal.
 
@@ -71,7 +71,7 @@ fruits  = [4]string{
 
 Khusus untuk deklarasi array dengan cara vertikal, tanda koma wajib dituliskan setelah elemen, termasuk elemen terakhir. Jika tidak, maka akan muncul error.
 
-## A.14.4. Inisialisasi Nilai Awal Array Tanpa Jumlah Elemen
+## A.15.4. Inisialisasi Nilai Awal Array Tanpa Jumlah Elemen
 
 Deklarasi array yang nilainya diset di awal, boleh tidak dituliskan jumlah lebar array-nya, cukup ganti dengan tanda 3 titik (`...`). Jumlah elemen akan dikalkulasi secara otomatis menyesuaikan data elemen yang diisikan.
 
@@ -86,7 +86,7 @@ Variabel `numbers` akan secara otomatis memiliki jumlah elemen `5`, karena pada 
 
 ![Deklarasi array menggunakan tanda 3 titik](images/A_array_1_1_array_dots.png)
 
-## A.14.5. Array Multidimensi
+## A.15.5. Array Multidimensi
 
 Array multidimensi adalah array yang tiap elemennya juga berupa array (dan bisa seterusnya, tergantung kedalaman dimensinya).
 
@@ -106,7 +106,7 @@ Kedua array di atas memiliki elemen yang sama.
 
 ![Array multidimensi](images/A_array_2_array_multidimension.png)
 
-## A.14.6. Perulangan Elemen Array Menggunakan Keyword `for`
+## A.15.6. Perulangan Elemen Array Menggunakan Keyword `for`
 
 Keyword `for` dan array memiliki hubungan yang sangat erat. Dengan memanfaatkan perulangan menggunakan keyword ini, elemen-elemen dalam array bisa didapat.
 
@@ -124,7 +124,7 @@ Perulangan di atas dijalankan sebanyak jumlah elemen array `fruits` (bisa diketa
 
 ![Iterasi elemen array](images/A_array_3_for_range.png)
 
-## A.14.7. Perulangan Elemen Array Menggunakan Keyword `for` - `range`
+## A.15.7. Perulangan Elemen Array Menggunakan Keyword `for` - `range`
 
 Ada cara yang lebih sederhana me-looping data array, dengan menggunakan keyword `for` - `range`. Contoh pengaplikasiannya bisa dilihat di kode berikut.
 
@@ -140,7 +140,7 @@ Array `fruits` diambil elemen-nya secara berurutan. Nilai tiap elemen ditampung 
 
 Output program di atas, sama dengan output program sebelumnya, hanya cara yang digunakan berbeda.
 
-## A.14.8. Penggunaan Variabel Underscore `_` Dalam `for` - `range`
+## A.15.8. Penggunaan Variabel Underscore `_` Dalam `for` - `range`
 
 Kadang kala ketika *looping* menggunakan `for` - `range`, ada kemungkinan dimana data yang dibutuhkan adalah elemen-nya saja, indeks-nya tidak. Sedangkan kode di atas, `range` mengembalikan 2 data, yaitu indeks dan elemen.
 
@@ -180,7 +180,7 @@ for i, _ := range fruits { }
 for i := range fruits { }
 ```
 
-## A.14.9. Alokasi Elemen Array Menggunakan Keyword `make`
+## A.15.9. Alokasi Elemen Array Menggunakan Keyword `make`
 
 Deklarasi sekaligus alokasi data array juga bisa dilakukan lewat keyword `make`.
 
@@ -198,5 +198,5 @@ Parameter pertama keyword `make` diisi dengan tipe data elemen array yang diingi
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.14-array">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.14...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.14-array">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.15...</a>
 </div>

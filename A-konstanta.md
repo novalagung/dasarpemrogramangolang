@@ -1,8 +1,8 @@
-# A.10. Konstanta
+# A.11. Konstanta
 
 Konstanta adalah jenis variabel yang nilainya tidak bisa diubah. Inisialisasi nilai hanya dilakukan sekali di awal, setelah itu variabel tidak bisa diubah nilainya.
 
-## A.10.1. Penggunaan Konstanta
+## A.11.1. Penggunaan Konstanta
 
 Data seperti **pi** (22/7), kecepatan cahaya (299.792.458 m/s), adalah contoh data yang tepat jika dideklarasikan sebagai konstanta daripada variabel, karena nilainya sudah pasti dan tidak berubah.
 
@@ -43,5 +43,5 @@ Bila menggunakan `fmt.Println()` tidak perlu menambahkan spasi di tiap kata, kar
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.10-konstanta">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.10...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.10-konstanta">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.11...</a>
 </div>

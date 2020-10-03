@@ -29,7 +29,7 @@ OK, saya rasa bagian teori sudah cukup, mari kita lanjut ke bagian praktek.
 
 ## C.25.2. Persiapan
 
-Salin projek pada bab sebelumnya, bab [A25 - Client HTTP Request](/A-25-client-http-request.html) sebagai folder projek baru.
+Salin projek pada chapter sebelumnya, [C. Client HTTP Request Lanjutan](/C-24-client-http-request-lanjutan.html) sebagai folder projek baru.
 
 ## C.25.3. Konfigurasi SSL/TLS pada Web Server
 
@@ -41,7 +41,7 @@ Kita perlu menambahkan sedikit modifikasi pada aplikasi web server (yang sudah d
 err := server.ListenAndServeTLS("server.crt", "server.key")
 ```
 
-Silakan generate certificate dan private key baru, caranya sama seperti pada bab [A23 - HTTPS/TLS Web Server](/A-23-https-tls.html).
+Silakan generate certificate dan private key baru, caranya sama seperti pada chapter [C. HTTPS/TLS Web Server](/C-22-https-tls.html).
 
 > Konfigurasi SSL/TLS lewat `server.ListenAndServeTLS("server.crt", "server.key")` merupakan cara yang paling mudah dengan konfigurasi adalah paling minimal.
 

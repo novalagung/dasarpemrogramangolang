@@ -1,8 +1,8 @@
-# A.15. Slice
+# A.16. Slice
 
 **Slice** adalah *reference* elemen array. Slice bisa dibuat, atau bisa juga dihasilkan dari manipulasi sebuah array ataupun slice lainnya. Karena merupakan data *reference*, menjadikan perubahan data di tiap elemen slice akan berdampak pada slice lain yang memiliki alamat memori yang sama.
 
-## A.15.1. Inisialisasi Slice
+## A.16.1. Inisialisasi Slice
 
 Cara pembuatan slice mirip seperti pembuatan array, bedanya tidak perlu mendefinisikan jumlah elemen ketika awal deklarasi. Pengaksesan nilai elemen-nya juga sama. Contoh pembuatan slice:
 
@@ -19,7 +19,7 @@ var fruitsB = [2]string{"banana", "melon"}    // array
 var fruitsC = [...]string{"papaya", "grape"}  // array
 ```
 
-## A.15.2. Hubungan Slice Dengan Array & Operasi Slice
+## A.16.2. Hubungan Slice Dengan Array & Operasi Slice
 
 Kalau perbedannya hanya di penentuan alokasi pada saat inisialisasi, kenapa tidak menggunakan satu istilah saja? atau adakah perbedaan lainnya?
 
@@ -59,7 +59,7 @@ var fruits = []string{"apple", "grape", "banana", "melon"}
 | `fruits[2:]` | `[banana, melon]` | semua elemen mulai indeks ke-2 |
 | `fruits[:2]` | `[apple, grape]` | semua elemen hingga sebelum indeks ke-2 |
 
-## A.15.3. Slice Merupakan Tipe Data Reference
+## A.16.3. Slice Merupakan Tipe Data Reference
 
 Slice merupakan tipe data *reference* atau referensi. Artinya jika ada slice baru yang terbentuk dari slice lama, maka data elemen slice yang baru akan memiliki alamat memori yang sama dengan elemen slice lama. Setiap perubahan yang terjadi di elemen slice baru, akan berdampak juga pada elemen slice lama yang memiliki referensi yang sama.
 
@@ -104,7 +104,7 @@ Bisa dilihat pada output di atas, elemen yang sebelumnya bernilai `"grape"` pada
 
 Pembahasan mengenai dasar slice sepertinya sudah cukup, selanjutnya kita akan membahas tentang beberapa *built in function* bawaan Go, yang bisa dimanfaatkan untuk keperluan operasi slice.
 
-## A.15.4. Fungsi `len()`
+## A.16.4. Fungsi `len()`
 
 Fungsi `len()` digunakan untuk menghitung jumlah elemen slice yang ada. Sebagai contoh jika sebuah variabel adalah slice dengan data 4 buah, maka fungsi ini pada variabel tersebut akan mengembalikan angka **4**.
 
@@ -113,7 +113,7 @@ var fruits = []string{"apple", "grape", "banana", "melon"}
 fmt.Println(len(fruits)) // 4
 ```
 
-## A.15.5. Fungsi `cap()`
+## A.16.5. Fungsi `cap()`
 
 Fungsi `cap()` digunakan untuk menghitung lebar atau kapasitas maksimum slice. Nilai kembalian fungsi ini untuk slice yang baru dibuat pasti sama dengan `len`, tapi bisa berubah seiring operasi slice yang dilakukan. Agar lebih jelas, silakan disimak kode berikut.
 
@@ -153,7 +153,7 @@ fruits[x:y]
 
 Sedangkan slicing yang dimulai dari indeks **x**, yang dimana nilai **x** adalah lebih dari **0**, membuat elemen ke-**x** slice yang diambil menjadi elemen ke-0 slice baru. Hal inilah yang membuat kapasitas slice berubah.
 
-## A.15.6. Fungsi `append()`
+## A.16.6. Fungsi `append()`
 
 Fungsi `append()` digunakan untuk menambahkan elemen pada slice. Elemen baru tersebut diposisikan setelah indeks paling akhir. Nilai balik fungsi ini adalah slice yang sudah ditambahkan nilai barunya. Contoh penggunaannya bisa dilihat di kode berikut.
 
@@ -191,7 +191,7 @@ fmt.Println(cFruits) // ["apple", "grape", "papaya"]
 
 Pada contoh di atas bisa dilihat, elemen indeks ke-2 slice `fruits` nilainya berubah setelah ada penggunaan keyword `append()` pada `bFruits`. Slice `bFruits` kapasitasnya adalah **3** sedang jumlah datanya hanya **2**. Karena `len(bFruits) < cap(bFruits)`, maka elemen baru yang dihasilkan, terdeteksi sebagai perubahan nilai pada referensi yang lama (referensi elemen indeks ke-2 slice `fruits`), membuat elemen yang referensinya sama, nilainya berubah.
 
-## A.15.7. Fungsi `copy()`
+## A.16.7. Fungsi `copy()`
 
 Fungsi `copy()` digunakan untuk men-copy elements slice pada `src` (parameter ke-2), ke `dst` (parameter pertama).
 
@@ -231,7 +231,7 @@ fmt.Println(n)   // 2
 
 Jika dilihat pada kode di atas, isi `dst` masih tetap 3 elements, tapi dua elements pertama adalah sama dengan `src`. Element terakhir `dst` isinya tidak berubah, tetap `potato`, hal ini karena proses copy hanya memutasi element ke-1 dan ke-2 milik `dst`, karena memang pada `src` hanya dua itu elements-nya.
 
-## A.15.8. Pengaksesan Elemen Slice Dengan 3 Indeks
+## A.16.8. Pengaksesan Elemen Slice Dengan 3 Indeks
 
 **3 index** adalah teknik slicing elemen yang sekaligus menentukan kapasitasnya. Cara menggunakannnya yaitu dengan menyisipkan angka kapasitas di belakang, seperti `fruits[0:1:1]`. Angka kapasitas yang diisikan tidak boleh melebihi kapasitas slice yang akan di slicing.
 

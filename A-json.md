@@ -1,4 +1,4 @@
-# A.50. JSON
+# A.53. JSON Data
 
 **JSON** atau *Javascript Object Notation* adalah notasi standar yang umum digunakan untuk komunikasi data dalam web. JSON merupakan subset dari *javascript*.
 
@@ -6,7 +6,7 @@ Go menyediakan package `encoding/json` yang berisikan banyak fungsi untuk kebutu
 
 Di bab ini, kita akan belajar cara untuk konverstri string yang berbentuk json menjadi objek Go, dan sebaliknya.
 
-## A.50.1. Decode JSON Ke Variabel Objek Struct
+## A.53.1. Decode JSON Ke Variabel Objek Struct
 
 Di Go, data json dituliskan sebagai `string`. Dengan menggunakan `json.Unmarshal`, json string bisa dikonversi menjadi bentuk objek, entah itu dalam bentuk `map[string]interface{}` ataupun objek struct.
 
@@ -60,7 +60,7 @@ Dengan menambahkan tag json, maka property `FullName` struct akan secara cerdas 
 
 > Pada kasus decoding data json string ke variabel objek struct, semua level akses property struct penampung harus publik.
 
-## A.50.2. Decode JSON Ke `map[string]interface{}` & `interface{}`
+## A.53.2. Decode JSON Ke `map[string]interface{}` & `interface{}`
 
 Tak hanya ke objek cetakan struct, target decoding data json juga bisa berupa variabel bertipe `map[string]interface{}`.
 
@@ -83,7 +83,7 @@ fmt.Println("user :", decodedData["Name"])
 fmt.Println("age  :", decodedData["Age"])
 ```
 
-## A.50.3. Decode Array JSON Ke Array Objek
+## A.53.3. Decode Array JSON Ke Array Objek
 
 Decode data dari array json ke slice/array objek masih sama, siapkan saja variabel penampung hasil decode dengan tipe slice struct. Contohnya bisa dilihat pada kode berikut.
 
@@ -105,7 +105,7 @@ fmt.Println("user 1:", data[0].FullName)
 fmt.Println("user 2:", data[1].FullName)
 ```
 
-## A.50.4. Encode Objek Ke JSON String
+## A.53.4. Encode Objek Ke JSON String
 
 Setelah sebelumnya dijelaskan beberapa cara decode data dari json string ke objek, sekarang kita akan belajar cara **encode** data objek ke bentuk json string.
 
@@ -133,5 +133,5 @@ Output:
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.50-json">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.50...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.50-json">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.53...</a>
 </div>

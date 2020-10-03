@@ -1,4 +1,4 @@
-# A.57. Mutex
+# A.60. Mutex
 
 Sebelum kita membahas mengenai apa itu **mutex**? ada baiknya untuk mempelajari terlebih dahulu apa itu **race condition**, karena kedua konsep ini berhubungan erat satu sama lain.
 
@@ -8,7 +8,7 @@ Mutex melakukan pengubahan level akses sebuah data menjadi eksklusif, menjadikan
 
 Go menyediakan `sync.Mutex` yang bisa dimanfaatkan untuk keperluan **lock** dan **unlock** data. Pada bab ini kita akan membahas mengenai race condition, dan menanggulanginya menggunakan mutex.
 
-## A.57.1. Persiapan
+## A.60.1. Persiapan
 
 Pertama siapkan struct baru bernama `counter`, dengan isi satu buah property `val` bertipe `int`. Property ini nantinya dikonsumsi dan diolah oleh banyak goroutine.
 
@@ -41,7 +41,7 @@ func (c *counter) Value() (x int) {
 
 Kode di atas kita gunakan sebagai template contoh source code yang ada pada bab ini.
 
-## A.57.2. Contoh Race Condition
+## A.60.2. Contoh Race Condition
 
 Program berikut merupakan contoh program yang didalamnya memungkinkan terjadi race condition atau kondisi goroutine balapan.
 
@@ -87,7 +87,7 @@ Nilai `meter.val` tidak genap 1000000? kenapa bisa begitu? Padahal seharusnya ti
 
 Inilah yang disebut dengan race condition, data yang diakses bersamaan dalam 1 waktu menjadi kacau.
 
-## A.57.3. Deteksi Race Condition Menggunakan Go Race Detector
+## A.60.3. Deteksi Race Condition Menggunakan Go Race Detector
 
 Go menyediakan fitur untuk [deteksi race condition](http://blog.golang.org/race-detector). Cara penggunaannya adalah dengan menambahkan flag `-race` pada saat eksekusi aplikasi.
 
@@ -95,7 +95,7 @@ Go menyediakan fitur untuk [deteksi race condition](http://blog.golang.org/race-
 
 Terlihat pada gambar diatas, ada pesan memberitahu terdapat kemungkinan data race pada program yang kita jalankan.
 
-## A.57.4. Penerapan `sync.Mutex`
+## A.60.4. Penerapan `sync.Mutex`
 
 Sekarang kita tahu bahwa program di atas menghasilkan bug, ada kemungkinan data race didalamnya. Untuk mengatasi masalah ini ada beberapa cara yang bisa digunakan, dan disini kita akan menggunakan `sync.Mutex`.
 
@@ -173,5 +173,5 @@ func main() {
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.57-mutex">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.57...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.57-mutex">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.60...</a>
 </div>
