@@ -22,7 +22,7 @@ cd <folder-project>
 go get github.com/go-sql-driver/mysql
 ```
 
-![Download mysql driver](images/A.53_1_go_get_driver.png)
+![Download mysql driver](images/a_sql_go_get_driver.png)
 
 ## A.53.2. Setup Database
 

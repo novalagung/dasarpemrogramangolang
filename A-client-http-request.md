@@ -1,10 +1,10 @@
-# A.52. HTTP Request
+# A.52. Client HTTP Request
 
 Di bab sebelumnya telah dibahas bagaimana membuat Web Service API yang mem-provide data JSON, pada bab ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
 
-Pastikan anda sudah mempraktekkan apa-apa yang ada pada bab sebelumnya [Bab A.51. Web Service API (JSON Data)](/51-web-json-api.html), karena web service yang telah dibuat pada bab tersebut dipergunakan juga pada bab ini.
+Pastikan anda sudah mempraktekkan apa-apa yang ada pada bab sebelumnya [Bab A.51. Web Service API](/51-web-json-api.html), karena web service yang telah dibuat pada bab tersebut dipergunakan juga pada bab ini.
 
-![Jalankan web server](images/A.51_1_server.png)
+![Jalankan web server](images/a_web_service_1_server.png)
 
 ## A.52.1. Penggunaan HTTP Request
 
@@ -92,7 +92,7 @@ func main() {
 
 Ok, terakhir sebelum memulai testing, run terlebih dahulu aplikasi pada bab sebelumya [A.51. Web Service API (JSON Data)](/51-web-json-api.html) (jika belum). Kemudian start prompt cmd/terminal baru dan jalankan program yang barusan kita buat pada bab ini.
 
-![HTTP Request](images/A.52_1_http_request.png)
+![HTTP Request](images/a_http_request_1_http_request.png)
 
 ## A.52.2. HTTP Request Dengan Form Data
 
@@ -164,7 +164,7 @@ func main() {
 
 Untuk keperluan testing, kita hardcode `ID` nilainya `"E001"`. Jalankan program untuk test apakah data yang dikembalikan sesuai.
 
-![HTTP request Form Data](images/A.52_2_http_request_form_data.png)
+![HTTP request Form Data](images/a_http_request_2_http_request_form_data.png)
 
 ## A.52.3. Secure & Insecure HTTP Request
 
