@@ -51,7 +51,7 @@
   * [A.39. Random](A-random.md)
   * [A.40. Time, Parsing Time, & Format Time](A-time-parsing-format.md)
   * [A.41. Timer, Ticker, & Scheduler](A-timer-ticker-scheduler.md)
-  * [A.42. Duration Time](A-time-duration.md)
+  * [A.42. Time Duration](A-time-duration.md)
   * [A.43. Konversi Antar Tipe Data](A-data-type-conversion.md)
   * [A.44. Fungsi String](A-strings.md)
   * [A.45. Regex](A-regex.md)
