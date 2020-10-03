@@ -1,4 +1,4 @@
-# A.51. Web Service API (JSON Data)
+# A.51. Web Service API
 
 Pada bab ini kita akan mengkombinasikan pembahasan 2 bab sebelumnya, yaitu web programming dan JSON, untuk membuat sebuah web service API dengan tipe data reponse berbentuk JSON.
 
@@ -113,7 +113,7 @@ func main() {
 
 Jalankan program, sekarang web server sudah live dan bisa dikonsumsi datanya.
 
-![Web API Server dijalankan](images/A.51_1_server.png)
+![Web API Server dijalankan](images/a_web_service_1_server.png)
 
 ## A.51.2. Test Web Service API
 
@@ -121,11 +121,11 @@ Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-
 
  - Test endpoint `/users`, apakah data yang dikembalikan sudah benar.
 
-    ![Test `/users`](images/A.51_2_test_api_users.png)
+    ![Test `/users`](images/a_web_service_2_test_api_users.png)
 
  - Test endpoint `/user`, isi form data `id` dengan nilai `E001`.
 
-    ![Test `/user`](images/A.51_3_test_api_user.png)
+    ![Test `/user`](images/a_web_service_3_test_api_user.png)
 
 ---
 

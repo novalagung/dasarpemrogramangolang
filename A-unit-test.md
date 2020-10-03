@@ -87,7 +87,7 @@ Argument `-v` atau verbose digunakan menampilkan semua output log pada saat peng
 
 Jalankan aplikasi seperti gambar dibawah ini, terlihat bahwa tidak ada test yang fail.
 
-![Testing](images/A.55_1_test.png)
+![Testing](images/a_unit_test_1_test.png)
 
 OK, selanjutnya coba ubah rumus kalkulasi method `Keliling()`. Tujuan dari pengubahan ini adalah untuk mengetahui bagaimana penanda fail muncul ketika ada test yang gagal.
 
@@ -99,7 +99,7 @@ func (k Kubus) Keliling() float64 {
 
 Setelah itu jalankan lagi test.
 
-![Test fail](images/A.55_2_test_fail.png)
+![Test fail](images/a_unit_test_2_test_fail.png)
 
 ## A.55.3. Method Test
 
@@ -138,7 +138,7 @@ func BenchmarkHitungLuas(b *testing.B) {
 
 Jalankan test menggunakan argument `-bench=.`, argumen ini digunakan untuk menandai bahwa selain testing terdapat juga benchmark yang perlu diuji.
 
-![Benchmark](images/A.55_3_benchmark.png)
+![Benchmark](images/a_unit_test_3_benchmark.png)
 
 Arti dari `30000000  51.1 ns/op` adalah, fungsi di atas di-test sebanyak **30 juta** kali, hasilnya membutuhkan waktu rata-rata **51 nano detik** untuk run satu fungsi.
 
@@ -180,7 +180,7 @@ func TestHitungKeliling(t *testing.T) {
 
 Fungsi `assert.Equal()` digunakan untuk uji perbandingan. Parameter ke-2 dibandingkan nilainya dengan parameter ke-3. Jika tidak sama, maka pesan parameter ke-3 akan dimunculkan.
 
-![Testing menggunakan testify](images/A.55_4_testify.png)
+![Testing menggunakan testify](images/a_unit_test_4_testify.png)
 
 ---
 

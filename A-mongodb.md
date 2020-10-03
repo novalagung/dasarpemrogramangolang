@@ -122,7 +122,7 @@ db.Collection("student").InsertOne(ctx, student{ name: "Wick", Grade: 2})
 
 Perlu diketahui, bahwa di mongo-go-driver setiap operasi biasanya membutuhkan objek context untuk disisipkan sebagai parameter pertama. Pada contoh di atas kita gunakan variabel `ctx` yang sudah dideklarasikan sebelumnya.
 
-![Insert mongo](images/A.54_2_insert.png)
+![Insert mongo](images/a_mongodb_1_insert.png)
 
 ## A.54.3. Membaca Data
 
@@ -171,7 +171,7 @@ Cara untuk mendapatkan semua rows hasil pencarian kursor adalah dengan mengitera
 
 Selain method `.Find()` ada juga `.FindOne()`, silakan cek dokumentasi lebih jelasnya.
 
-![Pencarian data](images/A.54_3_find.png)
+![Pencarian data](images/a_mongodb_2_find.png)
 
 Berikut adalah skema perbandingan contoh operasi get data menggunakan mongo query vs mongo-go-driver:
 
@@ -217,7 +217,7 @@ func main() {
 
 Jalankan kode di atas, lalu cek lewat Mongo GUI apakah data berubah.
 
-![Update data](images/A.54_4_update.png)
+![Update data](images/a_mongodb_3_update.png)
 
 Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.
 
@@ -258,7 +258,7 @@ func main() {
 
 Hasil dari kode di atas, 2 data yang sebelumnya sudah di-insert kini tinggal satu saja.
 
-![Menghapus data](images/A.54_5_remove.png)
+![Menghapus data](images/a_mongodb_4_remove.png)
 
 Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.
 

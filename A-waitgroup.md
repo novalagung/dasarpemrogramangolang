@@ -54,7 +54,7 @@ Statement `wg.Wait()` bersifat blocking, proses eksekusi program tidak akan dite
 
 Output program di atas.
 
-![Contoh penerapan `sync.WaitGroup`](images/A.56_1_waitgroup.png)
+![Contoh penerapan `sync.WaitGroup`](images/a_waitgroup_1_waitgroup.png)
 
 > `sync.WaitGroup` merupakan salah satu tipe yang *thread safe*. Kita tidak perlu khawatir terhadap potensi *race condition* karena variabel bertipe ini aman untuk digunakan di banyak goroutine secara paralel.
 
