@@ -1,0 +1,2116 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Golang Fungsi String - Dasar Pemrograman Golang</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta  name="google-site-verification"  content="UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE" >
+    
+    <meta  name="og:image"  content="https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg" >
+    
+    <meta  name="twitter:image"  content="https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg" >
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="A-regex.html" />
+    
+    
+    <link rel="prev" href="A-data-type-conversion.html" />
+    
+
+
+    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.03.180103"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Dasar Pemrograman Golang
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="CONTRIBUTORS.html">
+            
+                <a href="CONTRIBUTORS.html">
+            
+                    
+                    Kontributor
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" >
+            
+                <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=BIGSALEOCTOBER">
+            
+                    
+                    Course Mendeploy Aplikasi Go ke Docker dan Kubernetes (PROMO!)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" >
+            
+                <span>
+            
+                    
+                    A. Pemrograman Go Dasar
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="1-berkenalan-dengan-golang.html">
+            
+                <a href="1-berkenalan-dengan-golang.html">
+            
+                    
+                    A.1. Belajar Golang
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="2-instalasi-golang.html">
+            
+                <a href="2-instalasi-golang.html">
+            
+                    
+                    A.2. Instalasi Golang
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="A-setup-go-project-dengan-go-modules.html">
+            
+                <a href="A-setup-go-project-dengan-go-modules.html">
+            
+                    
+                    A.3. Setup Go Modules
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="A-gopath-dan-workspace.html">
+            
+                <a href="A-gopath-dan-workspace.html">
+            
+                    
+                    A.4. Setup GOPATH Dan Workspace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.5" data-path="A-instalasi-editor.html">
+            
+                <a href="A-instalasi-editor.html">
+            
+                    
+                    A.5. Instalasi Editor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.6" data-path="A-go-command.html">
+            
+                <a href="A-go-command.html">
+            
+                    
+                    A.6. Go Command
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.7" data-path="A-hello-world.html">
+            
+                <a href="A-hello-world.html">
+            
+                    
+                    A.7. Program Pertama: Hello World
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.8" data-path="A-komentar.html">
+            
+                <a href="A-komentar.html">
+            
+                    
+                    A.8. Komentar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.9" data-path="A-variabel.html">
+            
+                <a href="A-variabel.html">
+            
+                    
+                    A.9. Variabel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.10" data-path="A-tipe-data.html">
+            
+                <a href="A-tipe-data.html">
+            
+                    
+                    A.10. Tipe Data
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.11" data-path="A-konstanta.html">
+            
+                <a href="A-konstanta.html">
+            
+                    
+                    A.11. Konstanta
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.12" data-path="A-operator.html">
+            
+                <a href="A-operator.html">
+            
+                    
+                    A.12. Operator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.13" data-path="A-seleksi-kondisi.html">
+            
+                <a href="A-seleksi-kondisi.html">
+            
+                    
+                    A.13. Seleksi Kondisi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.14" data-path="A-perulangan.html">
+            
+                <a href="A-perulangan.html">
+            
+                    
+                    A.14. Perulangan
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.15" data-path="A-array.html">
+            
+                <a href="A-array.html">
+            
+                    
+                    A.15. Array
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.16" data-path="A-slice.html">
+            
+                <a href="A-slice.html">
+            
+                    
+                    A.16. Slice
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.17" data-path="A-map.html">
+            
+                <a href="A-map.html">
+            
+                    
+                    A.17. Map
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.18" data-path="A-fungsi.html">
+            
+                <a href="A-fungsi.html">
+            
+                    
+                    A.18. Fungsi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.19" data-path="A-fungsi-multiple-return.html">
+            
+                <a href="A-fungsi-multiple-return.html">
+            
+                    
+                    A.19. Fungsi Multiple Return
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.20" data-path="A-fungsi-variadic.html">
+            
+                <a href="A-fungsi-variadic.html">
+            
+                    
+                    A.20. Fungsi Variadic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.21" data-path="A-fungsi-closure.html">
+            
+                <a href="A-fungsi-closure.html">
+            
+                    
+                    A.21. Fungsi Closure
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.22" data-path="A-fungsi-sebagai-parameter.html">
+            
+                <a href="A-fungsi-sebagai-parameter.html">
+            
+                    
+                    A.22. Fungsi Sebagai parameter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.23" data-path="A-pointer.html">
+            
+                <a href="A-pointer.html">
+            
+                    
+                    A.23. Pointer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.24" data-path="A-struct.html">
+            
+                <a href="A-struct.html">
+            
+                    
+                    A.24. Struct
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.25" data-path="A-method.html">
+            
+                <a href="A-method.html">
+            
+                    
+                    A.25. Method
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.26" data-path="A-properti-public-dan-private.html">
+            
+                <a href="A-properti-public-dan-private.html">
+            
+                    
+                    A.26. Properti Public dan Private (Exported vs Unexported)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.27" data-path="A-interface.html">
+            
+                <a href="A-interface.html">
+            
+                    
+                    A.27. Interface
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.28" data-path="A-interface-kosong.html">
+            
+                <a href="A-interface-kosong.html">
+            
+                    
+                    A.28. Interface Kosong
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.29" data-path="A-reflect.html">
+            
+                <a href="A-reflect.html">
+            
+                    
+                    A.29. Reflect
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.30" data-path="A-goroutine.html">
+            
+                <a href="A-goroutine.html">
+            
+                    
+                    A.30. Goroutine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.31" data-path="A-channel.html">
+            
+                <a href="A-channel.html">
+            
+                    
+                    A.31. Channel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.32" data-path="A-buffered-channel.html">
+            
+                <a href="A-buffered-channel.html">
+            
+                    
+                    A.32. Buffered Channel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.33" data-path="A-channel-select.html">
+            
+                <a href="A-channel-select.html">
+            
+                    
+                    A.33. Channel - Select
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.34" data-path="A-channel-range-close.html">
+            
+                <a href="A-channel-range-close.html">
+            
+                    
+                    A.34. Channel - Range & Close
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.35" data-path="A-channel-timeout.html">
+            
+                <a href="A-channel-timeout.html">
+            
+                    
+                    A.35. Channel - Timeout
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.36" data-path="A-defer-exit.html">
+            
+                <a href="A-defer-exit.html">
+            
+                    
+                    A.36. Defer & Exit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.37" data-path="A-error-panic-recover.html">
+            
+                <a href="A-error-panic-recover.html">
+            
+                    
+                    A.37. Error, Panic, & Recover
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.38" data-path="A-string-format.html">
+            
+                <a href="A-string-format.html">
+            
+                    
+                    A.38. Layout Format String
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.39" data-path="A-random.html">
+            
+                <a href="A-random.html">
+            
+                    
+                    A.39. Random
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.40" data-path="A-time-parsing-format.html">
+            
+                <a href="A-time-parsing-format.html">
+            
+                    
+                    A.40. Time, Parsing Time, & Format Time
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.41" data-path="A-timer-ticker-scheduler.html">
+            
+                <a href="A-timer-ticker-scheduler.html">
+            
+                    
+                    A.41. Timer, Ticker, & Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.42" data-path="A-time-duration.html">
+            
+                <a href="A-time-duration.html">
+            
+                    
+                    A.42. Duration Time
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.43" data-path="A-data-type-conversion.html">
+            
+                <a href="A-data-type-conversion.html">
+            
+                    
+                    A.43. Konversi Antar Tipe Data
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.1.44" data-path="A-strings.html">
+            
+                <a href="A-strings.html">
+            
+                    
+                    A.44. Fungsi String
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.45" data-path="A-regex.html">
+            
+                <a href="A-regex.html">
+            
+                    
+                    A.45. Regex
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.46" data-path="A-encoding-base64.html">
+            
+                <a href="A-encoding-base64.html">
+            
+                    
+                    A.46. Encode - Decode Base64
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.47" data-path="A-hash-sha1.html">
+            
+                <a href="A-hash-sha1.html">
+            
+                    
+                    A.47. Hash Sha1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.48" data-path="A-command-line-args-flag.html">
+            
+                <a href="A-command-line-args-flag.html">
+            
+                    
+                    A.48. Arguments & Flag
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.49" data-path="A-exec.html">
+            
+                <a href="A-exec.html">
+            
+                    
+                    A.49. Exec
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.50" data-path="A-file.html">
+            
+                <a href="A-file.html">
+            
+                    
+                    A.50. File
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.51" data-path="A-web-server.html">
+            
+                <a href="A-web-server.html">
+            
+                    
+                    A.51. Web Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.52" data-path="A-url-parsing.html">
+            
+                <a href="A-url-parsing.html">
+            
+                    
+                    A.52. URL Parsing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.53" data-path="A-json.html">
+            
+                <a href="A-json.html">
+            
+                    
+                    A.53. JSON Data
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.54" data-path="A-web-service-api.html">
+            
+                <a href="A-web-service-api.html">
+            
+                    
+                    A.54. Web Service API Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.55" data-path="A-client-http-request-simple.html">
+            
+                <a href="A-client-http-request-simple.html">
+            
+                    
+                    A.55. Simple Client HTTP Request
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.56" data-path="A-sql.html">
+            
+                <a href="A-sql.html">
+            
+                    
+                    A.56. SQL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.57" data-path="A-mongodb.html">
+            
+                <a href="A-mongodb.html">
+            
+                    
+                    A.57. NoSQL MongoDB
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.58" data-path="A-unit-test.html">
+            
+                <a href="A-unit-test.html">
+            
+                    
+                    A.58. Unit Test
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.59" data-path="A-waitgroup.html">
+            
+                <a href="A-waitgroup.html">
+            
+                    
+                    A.59. sync.WaitGroup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.60" data-path="A-mutex.html">
+            
+                <a href="A-mutex.html">
+            
+                    
+                    A.60. sync.Mutex
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.61" data-path="A-go-vendoring.html">
+            
+                <a href="A-go-vendoring.html">
+            
+                    
+                    A.61. Go Vendoring
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.62" data-path="A-concurrency-pipeline.html">
+            
+                <a href="A-concurrency-pipeline.html">
+            
+                    
+                    A.62. Concurrency Pattern: Pipeline
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.63" data-path="A-simplified-fan-in-fan-out-pipeline.html">
+            
+                <a href="A-simplified-fan-in-fan-out-pipeline.html">
+            
+                    
+                    A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.64" data-path="A-pipeline-context-cancellation.html">
+            
+                <a href="A-pipeline-context-cancellation.html">
+            
+                    
+                    A.64. Concurrency Pattern: Context Cancellation Pipeline
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" >
+            
+                <span>
+            
+                    
+                    B. Pemrograman Web Go Dasar
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="B-1-golang-web-hello-world.html">
+            
+                <a href="B-1-golang-web-hello-world.html">
+            
+                    
+                    B.1. Golang Web App: Hello World
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="B-2-routing-http-handlefunc.html">
+            
+                <a href="B-2-routing-http-handlefunc.html">
+            
+                    
+                    B.2. Routing http.HandleFunc
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="B-3-routing-static-assets.html">
+            
+                <a href="B-3-routing-static-assets.html">
+            
+                    
+                    B.3. Routing Static Assets
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.4" data-path="B-4-template-render-html.html">
+            
+                <a href="B-4-template-render-html.html">
+            
+                    
+                    B.4. Template: Render HTML Template
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.5" data-path="B-5-template-render-partial-html.html">
+            
+                <a href="B-5-template-render-partial-html.html">
+            
+                    
+                    B.5. Template: Render Partial HTML Template
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="B-6-template-actions-variables.html">
+            
+                <a href="B-6-template-actions-variables.html">
+            
+                    
+                    B.6. Template: Actions & Variables
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.7" data-path="B-7-template-functions.html">
+            
+                <a href="B-7-template-functions.html">
+            
+                    
+                    B.7. Template: Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.8" data-path="B-8-template-custom-functions.html">
+            
+                <a href="B-8-template-custom-functions.html">
+            
+                    
+                    B.8. Template: Custom Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.9" data-path="B-9-render-specific-html-template.html">
+            
+                <a href="B-9-render-specific-html-template.html">
+            
+                    
+                    B.9. Template: Render Specific HTML Template
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.10" data-path="B-10-render-html-string.html">
+            
+                <a href="B-10-render-html-string.html">
+            
+                    
+                    B.10. Template: Render HTML String
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.11" data-path="B-11-http-method.html">
+            
+                <a href="B-11-http-method.html">
+            
+                    
+                    B.11. HTTP Method: POST & GET
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.12" data-path="B-12-form-value.html">
+            
+                <a href="B-12-form-value.html">
+            
+                    
+                    B.12. Form Value
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.13" data-path="B-13-form-upload-file.html">
+            
+                <a href="B-13-form-upload-file.html">
+            
+                    
+                    B.13. Form Upload File
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.14" data-path="B-14-ajax-json-payload.html">
+            
+                <a href="B-14-ajax-json-payload.html">
+            
+                    
+                    B.14. AJAX JSON Payload
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.15" data-path="B-15-ajax-json-response.html">
+            
+                <a href="B-15-ajax-json-response.html">
+            
+                    
+                    B.15. AJAX JSON Response
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.16" data-path="B-16-ajax-multi-upload.html">
+            
+                <a href="B-16-ajax-multi-upload.html">
+            
+                    
+                    B.16. AJAX Multiple File Upload
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.17" data-path="B-17-download-file.html">
+            
+                <a href="B-17-download-file.html">
+            
+                    
+                    B.17. Download File
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.18" data-path="B-18-http-basic-auth.html">
+            
+                <a href="B-18-http-basic-auth.html">
+            
+                    
+                    B.18. HTTP Basic Auth
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.19" data-path="B-19-middleware-using-http-handler.html">
+            
+                <a href="B-19-middleware-using-http-handler.html">
+            
+                    
+                    B.19. Middleware http.Handler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.20" data-path="B-20-custom-mux-multiplexer.html">
+            
+                <a href="B-20-custom-mux-multiplexer.html">
+            
+                    
+                    B.20. Custom Multiplexer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.21" data-path="B-21-cookie.html">
+            
+                <a href="B-21-cookie.html">
+            
+                    
+                    B.21. HTTP Cookie
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.22" data-path="B-22-simple-configuration.html">
+            
+                <a href="B-22-simple-configuration.html">
+            
+                    
+                    B.22. Simple Configuration
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.23" data-path="B-server-handler-http-request-cancellation.html">
+            
+                <a href="B-server-handler-http-request-cancellation.html">
+            
+                    
+                    B.23. Server Handler HTTP Request Cancellation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" >
+            
+                <span>
+            
+                    
+                    C. Pemrograman Go Lanjut
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="C-1-echo-routing.html">
+            
+                <a href="C-1-echo-routing.html">
+            
+                    
+                    C.1. Echo Framework & Routing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="C-2-parsing-http-request-payload-echo.html">
+            
+                <a href="C-2-parsing-http-request-payload-echo.html">
+            
+                    
+                    C.2. Parsing HTTP Request Payload (Echo)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.3" data-path="C-3-http-request-payload-validation.html">
+            
+                <a href="C-3-http-request-payload-validation.html">
+            
+                    
+                    C.3. HTTP Request Payload Validation (Validator v9, Echo)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.4" data-path="C-4-http-error-handling.html">
+            
+                <a href="C-4-http-error-handling.html">
+            
+                    
+                    C.4. HTTP Error Handling (Validator v9, Echo)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.5" data-path="C-5-echo-template-rendering.html">
+            
+                <a href="C-5-echo-template-rendering.html">
+            
+                    
+                    C.5. Template Rendering in Echo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.6" data-path="C-6-advanced-middleware-and-logging.html">
+            
+                <a href="C-6-advanced-middleware-and-logging.html">
+            
+                    
+                    C.6. Advanced Middleware & Logging (Logrus, Echo Logger)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.7" data-path="C-7-flag-parser.html">
+            
+                <a href="C-7-flag-parser.html">
+            
+                    
+                    C.7. CLI Flag Parser (Kingpin)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.8" >
+            
+                <span>
+            
+                    
+                    C.8. Advanced Configuration
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.8.1" data-path="C-8-A-advanced-configuration-viper.html">
+            
+                <a href="C-8-A-advanced-configuration-viper.html">
+            
+                    
+                    C.8.A. Advanced Configuration: Viper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.8.2" data-path="C-8-B-best-practice-configuration-env-var.html">
+            
+                <a href="C-8-B-best-practice-configuration-env-var.html">
+            
+                    
+                    C.8.B. Best Practice Configuration: Environment Variable
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.9" data-path="C-9-securecookie.html">
+            
+                <a href="C-9-securecookie.html">
+            
+                    
+                    C.9. Secure Cookie (Gorilla Securecookie)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.10" data-path="C-10-session.html">
+            
+                <a href="C-10-session.html">
+            
+                    
+                    C.10. Session (Gorilla Session)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.11" data-path="C-12-cors-preflight-request.html">
+            
+                <a href="C-12-cors-preflight-request.html">
+            
+                    
+                    C.12. CORS & Preflight Request
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.12" data-path="C-13-csrf.html">
+            
+                <a href="C-13-csrf.html">
+            
+                    
+                    C.13. CSRF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.13" data-path="C-14-secure-middleware.html">
+            
+                <a href="C-14-secure-middleware.html">
+            
+                    
+                    C.14. Secure Middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.14" data-path="C-15-http-gzip-compression.html">
+            
+                <a href="C-15-http-gzip-compression.html">
+            
+                    
+                    C.15. HTTP Gzip Compression (gziphandler)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.15" data-path="C-16-send-email.html">
+            
+                <a href="C-16-send-email.html">
+            
+                    
+                    C.16. Send Mail (net/smtp, Gomail v2)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.16" data-path="C-17-read-write-excel-xlsx-file.html">
+            
+                <a href="C-17-read-write-excel-xlsx-file.html">
+            
+                    
+                    C.17. Read & Write Excel XLSX File (Excelize)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.17" data-path="C-18-write-pdf-file.html">
+            
+                <a href="C-18-write-pdf-file.html">
+            
+                    
+                    C.18. Write PDF File (gofpdf)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.18" data-path="C-19-convert-html-to-pdf.html">
+            
+                <a href="C-19-convert-html-to-pdf.html">
+            
+                    
+                    C.19. Convert HTML to PDF (go-wkhtmltopdf)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.19" data-path="C-20-scraping-parsing-html.html">
+            
+                <a href="C-20-scraping-parsing-html.html">
+            
+                    
+                    C.20. Scraping & Parsing HTML (goquery)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.20" data-path="C-21-xml-parser.html">
+            
+                <a href="C-21-xml-parser.html">
+            
+                    
+                    C.21. Parse & Generate XML (etree)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.21" data-path="C-22-https-tls.html">
+            
+                <a href="C-22-https-tls.html">
+            
+                    
+                    C.22. HTTPS/TLS Web Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.22" data-path="C-23-http2-server-push.html">
+            
+                <a href="C-23-http2-server-push.html">
+            
+                    
+                    C.23. HTTP/2 & HTTP/2 Server Push
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.23" data-path="C-24-client-http-request-advanced.html">
+            
+                <a href="C-24-client-http-request-advanced.html">
+            
+                    
+                    C.24. Advanced Client HTTP Request
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.24" data-path="C-25-secure-insecure-client-http-request.html">
+            
+                <a href="C-25-secure-insecure-client-http-request.html">
+            
+                    
+                    C.25. Secure & Insecure Client HTTP Request
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.25" data-path="C-26-golang-ftp.html">
+            
+                <a href="C-26-golang-ftp.html">
+            
+                    
+                    C.26. FTP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.26" data-path="C-27-golang-ssh-sftp.html">
+            
+                <a href="C-27-golang-ssh-sftp.html">
+            
+                    
+                    C.27. SSH & SFTP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.27" data-path="C-29-golang-protobuf-implementation.html">
+            
+                <a href="C-29-golang-protobuf-implementation.html">
+            
+                    
+                    C.29. Protobuf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.28" data-path="C-30-golang-grpc-protobuf.html">
+            
+                <a href="C-30-golang-grpc-protobuf.html">
+            
+                    
+                    C.30. gRPC + Protobuf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.29" data-path="C-32-golang-jwt.html">
+            
+                <a href="C-32-golang-jwt.html">
+            
+                    
+                    C.32. JSON Web Token (JWT)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.30" data-path="C-33-golang-ldap-authentication.html">
+            
+                <a href="C-33-golang-ldap-authentication.html">
+            
+                    
+                    C.33. LDAP Authentication
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.31" data-path="C-34-golang-sso-saml-sp.html">
+            
+                <a href="C-34-golang-sso-saml-sp.html">
+            
+                    
+                    C.34. SSO SAML (Service Provider)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.32" data-path="C-dockerize-golang.html">
+            
+                <a href="C-dockerize-golang.html">
+            
+                    
+                    C.35. Dockerize Aplikasi Golang
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" >
+            
+                <span>
+            
+                    
+                    D. Studi Kasus
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1" data-path="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+            
+                <a href="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+            
+                    
+                    D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="D-google-api-search.html">
+            
+                <a href="D-google-api-search.html">
+            
+                    
+                    D.2. Google API Search Dengan Timeout
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3" data-path="D-golang-web-socket-chatting-app.html">
+            
+                <a href="D-golang-web-socket-chatting-app.html">
+            
+                    
+                    D.3. Web Socket: Chatting App
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >A.44. Fungsi String</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="a44-fungsi-string">A.44. Fungsi String</h1>
+<p>Go menyediakan package <code>strings</code>, isinya banyak fungsi untuk keperluan pengolahan data string. Bab ini berisi pembahasan mengenai beberapa fungsi yang ada di dalam package tersebut.</p>
+<h2 id="a441-fungsi-stringscontains">A.44.1. Fungsi <code>strings.Contains()</code></h2>
+<p>Dipakai untuk deteksi apakah string (parameter kedua) merupakan bagian dari string lain (parameter pertama). Nilai kembaliannya berupa <code>bool</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;strings&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> isExists = strings.Contains(<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-string">&quot;wick&quot;</span>)
+    fmt.Println(isExists)
+}
+</code></pre>
+<p>Variabel <code>isExists</code> akan bernilai <code>true</code>, karena string <code>&quot;wick&quot;</code> merupakan bagian dari <code>&quot;john wick&quot;</code>.</p>
+<h2 id="a442-fungsi-stringshasprefix">A.44.2. Fungsi <code>strings.HasPrefix()</code></h2>
+<p>Digunakan untuk deteksi apakah sebuah string (parameter pertama) diawali string tertentu (parameter kedua).</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> isPrefix1 = strings.HasPrefix(<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-string">&quot;jo&quot;</span>)
+fmt.Println(isPrefix1) <span class="hljs-comment">// true</span>
+
+<span class="hljs-keyword">var</span> isPrefix2 = strings.HasPrefix(<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-string">&quot;wi&quot;</span>)
+fmt.Println(isPrefix2) <span class="hljs-comment">// false</span>
+</code></pre>
+<h2 id="a443-fungsi-stringshassuffix">A.44.3. Fungsi <code>strings.HasSuffix()</code></h2>
+<p>Digunakan untuk deteksi apakah sebuah string (parameter pertama) diakhiri string tertentu (parameter kedua).</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> isSuffix1 = strings.HasSuffix(<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-string">&quot;ic&quot;</span>)
+fmt.Println(isSuffix1) <span class="hljs-comment">// false</span>
+
+<span class="hljs-keyword">var</span> isSuffix2 = strings.HasSuffix(<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-string">&quot;ck&quot;</span>)
+fmt.Println(isSuffix2) <span class="hljs-comment">// true</span>
+</code></pre>
+<h2 id="a444-fungsi-stringscount">A.44.4. Fungsi <code>strings.Count()</code></h2>
+<p>Memiliki kegunaan untuk menghitung jumlah karakter tertentu (parameter kedua) dari sebuah string (parameter pertama). Nilai kembalian fungsi ini adalah jumlah karakternya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> howMany = strings.Count(<span class="hljs-string">&quot;ethan hunt&quot;</span>, <span class="hljs-string">&quot;t&quot;</span>)
+fmt.Println(howMany) <span class="hljs-comment">// 2</span>
+</code></pre>
+<p>Nilai yang dikembalikan <code>2</code>, karena pada string <code>&quot;ethan hunt&quot;</code> terdapat dua buah karakter <code>&quot;t&quot;</code>.</p>
+<h2 id="a445-fungsi-stringsindex">A.44.5. Fungsi <code>strings.Index()</code></h2>
+<p>Digunakan untuk mencari posisi indeks sebuah string (parameter kedua) dalam string (parameter pertama).</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> index1 = strings.Index(<span class="hljs-string">&quot;ethan hunt&quot;</span>, <span class="hljs-string">&quot;ha&quot;</span>)
+fmt.Println(index1) <span class="hljs-comment">// 2</span>
+</code></pre>
+<p>String <code>&quot;ha&quot;</code> berada pada posisi ke <code>2</code> dalam string <code>&quot;ethan hunt&quot;</code> (indeks dimulai dari 0). Jika diketemukan dua substring, maka yang diambil adalah yang pertama, contoh:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> index2 = strings.Index(<span class="hljs-string">&quot;ethan hunt&quot;</span>, <span class="hljs-string">&quot;n&quot;</span>)
+fmt.Println(index2) <span class="hljs-comment">// 4</span>
+</code></pre>
+<p>String <code>&quot;n&quot;</code> berada pada indeks <code>4</code> dan <code>8</code>. Yang dikembalikan adalah yang paling kiri (paling kecil), yaitu <code>4</code>.</p>
+<h2 id="a446-fungsi-stringsreplace">A.44.6. Fungsi <code>strings.Replace()</code></h2>
+<p>Fungsi ini digunakan untuk replace atau mengganti bagian dari string dengan string tertentu. Jumlah substring yang di-replace bisa ditentukan, apakah hanya 1 string pertama, 2 string, atau kesemuanya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;banana&quot;</span>
+<span class="hljs-keyword">var</span> find = <span class="hljs-string">&quot;a&quot;</span>
+<span class="hljs-keyword">var</span> replaceWith = <span class="hljs-string">&quot;o&quot;</span>
+
+<span class="hljs-keyword">var</span> newText1 = strings.Replace(text, find, replaceWith, <span class="hljs-number">1</span>)
+fmt.Println(newText1) <span class="hljs-comment">// &quot;bonana&quot;</span>
+
+<span class="hljs-keyword">var</span> newText2 = strings.Replace(text, find, replaceWith, <span class="hljs-number">2</span>)
+fmt.Println(newText2) <span class="hljs-comment">// &quot;bonona&quot;</span>
+
+<span class="hljs-keyword">var</span> newText3 = strings.Replace(text, find, replaceWith, <span class="hljs-number">-1</span>)
+fmt.Println(newText3) <span class="hljs-comment">// &quot;bonono&quot;</span>
+</code></pre>
+<p>Penjelasan:</p>
+<ol>
+<li>Pada contoh di atas, substring <code>&quot;a&quot;</code> pada string <code>&quot;banana&quot;</code> akan di-replace dengan string <code>&quot;o&quot;</code>.</li>
+<li>Pada <code>newText1</code>, hanya 1 huruf <code>o</code> saja yang tereplace karena maksimal substring yang ingin di-replace ditentukan 1.</li>
+<li>Angka <code>-1</code> akan menjadikan proses replace berlaku pada semua substring. Contoh bisa dilihat pada <code>newText3</code>.</li>
+</ol>
+<h2 id="a447-fungsi-stringsrepeat">A.44.7. Fungsi <code>strings.Repeat()</code></h2>
+<p>Digunakan untuk mengulang string (parameter pertama) sebanyak data yang ditentukan (parameter kedua).</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> str = strings.Repeat(<span class="hljs-string">&quot;na&quot;</span>, <span class="hljs-number">4</span>)
+fmt.Println(str) <span class="hljs-comment">// &quot;nananana&quot;</span>
+</code></pre>
+<p>Pada contoh di atas, string <code>&quot;na&quot;</code> diulang sebanyak 4 kali. Hasilnya adalah: <code>&quot;nananana&quot;</code></p>
+<h2 id="a448-fungsi-stringssplit">A.44.8. Fungsi <code>strings.Split()</code></h2>
+<p>Digunakan untuk memisah string (parameter pertama) dengan tanda pemisah bisa ditentukan sendiri (parameter kedua). Hasilnya berupa slice string.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> string1 = strings.Split(<span class="hljs-string">&quot;the dark knight&quot;</span>, <span class="hljs-string">&quot; &quot;</span>)
+fmt.Println(string1) <span class="hljs-comment">// output: [&quot;the&quot;, &quot;dark&quot;, &quot;knight&quot;]</span>
+
+<span class="hljs-keyword">var</span> string2 = strings.Split(<span class="hljs-string">&quot;batman&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)
+fmt.Println(string2) <span class="hljs-comment">// output: [&quot;b&quot;, &quot;a&quot;, &quot;t&quot;, &quot;m&quot;, &quot;a&quot;, &quot;n&quot;]</span>
+</code></pre>
+<p>String <code>&quot;the dark knight&quot;</code> dipisah oleh karakter spasi <code>&quot; &quot;</code>, hasilnya kemudian ditampung oleh <code>string1</code>.</p>
+<p>Untuk memisah string menjadi slice tiap 1 string, gunakan pemisah string kosong <code>&quot;&quot;</code>. Bisa dilihat contohnya pada variabel <code>string2</code>.</p>
+<h2 id="a449-fungsi-stringsjoin">A.44.9. Fungsi <code>strings.Join()</code></h2>
+<p>Memiliki kegunaan berkebalikan dengan <code>strings.Split()</code>. Digunakan untuk menggabungkan slice string (parameter pertama) menjadi sebuah string dengan pemisah tertentu (parameter kedua.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> data = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;papaya&quot;</span>, <span class="hljs-string">&quot;tomato&quot;</span>}
+<span class="hljs-keyword">var</span> str = strings.Join(data, <span class="hljs-string">&quot;-&quot;</span>)
+fmt.Println(str) <span class="hljs-comment">// &quot;banana-papaya-tomato&quot;</span>
+</code></pre>
+<p>Slice <code>data</code> digabungkan menjadi satu dengan pemisah tanda <em>dash</em> (<code>-</code>).</p>
+<h2 id="a4410-fungsi-stringstolower">A.44.10. Fungsi <code>strings.ToLower()</code></h2>
+<p>Mengubah huruf-huruf string menjadi huruf kecil.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> str = strings.ToLower(<span class="hljs-string">&quot;aLAy&quot;</span>)
+fmt.Println(str) <span class="hljs-comment">// &quot;alay&quot;</span>
+</code></pre>
+<h2 id="a4411-fungsi-stringstoupper">A.44.11. Fungsi <code>strings.ToUpper()</code></h2>
+<p>Mengubah huruf-huruf string menjadi huruf besar.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> str = strings.ToUpper(<span class="hljs-string">&quot;eat!&quot;</span>)
+fmt.Println(str) <span class="hljs-comment">// &quot;EAT!&quot;</span>
+</code></pre>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.41-fungsi-string" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.44...</a>
+</div>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="A-data-type-conversion.html" class="navigation navigation-prev " aria-label="Previous page: A.43. Konversi Antar Tipe Data">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="A-regex.html" class="navigation navigation-next " aria-label="Next page: A.45. Regex">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"A.44. Fungsi String","level":"3.1.44","depth":2,"next":{"title":"A.45. Regex","level":"3.1.45","depth":2,"path":"A-regex.md","ref":"A-regex.md","articles":[]},"previous":{"title":"A.43. Konversi Antar Tipe Data","level":"3.1.43","depth":2,"path":"A-data-type-conversion.md","ref":"A-data-type-conversion.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-strings.md","mtime":"2020-10-03T17:59:52.850Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-03T18:00:35.266Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    <div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div></body>
+</html>
+
