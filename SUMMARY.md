@@ -49,8 +49,11 @@
   * [A.35. Defer & Exit](35-defer-exit.md)
   * [A.36. Error, Panic, & Recover](36-error-panic-recover.md)
   * [A.37. Layout Format String](37-string-format.md)
-  * [A.38. Time, Parsing Time, & Format Time](38-time.md)
-  * [A.39. Timer, Ticker, & Scheduler](39-timer.md)
+  * [A.38. Random](A-random.md)
+  * A.39. Time
+    * [A.39.A. Time, Parsing Time, & Format Time](A-time-parsing-format.md)
+    * [A.39.B. Timer, Ticker, & Scheduler](A-timer-ticker-scheduler.md)
+    * [A.39.C. Time Duration](A-time-duration.md)
   * [A.40. Konversi Antar Tipe Data](40-data-type-conversion.md)
   * [A.41. Fungsi String](41-strings.md)
   * [A.42. Regex](42-regex.md)
