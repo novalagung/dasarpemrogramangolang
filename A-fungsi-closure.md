@@ -173,5 +173,5 @@ Output program:
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.20-fungsi-closure">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.21...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.21-fungsi-closure">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.21...</a>
 </div>

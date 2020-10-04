@@ -174,5 +174,5 @@ var data = []map[string]string{
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.16-map">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.17...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.17-map">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.17...</a>
 </div>

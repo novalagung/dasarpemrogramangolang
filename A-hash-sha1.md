@@ -99,5 +99,5 @@ Metode ini sering dipakai untuk enkripsi password user. Salt dan data hasil hash
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.44-hash-sha1">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.47...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.47-hash-sha1">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.47...</a>
 </div>

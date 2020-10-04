@@ -452,5 +452,5 @@ Perbedannya ada pada penerapan *cancellation*-nya. Pada contoh ini kita tidak me
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A-pipeline-context-cancellation">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.64-pipeline-context-cancellation">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.64...</a>
 </div>

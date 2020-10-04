@@ -220,7 +220,7 @@ func main() {
 
 Pada kode di atas package `library` di-import menggunakan tanda titik. Dengan itu, pemanggilan struct `Student` tidak perlu dengan menuliskan nama package nya.
 
-## 25.6. Pemanfaatan Alias Ketika Import Package
+## A.26.6. Pemanfaatan Alias Ketika Import Package
 
 Fungsi yang berada di package lain bisa diakses dengan cara menuliskan nama-package diikuti nama fungsi-nya, contohnya seperti `fmt.Println()`. Package yang sudah di-import tersebut bisa diubah namanya dengan cara menggunakan alias pada saat import. Contohnya bisa dilihat pada kode berikut.
 
@@ -330,5 +330,5 @@ Dalam sebuah package diperbolehkan ada banyak fungsi `init()` (urutan eksekusiny
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.25-property-public-private">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.25...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.26-property-public-private">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.26...</a>
 </div>

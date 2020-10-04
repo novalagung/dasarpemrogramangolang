@@ -184,5 +184,5 @@ Dan lagi, mungkin banyak yang akan bingung. Ketika sudah masuk ke pembahasan mas
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.8-variabel">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.9...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.9-variabel">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.9...</a>
 </div>

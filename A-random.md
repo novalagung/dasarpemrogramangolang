@@ -103,5 +103,5 @@ Dengan fungsi di atas kita bisa dengan mudah meng-generate string random dengan 
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A-random">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.39-random">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.39...</a>
 </div>

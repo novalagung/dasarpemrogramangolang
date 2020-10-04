@@ -339,5 +339,5 @@ Selengkapya mengenai driver yang tersedia bisa dilihat di [https://github.com/go
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.53-sql">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.56...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.56-sql">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.56...</a>
 </div>

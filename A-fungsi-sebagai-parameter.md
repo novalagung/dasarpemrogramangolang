@@ -101,5 +101,5 @@ Variabel `result` bernilai `true` karena string `"ang"` merupakan bagian dari st
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.21-fungsi-sebagai-parameter">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.22...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.22-fungsi-sebagai-parameter">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.22...</a>
 </div>

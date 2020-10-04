@@ -271,5 +271,5 @@ fmt.Printf("%%\n")
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.37-layout-format-string">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.38...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.38-layout-format-string">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.38...</a>
 </div>
