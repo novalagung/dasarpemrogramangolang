@@ -542,5 +542,5 @@ Ok sekian untuk chapter panjang ini.
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A-concurrency-pipeline">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.62-concurrency-pipeline">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.62...</a>
 </div>

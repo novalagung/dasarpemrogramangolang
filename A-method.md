@@ -151,5 +151,5 @@ Lebih detailnya akan dibahas di bab selanjutnya.
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.24-method">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.25...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.25-method">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.25...</a>
 </div>
