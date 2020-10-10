@@ -120,7 +120,7 @@ func postAdjustment() {
 		htmlString = strings.Replace(htmlString, imagesAltToFind, imagesAltReplacement, -1)
 
 		// ==== disqus lazy load
-		originalDisqusJS := "_book/gitbook/gitbook-plugin-disqus/plugin.js"
+		originalDisqusJS := "./_book/gitbook/gitbook-plugin-disqus/plugin.js"
 		lazyLoadedDisqusJS := "./gitbook-plugin-disqus.js"
 		os.Remove(originalDisqusJS)
 		os.Rename(lazyLoadedDisqusJS, originalDisqusJS)
