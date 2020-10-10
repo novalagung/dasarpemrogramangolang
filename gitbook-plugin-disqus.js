@@ -11,6 +11,8 @@ require([
             return;
         }
 
+        $("#" + id).remove()
+
         var $disqusDiv = $("<div>", { "id": id });
         $(".book-body .page-inner").append($disqusDiv);
     }
@@ -79,6 +81,8 @@ require([
     }
 
     function lazyLoadDisqus(config) {
+        prepareDisqusThreadDOM()
+
         if (IntersectionObserver) {
             var observer = new IntersectionObserver(function (entries) {
                 if (!entries[0]) {
@@ -102,7 +106,6 @@ require([
 
     gitbook.events.bind("start", function(e, config) {
         disqusConfig = config
-        prepareDisqusThreadDOM();
 
         // lazy load disqus if possible
         lazyLoadDisqus(config)
