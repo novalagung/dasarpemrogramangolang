@@ -94,7 +94,7 @@ func postAdjustment() {
 				newTitle = strings.Join(titleParts, ".")
 			}
 			if newTitle == "Belajar Golang" {
-				newTitle = "Belajar Golang Gratis Mulai Dari 0"
+				newTitle = "Tutorial Gratis Belajar Dasar Pemrograman Golang Mulai Dari 0"
 			}
 			newTitle = strings.Replace(newTitle, "· GitBook", fmt.Sprintf("- %s", bookName), -1)
 
@@ -110,7 +110,7 @@ func postAdjustment() {
 		// ==== adjust meta for SEO purpose
 		metaReplacement := ""
 		if isLandingPage {
-			metaReplacement = `<meta content="Belajar Pemrograman Go Mulai Dari 0" name="description">`
+			metaReplacement = `<meta content="Tutorial Gratis Belajar Dasar Pemrograman Golang Mulai Dari 0" name="description">`
 		}
 		htmlString = strings.Replace(htmlString, `<meta name="description" content="">`, metaReplacement, -1)
 
@@ -120,10 +120,10 @@ func postAdjustment() {
 		htmlString = strings.Replace(htmlString, imagesAltToFind, imagesAltReplacement, -1)
 
 		// ==== google ads
-		googleAdsToFind := `</head>`
-		// googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">` + `</script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "` + adClient + `", enable_page_level_ads: true }); </script>` + googleAdsToFind
-		googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>` + googleAdsToFind
-		htmlString = strings.Replace(htmlString, googleAdsToFind, googleAdsReplacement, -1)
+		// googleAdsToFind := `</head>`
+		// // googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">` + `</script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "` + adClient + `", enable_page_level_ads: true }); </script>` + googleAdsToFind
+		// googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>` + googleAdsToFind
+		// htmlString = strings.Replace(htmlString, googleAdsToFind, googleAdsReplacement, -1)
 
 		// ==== inject github stars button
 		buttonToFind := `</body>`
@@ -141,9 +141,9 @@ func postAdjustment() {
 		htmlString = strings.Replace(htmlString, buttonScriptToFind, buttonScriptReplacement, -1)
 
 		// ===== inject fb pixel
-		fbPixelToFind := `</head>`
-		fbPixelReplacement := `<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript>` + fbPixelToFind
-		htmlString = strings.Replace(htmlString, fbPixelToFind, fbPixelReplacement, -1)
+		// fbPixelToFind := `</head>`
+		// fbPixelReplacement := `<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript>` + fbPixelToFind
+		// htmlString = strings.Replace(htmlString, fbPixelToFind, fbPixelReplacement, -1)
 
 		// ===== inject banner of new ebook
 		// bannerToFind := `</body>`
