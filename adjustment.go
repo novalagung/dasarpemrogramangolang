@@ -131,7 +131,7 @@ func postAdjustment() {
 			"gitbook/gitbook-plugin-highlight/website.css",
 			"gitbook/gitbook-plugin-search/search.css",
 			"gitbook/gitbook-plugin-fontsettings/website.css",
-			`/adjustment.css?v=` + getVersion() + `"`
+			`/adjustment.css?v=` + getVersion() + `"`,
 		}
 		for _, cssFileNameToFind := range cssToLoad {
 			cssFileNameReplacement := fmt.Sprintf(`%s" media="print" onload="this.media='all'`, cssFileNameToFind)
@@ -144,8 +144,8 @@ func postAdjustment() {
 		htmlString = strings.Replace(htmlString, buttonToFind, buttonReplacement, -1)
 
 		// ==== inject adjustment css
-		disqusJSBuf, _ := ioutil.ReadFile("./adjustment.css")
-		ioutil.WriteFile("./_book/gitbook/adjustment.css", disqusJSBuf, 0644)
+		adjustmentCSSBuf, _ := ioutil.ReadFile("./adjustment.css")
+		ioutil.WriteFile("./_book/gitbook/adjustment.css", adjustmentCSSBuf, 0644)
 		adjustmentCSSToFind := `</head>`
 		adjustmentCSSReplacement := `<link rel="stylesheet" href="gitbook/adjustment.css?v=` + getVersion() + `">` + adjustmentCSSToFind
 		htmlString = strings.Replace(htmlString, adjustmentCSSToFind, adjustmentCSSReplacement, -1)
