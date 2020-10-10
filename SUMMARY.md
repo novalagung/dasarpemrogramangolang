@@ -51,7 +51,7 @@
   * [A.39. Random](A-random.md)
   * [A.40. Time, Parsing Time, & Format Time](A-time-parsing-format.md)
   * [A.41. Timer, Ticker, & Scheduler](A-timer-ticker-scheduler.md)
-  * [A.42. Duration Time](A-time-duration.md)
+  * [A.42. Time Duration](A-time-duration.md)
   * [A.43. Konversi Antar Tipe Data](A-data-type-conversion.md)
   * [A.44. Fungsi String](A-strings.md)
   * [A.45. Regex](A-regex.md)
@@ -74,7 +74,6 @@
   * [A.62. Concurrency Pattern: Pipeline](A-concurrency-pipeline.md)
   * [A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](A-simplified-fan-in-fan-out-pipeline.md)
   * [A.64. Concurrency Pattern: Context Cancellation Pipeline](A-pipeline-context-cancellation.md)
-  <!-- * [A.99. Time & Timezone Location] -->
 
 <hr>
 
@@ -139,7 +138,7 @@
   * [C.32. JSON Web Token (JWT)](C-32-golang-jwt.md)
   * [C.33. LDAP Authentication](C-33-golang-ldap-authentication.md)
   * [C.34. SSO SAML (Service Provider)](C-34-golang-sso-saml-sp.md)
-  * [C.35. Dockerize Aplikasi Golang](/C-dockerize-golang.md)
+  * [C.35. Dockerize Aplikasi Golang](C-dockerize-golang.md)
 
 <hr>
 

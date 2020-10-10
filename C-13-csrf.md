@@ -1,6 +1,6 @@
 # C.13. CSRF
 
-Pada bab ini kita akan belajar tentang serangan Cross-Site Request Forgery (CSRF) dan cara mengatisipasinya.
+Pada bab ini kita akan belajar tentang serangan Cross-Site Request Forgery (CSRF) dan cara mengantisipasinya.
 
 ## C.13.1. Teori
 

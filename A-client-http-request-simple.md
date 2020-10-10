@@ -174,5 +174,5 @@ Kita telah mempelajari bagaimana cara membuat http request sederhana untuk kirim
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.52-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.55...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.55-client-http-request-simple">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.55...</a>
 </div>

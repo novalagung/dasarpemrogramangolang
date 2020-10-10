@@ -82,5 +82,5 @@ Cukup mudah bukan?
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.32-channel-select">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.33...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.33-channel-select">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.33...</a>
 </div>

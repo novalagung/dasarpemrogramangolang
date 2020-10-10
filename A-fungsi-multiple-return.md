@@ -100,5 +100,5 @@ Fungsi `math.Pow()` digunakan untuk memangkat nilai. `math.Pow(2, 3)` berarti 2 
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.18-fungsi-multiple-return">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.19...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.19-fungsi-multiple-return">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.19...</a>
 </div>

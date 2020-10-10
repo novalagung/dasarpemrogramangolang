@@ -198,5 +198,5 @@ Ketika user tidak menginputkan apa-apa dalam kurun waktu 5 detik, maka akan munc
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A-timer-ticker-scheduler">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.41-timer-ticker-scheduler">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.41...</a>
 </div>

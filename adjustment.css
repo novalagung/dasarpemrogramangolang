@@ -58,7 +58,7 @@ body {
 
 /* sidebar scroll beautification */
 .book-summary::-webkit-scrollbar {
-    width: 4px;
+    width: 15px;
 }
 .book-summary::-webkit-scrollbar-thumb {
     background: transparent;
