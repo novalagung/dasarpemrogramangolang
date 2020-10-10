@@ -114,6 +114,11 @@ func postAdjustment() {
 		}
 		htmlString = strings.Replace(htmlString, `<meta name="description" content="">`, metaReplacement, -1)
 
+		// ==== images' alt
+		imagesAltToFind := ` alt="`
+		imagesAltReplacement := imagesAltToFind + bookName + " - "
+		htmlString = strings.Replace(htmlString, imagesAltToFind, imagesAltReplacement, -1)
+
 		// ==== google ads
 		googleAdsToFind := `</head>`
 		// googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">` + `</script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "` + adClient + `", enable_page_level_ads: true }); </script>` + googleAdsToFind
