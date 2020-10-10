@@ -36,6 +36,8 @@ jobs:
         rm -rf *.sh
         rm -rf *.psd
         rm -rf *.go
+        rm -rf *.css
+        rm -rf *.js
     - uses: peaceiris/actions-gh-pages@v2.5.0
       env:
         ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}

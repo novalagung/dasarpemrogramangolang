@@ -16,6 +16,7 @@ var (
 	baseVersion = 2
 	bookName    = "Dasar Pemrograman Golang"
 	adClient    = "ca-pub-1417781814120840"
+	now         = time.Now()
 )
 
 func main() {
@@ -125,11 +126,12 @@ func postAdjustment() {
 
 		// ==== gitbook assets lazy load
 		cssToLoad := []string{
-			// "gitbook/style.css",
+			"gitbook/style.css",
 			"gitbook/gitbook-plugin-disqus/plugin.css",
 			"gitbook/gitbook-plugin-highlight/website.css",
 			"gitbook/gitbook-plugin-search/search.css",
 			"gitbook/gitbook-plugin-fontsettings/website.css",
+			`/adjustment.css?v=` + getVersion() + `"`
 		}
 		for _, cssFileNameToFind := range cssToLoad {
 			cssFileNameReplacement := fmt.Sprintf(`%s" media="print" onload="this.media='all'`, cssFileNameToFind)
@@ -142,8 +144,10 @@ func postAdjustment() {
 		htmlString = strings.Replace(htmlString, buttonToFind, buttonReplacement, -1)
 
 		// ==== inject adjustment css
+		disqusJSBuf, _ := ioutil.ReadFile("./adjustment.css")
+		ioutil.WriteFile("./_book/gitbook/adjustment.css", disqusJSBuf, 0644)
 		adjustmentCSSToFind := `</head>`
-		adjustmentCSSReplacement := `<link rel="stylesheet" href="/adjustment.css?v=` + getVersion() + `">` + adjustmentCSSToFind
+		adjustmentCSSReplacement := `<link rel="stylesheet" href="gitbook/adjustment.css?v=` + getVersion() + `">` + adjustmentCSSToFind
 		htmlString = strings.Replace(htmlString, adjustmentCSSToFind, adjustmentCSSReplacement, -1)
 
 		// ==== inject github stars js script
@@ -201,7 +205,7 @@ func postAdjustment() {
 }
 
 func getVersion() string {
-	return fmt.Sprintf("%d.%s", baseVersion, time.Now().Format("2006.01.02.150405"))
+	return fmt.Sprintf("%d.%s", baseVersion, now.Format("2006.01.02.150405"))
 }
 
 func getTitle(htmlString string) string {
