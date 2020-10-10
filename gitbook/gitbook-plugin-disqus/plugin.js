@@ -2,7 +2,8 @@ require([
     "gitbook",
     "jQuery"
 ], function(gitbook, $) {
-    var use_identifier = false;
+    var useIdentifier = false;
+    var disqusConfig = null;
 
     function prepareDisqusThreadDOM() {
         var id = "disqus_thread";
@@ -23,7 +24,7 @@ require([
                     this.language = $('html').attr('lang') || "en";
                     this.page.url = window.location.href;
 
-                    if (use_identifier) {
+                    if (useIdentifier) {
                         this.page.identifier = currentUrl();
                     }
                 }
@@ -63,7 +64,7 @@ require([
         };
 
         if (config.disqus.useIdentifier) {
-            use_identifier = true;
+            useIdentifier = true;
             var disqus_identifier = currentUrl();
         }
 
@@ -77,10 +78,7 @@ require([
         resetDisqus();
     }
 
-    gitbook.events.bind("start", function(e, config) {
-        prepareDisqusThreadDOM();
-
-        // lazy load disqus if possible
+    function lazyLoadDisqus(config) {
         if (IntersectionObserver) {
             var observer = new IntersectionObserver(function (entries) {
                 if (!entries[0]) {
@@ -92,6 +90,7 @@ require([
     
                 // comments section reached, start loading Disqus now
                 loadDisqus(config);
+                observer.disconnect();
             }, {
                 threshold: 0.001,
             });
@@ -99,7 +98,21 @@ require([
         } else {
             loadDisqus(config);
         }
+    }
+
+    gitbook.events.bind("start", function(e, config) {
+        disqusConfig = config
+        prepareDisqusThreadDOM();
+
+        // lazy load disqus if possible
+        lazyLoadDisqus(config)
     });
 
-    gitbook.events.bind("page.change", resetDisqus);
+    gitbook.events.bind("page.change", function () {
+        if ($("#disqus_thread").children().length > 0) {
+            resetDisqus()
+        } else {
+            lazyLoadDisqus(disqusConfig);
+        }
+    });
 });
