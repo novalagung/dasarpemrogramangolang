@@ -123,12 +123,6 @@ func postAdjustment() {
 		disqusJSBuf, _ := ioutil.ReadFile("./gitbook-plugin-disqus.js")
 		ioutil.WriteFile("./_book/gitbook/gitbook-plugin-disqus/plugin.js", disqusJSBuf, 0644)
 
-		// ==== google ads
-		// googleAdsToFind := `</head>`
-		// // googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">` + `</script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "` + adClient + `", enable_page_level_ads: true }); </script>` + googleAdsToFind
-		// googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>` + googleAdsToFind
-		// htmlString = strings.Replace(htmlString, googleAdsToFind, googleAdsReplacement, -1)
-
 		// ==== inject github stars button
 		buttonToFind := `</body>`
 		buttonReplacement := `<div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div>` + buttonToFind
@@ -143,6 +137,12 @@ func postAdjustment() {
 		buttonScriptToFind := `</head>`
 		buttonScriptReplacement := `<script async defer src="https://buttons.github.io/buttons.js"></script>` + buttonScriptToFind
 		htmlString = strings.Replace(htmlString, buttonScriptToFind, buttonScriptReplacement, -1)
+
+		// ==== google ads
+		// googleAdsToFind := `</head>`
+		// // googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">` + `</script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "` + adClient + `", enable_page_level_ads: true }); </script>` + googleAdsToFind
+		// googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>` + googleAdsToFind
+		// htmlString = strings.Replace(htmlString, googleAdsToFind, googleAdsReplacement, -1)
 
 		// ===== inject fb pixel
 		// fbPixelToFind := `</head>`
