@@ -24,7 +24,7 @@ func main() {
 
 Mari kita praktekan kode di atas. Siapkan file program baru dalam project folder (bisa buat projek baru atau gunakan projek yang sudah ada). Kemudian isi dengan kode di atas, lalu jalankan.
 
-![Contoh komentar inline](images/A.7_1_inline_comment.png)
+![Contoh komentar inline](images/A_komentar_1_inline_comment.png)
 
 Hasilnya hanya tulisan **hello world** saja yang muncul di layar, karena semua yang di awali tanda double slash `//` diabaikan oleh compiler.
 
