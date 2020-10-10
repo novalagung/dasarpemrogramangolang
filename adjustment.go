@@ -123,6 +123,19 @@ func postAdjustment() {
 		disqusJSBuf, _ := ioutil.ReadFile("./gitbook-plugin-disqus.js")
 		ioutil.WriteFile("./_book/gitbook/gitbook-plugin-disqus/plugin.js", disqusJSBuf, 0644)
 
+		// ==== gitbook assets lazy load
+		cssToLoad = []string{
+			// "gitbook/style.css",
+			"gitbook/gitbook-plugin-disqus/plugin.css",
+			"gitbook/gitbook-plugin-highlight/website.css",
+			"gitbook/gitbook-plugin-search/search.css",
+			"gitbook/gitbook-plugin-fontsettings/website.css",
+		}
+		for _, cssFileNameToFind := range cssToLoad {
+			cssFileNameReplacement := fmt.Sprintf(`%s" media="print" onload="this.media='all'`, cssFileNameReplacement)
+			htmlString = strings.Replace(htmlString, cssFileNameToFind, cssFileNameReplacement, -1)
+		}
+
 		// ==== inject github stars button
 		buttonToFind := `</body>`
 		buttonReplacement := `<div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div>` + buttonToFind
