@@ -77,7 +77,7 @@
     
 
 
-    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.110823"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
+    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.112610"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
     <body>
         
 <div class="book">
@@ -1992,7 +1992,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
 </code></pre>
 <p>Test hasilnya pada browser.</p>
-<p><img src="images/B.6_1_pipeline.png" alt="Pipeline Output"></p>
+<p><img src="images/B.6_1_pipeline.png" alt="Dasar Pemrograman Golang - Pipeline Output"></p>
 <p>Untuk menampilkan tipe data lain selain string, caranya masih sama, langsung dituliskan dalam <code>{{ }}</code>. Untuk menampilkan nilai variabel, caranya juga masih sama, hanya saja perlu ditambahkan tanda titik <code>.</code> pada penulisannya (tanda titik <code>.</code> adalah penanda bahwa variabel tersebut adalah variabel terluar; bukan merupakan elemen array, item map, atau property struct).</p>
 <p>Sedangkan untuk komentar, gunakan tanda <code>{{/* */}}</code>. Komentar tidak akan dimunculkan dalam output.</p>
 <h2 id="b63-membuat--menampilkan-isi-variabel">B.6.3. Membuat &amp; Menampilkan Isi Variabel</h2>
@@ -2006,7 +2006,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
 </code></pre>
 <p>Jika ingin menampilkan isi variabel, tuliskan sebagai pipeline.</p>
-<p><img src="images/B.6_2_variable.png" alt="Variabel"></p>
+<p><img src="images/B.6_2_variable.png" alt="Dasar Pemrograman Golang - Variabel"></p>
 <h2 id="b64-perulangan">B.6.4. Perulangan</h2>
 <p>Actions <code>range</code> digunakan untuk melakukan perulangan pada template view. Keyword ini bisa diterapkan pada tipe data <code>map</code> atau array. Cara penggunaannya sedikit berbeda dibanding penggunaan range pada Go. Silakan perhatikan contoh berikut.</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
@@ -2019,7 +2019,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
 </code></pre>
 <p>Penulisannya cukup unik, keyword <code>range</code> dituliskan terlebih dahulu, diikuti variabel penampung index dan elemen. Jika yang dibutuhkan hanya elemen saja, bisa cukup gunakan <code>{{range $elem := .Hobbies}}</code>. Semua kode setelah baris deklarasi hingga penutup <code>{{end}}</code>, akan diulang sesuai jumlah elemen/item-nya.</p>
-<p><img src="images/B.6_3_loop.png" alt="Perulangan"></p>
+<p><img src="images/B.6_3_loop.png" alt="Dasar Pemrograman Golang - Perulangan"></p>
 <h2 id="b65-pengaksesan-property-variabel-objek">B.6.5. Pengaksesan Property Variabel Objek</h2>
 <p>Cara mengakses property sebuah variabel objek bisa dilakukan lewat notasi titik <code>.</code>, dengan ketentuan property tersebut bermodifier public.</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
@@ -2027,7 +2027,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>: {{.Info.Affiliation}}<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
 </code></pre>
-<p><img src="images/B.6_4_property.png" alt="Mengakses property"></p>
+<p><img src="images/B.6_4_property.png" alt="Dasar Pemrograman Golang - Mengakses property"></p>
 <p>Sedangkan untuk pengaksesan method, caranya juga sama, hanya saja tidak perlu dituliskan tanda kurung method-nya. Buat sebuah method pada struct <code>Info</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> (t Info) GetAffiliationDetailInfo() <span class="hljs-keyword">string</span> {
     <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;have 31 divisions&quot;</span>
@@ -2039,7 +2039,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>: {{.Info.Affiliation}} ({{.Info.GetAffiliationDetailInfo}})<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
 </code></pre>
-<p><img src="images/B.6_5_method.png" alt="Mengakses property"></p>
+<p><img src="images/B.6_5_method.png" alt="Dasar Pemrograman Golang - Mengakses property"></p>
 <p>Lalu bagaimana cara pengaksesan method yang membutuhkan parameter, jika tanda kurungnya tidak boleh dituliskan? Jawabannya akan kita temukan pada bab selanjutnya.</p>
 <h2 id="b66-penggunaan-keyword-with-untuk-mengganti-scope-variabel-pada-suatu-blok">B.6.6. Penggunaan Keyword <code>with</code> Untuk Mengganti Scope Variabel Pada Suatu Blok</h2>
 <p>Secara default <strong>current scope</strong> di template view adalah data yang dilempar back end. Scope current objek bisa diganti dengan menggunakan keyword <code>with</code>, sehingga nantinya untuk mengakses sub-property variabel objek (seperti <code>.Info.Affiliation</code>), bisa tidak dilakukan dari objek terluar.</p>
@@ -2055,7 +2055,7 @@
 {{end}}
 </code></pre>
 <p>Pada contoh di atas, sebuah blok ditentukan scope-nya adalah <code>Info</code>. Maka di dalam blok kode tersebut, untuk mengakses sub property-nya (<code>Address</code>, <code>Affiliation</code>, dan <code>GetAffiliationDetailInfo</code>), tidak perlu dituliskan dari objek terluar, cukup langsung nama property-nya. Sebagai contoh <code>.Address</code> di atas merujuk ke variabel <code>.Info</code>.</p>
-<p><img src="images/B.6_6_with.png" alt="Scope"></p>
+<p><img src="images/B.6_6_with.png" alt="Dasar Pemrograman Golang - Scope"></p>
 <h2 id="b67-seleksi-kondisi">B.6.7. Seleksi Kondisi</h2>
 <p>Seleksi kondisi juga bisa dilakukan pada template view. Keyword actions yang digunakan adalah <code>if</code> dan <code>eq</code> (equal atau sama dengan).</p>
 <pre><code class="lang-html">{{if eq .Name &quot;Bruce Wayne&quot;}}
@@ -2066,7 +2066,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
 {{end}}
 </code></pre>
-<p><img src="images/B.6_7_if.png" alt="Seleksi kondisi"></p>
+<p><img src="images/B.6_7_if.png" alt="Dasar Pemrograman Golang - Seleksi kondisi"></p>
 <p>Untuk seleksi kondisi dengan jumlah kondisi lebih dari satu, bisa gunakan <code>else if</code>.</p>
 <pre><code class="lang-html">{{if pipeline}}
     a
@@ -2143,7 +2143,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"next":{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-7-template-functions.md","ref":"B-7-template-functions.md","articles":[]},"previous":{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-5-template-render-partial-html.md","ref":"B-5-template-render-partial-html.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"B-6-template-actions-variables.md","mtime":"2020-10-10T11:07:10.844Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:08:01.062Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"next":{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-7-template-functions.md","ref":"B-7-template-functions.md","articles":[]},"previous":{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-5-template-render-partial-html.md","ref":"B-5-template-render-partial-html.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"B-6-template-actions-variables.md","mtime":"2020-10-10T11:24:47.165Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:25:39.765Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

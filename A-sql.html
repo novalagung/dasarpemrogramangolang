@@ -77,7 +77,7 @@
     
 
 
-    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.110823"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
+    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.112610"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
     <body>
         
 <div class="book">
@@ -1931,7 +1931,7 @@
 <p>Unduh driver mysql menggunakan <code>go get</code>.</p>
 <pre><code>cd &lt;folder-project&gt;
 go get github.com/go-sql-driver/mysql
-</code></pre><p><img src="images/A_sql_1_go_get_driver.png" alt="Download mysql driver"></p>
+</code></pre><p><img src="images/A_sql_1_go_get_driver.png" alt="Dasar Pemrograman Golang - Download mysql driver"></p>
 <h2 id="a562-setup-database">A.56.2. Setup Database</h2>
 <blockquote>
 <p>Sebelumnya pastikan sudah ada <a href="https://dev.mysql.com/downloads/mysql/" target="_blank">mysql server</a> yang terinstal di lokal anda.</p>
@@ -2048,7 +2048,7 @@ rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
 }
 </code></pre>
 <p>Output:</p>
-<p><img src="images/A_sql_2_sql_query.png" alt="Membaca data dari database server"></p>
+<p><img src="images/A_sql_2_sql_query.png" alt="Dasar Pemrograman Golang - Membaca data dari database server"></p>
 <h2 id="a564-membaca-1-record-data-menggunakan-method-queryrow">A.56.4. Membaca 1 Record Data Menggunakan Method <code>QueryRow()</code></h2>
 <p>Untuk query yang menghasilkan 1 baris record saja, bisa gunakan method <code>QueryRow()</code>, dengan metode ini kode menjadi lebih ringkas. Chain dengan method <code>Scan()</code> untuk mendapatkan value-nya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> sqlQueryRow() {
@@ -2082,7 +2082,7 @@ rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
     Scan(&amp;result.name, &amp;result.grade)
 </code></pre>
 <p>Sekarang jalankan program. Outputnya akan muncul data record sesuai id.</p>
-<p><img src="images/A_sql_3_sql_query_row.png" alt="Penggunaan `QueryRow()`"></p>
+<p><img src="images/A_sql_3_sql_query_row.png" alt="Dasar Pemrograman Golang - Penggunaan `QueryRow()`"></p>
 <h2 id="a565-eksekusi-query-menggunakan-prepare">A.56.5. Eksekusi Query Menggunakan <code>Prepare()</code></h2>
 <p>Teknik <strong>prepared statement</strong> adalah teknik penulisan query di awal dengan kelebihan bisa di re-use atau digunakan banyak kali untuk eksekusi yang berbeda-beda.</p>
 <p>Metode ini bisa digabung dengan <code>Query()</code> maupun <code>QueryRow()</code>. Berikut merupakan contoh penerapannya.</p>
@@ -2118,7 +2118,7 @@ rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
 }
 </code></pre>
 <p>Method <code>Prepare()</code> digunakan untuk deklarasi query, yang mengembalikan objek bertipe <code>sql.*Stmt</code>. Dari objek tersebut, dipanggil method <code>QueryRow()</code> beberapa kali dengan isi value untuk <code>id</code> berbeda-beda untuk tiap pemanggilannya.</p>
-<p><img src="images/A_sql_4_prepared_statement.png" alt="Prepared statement"></p>
+<p><img src="images/A_sql_4_prepared_statement.png" alt="Dasar Pemrograman Golang - Prepared statement"></p>
 <h2 id="a566-insert-update--delete-data-menggunakan-exec">A.56.6. Insert, Update, &amp; Delete Data Menggunakan <code>Exec()</code></h2>
 <p>Untuk operasi <strong>insert</strong>, <strong>update</strong>, dan <strong>delete</strong>; dianjurkan untuk tidak menggunakan fungsi <code>sql.Query()</code> ataupun <code>sql.QueryRow()</code> untuk eksekusinya. Direkomendasikan eksekusi perintah-perintah tersebut lewat fungsi <code>Exec()</code>, contohnya seperti pada kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> sqlExec() {
@@ -2223,7 +2223,7 @@ _, err := db.Exec(<span class="hljs-string">&quot;insert into tb_student values 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.56. SQL","level":"3.1.56","depth":2,"next":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"path":"A-mongodb.md","ref":"A-mongodb.md","articles":[]},"previous":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"path":"A-client-http-request-simple.md","ref":"A-client-http-request-simple.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-sql.md","mtime":"2020-10-10T11:07:10.844Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:08:01.062Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.56. SQL","level":"3.1.56","depth":2,"next":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"path":"A-mongodb.md","ref":"A-mongodb.md","articles":[]},"previous":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"path":"A-client-http-request-simple.md","ref":"A-client-http-request-simple.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-sql.md","mtime":"2020-10-10T11:24:47.161Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:25:39.765Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

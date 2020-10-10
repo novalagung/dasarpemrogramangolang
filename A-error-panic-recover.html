@@ -77,7 +77,7 @@
     
 
 
-    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.110823"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
+    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.112610"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
     <body>
         
 <div class="book">
@@ -1952,7 +1952,7 @@
 <p>Data pertama (<code>number</code>) berisi hasil konversi. Dan data kedua <code>err</code>, berisi informasi errornya (jika memang terjadi error ketika proses konversi).</p>
 <p>Setelah itu dilakukan pengecekkan, ketika tidak ada error, <code>number</code> ditampilkan. Dan jika ada error, <code>input</code> ditampilkan beserta pesan errornya.</p>
 <p>Pesan error bisa didapat dari method <code>Error()</code> milik tipe <code>error</code>.</p>
-<p><img src="images/A_error_panic_recover_1_error.png" alt="Penerapan error"></p>
+<p><img src="images/A_error_panic_recover_1_error.png" alt="Dasar Pemrograman Golang - Penerapan error"></p>
 <h2 id="a372-membuat-custom-error">A.37.2. Membuat Custom Error</h2>
 <p>Selain memanfaatkan error hasil kembalian suatu fungsi internal yang tersedia, kita juga bisa membuat objek error sendiri dengan menggunakan fungsi <code>errors.New()</code> (harus import package <code>errors</code> terlebih dahulu).</p>
 <p>Pada contoh berikut ditunjukan bagaimana cara membuat custom error. Pertama siapkan fungsi dengan nama <code>validate()</code>, yang nantinya digunakan untuk pengecekan input, apakah inputan kosong atau tidak. Ketika kosong, maka error baru akan dibuat.</p>
@@ -1987,7 +1987,7 @@
 <p>Fungsi <code>validate()</code> mengembalikan 2 data. Data pertama adalah nilai <code>bool</code> yang menandakan inputan apakah valid atau tidak. Data ke-2 adalah pesan error-nya (jika inputan tidak valid).</p>
 <p>Fungsi <code>strings.TrimSpace()</code> digunakan untuk menghilangkan karakter spasi sebelum dan sesudah string. Ini dibutuhkan karena user bisa saja menginputkan spasi lalu enter.</p>
 <p>Ketika inputan tidak valid, maka error baru dibuat dengan memanfaatkan fungsi <code>errors.New()</code>. Selain itu objek error juga bisa dibuat lewat fungsi <code>fmt.Errorf()</code>.</p>
-<p><img src="images/A_error_panic_recover_2_custom_error.png" alt="Custom error"></p>
+<p><img src="images/A_error_panic_recover_2_custom_error.png" alt="Dasar Pemrograman Golang - Custom error"></p>
 <h2 id="a373-penggunaan-panic">A.37.3. Penggunaan <code>panic</code></h2>
 <p>Panic digunakan untuk menampilkan <em>stack trace</em> error sekaligus menghentikan flow goroutine (karena <code>main()</code> juga merupakan goroutine, maka behaviour yang sama juga berlaku). Setelah ada panic, proses akan terhenti, apapun setelah tidak di-eksekusi kecuali proses yang sudah di-defer sebelumnya (akan muncul sebelum panic error).</p>
 <p>Panic menampilkan pesan error di console, sama seperti <code>fmt.Println()</code>. Informasi error yang ditampilkan adalah stack trace error, jadi sangat mendetail dan heboh.</p>
@@ -2006,7 +2006,7 @@
 }
 </code></pre>
 <p>Jalankan program lalu langsung tekan enter, maka panic error muncul dan baris kode setelahnya tidak dijalankan.</p>
-<p><img src="images/A_error_panic_recover_3_panic.png" alt="Menampilkan error menggunakan panic"></p>
+<p><img src="images/A_error_panic_recover_3_panic.png" alt="Dasar Pemrograman Golang - Menampilkan error menggunakan panic"></p>
 <h2 id="a374-penggunaan-recover">A.37.4. Penggunaan <code>recover</code></h2>
 <p>Recover berguna untuk meng-handle panic error. Pada saat panic error muncul, recover men-take-over goroutine yang sedang panic (pesan panic tidak akan muncul).</p>
 <p>Ok, mari kita modif sedikit fungsi di-atas untuk mempraktekkan bagaimana cara penggunaan recover. Tambahkan fungsi <code>catch()</code>, dalam fungsi ini terdapat statement <code>recover()</code> yang dia akan mengembalikan pesan panic error yang seharusnya muncul.</p>
@@ -2035,7 +2035,7 @@
 }
 </code></pre>
 <p>Output:</p>
-<p><img src="images/A_error_panic_recover_4_recover.png" alt="Handle panic menggunakan recover"></p>
+<p><img src="images/A_error_panic_recover_4_recover.png" alt="Dasar Pemrograman Golang - Handle panic menggunakan recover"></p>
 <h2 id="a375-pemanfaatan-recover-pada-iife">A.37.5. Pemanfaatan <code>recover</code> pada IIFE</h2>
 <p>Contoh penerapan recover pada IIFE:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
@@ -2123,7 +2123,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.37. Error, Panic, & Recover","level":"3.1.37","depth":2,"next":{"title":"A.38. Layout Format String","level":"3.1.38","depth":2,"path":"A-string-format.md","ref":"A-string-format.md","articles":[]},"previous":{"title":"A.36. Defer & Exit","level":"3.1.36","depth":2,"path":"A-defer-exit.md","ref":"A-defer-exit.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-error-panic-recover.md","mtime":"2020-10-10T11:07:10.840Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:08:01.062Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.37. Error, Panic, & Recover","level":"3.1.37","depth":2,"next":{"title":"A.38. Layout Format String","level":"3.1.38","depth":2,"path":"A-string-format.md","ref":"A-string-format.md","articles":[]},"previous":{"title":"A.36. Defer & Exit","level":"3.1.36","depth":2,"path":"A-defer-exit.md","ref":"A-defer-exit.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-error-panic-recover.md","mtime":"2020-10-10T11:24:47.157Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:25:39.765Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -77,7 +77,7 @@
     
 
 
-    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.110823"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
+    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.112610"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
     <body>
         
 <div class="book">
@@ -1928,7 +1928,7 @@
 <p>Ketika seorang pengguna internet surfing, mengakses sebuah website yang website tersebut menerapkan SSL, informasi yang dikirim akan di encrypt dengan aman (menggunakan public key) dan hanya bisa di-decrypt menggunakan <strong>Private Key</strong>.</p>
 <p>Private Key, atau Secret Key, adalah file terpisah yang diperlukan pada proses dekripsi data yang di-encrypt menggunakan public key.</p>
 <p>Berikut merupakan penjelasan dalam bentuk gambar yang diambil dari <a href="https://coinjolt.com/what-is-a-public-and-private-key/" target="_blank">coinjolt.com</a>.</p>
-<p><img src="images/C.22_1_public_and_private_key.png" alt="Anatomy"></p>
+<p><img src="images/C.22_1_public_and_private_key.png" alt="Dasar Pemrograman Golang - Anatomy"></p>
 <p>Kedua file certificate dan file private key harus disimpan dengan sangat super aman di server.</p>
 <h4 id="tls">&#x2022; TLS</h4>
 <p><strong>TLS, Transport Layer Security</strong>, adalah versi yang lebih update dari SSL.</p>
@@ -1949,13 +1949,13 @@ $ openssl ecparam -genkey -name secp384r1 -out server.key
 <li>Untuk email isi dengan alamat email yang valid.</li>
 </ul>
 <p>Tampilannya kurang lebih seperti pada screenshot berikut.</p>
-<p><img src="images/C.22_1.1_public_and_private_key.png" alt="Generate private key and certificate"></p>
+<p><img src="images/C.22_1.1_public_and_private_key.png" alt="Dasar Pemrograman Golang - Generate private key and certificate"></p>
 <blockquote>
 <p>Selain <code>.crt</code> dan <code>.key</code>, ada ekstensi lain lagi seperti <code>.pem</code>. Format <code>.pem</code> ini merupakan jenis encoding yang sangat sering digunakan pada file kriptografi sejenis <code>.key</code> dan <code>.crt</code>. File <code>.crt</code> dan <code>.key</code> bisa di konversi ke <code>.pem</code>, dan juga sebaliknya.</p>
 </blockquote>
 <h2 id="c223-project-structure">C.22.3. Project Structure</h2>
 <p>Buat sebuah projek folder, copy 2 file yang telah ter-generate ke dalamnya. Lalu siapkan file <code>main.go</code>.</p>
-<p><img src="images/C.22_2_structure.png" alt="Folder Structure"></p>
+<p><img src="images/C.22_2_structure.png" alt="Dasar Pemrograman Golang - Folder Structure"></p>
 <h2 id="c224-web-servers">C.22.4. Web Servers</h2>
 <p>Pada <code>main.go</code>, siapkan sebuah fungsi <code>StartNonTLSServer()</code>, berisikan mux dengan satu buah routing, untuk redirect request dari protokol <code>http</code> ke <code>https</code>. Nantinya semua request yang mengarah ke <code>http://localhost</code> di-redirect ke <code>https://localhost</code>. Start mux ini pada port <code>:80</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -1998,9 +1998,9 @@ $ openssl ecparam -genkey -name secp384r1 -out server.key
 </blockquote>
 <h2 id="c225-testing">C.22.5. Testing</h2>
 <p>Test aplikasi menggunakan <code>curl</code>. Untuk request ke protokol <code>https</code> coba tambahkan flag <code>--insecure</code> untuk men-disable verifikasi certificate.</p>
-<p><img src="images/C.22_3_curl_example.png" alt="curl example"></p>
+<p><img src="images/C.22_3_curl_example.png" alt="Dasar Pemrograman Golang - curl example"></p>
 <p>Coba test juga menggunakan browser, jika menggunakan chrome maka akan muncul warning <code>NET::ERR_CERT_AUTHORITY_INVALID</code> Klik <strong>Advanced &#x2192; Proceed to localhost (unsafe)</strong>.</p>
-<p><img src="images/C.22_4_browser_example.png" alt="browser example"></p>
+<p><img src="images/C.22_4_browser_example.png" alt="Dasar Pemrograman Golang - browser example"></p>
 <p>Warning <code>NET::ERR_CERT_AUTHORITY_INVALID</code> muncul ketika mengakses sebuah website menggunakan protokol <code>https</code> yang dimana website ini mengaplikasikan <strong>self-signed certificate</strong>, bukan menggunakan certificate yang sudah diverifikasi oleh CA.</p>
 <hr>
 <div class="source-code-link">
@@ -2050,7 +2050,7 @@ $ openssl ecparam -genkey -name secp384r1 -out server.key
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.22. HTTPS/TLS Web Server","level":"5.1.21","depth":2,"next":{"title":"C.23. HTTP/2 & HTTP/2 Server Push","level":"5.1.22","depth":2,"path":"C-23-http2-server-push.md","ref":"C-23-http2-server-push.md","articles":[]},"previous":{"title":"C.21. Parse & Generate XML (etree)","level":"5.1.20","depth":2,"path":"C-21-xml-parser.md","ref":"C-21-xml-parser.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"C-22-https-tls.md","mtime":"2020-10-10T11:07:10.844Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:08:01.062Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.22. HTTPS/TLS Web Server","level":"5.1.21","depth":2,"next":{"title":"C.23. HTTP/2 & HTTP/2 Server Push","level":"5.1.22","depth":2,"path":"C-23-http2-server-push.md","ref":"C-23-http2-server-push.md","articles":[]},"previous":{"title":"C.21. Parse & Generate XML (etree)","level":"5.1.20","depth":2,"path":"C-21-xml-parser.md","ref":"C-21-xml-parser.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"C-22-https-tls.md","mtime":"2020-10-10T11:24:47.165Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:25:39.765Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -77,7 +77,7 @@
     
 
 
-    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.110823"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
+    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.112610"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
     <body>
         
 <div class="book">
@@ -1923,7 +1923,7 @@
 </blockquote>
 <p>Sebelum memulai, ada satu hal penting yang perlu dipersiapkan, yaitu sebuah server dengan FTP server ter-install. Jika tidak ada, bisa menggunakan library <a href="https://github.com/goftp/ftpd" target="_blank">ftpd</a> untuk set up ftp server di local (untuk keperluan belajar).</p>
 <p>Dalam server tersebut, siapkan beberapa file dan folder dengan struktur sebagai berikut.</p>
-<p><img src="images/C.26_1_ftp_folder_structure.png" alt="FTP folder structure"></p>
+<p><img src="images/C.26_1_ftp_folder_structure.png" alt="Dasar Pemrograman Golang - FTP folder structure"></p>
 <ul>
 <li>File <code>test1.txt</code>, isi dengan apapun.</li>
 <li>File <code>test2.txt</code>, isi dengan apapun.</li>
@@ -1993,7 +1993,7 @@ entries, err := conn.List(<span class="hljs-string">&quot;.&quot;</span>)
 }
 </code></pre>
 <p>Jalankan aplikasi lihat hasilnya.</p>
-<p><img src="images/C.26_2_list_assets.png" alt="List files"></p>
+<p><img src="images/C.26_2_list_assets.png" alt="Dasar Pemrograman Golang - List files"></p>
 <p>Jika dibandingkan dengan file yang ada di server, ada satu yang tidak muncul, yaitu <code>somefolder/test3.txt</code>. Hal ini dikarenakan file yang di-list adalah yang ada pada <code>&quot;.&quot;</code> atau <strong>current path</strong>. File <code>test3.txt</code> berada di dalam sub folder <code>somefolder</code>.</p>
 <h2 id="c263-pindah-ke-folder-tertentu-menggunakan-changedir">C.26.3. Pindah Ke Folder Tertentu Menggunakan <code>.ChangeDir()</code></h2>
 <p>Selanjutnya, kita akan coba masuk ke folder <code>somefolder</code>, lalu menampilkan isinya. Gunakan method <code>.ChangeDir()</code>, sisipkan path folder tujuan sebagai argument.</p>
@@ -2014,7 +2014,7 @@ err = conn.ChangeDir(<span class="hljs-string">&quot;./somefolder&quot;</span>)
 }
 </code></pre>
 <p>Jalankan aplikasi, lihat lagi hasilnya.</p>
-<p><img src="images/C.26_3_list_assets_subfolder.png" alt="List files"></p>
+<p><img src="images/C.26_3_list_assets_subfolder.png" alt="Dasar Pemrograman Golang - List files"></p>
 <h2 id="c264-pindah-ke-parent-folder-menggunakan-changedirtoparent">C.26.4. Pindah Ke Parent Folder Menggunakan <code>.ChangeDirToParent()</code></h2>
 <p>Gunakan method <code>.ChangeDirToParent()</code> untuk mengubah aktif path ke parent path. Tambahkan kode berikut, agar current path <code>./somefolder</code> kembali menjadi <code>.</code>.</p>
 <pre><code class="lang-go">err = conn.ChangeDirToParent()
@@ -2063,7 +2063,7 @@ fmt.Println(<span class="hljs-string">&quot; -&gt;&quot;</span>, fileTest2Path, 
 <p>Jangan lupa juga untuk meng-close objek bertipe <code>*ftp.Response</code>, setelah dibaca isinya.</p>
 </blockquote>
 <p>Jalankan aplikasi, cek hasilnya.</p>
-<p><img src="images/C.26_4_read_file.png" alt="List files"></p>
+<p><img src="images/C.26_4_read_file.png" alt="Dasar Pemrograman Golang - List files"></p>
 <p>Bisa dilihat, isi file yang dibaca adalah aslinya.</p>
 <h2 id="c266-download-file">C.26.6. Download File</h2>
 <p>Proses download secara teknis adalah memindahkan <strong>isi file</strong> dari remote server ke local server. Di local, dibuatkan sebuah file yang nantinya akan menampung isi file dari remote server yang di-transfer. Sebarapa cepat proses download berlangsung sangat tergantung kepada besar file yang isinya sedang di transfer (dan beberapa faktor lainnya).</p>
@@ -2098,9 +2098,9 @@ fmt.Println(<span class="hljs-string">&quot;File downloaded to&quot;</span>, des
 <p>Operasi di atas membutuhkan dua package lain, yaitu <code>io</code> dan <code>os</code>, maka import kedua package tersebut.</p>
 </blockquote>
 <p>Jalankan aplikasi, coba cek md5 sum dari kedua file, harusnya sama.</p>
-<p><img src="images/C.26_5_download_file.png" alt="Download file"></p>
+<p><img src="images/C.26_5_download_file.png" alt="Dasar Pemrograman Golang - Download file"></p>
 <p>Coba buka <code>downloaded-movie.mp4</code>, jika proses transfer sukses maka pasti bisa dibuka.</p>
-<p><img src="images/C.26_6_movie_preview.png" alt="Preview movie"></p>
+<p><img src="images/C.26_6_movie_preview.png" alt="Dasar Pemrograman Golang - Preview movie"></p>
 <h2 id="c267-upload-file">C.26.7. Upload File</h2>
 <p>Upload file adalah kebalikan dari download file. File dari lokal ditransfer ke server. Mari langsung kita praktekan.</p>
 <p>Pertama buka file tujuan menggunakan <code>os.Open()</code>. Lalu panggil method <code>.Store()</code> milik <code>conn</code>, sisipkan path file tujuan remote server sebagai parameter pertama, lalu objek file di local sebagai parameter kedua.</p>
@@ -2132,7 +2132,7 @@ fmt.Println(<span class="hljs-string">&quot;File&quot;</span>, sourceFile, <span
 }
 </code></pre>
 <p>Jalankan aplikasi, cek hasilnya. Untuk memvalidasi bahwa file di client dan di server sama, bandingkan md5 sum kedua file.</p>
-<p><img src="images/C.26_7_upload_file.png" alt="Upload file"></p>
+<p><img src="images/C.26_7_upload_file.png" alt="Dasar Pemrograman Golang - Upload file"></p>
 <hr>
 <ul>
 <li><a href="https://github.com/goftp/ftpd" target="_blank">ftpd</a>, by Lunny Xiao</li>
@@ -2186,7 +2186,7 @@ fmt.Println(<span class="hljs-string">&quot;File&quot;</span>, sourceFile, <span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.26. FTP","level":"5.1.25","depth":2,"next":{"title":"C.27. SSH & SFTP","level":"5.1.26","depth":2,"path":"C-27-golang-ssh-sftp.md","ref":"C-27-golang-ssh-sftp.md","articles":[]},"previous":{"title":"C.25. Secure & Insecure Client HTTP Request","level":"5.1.24","depth":2,"path":"C-25-secure-insecure-client-http-request.md","ref":"C-25-secure-insecure-client-http-request.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"C-26-golang-ftp.md","mtime":"2020-10-10T11:07:10.848Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:08:01.062Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.26. FTP","level":"5.1.25","depth":2,"next":{"title":"C.27. SSH & SFTP","level":"5.1.26","depth":2,"path":"C-27-golang-ssh-sftp.md","ref":"C-27-golang-ssh-sftp.md","articles":[]},"previous":{"title":"C.25. Secure & Insecure Client HTTP Request","level":"5.1.24","depth":2,"path":"C-25-secure-insecure-client-http-request.md","ref":"C-25-secure-insecure-client-http-request.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"C-26-golang-ftp.md","mtime":"2020-10-10T11:24:47.165Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:25:39.765Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

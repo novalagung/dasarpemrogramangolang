@@ -77,7 +77,7 @@
     
 
 
-    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.110823"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
+    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.112610"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
     <body>
         
 <div class="book">
@@ -1945,7 +1945,7 @@
 }
 </code></pre>
 <p>Fungsi <code>time.Now()</code> mengembalikan objek <code>time.Time</code> dengan informasi adalah date-time tepat ketika statement tersebut dijalankan. Bisa dilihat pada saat di-print muncul informasi date-time sesuai dengan tanggal program tersebut dieksekusi.</p>
-<p><img src="images/A_time_parsing_format_1_time_instance.png" alt="Penggunaan time"></p>
+<p><img src="images/A_time_parsing_format_1_time_instance.png" alt="Dasar Pemrograman Golang - Penggunaan time"></p>
 <p>Fungsi <code>time.Date()</code> digunakan untuk membuat objek <code>time.Time</code> baru yang informasi date-time-nya kita tentukan sendiri. Fungsi ini memiliki 8 buah parameter <em>mandatory</em> dengan skema bisa dilihat di kode berikut:</p>
 <pre><code class="lang-go">time.Date(tahun, bulan, tanggal, jam, menit, detik, nanodetik, timezone)
 </code></pre>
@@ -2082,7 +2082,7 @@ date, _ = time.Parse(layoutFormat, value)
 fmt.Println(value, <span class="hljs-string">&quot;\t\t-&gt;&quot;</span>, date.String())
 <span class="hljs-comment">// 2015-09-02 00:00:00 +0700 WIB</span>
 </code></pre>
-<p><img src="images/A_time_parsing_format_2_time_parse.png" alt="Contoh penggunaan **time.Parse**"></p>
+<p><img src="images/A_time_parsing_format_2_time_parse.png" alt="Dasar Pemrograman Golang - Contoh penggunaan **time.Parse**"></p>
 <p>Layout format date-time di Go berbeda dibanding bahasa lain. Umumnya layout format yang digunakan adalah seperti <code>&quot;DD/MM/YYYY&quot;</code>, di Go tidak.</p>
 <p>Go memiliki standar layout format yang cukup unik, contohnya seperti pada kode di atas <code>&quot;2006-01-02 15:04:05&quot;</code>. Go menggunakan <code>2006</code> untuk parsing tahun, bukan <code>YYYY</code>; <code>01</code> untuk parsing bulan; <code>02</code> untuk parsing hari; dan seterusnya. Detailnya bisa dilihat di tabel berikut.</p>
 <table>
@@ -2298,7 +2298,7 @@ fmt.Println(<span class="hljs-string">&quot;dateS2&quot;</span>, dateS2)
 <span class="hljs-comment">// 2015-09-02T08:00:00+07:00</span>
 </code></pre>
 <p>Variabel <code>date</code> di atas berisikan hasil parsing data dengan format <code>time.RFC822</code>. Data tersebut kemudian diformat sebagai string 2 kali dengan layout format berbeda.</p>
-<p><img src="images/A_time_parsing_format_3_time_format.png" alt="Contoh penggunaan method `Format()`"></p>
+<p><img src="images/A_time_parsing_format_3_time_format.png" alt="Dasar Pemrograman Golang - Contoh penggunaan method `Format()`"></p>
 <h2 id="a406-handle-error-parsing-timetime">A.40.6. Handle Error Parsing <code>time.Time</code></h2>
 <p>Ketika parsing <code>string</code> ke <code>time.Time</code>, sangat memungkinkan bisa terjadi error karena struktur data yang akan di-parse tidak sesuai layout format yang digunakan. Error tidaknya parsing bisa diketahui lewat nilai kembalian ke-2 fungsi <code>time.Parse()</code>. Berikut adalah contoh penerapannya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> date, err = time.Parse(<span class="hljs-string">&quot;06 Jan 15&quot;</span>, <span class="hljs-string">&quot;02 Sep 15 08:00 WIB&quot;</span>)
@@ -2311,7 +2311,7 @@ fmt.Println(<span class="hljs-string">&quot;dateS2&quot;</span>, dateS2)
 fmt.Println(date)
 </code></pre>
 <p>Kode di atas menghasilkan error karena format tidak sesuai dengan skema data yang akan diparsing. Layout format yang seharusnya digunakan adalah <code>06 Jan 15 03:04 MST</code>.</p>
-<p><img src="images/A_time_parsing_format_4_error_parse.png" alt="Error parsing time.Time"></p>
+<p><img src="images/A_time_parsing_format_4_error_parse.png" alt="Dasar Pemrograman Golang - Error parsing time.Time"></p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
@@ -2360,7 +2360,7 @@ fmt.Println(date)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"next":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"path":"A-timer-ticker-scheduler.md","ref":"A-timer-ticker-scheduler.md","articles":[]},"previous":{"title":"A.39. Random","level":"3.1.39","depth":2,"path":"A-random.md","ref":"A-random.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-time-parsing-format.md","mtime":"2020-10-10T11:07:10.844Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:08:01.062Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"next":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"path":"A-timer-ticker-scheduler.md","ref":"A-timer-ticker-scheduler.md","articles":[]},"previous":{"title":"A.39. Random","level":"3.1.39","depth":2,"path":"A-random.md","ref":"A-random.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-time-parsing-format.md","mtime":"2020-10-10T11:24:47.161Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:25:39.765Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

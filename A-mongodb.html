@@ -77,7 +77,7 @@
     
 
 
-    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.110823"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
+    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.112610"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
     <body>
         
 <div class="book">
@@ -2012,7 +2012,7 @@ db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).insertOne
 db.Collection(<span class="hljs-string">&quot;student&quot;</span>).InsertOne(ctx, student{ name: <span class="hljs-string">&quot;Wick&quot;</span>, Grade: <span class="hljs-number">2</span>})
 </code></pre>
 <p>Perlu diketahui, bahwa di mongo-go-driver setiap operasi biasanya membutuhkan objek context untuk disisipkan sebagai parameter pertama. Pada contoh di atas kita gunakan variabel <code>ctx</code> yang sudah dideklarasikan sebelumnya.</p>
-<p><img src="images/A_mongodb_1_insert.png" alt="Insert mongo"></p>
+<p><img src="images/A_mongodb_1_insert.png" alt="Dasar Pemrograman Golang - Insert mongo"></p>
 <h2 id="a573-membaca-data">A.57.3. Membaca Data</h2>
 <p>Method <code>.Find()</code> digunakan untuk membaca atau mencari data. Method ini mengembalikan objek cursor, objek ini harus digunakan dalam perulangan untuk mengambil data yang ditemukan.</p>
 <p>Dalam pencarian, sisipkan query atau filter sebagai parameter ke-dua method <code>.Find()</code>.</p>
@@ -2052,7 +2052,7 @@ db.Collection(<span class="hljs-string">&quot;student&quot;</span>).InsertOne(ct
 <p>Query selector ditulis dalam tipe <code>bson.M</code>. Tipe ini sebenarnya adalah alias dari <code>map[string]interface{}</code>.</p>
 <p>Cara untuk mendapatkan semua rows hasil pencarian kursor adalah dengan mengiterasi method <code>.Next()</code> dengan didalamnya method <code>.Decode()</code> dipanggil untuk retrieve datanya. Setelah itu data yang sudah terampil di-append ke slice.</p>
 <p>Selain method <code>.Find()</code> ada juga <code>.FindOne()</code>, silakan cek dokumentasi lebih jelasnya.</p>
-<p><img src="images/A_mongodb_2_find.png" alt="Pencarian data"></p>
+<p><img src="images/A_mongodb_2_find.png" alt="Dasar Pemrograman Golang - Pencarian data"></p>
 <p>Berikut adalah skema perbandingan contoh operasi get data menggunakan mongo query vs mongo-go-driver:</p>
 <pre><code class="lang-js"><span class="hljs-comment">// mongodb</span>
 db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).find({<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>})
@@ -2089,7 +2089,7 @@ db.Collection(<span class="hljs-string">&quot;student&quot;</span>).Find(ctx, bs
 }
 </code></pre>
 <p>Jalankan kode di atas, lalu cek lewat Mongo GUI apakah data berubah.</p>
-<p><img src="images/A_mongodb_3_update.png" alt="Update data"></p>
+<p><img src="images/A_mongodb_3_update.png" alt="Dasar Pemrograman Golang - Update data"></p>
 <p>Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.</p>
 <pre><code class="lang-js"><span class="hljs-comment">// mongodb</span>
 db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).update({<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>}, { <span class="hljs-string">&quot;$set&quot;</span>: {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>, <span class="hljs-string">&quot;Grade&quot;</span>: <span class="hljs-number">2</span>} })
@@ -2120,7 +2120,7 @@ db.Collection(<span class="hljs-string">&quot;student&quot;</span>).UpdateOne(ct
 }
 </code></pre>
 <p>Hasil dari kode di atas, 2 data yang sebelumnya sudah di-insert kini tinggal satu saja.</p>
-<p><img src="images/A_mongodb_4_remove.png" alt="Menghapus data"></p>
+<p><img src="images/A_mongodb_4_remove.png" alt="Dasar Pemrograman Golang - Menghapus data"></p>
 <p>Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.</p>
 <pre><code class="lang-js"><span class="hljs-comment">// mongodb</span>
 db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).delete({<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John Wick&quot;</span>})
@@ -2222,7 +2222,7 @@ result := <span class="hljs-built_in">make</span>([]bson.M, <span class="hljs-nu
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"next":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"path":"A-unit-test.md","ref":"A-unit-test.md","articles":[]},"previous":{"title":"A.56. SQL","level":"3.1.56","depth":2,"path":"A-sql.md","ref":"A-sql.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-mongodb.md","mtime":"2020-10-10T11:07:10.844Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:08:01.062Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"next":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"path":"A-unit-test.md","ref":"A-unit-test.md","articles":[]},"previous":{"title":"A.56. SQL","level":"3.1.56","depth":2,"path":"A-sql.md","ref":"A-sql.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-mongodb.md","mtime":"2020-10-10T11:24:47.157Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:25:39.765Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -77,7 +77,7 @@
     
 
 
-    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.110823"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
+    <script data-ad-client="ca-pub-1417781814120840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="stylesheet" href="/adjustment.css?v=2.2020.10.10.112610"><script async defer src="https://buttons.github.io/buttons.js"></script><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript></head>
     <body>
         
 <div class="book">
@@ -1926,7 +1926,7 @@
 }
 </code></pre>
 <p>Perulangan di atas hanya akan berjalan ketika variabel <code>i</code> bernilai dibawah <code>5</code>, dengan ketentuan setiap kali perulangan, nilai variabel <code>i</code> akan di-iterasi atau ditambahkan 1 (<code>i++</code> artinya ditambah satu, sama seperti <code>i = i + 1</code>). Karena <code>i</code> pada awalnya bernilai 0, maka perulangan akan berlangsung 5 kali, yaitu ketika <code>i</code> bernilai 0, 1, 2, 3, dan 4.</p>
-<p><img src="images/A_perulangan_1_for.png" alt="Penggunaan `for`"></p>
+<p><img src="images/A_perulangan_1_for.png" alt="Dasar Pemrograman Golang - Penggunaan `for`"></p>
 <h2 id="a142-penggunaan-keyword-for-dengan-argumen-hanya-kondisi">A.14.2. Penggunaan Keyword <code>for</code> Dengan Argumen Hanya Kondisi</h2>
 <p>Cara ke-2 adalah dengan menuliskan kondisi setelah keyword <code>for</code> (hanya kondisi). Deklarasi dan iterasi variabel counter tidak dituliskan setelah keyword, hanya kondisi perulangan saja. Konsepnya mirip seperti <code>while</code> milik bahasa pemrograman lain.</p>
 <p>Kode berikut adalah contoh <code>for</code> dengan argumen hanya kondisi (seperti <code>if</code>), output yang dihasilkan sama seperti penerapan for cara pertama.</p>
@@ -1975,7 +1975,7 @@
 <li>Ketika <code>i</code> lebih besar dari 8, maka perulangan akan berhenti.</li>
 <li>Nilai <code>i</code> ditampilkan.</li>
 </ol>
-<p><img src="images/A_perulangan_2_for_break_continue.png" alt="Penerapan keyword `for`, `break`, dan `continue`"></p>
+<p><img src="images/A_perulangan_2_for_break_continue.png" alt="Dasar Pemrograman Golang - Penerapan keyword `for`, `break`, dan `continue`"></p>
 <h2 id="a146-perulangan-bersarang">A.14.6. Perulangan Bersarang</h2>
 <p>Tak hanya seleksi kondisi yang bisa bersarang, perulangan juga bisa. Cara pengaplikasiannya kurang lebih sama, tinggal tulis blok statement perulangan didalam perulangan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++ {
@@ -1987,7 +1987,7 @@
 }
 </code></pre>
 <p>Pada kode di atas, untuk pertama kalinya fungsi <code>fmt.Println()</code> dipanggil tanpa disisipkan parameter. Cara seperti ini bisa digunakan untuk menampilkan baris baru. Kegunaannya sama seperti output dari statement <code>fmt.Print(&quot;\n&quot;)</code>.</p>
-<p><img src="images/A_perulangan_3_nested_for.png" alt="Perulangan bersarang"></p>
+<p><img src="images/A_perulangan_3_nested_for.png" alt="Dasar Pemrograman Golang - Perulangan bersarang"></p>
 <h2 id="a147-pemanfaatan-label-dalam-perulangan">A.14.7. Pemanfaatan Label Dalam Perulangan</h2>
 <p>Di perulangan bersarang, <code>break</code> dan <code>continue</code> akan berlaku pada blok perulangan dimana ia digunakan saja. Ada cara agar kedua keyword ini bisa tertuju pada perulangan terluar atau perulangan tertentu, yaitu dengan memanfaatkan teknik pemberian <strong>label</strong>.</p>
 <p>Program untuk memunculkan matriks berikut merupakan contoh penerapan label perulangan.</p>
@@ -2003,7 +2003,7 @@
 </code></pre>
 <p>Tepat sebelum keyword <code>for</code> terluar, terdapat baris kode <code>outerLoop:</code>. Maksud dari kode tersebut adalah disiapkan sebuah label bernama <code>outerLoop</code> untuk <code>for</code> dibawahnya. Nama label bisa diganti dengan nama lain (dan harus diakhiri dengan tanda titik dua atau <em>colon</em> (<code>:</code>) ).</p>
 <p>Pada <code>for</code> bagian dalam, terdapat seleksi kondisi untuk pengecekan nilai <code>i</code>. Ketika nilai tersebut sama dengan <code>3</code>, maka <code>break</code> dipanggil dengan target adalah perulangan yang dilabeli <code>outerLoop</code>, perulangan tersebut akan dihentikan.</p>
-<p><img src="images/A_perulangan_4_for_label.png" alt="Penerapan label dalam perulangan"></p>
+<p><img src="images/A_perulangan_4_for_label.png" alt="Dasar Pemrograman Golang - Penerapan label dalam perulangan"></p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
@@ -2052,7 +2052,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"next":{"title":"A.15. Array","level":"3.1.15","depth":2,"path":"A-array.md","ref":"A-array.md","articles":[]},"previous":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"path":"A-seleksi-kondisi.md","ref":"A-seleksi-kondisi.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-perulangan.md","mtime":"2020-10-10T11:07:10.844Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:08:01.062Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"next":{"title":"A.15. Array","level":"3.1.15","depth":2,"path":"A-array.md","ref":"A-array.md","articles":[]},"previous":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"path":"A-seleksi-kondisi.md","ref":"A-seleksi-kondisi.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-perulangan.md","mtime":"2020-10-10T11:24:47.161Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T11:25:39.765Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
