@@ -120,10 +120,8 @@ func postAdjustment() {
 		htmlString = strings.Replace(htmlString, imagesAltToFind, imagesAltReplacement, -1)
 
 		// ==== disqus lazy load
-		originalDisqusJS := "./_book/gitbook/gitbook-plugin-disqus/plugin.js"
-		lazyLoadedDisqusJS := "./gitbook-plugin-disqus.js"
-		os.Remove(originalDisqusJS)
-		os.Rename(lazyLoadedDisqusJS, originalDisqusJS)
+		disqusJSBuf, _ := ioutil.ReadFile("./gitbook-plugin-disqus.js")
+		ioutil.WriteFile("./_book/gitbook/gitbook-plugin-disqus/plugin.js", disqusJSBuf, 0644)
 
 		// ==== google ads
 		// googleAdsToFind := `</head>`
