@@ -124,7 +124,7 @@ func postAdjustment() {
 		ioutil.WriteFile("./_book/gitbook/gitbook-plugin-disqus/plugin.js", disqusJSBuf, 0644)
 
 		// ==== gitbook assets lazy load
-		cssToLoad = []string{
+		cssToLoad := []string{
 			// "gitbook/style.css",
 			"gitbook/gitbook-plugin-disqus/plugin.css",
 			"gitbook/gitbook-plugin-highlight/website.css",
