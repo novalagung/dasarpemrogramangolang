@@ -6,7 +6,7 @@ require([
 
     function prepareDisqusThreadDOM() {
         var id = "disqus_thread";
-        if ($("#" + id).length) {
+        if ($("#" + id).children().length > 0) {
             return;
         }
 
