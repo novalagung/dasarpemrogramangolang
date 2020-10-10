@@ -126,12 +126,12 @@ func postAdjustment() {
 
 		// ==== gitbook assets lazy load
 		cssToLoad := []string{
-			"gitbook/style.css",
+			// "gitbook/style.css",
 			"gitbook/gitbook-plugin-disqus/plugin.css",
 			"gitbook/gitbook-plugin-highlight/website.css",
 			"gitbook/gitbook-plugin-search/search.css",
 			"gitbook/gitbook-plugin-fontsettings/website.css",
-			`/adjustment.css?v=` + getVersion() + `"`,
+			// `/adjustment.css?v=` + getVersion() + `"`,
 		}
 		for _, cssFileNameToFind := range cssToLoad {
 			cssFileNameReplacement := fmt.Sprintf(`%s" media="print" onload="this.media='all'`, cssFileNameToFind)
