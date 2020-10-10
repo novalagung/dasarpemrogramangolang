@@ -132,7 +132,7 @@ func postAdjustment() {
 			"gitbook/gitbook-plugin-fontsettings/website.css",
 		}
 		for _, cssFileNameToFind := range cssToLoad {
-			cssFileNameReplacement := fmt.Sprintf(`%s" media="print" onload="this.media='all'`, cssFileNameReplacement)
+			cssFileNameReplacement := fmt.Sprintf(`%s" media="print" onload="this.media='all'`, cssFileNameToFind)
 			htmlString = strings.Replace(htmlString, cssFileNameToFind, cssFileNameReplacement, -1)
 		}
 
