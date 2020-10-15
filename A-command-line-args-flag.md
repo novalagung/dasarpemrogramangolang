@@ -108,7 +108,7 @@ Tabel berikut merupakan macam-macam fungsi flag yang tersedia untuk tiap jenis t
 
 Sebenarnya ada 2 cara deklarasi flag yang bisa digunakan, dan cara di atas merupakan cara pertama.
 
-Cara kedua mirip dengan cara pertama, perbedannya adalah kalau di cara pertama nilai pointer flag dikembalikan lalu ditampung variabel; sedangkan pada cara kedua, nilainya diambil lewat parameter pointer.
+Cara kedua mirip dengan cara pertama, perbedannya adalah kalau di cara pertama nilai pointer flag dikembalikan lalu ditampung variabel. sedangkan pada cara kedua, nilainya diambil lewat parameter pointer.
 
 Agar lebih jelas perhatikan contoh berikut.
 
