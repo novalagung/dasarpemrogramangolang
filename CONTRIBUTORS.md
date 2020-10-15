@@ -7,6 +7,7 @@ E-book Dasar Pemrograman Golang adalah proyek *open source*. Siapapun bebas untu
 Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan waktunya untuk membantu pengembangan e-book ini.
 
 - [Acep Saepudin](https://github.com/acepsaepudin)
+- [Adev Saputra](https://github.com/adev22)
 - [Akul Nurislamimanudin](https://github.com/akulnurislam)
 - [Amin Rasul Kamsena](https://github.com/seno-ark)
 - [Andreas Giovani](https://github.com/compatc)

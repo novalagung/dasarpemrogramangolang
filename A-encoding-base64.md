@@ -6,7 +6,7 @@ Ada beberapa cara yang bisa digunakan untuk encode dan decode data, dan di bab i
 
 ## A.46.1. Penerapan Fungsi `EncodeToString()` & `DecodeString()`
 
-Fungsi `EncodeToString()` digunakan untuk encode data dari bentuk string ke base46. Fungsi `DecodeString()` melakukan kebalikan dari `EncodeToString()`. Berikut adalah contoh penerapannya.
+Fungsi `EncodeToString()` digunakan untuk encode data dari bentuk string ke base64. Fungsi `DecodeString()` melakukan kebalikan dari `EncodeToString()`. Berikut adalah contoh penerapannya.
 
 ```go
 package main
@@ -55,7 +55,7 @@ var decodedString = string(decoded)
 fmt.Println(decodedString)
 ```
 
-Fungsi `base64.StdEncoding.EncodedLen(len(data))` menghasilkan informasi lebar data-ketika-sudah-di-encode. Nilai tersebut kemudian ditentukan sebagai lebar alokasi tipe `[]byte` pada variabel `encoded` yang nantinya digunakan untuk menampung hasil encoding.
+Fungsi `base64.StdEncoding.EncodedLen(len(data))` menghasilkan informasi lebar variable `data` ketika sudah di-encode. Nilai tersebut kemudian ditentukan sebagai lebar alokasi tipe `[]byte` pada variabel `encoded` yang nantinya digunakan untuk menampung hasil encoding.
 
 Fungsi `base64.StdEncoding.DecodedLen()` memiliki kegunaan sama dengan `EncodedLen()`, hanya saja digunakan untuk keperluan decoding.
 
