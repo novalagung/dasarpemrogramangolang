@@ -77,7 +77,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/adjustment.css?v=2.2020.10.10.142115"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
+    <link rel="stylesheet" href="gitbook/adjustment.css?v=2.2020.10.15.183312"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
     <body>
         
 <div class="book">
@@ -1937,8 +1937,8 @@
 <p>Selain itu, juga LDAP sering dimanfaatkan dalam implementasi SSO (Single sign-on).</p>
 <h4 id="bind-operation">&#x2022; Bind Operation</h4>
 <p>Operasi bind digunakan untuk otentikasi client ke directory server, dan juga untuk mengubah state otorisasi client tersebut. Operasi bind dilakukan dengan mengirim informasi bind dn dan password.</p>
-<h4 id="directory-server-untuk-testing">&#x2022; Directory Server untuk testing</h4>
-<p>Karena komunikasi adalah client-server maka kita perlu menggunakan salah satu directory server untuk keperluan testing. Beruntung-nya <a href="www.forumsys.com">Forum Systems</a> berbaik hati menyediakan directory server yg bisa diakses secara gratis oleh public, dan di bab ini akan kita menggunakannya. </p>
+<h4 id="directory-server-untuk-testing">&#x2022; Directory Server untuk Testing</h4>
+<p>Karena komunikasi adalah client-server maka kita perlu menggunakan salah satu directory server untuk keperluan testing. Beruntung-nya <a href="http://www.forumsys.com" target="_blank">Forum Systems</a> berbaik hati menyediakan directory server yg bisa diakses secara gratis oleh public, dan di bab ini akan kita menggunakannya. </p>
 <p>Berikut adalah informasi credentials directory server tersebut:</p>
 <pre><code>Server: ldap.forumsys.com  
 Port: 389
@@ -2047,7 +2047,7 @@ http.ListenAndServe(portString, <span class="hljs-literal">nil</span>)
     ldapSearchDN = <span class="hljs-string">&quot;dc=example,dc=com&quot;</span>
 )
 </code></pre>
-<p>3rd party lib <a href="github.com/go-ldap/ldap">https://github.com/go-ldap/ldap</a> v3 kita gunakan untuk melakukan operasi client-server dengan directory server. Silakan <code>go get</code> terlebih dahulu jika belum.</p>
+<p>3rd party lib <a href="https://github.com/go-ldap/ldap" target="_blank">github.com/go-ldap/ldap</a> v3 kita gunakan untuk melakukan operasi client-server dengan directory server. Silakan <code>go get</code> terlebih dahulu jika belum.</p>
 <pre><code class="lang-bash">go get -u github.com/go-ldap/ldap/v3
 </code></pre>
 <p>Beberapa konstanta di atas isinya sesuai dengan credentials directory server test yang di atas sudah kita bahas. Diluar itu ada satu tambahan konstanta, yaitu <code>ldapSearchDN</code>, nantinya kita perlukan dalam melakukan operasi search.</p>
@@ -2197,7 +2197,7 @@ err = l.StartTLS(tlsConfig)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.33. LDAP Authentication","level":"5.1.30","depth":2,"next":{"title":"C.34. SSO SAML (Service Provider)","level":"5.1.31","depth":2,"path":"C-34-golang-sso-saml-sp.md","ref":"C-34-golang-sso-saml-sp.md","articles":[]},"previous":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.29","depth":2,"path":"C-32-golang-jwt.md","ref":"C-32-golang-jwt.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"C-33-golang-ldap-authentication.md","mtime":"2020-10-10T14:19:57.505Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-10T14:20:49.071Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.33. LDAP Authentication","level":"5.1.30","depth":2,"next":{"title":"C.34. SSO SAML (Service Provider)","level":"5.1.31","depth":2,"path":"C-34-golang-sso-saml-sp.md","ref":"C-34-golang-sso-saml-sp.md","articles":[]},"previous":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.29","depth":2,"path":"C-32-golang-jwt.md","ref":"C-32-golang-jwt.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}],"name":""},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"C-33-golang-ldap-authentication.md","mtime":"2020-10-15T18:31:43.990Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-15T18:32:44.376Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
