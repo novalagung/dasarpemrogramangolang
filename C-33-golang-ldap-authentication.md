@@ -30,9 +30,9 @@ Selain itu, juga LDAP sering dimanfaatkan dalam implementasi SSO (Single sign-on
 
 Operasi bind digunakan untuk otentikasi client ke directory server, dan juga untuk mengubah state otorisasi client tersebut. Operasi bind dilakukan dengan mengirim informasi bind dn dan password.
 
-#### • Directory Server untuk testing
+#### • Directory Server untuk Testing
 
-Karena komunikasi adalah client-server maka kita perlu menggunakan salah satu directory server untuk keperluan testing. Beruntung-nya [Forum Systems](www.forumsys.com) berbaik hati menyediakan directory server yg bisa diakses secara gratis oleh public, dan di bab ini akan kita menggunakannya. 
+Karena komunikasi adalah client-server maka kita perlu menggunakan salah satu directory server untuk keperluan testing. Beruntung-nya [Forum Systems](http://www.forumsys.com) berbaik hati menyediakan directory server yg bisa diakses secara gratis oleh public, dan di bab ini akan kita menggunakannya. 
 
 Berikut adalah informasi credentials directory server tersebut:
 
@@ -175,7 +175,7 @@ const (
 )
 ```
 
-3rd party lib [https://github.com/go-ldap/ldap](github.com/go-ldap/ldap) v3 kita gunakan untuk melakukan operasi client-server dengan directory server. Silakan `go get` terlebih dahulu jika belum.
+3rd party lib [github.com/go-ldap/ldap](https://github.com/go-ldap/ldap) v3 kita gunakan untuk melakukan operasi client-server dengan directory server. Silakan `go get` terlebih dahulu jika belum.
 
 ```bash
 go get -u github.com/go-ldap/ldap/v3
