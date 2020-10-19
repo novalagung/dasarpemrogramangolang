@@ -36,16 +36,6 @@ Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi we
 
 Source code contoh-contoh program bisa diunduh di [github.com/novalagung/dasarpemrogramangolang-example](https://github.com/novalagung/dasarpemrogramangolang-example). Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.
 
-## Donasi
-
-Anda juga bisa membantu kami secara finansial lewat donasi di beberapa platform berikut:
-
-<div>
-	<span style="margin-right: 5px;"><a href="https://patreon.com/novalagung" title="Donate via Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
-	<span style="margin-right: 5px;"><a href="https://opencollective.com/novalagung" title="Donate via Collective"><img src="https://img.shields.io/badge/open%20collective-donate-yellow.svg" alt="Open Collective donate button" /></a></span>
-	<span><a href="https://www.paypal.me/novalagung" title="Donate via Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
-</div>
-
 ## Kontribusi
 
 Ebook ini merupakan projek open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Cek juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTORS.html) untuk melihat list kontributor.
