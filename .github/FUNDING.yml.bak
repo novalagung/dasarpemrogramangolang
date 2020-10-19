@@ -1,9 +1,9 @@
 # These are supported funding model platforms
 
 github: # Replace with up to 4 GitHub Sponsors-enabled usernames e.g., [user1, user2]
-patreon: # novalagung
-open_collective: # novalagung
-ko_fi: # novalagung
+patreon: novalagung
+open_collective: novalagung
+ko_fi: novalagung
 tidelift: # Replace with a single Tidelift platform-name/package-name e.g., npm/babel
 community_bridge: # Replace with a single Community Bridge project-name e.g., cloud-foundry
 liberapay: # Replace with a single Liberapay username
