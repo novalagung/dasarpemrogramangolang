@@ -25,8 +25,9 @@ import (
 
 const CONFIG_SMTP_HOST = "smtp.gmail.com"
 const CONFIG_SMTP_PORT = 587
-const CONFIG_EMAIL = "emailanda@gmail.com"
-const CONFIG_PASSWORD = "passwordemailanda"
+const CONFIG_SENDER_NAME = "PT. Makmur Subur Jaya <emailanda@gmail.com>"
+const CONFIG_AUTH_EMAIL = "emailanda@gmail.com"
+const CONFIG_AUTH_PASSWORD = "passwordemailanda"
 
 func main() {
     to := []string{"recipient1@gmail.com", "emaillain@gmail.com"}
@@ -45,7 +46,7 @@ func main() {
 
 Dalam implementasinya, untuk bisa mengirim email, dibutuhkan mail server. Karena kita menggunakan email google, maka mail server milik google digunakan.
 
-Pada kode di atas, konstanta dengan prefix `CONFIG_` adalah konfigurasi yang diperlukan untuk terhubung dengan mail server. Sesuaikan `CONFIG_EMAIL` dan `CONFIG_PASSWORD` dengan akun yang digunakan.
+Pada kode di atas, konstanta dengan prefix `CONFIG_` adalah konfigurasi yang diperlukan untuk terhubung dengan mail server. Isi dari kedua variabel `CONFIG_AUTH_EMAIL` dan `CONFIG_AUTH_PASSWORD` digunakan untuk keperluan otentikasi dengan SMTP server. Silakan sesuaikan dengan akun yang digunakan di masing-masing.
 
 Di dalam fungsi main bisa dilihat, fungsi `sendMail()` dipanggil untuk mengirim email, dengan empat buah parameter disisipkan.
 
@@ -54,27 +55,29 @@ Di dalam fungsi main bisa dilihat, fungsi `sendMail()` dipanggil untuk mengirim 
  - Parameter `subject`, adalah subjek email.
  - Parameter `message`, adalah body email.
 
-Email pada konstanta `CONFIG_EMAIL` menjadi sender email.
+Konstanta `CONFIG_SENDER_NAME` isinya dipergunakan sebagai label header pengirim email. Bisa di-isi dengan label apapun.
+
+> Disini `CONFIG_SENDER_NAME` perannya hanya sebagai label header pengirim email saja. Untuk email otentikasi dengan SMTP server sendiri yang dipergunakan adalah `CONFIG_AUTH_EMAIL`.
 
 OK, selanjutnya buat fungsi `sendMail()` berikut.
 
 ```go
 func sendMail(to []string, cc []string, subject, message string) error {
-    body := "From: " + CONFIG_EMAIL + "\n" +
-        "To: " + strings.Join(to, ",") + "\n" +
-        "Cc: " + strings.Join(cc, ",") + "\n" +
-        "Subject: " + subject + "\n\n" +
-        message
+	body := "From: " + CONFIG_SENDER_NAME + "\n" +
+		"To: " + strings.Join(to, ",") + "\n" +
+		"Cc: " + strings.Join(cc, ",") + "\n" +
+		"Subject: " + subject + "\n\n" +
+		message
 
-    auth := smtp.PlainAuth("", CONFIG_EMAIL, CONFIG_PASSWORD, CONFIG_SMTP_HOST)
-    smtpAddr := fmt.Sprintf("%s:%d", CONFIG_SMTP_HOST, CONFIG_SMTP_PORT)
+	auth := smtp.PlainAuth("", CONFIG_AUTH_EMAIL, CONFIG_AUTH_PASSWORD, CONFIG_SMTP_HOST)
+	smtpAddr := fmt.Sprintf("%s:%d", CONFIG_SMTP_HOST, CONFIG_SMTP_PORT)
 
-    err := smtp.SendMail(smtpAddr, auth, CONFIG_EMAIL, append(to, cc...), []byte(body))
-    if err != nil {
-        return err
-    }
+	err := smtp.SendMail(smtpAddr, auth, CONFIG_AUTH_EMAIL, append(to, cc...), []byte(body))
+	if err != nil {
+		return err
+	}
 
-    return nil
+	return nil
 }
 ```
 
@@ -83,7 +86,8 @@ Fungsi `sendMail()` digunakan untuk mengirim email. Empat data yang disisipkan p
 Statement yang ditampung oleh `body` akan menghasilkan string berikut (formatnya adalah baku).
 
 ```
-From: recipient1@gmail.com, emaillain@gmail.com
+From: PT. Makmur Subur Jaya <emailanda@gmail.com>
+To: recipient1@gmail.com, emaillain@gmail.com
 Cc: tralalala@gmail.com
 Subject: Test mail
 
@@ -94,7 +98,7 @@ Pengiriman email dilakukan lewat `smtp.SendMail()`. Dalam pemanggilannya 5 buah 
 
  - Parameter ke-1, `smtpAddr`, merupakan kombinasi host dan port mail server.
  - Parameter ke-2, `auth`, menampung credentials untuk keperluan otentikasi ke mail server. Objek ini dicetak lewat `smtp.PlainAuth()`.
- - Parameter ke-3, `CONFIG_EMAIL`, adalah alamat email yang digunakan untuk mengirim email.
+ - Parameter ke-3, `CONFIG_AUTH_EMAIL`, adalah alamat email yang digunakan untuk mengirim email.
  - Parameter ke-4, Isinya adalah semua email tujuan, termasuk `Cc`.
  - Parameter ke-5, isinya `body` email.
 
@@ -134,23 +138,24 @@ import (
 
 const CONFIG_SMTP_HOST = "smtp.gmail.com"
 const CONFIG_SMTP_PORT = 587
-const CONFIG_EMAIL = "emailanda@gmail.com"
-const CONFIG_PASSWORD = "passwordemailanda"
+const CONFIG_SENDER_NAME = "PT. Makmur Subur Jaya <emailanda@gmail.com>"
+const CONFIG_AUTH_EMAIL = "emailanda@gmail.com"
+const CONFIG_AUTH_PASSWORD = "passwordemailanda"
 
 func main() {
-    mailer := gomail.NewMessage()
-    mailer.SetHeader("From", CONFIG_EMAIL)
-    mailer.SetHeader("To", "recipient1@gmail.com", "emaillain@gmail.com")
-    mailer.SetAddressHeader("Cc", "tralalala@gmail.com", "Tra Lala La")
-    mailer.SetHeader("Subject", "Test mail")
-    mailer.SetBody("text/html", "Hello, <b>have a nice day</b>")
-    mailer.Attach("./sample.png")
+	mailer := gomail.NewMessage()
+	mailer.SetHeader("From", CONFIG_SENDER_NAME)
+	mailer.SetHeader("To", "recipient1@gmail.com", "emaillain@gmail.com")
+	mailer.SetAddressHeader("Cc", "tralalala@gmail.com", "Tra Lala La")
+	mailer.SetHeader("Subject", "Test mail")
+	mailer.SetBody("text/html", "Hello, <b>have a nice day</b>")
+	mailer.Attach("./sample.png")
 
     dialer := gomail.NewDialer(
         CONFIG_SMTP_HOST,
         CONFIG_SMTP_PORT,
-        CONFIG_EMAIL,
-        CONFIG_PASSWORD,
+        CONFIG_AUTH_EMAIL,
+        CONFIG_AUTH_PASSWORD,
     )
 
     err := dialer.DialAndSend(mailer)
@@ -169,6 +174,18 @@ Pada contoh kali ini email isinya adalah HTML. Gunakan MIME html pada parameter 
 Jalankan aplikasi, lalu cek hasilnya email yang dikirim di inbox.
 
 ![Mail with attachment](images/C.16_4_mail_with_attachment.png)
+
+## C.16.3. Kirim Email dengan Konfigurasi SMTP Relay / No Auth / Tanpa Otentikasi
+
+Cara untuk mengirim email menggunakan konfigurasi SMTP relay atau *No Auth* sangatlah mudah lewat library gomail.v2.
+
+Cukup lakukan sedikit modifikasi berikut pada kode yang sudah dibuat. Pada inisialisasi object `dialer` ubah statement-nya menjadi berikut:
+
+```go
+dialer := &gomail.Dialer{Host: CONFIG_SMTP_HOST, Port: CONFIG_SMTP_PORT}
+```
+
+Daaaaannnnn ... cukup itu saja penyesuaiannya agar bisa kirim email via konfigurasi SMTP relay :-)
 
 ---
 
