@@ -177,7 +177,7 @@ func postAdjustment() {
 		// htmlString = strings.Replace(htmlString, infoBannerToFind, infoBannerReplacement, -1)
 
 		// ==== update file
-		err = ioutil.WriteFile(path, []byte(htmlString), info.Mode())
+		err = ioutil.WriteFile(path, []byte(strings.TrimSpace(htmlString)), info.Mode())
 		if err != nil {
 			return err
 		}
