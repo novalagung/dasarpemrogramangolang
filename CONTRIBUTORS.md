@@ -14,6 +14,7 @@ Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan wakt
 - [Burhanudin Yahya](https://github.com/burhanudinyahya)
 - [cacing69](https://github.com/cacing69)
 - [Edi Santoso](https://github.com/repodevs)
+- [Fadhil Riyanto](https://github.com/fadhil-riyanto)
 - [Faizar Septiawan](https://github.com/icarrr)
 - [Ganjar Gingin Tahyudin](https://github.com/zarszz)
 - [Gusman Widodo](https://github.com/gusmanwidodo)
