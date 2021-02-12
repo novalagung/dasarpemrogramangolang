@@ -13,6 +13,7 @@ Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan wakt
 - [Andreas Giovani](https://github.com/compatc)
 - [Burhanudin Yahya](https://github.com/burhanudinyahya)
 - [cacing69](https://github.com/cacing69)
+- [Dwi Hujianto](https://github.com/dwihujianto)
 - [Edi Santoso](https://github.com/repodevs)
 - [Fadhil Riyanto](https://github.com/fadhil-riyanto)
 - [Faizar Septiawan](https://github.com/icarrr)

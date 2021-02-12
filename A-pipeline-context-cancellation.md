@@ -196,7 +196,7 @@ import (
 
 #### • Tambahkan definisi konstanta timeout
 
-Disini saya tentukan timeout adalah 3 menit. Nantinya kita akan modifikasi angka timeout untuk keperluan testing.
+Disini saya tentukan timeout adalah 3 detik. Nantinya kita akan modifikasi angka timeout untuk keperluan testing.
 
 ```go
 const timeoutDuration = 3 * time.Second
