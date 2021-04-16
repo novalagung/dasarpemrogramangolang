@@ -50,10 +50,10 @@ data["one"] = 1
 Nilai variabel bertipe map bisa didefinisikan di awal, caranya dengan menambahkan kurung kurawal setelah tipe data, lalu menuliskan key dan value didalamnya. Cara ini sekilas mirip dengan definisi nilai array/slice namun dalam bentuk key-value.
 
 ```go
-// cara vertikal
+// cara horizontal
 var chicken1 = map[string]int{"januari": 50, "februari": 40}
 
-// cara horizontal
+// cara vertical
 var chicken2 = map[string]int{
     "januari":  50,
     "februari": 40,
@@ -166,7 +166,7 @@ Dalam `[]map[string]string`, tiap elemen bisa saja memiliki key yang berbeda-bed
 var data = []map[string]string{
 	{"name": "chicken blue", "gender": "male", "color": "brown"},
 	{"address": "mangga street", "id": "k001"},
-	{"community": "chicken lovers"}
+	{"community": "chicken lovers"},
 }
 ```
 
