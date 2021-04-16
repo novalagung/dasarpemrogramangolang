@@ -4,7 +4,7 @@ Error merupakan topik yang sangat penting dalam pemrograman Go. Di bagian ini ki
 
 ## A.37.1. Pemanfaatan Error
 
-`error` merupakan sebuah tipe. Error memiliki memiliki 1 buah property berupa method `Error()`, method ini mengembalikan detail pesan error dalam string. Error termasuk tipe yang isinya bisa `nil`.
+`error` merupakan sebuah tipe. Error memiliki 1 buah property berupa method `Error()`, method ini mengembalikan detail pesan error dalam string. Error termasuk tipe yang isinya bisa `nil`.
 
 Di Go, banyak sekali fungsi yang mengembalikan nilai balik lebih dari satu. Biasanya, salah satu kembalian adalah bertipe `error`. Contohnya seperti pada fungsi `strconv.Atoi()`. Fungsi tersebut digunakan untuk konversi data string menjadi numerik. Fungsi ini mengembalikan 2 nilai balik. Nilai balik pertama adalah hasil konversi, dan nilai balik kedua adalah `error`. Ketika konversi berjalan mulus, nilai balik kedua akan bernilai `nil`. Sedangkan ketika konversi gagal, penyebabnya bisa langsung diketahui dari error yang dikembalikan.
 
