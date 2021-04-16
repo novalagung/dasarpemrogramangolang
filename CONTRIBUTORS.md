@@ -11,6 +11,7 @@ Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan wakt
 - [Akul Nurislamimanudin](https://github.com/akulnurislam)
 - [Amin Rasul Kamsena](https://github.com/seno-ark)
 - [Andreas Giovani](https://github.com/compatc)
+- [Arian Saputra](https://github.com/Rhyanz46)
 - [Burhanudin Yahya](https://github.com/burhanudinyahya)
 - [cacing69](https://github.com/cacing69)
 - [Dwi Hujianto](https://github.com/dwihujianto)
