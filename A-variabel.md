@@ -104,7 +104,7 @@ lastName = "ethan"
 lastName = "bourne"
 ```
 
-> Perlu diketahu, deklarasi menggunakan `:=` hanya bisa dilakukan di dalam blok fungsi.
+> Perlu diketahui, deklarasi menggunakan `:=` hanya bisa dilakukan di dalam blok fungsi.
 
 ## A.9.4. Deklarasi Multi Variabel
 
