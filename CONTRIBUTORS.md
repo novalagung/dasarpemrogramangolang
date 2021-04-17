@@ -24,6 +24,7 @@ Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan wakt
 - [Ibnul Mutaki](https://github.com/cacing69)
 - [Ma'mur Rezeki](https://github.com/erzqy)
 - [MH Rohman Masyhar](https://github.com/rohmanhm)
+- [Muhammad Faris 'Afif](https://github.com/muhfaris)
 - [Mulia Nasution](https://github.com/mul14)
 - [Noval Agung Prayogo](https://github.com/novalagung)
 - [Nuevo Querto](https://github.com/NuevoQuerto)
