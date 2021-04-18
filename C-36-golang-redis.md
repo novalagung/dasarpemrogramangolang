@@ -1,8 +1,8 @@
-# C.35. Redis
+# C.36. Redis
 
 Pada bab ini kita akan belajar cara menggunakan Redis, dari cara koneksi Redis, cara menyimpan data dan cara mengambil data. Untuk command lain lebih lengkap bisa di lihat di [Command Redis](https://redis.io/commands).
 
-## C.35.1 Apa itu Redis?
+## C.36.1 Apa itu Redis?
 Redis, singkatan dari Remote Dictionary Server, adalah penyimpanan data nilai utama di dalam memori yang super cepat dengan sumber terbuka untuk digunakan sebagai database, cache, broker pesan, dan antrean. Proyek ini dimulai ketika Salvatore Sanfilippo, pengembang awal Redis, mencoba meningkatkan skalabilitas startup Italia miliknya. Redis kini memberikan respons dalam waktu di bawah satu milidetik yang memungkinkan jutaan permintaan per detik untuk aplikasi real-time pada Permainan, Ad-Tech, Layanan Finansial, Layanan Kesehatan, dan IoT. Redis adalah pilihan populer untuk caching, manajemen sesi, permainan, papan peringkat, analisis real-time, geospasial, tumpangan berkendara, obrolan/perpesanan, streaming media, dan aplikasi pub/sub.
 > ~amazon/redis
 
@@ -10,7 +10,7 @@ Library Golang Redis yang populer ketika artikel ini dibuat adalah
 - GoModule [gomodule/redigo](https://github.com/gomodule/redigo)
 - GoRedis [go-redis/redis](https://github.com/go-redis/redis)
 
-## C.35.2 Cara koneksi ke Redis
+## C.36.2 Cara koneksi ke Redis
 
 Sebelum kita mulai, pastikan Redis sudah diinstall dan sudah berjalan di sistem operasi dengan baik.
 Buatlah file baru dengan nama `main.go`. Di dalam file main kita akan menambahkan perintah-perintah untuk operasi Redis seperti koneksi, create, get data.
@@ -104,7 +104,7 @@ func connect(host string, port int, username, password string) (redis.Conn, erro
 }
 ```
 
-## C.35.3 Cara menyimpan data ke Redis dengan perintah SET.
+## C.36.3 Cara menyimpan data ke Redis dengan perintah SET.
 
 Pada bab ini kita akan belajar cara menyimpan data ke Redis, perintah dari Redis yang akan kita gunakan adalah `SET`. Sebagai pengenalan perintah untuk menyimpan data itu tidak hanya `SET` tapi ada  banyak di antaranya: `SETTEX`, `HMSET`, `SETBIT`, `LSET`, RSET, `HSETNX`, masing-masing perintah memiliki maksud sendiri. Kita bisa melihat dokumentasi lengkapnya di [Redis Command](https://redis.io/commands).
 
@@ -214,7 +214,7 @@ func set(conn redis.Conn, options ...interface{}) (string, error) {
 }
 ```
 
-## C.35.4 Cara mengambil data dari Redis dengan perintah GET.
+## C.36.4 Cara mengambil data dari Redis dengan perintah GET.
 
 Perintah `GET` di Redis tidak memiliki argument seperti perintah `SET`, yang dibutuhkan ketika menjalankan perintah ini hanya key saja. Kondisi jika key tidak ada maka Redis akan mengembalikan nilain `nil` dan jika ada akan mengembalikan nilai string. Langsung saja buat fungsi get dengan param `Conn` dan key, seperti berikut:
 
