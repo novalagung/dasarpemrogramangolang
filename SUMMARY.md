@@ -106,6 +106,8 @@
 <hr>
 
 * C. Pemrograman Go Lanjut
+  * [C.1. Project Layout](C-go-project-layout.md)
+
   * [C.1. Echo Framework & Routing](C-1-echo-routing.md)
   * [C.2. Parsing HTTP Request Payload (Echo)](C-2-parsing-http-request-payload-echo.md)
   * [C.3. HTTP Request Payload Validation (Validator v9, Echo)](C-3-http-request-payload-validation.md)
