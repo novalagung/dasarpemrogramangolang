@@ -6,7 +6,7 @@ Pada bab ini, kita akan belajar 3 hal dalam satu waktu, yaitu:
 2. Cara untuk handle upload banyak file sekaligus.
 3. Cara handle upload file yang lebih hemat memori.
 
-Sebelumnya pada [Bab B. Form Upload File](/B-13-form-upload-file.html), pemrosesan file upload dilakukan lewat **ParseMultipartForm**, sedangkan pada bab ini metode yang dipakai berbeda, yaitu menggunakan **MultipartReader**. 
+Sebelumnya pada [Bab B. Form Upload File](/B-form-upload-file.html), pemrosesan file upload dilakukan lewat **ParseMultipartForm**, sedangkan pada bab ini metode yang dipakai berbeda, yaitu menggunakan **MultipartReader**. 
 
 Kelebihan dari `MultipartReader` adalah, file yang di upload **tidak** di simpan sebagai file temporary di lokal terlebih dahulu (tidak seperti `ParseMultipartForm`), melainkan langsung diambil dari stream `io.Reader`.
 
@@ -16,7 +16,7 @@ Di bagian front end, upload file secara asynchronous bisa dilakukan menggunakan 
 
 Mari langsung kita praktekkan, pertama siapkan proyek dengan struktur seperti gambar di bawah ini.
 
-![Folder Structure](images/B.16_1_structure.png)
+![Folder Structure](images/B_ajax_multi_upload_1_structure.png)
 
 > Silakan unduh file js jQuery dari situs official jQuery.
 
@@ -123,7 +123,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Sebelumnya, pada [Bab B. Form Upload File](/B-13-form-upload-file.html), metode yang digunakan untuk handle file upload adalah menggunakan `ParseMultipartForm`, file diproses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.
+Sebelumnya, pada [Bab B. Form Upload File](/B-form-upload-file.html), metode yang digunakan untuk handle file upload adalah menggunakan `ParseMultipartForm`, file diproses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.
 
 Metode tersebut kurang tepat guna jika digunakan untuk memproses file yang ukurannya besar (file size melebihi `maxMemory`) atau jumlah file-nya sangat banyak (memakan waktu, karena isi dari masing-masing file akan ditampung pada file *temporary* sebelum benar-benar di-copy ke file tujuan).
 
@@ -191,11 +191,11 @@ OK, semua persiapan sudah cukup.
 
 Buka browser, test program yang telah dibuat. Coba lakukan pengujian dengan beberapa buah file.
 
-![Upload files](images/B.16_2_upload_files.png)
+![Upload files](images/B_ajax_multi_upload_2_upload_files.png)
 
 Cek apakah file sudah terupload.
 
-![Uploaded files](images/B.16_3_uploaded_files.png)
+![Uploaded files](images/B_ajax_multi_upload_3_uploaded_files.png)
 
 ---
 

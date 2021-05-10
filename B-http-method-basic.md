@@ -41,15 +41,15 @@ Pada contoh di atas, request ke rute `/` dengan method POST akan menghasilkan ou
 
 Gunakan [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en), atau tools sejenisnya untuk mempermudah testing. Berikut adalah contoh request dengan method GET.
 
-![Request GET](images/B.11_1_get.png)
+![Request GET](images/B_http_method_basic_1_get.png)
 
 Sedangkan di bawah ini adalah untuk method POST.
 
-![Request POST](images/B.11_2_post.png)
+![Request POST](images/B_http_method_basic_2_post.png)
 
 Jika method yang digunakan adalah selain POST dan GET, maka sesuai source code di atas, harusnya request akan menghasilkan response **400 Bad Request**. Di bawah ini adalah contoh request dengan method **PUT**.
 
-![400 Bad Request](images/B.11_3_bad_request.png)
+![400 Bad Request](images/B_http_method_basic_3_bad_request.png)
 
 ---
 

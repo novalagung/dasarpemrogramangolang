@@ -32,7 +32,7 @@ Data siswa sendiri merupakan slice object yang disimpan di variabel global.
 
 OK, langsung saja kita praktekan. Siapkan 3 buah file berikut, tempatkan dalam satu folder proyek.
 
-![Project structure](images/B.18_1_structure.png)
+![Project structure](images/B_http_basic_auth_1_structure.png)
 
 ## B.18.2. Routing
 
@@ -213,7 +213,7 @@ go run *.go
 
 Jangan menggunakan `go run main.go`, dikarenakan dalam package `main` terdapat beberapa file lain yang harus di-ikut-sertakan pada saat runtime.
 
-![Run the server](images/B.18_2_run_server.png)
+![Run the server](images/B_http_basic_auth_2_run_server.png)
 
 Test web service kecil ini menggunakan command `curl`.
 
@@ -222,7 +222,7 @@ $ curl -X GET --user batman:secret http://localhost:9000/student
 $ curl -X GET --user batman:secret http://localhost:9000/student?id=s001
 ```
 
-![Consume API](images/B.18_3_test_api.png)
+![Consume API](images/B_http_basic_auth_3_test_api.png)
 
 ---
 

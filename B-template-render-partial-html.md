@@ -11,7 +11,7 @@ Ada beberapa metode yang bisa digunakan, dari kesemuanya akan kita bahas 2 diant
 
 Mari langsung kita praktekan. Buat project baru, siapkan file dan folder dengan susunan seperti dengan gambar berikut.
 
-![Structure](images/B.5_1_structure.png)
+![Structure](images/B_template_render_partial_html_1_structure.png)
 
 ## B.5.2. Back End
 
@@ -158,7 +158,7 @@ Definisikan juga template `_message` pada file `_message.html` dengan isi sebuah
 
 Jalankan aplikasi, test via browser.
 
-![Rute `/about` & `/index`](images/B.5_2_routes.png)
+![Rute `/about` & `/index`](images/B_template_render_partial_html_2_routes.png)
 
 Bisa dilihat pada gambar di atas, ketika rute `/index` dan `/about` di akses, konten yang keluar adalah berbeda, sesuai dengan template yang di-render di masing-masing rute.
 

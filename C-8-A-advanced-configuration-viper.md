@@ -1,6 +1,6 @@
 # C.8.A. Advanced Configuration Menggunakan Viper
 
-Pada bab ini kita akan belajar cara mudah manajemen konfigurasi file JSON menggunakan [Viper](http://github.com/spf13/viper) library. Inti dari bab ini sebenarnya adalah sama dengan yang sudah dibahas pada bab [B. Simple Configuration](/B-22-simple-configuration.html), hanya saja disini proses parsing di-handle oleh 3rd party dengan tidak menggunakan struct untuk pengaksesannya.
+Pada bab ini kita akan belajar cara mudah manajemen konfigurasi file JSON menggunakan [Viper](http://github.com/spf13/viper) library. Inti dari bab ini sebenarnya adalah sama dengan yang sudah dibahas pada bab [B. Simple Configuration](/B-simple-configuration.html), hanya saja disini proses parsing di-handle oleh 3rd party dengan tidak menggunakan struct untuk pengaksesannya.
 
 Kekurangan dari teknik menyimpan konfigurasi dalam object struct adalah, pada saat ada kebutuhan untuk menambah atau merubah isi konfigurasi file, maka mengharuskan developer juga mengubah skema struct penampung. Pada bagian ini, pengaksesan property konfigurasi dilakukan lewat notasi string konfigurasinya.
 

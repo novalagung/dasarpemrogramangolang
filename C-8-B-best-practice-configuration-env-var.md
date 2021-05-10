@@ -14,7 +14,7 @@ Selain *reserved env var*, kita bisa juga membuat variabel baru yang hanya digun
 
 ## C.8.B.2. Penggunaan *env var* Sebagai Media Untuk Definisi Konfigurasi Program
 
-Pada chapter [B. Simple Configuration](/B-22-simple-configuration.html) dan juga [C. Advanced Configuration: Viper](/C-8-A-advanced-configuration-viper.html), kita telah belajar cara pendefinisian konfigurasi dengan memanfaatkan file seperti JSON maupun YAML.
+Pada chapter [B. Simple Configuration](/B-simple-configuration.html) dan juga [C. Advanced Configuration: Viper](/C-8-A-advanced-configuration-viper.html), kita telah belajar cara pendefinisian konfigurasi dengan memanfaatkan file seperti JSON maupun YAML.
 
 Pada chapter kali ini kita akan mendefinisikan konfigurasi yang sama tapi tidak di file, melainkan di *environment variable*.
 

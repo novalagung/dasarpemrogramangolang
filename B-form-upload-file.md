@@ -6,7 +6,7 @@ Pada bagian ini kita akan belajar bagaimana cara meng-handle upload file lewat f
 
 Sebelum mulai masuk ke bagian koding, siapkan terlebih dahulu file dan folder dengan struktur seperti gambar berikut.
 
-![Folder Structure](images/B.13_1_structure.png)
+![Folder Structure](images/B_form_upload_file_1_structure.png)
 
 Program sederhana yang akan kita buat, memiliki satu form dengan 2 inputan, alias dan file. Data file nantinya disimpan pada folder `files` yang telah dibuat, dengan nama sesuai nama file aslinya. Kecuali ketika user mengisi inputan alias, maka nama tersebut yang akan digunakan sebagai nama file tersimpan.
 
@@ -161,13 +161,13 @@ Fungsi `os.OpenFile` digunakan untuk membuka file. Fungsi ini membutuhkan 3 buah
 
 Fungsi `io.Copy` akan mengisi konten file parameter pertama (`targetFile`) dengan isi parameter kedua (`uploadedFile`). File kosong yang telah kita buat tadi akan diisi dengan data file yang tersimpan di memory.
 
-> Nantinya pada salah satu pembahasan di [Bab B.16. AJAX Multiple File Upload](/B-16-ajax-multi-upload.html) akan dijelaskan cara handling file upload dengan metode yang lebih efektif dan hemat memori, yaitu menggunakan `MultipartReader`.
+> Nantinya pada salah satu pembahasan di [Bab B.16. AJAX Multiple File Upload](/B-ajax-multi-upload.html) akan dijelaskan cara handling file upload dengan metode yang lebih efektif dan hemat memori, yaitu menggunakan `MultipartReader`.
 
 ## B.13.4. Testing
 
 Jalankan program, test hasilnya lewat browser.
 
-![Test upload](images/B.13_2_files.png)
+![Test upload](images/B_form_upload_file_2_files.png)
 
 ---
 

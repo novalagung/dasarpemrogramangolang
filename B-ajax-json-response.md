@@ -58,7 +58,7 @@ Jangan lupa juga untuk menambahkan response header `Content-Type: application/js
 
 OK, semua sudah selesai, lakukan testing.
 
-![Testing web server](images/B.15_1_test.png)
+![Testing web server](images/B_ajax_json_response_1_test.png)
 
 ## B.15.3. JSON Response menggunakan JSON.Encoder
 

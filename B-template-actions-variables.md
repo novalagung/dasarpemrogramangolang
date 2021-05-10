@@ -96,7 +96,7 @@ Tulis kode berikut di dalam tag `<table></table>` pada `view.html`.
 
 Test hasilnya pada browser.
 
-![Pipeline Output](images/B.6_1_pipeline.png)
+![Pipeline Output](images/B_template_actions_variables_1_pipeline.png)
 
 Untuk menampilkan tipe data lain selain string, caranya masih sama, langsung dituliskan dalam `{{ }}`. Untuk menampilkan nilai variabel, caranya juga masih sama, hanya saja perlu ditambahkan tanda titik `.` pada penulisannya (tanda titik `.` adalah penanda bahwa variabel tersebut adalah variabel terluar; bukan merupakan elemen array, item map, atau property struct).
 
@@ -118,7 +118,7 @@ Cara membuat variabel dalam template adalah dengan mendeklarasikannya menggunaka
 
 Jika ingin menampilkan isi variabel, tuliskan sebagai pipeline.
 
-![Variabel](images/B.6_2_variable.png)
+![Variabel](images/B_template_actions_variables_2_variable.png)
 
 ## B.6.4. Perulangan
 
@@ -137,7 +137,7 @@ Actions `range` digunakan untuk melakukan perulangan pada template view. Keyword
 
 Penulisannya cukup unik, keyword `range` dituliskan terlebih dahulu, diikuti variabel penampung index dan elemen. Jika yang dibutuhkan hanya elemen saja, bisa cukup gunakan `{{range $elem := .Hobbies}}`. Semua kode setelah baris deklarasi hingga penutup `{{end}}`, akan diulang sesuai jumlah elemen/item-nya.
 
-![Perulangan](images/B.6_3_loop.png)
+![Perulangan](images/B_template_actions_variables_3_loop.png)
 
 ## B.6.5. Pengaksesan Property Variabel Objek
 
@@ -150,7 +150,7 @@ Cara mengakses property sebuah variabel objek bisa dilakukan lewat notasi titik 
 </tr>
 ```
 
-![Mengakses property](images/B.6_4_property.png)
+![Mengakses property](images/B_template_actions_variables_4_property.png)
 
 Sedangkan untuk pengaksesan method, caranya juga sama, hanya saja tidak perlu dituliskan tanda kurung method-nya. Buat sebuah method pada struct `Info`.
 
@@ -169,7 +169,7 @@ Lalu akses method tersebut pada template view.
 </tr>
 ```
 
-![Mengakses property](images/B.6_5_method.png)
+![Mengakses property](images/B_template_actions_variables_5_method.png)
 
 Lalu bagaimana cara pengaksesan method yang membutuhkan parameter, jika tanda kurungnya tidak boleh dituliskan? Jawabannya akan kita temukan pada bab selanjutnya.
 
@@ -192,7 +192,7 @@ Sebagai contoh property `Info` yang merupakan variabel objek. Kita bisa menentuk
 
 Pada contoh di atas, sebuah blok ditentukan scope-nya adalah `Info`. Maka di dalam blok kode tersebut, untuk mengakses sub property-nya (`Address`, `Affiliation`, dan `GetAffiliationDetailInfo`), tidak perlu dituliskan dari objek terluar, cukup langsung nama property-nya. Sebagai contoh `.Address` di atas merujuk ke variabel `.Info`.
 
-![Scope](images/B.6_6_with.png)
+![Scope](images/B_template_actions_variables_6_with.png)
 
 ## B.6.7. Seleksi Kondisi
 
@@ -208,7 +208,7 @@ Seleksi kondisi juga bisa dilakukan pada template view. Keyword actions yang dig
 {{end}}
 ```
 
-![Seleksi kondisi](images/B.6_7_if.png)
+![Seleksi kondisi](images/B_template_actions_variables_7_if.png)
 
 Untuk seleksi kondisi dengan jumlah kondisi lebih dari satu, bisa gunakan `else if`.
 

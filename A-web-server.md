@@ -120,7 +120,7 @@ Pada contoh di atas, statement di view `{{.Name}}` akan menampilkan isi dari `da
 
 ## A.51.3. Advance Web Programming
 
-Sampai bab ini yang kita pelajari adalah dasar-dasar pemrograman Go, dibahas per topik adalah per bab. Nantinya jika sudah masuk [Bab B. Golang Web App: Hello World](/B-1-golang-web-hello-world.html) hingga seterusnya akan lebih banyak membahas mengenai pemrograman web, jadi sabar dulu. Mari kita selesaikan dulu yang fundamental sebelum masuk ke web development.
+Sampai bab ini yang kita pelajari adalah dasar-dasar pemrograman Go, dibahas per topik adalah per bab. Nantinya jika sudah masuk [Bab B. Golang Web App: Hello World](/B-golang-web-hello-world.html) hingga seterusnya akan lebih banyak membahas mengenai pemrograman web, jadi sabar dulu. Mari kita selesaikan dulu yang fundamental sebelum masuk ke web development.
 
 ---
 

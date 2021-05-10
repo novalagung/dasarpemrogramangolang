@@ -90,13 +90,13 @@ Berikut merupakan penjelasan step-by-step mengenai kode panjang untuk parsing da
 
 Tes hasilnya lewat browser.
 
-![Custom Function](images/B.8_1_func.png)
+![Custom Function](images/B_template_custom_functions_1_func.png)
 
 ## B.8.4. Perbadaan Fungsi `template.ParseFiles()` & Method `ParseFiles()` Milik `*template.Template`
 
 Pada kode di atas, pemanggilan `template.New()` menghasilkan objek bertipe `*template.Template`. 
 
-Pada **[Bab B.5. Template: Render Partial HTML Template](/B-5-template-render-partial-html.html#b56-parsing-banyak-file-html-menggunakan-templateparsefiles)** kita telah belajar mengenai fungsi `template.ParseFiles()`, yang fungsi tersebut juga mengembalikan objek bertipe `*template.Template`.
+Pada **[Bab B.5. Template: Render Partial HTML Template](/B-template-render-partial-html.html#b56-parsing-banyak-file-html-menggunakan-templateparsefiles)** kita telah belajar mengenai fungsi `template.ParseFiles()`, yang fungsi tersebut juga mengembalikan objek bertipe `*template.Template`.
 
 Pada kode di atas, method `ParseFiles()` yang dipanggil bukanlah fungsi `template.ParseFiles()` yang kita telah pelajari sebelumnya. Meskipun namanya sama, kedua fungsi/method ini berbeda.
 

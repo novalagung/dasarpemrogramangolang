@@ -2,7 +2,7 @@
 
 Pada bab ini, kita akan belajar membuat custom multiplexer sendiri, lalu memanfaatkannya untuk mempermudah manajemen middleware.
 
-Silakan salin projek sebelumnya, [Bab B. Middleware http.Handler](/B-19-middleware-using-http-handler.html), ke folder baru untuk keperluan pembelajaran.
+Silakan salin projek sebelumnya, [Bab B. Middleware http.Handler](/B-middleware-using-http-handler.html), ke folder baru untuk keperluan pembelajaran.
 
 ## B.20.1. Pembuatan Custom Mux
 
@@ -71,11 +71,11 @@ Dengan perubahan di atas, setiap kali ada request masuk pasti akan melewati midd
 
 Jalankan aplikasi.
 
-![Run the server](images/B.18_2_run_server.png)
+![Run the server](images/B_http_basic_auth_2_run_server.png)
 
 Lalu test menggunakan `curl`, hasilnya adalah sama dengan pada bab sebelumnya.
 
-![Consume API](images/B.18_3_test_api.png)
+![Consume API](images/B_http_basic_auth_3_test_api.png)
 
 Jika ada keperluan untuk menambahkan middleware baru lainnya, cukup registrasikan lewat `.RegisterMiddleware()`. Source code menjadi lebih rapi dan nyaman untuk dilihat.
 

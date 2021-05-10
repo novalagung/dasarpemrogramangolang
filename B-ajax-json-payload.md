@@ -14,7 +14,7 @@ Request Payload JSON sedikit berbeda, `Content-Type` berisikan `application/json
 
 OK, langsung saja, pertama siapkan proyek dengan struktur seperti pada gambar di bawah ini.
 
-![Struktur proyek](images/B.14_1_structure.png)
+![Struktur proyek](images/B_ajax_json_payload_1_structure.png)
 
 > Silakan unduh file js jQuery dari situs official-nya.
 
@@ -183,11 +183,11 @@ Isi payload didapatkan dengan cara men-decode body request (`r.Body`). Proses de
 
 Jalankan program, test hasilnya di browser.
 
-![Hasil tes](images/B.14_2_test.png)
+![Hasil tes](images/B_ajax_json_payload_2_test.png)
 
 Gunakan fasilitas Developer Tools pada Chrome untuk melihat detail dari request.
 
-![Request](images/B.14_3_inspect.png)
+![Request](images/B_ajax_json_payload_3_inspect.png)
 
 ---
 

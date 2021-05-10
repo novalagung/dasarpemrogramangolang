@@ -8,7 +8,7 @@ Terdapat banyak jenis template pada Go, yang akan kita pakai adalah template HTM
 
 Buat project baru, siapkan file dan folder dengan struktur sesuai dengan gambar berikut.
 
-![Structure](images/B.4_1_structure.png)
+![Structure](images/B_template_render_html_1_structure.png)
 
 ## B.4.2. Back End
 
@@ -96,7 +96,7 @@ Tanda titik "\." pada \{\{\.namaVariabel\}\} menerangkan bahwa variabel tersebut
 
 Semua sudah siap, maka jalankan program lalu lakukan testing via browser.
 
-![Output HTML](images/B.4_2_output.png)
+![Output HTML](images/B_template_render_html_2_output.png)
 
 ## B.4.5. Static File CSS
 
@@ -134,7 +134,7 @@ func main() {
 
 Jalankan aplikasi untuk test hasil.
 
-![CSS berhasil di-load](images/B.4_3_static_route.png)
+![CSS berhasil di-load](images/B_template_render_html_3_static_route.png)
 
 ---
 

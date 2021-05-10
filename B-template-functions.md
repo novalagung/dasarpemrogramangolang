@@ -76,7 +76,7 @@ Tulis kode berikut dalam `<body></body>` file `view.html`.
 
 Test output yang dihasilkan di browser dengan cukup me-refresg halaman. Tulisan `<h2>Hello</h2>` akan di-escape, dimunculkan sebagai text.
 
-![Escape HTML](images/B.7_1_escape_html.png)
+![Escape HTML](images/B_template_functions_1_escape_html.png)
 
 Bisa dilihat bahwa cara untuk menggunakan fungsi pada file template, adalah cukup dengan menuliskan nama fungsinya dalam notasi `{{namaFungsi}}`. Jika fungsi tersebut membutuhkan parameter (seperti fungsi `html`), maka parameternya dituliskan tepat setelah nama fungsi dengan pembatas spasi.
 
@@ -125,7 +125,7 @@ Praktekan kode berikut, tulis ke dalam file `view.html`.
 
 Lihat hasilnya pada browser.
 
-![Fungsi Operator Perbandingan](images/B.7_2_cond.png)
+![Fungsi Operator Perbandingan](images/B_template_functions_2_cond.png)
 
 Berikut merupakan daftar operator perbandingan yang didukung oleh template view.
 
@@ -150,7 +150,7 @@ Cara memanggil method yang disisipkan ke view sama dengan cara pemanggilan fungs
 
 Test hasilnya pada browser.
 
-![Pemanggilan Method](images/B.7_3_method.png)
+![Pemanggilan Method](images/B_template_functions_3_method.png)
 
 ## B.7.5. Fungsi String
 
@@ -170,7 +170,7 @@ Cara penggunannya juga masih sama.
 
 Output:
 
-![Fungsi String](images/B.7_4_string_func.png)
+![Fungsi String](images/B_template_functions_4_string_func.png)
 
 Jika merasa sedikit bingung memahami statement di atas, mungkin analogi berikut cukup membantu.
 
@@ -207,7 +207,7 @@ Berikut merupakan contoh penerapan fungsi `len` dan `index`.
 
 Output:
 
-![Fungsi `len` dan `index`](images/B.7_5_len_index.png)
+![Fungsi `len` dan `index`](images/B_template_functions_5_len_index.png)
 
 ## B.7.7. Fungsi Operator Logika
 
@@ -226,7 +226,7 @@ Selain fungsi operator perbandingan, terdapat juga operator logika `or`, `and`, 
 
 Output:
 
-![Fungsi `or`, `and`, dan `not`](images/B.7_6_or_and_not.png)
+![Fungsi `or`, `and`, dan `not`](images/B_template_functions_6_or_and_not.png)
 
 ---
 

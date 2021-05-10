@@ -10,7 +10,7 @@ Dengan menggunakan teknik berikut, file pasti akan ter-download.
 
 OK, pertama siapkan terlebih dahulu proyek dengan struktur seperti gambar berikut.
 
-![Project structure](images/B.17_1_structure.png)
+![Project structure](images/B_download_file_1_structure.png)
 
 File yang berada di folder `files` adalah dummy, jadi anda bisa gunakan file apapun dengan jumlah berapapun untuk keperluan belajar.
 
@@ -215,7 +215,7 @@ Objek file yang direpresentasikan variabel `f`, isinya di-copy ke objek response
 
 Jalankan program, akses rute `/`. List semua file dalam folder `files` muncul di sana. Klik salah satu file untuk men-download-nya.
 
-![Download file](images/B.17_2_download.png)
+![Download file](images/B_download_file_2_download.png)
 
 ---
 
