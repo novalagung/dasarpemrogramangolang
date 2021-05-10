@@ -26,9 +26,16 @@ Versi e-book: **((VERSION))**, dan versi Go **1.14**.
 ## Download File E-book (pdf, epub, mobi)
 
 Ebook ini bisa di-download dalam beberapa pilihan format:
+
+<!---
 - [PDF](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=((VERSION)))
 - [ePub](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=((VERSION)))
 - [Mobi](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=((VERSION)))
+--->
+
+- [PDF](https://dasarpemrogramangolang.novalagung.com/dasarpemrogramangolang.pdf?v=((VERSION)))
+- [ePub](https://dasarpemrogramangolang.novalagung.com/dasarpemrogramangolang.epub?v=((VERSION)))
+- [Mobi](https://dasarpemrogramangolang.novalagung.com/dasarpemrogramangolang.mobi?v=((VERSION)))
 
 Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.
 
