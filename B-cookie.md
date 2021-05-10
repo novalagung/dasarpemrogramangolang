@@ -99,7 +99,7 @@ Cara menghapus cookie adalah dengan menge-set ulang cookie dengan nama yang sama
 
 Jalankan aplikasi, lalu akses `/`. Sebuah random string akan muncul di layar, dan jika kita cek pada bagian response header, informasi cookie nya juga tampil.
 
-![Cookie](images/B.21_1_cookie.png)
+![Cookie](images/B_cookie_1_cookie.png)
 
 Coba refresh page beberapa kali, informasi header cookie dan data yang muncul adalah tetap sama. Karena ketika cookie sudah pernah dibuat, maka seterusnya endpoint ini akan menggunakan data cookie yang sudah tersimpan tersebut.
 

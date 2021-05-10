@@ -61,11 +61,11 @@ Fungsi `http.ListenAndServe()` digunakan membuat sekaligus start server baru, de
 
 Ok, sekarang program sudah siap, jalankan menggunakan `go run`.
 
-![Jalankan program](images/B.1_1_start_server.png)
+![Jalankan program](images/B_golang_web_hello_world_1_start_server.png)
 
 Cek pada browser rute yang sudah dibuat, output akan muncul.
 
-![Mengakses aplikasi web](images/B.1_2_browse.png)
+![Mengakses aplikasi web](images/B_golang_web_hello_world_2_browse.png)
 
 Berikut merupakan penjelasan detail per-bagian program yang telah kita buat dari contoh di atas.
 

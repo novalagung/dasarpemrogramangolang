@@ -71,7 +71,7 @@ Contoh di rute `/`, sebuah template dialokasikan dengan nama `index`, kemudian d
 
 Lakukan tes pada program yang telah kita buat, kurang lebih hasilnya seperti pada gambar berikut.
 
-![Rute `/` dan `/test`](images/B.9_1_preview.png)
+![Rute `/` dan `/test`](images/B_render_specific_html_template_1_preview.png)
 
 ---
 

@@ -1,6 +1,6 @@
 # B.19. Middleware `http.Handler`
 
-Pada bab ini, kita akan belajar penggunaan interface `http.Handler` untuk implementasi custom middleware. Kita akan menggunakan sample proyek pada bab sebelumnya [Bab B. HTTP Basic Authentication](/B-18-http-basic-auth.html) sebagai dasar bahan pembahasan bab ini.
+Pada bab ini, kita akan belajar penggunaan interface `http.Handler` untuk implementasi custom middleware. Kita akan menggunakan sample proyek pada bab sebelumnya [Bab B. HTTP Basic Authentication](/B-http-basic-auth.html) sebagai dasar bahan pembahasan bab ini.
 
 > Apa itu middleware? Istilah middleware berbeda-beda di tiap bahasa/framework. NodeJS dan Rails ada istilah middleware. Pada pemrograman Java Enterprise, istilah filters digunakan. Pada C# istilahnya adalah delegate handlers. Definisi dari middleware sendiri versi penulis, sebuah blok kode yang dipanggil sebelum ataupun sesudah http request di proses.
 
@@ -161,11 +161,11 @@ func MiddlewareAllowOnlyGet(next http.Handler) http.Handler {
 
 Jalankan aplikasi.
 
-![Run the server](images/B.18_2_run_server.png)
+![Run the server](images/B_http_basic_auth_2_run_server.png)
 
 Lalu test menggunakan `curl`, hasilnya adalah sama dengan pada bab sebelumnya.
 
-![Consume API](images/B.18_3_test_api.png)
+![Consume API](images/B_http_basic_auth_3_test_api.png)
 
 Dibanding metode pada bab sebelumnya, dengan teknik ini kita bisa sangat mudah mengontrol lalu lintas routing aplikasi, karena semua rute pasti melewati middleware terlebih dahulu sebelum sampai ke tujuan. Cukup maksimalkan middleware tersebut tanpa menggangu fungsi callback masing-masing rute.
 

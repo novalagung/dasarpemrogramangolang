@@ -8,7 +8,7 @@ Pada bab ini, kita akan belajar cara membuat config file modular.
 
 Pertama-tama, buat project baru, siapkan dengan struktur seperti gambar berikut.
 
-![Structure](images/B.22_1_structure.png)
+![Structure](images/B_simple_configuration_1_structure.png)
 
 Folder `conf` berisi 2 file.
 
@@ -195,7 +195,7 @@ Pada kode di atas bisa kita lihat, ada 4 buah properti milik `server` di-isi.
 
 Terakhir jalankan aplikasi, akses dua buah endpoint yang sudah dibuat, lalu coba cek di console.
 
-![Structure](images/B.22_2_log.png)
+![Structure](images/B_simple_configuration_2_log.png)
 
 Coba ubah konfigurasi pada `config.json` nilai `log.verbose` menjadi `false`. Lalu restart aplikasi, maka log tidak muncul.
 

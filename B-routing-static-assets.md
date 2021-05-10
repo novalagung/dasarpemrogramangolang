@@ -6,7 +6,7 @@ Pada bagian ini kita akan belajar bagaimana cara routing static assets atau stat
 
 Buat project baru, siapkan file dan folder dengan struktur sesuai dengan gambar berikut.
 
-![Structure](images/B.3_1_structure.png)
+![Structure](images/B_routing_static_assets_1_structure.png)
 
 Dalam folder `assets`, isi dengan file apapun, bisa gambar atau file js. Selanjutnya masuk ke bagian routing static assets.
 
@@ -40,7 +40,7 @@ Fungsi `http.FileServer()` mengembalikan objek ber-tipe `http.Handler`. Fungsi i
 
 Jalankan `main.go`, lalu test hasilnya di browser `http://localhost:9000/static/`.
 
-![Structure](images/B.3_2_preview.png)
+![Structure](images/B_routing_static_assets_2_preview.png)
 
 ## B.3.3. Penjelasan
 

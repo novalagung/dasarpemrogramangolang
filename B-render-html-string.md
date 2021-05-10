@@ -53,7 +53,7 @@ Pada kode di atas bisa dilihat, sebuah template bernama `main-template` disiapka
 
 Lakukan tes dan lihat hasilnya.
 
-![String html sebagai output](images/B.10_1_parse.png)
+![String html sebagai output](images/B_render_html_string_1_parse.png)
 
 ---
 

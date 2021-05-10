@@ -1,6 +1,6 @@
 # C.9. Secure Cookie (Gorilla Securecookie)
 
-Pada bab [B. HTTP Cookie](/B-21-cookie.html), kita telah mempelajari tentang cookie dan implementasinya di golang.
+Pada bab [B. HTTP Cookie](/B-cookie.html), kita telah mempelajari tentang cookie dan implementasinya di golang.
 
 Cookie memiliki beberapa atribut, diantaranya adalah `secure`. Dengan mengaktifkan atribut ini, informasi cookie menjadi lebih aman karena di-enkripsi, namun kapabilitas ini hanya akan aktif pada kondisi aplikasi SSL/TLS enabled.
 

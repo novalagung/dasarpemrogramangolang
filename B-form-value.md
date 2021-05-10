@@ -127,7 +127,7 @@ Setelah data dari form sudah ditangkap oleh back-end, data ditampung dalam varia
 
 OK, sekarang coba jalankan program yang telah kita buat, dan cek hasilnya.
 
-![Form Value](images/B.12_1_form.png)
+![Form Value](images/B_form_value_1_form.png)
 
 ---
 
