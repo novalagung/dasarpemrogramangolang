@@ -5,7 +5,7 @@
 
 <hr>
 
-* [Course Mendeploy Aplikasi Go ke Docker dan Kubernetes (PROMO!)](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=BIGSALEAPRIL)
+* [Course Mendeploy Aplikasi Go ke Docker dan Kubernetes (PROMO!)](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=BIGSALEMAY2021)
 * [Belajar Devops](https://devops.novalagung.com/)
 
 <hr>
