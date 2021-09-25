@@ -62,7 +62,7 @@ Berbeda dengan `go build`, *command* ini menghasilkan file *executable* atau *bi
 
 ![Kompilasi file program menghasilkan file executable](images/A_go_command_4_go_build.png)
 
-Pada contoh di atas, projek `program-pertama` di-build, menghasilkan file baru pada folder yang sama, yaitu `program-pertama.exe`, yang kemudian dieksekusi. *Default*-nya nama projek akan otomatis dijadikan nama *binary*.
+Pada contoh di atas, projek `project-pertama` di-build, menghasilkan file baru pada folder yang sama, yaitu `project-pertama.exe`, yang kemudian dieksekusi. *Default*-nya nama projek akan otomatis dijadikan nama *binary*.
 
 Untuk nama executable sendiri bisa diubah menggunakan flag `-o`. Contoh:
 
