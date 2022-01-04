@@ -77,7 +77,7 @@ default:
 
 Pada kode di atas, tidak ada kondisi atau `case` yang terpenuhi karena nilai variabel `point` tetap `6`. Ketika hal seperti ini terjadi, blok kondisi `default` dipanggil. Bisa dibilang bahwa `default` merupakan `else` dalam sebuah switch.
 
-Perlu diketahui, switch pada pemrograman Go memiliki perbedaan dibanding bahasa lain. Di Go, ketika sebuah case terpenuhi, tidak akan dilanjutkan ke pengecekkan case selanjutnya, meskipun tidak ada keyword `break` di situ. Konsep ini berkebalikan dengan switch pada umumnya, yang ketika sebuah case terpenuhi, maka akan tetap dilanjut mengecek case selanjutnya kecuali ada keyword `break`.
+Perlu diketahui, switch pada pemrograman Go memiliki perbedaan dibanding bahasa lain. Di Go, ketika sebuah case terpenuhi, tidak akan dilanjutkan ke pengecekan case selanjutnya, meskipun tidak ada keyword `break` di situ. Konsep ini berkebalikan dengan switch pada umumnya, yang ketika sebuah case terpenuhi, maka akan tetap dilanjut mengecek case selanjutnya kecuali ada keyword `break`.
 
 ## A.13.4. Pemanfaatan `case` Untuk Banyak Kondisi
 
@@ -144,9 +144,9 @@ default:
 
 ## A.13.7. Penggunaan Keyword `fallthrough` Dalam `switch`
 
-Seperti yang sudah dijelaskan sebelumnya, bahwa switch pada Go memiliki perbedaan dengan bahasa lain. Ketika sebuah `case` terpenuhi, pengecekkan kondisi tidak akan diteruskan ke case-case setelahnya.
+Seperti yang sudah dijelaskan sebelumnya, bahwa switch pada Go memiliki perbedaan dengan bahasa lain. Ketika sebuah `case` terpenuhi, pengecekan kondisi tidak akan diteruskan ke case-case setelahnya.
 
-Keyword `fallthrough` digunakan untuk memaksa proses pengecekkan diteruskan ke `case` selanjutnya dengan **tanpa menghiraukan nilai kondisinya**, jadi case di pengecekan selanjutnya tersebut selalu dianggap benar (meskipun aslinya adalah salah).
+Keyword `fallthrough` digunakan untuk memaksa proses pengecekan diteruskan ke satu `case` selanjutnya dengan **tanpa menghiraukan nilai kondisinya**, jadi satu case di pengecekan selanjutnya tersebut selalu dianggap benar (meskipun aslinya adalah salah). Dalam sebuah `switch` lebih dari satu `fallthrough` bisa di tempatkan untuk memaksa melanjutkan proses pengecekan ke satu `case` setelahnya.
 
 ```go
 var point = 6
@@ -168,7 +168,7 @@ default:
 ```
 
 
-Setelah pengecekkan `case (point < 8) && (point > 3)` selesai, akan dilanjut ke pengecekkan `case point < 5`, karena ada `fallthrough` di situ.
+Setelah pengecekan `case (point < 8) && (point > 3)` selesai, akan dilanjut ke pengecekan `case point < 5`, karena ada `fallthrough` di situ.
 
 ![Penggunaan `fallthrough` dalam `switch`](images/A_seleksi_kondisi_2_fallthrough.png)
 
