@@ -1,10 +1,15 @@
-# Contributors
+# Author & Contributors
 
-E-book Dasar Pemrograman Golang adalah proyek *open source*. Siapapun bebas untuk berkontribusi di sini, bisa dalam bentuk perbaikan *typo*, update kalimat, maupun submit tulisan baru. Bagi teman-teman yang berminat untuk berkontribusi, silakan *fork* https://github.com/novalagung/dasarpemrogramangolang, kemudian langsung saja buat *issue* dan relevan *pull request* untuk issue tersebut 😊.
+E-book Dasar Pemrograman Golang adalah proyek *open source*. Siapapun bebas untuk berkontribusi di sini, bisa dalam bentuk perbaikan *typo*, update kalimat, maupun submit tulisan baru. Bagi teman-teman yang berminat untuk berkontribusi, silakan *fork* https://github.com/novalagung/dasarpemrogramangolang, kemudian langsung saja cek/buat *issue* kemudian submit relevan *pull request* untuk issue tersebut 😊.
 
----
 
-Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan waktunya untuk membantu pengembangan e-book ini.
+## Original Author
+
+E-book ini di-inisialisasi oleh [Noval Agung Prayogo](https://linktr.ee/novalagung). Seorang penggiat teknologi yang sekarang bekerja di salah satu perusahaan *Silicon Valley* sebagai *Platform Tech Lead*.
+
+## Contributors
+
+Berikut merupakan hall of fame kontributor yang sudah berbaik hati menyisihkan waktunya untuk membantu pengembangan e-book ini.
 
 - [Acep Saepudin](https://github.com/acepsaepudin)
 - [Adev Saputra](https://github.com/adev22)
@@ -30,7 +35,6 @@ Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan wakt
 - [MH Rohman Masyhar](https://github.com/rohmanhm)
 - [Muhammad Faris 'Afif](https://github.com/muhfaris)
 - [Mulia Nasution](https://github.com/mul14)
-- [Noval Agung Prayogo](https://github.com/novalagung)
 - [Nuevo Querto](https://github.com/NuevoQuerto)
 - [Ryan Febriansyah](https://github.com/sodrooome)
 - [Sal Prima](https://github.com/salprima)
@@ -41,3 +45,4 @@ Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan wakt
 - [Wanda Ichsanul Isra](https://github.com/wlisrausr)
 - [Widodo](https://github.com/purwowd)
 - [Yofriadi Yahya](https://github.com/yofriadi)
+- ... anda :-) 
