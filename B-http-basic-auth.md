@@ -23,7 +23,7 @@ Golang menyediakan fungsi untuk meng-handle request basic auth dengan cukup muda
 
 ## B.18.1. Struktur Folder Proyek dan Endpoint
 
-Ok, mari kita praktekan. Pada bab ini kita akan membuat sebuah web service sederhana, isinya satu buah endpoint. Endpoint ini kita manfaatkan sebagai dua endpoint, dengan pembeda adalah informasi pada query string-nya.
+Ok, mari kita praktekan. Pada chapter ini kita akan membuat sebuah web service sederhana, isinya satu buah endpoint. Endpoint ini kita manfaatkan sebagai dua endpoint, dengan pembeda adalah informasi pada query string-nya.
 
  - Endpoint `/student`, menampilkan semua data siswa.
  - Endpoint `/student?id=s001`, menampilkan data siswa sesuai dengan id yang di minta.
@@ -97,7 +97,7 @@ func OutputJSON(w http.ResponseWriter, o interface{}) {
 }
 ```
 
-Konversi dari objek atau slice ke JSON string bisa dilakukan dengan memanfaatkan `json.Marshal`. Untuk lebih jelasnya silakan baca lagi [Bab A. JSON](/A-json.html).
+Konversi dari objek atau slice ke JSON string bisa dilakukan dengan memanfaatkan `json.Marshal`. Untuk lebih jelasnya silakan baca lagi chapter [A.53. JSON Data](/A-json.html).
 
 ## B.18.3. Data `Student`
 
@@ -227,6 +227,6 @@ $ curl -X GET --user batman:secret http://localhost:9000/student?id=s001
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.18-http-basic-auth">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.18...</a>
 </div>

@@ -4,7 +4,7 @@ Go menyediakan package `net/http`, berisi berbagai macam fitur untuk keperluan p
 
 Go memiliki web server sendiri, dan web server tersebut berada di dalam Go, tidak seperti bahasa lain yang servernya terpisah dan perlu diinstal sendiri (seperti PHP yang memerlukan Apache, .NET yang memerlukan IIS).
 
-Di bab ini kita akan belajar cara pembuatan aplikasi web sederhana dan pemanfaatan template untuk mendesain view.
+Pada chapter ini kita akan belajar cara pembuatan aplikasi web sederhana dan pemanfaatan template untuk mendesain view.
 
 ## A.51.1. Membuat Aplikasi Web Sederhana
 
@@ -118,13 +118,13 @@ Pada kode di atas, variabel `data` disisipkan sebagai parameter ke-2 method `Exe
 
 Pada contoh di atas, statement di view `{{.Name}}` akan menampilkan isi dari `data.Name`.
 
-## A.51.3. Advance Web Programming
+## A.51.3. Advanced Web Programming
 
-Sampai bab ini yang kita pelajari adalah dasar-dasar pemrograman Go, dibahas per topik adalah per bab. Nantinya jika sudah masuk [Bab B. Golang Web App: Hello World](/B-golang-web-hello-world.html) hingga seterusnya akan lebih banyak membahas mengenai pemrograman web, jadi sabar dulu. Mari kita selesaikan dulu yang fundamental sebelum masuk ke web development.
+Sampai chapter ini yang kita pelajari adalah dasar-dasar pemrograman Go, dibahas per topik adalah per chapter. Nantinya jika sudah masuk [B.1. Golang Web App: Hello World](/B-golang-web-hello-world.html) hingga seterusnya akan lebih banyak membahas mengenai pemrograman web, jadi sabar dulu. Mari kita selesaikan dulu yang fundamental sebelum masuk ke web development.
 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.51-web-server">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.51...</a>
 </div>

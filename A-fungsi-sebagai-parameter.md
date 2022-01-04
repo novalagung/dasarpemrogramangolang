@@ -1,6 +1,6 @@
 # A.22. Fungsi Sebagai parameter
 
-Setelah di bab sebelumnya kita belajar mengenai fungsi yang mengembalikan nilai balik berupa fungsi, kali ini topiknya tidak kalah unik, yaitu fungsi yang digunakan sebagai parameter.
+Setelah pada chapter sebelumnya kita belajar mengenai fungsi yang mengembalikan nilai balik berupa fungsi, kali ini topiknya tidak kalah unik, yaitu fungsi yang digunakan sebagai parameter.
 
 Di Go, fungsi bisa dijadikan sebagai tipe data variabel. Dari situ sangat memungkinkan untuk menjadikannya sebagai parameter juga.
 
@@ -100,6 +100,6 @@ Variabel `result` bernilai `true` karena string `"ang"` merupakan bagian dari st
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.22-fungsi-sebagai-parameter">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.22...</a>
 </div>

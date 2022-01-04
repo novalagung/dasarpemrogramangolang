@@ -4,7 +4,7 @@ Proses pembuatan aplikasi menggunakan Go akan lebih maksimal jika didukung oleh 
 
 Penulis sarankan untuk memilih editor yang paling nyaman digunakan, preferensi masing-masing pastinya berbeda. Penulis sendiri lebih sering menggunakan **Visual Studio Code**. Editor ini sangat ringan, mudah didapat, dan memiliki ekstensi yang bagus untuk bahasa Go. Jika pembaca ingin menggunakan editor yang sama, maka silakan melanjutkan panduan berikut.
 
-Pada bab ini akan dijelaskan bagaimana cara instalasi editor Visual Studio Code.
+Pada chapter ini akan dijelaskan bagaimana cara instalasi editor Visual Studio Code.
 
 ## A.5.1. Instalasi Editor Visual Studio Code
 
@@ -18,7 +18,7 @@ Pada bab ini akan dijelaskan bagaimana cara instalasi editor Visual Studio Code.
 
 Dengan meng-*install* Go Extension pada VSCode, maka development akan menjadi lebih menyenangkan dan mudah. Banyak benefit yang didapat dari ekstensi ini, beberapa diantaranya adalah integrasi dengan kompiler Go, auto lint on save, testing with coverage, fasilitas debugging with breakpoints, dan lainnya.
 
-Cara instalasi ekstensi sendiri cukup mudah, klik `View -> Extension` atau klik ikon *Extension Marketplace* di sebelah kiri (silakan lihat gambar berikut, deretan button paling kiri yang dilingkari merah). Setelah itu ketikan **Go** pada inputan search, silakan install ekstensi Go buatan Microsoft, biasanya muncul paling atas sendiri.
+Cara instalasi ekstensi sendiri cukup mudah, klik `View -> Extension` atau klik ikon *Extension Marketplace* di sebelah kiri (silakan lihat gambar berikut, deretan button paling kiri yang dilingkari merah). Setelah itu ketikan **Go** pada inputan search, silakan install ekstensi Go buatan GO Team at Google, biasanya muncul paling atas sendiri.
 
 ![VSCode Go extension](images/A_instalasi_editor_2_vscode_go_extension.png)
 

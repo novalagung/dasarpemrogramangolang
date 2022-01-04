@@ -66,7 +66,7 @@ Template `%v` digunakan untuk menampilkan segala jenis data. Bisa array, int, fl
 fmt.Printf("data : %v\nmin  : %v\nmax  : %v\n", numbers, min, max)
 ```
 
-Bisa dilihat pada statement di atas, data bertipe array dan numerik ditampilkan menggunakan `%v`. Template ini biasa dimanfaatkan untuk menampilkan sebuah data yang tipe nya bisa dinamis atau belum diketahui. Sangat tepat jika digunakan pada data bertipe `interface{}` yang nantinya akan di bahas pada bab 27.
+Bisa dilihat pada statement di atas, data bertipe array dan numerik ditampilkan menggunakan `%v`. Template ini biasa dimanfaatkan untuk menampilkan sebuah data yang tipe nya bisa dinamis atau belum diketahui. Sangat tepat jika digunakan pada data bertipe `interface{}` yang nantinya akan di bahas pada chapter [A.27. Interface](/A-interface.html).
 
 ---
 
@@ -172,6 +172,6 @@ Output program:
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.21-fungsi-closure">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.21...</a>
 </div>

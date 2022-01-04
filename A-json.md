@@ -4,7 +4,7 @@
 
 Go menyediakan package `encoding/json` yang berisikan banyak fungsi untuk kebutuhan operasi json.
 
-Di bab ini, kita akan belajar cara untuk konverstri string yang berbentuk json menjadi objek Go, dan sebaliknya.
+Pada chapter ini, kita akan belajar cara untuk konverstri string yang berbentuk json menjadi objek Go, dan sebaliknya.
 
 ## A.53.1. Decode JSON Ke Variabel Objek Struct
 
@@ -132,6 +132,6 @@ Output:
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.53-json">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.53...</a>
 </div>

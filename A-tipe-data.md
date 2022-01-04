@@ -2,9 +2,9 @@
 
 Go mengenal beberapa jenis tipe data, diantaranya adalah tipe data numerik (desimal & non-desimal), string, dan boolean.
 
-Di bab-bab sebelumnya secara tak sadar kita sudah mengaplikasikan beberapa tipe data, seperti `string` dan tipe numerik `int`.
+Pada pembahasan-pembahasan sebelumnya secara tak sadar kita sudah mengaplikasikan beberapa tipe data, seperti `string` dan tipe numerik `int`.
 
-Pada bab ini akan dijelaskan beberapa macam tipe data standar yang disediakan oleh Go, beserta cara penggunaannya.
+Pada chapter ini akan dijelaskan beberapa macam tipe data standar yang disediakan oleh Go, beserta cara penggunaannya.
 
 ## A.10.1. Tipe Data Numerik Non-Desimal
 
@@ -63,7 +63,7 @@ Template `%f` digunakan untuk memformat data numerik desimal menjadi string. Dig
 
 ## A.10.3. Tipe Data `bool` (Boolean)
 
-Tipe data `bool` berisikan hanya 2 variansi nilai, `true` dan `false`. Tipe data ini biasa dimanfaatkan dalam seleksi kondisi dan perulangan (yang nantinya akan kita bahas pada bab 12 dan bab 13).
+Tipe data `bool` berisikan hanya 2 variansi nilai, `true` dan `false`. Tipe data ini biasa dimanfaatkan dalam seleksi kondisi dan perulangan (yang nantinya akan kita bahas pada [A.13. Seleksi Kondisi](/A-seleksi-kondisi.html) dan [A.14. Perulangan](/A-perulangan.html)).
 
 ```go
 var exist bool = true
@@ -115,11 +115,11 @@ Zero value berbeda dengan `nil`. `Nil` adalah nilai kosong, benar-benar kosong. 
 - `channel`
 - interface kosong atau `interface{}`
 
-Nantinya kita akan sering bertemu dengan `nil` setelah masuk pada pembahasan bab-bab tersebut.
+Nantinya kita akan sering bertemu dengan `nil` setelah masuk pada pembahasan pembahasan-pembahasan tersebut.
 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.10-tipe-data">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.10...</a>
 </div>

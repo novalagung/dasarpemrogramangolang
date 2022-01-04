@@ -2,7 +2,7 @@
 
 Semua persiapan sudah selesai, saatnya masuk pada sesi programming. Program pertama yang akan kita buat adalah aplikasi kecil yang menampilkan text **Hello world**.
 
-Pada bab ini akan dijelaskan secara komprehensif *step-by-step* mulai dari awal. Mulai dari pembuatan project, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi program.
+Pada chapter ini akan dijelaskan secara komprehensif *step-by-step* mulai dari awal. Mulai dari pembuatan project, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi program.
 
 ## A.7.1. Inisialisasi Projek
 
@@ -125,6 +125,6 @@ Contoh statement di atas akan menghasilkan output: **Hello world! how are you**.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.7-hello-world">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.7...</a>
 </div>

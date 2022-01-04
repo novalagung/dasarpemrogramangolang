@@ -4,7 +4,7 @@ Cookie adalah data dalam bentuk teks yang disimpan pada komputer (oleh web brows
 
 Cookie merupakan salah satu aspek penting dalam pengembangan aplikasi web. Sangat sering kita membutuhkan sebuah data bisa disimpan dan diakses untuk keperluan aplikasi web kita, seperti pengecekan preferensi pengunjung, pengecekan status login tidak nya user.
 
-Pada bab ini kita akan belajar bagaimana cara membuat dan mengakses cookie di Go.
+Pada chapter ini kita akan belajar bagaimana cara membuat dan mengakses cookie di Go.
 
 ## B.21.1. Praktek
 
@@ -126,6 +126,6 @@ Objek cookie memiliki beberapa property, beberapa diantaranya:
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.21-cookie">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.21...</a>
 </div>

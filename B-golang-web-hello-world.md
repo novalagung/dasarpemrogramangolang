@@ -1,6 +1,6 @@
 # B.1. Golang Web App: Hello World
 
-Pada serial bab B ini, kita masih tetap akan belajar tentang topik fundamental atau dasar tapi lebih spesifik ke arah web development. Kita awali dengan pembahasan bagaimana cara membuat aplikasi web "Hello World" sederhana menggunakan Go.
+Pada serial chapter B ini, kita masih tetap akan belajar tentang topik fundamental atau dasar tapi lebih spesifik ke arah web development. Kita awali dengan pembahasan bagaimana cara membuat aplikasi web "Hello World" sederhana menggunakan Go.
 
 ## B.1.1. Pembuatan Aplikasi
 
@@ -79,7 +79,7 @@ Pada kode di atas, tiga buah rute didaftarkan:
  - Rute `/index` dengan aksi adalah sama dengan `/`, yaitu fungsi `handlerIndex()`
  - Rute `/hello` dengan aksi fungsi `handlerHello()`
 
-Ketika rute-rute tersebut diakses lewat browser, outpunya adalah isi-handler dari rute yang bersangkutan. Kebetulan pada bab ini, ketiga rute tersebut outputnya adalah sama, yaitu berupa string.
+Ketika rute-rute tersebut diakses lewat browser, outpunya adalah isi-handler dari rute yang bersangkutan. Kebetulan pada chapter ini, ketiga rute tersebut outputnya adalah sama, yaitu berupa string.
 
 > Pada contoh di atas, ketika rute yang tidak terdaftar diakses, secara otomatis handler rute `/` akan terpanggil.
 
@@ -148,11 +148,11 @@ server.ReadTimeout = time.Second * 10
 server.WriteTimeout = time.Second * 10
 ```
 
-Ada banyak lagi property dari struct `http.Server` ini, yang pastinya akan dibahas pada bab-bab selanjutnya.
+Ada banyak lagi property dari struct `http.Server` ini, yang pastinya akan dibahas pada pembahasan-pembahasan selanjutnya.
 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.1-golang-web-hello-world">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.1...</a>
 </div>

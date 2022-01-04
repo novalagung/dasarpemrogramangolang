@@ -1,6 +1,6 @@
 # B.15. AJAX JSON Response
 
-Pada bab sebelumnya, kita belajar cara untuk memproses request dengan payload bertipe JSON. Pada bab ini kita akan belajar untuk membuat satu endpoint yang mengembalikan data JSON string.
+Pada chapter sebelumnya, kita belajar cara untuk memproses request dengan payload bertipe JSON. Pada chapter ini kita akan belajar untuk membuat satu endpoint yang mengembalikan data JSON string.
 
 ## B.15.1. Praktek
 
@@ -62,7 +62,7 @@ OK, semua sudah selesai, lakukan testing.
 
 ## B.15.3. JSON Response menggunakan JSON.Encoder
 
-Di bab sebelumnya sudah disinggung, bahwa lebih baik menggunakan `json.Decoder` jika ingin men-decode data yang sumbernya ada di stream `io.Reader`
+Pada chapter sebelumnya sudah disinggung, bahwa lebih baik menggunakan `json.Decoder` jika ingin men-decode data yang sumbernya ada di stream `io.Reader`
 
 Package json juga memiliki fungsi lain-nya yaitu `json.Encoder`, yang sangat cocok digunakan untuk meng-encode data menjadi JSON dengan tujuan objek langsung ke stream `io.Reader`. 
 
@@ -85,6 +85,6 @@ Kode di atas hasilnya ekuivalen dengan penggunaan `json.Marshal`.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.15-ajax-json-response">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.15...</a>
 </div>

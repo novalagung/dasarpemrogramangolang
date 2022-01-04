@@ -2,9 +2,9 @@
 
 Pengembangan aplikasi Go tak jauh dari hal-hal yang berbau CLI atau *Command Line Interface*. Proses inisalisasi projek, kompilasi, testing, eksekusi program, semuanya dilakukan lewat command line.
 
-Go menyediakan command `go`, dan pada bab ini kita akan mempelajari beberapa diantaranya.
+Go menyediakan command `go`, dan pada chapter ini kita akan mempelajari beberapa diantaranya.
 
-> Pada bab ini pembaca tidak harus praktek, cukup pelajari saja untuk tahu. Mengenai praktek sendiri akan dimulai pada bab selanjutnya, yaitu [A. Program Pertama: Hello World](/A-hello-world.html).
+> Pada pembelajaran chapter ini, pembaca tidak harus praktek, cukup pelajari saja untuk tahu. Mengenai praktek sendiri akan dimulai pada chapter selanjutnya, yaitu [A.7. Program Pertama: Hello World](/A-hello-world.html).
 
 ## A.6.1. Command `go mod init`
 
@@ -31,14 +31,15 @@ go run main.go
 
 ![Eksekusi file program menggunakan `go run`](images/A_go_command_1_go_run.png)
 
-*Command* `go run` hanya bisa digunakan pada file yang nama package-nya adalah `main`. Lebih jelasnya dibahas pada bab selanjutnya ([A. Program Pertama: Hello World](A-hello-world.html)).
+*Command* `go run` hanya bisa digunakan pada file yang nama package-nya adalah `main`. Lebih jelasnya dibahas pada chapter selanjutnya ([A.7. Program Pertama: Hello World](/A-hello-world.html)).
 
-Jika ada banyak file yang package-nya `main` dan file-file tersebut berada pada satu direktori level dengan file utama, maka eksekusinya adalah dengan menuliskan semua file sebagai argument *command* `go run` (lebih jelasnya akan dibahas pada bab 25). Contohnya bisa dilihat pada kode berikut.
+Jika ada banyak file yang package-nya `main` dan file-file tersebut berada pada satu direktori level dengan file utama, maka eksekusinya adalah dengan menuliskan semua file sebagai argument *command* `go run`. Contohnya bisa dilihat pada kode berikut.
 
 ```bash
 go run main.go library.go
 ```
 
+> Lebih jelasnya perihal argument dan flag akan dibahas pada chapter [A.48. Arguments & Flag](/A-command-line-args-flag.html))
 
 ## A.6.2. Command `go test`
 
@@ -62,7 +63,7 @@ Berbeda dengan `go build`, *command* ini menghasilkan file *executable* atau *bi
 
 ![Kompilasi file program menghasilkan file executable](images/A_go_command_4_go_build.png)
 
-Pada contoh di atas, projek `program-pertama` di-build, menghasilkan file baru pada folder yang sama, yaitu `program-pertama.exe`, yang kemudian dieksekusi. *Default*-nya nama projek akan otomatis dijadikan nama *binary*.
+Pada contoh di atas, projek `project-pertama` di-build, menghasilkan file baru pada folder yang sama, yaitu `project-pertama.exe`, yang kemudian dieksekusi. *Default*-nya nama projek akan otomatis dijadikan nama *binary*.
 
 Untuk nama executable sendiri bisa diubah menggunakan flag `-o`. Contoh:
 
@@ -101,4 +102,4 @@ Command `go get` **harus dijalankan dalam folder project**. Jika dijalankan di-l
 
 ## A.6.6. Command `go mod vendor`
 
-Command ini digunakan untuk vendoring. Lebih detailnya akan dibahas di akhir serial chapter A, pada bab [A. Go Vendoring](A-go-vendoring.html).
+Command ini digunakan untuk vendoring. Lebih detailnya akan dibahas di akhir serial chapter A, pada chapter [A.61. Go Vendoring](/A-go-vendoring.html).

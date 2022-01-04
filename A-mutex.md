@@ -6,7 +6,7 @@ Race condition adalah kondisi dimana lebih dari satu goroutine, mengakses data y
 
 Mutex melakukan pengubahan level akses sebuah data menjadi eksklusif, menjadikan data tersebut hanya dapat dikonsumsi (read / write) oleh satu buah goroutine saja. Ketika terjadi race condition, maka hanya goroutine yang beruntung saja yang bisa mengakses data tersebut. Goroutine lain (yang waktu running nya kebetulan bersamaan) akan dipaksa untuk menunggu, hingga goroutine yang sedang memanfaatkan data tersebut selesai.
 
-Go menyediakan `sync.Mutex` yang bisa dimanfaatkan untuk keperluan **lock** dan **unlock** data. Pada bab ini kita akan membahas mengenai race condition, dan menanggulanginya menggunakan mutex.
+Go menyediakan `sync.Mutex` yang bisa dimanfaatkan untuk keperluan **lock** dan **unlock** data. Pada chapter ini kita akan membahas mengenai race condition dan cara mengatasinya menggunakan mutex.
 
 ## A.60.1. Persiapan
 
@@ -39,13 +39,13 @@ func (c *counter) Value() (x int) {
 }
 ```
 
-Kode di atas kita gunakan sebagai template contoh source code yang ada pada bab ini.
+Kode di atas kita gunakan sebagai template contoh source code yang ada pada chapter ini.
 
 ## A.60.2. Contoh Race Condition
 
 Program berikut merupakan contoh program yang didalamnya memungkinkan terjadi race condition atau kondisi goroutine balapan.
 
-> Pastikan jumlah core prosesor komputer anda adalah lebih dari satu. Karena contoh pada bab ini hanya akan berjalan sesuai harapan jika `GOMAXPROCS` > 1.
+> Pastikan jumlah core prosesor komputer anda adalah lebih dari satu. Karena contoh pada chapter ini hanya akan berjalan sesuai harapan jika `GOMAXPROCS` > 1.
 
 ```go
 func main() {
@@ -172,6 +172,6 @@ func main() {
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.60-mutex">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.60...</a>
 </div>

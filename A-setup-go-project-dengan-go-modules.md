@@ -46,6 +46,4 @@ Eksekusi perintah `go mod init` menghasilkan satu buah file baru bernama `go.mod
 
 Ok, sekian. Cukup itu saja cara inisalisasi projek di Go.
 
-O iya, sebenarnya selain Go Modules, setup projek di Go juga bisa menggunakan [GOPATH](/A-setup-go-project-dengan-go-modules.html). Tapi inisalisasi porjek dengan GOPATH sudah outdate dan kurang dianjurkan untuk projek-projek yang dikembangkan menggunakan Go versi terbaru (1.14 ke atas).
-
-Jadi setelah bab ini, silakan langsung lanjut ke bab [A. Instalasi Editor](/A-instalasi-editor.html).
+O iya, sebenarnya selain Go Modules, setup projek di Go juga bisa menggunakan `$GOPATH` ([A.4. Setup GOPATH Dan Workspace](/A-gopath-dan-workspace.html)). Tapi inisalisasi porjek dengan GOPATH sudah outdate dan kurang dianjurkan untuk projek-projek yang dikembangkan menggunakan Go versi terbaru (1.14 ke atas). Jadi setelah chapter ini, bisa langsung lanjut ke [A. Instalasi Editor](/A-instalasi-editor.html).

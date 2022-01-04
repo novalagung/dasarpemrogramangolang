@@ -1,12 +1,12 @@
 # B.16. AJAX Multiple File Upload
 
-Pada bab ini, kita akan belajar 3 hal dalam satu waktu, yaitu: 
+Pada chapter ini, kita akan belajar 3 hal dalam satu waktu, yaitu: 
 
 1. Bagaiamana cara untuk upload file via AJAX.
 2. Cara untuk handle upload banyak file sekaligus.
 3. Cara handle upload file yang lebih hemat memori.
 
-Sebelumnya pada [Bab B. Form Upload File](/B-form-upload-file.html), pemrosesan file upload dilakukan lewat **ParseMultipartForm**, sedangkan pada bab ini metode yang dipakai berbeda, yaitu menggunakan **MultipartReader**. 
+Sebelumnya pada chapter [B.13. Form Upload File](/B-form-upload-file.html), pemrosesan file upload dilakukan lewat **ParseMultipartForm**, sedangkan pada chapter ini metode yang dipakai berbeda, yaitu menggunakan **MultipartReader**. 
 
 Kelebihan dari `MultipartReader` adalah, file yang di upload **tidak** di simpan sebagai file temporary di lokal terlebih dahulu (tidak seperti `ParseMultipartForm`), melainkan langsung diambil dari stream `io.Reader`.
 
@@ -123,7 +123,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Sebelumnya, pada [Bab B. Form Upload File](/B-form-upload-file.html), metode yang digunakan untuk handle file upload adalah menggunakan `ParseMultipartForm`, file diproses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.
+Sebelumnya, pada chapter [B.13. Form Upload File](/B-form-upload-file.html), metode yang digunakan untuk handle file upload adalah menggunakan `ParseMultipartForm`, file diproses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.
 
 Metode tersebut kurang tepat guna jika digunakan untuk memproses file yang ukurannya besar (file size melebihi `maxMemory`) atau jumlah file-nya sangat banyak (memakan waktu, karena isi dari masing-masing file akan ditampung pada file *temporary* sebelum benar-benar di-copy ke file tujuan).
 
@@ -200,6 +200,6 @@ Cek apakah file sudah terupload.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.16-ajax-multi-upload">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.16...</a>
 </div>

@@ -70,7 +70,7 @@ var chicken4 = make(map[string]int)
 var chicken5 = *new(map[string]int)
 ```
 
-Khusus inisialisasi data menggunakan keyword `new`, yang dihasilkan adalah data pointer. Untuk mengambil nilai aslinya bisa dengan menggunakan tanda asterisk (`*`). Topik pointer akan dibahas lebih detail ketika sudah masuk bab 22.
+Khusus inisialisasi data menggunakan keyword `new`, yang dihasilkan adalah data pointer. Untuk mengambil nilai aslinya bisa dengan menggunakan tanda asterisk (`*`). Topik pointer akan dibahas lebih detail ketika sudah masuk [A.23. Pointer](/A-pointer.html).
 
 ## A.17.3. Iterasi Item Map Menggunakan `for` - `range`
 
@@ -173,6 +173,6 @@ var data = []map[string]string{
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.17-map">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.17...</a>
 </div>

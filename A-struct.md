@@ -6,7 +6,7 @@ Struct adalah kumpulan definisi variabel (atau property) dan atau fungsi (atau m
 
 Dari sebuah struct, kita bisa buat variabel baru, yang memiliki atribut sesuai skema struct tersebut. Kita sepakati dalam buku ini, variabel tersebut dipanggil dengan istilah **object** atau **object struct**.
 
-> Konsep struct di golang mirip dengan konsep **class** pada OOP, meski sebenarnya berbeda. Disini penulis menggunakan konsep OOP sebagai analogi, dengan tujuan untuk mempermudah dalam mencerna isi bab ini.
+> Konsep struct di golang mirip dengan konsep **class** pada OOP, meski sebenarnya berbeda. Disini penulis menggunakan konsep OOP sebagai analogi, dengan tujuan untuk mempermudah dalam mencerna isi chapter ini.
 
 Dengan memanfaatkan struct, grouping data akan lebih mudah, selain itu dan rapi dan gampang untuk di-maintain.
 
@@ -353,7 +353,7 @@ type person struct {
 }
 ```
 
-Tag biasa dimanfaatkan untuk keperluan encode/decode data json. Informasi tag juga bisa diakses lewat reflect. Nantinya akan ada pembahasan yang lebih detail mengenai pemanfaatan tag dalam struct, terutama ketika sudah masuk bab JSON.
+Tag biasa dimanfaatkan untuk keperluan encode/decode data json. Informasi tag juga bisa diakses lewat reflect. Nantinya akan ada pembahasan yang lebih detail mengenai pemanfaatan tag dalam struct, terutama ketika sudah masuk chapter JSON.
 
 ## A.24.15. Type Alias
 
@@ -410,6 +410,6 @@ var num Number = 12
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.24-struct">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.24...</a>
 </div>

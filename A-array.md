@@ -31,7 +31,7 @@ names[3] = "law"
 names[4] = "ez" // baris kode ini menghasilkan error
 ```
 
-Solusi dari masalah di atas adalah dengan menggunakan keyword `append`, yang di bab selanjutnya ([Bab A. Slice](/A-slice.html)) akan kita bahas.
+Solusi dari masalah di atas adalah dengan menggunakan keyword `append`, yang nantinya pada chapter selanjutnya ([A.16. Slice](/A-slice.html)) akan kita bahas.
 
 ## A.15.2. Inisialisasi Nilai Awal Array
 
@@ -44,7 +44,7 @@ fmt.Println("Jumlah element \t\t", len(fruits))
 fmt.Println("Isi semua element \t", fruits)
 ```
 
-Penggunaan fungsi `fmt.Println()` pada data array tanpa mengakses indeks tertentu, akan menghasilkan output dalam bentuk string dari semua array yang ada. Teknik ini biasa digunakan untuk **debugging** data array.
+Penggunaan fungsi `fmt.Println()` pada data array tanpa mengakses indeks tertentu, akan menghasilkan output dalam bentuk string dari semua array yang ada. Teknik ini biasa digunakan untuk *debugging* data array.
 
 ![Menghitung jumlah elemen dan menampilkan isi array](images/A_array_1_array_initialization_and_len.png)
 
@@ -197,6 +197,6 @@ Parameter pertama keyword `make` diisi dengan tipe data elemen array yang diingi
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.15-array">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.15...</a>
 </div>

@@ -4,7 +4,7 @@
 
 ![Analogi channel](images/A_channel_1_analogy.png)
 
-Pada bab ini kita akan belajar mengenai pemanfaatan channel.
+Pada chapter ini kita akan belajar mengenai pemanfaatan channel.
 
 ## A.31.1. Penerapan Channel
 
@@ -159,6 +159,6 @@ fmt.Println(message)
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.31-channel">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.31...</a>
 </div>

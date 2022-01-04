@@ -1,10 +1,10 @@
 # B.19. Middleware `http.Handler`
 
-Pada bab ini, kita akan belajar penggunaan interface `http.Handler` untuk implementasi custom middleware. Kita akan menggunakan sample proyek pada bab sebelumnya [Bab B. HTTP Basic Authentication](/B-http-basic-auth.html) sebagai dasar bahan pembahasan bab ini.
+Pada chapter ini, kita akan belajar penggunaan interface `http.Handler` untuk implementasi custom middleware. Kita akan menggunakan sample proyek pada chapter sebelumnya [B.18. HTTP Basic Auth](/B-http-basic-auth.html) sebagai dasar bahan pembahasan chapter ini.
 
 > Apa itu middleware? Istilah middleware berbeda-beda di tiap bahasa/framework. NodeJS dan Rails ada istilah middleware. Pada pemrograman Java Enterprise, istilah filters digunakan. Pada C# istilahnya adalah delegate handlers. Definisi dari middleware sendiri versi penulis, sebuah blok kode yang dipanggil sebelum ataupun sesudah http request di proses.
 
-Di bab sebelumnya, kalau dilihat, ada beberapa proses yang dijalankan dalam handler rute `/student`, yaitu pengecekan otentikasi dan pengecekan method. Misalnya terdapat rute lagi, maka dua validasi tersebut juga harus dipanggil lagi dalam handlernya.
+Pada chapter sebelumnya, kalau dilihat, ada beberapa proses yang dijalankan dalam handler rute `/student`, yaitu pengecekan otentikasi dan pengecekan method. Misalnya terdapat rute lagi, maka dua validasi tersebut juga harus dipanggil lagi dalam handlernya.
 
 ```go
 func ActionStudent(w http.ResponseWriter, r *http.Request) {
@@ -116,7 +116,7 @@ server.Handler = handler
 
 ## B.19.3. Pembuatan Middleware
 
-Di dalam `middleware.go` ubah fungsi `Auth()` (hasil salinan projek pada bab sebelumnya) menjadi fungsi `MiddlewareAuth()`. Parameternya objek bertipe `http.Handler`, dan nilai baliknya juga sama.
+Di dalam `middleware.go` ubah fungsi `Auth()` (hasil salinan projek pada chapter sebelumnya) menjadi fungsi `MiddlewareAuth()`. Parameternya objek bertipe `http.Handler`, dan nilai baliknya juga sama.
 
 ```go
 func MiddlewareAuth(next http.Handler) http.Handler {
@@ -140,7 +140,7 @@ func MiddlewareAuth(next http.Handler) http.Handler {
 
 Idealnya fungsi middleware harus mengembalikan struct yang implements `http.Handler`. Beruntungnya, Go sudah menyiapkan fungsi ajaib untuk mempersingkat pembuatan struct-yang-implemenets-`http.Handler`. Fungsi tersebut adalah `http.HandlerFunc`, cukup bungkus callback `func(http.ResponseWriter,*http.Request)` sebagai tipe `http.HandlerFunc` dan semuanya beres.
 
-Isi dari `MiddlewareAuth()` sendiri adalah pengecekan basic auth, sama seperti pada bab sebelumnya.
+Isi dari `MiddlewareAuth()` sendiri adalah pengecekan basic auth, sama seperti pada chapter sebelumnya.
 
 Tak lupa, ubah juga `AllowOnlyGet()` menjadi `MiddlewareAllowOnlyGet()`.
 
@@ -163,15 +163,15 @@ Jalankan aplikasi.
 
 ![Run the server](images/B_http_basic_auth_2_run_server.png)
 
-Lalu test menggunakan `curl`, hasilnya adalah sama dengan pada bab sebelumnya.
+Lalu test menggunakan `curl`, hasilnya adalah sama dengan pada chapter sebelumnya.
 
 ![Consume API](images/B_http_basic_auth_3_test_api.png)
 
-Dibanding metode pada bab sebelumnya, dengan teknik ini kita bisa sangat mudah mengontrol lalu lintas routing aplikasi, karena semua rute pasti melewati middleware terlebih dahulu sebelum sampai ke tujuan. Cukup maksimalkan middleware tersebut tanpa menggangu fungsi callback masing-masing rute.
+Dibanding metode pada chapter sebelumnya, dengan teknik ini kita bisa sangat mudah mengontrol lalu lintas routing aplikasi, karena semua rute pasti melewati middleware terlebih dahulu sebelum sampai ke tujuan. Cukup maksimalkan middleware tersebut tanpa menggangu fungsi callback masing-masing rute.
 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.19-middleware-using-http-handler">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.19...</a>
 </div>

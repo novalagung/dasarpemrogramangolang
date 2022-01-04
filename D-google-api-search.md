@@ -1,6 +1,6 @@
 # D.2. Google API Search Dengan Timeout
 
-Pada bab ini kita akan mencoba studi kasus yaitu membuat web service API untuk *wrap* pencarian ke Google Search API.
+Pada chapter ini kita akan mencoba studi kasus yaitu membuat web service API untuk *wrap* pencarian ke Google Search API.
 
 Proses pembelajaran dilakukan dengan praktek membuat sebuah aplikasi web service kecil, yang tugasnya melakukan pencarian data. Nantinya akan dibuat juga middleware `MiddlewareUtility`, tugasnya menyisipkan informasi origin dispatcher request, ke dalam context request, sebelum akhirnya sampai pada handler endpoint yg sedang diakses.
 
@@ -22,7 +22,7 @@ tree .
 0 directories, 2 files
 ```
 
-Pada file `middleware.go` isi dengan `CustomMux` yang pada bab-bab sebelumnya sudah pernah kita gunakan.
+Pada file `middleware.go` isi dengan `CustomMux` yang pada pembahasan-pembahasan sebelumnya sudah pernah kita gunakan.
 
 ```go
 package main
@@ -300,7 +300,7 @@ Informasi tambahan: best practice mengenai cancelation context adalah untuk sela
 
 ## D.2.3. Google Search API Restrictions Referer
 
-Di bagian awal bab ini, kita belajar mengenai context value. Kenapa penulis memilih menggunakan context untuk menyisipkan data referer, kenapa tidak contoh yg lebih umum seperti session dan lainnya? sebenarnya ada alasannya.
+Di bagian awal chapter ini, kita belajar mengenai context value. Kenapa penulis memilih menggunakan context untuk menyisipkan data referer, kenapa tidak contoh yg lebih umum seperti session dan lainnya? sebenarnya ada alasannya.
 
 Silakan coba akses kedua url berikut.
 
@@ -322,6 +322,6 @@ Error di atas muncul karena, host `localhost` belum didaftarkan pada API console
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-D-google-api-search">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-D.2-google-api-search/2-request-cancellation">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>

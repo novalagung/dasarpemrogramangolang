@@ -4,7 +4,7 @@ Hash adalah algoritma enkripsi untuk mengubah text menjadi deretan karakter acak
 
 SHA1 atau **Secure Hash Algorithm 1** merupakan salah satu algoritma hashing yang sering digunakan untuk enkripsi data. Hasil dari sha1 adalah data dengan lebar **20 byte** atau **160 bit**, biasa ditampilkan dalam bentuk bilangan heksadesimal 40 digit.
 
-Di bab ini kita akan belajar tentang pemanfaatan sha1 dan teknik salting dalam hash.
+Pada chapter ini kita akan belajar tentang pemanfaatan sha1 dan teknik salting dalam hash.
 
 ## A.47.1. Penerapan Hash SHA1
 
@@ -98,6 +98,6 @@ Metode ini sering dipakai untuk enkripsi password user. Salt dan data hasil hash
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.47-hash-sha1">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.47...</a>
 </div>

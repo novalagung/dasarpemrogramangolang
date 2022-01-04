@@ -1,6 +1,6 @@
 # B.7. Template: Functions
 
-Go menyediakan beberapa *predefiend* function yang bisa digunakan dalam file template. Pada bab ini kita akan membahas beberapa diantaranya beserta cara penggunaannya. Cara pemanggilan fungsi atau method sebuah objek pada file template sedikit berbeda dibanding seperti pada bab sebelumnya.
+Go menyediakan beberapa *predefiend* function yang bisa digunakan dalam file template. Pada chapter ini kita akan membahas beberapa diantaranya beserta cara penggunaannya. Cara pemanggilan fungsi atau method sebuah objek pada file template sedikit berbeda dibanding seperti pada chapter sebelumnya.
 
 ## B.7.1. Persiapan
 
@@ -26,7 +26,7 @@ func (s Superhero) SayHello(from string, message string) string {
 
 Struct `Superhero` di atas nantinya digunakan untuk membuat objek yang kemudian disisipkan ke template view.
 
-Selanjutnya buat fungsi `main()`, isi dengan handler untuk rute `/`. Secara umum isi dari file `main.go` ini mirip seperti yang ada pada bab sebelumnya.
+Selanjutnya buat fungsi `main()`, isi dengan handler untuk rute `/`. Secara umum isi dari file `main.go` ini mirip seperti yang ada pada chapter sebelumnya.
 
 ```go
 func main() {
@@ -91,7 +91,7 @@ Selain fungsi `html`, ada juga beberapa fungsi lain yang sudah disediakan oleh G
 
 ## B.7.3. Fungsi Operator Perbandingan
 
-Pada bab sebelumnya telah dibahas bagaimana penggunaan operator `ne` pada actions `if`. `eq` dan `ne` adalah contoh dari fungsi operator perbandingan. Jika digunakan pada seleksi kondisi yang nilai kondisinya bertipe `bool`, maka cukup dengan menuliskannya seletah operator, contohnya.
+Pada chapter sebelumnya telah dibahas bagaimana penggunaan operator `ne` pada actions `if`. `eq` dan `ne` adalah contoh dari fungsi operator perbandingan. Jika digunakan pada seleksi kondisi yang nilai kondisinya bertipe `bool`, maka cukup dengan menuliskannya seletah operator, contohnya.
 
 ```html
 {{if eq true}}
@@ -231,6 +231,6 @@ Output:
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.7-template-functions">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.7...</a>
 </div>

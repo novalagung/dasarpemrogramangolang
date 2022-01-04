@@ -1,6 +1,6 @@
 # A.54. Web Service API Server
 
-Pada bab ini kita akan mengkombinasikan pembahasan 2 bab sebelumnya, yaitu web programming dan JSON, untuk membuat sebuah web service API dengan tipe data reponse berbentuk JSON.
+Pada chapter ini kita akan mengkombinasikan pembahasan 2 chapter sebelumnya, yaitu web programming dan JSON, untuk membuat sebuah web service API dengan tipe data reponse berbentuk JSON.
 
 > Web Service API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML.
 
@@ -37,7 +37,7 @@ Selanjutnya buat fungsi `users()` untuk handle endpoint `/users`. Didalam fungsi
 func users(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
 
-    if r.Method == "POST" {
+    if r.Method == "GET" {
         var result, err = json.Marshal(data)
 
         if err != nil {
@@ -53,7 +53,7 @@ func users(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Jika request adalah POST, maka data yang di-encode ke JSON dijadikan sebagai response.
+Jika request adalah GET (mengambil data), maka data yang di-encode ke JSON dijadikan sebagai response.
 
 Statement `w.Header().Set("Content-Type", "application/json")` digunakan untuk menentukan tipe response, yaitu sebagai JSON. Sedangkan `r.Write()` digunakan untuk mendaftarkan data sebagai response.
 
@@ -61,14 +61,14 @@ Selebihnya, jika request tidak valid, response di set sebagai error menggunakan 
 
 Siapkan juga handler untuk endpoint `/user`. Perbedaan endpoint ini dengan `/users` di atas adalah:
 
- - Endpoint `/users` menghasilkan semua sample data yang ada (array).
- - Endpoint `/user` menghasilkan satu buah data saja, diambel dari data sample berdasarkan `ID`-nya. Pada endpoint ini, client harus mengirimkan juga informasi `ID` data yang dicari.
+ - Endpoint `/users` mengembalikan semua sample data yang ada (array).
+ - Endpoint `/user` mengembalikan satu buah data saja, diambel dari data sample berdasarkan `ID`-nya. Pada endpoint ini, client harus mengirimkan juga informasi `ID` data yang dicari.
 
 ```go
 func user(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
 
-    if r.Method == "POST" {
+    if r.Method == "GET" {
         var id = r.FormValue("id")
         var result []byte
         var err error
@@ -87,7 +87,7 @@ func user(w http.ResponseWriter, r *http.Request) {
             }
         }
 
-        http.Error(w, "User not found", http.StatusBadRequest)
+        http.Error(w, "User not found", http.StatusNotFound)
         return
     }
 
@@ -115,7 +115,7 @@ Jalankan program, sekarang web server sudah live dan bisa dikonsumsi datanya.
 
 ![Web API Server dijalankan](images/A_web_service_1_server.png)
 
-## A.54.2. Test Web Service API
+## A.54.2. Test Web Service API via Postman
 
 Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-tes. Di sini saya menggunakan Google Chrome plugin bernama [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en) untuk mengetes API yang sudah dibuat.
 
@@ -127,9 +127,21 @@ Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-
 
     ![Test `/user`](images/A_web_service_3_test_api_user.png)
 
+## A.54.3. Test Web Service API via `cURL`
+
+Untuk testing bisa juga memanfaatkan cURL. Apabila pembaca menggunakan Windows 10, seharusnya sudah ter-include cURL. Jika bukan pengguna Windows 10, bisa menginstall-nya dan mendaftarkannya ke path variables (agar bisa diakses melalui terminal/cmd dari mana saja).
+
+curl -X GET http://localhost:8080/users
+curl -X GET http://localhost:8080/user?id=B002
+ ```
+
+![cURL test](images/A_web_service_4.png)
+
+Data ID yang ingin dicari melalui endpoint /user, ditulis dengan ?id=B002 yang berarti dilewatkan melalui query parameters (umumnya data yang ingin dilampirkan melalui method GET adalah dengan query parameters).
+
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.54-web-service-api">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.54...</a>
 </div>

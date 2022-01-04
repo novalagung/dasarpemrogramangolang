@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	baseVersion = 2
+	baseVersion = 3
 	bookName    = "Dasar Pemrograman Golang"
 	adClient    = "ca-pub-1417781814120840"
 	now         = time.Now()
