@@ -30,6 +30,7 @@ Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan wakt
 - [MH Rohman Masyhar](https://github.com/rohmanhm)
 - [Muhammad Faris 'Afif](https://github.com/muhfaris)
 - [Mulia Nasution](https://github.com/mul14)
+- [nekonako](https://github.com/nekonako)
 - [Noval Agung Prayogo](https://github.com/novalagung)
 - [Nuevo Querto](https://github.com/NuevoQuerto)
 - [Ryan Febriansyah](https://github.com/sodrooome)
