@@ -148,3 +148,4 @@
   * [D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover](D-insert-1mil-csv-record-into-db-in-a-minute.md)
   * [D.2. Google API Search Dengan Timeout](D-google-api-search.md)
   * [D.3. Web Socket: Chatting App](D-golang-web-socket-chatting-app.md)
+
