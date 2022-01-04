@@ -76,7 +76,7 @@ Objek argument kingpin pasti bertipe pointer, maka *dereference* objek tersebut 
 
 Jalankan aplikasi, cek hasilnya.
 
-![Argument output](images/C.7_1_arg.png)
+![Argument output](images/C_flag_parser_1_arg.png)
 
 Bisa dilihat dari gambar di atas ketika flag `--help` dipanggil list semua argument muncul.
 
@@ -150,7 +150,7 @@ Penggunaan flag `--help` akan memunculkan keterangan mendetail tiap-tiap flag.
 
 > Flag bisa dikombinasikan dengan argument.
 
-![Flag](images/C.7_2_flag.png)
+![Flag](images/C_flag_parser_2_flag.png)
 
 ## C.7.4. Parsing Command
 
@@ -286,11 +286,11 @@ Jalankan aplikasi untuk mengetes hasilnya.
 
 Tambahkan flag `--help` pada pemanggilan command untuk menampilkan help command terpilih.
 
-![Command help](images/C.7_3_command_help.png)
+![Command help](images/C_flag_parser_3_command_help.png)
 
 Atau gunakan `--help-long` dalam eksekusi binary, untuk menampilkan help yang mendetail (argument dan flag tiap command juga dimunculkan).
 
-![Command help full](images/C.7_4_command_help_full.png)
+![Command help full](images/C_flag_parser_4_command_help_full.png)
 
 ## C.7.5. Command Action Tanpa Menggunakan `.Action()`
 

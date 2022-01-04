@@ -436,7 +436,7 @@ user.Register(context.Background(), &user2)
 
 Jalankan aplikasi `service-user`, `service-garage`, dan client, lalu lihat hasilnya.
 
-![gRPC Test 1](images/C.30_1_grpc_test1.png)
+![gRPC Test 1](images/C_golang_grpc_protobuf_1_grpc_test1.png)
 
 Bisa dilihat, pemanggilan method `Add()` pada aplikasi rpc server `service-user` sukses.
 
@@ -454,7 +454,7 @@ log.Println(string(res1String))
 
 Bisa dilihat pada gambar berikut, pemanggilan method `.List()` juga sukses. Dua buah data yang sebelumnya didaftarkan muncul.
 
-![gRPC Test 2](images/C.30_2_grpc_test2.png)
+![gRPC Test 2](images/C_golang_grpc_protobuf_2_grpc_test2.png)
 
 #### • Test rpc client garage
 
@@ -518,7 +518,7 @@ Tambahkan beberapa statement untuk memanggil method yang ada di `service-garage`
 
 Jalankan ulang services dan aplikasi client, lihat hasilnya.
 
-![gRPC Test 3](images/C.30_3_grpc_test3.png)
+![gRPC Test 3](images/C_golang_grpc_protobuf_3_grpc_test3.png)
 
 ---
 

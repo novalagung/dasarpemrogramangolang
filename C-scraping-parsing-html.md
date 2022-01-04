@@ -16,7 +16,7 @@ go get -u github.com/PuerkitoBio/goquery
 
 Kita akan praktekan penerapan goquery untuk mengambil beberapa data dari website https://novalagung.com; pada website tersebut, di halaman landing, ada beberapa blok artikel muncul. Informasi di setiap artikel akan diambil, ditampung dalam satu objek slice, kemudian ditampilkan sebagai JSON string.
 
-![Images](images/C.20_1_novalagung.png)
+![Images](images/C_scraping_parsing_html_1_novalagung.png)
 
 ## C.20.2. Praktek Scraping dan Parsing HTML
 
@@ -70,7 +70,7 @@ Statement di atas mengembalikan salah satunya objek `goquery.Document`, yang dit
 
 Dari objek `goquery.Document`, gunakan API yang tersedia untuk melakukan operasi sesuai kebutuhan. Kita akan ambil semua element artikel sesuai dengan skema html yang ada pada website target.
 
-![Website structure](images/C.20_2_structure.png)
+![Website structure](images/C_scraping_parsing_html_2_structure.png)
 
 OK mari langsung kita praktekan, ambil objek `.post-feed` kemudian ambil child elements-nya.
 
@@ -105,7 +105,7 @@ Di akhir objek slice dikonversi ke bentuk JSON string, lalu ditampilkan.
 
 Jalankan aplikasi, lihat hasilnya.
 
-![Output](images/C.20_3_output.png)
+![Output](images/C_scraping_parsing_html_3_output.png)
 
 ## C.20.3. Modifikasi HTML
 
@@ -180,7 +180,7 @@ Pada kode di atas kita menggunakan satu lagi library, [gohtml](https://github.co
 
 Jalankan aplikasi, lihat hasilnya.
 
-![Beautified HTML](images/C.20_4_beautified_html.png)
+![Beautified HTML](images/C_scraping_parsing_html_4_beautified_html.png)
 
 ---
 

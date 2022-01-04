@@ -124,7 +124,7 @@ Syntax `{{.message}}` artinya menampilkan isi property yang namanya adalah `mess
 
 Jalankan aplikasi untuk melihat hasilnya.
 
-![Preview](images/C.5_1_preview.png)
+![Preview](images/C_echo_template_rendering_1_preview.png)
 
 ## C.5.2. Render Parsial dan Spesifik Template
 

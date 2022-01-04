@@ -125,11 +125,11 @@ Pengaksesan rute akan memunculkan data yang sama. Karena pembuatan cookie hanya 
 
 Jalankan aplikasi untuk mengetes hasilnya. Lakukan refresh beberapa kali, data yang muncul pasti sama.
 
-![Secure cookie test](images/C.9_1_securecookie.png)
+![Secure cookie test](images/C_securecookie_1_securecookie.png)
 
 Lihat pada response header url `index`, data pada cookie terlihat sudah dalam kondisi encoded dan encrypted.
 
-![Cookie header](images/C.9_2_cookie_header.png)
+![Cookie header](images/C_securecookie_2_cookie_header.png)
 
 ## C.9.2. Delete Secure Cookie
 

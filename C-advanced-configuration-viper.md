@@ -101,7 +101,7 @@ Pengaksesan property nested seperti `server.port` juga mudah, tinggal tulis saja
 
 Jalankan aplikasi untuk test hasilnya.
 
-![Sample output](images/C.8_1_app.png)
+![Sample output](images/C_advanced_configuration_viper_1_app.png)
 
 ## C.8.A.2. YAML Configuration
 

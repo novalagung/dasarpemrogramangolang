@@ -295,7 +295,7 @@ Tujuan dari kode yang kita tulis kurang lebih sebagai berikut.
  2. Rute `/set` diakses, lalu sebuah session disimpan, dari rute ini pengguna di-redirect ke `/get`, sebuah pesan muncul yang sumber datanya tak lain adalah dari session.
  3. Rute `/delete` diakses, session dihapus, lalu di-redirect lagi ke `/get`, pesan `empty result` muncul kembali karena session sudah tidak ada (dihapus).
 
-![Session Test](images/C.10_1_test.png)
+![Session Test](images/C_session_1_test.png)
 
 ---
 

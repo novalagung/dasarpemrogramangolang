@@ -12,7 +12,7 @@ Contoh JWT:
 
 Skema JWT:
 
-![JWT scheme](images/C.32_1_jwt_scheme.png)
+![JWT scheme](images/C_golang_jwt_1_jwt_scheme.png)
 
  - **Header**, isinya adalah jenis algoritma yang digunakan untuk generate signature.
  - **Payload**, isinya adalah data penting untuk keperluan otentikasi, seperti *grant*, *group*, kapan login terjadi, dan atau lainnya. Data ini dalam konteks JWT biasa disebut dengan **CLAIMS**.
@@ -380,7 +380,7 @@ curl -X POST --user noval:kaliparejaya123 http://localhost:8080/login
 
 Output:
 
-![JWT Authentication](images/C.32_2_jwt_authentication.png)
+![JWT Authentication](images/C_golang_jwt_2_jwt_authentication.png)
 
 #### • Mengakses Endpoint
 
@@ -394,11 +394,11 @@ curl -X GET \
 
 Output:
 
-![JWT Authorization](images/C.32_3_jwt_authorization.png)
+![JWT Authorization](images/C_golang_jwt_3_jwt_authorization.png)
 
 Semua berjalan sesuai harapan. Agar lebih meyakinkan, coba lakukan beberapa test dengan skenario yg salah, seperti:
 
-![JWT Error](images/C.32_4_invalid_jwt_token.png)
+![JWT Error](images/C_golang_jwt_4_invalid_jwt_token.png)
 
 ---
 

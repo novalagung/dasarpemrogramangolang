@@ -104,17 +104,17 @@ Pengiriman email dilakukan lewat `smtp.SendMail()`. Dalam pemanggilannya 5 buah 
 
 Jalankan aplikasi. Lihat di console, error muncul.
 
-![Error gmail SMTP](images/C.16_1_gmail_error.png)
+![Error gmail SMTP](images/C_send_email_1_gmail_error.png)
 
 Error di atas hanya muncul pada pengiriman email menggunakan akun google mail. Untuk alasan keamanan, google men-disable akun gmail untuk digunakan mengirim email lewat kode program.
 
 Aktifkan fasilitas **less secure apps** untuk meng-enable-nya. Login ke gmail masing-masing, kemudian buka link https://myaccount.google.com/lesssecureapps, lalu klik tombol toggle agar menjadi **OFF**.
 
-![Google Less Secure Apps](images/C.16_2_less_secure.png)
+![Google Less Secure Apps](images/C_send_email_2_less_secure.png)
 
 Jalankan ulang aplikasi, email terkirim. Lihat di inbox email tujuan pengiriman untuk mengecek hasilnya.
 
-![Email received](images/C.16_3_email_received.png)
+![Email received](images/C_send_email_3_email_received.png)
 
 ## C.16.2. Kirim Email Menggunakan Gomail v2
 
@@ -173,7 +173,7 @@ Pada contoh kali ini email isinya adalah HTML. Gunakan MIME html pada parameter 
 
 Jalankan aplikasi, lalu cek hasilnya email yang dikirim di inbox.
 
-![Mail with attachment](images/C.16_4_mail_with_attachment.png)
+![Mail with attachment](images/C_send_email_4_mail_with_attachment.png)
 
 ## C.16.3. Kirim Email dengan Konfigurasi SMTP Relay / No Auth / Tanpa Otentikasi
 

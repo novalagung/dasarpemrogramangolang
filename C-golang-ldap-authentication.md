@@ -53,7 +53,7 @@ Silakan gunakan LDAP browser yang disukai, atau bisa gunakan [Apache Directory S
 
 Buat koneksi baru menggunakan credentials di atas. Lakukan hingga berhasil memunculkan list user data seperti gambar berikut.
 
-![Browse LDAP](images/C.33_1_ldap_browse.png)
+![Browse LDAP](images/C_golang_ldap_authentication_1_ldap_browse.png)
 
 Bisa dilihat bahwa terdapat beberapa user data. Nantinya testing akan dilkakukan dengan login menggunakan salah satu user tersebut.
 
@@ -286,11 +286,11 @@ return true, data, nil
 
 Ok, mari kita test. Jalankan program, lalu akses http://localhost:9000/; Lakukan login menggunakan salah satu user yang ada (silakan cek di LDAP browser anda). Di sini saya pilih menggunakan user `boyle`, password-nya `password` (semua user ber-kata-sandi sama).
 
-![Ldap Login](images/C.33_2_ldap_login.png)
+![Ldap Login](images/C_golang_ldap_authentication_2_ldap_login.png)
 
 Login berhasil, dibuktikan dengan munculnya fullname **Robert Boyle**. Coba juga gunakan password yang salah agar lebih meyakinkan.
 
-![Ldap Login Sukses](images/C.33_3_ldap_login_success.png)
+![Ldap Login Sukses](images/C_golang_ldap_authentication_3_ldap_login_success.png)
 
 ## C.33.6. LDAP TLS
 

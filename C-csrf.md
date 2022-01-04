@@ -197,7 +197,7 @@ Sekarang jalankan aplikasi lalu akses `/index` untuk mengetes hasilnya. Silakan 
 
 Hasilnya:
 
-![CSRF test result](images/C.13_1_csrf.png)
+![CSRF test result](images/C_csrf_1_csrf.png)
 
 Coba tembak langsung endpoint nya lewat CURL.
 
@@ -207,7 +207,7 @@ $ curl -X POST http://localhost:9000/sayhello \
      -d '{"name":"noval","gender":"male"}'
 ```
 
-![CSRF test curl](images/C.13_2_csrf_curl.png)
+![CSRF test curl](images/C_csrf_2_csrf_curl.png)
 
 Hasilnya error, karena token csrf tidak di-sisipkan. 
 

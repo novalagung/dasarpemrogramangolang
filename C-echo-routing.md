@@ -54,7 +54,7 @@ func main() {
 
 Kode di atas adalah contoh sederhana penerapan echo router.
 
-![Preview](images/C.1_1_routing_slash_test.png)
+![Preview](images/C_echo_routing_1_routing_slash_test.png)
 
 Routing dengan memanfaatkan package `net/http` dalam penerapannya adalah menggunakan `http.HandleFunc()` atau `http.Handle()`. Berbeda dengan Echo, routingnya adalah method-based, tidak hanya endpoint dan handler yang di-registrasi, method juga.
 
@@ -270,7 +270,7 @@ r.Static("/static", "assets")
 
 Jalankan aplikasi, lalu coba akses `http://localhost:9000/static/layout.js`.
 
-![Routing static assets](images/C.1_2_routing_static_assets.png)
+![Routing static assets](images/C_echo_routing_2_routing_static_assets.png)
 
 ---
 

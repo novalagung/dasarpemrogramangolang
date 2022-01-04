@@ -8,7 +8,7 @@ Sebelum memulai, ada satu hal penting yang perlu dipersiapkan, yaitu sebuah serv
 
 Dalam server tersebut, siapkan beberapa file dan folder dengan struktur sebagai berikut.
 
-![FTP folder structure](images/C.26_1_ftp_folder_structure.png)
+![FTP folder structure](images/C_golang_ftp_1_ftp_folder_structure.png)
 
  - File `test1.txt`, isi dengan apapun.
  - File `test2.txt`, isi dengan apapun.
@@ -100,7 +100,7 @@ func getStringEntryType(t ftp.EntryType) string {
 
 Jalankan aplikasi lihat hasilnya.
 
-![List files](images/C.26_2_list_assets.png)
+![List files](images/C_golang_ftp_2_list_assets.png)
 
 Jika dibandingkan dengan file yang ada di server, ada satu yang tidak muncul, yaitu `somefolder/test3.txt`. Hal ini dikarenakan file yang di-list adalah yang ada pada `"."` atau **current path**. File `test3.txt` berada di dalam sub folder `somefolder`.
 
@@ -131,7 +131,7 @@ for _, entry := range entries {
 
 Jalankan aplikasi, lihat lagi hasilnya.
 
-![List files](images/C.26_3_list_assets_subfolder.png)
+![List files](images/C_golang_ftp_3_list_assets_subfolder.png)
 
 ## C.26.4. Pindah Ke Parent Folder Menggunakan `.ChangeDirToParent()`
 
@@ -192,7 +192,7 @@ fmt.Println(" ->", fileTest2Path, "->", string(test2ContentInBytes))
 
 Jalankan aplikasi, cek hasilnya.
 
-![List files](images/C.26_4_read_file.png)
+![List files](images/C_golang_ftp_4_read_file.png)
 
 Bisa dilihat, isi file yang dibaca adalah aslinya.
 
@@ -237,11 +237,11 @@ Setelah itu, copy isi file yang sudah diambil dari server, ke `downloaded-movie.
 
 Jalankan aplikasi, coba cek md5 sum dari kedua file, harusnya sama.
 
-![Download file](images/C.26_5_download_file.png)
+![Download file](images/C_golang_ftp_5_download_file.png)
 
 Coba buka `downloaded-movie.mp4`, jika proses transfer sukses maka pasti bisa dibuka.
 
-![Preview movie](images/C.26_6_movie_preview.png)
+![Preview movie](images/C_golang_ftp_6_movie_preview.png)
 
 ## C.26.7. Upload File
 
@@ -283,7 +283,7 @@ for _, entry := range entries {
 
 Jalankan aplikasi, cek hasilnya. Untuk memvalidasi bahwa file di client dan di server sama, bandingkan md5 sum kedua file.
 
-![Upload file](images/C.26_7_upload_file.png)
+![Upload file](images/C_golang_ftp_7_upload_file.png)
 
 ---
 

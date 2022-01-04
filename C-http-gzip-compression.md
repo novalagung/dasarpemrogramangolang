@@ -74,7 +74,7 @@ func main() {
 
 Jalankan aplikasi lalu test hasilnya.
 
-![Without compression](images/C.15_1_without_compression.png)
+![Without compression](images/C_http_gzip_compression_1_without_compression.png)
 
 Image size adalah 137 KB, dan response time adalah 18 ms.
 
@@ -103,7 +103,7 @@ func main() {
 
 Jalankan ulang aplikasi, lihat perbandingannya.
 
-![Without compression](images/C.15_2_with_compression.png)
+![Without compression](images/C_http_gzip_compression_2_with_compression.png)
 
 Perbedannya size dan time nya mungkin tidak terlihat signifikan, karena memang gambarnya berukuran kecil, jumlahnya cuma satu asset, dan pengaksesannya di localhost. Untuk aplikasi yang sudah published di internet, dan diakses dari komputer lokal, pasti akan terasa jauh lebih cepat dan ringan.
 

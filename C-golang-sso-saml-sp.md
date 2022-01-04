@@ -274,19 +274,19 @@ go run *.go
 
 Oops, muncul error pada saat mengakses `http://localhost:9000/index`. Meski url ini merupakan protected url, yang dimana hanya bisa diakses ketika sudah login, harusnya user akan di-redirect ke halaman login, bukan malah memunculkan error.
 
-![Metadata share](images/C.34_1_saml_metadata_missing.png)
+![Metadata share](images/C_golang_sso_saml_sp_1_saml_metadata_missing.png)
 
 Jika dilihat baik-baik, errornya cukup jelas, bahwa ini terjadi karena kita belum memberikan metadata SP aplikasi kita ke IDP. Ingat bahwa pertukaran metadata adalah wajib, SP sudah tau metadata IDP, tapi IDP belum tau metadata SP.
 
 Ok, sekarang kita perlu upload metadata SP ke samltest.id. Metadata SP bisa di-unduh lewat endpoint `/saml/metadata` (pada konteks ini url menjadi http://localhost:9000/saml/metadata. URL upload metadata samltest adalah https://samltest.id/upload.php.
 
-![Upload SP Metadata to IDP](images/C.34_2_upload_sp_metadata.png)
+![Upload SP Metadata to IDP](images/C_golang_sso_saml_sp_2_upload_sp_metadata.png)
 
 ## C.34.6. Test SAML SP
 
 Test dengan membuka endpoint `/index` pada browser. Idealnya kita akan diarahkan ke URL SAML login. Gunakan sandbox account yang ada di halaman itu untuk login.
 
-![Login SAML](images/C.34_3_login_saml.png)
+![Login SAML](images/C_golang_sso_saml_sp_3_login_saml.png)
 
 Setelah login sukses, halaman yang diinginkan muncul dengan menampilkan pesan `Welcome, Nama User!`.
 

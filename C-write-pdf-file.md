@@ -77,7 +77,7 @@ Setelah selesai bermain dengan objek pdf, gunakan `.OutputFileAndClose()` untuk 
 
 Coba jalankan aplikasi untuk melihat hasilnya. Buka generated file `file.pdf`, isinya kurang lebih seperti gambar berikut.
 
-![Write PDF file](images/C.18_1_write_pdf_file.png)
+![Write PDF file](images/C_write_pdf_file_1_write_pdf_file.png)
 
 
 ---

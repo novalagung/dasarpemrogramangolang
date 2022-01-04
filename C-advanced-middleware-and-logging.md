@@ -68,7 +68,7 @@ func main() {
 
 Jalankan aplikasi, lihat hasilnya.
 
-![Middleware logging](images/C.6_1_middleware_log.png)
+![Middleware logging](images/C_advanced_middleware_and_logging_1_middleware_log.png)
 
 ## C.6.2. Integrasi Middleware ber-skema Non-Echo-Middleware
 
@@ -132,7 +132,7 @@ Cara menggunakan echo logging middleware adalah dengan membuat objek logging bar
 
 Jalankan aplikasi, lalu lihat hasilnya.
 
-![Echo logging middleware](images/C.6_2_middleware_logging.png)
+![Echo logging middleware](images/C_advanced_middleware_and_logging_2_middleware_logging.png)
 
 ---
 
@@ -259,7 +259,7 @@ Nah pada bagian penerimaan channel, jika nilai baliknya tidak `nil` maka pasti t
 
 OK, sekarang jalankan lalu test aplikasi.
 
-![Logrus preview](images/C.6_3_middleware_logrus.png)
+![Logrus preview](images/C_advanced_middleware_and_logging_3_middleware_logrus.png)
 
 Satu kata, *cantik*.
 

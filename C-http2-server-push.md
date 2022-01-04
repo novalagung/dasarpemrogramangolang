@@ -21,7 +21,7 @@ Golang memiliki dukungan sangat baik terhadap HTTP/2. Dengan cukup meng-enable f
 
 Untuk memastikan mari kita langsung praktekkan, coba duplikat projek pada bab sebelumnya (**A.23. HTTPS/TLS Web Server**) sebagai projek baru, jalankan aplikasinya lalu cek di browser chrome. Gunakan chrome extension [HTTP/2 and SPDY indicator](https://chrome.google.com/webstore/detail/http2-and-spdy-indicator/mpbpobfflnpcgagjijhmgnchggcjblin?hl=en) untuk menge-test apakah HTTP/2 sudah enabled.
 
-![SPDY checker](images/C.23_1_spdy_checker.png)
+![SPDY checker](images/C_http2_server_push_1_spdy_checker.png)
 
 Perlu diketahui untuk golang versi sebelum **1.6** ke bawah, secara default HTTP/2 tidak akan di-enable. Perlu memanggil fungsi `http2.ConfigureServer()` secara eksplist untuk meng-enable HTTP/2. Fungsi tersebut tersedia dalam package `golang.org/x/net/http2`. Lebih jelasnya silakan baca [laman dokumentasi](https://godoc.org/golang.org/x/net/http2).
 
@@ -143,7 +143,7 @@ Untuk mengecek server push pada tiap request sebenernya bisa hanya cukup menggun
 
 Pada saat mengakses `https://localhost:9000` pastikan developer tools sudah aktif (klik kanan, inspect element), lalu buka tab **Network**.
 
-![SPDY indicator](images/C.23_2_spdy_indicator.png)
+![SPDY indicator](images/C_http2_server_push_2_spdy_indicator.png)
 
 
 Untuk endpoint yang menggunakan server push, pada kolom **Protocol** nilainya adalah **spdy**. Pada screenshot di atas terlihat bahwa assets `app.js` dan `app.css` dikirim lewat server push.

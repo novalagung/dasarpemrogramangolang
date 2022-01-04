@@ -124,7 +124,7 @@ if err != nil {
 
 Jalankan aplikasi untuk mengetes hasilnya.
 
-![ssh ls](images/C.27_1_ls_testing.png)
+![ssh ls](images/C_golang_ssh_sftp_1_ls_testing.png)
 
 ## C.27.3. Penggunaan `session.StdinPipe()` untuk Run Multiple Command
 
@@ -205,7 +205,7 @@ fmt.Println(strings.TrimSpace(outputString))
 
 Jalankan aplikasi untuk melihat hasilnya.
 
-![Multiple commands](images/C.27_2_multiple_command.png)
+![Multiple commands](images/C_golang_ssh_sftp_2_multiple_command.png)
 
 Output dalam banyak command muncul setelah semua command berhasil dieksekusi. Statement `session.Wait()` adalah blocking.
 
@@ -256,7 +256,7 @@ log.Println("File copied.")
 
 Jalankan aplikasi untuk melihat hasilnya.
 
-![SFTP](images/C.27_3_sftp.png)
+![SFTP](images/C_golang_ssh_sftp_3_sftp.png)
 
 ---
 

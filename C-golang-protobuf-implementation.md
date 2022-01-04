@@ -12,13 +12,13 @@ Protobuf hanya bertugas di bagian serialisasi data saja, untuk komunikasi antar 
 
 Mungkin sampai sini masih terasa abstrak, membingungkan, dan muncul banyak pertanyaan mengenai apa dan untuk apa protobuf ini. Agar lebih mudah untuk dipahami, bayangkan sebuah aplikasi client yang mengkonsumsi data dari (RESTful) web service, dengan data dikirimkan dalam bentuk JSON.
 
-![HTTP JSON Analogy](images/C.29_1_http_json_analogy.png)
+![HTTP JSON Analogy](images/C_golang_protobuf_implementation_1_http_json_analogy.png)
 
 Di analogi sederhana di gambar, dijelaskan bahwa HTTP digunakan sebagai transport antara client dan server, dan JSON digunakan sebagai tipe data payload request dan response body type.
 
 Arsitektur di atas (yang menggunakan http dan json) jika dikonversi ke bentuk gRPC dan protobuf, maka kurang lebih jadinya seperti gambar di bawah ini.
 
-![GRPC PROTOBUF Analogy](images/C.29_2_grpc_protobuf_analogy.png)
+![GRPC PROTOBUF Analogy](images/C_golang_protobuf_implementation_2_grpc_protobuf_analogy.png)
 
 Cukup bisa dipahami bukan?
 
@@ -310,7 +310,7 @@ fmt.Printf("# ==== As String\n       %v \n", user1.String())
 
 Jalankan aplikasi untuk melihat hasilnya.
 
-![Print object protobuf](images/C.29_3_print.png)
+![Print object protobuf](images/C_golang_protobuf_implementation_3_print.png)
 
 Pada statement print pertama, objek ditampilkan apa adanya. Generated struct memiliki beberapa property lain selain yang sudah didefinisikan pada proto message, seperti `XXX_unrecognized` dan beberapa lainnya. Property tersebut dibutuhkan oleh protobuf, tapi tidak kita butuhkan, jadi biarkan saja.
 
@@ -342,7 +342,7 @@ Kembali ke pembahasan, buat objek pointer baru dari struct `jsonpb.Marshaler`, l
 
 Jalankan aplikasi, cek hasilnya.
 
-![Print as JSON string](images/C.29_4_print_json.png)
+![Print as JSON string](images/C_golang_protobuf_implementation_4_print_json.png)
 
 Selain method `.Marshal()`, konversi ke json string bisa dilakukan lewat method `.MarshalToString()`.
 
@@ -381,7 +381,7 @@ Proses unmarshal dari json string ke objek proto, bisa dilakukan lewat dua cara:
 
 Silakan pilih cara yang cocok sesuai kebutuhan. Lalu jalankan aplikasi dan lihat hasilnya.
 
-![Unmarshal from JSON string](images/C.29_5_unmarshal.png)
+![Unmarshal from JSON string](images/C_golang_protobuf_implementation_5_unmarshal.png)
 
 ## C.29.6. gRPC + Protobuf
 

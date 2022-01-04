@@ -93,7 +93,7 @@ if err != nil {
 
 Jalankan aplikasi, sebuah file bernama `file1.xlsx` akan muncul. Buka file tersebut lihat isinya. Data tersimpan sesuai ekspektasi. Fasilitas filter pada cell header juga aktif.
 
-![Create Excel](images/C.17_1_create_excel.png)
+![Create Excel](images/C_read_write_excel_xlsx_file_1_create_excel.png)
 
 ## C.17.2. Pembuatan Sheet, Merge Cell, dan Cell Styles
 
@@ -147,7 +147,7 @@ Silakan merujuk ke https://xuri.me/excelize/en/cell.html#SetCellStyle untuk pemb
 
 Sekarang jalankan aplikasi, lalu coba buka file `file2.xlsx`.
 
-![Cell style, merge cell](images/C.17_2_new_sheet_style_merge_cell.png)
+![Cell style, merge cell](images/C_read_write_excel_xlsx_file_2_new_sheet_style_merge_cell.png)
 
 ## C.17.3. Membaca File Excel `.xlsx`
 
@@ -183,7 +183,7 @@ Pada kode di atas, data tiap cell diambil lalu ditampung ke slice `M`. Gunakan `
 
 Jalankan aplikasi untuk mengecek hasilnya.
 
-![Read excel](images/C.17_3_read_excel.png)
+![Read excel](images/C_read_write_excel_xlsx_file_3_read_excel.png)
 
 ---
 

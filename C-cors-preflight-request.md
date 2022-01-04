@@ -105,7 +105,7 @@ $.ajax({
 
 Silakan lihat gambar berikut untuk memperjelas.
 
-![CORS google to localhost](images/C.12_1_cors_from_google_to_localhost.png)
+![CORS google to localhost](images/C_cors_preflight_request_1_cors_from_google_to_localhost.png)
 
 Bisa dilihat, tidak ada error, karena memang request dari google diijinkan. Silakan coba-coba melakukan request AJAX lainnya dengan method POST, DELETE, atau lainnya; atau ditambah dengan menyisipkan header tertentu dalam ajax request.
 
@@ -113,7 +113,7 @@ Bisa dilihat, tidak ada error, karena memang request dari google diijinkan. Sila
 
 Selanjutnya coba buka tab baru, buka https://novalagung.com, lalu jalankan script yang sama.
 
-![CORS novalagung to localhost](images/C.12_2_cors_from_novalagung_to_localhost.png)
+![CORS novalagung to localhost](images/C_cors_preflight_request_2_cors_from_novalagung_to_localhost.png)
 
 <pre style="font-size: .85em; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">Failed to load http://localhost:9000/index: The 'Access-Control-Allow-Origin' header has a value 'https://www.google.com' that is not equal to the supplied origin. Origin 'https://novalagung.com' is therefore not allowed access.</pre>
 
@@ -133,7 +133,7 @@ http.HandleFunc("/index", func(w http.ResponseWriter, r *http.Request) {
 
 Jalankan ulang aplikasi, lalu dispatch lagi AJAX dari situs tersebut.
 
-![CORS multiple domain](images/C.12_3_cors_multiple_domain.png)
+![CORS multiple domain](images/C_cors_preflight_request_3_cors_multiple_domain.png)
 
 Masih tetap error, tapi berbeda dengan error sebelumnya.
 
@@ -210,7 +210,7 @@ http.HandleFunc("/index", func(w http.ResponseWriter, r *http.Request) {
 
 Langsung saja buka google.com lalu lakukan AJAX request yang memenuhi alah satu kriteria preflighted request, misalnya, gunakan header `Content-Type: application/json`.
 
-![Preflight Request Preview](images/C.12_4_preflight_allowed.png)
+![Preflight Request Preview](images/C_cors_preflight_request_4_preflight_allowed.png)
 
 Bisa dilihat pada screenshot, dua request muncul, yang pertama adalah preflight yang kedua adalah actual request.
 
@@ -268,7 +268,7 @@ Pada kode di atas, kita meng-allow dua buah origin. Sebelumnya sudah kita bahas 
 
 Jalankan aplikasi, coba test dari dua domain, https://novalagung.com dan https://www.google.com.
 
-![CORS multi domain](images/C.12_5_multi_domain.png)
+![CORS multi domain](images/C_cors_preflight_request_5_multi_domain.png)
 
 Berikut adalah list konfigurasi yang bisa dimanfaatkan dari library ini.
 

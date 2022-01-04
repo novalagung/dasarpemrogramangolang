@@ -24,9 +24,9 @@ Selanjutnya objek error tersebut kita tampilkan ke console dan juga ke browser d
 
 OK, jalankan aplikasi, lalu test hasilnya.
 
-![API Test](images/C.4_1_simple_error_handler.png)
+![API Test](images/C_http_error_handling_1_simple_error_handler.png)
 
-![Console Log](images/C.4_2_cli_error.png)
+![Console Log](images/C_http_error_handling_2_cli_error.png)
 
 ## C.4.2. Human-Readable Error
 
@@ -71,7 +71,7 @@ Tipe `validator.ValidationErrors` sendiri sebenarnya merupakan slice `[]validato
 
 OK, jalankan ulang aplikasi, lalu test.
 
-![Console Log](images/C.4_3_advance_handler.png)
+![Console Log](images/C_http_error_handling_3_advance_handler.png)
 
 # C.4.3. Custom Error Page
 

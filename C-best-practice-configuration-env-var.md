@@ -142,7 +142,7 @@ Agak sedikit report memang untuk bagian ini, tapi mungkin bisa diperingkas denga
 
 Berikut adalah penampakan contoh run program lewat bat-file di Windows.
 
-![Run program](images/C.8_2_run.png)
+![Run program](images/C_best_practice_configuration_env_var_1_run.png)
 
 ## C.8.B.5. Penutup
 

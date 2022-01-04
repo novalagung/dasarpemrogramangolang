@@ -113,7 +113,7 @@ log.Println(string(bts))
 
 Jalankan aplikasi, lihat hasilnya.
 
-![XML to JSON](images/C.21_1_json_from_xml.png)
+![XML to JSON](images/C_xml_parser_1_json_from_xml.png)
 
 ## C.21.2. XML Query
 
@@ -140,7 +140,7 @@ Jika 3 penjelasan bagian di atas digabungkan, maka kurang lebih arti dari `//art
 
 Berikut adalah hasil dari query di atas.
 
-![XQuery](images/C.21_2_find.png)
+![XQuery](images/C_xml_parser_2_find.png)
 
 Silakan coba explore sendiri mengenai xquery untuk contoh lainnya.
 
@@ -265,7 +265,7 @@ Method `.Indent()` di atas digunakan untuk menentukan indentasi element dalam fi
 
 Jalankan aplikasi, lihat hasilnya.
 
-![Generated XML](images/C.21_3_generated_xml.png)
+![Generated XML](images/C_xml_parser_3_generated_xml.png)
 
 ---
 

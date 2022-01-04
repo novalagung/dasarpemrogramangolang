@@ -184,7 +184,7 @@ func main() {
 
 Jalankan aplikasi server, buka prompt terminal/CMD baru, lalu jalankan aplikasi client.
 
-![Testing](images/C.24_1_test_client_request.png)
+![Testing](images/C_client_http_request_advanced_1_test_client_request.png)
 
 ---
 

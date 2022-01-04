@@ -51,7 +51,7 @@ Dari yang sudah dijelaskan di atas, agar komunikasi antara client dan server bis
 
 Jika client tidak menyertakan certificate dalam request-nya, maka pasti terjadi error (pada saat handshake). Contohnya bisa dilihat pada screenshot berikut.
 
-![SSL request error](images/C.25_1_http_request_to_ssl_enabled_web_server.png)
+![SSL request error](images/C_secure_insecure_client_http_request_1_http_request_to_ssl_enabled_web_server.png)
 
 Akan tetapi, jika memang client tidak memilik certificate dan komunikasi ingin tetap dilakukan, masih bisa (dengan catatan server meng-allow kapabilitas ini), caranya yaitu menggunakan teknik *insecure request*. 
 
@@ -83,7 +83,7 @@ baseURL := "https://localhost:9000"
 
 Jalankan ulang aplikasi server yang sudah ssl-enabled dan aplikasi client yang sudah dikonfigurasi untuk insecure request, lalu test hasilnya.
 
-![Insecure Request](images/C.25_2_insecure_client_request.png)
+![Insecure Request](images/C_secure_insecure_client_http_request_2_insecure_client_request.png)
 
 ## C.25.5. Secure Request
 
@@ -130,7 +130,7 @@ Bisa dilihat pada kode di atas, file `server.crt` dibaca isinya, lalu dimasukan 
 
 OK, silakan langsung run aplikasi untuk testing.
 
-![Secure Request](images/C.25_3_secure_client_request.png)
+![Secure Request](images/C_secure_insecure_client_http_request_3_secure_client_request.png)
 
 ## C.25.6. Konfigurasi SSL/TLS Lanjutan
 

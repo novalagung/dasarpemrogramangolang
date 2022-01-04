@@ -82,7 +82,7 @@ e.POST("/users", func(c echo.Context) error {
 
 OK, jalankan aplikasi, lakukan testing.
 
-![Validation](images/C.3_1_validation.png)
+![Validation](images/C_http_request_payload_validation_1_validation.png)
 
 Bisa dilihat pada gambar di atas, ada beberapa request yang mengembalikan error.
 

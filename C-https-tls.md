@@ -22,7 +22,7 @@ Private Key, atau Secret Key, adalah file terpisah yang diperlukan pada proses d
 
 Berikut merupakan penjelasan dalam bentuk gambar yang diambil dari [coinjolt.com](https://coinjolt.com/what-is-a-public-and-private-key/).
 
-![Anatomy](images/C.22_1_public_and_private_key.png)
+![Anatomy](images/C_https_tls_1_diagram.png)
 
 Kedua file certificate dan file private key harus disimpan dengan sangat super aman di server.
 
@@ -58,7 +58,7 @@ Command untuk generate certificate di atas akan memunculkan form. Informasi sepe
 
 Tampilannya kurang lebih seperti pada screenshot berikut.
 
-![Generate private key and certificate](images/C.22_1.1_public_and_private_key.png)
+![Generate private key and certificate](images/C_https_tls_2_public_and_private_key.png)
 
 > Selain `.crt` dan `.key`, ada ekstensi lain lagi seperti `.pem`. Format `.pem` ini merupakan jenis encoding yang sangat sering digunakan pada file kriptografi sejenis `.key` dan `.crt`. File `.crt` dan `.key` bisa di konversi ke `.pem`, dan juga sebaliknya.
 
@@ -66,7 +66,7 @@ Tampilannya kurang lebih seperti pada screenshot berikut.
 
 Buat sebuah projek folder, copy 2 file yang telah ter-generate ke dalamnya. Lalu siapkan file `main.go`.
 
-![Folder Structure](images/C.22_2_structure.png)
+![Folder Structure](images/C_https_tls_3_structure.png)
 
 ## C.22.4. Web Servers
 
@@ -120,11 +120,11 @@ OK, jalankan aplikasi.
 
 Test aplikasi menggunakan `curl`. Untuk request ke protokol `https` coba tambahkan flag `--insecure` untuk men-disable verifikasi certificate.
 
-![curl example](images/C.22_3_curl_example.png)
+![curl example](images/C_https_tls_4_curl_example.png)
 
 Coba test juga menggunakan browser, jika menggunakan chrome maka akan muncul warning `NET::ERR_CERT_AUTHORITY_INVALID` Klik **Advanced → Proceed to localhost (unsafe)**.
 
-![browser example](images/C.22_4_browser_example.png)
+![browser example](images/C_https_tls_5_browser_example.png)
 
 Warning `NET::ERR_CERT_AUTHORITY_INVALID` muncul ketika mengakses sebuah website menggunakan protokol `https` yang dimana website ini mengaplikasikan **self-signed certificate**, bukan menggunakan certificate yang sudah diverifikasi oleh CA.
 

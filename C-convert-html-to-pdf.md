@@ -125,7 +125,7 @@ log.Println("Done")
 
 Test aplikasi yang sudah kita buat, lihat hasil generated PDF-nya.
 
-![HTML to PDF](images/C.19_1_convert_html_to_pdf.png)
+![HTML to PDF](images/C_convert_html_to_pdf_1_convert_html_to_pdf.png)
 
 Bisa dilihat, dalam satu PDF dua page muncul, hal ini karena memang isi `input.html` terlalu panjang untuk dijadikan sebagai satu page.
 
