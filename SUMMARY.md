@@ -141,6 +141,7 @@
   * [C.33. LDAP Authentication](C-golang-ldap-authentication.md)
   * [C.34. SSO SAML (Service Provider)](C-golang-sso-saml-sp.md)
   * [C.35. Dockerize Aplikasi Golang](C-dockerize-golang.md)
+  * [C.36. Redis](C-36-golang-redis.md)
 
 <hr>
 
