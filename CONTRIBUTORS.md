@@ -37,6 +37,7 @@ Berikut merupakan list nama kontributor yang sudah berbaik hati menyisihkan wakt
 - [Seno](https://github.com/seno-ark)
 - [Shabrina](https://github.com/renaissains)
 - [Teuku Mulia Ichsan](https://github.com/teukumulya-ichsan)
+- [Tiara Dewangga](https://github.com/ktiarad)
 - [Wanda Ichsanul Isra](https://github.com/wlisrausr)
 - [Widodo](https://github.com/purwowd)
 - [Yofriadi Yahya](https://github.com/yofriadi)
