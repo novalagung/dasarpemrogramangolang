@@ -115,18 +115,27 @@ Jalankan program, sekarang web server sudah live dan bisa dikonsumsi datanya.
 
 ![Web API Server dijalankan](images/A_web_service_1_server.png)
 
-## A.54.2. Test Web Service API
+## A.54.2. Test Web Service API via Postman
 
-Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-tes. Di sini testing dilakukan dengan memanfaatkan cURL. Apabila pembaca menggunakan Windows 10, seharusnya sudah ter-include cURL. Jika belum atau bukan pengguna Windows 10, bisa menginstall-nya dan mendaftarkannya ke path variables (agar bisa diakses melalui terminal/cmd dari mana saja).
+Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-tes. Di sini saya menggunakan Google Chrome plugin bernama [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en) untuk mengetes API yang sudah dibuat.
 
- - Test endpoint `/users` dan `/user?id=B002`, apakah data yang dikembalikan sudah benar.
+ - Test endpoint `/users`, apakah data yang dikembalikan sudah benar.
 
- ```
+    ![Test `/users`](images/A_web_service_2_test_api_users.png)
+
+ - Test endpoint `/user`, isi form data `id` dengan nilai `E001`.
+
+    ![Test `/user`](images/A_web_service_3_test_api_user.png)
+
+## A.54.3. Test Web Service API via `cURL`
+
+Untuk testing bisa juga memanfaatkan cURL. Apabila pembaca menggunakan Windows 10, seharusnya sudah ter-include cURL. Jika bukan pengguna Windows 10, bisa menginstall-nya dan mendaftarkannya ke path variables (agar bisa diakses melalui terminal/cmd dari mana saja).
+
 curl -X GET http://localhost:8080/users
 curl -X GET http://localhost:8080/user?id=B002
  ```
 
-    ![Test `/users`](https://images4.imagebam.com/85/c3/94/ME5NXHA_o.jpg)
+![cURL test](images/A_web_service_4.png)
 
 Data ID yang ingin dicari melalui endpoint /user, ditulis dengan ?id=B002 yang berarti dilewatkan melalui query parameters (umumnya data yang ingin dilampirkan melalui method GET adalah dengan query parameters).
 
