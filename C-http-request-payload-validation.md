@@ -1,8 +1,8 @@
-# C.3. HTTP Request Payload Validation (Validator v9, Echo)
+# C.5. HTTP Request Payload Validation (Validator v9, Echo)
 
-Pada bab ini kita akan belajar cara validasi payload request di sisi back end. Library yang kita gunakan adalah [github.com/go-playground/validator/v10](https://github.com/go-playground/validator), library ini sangat berguna untuk keperluan validasi data.
+Pada chapter ini kita akan belajar cara validasi payload request di sisi back end. Library yang kita gunakan adalah [github.com/go-playground/validator/v10](https://github.com/go-playground/validator), library ini sangat berguna untuk keperluan validasi data.
 
-## C.3.1. Payload Validation
+## C.5.1. Payload Validation
 
 Penggunaan validator cukup mudah, di struct penampung payload, tambahkan tag baru pada masing-masing property dengan skema `validate:"<rules>"`.
 
@@ -99,7 +99,7 @@ Sebenarnya error 500 ini sudah sesuai jika muncul pada page yang sifatnya menamp
 
 Tapi untuk web service (RESTful API?), akan lebih baik jika errornya detail (terutama pada fase development), agar aplikasi consumer bisa lebih bagus dalam meng-handle error tersebut.
 
-Nah, di bab selanjutnya kita akan belajar cara membuat custom error handler untuk meningkatkan kualitas error reporting.
+Nah, pada chapter selanjutnya kita akan belajar cara membuat custom error handler untuk meningkatkan kualitas error reporting.
 
 ---
 
@@ -109,6 +109,6 @@ Nah, di bab selanjutnya kita akan belajar cara membuat custom error handler untu
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.3-http-request-payload-validation">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.3...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.5-http-request-payload-validation">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.5...</a>
 </div>

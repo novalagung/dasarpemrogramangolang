@@ -1,6 +1,6 @@
-# C.26. FTP
+# C.28. FTP
 
-Pada bab ini kita akan belajar cara melakukan pertukaran data lewat FTP (File Transfer Protocol) menggunakan Golang. 
+Pada chapter ini kita akan belajar cara melakukan pertukaran data lewat FTP (File Transfer Protocol) menggunakan Golang. 
 
 > Definisi mengenai FTP sendiri adalah sebuah protokol network standar yang digunakan untuk pertukaran atau transfer data antar client dan server.
 
@@ -17,7 +17,7 @@ Dalam server tersebut, siapkan beberapa file dan folder dengan struktur sebagai 
 
 Library FTP client yang kita gunakan adalah [github.com/jlaffaye/ftp](https://github.com/jlaffaye/ftp).
 
-## C.26.1. Koneksi ke Server
+## C.28.1. Koneksi ke Server
 
 Buat satu buah folder projek baru dengan isi `main.go`. Di dalam file main akan kita isi dengan beberapa operasi FTP seperti upload, download, akses ke direktori dan lainnya.
 
@@ -61,7 +61,7 @@ Cara konek ke server melalui FTP dipecah menjadi dua tahap. Pertama adalah mengg
 
 Tahap kedua, lewat objek `conn`, panggil method `.Login()` dengan disisipi argumen username dan password FTP.
 
-## C.26.2. Menampilkan Semua File Menggunakan `.List()`
+## C.28.2. Menampilkan Semua File Menggunakan `.List()`
 
 Lewat tipe `*ftp.ServerConn`, semua method untuk operasi FTP bisa diakses. Salah satu dari method tersebut adalah `.List()`, gunanya untuk listing semua file yang ada di server. Operasi ini sama dengan `ls`.
 
@@ -104,7 +104,7 @@ Jalankan aplikasi lihat hasilnya.
 
 Jika dibandingkan dengan file yang ada di server, ada satu yang tidak muncul, yaitu `somefolder/test3.txt`. Hal ini dikarenakan file yang di-list adalah yang ada pada `"."` atau **current path**. File `test3.txt` berada di dalam sub folder `somefolder`.
 
-## C.26.3. Pindah Ke Folder Tertentu Menggunakan `.ChangeDir()`
+## C.28.3. Pindah Ke Folder Tertentu Menggunakan `.ChangeDir()`
 
 Selanjutnya, kita akan coba masuk ke folder `somefolder`, lalu menampilkan isinya. Gunakan method `.ChangeDir()`, sisipkan path folder tujuan sebagai argument.
 
@@ -133,7 +133,7 @@ Jalankan aplikasi, lihat lagi hasilnya.
 
 ![List files](images/C_golang_ftp_3_list_assets_subfolder.png)
 
-## C.26.4. Pindah Ke Parent Folder Menggunakan `.ChangeDirToParent()`
+## C.28.4. Pindah Ke Parent Folder Menggunakan `.ChangeDirToParent()`
 
 Gunakan method `.ChangeDirToParent()` untuk mengubah aktif path ke parent path. Tambahkan kode berikut, agar current path `./somefolder` kembali menjadi `.`.
 
@@ -144,7 +144,7 @@ if err != nil {
 }
 ```
 
-## C.26.5. Mengambil File Menggunakan `.Retr()` Lalu Membaca Isinya
+## C.28.5. Mengambil File Menggunakan `.Retr()` Lalu Membaca Isinya
 
 Cara mengambil file adalah dengan method `.Retr()`. Tulis saja path file yang ingin diambil sebagai argumen. Nilai baliknya adalah objek bertipe `*ftp.Response` dan error (jika ada).
 
@@ -196,7 +196,7 @@ Jalankan aplikasi, cek hasilnya.
 
 Bisa dilihat, isi file yang dibaca adalah aslinya.
 
-## C.26.6. Download File
+## C.28.6. Download File
 
 Proses download secara teknis adalah memindahkan **isi file** dari remote server ke local server. Di local, dibuatkan sebuah file yang nantinya akan menampung isi file dari remote server yang di-transfer. Sebarapa cepat proses download berlangsung sangat tergantung kepada besar file yang isinya sedang di transfer (dan beberapa faktor lainnya).
 
@@ -243,7 +243,7 @@ Coba buka `downloaded-movie.mp4`, jika proses transfer sukses maka pasti bisa di
 
 ![Preview movie](images/C_golang_ftp_6_movie_preview.png)
 
-## C.26.7. Upload File
+## C.28.7. Upload File
 
 Upload file adalah kebalikan dari download file. File dari lokal ditransfer ke server. Mari langsung kita praktekan.
 
@@ -293,6 +293,6 @@ Jalankan aplikasi, cek hasilnya. Untuk memvalidasi bahwa file di client dan di s
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.26-golang-ftp">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.26...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.28-golang-ftp">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.28...</a>
 </div>

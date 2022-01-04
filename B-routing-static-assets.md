@@ -32,7 +32,7 @@ func main() {
 
 Syarat yang dibutuhkan untuk routing static assets masih sama dengan routing handler, yaitu perlu didefiniskan rute-nya dan handler-nya. Hanya saja pembedanya, dalam routing static assets yang digunakan adalah `http.Handle()`, bukan `http.HandleFunc()`.
 
- 1. Rute terpilih adalah `/static/`, maka nantinya semua request yang di-awali dengan `/static/` akan diarahkan ke sini. Registrasi rute menggunakan `http.Handle()` adalah berbeda dengan routing menggunakan `http.HandleFunc()`, lebih jelasnya akan ada sedikit penjelasan di bab lain.
+ 1. Rute terpilih adalah `/static/`, maka nantinya semua request yang di-awali dengan `/static/` akan diarahkan ke sini. Registrasi rute menggunakan `http.Handle()` adalah berbeda dengan routing menggunakan `http.HandleFunc()`, lebih jelasnya akan ada sedikit penjelasan pada chapter lain.
 
  2. Sedang untuk handler-nya bisa di-lihat, ada pada parameter ke-2 yang isinya statement `http.StripPrefix()`. Sebenarnya actual handler nya berada pada `http.FileServer()`. Fungsi `http.StripPrefix()` hanya digunakan untuk membungkus actual handler.
 
@@ -86,6 +86,6 @@ Routing static assets menjadi valid, karena file yang di-request akan cocok deng
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.3-routing-static-assets">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.3...</a>
 </div>

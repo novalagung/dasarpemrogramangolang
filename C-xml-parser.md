@@ -1,12 +1,12 @@
-# C.21. Parse & Generate XML (etree)
+# C.23. Parse & Generate XML (etree)
 
-Pada bab ini kita akan belajar cara parsing file xml, dan cara membuat xml baru. Library yang digunakan adalah [etree](https://github.com/beevik/etree), silakan `go get` terlebih dahulu.
+Pada chapter ini kita akan belajar cara parsing file xml, dan cara membuat xml baru. Library yang digunakan adalah [etree](https://github.com/beevik/etree), silakan `go get` terlebih dahulu.
 
 ```go
 go get -u github.com/beevik/etree
 ```
 
-## C.21.1. Membaca dan Parsing File XML
+## C.23.1. Membaca dan Parsing File XML
 
 Mari langsung kita praktekan, siapkan folder projek baru. Buat satu buah file `data.xml`, isinya sebagai berikut.
 
@@ -115,7 +115,7 @@ Jalankan aplikasi, lihat hasilnya.
 
 ![XML to JSON](images/C_xml_parser_1_json_from_xml.png)
 
-## C.21.2. XML Query
+## C.23.2. XML Query
 
 XQuery atau XML Query adalah bahasa query untuk pengolahan XML. Spesifikasinya bisa dilihat di https://www.w3.org/TR/xquery-31.
 
@@ -144,7 +144,7 @@ Berikut adalah hasil dari query di atas.
 
 Silakan coba explore sendiri mengenai xquery untuk contoh lainnya.
 
-## C.21.3. Membuat XML dari Golang
+## C.23.3. Membuat XML dari Golang
 
 Di atas kita telah mempelajari cara baca XML; kali ini kita akan coba buat file XML menggunakan etree. Informasi yang akan ditulis ke file xml datanya bersumber dari JSON string (yang nantinya di-decode terlebih dahulu ke bentuk objek sebelum digunakan).
 
@@ -274,6 +274,6 @@ Jalankan aplikasi, lihat hasilnya.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.21-xml-parser">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.21...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.23-xml-parser">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.23...</a>
 </div>

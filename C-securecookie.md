@@ -1,6 +1,6 @@
-# C.9. Secure Cookie (Gorilla Securecookie)
+# C.12. Secure Cookie (Gorilla Securecookie)
 
-Pada bab [B. HTTP Cookie](/B-cookie.html), kita telah mempelajari tentang cookie dan implementasinya di golang.
+Pada chapter [B.21. HTTP Cookie](/B-cookie.html), kita telah mempelajari tentang cookie dan implementasinya di golang.
 
 Cookie memiliki beberapa atribut, diantaranya adalah `secure`. Dengan mengaktifkan atribut ini, informasi cookie menjadi lebih aman karena di-enkripsi, namun kapabilitas ini hanya akan aktif pada kondisi aplikasi SSL/TLS enabled.
 
@@ -8,9 +8,9 @@ Cookie memiliki beberapa atribut, diantaranya adalah `secure`. Dengan mengaktifk
 
 Lalu bagaimana cara untuk membuat cookie aman pada aplikasi yang meng-enable SSL/TLS maupun yang tidak? caranya adalah dengan menambahkan step enkripsi data sebelum disimpan dalam cookie (dan men-decrypt data tersebut saat membaca).
 
-Gorilla toolkit menyediakan library bernama [securecookie](https://github.com/gorilla/securecookie), berguna untuk mempermudah enkripsi informasi cookie, dengan penerapan yang mudah. Pada bab ini kita akan mempelajari penggunaannya.
+Gorilla toolkit menyediakan library bernama [securecookie](https://github.com/gorilla/securecookie), berguna untuk mempermudah enkripsi informasi cookie, dengan penerapan yang mudah. Pada chapter ini kita akan mempelajari penggunaannya.
 
-## C.9.1. Create & Read Secure Cookie
+## C.12.1. Create & Read Secure Cookie
 
 Penggunaan securecookie cukup mudah, buat objek secure cookie lewat `securecookie.New()` lalu gunakan objek tersebut untuk operasi encode-decode data cookie. Pemanggilan fungsi `.New()` memerlukan 2 buah argument.
 
@@ -131,7 +131,7 @@ Lihat pada response header url `index`, data pada cookie terlihat sudah dalam ko
 
 ![Cookie header](images/C_securecookie_2_cookie_header.png)
 
-## C.9.2. Delete Secure Cookie
+## C.12.2. Delete Secure Cookie
 
 Securecookie perannya hanya pada bagian encode-decode data cookie, sedangkan proses simpan baca cookie masih sama seperti penerapan cookie biasa. Maka cara menghapus cookie pun masih sama, yaitu dengan meng-expired-kan cookie yang sudah disimpan.
 
@@ -153,6 +153,6 @@ http.SetCookie(c.Response(), cookie)
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.9-securecookie">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.9...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.12-securecookie">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.12...</a>
 </div>

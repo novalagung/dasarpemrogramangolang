@@ -1,6 +1,6 @@
 # B.8. Template: Custom Functions
 
-Pada bab sebelumnya kita telah mengenal beberapa *predefined* function yang disediakan oleh Go. Kali ini kita akan belajar tentang fungsi custom, bagaimana cara membuat dan menggunakannya dalam template.
+Pada chapter sebelumnya kita telah mengenal beberapa *predefined* function yang disediakan oleh Go. Kali ini kita akan belajar tentang fungsi custom, bagaimana cara membuat dan menggunakannya dalam template.
 
 ## B.8.1. Front End
 
@@ -96,18 +96,18 @@ Tes hasilnya lewat browser.
 
 Pada kode di atas, pemanggilan `template.New()` menghasilkan objek bertipe `*template.Template`. 
 
-Pada **[Bab B.5. Template: Render Partial HTML Template](/B-template-render-partial-html.html#b56-parsing-banyak-file-html-menggunakan-templateparsefiles)** kita telah belajar mengenai fungsi `template.ParseFiles()`, yang fungsi tersebut juga mengembalikan objek bertipe `*template.Template`.
+Pada chapter [B.5. Template: Render Partial HTML Template](/B-template-render-partial-html.html) kita telah belajar mengenai fungsi `template.ParseFiles()`, yang fungsi tersebut juga mengembalikan objek bertipe `*template.Template`.
 
 Pada kode di atas, method `ParseFiles()` yang dipanggil bukanlah fungsi `template.ParseFiles()` yang kita telah pelajari sebelumnya. Meskipun namanya sama, kedua fungsi/method ini berbeda.
 
  - Fungsi `template.ParseFiles()`, adalah milik package `template`. Fungsi ini digunakan untuk mem-parsing semua view yang disisipkan sebagai parameter.
  - Method `ParseFiles()`, milik `*template.Template`, digunakan untuk memparsing semua view yang disisipkan sebagai parameter, lalu diambil hanya bagian yang nama template-nya adalah sama dengan nama template yang sudah di-alokasikan menggunakan `template.New()`. Jika template yang dicari tidak ada, maka akan mencari yang nama file-nya sama dengan nama template yang sudah ter-alokasi.
 
-Bab selanjutnya akan membahas lebih detail mengenai penggunaan method `ParseFiles()`.
+Chapter selanjutnya akan membahas lebih detail mengenai penggunaan method `ParseFiles()`.
 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.8-template-custom-functions">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.8...</a>
 </div>

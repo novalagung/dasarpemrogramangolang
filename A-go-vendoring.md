@@ -71,6 +71,6 @@ Untuk penggunaan vendor apakah wajib? menurut saya tidak. Sesuaikan kebutuhan sa
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.61-go-vendoring">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.61...</a>
 </div>

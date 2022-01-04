@@ -2,7 +2,7 @@
 
 Komentar biasa dimanfaatkan untuk menyisipkan catatan pada kode program, menulis penjelasan/deskripsi mengenai suatu blok kode, atau bisa juga digunakan untuk me-*remark* kode (men-non-aktifkan kode yg tidak digunakan). Komentar akan diabaikan ketika kompilasi maupun eksekusi program.
 
-Ada 2 jenis komentar di Go, *inline* & *multiline*. Di bab akan dijelaskan tentang penerapan dan perbedaan kedua jenis komentar tersebut.
+Ada 2 jenis komentar di Go, *inline* & *multiline*. Pada pembahasan ini akan dijelaskan tentang penerapan dan perbedaan kedua jenis komentar tersebut.
 
 ## A.8.1. Komentar *Inline*
 
@@ -47,6 +47,6 @@ Sifat komentar ini sama seperti komentar inline, yaitu sama-sama diabaikan oleh 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.8-komentar">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.8...</a>
 </div>

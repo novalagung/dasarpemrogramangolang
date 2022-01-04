@@ -2,7 +2,7 @@
 
 Disediakannya channel membuat engineer menjadi mudah dalam me-manage goroutine. Namun perlu di-ingat, meskipun lewat channel manajemen goroutine menjadi mudah, fungsi utama channel bukan untuk kontrol, melainkan untuk sharing data antar goroutine.
 
-> Nantinya pada [Bab A. Waitgroup](/A-waitgroup.html) akan dibahas secara komprehensif bagaimana cara optimal mengontrol goroutine.
+> Nantinya pada chapter [A.59. sync.WaitGroup](/A-waitgroup.html) akan dibahas secara komprehensif bagaimana cara optimal mengontrol goroutine.
 
 Ada kalanya kita butuh tak hanya satu channel saja untuk melakukan komunikasi data antar goroutine. Tergantung jenis kasusnya, sangat mungkin lebih dari satu channel dibutuhkan. Nah, disitulah kegunaan dari `select`. Select ini mempermudah kontrol komunikasi data lewat satu ataupun banyak channel.
 
@@ -81,6 +81,6 @@ Cukup mudah bukan?
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.33-channel-select">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.33...</a>
 </div>

@@ -1,6 +1,6 @@
 # A.12. Operator
 
-Bab ini membahas mengenai macam operator yang bisa digunakan di Go. Secara umum terdapat 3 kategori operator: aritmatika, perbandingan, dan logika.
+Chapter ini membahas mengenai macam operator yang bisa digunakan di Go. Secara umum terdapat 3 kategori operator: aritmatika, perbandingan, dan logika.
 
 ## A.12.1. Operator Aritmatika
 
@@ -93,6 +93,6 @@ Template `\t` digunakan untuk menambahkan indent tabulasi. Biasa dimanfaatkan un
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.12-operator">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.12...</a>
 </div>

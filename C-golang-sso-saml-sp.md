@@ -2,7 +2,7 @@
 
 Kali ini topik yang dipilih adalah SAML SSO versi 2.0. Kita akan pelajari cara penerapan SSO di sisi penyedia servis (Service Provider), dengan memanfaatkan salah satu penyedia Identity Provider (IDP) gratisan yaitu [samltest.id](https://samltest.id).
 
-> Pada bab ini kita fokus pada bagian Service Provider.
+> Pada chapter ini kita fokus pada bagian Service Provider.
 
 ## C.34.1. Definisi
 
@@ -18,7 +18,7 @@ SSO atau Single Sign-On merupakan servis untuk otentikasi dan manajemen session.
 
 > Umumnya, otentikasi pada SSO dilakukan dengan database user di (directory) server via protokol LDAP.
 
-Ada beberapa jenis penerapan SSO yang bisa dipilih, salah satunya adalah **Security Assertion Markup Language** atau **SAML** yang akan kita bahas pada bab ini.
+Ada beberapa jenis penerapan SSO yang bisa dipilih, salah satunya adalah **Security Assertion Markup Language** atau **SAML** yang akan kita bahas pada chapter ini.
 
 #### • SAML
 
@@ -311,6 +311,6 @@ Salah satu benefit metode inisialisasi ini: ketika ada banyak aplikasi SP (misal
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.34-sso-saml-sp">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.34...</a>
 </div>

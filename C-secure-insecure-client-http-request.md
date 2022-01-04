@@ -1,11 +1,11 @@
-# C.25. Secure & Insecure Client HTTP Request
+# C.27. Secure & Insecure Client HTTP Request
 
-Pada bab ini topik yang dibahas adalah cara melakukan http request ke SSL/TLS-enabled web server, menggunakan dua teknik:
+Pada chapter ini topik yang dibahas adalah cara melakukan http request ke SSL/TLS-enabled web server, menggunakan dua teknik:
 
  - Insecure request
  - Secure request menggunakan file certificate
 
-## C.25.1. Handshake
+## C.27.1. Handshake
 
 Sebelum masuk ke inti pembahasan, kita perlu mempelajari terlebih dahulu tentang pembeda antara secure request dan http request biasa.
 
@@ -27,13 +27,13 @@ Sekarang kita tau, bahwa agar komunikasi antara client dan server bisa terjalin,
 
 OK, saya rasa bagian teori sudah cukup, mari kita lanjut ke bagian praktek.
 
-## C.25.2. Persiapan
+## C.27.2. Persiapan
 
-Salin projek pada chapter sebelumnya, [C. Client HTTP Request Lanjutan](/C-24-client-http-request-lanjutan.html) sebagai folder projek baru.
+Salin projek pada chapter sebelumnya, [C.26. Advanced Client HTTP Request](/C-client-http-request-advanced.html) sebagai folder projek baru.
 
-## C.25.3. Konfigurasi SSL/TLS pada Web Server
+## C.27.3. Konfigurasi SSL/TLS pada Web Server
 
-Di bab A25 kita sudah belajar implementasi client http request, penerapannya dengan 2 buah aplikasi terpisah, satu aplikasi web server dan satu lagi adalah aplikasi consumer.
+Pada chapter [A.55. Simple Client HTTP Request](/A-client-http-request-simple.html) kita telah belajar implementasi client http request, penerapannya dengan 2 buah aplikasi terpisah, satu aplikasi web server dan satu lagi adalah aplikasi consumer.
 
 Kita perlu menambahkan sedikit modifikasi pada aplikasi web server (yang sudah di salin), mengaktifkan SSL/TLS-nya dengan cara mengubah bagian `.ListenAndServe()` menjadi `.ListenAndServeTLS()`, dengan disisipkan dua parameter berisi path certificate dan private key.
 
@@ -41,11 +41,11 @@ Kita perlu menambahkan sedikit modifikasi pada aplikasi web server (yang sudah d
 err := server.ListenAndServeTLS("server.crt", "server.key")
 ```
 
-Silakan generate certificate dan private key baru, caranya sama seperti pada chapter [C. HTTPS/TLS Web Server](/C-22-https-tls.html).
+Silakan generate certificate dan private key baru, caranya sama seperti pada chapter [C.24. HTTPS/TLS Web Server](/C-https-tls.html).
 
 > Konfigurasi SSL/TLS lewat `server.ListenAndServeTLS("server.crt", "server.key")` merupakan cara yang paling mudah dengan konfigurasi adalah paling minimal.
 
-## C.25.4. Insecure Request
+## C.27.4. Insecure Request
 
 Dari yang sudah dijelaskan di atas, agar komunikasi antara client dan server bisa ter-enkripsi, di sisi client atau consumer harus ada yang namanya file certificate.
 
@@ -85,7 +85,7 @@ Jalankan ulang aplikasi server yang sudah ssl-enabled dan aplikasi client yang s
 
 ![Insecure Request](images/C_secure_insecure_client_http_request_2_insecure_client_request.png)
 
-## C.25.5. Secure Request
+## C.27.5. Secure Request
 
 Secure request adalah bentuk request yang datanya ter-enkripsi, bisa dibilang kebalikan dari insecure request. Request jenis ini pada sisi client atau consumer membutuhkan konfigurasi dimana file certificate diperlukan.
 
@@ -132,7 +132,7 @@ OK, silakan langsung run aplikasi untuk testing.
 
 ![Secure Request](images/C_secure_insecure_client_http_request_3_secure_client_request.png)
 
-## C.25.6. Konfigurasi SSL/TLS Lanjutan
+## C.27.6. Konfigurasi SSL/TLS Lanjutan
 
 Di atas kita sudah belajar cara setting SSL/TLS pada web server, dengan konfigurasi minimal menggunakan `server.ListenAndServeTLS("server.crt", "server.key")`.
 
@@ -180,11 +180,11 @@ if err != nil {
 }
 ```
 
-Tujuan mengapa penulis tambahkan sub bab **Konfigurasi SSL/TLS Lanjutan** ini adalah agar pembaca tau bahwa konfigurasi SSL/TLS yang compleks bisa dilakukan dengan mudah dalam aplikasi web golang. Mengenai pembahasan tiap-tiap property silakan pelajari sendiri.
+Tujuan mengapa penulis tambahkan sub chapter **Konfigurasi SSL/TLS Lanjutan** ini adalah agar pembaca tau bahwa konfigurasi SSL/TLS yang compleks bisa dilakukan dengan mudah dalam aplikasi web golang. Mengenai pembahasan tiap-tiap property silakan pelajari sendiri.
 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.25-secure-insecure-client-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.25...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.27-secure-insecure-client-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.27...</a>
 </div>

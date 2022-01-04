@@ -2,7 +2,7 @@
 
 Sebelumnya kita telah belajar banyak mengenai channel, yang fungsi utama-nya adalah untuk sharing data antar goroutine. Selain untuk komunikasi data, channel secara tidak langsung bisa dimanfaatkan untuk kontrol goroutine.
 
-Go menyediakan package `sync`, berisi cukup banyak API untuk handle masalah multiprocessing (goroutine), salah satunya diantaranya adalah yang kita bahas di bab ini, yaitu `sync.WaitGroup`.
+Go menyediakan package `sync`, berisi cukup banyak API untuk handle masalah multiprocessing (goroutine), salah satunya diantaranya adalah yang kita bahas pada chapter ini, yaitu `sync.WaitGroup`.
 
 Kegunaan `sync.WaitGroup` adalah untuk sinkronisasi goroutine. Berbeda dengan channel, `sync.WaitGroup` memang didesain khusus untuk maintain goroutine, penggunaannya lebih mudah dan lebih efektif dibanding channel.
 
@@ -72,6 +72,6 @@ Kombinasi yang tepat antara `sync.WaitGroup` dan channel sangat penting, keduany
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.59-waitgroup">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.59...</a>
 </div>

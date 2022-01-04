@@ -1,10 +1,10 @@
-# C.8.A. Advanced Configuration Menggunakan Viper
+# C.10. Advanced Configuration Menggunakan Viper
 
-Pada bab ini kita akan belajar cara mudah manajemen konfigurasi file JSON menggunakan [Viper](http://github.com/spf13/viper) library. Inti dari bab ini sebenarnya adalah sama dengan yang sudah dibahas pada bab [B. Simple Configuration](/B-simple-configuration.html), hanya saja disini proses parsing di-handle oleh 3rd party dengan tidak menggunakan struct untuk pengaksesannya.
+Pada chapter ini kita akan belajar cara mudah manajemen konfigurasi file JSON menggunakan [Viper](http://github.com/spf13/viper) library. Inti dari chapter ini sebenarnya adalah sama dengan yang sudah dibahas pada [B.22. Simple Configuration](/B-simple-configuration.html), hanya saja disini proses parsing di-handle oleh 3rd party dengan tidak menggunakan struct untuk pengaksesannya.
 
 Kekurangan dari teknik menyimpan konfigurasi dalam object struct adalah, pada saat ada kebutuhan untuk menambah atau merubah isi konfigurasi file, maka mengharuskan developer juga mengubah skema struct penampung. Pada bagian ini, pengaksesan property konfigurasi dilakukan lewat notasi string konfigurasinya.
 
-## C.8.A.1. JSON Configuration
+## C.10.1. JSON Configuration
 
 Mari langsung kita praktekan. Buat projek baru seperti biasa, buat file konfigurasi `app.config.json`, isi dengan data berikut.
 
@@ -103,7 +103,7 @@ Jalankan aplikasi untuk test hasilnya.
 
 ![Sample output](images/C_advanced_configuration_viper_1_app.png)
 
-## C.8.A.2. YAML Configuration
+## C.10.2. YAML Configuration
 
 Cara penerapan viper pada file konfigurasi bertipe `.yaml` kurang lebih sama seperti pada file `.json`. Cukup ubah config type nya dan semua akan beres dengan sendirinya.
 
@@ -123,7 +123,7 @@ viper.SetConfigType("yaml")
 
 Jalankan aplikasi, dan hasilnya sama seperti sebelumnya.
 
-## C.8.A.3. Watcher Configuration
+## C.10.3. Watcher Configuration
 
 Viper memiliki banyak fitur, satu diantaranya adalah mengaktifkan watcher pada file konfigurasi. Dengan adanya watcher, maka kita bisa membuat callback yang akan dipanggil setiap kali ada perubahan konfigurasi.
 
@@ -145,6 +145,6 @@ Penggunaan fasilitas watcher memerlukan tambahan 3rd party library [fsnotify](ht
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.8.A-advanced-configuration-viper">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.8.A...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.10-advanced-configuration-viper">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.10...</a>
 </div>

@@ -1,8 +1,8 @@
-# C.13. CSRF
+# C.15. CSRF
 
-Pada bab ini kita akan belajar tentang serangan Cross-Site Request Forgery (CSRF) dan cara mengantisipasinya.
+Pada chapter ini kita akan belajar tentang serangan Cross-Site Request Forgery (CSRF) dan cara mengantisipasinya.
 
-## C.13.1. Teori
+## C.15.1. Teori
 
 Cross-Site Request Forgery atau CSRF adalah salah satu teknik hacking yang dilakukan dengan cara mengeksekusi perintah yang seharusnya tidak diizinkan, tetapi output yang dihasilkan sesuai dengan yang seharusnya. Contoh serangan jenis ini: mencoba untuk login lewat media selain web browser, seperti menggunakan CURL, menembak langsung endpoint login. Masih banyak contoh lainnya yang lebih ekstrim.
 
@@ -12,7 +12,7 @@ Csrf token sendiri merupakan sebuah random string yang di-generate setiap kali h
 
 Lebih detailnya silakan merujuk ke https://en.wikipedia.org/wiki/Cross-site_request_forgery.
 
-## C.13.2. Praktek: Back End
+## C.15.2. Praktek: Back End
 
 Di golang, pencegahan CSRF bisa dilakukan dengan membuat middleware untuk pengecekan setiap request POST yang masuk. Cukup mudah sebenarnya, namun agar lebih mudah lagi kita akan gunakan salah satu middleware milik echo framework untuk belajar.
 
@@ -46,7 +46,7 @@ func main() {
 }
 ```
 
-Nantinya akan ada endpoint `/index`, isinya menampilkan html form. Objek `tmpl` kita gunakan untuk rendering form tersebut. API echo renderer tidak digunakan dalam bab ini.
+Nantinya akan ada endpoint `/index`, isinya menampilkan html form. Objek `tmpl` kita gunakan untuk rendering form tersebut. API echo renderer tidak digunakan dalam chapter ini.
 
 Siapkan routing untuk `/index`, dan registrasikan middleware CSRF.
 
@@ -92,7 +92,7 @@ e.POST("/sayhello", func(c echo.Context) error {
 
 Pada handler endpoint `/sayhello` tidak ada pengecekan token csrf, karena sudah ditangani secara implisit oleh middleware.
 
-## C.13.3. Front End
+## C.15.3. Front End
 
 Buat `view.html`, lalu isi kode berikut.
 
@@ -178,7 +178,7 @@ Tambahkan header `X-CSRF-Token` di AJAX request seperti pada kode di atas, isiny
 
 Karena di konfigurasi middleware csrf di back end `TokenLookup` adalah `header:X-CSRF-Token`, maka header dengan nama `X-CSRF-Token` dipilih.
 
-## C.13.4. Testing
+## C.15.4. Testing
 
 Sekarang jalankan aplikasi lalu akses `/index` untuk mengetes hasilnya. Silakan melakukan skenario testing berikut.
 
@@ -220,6 +220,6 @@ Lewat teknik pencegahan ini, bukan berarti serangan CSRF tidak bisa dilakukan, s
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.13-csrf">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.13...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.15-csrf">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.15...</a>
 </div>

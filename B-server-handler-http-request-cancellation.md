@@ -4,15 +4,15 @@ Dalam konteks web application, kadang kala sebuah http request butuh waktu cukup
 
 Berbeda dengan handler di back end-nya, by default request yang sudah di-cancel oleh client tidak terdeteksi (proses di back end akan tetap lanjut). Umumnya tidak ada masalah mengenai ini, tapi ada kalanya kita perlu men-treat cancelled request dengan baik untuk keperluan lain (logging, atau lainnya).
 
-Pada bab ini kita akan belajar caranya.
+Pada chapter ini kita akan belajar caranya.
 
-> Bab ini fokus terhadap cancellation pada client http request. Untuk cancellation pada proses konkuren silakan merujuk ke [A. Concurrency Pattern: Context Cancellation Pipeline](/A-pipeline-context-cancellation.html).
+> Chapter ini fokus terhadap cancellation pada client http request. Untuk cancellation pada proses konkuren silakan merujuk ke [A.64. Concurrency Pattern: Context Cancellation Pipeline](/A-pipeline-context-cancellation.html).
 
 ## B.32.1. Praktek
 
 Dari objek `*http.Request` bisa diambil objek context lewat method `.Context()`, dan dari context tersebut kita bisa mendeteksi apakah sebuah request di-cancel atau tidak oleh client.
 
-> Pada bab ini kita tidak membahas secara rinci apa itu context. Silakan langsung merujuk ke [Bab D.2. Google API Search Dengan Timeout](https://dasarpemrogramangolang.novalagung.com/D-google-api-search.html) untuk lebih detailnya.
+> Pada chapter ini kita tidak membahas secara rinci apa itu context. Silakan langsung merujuk ke chapter [D.2. Google API Search Dengan Timeout](/D-google-api-search.html) untuk lebih detailnya.
 
 Object context memiliki method `.Done()` yang nilai baliknya berupa channel. Dari channel tersebut kita bisa deteksi apakah request di-cancel atau tidak, caranya dengan cara mengecek apakah ada data yang terkirim lewat channel tersebut, jika ada maka lakukan pengecekan pada error message-nya, jika ada keterangan `"cancelled"` maka diasumsikan request tersebut dibatalkan.
 
@@ -117,6 +117,6 @@ curl -X POST http://localhost:8080/ -H 'Content-Type: application/json' -d '{}'
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.23-server-handler-http-request-cancellation">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>

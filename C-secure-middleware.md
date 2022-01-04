@@ -1,8 +1,8 @@
-# C.14. Secure Middleware
+# C.16. Secure Middleware
 
-Pada bab ini kita akan belajar menggunakan library [secure](https://github.com/unrolled/secure) untuk meningkatkan keamanan aplikasi web.
+Pada chapter ini kita akan belajar menggunakan library [secure](https://github.com/unrolled/secure) untuk meningkatkan keamanan aplikasi web.
 
-## C.14.1. Keamanan Web Server
+## C.16.1. Keamanan Web Server
 
 Jika berbicara mengenai keamanan aplikasi web, sangat luas sebenarnya cakupannya, ada banyak hal yang perlu diperhatian dan disiapkan. Mungkin tiga diantaranya sudah kita pelajari sebelumnya, yaitu penerapan Secure Cookie, CORS, dan CSRF.
 
@@ -36,7 +36,7 @@ func main() {
 ```
 
 Perlu diketahui, aplikasi di atas di-start dengan SSL/TLS enabled. Dua buah file dibutuhkan, yaitu file certificate `server.crt` dan file private key `server.key`. Silakan unduh kedua file tersebut dari source code di
-[GitHub, folder chapter-C.14-secure-middleware](https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.14-secure-middleware). Pada chapter [C. HTTPS/TLS Web Server](/C-22-https-tls.html) nantinya akan kita pelajari lebih lanjut mengenai cara generate kedua file di atas hingga cara penggunannya.
+[GitHub, folder chapter-C.16-secure-middleware](https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.16-secure-middleware). Pada chapter [C.24. HTTPS/TLS Web Server](/C-https-tls.html) nantinya akan kita pelajari lebih lanjut mengenai cara generate kedua file di atas hingga cara penggunannya.
 
 Kembali ke pembahasan, sekarang tambahkan secure middleware. Import package-nya, buat instance middleware, lalu registrasikan ke echo.
 
@@ -149,6 +149,6 @@ Lebih mendetailnya silakan langsung cek halaman official library secure di https
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.14-secure-middleware">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.14...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.16-secure-middleware">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.16...</a>
 </div>

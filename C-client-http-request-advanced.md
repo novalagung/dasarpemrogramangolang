@@ -1,10 +1,10 @@
-# C.24. Advanced Client HTTP Request
+# C.26. Advanced Client HTTP Request
 
-Pada bab ini kita akan belajar tentang topik yang sedikit berbeda dibanding bab sebelumnya, yaitu cara untuk melakukan http request ke sebuah web server.
+Pada chapter ini kita akan belajar tentang topik yang sedikit berbeda dibanding chapter sebelumnya, yaitu cara untuk melakukan http request ke sebuah web server.
 
 Dua aplikasi akan dibuat, server dan client. Server merupakan aplikasi web server kecil, memiliki  satu endpoint. Lalu dari client http request di-trigger, dengan tujuan adalah server.
 
-## C.24.1. Aplikasi Server
+## C.26.1. Aplikasi Server
 
 Buat projek baru seperti biasa, lalu buat `server.go`. Import package yang dibutuhkan.
 
@@ -88,7 +88,7 @@ Cara render output JSON biasanya kita lakukan menggunakan statement `w.Write()` 
 
 Aplikasi server sudah siap. Selanjutnya kita masuk ke bagian pembuatan aplikasi client.
 
-## C.24.2. Aplikasi Client
+## C.26.2. Aplikasi Client
 
 Tugas dari aplikasi client: melakukan http request ke aplikasi server, pada endpoint `/data` sesuai dengan spesifikasi yang sudah dijelaskan di atas (ber-method POST, dan memiliki JSON payload).
 
@@ -180,7 +180,7 @@ func main() {
 }
 ```
 
-## C.24.3. Testing
+## C.26.3. Testing
 
 Jalankan aplikasi server, buka prompt terminal/CMD baru, lalu jalankan aplikasi client.
 
@@ -189,6 +189,6 @@ Jalankan aplikasi server, buka prompt terminal/CMD baru, lalu jalankan aplikasi 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.24-client-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.24...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.26-client-http-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.26...</a>
 </div>

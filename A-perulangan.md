@@ -54,7 +54,7 @@ Dalam perulangan tanpa henti di atas, variabel `i` yang nilai awalnya `0` di-ink
 
 ## A.14.4. Penggunaan Keyword `for` - `range`
 
-Cara ke-4 adalah perulangan dengan menggunakan kombinasi keyword `for` dan `range`. Cara ini biasa digunakan untuk me-looping data bertipe array. Detailnya akan dibahas dalam bab selanjutnya (bab 14).
+Cara ke-4 adalah perulangan dengan menggunakan kombinasi keyword `for` dan `range`. Cara ini biasa digunakan untuk me-looping data bertipe array. Detailnya akan dibahas dalam chapter selanjutnya ([A.15. Array](/A-array.html)).
 
 ## A.14.5. Penggunaan Keyword `break` & `continue`
 
@@ -130,6 +130,6 @@ Pada `for` bagian dalam, terdapat seleksi kondisi untuk pengecekan nilai `i`. Ke
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.14-perulangan">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.14...</a>
 </div>

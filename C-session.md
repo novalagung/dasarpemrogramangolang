@@ -1,12 +1,12 @@
-# C.10. Session (Gorilla Session)
+# C.13. Session (Gorilla Session)
 
 Session adalah sebuah konsep penyimpanan data yang shared antar http request. Session umumnya menggunakan cookie untuk menyimpan identifier (kita sebut sebagai **SessionID**). Informasi SessionID tersebut ber-asosiasi dengan data (kita sebut sebagai **SessionData**) yang disimpan di sisi back end dalam media tertentu.
 
 Di back end, SessionData disimpan dalam media database, atau memory, atau fasilitas penyimpanan lainnya. Bisa saja sebenarnya jika SessionData juga disimpan dalam cookie, dengan memanfaatkan secure cookie maka SessionData tersebut ter-enkripsi dan aman dari peretas. Memang aman, tapi jelasnya lebih aman kalau disimpan di sisi server.
 
-Pada bab ini kita akan mempelajari penerapan session di golang menggunakan beberapa jenis media penyimpanan, yaitu mongo db, postgres sql db, dan secure cookie.
+Pada chapter ini kita akan mempelajari penerapan session di golang menggunakan beberapa jenis media penyimpanan, yaitu mongo db, postgres sql db, dan secure cookie.
 
-## C.10.1. Manage Session Menggunakan Gorilla Sessions
+## C.13.1. Manage Session Menggunakan Gorilla Sessions
 
 [Gorilla Sessions](https://github.com/gorilla/sessions) adalah library untuk manajemen session di golang. 
 
@@ -26,7 +26,7 @@ Lalu bagaimana dengan operasi hapus/delete? Seperti yang sudah dijelaskan sebelu
 
 Cookie merupakan salah satu header pada http request, operasi yang berhubungan dengan cookie pasti membutuhkan objek `http.Request` dan `http.ResponseWriter`. Jika menggunakan echo, kedua objek tersebut bisa diakses lewat objek http context `echo.Context`.
 
-## C.10.2. Membuat Objek Session Baru
+## C.13.2. Membuat Objek Session Baru
 
 Berikut adalah contoh cara membuat session lewat store.
 
@@ -54,7 +54,7 @@ Pada contoh di atas, dua buah data bertipe string disimpan, dengan identifier da
 
 Cara menyimpan session adalah dengan memanggil method `.Save()` milik objek session, dengan parameter adalah http request dan response.
 
-## C.10.3. Mengakses SessionData
+## C.13.3. Mengakses SessionData
 
 SessionData diakses dari objek session, berikut merupakan contoh caranya.
 
@@ -80,7 +80,7 @@ Dari objek session dilakukan pengecekan ada tidaknya SessionData, caranya dengan
 
 Pada kode di atas, jika SessionData kosong maka string `empty result` ditampilkan ke layar. Sedangkan jika ada, maka kedua SessionData (message1 dan message2) diambil lalu ditampilkan.
 
-## C.10.4. Menghapus Session
+## C.13.4. Menghapus Session
 
 Cara menghapus session adalah dengan meng-expired-kan max age cookie-nya. Property max age bisa diakses lewat `session.Options.MaxAge`.
 
@@ -96,7 +96,7 @@ e.GET("/delete", func(c echo.Context) error {
 
 Isi dengan `-1` agar expired, lalu simpan ulang kembali session-nya.
 
-## C.10.5. Session Store dan Context Clear Handler
+## C.13.5. Session Store dan Context Clear Handler
 
 Session Store adalah representasi dari media tempat dimana data asli session disimpan. Gorilla menyediakan `CookieStore`, penyimpanan data asli pada store ini adalah juga di dalam cookie, namun di-encode dan di-enkripsi menggunakan [Securecookie](https://github.com/gorilla/securecookie).
 
@@ -160,7 +160,7 @@ func main() {
 
 Sesuai dengan README Gorilla Session, library ini jika digabung dengan library lain selain gorilla mux, akan berpotensi menyebabkan memory leak. Untuk mengcover isu ini maka middleware `context.ClearHandler` perlu diregistrasikan. Middleware tersebut berada dalam library [Gorilla Context](https://github.com/gorilla/context).
 
-## C.10.6. Mongo DB Store
+## C.13.6. Mongo DB Store
 
 Kita akan mempelajari pembuatan session store dengan media adalah mongo db. Sebelum kita mulai, ada dua library yang perlu di `go get`.
 
@@ -219,9 +219,9 @@ Dari mgo session akses database lewat method `.DB()`, lalu akses collection yang
 
 Statement `mongostore.NewMongoStore()` digunakan untuk membuat mongo db store. Ada beberapa parameter yang diperlukan: objek collection mongo di atas, dan dua lagi lainnya adalah authentication key dan encryption key.
 
-Jika pembaca merasa bingung, silakan langsung buka source code untuk [bab B.10 ini di github](https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.10), mungkin membantu.
+Jika pembaca merasa bingung, silakan langsung buka [source code untuk chapter ini di Github](https://github.com/novalagung/dasarpemrogramangolang-example/), mungkin membantu.
 
-## C.10.7. Postgres SQL Store
+## C.13.7. Postgres SQL Store
 
 Pembuatan postgres store caranya kurang lebih sama dengan mongo store. Library yang dipakai adalah [github.com/antonlindstrom/pgstore](https://github.com/antonlindstrom/pgstore).
 
@@ -255,7 +255,7 @@ func newPostgresStore() *pgstore.PGStore {
 }
 ```
 
-## C.10.8. Secure Cookie Store
+## C.13.8. Secure Cookie Store
 
 Penggunaan cookie store kurang penulis anjurkan, meski sebenarnya cukup aman. Implementasi store jenis ini adalah yang paling mudah, karena tidak butuh database server atau media lainnya; dan juga karena API untuk cookie store sudah tersedia dalam gorilla sessions secara default.
 
@@ -285,7 +285,7 @@ func newCookieStore() *sessions.CookieStore {
 
 Tentukan path dan default max age cookie lewat `store.Options`.
 
-## C.10.9. Test Aplikasi
+## C.13.9. Test Aplikasi
 
 Silakan gabung semua kode yang sudah kita pelajari (kecuali bagian store), lalu pilih salah satu implementasi store di atas. Jalankan aplikasi untuk testing.
 
@@ -310,6 +310,6 @@ Tujuan dari kode yang kita tulis kurang lebih sebagai berikut.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.10-session">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.10...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.13-session">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.13...</a>
 </div>

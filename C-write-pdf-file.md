@@ -1,10 +1,10 @@
-# C.18. Write PDF File (gofpdf)
+# C.20. Write PDF File (gofpdf)
 
-Reporting pada aplikasi web, selain ke bentuk file excel biasanya ke bentuk file pdf. Pada bab ini kita akan mempelajari cara membuat file pdf di golang menggunakan [gofpdf](https://github.com/jung-kurt/gofpdf).
+Reporting pada aplikasi web, selain ke bentuk file excel biasanya ke bentuk file pdf. Pada chapter ini kita akan mempelajari cara membuat file pdf di golang menggunakan [gofpdf](https://github.com/jung-kurt/gofpdf).
 
 **gofpdf** adalah library yang berguna untuk membuat dokumen PDF dari golang. Penggunannya tidak terlalu sulit. Jadi mari belajar sambil praktek seperti biasanya. 
 
-## C.18.1. Membuat PDF Menggunakan gofpdf
+## C.20.1. Membuat PDF Menggunakan gofpdf
 
 Pertama `go get` library-nya.
 
@@ -87,6 +87,6 @@ Coba jalankan aplikasi untuk melihat hasilnya. Buka generated file `file.pdf`, i
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.18-write-pdf-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.18...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.20-write-pdf-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.20...</a>
 </div>

@@ -1,6 +1,6 @@
 # C.33. LDAP Authentication
 
-Pada bab ini kita belajar mengenai otentikasi user ke *Directory Service* lewat protokol LDAP. Pembelajaran akan kita awali dengan membahas sedikit mengenai definisi dari LDAP dan beberapa istilah relevan lainnya.
+Pada chapter ini kita belajar mengenai otentikasi user ke *Directory Service* lewat protokol LDAP. Pembelajaran akan kita awali dengan membahas sedikit mengenai definisi dari LDAP dan beberapa istilah relevan lainnya.
 
 ## C.33.1. Definisi
 
@@ -32,7 +32,7 @@ Operasi bind digunakan untuk otentikasi client ke directory server, dan juga unt
 
 #### • Directory Server untuk Testing
 
-Karena komunikasi adalah client-server maka kita perlu menggunakan salah satu directory server untuk keperluan testing. Beruntung-nya [Forum Systems](http://www.forumsys.com) berbaik hati menyediakan directory server yg bisa diakses secara gratis oleh public, dan di bab ini akan kita menggunakannya. 
+Karena komunikasi adalah client-server maka kita perlu menggunakan salah satu directory server untuk keperluan testing. Beruntung-nya [Forum Systems](http://www.forumsys.com) berbaik hati menyediakan directory server yg bisa diakses secara gratis oleh public, dan pada chapter ini akan kita menggunakannya. 
 
 Berikut adalah informasi credentials directory server tersebut:
 
@@ -317,6 +317,6 @@ if err != nil {
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.33-ldap-authentication">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.33...</a>
 </div>

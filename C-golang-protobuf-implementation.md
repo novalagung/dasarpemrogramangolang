@@ -1,8 +1,8 @@
-# C.29. Protobuf
+# C.30. Protobuf
 
-Pada bab ini kita akan belajar tentang penggunaan protobuf (Protocol Buffers) di Go. Topik gRPC kita pelajari pada bab selanjutnya (bukan pada bab ini).
+Pada chapter ini kita akan belajar tentang penggunaan protobuf (Protocol Buffers) di Go. Topik gRPC kita pelajari pada chapter selanjutnya (bukan pada chapter ini).
 
-## C.29.1. Definisi
+## C.30.1. Definisi
 
 Protocol Buffers adalah metode untuk serialisasi data terstruktur, yang dibuat oleh Google. Protobuf cocok digunakan pada aplikasi yang berkomunikasi dengan aplikasi lain. Protobuf bisa dipakai di banyak platform, contoh: komunikasi antara aplikasi mobile iOS dan Go Web Service, bisa menggunakan protobuf.
 
@@ -28,7 +28,7 @@ Skema tersebut didefinisikan dalam file berekstensi `.proto`. Dari file tersebut
 
 > gRPC dan protobuf adalah salah satu pilihan terbaik untuk diterapkan pada aplikasi yang mengadopsi konsep microservices.
 
-## C.29.2. Instalasi
+## C.30.2. Instalasi
 
 Schema yang ditulis dalam `.proto` di-compile ke bentuk file sesuai bahasa yang dipilih. Dari sini jelasnya sebuah compiler dibutuhkan, maka dari itu protobuf harus install terlebih dahulu di lokal masing-masing. Compiler tersebut bernama `protoc` atau proto compiler.
 
@@ -44,7 +44,7 @@ Wajib mengeksekusi command di atas di luar Go Modules, agar dependency tersebut 
 
 > Protobuf runtime tersedia untuk banyak bahasa selain Go, selengkapnya silakan cek https://github.com/protocolbuffers/protobuf.
 
-## C.29.3. Pembuatan File `.Proto`
+## C.30.3. Pembuatan File `.Proto`
 
 Siapkan satu buah folder dengan skema seperti berikut.
 
@@ -196,7 +196,7 @@ type GarageListByUser struct {
 }
 ```
 
-## C.29.4. Kompilasi File `.Proto`
+## C.30.4. Kompilasi File `.Proto`
 
 File `.proto` sudah siap, sekarang saatnya untuk meng-compile file-file tersebut agar menjadi `.go`. Kompilasi dilakukan lewat command `protoc`. Agar output berupa file Go, maka gunakan flag `--go_out`. Lebih jelasnya silakan ikut command berikut.
 
@@ -217,7 +217,7 @@ tree .
 
 Dua file baru dengan ekstensi `.pb.go` muncul.
 
-## C.29.5. Praktek
+## C.30.5. Praktek
 
 Sekarang kita akan belajar tentang pengoperasian file proto yang sudah di-generate. Buka file `main.go`, tulis kode berikut.
 
@@ -383,9 +383,9 @@ Silakan pilih cara yang cocok sesuai kebutuhan. Lalu jalankan aplikasi dan lihat
 
 ![Unmarshal from JSON string](images/C_golang_protobuf_implementation_5_unmarshal.png)
 
-## C.29.6. gRPC + Protobuf
+## C.30.6. gRPC + Protobuf
 
-Pada bab selanjutnya kita akan belajar tentang penerapan gRPC dan protobuf.
+Pada chapter selanjutnya kita akan belajar tentang penerapan gRPC dan protobuf.
 
 ---
 
@@ -394,6 +394,6 @@ Pada bab selanjutnya kita akan belajar tentang penerapan gRPC dan protobuf.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.29-golang-protobuf-implementation">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.29...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.30-golang-protobuf-implementation">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.30...</a>
 </div>

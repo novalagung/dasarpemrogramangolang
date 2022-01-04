@@ -2,7 +2,7 @@
 
 Dalam development, pasti banyak sekali variabel dan konstanta yang diperlukan. Mulai dari variabel yang dibutuhkan untuk start server seperti port, timeout, hingga variabel global dan variabel shared lainnya.
 
-Pada bab ini, kita akan belajar cara membuat config file modular. 
+Pada chapter ini, kita akan belajar cara membuat config file modular. 
 
 ## B.22.1. Struktur Aplikasi
 
@@ -232,6 +232,6 @@ Hal tersebut memiliki beberapa konsekuensi, untuk aplikasi yang di-manage secara
 Kita akan membahas solusi dari beberapa masalah di atas pada chapter terpisah, yaitu ketika masuk ke C.8.
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.22-simple-configuration">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.22...</a>
 </div>

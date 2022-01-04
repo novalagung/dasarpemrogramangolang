@@ -1,6 +1,6 @@
 # B.9. Template: Render Specific HTML Template
 
-Pada bab ini, kita akan belajar bagaimana cara untuk render template html tertentu. Sebuah file view bisa berisikan banyak template. Template mana yang ingin di-render bisa ditentukan.
+Pada chapter ini, kita akan belajar bagaimana cara untuk render template html tertentu. Sebuah file view bisa berisikan banyak template. Template mana yang ingin di-render bisa ditentukan.
 
 ## B.9.1. Front End
 
@@ -76,6 +76,6 @@ Lakukan tes pada program yang telah kita buat, kurang lebih hasilnya seperti pad
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.9-render-specific-html-template">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.9...</a>
 </div>

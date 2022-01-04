@@ -2,7 +2,7 @@
 
 Sebelumnya kita telah belajar bagaimana cara submit data dari front-end ke back-end menggunakan teknik **Form Data**. Kali ini kita akan belajar tentang cara request menggunakan teknik **Request Payload** dengan tipe payload adalah **JSON**.
 
-Teknik request **Form Data** digunakan salah satu nya pada request submit lewat `<form />`. Pada bab ini, kita tidak akan menggunakan cara submit lewat form, melainkan menggunakan teknik AJAX (Asynchronous JavaScript And XML), dengan payload ber-tipe JSON.
+Teknik request **Form Data** digunakan salah satu nya pada request submit lewat `<form />`. Pada chapter ini, kita tidak akan menggunakan cara submit lewat form, melainkan menggunakan teknik AJAX (Asynchronous JavaScript And XML), dengan payload ber-tipe JSON.
 
 [Perbedaan](http://stackoverflow.com/a/23152367/1467988) antara kedua jenis request tersebut adalah pada isi header `Content-Type`, dan bentuk informasi dikirimkan. Secara default, request lewat `<form />`, content type-nya adalah `application/x-www-form-urlencoded`. Data dikirimkan dalam bentuk query string (key-value) seperti `id=n001&nama=bruce`.
 
@@ -192,6 +192,6 @@ Gunakan fasilitas Developer Tools pada Chrome untuk melihat detail dari request.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.14-ajax-json-payload">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.14...</a>
 </div>

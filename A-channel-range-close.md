@@ -1,6 +1,6 @@
 # A.34. Channel - Range dan Close
 
-Proses retrieving data dari banyak channel bisa lebih mudah dilakukan dengan memanfaatkan kombinasi keyword `for` - `range`.
+Proses *retrieving* data dari banyak channel bisa lebih mudah dilakukan dengan memanfaatkan kombinasi keyword `for` - `range`.
 
 `for` - `range` jika diterapkan pada channel berfungsi untuk handle penerimaan data. Setiap kali ada pengiriman data via channel, maka akan men-trigger perulangan `for` - `range`. Perulangan akan berlangsung terus-menerus seiring pengiriman data ke channel yang dipergunakan. Dan perulangan hanya akan berhenti jika channel yang digunakan tersebut di **close** atau di-non-aktifkan. Fungsi `close` digunakan utuk me-non-aktifkan channel.
 
@@ -72,6 +72,6 @@ Dan sebaliknya pada fungsi `printMessage(ch <-chan string)`, channel `ch` hanya 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.34-channel-range-close">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.34...</a>
 </div>

@@ -4,7 +4,7 @@ Setelah sebelumnya kita telah mempelajari banyak hal yang berhubungan dengan tem
 
 Sebuah route handler pada dasarnya bisa menerima segala jenis request, dalam artian: apapun jenis HTTP method-nya maka akan tetap masuk ke satu handler (seperti **POST**, **GET**, dan atau lainnya). Untuk memisah request berdasarkan method-nya, bisa menggunakan seleksi kondisi.
 
-> Pada bab lain kita akan belajar teknik routing yg lebih advance dengan bantuan routing library.
+> Pada chapter lain kita akan belajar teknik routing yg lebih advance dengan bantuan routing library.
 
 ## B.11.1. Praktek
 
@@ -54,6 +54,6 @@ Jika method yang digunakan adalah selain POST dan GET, maka sesuai source code d
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.11-http-method">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.11...</a>
 </div>

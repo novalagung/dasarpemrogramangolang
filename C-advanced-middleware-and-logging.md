@@ -1,10 +1,10 @@
-# C.6. Advanced Middleware & Logging (Logrus, Echo Logger)
+# C.8. Advanced Middleware & Logging (Logrus, Echo Logger)
 
 Middleware adalah sebuah blok kode yang dipanggil sebelum ataupun sesudah http request di-proses. Middleware biasanya dibuat per-fungsi-nya, contohnya: middleware autentikasi, middleware untuk logging, middleware untuk gzip compression, dan lainnya.
 
-Pada bab ini kita akan belajar cara membuat dan me-manage middleware.
+Pada chapter ini kita akan belajar cara membuat dan me-manage middleware.
 
-## C.6.1. Custom Middleware
+## C.8.1. Custom Middleware
 
 Pembuatan middleware pada echo sangat mudah, cukup gunakan method `.Use()` milik objek echo untuk registrasi middleware. Method ini bisa dipanggil berkali-kali, dan eksekusi middleware-nya sendiri adalah berurutan sesuai dengan urutan registrasi.
 
@@ -70,7 +70,7 @@ Jalankan aplikasi, lihat hasilnya.
 
 ![Middleware logging](images/C_advanced_middleware_and_logging_1_middleware_log.png)
 
-## C.6.2. Integrasi Middleware ber-skema Non-Echo-Middleware
+## C.8.2. Integrasi Middleware ber-skema Non-Echo-Middleware
 
 Di echo, fungsi middleware harus memiliki skema `func(echo.HandlerFunc)echo.HandlerFunc`. Untuk 3rd party middleware, tetap bisa dikombinasikan dengan echo, namun membutuhkan sedikit penyesuaian tentunya. 
 
@@ -96,9 +96,9 @@ func main() {
 
 Bisa dilihat, fungsi `middlewareSomething` tidak menggunakan skema middleware milik echo, namun tetap bisa digunakan dalam `.Use()` dengan cara dibungkus fungsi `echo.WrapMiddleware()`.
 
-## C.6.3. Echo Middleware: Logger
+## C.8.3. Echo Middleware: Logger
 
-Seperti yang sudah penulis jelaskan pada awal bab B, bahwa echo merupakan framework besar, didalamnya terdapat banyak dependency dan library, salah satunya adalah logging middleware.
+Seperti yang sudah penulis jelaskan pada awal chapter B, bahwa echo merupakan framework besar, didalamnya terdapat banyak dependency dan library, salah satunya adalah logging middleware.
 
 Cara menggunakan logging middleware (ataupun middleware lainnya milik echo) adalah dengan meng-import package `github.com/labstack/echo/middleware`, lalu panggil nama middleware nya. Lebih detailnya silakan baca dokumentasi echo mengenai middleware di https://echo.labstack.com/middleware.
 
@@ -159,7 +159,7 @@ Berikut merupakan list middleware yang disediakan oleh echo, atau cek https://ec
 - Static
 - Trailing Slash
 
-## C.6.4. 3rd Party Logging Middleware: Logrus
+## C.8.4. 3rd Party Logging Middleware: Logrus
 
 Selain dengan membuat middleware sendiri, ataupun menggunakan echo middleware, kita juga bisa menggunakan 3rd party middleware lain. Tinggal sesuaikan sedikit agar sesuai dengan skema fungsi middleware milik echo untuk bisa digunakan.
 
@@ -271,6 +271,6 @@ Satu kata, *cantik*.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.6-advanced-middleware-and-logging">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.6...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.8-advanced-middleware-and-logging">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.8...</a>
 </div>

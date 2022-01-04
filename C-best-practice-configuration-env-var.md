@@ -1,8 +1,8 @@
-# C.8.B. Best Practice Configuration Menggunakan Environment Variable
+# C.11. Best Practice Configuration Menggunakan Environment Variable
 
 Pada bagian ini kita akan mempelajari penerapan konfigurasi pada *environment variable*.
 
-## C.8.B.1. Definisi
+## C.11.1. Definisi
 
 *Environment variable* merupakan variabel yang berada di lapisan *runtime* sistem operasi. Karena *env var* atau *environment variable* merupakan variabel seperti pada umumnya, maka kita bisa melakukan operasi seperti mengubah nilainya atau mengambil nilainya.
 
@@ -12,9 +12,9 @@ Default-nya, sistem operasi pasti mempunyai beberapa *env var* yang sudah ada ta
 
 Selain *reserved env var*, kita bisa juga membuat variabel baru yang hanya digunakan untuk keperluan program secara spesifik.
 
-## C.8.B.2. Penggunaan *env var* Sebagai Media Untuk Definisi Konfigurasi Program
+## C.11.2. Penggunaan *env var* Sebagai Media Untuk Definisi Konfigurasi Program
 
-Pada chapter [B. Simple Configuration](/B-simple-configuration.html) dan juga [C. Advanced Configuration: Viper](/C-8-A-advanced-configuration-viper.html), kita telah belajar cara pendefinisian konfigurasi dengan memanfaatkan file seperti JSON maupun YAML.
+Pada chapter [B.22. Simple Configuration](/B-simple-configuration.html) dan juga [C.10. Advanced Configuration: Viper](/C-advanced-configuration-viper.html), kita telah belajar cara pendefinisian konfigurasi dengan memanfaatkan file seperti JSON maupun YAML.
 
 Pada chapter kali ini kita akan mendefinisikan konfigurasi yang sama tapi tidak di file, melainkan di *environment variable*.
 
@@ -31,7 +31,7 @@ Jadi bisa dibilang penulisan konfigurasi di env var merupakan *best practice* un
 
 Memang kalau dari sisi readability sangat kalah kalau dibandingkan dengan JSON atau YAML, tapi saya sampaikan bahwa meski effort koding bakal lebih banyak, akan ada sangat banyak manfaat yang bisa didapat dengan menuliskan konfigurasi di *env var*, terutama pada bagian **devops**.
 
-## C.8.B.3. Praktek
+## C.11.3. Praktek
 
 Mari kita praktekan, buat 1 folder projek baru, kemudian `main.go`, lalu isi file tersebut dengan kode berikut.
 
@@ -114,7 +114,7 @@ e.Logger.Print("Starting", confAppName)
 e.Logger.Fatal(e.StartServer(server))
 ```
 
-## C.8.B.4. Eksekusi Program
+## C.11.4. Eksekusi Program
 
 Program sudah siap, betul, tetapi konfigurasi nya belum. Nah salah satu kelebihan dari kontrol konfigurasi lewat *env var* adalah kita bisa definisikan sewaktu eksekusi program (sebelum statement `go run`).
 
@@ -144,11 +144,11 @@ Berikut adalah penampakan contoh run program lewat bat-file di Windows.
 
 ![Run program](images/C_best_practice_configuration_env_var_1_run.png)
 
-## C.8.B.5. Penutup
+## C.11.5. Penutup
 
 Memang saya setuju jika lebih butuh *effort* baik dari sisi programming maupun dari sisi eksekusi program-nya. Tapi *trust me*, pada production yang notabene *deployment* di-automatisasi (entah itu container based, pakai orchestrator, maupun tidak), pasti lebih mudah.
 
-Mungkin dari sini temen-temen bisa lanjut ke bab [C. Dockerize Aplikasi Golang](/C-35-dockerize-golang.html) untuk melihat praktek nyata penerapan konfigurasi via *env var*.
+Mungkin dari sini temen-temen bisa lanjut ke chapter [C.35. Dockerize Aplikasi Golang](/C-dockerize-golang.html) untuk melihat praktek nyata penerapan konfigurasi via *env var*.
 
 ---
 
@@ -157,6 +157,6 @@ Mungkin dari sini temen-temen bisa lanjut ke bab [C. Dockerize Aplikasi Golang](
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.8.B-best-practice-configuration-env-var">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.8.B...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.11-best-practice-configuration-env-var">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.11...</a>
 </div>

@@ -2,7 +2,7 @@
 
 **Method** adalah fungsi yang menempel pada `type` (bisa `struct` atau tipe data lainnya). Method bisa diakses lewat variabel objek.
 
-Keunggulan method dibanding fungsi biasa adalah memiliki akses ke property struct hingga level *private* (level akses nantinya akan dibahas lebih detail pada bab selanjutnya). Dan juga, dengan menggunakan method sebuah proses bisa di-enkapsulasi dengan baik.
+Keunggulan method dibanding fungsi biasa adalah memiliki akses ke property struct hingga level *private* (level akses nantinya akan dibahas lebih detail pada chapter selanjutnya). Dan juga, dengan menggunakan method sebuah proses bisa di-enkapsulasi dengan baik.
 
 ## A.25.1. Penerapan Method
 
@@ -126,11 +126,11 @@ s2.sayHello()
 
 ---
 
-Berikut adalah penjelasan tambahan mengenai beberapa hal pada bab ini.
+Berikut adalah penjelasan tambahan mengenai beberapa hal pada chapter ini.
 
 #### • Penggunaan Fungsi `strings.Split()`
 
-Di bab ini ada fungsi baru yang kita gunakan: `strings.Split()`. Fungsi ini berguna untuk memisah string menggunakan pemisah yang ditentukan sendiri. Hasilnya adalah array berisikan kumpulan substring.
+Pada chapter ini ada fungsi baru yang kita gunakan: `strings.Split()`. Fungsi ini berguna untuk memisah string menggunakan pemisah yang ditentukan sendiri. Hasilnya adalah array berisikan kumpulan substring.
 
 ```go
 strings.Split("ethan hunt", " ")
@@ -145,11 +145,11 @@ Setelah tahu apa itu method dan bagaimana penggunaannya, mungkin akan muncul di 
 
 `fmt` adalah nama **package** yang di-import (bisa dilihat pada kode `import "fmt"`). Sedangkan `Println()` adalah **nama fungsi**. Untuk mengakses fungsi yang berada pada package lain, harus dituliskan nama package-nya. Hal ini berlaku juga di dalam package `main`. Jika ada fungsi dalam package main yang diakses dari package lain yang berbeda, maka penulisannya `main.NamaFungsi()`.
 
-Lebih detailnya akan dibahas di bab selanjutnya.
+Lebih detailnya akan dibahas pada chapter selanjutnya.
 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.25-method">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.25...</a>
 </div>

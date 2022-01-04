@@ -6,7 +6,7 @@ Goroutine mirip dengan thread thread, tapi sebenarnya bukan. Sebuah *native thre
 
 Goroutine merupakan salah satu bagian paling penting dalam *concurrent programming* di Go. Salah satu yang membuat goroutine sangat istimewa adalah eksekusi-nya dijalankan di multi core processor. Kita bisa tentukan berapa banyak core yang aktif, makin banyak akan makin cepat.
 
-Mulai bab A.29 ini hingga bab A.34, lalu dilanjut bab A.56 dan A.57, kita akan membahas tentang fitur-fitur yang disediakan Go untuk kebutuhan *concurrent programming*.
+Mulai chapter **A.29** ini hingga **A.34**, lalu dilanjut **A.56** dan **A.57**, kita akan membahas tentang fitur-fitur yang disediakan Go untuk kebutuhan *concurrent programming*.
 
 > Concurrency atau konkurensi berbeda dengan paralel. Paralel adalah eksekusi banyak proses secara bersamaan. Sedangkan konkurensi adalah komposisi dari sebuah proses. Konkurensi merupakan struktur, sedangkan paralel adalah bagaimana eksekusinya berlangsung.
 
@@ -87,6 +87,6 @@ Bisa dilihat pada kode di atas, untuk menampung inputan text `trafalgar d law`, 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.30-goroutine">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.30...</a>
 </div>

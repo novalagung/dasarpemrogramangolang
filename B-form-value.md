@@ -1,6 +1,6 @@
 # B.12. Form Value
 
-Pada bab ini kita akan belajar bagaimana cara untuk submit data, dari form di layer front end, ke back end. 
+Pada chapter ini kita akan belajar bagaimana cara untuk submit data, dari form di layer front end, ke back end. 
 
 # B.12.1. Front End
 
@@ -132,6 +132,6 @@ OK, sekarang coba jalankan program yang telah kita buat, dan cek hasilnya.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.12-form-value">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.12...</a>
 </div>

@@ -1,4 +1,4 @@
-# C.7. CLI Flag Parser (Kingpin v2)
+# C.9. CLI Flag Parser (Kingpin v2)
 
 Tidak jarang, sebuah aplikasi dalam eksekusinya membutuhkan argumen untuk disisipkan, entah itu mandatory atau tidak. Contohnya seperti berikut.
 
@@ -6,9 +6,9 @@ Tidak jarang, sebuah aplikasi dalam eksekusinya membutuhkan argumen untuk disisi
 $ ./main --port=3000
 ```
 
-Pada bab ini kita akan belajar cara parsing argumen eksekusi aplikasi. Parsing sebenarnya bisa dilakukan dengan cukup memainkan property `os.Args`. Tapi pada bab ini kita akan menggunakan 3rd party library [github.com/alecthomas/kingpin](https://github.com/alecthomas/kingpin) untuk mempermudah pelaksanaannya.
+Pada chapter ini kita akan belajar cara parsing argumen eksekusi aplikasi. Parsing sebenarnya bisa dilakukan dengan cukup memainkan property `os.Args`, akan tetapi pada pembelajaran kali ini kita akan menggunakan 3rd party library [github.com/alecthomas/kingpin](https://github.com/alecthomas/kingpin) untuk mempermudah pelaksanaannya.
 
-## C.7.1. Parsing Argument
+## C.9.1. Parsing Argument
 
 Kita akan buat aplikasi yang bisa menerima bentuk argument seperti berikut.
 
@@ -80,7 +80,7 @@ Jalankan aplikasi, cek hasilnya.
 
 Bisa dilihat dari gambar di atas ketika flag `--help` dipanggil list semua argument muncul.
 
-## C.7.2. Penggunaan Kingpin Application Instance
+## C.9.2. Penggunaan Kingpin Application Instance
 
 Dari yang sudah kita praktekan di atas, fungsi-fungsi diakses langsung dari package `kingpin`.
 
@@ -116,7 +116,7 @@ Manfaatkan objek `err` kembalian `app.Parse()` untuk membuat custom error handli
 kingpin.MustParse(app.Parse(os.Args[1:]))
 ```
 
-## C.7.3. Parsing Flag
+## C.9.3. Parsing Flag
 
 Flag adalah argument yang lebih terstruktur. Golang sebenarnya sudah menyediakan package `flag`, isinya API untuk parsing flag.
 
@@ -152,7 +152,7 @@ Penggunaan flag `--help` akan memunculkan keterangan mendetail tiap-tiap flag.
 
 ![Flag](images/C_flag_parser_2_flag.png)
 
-## C.7.4. Parsing Command
+## C.9.4. Parsing Command
 
 Command adalah bentuk yang lebih advance dari argument. Banyak command bisa dibuat, pendefinisian flag ataupun argument bisa dilakukan lebih spesifik, untuk masing-masing command.
 
@@ -292,7 +292,7 @@ Atau gunakan `--help-long` dalam eksekusi binary, untuk menampilkan help yang me
 
 ![Command help full](images/C_flag_parser_4_command_help_full.png)
 
-## C.7.5. Command Action Tanpa Menggunakan `.Action()`
+## C.9.5. Command Action Tanpa Menggunakan `.Action()`
 
 Nilai balik statement `kingpin.MustParse()`, `kingpin.Parse()`, dan nilai balik pertama `app.Parse()` adalah sama, yaitu informasi command yang ditulis pada saat pemanggilan binary.
 
@@ -320,7 +320,7 @@ case commandDelete.FullCommand(): // delete user
 }
 ```
 
-## C.7.6. Advanced Command Line Application
+## C.9.6. Advanced Command Line Application
 
 Pembahasan di atas fokus tentang bagaiamana cara parsing argument, flag, dan command yang disisipkan sewaktu eksekusi aplikasi. Aplikasi yang dieksekusi sendiri bisa berupa command-line-based ataupun web-based.
 
@@ -336,6 +336,6 @@ Cobra merupakan library yang didesain khusus untuk development aplikasi berbasis
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.7-flag-parser">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.7...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.9-flag-parser">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.9...</a>
 </div>

@@ -1,6 +1,6 @@
-# C.2. Parsing HTTP Request Payload (Echo)
+# C.4. Parsing HTTP Request Payload (Echo)
 
-Pada bab ini kita akan belajar cara parsing beberapa variasi request payload.
+Pada chapter ini kita akan belajar cara parsing beberapa variasi request payload.
 
 Payload dalam HTTP request bisa dikirimkan dalam berbagai bentuk. Kita akan mempelajari cara untuk handle 4 jenis payload berikut.
 
@@ -15,7 +15,7 @@ JSON payload dan XML payload sebenarnya sama dengan Form Data, pembedanya adalah
 
 Sedang jenis request query string adalah yang paling berbeda. Data tidak disisipkan dalam request body, melainkan pada url nya dalam bentuk key-value.
 
-## C.2.1. Parsing Request Payload
+## C.4.1. Parsing Request Payload
 
 Cara parsing payload request dalam echo sangat mudah, apapun jenis payload nya, API yang digunakan untuk parsing adalah sama.
 
@@ -60,7 +60,7 @@ r.Any("/user", func(c echo.Context) (err error) {
 
 Bisa dilihat dalam handler, method `.Bind()` milik `echo.Context` digunakan, dengan disisipi parameter pointer objek (hasil cetakan struct `User`). Parameter tersebut nantinya akan menampung payload yang dikirim, entah apapun jenis nya.
 
-## C.2.2 Testing
+## C.4.2 Testing
 
 Jalankan aplikasi, lakukan testing. Bisa gunakan `curl` ataupun API testing tools sejenis postman atau lainnya.
 
@@ -115,6 +115,6 @@ curl -X GET http://localhost:9000/user?name=Joe&email=nope@novalagung.com
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.2-parsing-http-request-payload-echo">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.2...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.4-parsing-http-request-payload-echo">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.4...</a>
 </div>

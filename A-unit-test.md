@@ -2,7 +2,7 @@
 
 Go menyediakan package `testing`, berisikan banyak sekali tools untuk keperluan unit test.
 
-Pada bab ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan [testify](https://github.com/stretchr/testify).
+Pada chapter ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan [testify](https://github.com/stretchr/testify).
 
 ## A.58.1. Persiapan
 
@@ -34,7 +34,7 @@ Simpan kode di atas dengan nama `bab55.go`.
 
 ## A.58.2. Testing
 
-File untuk keperluan testing dipisah dengan file utama, namanya harus berakhiran `_test.go`, dan package-nya harus sama. Pada bab ini, file utama adalah `bab55.go`, maka file testing harus bernama `bab55_test.go`.
+File untuk keperluan testing dipisah dengan file utama, namanya harus berakhiran `_test.go`, dan package-nya harus sama. Pada chapter ini, file utama adalah `bab55.go`, maka file testing harus bernama `bab55_test.go`.
 
 Unit test di Go dituliskan dalam bentuk fungsi, yang memiliki parameter yang bertipe `*testing.T`, dengan nama fungsi harus diawali kata **Test** (pastikan sudah meng-import package `testing` sebelumnya). Lewat parameter tersebut, kita bisa mengakses method-method untuk keperluan testing.
 
@@ -158,7 +158,7 @@ Didalam testify terdapat 5 package dengan kegunaan berbeda-beda satu dengan lain
 | require | Sama seperti assert, hanya saja jika terjadi fail pada saat test akan menghentikan eksekusi program |
 | suite | Berisikan tools testing yang berhubungan dengan struct dan method |
 
-Pada bab ini akan kita contohkan bagaimana penggunaan package assert. Silakan perhatikan contoh berikut.
+Pada chapter ini akan kita contohkan bagaimana penggunaan package assert. Silakan perhatikan contoh berikut.
 
 ```go
 import "github.com/stretchr/testify/assert"
@@ -189,6 +189,6 @@ Fungsi `assert.Equal()` digunakan untuk uji perbandingan. Parameter ke-2 dibandi
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.58-unit-test">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.58...</a>
 </div>

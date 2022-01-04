@@ -4,7 +4,7 @@ Seleksi kondisi digunakan untuk mengontrol alur program. Analoginya mirip sepert
 
 Yang dijadikan acuan oleh seleksi kondisi adalah nilai bertipe `bool`, bisa berasal dari variabel, ataupun hasil operasi perbandingan. Nilai tersebut menentukan blok kode mana yang akan dieksekusi.
 
-Go memiliki 2 macam keyword untuk seleksi kondisi, yaitu **if else** dan **switch**. Di bab ini kita akan mempelajarinya satu-persatu.
+Go memiliki 2 macam keyword untuk seleksi kondisi, yaitu **if else** dan **switch**. Pada chapter ini kita akan mempelajarinya satu-persatu.
 
 > Go tidak mendukung seleksi kondisi menggunakan **ternary**.<br />Statement seperti: `var data = (isExist ? "ada" : "tidak ada")` adalah invalid dan menghasilkan error.
 
@@ -203,6 +203,6 @@ if point > 7 {
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.13-seleksi-kondisi">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.13...</a>
 </div>

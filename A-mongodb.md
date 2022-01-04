@@ -2,7 +2,7 @@
 
 Go tidak menyediakan interface generic untuk NoSQL, jadi implementasi driver tiap brand NoSQL di Go biasanya berbeda satu dengan lainnya.
 
-Pada bab ini kita akan belajar cara berkomunikasi dengan NoSQL MongoDB server menggunakan official driver untuk go, yaitu [mongo-go-driver](https://github.com/mongodb/mongo-go-driver).
+Pada chapter ini kita akan belajar cara berkomunikasi dengan NoSQL MongoDB server menggunakan official driver untuk go, yaitu [mongo-go-driver](https://github.com/mongodb/mongo-go-driver).
 
 ## A.57.1. Persiapan
 
@@ -40,7 +40,7 @@ import (
 
 Siapkan satu object context dan struct `student`. Rencananya satu buah document kita buat sebagai satu buah objek `student`.
 
-Perlu diketahui bahwa pada bab ini tidak dijelaskan tentang apa itu context. Silakan merujuk ke [D.2. Google API Search Dengan Timeout](https://dasarpemrogramangolang.novalagung.com/D-google-api-search.html) untuk mempelajarinya. Menggunakan satu context background untuk semua operasi sangat tidak dianjurkan, tapi pada bab ini kita terapkan demikian agar tidak menambah kebingungan pembaca yang masih proses belajar. Context sendiri fungsinya sangat banyak, untuk kasus sejenis biasanya digunakan untuk handle operation timeout atau lainnya. 
+Perlu diketahui bahwa pada chapter ini tidak dijelaskan tentang apa itu context. Silakan merujuk ke [D.2. Google API Search Dengan Timeout](/D-google-api-search.html) untuk mempelajarinya. Menggunakan satu context background untuk semua operasi sangat tidak dianjurkan, tapi pada chapter ini kita terapkan demikian agar tidak menambah kebingungan pembaca yang masih proses belajar. Context sendiri fungsinya sangat banyak, untuk kasus sejenis biasanya digunakan untuk handle operation timeout atau lainnya. 
 
 ```go
 var ctx = context.Background()
@@ -327,6 +327,6 @@ if len(result) > 0 {
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.57-mongodb">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.57...</a>
 </div>

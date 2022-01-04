@@ -1,8 +1,8 @@
-# C.22. HTTPS/TLS Web Server
+# C.24. HTTPS/TLS Web Server
 
 Pada bagian ini kita akan belajar cara meng-enable fasilitas SSL/TLS pada web server.
 
-## C.22.1. Definisi
+## C.24.1. Definisi
 
 #### • SSL
 
@@ -34,7 +34,7 @@ Kedua file certificate dan file private key harus disimpan dengan sangat super a
 
 **HTTPS, Hyper Text Transfer Protocol Secure**, adalah ekstensi dari HTTP yang berguna untuk pengamanan komunikasi lewat internet. Data atau informasi yang dikomunikasikan di-enkripsi menggunakan **TLS**.
 
-## C.22.2. Generate Private Key & Public Key Menggunakan `openssl`
+## C.24.2. Generate Private Key & Public Key Menggunakan `openssl`
 
 Untuk menerapkan TLS pada web server aplikasi golang, private key dan public key perlu kita siapkan terlebih dahulu. 
 
@@ -62,13 +62,13 @@ Tampilannya kurang lebih seperti pada screenshot berikut.
 
 > Selain `.crt` dan `.key`, ada ekstensi lain lagi seperti `.pem`. Format `.pem` ini merupakan jenis encoding yang sangat sering digunakan pada file kriptografi sejenis `.key` dan `.crt`. File `.crt` dan `.key` bisa di konversi ke `.pem`, dan juga sebaliknya.
 
-## C.22.3. Project Structure
+## C.24.3. Project Structure
 
 Buat sebuah projek folder, copy 2 file yang telah ter-generate ke dalamnya. Lalu siapkan file `main.go`.
 
 ![Folder Structure](images/C_https_tls_3_structure.png)
 
-## C.22.4. Web Servers
+## C.24.4. Web Servers
 
 Pada `main.go`, siapkan sebuah fungsi `StartNonTLSServer()`, berisikan mux dengan satu buah routing, untuk redirect request dari protokol `http` ke `https`. Nantinya semua request yang mengarah ke `http://localhost` di-redirect ke `https://localhost`. Start mux ini pada port `:80`.
 
@@ -116,7 +116,7 @@ OK, jalankan aplikasi.
 
 > Jika error `panic: listen tcp :443: bind: permission denied` muncul, coba jalankan aplikasi menggunakan **sudo**, contoh: `sudo go run main.go`
 
-## C.22.5. Testing
+## C.24.5. Testing
 
 Test aplikasi menggunakan `curl`. Untuk request ke protokol `https` coba tambahkan flag `--insecure` untuk men-disable verifikasi certificate.
 
@@ -131,6 +131,6 @@ Warning `NET::ERR_CERT_AUTHORITY_INVALID` muncul ketika mengakses sebuah website
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.22-https-tls">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.22...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.24-https-tls">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.24...</a>
 </div>

@@ -11,7 +11,7 @@ Ada cukup banyak sql driver yang tersedia untuk Go, detailnya bisa diakses di [h
 
 Driver-driver tersebut merupakan project open source yang diinisiasi oleh komunitas di Github. Artinya kita selaku developer juga bisa ikut berkontribusi didalamnya.
 
-Pada bab ini kita akan belajar bagaimana berkomunikasi dengan database MySQL menggunakan driver [Go MySQL Driver](https://github.com/go-sql-driver/mysql).
+Pada chapter ini kita akan belajar bagaimana berkomunikasi dengan database MySQL menggunakan driver [Go MySQL Driver](https://github.com/go-sql-driver/mysql).
 
 ## A.56.1. Instalasi Driver
 
@@ -338,6 +338,6 @@ Selengkapya mengenai driver yang tersedia bisa dilihat di [https://github.com/go
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.56-sql">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.56...</a>
 </div>

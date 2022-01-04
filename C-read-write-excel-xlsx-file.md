@@ -1,8 +1,8 @@
-# C.17. Read & Write Excel XLSX File (Excelize)
+# C.19. Read & Write Excel XLSX File (Excelize)
 
 Dalam pengembangan aplikasi web, di bagian reporting, tidak jarang kita akan berususan dengan file excel. Biasanya di tiap report diharuskan ada fasilitas untuk unduh data ke bentuk excel ataupun pdf.
 
-Pada bab ini kita akan belajar tentang pengolahan file excel menggunakan [excelize](https://github.com/360EntSecGroup-Skylar/excelize).
+Pada chapter ini kita akan belajar tentang pengolahan file excel menggunakan [excelize](https://github.com/360EntSecGroup-Skylar/excelize).
 
 Dokumentasi lengkap mengenai excelize bisa dilihat di https://xuri.me/excelize/en. Silakan `go get` untuk mengunduh library ini.
 
@@ -10,7 +10,7 @@ Dokumentasi lengkap mengenai excelize bisa dilihat di https://xuri.me/excelize/e
 go get github.com/360EntSecGroup-Skylar/excelize
 ```
 
-## C.17.1. Membuat File Excel `.xlsx`
+## C.19.1. Membuat File Excel `.xlsx`
 
 Pembahasan akan dilakukan dengan langsung praktek, dengan skenario: sebuah dummy data bertipe `[]M` disiapkan, data tersebut kemudian ditulis ke dalam excel.
 
@@ -95,7 +95,7 @@ Jalankan aplikasi, sebuah file bernama `file1.xlsx` akan muncul. Buka file terse
 
 ![Create Excel](images/C_read_write_excel_xlsx_file_1_create_excel.png)
 
-## C.17.2. Pembuatan Sheet, Merge Cell, dan Cell Styles
+## C.19.2. Pembuatan Sheet, Merge Cell, dan Cell Styles
 
 Manajemen sheet menggunakan excelize cukup mudah. Pembuatan sheet dilakukan lewat `xlsx.NewSheet()`. Mari langsung kita praktekan. 
 
@@ -149,7 +149,7 @@ Sekarang jalankan aplikasi, lalu coba buka file `file2.xlsx`.
 
 ![Cell style, merge cell](images/C_read_write_excel_xlsx_file_2_new_sheet_style_merge_cell.png)
 
-## C.17.3. Membaca File Excel `.xlsx`
+## C.19.3. Membaca File Excel `.xlsx`
 
 Di excelize, objek excel bisa didapat lewat dua cara.
 
@@ -192,6 +192,6 @@ Jalankan aplikasi untuk mengecek hasilnya.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.17-read-write-excel-xlsx-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.17...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.19-read-write-excel-xlsx-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.19...</a>
 </div>

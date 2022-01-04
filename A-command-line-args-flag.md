@@ -2,7 +2,7 @@
 
 **Arguments** adalah data opsional yang disisipkan ketika eksekusi program. Sedangkan **flag** merupakan ekstensi dari argument. Dengan flag, penulisan argument menjadi lebih rapi dan terstruktur.
 
-Di bab ini kita akan belajar tentang penggunaan arguments dan flag.
+Pada chapter ini kita akan belajar tentang penggunaan arguments dan flag.
 
 ## A.48.1. Penggunaan Arguments
 
@@ -132,6 +132,6 @@ Kegunaan dari parameter terakhir method-method flag adalah untuk memunculkan hin
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.48-cli-arguments-flag">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.48...</a>
 </div>

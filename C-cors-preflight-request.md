@@ -1,8 +1,8 @@
-# C.12. CORS & Preflight Request
+# C.14. CORS & Preflight Request
 
-Pada bab ini kita akan belajar tentang Cross-Origin Resource Sharing (CORS) dan Preflight Request.
+Pada chapter ini kita akan belajar tentang Cross-Origin Resource Sharing (CORS) dan Preflight Request.
 
-## C.12.1. Teori & Penerapan
+## C.14.1. Teori & Penerapan
 
 CORS adalah mekanisme untuk memberi tahu browser, apakah sebuah request yang di-dispatch dari aplikasi web domain lain atau origin lain, ke aplikasi web kita itu diperbolehkan atau tidak. Jika aplikasi kita tidak mengijinkan maka akan muncul error, dan request pasti digagalkan oleh browser.
 
@@ -24,7 +24,7 @@ Permisalan: aplikasi kita di local mengambil data dari google.com, maka konfigur
 
 Agar lebih mudah untuk dipahami bagaimana penerapannya, mari langsung kita praktekan seperti biasanya.
 
-## C.12.2. Aplikasi dengan konfigurasi CORS sederhana
+## C.14.2. Aplikasi dengan konfigurasi CORS sederhana
 
 Buat projek baru, lalu isi fungsi `main()` dengan kode berikut. Aplikasi sederhana ini akan kita jalankan pada domain atau origin `http://localhost:3000/`, lalu akan kita coba akses dari domain berbeda.
 
@@ -65,7 +65,7 @@ Access-Control-Allow-Origin: https://www.google.com
 
 Kode di atas artinya request yang di-dispatch dari https://www.google.com diijinkan untuk masuk; Penulis memilih domain google karena testing akan dilakukan dari sana, dengan tujuan destinasi request adalah `http://localhost:3000/`.
 
-Simulasi pada bab ini adalah **aplikasi web localhost:3000 diakses dari google.com** (eksekusi request sendiri kita lakukan dari browser dengan memanfaatkan developer tools milik chrome). BUKAN google.com diakses dari aplikasi web localhost:3000, jangan sampai dipahami terbalik.
+Simulasi pada chapter ini adalah **aplikasi web localhost:3000 diakses dari google.com** (eksekusi request sendiri kita lakukan dari browser dengan memanfaatkan developer tools milik chrome). BUKAN google.com diakses dari aplikasi web localhost:3000, jangan sampai dipahami terbalik.
 
 Kembali ke pembahasan source code. Dua header CORS lainnya digunakan untuk konfigurasi yang lebih mendetail.
 
@@ -89,7 +89,7 @@ Jika request tidak memenuhi salah satu saja dari ke-tiga rules di atas, maka req
 
 Khusus untuk beberapa header seperti `Accept`, `Origin`, `Referer`, dan `User-Agent` tidak terkena efek CORS, karena header-header tersebut secara otomatis di-set di setiap request.
 
-## C.12.3. Testing CORS
+## C.14.3. Testing CORS
 
 #### • Persiapan
 
@@ -156,7 +156,7 @@ w.Header().Set("Access-Control-Allow-Methods", "*")
 w.Header().Set("Access-Control-Allow-Headers", "*")
 ```
 
-## C.12.4. Preflight Request
+## C.14.4. Preflight Request
 
 #### • Teori
 
@@ -214,7 +214,7 @@ Langsung saja buka google.com lalu lakukan AJAX request yang memenuhi alah satu 
 
 Bisa dilihat pada screenshot, dua request muncul, yang pertama adalah preflight yang kedua adalah actual request.
 
-## C.12.5. CORS Handling Menggunakan Golang CORS Library dan Echo 
+## C.14.5. CORS Handling Menggunakan Golang CORS Library dan Echo 
 
 Pada bagian ini kita akan mengkombinasikan library CORS golang buatan Olivier Poitrey, dan Echo, untuk membuat back end yang mendukung cross origin request.
 
@@ -296,6 +296,6 @@ Berikut adalah list konfigurasi yang bisa dimanfaatkan dari library ini.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.12-cors-preflight-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.12...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.14-cors-preflight-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.14...</a>
 </div>

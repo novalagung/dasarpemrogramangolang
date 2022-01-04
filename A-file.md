@@ -1,6 +1,6 @@
 # A.50. File
 
-Ada beberapa cara yang bisa digunakan untuk operasi file di Go. Pada bab ini kita akan mempelajari teknik yang paling dasar, yaitu dengan memanfaatkan `os.File`.
+Ada beberapa cara yang bisa digunakan untuk operasi file di Go. Pada chapter ini kita akan mempelajari teknik yang paling dasar, yaitu dengan memanfaatkan `os.File`.
 
 ## A.50.1. Membuat File Baru
 
@@ -154,6 +154,6 @@ func main() {
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.50-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.50...</a>
 </div>

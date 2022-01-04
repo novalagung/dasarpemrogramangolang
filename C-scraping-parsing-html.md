@@ -1,8 +1,8 @@
-# C.20. Scraping & Parsing HTML (goquery)
+# C.22. Scraping & Parsing HTML (goquery)
 
 Golang mempunyai package `net/html`, isinya digunakan untuk keperluan parsing HTML.
 
-Pada bab ini kita akan belajar parsing HTML dengan cara yang lebih mudah, tidak memanfaatkan package `net/html`, melainkan menggunakan [goquery](https://github.com/PuerkitoBio/goquery). Library ini penggunannya mirip dengan jQuery.
+Pada chapter ini kita akan belajar parsing HTML dengan cara yang lebih mudah, tidak memanfaatkan package `net/html`, melainkan menggunakan [goquery](https://github.com/PuerkitoBio/goquery). Library ini penggunannya mirip dengan jQuery.
 
 Sebelum dimulai, unduh terlebih dahulu package-nya menggunakan `go get`.
 
@@ -12,13 +12,13 @@ go get -u github.com/PuerkitoBio/goquery
 
 > Untuk proses scraping konten html-nya sendiri dilakukan cukup dengan menggunakan fungsi `.Get()` milik package `net/http`.
 
-## C.20.1. Skenario Praktek
+## C.22.1. Skenario Praktek
 
 Kita akan praktekan penerapan goquery untuk mengambil beberapa data dari website https://novalagung.com; pada website tersebut, di halaman landing, ada beberapa blok artikel muncul. Informasi di setiap artikel akan diambil, ditampung dalam satu objek slice, kemudian ditampilkan sebagai JSON string.
 
 ![Images](images/C_scraping_parsing_html_1_novalagung.png)
 
-## C.20.2. Praktek Scraping dan Parsing HTML
+## C.22.2. Praktek Scraping dan Parsing HTML
 
 Siapkan folder projek baru. Pada file main siapkan sebuah struct dengan nama `Article`, isinya 3 merupakan representasi dari metadata tiap artikel, yaitu `Title`, `URL`, dan `Category`.
 
@@ -107,7 +107,7 @@ Jalankan aplikasi, lihat hasilnya.
 
 ![Output](images/C_scraping_parsing_html_3_output.png)
 
-## C.20.3. Modifikasi HTML
+## C.22.3. Modifikasi HTML
 
 API yang tersedia dalam goquery tidak hanya untuk keperluan ekstraksi informasi, tapi bisa juga untuk modifikasi/manipulasi HTML, dan operasi lainnya.
 
@@ -190,6 +190,6 @@ Jalankan aplikasi, lihat hasilnya.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.20-scraping-parsing-html">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.20...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.22-scraping-parsing-html">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.22...</a>
 </div>

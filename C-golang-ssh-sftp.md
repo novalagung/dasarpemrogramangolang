@@ -1,12 +1,12 @@
-# C.27. SSH & SFTP
+# C.29. SSH & SFTP
 
-Pada bab ini kita akan belajar cara untuk me-remote server lewat protokol SSH (Secure Shell).
+Pada chapter ini kita akan belajar cara untuk me-remote server lewat protokol SSH (Secure Shell).
 
 > Protokol SSH digunakan untuk melakukan remote login secara aman/secure ke server tujuan. Komunikasi yang terjadi lewat SSH di-encrypt sehingga aman.
 
 Go menyediakan package [golang.org/x/crypto/ssh](https://godoc.org/golang.org/x/crypto/ssh), berisi cukup banyak API untuk keperluan operasi yang berhubungan dengan protokol SSH.
 
-## C.27.1. Otentikasi SSH
+## C.29.1. Otentikasi SSH
 
 Buat folder projek baru, isinya file `main.go`, didalamnya tulis kode berikut.
 
@@ -91,7 +91,7 @@ if err != nil {
 }
 ```
 
-## C.27.2. Session & Run Command
+## C.29.2. Session & Run Command
 
 Dari objek `client`, buat session baru, caranya dengan mengakses method `.NewSession()`.
 
@@ -126,7 +126,7 @@ Jalankan aplikasi untuk mengetes hasilnya.
 
 ![ssh ls](images/C_golang_ssh_sftp_1_ls_testing.png)
 
-## C.27.3. Penggunaan `session.StdinPipe()` untuk Run Multiple Command
+## C.29.3. Penggunaan `session.StdinPipe()` untuk Run Multiple Command
 
 Ada beberapa cara yang bisa digunakan untuk menjalankan banyak command via SSH, cara paling mudah adalah dengan menggabung commands dengan operator `&&`. 
 
@@ -211,7 +211,7 @@ Output dalam banyak command muncul setelah semua command berhasil dieksekusi. St
 
 Jika ingin eksekusi command dan pengambilan outpunya tidak blocking, manfaatkan `.StdoutPipe()`, `.StderrPipe()`, dan goroutine untuk pengambilan output hasil eksekusi command.
 
-## C.27.4. Transfer File via SFTP
+## C.29.4. Transfer File via SFTP
 
 Transfer file antara client dan server bisa dilakukan lewat protokol SSH, dengan memanfaatkan SFTP (SSH File Transfer Protocol). Penerapannya sebenarnya bisa dilakukan cukup menggunakan API yang disediakan oleh package golang.org/x/crypto/ssh, namun pada bagian ini kita akan menggunakan 3rd party library lain untuk mempermudah penerapannya. Library tersebut adalah [github.com/pkg/sftp](https://github.com/pkg/sftp).
 
@@ -265,6 +265,6 @@ Jalankan aplikasi untuk melihat hasilnya.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.27-golang-ssh-sftp">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.27...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.29-golang-ssh-sftp">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.29...</a>
 </div>

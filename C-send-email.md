@@ -1,15 +1,15 @@
-# C.16. Send Mail (`net/smtp`, Gomail v2)
+# C.18. Send Mail (`net/smtp`, Gomail v2)
 
-Pada bab ini kita akan belajar cara mengirim email dari aplikasi golang, menggunakan dua cara berikut.
+Pada chapter ini kita akan belajar cara mengirim email dari aplikasi golang, menggunakan dua cara berikut.
 
  1. Dengan memanfaatkan package `net/smtp`.
  2. Menggunakan Library [gomail](https://gopkg.in/gomail.v2).
 
-## C.16.1. Kirim Email Menggunakan `net/smtp`
+## C.18.1. Kirim Email Menggunakan `net/smtp`
 
 Golang menyediakan package `net/smtp`, isinya banyak API untuk berkomunikasi via protokol SMTP. Lewat package ini kita bisa melakukan operasi kirim email.
 
-Sebuah akun email diperlukan dalam mengirim email, silakan gunakan provider email apa saja. Pada bab ini kita gunakan Google Mail (gmail), jadi siapkan satu buah akun gmail untuk keperluan testing.
+Sebuah akun email diperlukan dalam mengirim email, silakan gunakan provider email apa saja. Pada chapter ini kita gunakan Google Mail (gmail), jadi siapkan satu buah akun gmail untuk keperluan testing.
 
 Mari kita praktekan. Buat folder projek baru, salin kode berikut.
 
@@ -116,7 +116,7 @@ Jalankan ulang aplikasi, email terkirim. Lihat di inbox email tujuan pengiriman 
 
 ![Email received](images/C_send_email_3_email_received.png)
 
-## C.16.2. Kirim Email Menggunakan Gomail v2
+## C.18.2. Kirim Email Menggunakan Gomail v2
 
 Dengan library [gomail](https://gopkg.in/gomail.v2), pengiriman email bisa dilakukan dengan mudah. Beberapa operasi seperti membuat email dalam bentuk html, menambahkan attachment, menambahkan bcc, bisa dilakukan dengan mudah lewat gomail.
 
@@ -175,7 +175,7 @@ Jalankan aplikasi, lalu cek hasilnya email yang dikirim di inbox.
 
 ![Mail with attachment](images/C_send_email_4_mail_with_attachment.png)
 
-## C.16.3. Kirim Email dengan Konfigurasi SMTP Relay / No Auth / Tanpa Otentikasi
+## C.18.3. Kirim Email dengan Konfigurasi SMTP Relay / No Auth / Tanpa Otentikasi
 
 Cara untuk mengirim email menggunakan konfigurasi SMTP relay atau *No Auth* sangatlah mudah lewat library gomail.v2.
 
@@ -194,6 +194,6 @@ Daaaaannnnn ... cukup itu saja penyesuaiannya agar bisa kirim email via konfigur
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.16-send-email">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.16...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.18-send-email">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.18...</a>
 </div>

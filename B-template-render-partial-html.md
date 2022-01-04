@@ -1,6 +1,6 @@
 # B.5. Template: Render Partial HTML Template
 
-Satu buah halaman yang berisikan html, bisa terbentuk dari banyak template html (parsial). Pada bab ini kita akan belajar bagaimana membuat, mem-parsing, dan me-render semua file tersebut.
+Satu buah halaman yang berisikan html, bisa terbentuk dari banyak template html (parsial). Pada chapter ini kita akan belajar bagaimana membuat, mem-parsing, dan me-render semua file tersebut.
 
 Ada beberapa metode yang bisa digunakan, dari kesemuanya akan kita bahas 2 diantaranya, yaitu:
 
@@ -37,7 +37,7 @@ func main() {
 }
 ```
 
-Tipe `M` merupakan alias dari `map[string]interface{}`, disiapkan untuk mempersingkat penulisan tipe map tersebut. Di bab-bab selanjutnya kita akan banyak menggunakan tipe ini.
+Tipe `M` merupakan alias dari `map[string]interface{}`, disiapkan untuk mempersingkat penulisan tipe map tersebut. Pada pembahasan-pembahasan selanjutnya kita akan banyak menggunakan tipe ini.
 
 Pada kode di atas, di dalam fungsi `main()`, fungsi `template.ParseGlob()` dipanggil, dengan parameter adalah pattern path `"views/*"`. Fungsi ini digunakan untuk memparsing semua file yang match dengan pattern yang ditentukan, dan fungsi ini mengembalikan 2 objek: `*template.Template` & `error`.
 
@@ -142,7 +142,7 @@ Buka file `_header.html`, definisikan template bernama `_header` dengan isi adal
 {{end}}
 ```
 
-> Nama file bisa ditulis dengan diawali karakter underscore atau `_`. Pada bab ini, nama file yang diawali `_` kita asumsikan sebagai template parsial, template yang nantinya di-include-kan ke template utama.
+> Nama file bisa ditulis dengan diawali karakter underscore atau `_`. Pada chapter ini, nama file yang diawali `_` kita asumsikan sebagai template parsial, template yang nantinya di-include-kan ke template utama.
 
 ## B.5.3.4. Template `_message.html`
 
@@ -170,7 +170,7 @@ Dan juga, karena statement `template.ParseGlob()` dieksekusi diluar handler, mak
 
 > Best practices yang bisa diterapkan, ketika environment adalah production, maka tempatkan `template.ParseGlob()` di luar (sebelum) handler. Sedangkan pada environment development, taruh `template.ParseGlob()` di dalam masing-masing handler. Gunakan seleksi kondisi untuk mengakomodir skenario ini.
 
-Alternatif metode lain yang bisa digunakan, yang lebih efisien, adalah dengan memanfaatkan fungsi `template.ParseFiles()`. Fungsi ini selain bisa digunakan untuk parsing satu buah file saja (seperti yang sudah dicontohkan di bab sebelumnya), bisa digunakan untuk parsing banyak file.
+Alternatif metode lain yang bisa digunakan, yang lebih efisien, adalah dengan memanfaatkan fungsi `template.ParseFiles()`. Fungsi ini selain bisa digunakan untuk parsing satu buah file saja (seperti yang sudah dicontohkan pada chapter sebelumnya), bisa digunakan untuk parsing banyak file.
 
 Mari kita praktekan. Ubah handler rute `/index` dan `/about`. Gunakan `template.ParseFiles()` dengan isi parameter (variadic) adalah path dari file-file html yang akan dipergunakan di masing-masing rute. Lalu hapus statement `template.ParseGlob()`
 
@@ -229,6 +229,6 @@ Jalankan aplikasi untuk test hasilnya.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.5-template-render-partial-html">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.5...</a>
 </div>

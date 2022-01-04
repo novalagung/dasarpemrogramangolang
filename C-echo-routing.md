@@ -1,14 +1,14 @@
-# C.1. Echo Framework & Routing
+# C.3. Echo Framework & Routing
 
-Pada bab ini kita akan belajar cara mudah routing menggunakan [Echo Framework](https://echo.labstack.com/). 
+Pada chapter ini kita akan belajar cara mudah routing menggunakan [Echo Framework](https://echo.labstack.com/). 
 
-Mulai bab C1 hingga C6 kita akan mempelajari banyak aspek dalam framework Echo dan mengkombinasikannya dengan beberapa library lain.
+Mulai chapter **C1** hingga **C6** kita akan mempelajari banyak aspek dalam framework Echo dan mengkombinasikannya dengan beberapa library lain.
 
-# C.1.1 Echo Framework
+# C.3.1 Echo Framework
 
 Echo adalah framework bahasa golang untuk pengembangan aplikasi web. Framework ini cukup terkenal di komunitas. Echo merupakan framework besar, didalamnya terdapat banyak sekali dependensi.
 
-Salah satu dependensi yang ada didalamnya adalah router, dan pada bab ini kita akan mempelajarinya.
+Salah satu dependensi yang ada didalamnya adalah router, dan pada chapter ini kita akan mempelajarinya.
 
 Dari banyak routing library yang sudah penulis gunakan, hampir kesemuanya mempunyai kemiripan dalam hal penggunaannya, cukup panggil fungsi/method yang dipilih (biasanya namanya sama dengan HTTP Method), lalu sisipkan rute pada parameter pertama dan handler pada parameter kedua.
 
@@ -24,7 +24,7 @@ Sebuah objek router `r` dicetak lewat `echo.New()`. Lalu lewat objek router ters
 
 > Echo router mengadopsi konsep [radix tree](https://en.wikipedia.org/wiki/Radix_tree), membuat performa lookup nya begitu cepat. Tak juga itu, pemanfaatan sync pool membuat penggunaan memory lebih hemat, dan aman dari GC overhead.
 
-## C.1.2. Praktek
+## C.3.2. Praktek
 
 Mari kita pelajari lebih lanjut dengan praktek langsung. Buat folder proyek baru, buat `main.go`, isi dengan kode berikut, kemudian jalankan aplikasi.
 
@@ -75,7 +75,7 @@ Ketika terjadi error pada saat mengakses endpoint, idealnya [HTTP Status](https:
 
 Method `ctx.String()` dari objek context milik handler digunakan untuk mempermudah rendering data string sebagai output. Method ini mengembalikan objek error, jadi bisa digunakan langsung sebagai nilai balik handler. Argumen pertama adalah http status dan argumen ke-2 adalah data yang dijadikan output.
 
-## C.1.3. Response Method milik `ctx`
+## C.3.3. Response Method milik `ctx`
 
 Selain `ctx.String()` ada banyak method sejenis lainnya, berikut selengkapnya.
 
@@ -122,7 +122,7 @@ r.GET("/json", func(ctx echo.Context) error {
 })
 ```
 
-## C.1.4. Parsing Request
+## C.3.4. Parsing Request
 
 Echo juga menyediakan beberapa method untuk keperluan parsing request, diantaranya:
 
@@ -214,9 +214,9 @@ Test menggunakan curl:
 curl -X POST -F name=damian -F message=angry http://localhost:9000/page4
 ```
 
-Pada bab selanjutnya kita akan belajar teknik parsing request data yang lebih advance.
+Pada chapter selanjutnya kita akan belajar teknik parsing request data yang lebih advance.
 
-## C.1.5. Penggunaan `echo.WrapHandler` Untuk Routing Handler Bertipe `func(http.ResponseWriter,*http.Request)` atau `http.HandlerFunc`
+## C.3.5. Penggunaan `echo.WrapHandler` Untuk Routing Handler Bertipe `func(http.ResponseWriter,*http.Request)` atau `http.HandlerFunc`
 
 Echo bisa dikombinasikan dengan handler ber-skema *NON-echo-handler* seperti `func(http.ResponseWriter,*http.Request)` atau `http.HandlerFunc`.
 
@@ -256,7 +256,7 @@ Untuk routing handler dengan skema `func(http.ResponseWriter,*http.Request)`, ma
 
 Sedangkan untuk handler yang sudah bertipe `http.HandlerFunc`, bungkus langsung menggunakan `echo.WrapHandler`.
 
-## C.1.6. Routing Static Assets
+## C.3.6. Routing Static Assets
 
 Cara routing static assets di echo sangatlah mudah. Gunakan method `.Static()`, isi parameter pertama dengan prefix rute yang di-inginkan, dan parameter ke-2 dengan path folder tujuan.
 
@@ -279,6 +279,6 @@ Jalankan aplikasi, lalu coba akses `http://localhost:9000/static/layout.js`.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.1-echo-routing">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.1...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.3-echo-routing">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.3...</a>
 </div>

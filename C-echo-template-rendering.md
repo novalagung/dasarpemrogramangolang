@@ -1,12 +1,12 @@
-# C.5. Template Rendering in Echo
+# C.7. Template Rendering in Echo
 
-Di bab ini kita akan belajar cara render template html pada aplikasi yang routingnya menggunakan echo.
+Pada chapter ini kita akan belajar cara render template html pada aplikasi yang routingnya menggunakan echo.
 
-Pada dasarnya proses parsing dan rendering template tidak di-handle oleh echo sendiri, melainkan oleh API dari package `html/template`. Jadi bisa dibilang cara render template di echo adalah sama seperti pada aplikasi yang murni menggunakan golang biasa, seperti yang sudah dibahas pada bab [Template: Render HTML Template](/B-template-render-html.html), [Template: Render Partial HTML Template](/B-template-render-partial-html.html), [Template: Render Specific HTML Template](/B-render-specific-html.html), dan [Template: Render HTML String](/B-render-html-string.html).
+Pada dasarnya proses parsing dan rendering template tidak di-handle oleh echo sendiri, melainkan oleh API dari package `html/template`. Jadi bisa dibilang cara render template di echo adalah sama seperti pada aplikasi yang murni menggunakan golang biasa, seperti yang sudah dibahas pada chapter [Template: Render HTML Template](/B-template-render-html.html), [Template: Render Partial HTML Template](/B-template-render-partial-html.html), [Template: Render Specific HTML Template](/B-render-specific-html.html), dan [Template: Render HTML String](/B-render-html-string.html).
 
 Echo menyediakan satu fasilitas yang bisa kita manfaatkan untuk standarisasi rendering template. Cara penggunaannya, dengan meng-override default `.Renderer` property milik echo menggunakan objek cetakan struct, yang dimana pada struct tersebut harus ada method bernama `.Render()` dengan skema sesuai dengan kebutuhan echo. Nah, di dalam method `.Render()` inilah kode untuk parsing dan rendering template ditulis.
 
-## C.5.1. Praktek
+## C.7.1. Praktek
 
 Agar lebih mudah dipahami, mari langsung kita praktekan. Siapkan sebuah projek, import package yang dibutuhkan.
 
@@ -120,13 +120,13 @@ Buat file `index.html` dengan isi kode di bawah ini.
 
 Pada rute `/index`, sebuah variabel bernama `data` disiapkan, bertipe `map` dengan isi satu buah item. Data tersebut disisipkan pada saat view di-render, membuatnya bisa diakses dari dalam template html.
 
-Syntax `{{.message}}` artinya menampilkan isi property yang namanya adalah `message` dari current context (yaitu objek data yang disisipkan). Lebih jelasnya silakan baca kembali bab [B. Template Actions & Variables](/B-template-actions-variables.html).
+Syntax `{{.message}}` artinya menampilkan isi property yang namanya adalah `message` dari current context (yaitu objek data yang disisipkan). Lebih jelasnya silakan baca kembali chapter [B. Template Actions & Variables](/B-template-actions-variables.html).
 
 Jalankan aplikasi untuk melihat hasilnya.
 
 ![Preview](images/C_echo_template_rendering_1_preview.png)
 
-## C.5.2. Render Parsial dan Spesifik Template
+## C.7.2. Render Parsial dan Spesifik Template
 
 Proses parsing dan rendering tidak di-handle oleh echo, melainkan menggunakan API dari `html/template`. Echo hanya menyediakan tempat untuk mempermudah pemanggilan fungsi rendernya. Nah dari sini berarti untuk render parsial, render spesifik template, maupun operasi template lainnya dilakukan seperti biasa, menggunakan `html/template`.
 
@@ -137,6 +137,6 @@ Proses parsing dan rendering tidak di-handle oleh echo, melainkan menggunakan AP
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.5-echo-template-rendering">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.5...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.7-echo-template-rendering">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.7...</a>
 </div>

@@ -1,8 +1,8 @@
 # D.3. Web Socket: Chatting App
 
-Pada bab ini kita akan belajar penerapan web socket di Go, untuk membuat sebuah aplikasi chatting. Web socket server dibuat menggunakan library [Gorilla Web Socket](https://github.com/gorilla/websocket), dan di sisi front end kita menggunakan native API milik javascript yaitu [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications) untuk melakukan komunikasi dengan socket server.
+Pada chapter ini kita akan belajar penerapan web socket di Go, untuk membuat sebuah aplikasi chatting. Web socket server dibuat menggunakan library [Gorilla Web Socket](https://github.com/gorilla/websocket), dan di sisi front end kita menggunakan native API milik javascript yaitu [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications) untuk melakukan komunikasi dengan socket server.
 
-> Jelasnya kapabilitas web socket bisa dicapai dengan cukup menggunakan default package yang disediakan Go. Namun pada bab ini pembelajaran dilakukan menggunakan 4rd party library.
+> Jelasnya kapabilitas web socket bisa dicapai dengan cukup menggunakan default package yang disediakan Go. Namun pada chapter ini pembelajaran dilakukan menggunakan 4rd party library.
 
 Seperti biasanya proses belajar dilakukan sambil praktek. Kita buat aplikasi chatting minimalis, dengan kode se-sedikit mungkin agar mudah dipahami, development dilakukan *from scratch*.
 
@@ -414,6 +414,6 @@ Ketika salah satu user leave, pesan **User XXX: disconnected** akan di-broadcast
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-D-golang-web-socket-chatting-app">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>

@@ -4,7 +4,7 @@ Regex atau regexp atau **regular expression** adalah suatu teknik yang digunakan
 
 Go mengadopsi standar regex **RE2**, untuk melihat sintaks yang di-support engine ini bisa langsung merujuk ke dokumentasinya di [https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax).
 
-Pada bab ini kita akan belajar mengenai pengaplikasian regex dengan memanfaatkan fungsi-fungsi dalam package `regexp`.
+Pada chapter ini kita akan belajar mengenai pengaplikasian regex dengan memanfaatkan fungsi-fungsi dalam package `regexp`.
 
 ## A.45.1. Penerapan Regexp
 
@@ -165,6 +165,6 @@ Pada contoh di atas, ekspresi regexp `[a-b]+` digunakan sebagai kriteria split. 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.45-regexp">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.45...</a>
 </div>

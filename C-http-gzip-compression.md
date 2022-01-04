@@ -1,8 +1,8 @@
-# C.15. HTTP Gzip Compression (gziphandler)
+# C.17. HTTP Gzip Compression (gziphandler)
 
-Pada bab ini kita akan mempelajari penerapan HTTP Compression, dengan encoding adalah Gzip, dalam aplikasi web golang.
+Pada chapter ini kita akan mempelajari penerapan HTTP Compression, dengan encoding adalah Gzip, dalam aplikasi web golang.
 
-## C.15.1. Teori
+## C.17.1. Teori
 
 HTTP Compression adalah teknik kompresi data pada HTTP response, agar ukuran/size output menjadi lebih kecil dan response time lebih cepat.
 
@@ -26,11 +26,11 @@ Content-Encoding: gzip
 
 Jika di sebuah request tidak ada header `Accept-Encoding: gzip`, tetapi response back end tetap di-compress, maka akan muncul error di browser `ERR_CONTENT_DECODING_FAILED`.
 
-## C.15.2. Praktek
+## C.17.2. Praktek
 
 Golang menyediakan package `compress/gzip`. Dengan memanfaatkan API yang tersedia dalam package tersebut, kompresi data pada HTTP response bisa dilakukan.
 
-Namun pada bab ini kita tidak memakainya, melainkan menggunakan salah satu library middleware gzip compression yang cukup terkenal, [gziphandler](https://github.com/NYTimes/gziphandler).
+Namun pada chapter ini kita tidak memakainya, melainkan menggunakan salah satu library middleware gzip compression yang cukup terkenal, [gziphandler](https://github.com/NYTimes/gziphandler).
 
 Mari kita praktekan. Siapkan folder projek baru, siapkan satu buah rute `/image`. Dalam handler rute tersebut terdapat proses pembacaan isi file gambar `sample.png`, untuk kemudian dijadikan sebagai output data response. Gunakan file gambar apa saja untuk keperluan testing.
 
@@ -107,7 +107,7 @@ Jalankan ulang aplikasi, lihat perbandingannya.
 
 Perbedannya size dan time nya mungkin tidak terlihat signifikan, karena memang gambarnya berukuran kecil, jumlahnya cuma satu asset, dan pengaksesannya di localhost. Untuk aplikasi yang sudah published di internet, dan diakses dari komputer lokal, pasti akan terasa jauh lebih cepat dan ringan.
 
-## C.15.3. Gzip Compression di Echo
+## C.17.3. Gzip Compression di Echo
 
 Penerapan http gzip compression di echo framework bisa dengan menggunakan middleware gziphandler di atas. Atau bisa juga menggunakan middleware gzip milik echo. Berikut merupakan contoh pemanfaatan echo middleware gzip.
 
@@ -141,6 +141,6 @@ e.Logger.Fatal(e.Start(":9000"))
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.15-http-gzip-compression">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.15...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.17-http-gzip-compression">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.17...</a>
 </div>

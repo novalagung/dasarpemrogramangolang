@@ -1,14 +1,14 @@
 # A.26. Properti Public dan Private (Exported vs Unexported)
 
-Bab ini membahas mengenai *property modifier* public dan private dalam Go. Kapan sebuah struct, fungsi, atau method bisa diakses dari package lain dan kapan tidak.
+Chapter ini membahas mengenai *property modifier* public dan private dalam Go. Kapan sebuah struct, fungsi, atau method bisa diakses dari package lain dan kapan tidak.
 
 Di Go sebenarnya tidak ada istilah *public modifier* dan *private modifier*. Yang ada adalah **exported** yang kalau di bahasa lain ekuivalen dengan *public modifier*, dan **unexported** untuk *private modifier*.
 
-## A.26.1. PERINGATAN
+## A.26.1. Intro
 
-Peringatan ini ditulis karena sudah terlalu banyak email yang penulis dapati, perihal error yang muncul ketika mempraktekan beberapa kode pada bab ini.
+Intro ini ditulis agar pembaca tau ekspektasi yang penulis kejar pada chapter ini.
 
-Bab ini memiliki beberapa perbedaan dibanding lainnya. Jika pembaca mengikuti secara berurutan, membaca penjelasan dan pembahasan yang sudah tertulis, maka **pasti akan mendapati 3 buah error**. Di tiap-tiap error, sebenarnya sudah terlampir:
+Pembahasan kali ini memiliki beberapa perbedaan dibanding lainnya. Jika pembaca mengikuti secara berurutan, membaca penjelasan dan pembahasan yang sudah tertulis, maka **pasti akan mendapati 3 buah error**. Di tiap-tiap error, sebenarnya sudah terlampir:
 
 1. Screenshot error
 2. Penjelasan penyebab error
@@ -16,7 +16,7 @@ Bab ini memiliki beberapa perbedaan dibanding lainnya. Jika pembaca mengikuti se
 
 Kesimpulan dari email-email yang penulis dapati: **pembaca bingung karena mendapati error, dan tidak tau cara mengatasi error tersebut. Padahal sudah ada keterangan yang jelas bahwa error tersebut pasti muncul, dan juga sudah dijelaskan cara mengatasinya. Ini kemungkinan besar disebabkan karena pembaca hanya copy-paste source code, tanpa membaca penjelasan-penjelasan yang padahal sudah tertulis cukup mendetail**.
 
-> Oleh karena itu, JANGAN CUMA *COPAS* SOURCE KODE, TAPI BACA, PELAJARI, DAN PAHAMI! *No hard feeling* 👌😁
+> Saya sangat anjurkan, untuk itu saya mohon **jangan hanya *copas* source code, usahakan dibaca! dipelajari! dan dipahami!** *No hard feeling* ya 👌😁
 
 ## A.26.2. Exported Package dan Unexported Package
 
@@ -26,7 +26,7 @@ Project folder selain berisikan file-file `.go` juga bisa berisikan sub-folder l
 
 > Jadi mudahnya, 1 folder adalah 1 package.
 
-Dalam sebuah package, biasanya kita menulis sangat banyak komponen, entah itu fungsi, struct, variabel, atau lainnya. Komponen tersebut bisa leluasa digunakan dalam package yang sama. Contoh sederhananya seperti program yang telah kita praktekan di bab sebelum-sebelumnya, dalam package `main` ada banyak yang di-*define*: fungsi, variabel, closure, struct, dan lainnya; kesemuanya bisa langsung dimanfaatkan.
+Dalam sebuah package, biasanya kita menulis sangat banyak komponen, entah itu fungsi, struct, variabel, atau lainnya. Komponen tersebut bisa leluasa digunakan dalam package yang sama. Contoh sederhananya seperti program yang telah kita praktekan pada chapter sebelum-sebelumnya, dalam package `main` ada banyak yang di-*define*: fungsi, variabel, closure, struct, dan lainnya; kesemuanya bisa langsung dimanfaatkan.
 
 Jika dalam satu program terdapat lebih dari 1 package, atau ada package lain selain `main`, maka komponen dalam package lain tersebut tidak bisa diakses secara bebas dari file yang package-nya `main`, karena tiap komponen memiliki hak akses.
 
@@ -329,6 +329,6 @@ Dalam sebuah package diperbolehkan ada banyak fungsi `init()` (urutan eksekusiny
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.26-property-public-private">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.26...</a>
 </div>

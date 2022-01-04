@@ -2,12 +2,12 @@
 
 [**Actions**](https://golang.org/pkg/text/template/#hdr-Actions) adalah *predefined* keyword yang sudah disediakan Go, biasa dimanfaatkan dalam pembuatan template. 
 
-Sebenarnya pada dua bab sebelumnya, secara tidak sadar kita telah menggunakan beberapa jenis actions, diantaranya:
+Sebenarnya pada dua chapter sebelumnya, secara tidak sadar kita telah menggunakan beberapa jenis actions, diantaranya:
 
  - Penggunaan **pipeline output**. Nilai yang diapit tanda <code>\{\{ \}\}</code>, yang nantinya akan dimunculkan di layar sebagai output, contohnya: <code>\{\{"hello world"\}\}</code>.
  - Include template lain menggunakan keyword `template`, contohnya: <code>\{\{template "name"\}\}</code>.
 
-Pada bab ini, kita akan belajar lebih banyak lagi tentang actions lain yang disediakan Go, juga cara pembuatan dan pemanfaatan variabel pada template view.
+Pada chapter ini, kita akan belajar lebih banyak lagi tentang actions lain yang disediakan Go, juga cara pembuatan dan pemanfaatan variabel pada template view.
 
 ## B.6.1. Persiapan
 
@@ -171,7 +171,7 @@ Lalu akses method tersebut pada template view.
 
 ![Mengakses property](images/B_template_actions_variables_5_method.png)
 
-Lalu bagaimana cara pengaksesan method yang membutuhkan parameter, jika tanda kurungnya tidak boleh dituliskan? Jawabannya akan kita temukan pada bab selanjutnya.
+Lalu bagaimana cara pengaksesan method yang membutuhkan parameter, jika tanda kurungnya tidak boleh dituliskan? Jawabannya akan kita temukan pada chapter selanjutnya.
 
 ## B.6.6. Penggunaan Keyword `with` Untuk Mengganti Scope Variabel Pada Suatu Blok
 
@@ -247,6 +247,6 @@ Untuk seleksi kondisi yang kondisinya adalah bersumber dari variabel bertipe `bo
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.6-template-actions-variables">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.6...</a>
 </div>

@@ -1,12 +1,12 @@
 # A.38. Layout Format String
 
-Di bab-bab sebelumnya kita telah banyak menggunakan layout format string seperti `%s`, `%d`, `%.2f`, dan lainnya; untuk keperluan menampilkan output ke layar ataupun untuk memformat string.
+Pada pembahasan-pembahasan sebelumnya kita telah banyak menggunakan layout format string seperti `%s`, `%d`, `%.2f`, dan lainnya; untuk keperluan menampilkan output ke layar ataupun untuk memformat string.
 
 Layout format string digunakan dalam konversi data ke bentuk string. Contohnya seperti `%.3f` yang untuk konversi nilai `double` ke `string` dengan 3 digit desimal.
 
 ## A.38.1. Persiapan
 
-Pada bab ini kita akan mempelajari satu per satu layout format string yang tersedia di Golang. Kode berikut adalah sample data yang akan kita digunakan sebagai contoh.
+Pada chapter ini kita akan mempelajari satu per satu layout format string yang tersedia di Golang. Kode berikut adalah sample data yang akan kita digunakan sebagai contoh.
 
 ```go
 type student struct {
@@ -270,6 +270,6 @@ fmt.Printf("%%\n")
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.38-layout-format-string">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.38...</a>
 </div>

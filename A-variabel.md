@@ -2,7 +2,7 @@
 
 Go mengadopsi dua jenis penulisan variabel, yaitu yang dituliskan tipe data-nya, dan juga yang tidak. Kedua cara tersebut valid dan tujuannya sama, pembedanya hanya cara penulisannya saja.
 
-Pada bab ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel.
+Pada chapter ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel.
 
 ## A.9.1. Deklarasi Variabel Beserta Tipe Data
 
@@ -168,7 +168,7 @@ fmt.Println(*name)  // ""
 
 Variabel `name` menampung data bertipe **pointer string**. Jika ditampilkan yang muncul bukanlah nilainya melainkan alamat memori nilai tersebut (dalam bentuk notasi heksadesimal). Untuk menampilkan nilai aslinya, variabel tersebut perlu di-**dereference** terlebih dahulu, menggunakan tanda asterisk (`*`).
 
-Mungkin untuk sekarang banyak yang akan bingung tentang apa itu pointer, namun tak apa, karena nantinya di [Bab A.22. Pointer](/22-pointer.html) akan dikupas habis topik tersebut.
+Mungkin untuk sekarang banyak yang akan bingung tentang apa itu pointer, namun tak apa, karena nantinya pada chapter [A.23. Pointer](/A-pointer.html) akan dikupas habis topik tersebut.
 
 ## A.9.7. Deklarasi Variabel Menggunakan Keyword `make`
 
@@ -183,6 +183,6 @@ Dan lagi, mungkin banyak yang akan bingung. Ketika sudah masuk ke pembahasan mas
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.9-variabel">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.9...</a>
 </div>

@@ -320,6 +320,6 @@ docker container stop my-container-hello-world
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C-dockerize-golang">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>

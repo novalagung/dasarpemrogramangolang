@@ -1,6 +1,6 @@
 # B.13. Form Upload File
 
-Pada bagian ini kita akan belajar bagaimana cara meng-handle upload file lewat form. Di beberapa bagian caranya mirip seperti pada bab sebelumnya, hanya perlu ditambahkan proses untuk handling file yang di-upload. File tersebut disimpan ke dalam path/folder tertentu.
+Pada bagian ini kita akan belajar bagaimana cara meng-handle upload file lewat form. Di beberapa bagian caranya mirip seperti pada chapter sebelumnya, hanya perlu ditambahkan proses untuk handling file yang di-upload. File tersebut disimpan ke dalam path/folder tertentu.
 
 ## B.13.1. Struktur Folder Proyek
 
@@ -40,7 +40,7 @@ Perlu diperhatikan, pada tag `<form>` perlu ditambahkan atribut `enctype="multip
 
 Di layer back end ada cukup banyak package yang perlu di-import, seperti `os, io, path/filepath`, dan lainnya. Packages tersebut kita perlukan untuk handling file upload.
 
-Pada fungsi `main()` siapkan 2 buah route handler, satu untuk landing page, dan satunya lagi digunakan ketika proses upload selesai (sama seperti pada bab sebelumnya).
+Pada fungsi `main()` siapkan 2 buah route handler, satu untuk landing page, dan satunya lagi digunakan ketika proses upload selesai (sama seperti pada chapter sebelumnya).
 
 ```go
 package main
@@ -161,7 +161,7 @@ Fungsi `os.OpenFile` digunakan untuk membuka file. Fungsi ini membutuhkan 3 buah
 
 Fungsi `io.Copy` akan mengisi konten file parameter pertama (`targetFile`) dengan isi parameter kedua (`uploadedFile`). File kosong yang telah kita buat tadi akan diisi dengan data file yang tersimpan di memory.
 
-> Nantinya pada salah satu pembahasan di [Bab B.16. AJAX Multiple File Upload](/B-ajax-multi-upload.html) akan dijelaskan cara handling file upload dengan metode yang lebih efektif dan hemat memori, yaitu menggunakan `MultipartReader`.
+> Nantinya pada salah satu pembahasan pada chapter [B.16. AJAX Multiple File Upload](/B-ajax-multi-upload.html) akan dijelaskan cara handling file upload dengan metode yang lebih efektif dan hemat memori, yaitu menggunakan `MultipartReader`.
 
 ## B.13.4. Testing
 
@@ -172,6 +172,6 @@ Jalankan program, test hasilnya lewat browser.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.13-form-upload-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.13...</a>
 </div>

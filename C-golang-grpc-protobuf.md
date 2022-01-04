@@ -1,6 +1,6 @@
-# C.30. gRPC + Protobuf
+# C.31. gRPC + Protobuf
 
-Pada bab ini kita akan belajar tentang penerapan **gRPC** dan **protobuf** pada bahasa Go.
+Pada chapter ini kita akan belajar tentang penerapan **gRPC** dan **protobuf** pada bahasa Go.
 
 Kita akan buat satu buah folder projek besar, didalamnya terdapat 3 buah aplikasi. Dua diantaranya merupakan aplikasi server, lebih tepatnya rpc server, dan yang satu lagi aplikasi client. Aplikasi client akan berkomunikasi dengan kedua aplikasi server.
 
@@ -8,17 +8,17 @@ Bisa dibilang ini adalah contoh super sederhana (dan asal-asalan) tentang penera
 
 > BEWARE: Tutorial ini sangat panjang! Dan jangan ber-ekspektasi terlalu tinggi, karena target pembaca adalah orang yang baru belajar Go, gRPC, dan protobuf.
 
-## C.30.1. Definisi
+## C.31.1. Definisi
 
 gRPC adalah salah satu RPC framework, dibuat oleh Google. gRPC menggunakan protokol RPC untuk transport dan protobuf di bagian antarmuka-nya.
 
 > Remote Procedure Call (RPC) adalah sebuah metode yang memungkinkan kita untuk mengakses sebuah prosedur yang berada di komputer lain. Untuk dapat melakukan ini sebuah server harus menyediakan layanan remote procedure.
 
-## C.30.2 Prerequisites
+## C.31.2 Prerequisites
 
-Sekedar informasi bahwa sebelum mulai mengikuti pembelajaran pada chapter ini, **WAJIB HUKUMNYA** untuk mengikuti pembahasan pada chapter sebelumnya [C. Protobuf](/C-29-golang-protobuf-implementation.html) terlebih dahulu.
+Sekedar informasi bahwa sebelum mulai mengikuti pembelajaran pada chapter ini, **WAJIB HUKUMNYA** untuk mengikuti pembahasan pada chapter sebelumnya [C.30. Protobuf](/C-golang-protobuf-implementation.html) terlebih dahulu.
 
-## C.30.3. Struktur Aplikasi
+## C.31.3. Struktur Aplikasi
 
 Siapkan satu project baru dengan struktur sebagai berikut.
 
@@ -67,7 +67,7 @@ Lanjut. Di bawah ini merupakan penjelasan per bagian dari struktur projek di ata
 Folder `common`, berisikan 2 buah sub folder, `config` dan `model`.
 
  - Folder `config` berisikan informasi shared atau global, yang digunakan aplikasi client maupun server.
- - Folder `model` berisikan file `.proto`. Silakan salin file `garage.proto` dan `user.proto` pada bab sebelumnya ke folder tersebut.
+ - Folder `model` berisikan file `.proto`. Silakan salin file `garage.proto` dan `user.proto` pada chapter sebelumnya ke folder tersebut.
 
 #### • Folder `client`
 
@@ -79,7 +79,7 @@ Satu buah file proto untuk satu aplikasi rpc server (service). Karena ada dua fi
 
 File `garage.proto` dan `user.proto` tidak dijadikan satu dalam respektif folder `service-garage` dan `service-user`, karena kedua file ini juga digunakan pada aplikasi client, itulah kenapa file ini dipisah ke dalam folder `common/model`.
 
-## C.30.4. File Konfigurasi pada folder `common/config`
+## C.31.4. File Konfigurasi pada folder `common/config`
 
 Siapkan file bernama `config.go` dalam `common/config`. Di dalam file config ini didefinisikan dua buah konstanta yaitu port untuk service user dan garage. Nantinya aplikasi server di start menggunakan port ini.
 
@@ -92,9 +92,9 @@ const (
 )
 ```
 
-## C.30.5. Proto Model pada folder `common/model`
+## C.31.5. Proto Model pada folder `common/model`
 
-Setelah kedua file `user.proto` dan `garage.proto` pada bab sebelumnya disalin, kita perlu menambahkan pendefinisian service pada masing-masing file proto.
+Setelah kedua file `user.proto` dan `garage.proto` pada chapter sebelumnya disalin, kita perlu menambahkan pendefinisian service pada masing-masing file proto.
 
 Keyword `service` digunakan untuk membuat service. Service ini nantinya juga ikut di konversi ke bentuk Go (menjadi interface), lewat command `protoc`. Di aplikasi rpc server, nantinya harus dibuat implementasi dari interface tersebut.
 
@@ -203,7 +203,7 @@ Sama seperti service `Users`, service `Garages` juga akan di-compile menjadi int
   }
   ```
 
-## C.30.6. Kompilasi File `.proto` Dengan Enable Plugin `grpc`
+## C.31.6. Kompilasi File `.proto` Dengan Enable Plugin `grpc`
 
 Gunakan command berikut untuk generate file .go dari file .proto yang sudah kita buat:
 
@@ -211,11 +211,11 @@ Gunakan command berikut untuk generate file .go dari file .proto yang sudah kita
 PATH=$PATH:$GOPATH/bin/ protoc --go_out=plugins=grpc:. *.proto
 ```
 
-Perhatikan baik-baik command di atas, Pada flag `--go_out` isinya adalah `plugins=grpc:.`, ada `plugins=grpc` disitu (berbeda dibanding pada bab sebelumnya yang isinya langsung `.`).
+Perhatikan baik-baik command di atas, Pada flag `--go_out` isinya adalah `plugins=grpc:.`, ada `plugins=grpc` disitu (berbeda dibanding pada chapter sebelumnya yang isinya langsung `.`).
 
 Plugin `grpc` ini dipergunakan untuk men-*generate* **service bindings behaviour** yang ada pada gRPC. Seperti yang kita telah praktekan bahwa di atas kita menuliskan definisi `service`. Dengan menambahkan `plugins=grpc` maka definisi `service` tersebut akan bisa dipahami oleh generator untuk kemudian di-*transform* menjadi definisi interface beserta isi method-nya.
 
-## C.30.7. Aplikasi Server `service-user`
+## C.31.7. Aplikasi Server `service-user`
 
 Buka file `services/service-user/main.go`, import package yang dibutuhkan.
 
@@ -295,7 +295,7 @@ if err != nil {
 log.Fatal(srv.Serve(l))
 ```
 
-## C.30.8. Aplikasi Server `service-garage`
+## C.31.8. Aplikasi Server `service-garage`
 
 Buat file `services/service-garage/main.go`, import package yang sama seperti pada `service-user`. Lalu buat objek `localStorage` dari struct `*model.GarageListByUser`.
 
@@ -362,7 +362,7 @@ func main() {
 }
 ```
 
-## C.30.9. Aplikasi Client & Testing
+## C.31.9. Aplikasi Client & Testing
 
 Buat file `client/main.go`, import package yang sama seperti pada `service-user` maupun `service-garage`. Lalu siapkan dua buah method yang mengembalikan rpc client yang terhubung ke dua service yang sudah kita buat.
 
@@ -532,6 +532,6 @@ OK, jika anda membaca sampai baris ini, berarti anda telah berhasil sabar dalam 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.30-golang-grpc-protobuf">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.30...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.31-golang-grpc-protobuf">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.31...</a>
 </div>

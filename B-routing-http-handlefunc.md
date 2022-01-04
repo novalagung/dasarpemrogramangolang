@@ -7,13 +7,13 @@ Dalam Go, routing bisa dilakukan dengan beberapa cara, diantaranya:
  3. Membuat multiplexer sendiri dengan memanfaatkan struct `http.ServeMux`
  4. Dan lainnya
 
-Pada buku ini, kesemua cara tersebut akan dibahas, namun khusus pada bab ini saja, hanya `http.HandleFunc()` yang kita pelajari.
+Pada buku ini, kesemua cara tersebut akan dibahas, namun khusus pada chapter ini saja, hanya `http.HandleFunc()` yang kita pelajari.
 
-> Metode routing cara pertama dan cara kedua memiliki kesamaan yaitu sama-sama menggunakan `DefaultServeMux` untuk pencocokan rute/endpoint yang diregistrasikan. Mengenai apa itu `DefaultServeMux` akan kita bahas lebih mendetail pada bab lain.
+> Metode routing cara pertama dan cara kedua memiliki kesamaan yaitu sama-sama menggunakan `DefaultServeMux` untuk pencocokan rute/endpoint yang diregistrasikan. Mengenai apa itu `DefaultServeMux` akan kita bahas lebih mendetail pada chapter lain.
 
 ## B.2.1. Penggunaan `http.HandleFunc()`
 
-Seperti yang sudah dijelaskan sekilas pada bab sebelumnya, fungsi `http.HandleFunc()` digunakan untuk registrasi rute/endpoint dan handler-nya.
+Seperti yang sudah dijelaskan sekilas pada chapter sebelumnya, fungsi `http.HandleFunc()` digunakan untuk registrasi rute/endpoint dan handler-nya.
 
 Penggunaan fungsi ini cukup mudah, panggil saja fungsi lalu isi dua parameternya.
 
@@ -76,6 +76,6 @@ Dalam routing, handler bisa berupa fungsi, closure, ataupun anonymous function; 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.2-routing-http-handlefunc">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.2...</a>
 </div>

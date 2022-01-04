@@ -1,10 +1,10 @@
-# C.19. Convert HTML to PDF (go-wkhtmltopdf)
+# C.21. Convert HTML to PDF (go-wkhtmltopdf)
 
-Library gofpdf hanya bisa digunakan untuk pembuatan PDF. Biasanya dalam sebuah aplikasi, report berupa pdf diunduh dengan sumber data adalah halaman web report itu sendiri. Nah, pada bab ini kita akan belajar cara konversi file HTML ke bentuk PDF menggunakan library golang [wkhtmltopdf](https://github.com/wkhtmltopdf/wkhtmltopdf).
+Library gofpdf hanya bisa digunakan untuk pembuatan PDF. Biasanya dalam sebuah aplikasi, report berupa pdf diunduh dengan sumber data adalah halaman web report itu sendiri. Nah, pada chapter ini kita akan belajar cara konversi file HTML ke bentuk PDF menggunakan library golang [wkhtmltopdf](https://github.com/wkhtmltopdf/wkhtmltopdf).
 
-> Sebenarnya di jaman ini, export HTML to PDF sudah bisa dilakukan di layer front end menggunakan cukup javascript saja. Apalagi jika menggunakan framework terkenal seperti Kendo UI, report yang dimunculkan menggunakan KendoGrid bisa dengan mudah di export ke excel maupun pdf.<br /><br />Namun pada bab ini akan tetap kita bahas cara tradisional ini, konversi HTML ke PDF pada back end (golang). Semoga berguna.
+> Sebenarnya di jaman ini, export HTML to PDF sudah bisa dilakukan di layer front end menggunakan cukup javascript saja. Apalagi jika menggunakan framework terkenal seperti Kendo UI, report yang dimunculkan menggunakan KendoGrid bisa dengan mudah di export ke excel maupun pdf.<br /><br />Namun pada chapter ini akan tetap kita bahas cara tradisional ini, konversi HTML ke PDF pada back end (golang). Semoga berguna.
 
-## C.19.1. Konversi File HTML ke PDF
+## C.21.1. Konversi File HTML ke PDF
 
 Buat file html bernama `input.html`, isi dengan apa saja, kalau bisa ada gambarnya juga. Contohnya seperti berikut.
 
@@ -48,7 +48,7 @@ Silakan unduh installer wkhtmltopdf di https://wkhtmltopdf.org/downloads.html, p
 
 karena wkhtmltopdf merupakan sebuah aplikasi CLI, maka penggunaannya bisa lewat dua cara.
 
- - Cara ke-1: Menggunakan `exec.Command()` untuk mengeksekusi binary. Path file html target disisipkan sebagai argumen command. Silakan merujuk ke referensi pada chapter [A. Exec](/A-exec.html) untuk mempelajari cara penggunaan exec.
+ - Cara ke-1: Menggunakan `exec.Command()` untuk mengeksekusi binary. Path file html target disisipkan sebagai argumen command. Silakan merujuk ke referensi pada chapter [A.49. Exec](/A-exec.html) untuk mempelajari cara penggunaan exec.
  - Cara ke-2: Menggunakan golang wrapper [go-wkhtmltopdf](github.com/SebastiaanKlippert/go-wkhtmltopdf). Cara ini adalah yang kita pilih.
 
 Secara teknis, go-wkhtmltopdf melakukan hal yang sama dengan cara pertama, yaitu mengeksekusi binary wkhtmltopdf menggunakan `exec.Command()`.
@@ -131,7 +131,7 @@ Bisa dilihat, dalam satu PDF dua page muncul, hal ini karena memang isi `input.h
 
 Cara yang kita telah pelajari ini cocok digunakan pada file html yang isinya sudah pasti pada saat file tersebut di-load.
 
-## C.19.2. Konversi HTML dari URL Menjadi PDF
+## C.21.2. Konversi HTML dari URL Menjadi PDF
 
 Bagaimana untuk HTML yang sumber nya bukan dari file fisik, melainkan dari URL? tetap bisa dilakukan. Caranya dengan mendaftarkan url sebagai objek page lewat `wkhtmltopdf.NewPage()`, lalu memasukannya ke dalam dokumen sebagai page. Contoh penerapannya bisa dilihat pada kode di bawah ini.
 
@@ -172,6 +172,6 @@ Cara ini cocok digunakan untuk konversi data HTML yang isinya muncul pada saat p
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.19-convert-html-to-pdf">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.19...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.21-convert-html-to-pdf">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.21...</a>
 </div>

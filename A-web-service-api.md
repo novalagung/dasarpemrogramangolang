@@ -1,6 +1,6 @@
 # A.54. Web Service API Server
 
-Pada bab ini kita akan mengkombinasikan pembahasan 2 bab sebelumnya, yaitu web programming dan JSON, untuk membuat sebuah web service API dengan tipe data reponse berbentuk JSON.
+Pada chapter ini kita akan mengkombinasikan pembahasan 2 chapter sebelumnya, yaitu web programming dan JSON, untuk membuat sebuah web service API dengan tipe data reponse berbentuk JSON.
 
 > Web Service API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML.
 
@@ -130,6 +130,6 @@ Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.54-web-service-api">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.54...</a>
 </div>

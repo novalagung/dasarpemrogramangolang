@@ -2,11 +2,11 @@
 
 Fungsi merupakan aspek penting dalam pemrograman. Definisi fungsi sendiri adalah sekumpulan blok kode yang dibungkus dengan nama tertentu. Penerapan fungsi yang tepat akan menjadikan kode lebih modular dan juga *dry* (kependekan dari *don't repeat yourself*), tak perlu menuliskan banyak kode yang kegunaannya berkali-kali, cukup sekali saja lalu panggil sesuai kebutuhan.
 
-Di bab ini kita akan belajar tentang penggunaan fungsi di Go.
+Pada chapter ini kita akan belajar tentang penggunaan fungsi di Go.
 
 ## A.18.1. Penerapan Fungsi
 
-Sebenarnya tanpa sadar, kita sudah menerapkan fungsi di bab-bab sebelum ini, yaitu pada fungsi `main`. Fungsi `main` merupakan fungsi yang paling utama pada program Go.
+Sebenarnya tanpa sadar, kita sudah menerapkan fungsi pada pembahasan-pembahasan sebelum ini, yaitu pada fungsi `main`. Fungsi `main` merupakan fungsi yang paling utama pada program Go.
 
 Cara membuat fungsi cukup mudah, yaitu dengan menuliskan keyword `func`, diikuti setelahnya nama fungsi, kurung yang berisikan parameter, dan kurung kurawal untuk membungkus blok kode.
 
@@ -89,7 +89,7 @@ Eksekusi keyword `return` akan menjadikan proses dalam blok fungsi berhenti pada
 
 ---
 
-Dari kode di atas mungkin ada beberapa hal yang belum pernah kita lakukan pada bab-bab sebelumnya, kita akan bahas satu-persatu.
+Dari kode di atas mungkin ada beberapa hal yang belum pernah kita lakukan pada pembahasan-pembahasan sebelumnya, kita akan bahas satu-persatu.
 
 ## A.18.3. Penggunaan Fungsi `rand.Seed()`
 
@@ -168,6 +168,6 @@ Didalamnya terdapat proses validasi nilai variabel pembagi, jika nilainya adalah
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.18-fungsi">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.18...</a>
 </div>

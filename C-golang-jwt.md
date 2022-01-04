@@ -1,6 +1,6 @@
 # C.32. JSON Web Token (JWT)
 
-Pada bab ini kita akan belajar tentang JSON Web Token (JWT) dan cara penerapannya di bahasa Go.
+Pada chapter ini kita akan belajar tentang JSON Web Token (JWT) dan cara penerapannya di bahasa Go.
 
 ## C.32.1. Definisi
 
@@ -184,7 +184,7 @@ func HandlerLogin(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Handler ini bertugas untuk meng-otentikasi client/consumer. Data username dan password dikirimkan ke endpoint dalam bentuk [Basic Auth](/B-http-basic-auth.html). Data tersebut kemudian disisipkan dalam pemanggilan fungsi otentikasi `authenticateUser()`, yang nantinya juga akan kita buat.
+Handler ini bertugas untuk meng-otentikasi client/consumer. Data username dan password dikirimkan ke endpoint dalam bentuk [B.18. HTTP Basic Auth](/B-http-basic-auth.html). Data tersebut kemudian disisipkan dalam pemanggilan fungsi otentikasi `authenticateUser()`, yang nantinya juga akan kita buat.
 
 ```go
 ok, userInfo := authenticateUser(username, password)
@@ -408,6 +408,6 @@ Semua berjalan sesuai harapan. Agar lebih meyakinkan, coba lakukan beberapa test
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.32-golang-jwt">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.32...</a>
 </div>

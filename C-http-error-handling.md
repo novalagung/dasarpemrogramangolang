@@ -1,8 +1,8 @@
-# C.4. HTTP Error Handling (Validator v9, Echo)
+# C.6. HTTP Error Handling (Validator v9, Echo)
 
-Pada bab ini kita akan belajar cara membuat custom error handler yang lebih readable, sangat cocok untuk web service. Bahan dasar yang kita manfaatkan adalah source code pada bab sebelum ini, lalu dimodifikasi. Jadi silakan salin project pada bab sebelumnya sebagai projek folder baru.
+Pada chapter ini kita akan belajar cara membuat custom error handler yang lebih readable, sangat cocok untuk web service. Bahan dasar yang kita manfaatkan adalah source code pada chapter sebelum ini, lalu dimodifikasi. Jadi silakan salin project pada chapter sebelumnya sebagai projek folder baru.
 
-## C.4.1. Error Handler
+## C.6.1. Error Handler
 
 Cara meng-custom default error handler milik echo, adalah dengan meng-override property `e.HTTPErrorHandler`. Langsung saja override property tersebut dengan callback berisi parameter objek error dan context. Gunakan callback tersebut untuk bisa menampilkan error yg lebih detail.
 
@@ -28,7 +28,7 @@ OK, jalankan aplikasi, lalu test hasilnya.
 
 ![Console Log](images/C_http_error_handling_2_cli_error.png)
 
-## C.4.2. Human-Readable Error
+## C.6.2. Human-Readable Error
 
 Error yang dikembalikan sudah bisa lebih detail dibanding sebelumnya, tapi masih kurang, karena masih susah untuk dipahami. Lakukan modifikasi pada callback custom error handler menjadi seperti pada kode berikut.
 
@@ -73,7 +73,7 @@ OK, jalankan ulang aplikasi, lalu test.
 
 ![Console Log](images/C_http_error_handling_3_advance_handler.png)
 
-# C.4.3. Custom Error Page
+# C.6.3. Custom Error Page
 
 Untuk aplikasi non-web-service, akan lebih baik jika setiap terjadi error dimunculkan error page, atau halaman khusus yang menampilkan informasi error.
 
@@ -105,6 +105,6 @@ Silakan ubah kode `fmt.Sprintf("%d.html", report.Code)` sesuai format nama halam
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.4-http-error-handling">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.4...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.6-http-error-handling">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.6...</a>
 </div>

@@ -1,4 +1,4 @@
-# C.23. HTTP/2 dan HTTP/2 Server Push
+# C.25. HTTP/2 dan HTTP/2 Server Push
 
 HTTP/2 adalah versi terbaru protokol HTTP, dikembangkan dari protokol [SPDY](https://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00) yang diinisiasi oleh Google.
 
@@ -11,21 +11,21 @@ Kelebihan HTTP/2 dibanding HTTP 1.1 (protokol yang umumnya digunakan) sebagian b
  - Multiplexing banyak request (dalam satu koneksi TCP)
  - HTTP/2 Server Push
 
-Pada bab ini kita akan belajar cara menerapkan HTTP/2 dan salah satu fitur milik protokol ini yaitu HTTP/2 Server Push.
+Pada chapter ini kita akan belajar cara menerapkan HTTP/2 dan salah satu fitur milik protokol ini yaitu HTTP/2 Server Push.
 
 > Mengenai multiplexing banyak request tidak akan kita bahas pada buku ini, silakan coba pelajari sendiri jika tertarik, menggunakan library cmux.
 
-## C.23.1. HTTP/2 di Golang
+## C.25.1. HTTP/2 di Golang
 
 Golang memiliki dukungan sangat baik terhadap HTTP/2. Dengan cukup meng-enable fasilitas TLS/HTTPS maka aplikasi golang secara otomatis menggunakan HTTP/2.
 
-Untuk memastikan mari kita langsung praktekkan, coba duplikat projek pada bab sebelumnya (**A.23. HTTPS/TLS Web Server**) sebagai projek baru, jalankan aplikasinya lalu cek di browser chrome. Gunakan chrome extension [HTTP/2 and SPDY indicator](https://chrome.google.com/webstore/detail/http2-and-spdy-indicator/mpbpobfflnpcgagjijhmgnchggcjblin?hl=en) untuk menge-test apakah HTTP/2 sudah enabled.
+Untuk memastikan mari kita langsung praktekkan, coba duplikat projek pada chapter sebelumnya (**A.23. HTTPS/TLS Web Server**) sebagai projek baru, jalankan aplikasinya lalu cek di browser chrome. Gunakan chrome extension [HTTP/2 and SPDY indicator](https://chrome.google.com/webstore/detail/http2-and-spdy-indicator/mpbpobfflnpcgagjijhmgnchggcjblin?hl=en) untuk menge-test apakah HTTP/2 sudah enabled.
 
 ![SPDY checker](images/C_http2_server_push_1_spdy_checker.png)
 
 Perlu diketahui untuk golang versi sebelum **1.6** ke bawah, secara default HTTP/2 tidak akan di-enable. Perlu memanggil fungsi `http2.ConfigureServer()` secara eksplist untuk meng-enable HTTP/2. Fungsi tersebut tersedia dalam package `golang.org/x/net/http2`. Lebih jelasnya silakan baca [laman dokumentasi](https://godoc.org/golang.org/x/net/http2).
 
-## C.23.2. HTTP/2 Server Push
+## C.25.2. HTTP/2 Server Push
 
 HTTP/2 Server Push adalah salah satu fitur pada HTTP/2, berguna untuk mempercepat response dari request, dengan cara data yang akan di-response dikirim terlebih dahulu oleh server.
 
@@ -39,7 +39,7 @@ Untuk mengecek suport-tidak-nya server push, lakukan casting pada objek `http.Re
 
 > Fasilitas server push ini hanya bisa digunakan pada golang versi 1.8 ke-atas.
 
-## C.23.3. Praktek
+## C.25.3. Praktek
 
 Mari kita praktekan. Buat projek baru, buat file `main.go`, isi dengan kode berikut.
 
@@ -133,7 +133,7 @@ Kegunaan dari fungsi `fmt.Fprintf()` adalah untuk render html, sama seperti `w.W
 
 OK, jalankan aplikasi lalu test.
 
-## C.23.4. Testing
+## C.25.4. Testing
 
 Perbedaan antara aplikasi yang menerapkan HTTP/2 dan tidak, atau yang menerapkan server push atau tidak; adalah tidak terasa bedanya jika hanya di-test lewat lokal saja. 
 
@@ -162,6 +162,6 @@ Selain dari kolom protocol, penanda server push bisa dilihat juga lewat grafik *
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.23-http2-server-push">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.23...</a>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.25-http2-server-push">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.25...</a>
 </div>

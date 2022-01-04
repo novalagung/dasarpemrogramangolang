@@ -4,7 +4,7 @@ Proses pembuatan aplikasi menggunakan Go akan lebih maksimal jika didukung oleh 
 
 Penulis sarankan untuk memilih editor yang paling nyaman digunakan, preferensi masing-masing pastinya berbeda. Penulis sendiri lebih sering menggunakan **Visual Studio Code**. Editor ini sangat ringan, mudah didapat, dan memiliki ekstensi yang bagus untuk bahasa Go. Jika pembaca ingin menggunakan editor yang sama, maka silakan melanjutkan panduan berikut.
 
-Pada bab ini akan dijelaskan bagaimana cara instalasi editor Visual Studio Code.
+Pada chapter ini akan dijelaskan bagaimana cara instalasi editor Visual Studio Code.
 
 ## A.5.1. Instalasi Editor Visual Studio Code
 

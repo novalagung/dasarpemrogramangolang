@@ -2,7 +2,7 @@
 
 Mari kita awali pembahasan pada pemrograman Go lanjut dengan topik yang paling penting, yaitu tentang bagaimana manajemen file dan folder pada project Go.
 
-[Sebenarnya tidak ada spesifikasi resmi dari Go mengenai bagaimana struktur project harus disusun](https://github.com/golang-standards/project-layout/issues/117). Akan tetapi ada beberapa project open source yang strukturnya digunakan sebagai basis **standar** dalam menyusun file dan folder program. Dan pada bab ini kita akan mencoba membahas dan mempergunakan project tersebut sebagai acuan dalam membuat program Go.
+[Sebenarnya tidak ada spesifikasi resmi dari Go mengenai bagaimana struktur project harus disusun](https://github.com/golang-standards/project-layout/issues/117). Akan tetapi ada beberapa project open source yang strukturnya digunakan sebagai basis **standar** dalam menyusun file dan folder program. Dan pada chapter ini kita akan mencoba membahas dan mempergunakan project tersebut sebagai acuan dalam membuat program Go.
 
 ## C.1.1. Library `golang-standard/project-layout`
 

@@ -1,6 +1,6 @@
 # A.64. Concurrency Pattern: Context Cancellation Pipeline
 
-Pada bab ini kita akan belajar tentang salah satu *concurrency pattern* di Go, yaitu **cancellation**. Cancellation merupakan mekanisme untuk menggagalkan secara paksa proses konkuren yang sedang berjalan, entah itu karena ada timeout, ada error, atau ada faktor lain.
+Pada chapter ini kita akan belajar tentang salah satu *concurrency pattern* di Go, yaitu **cancellation**. Cancellation merupakan mekanisme untuk menggagalkan secara paksa proses konkuren yang sedang berjalan, entah itu karena ada timeout, ada error, atau ada faktor lain.
 
 Disini kita akan gunakan salah satu API milik Go yang tersedia untuk *cancellation*, yaitu `context.Context`.
 
@@ -8,7 +8,7 @@ Context digunakan untuk mendefinisikan tipe *context* yang didalamnya ada bebera
 
 ## A.64.1. Skenario Praktek
 
-Kita akan modifikasi file program [`1-generate-dummy-files-concurrently.go` yang pada chapter sebelumnya sudah dibuat](/A-simplified-fan-in-fan-out-pipeline.html). Pada program tersebut akan kita tambahkan mekanisme cancellation ketika ada timeout.
+Kita akan modifikasi file program `1-generate-dummy-files-concurrently.go` yang pada chapter sebelumnya ([A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](/A-simplified-fan-in-fan-out-pipeline.html)) sudah dibuat. Pada program tersebut akan kita tambahkan mekanisme cancellation ketika ada timeout.
 
 Jadi kurang lebih akan ada dua result:
 
@@ -451,6 +451,6 @@ Perbedannya ada pada penerapan *cancellation*-nya. Pada contoh ini kita tidak me
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.64-pipeline-context-cancellation">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.64...</a>
 </div>

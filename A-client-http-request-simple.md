@@ -1,8 +1,8 @@
 # A.55. Simple Client HTTP Request
 
-Di bab sebelumnya telah dibahas bagaimana membuat Web Service API yang mem-provide data JSON, pada bab ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
+Pada chapter sebelumnya telah dibahas bagaimana membuat Web Service API yang mem-provide data JSON, pada chapter ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
 
-Pastikan anda sudah mempraktekkan apa-apa yang ada pada bab sebelumnya [Bab A. Web Service API](/A-web-service-api.html), karena web service yang telah dibuat pada bab tersebut dipergunakan juga pada bab ini.
+Pastikan anda sudah mempraktekkan apa-apa yang ada pada chapter sebelumnya ([A.54. Web Service API Server](/A-web-service-api.html)), karena web service yang telah dibuat disitu juga dipergunakan pada chapter ini.
 
 ![Jalankan web server](images/A_web_service_1_server.png)
 
@@ -10,7 +10,7 @@ Pastikan anda sudah mempraktekkan apa-apa yang ada pada bab sebelumnya [Bab A. W
 
 Package `net/http`, selain berisikan tools untuk keperluan pembuatan web, juga berisikan fungsi-fungsi untuk melakukan http request. Salah satunya adalah `http.NewRequest()` yang akan kita bahas di sini.
 
-Sebelumnya, import package yang dibutuhkan. Dan siapkan struct `student` yang nantinya akan dipakai sebagai tipe data reponse dari web API. Struk tersebut skema nya sama dengan yang ada pada bab 51.
+Sebelumnya, import package yang dibutuhkan. Dan siapkan struct `student` yang nantinya akan dipakai sebagai tipe data reponse dari web API. Struk tersebut skema nya sama dengan yang ada pada chapter ([A.54. Web Service API Server](/A-web-service-api.html)).
 
 ```go
 package main
@@ -90,7 +90,7 @@ func main() {
 }
 ```
 
-Ok, terakhir sebelum memulai testing, run terlebih dahulu aplikasi pada bab sebelumya [A. Web Service API](/A-web-service-api.html) (jika belum). Kemudian start prompt cmd/terminal baru dan jalankan program yang barusan kita buat pada bab ini.
+Ok, terakhir sebelum memulai testing, pastikan telah run aplikasi pada chapter sebelumya ([A.54. Web Service API Server](/A-web-service-api.html)). Kemudian start prompt cmd/terminal baru dan jalankan program yang barusan kita buat pada chapter ini.
 
 ![HTTP Request](images/A_http_request_1_http_request.png)
 
@@ -168,11 +168,11 @@ Untuk keperluan testing, kita hardcode `ID` nilainya `"E001"`. Jalankan program 
 
 ## A.55.3. Secure & Insecure HTTP Request
 
-Kita telah mempelajari bagaimana cara membuat http request sederhana untuk kirim data dan juga ambil data. Nantinya pada [Bab C. Secure & Insecure Client HTTP Request](/C-25-secure-insecure-client-http-request.html) kita akan belajar cara membuat http client request yang lebih njlimet untuk kasus yang lebih advance, tapi sabar dulu hehe.
+Kita telah mempelajari bagaimana cara membuat http request sederhana untuk kirim data dan juga ambil data. Nantinya pada chapter [C.27. Secure & Insecure Client HTTP Request](/C-secure-insecure-client-http-request.html) kita akan belajar cara membuat http client request yang lebih njlimet untuk kasus yang lebih advance, tapi sabar dulu hehe.
 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek pada bab ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.55-client-http-request-simple">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.55...</a>
 </div>
