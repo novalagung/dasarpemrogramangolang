@@ -326,7 +326,7 @@ sql.Open(driverName, connectionString)
 Sebagai contoh saya menggunakan driver [pq](https://github.com/lib/pq) untuk koneksi ke server Postgres, maka connection string-nya:
 
 ```go
-sql.Open("pq", "user=postgres password=secret dbname=test sslmode=disable")
+sql.Open("postgres", "user=postgres password=secret dbname=test sslmode=disable")
 ```
 
 Selengkapya mengenai driver yang tersedia bisa dilihat di [https://github.com/golang/go/wiki/SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers).
