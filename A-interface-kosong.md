@@ -1,6 +1,6 @@
-# A.28. Interface Kosong
+# A.28. Interface Kosong (Any)
 
-Interface kosong atau *empty interface* yang dinotasikan dengan `interface{}` merupakan tipe data yang sangat spesial. Variabel bertipe ini bisa menampung segala jenis data, bahkan array, pointer, apapun. Tipe data dengan konsep ini biasa disebut dengan **dynamic typing**.
+Interface kosong atau *empty interface* yang dinotasikan dengan `interface{}` atau `any` (per `go v1.18`), merupakan tipe data yang sangat spesial. Variabel bertipe ini bisa menampung segala jenis data, bahkan array, pointer, apapun. Tipe data dengan konsep ini biasa disebut dengan **dynamic typing**.
 
 ## A.28.1. Penggunaan `interface{}`
 
@@ -47,7 +47,21 @@ Kemudian variabel tersebut di-inisialisasi, ditambahkan lagi kurung kurawal sete
 
 Dari situ terlihat bahwa `interface{}` bukanlah sebuah objek, melainkan tipe data.
 
-## A.28.2. Casting Variabel Interface Kosong
+## A.28.2. Type Alias `Any`
+
+Pada Go rilis versi `v1.18`, interface kosong bisa dituliskan dengan menggunakan `any`. Contohnya:
+
+```go
+var data map[string]any
+
+data = map[string]any{
+    "name":      "ethan hunt",
+    "grade":     2,
+    "breakfast": []string{"apple", "manggo", "banana"},
+}
+```
+
+## A.28.3. Casting Variabel Interface Kosong
 
 Variabel bertipe `interface{}` bisa ditampilkan ke layar sebagai `string` dengan memanfaatkan fungsi print, seperti `fmt.Println()`. Tapi perlu diketahui bahwa nilai yang dimunculkan tersebut bukanlah nilai asli, melainkan bentuk string dari nilai aslinya.
 
@@ -80,7 +94,7 @@ Pada contoh kedua, `secret` berisikan array string. Kita memerlukan string terse
 
 Teknik casting pada interface disebut dengan **type assertions**.
 
-## A.28.3. Casting Variabel Interface Kosong Ke Objek Pointer
+## A.28.4. Casting Variabel Interface Kosong Ke Objek Pointer
 
 Variabel `interface{}` bisa menyimpan data apa saja, termasuk data objek, pointer, ataupun gabungan keduanya. Di bawah ini merupakan contoh penerapan interface untuk menampung data objek pointer.
 
@@ -99,7 +113,7 @@ Variabel `secret` dideklarasikan bertipe `interface{}` menampung referensi objek
 
 ![Casting `interface{}` ke variabel objek](images/A_interface_kosong_3_interface_pointer.png)
 
-## A.28.4. Kombinasi Slice, `map`, dan `interface{}`
+## A.28.5. Kombinasi Slice, `map`, dan `interface{}`
 
 Tipe `[]map[string]interface{}` adalah salah satu tipe yang paling sering digunakan (menurut saya), karena tipe data tersebut bisa menjadi alternatif tipe slice struct.
 

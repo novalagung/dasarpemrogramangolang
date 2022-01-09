@@ -252,3 +252,10 @@ Pada penuilisan struct, sisipkan notasi generic. Lalu pada deklarasi variabel ob
 ## A.65.8. Method Generic
 
 Sampai artikel ini ditulis, generic tidak bisa diterapkan pada method (meski bisa diterapkan pada fungsi)
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.65-generic">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.65...</a>
+</div>

@@ -38,7 +38,7 @@
   * [A.25. Method](A-method.md)
   * [A.26. Properti Public dan Private (Exported vs Unexported)](A-properti-public-dan-private.md)
   * [A.27. Interface](A-interface.md)
-  * [A.28. Interface Kosong](A-interface-kosong.md)
+  * [A.28. Interface Kosong (Any)](A-interface-kosong.md)
   * [A.29. Reflect](A-reflect.md)
   * [A.30. Goroutine](A-goroutine.md)
   * [A.31. Channel](A-channel.md)
