@@ -1,14 +1,16 @@
-# A.2. Instalasi Golang
+# A.2. Instalasi Golang (Stable & Unstable)
 
 Hal pertama yang perlu dilakukan sebelum bisa menggunakan Go adalah meng-*install*-nya terlebih dahulu. Panduan instalasi sebenarnya sudah disediakan di situs resmi Go [http://golang.org/doc/install#install](http://golang.org/doc/install#install).
 
 Disini penulis mencoba meringkas petunjuk instalasi pada *link* di atas, agar lebih mudah untuk diikuti terutama untuk pembaca yang baru belajar.
 
-> Go yang digunakan adalah versi **1.17.5**. Direkomendasikan menggunakan versi tersebut, atau versi lain minimal **1.11** ke atas.
+> Go yang digunakan adalah versi **1.17.5**, direkomendasikan menggunakan versi tersebut.
 
 URL untuk mengunduh *installer* Go: https://golang.org/dl/. Silakan langsung unduh dari *link* tersebut lalu lakukan proses instalasi, atau bisa mengikuti petunjuk pada chapter ini.
 
-## A.2.1. Instalasi Go di Windows
+## A.2.1. Instalasi Go *Stable*
+
+#### • Instalasi Go di Windows
 
  1. Download terlebih dahulu *installer*-nya di [https://golang.org/dl/](https://golang.org/dl/). Pilih *installer* untuk sistem operasi Windows sesuai jenis bit yang digunakan.
 
@@ -24,7 +26,7 @@ URL untuk mengunduh *installer* Go: https://golang.org/dl/. Silakan langsung und
 
 > Sering terjadi, command `go version` tidak bisa dijalankan meskipun instalasi sukses. Solusinya bisa dengan restart CMD (tutup CMD, kemudian buka lagi). Setelah itu coba jalankan ulang command di atas.
 
-## A.2.2. Instalasi Go di MacOS
+#### • Instalasi Go di MacOS
 
 Cara termudah instalasi Go di MacOS adalah menggunakan [Homebrew](http://brew.sh/).
 
@@ -55,7 +57,7 @@ Cara termudah instalasi Go di MacOS adalah menggunakan [Homebrew](http://brew.sh
 
  5. Jika output adalah sama dengan versi Go yang ter-*install*, menandakan proses instalasi berhasil.
 
-## A.2.3. Instalasi Go di Linux
+#### • Instalasi Go di Linux
 
  1. Unduh arsip *installer* dari [https://golang.org/dl/](https://golang.org/dl/), pilih installer untuk Linux yang sesuai dengan jenis bit komputer anda. Proses download bisa dilakukan lewat CLI, menggunakan `wget` atau `curl`.
 
@@ -84,10 +86,17 @@ Cara termudah instalasi Go di MacOS adalah menggunakan [Homebrew](http://brew.sh
 
  5. Jika output adalah sama dengan versi Go yang ter-*install*, menandakan proses instalasi berhasil.
 
-## A.2.4. Variabel `GOROOT`
+## A.2.2. Variabel `GOROOT`
 
 *By default*, setelah proses instalasi Go selesai, secara otomatis akan muncul *environment variable* `GOROOT`. Isi dari variabel ini adalah lokasi dimana Go ter-*install*.
 
 Sebagai contoh di Windows, ketika Go di-*install* di `C:\go`, maka path tersebut akan menjadi isi dari `GOROOT`.
 
 Silakan gunakan command `go env` untuk melihat informasi konfigurasi *environment* yang ada.
+
+## A.2.3. Instalasi Go *Unstable*/*Development*
+
+Jika pembaca tertarik untuk mencoba versi development Go, ingin mencoba fitur yang belum dirilis secara official, ada beberapa cara:
+
+- Instalasi dengan *build from source* https://go.dev/doc/install/source
+- Gunakan command `go install`, contohnya seperti `go install golang.org/dl/go1.18beta1@latest`. Untuk melihat versi unstable yang bisa di-install silakan merujuk ke https://go.dev/dl/#unstable

@@ -18,7 +18,7 @@ cd <nama-project>
 go mod init <nama-project>
 ```
 
-## A.6.1. Command `go run`
+## A.6.2. Command `go run`
 
 *Command* `go run` digunakan untuk eksekusi file program (file ber-ekstensi `.go`). Cara penggunaannya dengan menuliskan *command* tersebut diikut argumen nama file.
 
@@ -41,7 +41,7 @@ go run main.go library.go
 
 > Lebih jelasnya perihal argument dan flag akan dibahas pada chapter [A.48. Arguments & Flag](/A-command-line-args-flag.html))
 
-## A.6.2. Command `go test`
+## A.6.3. Command `go test`
 
 Go menyediakan package `testing`, berguna untuk keperluan unit test. File yang akan di-test harus ber-suffix `_test.go`.
 
@@ -53,7 +53,7 @@ go test main_test.go
 
 ![Unit testing menggunakan `go test`](images/A_go_command_3_go_test.png)
 
-## A.6.3. Command `go build`
+## A.6.4. Command `go build`
 
 *Command* ini digunakan untuk mengkompilasi file program.
 
@@ -74,7 +74,7 @@ go build -o program.exe
 
 > Untuk sistem operasi non-windows, tidak perlu menambahkan suffix `.exe` pada nama *binary*
 
-## A.6.4. Command `go get`
+## A.6.5. Command `go get`
 
 *Command* `go get` digunakan untuk men-download package. Sebagai contoh saya ingin men-download package Kafka driver untuk Go pada projek `project-pertama`.
 
@@ -96,10 +96,10 @@ go get -u github.com/segmentio/kafka-go
 
 Command `go get` **harus dijalankan dalam folder project**. Jika dijalankan di-luar project maka akan diunduh ke pada GOPATH.
 
-## A.6.5. Command `go mod tidy`
+## A.6.6. Command `go mod tidy`
 
 *Command* `go mod tidy` digunakan untuk memvalidasi dependensi. Jika ada dependensi yang belum ter-download, maka akan otomatis di-download.
 
-## A.6.6. Command `go mod vendor`
+## A.6.7. Command `go mod vendor`
 
 Command ini digunakan untuk vendoring. Lebih detailnya akan dibahas di akhir serial chapter A, pada chapter [A.61. Go Vendoring](/A-go-vendoring.html).
