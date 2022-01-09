@@ -2,7 +2,7 @@
 
 Pada chapter ini kita akan belajar tentang Generics di Go.
 
-> Go Generics API ini diperkenalkan pada Go v1.8 (yang pada saat artikel ini ditulis, versi tersebut masih belum officially rilis)
+> Go Generics API ini diperkenalkan pada Go v1.18 (yang pada saat artikel ini ditulis, versi tersebut masih belum officially rilis)
 
 ## A.65.1. Konsep Generic Programming
 
