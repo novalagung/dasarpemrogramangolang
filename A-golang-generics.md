@@ -255,6 +255,10 @@ Sampai artikel ini ditulis, generic tidak bisa diterapkan pada method (meski bis
 
 ---
 
+Ok, sekian pembahasan mengenai generics. Jika ada update perihal generic API akan penulis update ke chapter ini juga.
+
+---
+
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.65-generic">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.65...</a>
