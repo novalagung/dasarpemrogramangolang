@@ -75,7 +75,7 @@
   * [A.62. Concurrency Pattern: Pipeline](A-concurrency-pipeline.md)
   * [A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](A-simplified-fan-in-fan-out-pipeline.md)
   * [A.64. Concurrency Pattern: Context Cancellation Pipeline](A-pipeline-context-cancellation.md)
-  * [A.65. Generics](A-golang-generics.md)
+  * [A.65. Go Generics](A-golang-generics.md)
   <!-- generic -->
   <!-- singleflight -->
 
