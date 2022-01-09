@@ -75,6 +75,9 @@
   * [A.62. Concurrency Pattern: Pipeline](A-concurrency-pipeline.md)
   * [A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](A-simplified-fan-in-fan-out-pipeline.md)
   * [A.64. Concurrency Pattern: Context Cancellation Pipeline](A-pipeline-context-cancellation.md)
+  * [A.65. Generics](A-golang-generics.md)
+  <!-- generic -->
+  <!-- singleflight -->
 
 <hr>
 
@@ -139,9 +142,14 @@
   * [C.31. gRPC + Protobuf](C-golang-grpc-protobuf.md)
   * [C.32. JSON Web Token (JWT)](C-golang-jwt.md)
   * [C.33. LDAP Authentication](C-golang-ldap-authentication.md)
-  * [C.34. SSO SAML (Service Provider)](C-golang-sso-saml-sp.md)
+  * [C.34. SSO SAML (Service Provider)](C-golang-sso-saml-sp.md) <!-- refactor here to match with crewajam latest code -->
   * [C.35. Dockerize Aplikasi Golang](C-dockerize-golang.md)
   * [C.36. Redis](C-golang-redis.md)
+  <!-- distlock -->
+  <!-- goreleaser -->
+  <!-- nats -->
+  <!-- etcd -->
+  <!-- sso IDP -->
 
 <hr>
 
