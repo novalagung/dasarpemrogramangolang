@@ -10,7 +10,7 @@ Generic Programming adalah salah satu metode dalam penulisan kode program, diman
 
 Di Go, kita punya tipe `interface{}` yang biasa difungsikan sebagai tipe untuk menampung data yang tidak pasti tipe datanya. Generic dan `interface{}` berbeda. Tipe `interface{}` akan membungkus data aslinya atau *underlying value*-nya, dan untuk mengakses data tersebut, kita perlu menerapkan *type assertion*, contohnya `data.(int)`.
 
-Berbeda dengan generic, disini kita perlu mendefinisikan cakupan tipe data yang kompatibel untuk dipakai saat pemanggilan kode, atau bisa juga menggunakan keyword `comparable`, yang artinya tipe data adalah kompatibel dengan tipe apapun.
+Berbeda dibanding `interface{}`, disini kita perlu mendefinisikan cakupan tipe data yang kompatibel untuk dipakai saat pemanggilan kode, atau bisa juga menggunakan keyword `comparable`, yang artinya tipe data adalah kompatibel dengan tipe apapun.
 
 Ok, mari kita lanjut ke pembahasan yang lebih teknis agar tidak bingung.
 
