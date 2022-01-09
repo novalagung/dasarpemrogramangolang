@@ -1,4 +1,4 @@
-# A.65. Golang Generics
+# A.65. Go Generics
 
 Pada chapter ini kita akan belajar tentang Generics di Go.
 
