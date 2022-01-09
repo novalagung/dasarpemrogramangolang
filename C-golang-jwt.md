@@ -106,10 +106,10 @@ Juga isi file `users.json` yang merupakan database aplikasi. Silakan tambahkan d
 
 #### • File `main.go`
 
-Sekarang kita fokus ke file `main.go`. Import packages yang diperlukan. Salah satu dari packages tersebut adalah [jwt-go](https://github.com/dgrijalva/jwt-go), yang digunakan untuk keperluan JWT.
+Sekarang kita fokus ke file `main.go`. Import packages yang diperlukan. Salah satu dari packages tersebut adalah [golang-jwt/jwt](https://github.com/golang-jwt/jwt), yang digunakan untuk keperluan JWT.
 
 ```bash
-go get -u github.com/dgrijalva/jwt-go@v3.2.0
+go get -u github.com/golang-jwt/jwt/v4@v4.2.0
 go get -u github.com/novalagung/gubrak/v2
 ```
 
@@ -126,7 +126,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	jwt "github.com/dgrijalva/jwt-go"
+	jwt "github.com/golang-jwt/jwt/v4"
 	gubrak "github.com/novalagung/gubrak/v2"
 )
 ```
@@ -402,7 +402,7 @@ Semua berjalan sesuai harapan. Agar lebih meyakinkan, coba lakukan beberapa test
 
 ---
 
- - [JWT Go](https://github.com/dgrijalva/jwt-go), by Dave Grijalva, MIT License
+ - [JWT Go](https://github.com/golang-jwt/jwt), by Dave Grijalva, MIT License
  - [Gubrak v2](https://github.com/novalagung/gubrak), by Noval Agung, MIT License
 
 ---
