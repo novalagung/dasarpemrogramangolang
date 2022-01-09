@@ -6,7 +6,7 @@ Pada chapter ini kita akan belajar tentang Generics di Go.
 
 ## A.65.1. Konsep Generic Programming
 
-Generic Programming adalah salah satu metode dalam penulisan kode program, dimana tipe data dalam kode tersebut didefinisikan menggunakan tipe data yang nantinya tipe pastinya adalah nanti, saat kode tersebut di-call atau dieksekusi. Konsep ini sudah cukup umum terutama pada bahasa yang static type.
+Generic Programming adalah salah satu metode dalam penulisan kode program, dimana tipe data dalam kode tersebut didefinisikan menggunakan tipe data yang tipe pastinya adalah dituliskan belakangan saat kode tersebut di-call atau dieksekusi. Konsep ini sudah cukup umum terutama pada bahasa yang static type.
 
 Di Go, kita punya tipe `interface{}` yang biasa difungsikan sebagai tipe untuk menampung data yang tidak pasti tipe datanya. Generic dan `interface{}` berbeda. Tipe `interface{}` akan membungkus data aslinya atau *underlying value*-nya, dan untuk mengakses data tersebut, kita perlu menerapkan *type assertion*, contohnya `data.(int)`.
 
