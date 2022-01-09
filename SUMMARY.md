@@ -12,7 +12,7 @@
 
 * A. Pemrograman Go Dasar
   * [A.1. Belajar Golang](1-berkenalan-dengan-golang.md)
-  * [A.2. Instalasi Golang](2-instalasi-golang.md)
+  * [A.2. Instalasi Golang (Stable & Unstable)](2-instalasi-golang.md)
   * [A.3. Setup Go Modules](A-setup-go-project-dengan-go-modules.md)
   * [A.4. Setup GOPATH Dan Workspace](A-gopath-dan-workspace.md)
   * [A.5. Instalasi Editor](A-instalasi-editor.md)
