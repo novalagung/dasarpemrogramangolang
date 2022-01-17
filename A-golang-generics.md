@@ -238,7 +238,7 @@ func main() {
 	m1.Scores = []int{1, 2, 3}
     fmt.Println("scores:", m1.Scores)
 
-	var m2 UserModel[float64]
+	var m2 UserModel[float64] 
 	m2.Name = "Noval"
 	m2.SetScoresB([]float64{10, 11})
     fmt.Println("scores:", m2.Scores)
