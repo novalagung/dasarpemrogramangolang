@@ -190,17 +190,39 @@ func postAdjustment() {
 		log.Fatal(err.Error())
 	}
 
-	// ===== sitemap adjustment
 	siteMapPath := filepath.Join(basePath, "_book", "sitemap.xml")
 	buf, err := ioutil.ReadFile(siteMapPath)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+
+	// ===== change crawl frequency
 	sitemapContent := strings.Replace(string(buf), `<changefreq>weekly</changefreq>`, `<changefreq>daily</changefreq>`, -1)
+
+	// ===== inject files into sitemap
+	sitemapContent = strings.Replace(`</urlset>`, strings.TrimSpace(`
+	<url>
+		<loc>https://dasarpemrogramangolang.novalagung.com/dasarpemrogramangolang.pdf</loc>
+		<changefreq>daily</changefreq>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://dasarpemrogramangolang.novalagung.com/dasarpemrogramangolang.epub</loc>
+		<changefreq>daily</changefreq>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://dasarpemrogramangolang.novalagung.com/dasarpemrogramangolang.mobi</loc>
+		<changefreq>daily</changefreq>
+		<priority>0.5</priority>
+	</url>
+</urlset>`))
+
 	err = ioutil.WriteFile(siteMapPath, []byte(sitemapContent), 0644)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+
 	fmt.Println("  ==>", siteMapPath)
 }
 
