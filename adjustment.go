@@ -200,7 +200,7 @@ func postAdjustment() {
 	sitemapContent := strings.Replace(string(buf), `<changefreq>weekly</changefreq>`, `<changefreq>daily</changefreq>`, -1)
 
 	// ===== inject files into sitemap
-	sitemapContent = strings.Replace(`</urlset>`, strings.TrimSpace(`
+	sitemapContent = strings.ReplaceAll(sitemapContent, `</urlset>`, strings.TrimSpace(`
 	<url>
 		<loc>https://dasarpemrogramangolang.novalagung.com/dasarpemrogramangolang.pdf</loc>
 		<changefreq>daily</changefreq>
