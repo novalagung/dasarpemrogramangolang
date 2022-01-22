@@ -2,7 +2,7 @@
 
 Pada chapter sebelumnya telah dibahas bagaimana membuat Web Service API yang mem-provide data JSON, pada chapter ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
 
-Pastikan anda sudah mempraktekkan apa-apa yang ada pada chapter sebelumnya ([A.54. Web Service API Server](/A-web-service-api.html)), karena web service yang telah dibuat disitu juga dipergunakan pada chapter ini.
+Pastikan anda sudah mempraktekkan apa-apa yang ada pada chapter sebelumnya ([A.54. Web Service API Server](/A-web-service-api.html)), karena web service yang telah dibuat di situ juga dipergunakan pada chapter ini.
 
 ![Jalankan web server](images/A_web_service_1_server.png)
 
@@ -68,7 +68,7 @@ Fungsi tersebut menghasilkan instance bertipe `http.Request`. Objek tersebut nan
 
 Cara eksekusi request sendiri adalah dengan memanggil method `Do()` pada instance `http.Client` yang sudah dibuat, dengan parameter adalah instance request-nya. Contohnya seperti pada `client.Do(request)`.
 
-Method tersebut mengembalikan instance bertipe `http.Response`, yang didalamnya berisikan informasi yang dikembalikan dari web API.
+Method tersebut mengembalikan instance bertipe `http.Response`, yang di dalamnya berisikan informasi yang dikembalikan dari web API.
 
 Data response bisa diambil lewat property `Body` dalam bentuk string. Gunakan JSON Decoder untuk mengkonversinya menjadi bentuk JSON. Contohnya bisa dilihat di kode di atas, `json.NewDecoder(response.Body).Decode(&data)`. Setelah itu barulah kita bisa menampilkannya.
 

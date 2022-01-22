@@ -52,7 +52,7 @@ Fungsi `len()` dipakai untuk menghitung jumlah elemen sebuah array.
 
 ## A.15.3. Inisialisasi Nilai Array Dengan Gaya Vertikal
 
-Elemen array bisa dituliskan dalam bentuk horizontal (seperti yang sudah dicontohkan di atas) ataupun dalam bentuk vertikal.
+Elemen array bisa dituliskan dalam bentuk horizontal (seperti yang sudah di contohkan di atas) ataupun dalam bentuk vertikal.
 
 ```go
 var fruits [4]string
@@ -73,7 +73,7 @@ Khusus untuk deklarasi array dengan cara vertikal, tanda koma wajib dituliskan s
 
 ## A.15.4. Inisialisasi Nilai Awal Array Tanpa Jumlah Elemen
 
-Deklarasi array yang nilainya diset di awal, boleh tidak dituliskan jumlah lebar array-nya, cukup ganti dengan tanda 3 titik (`...`). Jumlah elemen akan dikalkulasi secara otomatis menyesuaikan data elemen yang diisikan.
+Deklarasi array yang nilainya diset di awal, boleh tidak dituliskan jumlah lebar array-nya, cukup ganti dengan tanda 3 titik (`...`). Jumlah elemen akan di kalkulasi secara otomatis menyesuaikan data elemen yang diisikan.
 
 ```go
 var numbers = [...]int{2, 3, 2, 4, 3}
@@ -88,7 +88,7 @@ Variabel `numbers` akan secara otomatis memiliki jumlah elemen `5`, karena pada 
 
 ## A.15.5. Array Multidimensi
 
-Array multidimensi adalah array yang tiap elemennya juga berupa array (dan bisa seterusnya, tergantung kedalaman dimensinya).
+Array multidimensi adalah array yang tiap elemennya juga berupa array (dan bisa seterusnya, tergantung ke dalaman dimensinya).
 
 Cara deklarasi array multidimensi secara umum sama dengan cara deklarasi array biasa, dengan cara menuliskan data array dimensi selanjutnya sebagai elemen array dimensi sebelumnya.
 
@@ -142,7 +142,7 @@ Output program di atas, sama dengan output program sebelumnya, hanya cara yang d
 
 ## A.15.8. Penggunaan Variabel Underscore `_` Dalam `for` - `range`
 
-Kadang kala ketika *looping* menggunakan `for` - `range`, ada kemungkinan dimana data yang dibutuhkan adalah elemen-nya saja, indeks-nya tidak. Sedangkan kode di atas, `range` mengembalikan 2 data, yaitu indeks dan elemen.
+Kadang kala ketika *looping* menggunakan `for` - `range`, ada kemungkinan di mana data yang dibutuhkan adalah elemen-nya saja, indeks-nya tidak. Sedangkan kode di atas, `range` mengembalikan 2 data, yaitu indeks dan elemen.
 
 Seperti yang sudah diketahui, bahwa di Go tidak memperbolehkan adanya variabel yang menganggur atau tidak dipakai. Jika dipaksakan, error akan muncul, contohnya seperti kode berikut.
 
@@ -158,7 +158,7 @@ Hasil dari kode program di atas:
 
 ![Error karena ada variabel yang tidak digunakan](images/A_array_4_for_range_error.png)
 
-Disinilah salah satu kegunaan variabel pengangguran, atau underscore (`_`). Tampung saja nilai yang tidak ingin digunakan ke underscore.
+Di sinilah salah satu kegunaan variabel pengangguran, atau underscore (`_`). Tampung saja nilai yang tidak ingin digunakan ke underscore.
 
 ```go
 var fruits = [4]string{"apple", "grape", "banana", "melon"}

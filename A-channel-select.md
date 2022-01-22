@@ -4,7 +4,7 @@ Disediakannya channel membuat engineer menjadi mudah dalam me-manage goroutine. 
 
 > Nantinya pada chapter [A.59. sync.WaitGroup](/A-waitgroup.html) akan dibahas secara komprehensif bagaimana cara optimal mengontrol goroutine.
 
-Ada kalanya kita butuh tak hanya satu channel saja untuk melakukan komunikasi data antar goroutine. Tergantung jenis kasusnya, sangat mungkin lebih dari satu channel dibutuhkan. Nah, disitulah kegunaan dari `select`. Select ini mempermudah kontrol komunikasi data lewat satu ataupun banyak channel.
+Ada kalanya kita butuh tak hanya satu channel saja untuk melakukan komunikasi data antar goroutine. Tergantung jenis kasusnya, sangat mungkin lebih dari satu channel dibutuhkan. Nah, di situlah kegunaan dari `select`. Select ini mempermudah kontrol komunikasi data lewat satu ataupun banyak channel.
 
 Cara penggunaan `select` untuk kontrol channel sama seperti penggunaan `switch` untuk seleksi kondisi.
 

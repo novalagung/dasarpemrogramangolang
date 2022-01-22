@@ -2,9 +2,9 @@
 
 Pada chapter ini kita akan belajar tentang salah satu *concurrency pattern* di Go, yaitu **cancellation**. Cancellation merupakan mekanisme untuk menggagalkan secara paksa proses konkuren yang sedang berjalan, entah itu karena ada timeout, ada error, atau ada faktor lain.
 
-Disini kita akan gunakan salah satu API milik Go yang tersedia untuk *cancellation*, yaitu `context.Context`.
+Di sini kita akan gunakan salah satu API milik Go yang tersedia untuk *cancellation*, yaitu `context.Context`.
 
-Context digunakan untuk mendefinisikan tipe *context* yang didalamnya ada beberapa hal yaitu: informasi *deadlines*, signal *cancellation*, dan data untuk keperluan komunikasi antar API atau antar proses.
+Context digunakan untuk mendefinisikan tipe *context* yang di dalamnya ada beberapa hal yaitu: informasi *deadlines*, signal *cancellation*, dan data untuk keperluan komunikasi antar API atau antar proses.
 
 ## A.64.1. Skenario Praktek
 
@@ -12,12 +12,12 @@ Kita akan modifikasi file program `1-generate-dummy-files-concurrently.go` yang 
 
 Jadi kurang lebih akan ada dua result:
 
-- Proses sukses, karena *execution time* dibawah timeout.
+- Proses sukses, karena *execution time* di bawah timeout.
 - Proses digagalkan secara paksa ditengah jalan, karena *running time* sudah melebihi batas timeout.
 
 ## A.64.2. Program Generate Dummy File *Concurrently*
 
-Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi *concurrent* tanpa *cancellation*. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan merujuk ke chapter sebelumnya saja, disini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
+Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi *concurrent* tanpa *cancellation*. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan merujuk ke chapter sebelumnya saja, di sini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
 
 #### • Import Packages dan Definisi Variabel
 
@@ -196,7 +196,7 @@ import (
 
 #### • Tambahkan definisi konstanta timeout
 
-Disini saya tentukan timeout adalah 3 detik. Nantinya kita akan modifikasi angka timeout untuk keperluan testing.
+Di sini saya tentukan timeout adalah 3 detik. Nantinya kita akan modifikasi angka timeout untuk keperluan testing.
 
 ```go
 const timeoutDuration = 3 * time.Second
@@ -244,7 +244,7 @@ Cara pembuatan object context sendiri sebenarnya ada 3:
 3. Menggunakan fungsi `context.With...`. Fungsi ini sebenarnya bukan digunakan untuk inisialisasi objek konteks baru, tapi digunakan untuk menambahkan informasi tertentu pada *copied* context yang disisipkan di parameter pertama pemanggilan fungsi. Ada 3 buah fungsi `context.With...` yang bisa digunakan, yaitu:
 
 	- Fungsi `context.WithCancel(ctx) (ctx, cancel)`. Fungsi ini digunakan untuk menambahkan fasilitas *cancellable* pada context yang disisipkan sebagai parameter pertama pemanggilan fungsi. Lewat nilai balik kedua, yaitu `cancel` yang tipenya `context.CancelFunc`, kita bisa secara paksa meng-*cancel* context ini.
-	- Fungsi `context.WithDeadline(ctx, time.Time) (ctx, cancel)`. Fungsi ini juga menambahkan fitur *cancellable* pada context, tapi selain itu juga menambahkan informasi deadline yang dimana jika waktu sekarang sudah melebihi deadline yang sudah ditentukan maka context otomatis di-cancel secara paksa.
+	- Fungsi `context.WithDeadline(ctx, time.Time) (ctx, cancel)`. Fungsi ini juga menambahkan fitur *cancellable* pada context, tapi selain itu juga menambahkan informasi deadline yang di mana jika waktu sekarang sudah melebihi deadline yang sudah ditentukan maka context otomatis di-cancel secara paksa.
 	- Fungsi `context.WithTimeout(ctx, time.Duration) (ctx, cancel)`. Fungsi ini sama seperti `context.WithDeadline()`, bedanya pada parameter kedua argument bertipe durasi (bukan objek `time.Time`).
 
 Kesamaan dari ketiga fungsi `context.With...` adalah sama-sama menambahkan fasilitas *cancellable* yang bisa dieksekusi lewat nilai balik kedua fungsi tersebut (yang tipenya `context.CancelFunc`).
@@ -252,7 +252,7 @@ Kesamaan dari ketiga fungsi `context.With...` adalah sama-sama menambahkan fasil
 Jadi pada contoh yang kita tulis di atas, kurang lebih yang akan dilakukan adalah:
 
 * Kira buat object context baru lewat `context.Background()`.
-* Objek context tersebut ditambahkan fasilitas *cancellable* didalamnya, dan juga auto cancel ketika timeout menggunakan `context.WithTimeout()`, dengan durasi timeout adalah `timeoutDuration`.
+* Objek context tersebut ditambahkan fasilitas *cancellable* di dalamnya, dan juga auto cancel ketika timeout menggunakan `context.WithTimeout()`, dengan durasi timeout adalah `timeoutDuration`.
 * Fungsi `generateFilesWithContext()` dipanggil dengan disisipkan object context.
 * Callback `context.CancelFunc` dipanggil secara deferred. Ini merupakan idiomatic Go dalam penerapan context. Meskipun context sudah punya timeout atau deadline dan kita tidak perlu meng-*cancel* context secara manual, sangat dianjurkan untuk tetap memanggil callback `cancel()` tersebut secara deferred.
 
@@ -316,7 +316,7 @@ Case pertama adalah ketika channel done pada context `ctx` menerima data. Cara p
 
 Jadi pada contoh di atas, ketika context timeout atau di-cancel secara eksplisit (via callback `cancel`), maka case pertama akan terpenuhi dan message ditampilkan.
 
-Untuk case kedua akan terpenuhi ketika proses pipeline sudah selesai secara keseluruhan. Bisa dilihat di akhir goroutine, disitu channel `done` dikirimi informasi `counterSuccess`. Ketika ini terjadi maka kondisi case kedua terpenuhi, lalu ditampilkan informasi file yang sudah sukses dibuat.
+Untuk case kedua akan terpenuhi ketika proses pipeline sudah selesai secara keseluruhan. Bisa dilihat di akhir goroutine, di situ channel `done` dikirimi informasi `counterSuccess`. Ketika ini terjadi maka kondisi case kedua terpenuhi, lalu ditampilkan informasi file yang sudah sukses dibuat.
 
 Nah jadi lewat seleksi kondisi 2 case di atas, kita bisa dengan mudah mengidentifikasi apakah proses selesai sepenuhnya, ataukah cancelled ditengah jalan karena timeout ataupun karena di-cancel secara eksplisit.
 

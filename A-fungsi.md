@@ -101,7 +101,7 @@ rand.Seed(time.Now().Unix())
 
 Fungsi `rand.Seed()` berada dalam package `math/rand`, yang harus di-import terlebih dahulu sebelum bisa dimanfaatkan.
 
-Package `time` juga perlu di-import karena kita menggunakan fungsi `(time.Now().Unix())` disitu.
+Package `time` juga perlu di-import karena kita menggunakan fungsi `(time.Now().Unix())` di situ.
 
 ## A.18.4. Import Banyak Package
 
@@ -135,7 +135,7 @@ func randomWithRange(min, max int) int
 
 ## A.18.6. Penggunaan Keyword `return` Untuk Menghentikan Proses Dalam Fungsi
 
-Selain sebagai penanda nilai balik, keyword `return` juga bisa dimanfaatkan untuk menghentikan proses dalam blok fungsi dimana ia dipakai. Contohnya bisa dilihat pada kode berikut.
+Selain sebagai penanda nilai balik, keyword `return` juga bisa dimanfaatkan untuk menghentikan proses dalam blok fungsi di mana ia dipakai. Contohnya bisa dilihat pada kode berikut.
 
 ```go
 package main
@@ -161,7 +161,7 @@ func divideNumber(m, n int) {
 
 Fungsi `divideNumber` didesain tidak memiliki nilai balik. Fungsi ini dibuat untuk membungkus proses pembagian 2 bilangan, lalu menampilkan hasilnya.
 
-Didalamnya terdapat proses validasi nilai variabel pembagi, jika nilainya adalah 0, maka akan ditampilkan pesan bahwa pembagian tidak bisa dilakukan, lalu proses dihentikan pada saat itu juga (dengan memanfaatkan keyword `return`). Jika nilai pembagi valid, maka proses pembagian diteruskan.
+Di dalamnya terdapat proses validasi nilai variabel pembagi, jika nilainya adalah 0, maka akan ditampilkan pesan bahwa pembagian tidak bisa dilakukan, lalu proses dihentikan pada saat itu juga (dengan memanfaatkan keyword `return`). Jika nilai pembagi valid, maka proses pembagian diteruskan.
 
 ![Keyword return menjadikan proses dalam fungsi berhenti](images/A_fungsi_3_function_return_as_break.png)
 

@@ -18,13 +18,13 @@ go mod init hello-world
 
 ## A.7.2. Load Projek Folder ke Editor
 
-Buka editor, disini penulis menggunakan VSCode. Cari menu untuk menambahkan projek, lalu pilih projek folder `hello-world`. Untuk beberapa jenis editor, cara load projek bisa cukup dengan klik-drag folder tersebut ke editor.
+Buka editor, di sini penulis menggunakan VSCode. Cari menu untuk menambahkan projek, lalu pilih projek folder `hello-world`. Untuk beberapa jenis editor, cara load projek bisa cukup dengan klik-drag folder tersebut ke editor.
 
 ![Load project folder ke editor](images/A_hello_world_2_load_project_to_editor.png)
 
 ## A.7.3. Menyiapkan File Program
 
-File program disini maksudnya adalah file yang isinya *source code* Go. File ini berekstensi `.go`.
+File program di sini maksudnya adalah file yang isinya *source code* Go. File ini berekstensi `.go`.
 
 Di dalam project yang telah dibuat, siapkan sebuah file dengan nama bebas, yang jelas harus ber-ekstensi `.go`. Pada contoh ini saya menggunakan nama file `main.go`.
 
@@ -36,7 +36,7 @@ Pembuatan file program bisa dilakukan lewat CLI atau browser, atau juga lewat ed
 
 Setelah project folder dan file program sudah siap, saatnya untuk *programming*.
 
-Dibawah ini merupakan contoh kode program sederhana untuk memunculkan text **Hello world** ke layar output command prompt. Silakan salin kode berikut ke file program yang telah dibuat. Sebisa mungkin jangan copy paste. Biasakan untuk menulis dari awal, agar cepat terbiasa dan familiar dengan Go.
+Di bawah ini merupakan contoh kode program sederhana untuk memunculkan text **Hello world** ke layar output command prompt. Silakan salin kode berikut ke file program yang telah dibuat. Sebisa mungkin jangan copy paste. Biasakan untuk menulis dari awal, agar cepat terbiasa dan familiar dengan Go.
 
 ```go
 package main
@@ -67,7 +67,7 @@ Berikut merupakan pembahasan untuk tiap baris kode yang sudah ditulis di atas.
 
 ## A.7.5. Penggunaan Keyword `package`
 
-Setiap file program harus memiliki **package**. Setiap project harus ada minimal satu file dengan nama *package* `main`. File yang ber-*package* `main`, akan di eksekusi pertama kali ketika program di jalankan.
+Setiap file program harus memiliki **package**. Setiap project harus ada minimal satu file dengan nama *package* `main`. File yang ber-*package* `main`, akan dieksekusi pertama kali ketika program di jalankan.
 
 Cara menentukan *package* dengan menggunakan keyword `package`, berikut adalah contoh penulisannya.
 
@@ -78,7 +78,7 @@ package main
 
 ## A.7.6. Penggunaan Keyword `import`
 
-Keyword `import` digunakan untuk meng-*import* atau memasukan *package* lain kedalam file program, agar isi dari package yang di-*import* bisa dimanfaatkan.
+Keyword `import` digunakan untuk meng-*import* atau memasukan *package* lain ke dalam file program, agar isi dari package yang di-*import* bisa dimanfaatkan.
 
 *Package* `fmt` merupakan salah satu *package* bawaan yang disediakan oleh Go, isinya banyak fungsi untuk keperluan **I/O** yang berhubungan dengan text.
 
@@ -91,7 +91,7 @@ import "fmt"
 
 ## A.7.7. Penggunaan Fungsi `main()`
 
-Dalam sebuah proyek harus ada file program yang didalamnya berisi sebuah fungsi bernama `main()`. Fungsi tersebut harus berada di file yang package-nya bernama `main`.
+Dalam sebuah proyek harus ada file program yang di dalamnya berisi sebuah fungsi bernama `main()`. Fungsi tersebut harus berada di file yang package-nya bernama `main`.
 
 Fungsi `main()` adalah yang dipanggil pertama kali pada saat eksekusi program. Contoh penulisan fungsi `main`:
 

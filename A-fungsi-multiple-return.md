@@ -1,6 +1,6 @@
 # A.19. Fungsi Multiple Return
 
-Umumnya fungsi hanya memiliki satu buah nilai balik saja. Jika ada kebutuhan dimana data yang dikembalikan harus banyak, biasanya digunakanlah tipe seperti `map`, slice, atau `struct` sebagai nilai balik.
+Umumnya fungsi hanya memiliki satu buah nilai balik saja. Jika ada kebutuhan di mana data yang dikembalikan harus banyak, biasanya digunakanlah tipe seperti `map`, slice, atau `struct` sebagai nilai balik.
 
 Go menyediakan kapabilitas bagi programmer untuk membuat fungsi memiliki banyak nilai balik. Pada chapter ini akan dibahas bagaimana penerapannya.
 
@@ -27,7 +27,7 @@ func calculate(d float64) (float64, float64) {
 
 Fungsi `calculate()` di atas menerima satu buah parameter (`diameter`) yang digunakan dalam proses perhitungan. Di dalam fungsi tersebut ada 2 hal yang dihitung, yaitu nilai **keliling** dan **lingkaran**. Kedua nilai tersebut kemudian dijadikan sebagai return value fungsi.
 
-Cara pendefinisian banyak nilai balik bisa dilihat pada kode di atas, langsung tulis tipe data semua nilai balik dipisah tanda koma, lalu ditambahkan kurung diantaranya.
+Cara pendefinisian banyak nilai balik bisa dilihat pada kode di atas, langsung tulis tipe data semua nilai balik dipisah tanda koma, lalu ditambahkan kurung di antaranya.
 
 ```go
 func calculate(d float64) (float64, float64)
@@ -63,7 +63,7 @@ var area, circumference = calculate(diameter)
 
 ## A.19.2 Fungsi Dengan Predefined Return Value
 
-Keunikan lainnya yang jarang ditemui di bahasa lain adalah, di Go variabel yang digunakan sebagai nilai balik bisa didefinisikan di-awal.
+Keunikan lainnya yang jarang ditemui di bahasa lain adalah, di Go variabel yang digunakan sebagai nilai balik bisa didefinisikan di awal.
 
 ```go
 func calculate(d float64) (area float64, circumference float64) {

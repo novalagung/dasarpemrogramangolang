@@ -10,7 +10,7 @@ Modules digunakan untuk menginisialisasi sebuah projek, sekaligus melakukan mana
 
 Modules penggunaannya adalah lewat CLI. Dan jika temen-temen sudah sukses meng-*install* Go, maka otomatis bisa mempergunakan Go Modules.
 
-> Modules atau Module disini merupakan istilah untuk project ya. Jadi jangan bingung.
+> Modules atau Module di sini merupakan istilah untuk project ya. Jadi jangan bingung.
 
 ## A.3.2. Inisialisasi Projek Menggunakan Go Modules
 
@@ -40,7 +40,7 @@ Untuk nama project, umumnya adalah disamakan dengan nama direktori, tapi bisa sa
 
 > Nama project dan Nama module merupakan istilah yang sama.
 
-Eksekusi perintah `go mod init` menghasilkan satu buah file baru bernama `go.mod`. File ini digunakan oleh Go toolchain untuk menandai bahwa folder dimana file tersebut berada adalah folder projek. Jadi jangan di hapus ya file tersebut.
+Eksekusi perintah `go mod init` menghasilkan satu buah file baru bernama `go.mod`. File ini digunakan oleh Go toolchain untuk menandai bahwa folder di mana file tersebut berada adalah folder projek. Jadi jangan di hapus ya file tersebut.
 
 ---
 

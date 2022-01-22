@@ -1,6 +1,6 @@
 # A.10. Tipe Data
 
-Go mengenal beberapa jenis tipe data, diantaranya adalah tipe data numerik (desimal & non-desimal), string, dan boolean.
+Go mengenal beberapa jenis tipe data, di antaranya adalah tipe data numerik (desimal & non-desimal), string, dan boolean.
 
 Pada pembahasan-pembahasan sebelumnya secara tak sadar kita sudah mengaplikasikan beberapa tipe data, seperti `string` dan tipe numerik `int`.
 
@@ -81,7 +81,7 @@ var message string = "Halo"
 fmt.Printf("message: %s \n", message)
 ```
 
-Selain menggunakan tanda quote, deklarasi string juga bisa dengan tanda *grave accent/backticks* (<code>`</code>), tanda ini terletak di sebelah kiri tombol 1. Keistimewaan string yang dideklarasikan menggunakan backtics adalah membuat semua karakter didalamnya **tidak di escape**, termasuk `\n`, tanda petik dua dan tanda petik satu, baris baru, dan lainnya. Semua akan terdeteksi sebagai string.
+Selain menggunakan tanda quote, deklarasi string juga bisa dengan tanda *grave accent/backticks* (<code>`</code>), tanda ini terletak di sebelah kiri tombol 1. Keistimewaan string yang dideklarasikan menggunakan backtics adalah membuat semua karakter di dalamnya **tidak di escape**, termasuk `\n`, tanda petik dua dan tanda petik satu, baris baru, dan lainnya. Semua akan terdeteksi sebagai string.
 
 ```go
 var message = `Nama saya "John Wick".
@@ -106,7 +106,7 @@ Semua tipe data yang sudah dibahas di atas memiliki zero value (nilai default ti
  - Zero value dari tipe numerik non-desimal adalah `0`.
  - Zero value dari tipe numerik desimal adalah `0.0`.
 
-Zero value berbeda dengan `nil`. `Nil` adalah nilai kosong, benar-benar kosong. `nil` tidak bisa digunakan pada tipe data yang sudah dibahas di atas. Ada beberapa tipe data yang bisa di-set nilainya dengan `nil`, diantaranya:
+Zero value berbeda dengan `nil`. `Nil` adalah nilai kosong, benar-benar kosong. `nil` tidak bisa digunakan pada tipe data yang sudah dibahas di atas. Ada beberapa tipe data yang bisa di-set nilainya dengan `nil`, di antaranya:
 
 - pointer
 - tipe data fungsi

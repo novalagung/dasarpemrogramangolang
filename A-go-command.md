@@ -2,7 +2,7 @@
 
 Pengembangan aplikasi Go tak jauh dari hal-hal yang berbau CLI atau *Command Line Interface*. Proses inisalisasi projek, kompilasi, testing, eksekusi program, semuanya dilakukan lewat command line.
 
-Go menyediakan command `go`, dan pada chapter ini kita akan mempelajari beberapa diantaranya.
+Go menyediakan command `go`, dan pada chapter ini kita akan mempelajari beberapa di antaranya.
 
 > Pada pembelajaran chapter ini, pembaca tidak harus praktek, cukup pelajari saja untuk tahu. Mengenai praktek sendiri akan dimulai pada chapter selanjutnya, yaitu [A.7. Program Pertama: Hello World](/A-hello-world.html).
 
@@ -86,7 +86,7 @@ dir
 
 ![Download package menggunakan `go get`](images/A_go_command_6_go_get.png)
 
-Pada contoh di atas, `github.com/segmentio/kafka-go` adalah URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder dimana *command* `go get` dieksekusi, menjadikan projek tersebut bisa meng-*import* package terunduh.
+Pada contoh di atas, `github.com/segmentio/kafka-go` adalah URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder di mana *command* `go get` dieksekusi, menjadikan projek tersebut bisa meng-*import* package terunduh.
 
 Untuk mengunduh dependensi versi terbaru, gunakan flag `-u` pada command `go get`, misalnya:
 

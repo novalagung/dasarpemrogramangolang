@@ -1,6 +1,6 @@
 # A.52. URL Parsing
 
-Data string url bisa dikonversi kedalam bentuk `url.URL`. Dengan menggunakan tipe tersebut akan ada banyak informasi yang bisa kita manfaatkan, diantaranya adalah jenis protokol yang digunakan, path yang diakses, query, dan lainnya.
+Data string url bisa dikonversi ke dalam bentuk `url.URL`. Dengan menggunakan tipe tersebut akan ada banyak informasi yang bisa kita manfaatkan, di antaranya adalah jenis protokol yang digunakan, path yang diakses, query, dan lainnya.
 
 Berikut adalah contoh sederhana konversi string ke `url.URL`.
 

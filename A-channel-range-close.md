@@ -2,7 +2,7 @@
 
 Proses *retrieving* data dari banyak channel bisa lebih mudah dilakukan dengan memanfaatkan kombinasi keyword `for` - `range`.
 
-`for` - `range` jika diterapkan pada channel berfungsi untuk handle penerimaan data. Setiap kali ada pengiriman data via channel, maka akan men-trigger perulangan `for` - `range`. Perulangan akan berlangsung terus-menerus seiring pengiriman data ke channel yang dipergunakan. Dan perulangan hanya akan berhenti jika channel yang digunakan tersebut di **close** atau di-non-aktifkan. Fungsi `close` digunakan utuk me-non-aktifkan channel.
+`for` - `range` jika diterapkan pada channel berfungsi untuk handle penerimaan data. Setiap kali ada pengiriman data via channel, maka akan men-trigger perulangan `for` - `range`. Perulangan akan berlangsung terus-menerus seiring pengiriman data ke channel yang dipergunakan. Dan perulangan hanya akan berhenti jika channel yang digunakan tersebut di **close** atau di non-aktifkan. Fungsi `close` digunakan utuk me-non-aktifkan channel.
 
 Channel yang sudah di-close tidak bisa digunakan lagi baik untuk menerima data ataupun untuk mengirim data, itulah mengapa perulangan `for` - `range` juga berhenti.
 
@@ -10,7 +10,7 @@ Channel yang sudah di-close tidak bisa digunakan lagi baik untuk menerima data a
 
 Berikut adalah contoh program menggunakan `for` - `range` untuk menerima data dari channel.
 
-Ok, pertama siapkan fungsi `sendMessage()` yang tugasnya mengirim data via channel. Didalam fungsi ini dijalankan perulangan sebanyak 20 kali, ditiap perulangannya data dikirim ke channel. Channel di-close setelah semua data selesai dikirim.
+Ok, pertama siapkan fungsi `sendMessage()` yang tugasnya mengirim data via channel. Di dalam fungsi ini dijalankan perulangan sebanyak 20 kali, ditiap perulangannya data dikirim ke channel. Channel di-close setelah semua data selesai dikirim.
 
 ```go
 func sendMessage(ch chan<- string) {
@@ -21,7 +21,7 @@ func sendMessage(ch chan<- string) {
 }
 ```
 
-Siapkan juga fungsi `printMessage()` untuk handle penerimaan data. Didalam fungsi tersebut, channel di-looping menggunakan `for` - `range`. Di tiap looping, data yang diterima dari channel ditampilkan.
+Siapkan juga fungsi `printMessage()` untuk handle penerimaan data. Di dalam fungsi tersebut, channel di-looping menggunakan `for` - `range`. Di tiap looping, data yang diterima dari channel ditampilkan.
 
 ```go
 func printMessage(ch <-chan string) {

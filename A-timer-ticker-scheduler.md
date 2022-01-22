@@ -4,7 +4,7 @@ Ada beberapa fungsi dalam package `time` yang bisa dimanfaatkan untuk menunda at
 
 ## A.41.1. Fungsi `time.Sleep()`
 
-Fungsi ini digunakan untuk menghentikan program sejenak. `time.Sleep()` bersifat **blocking**, statement dibawahnya tidak akan dieksekusi sampai pemberhentian usai. Contoh sederhana penerapan bisa dilihat pada kode berikut.
+Fungsi ini digunakan untuk menghentikan program sejenak. `time.Sleep()` bersifat **blocking**, statement di bawahnya tidak akan dieksekusi sampai pemberhentian usai. Contoh sederhana penerapan bisa dilihat pada kode berikut.
 
 ```go
 package main
@@ -70,12 +70,12 @@ fmt.Println("finish")
 
 Hasil dari kode di atas, tulisan `"start"` muncul kemudian setelah 4 detik berlalu, tulisan `"expired"` muncul.
 
-Didalam callback terdapat proses transfer data lewat channel, menjadikan tulisan `"finish"` akan muncul tepat setelah tulisan `"expired"` muncul.
+Di dalam callback terdapat proses transfer data lewat channel, menjadikan tulisan `"finish"` akan muncul tepat setelah tulisan `"expired"` muncul.
 
 Beberapa hal yang perlu diketahui dalam menggunakan fungsi ini:
 
  - Jika tidak ada serah terima data lewat channel, maka eksekusi `time.AfterFunc()` adalah asynchronous (tidak blocking).
- - Jika ada serah terima data lewat channel, maka fungsi akan tetap berjalan asynchronous hingga baris kode dimana penerimaan data channel dilakukan. Proses blocking nya berada pada baris kode penerimaan channel.
+ - Jika ada serah terima data lewat channel, maka fungsi akan tetap berjalan asynchronous hingga baris kode di mana penerimaan data channel dilakukan. Proses blocking nya berada pada baris kode penerimaan channel.
 
 ## A.41.5. Fungsi `time.After()`
 
@@ -90,7 +90,7 @@ Tulisan `"expired"` akan muncul setelah 4 detik.
 
 ## A.41.6. Scheduler Menggunakan Ticker
 
-Selain fungsi-fungsi untuk keperluan timer, Go juga menyediakan fungsi scheduler (yang disini kita sebut sebagai ticker).
+Selain fungsi-fungsi untuk keperluan timer, Go juga menyediakan fungsi scheduler (yang di sini kita sebut sebagai ticker).
 
 Cara penggunaan ticker cukup mudah, buat objek ticker baru menggunakan `time.NewTicker()` isi argument dengan durasi yang diinginkan. Dari objek tersebut kita bisa akses properti `.C` yang merupakan channel. Setiap durasi yang sudah ditentukan, objek ticker akan mengirimkan informasi date-time via channel tersebut.
 
@@ -126,7 +126,7 @@ func main() {
 
 Pada contoh di atas bisa dilihat, selain ticker disiapkan juga variabel channel `done`. Variabel ini kita gunakan untuk mengontrol kapan ticker harus di stop.
 
-Cara kerja program di atas: teknik `for` - `select` pada channel digunakan untuk mengecek penerimaan data dari channel `done` dan `ticker.C`. By default, channel `ticker.C` akan menerima kiriman data setiap N duration yang dimana pada kode di atas adalah 1 detik (lihat argumen inisialisasi objek ticker).
+Cara kerja program di atas: teknik `for` - `select` pada channel digunakan untuk mengecek penerimaan data dari channel `done` dan `ticker.C`. By default, channel `ticker.C` akan menerima kiriman data setiap N duration yang di mana pada kode di atas adalah 1 detik (lihat argumen inisialisasi objek ticker).
 
 Data yang dikirimkan via channel `ticker.C` adalah data date-time kapan event itu terjadi. Pada kode di atas, setiap ada kiriman data via channel tersebut kita tampilkan.
 

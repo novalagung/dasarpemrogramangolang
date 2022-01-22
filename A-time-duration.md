@@ -44,7 +44,7 @@ Ada beberapa *predefined* konstanta durasi yang perlu kita ketahui:
 - `time.Minute` yang nilainya adalah `1000000000000`, atau `1000` x `time.Second`
 - `time.Hour` yang nilainya adalah `1000000000000000`, atau `1000` x `time.Minute`
 
-Dari list di atas bisa dicontohkan bahwa sebuah data dengan tipe `time.Duration` yang nilainya `1`, maka artinya durasi adalah **1 nanosecond**.
+Dari list di atas bisa di contohkan bahwa sebuah data dengan tipe `time.Duration` yang nilainya `1`, maka artinya durasi adalah **1 nanosecond**.
 
 Kembali ke pembahasan fungsi `time.Sleep()`, fungsi ini membutuhkan argumen/parameter durasi dalam bentuk `time.Duration`. Misalnya saya tulis `time.Sleep(1)` maka yang terjadi adalah, waktu statement tersebut hanya akan menghentikan proses selama **1 nanosecond** saja. Jika ingin menghentikan selama 1 detik, maka harus ditulis `time.Sleep(1000000000)`. Nah daripada menulis angka sepanjang itu, cukup saja tulis dengan `1 * time.Second`, artinya adalah 1 detik. Cukup mudah bukan.
 
@@ -54,7 +54,7 @@ Sekarang jalankan program yang sudah dibuat.
 
 ![Time Duration](images/A_time_duration_1.png)
 
-Bisa dilihat, hasilnya adalah semua statement dibawah `time.Sleep()` dieksekusi setelah 5 detik berlalu. Ini merupakan contoh penggunaan tipe data durasi pada fungsi `time.Sleep()`.
+Bisa dilihat, hasilnya adalah semua statement di bawah `time.Sleep()` dieksekusi setelah 5 detik berlalu. Ini merupakan contoh penggunaan tipe data durasi pada fungsi `time.Sleep()`.
 
 ## A.42.2. Kalkulasi Durasi Menggunakan `time.Since()`.
 

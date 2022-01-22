@@ -1,6 +1,6 @@
 # A.20. Fungsi Variadic
 
-Go mengadopsi konsep **variadic function** atau pembuatan fungsi dengan parameter sejenis yang tak terbatas. Maksud **tak terbatas** disini adalah jumlah parameter yang disisipkan ketika pemanggilan fungsi bisa berapa saja.
+Go mengadopsi konsep **variadic function** atau pembuatan fungsi dengan parameter sejenis yang tak terbatas. Maksud **tak terbatas** di sini adalah jumlah parameter yang disisipkan ketika pemanggilan fungsi bisa berapa saja.
 
 Parameter variadic memiliki sifat yang mirip dengan slice. Nilai dari parameter-parameter yang disisipkan bertipe data sama, dan ditampung oleh sebuah variabel saja. Cara pengaksesan tiap datanya juga sama, dengan menggunakan index.
 
@@ -103,7 +103,7 @@ var avg = calculate(numbers...)
 var avg = calculate(2, 4, 3, 5, 4, 3, 3, 5, 5, 3)
 ```
 
-Pada deklarasi parameter fungsi variadic, tanda 3 titik (`...`) dituliskan sebelum tipe data parameter. Sedangkan pada pemanggilan fungsi dengan menyisipkan parameter array, tanda tersebut dituliskan dibelakang variabelnya.
+Pada deklarasi parameter fungsi variadic, tanda 3 titik (`...`) dituliskan sebelum tipe data parameter. Sedangkan pada pemanggilan fungsi dengan menyisipkan parameter array, tanda tersebut dituliskan di belakang variabelnya.
 
 ## A.20.3. Fungsi Dengan Parameter Biasa & Variadic
 

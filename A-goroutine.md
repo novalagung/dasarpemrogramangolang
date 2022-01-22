@@ -12,7 +12,7 @@ Mulai chapter **A.29** ini hingga **A.34**, lalu dilanjut **A.56** dan **A.57**,
 
 ## A.30.1. Penerapan Goroutine
 
-Untuk menerapkan goroutine, proses yang akan dieksekusi sebagai goroutine harus dibungkus kedalam sebuah fungsi. Pada saat pemanggilan fungsi tersebut, ditambahkan keyword `go` didepannya, dengan itu goroutine baru akan dibuat dengan tugas adalah menjalankan proses yang ada dalam fungsi tersebut.
+Untuk menerapkan goroutine, proses yang akan dieksekusi sebagai goroutine harus dibungkus ke dalam sebuah fungsi. Pada saat pemanggilan fungsi tersebut, ditambahkan keyword `go` di depannya, dengan itu goroutine baru akan dibuat dengan tugas adalah menjalankan proses yang ada dalam fungsi tersebut.
 
 Berikut merupakan contoh implementasi sederhana tentang goroutine. Program di bawah ini menampilkan 10 baris teks, 5 dieksekusi dengan cara biasa, dan 5 lainnya dieksekusi sebagai goroutine baru.
 

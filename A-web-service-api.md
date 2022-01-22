@@ -31,7 +31,7 @@ var data = []student{
 
 Struct `student` di atas digunakan sebagai tipe elemen slice sample data, ditampung variabel `data`.
 
-Selanjutnya buat fungsi `users()` untuk handle endpoint `/users`. Didalam fungsi tersebut ada proses deteksi jenis request lewat property `r.Method()`, untuk mencari tahu apakah jenis request adalah **POST** atau **GET** atau lainnya.
+Selanjutnya buat fungsi `users()` untuk handle endpoint `/users`. Di dalam fungsi tersebut ada proses deteksi jenis request lewat property `r.Method()`, untuk mencari tahu apakah jenis request adalah **POST** atau **GET** atau lainnya.
 
 ```go
 func users(w http.ResponseWriter, r *http.Request) {

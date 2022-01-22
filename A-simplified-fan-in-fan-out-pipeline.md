@@ -1,12 +1,12 @@
 # A.63. Concurrency Pattern: Simplified Fan-out Fan-in Pipeline
 
-Pada chapter sebelumnya, yaitu chapter [A.62. Concurrency Pattern: Pipeline](/A-concurrency-pipeline.html), kita telah mempelajari tentang pipeline pattern, yang dimana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-*handle* jenis kasus sekarangkain proses yang berjalan secara konkuren.
+Pada chapter sebelumnya, yaitu chapter [A.62. Concurrency Pattern: Pipeline](/A-concurrency-pipeline.html), kita telah mempelajari tentang pipeline pattern, yang di mana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-*handle* jenis kasus sekarangkain proses yang berjalan secara konkuren.
 
 > Penulis sangat anjurkan untuk mencoba mempelajari praktek chapter sebelumnya terlebih dahulu jika belum. Karena chapter kali ini ada hubungannya dengan chapter tersebut.
 
 Pada chapter ini kita akan mempelajari concurrency pattern juga, lanjutan dari sebelumnya. Pada versi ini kalau dilihat dari perspektif coding penerapannya akan lebih ringkas. Tapi apakah lebih mudah dan lebih *performant* dibanding penerapan pipeline sebelumnya? Jawabannya sangat tergantung dengan kasus yang dihadapi, tergantung spesifikasi hardware-nya juga, dan mungkin juga tergantung dengan taste dari si engineer pembuat program.
 
-Perbedaannya sebenarnya hanya pada bagian Fan-out Fan-in nya saja. Disini (hampir) semua pipeline isinya adalah gabungan dari Fan-out dan juga Fan-in. Jadi kita tidak perlu report *merge*. Dan juga beda lainnya adalah, jumlah worker bisa kita tentukan sesuai kebutuhan (*parameterized*).
+Perbedaannya sebenarnya hanya pada bagian Fan-out Fan-in nya saja. Di sini (hampir) semua pipeline isinya adalah gabungan dari Fan-out dan juga Fan-in. Jadi kita tidak perlu report *merge*. Dan juga beda lainnya adalah, jumlah worker bisa kita tentukan sesuai kebutuhan (*parameterized*).
 
 Ok, agar lebih jelas mari kita mulai praktek.
 
@@ -16,7 +16,7 @@ Kita akan modifikasi file program `1-dummy-file-generator.go` yang pada chapter 
 
 ## A.63.2. Program Generate Dummy File *Sequentially*
 
-Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi sekuensialnya. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan merujuk ke chapter sebelumnya saja, disini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
+Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi sekuensialnya. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan merujuk ke chapter sebelumnya saja, di sini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
 
 Siapkan folder projek baru, isinya satu buah file `1-generate-dummy-files-sequentially.go`.
 
@@ -97,7 +97,7 @@ func generateFiles() {
 }
 ```
 
-Pada bagian fungsi `generateFiles()` kali ini sedikit berbeda dibanding sebelumnya. Disini log `file created` tidak ditampilkan per seratus data, melainkan setiap file sukses dibuat. Ini memang akan berpengaruh ke performa, tapi diperlukan untuk perbandingan antara file-file yang di-generate secara sekuensial vs file-file yang di-generate secara konkuren.
+Pada bagian fungsi `generateFiles()` kali ini sedikit berbeda dibanding sebelumnya. Di sini log `file created` tidak ditampilkan per seratus data, melainkan setiap file sukses dibuat. Ini memang akan berpengaruh ke performa, tapi diperlukan untuk perbandingan antara file-file yang di-generate secara sekuensial vs file-file yang di-generate secara konkuren.
 
 Kita lanjut dulu saja. Berikut adalah output jika program di atas di-run.
 
@@ -219,13 +219,13 @@ Isi fungsi generate files ini secara garis besar ada 3:
 
 Fungsi `generateFileIndexes()` nantinya akan mengembalikan channel `chanFileIndex` yang fungsi dari channel ini adalah untuk media komunikasi antara proses dalam fungsi `generateFileIndexes()` (yaitu distribusi jobs) dengan proses dalam fungsi selanjutnya yaitu `createFiles()`.
 
-Fungsi `createFiles()` disini merupakan fungsi **Fan-out Fan-in** karena menerima parameter channel pipeline sebelumnya, lalu kemudian min-dispatch goroutine worker dan menge-track output dari masing-masing worker ke channel output. Jadi fungsi `createFiles()` ini merupakan gabungan dari fungsi Fan-out dan Fan-in (proses merge channel output dari Fan-out juga ada di dalam fungsi tersebut).
+Fungsi `createFiles()` di sini merupakan fungsi **Fan-out Fan-in** karena menerima parameter channel pipeline sebelumnya, lalu kemudian min-dispatch goroutine worker dan menge-track output dari masing-masing worker ke channel output. Jadi fungsi `createFiles()` ini merupakan gabungan dari fungsi Fan-out dan Fan-in (proses merge channel output dari Fan-out juga ada di dalam fungsi tersebut).
 
 Fungsi `createFiles()` menghasilkan channel yang isinya merupakan result dari operasi tiap-tiap jobs. Dari data yang dilewatkan via channel tersebut akan ketahuan misal ada error atau tidak saat pembuatan files. Channel tersebut kemudian di-loop lalu ditampilkan tiap-tiap result-nya.
 
 #### • Fungsi `generateFileIndexes()`
 
-Fungsi ini merupakan fungsi Fan-out distribusi jobs. Didalamnya dilakukan perulangan sejumlah `totalFile`, kemudian data tiap index digunakan untuk pembentukan filename lalu dikirim ke channel outputnya.
+Fungsi ini merupakan fungsi Fan-out distribusi jobs. Di dalamnya dilakukan perulangan sejumlah `totalFile`, kemudian data tiap index digunakan untuk pembentukan filename lalu dikirim ke channel outputnya.
 
 ```go
 func generateFileIndexes() <-chan FileInfo {
@@ -307,7 +307,7 @@ func createFiles(chanIn <-chan FileInfo, numberOfWorkers int) <-chan FileInfo {
 
 Penjelasan:
 
-1. Pertama-tama, kita siapkan `chanOut` yang merupakan channel output Fan-in dari worker-worker yang ada. Channel ini langsung dijadikan nilai balik fungsi `createFiles()`. Saya gunakan kata **langsung** disitu karena semua proses lainnya selain deklarasi channel dan waitgroup - adalah berjalan secara asynchronous via goroutine.
+1. Pertama-tama, kita siapkan `chanOut` yang merupakan channel output Fan-in dari worker-worker yang ada. Channel ini langsung dijadikan nilai balik fungsi `createFiles()`. Saya gunakan kata **langsung** di situ karena semua proses lainnya selain deklarasi channel dan waitgroup - adalah berjalan secara asynchronous via goroutine.
 2. Kemudian objek `sync.WaitGroup` didefinisikan, lalu di-*notify* bahwa akan ada sejumlah `numberOfWorkers` workers berjalan secara konkuren dan harus ditunggu. Jadi waitgroup ini untuk keperluan manajemen worker-nya.
 3. Jalankan goroutine yang isinya dispatch sejumlah `numberOfWorkers` workers. Karena pada bagian ini ada goroutine dalam perulangan, maka informasi perulangan yang akan digunakan di dalam goroutine harus dijadikan argumen eksekusi goroutine (dalam contoh ini `workerIndex`).
 4. Pantau channel `chanIn`, setiap ada job yg masuk maka kerjakan.

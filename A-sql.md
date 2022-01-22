@@ -2,14 +2,14 @@
 
 Go menyediakan package `database/sql` berisikan generic interface untuk keperluan interaksi dengan database sql. Package ini hanya bisa digunakan ketika **driver** database engine yang dipilih juga ada.
 
-Ada cukup banyak sql driver yang tersedia untuk Go, detailnya bisa diakses di [https://github.com/golang/go/wiki/SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers). Beberapa diantaranya:
+Ada cukup banyak sql driver yang tersedia untuk Go, detailnya bisa diakses di [https://github.com/golang/go/wiki/SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers). Beberapa di antaranya:
 
  - MySql
  - Oracle
  - MS Sql Server
  - dan lainnya
 
-Driver-driver tersebut merupakan project open source yang diinisiasi oleh komunitas di Github. Artinya kita selaku developer juga bisa ikut berkontribusi didalamnya.
+Driver-driver tersebut merupakan project open source yang diinisiasi oleh komunitas di Github. Artinya kita selaku developer juga bisa ikut berkontribusi di dalamnya.
 
 Pada chapter ini kita akan belajar bagaimana berkomunikasi dengan database MySQL menggunakan driver [Go MySQL Driver](https://github.com/go-sql-driver/mysql).
 
@@ -83,7 +83,7 @@ func connect() (*sql.DB, error) {
 
 Fungsi `sql.Open()` digunakan untuk memulai koneksi dengan database. Fungsi tersebut memiliki 2 parameter mandatory, nama driver dan **connection string**.
 
-Skema connection string untuk driver mysql yang kita gunakan cukup unik, `root@tcp(127.0.0.1:3306)/db_belajar_golang`. Dibawah ini merupakan skema connection string yang bisa digunakan pada driver Go MySQL Driver. Jika anda menggunakan driver mysql lain, skema koneksinya bisa saja berbeda tergantung driver yang digunakan.
+Skema connection string untuk driver mysql yang kita gunakan cukup unik, `root@tcp(127.0.0.1:3306)/db_belajar_golang`. Di bawah ini merupakan skema connection string yang bisa digunakan pada driver Go MySQL Driver. Jika anda menggunakan driver mysql lain, skema koneksinya bisa saja berbeda tergantung driver yang digunakan.
 ```
 user:password@tcp(host:port)/dbname
 user@tcp(host:port)/dbname
@@ -154,7 +154,7 @@ Selanjutnya, sebuah array dengan tipe elemen struct `student` disiapkan dengan n
 
 Kemudian dilakukan perulangan dengan acuan kondisi adalah `rows.Next()`. Perulangan dengan cara ini dilakukan sebanyak jumlah total record yang ada, berurutan dari record pertama hingga akhir, satu per satu.
 
-Method `Scan()` milik `sql.Rows` berfungsi untuk mengambil nilai record yang sedang diiterasi, untuk disimpan pada variabel pointer. Variabel yang digunakan untuk menyimpan field-field record dituliskan berurutan sebagai parameter variadic, sesuai dengan field yang di select pada query. Silakan lihat perbandingan dibawah ini unuk lebih jelasnya.
+Method `Scan()` milik `sql.Rows` berfungsi untuk mengambil nilai record yang sedang diiterasi, untuk disimpan pada variabel pointer. Variabel yang digunakan untuk menyimpan field-field record dituliskan berurutan sebagai parameter variadic, sesuai dengan field yang di select pada query. Silakan lihat perbandingan di bawah ini unuk lebih jelasnya.
 
 ```
 // query
