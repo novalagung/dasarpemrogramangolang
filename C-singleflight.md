@@ -2,7 +2,7 @@
 
 Pada chapter ini kita akan belajar tentang pengaplikasian singleflight API.
 
-Singleflight berguna untuk men-*suppress* atau menekan pemanggilan fungsi yang duplikat hanya menjadi 1 saja. Pemanggilan fungsi yang duplikat disini maksudnya adalah: blok fungsi atau statement yang dipanggil bersamaan oleh beberapa pengguna, dan pemanggilan tersebut menghasilkan output yang sama persis.
+Singleflight berguna untuk men-*suppress* atau menekan pemanggilan fungsi yang duplikat hanya menjadi 1 saja. Pemanggilan fungsi yang duplikat di sini maksudnya adalah: blok fungsi atau statement yang dipanggil bersamaan oleh beberapa pengguna, dan pemanggilan tersebut menghasilkan output yang sama persis.
 
 Satu contoh yang relevan dengan pemanggilan fungsi duplikat adalah proses *generate report*. Untuk aplikasi dengan dataset yang masif, pastinya proses pembuatan report butuh waktu lebih lama, tidak instan dan tidak bisa *realtime*.
 
@@ -16,7 +16,7 @@ Kita akan memulai pembelajaran dengan membuat 1 buah contoh program sederhana ya
 
 Siapkan sebuah web server API dengan isi satu buah router untuk method `GET` dengan endpoint path adalah `/api/report/download/{reportID}`.
 
-> Disini kita gunakan `reportID` sebagai unique identifier report. Umumnya report perlu lebih banyak parameter identifier seperti date filter dan filter lainnya. Tapi pada contoh berikut kita hanya akan pakai `reportID`.
+> Di sini kita gunakan `reportID` sebagai unique identifier report. Umumnya report perlu lebih banyak parameter identifier seperti date filter dan filter lainnya. Tapi pada contoh berikut kita hanya akan pakai `reportID`.
 
 Silakan gunakan router library yg cocok di hati. Pada contoh ini saya akan pakai [go-chi](https://github.com/go-chi/chi).
 
@@ -207,7 +207,7 @@ Pada kode di atas, kurang lebih modifikasi yang ditambahkan hanya membungkus kod
 
 Variabel `singleflightGroupDownloadReport` kita siapkan sebagai variabel global, yang berarti *shared* dan *accessible* pada setiap API call.
 
-Kegunaan `singleflightGroupDownloadReport.Do()` adalah semua statement yang berada didalamnya akan dipanggil 1x saja meskipun kode dipanggil banyak kali secara hampir bersamaan, dengan ketentuan data `key` yang disisipkan pada parameter pertama itu sama. Misalnya, jika ada 10 api call untuk generate report yang sama, `report-sales-2021-10.txt`, maka di sisi backend proses generate report hanya akan terjadi sekali.
+Kegunaan `singleflightGroupDownloadReport.Do()` adalah semua statement yang berada di dalamnya akan dipanggil 1x saja meskipun kode dipanggil banyak kali secara hampir bersamaan, dengan ketentuan data `key` yang disisipkan pada parameter pertama itu sama. Misalnya, jika ada 10 api call untuk generate report yang sama, `report-sales-2021-10.txt`, maka di sisi backend proses generate report hanya akan terjadi sekali.
 
 Melanjutkan pembahasan pada contoh yang dijelaskan, berarti dari 10 api call hanya 1 request yang benar-benar men-generate report. Lalu bagiamana dengan 9 api call yang lain. Yang terjadi adalah request yang lain juga akan menunggu hingga `singleflightGroupDownloadReport.Do()` selesai dieksekusi, hanya saja tanpa mengeksekusi kode di dalam `singleflightGroupDownloadReport.Do()`.
 
@@ -223,7 +223,7 @@ curl -s -w "elapsed: %{time_total}s\n" -i -X GET http://localhost:8080/api/repor
 
 Bisa dilihat pada gambar di atas, log `generate report report-sales....` hanya dipanggil sekali meskipun ada dua concurrent api call ke endpoint tersebut. Ini tandanya fungsi untuk generate `report-sales-2021-08.txt` di-suppress agar tidak redundant.
 
-Log setelahnya, yaitu `generation of report report-sales-2021-08.txt is shared with others` hanya akan muncul jika ada lebih dari satu api call yang hampir bersamaan di waktu proses singleflight sedang berjalan. Variabel `shared` disitu menandakan bahwa proses di-share di api call lainnya.
+Log setelahnya, yaitu `generation of report report-sales-2021-08.txt is shared with others` hanya akan muncul jika ada lebih dari satu api call yang hampir bersamaan di waktu proses singleflight sedang berjalan. Variabel `shared` di situ menandakan bahwa proses di-share di api call lainnya.
 
 Cukup berguna bukan? Dengan adahnya singleflight API ini, beban backend akan sedikit diringankan. Proses yang sifatnya duplikat hanya akan dijalankan 1 saja dengan tanpa merusak flow proses.
 

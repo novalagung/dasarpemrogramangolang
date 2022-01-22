@@ -30,7 +30,7 @@ SAML adalah standar yang paling banyak digunakan dalam platform berbentuk layana
 
 Dalam SAML, ada 3 buah role penting:
 
-1. Manusia atau pengguna aplikasi (disini kita sebut sebagai *principal*)
+1. Manusia atau pengguna aplikasi (di sini kita sebut sebagai *principal*)
 2. Penyedia Layanan atau SP, contohnya seperti: Gmail, Youtube, GCP
 3. Penyedia Identitas atau IDP, contoh: Google sendiri
 
@@ -52,7 +52,7 @@ http://ngemail.com/ngirimemailsaiki
 
 Yang terjadi ketika user browser website tersebut, si SP (dalam konteks ini **ngemail**) melakukan pengecekan ijin akses (disebut security context), apakah user ini sudah login atau belum. Karena belum login maka user diarahkan ke halaman otentikasi SSO.
 
-> Target resource disini yang dimaksud adalah http://ngemail.com/ngirimemailsaiki
+> Target resource di sini yang dimaksud adalah http://ngemail.com/ngirimemailsaiki
 
 #### 2. SP merespon dengan URL untuk SSO login di IDP
 
@@ -124,7 +124,7 @@ SP memiliki metadata, IDP juga punya. Nantinya kedua entitas ini akan bertukar m
 
 Metadata diperlukan secara *mandatory* dalam operasi dan komunikasi antar SP dan IDP. Salah satu contoh kegunaannya bisa dilihat pada proses otentikasi. Informasi yang dikirim dari SP yang jelasnya ter-enkripsi, maka untuk bisa dibaca di sisi IDP, perlu untuk di-decrypt terlebih dahulu, hal ini membuat IDP wajib untuk tau public key yang digunakan oleh SP. Nah, dengan adanya pertukaran metadata, IDP akan tau key milik SP
 
-> Metadata berisi informasi penting. Diantaranya adalah entity ID, key pair, protocol endpoints, dan lainnya.
+> Metadata berisi informasi penting. Di antaranya adalah entity ID, key pair, protocol endpoints, dan lainnya.
 
 ![Metadata share](https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/SAML_Web_Browser_SSO_With_Static_Metadata.png/440px-SAML_Web_Browser_SSO_With_Static_Metadata.png)
 
@@ -136,9 +136,9 @@ Ok, lanjut ke bagian praktek.
 
 Sebelum masuk praktek, ada beberapa hal yang perlu penulis infokan. Yang akan kita praktekan adalah membuat entitas SP. Untuk IDP nya kita gunakan layanan IDP gratis dari samltest.id, untuk keperluan testing.
 
-Disini kita gunakan library https://github.com/crewjam/saml untuk mempermudah proses kodingnya. Pastikan menggunakan rilis v0.4.0 atau minimal revisi #861266e.
+Di sini kita gunakan library https://github.com/crewjam/saml untuk mempermudah proses kodingnya. Pastikan menggunakan rilis v0.4.0 atau minimal revisi #861266e.
 
-Silakan buat 1 projek baru, lalu didalamnya generate *self-signed X.509 key pair* dengan menggunakan command berikut. Key pair ini diperlukan oleh SP dalam melakukan komunikasi dengan IDP.
+Silakan buat 1 projek baru, lalu di dalamnya generate *self-signed X.509 key pair* dengan menggunakan command berikut. Key pair ini diperlukan oleh SP dalam melakukan komunikasi dengan IDP.
 
 ```bash
 mkdir chapter-c34
@@ -272,7 +272,7 @@ http.ListenAndServe(portString, nil)
 go run *.go
 ```
 
-Oops, muncul error pada saat mengakses `http://localhost:9000/index`. Meski url ini merupakan protected url, yang dimana hanya bisa diakses ketika sudah login, harusnya user akan di-redirect ke halaman login, bukan malah memunculkan error.
+Oops, muncul error pada saat mengakses `http://localhost:9000/index`. Meski url ini merupakan protected url, yang di mana hanya bisa diakses ketika sudah login, harusnya user akan di-redirect ke halaman login, bukan malah memunculkan error.
 
 ![Metadata share](images/C_golang_sso_saml_sp_1_saml_metadata_missing.png)
 

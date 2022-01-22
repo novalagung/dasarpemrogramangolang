@@ -98,7 +98,7 @@ Isi dengan `-1` agar expired, lalu simpan ulang kembali session-nya.
 
 ## C.13.5. Session Store dan Context Clear Handler
 
-Session Store adalah representasi dari media tempat dimana data asli session disimpan. Gorilla menyediakan `CookieStore`, penyimpanan data asli pada store ini adalah juga di dalam cookie, namun di-encode dan di-enkripsi menggunakan [Securecookie](https://github.com/gorilla/securecookie).
+Session Store adalah representasi dari media tempat di mana data asli session disimpan. Gorilla menyediakan `CookieStore`, penyimpanan data asli pada store ini adalah juga di dalam cookie, namun di-encode dan di-enkripsi menggunakan [Securecookie](https://github.com/gorilla/securecookie).
 
 Selain CookieStore, ada banyak store lain yang bisa kita gunakan. Komunitas begitu baik telah menyediakan berbagai macam store berikut.
 

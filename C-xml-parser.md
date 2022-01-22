@@ -37,7 +37,7 @@ Mari langsung kita praktekan, siapkan folder projek baru. Buat satu buah file `d
 
 Silakan perhatikan xml di atas, akan kita ambil semua element `article` beserta isinya, untuk kemudian ditampung dalam slice.
 
-Buat file main, didalamnya, buat objek dokumen bertipe `etree.Document` lewat fungsi `etree.NewDocument()`. Dari objek tersebut, baca file xml yang sudah dibuat, gunakan method `.ReadFromFile()` untuk melakukan proses baca file.
+Buat file main, di dalamnya, buat objek dokumen bertipe `etree.Document` lewat fungsi `etree.NewDocument()`. Dari objek tersebut, baca file xml yang sudah dibuat, gunakan method `.ReadFromFile()` untuk melakukan proses baca file.
 
 ```go
 package main
@@ -85,7 +85,7 @@ for _, article := range root.FindElements("//article") {
 }
 ```
 
-Objek element menyediakan beberapa method untuk keperluan seleksi dan pencarian element. Empat diantaranya sebagai berikut.
+Objek element menyediakan beberapa method untuk keperluan seleksi dan pencarian element. Empat di antaranya sebagai berikut.
 
  - Method `.SelectElement()`, untuk mengambil satu buah child element sesuai selector.
  - Method `.SelectElements()`, sama seperti `.SelectElement()`, perbedannya yang dikembalikan adalah semua child elements (sesuai selector).
@@ -228,7 +228,7 @@ Method `.CreateElement()` digunakan untuk membuat child element baru. Pemanggila
 
 Method `.SetText()` digunakan untuk menge-set nilai element.
 
-Siapkan satu element lagi dibawah root, namanya `contents`. Loop objek slice artikel, dan di tiap perulangannya, buat element dengan nama `article`, sisipkan sebagai child `contents`.
+Siapkan satu element lagi di bawah root, namanya `contents`. Loop objek slice artikel, dan di tiap perulangannya, buat element dengan nama `article`, sisipkan sebagai child `contents`.
 
 ```go
 content := website.CreateElement("contents")

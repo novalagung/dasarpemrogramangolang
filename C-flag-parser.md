@@ -222,7 +222,7 @@ OK, sekarang buat 3 command sesuai skema yang sudah disepakati di atas.
     String()
   ```
 
-Buat fungsi main, lalu didalamnya siapkan action untuk masing-masing command. Gunakan method `.Action()` dengan parameter adalah fungsi ber-skema `func(*kingpin.ParseContext)error` untuk menambahkan action.
+Buat fungsi main, lalu di dalamnya siapkan action untuk masing-masing command. Gunakan method `.Action()` dengan parameter adalah fungsi ber-skema `func(*kingpin.ParseContext)error` untuk menambahkan action.
 
 Di akhir, tulis statement untuk parsing.
 

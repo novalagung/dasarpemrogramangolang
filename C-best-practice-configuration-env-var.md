@@ -6,7 +6,7 @@ Pada bagian ini kita akan mempelajari penerapan konfigurasi pada *environment va
 
 *Environment variable* merupakan variabel yang berada di lapisan *runtime* sistem operasi. Karena *env var* atau *environment variable* merupakan variabel seperti pada umumnya, maka kita bisa melakukan operasi seperti mengubah nilainya atau mengambil nilainya.
 
-Salah satu *env var* yang mungkin sering temen-temen temui adalah `PATH`. `PATH` sendiri merupakan variabel yang digunakan oleh sistem operasi untuk men-*specify* direktori tempat dimana *binary* atau *executable* berada.
+Salah satu *env var* yang mungkin sering temen-temen temui adalah `PATH`. `PATH` sendiri merupakan variabel yang digunakan oleh sistem operasi untuk men-*specify* direktori tempat di mana *binary* atau *executable* berada.
 
 Default-nya, sistem operasi pasti mempunyai beberapa *env var* yang sudah ada tanpa kita set, salah satunya seperti `PATH` tadi, juga lainnya. Variabel-variabel tersebut digunakan oleh sistem operasi untuk keperluan mereka. Tapi karena variabel juga bisa diakses oleh kita (selaku developer), maka kita pun juga bisa mempergunakannya untuk kebutuhan tertentu.
 
@@ -54,7 +54,7 @@ func main() {
 }
 ```
 
-Pada bagian main, tepat dibawah *statement* pembuatan objek `echo`, ambil nilai konfigurasi nama aplikasi dari *env var*. Caranya kurang lebih seperti berikut.
+Pada bagian main, tepat di bawah *statement* pembuatan objek `echo`, ambil nilai konfigurasi nama aplikasi dari *env var*. Caranya kurang lebih seperti berikut.
 
 ```go
 confAppName := os.Getenv("APP_NAME")
@@ -63,7 +63,7 @@ if confAppName == "" {
 }
 ```
 
-Jadi `APP_NAME` disitu merupakan nama *env var*-nya. Umumnya env var tidak dituliskan dalam bentuk `camelCase`, tapi dalam bentuk `UPPERCASE` dengan separator kata adalah underscore. Untuk *value*-nya nanti tinggal kita siapkan saja sebelum proses eksekusi program.
+Jadi `APP_NAME` di situ merupakan nama *env var*-nya. Umumnya env var tidak dituliskan dalam bentuk `camelCase`, tapi dalam bentuk `UPPERCASE` dengan separator kata adalah underscore. Untuk *value*-nya nanti tinggal kita siapkan saja sebelum proses eksekusi program.
 
 > `man bash`:<br />name A word consisting only of alphanumeric characters and underscores, and beginning with an alphabetic character or an underscore. Also referred to as an identifier.
 

@@ -8,7 +8,7 @@ Go menyediakan package [golang.org/x/crypto/ssh](https://godoc.org/golang.org/x/
 
 ## C.29.1. Otentikasi SSH
 
-Buat folder projek baru, isinya file `main.go`, didalamnya tulis kode berikut.
+Buat folder projek baru, isinya file `main.go`, di dalamnya tulis kode berikut.
 
 ```go
 package main
@@ -227,7 +227,7 @@ if err != nil {
 }
 ```
 
-Kita akan menggunakan sample file di lokal untuk ditransfer ke server. Mekanisme-nya sama seperti pada transfer file via ftp, yaitu dengan menyiapkan file kosong di sisi server, lalu meng-copy isi file di lokal ke file di server tersebut.
+Kita akan menggunakan sample file di lokal untuk di transfer ke server. Mekanisme-nya sama seperti pada transfer file via ftp, yaitu dengan menyiapkan file kosong di sisi server, lalu meng-copy isi file di lokal ke file di server tersebut.
 
 OK, siapkan file tujuan transfer terlebih dahulu.
 

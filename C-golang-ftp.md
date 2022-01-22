@@ -245,7 +245,7 @@ Coba buka `downloaded-movie.mp4`, jika proses transfer sukses maka pasti bisa di
 
 ## C.28.7. Upload File
 
-Upload file adalah kebalikan dari download file. File dari lokal ditransfer ke server. Mari langsung kita praktekan.
+Upload file adalah kebalikan dari download file. File dari lokal di transfer ke server. Mari langsung kita praktekan.
 
 Pertama buka file tujuan menggunakan `os.Open()`. Lalu panggil method `.Store()` milik `conn`, sisipkan path file tujuan remote server sebagai parameter pertama, lalu objek file di local sebagai parameter kedua.
 

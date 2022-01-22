@@ -57,7 +57,7 @@ Di dalam fungsi main bisa dilihat, fungsi `sendMail()` dipanggil untuk mengirim 
 
 Konstanta `CONFIG_SENDER_NAME` isinya dipergunakan sebagai label header pengirim email. Bisa di-isi dengan label apapun.
 
-> Disini `CONFIG_SENDER_NAME` perannya hanya sebagai label header pengirim email saja. Untuk email otentikasi dengan SMTP server sendiri yang dipergunakan adalah `CONFIG_AUTH_EMAIL`.
+> Di sini `CONFIG_SENDER_NAME` perannya hanya sebagai label header pengirim email saja. Untuk email otentikasi dengan SMTP server sendiri yang dipergunakan adalah `CONFIG_AUTH_EMAIL`.
 
 OK, selanjutnya buat fungsi `sendMail()` berikut.
 

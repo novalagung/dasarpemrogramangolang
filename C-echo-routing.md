@@ -6,9 +6,9 @@ Mulai chapter **C1** hingga **C6** kita akan mempelajari banyak aspek dalam fram
 
 # C.3.1 Echo Framework
 
-Echo adalah framework bahasa golang untuk pengembangan aplikasi web. Framework ini cukup terkenal di komunitas. Echo merupakan framework besar, didalamnya terdapat banyak sekali dependensi.
+Echo adalah framework bahasa golang untuk pengembangan aplikasi web. Framework ini cukup terkenal di komunitas. Echo merupakan framework besar, di dalamnya terdapat banyak sekali dependensi.
 
-Salah satu dependensi yang ada didalamnya adalah router, dan pada chapter ini kita akan mempelajarinya.
+Salah satu dependensi yang ada di dalamnya adalah router, dan pada chapter ini kita akan mempelajarinya.
 
 Dari banyak routing library yang sudah penulis gunakan, hampir kesemuanya mempunyai kemiripan dalam hal penggunaannya, cukup panggil fungsi/method yang dipilih (biasanya namanya sama dengan HTTP Method), lalu sisipkan rute pada parameter pertama dan handler pada parameter kedua.
 
@@ -60,7 +60,7 @@ Routing dengan memanfaatkan package `net/http` dalam penerapannya adalah menggun
 
 Statement `echo.New()` mengembalikan objek mux/router. Pada kode di atas rute `/` dengan method `GET` di-daftarkan. Selain `r.GET()` ada banyak lagi method lainnya, semua method dalam [spesifikasi REST](https://en.wikipedia.org/wiki/Representational_state_transfer) seperti PUT, POST, dan lainnya bisa digunakan.
 
-Handler dari method routing milik echo membutuhkan satu argument saja, dengan tipe adalah `echo.Context`. Dari argumen tersebut objek `http.ResponseWriter` dan `http.Request` bisa di-akses. Namun kedua objek tersebut akan jarang kita gunakan karena `echo.Context` memiliki banyak method yang beberapa tugasnya sudah meng-cover operasi umum yang biasanya kita lakukan lewat objek request dan response, diantara seperti: 
+Handler dari method routing milik echo membutuhkan satu argument saja, dengan tipe adalah `echo.Context`. Dari argumen tersebut objek `http.ResponseWriter` dan `http.Request` bisa di-akses. Namun kedua objek tersebut akan jarang kita gunakan karena `echo.Context` memiliki banyak method yang beberapa tugasnya sudah meng-cover operasi umum yang biasanya kita lakukan lewat objek request dan response, di antara seperti: 
 
  - Render output (dalam bentuk html, plain text, json, atau lainnya).
  - Parsing request data (json payload, form data, query string).
@@ -124,7 +124,7 @@ r.GET("/json", func(ctx echo.Context) error {
 
 ## C.3.4. Parsing Request
 
-Echo juga menyediakan beberapa method untuk keperluan parsing request, diantaranya:
+Echo juga menyediakan beberapa method untuk keperluan parsing request, di antaranya:
 
 #### • Parsing Query String
 

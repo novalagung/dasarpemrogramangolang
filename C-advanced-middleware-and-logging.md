@@ -98,7 +98,7 @@ Bisa dilihat, fungsi `middlewareSomething` tidak menggunakan skema middleware mi
 
 ## C.8.3. Echo Middleware: Logger
 
-Seperti yang sudah penulis jelaskan pada awal chapter B, bahwa echo merupakan framework besar, didalamnya terdapat banyak dependency dan library, salah satunya adalah logging middleware.
+Seperti yang sudah penulis jelaskan pada awal chapter B, bahwa echo merupakan framework besar, di dalamnya terdapat banyak dependency dan library, salah satunya adalah logging middleware.
 
 Cara menggunakan logging middleware (ataupun middleware lainnya milik echo) adalah dengan meng-import package `github.com/labstack/echo/middleware`, lalu panggil nama middleware nya. Lebih detailnya silakan baca dokumentasi echo mengenai middleware di https://echo.labstack.com/middleware.
 
