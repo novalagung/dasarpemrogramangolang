@@ -111,7 +111,7 @@ Objek request context bisa didapat lewat pengaksesan method `.Context()` milik `
 
 Pada kode di atas, jika context adalah `nil`, maka di-inisialisasi dengan context baru lewat `context.Background()`.
 
-Objek `ctx` yang merupakan `context.Context` disini kita tempeli data `from`. Cara melakukannya dengan memanggil statement `context.WithValue()` dengan disisipi 3 buah parameter.
+Objek `ctx` yang merupakan `context.Context` di sini kita tempeli data `from`. Cara melakukannya dengan memanggil statement `context.WithValue()` dengan disisipi 3 buah parameter.
 
  1. Parameter ke-1, isinya adalah objek context.
  2. Parameter ke-2, isinya key dari data yang akan disimpan.
@@ -157,7 +157,7 @@ mux.HandleFunc("/api/search", func(w http.ResponseWriter, r *http.Request) {
 })
 ```
 
-Proses pencarian dilakukan secara *asynchronous* lewat fungsi `doSearch()` yang nantinya akan kita buat. Pemanggilannya menggunakan keyword `go` dan disisipkan beberapa parameter yang dua diantaranya bertipe channel.
+Proses pencarian dilakukan secara *asynchronous* lewat fungsi `doSearch()` yang nantinya akan kita buat. Pemanggilannya menggunakan keyword `go` dan disisipkan beberapa parameter yang dua di antaranya bertipe channel.
 
  - Channel `chanRes`, digunakan jika proses pencarian sukses. Data hasil pencarian dilempar ke main routine lewat channel ini, untuk kemudian diteruskan sebagai response endpoint
  - Channel `chanErr`, digunakan untuk pass objek error, jika memang terjadi error.
