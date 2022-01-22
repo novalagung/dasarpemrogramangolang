@@ -7,7 +7,7 @@ Dalam Go, routing bisa dilakukan dengan beberapa cara, di antaranya:
  3. Membuat multiplexer sendiri dengan memanfaatkan struct `http.ServeMux`
  4. Dan lainnya
 
-Pada buku ini, kesemua cara tersebut akan dibahas, namun khusus pada chapter ini saja, hanya `http.HandleFunc()` yang kita pelajari.
+Pada buku ini, semua cara tersebut akan dibahas, namun khusus pada chapter ini saja, hanya `http.HandleFunc()` yang kita pelajari.
 
 > Metode routing cara pertama dan cara kedua memiliki kesamaan yaitu sama-sama menggunakan `DefaultServeMux` untuk pencocokan rute/endpoint yang diregistrasikan. Mengenai apa itu `DefaultServeMux` akan kita bahas lebih mendetail pada chapter lain.
 

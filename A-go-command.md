@@ -43,7 +43,7 @@ go run main.go library.go
 
 ## A.6.3. Command `go test`
 
-Go menyediakan package `testing`, berguna untuk keperluan unit test. File yang akan di-test harus ber-suffix `_test.go`.
+Go menyediakan package `testing`, berguna untuk keperluan unit test. File yang akan di-test harus memiliki akhiran `_test.go`.
 
 Berikut adalah contoh penggunaan *command* `go test` untuk testing file `main_test.go`.
 
@@ -72,7 +72,7 @@ go build -o <nama-executable>
 go build -o program.exe
 ```
 
-> Untuk sistem operasi non-windows, tidak perlu menambahkan suffix `.exe` pada nama *binary*
+> Untuk sistem operasi non-windows, tidak perlu menambahkan akhiran `.exe` pada nama *binary*
 
 ## A.6.5. Command `go get`
 

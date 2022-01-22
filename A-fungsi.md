@@ -41,7 +41,7 @@ Di dalam `printMessage`, nilai `arr` yang merupakan slice string digabungkan men
 
 ## A.18.2. Fungsi Dengan Return Value / Nilai Balik
 
-Sebuah fungsi bisa didesain tidak mengembalikan nilai balik (*void*), atau bisa mengembalikan suatu nilai. Fungsi yang memiliki nilai kembalian, harus ditentukan tipe data nilai baliknya pada saat deklarasi.
+Sebuah fungsi bisa dirancang tidak mengembalikan nilai balik (*void*), atau bisa mengembalikan suatu nilai. Fungsi yang memiliki nilai kembalian, harus ditentukan tipe data nilai baliknya pada saat deklarasi.
 
 Program berikut merupakan contoh penerapan fungsi yang memiliki return value.
 
@@ -159,7 +159,7 @@ func divideNumber(m, n int) {
 }
 ```
 
-Fungsi `divideNumber` didesain tidak memiliki nilai balik. Fungsi ini dibuat untuk membungkus proses pembagian 2 bilangan, lalu menampilkan hasilnya.
+Fungsi `divideNumber` dirancang tidak memiliki nilai balik. Fungsi ini dibuat untuk membungkus proses pembagian 2 bilangan, lalu menampilkan hasilnya.
 
 Di dalamnya terdapat proses validasi nilai variabel pembagi, jika nilainya adalah 0, maka akan ditampilkan pesan bahwa pembagian tidak bisa dilakukan, lalu proses dihentikan pada saat itu juga (dengan memanfaatkan keyword `return`). Jika nilai pembagi valid, maka proses pembagian diteruskan.
 

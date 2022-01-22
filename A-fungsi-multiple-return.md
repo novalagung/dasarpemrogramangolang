@@ -74,7 +74,7 @@ func calculate(d float64) (area float64, circumference float64) {
 }
 ```
 
-Fungsi `calculate` kita modif menjadi lebih sederhana. Bisa dilihat di kode di atas, ada cukup banyak perbedaan dibanding fungsi `calculate` sebelumnya. Perhatikan kode berikut.
+Fungsi `calculate` kita modifikasi menjadi lebih sederhana. Bisa dilihat di kode di atas, ada cukup banyak perbedaan dibanding fungsi `calculate` sebelumnya. Perhatikan kode berikut.
 
 ```go
 func calculate(d float64) (area float64, circumference float64) {

@@ -70,7 +70,7 @@ Variabel `numberA` dan `numberB` memiliki referensi memori yang sama. Perubahan 
 
 ## A.23.3. Parameter Pointer
 
-Parameter bisa juga didesain sebagai pointer. Cara penerapannya kurang lebih sama, dengan cara mendeklarasikan parameter sebagai pointer.
+Parameter bisa juga dirancang sebagai pointer. Cara penerapannya kurang lebih sama, dengan cara mendeklarasikan parameter sebagai pointer.
 
 ```go
 package main

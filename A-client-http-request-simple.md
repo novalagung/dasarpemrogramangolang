@@ -168,7 +168,7 @@ Untuk keperluan testing, kita hardcode `ID` nilainya `"E001"`. Jalankan program 
 
 ## A.55.3. Secure & Insecure HTTP Request
 
-Kita telah mempelajari bagaimana cara membuat http request sederhana untuk kirim data dan juga ambil data. Nantinya pada chapter [C.27. Secure & Insecure Client HTTP Request](/C-secure-insecure-client-http-request.html) kita akan belajar cara membuat http client request yang lebih njlimet untuk kasus yang lebih advance, tapi sabar dulu hehe.
+Kita telah mempelajari bagaimana cara membuat http request sederhana untuk kirim data dan juga ambil data. Nantinya pada chapter [C.27. Secure & Insecure Client HTTP Request](/C-secure-insecure-client-http-request.html) kita akan belajar cara membuat http client request yang lebih *njlimet* untuk kasus yang lebih advance, tapi sabar dulu hehe.
 
 ---
 

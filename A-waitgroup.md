@@ -4,7 +4,7 @@ Sebelumnya kita telah belajar banyak mengenai channel, yang fungsi utama-nya ada
 
 Go menyediakan package `sync`, berisi cukup banyak API untuk handle masalah multiprocessing (goroutine), salah satunya di antaranya adalah yang kita bahas pada chapter ini, yaitu `sync.WaitGroup`.
 
-Kegunaan `sync.WaitGroup` adalah untuk sinkronisasi goroutine. Berbeda dengan channel, `sync.WaitGroup` memang didesain khusus untuk maintain goroutine, penggunaannya lebih mudah dan lebih efektif dibanding channel.
+Kegunaan `sync.WaitGroup` adalah untuk sinkronisasi goroutine. Berbeda dengan channel, `sync.WaitGroup` memang dirancang khusus untuk maintain goroutine, penggunaannya lebih mudah dan lebih efektif dibanding channel.
 
 > Sebenarnya kurang pas jika membandingkan `sync.WaitGroup` dan channel, karena fungsi utama dari keduanya adalah berbeda. Channel untuk keperluan sharing data antar goroutine, sedangkan `sync.WaitGroup` untuk sinkronisasi goroutine.
 

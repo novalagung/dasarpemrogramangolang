@@ -64,7 +64,7 @@ Bisa dilihat dalam handler, method `.Bind()` milik `echo.Context` digunakan, den
 
 Jalankan aplikasi, lakukan testing. Bisa gunakan `curl` ataupun API testing tools sejenis postman atau lainnya.
 
-Di bawah ini shortcut untuk melakukan request menggunakan `curl` pada 4 jenis payload yang kita telah bahas. Response dari kesemua request adalah sama, menandakan bahwa data yang dikirim berhasil ditampung.
+Di bawah ini shortcut untuk melakukan request menggunakan `curl` pada 4 jenis payload yang kita telah bahas. Response dari seluruh request adalah sama, menandakan bahwa data yang dikirim berhasil ditampung.
 
 #### • Form Data
 

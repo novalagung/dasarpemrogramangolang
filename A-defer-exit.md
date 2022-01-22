@@ -49,7 +49,7 @@ Output:
 
 ![Penerapan `defer` dengan `return`](images/A_defer_exit_2_defer_return.png)
 
-Info tambahan, ketika ada banyak statement yang di-defer, maka kesemuanya akan dieksekusi di akhir secara berurutan.
+Info tambahan, ketika ada banyak statement yang di-defer, maka seluruhnya akan dieksekusi di akhir secara berurutan.
 
 ## A.36.2. Kombinasi `defer` dan IIFE
 

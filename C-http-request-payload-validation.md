@@ -37,7 +37,7 @@ Kurang lebih berikut adalah penjelasan singkat mengenai beberapa rule yang kita 
  - Rule `gte=n`, artinya isi harus numerik dan harus di atas `n` atau sama dengan `n`.
  - Rule `lte=n`, berarti isi juga harus numerik, dengan nilai di bawah `n` atau sama dengan `n`.
 
-Jika sebuah field membutuhkan dua atau lebih rule, maka tulis kesemuanya dengan delimiter tanda koma (`,`).
+Jika sebuah field membutuhkan dua atau lebih rule, maka tulis seluruhnya dengan delimiter tanda koma (`,`).
 
 OK, selanjutnya buat struct baru `CustomValidator` dengan isi sebuah property bertipe `*validator.Validate` dan satu buah method ber-skema `Validate(interface{})error`. Objek cetakan struct ini akan kita gunakan sebagai pengganti default validator milik echo.
 

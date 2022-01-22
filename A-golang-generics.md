@@ -97,7 +97,7 @@ func Sum[V int | float32 | float64](numbers []V) V {
 
 Notasi `V int | float32 | float64` artinya tipe `V` adalah kompatibel dengan `int`, `float32`, dan `float64`.
 
-Sekarang coba panggil fungsi tersebut 3x dengan 3 parameter berbeda.
+Sekarang coba panggil fungsi tersebut 3 kali dengan 3 parameter berbeda.
 
 ```go
 total1 := Sum([]int{1, 2, 3, 4, 5})

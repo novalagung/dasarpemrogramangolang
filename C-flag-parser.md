@@ -326,7 +326,7 @@ Pembahasan di atas fokus tentang bagaiamana cara parsing argument, flag, dan com
 
 Jika pembaca ingin membuat aplikasi command line, penggunaan kingpin cukup membantu dalam proses pengembangan, tapi akan lebih mudah lagi jika menggunakan 3rd party library [Cobra](https://github.com/spf13/cobra).
 
-Cobra merupakan library yang didesain khusus untuk development aplikasi berbasis command line. Library ini dibuat oleh author yang juga membuat kingpin.
+Cobra merupakan library yang dirancang khusus untuk development aplikasi berbasis command line. Library ini dibuat oleh author yang juga membuat kingpin.
 
 ---
 

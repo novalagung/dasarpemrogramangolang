@@ -135,7 +135,7 @@ func SelectStudent(id string) *Student {
 
 *Last but not least*, implementasikan fungsi `init()`, buat beberapa dummy data untuk ditampung pada variabel `students`. 
 
-> Fungsi `init()` adalah fungsi yang secara otomatis dipanggil ketika package-dimana-fungsi-ini-berada di-import atau di run.
+> Fungsi `init()` adalah fungsi yang secara otomatis dipanggil ketika package tersebut di import atau di run.
 
 ```go
 func init() {
