@@ -44,7 +44,7 @@ if runtime.GOOS == "windows" {
 }
 ```
 
-Statement `runtime.GOOS` mengembalikan informasi sistim operasi dalam string.
+Statement `runtime.GOOS` mengembalikan informasi sistem operasi dalam string.
 
 ## A.49.3. Method Exec Lainnya
 

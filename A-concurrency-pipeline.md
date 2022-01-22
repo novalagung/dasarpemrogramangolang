@@ -143,7 +143,7 @@ func generateFiles() {
 }
 ```
 
-O iya untuk logging pembuatan file saya tampilkan setiap 100 file di-generate, agar tidak menganggu performa, karena printing output ke `stdout` atau CMD/terminal itu cukup *costly*.
+O iya untuk logging pembuatan file saya tampilkan setiap 100 file di-generate, agar tidak mengganggu performa, karena printing output ke `stdout` atau CMD/terminal itu cukup *costly*.
 
 Oke, generator sudah siap, jalankan.
 
@@ -528,7 +528,7 @@ Ok, sekarang program sudah siap. Mari kita jalankan untuk melihat hasilnya.
 
 ![Rename file concurrently](images/A_concurrency_pipeline_3_rename_concurrently.png)
 
-Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu `1.17` detik, sedangkan dengan metode pipeline butuh hanya `0.72` detik. Bedanya hampir **40%**! dan ini hanya 3000 file saja, bayangkan kalau jutaan file, mungkin lebih kerasa perbandingan performnya.
+Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu `1.17` detik, sedangkan dengan metode pipeline butuh hanya `0.72` detik. Bedanya hampir **40%**! dan ini hanya 3000 file saja, bayangkan kalau jutaan file, mungkin lebih terasa perbandingan performnya.
 
 ## A.62.6. Kesimpulan
 

@@ -1,6 +1,6 @@
 # A.6. Command
 
-Pengembangan aplikasi Go tak jauh dari hal-hal yang berbau CLI atau *Command Line Interface*. Proses inisalisasi projek, kompilasi, testing, eksekusi program, semuanya dilakukan lewat command line.
+Pengembangan aplikasi Go tak jauh dari hal-hal yang berbau CLI atau *Command Line Interface*. Proses inisialisasi projek, kompilasi, testing, eksekusi program, semuanya dilakukan lewat command line.
 
 Go menyediakan command `go`, dan pada chapter ini kita akan mempelajari beberapa di antaranya.
 
@@ -8,7 +8,7 @@ Go menyediakan command `go`, dan pada chapter ini kita akan mempelajari beberapa
 
 ## A.6.1. Command `go mod init`
 
-*Command* `go mod init` digunakan untuk inisalisasi projek pada Go (menggunakan Go Modules). Untuk nama projek bisa menggunakan apapun, tapi umumnya adalah disamakan dengan nama direktori.
+*Command* `go mod init` digunakan untuk inisialisasi projek pada Go (menggunakan Go Modules). Untuk nama projek bisa menggunakan apapun, tapi umumnya adalah disamakan dengan nama direktori.
 
 Nama projek ini penting karena nantinya berpengaruh pada *import path sub packages* yang ada dalam projek tersebut.
 
@@ -20,7 +20,7 @@ go mod init <nama-project>
 
 ## A.6.2. Command `go run`
 
-*Command* `go run` digunakan untuk eksekusi file program (file ber-ekstensi `.go`). Cara penggunaannya dengan menuliskan *command* tersebut diikut argumen nama file.
+*Command* `go run` digunakan untuk eksekusi file program (file ber-ekstensi `.go`). Cara penggunaannya dengan menuliskan *command* tersebut diikuti argumen nama file.
 
 Berikut adalah contoh penerapan `go run` untuk eksekusi file program `main.go` yang tersimpan di path `project-pertama` yang path tersebut sudah diinisialisasi menggunakan `go mod init`.
 

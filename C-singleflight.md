@@ -209,7 +209,7 @@ Variabel `singleflightGroupDownloadReport` kita siapkan sebagai variabel global,
 
 Kegunaan `singleflightGroupDownloadReport.Do()` adalah semua statement yang berada di dalamnya akan dipanggil 1x saja meskipun kode dipanggil banyak kali secara hampir bersamaan, dengan ketentuan data `key` yang disisipkan pada parameter pertama itu sama. Misalnya, jika ada 10 api call untuk generate report yang sama, `report-sales-2021-10.txt`, maka di sisi backend proses generate report hanya akan terjadi sekali.
 
-Melanjutkan pembahasan pada contoh yang dijelaskan, berarti dari 10 api call hanya 1 request yang benar-benar men-generate report. Lalu bagiamana dengan 9 api call yang lain. Yang terjadi adalah request yang lain juga akan menunggu hingga `singleflightGroupDownloadReport.Do()` selesai dieksekusi, hanya saja tanpa mengeksekusi kode di dalam `singleflightGroupDownloadReport.Do()`.
+Melanjutkan pembahasan pada contoh yang dijelaskan, berarti dari 10 api call hanya 1 request yang benar-benar men-generate report. Lalu bagaimana dengan 9 api call yang lain. Yang terjadi adalah request yang lain juga akan menunggu hingga `singleflightGroupDownloadReport.Do()` selesai dieksekusi, hanya saja tanpa mengeksekusi kode di dalam `singleflightGroupDownloadReport.Do()`.
 
 Agar lebih jelas, mari kita test saja.
 

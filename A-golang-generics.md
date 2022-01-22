@@ -245,7 +245,7 @@ func main() {
 }
 ```
 
-Pada penuilisan struct, sisipkan notasi generic. Lalu pada deklarasi variabel object, tulis secara eksplisit tipe data untuk variabel kompatibel.
+Pada penulisan struct, sisipkan notasi generic. Lalu pada deklarasi variabel object, tulis secara eksplisit tipe data untuk variabel kompatibel.
 
 ![Golang generic](images/A_generics_4.png)
 

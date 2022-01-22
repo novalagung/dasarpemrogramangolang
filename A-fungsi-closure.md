@@ -36,7 +36,7 @@ func main() {
 ```
 
 
-Bisa dilihat pada kode di atas bagiamana sebuah closure dibuat dan dipanggil. Sedikit berbeda memang dibanding pembuatan fungsi biasa. Fungsi ditulis tanpa nama, lalu ditampung dalam variabel.
+Bisa dilihat pada kode di atas bagaimana sebuah closure dibuat dan dipanggil. Sedikit berbeda memang dibanding pembuatan fungsi biasa. Fungsi ditulis tanpa nama, lalu ditampung dalam variabel.
 
 ```go
 var getMinMax = func(n []int) (int, int) {

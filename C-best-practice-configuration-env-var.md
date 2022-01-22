@@ -118,7 +118,7 @@ e.Logger.Fatal(e.StartServer(server))
 
 Program sudah siap, betul, tetapi konfigurasi nya belum. Nah salah satu kelebihan dari kontrol konfigurasi lewat *env var* adalah kita bisa definisikan sewaktu eksekusi program (sebelum statement `go run`).
 
-Ada satu hal yang penting untuk diketahui. Cara set *env var* untuk Windows dibanding sistim operasi lainnya adalah berbeda. Untuk non-Windows, gunakan `export`.
+Ada satu hal yang penting untuk diketahui. Cara set *env var* untuk Windows dibanding sistem operasi lainnya adalah berbeda. Untuk non-Windows, gunakan `export`.
 
 ```bash
 export APP_NAME=SimpleApp
