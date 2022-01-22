@@ -6,7 +6,7 @@ Struct adalah kumpulan definisi variabel (atau property) dan atau fungsi (atau m
 
 Dari sebuah struct, kita bisa buat variabel baru, yang memiliki atribut sesuai skema struct tersebut. Kita sepakati dalam buku ini, variabel tersebut dipanggil dengan istilah **object** atau **object struct**.
 
-> Konsep struct di golang mirip dengan konsep **class** pada OOP, meski sebenarnya berbeda. Disini penulis menggunakan konsep OOP sebagai analogi, dengan tujuan untuk mempermudah dalam mencerna isi chapter ini.
+> Konsep struct di golang mirip dengan konsep **class** pada OOP, meski sebenarnya berbeda. Di sini penulis menggunakan konsep OOP sebagai analogi, dengan tujuan untuk mempermudah dalam mencerna isi chapter ini.
 
 Dengan memanfaatkan struct, grouping data akan lebih mudah, selain itu dan rapi dan gampang untuk di-maintain.
 
@@ -132,7 +132,7 @@ func main() {
 
 ```
 
-Pada kode di atas, disiapkan struct `person` dengan properti yang tersedia adalah `name` dan `age`. Disiapkan juga struct `student` dengan property `grade`. Struct `person` di-embed kedalam struct `student`. Caranya cukup mudah, yaitu dengan menuliskan nama struct yang ingin di-embed ke dalam body `struct` target.
+Pada kode di atas, disiapkan struct `person` dengan properti yang tersedia adalah `name` dan `age`. Disiapkan juga struct `student` dengan property `grade`. Struct `person` di-embed ke dalam struct `student`. Caranya cukup mudah, yaitu dengan menuliskan nama struct yang ingin di-embed ke dalam body `struct` target.
 
 Embedded struct adalah **mutable**, nilai property-nya nya bisa diubah.
 
@@ -310,7 +310,7 @@ var student = struct {
 
 ## A.24.12. Nested struct
 
-Nested struct adalah anonymous struct yang di-embed ke sebuah struct. Deklarasinya langsung didalam struct peng-embed. Contoh:
+Nested struct adalah anonymous struct yang di-embed ke sebuah struct. Deklarasinya langsung di dalam struct peng-embed. Contoh:
 
 ```go
 type student struct {
@@ -340,7 +340,7 @@ var p1 = struct { name string; age int } { age: 22, name: "wick" }
 var p2 = struct { name string; age int } { "ethan", 23 }
 ```
 
-Bagi pengguna editor Sublime yang terinstal plugin GoSublime didalamnya, cara ini tidak akan bisa dilakukan, karena setiap kali file di-save, kode program dirapikan. Jadi untuk mengetesnya bisa dengan menggunakan editor lain.
+Bagi pengguna editor Sublime yang terinstal plugin GoSublime di dalamnya, cara ini tidak akan bisa dilakukan, karena setiap kali file di-save, kode program dirapikan. Jadi untuk mengetesnya bisa dengan menggunakan editor lain.
 
 ## A.24.14. Tag property dalam struct
 
