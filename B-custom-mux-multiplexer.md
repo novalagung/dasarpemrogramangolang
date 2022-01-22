@@ -8,7 +8,7 @@ Silakan salin projek sebelumnya, chapter [B.19. Middleware http.Handler](/B-midd
 
 Pada chapter sebelumnya, default mux milik Go digunakan untuk routing dan implementasi middleware. Kali ini default mux tersebut tidak digunakan, kita akan buat mux baru.
 
-Namun pembuatan mux baru tidaklah cukup, karena *naturally* mux baru tersebut tidak akan ada beda dengan default mux. Oleh karena itu agar lebih berguna, kita akan buat tipe mux baru, meng-embed `http.ServeMux` kedalamnya, lalu membuat beberapa hal dalam struct tersebut.
+Namun pembuatan mux baru tidaklah cukup, karena *naturally* mux baru tersebut tidak akan ada beda dengan default mux. Oleh karena itu agar lebih berguna, kita akan buat tipe mux baru, meng-embed `http.ServeMux` ke dalamnya, lalu membuat beberapa hal dalam struct tersebut.
 
 OK, langsung saja kita praktekan. Ubah isi fungsi main menjadi seperti berikut.
 

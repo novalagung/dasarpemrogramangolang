@@ -123,7 +123,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Sebelumnya, pada chapter [B.13. Form Upload File](/B-form-upload-file.html), metode yang digunakan untuk handle file upload adalah menggunakan `ParseMultipartForm`, file diproses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.
+Sebelumnya, pada chapter [B.13. Form Upload File](/B-form-upload-file.html), metode yang digunakan untuk handle file upload adalah menggunakan `ParseMultipartForm`, file di proses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.
 
 Metode tersebut kurang tepat guna jika digunakan untuk memproses file yang ukurannya besar (file size melebihi `maxMemory`) atau jumlah file-nya sangat banyak (memakan waktu, karena isi dari masing-masing file akan ditampung pada file *temporary* sebelum benar-benar di-copy ke file tujuan).
 
@@ -151,7 +151,7 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 
 Bisa dilihat, method `.MultipartReader()` dipanggil dari objek request milik handler. Mengembalikan dua objek, pertama `*multipart.Reader` dan `error` (jika ada).
 
-Selanjutnya lakukan perulangan terhadap objek `reader`. Setiap file yang di-upload diproses di masing-masing perulangan. Setelah looping berakhir. idealnya semua file sudah terproses dengan benar.
+Selanjutnya lakukan perulangan terhadap objek `reader`. Setiap file yang di-upload di proses di masing-masing perulangan. Setelah looping berakhir. idealnya semua file sudah terproses dengan benar.
 
 ```go
 for {

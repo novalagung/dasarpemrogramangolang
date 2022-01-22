@@ -52,7 +52,7 @@ Fungsi `len()` dipakai untuk menghitung jumlah elemen sebuah array.
 
 ## A.15.3. Inisialisasi Nilai Array Dengan Gaya Vertikal
 
-Elemen array bisa dituliskan dalam bentuk horizontal (seperti yang sudah di contohkan di atas) ataupun dalam bentuk vertikal.
+Elemen array bisa dituliskan dalam bentuk horizontal (seperti yang sudah dicontohkan di atas) ataupun dalam bentuk vertikal.
 
 ```go
 var fruits [4]string
