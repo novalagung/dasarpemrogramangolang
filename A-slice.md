@@ -98,7 +98,7 @@ Selanjutnya, nilai dari `baFruits[0]` diubah, dan 5 slice tadi ditampilkan lagi.
 
 ![Perubahan data elemen slice berpengaruh pada slice lain](images/A_slice_2_slice_reference.png)
 
-Bisa dilihat pada output di atas, elemen yang sebelumnya bernilai `"grape"` pada variabel `fruits`, `aFruits`, `bFruits`, `aaFruits`, dan `baFruits`; kesemuanya berubah menjadi `"pinnaple"`, karena memiliki referensi yang sama.
+Bisa dilihat pada output di atas, elemen yang sebelumnya bernilai `"grape"` pada variabel `fruits`, `aFruits`, `bFruits`, `aaFruits`, dan `baFruits`; Seluruhnya berubah menjadi `"pinnaple"`, karena memiliki referensi yang sama.
 
 ---
 
@@ -151,7 +151,7 @@ fruits[x:y]
 
 **Slicing** yang dimulai dari indeks **0** hingga **y** akan mengembalikan elemen-elemen mulai indeks **0** hingga sebelum indeks **y**, dengan lebar kapasitas adalah sama dengan slice aslinya.
 
-Sedangkan slicing yang dimulai dari indeks **x**, yang dimana nilai **x** adalah lebih dari **0**, membuat elemen ke-**x** slice yang diambil menjadi elemen ke-0 slice baru. Hal inilah yang membuat kapasitas slice berubah.
+Sedangkan slicing yang dimulai dari indeks **x**, yang di mana nilai **x** adalah lebih dari **0**, membuat elemen ke-**x** slice yang diambil menjadi elemen ke-0 slice baru. Hal inilah yang membuat kapasitas slice berubah.
 
 ## A.16.6. Fungsi `append()`
 
@@ -168,7 +168,7 @@ fmt.Println(cFruits) // ["apple", "grape", "banana", "papaya"]
 Ada 3 hal yang perlu diketahui dalam penggunaan fungsi ini.
 
  - Ketika jumlah elemen dan lebar kapasitas adalah sama (`len(fruits) == cap(fruits)`), maka elemen baru hasil `append()` merupakan referensi baru.
- - Ketika jumlah elemen lebih kecil dibanding kapasitas (`len(fruits) < cap(fruits)`), elemen baru tersebut ditempatkan kedalam cakupan kapasitas, menjadikan semua elemen slice lain yang referensi-nya sama akan berubah nilainya.
+ - Ketika jumlah elemen lebih kecil dibanding kapasitas (`len(fruits) < cap(fruits)`), elemen baru tersebut ditempatkan ke dalam cakupan kapasitas, menjadikan semua elemen slice lain yang referensi-nya sama akan berubah nilainya.
 
 Agar lebih jelas silakan perhatikan contoh berikut.
 
@@ -217,7 +217,7 @@ Yang ter-copy hanya 3 buah (meski `src` memiliki 4 elements) hal ini karena `cop
 
 > Fungsi `copy()` mengembalikan informasi angka, representasi dari jumlah element yang berhasil di-copy.
 
-Pada contoh kedua berikut, `dst` merupakan slice yang sudah ada isinya, 3 buah elements. Variabel `src` yang juga merupakan slice dengan isi dua elements, di-copy ke `dst`. Karena operasi `copy()` akan meng-copy sejumlah `len(dst)`, maka semua elements `src` akan ter-copy **karena jumlahnya dibawah atau sama dengan lebar** `dst`.
+Pada contoh kedua berikut, `dst` merupakan slice yang sudah ada isinya, 3 buah elements. Variabel `src` yang juga merupakan slice dengan isi dua elements, di-copy ke `dst`. Karena operasi `copy()` akan meng-copy sejumlah `len(dst)`, maka semua elements `src` akan ter-copy **karena jumlahnya di bawah atau sama dengan lebar** `dst`.
 
 ```go
 dst := []string{"potato", "potato", "potato"}

@@ -68,7 +68,7 @@ Penulisan cell dilakukan lewat method `.SetCellValue()` milik objek excel. Peman
  2. Parameter ke-2, lokasi cell.
  3. Parameter ke-3, nilai/text/isi cell.
 
-Pada kode di atas, cell `A1`, `B1`, dan `C1` disiapkan dan diaktifkan filter didalamnya. Cara mengeset filter pada cell sendiri dilakukan lewat method `.AutoFilter()`. Tentukan range lokasi cell sebagai parameter.
+Pada kode di atas, cell `A1`, `B1`, dan `C1` disiapkan dan diaktifkan filter di dalamnya. Cara mengeset filter pada cell sendiri dilakukan lewat method `.AutoFilter()`. Tentukan range lokasi cell sebagai parameter.
 
 Statement `xlsx.AutoFilter(sheet1Name, "A1", "C1", "")` artinya filter diaktifkan pada sheet `sheet1Name` mulai cell `A1` hingga `C1`.
 

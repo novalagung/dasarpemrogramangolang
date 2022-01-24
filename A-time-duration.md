@@ -54,7 +54,7 @@ Sekarang jalankan program yang sudah dibuat.
 
 ![Time Duration](images/A_time_duration_1.png)
 
-Bisa dilihat, hasilnya adalah semua statement dibawah `time.Sleep()` dieksekusi setelah 5 detik berlalu. Ini merupakan contoh penggunaan tipe data durasi pada fungsi `time.Sleep()`.
+Bisa dilihat, hasilnya adalah semua statement di bawah `time.Sleep()` dieksekusi setelah 5 detik berlalu. Ini merupakan contoh penggunaan tipe data durasi pada fungsi `time.Sleep()`.
 
 ## A.42.2. Kalkulasi Durasi Menggunakan `time.Since()`.
 

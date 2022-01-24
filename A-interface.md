@@ -20,11 +20,11 @@ type hitung interface {
 }
 ```
 
-Pada kode di atas, interface `hitung` memiliki 2 definisi method, `luas()` dan `keliling()`. Interface ini nantinya digunakan sebagai tipe data pada variabel, dimana variabel tersebut akan menampung objek bangun datar hasil dari struct yang akan kita buat.
+Pada kode di atas, interface `hitung` memiliki 2 definisi method, `luas()` dan `keliling()`. Interface ini nantinya digunakan sebagai tipe data pada variabel, di mana variabel tersebut akan menampung objek bangun datar hasil dari struct yang akan kita buat.
 
 Dengan memanfaatkan interface `hitung`, perhitungan luas dan keliling bangun datar bisa dilakukan, tanpa perlu tahu jenis bangun datarnya sendiri itu apa.
 
-Siapkan struct bangun datar `lingkaran`, struct ini memiliki method yang beberapa diantaranya terdefinisi di interface `hitung`.
+Siapkan struct bangun datar `lingkaran`, struct ini memiliki method yang beberapa di antaranya terdefinisi di interface `hitung`.
 
 ```go
 type lingkaran struct {
@@ -102,7 +102,7 @@ var bangunLingkaran lingkaran = bangunDatar.(lingkaran)
 bangunLingkaran.jariJari()
 ```
 
-Perlu diketahui juga, jika ada interface yang menampung objek konkrit dimana struct-nya tidak memiliki salah satu method yang terdefinisi di interface, error juga akan muncul. Intinya kembali ke aturan awal, variabel interface hanya bisa menampung objek yang minimal memiliki semua method yang terdefinisi di interface-nya.
+Perlu diketahui juga, jika ada interface yang menampung objek konkrit di mana struct-nya tidak memiliki salah satu method yang terdefinisi di interface, error juga akan muncul. Intinya kembali ke aturan awal, variabel interface hanya bisa menampung objek yang minimal memiliki semua method yang terdefinisi di interface-nya.
 
 ## A.27.2. Embedded Interface
 
@@ -170,7 +170,7 @@ func main() {
 
 Bisa dilihat di kode di atas, lewat interface `hitung`, method `luas`, `keliling`, dan `volume` bisa di akses.
 
-Pada chapter [A.23. Pointer](/A-pointer.html) dijelaskan bahwa method pointer bisa diakses lewat variabel objek biasa dan variabel objek pointer. Variabel objek yang dicetak menggunakan struct yang memiliki method pointer, jika ditampung kedalam variabel interface, harus diambil referensi-nya terlebih dahulu. Contohnya bisa dilihat pada kode di atas `var bangunRuang hitung = &kubus{4}`.
+Pada chapter [A.23. Pointer](/A-pointer.html) dijelaskan bahwa method pointer bisa diakses lewat variabel objek biasa dan variabel objek pointer. Variabel objek yang dicetak menggunakan struct yang memiliki method pointer, jika ditampung ke dalam variabel interface, harus diambil referensi-nya terlebih dahulu. Contohnya bisa dilihat pada kode di atas `var bangunRuang hitung = &kubus{4}`.
 
 ![Embedded interface](images/A_interface_2_embedded_interface.png)
 

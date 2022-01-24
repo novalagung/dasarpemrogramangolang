@@ -16,7 +16,7 @@ Go memiliki kelebihan dibanding bahasa lainnya, beberapa di antaranya:
 * Dependensi dan *tooling* yang disediakan terbilang lengkap.
 * Dukungan komunitas sangat bagus. Banyak tools yang tersedia secara gratis dan *open source* yang bisa langsung dimanfaatkan.
 
-Sudah banyak industri dan perusahaan yg menggunakan Go sampai level production, termasuk diantaranya adalah Google sendiri, dan juga tempat dimana penulis bekerja 😁
+Sudah banyak industri dan perusahaan yg menggunakan Go sampai level production, termasuk di antaranya adalah Google sendiri, dan juga tempat di mana penulis bekerja 😁
 
 ---
 

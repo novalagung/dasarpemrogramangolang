@@ -16,7 +16,7 @@ Dengan metode worker pool ini, maka penggunaan memory dan performansi program ak
 
 *Connection pool* adalah metode untuk manajemen sejumlah koneksi database, agar bisa digunakan secara optimal.
 
-Connection pool sangat penting dalam kasus operasi data yang berhubungan dengan database yang dimana concurrent programming diterapkan.
+Connection pool sangat penting dalam kasus operasi data yang berhubungan dengan database yang di mana concurrent programming diterapkan.
 
 Karena pada concurrent programming, beberapa proses akan berjalan bersamaan, maka penggunaan 1 koneksi db akan menghambat proses tersebut. Perlu ada beberapa koneksi database, agar goroutine tidak rebutan objek koneksi database.
 
@@ -28,7 +28,7 @@ Failover merupakan mekanisme backup ketika sebuah proses gagal. Pada konteks ini
 
 File [majestic-million-csv](https://blog.majestic.com/development/majestic-million-csv-daily/) digunakan sebagai bahan dalam praktek. File tersebut gratis dengan lisensi CCA3. Isinya adalah list dari top website berjumlah 1 juta.
 
-Silakan download file nya disini http://downloads.majestic.com/majestic_million.csv.
+Silakan download file nya di sini http://downloads.majestic.com/majestic_million.csv.
 
 Setelah itu siapkan My SQL database server, create database dan sebuah tabel di dalamnya dengan nama domain.
 
@@ -157,7 +157,7 @@ Tiap-tiap goroutine tersebut adalah worker atau pekerja, yang tugasnya nanti aka
 
 Saat aplikasi dijalankan, sejumlah 100 worker akan berlomba-lomba menyelesaikan job insert data sejumlah 1 juta data.
 
-1 job adalah 1 data, maka rata-rata setiap worker akan menyelesaikan operasi insert sekitar 10k. Tapi ini jelasnya tidak pasti karena worker akan berkompetisi dalam penyelesaian job, jadi sangat besar kemungkinan akan ada job yang menyelesaikan lebih dari 10k jobs, ataupun yg dibawah 10k jobs.
+1 job adalah 1 data, maka rata-rata setiap worker akan menyelesaikan operasi insert sekitar 10k. Tapi ini jelasnya tidak pasti karena worker akan berkompetisi dalam penyelesaian job, jadi sangat besar kemungkinan akan ada job yang menyelesaikan lebih dari 10k jobs, ataupun yg di bawah 10k jobs.
 
 ```go
 func dispatchWorkers(db *sql.DB, jobs <-chan []interface{}, wg *sync.WaitGroup) {
@@ -271,7 +271,7 @@ func generateQuestionsMark(n int) []string {
 
 Pada kode di atas bisa dilihat bahwa kode insert dibungkus dalam IIFE dalam sebuah perulangan.
 
-Kenapa butuh perulangan? keyword `for` di atas perannya sangat penting. Disini diterapkan mekanisme failover dimana ketika proses insert gagal akan di recover dan di-retry ulang.
+Kenapa butuh perulangan? keyword `for` di atas perannya sangat penting. Di sini diterapkan mekanisme failover di mana ketika proses insert gagal akan di recover dan di-retry ulang.
 
 Nah jadi ketika operasi insert di atas gagal, maka error tetap di tampilkan tapi kemudian diulang kembali insert data yang gagal tadi, hingga sukses.
 

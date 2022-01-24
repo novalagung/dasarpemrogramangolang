@@ -10,11 +10,11 @@ Modules digunakan untuk menginisialisasi sebuah projek, sekaligus melakukan mana
 
 Modules penggunaannya adalah lewat CLI. Dan jika temen-temen sudah sukses meng-*install* Go, maka otomatis bisa mempergunakan Go Modules.
 
-> Modules atau Module disini merupakan istilah untuk project ya. Jadi jangan bingung.
+> Modules atau Module di sini merupakan istilah untuk project ya. Jadi jangan bingung.
 
 ## A.3.2. Inisialisasi Projek Menggunakan Go Modules
 
-Command `go mod init` digunakan untuk menginisalisasi projek baru.
+Command `go mod init` digunakan untuk menginisialisasi projek baru.
 
 Mari kita praktekan, buat folder baru, bisa via CLI atau lewat browser/finder.
 
@@ -40,10 +40,10 @@ Untuk nama project, umumnya adalah disamakan dengan nama direktori, tapi bisa sa
 
 > Nama project dan Nama module merupakan istilah yang sama.
 
-Eksekusi perintah `go mod init` menghasilkan satu buah file baru bernama `go.mod`. File ini digunakan oleh Go toolchain untuk menandai bahwa folder dimana file tersebut berada adalah folder projek. Jadi jangan di hapus ya file tersebut.
+Eksekusi perintah `go mod init` menghasilkan satu buah file baru bernama `go.mod`. File ini digunakan oleh Go toolchain untuk menandai bahwa folder di mana file tersebut berada adalah folder projek. Jadi jangan di hapus ya file tersebut.
 
 ---
 
-Ok, sekian. Cukup itu saja cara inisalisasi projek di Go.
+Ok, sekian. Cukup itu saja cara inisialisasi projek di Go.
 
-O iya, sebenarnya selain Go Modules, setup projek di Go juga bisa menggunakan `$GOPATH` ([A.4. Setup GOPATH Dan Workspace](/A-gopath-dan-workspace.html)). Tapi inisalisasi porjek dengan GOPATH sudah outdate dan kurang dianjurkan untuk projek-projek yang dikembangkan menggunakan Go versi terbaru (1.14 ke atas). Jadi setelah chapter ini, bisa langsung lanjut ke [A. Instalasi Editor](/A-instalasi-editor.html).
+O iya, sebenarnya selain Go Modules, setup projek di Go juga bisa menggunakan `$GOPATH` ([A.4. Setup GOPATH Dan Workspace](/A-gopath-dan-workspace.html)). Tapi inisialisasi porjek dengan GOPATH sudah outdate dan kurang dianjurkan untuk projek-projek yang dikembangkan menggunakan Go versi terbaru (1.14 ke atas). Jadi setelah chapter ini, bisa langsung lanjut ke [A. Instalasi Editor](/A-instalasi-editor.html).

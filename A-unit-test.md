@@ -85,7 +85,7 @@ Cara eksekusi testing adalah menggunakan command `go test`. Karena struct yang d
 
 Argument `-v` atau verbose digunakan menampilkan semua output log pada saat pengujian.
 
-Jalankan aplikasi seperti gambar dibawah ini, terlihat bahwa tidak ada test yang fail.
+Jalankan aplikasi seperti gambar di bawah ini, terlihat bahwa tidak ada test yang fail.
 
 ![Testing](images/A_unit_test_1_test.png)
 
@@ -148,7 +148,7 @@ Package **testify** berisikan banyak sekali tools yang bisa dimanfaatkan untuk k
 
 Testify bisa di-download pada [github.com/stretchr/testify](https://github.com/stretchr/testify) menggunakan `go get`.
 
-Didalam testify terdapat 5 package dengan kegunaan berbeda-beda satu dengan lainnya. Detailnya bisa dilihat pada tabel berikut.
+Di dalam testify terdapat 5 package dengan kegunaan berbeda-beda satu dengan lainnya. Detailnya bisa dilihat pada tabel berikut.
 
 | Package | Kegunaan |
 | :------ | :------- |

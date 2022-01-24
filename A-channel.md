@@ -77,7 +77,7 @@ fmt.Println(message1)
 
 Penerimaan channel bersifat blocking. Artinya statement `var message1 = <-messages` hingga setelahnya tidak akan dieksekusi sebelum ada data yang dikirim lewat channel.
 
-Kesemua data yang dikirim dari tiga goroutine berbeda tersebut datanya akan diterima secara berurutan oleh `message1`, `message2`, `message3`; untuk kemudian ditampilkan.
+Ke semua data yang dikirim dari tiga goroutine berbeda tersebut datanya akan diterima secara berurutan oleh `message1`, `message2`, `message3`; untuk kemudian ditampilkan.
 
 ![Implementasi channel](images/A_channel_2_channel.png)
 
@@ -122,7 +122,7 @@ Output program di atas sama dengan program sebelumnya.
 
 Parameter `what` fungsi `printMessage` bertipe channel `string`, bisa dilihat dari kode `chan string` pada cara deklarasinya. Operasi serah-terima data akan bisa dilakukan pada variabel tersebut, dan akan berdampak juga pada variabel `messages` di fungsi `main`.
 
-Passing data bertipe channel lewat parameter sifatnya **pass by reference**, yang ditransferkan adalah pointer datanya, bukan nilai datanya.
+Passing data bertipe channel lewat parameter sifatnya **pass by reference**, yang di transferkan adalah pointer datanya, bukan nilai datanya.
 
 ![Parameter channel](images/A_channel_3_channel_param.png)
 
@@ -132,7 +132,7 @@ Berikut merupakan penjelasan tambahan untuk kode di atas.
 
 #### • Iterasi Data Slice/Array Langsung Pada Saat Inisialisasi
 
-Data slice yang baru di-inisialisasi bisa langsung di-iterasi, caranya mudah dengan menuliskannya langsung setelah keyword `range`.
+Data slice yang baru di inisialisasi bisa langsung di-iterasi, caranya mudah dengan menuliskannya langsung setelah keyword `range`.
 
 ```go
 for _, each := range []string{"wick", "hunt", "bourne"} {

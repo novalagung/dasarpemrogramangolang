@@ -1,14 +1,14 @@
 # A.62. Concurrency Pattern: Pipeline
 
-Kita sudah membahas beberapa kali tentang *concurrency* atau konkurensi di Go programming. Pada chapter ini kita akan belajar salah satu best practice konkurensi dalam Go, yaitu *pipeline*, yang merupakan satu diantara banyak *concurrency pattern* yang ada di Go.
+Kita sudah membahas beberapa kali tentang *concurrency* atau konkurensi di Go programming. Pada chapter ini kita akan belajar salah satu best practice konkurensi dalam Go, yaitu *pipeline*, yang merupakan satu di antara banyak *concurrency pattern* yang ada di Go.
 
-Go memiliki beberapa API untuk keperluan konkurensi, diantara *goroutine* dan *channel*. Dengan memanfaatkan APIs yang ada kita bisa mementuk sebuah *streaming data pipeline* yang benefitnya adalah efisiensi penggunaan I/O dan efisiensi penggunaan banyak CPU.
+Go memiliki beberapa API untuk keperluan konkurensi, di antara *goroutine* dan *channel*. Dengan memanfaatkan APIs yang ada kita bisa membentuk sebuah *streaming data pipeline* yang benefitnya adalah efisiensi penggunaan I/O dan efisiensi penggunaan banyak CPU.
 
 ## A.62.1. Konsep *Pipeline*
 
 Definisi *pipeline* yang paling mudah versi penulis adalah **beberapa/banyak proses yang berjalan secara konkuren yang masing-masing proses merupakan bagian dari serangkaian tahapan proses yang berhubungan satu sama lain**.
 
-Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database secara rutin, yang dimana database yang di backup ada banyak. Untuk backup-nya sendiri kita pake program Go, bukan *shell script*. Mungkin secara garis besar serangkaian tahapan proses yang akan dijalankan adalah berikut:
+Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database secara rutin, yang di mana database yang di backup ada banyak. Untuk backup-nya sendiri kita menggunakan program Go, bukan *shell script*. Mungkin secara garis besar serangkaian tahapan proses yang akan dijalankan adalah berikut:
 
 1. Kita perlu data *list* dari semua database yang harus di-backup, beserta alamat akses dan kredensial-nya.
 2. Kita jalankan proses backup, bisa secara sekuensial (setelah `db1` selesai, lanjut `db2`, lanjut `db3`, dst), atau secara paralel (proses backup `db1`, `db2`, `db3`, dan lainnya dijalankan secara bersamaan).
@@ -22,7 +22,7 @@ Kalau diperhatikan pada kasus di atas, mungkin akan lebih bagus dari segi perfor
 
 Dan akan lebih bagus lagi, jika di masing-masing proses backup database tersebut, proses A, B, dan C dijalankan secara konkuren. Dengan menjadikan ketiga proses tersebut (A, B, C) sebagai proses konkuren, maka I/O akan lebih efisien. Nantinya antara proses A, B, dan C eksekusinya akan tetap berurutan (karena memang harus berjalan secara urut. Tidak boleh kalau misal B lebih dulu dieksekusi kemudian A); akan tetapi, ketika goroutine yang bertanggung jawab untuk eksekusi proses A selesai, kita bisa lanjut dengan eksekusi proses B (yang memang *next stage*-nya proses A) plus eksekusi proses A lainnya (database lain) secara paralel. Jadi goroutine yang handle A ini ga sampai menganggur.
 
-Silakan perhatikan visualisasi berikut. Kolom merupakan representasi dari goroutine yang berjalan secara bersamaan. Tapi karena ketiga goroutine tersebut merupakan serangkaian proses, jadi eksekusinya harus urut. Sedangkan baris/row representasi dari *sequence* atau urutan.
+Silakan perhatikan visualisasi berikut. Kolom merupakan representasi dari goroutine yang berjalan secara bersamaan. Tapi karena ketiga goroutine tersebut merupakan serangkaian proses, sehingga eksekusinya harus secara berurut. Sedangkan baris/row representasi dari *sequence* atau urutan.
 
 | sequence | pipeline A | pipeline B | pipeline C |
 |:--------:|:----------:|:----------:|:----------:|
@@ -143,7 +143,7 @@ func generateFiles() {
 }
 ```
 
-O iya untuk logging pembuatan file saya tampilkan setiap 100 file di-generate, agar tidak menganggu performa, karena printing output ke `stdout` atau CMD/terminal itu cukup *costly*.
+O iya untuk logging pembuatan file saya tampilkan setiap 100 file di-generate, agar tidak mengganggu performa, karena printing output ke `stdout` atau CMD/terminal itu cukup *costly*.
 
 Oke, generator sudah siap, jalankan.
 
@@ -236,7 +236,7 @@ func proceed() {
 }
 ```
 
-Cukup panjang isi fungsi ini, tapi isinya cukup *straightforward* kok.
+Cukup panjang isi fungsi ini, tetapi isinya cukup *straightforward* kok.
 
 * Pertama kita siapkan `counterTotal` sebagai counter jumlah file yang ditemukan dalam `$TEMP/chapter-A.59-pipeline-temp`. Idealnya jumlahnya adalah sama dengan isi variabel `totalFile` pada program pertama, kecuali ada error.
 * Kedua, kita siapkan `counterRenamed` sebagai counter jumlah file yang berhasil di-rename. Untuk ini juga idealnya sama dengan nilai pada `counterTotal`, kecuali ada error
@@ -255,13 +255,13 @@ Ok, aplikasi sudah siap. Selanjutnya kita akan refactor aplikasi tersebut ke ben
 
 ## A.62.5. Program 3: Lakukan Proses Secara Concurrent Menggunakan Pipeline
 
-Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kalau dilihat dari perspektif bisnis logic, tapi metode yang kita terapkan dari sisi engineering berbeda. Disini kita akan terapkan *pipeline*. Bisnis logic akan dipecah menjadi 3 yang kesemuanya dieksekusi secara konkuren, yaitu:
+Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kalau dilihat dari perspektif bisnis logic, tapi metode yang kita terapkan dari sisi engineering berbeda. Di sini kita akan terapkan *pipeline*. Bisnis logic akan dipecah menjadi 3 dan seluruhnya dieksekusi secara konkuren, yaitu:
 
 - Proses baca file
 - Proses perhitungan md5 hash sum
 - Proses rename file
 
-Kenapa kita pecah, karena ketiga proses tersebut bisa dijalankan barengan secara konkuren, dalam artian misalnya ketika file1 sudah selesai dibaca, perhitungan md5 sum nya bisa dijalankan secara barengan dengan pembacaan file2. Begitu juga untuk proses rename-nya, misalnya, proses rename file24 bisa dijalnkan secara konkuren bersamaan dengan proses hitung md5 sum file22 dan bersamaan dengan proses baca file28.
+Kenapa kita pecah, karena ketiga proses tersebut bisa dijalankan bersama secara konkuren, dalam artian misalnya ketika file1 sudah selesai dibaca, perhitungan md5 sum nya bisa dijalankan secara bersama dengan pembacaan file2. Begitu juga untuk proses rename-nya, misalnya, proses rename file24 bisa dijalnkan secara konkuren bersamaan dengan proses hitung md5 sum file22 dan bersamaan dengan proses baca file28.
 
 #### • Basis Kode Program
 
@@ -361,7 +361,7 @@ Karena proses utama dalam fungsi `readFiles` berada dalam goroutine, maka di `ma
 
 Mengenai channel `chanOut` sendiri, akan di-close ketika dipastikan **semua file sudah dikirim datanya ke channel tersebut** (silakan lihat statement `close(chanOut)` di akhir goroutine). 
 
-Ok lanjut, karena disini ada channel yang digunakan sebagai media pengiriman data (`FileInfo`), maka juga harus ada penerima data channel-nya dong. Yups.
+Ok lanjut, karena di sini ada channel yang digunakan sebagai media pengiriman data (`FileInfo`), maka juga harus ada penerima data channel-nya dong. Yups.
 
 #### • Pipeline 2: MD5 Hash Konten File
 
@@ -383,16 +383,16 @@ func main() {
 
 Fungsi `getSum()` isinya adalah perhitungan md5hash untuk konten yang datanya dikirim via channel `chanFileContent` hasil kembalian statement `readFiles()`. Fungsi `getSum()` ini juga mengembalikan channel. Karena kita menjalankan `getSum()` tiga kali, maka akan ada 3 channel. Nah ketiga channel tersebut nantinya kita merge ke satu channel saja via fungsi `mergeChanFileInfo()`.
 
-Fungsi `getSum()` menerima channel dan akan secara aktif memantau dan membaca data yang dikirim via channel tersebut hingga channel itu sendiri di-close. Fungsi seperti ini biasa disebut dengan **Fan-out function**. Fungsi fan-out digunakan untuk pendistribusian job ke banyak worker. channel `chanFileContent` disitu merupakan media untuk distribusi job, sedangkan pemanggil fungsi `getSum()` ini sendiri merepresentasikan satu worker. Jadi bisa dibilang, pada contoh di atas, **kita membuat 3 buah worker untuk melakukan operasi perhitungan sum MD5 terhadap data konten yang dikirim via channel `chanFileContent`**.
+Fungsi `getSum()` menerima channel dan akan secara aktif memantau dan membaca data yang dikirim via channel tersebut hingga channel itu sendiri di-close. Fungsi seperti ini biasa disebut dengan **Fan-out function**. Fungsi fan-out digunakan untuk pendistribusian job ke banyak worker. channel `chanFileContent` di situ merupakan media untuk distribusi job, sedangkan pemanggil fungsi `getSum()` ini sendiri merepresentasikan satu worker. Jadi bisa dibilang, pada contoh di atas, **kita membuat 3 buah worker untuk melakukan operasi perhitungan sum MD5 terhadap data konten yang dikirim via channel `chanFileContent`**.
 
-Nah, karena disini kita punya 3 worker yang jelasnya menghasilkan 3 buah channel baru, kita perlu sebuah mekanisme untuk menggabung channel tersebut, agar nanti mudah untuk dikontrol ([SSoT](https://en.wikipedia.org/wiki/Single_source_of_truth)). Disinilah peran fungsi `mergeChanFileInfo()`.
+Nah, karena di sini kita punya 3 worker yang jelasnya menghasilkan 3 buah channel baru, kita perlu sebuah mekanisme untuk menggabung channel tersebut, agar nanti mudah untuk dikontrol ([SSoT](https://en.wikipedia.org/wiki/Single_source_of_truth)). Di sinilah peran fungsi `mergeChanFileInfo()`.
 
-Fungsi `mergeChanFileInfo()` digunakan untuk *multiplexing* atau menggabung banyak channel ke satu channel saja, yang dimana channel ini juga akan **otomatis di-close ketika channel input (`chanFileContent`) adalah *closed***. Fungsi jenis seperti ini biasa disebut dengan **Fan-in function**.
+Fungsi `mergeChanFileInfo()` digunakan untuk *multiplexing* atau menggabung banyak channel ke satu channel saja, yang di mana channel ini juga akan **otomatis di-close ketika channel input (`chanFileContent`) adalah *closed***. Fungsi jenis seperti ini biasa disebut dengan **Fan-in function**.
 
 Jadi TL;DR nya:
 
 * Fungsi Fan-out digunakan untuk pembuatan worker, untuk distribusi job, yang proses distribusinya sendiri akan berhenti ketika channel inputan di-close.
-* Fungsi Fan-in digunakan untuk *multiplexing* atau menggabung banyak worker ke satu channel saja, yang dimana channel baru ini juga otomatis di-close ketika channel input adalah closed.
+* Fungsi Fan-in digunakan untuk *multiplexing* atau menggabung banyak worker ke satu channel saja, yang di mana channel baru ini juga otomatis di-close ketika channel input adalah closed.
 
 Lanjut buat fungsi `getSum()`-nya.
 
@@ -412,9 +412,9 @@ func getSum(chanIn <-chan FileInfo) <-chan FileInfo {
 }
 ```
 
-Bisa dilihat, disitu channel inputan `chanIn` di-listen dan setiap ada penerimaan data (via channel tersebut) dilanjut ke proses kalkulasi md5 hash. Hasil hash-nya di tambahkan ke data `FileInfo` kemudian dikirim lagi ke channel `chanOut` yang dimana channel ini merupakan nilai balik fungsi `getSum()`.
+Bisa dilihat, di situ channel inputan `chanIn` di-listen dan setiap ada penerimaan data (via channel tersebut) dilanjut ke proses kalkulasi md5 hash. Hasil hash-nya di tambahkan ke data `FileInfo` kemudian dikirim lagi ke channel `chanOut` yang di mana channel ini merupakan nilai balik fungsi `getSum()`.
 
-Ketika `chanIn` closed, maka bisa diasumsikan semua data sudah dikirim. Jika memang iya dan data-data tersebut sudah diproses (pencarian md5hash-nya), maka channel `chanOut` juga di-close.
+Ketika `chanIn` closed, maka bisa diasumsikan semua data sudah dikirim. Jika memang iya dan data-data tersebut sudah di proses (pencarian md5hash-nya), maka channel `chanOut` juga di-close.
 
 Next, buat fungsi merger-nya.
 
@@ -442,14 +442,14 @@ func mergeChanFileInfo(chanInMany ...<-chan FileInfo) <-chan FileInfo {
 }
 ```
 
-Fungsi di atas digunakan untuk merging banyak channel ke satu channel. Memang sedikit susah di-awal untuk dipahami, tapi nanti lama-kelamaan akan paham. Fungsi ini saya buat sama dengan skema fungsi Fan-in pada [Go Concurrency Patterns: Pipeline](https://blog.golang.org/pipelines).
+Fungsi di atas digunakan untuk merging banyak channel ke satu channel. Memang sedikit susah di awal untuk dipahami, tapi nanti lama-kelamaan akan paham. Fungsi ini saya buat sama dengan skema fungsi Fan-in pada [Go Concurrency Patterns: Pipeline](https://blog.golang.org/pipelines).
 
 Secara garis besar, pada fungsi ini terjadi beberapa proses:
 
 * Dispatch goroutine baru untuk masing-masing channel yang dikirim via variadic argument/parameter fungsi ini.
 * Di dalam goroutine tersebut, append data yang diterima oleh masing-masing channel ke satu buah channel baru yaitu `chanOut`.
 * Channel `chanOut` ini dijadikan sebagai nilai balik fungsi.
-* Disitu kita gunakan `sync.WaitGroup` untuk kontrol goroutine. Kita akan tunggu hingga semua channel input adalah closed, setelah itu barulah kita close channel `chanOut` ini.
+* Di situ kita gunakan `sync.WaitGroup` untuk kontrol goroutine. Kita akan tunggu hingga semua channel input adalah closed, setelah itu barulah kita close channel `chanOut` ini.
 
 #### • Pipeline 3: Rename file
 
@@ -528,7 +528,7 @@ Ok, sekarang program sudah siap. Mari kita jalankan untuk melihat hasilnya.
 
 ![Rename file concurrently](images/A_concurrency_pipeline_3_rename_concurrently.png)
 
-Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu `1.17` detik, sedangkan dengan metode pipeline butuh hanya `0.72` detik. Bedanya hampir **40%**! dan ini hanya 3000 file saja, bayangkan kalau jutaan file, mungkin lebih kerasa perbandingan performnya.
+Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu `1.17` detik, sedangkan dengan metode pipeline butuh hanya `0.72` detik. Bedanya hampir **40%**! dan ini hanya 3000 file saja, bayangkan kalau jutaan file, mungkin lebih terasa perbandingan performnya.
 
 ## A.62.6. Kesimpulan
 

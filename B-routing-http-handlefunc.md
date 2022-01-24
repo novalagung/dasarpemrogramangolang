@@ -1,13 +1,13 @@
 # B.2. Routing `http.HandleFunc`
 
-Dalam Go, routing bisa dilakukan dengan beberapa cara, diantaranya:
+Dalam Go, routing bisa dilakukan dengan beberapa cara, di antaranya:
 
  1. Dengan memanfaatkan fungsi `http.HandleFunc()`
  2. Mengimplementasikan interface `http.Handler` pada suatu struct, untuk kemudian digunakan pada fungsi `http.Handle()`
  3. Membuat multiplexer sendiri dengan memanfaatkan struct `http.ServeMux`
  4. Dan lainnya
 
-Pada buku ini, kesemua cara tersebut akan dibahas, namun khusus pada chapter ini saja, hanya `http.HandleFunc()` yang kita pelajari.
+Pada buku ini, semua cara tersebut akan dibahas, namun khusus pada chapter ini saja, hanya `http.HandleFunc()` yang kita pelajari.
 
 > Metode routing cara pertama dan cara kedua memiliki kesamaan yaitu sama-sama menggunakan `DefaultServeMux` untuk pencocokan rute/endpoint yang diregistrasikan. Mengenai apa itu `DefaultServeMux` akan kita bahas lebih mendetail pada chapter lain.
 
@@ -20,7 +20,7 @@ Penggunaan fungsi ini cukup mudah, panggil saja fungsi lalu isi dua parameternya
  1. Parameter ke-1, adalah rute (atau endpoint). Sebagai contoh: `/`, `/index`, `/about`.
  2. Parameter ke-2, berisikan handler untuk rute bersangkutan. Sebagai contoh handler untuk rute `/` bertugas untuk menampilkan output berupa html `<p>hello</p>`.
 
-Agar lebih mudah dipahami mari langsung praktek. Siapkan file `main.go` dengan package adalah `main`, dan import package `net/http` didalamnya.
+Agar lebih mudah dipahami mari langsung praktek. Siapkan file `main.go` dengan package adalah `main`, dan import package `net/http` di dalamnya.
 
 ```go
 package main
@@ -29,7 +29,7 @@ import "fmt"
 import "net/http"
 ```
 
-Buat fungsi `main()`, didalamnya siapkan sebuah closure `handlerIndex`, lalu gunakan closure tersebut sebagai handler dari dua rute baru yang diregistrasi, yaitu `/` dan `/index`.
+Buat fungsi `main()`, di dalamnya siapkan sebuah closure `handlerIndex`, lalu gunakan closure tersebut sebagai handler dari dua rute baru yang diregistrasi, yaitu `/` dan `/index`.
 
 ```go
 func main() {

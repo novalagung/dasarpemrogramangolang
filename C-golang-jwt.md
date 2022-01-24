@@ -255,7 +255,7 @@ tokenString, _ := json.Marshal(M{ "token": signedToken })
 w.Write([]byte(tokenString))
 ```
 
-Bagian otentikasi dan generate token sebenarnya cukup sampai disini. Tapi sebenarnya ada yang kurang, yaitu fungsi `authenticateUser()`. Silakan buat fungsi tersebut.
+Bagian otentikasi dan generate token sebenarnya cukup sampai di sini. Tapi sebenarnya ada yang kurang, yaitu fungsi `authenticateUser()`. Silakan buat fungsi tersebut.
 
 ```go
 func authenticateUser(username, password string) (bool, M) {

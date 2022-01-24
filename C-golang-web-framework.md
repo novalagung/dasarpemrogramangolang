@@ -21,7 +21,7 @@ Untuk opsi custom framework sendiri, pembaca bisa menggunakan kombinasi dari beb
 
 ## C.2.2. Routing Library
 
-Untuk opsi router, ada cukup banyak pilihan yg tersedia, sebagian diantaranya:
+Untuk opsi router, ada cukup banyak pilihan yg tersedia, sebagian di antaranya:
 
 - [Chi](https://github.com/go-chi/chi)
 - [FastHttp](https://github.com/valyala/fasthttp) atau [FastHttpRouter](https://github.com/buaazp/fasthttprouter)
@@ -47,7 +47,7 @@ Validator library berfungsi untuk mempermudah parsing payload dan parameter dari
 
 ## C.2.5. Database / ORM
 
-ORM adalah salah satu pattern yg cukup sering dipakai di data layer. Beberapa library yang tersedia diantaranya:
+ORM adalah salah satu pattern yg cukup sering dipakai di data layer. Beberapa library yang tersedia di antaranya:
 
 - [Gorm](https://github.com/jinzhu/gorm)
 - [Gorp](https://github.com/go-gorp/gorp)

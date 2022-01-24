@@ -43,7 +43,7 @@ Statement `gofpdf.New()` digunakan untuk membuat objek dokumen baru. Fungsi `.Ne
  3. Parameter ke-3, ukuran dokumen, kira pilih A4.
  4. Parameter ke-4, path folder font.
 
-Fungsi `.New()` mengembalikan objek PDF. Dari situ kita bisa mengakses banyak method sesuai kebutuhan, beberapa diantaranya adalah 4 buah method yang dicontohkan di atas.
+Fungsi `.New()` mengembalikan objek PDF. Dari situ kita bisa mengakses banyak method sesuai kebutuhan, beberapa di antaranya adalah 4 buah method yang dicontohkan di atas.
 
 #### • Method `.AddPage()`
  

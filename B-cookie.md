@@ -107,7 +107,7 @@ Selanjutnya, buka url `/delete`, halaman akan di redirect kembali ke `/`, dan ra
 
 ## B.21.3. Properties Object `http.Cookie`
 
-Objek cookie memiliki beberapa property, beberapa diantaranya:
+Objek cookie memiliki beberapa property, beberapa di antaranya:
 
 | Property | Tipe Data | Deskripsi |
 | -------- | --------- | --------- |

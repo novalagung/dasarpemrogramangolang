@@ -102,7 +102,7 @@ Fungsi `MiddlewareAuth()` dan `MiddlewareAllowOnlyGet()` adalah middleware yang 
  - `MiddlewareAuth()` bertugas untuk melakukan pengencekan credentials, basic auth.
  - `MiddlewareAllowOnlyGet()` bertugas untuk melakukan pengecekan method.
 
-> Silakan lihat source code beberapa library middleware yang sudah terkenal seperti gorilla, gin-contrib, echo middleware, dan lainnya; kesemuanya metode implementasi middleware-nya adalah sama, atau paling tidak mirip. Point plus nya, beberapa diantara library tersebut mudah diintegrasikan dan compatible satu sama lain.
+> Silakan lihat source code beberapa library middleware yang sudah terkenal seperti gorilla, gin-contrib, echo middleware, dan lainnya; Semua metode implementasi middleware-nya adalah sama, atau paling tidak mirip. Point plus nya, beberapa di antara library tersebut mudah diintegrasikan dan compatible satu sama lain.
 
 Kedua middleware yang akan kita buat tersebut mengembalikan fungsi bertipe `http.Handler`. Eksekusi middleware sendiri terjadi pada saat ada http request masuk.
 

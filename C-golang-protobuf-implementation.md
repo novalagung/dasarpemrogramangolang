@@ -238,7 +238,7 @@ func main() {
 }
 ```
 
-Package model yang isinya generated proto file, di-import. Dari package tersebut, kita bisa mengakses generated struct seperti `model.User`, `model.GarageList`, dan lainnya. Maka coba buat beberapa objek untuk kesemua generated struct.
+Package model yang isinya generated proto file, di-import. Dari package tersebut, kita bisa mengakses generated struct seperti `model.User`, `model.GarageList`, dan lainnya. Maka coba buat beberapa objek untuk ke semua generated struct.
 
  - Objek struct `model.User`:
 

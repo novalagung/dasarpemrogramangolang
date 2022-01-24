@@ -62,7 +62,7 @@ var funcMap = template.FuncMap{
 
 Dalam `funcMap` di atas, dua buah fungsi disiapkan, `unescape()` dan `avg()`. Nantinya fungsi ini kita gunakan di view.
 
-Setelah itu, siapkan fungsi `main()` dengan isi route handler untuk `/`. Di dalam handler ini, `view.html` diparsing, kemudian disisipkan fungsi yang telah dibuat di atas kedalamnya.
+Setelah itu, siapkan fungsi `main()` dengan isi route handler untuk `/`. Di dalam handler ini, `view.html` diparsing, kemudian disisipkan fungsi yang telah dibuat di atas ke dalamnya.
 
 ```go
 func main() {

@@ -1,14 +1,14 @@
 # A.6. Command
 
-Pengembangan aplikasi Go tak jauh dari hal-hal yang berbau CLI atau *Command Line Interface*. Proses inisalisasi projek, kompilasi, testing, eksekusi program, semuanya dilakukan lewat command line.
+Pengembangan aplikasi Go tak jauh dari hal-hal yang berbau CLI atau *Command Line Interface*. Proses inisialisasi projek, kompilasi, testing, eksekusi program, semuanya dilakukan lewat command line.
 
-Go menyediakan command `go`, dan pada chapter ini kita akan mempelajari beberapa diantaranya.
+Go menyediakan command `go`, dan pada chapter ini kita akan mempelajari beberapa di antaranya.
 
 > Pada pembelajaran chapter ini, pembaca tidak harus praktek, cukup pelajari saja untuk tahu. Mengenai praktek sendiri akan dimulai pada chapter selanjutnya, yaitu [A.7. Program Pertama: Hello World](/A-hello-world.html).
 
 ## A.6.1. Command `go mod init`
 
-*Command* `go mod init` digunakan untuk inisalisasi projek pada Go (menggunakan Go Modules). Untuk nama projek bisa menggunakan apapun, tapi umumnya adalah disamakan dengan nama direktori.
+*Command* `go mod init` digunakan untuk inisialisasi projek pada Go (menggunakan Go Modules). Untuk nama projek bisa menggunakan apapun, tapi umumnya adalah disamakan dengan nama direktori.
 
 Nama projek ini penting karena nantinya berpengaruh pada *import path sub packages* yang ada dalam projek tersebut.
 
@@ -20,7 +20,7 @@ go mod init <nama-project>
 
 ## A.6.2. Command `go run`
 
-*Command* `go run` digunakan untuk eksekusi file program (file ber-ekstensi `.go`). Cara penggunaannya dengan menuliskan *command* tersebut diikut argumen nama file.
+*Command* `go run` digunakan untuk eksekusi file program (file ber-ekstensi `.go`). Cara penggunaannya dengan menuliskan *command* tersebut diikuti argumen nama file.
 
 Berikut adalah contoh penerapan `go run` untuk eksekusi file program `main.go` yang tersimpan di path `project-pertama` yang path tersebut sudah diinisialisasi menggunakan `go mod init`.
 
@@ -43,7 +43,7 @@ go run main.go library.go
 
 ## A.6.3. Command `go test`
 
-Go menyediakan package `testing`, berguna untuk keperluan unit test. File yang akan di-test harus ber-suffix `_test.go`.
+Go menyediakan package `testing`, berguna untuk keperluan unit test. File yang akan di-test harus memiliki akhiran `_test.go`.
 
 Berikut adalah contoh penggunaan *command* `go test` untuk testing file `main_test.go`.
 
@@ -72,7 +72,7 @@ go build -o <nama-executable>
 go build -o program.exe
 ```
 
-> Untuk sistem operasi non-windows, tidak perlu menambahkan suffix `.exe` pada nama *binary*
+> Untuk sistem operasi non-windows, tidak perlu menambahkan akhiran `.exe` pada nama *binary*
 
 ## A.6.5. Command `go get`
 
@@ -86,7 +86,7 @@ dir
 
 ![Download package menggunakan `go get`](images/A_go_command_6_go_get.png)
 
-Pada contoh di atas, `github.com/segmentio/kafka-go` adalah URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder dimana *command* `go get` dieksekusi, menjadikan projek tersebut bisa meng-*import* package terunduh.
+Pada contoh di atas, `github.com/segmentio/kafka-go` adalah URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder di mana *command* `go get` dieksekusi, menjadikan projek tersebut bisa meng-*import* package terunduh.
 
 Untuk mengunduh dependensi versi terbaru, gunakan flag `-u` pada command `go get`, misalnya:
 

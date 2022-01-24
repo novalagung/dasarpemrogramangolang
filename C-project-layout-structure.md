@@ -97,7 +97,7 @@ Ada cukup banyak folder dan subfolder dalam project layout, berikut kami ringkas
 |   # folder test isinya adalah file testing. untuk struktur file-nya sendiri bebas,
 |   # mau disusun seperti apa.
 |   #
-|   # khusus untuk unit test, baiknya tidak ditempatkan disini,
+|   # khusus untuk unit test, baiknya tidak ditempatkan di sini,
 |   # tapi ditempatkan di dalam package yang sama dengan file yang akan di-unit-test. 
 |
 ├── vendor/
@@ -109,7 +109,7 @@ Ada cukup banyak folder dan subfolder dalam project layout, berikut kami ringkas
 └── ...
 ```
 
-Hmm, cukup banyak juga ya yang perlu dipelajari? 😅 Tenang, tidak perlu untuk dihafal, cukup dipahami saja. Selain itu semua direktori diatas juga belum tentu dipakai semua, perlu disesuaikan dengan proyek yang sedang teman-teman kembangkan.
+Hmm, cukup banyak juga ya yang perlu dipelajari? 😅 Tenang, tidak perlu untuk dihafal, cukup dipahami saja. Selain itu semua direktori di atas juga belum tentu dipakai semua, perlu disesuaikan dengan proyek yang sedang teman-teman kembangkan.
 
 Ok, sampai sini saja pembahasan mengenai project layout, selanjutnya silakan mencoba-coba jika berkenan, bisa dengan men-develop mulai awal, atau *clone* existing project untuk dipelajari strukturnya.
 

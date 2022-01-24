@@ -2,7 +2,7 @@
 
 HTTP/2 adalah versi terbaru protokol HTTP, dikembangkan dari protokol [SPDY](https://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00) yang diinisiasi oleh Google.
 
-Protokol ini sekarang sudah kompatibel dengan banyak browser diantaranya: Chrome, Opera, Firefox 9, IE 11, Safari, Silk, dan Edge.
+Protokol ini sekarang sudah kompatibel dengan banyak browser di antaranya: Chrome, Opera, Firefox 9, IE 11, Safari, Silk, dan Edge.
 
 Kelebihan HTTP/2 dibanding HTTP 1.1 (protokol yang umumnya digunakan) sebagian besar adalah pada performa dan sekuriti. Berikut merupakan beberapa point yang menjadi kelebihan dari protokol baru ini.
 

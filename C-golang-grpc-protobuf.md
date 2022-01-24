@@ -2,7 +2,7 @@
 
 Pada chapter ini kita akan belajar tentang penerapan **gRPC** dan **protobuf** pada bahasa Go.
 
-Kita akan buat satu buah folder projek besar, didalamnya terdapat 3 buah aplikasi. Dua diantaranya merupakan aplikasi server, lebih tepatnya rpc server, dan yang satu lagi aplikasi client. Aplikasi client akan berkomunikasi dengan kedua aplikasi server.
+Kita akan buat satu buah folder projek besar, di dalamnya terdapat 3 buah aplikasi. Dua di antaranya merupakan aplikasi server, lebih tepatnya rpc server, dan yang satu lagi aplikasi client. Aplikasi client akan berkomunikasi dengan kedua aplikasi server.
 
 Bisa dibilang ini adalah contoh super sederhana (dan asal-asalan) tentang penerapan [microservices architecture](https://en.wikipedia.org/wiki/Microservices).
 
@@ -58,7 +58,7 @@ tree .
 7 directories, 7 files
 ```
 
-Salah satu pembeda yang paling terlihat dibanding chapter sebelumnya adalah disini kita go get package `google.golang.org/grpc`. Package ini diperlukan oleh generator untuk bisa memahami dan men-*generate* spesifikasi `service`. Lebih jelasnya akan kita bahas sambil praktek.
+Salah satu pembeda yang paling terlihat dibanding chapter sebelumnya adalah di sini kita go get package `google.golang.org/grpc`. Package ini diperlukan oleh generator untuk bisa memahami dan men-*generate* spesifikasi `service`. Lebih jelasnya akan kita bahas sambil praktek.
 
 Lanjut. Di bawah ini merupakan penjelasan per bagian dari struktur projek di atas.
 
@@ -211,7 +211,7 @@ Gunakan command berikut untuk generate file .go dari file .proto yang sudah kita
 PATH=$PATH:$GOPATH/bin/ protoc --go_out=plugins=grpc:. *.proto
 ```
 
-Perhatikan baik-baik command di atas, Pada flag `--go_out` isinya adalah `plugins=grpc:.`, ada `plugins=grpc` disitu (berbeda dibanding pada chapter sebelumnya yang isinya langsung `.`).
+Perhatikan baik-baik command di atas, Pada flag `--go_out` isinya adalah `plugins=grpc:.`, ada `plugins=grpc` di situ (berbeda dibanding pada chapter sebelumnya yang isinya langsung `.`).
 
 Plugin `grpc` ini dipergunakan untuk men-*generate* **service bindings behaviour** yang ada pada gRPC. Seperti yang kita telah praktekan bahwa di atas kita menuliskan definisi `service`. Dengan menambahkan `plugins=grpc` maka definisi `service` tersebut akan bisa dipahami oleh generator untuk kemudian di-*transform* menjadi definisi interface beserta isi method-nya.
 

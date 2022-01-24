@@ -53,7 +53,7 @@ go run main.go
 go build -o executable
 ```
 
-Untuk yg menggunakan versi Go dibawah 1.14, penulis sarankan untuk upgrade. Atau bisa gunakan flag `-mod=vendor` untuk memaksa Go lookup ke folder `vendor`.
+Untuk yg menggunakan versi Go di bawah 1.14, penulis sarankan untuk upgrade. Atau bisa gunakan flag `-mod=vendor` untuk memaksa Go lookup ke folder `vendor`.
 
 ```
 go run -mod=vendor main.go

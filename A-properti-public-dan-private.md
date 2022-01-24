@@ -26,7 +26,7 @@ Project folder selain berisikan file-file `.go` juga bisa berisikan sub-folder l
 
 > Jadi mudahnya, 1 folder adalah 1 package.
 
-Dalam sebuah package, biasanya kita menulis sangat banyak komponen, entah itu fungsi, struct, variabel, atau lainnya. Komponen tersebut bisa leluasa digunakan dalam package yang sama. Contoh sederhananya seperti program yang telah kita praktekan pada chapter sebelum-sebelumnya, dalam package `main` ada banyak yang di-*define*: fungsi, variabel, closure, struct, dan lainnya; kesemuanya bisa langsung dimanfaatkan.
+Dalam sebuah package, biasanya kita menulis sangat banyak komponen, entah itu fungsi, struct, variabel, atau lainnya. Komponen tersebut bisa leluasa digunakan dalam package yang sama. Contoh sederhananya seperti program yang telah kita praktekan pada chapter sebelum-sebelumnya, dalam package `main` ada banyak yang di-*define*: fungsi, variabel, closure, struct, dan lainnya; ke semuanya bisa langsung dimanfaatkan.
 
 Jika dalam satu program terdapat lebih dari 1 package, atau ada package lain selain `main`, maka komponen dalam package lain tersebut tidak bisa diakses secara bebas dari file yang package-nya `main`, karena tiap komponen memiliki hak akses.
 
@@ -45,7 +45,7 @@ Agar lebih mudah dipahami, maka langsung saja kita praktekan.
 
 Pertama buat folder proyek baru bernama `belajar-golang-level-akses`, inisialisasi sebagai projek dengan nama yang sama. Kemudian buat file baru bernama `main.go` di dalamnya, lalu set nama package file tersebut sebagai **main**.
 
-Kemudian, buat sub-folder baru bernama `library` di dalam folder `belajar-golang-level-akses`. Didalam folder `library`, buat file baru `library.go`, set nama package-nya **library**.
+Kemudian, buat sub-folder baru bernama `library` di dalam folder `belajar-golang-level-akses`. Di dalam folder `library`, buat file baru `library.go`, set nama package-nya **library**.
 
 ![Struktur folder dan file](images/A_properti_public_private_1_folder_structure.png)
 
@@ -89,7 +89,7 @@ Bisa dilihat bahwa package `library` yang telah dibuat tadi, di-import ke dalam 
 
 Folder utama atau root folder dalam project yang sedang digarap adalah `belajar-golang-level-akses`, sehingga untuk import package lain yang merupakan subfolder, harus dituliskan lengkap path folder nya, seperti `belajar-golang-level-akses/library`.
 
-Penanda root folder adalah tempat dimana file `go.mod` berada.
+Penanda root folder adalah tempat di mana file `go.mod` berada.
 
 Ok, kita lanjut. Perhatikan kode berikut.
 
@@ -104,7 +104,7 @@ OK, sekarang coba jalankan kode yang sudah disiapkan di atas, hasilnya error.
 
 ![Error saat menjalankan program](images/A_properti_public_private_2_error.png)
 
-Error di atas disebabkan karena fungsi `introduce()` yang berada dalam package `library` memiliki level akses *undexported* (atau *private*), fungsi ini tidak bisa diakses dari package lain (pada kasus ini `main`). Agar bisa diakses, solusinya bisa dengan menjadikannya ke bentuk *exported* (atau *public*), atau diubah cara pemanggilannya. Disini kita menggunakan cara ke-2.
+Error di atas disebabkan karena fungsi `introduce()` yang berada dalam package `library` memiliki level akses *undexported* (atau *private*), fungsi ini tidak bisa diakses dari package lain (pada kasus ini `main`). Agar bisa diakses, solusinya bisa dengan menjadikannya ke bentuk *exported* (atau *public*), atau diubah cara pemanggilannya. Di sini kita menggunakan cara ke-2.
 
 Tambahkan parameter `name` pada fungsi `SayHello()`, lalu panggil fungsi `introduce()` dengan menyisipkan parameter `name` dari dalam fungsi `SayHello()`.
 
@@ -131,7 +131,7 @@ Coba jalankan lagi.
 
 Level akses *exported* (atau public) dan *unexported* (atau private) juga bisa diterapkan di fungsi, struct, method, maupun property variabel. Cara penggunaannya sama seperti pada pembahasan sebelumnya, yaitu dengan menentukan **character case** huruf pertama nama komponen, apakah huruf besar atau kecil.
 
-Belajar tentang level akses di Go akan lebih cepat jika langsung praktek. Oleh karena itu langsung saja. Hapus isi file `library.go`, buat struct baru dengan nama `student` didalamnya.
+Belajar tentang level akses di Go akan lebih cepat jika langsung praktek. Oleh karena itu langsung saja. Hapus isi file `library.go`, buat struct baru dengan nama `student` di dalamnya.
 
 ```go
 package library
@@ -203,7 +203,7 @@ Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` y
 
 Seperti yang kita tahu, untuk mengakses fungsi/struct/variabel yg berada di package lain, nama package nya perlu ditulis, contohnya seperti pada penggunaan penggunaan `library.Student` dan `fmt.Println()`.
 
-Di Go, komponen yang berada di package lain yang di-import bisa dijadikan se-level dengan komponen package peng-import, caranya dengan menambahkan tanda titik (`.`) setelah penulisan keyword `import`. Maksud dari se-level disini adalah, semua properti di package lain yg di-import bisa diakses tanpa perlu menuliskan nama package, seperti ketika mengakses sesuatu dari file yang sama.
+Di Go, komponen yang berada di package lain yang di-import bisa dijadikan se-level dengan komponen package peng-import, caranya dengan menambahkan tanda titik (`.`) setelah penulisan keyword `import`. Maksud dari se-level di sini adalah, semua properti di package lain yg di-import bisa diakses tanpa perlu menuliskan nama package, seperti ketika mengakses sesuatu dari file yang sama.
 
 ```go
 import (
@@ -318,7 +318,7 @@ func main() {
 }
 ```
 
-Package `library` di-import, dan variabel `Student` dikonsumsi. Pada saat import package, fungsi `init()` yang berada didalamnya langsung dieksekusi.
+Package `library` di-import, dan variabel `Student` dikonsumsi. Pada saat import package, fungsi `init()` yang berada di dalamnya langsung dieksekusi.
 
 Property variabel objek `Student` akan diisi dan sebuah pesan ditampilkan ke console.
 

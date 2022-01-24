@@ -56,7 +56,7 @@ Pada contoh di atas, server dijalankan pada port `8080`.
 
 Perlu diingat, setiap ada perubahan pada file `.go`, `go run` harus dipanggil lagi.
 
-Untuk menghentikan web server, tekan **CTRL+C** pada terminal atau CMD, dimana pengeksekusian aplikasi berlangsung.
+Untuk menghentikan web server, tekan **CTRL+C** pada terminal atau CMD, di mana pengeksekusian aplikasi berlangsung.
 
 ## A.51.2. Penggunaan Template Web
 
@@ -114,7 +114,7 @@ Jalankan, lalu buka [http://localhost:8080/](http://localhost:8080/), maka data 
 
 Fungsi `template.ParseFiles()` digunakan untuk parsing template, mengembalikan 2 data yaitu instance template-nya dan error (jika ada). Pemanggilan method `Execute()` akan membuat hasil parsing template ditampilkan ke layar web browser.
 
-Pada kode di atas, variabel `data` disisipkan sebagai parameter ke-2 method `Execute()`. Isi dari variabel tersebut bisa diakses di-view dengan menggunakan notasi `{{.NAMA_PROPERTY}}` (nama variabel sendiri tidak perlu dituliskan, langsung nama property didalamnya).
+Pada kode di atas, variabel `data` disisipkan sebagai parameter ke-2 method `Execute()`. Isi dari variabel tersebut bisa diakses di-view dengan menggunakan notasi `{{.NAMA_PROPERTY}}` (nama variabel sendiri tidak perlu dituliskan, langsung nama property di dalamnya).
 
 Pada contoh di atas, statement di view `{{.Name}}` akan menampilkan isi dari `data.Name`.
 

@@ -49,7 +49,7 @@ Output:
 
 ![Penerapan `defer` dengan `return`](images/A_defer_exit_2_defer_return.png)
 
-Info tambahan, ketika ada banyak statement yang di-defer, maka kesemuanya akan dieksekusi di akhir secara berurutan.
+Info tambahan, ketika ada banyak statement yang di-defer, maka seluruhnya akan dieksekusi di akhir secara berurutan.
 
 ## A.36.2. Kombinasi `defer` dan IIFE
 
@@ -107,7 +107,7 @@ Bisa dilihat `halo 3` muncul sebelum `halo 2`, karena dalam blok seleksi kondisi
 
 ## A.36.3. Penerapan Fungsi `os.Exit()`
 
-Exit digunakan untuk menghentikan program secara paksa pada saat itu juga. Semua statement setelah exit tidak akan di eksekusi, termasuk juga defer.
+Exit digunakan untuk menghentikan program secara paksa pada saat itu juga. Semua statement setelah exit tidak akan dieksekusi, termasuk juga defer.
 
 Fungsi `os.Exit()` berada dalam package `os`. Fungsi ini memiliki sebuah parameter bertipe numerik yang wajib diisi. Angka yang dimasukkan akan muncul sebagai **exit status** ketika program berhenti.
 

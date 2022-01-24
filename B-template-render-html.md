@@ -55,7 +55,7 @@ if err != nil {
 }
 ```
 
-Package `path` berisikan banyak fungsi yang berhubungan dengan lokasi folder atau path, yang salah satu diantaranya adalah fungsi `path.Join()`. Fungsi ini digunakan untuk menggabungkan folder atau file atau keduanya menjadi sebuah path, dengan separator relatif terhadap OS yang digunakan.
+Package `path` berisikan banyak fungsi yang berhubungan dengan lokasi folder atau path, yang salah satu di antaranya adalah fungsi `path.Join()`. Fungsi ini digunakan untuk menggabungkan folder atau file atau keduanya menjadi sebuah path, dengan separator relatif terhadap OS yang digunakan.
 
 > Separator yang digunakan oleh `path.Join()` adalah `\` untuk wind\*ws dan `/` untuk un\*x.
 
@@ -100,7 +100,7 @@ Semua sudah siap, maka jalankan program lalu lakukan testing via browser.
 
 ## B.4.5. Static File CSS
 
-Kita akan coba tambahkan sebuah stylesheet disini. Langsung saja, buat file statis `assets/site.css`, isi dengan kode berikut.
+Kita akan coba tambahkan sebuah stylesheet di sini. Langsung saja, buat file statis `assets/site.css`, isi dengan kode berikut.
 
 ```css
 body {

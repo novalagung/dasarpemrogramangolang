@@ -172,11 +172,11 @@ func handleListFiles(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Fungsi `os.Getwd()` mengembalikan informasi absolute path dimana aplikasi di-eksekusi. Path tersebut kemudian di gabung dengan folder bernama `files` lewat fungsi `filepath.Join`. 
+Fungsi `os.Getwd()` mengembalikan informasi absolute path di mana aplikasi di-eksekusi. Path tersebut kemudian di gabung dengan folder bernama `files` lewat fungsi `filepath.Join`. 
 
-> Fungsi `filepath.Join` akan menggabungkan item-item dengan path separator sesuai dengan sistem operasi dimana program dijalankan. `\` untuk Windows dan `/` untuk Linux/Unix.
+> Fungsi `filepath.Join` akan menggabungkan item-item dengan path separator sesuai dengan sistem operasi di mana program dijalankan. `\` untuk Windows dan `/` untuk Linux/Unix.
 
-Fungsi `filepath.Walk` berguna untuk membaca isi dari sebuah direktori, apa yang ada didalamnya (file maupun folder) akan di-loop. Dengan memanfaatkan callback parameter kedua fungsi ini (yang bertipe `filepath.WalkFunc`), kita bisa mengamil informasi tiap item satu-per satu.
+Fungsi `filepath.Walk` berguna untuk membaca isi dari sebuah direktori, apa yang ada di dalamnya (file maupun folder) akan di-loop. Dengan memanfaatkan callback parameter kedua fungsi ini (yang bertipe `filepath.WalkFunc`), kita bisa mengamil informasi tiap item satu-per satu.
 
 Selanjutnya siapkan handler untuk `/download`. Implementasi teknik download pada dasarnya sama pada semua bahasa pemrograman, yaitu dengan memainkan header **Content-Disposition** pada response.
 

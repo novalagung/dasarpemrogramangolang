@@ -4,7 +4,7 @@ Pada chapter ini kita akan belajar menggunakan library [secure](https://github.c
 
 ## C.16.1. Keamanan Web Server
 
-Jika berbicara mengenai keamanan aplikasi web, sangat luas sebenarnya cakupannya, ada banyak hal yang perlu diperhatian dan disiapkan. Mungkin tiga diantaranya sudah kita pelajari sebelumnya, yaitu penerapan Secure Cookie, CORS, dan CSRF.
+Jika berbicara mengenai keamanan aplikasi web, sangat luas sebenarnya cakupannya, ada banyak hal yang perlu diperhatian dan disiapkan. Mungkin tiga di antaranya sudah kita pelajari sebelumnya, yaitu penerapan Secure Cookie, CORS, dan CSRF.
 
 Selain 3 topik tersebut masih terdapat banyak lagi. Beruntungnya ada library [secure](https://github.com/unrolled/secure). Sesuai tagline-nya, secure library digunakan untuk membantu mengatasi beberapa masalah keamanan aplikasi.
 

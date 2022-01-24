@@ -2,7 +2,7 @@
 
 Pada chapter [B.21. HTTP Cookie](/B-cookie.html), kita telah mempelajari tentang cookie dan implementasinya di golang.
 
-Cookie memiliki beberapa atribut, diantaranya adalah `secure`. Dengan mengaktifkan atribut ini, informasi cookie menjadi lebih aman karena di-enkripsi, namun kapabilitas ini hanya akan aktif pada kondisi aplikasi SSL/TLS enabled.
+Cookie memiliki beberapa atribut, di antaranya adalah `secure`. Dengan mengaktifkan atribut ini, informasi cookie menjadi lebih aman karena di-enkripsi, namun kapabilitas ini hanya akan aktif pada kondisi aplikasi SSL/TLS enabled.
 
 > TL;DR; Jika atribut `secure` di-isi `true`, namun web server TIDAK menggunakan SSL/TLS, maka cookie disimpan seperti biasa tanpa di-enkripsi.
 
@@ -81,7 +81,7 @@ func getCookie(c echo.Context, name string) (M, error) {
 }
 ```
 
-Setelah cookie diambil menggunakan `c.Request().Cookie()`, data didalamnya perlu di-decode agar bisa terbaca. Method `sc.Decode()` digunakan untuk decoding data.
+Setelah cookie diambil menggunakan `c.Request().Cookie()`, data di dalamnya perlu di-decode agar bisa terbaca. Method `sc.Decode()` digunakan untuk decoding data.
 
 OK, sekarang buat fungsi `main()`, lalu isi dengan kode di bawah ini.
 

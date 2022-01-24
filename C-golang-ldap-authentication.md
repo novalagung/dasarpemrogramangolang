@@ -43,7 +43,7 @@ Bind DN: cn=read-only-admin,dc=example,dc=com
 Bind Password: password
 ```
 
-Terdapat beberapa user data di sana, kesemuanya memiliki password yang sama, yaitu: `password`.
+Terdapat beberapa user data di sana, seluruhnya memiliki password yang sama, yaitu: `password`.
 
 Lebih detailnya silakan cek di http://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/
 

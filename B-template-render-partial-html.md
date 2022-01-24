@@ -2,7 +2,7 @@
 
 Satu buah halaman yang berisikan html, bisa terbentuk dari banyak template html (parsial). Pada chapter ini kita akan belajar bagaimana membuat, mem-parsing, dan me-render semua file tersebut.
 
-Ada beberapa metode yang bisa digunakan, dari kesemuanya akan kita bahas 2 diantaranya, yaitu:
+Ada beberapa metode yang bisa digunakan, dari ke semuanya akan kita bahas 2 di antaranya, yaitu:
 
  - Menggunakan fungsi `template.ParseGlob()`.
  - Menggunakan fungsi `template.ParseFiles()`.
@@ -41,9 +41,9 @@ Tipe `M` merupakan alias dari `map[string]interface{}`, disiapkan untuk mempersi
 
 Pada kode di atas, di dalam fungsi `main()`, fungsi `template.ParseGlob()` dipanggil, dengan parameter adalah pattern path `"views/*"`. Fungsi ini digunakan untuk memparsing semua file yang match dengan pattern yang ditentukan, dan fungsi ini mengembalikan 2 objek: `*template.Template` & `error`.
 
-> Pattern path pada fungsi `template.ParseGlob()` nantinya akan diproses oleh `filepath.Glob()`
+> Pattern path pada fungsi `template.ParseGlob()` nantinya akan di proses oleh `filepath.Glob()`
 
-Proses parsing semua file html dalam folder `views` dilakukan di-awal, agar ketika mengakses rute-tertentu-yang-menampilkan-html, tidak terjadi proses parsing lagi.
+Proses parsing semua file html dalam folder `views` dilakukan di awal, agar ketika mengakses rute-tertentu-yang-menampilkan-html, tidak terjadi proses parsing lagi.
 
 > Parsing semua file menggunakan `template.ParseGlob()` yang dilakukan di luar handler, tidak direkomendasikan dalam fase development. Karena akan mempersulit testing html. Lebih detailnya akan dibahas di bagian bawah.
 

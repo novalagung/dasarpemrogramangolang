@@ -75,7 +75,7 @@ String `"n"` berada pada indeks `4` dan `8`. Yang dikembalikan adalah yang palin
 
 ## A.44.6. Fungsi `strings.Replace()`
 
-Fungsi ini digunakan untuk replace atau mengganti bagian dari string dengan string tertentu. Jumlah substring yang di-replace bisa ditentukan, apakah hanya 1 string pertama, 2 string, atau kesemuanya.
+Fungsi ini digunakan untuk replace atau mengganti bagian dari string dengan string tertentu. Jumlah substring yang di-replace bisa ditentukan, apakah hanya 1 string pertama, 2 string, atau seluruhnya.
 
 ```go
 var text = "banana"

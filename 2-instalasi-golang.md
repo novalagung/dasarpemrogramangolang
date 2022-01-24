@@ -2,7 +2,7 @@
 
 Hal pertama yang perlu dilakukan sebelum bisa menggunakan Go adalah meng-*install*-nya terlebih dahulu. Panduan instalasi sebenarnya sudah disediakan di situs resmi Go [http://golang.org/doc/install#install](http://golang.org/doc/install#install).
 
-Disini penulis mencoba meringkas petunjuk instalasi pada *link* di atas, agar lebih mudah untuk diikuti terutama untuk pembaca yang baru belajar.
+Di sini penulis mencoba meringkas petunjuk instalasi pada *link* di atas, agar lebih mudah untuk diikuti terutama untuk pembaca yang baru belajar.
 
 > Go yang digunakan adalah versi **1.17.5**, direkomendasikan menggunakan versi tersebut.
 
@@ -88,7 +88,7 @@ Cara termudah instalasi Go di MacOS adalah menggunakan [Homebrew](http://brew.sh
 
 ## A.2.2. Variabel `GOROOT`
 
-*By default*, setelah proses instalasi Go selesai, secara otomatis akan muncul *environment variable* `GOROOT`. Isi dari variabel ini adalah lokasi dimana Go ter-*install*.
+*By default*, setelah proses instalasi Go selesai, secara otomatis akan muncul *environment variable* `GOROOT`. Isi dari variabel ini adalah lokasi di mana Go ter-*install*.
 
 Sebagai contoh di Windows, ketika Go di-*install* di `C:\go`, maka path tersebut akan menjadi isi dari `GOROOT`.
 

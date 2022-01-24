@@ -81,7 +81,7 @@ Fungsi `mongo.NewClient()` digunakan untuk meng-inisialisasi koneksi database da
 
 Dari object client, panggil method `.Connect()` untuk inisialisasi koneksi ke db server. Setelah itu panggil method `.Database()` untuk set database yang aktif.
 
-Lanjut buat fungsi yang didalamnya berisikan kode untuk insert data ke mongodb, lalu panggil fungsi tersebut di `main()`.
+Lanjut buat fungsi yang di dalamnya berisikan kode untuk insert data ke mongodb, lalu panggil fungsi tersebut di `main()`.
 
 ```go
 func insert() {
@@ -167,7 +167,7 @@ func main() {
 
 Query selector ditulis dalam tipe `bson.M`. Tipe ini sebenarnya adalah alias dari `map[string]interface{}`.
 
-Cara untuk mendapatkan semua rows hasil pencarian kursor adalah dengan mengiterasi method `.Next()` dengan didalamnya method `.Decode()` dipanggil untuk retrieve datanya. Setelah itu data yang sudah terampil di-append ke slice.
+Cara untuk mendapatkan semua rows hasil pencarian kursor adalah dengan mengiterasi method `.Next()` dengan di dalamnya method `.Decode()` dipanggil untuk retrieve datanya. Setelah itu data yang sudah terampil di-append ke slice.
 
 Selain method `.Find()` ada juga `.FindOne()`, silakan cek dokumentasi lebih jelasnya.
 

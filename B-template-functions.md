@@ -1,6 +1,6 @@
 # B.7. Template: Functions
 
-Go menyediakan beberapa *predefiend* function yang bisa digunakan dalam file template. Pada chapter ini kita akan membahas beberapa diantaranya beserta cara penggunaannya. Cara pemanggilan fungsi atau method sebuah objek pada file template sedikit berbeda dibanding seperti pada chapter sebelumnya.
+Go menyediakan beberapa *predefiend* function yang bisa digunakan dalam file template. Pada chapter ini kita akan membahas beberapa di antaranya beserta cara penggunaannya. Cara pemanggilan fungsi atau method sebuah objek pada file template sedikit berbeda dibanding seperti pada chapter sebelumnya.
 
 ## B.7.1. Persiapan
 

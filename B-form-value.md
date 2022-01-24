@@ -30,7 +30,7 @@ Pertama siapkan folder projek baru, dan sebuah file template view `view.html`. P
 {{end}}
 ```
 
-Aksi dari form di atas adalah `/process`, yang dimana url tersebut nantinya akan mengembalikan output berupa html hasil render template `result`. Silakan tulis template result berikut dalam `view.html` (jadi file view ini berisi 2 buah template).
+Aksi dari form di atas adalah `/process`, yang di mana url tersebut nantinya akan mengembalikan output berupa html hasil render template `result`. Silakan tulis template result berikut dalam `view.html` (jadi file view ini berisi 2 buah template).
 
 ```html
 {{define "result"}}

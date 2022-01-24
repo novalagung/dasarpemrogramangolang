@@ -150,7 +150,7 @@ Berikut adalah penjelasan per baris dari kode di atas.
 
 #### 1. Statement `FROM golang:alpine`
 
-Keyword `FROM` ini digunakan untuk inisialisasi *build stage* dan juga menentukan basis Image yang digunakan. Informasi `golang:alpine` disini adalah basis image yang dimaksud, yaitu image bernama `golang` dengan tag bernama `alpine` yang tersedia di laman officila Docker Hub Golang https://hub.docker.com/_/golang.
+Keyword `FROM` ini digunakan untuk inisialisasi *build stage* dan juga menentukan basis Image yang digunakan. Informasi `golang:alpine` di sini adalah basis image yang dimaksud, yaitu image bernama `golang` dengan tag bernama `alpine` yang tersedia di laman officila Docker Hub Golang https://hub.docker.com/_/golang.
 
 Dalam Image `golang:alpine` sudah tersedia beberapa utilitas untuk keperluan *build* aplikasi Golang. Image `golang:alpine` basisnya adalah Alpine OS.
 
@@ -302,15 +302,15 @@ docker container run --name my-container-hello-world --rm -it -e PORT=8080 -e IN
 
 #### • Flag `--rm`
 
-Flag ini digunakan untuk meng-automatisasi proses penghapusan container sewaktu container tersebut di stop. Jadi kita tidak perlu delete manual pakai `docker container rm`. Hal ini sangat membantu karena *command* `docker run` akan membuat container baru setiap dijalankan. Tapi sebenarnya pada contoh sebelumnya kita tidak perlu khawatir akan dibuat container baru karena sudah ada flag `--name`. Flag tersebut digunakan untuk menentukan nama container, yang dimana nama container harus unik. Jadi kalau ada duplikasi pasti langsung error. Nah dari sini berarti kalau temen-temen tidak pakai `--name` sangat dianjurkan paka `--rm` dalam penerapan `docker run`.
+Flag ini digunakan untuk meng-automatisasi proses penghapusan container sewaktu container tersebut di stop. Jadi kita tidak perlu delete manual pakai `docker container rm`. Hal ini sangat membantu karena *command* `docker run` akan membuat container baru setiap dijalankan. Tapi sebenarnya pada contoh sebelumnya kita tidak perlu khawatir akan dibuat container baru karena sudah ada flag `--name`. Flag tersebut digunakan untuk menentukan nama container, yang di mana nama container harus unik. Jadi kalau ada duplikasi pasti langsung error. Nah dari sini berarti kalau temen-temen tidak pakai `--name` sangat dianjurkan paka `--rm` dalam penerapan `docker run`.
 
 #### • Flag `-it`
 
-Flag ini merupakan flag gabungan antara `-i` yang digunakan untuk meng-enable *interactive mode* dan `-t` untuk *enable* `TTY`. Dengan ini kita bisa masuk ke mode interaktif yang dimana jika kita terminate atau kill command menggunakan `CTRL + C` atau `CMD + C` (untuk mac), maka otomatis container akan di stop.
+Flag ini merupakan flag gabungan antara `-i` yang digunakan untuk meng-enable *interactive mode* dan `-t` untuk *enable* `TTY`. Dengan ini kita bisa masuk ke mode interaktif yang di mana jika kita terminate atau kill command menggunakan `CTRL + C` atau `CMD + C` (untuk mac), maka otomatis container akan di stop.
 
 Nah dengan menggabungkan flag `--rm` dan flag `-it` kita bisa dengan mudah stop kemudian hapus container.
 
-Selain itu ada juga flag yang mungkin penting yaitu `-d` atau dettach. Flag ini bisa digabung dengan `-it`. Dettach adalah mode dimana ketika command `docker run` dijalankan, command akan langsung selesai. Dari sini untuk stop container berarti harus menggunakan command `docker stop`. Contoh:
+Selain itu ada juga flag yang mungkin penting yaitu `-d` atau dettach. Flag ini bisa digabung dengan `-it`. Dettach adalah mode di mana ketika command `docker run` dijalankan, command akan langsung selesai. Dari sini untuk stop container berarti harus menggunakan command `docker stop`. Contoh:
 
 ```bash
 docker container run --name my-container-hello-world --rm -itd -e PORT=8080 -e INSTANCE_ID="my first instance" -p 8080:8080 my-image-hello-world

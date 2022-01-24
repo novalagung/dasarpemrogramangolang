@@ -50,7 +50,7 @@ func main() {
 }
 ```
 
-Ada cukup banyak hal yang terjadi didalam tiap pemanggilan fungsi `filter()` di atas. Berikut merupakan penjelasannya.
+Ada cukup banyak hal yang terjadi di dalam tiap pemanggilan fungsi `filter()` di atas. Berikut merupakan penjelasannya.
 
  1. Data array (yang didapat dari parameter pertama) akan di-looping.
  2. Di tiap perulangannya, closure `callback` dipanggil, dengan disisipkan data tiap elemen perulangan sebagai parameter.

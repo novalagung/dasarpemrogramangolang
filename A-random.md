@@ -71,7 +71,7 @@ Bisa dilihat, setiap program dieksekusi angka random nya selalu berbeda, hal ini
 
 ## A.39.4. Random Tipe Data Numerik Lainnya
 
-Di dalam package `math/rand`, ada banyak fungsi untuk generate angka random. Fungsi `rand.Int()` hanya salah satu dari fungsi yang tersedia didalam package tersebut, yang gunanya adalah menghasilkan angka random bertipe `int`.
+Di dalam package `math/rand`, ada banyak fungsi untuk generate angka random. Fungsi `rand.Int()` hanya salah satu dari fungsi yang tersedia di dalam package tersebut, yang gunanya adalah menghasilkan angka random bertipe `int`.
 
 Selain itu, ada juga `rand.Float32()` yang menghasilkan angka random bertipe `float32`. Ada juga `rand.Uint32()` yang menghasilkan angka random bertipe *unsigned* int, dan lainnya.
 

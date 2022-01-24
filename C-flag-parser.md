@@ -222,7 +222,7 @@ OK, sekarang buat 3 command sesuai skema yang sudah disepakati di atas.
     String()
   ```
 
-Buat fungsi main, lalu didalamnya siapkan action untuk masing-masing command. Gunakan method `.Action()` dengan parameter adalah fungsi ber-skema `func(*kingpin.ParseContext)error` untuk menambahkan action.
+Buat fungsi main, lalu di dalamnya siapkan action untuk masing-masing command. Gunakan method `.Action()` dengan parameter adalah fungsi ber-skema `func(*kingpin.ParseContext)error` untuk menambahkan action.
 
 Di akhir, tulis statement untuk parsing.
 
@@ -326,7 +326,7 @@ Pembahasan di atas fokus tentang bagaiamana cara parsing argument, flag, dan com
 
 Jika pembaca ingin membuat aplikasi command line, penggunaan kingpin cukup membantu dalam proses pengembangan, tapi akan lebih mudah lagi jika menggunakan 3rd party library [Cobra](https://github.com/spf13/cobra).
 
-Cobra merupakan library yang didesain khusus untuk development aplikasi berbasis command line. Library ini dibuat oleh author yang juga membuat kingpin.
+Cobra merupakan library yang dirancang khusus untuk development aplikasi berbasis command line. Library ini dibuat oleh author yang juga membuat kingpin.
 
 ---
 

@@ -4,7 +4,7 @@ Pada chapter ini kita akan belajar tentang pemanfaatan data bertipe date-time, m
 
 Go menyediakan package `time` yang berisikan banyak sekali komponen yang bisa digunakan untuk keperluan pemanfaatan date-time. Salah satunya adalah `time.Time`, yang merupakan tipe untuk data tanggal dan waktu di Go.
 
-> Time disini maksudnya adalah gabungan **date** dan **time**, bukan hanya waktu saja.
+> Time di sini maksudnya adalah gabungan **date** dan **time**, bukan hanya waktu saja.
 
 ## A.40.1. Penggunaan `time.Time`
 
@@ -119,21 +119,21 @@ Go memiliki standar layout format yang cukup unik, contohnya seperti pada kode d
 | `006` | Tahun 3 digit | `015` |
 | `06` | Tahun 2 digit | `15` |
 | `01` | Bulan 2 digit | `05` |
-| `1` | Bulan 1 digit jika dibawah bulan 10, selainnya 2 digit | `5`,&nbsp;`12` |
+| `1` | Bulan 1 digit jika di bawah bulan 10, selainnya 2 digit | `5`,&nbsp;`12` |
 | `January` | Nama bulan dalam bahasa inggris | `September`,&nbsp;`August` |
 | `Jan` | Nama bulan dalam bahasa inggris, 3 huruf | `Sep`,&nbsp;`Aug` |
 | `02` | Tanggal 2 digit | `02` |
-| `2` | Tanggal 1 digit jika dibawah bulan 10, selainnya 2 digit | `8`,&nbsp;`31` |
+| `2` | Tanggal 1 digit jika di bawah bulan 10, selainnya 2 digit | `8`,&nbsp;`31` |
 | `Monday` | Nama hari dalam bahasa inggris | `Saturday`,&nbsp;`Friday` |
 | `Mon` | Nama hari dalam bahasa inggris, 3 huruf | `Sat`,&nbsp;`Fri` |
 | `15` | Jam dengan format **24 jam** | `18` |
 | `03` | Jam dengan format **12 jam** 2 digit | `05`,&nbsp;`11` |
-| `3` | Jam dengan format **12 jam** 1 digit jika dibawah jam 11, selainnya 2 digit | `5`,&nbsp;`11` |
+| `3` | Jam dengan format **12 jam** 1 digit jika di bawah jam 11, selainnya 2 digit | `5`,&nbsp;`11` |
 | `PM` | AM/PM, biasa digunakan dengan format jam **12 jam** | `PM`,&nbsp;`AM` |
 | `04` | Menit 2 digit | `08` |
-| `4` | Menit 1 digit jika dibawah menit 10, selainnya 2 digit | `8`,&nbsp;`24` |
+| `4` | Menit 1 digit jika di bawah menit 10, selainnya 2 digit | `8`,&nbsp;`24` |
 | `05` | Detik 2 digit | `06` |
-| `5` | Detik 1 digit jika dibawah detik 10, selainnya 2 digit | `6`,&nbsp;`36` |
+| `5` | Detik 1 digit jika di bawah detik 10, selainnya 2 digit | `6`,&nbsp;`36` |
 | `999999` | Nano detik | `124006` |
 | `MST` | Lokasi timezone | `UTC`,&nbsp;`WIB`,&nbsp;`EST` |
 | `Z0700` | Offset timezone  | `Z`,&nbsp;`+0700`,&nbsp;`-0200` |

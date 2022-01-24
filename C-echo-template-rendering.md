@@ -4,7 +4,7 @@ Pada chapter ini kita akan belajar cara render template html pada aplikasi yang 
 
 Pada dasarnya proses parsing dan rendering template tidak di-handle oleh echo sendiri, melainkan oleh API dari package `html/template`. Jadi bisa dibilang cara render template di echo adalah sama seperti pada aplikasi yang murni menggunakan golang biasa, seperti yang sudah dibahas pada chapter [Template: Render HTML Template](/B-template-render-html.html), [Template: Render Partial HTML Template](/B-template-render-partial-html.html), [Template: Render Specific HTML Template](/B-render-specific-html.html), dan [Template: Render HTML String](/B-render-html-string.html).
 
-Echo menyediakan satu fasilitas yang bisa kita manfaatkan untuk standarisasi rendering template. Cara penggunaannya, dengan meng-override default `.Renderer` property milik echo menggunakan objek cetakan struct, yang dimana pada struct tersebut harus ada method bernama `.Render()` dengan skema sesuai dengan kebutuhan echo. Nah, di dalam method `.Render()` inilah kode untuk parsing dan rendering template ditulis.
+Echo menyediakan satu fasilitas yang bisa kita manfaatkan untuk standarisasi rendering template. Cara penggunaannya, dengan meng-override default `.Renderer` property milik echo menggunakan objek cetakan struct, yang di mana pada struct tersebut harus ada method bernama `.Render()` dengan skema sesuai dengan kebutuhan echo. Nah, di dalam method `.Render()` inilah kode untuk parsing dan rendering template ditulis.
 
 ## C.7.1. Praktek
 
@@ -36,7 +36,7 @@ type Renderer struct {
 Berikut adalah tugas dan penjelasan mengenai ketiga property di atas.
 
  - Property `.template` bertanggung jawab untuk parsing dan rendering template. 
- - Property `.location` mengarah ke path folder dimana file template berada.
+ - Property `.location` mengarah ke path folder di mana file template berada.
  - Property `.debug` menampung nilai bertipe `bool`.
     - Jika `false`, maka parsing template hanya dilakukan sekali saja pada saat aplikasi di start. Mode ini sangat cocok untuk diaktifkan pada stage production.
     - Sedangkan jika nilai adalah `true`, maka parsing template dilakukan tiap pengaksesan rute. Mode ini cocok diaktifkan untuk stage development, karena perubahan kode pada file html sering pada stage ini.
