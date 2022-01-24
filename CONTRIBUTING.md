@@ -43,6 +43,7 @@ Berikut merupakan hall of fame kontributor yang sudah berbaik hati menyisihkan w
 - [Teuku Mulia Ichsan](https://github.com/teukumulya-ichsan)
 - [Tiara Dewangga](https://github.com/ktiarad)
 - [Wanda Ichsanul Isra](https://github.com/wlisrausr)
+- [Wahyu Kristianto](github.com/Kristories)
 - [Widodo](https://github.com/purwowd)
 - [Yofriadi Yahya](https://github.com/yofriadi)
 - ... anda :-) 

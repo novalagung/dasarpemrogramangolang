@@ -2,7 +2,7 @@
 
 * [Dasar Pemrograman Golang](README.md)
 * [Baca/download e-book versi PDF](https://dasarpemrogramangolang.novalagung.com/dasarpemrogramangolang.pdf)
-* [Author & Contributors](CONTRIBUTORS.md)
+* [Author & Contributors](CONTRIBUTING.md)
 
 <hr>
 
