@@ -28,6 +28,7 @@ Berikut merupakan hall of fame kontributor yang sudah berbaik hati menyisihkan w
 1. [Hafiz Kurnia Aji](https://github.com/hafizkurniaaji)
 1. [I Gede Tirtanata](https://github.com/gedenata)
 1. [Ibnul Mutaki](https://github.com/cacing69)
+1. [Imam Ahmad Fahrezi](https://github.com/imamcenter)
 1. [Ivan Aulia Rahman](https://github.com/ivanauliaa)
 1. [Lufri Rais Maulana](https://github.com/raismaulana)
 1. [Ma'mur Rezeki](https://github.com/erzqy)
