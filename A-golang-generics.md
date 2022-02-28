@@ -79,6 +79,22 @@ func Sum[V int](numbers []V) V {
 
 Ok, sekarang kita sudah mengubah penulisan kode fungsi `Sum` menggunakan Generic, tanpa merubah kegunaan fungsi. Coba jalankan aplikasi untuk mengetes hasilnya.
 
+
+```go
+func Sum[V int](numbers []V) V {
+	var total V
+	for _, e := range numbers {
+		total += e
+	}
+	return total
+}
+
+func main() {
+	total1 := Sum([]int{1, 2, 3, 4, 5})
+	fmt.Println("total: ", total1)
+}
+```
+
 ![Golang generic](images/A_generics_1.png)
 
 ## A.65.3. Comparable Data Type pada Fungsi Generic
