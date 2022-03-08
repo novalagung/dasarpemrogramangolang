@@ -25,7 +25,7 @@ import "runtime"
 func main() {
     runtime.GOMAXPROCS(2)
 
-    messages := make(chan int, 2)
+    messages := make(chan int, 3)
 
     go func() {
         for {
@@ -41,7 +41,7 @@ func main() {
 }
 ```
 
-Pada kode di atas, parameter kedua fungsi `make()` adalah representasi jumlah buffer. Perlu diperhatikan bahwa nilai buffered channel dimulai dari `0`. Ketika nilainya adalah **2** berarti jumlah buffer maksimal ada **3**.
+Pada kode di atas, parameter kedua fungsi `make()` adalah representasi jumlah buffer. Perlu diperhatikan bahwa nilai buffered channel dimulai dari `0`. Ketika nilainya adalah **3** berarti jumlah buffer maksimal ada **4**.
 
 Bisa dilihat terdapat IIFE goroutine yang isinya proses penerimaan data dari channel `messages`, untuk kemudian datanya ditampilkan. Setelah goroutine tersebut dieksekusi, perulangan dijalankan dengan di-masing-masing perulangan dilakukan pengiriman data. Total ada 5 data dikirim lewat channel `messages` secara sekuensial.
 
