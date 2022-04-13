@@ -12,7 +12,7 @@ Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
 
     ```
 	cd <folder-project>
-    go get github.com/mongodb/mongo-go-driver
+    go get go.mongodb.org/mongo-driver/mongo
     ```
 
  2. Pastikan sudah terinstal MongoDB di komputer anda, dan jangan lupa untuk menjalankan daemon-nya. Jika belum, [download](ihttps://www.mongodb.org/downloads) dan install terlebih dahulu.
