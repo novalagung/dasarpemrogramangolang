@@ -54,7 +54,7 @@ var fruits = []string{"apple", "grape", "banana", "melon"}
 | `fruits[0:4]` | <code>[apple,&nbsp;grape,&nbsp;banana,&nbsp;melon]</code> | semua elemen mulai indeks ke-0, hingga sebelum indeks ke-4 |
 | `fruits[0:0]` | `[]` | menghasilkan slice kosong, karena tidak ada elemen sebelum indeks ke-0 |
 | `fruits[4:4]` | `[]` | menghasilkan slice kosong, karena tidak ada elemen yang dimulai dari indeks ke-4 |
-| `fruits[4:0]` | `[]` | error, pada penulisan `fruits[a,b]` nilai `a` harus lebih besar atau sama dengan `b` |
+| `fruits[4:0]` | `[]` | error, pada penulisan `fruits[a:b]` nilai `a` harus lebih kecil atau sama dengan `b` |
 | `fruits[:]` | `[apple, grape, banana, melon]` | semua elemen |
 | `fruits[2:]` | `[banana, melon]` | semua elemen mulai indeks ke-2 |
 | `fruits[:2]` | `[apple, grape]` | semua elemen hingga sebelum indeks ke-2 |
