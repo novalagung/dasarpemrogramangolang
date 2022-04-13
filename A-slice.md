@@ -141,7 +141,7 @@ Fungsi `len()` menghasilkan angka 3, karena jumlah elemen kedua slice ini adalah
 | :--- | :----- | :-----: | :-----: |
 | `fruits[0:4]` | [**`buah` `buah` `buah` `buah`**] | 4 | 4 |
 | `aFruits[0:3]` | [**`buah` `buah` `buah`** `----`] | 3 | 4 |
-| `bFruits[1:3]` | `----` [**`buah` `buah` `buah`**] | 3 | 3 |
+| `bFruits[1:4]` | `----` [**`buah` `buah` `buah`**] | 3 | 3 |
 
 Kita analogikan slicing 2 index menggunakan **x** dan **y**.
 
