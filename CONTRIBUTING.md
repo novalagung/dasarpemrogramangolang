@@ -19,6 +19,7 @@ Berikut merupakan hall of fame kontributor yang sudah berbaik hati menyisihkan w
 1. [Andreas Giovani](https://github.com/compatc)
 1. [Arian Saputra](https://github.com/Rhyanz46)
 1. [Burhanudin Yahya](https://github.com/burhanudinyahya)
+1. [Dipta Harimbawa](https://github.com/diptarimba)
 1. [Dwi Hujianto](https://github.com/dwihujianto)
 1. [Edi Santoso](https://github.com/repodevs)
 1. [Fadhil Riyanto](https://github.com/fadhil-riyanto)
