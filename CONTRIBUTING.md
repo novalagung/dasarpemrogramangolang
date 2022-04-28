@@ -49,4 +49,5 @@ Berikut merupakan hall of fame kontributor yang sudah berbaik hati menyisihkan w
 1. [Wahyu Kristianto](https://github.com/Kristories)
 1. [Widodo](https://github.com/purwowd)
 1. [Yofriadi Yahya](https://github.com/yofriadi)
+1. [Zulfikar Ali Muzakir](https://github.com/zulfikarmuzakir)
 1. ... anda :-) 
