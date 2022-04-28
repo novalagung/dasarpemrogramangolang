@@ -73,7 +73,7 @@ Kemudian tambahkan lagi statement pengambilan nilai *env var* `SERVER_PORT`.
 
 ```go
 confServerPort := os.Getenv("SERVER_PORT")
-if confAppName == "" {
+if confServerPort == "" {
     e.Logger.Fatal("SERVER_PORT config is required")
 }
 ```
