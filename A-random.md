@@ -79,7 +79,7 @@ lebih detailnya silakan merujuk ke https://golang.org/pkg/math/rand/
 
 ## A.39.5. Angka Random Index Tertentu
 
-Gunakan fungsi `rand.Intn(n)` untuk mendapatkan angka random pada indeks ke `n`. Dengan ini tidak perlu memanggil `rand.Int()` tiga kali untuk mendapatkan angka random ke-tiga, melainkan cukup gunakan `rand.Intn(2)` (indeks dari 0 ya).
+Gunakan fungsi `rand.Intn(n)` untuk mendapatkan angka random dengan batas `0` hingga <`n`, contoh: `rand.Intn(100)` akan mengembalikan angka acak dari 0 hingga 99.
 
 ## A.39.6. Random Tipe Data String
 
