@@ -121,6 +121,18 @@ Pengisian nilai juga bisa dilakukan bersamaan pada saat deklarasi. Caranya denga
 var fourth, fifth, sixth string = "empat", "lima", "enam"
 ```
 
+Jika kita ingin mendeklarasi variabel dengan tipe yang berbeda dengan menggunakan var kita dapat melakukan:
+
+```go
+var (
+    nama     = "fajar"
+    umur     = 22
+    naikHaji bool
+)
+
+fmt.Printf("Halo nama saya %s umur saya %d dan status naik haji saya adalah %t", nama, umur, naikHaji)
+```
+
 Kalau ingin lebih ringkas:
 
 ```go
