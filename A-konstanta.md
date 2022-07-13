@@ -39,6 +39,69 @@ Kode di atas menunjukkan perbedaan antara `fmt.Println()` dan `fmt.Print()`. Out
 
 Bila menggunakan `fmt.Println()` tidak perlu menambahkan spasi di tiap kata, karena fungsi tersebut akan secara otomatis menambahkannya di sela-sela nilai. Berbeda dengan `fmt.Print()`, perlu ditambahkan spasi, karena fungsi ini tidak menambahkan spasi di sela-sela nilai parameter yang digabungkan.
 
+## A.11.2. Deklarasi multi konstanta
+
+Sama seperti variabel, konstanta juga dapat di deklarasi secara bersamaan
+
+Berikut contoh deklarasi konstanta dengan nilai dan tipe yang berbeda
+
+```go
+const (
+    square          = "kotak"
+    isToday bool    = true
+    numeric uint8   = 1
+    floatNum        = 2.2
+)
+```
+
+- isToday, termasuk _type inference_ dengan tipe data **bool** dan nilai nya **true**
+- square, termasuk _manifest typing_ dengan tipe data **string** dan nilai nya **"kotak"**
+- numeric, termasuk _manifest typing_ dengan tipe data **uint8** dan nilai nya **1**
+- floatNum, termasuk _type inference_ dengan tipe data **float** dan nilai nya **2.2**
+
+Contoh deklarasi konstanta dengan nilai dan tipe yang sama
+
+```go
+const (
+    a = "konstanta"
+    b
+)
+```
+
+> ketika tipe dan nilai _const_ tidak diberikan, maka tipe dan nilai nya didapat dari deklarasi sebelumnya
+
+- a, termasuk _type inference_ dengan tipe data **string** dan nilai nya **"konstanta"**
+- b, termasuk _type inference_ dengan tipe data **string** dan nilai nya **"konstanta"**
+
+Berikut contoh gabungan dari keduanya
+
+```go
+const (
+    today string = "senin"
+    sekarang
+    isToday2 = true
+)
+```
+
+- today, termasuk _manifest typing_ dengan tipe data **string** dan nilai nya **"senin"**
+- sekarang, termasuk _manifest typing_ dengan tipe data **string** dan nilai nya **"senin"**
+- isToday2, termasuk _type inference_ dengan tipe data **bool** dan nilai nya **true**
+
+Berikut contoh deklrasi _multiple_ konstanta dalam satu baris
+
+```go
+const satu, dua = 1, 2
+const three, four string = "tiga", "empat"
+```
+
+- satu, termasuk _type inference_ dengan tipe data **int** dan nilai nya **1**
+- dua, termasuk _type inference_ dengan tipe data **int** dan nilai nya **2**
+- three, termasuk _manifest typing_ dengan tipe data **string** dan nilai nya **"tiga"**
+- four, termasuk _manifest typing_ dengan tipe data **string** dan nilai nya **"empat"**
+
+sumber [klik disini](https://golangbyexample.com/multiple-constant-declarations-go/)
+
+
 ---
 
 <div class="source-code-link">
