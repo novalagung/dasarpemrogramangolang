@@ -115,7 +115,7 @@ Zero value berbeda dengan `nil`. `Nil` adalah nilai kosong, benar-benar kosong. 
 - `channel`
 - interface kosong atau `interface{}`
 
-Nantinya kita akan sering bertemu dengan `nil` setelah masuk pada pembahasan pembahasan-pembahasan tersebut.
+Nantinya kita akan sering bertemu dengan `nil` setelah masuk pada pembahasan-pembahasan tersebut.
 
 ---
 
