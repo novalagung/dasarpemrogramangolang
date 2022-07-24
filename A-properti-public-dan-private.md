@@ -104,7 +104,7 @@ OK, sekarang coba jalankan kode yang sudah disiapkan di atas, hasilnya error.
 
 ![Error saat menjalankan program](images/A_properti_public_private_2_error.png)
 
-Error di atas disebabkan karena fungsi `introduce()` yang berada dalam package `library` memiliki level akses *undexported* (atau *private*), fungsi ini tidak bisa diakses dari package lain (pada kasus ini `main`). Agar bisa diakses, solusinya bisa dengan menjadikannya ke bentuk *exported* (atau *public*), atau diubah cara pemanggilannya. Di sini kita menggunakan cara ke-2.
+Error di atas disebabkan karena fungsi `introduce()` yang berada dalam package `library` memiliki level akses *unexported* (atau *private*), fungsi ini tidak bisa diakses dari package lain (pada kasus ini `main`). Agar bisa diakses, solusinya bisa dengan menjadikannya ke bentuk *exported* (atau *public*), atau diubah cara pemanggilannya. Di sini kita menggunakan cara ke-2.
 
 Tambahkan parameter `name` pada fungsi `SayHello()`, lalu panggil fungsi `introduce()` dengan menyisipkan parameter `name` dari dalam fungsi `SayHello()`.
 
