@@ -19,13 +19,13 @@ Command `go mod init` digunakan untuk menginisialisasi projek baru.
 Mari kita praktekan, buat folder baru, bisa via CLI atau lewat browser/finder.
 
 ```bash
-mkdir projek-pertama
+mkdir project-pertama
 cd project-pertama
 go mod init project-pertama
 dir
 ```
 
-Bisa dilihat pada *command* di atas ada direktori `projek-pertama`, dibuat. Setelah masuk ke direktori tersebut, perintah `go mod init project-pertama` dijalankan. Dengan ini maka kita telah menginisialisasi direktori `projek-pertama` sebagai sebuah project Go dengan nama `project-pertama` (kebetulan di sini nama projek sama dengan nama direktori-nya).
+Bisa dilihat pada *command* di atas ada direktori `project-pertama`, dibuat. Setelah masuk ke direktori tersebut, perintah `go mod init project-pertama` dijalankan. Dengan ini maka kita telah menginisialisasi direktori `project-pertama` sebagai sebuah project Go dengan nama `project-pertama` (kebetulan di sini nama projek sama dengan nama direktori-nya).
 
 ![Init project](images/A_go_modules_1_initmodule.png)
 
