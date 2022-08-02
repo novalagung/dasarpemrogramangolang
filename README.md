@@ -21,7 +21,7 @@ Ada total sekitar <b>110 chapter</b> yang dibahas dalam ebook ini. Kumpulan chap
 	</li>
 </ol>
 
-Versi e-book: **((VERSION))**, dan versi Go **1.17.5**.
+Versi e-book: **((VERSION))**, dan versi Go **1.18.5**.
 
 ## Download File E-book (pdf, epub, mobi)
 
