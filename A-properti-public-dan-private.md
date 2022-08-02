@@ -195,7 +195,7 @@ fmt.Println("name ", s1.Name)
 fmt.Println("grade", s1.Grade)
 ```
 
-Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` yang berada di package lain, selain nama stuct-nya harus berbentuk *exported*, properti yang diakses juga harus *exported* juga.
+Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` yang berada di package lain, selain nama struct-nya harus berbentuk *exported*, properti yang diakses juga harus *exported* juga.
 
 ![Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda](images/A_properti_public_private_4_success.png)
 
