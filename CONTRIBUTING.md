@@ -5,11 +5,11 @@ E-book Dasar Pemrograman Golang adalah proyek *open source*. Siapapun bebas untu
 
 ## Original Author
 
-E-book ini di-inisialisasi oleh [Noval Agung Prayogo](https://linktr.ee/novalagung). Seorang penggiat teknologi yang sekarang bekerja di salah satu perusahaan *Silicon Valley* sebagai *Platform Tech Lead*.
+E-book ini di-inisialisasi oleh [Noval Agung Prayogo](https://linktr.ee/novalagung).
 
 ## Contributors
 
-Berikut merupakan hall of fame kontributor yang sudah berbaik hati menyisihkan waktunya untuk membantu pengembangan e-book ini.
+Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan waktunya untuk membantu pengembangan e-book ini.
 
 1. [Acep Saepudin](https://github.com/acepsaepudin)
 1. [Adev Saputra](https://github.com/adev22)
@@ -48,9 +48,9 @@ Berikut merupakan hall of fame kontributor yang sudah berbaik hati menyisihkan w
 1. [Sal Prima](https://github.com/salprima)
 1. [Seno](https://github.com/seno-ark)
 1. [Shabrina](https://github.com/renaissains)
-1. [Teuku Mulia Ichsan](https://github.com/teukumulya-ichsan)
+1. [Teuku Mulia Ichsan](https://github.com/xans-me)
 1. [Tiara Dewangga](https://github.com/ktiarad)
-1. [Wanda Ichsanul Isra](https://github.com/wlisrausr)
+1. [Wanda Ichsanul Isra](https://github.com/wndisra)
 1. [Wahyu Kristianto](https://github.com/Kristories)
 1. [Widodo](https://github.com/purwowd)
 1. [Yofriadi Yahya](https://github.com/yofriadi)
