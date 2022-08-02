@@ -6,7 +6,7 @@ Pada chapter ini kita akan belajar cara validasi payload request di sisi back en
 
 Penggunaan validator cukup mudah, di struct penampung payload, tambahkan tag baru pada masing-masing property dengan skema `validate:"<rules>"`.
 
-Langsung saja kita praktekan, buat folder projek baru dengan isi file `main.go`, lalu tulis kode berikut ke dalamnya.
+Langsung saja kita praktekan, buat folder project baru dengan isi file `main.go`, lalu tulis kode berikut ke dalamnya.
 
 ```go
 package main

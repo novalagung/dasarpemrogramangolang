@@ -29,7 +29,7 @@ OK, saya rasa bagian teori sudah cukup, mari kita lanjut ke bagian praktek.
 
 ## C.27.2. Persiapan
 
-Salin projek pada chapter sebelumnya, [C.26. Advanced Client HTTP Request](/C-client-http-request-advanced.html) sebagai folder projek baru.
+Salin project pada chapter sebelumnya, [C.26. Advanced Client HTTP Request](/C-client-http-request-advanced.html) sebagai folder project baru.
 
 ## C.27.3. Konfigurasi SSL/TLS pada Web Server
 

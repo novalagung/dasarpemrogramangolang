@@ -19,7 +19,7 @@ Sedang jenis request query string adalah yang paling berbeda. Data tidak disisip
 
 Cara parsing payload request dalam echo sangat mudah, apapun jenis payload nya, API yang digunakan untuk parsing adalah sama.
 
-Mari kita langsung praktekan, buat satu folder projek baru, buat `main.go`. Buat struct `User`, nantinya digunakan untuk menampung data payload yang dikirim.
+Mari kita langsung praktekan, buat satu folder project baru, buat `main.go`. Buat struct `User`, nantinya digunakan untuk menampung data payload yang dikirim.
 
 ```go
 package main

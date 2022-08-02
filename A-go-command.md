@@ -1,6 +1,6 @@
 # A.6. Command
 
-Pengembangan aplikasi Go tak jauh dari hal-hal yang berbau CLI atau *Command Line Interface*. Proses inisialisasi projek, kompilasi, testing, eksekusi program, semuanya dilakukan lewat command line.
+Pengembangan aplikasi Go tak jauh dari hal-hal yang berbau CLI atau *Command Line Interface*. Proses inisialisasi project, kompilasi, testing, eksekusi program, semuanya dilakukan lewat command line.
 
 Go menyediakan command `go`, dan pada chapter ini kita akan mempelajari beberapa di antaranya.
 
@@ -8,9 +8,9 @@ Go menyediakan command `go`, dan pada chapter ini kita akan mempelajari beberapa
 
 ## A.6.1. Command `go mod init`
 
-*Command* `go mod init` digunakan untuk inisialisasi projek pada Go (menggunakan Go Modules). Untuk nama projek bisa menggunakan apapun, tapi umumnya adalah disamakan dengan nama direktori.
+*Command* `go mod init` digunakan untuk inisialisasi project pada Go (menggunakan Go Modules). Untuk nama project bisa menggunakan apapun, tapi umumnya adalah disamakan dengan nama direktori.
 
-Nama projek ini penting karena nantinya berpengaruh pada *import path sub packages* yang ada dalam projek tersebut.
+Nama project ini penting karena nantinya berpengaruh pada *import path sub packages* yang ada dalam project tersebut.
 
 ```
 mkdir <nama-project>
@@ -63,7 +63,7 @@ Berbeda dengan `go build`, *command* ini menghasilkan file *executable* atau *bi
 
 ![Kompilasi file program menghasilkan file executable](images/A_go_command_4_go_build.png)
 
-Pada contoh di atas, projek `project-pertama` di-build, menghasilkan file baru pada folder yang sama, yaitu `project-pertama.exe`, yang kemudian dieksekusi. *Default*-nya nama projek akan otomatis dijadikan nama *binary*.
+Pada contoh di atas, project `project-pertama` di-build, menghasilkan file baru pada folder yang sama, yaitu `project-pertama.exe`, yang kemudian dieksekusi. *Default*-nya nama project akan otomatis dijadikan nama *binary*.
 
 Untuk nama executable sendiri bisa diubah menggunakan flag `-o`. Contoh:
 
@@ -76,7 +76,7 @@ go build -o program.exe
 
 ## A.6.5. Command `go get`
 
-*Command* `go get` digunakan untuk men-download package. Sebagai contoh saya ingin men-download package Kafka driver untuk Go pada projek `project-pertama`.
+*Command* `go get` digunakan untuk men-download package. Sebagai contoh saya ingin men-download package Kafka driver untuk Go pada project `project-pertama`.
 
 ```bash
 cd project-pertama
@@ -86,7 +86,7 @@ dir
 
 ![Download package menggunakan `go get`](images/A_go_command_6_go_get.png)
 
-Pada contoh di atas, `github.com/segmentio/kafka-go` adalah URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder di mana *command* `go get` dieksekusi, menjadikan projek tersebut bisa meng-*import* package terunduh.
+Pada contoh di atas, `github.com/segmentio/kafka-go` adalah URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder di mana *command* `go get` dieksekusi, menjadikan project tersebut bisa meng-*import* package terunduh.
 
 Untuk mengunduh dependensi versi terbaru, gunakan flag `-u` pada command `go get`, misalnya:
 

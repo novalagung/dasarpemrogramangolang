@@ -18,7 +18,7 @@ Kita akan modifikasi file program `1-dummy-file-generator.go` yang pada chapter 
 
 Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi sekuensialnya. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan merujuk ke chapter sebelumnya saja, di sini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
 
-Siapkan folder projek baru, isinya satu buah file `1-generate-dummy-files-sequentially.go`.
+Siapkan folder project baru, isinya satu buah file `1-generate-dummy-files-sequentially.go`.
 
 #### • Import Packages dan Definisi Variabel
 

@@ -4,7 +4,7 @@ Pada chapter ini kita akan belajar bagaimana cara untuk submit data, dari form d
 
 # B.12.1. Front End
 
-Pertama siapkan folder projek baru, dan sebuah file template view `view.html`. Pada file ini perlu didefinisikan 2 buah template, yaitu `form` dan `result`. Template pertama (`form`) dijadikan landing page program, isinya beberapa inputan untuk submit data.
+Pertama siapkan folder project baru, dan sebuah file template view `view.html`. Pada file ini perlu didefinisikan 2 buah template, yaitu `form` dan `result`. Template pertama (`form`) dijadikan landing page program, isinya beberapa inputan untuk submit data.
 
 ```html
 {{define "form"}}

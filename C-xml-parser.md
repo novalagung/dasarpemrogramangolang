@@ -8,7 +8,7 @@ go get -u github.com/beevik/etree
 
 ## C.23.1. Membaca dan Parsing File XML
 
-Mari langsung kita praktekan, siapkan folder projek baru. Buat satu buah file `data.xml`, isinya sebagai berikut.
+Mari langsung kita praktekan, siapkan folder project baru. Buat satu buah file `data.xml`, isinya sebagai berikut.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

@@ -8,7 +8,7 @@ Pada chapter ini kita akan belajar cara membuat dan me-manage middleware.
 
 Pembuatan middleware pada echo sangat mudah, cukup gunakan method `.Use()` milik objek echo untuk registrasi middleware. Method ini bisa dipanggil berkali-kali, dan eksekusi middleware-nya sendiri adalah berurutan sesuai dengan urutan registrasi.
 
-OK, langsung saja, buat folder projek baru dengan isi sebauh file `main.go` seperti biasanya. Lalu tulis kode berikut.
+OK, langsung saja, buat folder project baru dengan isi sebauh file `main.go` seperti biasanya. Lalu tulis kode berikut.
 
 ```go
 package main

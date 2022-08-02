@@ -20,7 +20,7 @@ Di setiap halaman, jika di dalam html nya terdapat form, maka harus disisipkan t
 
 Di tiap POST request hasil dari form submit, token tersebut harus ikut dikirimkan. Proses validasi token sendiri di-handle oleh middleware.
 
-Mari kita praktekkan, siapkan projek baru. Buat file `main.go`, isi dengan kode berikut.
+Mari kita praktekkan, siapkan project baru. Buat file `main.go`, isi dengan kode berikut.
 
 ```go
 package main

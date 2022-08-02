@@ -43,7 +43,7 @@ Di Go cara menentukan level akses atau modifier sangat mudah, penandanya adalah 
 
 Agar lebih mudah dipahami, maka langsung saja kita praktekan.
 
-Pertama buat folder proyek baru bernama `belajar-golang-level-akses`, inisialisasi sebagai projek dengan nama yang sama. Kemudian buat file baru bernama `main.go` di dalamnya, lalu set nama package file tersebut sebagai **main**.
+Pertama buat folder proyek baru bernama `belajar-golang-level-akses`, inisialisasi sebagai project dengan nama yang sama. Kemudian buat file baru bernama `main.go` di dalamnya, lalu set nama package file tersebut sebagai **main**.
 
 Kemudian, buat sub-folder baru bernama `library` di dalam folder `belajar-golang-level-akses`. Di dalam folder `library`, buat file baru `library.go`, set nama package-nya **library**.
 

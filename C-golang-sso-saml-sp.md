@@ -138,7 +138,7 @@ Sebelum masuk praktek, ada beberapa hal yang perlu penulis infokan. Yang akan ki
 
 Di sini kita gunakan library https://github.com/crewjam/saml untuk mempermudah proses kodingnya. Pastikan menggunakan rilis v0.4.0 atau minimal revisi #861266e.
 
-Silakan buat 1 projek baru, lalu di dalamnya generate *self-signed X.509 key pair* dengan menggunakan command berikut. Key pair ini diperlukan oleh SP dalam melakukan komunikasi dengan IDP.
+Silakan buat 1 project baru, lalu di dalamnya generate *self-signed X.509 key pair* dengan menggunakan command berikut. Key pair ini diperlukan oleh SP dalam melakukan komunikasi dengan IDP.
 
 ```bash
 mkdir chapter-c34

@@ -8,7 +8,7 @@ Echo menyediakan satu fasilitas yang bisa kita manfaatkan untuk standarisasi ren
 
 ## C.7.1. Praktek
 
-Agar lebih mudah dipahami, mari langsung kita praktekan. Siapkan sebuah projek, import package yang dibutuhkan.
+Agar lebih mudah dipahami, mari langsung kita praktekan. Siapkan sebuah project, import package yang dibutuhkan.
 
 ```go
 package main

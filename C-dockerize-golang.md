@@ -36,7 +36,7 @@ Containerize merupakan istilah terhadap aplikasi yang di-*build* ke bentuk Image
 
 ## C.35.3. Pembuatan Aplikasi Hello World
 
-Sebelum masuk ke aspek docker, mari kita siapkan dulu aplikasi web sederhana yang nantinya akan di-*build* ke bentuk Image. O iya, jangan lupa inisialisasi projeknya ya menggunakan perintah `go mod init hello-world`.
+Sebelum masuk ke aspek docker, mari kita siapkan dulu aplikasi web sederhana yang nantinya akan di-*build* ke bentuk Image. O iya, jangan lupa inisialisasi projectnya ya menggunakan perintah `go mod init hello-world`.
 
 Siapkan folder project baru dengan isi file `main.go`. Tulis kode berikut.
 
@@ -191,14 +191,14 @@ Ok, file `Dockerfile` sudah siap, mari kita lanjut ke proses *build* dan *start 
 
 #### • Build Image
 
-Pertama masuk ke direktori folder projek, lalu jalankan *command* `docker build` berikut.
+Pertama masuk ke direktori folder project, lalu jalankan *command* `docker build` berikut.
 
 ```bash
-cd folder-projek
+cd folder-project
 docker build -t my-image-hello-world .
 ```
 
-*Command* di atas akan melakukan proses *build* Image pada file yang ada di dalam `.` yang merupakan isi folder projek. Projek akan di-*build* ke sebuah Image dengan nama adalah `my-image-hello-world`. Flag `-t` digunakan untuk menentukan nama Image.
+*Command* di atas akan melakukan proses *build* Image pada file yang ada di dalam `.` yang merupakan isi folder project. Project akan di-*build* ke sebuah Image dengan nama adalah `my-image-hello-world`. Flag `-t` digunakan untuk menentukan nama Image.
 
 Kurang lebih outputnya seperti gambar berikut. O iya gunakan *command* `docker images` untuk menampilkan list semua image yang ada di lokal.
 

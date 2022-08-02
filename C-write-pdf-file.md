@@ -12,7 +12,7 @@ Pertama `go get` library-nya.
 go get -u github.com/jung-kurt/gofpdf
 ```
 
-Buat folder projek baru, isi main dengan kode berikut.
+Buat folder project baru, isi main dengan kode berikut.
 
 ```go
 package main

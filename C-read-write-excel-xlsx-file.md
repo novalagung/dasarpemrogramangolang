@@ -14,7 +14,7 @@ go get github.com/360EntSecGroup-Skylar/excelize
 
 Pembahasan akan dilakukan dengan langsung praktek, dengan skenario: sebuah dummy data bertipe `[]M` disiapkan, data tersebut kemudian ditulis ke dalam excel.
 
-Buat projek baru, buat file main, import excelize dan siapkan dummy data-nya.
+Buat project baru, buat file main, import excelize dan siapkan dummy data-nya.
 
 ```go
 package main
