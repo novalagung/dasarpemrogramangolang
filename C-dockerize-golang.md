@@ -36,7 +36,7 @@ Containerize merupakan istilah terhadap aplikasi yang di-*build* ke bentuk Image
 
 ## C.35.3. Pembuatan Aplikasi Hello World
 
-Sebelum masuk ke aspek docker, mari kita siapkan dulu aplikasi web sederhana yang nantinya akan di-*build* ke bentuk Image. O iya, jangan lupa inisialisasi projectnya ya menggunakan perintah `go mod init hello-world`.
+Sebelum masuk ke aspek docker, mari kita siapkan dulu aplikasi web sederhana yang nantinya akan di-*build* ke bentuk Image. O iya, jangan lupa inisialisasi project-nya ya menggunakan perintah `go mod init hello-world`.
 
 Siapkan folder project baru dengan isi file `main.go`. Tulis kode berikut.
 

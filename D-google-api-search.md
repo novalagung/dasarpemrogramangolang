@@ -6,7 +6,7 @@ Proses pembelajaran dilakukan dengan praktek membuat sebuah aplikasi web service
 
 ## D.2.1. Context Value
 
-Ok, langsung saja, siapkan folder project project baru dengan struktur seperti berikut.
+Ok, langsung saja, siapkan folder project baru dengan struktur seperti berikut.
 
 ```bash
 mkdir chapter-d2
