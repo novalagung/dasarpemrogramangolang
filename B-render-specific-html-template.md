@@ -4,7 +4,7 @@ Pada chapter ini, kita akan belajar bagaimana cara untuk render template html te
 
 ## B.9.1. Front End
 
-Siapkan folder projek baru, buat file template bernama `view.html`, lalu isi dengan kode berikut.
+Siapkan folder project baru, buat file template bernama `view.html`, lalu isi dengan kode berikut.
 
 ```html
 {{define "index"}}

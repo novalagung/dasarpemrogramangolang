@@ -17,7 +17,7 @@ Penggunaan securecookie cukup mudah, buat objek secure cookie lewat `securecooki
  - Hash key, diperlukan untuk otentikasi data cookie menggunakan algoritma kriptografi HMAC.
  - Block key, adalah opsional, diperlukan untuk enkripsi data cookie. Default algoritma enkripsi yang digunakan adalah AES.
 
-OK, langsung saja kita praktekan. Buat folder projek seperti biasa lalu isi `main.go` dengan kode berikut.
+OK, langsung saja kita praktekan. Buat folder project seperti biasa lalu isi `main.go` dengan kode berikut.
 
 ```go
 package main

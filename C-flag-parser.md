@@ -19,7 +19,7 @@ $ ./main "My Application" 4000
 
 Argument `ArgAppName` mandatory, harus diisi, sedangkan argument `ArgPort` adalah opsional (ada nilai default-nya).
 
-OK, mari kita praktekan. Buat folder projek baru dengan isi satu buah main file. Siapkan dua buah property untuk menampung `appName` dan `port`, dan satu buah fungsi `main()`.
+OK, mari kita praktekan. Buat folder project baru dengan isi satu buah main file. Siapkan dua buah property untuk menampung `appName` dan `port`, dan satu buah fungsi `main()`.
 
 ```go
 package main
@@ -168,7 +168,7 @@ Di bagian ini kita akan buat sebuah aplikasi untuk simulasi manajemen user. Tiga
   - Flag `--force`
   - Argument `user`
 
-Mari kita praktekan, buat satu folder projek baru. Buat satu file main, isi dengan kode berikut.
+Mari kita praktekan, buat satu folder project baru. Buat satu file main, isi dengan kode berikut.
 
 ```go
 package main

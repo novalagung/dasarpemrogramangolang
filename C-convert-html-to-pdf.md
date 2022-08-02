@@ -53,7 +53,7 @@ karena wkhtmltopdf merupakan sebuah aplikasi CLI, maka penggunaannya bisa lewat 
 
 Secara teknis, go-wkhtmltopdf melakukan hal yang sama dengan cara pertama, yaitu mengeksekusi binary wkhtmltopdf menggunakan `exec.Command()`.
 
-Mari langsung kita praktekan, buat folder projek baru. Siapkan file main. Isi dengan kode berikut.
+Mari langsung kita praktekan, buat folder project baru. Siapkan file main. Isi dengan kode berikut.
 
 ```go
 package main

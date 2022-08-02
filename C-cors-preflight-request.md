@@ -26,7 +26,7 @@ Agar lebih mudah untuk dipahami bagaimana penerapannya, mari langsung kita prakt
 
 ## C.14.2. Aplikasi dengan konfigurasi CORS sederhana
 
-Buat projek baru, lalu isi fungsi `main()` dengan kode berikut. Aplikasi sederhana ini akan kita jalankan pada domain atau origin `http://localhost:3000/`, lalu akan kita coba akses dari domain berbeda.
+Buat project baru, lalu isi fungsi `main()` dengan kode berikut. Aplikasi sederhana ini akan kita jalankan pada domain atau origin `http://localhost:3000/`, lalu akan kita coba akses dari domain berbeda.
 
 ```go
 package main

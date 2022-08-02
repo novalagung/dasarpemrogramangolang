@@ -33,7 +33,7 @@ Memang kalau dari sisi readability sangat kalah kalau dibandingkan dengan JSON a
 
 ## C.11.3. Praktek
 
-Mari kita praktekan, buat 1 folder projek baru, kemudian `main.go`, lalu isi file tersebut dengan kode berikut.
+Mari kita praktekan, buat 1 folder project baru, kemudian `main.go`, lalu isi file tersebut dengan kode berikut.
 
 ```go
 package main

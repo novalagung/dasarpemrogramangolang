@@ -22,7 +22,7 @@ func main() {
 }
 ```
 
-Mari kita praktekan kode di atas. Siapkan file program baru dalam project folder (bisa buat projek baru atau gunakan projek yang sudah ada). Kemudian isi dengan kode di atas, lalu jalankan.
+Mari kita praktekan kode di atas. Siapkan file program baru dalam project folder (bisa buat project baru atau gunakan project yang sudah ada). Kemudian isi dengan kode di atas, lalu jalankan.
 
 ![Contoh komentar inline](images/A_komentar_1_inline_comment.png)
 

@@ -12,7 +12,7 @@ Secure library merupakan middleware, penggunaannya sama seperti middleware pada 
 
 ## C.15.2. Praktek
 
-Mari langsung kita praktekan. Buat folder projek baru. Di file main tulis kode berikut. Sebuah aplikasi dibuat, isinya satu buah rute `/index` yang bisa diakses dari mana saja.
+Mari langsung kita praktekan. Buat folder project baru. Di file main tulis kode berikut. Sebuah aplikasi dibuat, isinya satu buah rute `/index` yang bisa diakses dari mana saja.
 
 ```go
 package main

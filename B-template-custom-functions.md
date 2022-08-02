@@ -4,7 +4,7 @@ Pada chapter sebelumnya kita telah mengenal beberapa *predefined* function yang 
 
 ## B.8.1. Front End
 
-Pertama, siapkan projek baru. Buat file template `view.html`, lalu isi dengan kode berikut.
+Pertama, siapkan project baru. Buat file template `view.html`, lalu isi dengan kode berikut.
 
 ```html
 <html>

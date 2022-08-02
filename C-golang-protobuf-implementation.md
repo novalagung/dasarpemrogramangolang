@@ -229,7 +229,7 @@ import (
     "fmt"
     "os"
 
-    // sesuaikan dengan struktuk folder projek masing2
+    // sesuaikan dengan struktuk folder project masing2
     "chapter-c29/model"
 )
 

@@ -8,7 +8,7 @@ Pada chapter ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel
 
 Go memiliki aturan cukup ketat dalam hal penulisan variabel. Ketika deklarasi, tipe data yg digunakan harus dituliskan juga. Istilah lain dari konsep ini adalah **manifest typing**.
 
-Berikut adalah contoh cara pembuatan variabel yang tipe datanya harus ditulis. Silakan tulis pada projek baru atau pada projek yang sudah ada, bebas. Pastikan saja untuk setiap projek baru untuk tidak lupa inisialisasi projek menggunakan command `go mod init <nama-project>`. Ok lanjut.
+Berikut adalah contoh cara pembuatan variabel yang tipe datanya harus ditulis. Silakan tulis pada project baru atau pada project yang sudah ada, bebas. Pastikan saja untuk setiap project baru untuk tidak lupa inisialisasi project menggunakan command `go mod init <nama-project>`. Ok lanjut.
 
 ```go
 package main

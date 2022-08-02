@@ -4,7 +4,7 @@ Output HTML yang muncul, selain bersumber dari template view, bisa juga bersumbe
 
 ## B.10.1. Praktek
 
-Langsung saja kita praktekkan, siapkan folder projek baru beserta file `main.go`, isi dengan kode berikut. 
+Langsung saja kita praktekkan, siapkan folder project baru beserta file `main.go`, isi dengan kode berikut. 
 
 ```go
 package main

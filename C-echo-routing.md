@@ -260,7 +260,7 @@ Sedangkan untuk handler yang sudah bertipe `http.HandlerFunc`, bungkus langsung 
 
 Cara routing static assets di echo sangatlah mudah. Gunakan method `.Static()`, isi parameter pertama dengan prefix rute yang di-inginkan, dan parameter ke-2 dengan path folder tujuan.
 
-Buat sub folder dengan nama `assets` dalam folder projek. Dalam folder tersebut buat sebuah file `layout.js`, isinya bebas.
+Buat sub folder dengan nama `assets` dalam folder project. Dalam folder tersebut buat sebuah file `layout.js`, isinya bebas.
 
 Pada `main.go` tambahkan routing static yang mengarah ke path folder `assets`.
 

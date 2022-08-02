@@ -21,7 +21,7 @@ Ada total sekitar <b>110 chapter</b> yang dibahas dalam ebook ini. Kumpulan chap
 	</li>
 </ol>
 
-Versi e-book: **((VERSION))**, dan versi Go **1.17.5**.
+Versi e-book: **((VERSION))**, dan versi Go **1.18.5**.
 
 ## Download File E-book (pdf, epub, mobi)
 
@@ -45,7 +45,7 @@ Source code contoh-contoh program bisa diunduh di [github.com/novalagung/dasarpe
 
 ## Kontribusi
 
-Ebook ini merupakan projek open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Cek juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTORS.html) untuk melihat list kontributor.
+Ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Cek juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTORS.html) untuk melihat list kontributor.
 
 ## Lisensi dan Status FOSSA
 

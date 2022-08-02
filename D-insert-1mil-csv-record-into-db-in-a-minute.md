@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS domain (
 );
 ```
 
-Setelah itu buat projek baru, dan sebuah file `main.go`, dan tempatkan file csv yang sudah didownload dalam folder yang sama.
+Setelah itu buat project baru, dan sebuah file `main.go`, dan tempatkan file csv yang sudah didownload dalam folder yang sama.
 
 Karena di contoh ini saya menggunakan My SQL, maka perlu untuk go get driver RDBMS ini untuk go.
 
