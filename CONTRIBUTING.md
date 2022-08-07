@@ -5,14 +5,16 @@ E-book Dasar Pemrograman Golang adalah proyek *open source*. Siapapun bebas untu
 
 ## Original Author
 
-E-book ini di-inisialisasi oleh [Noval Agung Prayogo](https://linktr.ee/novalagung). Seorang penggiat teknologi yang sekarang bekerja di salah satu perusahaan *Silicon Valley* sebagai *Platform Tech Lead*.
+E-book ini di-inisialisasi oleh [Noval Agung Prayogo](https://linktr.ee/novalagung).
 
 ## Contributors
 
-Berikut merupakan hall of fame kontributor yang sudah berbaik hati menyisihkan waktunya untuk membantu pengembangan e-book ini.
+Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan waktunya untuk membantu pengembangan e-book ini.
 
 1. [Acep Saepudin](https://github.com/acepsaepudin)
 1. [Adev Saputra](https://github.com/adev22)
+1. [Agus Budiono](https://github.com/dyon048)
+1. [Ahmad Syafiq Aqil Wafi](https://github.com/Syafiqjos)
 1. [Akul Nurislamimanudin](https://github.com/akulnurislam)
 1. [Amin Rasul Kamsena](https://github.com/seno-ark)
 1. [Ananda Wiradharma](https://github.com/anandawira)
@@ -24,6 +26,7 @@ Berikut merupakan hall of fame kontributor yang sudah berbaik hati menyisihkan w
 1. [Edi Santoso](https://github.com/repodevs)
 1. [Fadhil Riyanto](https://github.com/fadhil-riyanto)
 1. [Faizar Septiawan](https://github.com/icarrr)
+1. [Fajar Islami](https://github.com/Fajar-Islami)
 1. [Febrian](https://github.com/febri4n)
 1. [Ganjar Gingin Tahyudin](https://github.com/zarszz)
 1. [Gusman Widodo](https://github.com/gusmanwidodo)
@@ -40,13 +43,14 @@ Berikut merupakan hall of fame kontributor yang sudah berbaik hati menyisihkan w
 1. [Mulia Nasution](https://github.com/mul14)
 1. [nekonako](https://github.com/nekonako)
 1. [Nuevo Querto](https://github.com/NuevoQuerto)
+1. [Rizky Zhang](https://github.com/rizkyzhang)
 1. [Ryan Febriansyah](https://github.com/sodrooome)
 1. [Sal Prima](https://github.com/salprima)
 1. [Seno](https://github.com/seno-ark)
 1. [Shabrina](https://github.com/renaissains)
-1. [Teuku Mulia Ichsan](https://github.com/teukumulya-ichsan)
+1. [Teuku Mulia Ichsan](https://github.com/xans-me)
 1. [Tiara Dewangga](https://github.com/ktiarad)
-1. [Wanda Ichsanul Isra](https://github.com/wlisrausr)
+1. [Wanda Ichsanul Isra](https://github.com/wndisra)
 1. [Wahyu Kristianto](https://github.com/Kristories)
 1. [Widodo](https://github.com/purwowd)
 1. [Yofriadi Yahya](https://github.com/yofriadi)

@@ -6,7 +6,7 @@ Dua aplikasi akan dibuat, server dan client. Server merupakan aplikasi web serve
 
 ## C.26.1. Aplikasi Server
 
-Buat projek baru seperti biasa, lalu buat `server.go`. Import package yang dibutuhkan.
+Buat project baru seperti biasa, lalu buat `server.go`. Import package yang dibutuhkan.
 
 ```go
 package main

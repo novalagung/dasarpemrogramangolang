@@ -43,7 +43,7 @@ Di Go cara menentukan level akses atau modifier sangat mudah, penandanya adalah 
 
 Agar lebih mudah dipahami, maka langsung saja kita praktekan.
 
-Pertama buat folder proyek baru bernama `belajar-golang-level-akses`, inisialisasi sebagai projek dengan nama yang sama. Kemudian buat file baru bernama `main.go` di dalamnya, lalu set nama package file tersebut sebagai **main**.
+Pertama buat folder proyek baru bernama `belajar-golang-level-akses`, inisialisasi sebagai project dengan nama yang sama. Kemudian buat file baru bernama `main.go` di dalamnya, lalu set nama package file tersebut sebagai **main**.
 
 Kemudian, buat sub-folder baru bernama `library` di dalam folder `belajar-golang-level-akses`. Di dalam folder `library`, buat file baru `library.go`, set nama package-nya **library**.
 
@@ -104,7 +104,7 @@ OK, sekarang coba jalankan kode yang sudah disiapkan di atas, hasilnya error.
 
 ![Error saat menjalankan program](images/A_properti_public_private_2_error.png)
 
-Error di atas disebabkan karena fungsi `introduce()` yang berada dalam package `library` memiliki level akses *undexported* (atau *private*), fungsi ini tidak bisa diakses dari package lain (pada kasus ini `main`). Agar bisa diakses, solusinya bisa dengan menjadikannya ke bentuk *exported* (atau *public*), atau diubah cara pemanggilannya. Di sini kita menggunakan cara ke-2.
+Error di atas disebabkan karena fungsi `introduce()` yang berada dalam package `library` memiliki level akses *unexported* (atau *private*), fungsi ini tidak bisa diakses dari package lain (pada kasus ini `main`). Agar bisa diakses, solusinya bisa dengan menjadikannya ke bentuk *exported* (atau *public*), atau diubah cara pemanggilannya. Di sini kita menggunakan cara ke-2.
 
 Tambahkan parameter `name` pada fungsi `SayHello()`, lalu panggil fungsi `introduce()` dengan menyisipkan parameter `name` dari dalam fungsi `SayHello()`.
 
@@ -195,7 +195,7 @@ fmt.Println("name ", s1.Name)
 fmt.Println("grade", s1.Grade)
 ```
 
-Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` yang berada di package lain, selain nama stuct-nya harus berbentuk *exported*, properti yang diakses juga harus *exported* juga.
+Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` yang berada di package lain, selain nama struct-nya harus berbentuk *exported*, properti yang diakses juga harus *exported* juga.
 
 ![Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda](images/A_properti_public_private_4_success.png)
 

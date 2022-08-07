@@ -29,7 +29,7 @@ Dengan memanfaatkan interface ini, kita akan membuat beberapa middleware. Fungsi
 
 ## B.19.2. Persiapan
 
-OK, mari kita praktekan. Pertama duplikat folder projek sebelumnya sebagai folder proyek baru.  Lalu pada `main.go`, ubah isi fungsi `ActionStudent` dan `main`.
+OK, mari kita praktekan. Pertama duplikat folder project sebelumnya sebagai folder proyek baru.  Lalu pada `main.go`, ubah isi fungsi `ActionStudent` dan `main`.
 
  - Fungsi`ActionStudent()`
 
@@ -116,7 +116,7 @@ server.Handler = handler
 
 ## B.19.3. Pembuatan Middleware
 
-Di dalam `middleware.go` ubah fungsi `Auth()` (hasil salinan projek pada chapter sebelumnya) menjadi fungsi `MiddlewareAuth()`. Parameternya objek bertipe `http.Handler`, dan nilai baliknya juga sama.
+Di dalam `middleware.go` ubah fungsi `Auth()` (hasil salinan project pada chapter sebelumnya) menjadi fungsi `MiddlewareAuth()`. Parameternya objek bertipe `http.Handler`, dan nilai baliknya juga sama.
 
 ```go
 func MiddlewareAuth(next http.Handler) http.Handler {

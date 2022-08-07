@@ -11,7 +11,7 @@ Golang menyediakan package `net/smtp`, isinya banyak API untuk berkomunikasi via
 
 Sebuah akun email diperlukan dalam mengirim email, silakan gunakan provider email apa saja. Pada chapter ini kita gunakan Google Mail (gmail), jadi siapkan satu buah akun gmail untuk keperluan testing.
 
-Mari kita praktekan. Buat folder projek baru, salin kode berikut.
+Mari kita praktekan. Buat folder project baru, salin kode berikut.
 
 ```go
 package main

@@ -66,7 +66,7 @@ Pertama kita buat terlebih dahulu aplikasi web sederhana, dengan dua buah rute d
 - Landing page, memunculkan form login
 - Action login endpoint, untuk handle proses login
 
-Siapkan dulu projeknya:
+Siapkan dulu project-nya:
 
 ```bash
 mkdir chapter-c33

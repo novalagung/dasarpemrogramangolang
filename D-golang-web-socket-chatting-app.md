@@ -14,7 +14,7 @@ Kurang lebih aplikasi yang kita kembangkan seperti gambar di bawah ini.
 
 ## D.3.1. Back End
 
-Buat folder projek baru.
+Buat folder project baru.
 
 ```bash
 mkdir chapter-d3

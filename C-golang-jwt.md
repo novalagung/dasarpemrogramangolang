@@ -40,7 +40,7 @@ Kita akan buat sebuah aplikasi RESTful web service sederhana, isinya dua buah en
  - Token didapat dari proses otentikasi ke endpoint `/login` dengan menyisipkan username dan password.
  - Pada aplikasi yang sudah kita buat, sudah ada data list user yang tersimpan di database (sebenarnya bukan di-database, tapi di file json).
 
-Ok, sekarang siapkan folder projek baru.
+Ok, sekarang siapkan folder project baru.
 
 ```bash
 mkdir chapter-c32

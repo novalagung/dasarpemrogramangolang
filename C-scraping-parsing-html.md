@@ -20,7 +20,7 @@ Kita akan praktekan penerapan goquery untuk mengambil beberapa data dari website
 
 ## C.22.2. Praktek Scraping dan Parsing HTML
 
-Siapkan folder projek baru. Pada file main siapkan sebuah struct dengan nama `Article`, isinya 3 merupakan representasi dari metadata tiap artikel, yaitu `Title`, `URL`, dan `Category`.
+Siapkan folder project baru. Pada file main siapkan sebuah struct dengan nama `Article`, isinya 3 merupakan representasi dari metadata tiap artikel, yaitu `Title`, `URL`, dan `Category`.
 
 ```go
 package main

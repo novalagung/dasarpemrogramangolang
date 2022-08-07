@@ -19,7 +19,7 @@ Library FTP client yang kita gunakan adalah [github.com/jlaffaye/ftp](https://gi
 
 ## C.28.1. Koneksi ke Server
 
-Buat satu buah folder projek baru dengan isi `main.go`. Di dalam file main akan kita isi dengan beberapa operasi FTP seperti upload, download, akses ke direktori dan lainnya.
+Buat satu buah folder project baru dengan isi `main.go`. Di dalam file main akan kita isi dengan beberapa operasi FTP seperti upload, download, akses ke direktori dan lainnya.
 
 OK, langsung saja, silakan tulis kode berikut.
 

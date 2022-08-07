@@ -113,9 +113,12 @@ Zero value berbeda dengan `nil`. `Nil` adalah nilai kosong, benar-benar kosong. 
 - slice
 - `map`
 - `channel`
-- interface kosong atau `interface{}`
+- interface kosong atau `any` (yang merupakan alias dari `interface{}`)
 
-Nantinya kita akan sering bertemu dengan `nil` setelah masuk pada pembahasan pembahasan-pembahasan tersebut.
+> Tipe data `any` hanya tersedia pada go versi `1.18` ke atas
+
+
+Nantinya kita akan sering bertemu dengan `nil` setelah masuk pada pembahasan-pembahasan tersebut.
 
 ---
 

@@ -8,7 +8,7 @@ Go menyediakan package [golang.org/x/crypto/ssh](https://godoc.org/golang.org/x/
 
 ## C.29.1. Otentikasi SSH
 
-Buat folder projek baru, isinya file `main.go`, di dalamnya tulis kode berikut.
+Buat folder project baru, isinya file `main.go`, di dalamnya tulis kode berikut.
 
 ```go
 package main

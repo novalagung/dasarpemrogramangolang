@@ -64,7 +64,7 @@ Tampilannya kurang lebih seperti pada screenshot berikut.
 
 ## C.24.3. Project Structure
 
-Buat sebuah projek folder, copy 2 file yang telah ter-generate ke dalamnya. Lalu siapkan file `main.go`.
+Buat sebuah project folder, copy 2 file yang telah ter-generate ke dalamnya. Lalu siapkan file `main.go`.
 
 ![Folder Structure](images/C_https_tls_3_structure.png)
 

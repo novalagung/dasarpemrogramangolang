@@ -61,7 +61,7 @@ Agar skenario ini bisa kita eksekusi, kita perlu siapkan dulu sebuah program unt
 
 ## A.62.3. Program 1: Generate Dummy File
 
-Buat projek baru dengan nama bebas <span style="text-decoration: line-through">loss gak reweellll</span> beserta satu buah file bernama `1-dummy-file-generator.go`.
+Buat project baru dengan nama bebas <span style="text-decoration: line-through">loss gak reweellll</span> beserta satu buah file bernama `1-dummy-file-generator.go`.
 
 Dalam file tersebut import beberapa hal dan definisikan konstanta `totalFile` yang isinya jumlah file yang ingin di-generate, `contentLength` yang isinya panjang karakter random yang merupakan isi dari masing-masing *generated* file, dan satu buah variabel `tempPath` yang mengarah ke [temporary folder](https://en.wikipedia.org/wiki/Temporary_folder).
 

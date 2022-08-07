@@ -4,7 +4,7 @@ Pada serial chapter B ini, kita masih tetap akan belajar tentang topik fundament
 
 ## B.1.1. Pembuatan Aplikasi
 
-Mari belajar dengan praktek langsung. Pertama buat folder projek baru dengan isi `main.go`, tentukan package-nya sebagai `main`, lalu import package `fmt` dan `net/http`.
+Mari belajar dengan praktek langsung. Pertama buat folder project baru dengan isi `main.go`, tentukan package-nya sebagai `main`, lalu import package `fmt` dan `net/http`.
 
 ```go
 package main

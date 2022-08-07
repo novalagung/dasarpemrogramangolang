@@ -21,7 +21,7 @@ Ada total sekitar <b>110 chapter</b> yang dibahas dalam ebook ini. Kumpulan chap
 	</li>
 </ol>
 
-Versi e-book: **((VERSION))**, dan versi Go **1.17.5**.
+Versi e-book: **((VERSION))**, dan versi Go **1.18.5**.
 
 ## Download File E-book (pdf, epub, mobi)
 
@@ -45,11 +45,11 @@ Source code contoh-contoh program bisa diunduh di [github.com/novalagung/dasarpe
 
 ## Kontribusi
 
-Ebook ini merupakan projek open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Cek juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTORS.html) untuk melihat list kontributor.
+Ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Cek juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTORS.html) untuk melihat list kontributor.
 
 ## Lisensi dan Status FOSSA
 
-Ebook Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, selama tidak melanggar aturan lisensi [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0) untuk versi mulai dari 2.2019.11.27. Di versi terdahulu lisensi ebook yang dipergunakan adalah [GNU LGPL 2.1](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html).
+Ebook Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu **Dasar Pemrograman Golang** atau **novalagung**) dan tidak mengubah lisensi aslinya (yaitu **CC BY-SA 4.0**). Lebih detailnya silakan cek halaman [lisensi dan distribusi konten](https://dasarpemrogramangolang.novalagung.com/LICENSE.html).
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large)
 

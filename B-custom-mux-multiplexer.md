@@ -2,7 +2,7 @@
 
 Pada chapter ini, kita akan belajar membuat custom multiplexer sendiri, lalu memanfaatkannya untuk mempermudah manajemen middleware.
 
-Silakan salin projek sebelumnya, chapter [B.19. Middleware http.Handler](/B-middleware-using-http-handler.html), ke folder baru untuk keperluan pembelajaran.
+Silakan salin project sebelumnya, chapter [B.19. Middleware http.Handler](/B-middleware-using-http-handler.html), ke folder baru untuk keperluan pembelajaran.
 
 ## B.20.1. Pembuatan Custom Mux
 

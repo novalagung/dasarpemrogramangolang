@@ -4,9 +4,9 @@ Semua persiapan sudah selesai, saatnya masuk pada sesi programming. Program pert
 
 Pada chapter ini akan dijelaskan secara komprehensif *step-by-step* mulai dari awal. Mulai dari pembuatan project, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi program.
 
-## A.7.1. Inisialisasi Projek
+## A.7.1. Inisialisasi Project
 
-Buat direktori bernama `hello-world` bebas ditempatkan di mana. Lalu via CLI, masuk ke direktori tersebut dan jalankan *command* untuk inisialisasi projek.
+Buat direktori bernama `hello-world` bebas ditempatkan di mana. Lalu via CLI, masuk ke direktori tersebut dan jalankan *command* untuk inisialisasi project.
 
 ```
 mkdir hello-world
@@ -16,9 +16,9 @@ go mod init hello-world
 
 ![Inisialisasi project](images/A_hello_world_1_init_project.png)
 
-## A.7.2. Load Projek Folder ke Editor
+## A.7.2. Load Project Folder ke Editor
 
-Buka editor, di sini penulis menggunakan VSCode. Cari menu untuk menambahkan projek, lalu pilih projek folder `hello-world`. Untuk beberapa jenis editor, cara load projek bisa cukup dengan klik-drag folder tersebut ke editor.
+Buka editor, di sini penulis menggunakan VSCode. Cari menu untuk menambahkan project, lalu pilih project folder `hello-world`. Untuk beberapa jenis editor, cara load project bisa cukup dengan klik-drag folder tersebut ke editor.
 
 ![Load project folder ke editor](images/A_hello_world_2_load_project_to_editor.png)
 
@@ -28,7 +28,7 @@ File program di sini maksudnya adalah file yang isinya *source code* Go. File in
 
 Di dalam project yang telah dibuat, siapkan sebuah file dengan nama bebas, yang jelas harus ber-ekstensi `.go`. Pada contoh ini saya menggunakan nama file `main.go`.
 
-Pembuatan file program bisa dilakukan lewat CLI atau browser, atau juga lewat editor. Pastikan file dibuat dalam projek folder ya.
+Pembuatan file program bisa dilakukan lewat CLI atau browser, atau juga lewat editor. Pastikan file dibuat dalam project folder ya.
 
 ![File program](images/A_hello_world_3_new_file_on_editor.png)
 
