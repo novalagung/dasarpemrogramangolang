@@ -2,7 +2,7 @@
 
 Pada chapter ini kita akan belajar penerapan web socket di Go, untuk membuat sebuah aplikasi chatting. Web socket server dibuat menggunakan library [Gorilla Web Socket](https://github.com/gorilla/websocket), dan di sisi front end kita menggunakan native API milik javascript yaitu [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications) untuk melakukan komunikasi dengan socket server.
 
-> Jelasnya kapabilitas web socket bisa dicapai dengan cukup menggunakan default package yang disediakan Go. Namun pada chapter ini pembelajaran dilakukan menggunakan 4rd party library.
+> Jelasnya kapabilitas web socket bisa dicapai dengan cukup menggunakan default package yang disediakan Go. Namun pada chapter ini pembelajaran dilakukan menggunakan 3rd party library.
 
 Seperti biasanya proses belajar dilakukan sambil praktek. Kita buat aplikasi chatting minimalis, dengan kode se-sedikit mungkin agar mudah dipahami, development dilakukan *from scratch*.
 
