@@ -39,11 +39,11 @@ Kode di atas menunjukkan perbedaan antara `fmt.Println()` dan `fmt.Print()`. Out
 
 Bila menggunakan `fmt.Println()` tidak perlu menambahkan spasi di tiap kata, karena fungsi tersebut akan secara otomatis menambahkannya di sela-sela nilai. Berbeda dengan `fmt.Print()`, perlu ditambahkan spasi, karena fungsi ini tidak menambahkan spasi di sela-sela nilai parameter yang digabungkan.
 
-## A.11.2. Deklarasi multi konstanta
+## A.11.2. Deklarasi Multi Konstanta
 
-Sama seperti variabel, konstanta juga dapat di deklarasi secara bersamaan.
+Sama seperti variabel, konstanta juga dapat dideklarasikan secara bersamaan.
 
-Berikut contoh deklarasi konstanta dengan nilai dan tipe yang berbeda.
+Berikut adalah contoh deklarasi konstanta dengan tipe data dan nilai yang berbeda.
 
 ```go
 const (
@@ -54,12 +54,12 @@ const (
 )
 ```
 
-- `isToday`, dideklarasikan dengan metode _type inference_ dengan tipe data **bool** dan nilai nya **true**
-- `square`, dideklarasikan dengan metode _manifest typing_ dengan tipe data **string** dan nilai nya **"kotak"**
-- `numeric`, dideklarasikan dengan metode _manifest typing_ dengan tipe data **uint8** dan nilai nya **1**
-- `floatNum`, dideklarasikan dengan metode _type inference_ dengan tipe data **float** dan nilai nya **2.2**
+- `isToday`, dideklarasikan dengan metode _type inference_ dengan tipe data **bool** dan nilainya **true**
+- `square`, dideklarasikan dengan metode _manifest typing_ dengan tipe data **string** dan nilainya **"kotak"**
+- `numeric`, dideklarasikan dengan metode _manifest typing_ dengan tipe data **uint8** dan nilainya **1**
+- `floatNum`, dideklarasikan dengan metode _type inference_ dengan tipe data **float** dan nilainya **2.2**
 
-Contoh deklarasi konstanta dengan nilai dan tipe yang sama:
+Contoh deklarasi konstanta dengan tipe data dan nilai yang sama:
 
 ```go
 const (
@@ -68,10 +68,10 @@ const (
 )
 ```
 
-> ketika tipe dan nilai _const_ tidak diberikan, maka tipe dan nilai nya didapat dari deklarasi sebelumnya
+> Ketika tipe data dan nilai tidak dituliskan dalam deklarasi konstanta, maka tipe data dan nilai yang dipergunakan adalah sama seperti konstanta yang dideklarasikan diatasnya.
 
-- `a` dideklarasikan dengan metode _type inference_ dengan tipe data **string** dan nilai nya **"konstanta"**
-- `b` dideklarasikan dengan metode _type inference_ dengan tipe data **string** dan nilai nya **"konstanta"**
+- `a` dideklarasikan dengan metode _type inference_ dengan tipe data **string** dan nilainya **"konstanta"**
+- `b` dideklarasikan dengan metode _type inference_ dengan tipe data **string** dan nilainya **"konstanta"**
 
 Berikut contoh gabungan dari keduanya:
 
@@ -83,9 +83,9 @@ const (
 )
 ```
 
-- `today` dideklarasikan dengan metode _manifest typing_ dengan tipe data **string** dan nilai nya **"senin"**
-- `sekarang` dideklarasikan dengan metode _manifest typing_ dengan tipe data **string** dan nilai nya **"senin"**
-- `isToday2` dideklarasikan dengan metode _type inference_ dengan tipe data **bool** dan nilai nya **true**
+- `today` dideklarasikan dengan metode _manifest typing_ dengan tipe data **string** dan nilainya **"senin"**
+- `sekarang` dideklarasikan dengan metode _manifest typing_ dengan tipe data **string** dan nilainya **"senin"**
+- `isToday2` dideklarasikan dengan metode _type inference_ dengan tipe data **bool** dan nilainya **true**
 
 Berikut contoh deklrasi _multiple_ konstanta dalam satu baris:
 
@@ -94,13 +94,10 @@ const satu, dua = 1, 2
 const three, four string = "tiga", "empat"
 ```
 
-- `satu`, dideklarasikan dengan metode  _type inference_ dengan tipe data **int** dan nilai nya **1**
-- `dua`, dideklarasikan dengan metode _type inference_ dengan tipe data **int** dan nilai nya **2**
-- `three`, dideklarasikan dengan metode _manifest typing_ dengan tipe data **string** dan nilai nya **"tiga"**
-- `four`, dideklarasikan dengan metode _manifest typing_ dengan tipe data **string** dan nilai nya **"empat"**
-
-Sumber [klik disini](https://golangbyexample.com/multiple-constant-declarations-go/)
-
+- `satu`, dideklarasikan dengan metode  _type inference_ dengan tipe data **int** dan nilainya **1**
+- `dua`, dideklarasikan dengan metode _type inference_ dengan tipe data **int** dan nilainya **2**
+- `three`, dideklarasikan dengan metode _manifest typing_ dengan tipe data **string** dan nilainya **"tiga"**
+- `four`, dideklarasikan dengan metode _manifest typing_ dengan tipe data **string** dan nilainya **"empat"**
 
 ---
 
