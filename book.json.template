@@ -6,9 +6,6 @@
         "sitemap"
     ],
     "pluginsConfig": {
-        "ga": {
-            "token": "UA-27602984-29"
-        },
         "disqus": {
             "shortName": "dasarpemrogramangolang"
         },

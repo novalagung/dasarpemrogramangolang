@@ -15,7 +15,7 @@ import (
 var (
 	baseVersion = 3
 	bookName    = "Dasar Pemrograman Golang"
-	adClient    = "ca-pub-1417781814120840"
+	ga4tagId    = "G-MZ74P74K72"
 	now         = time.Now()
 )
 
@@ -102,7 +102,7 @@ func postAdjustment() {
 			// ==== remove the "A.2"-ish from the title
 			titleParts = strings.Split(newTitle, " ")
 			if strings.Contains(titleParts[0], ".") {
-				titleParts = titleParts[1:len(titleParts)]
+				titleParts = titleParts[1:]
 			}
 			newTitle = strings.Join(titleParts, " ")
 		}
@@ -155,11 +155,16 @@ func postAdjustment() {
 		buttonScriptReplacement := `<script async defer src="https://buttons.github.io/buttons.js"></script>` + buttonScriptToFind
 		htmlString = strings.Replace(htmlString, buttonScriptToFind, buttonScriptReplacement, -1)
 
-		// ==== google ads
-		// googleAdsToFind := `</head>`
-		// // googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">` + `</script><script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "` + adClient + `", enable_page_level_ads: true }); </script>` + googleAdsToFind
-		// googleAdsReplacement := `<script data-ad-client="` + adClient + `" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>` + googleAdsToFind
-		// htmlString = strings.Replace(htmlString, googleAdsToFind, googleAdsReplacement, -1)
+		// ==== inject ga4
+		ga4propertyToFind := `</head>`
+		ga4propertyReplacement := `<script async src="https://www.googletagmanager.com/gtag/js?id=` + ga4tagId + `"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', '` + ga4tagId + `');
+		</script>` + ga4propertyToFind
+		htmlString = strings.Replace(htmlString, ga4propertyToFind, ga4propertyReplacement, -1)
 
 		// ===== inject fb pixel
 		// fbPixelToFind := `</head>`
