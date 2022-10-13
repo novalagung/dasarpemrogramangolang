@@ -1,6 +1,5 @@
 {
     "plugins": [
-        "ga",
         "disqus",
         "meta",
         "sitemap"
