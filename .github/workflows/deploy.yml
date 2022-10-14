@@ -70,7 +70,6 @@ jobs:
     - name: 'Generating distributable files'
       run: |
         mkdir _book
-        go run adjustment.go -type=pre
         gitbook install
     - name: 'Generating ebook in pdf'
       run: gitbook pdf ./ ./_book/dasarpemrogramangolang.pdf
