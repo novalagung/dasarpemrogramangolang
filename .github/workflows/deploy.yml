@@ -64,6 +64,7 @@ jobs:
     - name: 'Installing requirements'
       run: |
         npm install -g gitbook-cli svgexport
+        sudo apt install libegl1 libopengl0
         sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
     - name: 'Generating distributable files'
       run: |
