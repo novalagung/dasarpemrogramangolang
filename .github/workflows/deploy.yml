@@ -69,7 +69,6 @@ jobs:
         sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
     - name: 'Generating distributable files'
       run: |
-        cp book.json.template book.json
         mkdir _book
         go run adjustment.go -type=pre
         gitbook install
