@@ -4,7 +4,7 @@
 
 Ebook ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.
 
-Ada total sekitar <b>110 chapter</b> yang dibahas dalam ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.
+Ada total sekitar <b>120 chapter</b> yang dibahas dalam ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.
 
 <ol type="A">
 	<li>

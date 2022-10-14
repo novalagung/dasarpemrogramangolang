@@ -7,8 +7,9 @@
 
 <hr>
 
+* E-book: Dasar Pemrograman Rust *(december release)*
+* [E-book: Learn DevOps](https://learndevops.novalagung.com/)
 * [Udemy Course: Praktis Belajar Docker & Kubernetes](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/)
-* [Learn DevOps](https://learn.novalagung.com/)
 
 <hr>
 
