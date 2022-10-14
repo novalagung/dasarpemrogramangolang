@@ -6,8 +6,55 @@ on:
       - master
 
 jobs:
+
   job_deploy_website:
     name: 'deploy website'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 11
+        check-latest: true
+    - uses: actions/setup-go@v2
+      with:
+        go-version: 1.14
+
+    - name: 'Installing requirements'
+      run: |
+        npm install -g gitbook-cli
+
+    - name: 'Generating distributable files'
+      run: |
+        go run adjustment.go -type=pre
+        gitbook install
+        cp ./book.json.template ./book.json
+        cd ~/.gitbook/versions/3.2.3 && npm i npm@5
+        cd ${{ github.workspace }}
+        gitbook install
+        gitbook build
+        go run adjustment.go -type=post
+        cd _book
+        rm -rf LICENSE
+        rm -rf book*
+        rm -rf .git
+        rm -rf .gitignore
+        rm -rf .github
+        rm -rf *.md
+        rm -rf *.sh
+        rm -rf *.psd
+        rm -rf *.go
+        rm -rf *.css
+        rm -rf *.js
+
+    - name: 'Deploying'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./_book
+
+  job_deploy_ebook:
+    name: 'deploy ebook'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
