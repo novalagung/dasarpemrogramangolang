@@ -19,11 +19,8 @@ jobs:
     - uses: actions/setup-go@v2
       with:
         go-version: 1.14
-
     - name: 'Installing requirements'
-      run: |
-        npm install -g gitbook-cli
-
+      run: npm install -g gitbook-cli
     - name: 'Generating distributable files'
       run: |
         go run adjustment.go -type=pre
@@ -46,7 +43,6 @@ jobs:
         rm -rf *.go
         rm -rf *.css
         rm -rf *.js
-
     - name: 'Deploying'
       uses: peaceiris/actions-gh-pages@v3
       with:
@@ -65,46 +61,25 @@ jobs:
     - uses: actions/setup-go@v2
       with:
         go-version: 1.14
-
     - name: 'Installing requirements'
       run: |
         npm install -g gitbook-cli svgexport
         sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
-
     - name: 'Generating distributable files'
       run: |
+        cp book.json.template book.json
+        mkdir _book
         go run adjustment.go -type=pre
         gitbook install
-        cp ./book.json.template ./book.json
-        cd ~/.gitbook/versions/3.2.3 && npm i npm@5
-        cd ${{ github.workspace }}
-        gitbook install
-        gitbook build
-        go run adjustment.go -type=post
-        cd _book
-        rm -rf LICENSE
-        rm -rf book*
-        rm -rf .git
-        rm -rf .gitignore
-        rm -rf .github
-        rm -rf *.md
-        rm -rf *.sh
-        rm -rf *.psd
-        rm -rf *.go
-        rm -rf *.css
-        rm -rf *.js
-
     - name: 'Generating ebook in pdf'
       run: gitbook pdf ./ ./_book/dasarpemrogramangolang.pdf
-
     - name: 'Generating ebook in epub'
       run: gitbook epub ./ ./_book/dasarpemrogramangolang.epub
-
     - name: 'Generating ebook in mobi'
       run: gitbook mobi ./ ./_book/dasarpemrogramangolang.mobi
-
     - name: 'Deploying'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_book
+        publish_branch: ebooks
