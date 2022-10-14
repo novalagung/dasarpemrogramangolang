@@ -76,7 +76,13 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2022.05.09.021932"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
+    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2022.10.14.083224"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-MZ74P74K72');
+		</script></head>
     <body>
         
 <div class="book">
@@ -141,6 +147,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.4" data-path="LICENSE.html">
+            
+                <a href="LICENSE.html">
+            
+                    
+                    Lisensi dan Distribusi Konten
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
         
@@ -150,10 +169,10 @@
     
         <li class="chapter " data-level="2.1" >
             
-                <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=BIGSALEMAY2021">
+                <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/">
             
                     
-                    Course Mendeploy Aplikasi Go ke Docker dan Kubernetes (PROMO!)
+                    Udemy Course: Praktis Belajar Docker & Kubernetes
             
                 </a>
             
@@ -163,10 +182,10 @@
     
         <li class="chapter " data-level="2.2" >
             
-                <a target="_blank" href="https://devops.novalagung.com/">
+                <a target="_blank" href="https://learn.novalagung.com/">
             
                     
-                    Belajar Devops
+                    Learn DevOps
             
                 </a>
             
@@ -2011,6 +2030,57 @@ fmt.Print(<span class="hljs-string">&quot;john&quot;</span>, <span class="hljs-s
 </code></pre>
 <p>Kode di atas menunjukkan perbedaan antara <code>fmt.Println()</code> dan <code>fmt.Print()</code>. Output yang dihasilkan oleh 5 statement di atas adalah sama, meski cara yang digunakan berbeda.</p>
 <p>Bila menggunakan <code>fmt.Println()</code> tidak perlu menambahkan spasi di tiap kata, karena fungsi tersebut akan secara otomatis menambahkannya di sela-sela nilai. Berbeda dengan <code>fmt.Print()</code>, perlu ditambahkan spasi, karena fungsi ini tidak menambahkan spasi di sela-sela nilai parameter yang digabungkan.</p>
+<h2 id="a112-deklarasi-multi-konstanta">A.11.2. Deklarasi Multi Konstanta</h2>
+<p>Sama seperti variabel, konstanta juga dapat dideklarasikan secara bersamaan.</p>
+<p>Berikut adalah contoh deklarasi konstanta dengan tipe data dan nilai yang berbeda.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">const</span> (
+    square          = <span class="hljs-string">&quot;kotak&quot;</span>
+    isToday <span class="hljs-keyword">bool</span>    = <span class="hljs-literal">true</span>
+    numeric <span class="hljs-keyword">uint8</span>   = <span class="hljs-number">1</span>
+    floatNum        = <span class="hljs-number">2.2</span>
+)
+</code></pre>
+<ul>
+<li><code>isToday</code>, dideklarasikan dengan metode <em>type inference</em> dengan tipe data <strong>bool</strong> dan nilainya <strong>true</strong></li>
+<li><code>square</code>, dideklarasikan dengan metode <em>manifest typing</em> dengan tipe data <strong>string</strong> dan nilainya <strong>&quot;kotak&quot;</strong></li>
+<li><code>numeric</code>, dideklarasikan dengan metode <em>manifest typing</em> dengan tipe data <strong>uint8</strong> dan nilainya <strong>1</strong></li>
+<li><code>floatNum</code>, dideklarasikan dengan metode <em>type inference</em> dengan tipe data <strong>float</strong> dan nilainya <strong>2.2</strong></li>
+</ul>
+<p>Contoh deklarasi konstanta dengan tipe data dan nilai yang sama:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">const</span> (
+    a = <span class="hljs-string">&quot;konstanta&quot;</span>
+    b
+)
+</code></pre>
+<blockquote>
+<p>Ketika tipe data dan nilai tidak dituliskan dalam deklarasi konstanta, maka tipe data dan nilai yang dipergunakan adalah sama seperti konstanta yang dideklarasikan diatasnya.</p>
+</blockquote>
+<ul>
+<li><code>a</code> dideklarasikan dengan metode <em>type inference</em> dengan tipe data <strong>string</strong> dan nilainya <strong>&quot;konstanta&quot;</strong></li>
+<li><code>b</code> dideklarasikan dengan metode <em>type inference</em> dengan tipe data <strong>string</strong> dan nilainya <strong>&quot;konstanta&quot;</strong></li>
+</ul>
+<p>Berikut contoh gabungan dari keduanya:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">const</span> (
+    today <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;senin&quot;</span>
+    sekarang
+    isToday2 = <span class="hljs-literal">true</span>
+)
+</code></pre>
+<ul>
+<li><code>today</code> dideklarasikan dengan metode <em>manifest typing</em> dengan tipe data <strong>string</strong> dan nilainya <strong>&quot;senin&quot;</strong></li>
+<li><code>sekarang</code> dideklarasikan dengan metode <em>manifest typing</em> dengan tipe data <strong>string</strong> dan nilainya <strong>&quot;senin&quot;</strong></li>
+<li><code>isToday2</code> dideklarasikan dengan metode <em>type inference</em> dengan tipe data <strong>bool</strong> dan nilainya <strong>true</strong></li>
+</ul>
+<p>Berikut contoh deklrasi <em>multiple</em> konstanta dalam satu baris:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">const</span> satu, dua = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>
+<span class="hljs-keyword">const</span> three, four <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;tiga&quot;</span>, <span class="hljs-string">&quot;empat&quot;</span>
+</code></pre>
+<ul>
+<li><code>satu</code>, dideklarasikan dengan metode  <em>type inference</em> dengan tipe data <strong>int</strong> dan nilainya <strong>1</strong></li>
+<li><code>dua</code>, dideklarasikan dengan metode <em>type inference</em> dengan tipe data <strong>int</strong> dan nilainya <strong>2</strong></li>
+<li><code>three</code>, dideklarasikan dengan metode <em>manifest typing</em> dengan tipe data <strong>string</strong> dan nilainya <strong>&quot;tiga&quot;</strong></li>
+<li><code>four</code>, dideklarasikan dengan metode <em>manifest typing</em> dengan tipe data <strong>string</strong> dan nilainya <strong>&quot;empat&quot;</strong></li>
+</ul>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
@@ -2059,7 +2129,7 @@ fmt.Print(<span class="hljs-string">&quot;john&quot;</span>, <span class="hljs-s
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.11. Konstanta","level":"3.1.11","depth":2,"next":{"title":"A.12. Operator","level":"3.1.12","depth":2,"path":"A-operator.md","ref":"A-operator.md","articles":[]},"previous":{"title":"A.10. Tipe Data","level":"3.1.10","depth":2,"path":"A-tipe-data.md","ref":"A-tipe-data.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-konstanta.md","mtime":"2022-05-09T02:17:18.554Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-09T02:19:03.941Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.11. Konstanta","level":"3.1.11","depth":2,"next":{"title":"A.12. Operator","level":"3.1.12","depth":2,"path":"A-operator.md","ref":"A-operator.md","articles":[]},"previous":{"title":"A.10. Tipe Data","level":"3.1.10","depth":2,"path":"A-tipe-data.md","ref":"A-tipe-data.md","articles":[]},"dir":"ltr"},"config":{"plugins":["disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-konstanta.md","mtime":"2022-10-14T08:30:27.022Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-14T08:31:50.616Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2067,10 +2137,6 @@ fmt.Print(<span class="hljs-string">&quot;john&quot;</span>, <span class="hljs-s
         
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
-    
-        
-        <script src="gitbook/gitbook-plugin-ga/plugin.js"></script>
-        
     
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>

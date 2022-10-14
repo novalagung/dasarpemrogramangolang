@@ -76,7 +76,13 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2022.05.09.021932"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
+    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2022.10.14.083224"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-MZ74P74K72');
+		</script></head>
     <body>
         
 <div class="book">
@@ -141,6 +147,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.4" data-path="LICENSE.html">
+            
+                <a href="LICENSE.html">
+            
+                    
+                    Lisensi dan Distribusi Konten
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
         
@@ -150,10 +169,10 @@
     
         <li class="chapter " data-level="2.1" >
             
-                <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=BIGSALEMAY2021">
+                <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/">
             
                     
-                    Course Mendeploy Aplikasi Go ke Docker dan Kubernetes (PROMO!)
+                    Udemy Course: Praktis Belajar Docker & Kubernetes
             
                 </a>
             
@@ -163,10 +182,10 @@
     
         <li class="chapter " data-level="2.2" >
             
-                <a target="_blank" href="https://devops.novalagung.com/">
+                <a target="_blank" href="https://learn.novalagung.com/">
             
                     
-                    Belajar Devops
+                    Learn DevOps
             
                 </a>
             
@@ -1988,14 +2007,14 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a6-command">A.6. Command</h1>
-<p>Pengembangan aplikasi Go tak jauh dari hal-hal yang berbau CLI atau <em>Command Line Interface</em>. Proses inisialisasi projek, kompilasi, testing, eksekusi program, semuanya dilakukan lewat command line.</p>
+<p>Pengembangan aplikasi Go tak jauh dari hal-hal yang berbau CLI atau <em>Command Line Interface</em>. Proses inisialisasi project, kompilasi, testing, eksekusi program, semuanya dilakukan lewat command line.</p>
 <p>Go menyediakan command <code>go</code>, dan pada chapter ini kita akan mempelajari beberapa di antaranya.</p>
 <blockquote>
 <p>Pada pembelajaran chapter ini, pembaca tidak harus praktek, cukup pelajari saja untuk tahu. Mengenai praktek sendiri akan dimulai pada chapter selanjutnya, yaitu <a href="A-hello-world.html">A.7. Program Pertama: Hello World</a>.</p>
 </blockquote>
 <h2 id="a61-command-go-mod-init">A.6.1. Command <code>go mod init</code></h2>
-<p><em>Command</em> <code>go mod init</code> digunakan untuk inisialisasi projek pada Go (menggunakan Go Modules). Untuk nama projek bisa menggunakan apapun, tapi umumnya adalah disamakan dengan nama direktori.</p>
-<p>Nama projek ini penting karena nantinya berpengaruh pada <em>import path sub packages</em> yang ada dalam projek tersebut.</p>
+<p><em>Command</em> <code>go mod init</code> digunakan untuk inisialisasi project pada Go (menggunakan Go Modules). Untuk nama project bisa menggunakan apapun, tapi umumnya adalah disamakan dengan nama direktori.</p>
+<p>Nama project ini penting karena nantinya berpengaruh pada <em>import path sub packages</em> yang ada dalam project tersebut.</p>
 <pre><code>mkdir &lt;nama-project&gt;
 cd &lt;nama-project&gt;
 go mod init &lt;nama-project&gt;
@@ -2024,7 +2043,7 @@ go run main.go
 <p>Sebenarnya ketika eksekusi program menggunakan <code>go run</code>, terjadi proses kompilasi juga. File hasil kompilasi akan disimpan pada folder temporary untuk selanjutnya langsung dieksekusi.</p>
 <p>Berbeda dengan <code>go build</code>, <em>command</em> ini menghasilkan file <em>executable</em> atau <em>binary</em> pada folder yang sedang aktif. Contohnya bisa dilihat pada kode berikut.</p>
 <p><img src="images/A_go_command_4_go_build.png" alt="Dasar Pemrograman Golang - Kompilasi file program menghasilkan file executable"></p>
-<p>Pada contoh di atas, projek <code>project-pertama</code> di-build, menghasilkan file baru pada folder yang sama, yaitu <code>project-pertama.exe</code>, yang kemudian dieksekusi. <em>Default</em>-nya nama projek akan otomatis dijadikan nama <em>binary</em>.</p>
+<p>Pada contoh di atas, project <code>project-pertama</code> di-build, menghasilkan file baru pada folder yang sama, yaitu <code>project-pertama.exe</code>, yang kemudian dieksekusi. <em>Default</em>-nya nama project akan otomatis dijadikan nama <em>binary</em>.</p>
 <p>Untuk nama executable sendiri bisa diubah menggunakan flag <code>-o</code>. Contoh:</p>
 <pre><code>go build -o &lt;nama-executable&gt;
 go build -o program.exe
@@ -2032,13 +2051,13 @@ go build -o program.exe
 <p>Untuk sistem operasi non-windows, tidak perlu menambahkan akhiran <code>.exe</code> pada nama <em>binary</em></p>
 </blockquote>
 <h2 id="a65-command-go-get">A.6.5. Command <code>go get</code></h2>
-<p><em>Command</em> <code>go get</code> digunakan untuk men-download package. Sebagai contoh saya ingin men-download package Kafka driver untuk Go pada projek <code>project-pertama</code>.</p>
+<p><em>Command</em> <code>go get</code> digunakan untuk men-download package. Sebagai contoh saya ingin men-download package Kafka driver untuk Go pada project <code>project-pertama</code>.</p>
 <pre><code class="lang-bash"><span class="hljs-built_in">cd</span> project-pertama
 go get github.com/segmentio/kafka-go
 dir
 </code></pre>
 <p><img src="images/A_go_command_6_go_get.png" alt="Dasar Pemrograman Golang - Download package menggunakan `go get`"></p>
-<p>Pada contoh di atas, <code>github.com/segmentio/kafka-go</code> adalah URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder di mana <em>command</em> <code>go get</code> dieksekusi, menjadikan projek tersebut bisa meng-<em>import</em> package terunduh.</p>
+<p>Pada contoh di atas, <code>github.com/segmentio/kafka-go</code> adalah URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder di mana <em>command</em> <code>go get</code> dieksekusi, menjadikan project tersebut bisa meng-<em>import</em> package terunduh.</p>
 <p>Untuk mengunduh dependensi versi terbaru, gunakan flag <code>-u</code> pada command <code>go get</code>, misalnya:</p>
 <pre><code>go get -u github.com/segmentio/kafka-go
 </code></pre><p>Command <code>go get</code> <strong>harus dijalankan dalam folder project</strong>. Jika dijalankan di-luar project maka akan diunduh ke pada GOPATH.</p>
@@ -2089,7 +2108,7 @@ dir
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.6. Go Command","level":"3.1.6","depth":2,"next":{"title":"A.7. Program Pertama: Hello World","level":"3.1.7","depth":2,"path":"A-hello-world.md","ref":"A-hello-world.md","articles":[]},"previous":{"title":"A.5. Instalasi Editor","level":"3.1.5","depth":2,"path":"A-instalasi-editor.md","ref":"A-instalasi-editor.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-go-command.md","mtime":"2022-05-09T02:17:18.554Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-09T02:19:03.941Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.6. Go Command","level":"3.1.6","depth":2,"next":{"title":"A.7. Program Pertama: Hello World","level":"3.1.7","depth":2,"path":"A-hello-world.md","ref":"A-hello-world.md","articles":[]},"previous":{"title":"A.5. Instalasi Editor","level":"3.1.5","depth":2,"path":"A-instalasi-editor.md","ref":"A-instalasi-editor.md","articles":[]},"dir":"ltr"},"config":{"plugins":["disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-go-command.md","mtime":"2022-10-14T08:30:27.022Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-14T08:31:50.616Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2097,10 +2116,6 @@ dir
         
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
-    
-        
-        <script src="gitbook/gitbook-plugin-ga/plugin.js"></script>
-        
     
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>

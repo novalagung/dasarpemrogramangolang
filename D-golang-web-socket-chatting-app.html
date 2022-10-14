@@ -74,7 +74,13 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2022.05.09.021932"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
+    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2022.10.14.083224"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-MZ74P74K72');
+		</script></head>
     <body>
         
 <div class="book">
@@ -139,6 +145,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.4" data-path="LICENSE.html">
+            
+                <a href="LICENSE.html">
+            
+                    
+                    Lisensi dan Distribusi Konten
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
         
@@ -148,10 +167,10 @@
     
         <li class="chapter " data-level="2.1" >
             
-                <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=BIGSALEMAY2021">
+                <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/">
             
                     
-                    Course Mendeploy Aplikasi Go ke Docker dan Kubernetes (PROMO!)
+                    Udemy Course: Praktis Belajar Docker & Kubernetes
             
                 </a>
             
@@ -161,10 +180,10 @@
     
         <li class="chapter " data-level="2.2" >
             
-                <a target="_blank" href="https://devops.novalagung.com/">
+                <a target="_blank" href="https://learn.novalagung.com/">
             
                     
-                    Belajar Devops
+                    Learn DevOps
             
                 </a>
             
@@ -1988,14 +2007,14 @@
                                 <h1 id="d3-web-socket-chatting-app">D.3. Web Socket: Chatting App</h1>
 <p>Pada chapter ini kita akan belajar penerapan web socket di Go, untuk membuat sebuah aplikasi chatting. Web socket server dibuat menggunakan library <a href="https://github.com/gorilla/websocket" target="_blank">Gorilla Web Socket</a>, dan di sisi front end kita menggunakan native API milik javascript yaitu <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications" target="_blank">WebSocket</a> untuk melakukan komunikasi dengan socket server.</p>
 <blockquote>
-<p>Jelasnya kapabilitas web socket bisa dicapai dengan cukup menggunakan default package yang disediakan Go. Namun pada chapter ini pembelajaran dilakukan menggunakan 4rd party library.</p>
+<p>Jelasnya kapabilitas web socket bisa dicapai dengan cukup menggunakan default package yang disediakan Go. Namun pada chapter ini pembelajaran dilakukan menggunakan 3rd party library.</p>
 </blockquote>
 <p>Seperti biasanya proses belajar dilakukan sambil praktek. Kita buat aplikasi chatting minimalis, dengan kode se-sedikit mungkin agar mudah dipahami, development dilakukan <em>from scratch</em>.</p>
 <p>Nantinya saat testing akan ada banyak user terhubung dengan socket server, dalam satu room. Setiap pesan yang ditulis oleh salah seorang user, bisa dibaca oleh semua user lainnya.</p>
 <p>Kurang lebih aplikasi yang kita kembangkan seperti gambar di bawah ini.</p>
 <p><img src="images/D_golang_web_socket_chatting_app_3_chatting.png" alt="Dasar Pemrograman Golang - Chatting App"></p>
 <h2 id="d31-back-end">D.3.1. Back End</h2>
-<p>Buat folder projek baru.</p>
+<p>Buat folder project baru.</p>
 <pre><code class="lang-bash">mkdir chapter<span class="hljs-_">-d</span>3
 <span class="hljs-built_in">cd</span> chapter<span class="hljs-_">-d</span>3
 go mod init chapter<span class="hljs-_">-d</span>3
@@ -2363,7 +2382,7 @@ app.init = <span class="hljs-function"><span class="hljs-keyword">function</span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"previous":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"D-golang-web-socket-chatting-app.md","mtime":"2022-05-09T02:17:18.558Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-09T02:19:03.941Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"previous":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},"dir":"ltr"},"config":{"plugins":["disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"D-golang-web-socket-chatting-app.md","mtime":"2022-10-14T08:30:27.030Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-14T08:31:50.616Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2371,10 +2390,6 @@ app.init = <span class="hljs-function"><span class="hljs-keyword">function</span
         
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
-    
-        
-        <script src="gitbook/gitbook-plugin-ga/plugin.js"></script>
-        
     
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>

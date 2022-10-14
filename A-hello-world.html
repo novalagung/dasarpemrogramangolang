@@ -76,7 +76,13 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2022.05.09.021932"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
+    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2022.10.14.083224"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-MZ74P74K72');
+		</script></head>
     <body>
         
 <div class="book">
@@ -141,6 +147,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.4" data-path="LICENSE.html">
+            
+                <a href="LICENSE.html">
+            
+                    
+                    Lisensi dan Distribusi Konten
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
         
@@ -150,10 +169,10 @@
     
         <li class="chapter " data-level="2.1" >
             
-                <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=BIGSALEMAY2021">
+                <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/">
             
                     
-                    Course Mendeploy Aplikasi Go ke Docker dan Kubernetes (PROMO!)
+                    Udemy Course: Praktis Belajar Docker & Kubernetes
             
                 </a>
             
@@ -163,10 +182,10 @@
     
         <li class="chapter " data-level="2.2" >
             
-                <a target="_blank" href="https://devops.novalagung.com/">
+                <a target="_blank" href="https://learn.novalagung.com/">
             
                     
-                    Belajar Devops
+                    Learn DevOps
             
                 </a>
             
@@ -1990,19 +2009,19 @@
                                 <h1 id="a7-program-pertama-hello-world">A.7. Program Pertama: Hello World</h1>
 <p>Semua persiapan sudah selesai, saatnya masuk pada sesi programming. Program pertama yang akan kita buat adalah aplikasi kecil yang menampilkan text <strong>Hello world</strong>.</p>
 <p>Pada chapter ini akan dijelaskan secara komprehensif <em>step-by-step</em> mulai dari awal. Mulai dari pembuatan project, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi program.</p>
-<h2 id="a71-inisialisasi-projek">A.7.1. Inisialisasi Projek</h2>
-<p>Buat direktori bernama <code>hello-world</code> bebas ditempatkan di mana. Lalu via CLI, masuk ke direktori tersebut dan jalankan <em>command</em> untuk inisialisasi projek.</p>
+<h2 id="a71-inisialisasi-project">A.7.1. Inisialisasi Project</h2>
+<p>Buat direktori bernama <code>hello-world</code> bebas ditempatkan di mana. Lalu via CLI, masuk ke direktori tersebut dan jalankan <em>command</em> untuk inisialisasi project.</p>
 <pre><code>mkdir hello-world
 cd hello-world
 go mod init hello-world
 </code></pre><p><img src="images/A_hello_world_1_init_project.png" alt="Dasar Pemrograman Golang - Inisialisasi project"></p>
-<h2 id="a72-load-projek-folder-ke-editor">A.7.2. Load Projek Folder ke Editor</h2>
-<p>Buka editor, di sini penulis menggunakan VSCode. Cari menu untuk menambahkan projek, lalu pilih projek folder <code>hello-world</code>. Untuk beberapa jenis editor, cara load projek bisa cukup dengan klik-drag folder tersebut ke editor.</p>
+<h2 id="a72-load-project-folder-ke-editor">A.7.2. Load Project Folder ke Editor</h2>
+<p>Buka editor, di sini penulis menggunakan VSCode. Cari menu untuk menambahkan project, lalu pilih project folder <code>hello-world</code>. Untuk beberapa jenis editor, cara load project bisa cukup dengan klik-drag folder tersebut ke editor.</p>
 <p><img src="images/A_hello_world_2_load_project_to_editor.png" alt="Dasar Pemrograman Golang - Load project folder ke editor"></p>
 <h2 id="a73-menyiapkan-file-program">A.7.3. Menyiapkan File Program</h2>
 <p>File program di sini maksudnya adalah file yang isinya <em>source code</em> Go. File ini berekstensi <code>.go</code>.</p>
 <p>Di dalam project yang telah dibuat, siapkan sebuah file dengan nama bebas, yang jelas harus ber-ekstensi <code>.go</code>. Pada contoh ini saya menggunakan nama file <code>main.go</code>.</p>
-<p>Pembuatan file program bisa dilakukan lewat CLI atau browser, atau juga lewat editor. Pastikan file dibuat dalam projek folder ya.</p>
+<p>Pembuatan file program bisa dilakukan lewat CLI atau browser, atau juga lewat editor. Pastikan file dibuat dalam project folder ya.</p>
 <p><img src="images/A_hello_world_3_new_file_on_editor.png" alt="Dasar Pemrograman Golang - File program"></p>
 <h2 id="a74-program-pertama-hello-word">A.7.4. Program Pertama: Hello Word</h2>
 <p>Setelah project folder dan file program sudah siap, saatnya untuk <em>programming</em>.</p>
@@ -2103,7 +2122,7 @@ fmt.Println(<span class="hljs-string">&quot;Hello world&quot;</span>)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.7. Program Pertama: Hello World","level":"3.1.7","depth":2,"next":{"title":"A.8. Komentar","level":"3.1.8","depth":2,"path":"A-komentar.md","ref":"A-komentar.md","articles":[]},"previous":{"title":"A.6. Go Command","level":"3.1.6","depth":2,"path":"A-go-command.md","ref":"A-go-command.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-hello-world.md","mtime":"2022-05-09T02:17:18.554Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-09T02:19:03.941Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.7. Program Pertama: Hello World","level":"3.1.7","depth":2,"next":{"title":"A.8. Komentar","level":"3.1.8","depth":2,"path":"A-komentar.md","ref":"A-komentar.md","articles":[]},"previous":{"title":"A.6. Go Command","level":"3.1.6","depth":2,"path":"A-go-command.md","ref":"A-go-command.md","articles":[]},"dir":"ltr"},"config":{"plugins":["disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-hello-world.md","mtime":"2022-10-14T08:30:27.022Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-14T08:31:50.616Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2111,10 +2130,6 @@ fmt.Println(<span class="hljs-string">&quot;Hello world&quot;</span>)
         
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
-    
-        
-        <script src="gitbook/gitbook-plugin-ga/plugin.js"></script>
-        
     
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>

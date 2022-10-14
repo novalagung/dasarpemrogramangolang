@@ -76,7 +76,13 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2022.05.09.021932"><script async defer src="https://buttons.github.io/buttons.js"></script></head>
+    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2022.10.14.083224"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-MZ74P74K72');
+		</script></head>
     <body>
         
 <div class="book">
@@ -141,6 +147,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.4" data-path="LICENSE.html">
+            
+                <a href="LICENSE.html">
+            
+                    
+                    Lisensi dan Distribusi Konten
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
         
@@ -150,10 +169,10 @@
     
         <li class="chapter " data-level="2.1" >
             
-                <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=BIGSALEMAY2021">
+                <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/">
             
                     
-                    Course Mendeploy Aplikasi Go ke Docker dan Kubernetes (PROMO!)
+                    Udemy Course: Praktis Belajar Docker & Kubernetes
             
                 </a>
             
@@ -163,10 +182,10 @@
     
         <li class="chapter " data-level="2.2" >
             
-                <a target="_blank" href="https://devops.novalagung.com/">
+                <a target="_blank" href="https://learn.novalagung.com/">
             
                     
-                    Belajar Devops
+                    Learn DevOps
             
                 </a>
             
@@ -2019,7 +2038,7 @@
 <p>Di Go cara menentukan level akses atau modifier sangat mudah, penandanya adalah <strong>character case</strong> huruf pertama nama fungsi, struct, variabel, atau lainnya. Ketika namanya diawali dengan huruf kapital menandakan kalau <em>exported</em> (atau <em>public</em>). Dan sebaliknya, jika diawali huruf kecil, berarti <em>unexported</em> (atau private).</p>
 <h2 id="a263-penggunaan-package-import-dan-hak-akses-exported-dan-unexported">A.26.3. Penggunaan Package, Import, Dan Hak Akses <em>Exported</em> dan <em>Unexported</em></h2>
 <p>Agar lebih mudah dipahami, maka langsung saja kita praktekan.</p>
-<p>Pertama buat folder proyek baru bernama <code>belajar-golang-level-akses</code>, inisialisasi sebagai projek dengan nama yang sama. Kemudian buat file baru bernama <code>main.go</code> di dalamnya, lalu set nama package file tersebut sebagai <strong>main</strong>.</p>
+<p>Pertama buat folder proyek baru bernama <code>belajar-golang-level-akses</code>, inisialisasi sebagai project dengan nama yang sama. Kemudian buat file baru bernama <code>main.go</code> di dalamnya, lalu set nama package file tersebut sebagai <strong>main</strong>.</p>
 <p>Kemudian, buat sub-folder baru bernama <code>library</code> di dalam folder <code>belajar-golang-level-akses</code>. Di dalam folder <code>library</code>, buat file baru <code>library.go</code>, set nama package-nya <strong>library</strong>.</p>
 <p><img src="images/A_properti_public_private_1_folder_structure.png" alt="Dasar Pemrograman Golang - Struktur folder dan file"></p>
 <p>Buka file <code>library.go</code> lalu isi dengan kode berikut.</p>
@@ -2061,7 +2080,7 @@ library.introduce(<span class="hljs-string">&quot;ethan&quot;</span>)
 <p>Cara pemanggilan fungsi yang berada dalam package lain adalah dengan menuliskan nama package target diikut dengan nama fungsi menggunakan <em>dot notation</em> atau tanda titik, seperti <code>library.SayHello()</code> atau <code>library.introduce(&quot;ethan&quot;)</code></p>
 <p>OK, sekarang coba jalankan kode yang sudah disiapkan di atas, hasilnya error.</p>
 <p><img src="images/A_properti_public_private_2_error.png" alt="Dasar Pemrograman Golang - Error saat menjalankan program"></p>
-<p>Error di atas disebabkan karena fungsi <code>introduce()</code> yang berada dalam package <code>library</code> memiliki level akses <em>undexported</em> (atau <em>private</em>), fungsi ini tidak bisa diakses dari package lain (pada kasus ini <code>main</code>). Agar bisa diakses, solusinya bisa dengan menjadikannya ke bentuk <em>exported</em> (atau <em>public</em>), atau diubah cara pemanggilannya. Di sini kita menggunakan cara ke-2.</p>
+<p>Error di atas disebabkan karena fungsi <code>introduce()</code> yang berada dalam package <code>library</code> memiliki level akses <em>unexported</em> (atau <em>private</em>), fungsi ini tidak bisa diakses dari package lain (pada kasus ini <code>main</code>). Agar bisa diakses, solusinya bisa dengan menjadikannya ke bentuk <em>exported</em> (atau <em>public</em>), atau diubah cara pemanggilannya. Di sini kita menggunakan cara ke-2.</p>
 <p>Tambahkan parameter <code>name</code> pada fungsi <code>SayHello()</code>, lalu panggil fungsi <code>introduce()</code> dengan menyisipkan parameter <code>name</code> dari dalam fungsi <code>SayHello()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> SayHello(name <span class="hljs-keyword">string</span>) {
     fmt.Println(<span class="hljs-string">&quot;hello&quot;</span>)
@@ -2125,7 +2144,7 @@ fmt.Println(<span class="hljs-string">&quot;grade&quot;</span>, s1.grade)
 fmt.Println(<span class="hljs-string">&quot;name &quot;</span>, s1.Name)
 fmt.Println(<span class="hljs-string">&quot;grade&quot;</span>, s1.Grade)
 </code></pre>
-<p>Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan <code>struct</code> yang berada di package lain, selain nama stuct-nya harus berbentuk <em>exported</em>, properti yang diakses juga harus <em>exported</em> juga.</p>
+<p>Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan <code>struct</code> yang berada di package lain, selain nama struct-nya harus berbentuk <em>exported</em>, properti yang diakses juga harus <em>exported</em> juga.</p>
 <p><img src="images/A_properti_public_private_4_success.png" alt="Dasar Pemrograman Golang - Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda"></p>
 <h2 id="a265-import-dengan-prefix-tanda-titik">A.26.5. Import Dengan Prefix Tanda Titik</h2>
 <p>Seperti yang kita tahu, untuk mengakses fungsi/struct/variabel yg berada di package lain, nama package nya perlu ditulis, contohnya seperti pada penggunaan penggunaan <code>library.Student</code> dan <code>fmt.Println()</code>.</p>
@@ -2263,7 +2282,7 @@ fmt.Println(<span class="hljs-string">&quot;grade&quot;</span>, s1.Grade)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.26. Properti Public dan Private (Exported vs Unexported)","level":"3.1.26","depth":2,"next":{"title":"A.27. Interface","level":"3.1.27","depth":2,"path":"A-interface.md","ref":"A-interface.md","articles":[]},"previous":{"title":"A.25. Method","level":"3.1.25","depth":2,"path":"A-method.md","ref":"A-method.md","articles":[]},"dir":"ltr"},"config":{"plugins":["ga","disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"ga":{"configuration":"auto","token":"UA-27602984-29"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-properti-public-dan-private.md","mtime":"2022-05-09T02:17:18.554Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-09T02:19:03.941Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.26. Properti Public dan Private (Exported vs Unexported)","level":"3.1.26","depth":2,"next":{"title":"A.27. Interface","level":"3.1.27","depth":2,"path":"A-interface.md","ref":"A-interface.md","articles":[]},"previous":{"title":"A.25. Method","level":"3.1.25","depth":2,"path":"A-method.md","ref":"A-method.md","articles":[]},"dir":"ltr"},"config":{"plugins":["disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-properti-public-dan-private.md","mtime":"2022-10-14T08:30:27.026Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-14T08:31:50.616Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2271,10 +2290,6 @@ fmt.Println(<span class="hljs-string">&quot;grade&quot;</span>, s1.Grade)
         
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
-    
-        
-        <script src="gitbook/gitbook-plugin-ga/plugin.js"></script>
-        
     
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
