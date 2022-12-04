@@ -7,9 +7,9 @@
 
 <hr>
 
-* E-book: Dasar Pemrograman Rust (december release)
-* [E-book: Learn DevOps](https://learndevops.novalagung.com/)
-* <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=FREE-100USERS">Udemy Course: Docker &amp; Kubernetes<br /><i>(Gratis untuk 100 peserta pertama di Desember 2022)</i></a>
+* **E-book** Dasar Pemrograman Rust (december release)
+* [**E-book** Learn DevOps](https://learndevops.novalagung.com/)
+* [**Udemy Course** Praktis Belajar Docker & Kubernetes *(Gratis untuk 100 peserta pertama di Desember 2022)*](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=FREE-100USERS)
 
 <hr>
 

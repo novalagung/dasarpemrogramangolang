@@ -40,7 +40,7 @@ body {
 }
 
 /* sidebar ads animation */
-.book-summary .summary > li:nth-child(5) a {
+.book-summary .summary > li:nth-child(8) a {
     color: white;
     margin-left: 5px;
     background-color: #ec882f;
