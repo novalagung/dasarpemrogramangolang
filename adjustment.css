@@ -40,7 +40,7 @@ body {
 }
 
 /* sidebar ads animation */
-.book-summary .summary > li:nth-child(8) a {
+/* .book-summary .summary > li:nth-child(8) a {
     color: white;
     margin-left: 5px;
     background-color: #ec882f;
@@ -49,7 +49,7 @@ body {
     -o-animation: block-promo-bg-animate 3s infinite;
     -ms-animation: block-promo-bg-animate 3s infinite;
     animation: block-promo-bg-animate 3s infinite;
-}
+} */
 @keyframes block-promo-bg-animate {
     0% { background-color: #008cff; }
     50% { background-color: #004986; }
