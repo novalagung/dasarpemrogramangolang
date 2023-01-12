@@ -3,7 +3,7 @@
 * [Dasar Pemrograman Golang](README.md)
 * [Download versi PDF](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf)
 * [Author & Contributors](CONTRIBUTING.md)
-* [Lisensi dan Distribusi Konten](LICENSE.md)
+* [Lisensi dan Distribusi Konten](DISTRIBUTION.md)
 
 <hr>
 
