@@ -16,6 +16,7 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 1. [Agus Budiono](https://github.com/dyon048)
 1. [Ahmad Syafiq Aqil Wafi](https://github.com/Syafiqjos)
 1. [Akul Nurislamimanudin](https://github.com/akulnurislam)
+1. [Alfiyanto Kondolele](https://github.com/haloapping)
 1. [Amin Rasul Kamsena](https://github.com/seno-ark)
 1. [Ananda Wiradharma](https://github.com/anandawira)
 1. [Andreas Giovani](https://github.com/compatc)
