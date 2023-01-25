@@ -42,7 +42,7 @@ Cara membuat variabel objek sama seperti pembuatan variabel biasa. Tinggal tulis
 
 Semua property variabel objek pada awalnya memiliki zero value sesuai tipe datanya.
 
-Property variabel objek bisa diakses nilainya menggunakan notasi titik, contohnya `s1.name`. Nilai property-nya juga bisa diubah, contohnya  `s1.grade = 2`.
+Property variabel objek bisa diakses nilainya menggunakan notasi titik, contohnya `s1.name`. Nilai property-nya juga bisa diubah, contohnya `s1.grade = 2`.
 
 ![Pengaksesan property variabel objek](images/A_struct_1_struct.png)
 
@@ -170,7 +170,7 @@ func main() {
 }
 ```
 
-Struct `person` di-embed ke dalam struct `student`, dan kedua struct tersebut kebetulan salah satu nama property-nya ada yg sama, yaitu `age`. Cara mengakses property `age` milik struct `person` lewat objek struct `student`, adalah dengan menuliskan nama struct yg di-embed kemudian nama property-nya, contohnya: `s1.person.age = 22`.
+Struct `person` di-embed ke dalam struct `student`, dan kedua struct tersebut kebetulan salah satu nama property-nya ada yang sama, yaitu `age`. Cara mengakses property `age` milik struct `person` lewat objek struct `student`, adalah dengan menuliskan nama struct yang di-embed kemudian nama property-nya, contohnya: `s1.person.age = 22`.
 
 ## A.24.7. Pengisian Nilai Sub-Struct
 
