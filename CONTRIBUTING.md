@@ -2,7 +2,6 @@
 
 E-book Dasar Pemrograman Golang adalah proyek *open source*. Siapapun bebas untuk berkontribusi di sini, bisa dalam bentuk perbaikan *typo*, update kalimat, maupun submit tulisan baru. Bagi teman-teman yang berminat untuk berkontribusi, silakan *fork* https://github.com/novalagung/dasarpemrogramangolang, kemudian langsung saja cek/buat *issue* kemudian submit relevan *pull request* untuk issue tersebut 😊.
 
-
 ## Original Author
 
 E-book ini di-inisialisasi oleh [Noval Agung Prayogo](https://linktr.ee/novalagung).
@@ -16,6 +15,7 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 1. [Agus Budiono](https://github.com/dyon048)
 1. [Ahmad Syafiq Aqil Wafi](https://github.com/Syafiqjos)
 1. [Akul Nurislamimanudin](https://github.com/akulnurislam)
+1. [Alfiyanto Kondolele](https://github.com/haloapping)
 1. [Amin Rasul Kamsena](https://github.com/seno-ark)
 1. [Ananda Wiradharma](https://github.com/anandawira)
 1. [Andreas Giovani](https://github.com/compatc)
