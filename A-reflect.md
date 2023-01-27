@@ -6,8 +6,8 @@ Go menyediakan package `reflect`, berisikan banyak sekali fungsi untuk keperluan
 
 Dari banyak fungsi yang tersedia di dalam package tersebut, ada 2 fungsi yang paling penting untuk diketahui, yaitu `reflect.ValueOf()` dan `reflect.TypeOf()`.
 
- - Fungsi `reflect.ValueOf()` akan mengembalikan objek dalam tipe `reflect.Value`, yang berisikan informasi yang berhubungan dengan nilai pada variabel yang dicari
- - Sedangkan `reflect.TypeOf()` mengembalikan objek dalam tipe `reflect.Type`. Objek tersebut berisikan informasi yang berhubungan dengan tipe data variabel yang dicari
+- Fungsi `reflect.ValueOf()` akan mengembalikan objek dalam tipe `reflect.Value`, yang berisikan informasi yang berhubungan dengan nilai pada variabel yang dicari.
+- Sedangkan `reflect.TypeOf()` mengembalikan objek dalam tipe `reflect.Type`. Objek tersebut berisikan informasi yang berhubungan dengan tipe data variabel yang dicari.
 
 ## A.29.1. Mencari Tipe Data & Value Menggunakan Reflect
 
@@ -112,9 +112,9 @@ Setelah itu, dilakukan perulangan sebanyak jumlah property yang ada pada struct 
 
 Di tiap perulangan, informasi tiap property struct diambil berurutan dengan lewat method `Field()`. Method ini ada pada tipe `reflect.Value` dan `reflect.Type`.
 
- - `reflectType.Field(i).Name` akan mengembalikan nama property
- - `reflectType.Field(i).Type` mengembalikan tipe data property
- - `reflectValue.Field(i).Interface()` mengembalikan nilai property dalam bentuk `interface{}`
+- `reflectType.Field(i).Name` akan mengembalikan nama property
+- `reflectType.Field(i).Type` mengembalikan tipe data property
+- `reflectValue.Field(i).Interface()` mengembalikan nilai property dalam bentuk `interface{}`
 
 Pengambilan informasi property, selain menggunakan indeks, bisa diambil berdasarkan nama field dengan menggunakan method `FieldByName()`.
 
