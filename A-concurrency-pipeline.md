@@ -63,19 +63,23 @@ Agar skenario ini bisa kita eksekusi, kita perlu siapkan dulu sebuah program unt
 
 Buat project baru dengan nama bebas <span style="text-decoration: line-through">loss gak reweellll</span> beserta satu buah file bernama `1-dummy-file-generator.go`.
 
-Dalam file tersebut import beberapa hal dan definisikan konstanta `totalFile` yang isinya jumlah file yang ingin di-generate, `contentLength` yang isinya panjang karakter random yang merupakan isi dari masing-masing *generated* file, dan satu buah variabel `tempPath` yang mengarah ke [temporary folder](https://en.wikipedia.org/wiki/Temporary_folder).
+Dalam file tersebut import beberapa hal dan definisikan, yaitu:
+
+1. Konstanta `totalFile` yang isinya jumlah file yang ingin di-generate.
+1. Variabel `contentLength` yang isinya panjang karakter random yang merupakan isi dari masing-masing *generated* file.
+1. Variabel `tempPath` yang mengarah ke [temporary folder](https://en.wikipedia.org/wiki/Temporary_folder).
 
 ```go
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
-	"log"
-	"math/rand"
-	"os"
-	"path/filepath"
-	"time"
+    "fmt"
+    "io/ioutil"
+    "log"
+    "math/rand"
+    "os"
+    "path/filepath"
+    "time"
 )
 
 const totalFile = 3000
@@ -84,23 +88,17 @@ const contentLength = 5000
 var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.59-pipeline-temp")
 ```
 
-Kemudian siapkan fungsi `init()` dan `main()`, yang isinya statement pemanggilan fungsi `generate()`. Selain itu juga ada beberapa statement untuk keperluan *benchmark* performa dari sisi *execution time*.
-
-Sedangkan dalam fungsi `init()` ada statement untuk inisialisasi nilai seed random source, ini penting karena dibutuhkan oleh fungsi generate random string yang juga akan kita buat.
+Kemudian siapkan fungsi `main()` yang isinya statement pemanggilan fungsi `generate()`. Selain itu juga ada beberapa statement untuk keperluan *benchmark* performa dari sisi *execution time*.
 
 ```go
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
-
 func main() {
-	log.Println("start")
-	start := time.Now()
+    log.Println("start")
+    start := time.Now()
 
-	generateFiles()
+    generateFiles()
 
-	duration := time.Since(start)
-	log.Println("done in", duration.Seconds(), "seconds")
+    duration := time.Since(start)
+    log.Println("done in", duration.Seconds(), "seconds")
 }
 ```
 
@@ -108,11 +106,12 @@ Sekarang siapkan fungsi `randomString()`-nya:
 
 ```go
 func randomString(length int) string {
+	randomizer := rand.New(rand.NewSource(time.Now().Unix()))
 	letters := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 	b := make([]rune, length)
 	for i := range b {
-		b[i] = letters[rand.Intn(len(letters))]
+		b[i] = letters[randomizer.Intn(len(letters))]
 	}
 
 	return string(b)
@@ -123,23 +122,23 @@ Lalu siapkan fungsi `generateFiles()`-nya. isinya kurang lebih adalah generate b
 
 ```go
 func generateFiles() {
-	os.RemoveAll(tempPath)
-	os.MkdirAll(tempPath, os.ModePerm)
+    os.RemoveAll(tempPath)
+    os.MkdirAll(tempPath, os.ModePerm)
 
-	for i := 0; i < totalFile; i++ {
-		filename := filepath.Join(tempPath, fmt.Sprintf("file-%d.txt", i))
-		content := randomString(contentLength)
-		err := ioutil.WriteFile(filename, []byte(content), os.ModePerm)
-		if err != nil {
-			log.Println("Error writing file", filename)
-		}
+    for i := 0; i < totalFile; i++ {
+        filename := filepath.Join(tempPath, fmt.Sprintf("file-%d.txt", i))
+        content := randomString(contentLength)
+        err := ioutil.WriteFile(filename, []byte(content), os.ModePerm)
+        if err != nil {
+            log.Println("Error writing file", filename)
+        }
 
-		if i%100 == 0 && i > 0 {
-			log.Println(i, "files created")
-		}
-	}
+        if i%100 == 0 && i > 0 {
+            log.Println(i, "files created")
+        }
+    }
 
-	log.Printf("%d of total files created", totalFile)
+    log.Printf("%d of total files created", totalFile)
 }
 ```
 
@@ -163,13 +162,13 @@ Siapkan file `2-find-md5-sum-of-file-then-rename-it.go`, import beberapa *packag
 package main
 
 import (
-	"crypto/md5"
-	"fmt"
-	"io/ioutil"
-	"log"
-	"os"
-	"path/filepath"
-	"time"
+    "crypto/md5"
+    "fmt"
+    "io/ioutil"
+    "log"
+    "os"
+    "path/filepath"
+    "time"
 )
 
 var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.59-pipeline-temp")
@@ -179,13 +178,13 @@ Lanjut siapkan fungsi `main()` dengan isi memanggil fungsi `proceed()`.
 
 ```go
 func main() {
-	log.Println("start")
-	start := time.Now()
+    log.Println("start")
+    start := time.Now()
 
-	proceed()
+    proceed()
 
-	duration := time.Since(start)
-	log.Println("done in", duration.Seconds(), "seconds")
+    duration := time.Since(start)
+    log.Println("done in", duration.Seconds(), "seconds")
 }
 ```
 
@@ -193,46 +192,46 @@ Isi dari fungsi `proceed()` sendiri adalah bisnis logic dari aplikasi yang akan 
 
 ```go
 func proceed() {
-	counterTotal := 0
-	counterRenamed := 0
-	err := filepath.Walk(tempPath, func(path string, info os.FileInfo, err error) error {
+    counterTotal := 0
+    counterRenamed := 0
+    err := filepath.Walk(tempPath, func(path string, info os.FileInfo, err error) error {
 
-		// if there is an error, return immediatelly
-		if err != nil {
-			return err
-		}
+        // if there is an error, return immediatelly
+        if err != nil {
+            return err
+        }
 
-		// if it is a sub directory, return immediatelly
-		if info.IsDir() {
-			return nil
-		}
+        // if it is a sub directory, return immediatelly
+        if info.IsDir() {
+            return nil
+        }
 
-		counterTotal++
+        counterTotal++
 
-		// read file
-		buf, err := ioutil.ReadFile(path)
-		if err != nil {
-			return err
-		}
+        // read file
+        buf, err := ioutil.ReadFile(path)
+        if err != nil {
+            return err
+        }
 
-		// sum it
-		sum := fmt.Sprintf("%x", md5.Sum(buf))
+        // sum it
+        sum := fmt.Sprintf("%x", md5.Sum(buf))
 
-		// rename file
-		destinationPath := filepath.Join(tempPath, fmt.Sprintf("file-%s.txt", sum))
-		err = os.Rename(path, destinationPath)
-		if err != nil {
-			return err
-		}
+        // rename file
+        destinationPath := filepath.Join(tempPath, fmt.Sprintf("file-%s.txt", sum))
+        err = os.Rename(path, destinationPath)
+        if err != nil {
+            return err
+        }
 
-		counterRenamed++
-		return nil
-	})
-	if err != nil {
-		log.Println("ERROR:", err.Error())
-	}
+        counterRenamed++
+        return nil
+    })
+    if err != nil {
+        log.Println("ERROR:", err.Error())
+    }
 
-	log.Printf("%d/%d files renamed", counterRenamed, counterTotal)
+    log.Printf("%d/%d files renamed", counterRenamed, counterTotal)
 }
 ```
 
@@ -257,9 +256,9 @@ Ok, aplikasi sudah siap. Selanjutnya kita akan refactor aplikasi tersebut ke ben
 
 Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kalau dilihat dari perspektif bisnis logic, tapi metode yang kita terapkan dari sisi engineering berbeda. Di sini kita akan terapkan *pipeline*. Bisnis logic akan dipecah menjadi 3 dan seluruhnya dieksekusi secara konkuren, yaitu:
 
-- Proses baca file
-- Proses perhitungan md5 hash sum
-- Proses rename file
+* Proses baca file
+* Proses perhitungan md5 hash sum
+* Proses rename file
 
 Kenapa kita pecah, karena ketiga proses tersebut bisa dijalankan bersama secara konkuren, dalam artian misalnya ketika file1 sudah selesai dibaca, perhitungan md5 sum nya bisa dijalankan secara bersama dengan pembacaan file2. Begitu juga untuk proses rename-nya, misalnya, proses rename file24 bisa dijalnkan secara konkuren bersamaan dengan proses hitung md5 sum file22 dan bersamaan dengan proses baca file28.
 
@@ -273,23 +272,23 @@ Isi file tersebut dengan kode berikut.
 package main
 
 import (
-	"crypto/md5"
-	"fmt"
-	"io/ioutil"
-	"log"
-	"os"
-	"path/filepath"
-	"sync"
-	"time"
+    "crypto/md5"
+    "fmt"
+    "io/ioutil"
+    "log"
+    "os"
+    "path/filepath"
+    "sync"
+    "time"
 )
 
 var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.59-pipeline-temp")
 
 type FileInfo struct {
-	FilePath  string // file location
-	Content   []byte // file content
-	Sum       string // md5 sum of content
-	IsRenamed bool   // indicator whether the particular file is renamed already or not
+    FilePath  string // file location
+    Content   []byte // file content
+    Sum       string // md5 sum of content
+    IsRenamed bool   // indicator whether the particular file is renamed already or not
 }
 ```
 
@@ -301,11 +300,11 @@ Siapkan fungsi main, lalu panggil fungsi `readFiles()`.
 
 ```go
 func main() {
-	log.Println("start")
-	start := time.Now()
+    log.Println("start")
+    start := time.Now()
 
-	// pipeline 1: loop all files and read it
-	chanFileContent := readFiles()
+    // pipeline 1: loop all files and read it
+    chanFileContent := readFiles()
 
     // ...
 }
@@ -315,41 +314,41 @@ Fungsi `readFiles()` isinya adalah pembacaan semua file. Fungsi ini mengembalika
 
 ```go
 func readFiles() <-chan FileInfo {
-	chanOut := make(chan FileInfo)
+    chanOut := make(chan FileInfo)
 
-	go func() {
-		err := filepath.Walk(tempPath, func(path string, info os.FileInfo, err error) error {
+    go func() {
+        err := filepath.Walk(tempPath, func(path string, info os.FileInfo, err error) error {
 
-			// if there is an error, return immediatelly
-			if err != nil {
-				return err
-			}
+            // if there is an error, return immediatelly
+            if err != nil {
+                return err
+            }
 
-			// if it is a sub directory, return immediatelly
-			if info.IsDir() {
-				return nil
-			}
+            // if it is a sub directory, return immediatelly
+            if info.IsDir() {
+                return nil
+            }
 
-			buf, err := ioutil.ReadFile(path)
-			if err != nil {
-				return err
-			}
+            buf, err := ioutil.ReadFile(path)
+            if err != nil {
+                return err
+            }
 
-			chanOut <- FileInfo{
-				FilePath: path,
-				Content:  buf,
-			}
+            chanOut <- FileInfo{
+                FilePath: path,
+                Content:  buf,
+            }
 
-			return nil
-		})
-		if err != nil {
-			log.Println("ERROR:", err.Error())
-		}
+            return nil
+        })
+        if err != nil {
+            log.Println("ERROR:", err.Error())
+        }
 
-		close(chanOut)
-	}()
+        close(chanOut)
+    }()
 
-	return chanOut
+    return chanOut
 }
 ```
 
@@ -359,7 +358,7 @@ Di dalam fungsi `readFiles()` juga ada proses lain yang berjalan secara *asynchr
 
 Karena proses utama dalam fungsi `readFiles` berada dalam goroutine, maka di `main()`, ketika statement `chanFileContent := readFiles()` selesai dieksekusi, bukan berarti proses pembacaan file selesai, malah mungkin baru saja dimulai. Ini karena proses baca file dijalankan dalam goroutine di dalam fungsi `readFiles()` tersebut.
 
-Mengenai channel `chanOut` sendiri, akan di-close ketika dipastikan **semua file sudah dikirim datanya ke channel tersebut** (silakan lihat statement `close(chanOut)` di akhir goroutine). 
+Mengenai channel `chanOut` sendiri, akan di-close ketika dipastikan **semua file sudah dikirim datanya ke channel tersebut** (silakan lihat statement `close(chanOut)` di akhir goroutine).
 
 Ok lanjut, karena di sini ada channel yang digunakan sebagai media pengiriman data (`FileInfo`), maka juga harus ada penerima data channel-nya dong. Yups.
 
@@ -369,15 +368,15 @@ Tepat di bawah pipeline 1, tambahkan pemanggilan fungsi `getSum()` sebanyak 3x, 
 
 ```go
 func main() {
-	// ...
+    // ...
 
-	// pipeline 2: calculate md5sum
-	chanFileSum1 := getSum(chanFileContent)
-	chanFileSum2 := getSum(chanFileContent)
-	chanFileSum3 := getSum(chanFileContent)
-	chanFileSum := mergeChanFileInfo(chanFileSum1, chanFileSum2, chanFileSum3)
+    // pipeline 2: calculate md5sum
+    chanFileSum1 := getSum(chanFileContent)
+    chanFileSum2 := getSum(chanFileContent)
+    chanFileSum3 := getSum(chanFileContent)
+    chanFileSum := mergeChanFileInfo(chanFileSum1, chanFileSum2, chanFileSum3)
 
-	// ...
+    // ...
 }
 ```
 
@@ -398,17 +397,17 @@ Lanjut buat fungsi `getSum()`-nya.
 
 ```go
 func getSum(chanIn <-chan FileInfo) <-chan FileInfo {
-	chanOut := make(chan FileInfo)
+    chanOut := make(chan FileInfo)
 
-	go func() {
-		for fileInfo := range chanIn {
-			fileInfo.Sum = fmt.Sprintf("%x", md5.Sum(fileInfo.Content))
-			chanOut <- fileInfo
-		}
-		close(chanOut)
-	}()
+    go func() {
+        for fileInfo := range chanIn {
+            fileInfo.Sum = fmt.Sprintf("%x", md5.Sum(fileInfo.Content))
+            chanOut <- fileInfo
+        }
+        close(chanOut)
+    }()
 
-	return chanOut
+    return chanOut
 }
 ```
 
@@ -420,25 +419,25 @@ Next, buat fungsi merger-nya.
 
 ```go
 func mergeChanFileInfo(chanInMany ...<-chan FileInfo) <-chan FileInfo {
-	wg := new(sync.WaitGroup)
-	chanOut := make(chan FileInfo)
+    wg := new(sync.WaitGroup)
+    chanOut := make(chan FileInfo)
 
-	wg.Add(len(chanInMany))
-	for _, eachChan := range chanInMany {
-		go func(eachChan <-chan FileInfo) {
-			for eachChanData := range eachChan {
-				chanOut <- eachChanData
-			}
-			wg.Done()
-		}(eachChan)
-	}
+    wg.Add(len(chanInMany))
+    for _, eachChan := range chanInMany {
+        go func(eachChan <-chan FileInfo) {
+            for eachChanData := range eachChan {
+                chanOut <- eachChanData
+            }
+            wg.Done()
+        }(eachChan)
+    }
 
-	go func() {
-		wg.Wait()
-		close(chanOut)
-	}()
+    go func() {
+        wg.Wait()
+        close(chanOut)
+    }()
 
-	return chanOut
+    return chanOut
 }
 ```
 
@@ -459,12 +458,12 @@ Tambahkan statement pipeline ketiga, yaitu pemanggilan fungsi Fan-out `rename()`
 func main() {
     // ...
 
-	// pipeline 3: rename files
-	chanRename1 := rename(chanFileSum)
-	chanRename2 := rename(chanFileSum)
-	chanRename3 := rename(chanFileSum)
-	chanRename4 := rename(chanFileSum)
-	chanRename := mergeChanFileInfo(chanRename1, chanRename2, chanRename3, chanRename4)
+    // pipeline 3: rename files
+    chanRename1 := rename(chanFileSum)
+    chanRename2 := rename(chanFileSum)
+    chanRename3 := rename(chanFileSum)
+    chanRename4 := rename(chanFileSum)
+    chanRename := mergeChanFileInfo(chanRename1, chanRename2, chanRename3, chanRename4)
     
     // ...
 }
@@ -476,20 +475,20 @@ Tulis definisi fungsi `rename()`-nya. Secara garis besar semua penulisan fungsi 
 
 ```go
 func rename(chanIn <-chan FileInfo) <-chan FileInfo {
-	chanOut := make(chan FileInfo)
+    chanOut := make(chan FileInfo)
 
-	go func() {
-		for fileInfo := range chanIn {
-			newPath := filepath.Join(tempPath, fmt.Sprintf("file-%s.txt", fileInfo.Sum))
-			err := os.Rename(fileInfo.FilePath, newPath)
-			fileInfo.IsRenamed = err == nil
-			chanOut <- fileInfo
-		}
+    go func() {
+        for fileInfo := range chanIn {
+            newPath := filepath.Join(tempPath, fmt.Sprintf("file-%s.txt", fileInfo.Sum))
+            err := os.Rename(fileInfo.FilePath, newPath)
+            fileInfo.IsRenamed = err == nil
+            chanOut <- fileInfo
+        }
 
-		close(chanOut)
-	}()
+        close(chanOut)
+    }()
 
-	return chanOut
+    return chanOut
 }
 ```
 
@@ -505,20 +504,20 @@ Serangkaian proses yang sudah kita setup punya ketergantungan tinggi satu sama l
 func main() {
     // ...
 
-	// print output
-	counterRenamed := 0
-	counterTotal := 0
-	for fileInfo := range chanRename {
-		if fileInfo.IsRenamed {
-			counterRenamed++
-		}
-		counterTotal++
-	}
+    // print output
+    counterRenamed := 0
+    counterTotal := 0
+    for fileInfo := range chanRename {
+        if fileInfo.IsRenamed {
+            counterRenamed++
+        }
+        counterTotal++
+    }
 
-	log.Printf("%d/%d files renamed", counterRenamed, counterTotal)
+    log.Printf("%d/%d files renamed", counterRenamed, counterTotal)
 
-	duration := time.Since(start)
-	log.Println("done in", duration.Seconds(), "seconds")
+    duration := time.Since(start)
+    log.Println("done in", duration.Seconds(), "seconds")
 }
 ```
 

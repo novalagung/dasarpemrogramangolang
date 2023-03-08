@@ -26,13 +26,13 @@ Siapkan folder project baru, isinya satu buah file `1-generate-dummy-files-seque
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
-	"log"
-	"math/rand"
-	"os"
-	"path/filepath"
-	"time"
+    "fmt"
+    "io/ioutil"
+    "log"
+    "math/rand"
+    "os"
+    "path/filepath"
+    "time"
 )
 
 const totalFile = 3000
@@ -41,21 +41,17 @@ const contentLength = 5000
 var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.60-worker-pool")
 ```
 
-#### • Fungsi `init()` dan `main()`
+#### • Fungsi `main()`
 
 ```go
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
-
 func main() {
-	log.Println("start")
-	start := time.Now()
+    log.Println("start")
+    start := time.Now()
 
-	generateFiles()
+    generateFiles()
 
-	duration := time.Since(start)
-	log.Println("done in", duration.Seconds(), "seconds")
+    duration := time.Since(start)
+    log.Println("done in", duration.Seconds(), "seconds")
 }
 ```
 
@@ -63,14 +59,15 @@ func main() {
 
 ```go
 func randomString(length int) string {
-	letters := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    randomizer := rand.New(rand.NewSource(time.Now().Unix()))
+    letters := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
-	b := make([]rune, length)
-	for i := range b {
-		b[i] = letters[rand.Intn(len(letters))]
-	}
+    b := make([]rune, length)
+    for i := range b {
+        b[i] = letters[randomizer.Intn(len(letters))]
+    }
 
-	return string(b)
+    return string(b)
 }
 
 ```
@@ -79,21 +76,21 @@ func randomString(length int) string {
 
 ```go
 func generateFiles() {
-	os.RemoveAll(tempPath)
-	os.MkdirAll(tempPath, os.ModePerm)
+    os.RemoveAll(tempPath)
+    os.MkdirAll(tempPath, os.ModePerm)
 
-	for i := 0; i < totalFile; i++ {
-		filename := filepath.Join(tempPath, fmt.Sprintf("file-%d.txt", i))
-		content := randomString(contentLength)
-		err := ioutil.WriteFile(filename, []byte(content), os.ModePerm)
-		if err != nil {
-			log.Println("Error writing file", filename)
-		}
+    for i := 0; i < totalFile; i++ {
+        filename := filepath.Join(tempPath, fmt.Sprintf("file-%d.txt", i))
+        content := randomString(contentLength)
+        err := ioutil.WriteFile(filename, []byte(content), os.ModePerm)
+        if err != nil {
+            log.Println("Error writing file", filename)
+        }
 
-		log.Println(i, "files created")
-	}
+        log.Println(i, "files created")
+    }
 
-	log.Printf("%d of total files created", totalFile)
+    log.Printf("%d of total files created", totalFile)
 }
 ```
 
@@ -115,14 +112,14 @@ Import beberapa hal pada file baru ini, lalu definisikan beberapa variabel juga.
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
-	"log"
-	"math/rand"
-	"os"
-	"path/filepath"
-	"sync"
-	"time"
+    "fmt"
+    "io/ioutil"
+    "log"
+    "math/rand"
+    "os"
+    "path/filepath"
+    "sync"
+    "time"
 )
 
 const totalFile = 3000
@@ -137,10 +134,10 @@ Kita perlu siapkan struct baru bernama `FileInfo`, struct ini digunakan sebagai 
 
 ```go
 type FileInfo struct {
-	Index       int
-	FileName    string
-	WorkerIndex int
-	Err         error
+    Index       int
+    FileName    string
+    WorkerIndex int
+    Err         error
 }
 ```
 
@@ -148,21 +145,17 @@ type FileInfo struct {
 * Property `WorkerIndex` digunakan sebagai penanda worker mana yang akan melakukan operasi pembuatan file tersebut.
 * Property `Err` default isinya kosong. Nantinya akan diisi dengan objek error ketika ada error saat pembuatan file.
 
-#### • Fungsi `init()` dan `main()`
+#### • Fungsi `main()`
 
 ```go
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
-
 func main() {
-	log.Println("start")
-	start := time.Now()
+    log.Println("start")
+    start := time.Now()
 
-	generateFiles()
+    generateFiles()
 
-	duration := time.Since(start)
-	log.Println("done in", duration.Seconds(), "seconds")
+    duration := time.Since(start)
+    log.Println("done in", duration.Seconds(), "seconds")
 }
 ```
 
@@ -170,14 +163,15 @@ func main() {
 
 ```go
 func randomString(length int) string {
-	letters := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    randomizer := rand.New(rand.NewSource(time.Now().Unix()))
+    letters := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
-	b := make([]rune, length)
-	for i := range b {
-		b[i] = letters[rand.Intn(len(letters))]
-	}
+    b := make([]rune, length)
+    for i := range b {
+        b[i] = letters[randomizer.Intn(len(letters))]
+    }
 
-	return string(b)
+    return string(b)
 }
 ```
 
@@ -185,29 +179,29 @@ func randomString(length int) string {
 
 ```go
 func generateFiles() {
-	os.RemoveAll(tempPath)
-	os.MkdirAll(tempPath, os.ModePerm)
+    os.RemoveAll(tempPath)
+    os.MkdirAll(tempPath, os.ModePerm)
 
-	// pipeline 1: job distribution
-	chanFileIndex := generateFileIndexes()
+    // pipeline 1: job distribution
+    chanFileIndex := generateFileIndexes()
 
-	// pipeline 2: the main logic (creating files)
-	createFilesWorker := 100
-	chanFileResult := createFiles(chanFileIndex, createFilesWorker)
+    // pipeline 2: the main logic (creating files)
+    createFilesWorker := 100
+    chanFileResult := createFiles(chanFileIndex, createFilesWorker)
 
-	// track and print output
-	counterTotal := 0
-	counterSuccess := 0
-	for fileResult := range chanFileResult {
-		if fileResult.Err != nil {
-			log.Printf("error creating file %s. stack trace: %s", fileResult.FileName, fileResult.Err)
-		} else {
-			counterSuccess++
-		}
-		counterTotal++
-	}
+    // track and print output
+    counterTotal := 0
+    counterSuccess := 0
+    for fileResult := range chanFileResult {
+        if fileResult.Err != nil {
+            log.Printf("error creating file %s. stack trace: %s", fileResult.FileName, fileResult.Err)
+        } else {
+            counterSuccess++
+        }
+        counterTotal++
+    }
 
-	log.Printf("%d/%d of total files created", counterSuccess, counterTotal)
+    log.Printf("%d/%d of total files created", counterSuccess, counterTotal)
 }
 ```
 
@@ -229,19 +223,19 @@ Fungsi ini merupakan fungsi Fan-out distribusi jobs. Di dalamnya dilakukan perul
 
 ```go
 func generateFileIndexes() <-chan FileInfo {
-	chanOut := make(chan FileInfo)
+    chanOut := make(chan FileInfo)
 
-	go func() {
-		for i := 0; i < totalFile; i++ {
-			chanOut <- FileInfo{
-				Index:    i,
-				FileName: fmt.Sprintf("file-%d.txt", i),
-			}
-		}
-		close(chanOut)
-	}()
+    go func() {
+        for i := 0; i < totalFile; i++ {
+            chanOut <- FileInfo{
+                Index:    i,
+                FileName: fmt.Sprintf("file-%d.txt", i),
+            }
+        }
+        close(chanOut)
+    }()
 
-	return chanOut
+    return chanOut
 }
 ```
 
@@ -255,53 +249,53 @@ Mungkin lebih enak silakan tulis dulu fungsinya, lalu kita bahas satu per satu s
 
 ```go
 func createFiles(chanIn <-chan FileInfo, numberOfWorkers int) <-chan FileInfo {
-	chanOut := make(chan FileInfo)
+    chanOut := make(chan FileInfo)
 
-	// wait group to control the workers
-	wg := new(sync.WaitGroup)
+    // wait group to control the workers
+    wg := new(sync.WaitGroup)
 
-	// allocate N of workers
-	wg.Add(numberOfWorkers)
+    // allocate N of workers
+    wg.Add(numberOfWorkers)
 
-	go func() {
+    go func() {
 
-		// dispatch N workers
-		for workerIndex := 0; workerIndex < numberOfWorkers; workerIndex++ {
-			go func(workerIndex int) {
+        // dispatch N workers
+        for workerIndex := 0; workerIndex < numberOfWorkers; workerIndex++ {
+            go func(workerIndex int) {
 
-				// listen to `chanIn` channel for incoming jobs
-				for job := range chanIn {
+                // listen to `chanIn` channel for incoming jobs
+                for job := range chanIn {
 
-					// do the jobs
-					filePath := filepath.Join(tempPath, job.FileName)
-					content := randomString(contentLength)
-					err := ioutil.WriteFile(filePath, []byte(content), os.ModePerm)
+                    // do the jobs
+                    filePath := filepath.Join(tempPath, job.FileName)
+                    content := randomString(contentLength)
+                    err := ioutil.WriteFile(filePath, []byte(content), os.ModePerm)
 
-					log.Println("worker", workerIndex, "working on", job.FileName, "file generation")
+                    log.Println("worker", workerIndex, "working on", job.FileName, "file generation")
 
-					// construct the job's result, and send it to `chanOut`
-					chanOut <- FileInfo{
-						FileName:    job.FileName,
-						WorkerIndex: workerIndex,
-						Err:         err,
-					}
-				}
+                    // construct the job's result, and send it to `chanOut`
+                    chanOut <- FileInfo{
+                        FileName:    job.FileName,
+                        WorkerIndex: workerIndex,
+                        Err:         err,
+                    }
+                }
 
-				// if `chanIn` is closed, and the remaining jobs are finished,
-				// only then we mark the worker as complete.
-				wg.Done()
-			}(workerIndex)
-		}
-	}()
+                // if `chanIn` is closed, and the remaining jobs are finished,
+                // only then we mark the worker as complete.
+                wg.Done()
+            }(workerIndex)
+        }
+    }()
 
-	// wait until `chanIn` closed and then all workers are done,
-	// because right after that - we need to close the `chanOut` channel.
-	go func() {
-		wg.Wait()
-		close(chanOut)
-	}()
+    // wait until `chanIn` closed and then all workers are done,
+    // because right after that - we need to close the `chanOut` channel.
+    go func() {
+        wg.Wait()
+        close(chanOut)
+    }()
 
-	return chanOut
+    return chanOut
 }
 ```
 

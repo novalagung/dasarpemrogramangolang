@@ -1,6 +1,6 @@
 # A.28. Interface Kosong (Any)
 
-Interface kosong atau *empty interface* yang dinotasikan dengan `interface{}` atau `any` (per `go v1.18`), merupakan tipe data yang sangat spesial. Variabel bertipe ini bisa menampung segala jenis data, bahkan array, pointer, apapun. Tipe data dengan konsep ini biasa disebut dengan **dynamic typing**.
+Interface kosong atau *empty interface* yang dinotasikan dengan `interface{}` atau `any`, merupakan tipe data yang sangat spesial. Variabel bertipe ini bisa menampung segala jenis data, bahkan array, pointer, apapun. Tipe data dengan konsep ini biasa disebut dengan **dynamic typing**.
 
 ## A.28.1. Penggunaan `interface{}`
 
@@ -49,7 +49,7 @@ Dari situ terlihat bahwa `interface{}` bukanlah sebuah objek, melainkan tipe dat
 
 ## A.28.2. Type Alias `Any`
 
-Pada Go rilis versi `v1.18`, interface kosong bisa dituliskan dengan menggunakan `any`. Contohnya:
+Tipe `any` merupakan alias dari `interface{}`, keduanya adalah sama.
 
 ```go
 var data map[string]any
