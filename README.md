@@ -51,4 +51,4 @@ Ebook Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk 
 
 ## Author
 
-Ebook ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan saran, silakan drop email ke [caknopal@gmail.com](mailto:caknopal@gmail.com).
+Ebook ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan saran, silakan drop email ke [hello@novalagung.com](mailto:hello@novalagung.com).
