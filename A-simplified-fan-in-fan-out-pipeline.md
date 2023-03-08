@@ -41,13 +41,9 @@ const contentLength = 5000
 var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.60-worker-pool")
 ```
 
-#### • Fungsi `init()` dan `main()`
+#### • Fungsi `main()`
 
 ```go
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
-
 func main() {
 	log.Println("start")
 	start := time.Now()
@@ -63,11 +59,12 @@ func main() {
 
 ```go
 func randomString(length int) string {
+	randomizer := rand.New(rand.NewSource(time.Now().Unix()))
 	letters := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 	b := make([]rune, length)
 	for i := range b {
-		b[i] = letters[rand.Intn(len(letters))]
+		b[i] = letters[randomizer.Intn(len(letters))]
 	}
 
 	return string(b)
@@ -148,13 +145,9 @@ type FileInfo struct {
 * Property `WorkerIndex` digunakan sebagai penanda worker mana yang akan melakukan operasi pembuatan file tersebut.
 * Property `Err` default isinya kosong. Nantinya akan diisi dengan objek error ketika ada error saat pembuatan file.
 
-#### • Fungsi `init()` dan `main()`
+#### • Fungsi `main()`
 
 ```go
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
-
 func main() {
 	log.Println("start")
 	start := time.Now()
@@ -170,11 +163,12 @@ func main() {
 
 ```go
 func randomString(length int) string {
+	randomizer := rand.New(rand.NewSource(time.Now().Unix()))
 	letters := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 	b := make([]rune, length)
 	for i := range b {
-		b[i] = letters[rand.Intn(len(letters))]
+		b[i] = letters[randomizer.Intn(len(letters))]
 	}
 
 	return string(b)

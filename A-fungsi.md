@@ -49,28 +49,28 @@ Program berikut merupakan contoh penerapan fungsi yang memiliki return value.
 package main
 
 import (
-    "fmt"
-    "math/rand"
-    "time"
+	"fmt"
+	"math/rand"
+	"time"
 )
 
-func main() {
-    rand.Seed(time.Now().Unix())
-    var randomValue int
+var randomizer = rand.New(rand.NewSource(time.Now().Unix()))
 
-    randomValue = randomWithRange(2, 10)
-    fmt.Println("random number:", randomValue)
-    randomValue = randomWithRange(2, 10)
-    fmt.Println("random number:", randomValue)
-    randomValue = randomWithRange(2, 10)
-    fmt.Println("random number:", randomValue)
+func main() {
+	var randomValue int
+
+	randomValue = randomWithRange(2, 10)
+	fmt.Println("random number:", randomValue)
+	randomValue = randomWithRange(2, 10)
+	fmt.Println("random number:", randomValue)
+	randomValue = randomWithRange(2, 10)
+	fmt.Println("random number:", randomValue)
 }
 
 func randomWithRange(min, max int) int {
-    var value = rand.Int() % (max - min + 1) + min
-    return value
+	var value = randomizer.Int()%(max-min+1) + min
+	return value
 }
-
 ```
 
 Fungsi `randomWithRange` bertugas untuk *generate* angka acak sesuai dengan range yang ditentukan, yang kemudian angka tersebut dijadikan nilai kembalian fungsi.
@@ -91,17 +91,19 @@ Eksekusi keyword `return` akan menjadikan proses dalam blok fungsi berhenti pada
 
 Dari kode di atas mungkin ada beberapa hal yang belum pernah kita lakukan pada pembahasan-pembahasan sebelumnya, kita akan bahas satu-persatu.
 
-## A.18.3. Penggunaan Fungsi `rand.Seed()`
+## A.18.3. Penggunaan Fungsi `rand.New()`
 
-Fungsi ini diperlukan untuk memastikan bahwa angka random yang akan di-generate benar-benar acak. Kita bisa gunakan angka apa saja sebagai nilai parameter fungsi ini (umumnya diisi `time.Now().Unix()`).
+Fungsi ini digunakan untuk membuat object randomizer, yang dari object tersebut nilai random/acak bisa di-generate. Dalam penerapannya, fungsi `rand.New()` membutuhkan argument yaitu random source seed, yang bisa kita buat lewat statement `rand.NewSource(time.Now().Unix())`.
 
 ```go
-rand.Seed(time.Now().Unix())
+var randomizer = rand.New(rand.NewSource(time.Now().Unix()))
 ```
 
-Fungsi `rand.Seed()` berada dalam package `math/rand`, yang harus di-import terlebih dahulu sebelum bisa dimanfaatkan.
+> Dalam penggunaan fungsi `rand.NewSource`, argument bisa diisi dengan nilai apapun, salah satunya adalah `time.Now().Unix()`.
+>
+> Lebih detailnya mengenai random dibahas pada chapter [A.39. Random](A-random.html).
 
-Package `time` juga perlu di-import karena kita menggunakan fungsi `(time.Now().Unix())` di situ.
+Fungsi `rand.New()` berada dalam package `math/rand`, yang harus di-import terlebih dahulu sebelum bisa dimanfaatkan. Package `time` juga perlu di-import karena kita menggunakan fungsi `(time.Now().Unix())` di situ.
 
 ## A.18.4. Import Banyak Package
 
