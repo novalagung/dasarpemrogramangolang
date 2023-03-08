@@ -76,7 +76,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2023.03.03.171544"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2023.03.08.065931"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2076,8 +2076,9 @@
     <span class="hljs-string">&quot;time&quot;</span>
 )
 
+<span class="hljs-keyword">var</span> randomizer = rand.New(rand.NewSource(time.Now().Unix()))
+
 <span class="hljs-keyword">func</span> main() {
-    rand.Seed(time.Now().Unix())
     <span class="hljs-keyword">var</span> randomValue <span class="hljs-keyword">int</span>
 
     randomValue = randomWithRange(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>)
@@ -2089,7 +2090,7 @@
 }
 
 <span class="hljs-keyword">func</span> randomWithRange(min, max <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span> {
-    <span class="hljs-keyword">var</span> value = rand.Int() % (max - min + <span class="hljs-number">1</span>) + min
+    <span class="hljs-keyword">var</span> value = randomizer.Int()%(max-min+<span class="hljs-number">1</span>) + min
     <span class="hljs-keyword">return</span> value
 }
 </code></pre>
@@ -2102,12 +2103,15 @@
 <p>Eksekusi keyword <code>return</code> akan menjadikan proses dalam blok fungsi berhenti pada saat itu juga. Semua statement setelah keyword tersebut tidak akan dieksekusi.</p>
 <hr>
 <p>Dari kode di atas mungkin ada beberapa hal yang belum pernah kita lakukan pada pembahasan-pembahasan sebelumnya, kita akan bahas satu-persatu.</p>
-<h2 id="a183-penggunaan-fungsi-randseed">A.18.3. Penggunaan Fungsi <code>rand.Seed()</code></h2>
-<p>Fungsi ini diperlukan untuk memastikan bahwa angka random yang akan di-generate benar-benar acak. Kita bisa gunakan angka apa saja sebagai nilai parameter fungsi ini (umumnya diisi <code>time.Now().Unix()</code>).</p>
-<pre><code class="lang-go">rand.Seed(time.Now().Unix())
+<h2 id="a183-penggunaan-fungsi-randnew">A.18.3. Penggunaan Fungsi <code>rand.New()</code></h2>
+<p>Fungsi ini digunakan untuk membuat object randomizer, yang dari object tersebut nilai random/acak bisa di-generate. Dalam penerapannya, fungsi <code>rand.New()</code> membutuhkan argument yaitu random source seed, yang bisa kita buat lewat statement <code>rand.NewSource(time.Now().Unix())</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> randomizer = rand.New(rand.NewSource(time.Now().Unix()))
 </code></pre>
-<p>Fungsi <code>rand.Seed()</code> berada dalam package <code>math/rand</code>, yang harus di-import terlebih dahulu sebelum bisa dimanfaatkan.</p>
-<p>Package <code>time</code> juga perlu di-import karena kita menggunakan fungsi <code>(time.Now().Unix())</code> di situ.</p>
+<blockquote>
+<p>Dalam penggunaan fungsi <code>rand.NewSource</code>, argument bisa diisi dengan nilai apapun, salah satunya adalah <code>time.Now().Unix()</code>.</p>
+<p>Lebih detailnya mengenai random dibahas pada chapter <a href="A-random.html">A.39. Random</a>.</p>
+</blockquote>
+<p>Fungsi <code>rand.New()</code> berada dalam package <code>math/rand</code>, yang harus di-import terlebih dahulu sebelum bisa dimanfaatkan. Package <code>time</code> juga perlu di-import karena kita menggunakan fungsi <code>(time.Now().Unix())</code> di situ.</p>
 <h2 id="a184-import-banyak-package">A.18.4. Import Banyak Package</h2>
 <p>Penulisan keyword <code>import</code> untuk banyak package bisa dilakukan dengan dua cara, dengan menuliskannya di tiap package, atau cukup sekali saja, bebas.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2203,7 +2207,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"next":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"previous":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"dir":"ltr"},"config":{"plugins":["disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-fungsi.md","mtime":"2023-03-03T17:14:17.964Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-03T17:15:17.806Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"next":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"previous":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"dir":"ltr"},"config":{"plugins":["disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-fungsi.md","mtime":"2023-03-08T06:58:05.386Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-08T06:59:04.898Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

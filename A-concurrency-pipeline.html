@@ -76,7 +76,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2023.03.03.171544"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2023.03.08.065931"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2136,7 +2136,12 @@
 <p>Agar skenario ini bisa kita eksekusi, kita perlu siapkan dulu sebuah program untuk <em>generate dummy files</em>.</p>
 <h2 id="a623-program-1-generate-dummy-file">A.62.3. Program 1: Generate Dummy File</h2>
 <p>Buat project baru dengan nama bebas <span style="text-decoration: line-through">loss gak reweellll</span> beserta satu buah file bernama <code>1-dummy-file-generator.go</code>.</p>
-<p>Dalam file tersebut import beberapa hal dan definisikan konstanta <code>totalFile</code> yang isinya jumlah file yang ingin di-generate, <code>contentLength</code> yang isinya panjang karakter random yang merupakan isi dari masing-masing <em>generated</em> file, dan satu buah variabel <code>tempPath</code> yang mengarah ke <a href="https://en.wikipedia.org/wiki/Temporary_folder" target="_blank">temporary folder</a>.</p>
+<p>Dalam file tersebut import beberapa hal dan definisikan, yaitu:</p>
+<ol>
+<li>Konstanta <code>totalFile</code> yang isinya jumlah file yang ingin di-generate.</li>
+<li>Variabel <code>contentLength</code> yang isinya panjang karakter random yang merupakan isi dari masing-masing <em>generated</em> file.</li>
+<li>Variabel <code>tempPath</code> yang mengarah ke <a href="https://en.wikipedia.org/wiki/Temporary_folder" target="_blank">temporary folder</a>.</li>
+</ol>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> (
@@ -2154,13 +2159,8 @@
 
 <span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.59-pipeline-temp&quot;</span>)
 </code></pre>
-<p>Kemudian siapkan fungsi <code>init()</code> dan <code>main()</code>, yang isinya statement pemanggilan fungsi <code>generate()</code>. Selain itu juga ada beberapa statement untuk keperluan <em>benchmark</em> performa dari sisi <em>execution time</em>.</p>
-<p>Sedangkan dalam fungsi <code>init()</code> ada statement untuk inisialisasi nilai seed random source, ini penting karena dibutuhkan oleh fungsi generate random string yang juga akan kita buat.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> init() {
-    rand.Seed(time.Now().UnixNano())
-}
-
-<span class="hljs-keyword">func</span> main() {
+<p>Kemudian siapkan fungsi <code>main()</code> yang isinya statement pemanggilan fungsi <code>generate()</code>. Selain itu juga ada beberapa statement untuk keperluan <em>benchmark</em> performa dari sisi <em>execution time</em>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     log.Println(<span class="hljs-string">&quot;start&quot;</span>)
     start := time.Now()
 
@@ -2172,11 +2172,12 @@
 </code></pre>
 <p>Sekarang siapkan fungsi <code>randomString()</code>-nya:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> randomString(length <span class="hljs-keyword">int</span>) <span class="hljs-keyword">string</span> {
+    randomizer := rand.New(rand.NewSource(time.Now().Unix()))
     letters := []<span class="hljs-keyword">rune</span>(<span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>)
 
     b := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">rune</span>, length)
     <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> b {
-        b[i] = letters[rand.Intn(<span class="hljs-built_in">len</span>(letters))]
+        b[i] = letters[randomizer.Intn(<span class="hljs-built_in">len</span>(letters))]
     }
 
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">string</span>(b)
@@ -2381,7 +2382,7 @@
 <p>Bisa dilihat isi fungsi <code>readFiles()</code>. Di fungsi tersebut ada sebuah channel bernama <code>chanOut</code> tipenya channel <code>FileInfo</code>, yang variabel channel ini langsung dijadikan nilai balik dari fungsi <code>readFiles()</code>.</p>
 <p>Di dalam fungsi <code>readFiles()</code> juga ada proses lain yang berjalan secara <em>asynchronous</em> dan <em>concurrent</em> yaitu goroutine yang isinya pembacaan file. Dalam blok kode baca file, informasi <code>path</code> dan konten file dibungkus dalam objek baru dengan tipe <code>FileInfo</code> kemudian dikirim ke channel <code>chanOut</code>.</p>
 <p>Karena proses utama dalam fungsi <code>readFiles</code> berada dalam goroutine, maka di <code>main()</code>, ketika statement <code>chanFileContent := readFiles()</code> selesai dieksekusi, bukan berarti proses pembacaan file selesai, malah mungkin baru saja dimulai. Ini karena proses baca file dijalankan dalam goroutine di dalam fungsi <code>readFiles()</code> tersebut.</p>
-<p>Mengenai channel <code>chanOut</code> sendiri, akan di-close ketika dipastikan <strong>semua file sudah dikirim datanya ke channel tersebut</strong> (silakan lihat statement <code>close(chanOut)</code> di akhir goroutine). </p>
+<p>Mengenai channel <code>chanOut</code> sendiri, akan di-close ketika dipastikan <strong>semua file sudah dikirim datanya ke channel tersebut</strong> (silakan lihat statement <code>close(chanOut)</code> di akhir goroutine).</p>
 <p>Ok lanjut, karena di sini ada channel yang digunakan sebagai media pengiriman data (<code>FileInfo</code>), maka juga harus ada penerima data channel-nya dong. Yups.</p>
 <h4 id="pipeline-2-md5-hash-konten-file">&#x2022; Pipeline 2: MD5 Hash Konten File</h4>
 <p>Tepat di bawah pipeline 1, tambahkan pemanggilan fungsi <code>getSum()</code> sebanyak 3x, bisa lebih banyak sih sebenarnya, bebas. Kemudian jadikan nilai balik pemanggilan fungsi tersebut sebagai variadic argument pemanggilan fungsi <code>mergeChanFileInfo()</code>.</p>
@@ -2567,7 +2568,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"next":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"path":"A-simplified-fan-in-fan-out-pipeline.md","ref":"A-simplified-fan-in-fan-out-pipeline.md","articles":[]},"previous":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"dir":"ltr"},"config":{"plugins":["disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-concurrency-pipeline.md","mtime":"2023-03-03T17:14:17.964Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-03T17:15:17.806Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"next":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"path":"A-simplified-fan-in-fan-out-pipeline.md","ref":"A-simplified-fan-in-fan-out-pipeline.md","articles":[]},"previous":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"dir":"ltr"},"config":{"plugins":["disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"A-concurrency-pipeline.md","mtime":"2023-03-08T06:58:05.386Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-08T06:59:04.898Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
