@@ -4,6 +4,8 @@
 
 Ebook ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.
 
+<a href="https://www.producthunt.com/products/dasar-pemrograman-golang-ebook?utm_source=badge-follow&utm_medium=badge&utm_souce=badge-dasar&#0045;pemrograman&#0045;golang&#0045;ebook" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/follow.svg?product_id=517096&theme=light" alt="Dasar&#0032;Pemrograman&#0032;Golang&#0032;Ebook - Belajar&#0032;pemrograman&#0032;golang&#0032;mulai&#0032;dari&#0032;0&#0044;&#0032;gratis&#0033; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
 Ada total sekitar <b>120 chapter</b> yang dibahas dalam ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.
 
 <ol type="A">
