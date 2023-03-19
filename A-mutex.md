@@ -30,11 +30,11 @@ type counter struct {
     val int
 }
 
-func (c *counter) Add(x int) {
+func (c *counter) Add(int) {
     c.val++
 }
 
-func (c *counter) Value() (x int) {
+func (c *counter) Value() (int) {
     return c.val
 }
 ```
@@ -107,13 +107,13 @@ type counter struct {
 	val int
 }
 
-func (c *counter) Add(x int) {
+func (c *counter) Add(int) {
 	c.Lock()
 	c.val++
 	c.Unlock()
 }
 
-func (c *counter) Value() (x int) {
+func (c *counter) Value() (int) {
 	return c.val
 }
 ```
@@ -133,11 +133,11 @@ Coba jalankan program, dan lihat hasilnya.
 Pada contoh di atas, mutex diterapkan dengan cara di-embed ke objek yang memerlukan proses lock-unlock, menjadikan variabel mutex tersebut adalah eksklusif untuk objek tersebut saja. Cara ini merupakan cara yang dianjurkan. Meskipun demikian, mutex tetap bisa digunakan dengan cara tanpa ditempelkan ke objek yang memerlukan lock-unlock. Contohnya bisa dilihat di bawah ini.
 
 ```go
-func (c *counter) Add(x int) {
+func (c *counter) Add(int) {
 	c.val++
 }
 
-func (c *counter) Value() (x int) {
+func (c *counter) Value() (int) {
 	return c.val
 }
 
