@@ -10,7 +10,7 @@
 * Referensi Belajar Lainnya
   * [📖 Ebook: Dasar Pemrograman Rust](https://dasarpemrogramanrust.novalagung.com/)
   * [📖 Ebook: Learn DevOps](https://learndevops.novalagung.com/)
-  * [▶️ Udemy Course: Belajar Docker & Kubernetes (FREE 2023-02)](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=FREE-202302)
+  * [▶️ Udemy Course: Belajar Docker & Kubernetes (FREE April 2023)](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=FREE-202304)
 
 <hr>
 
