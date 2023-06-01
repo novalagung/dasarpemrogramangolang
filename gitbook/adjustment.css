@@ -208,3 +208,8 @@ ins.adsbygoogle {
         margin-top: -100px;
     }
 }
+
+.substack-embed {
+    border: 1px solid #EEE;
+    background: white;
+}
