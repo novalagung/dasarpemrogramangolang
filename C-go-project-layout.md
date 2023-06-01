@@ -17,3 +17,6 @@ Dalam server tersebut, siapkan beberapa file dan folder dengan struktur sebagai 
 
 Library FTP client yang kita gunakan adalah [github.com/jlaffaye/ftp](https://github.com/jlaffaye/ftp).
 
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

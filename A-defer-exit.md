@@ -134,3 +134,7 @@ Meskipun `defer fmt.Println("halo")` ditempatkan sebelum `os.Exit()`, statement 
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.36-defer-exit">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.36...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

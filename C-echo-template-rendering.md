@@ -140,3 +140,7 @@ Proses parsing dan rendering tidak di-handle oleh echo, melainkan menggunakan AP
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.7-echo-template-rendering">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.7...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

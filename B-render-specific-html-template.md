@@ -79,3 +79,7 @@ Lakukan tes pada program yang telah kita buat, kurang lebih hasilnya seperti pad
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.9-render-specific-html-template">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.9...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

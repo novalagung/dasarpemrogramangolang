@@ -155,3 +155,18 @@ Jalankan program dan lihat hasilnya.
 ![Redis test](images/C_redis_2.png)
 
 Error, ini karena data yang disimpan hanya di retain sesuai `ttl` yaitu 3 detik, dan pada kode di atas kita mencoba ambil datanya setelah detik ke 4. Jadi data tersebut expired.
+
+---
+
+ - [go-redis](https://github.com/redis/go-redis), by Redis, BSD-2-Clause License
+
+---
+
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.36-redis">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.36...</a>
+</div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

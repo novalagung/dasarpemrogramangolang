@@ -89,3 +89,7 @@ Routing static assets menjadi valid, karena file yang di-request akan cocok deng
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.3-routing-static-assets">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.3...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

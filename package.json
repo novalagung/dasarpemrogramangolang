@@ -1,0 +1,23 @@
+{
+  "name": "dasarpemrogramangolang",
+  "version": "1.0.0",
+  "description": "[Golang](https://golang.org/), atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang [menggunakan bahasa ini](https://github.com/golang/go/wiki/GoUsers) dalam pengembangan produk-produk mereka, hingga level production tentunya.",
+  "main": "gitbook-plugin-disqus.js",
+  "devDependencies": {
+    "honkit": "^4.0.7"
+  },
+  "scripts": {
+    "build": "honkit build",
+    "serve": "honkit serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/novalagung/dasarpemrogramangolang.git"
+  },
+  "author": "Noval Agung Prayogo",
+  "license": "CC-BY-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/novalagung/dasarpemrogramangolang/issues"
+  },
+  "homepage": "https://github.com/novalagung/dasarpemrogramangolang#readme"
+}

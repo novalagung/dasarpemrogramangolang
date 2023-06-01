@@ -103,3 +103,7 @@ Command `go get` **harus dijalankan dalam folder project**. Jika dijalankan di-l
 ## A.6.7. Command `go mod vendor`
 
 Command ini digunakan untuk vendoring. Lebih detailnya akan dibahas di akhir serial chapter A, pada chapter [A.61. Go Vendoring](/A-go-vendoring.html).
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

@@ -238,3 +238,7 @@ Cukup berguna bukan? Dengan adahnya singleflight API ini, beban backend akan sed
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.37-singleflight">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.37...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

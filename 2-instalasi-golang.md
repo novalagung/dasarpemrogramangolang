@@ -100,3 +100,7 @@ Jika pembaca tertarik untuk mencoba versi development Go, ingin mencoba fitur ya
 
 - Instalasi dengan *build from source* https://go.dev/doc/install/source
 - Gunakan command `go install`, contohnya seperti `go install golang.org/dl/go1.18beta1@latest`. Untuk melihat versi unstable yang bisa di-install silakan merujuk ke https://go.dev/dl/#unstable
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

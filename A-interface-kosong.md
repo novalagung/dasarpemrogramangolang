@@ -151,3 +151,7 @@ for _, each := range fruits {
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.28-interface-kosong">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.28...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>
