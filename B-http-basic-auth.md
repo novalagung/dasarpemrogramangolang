@@ -230,3 +230,7 @@ $ curl -X GET --user batman:secret http://localhost:9000/student?id=s001
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.18-http-basic-auth">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.18...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

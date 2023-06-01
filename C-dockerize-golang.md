@@ -323,3 +323,7 @@ docker container stop my-container-hello-world
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.35-dockerize-golang">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

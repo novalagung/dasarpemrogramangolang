@@ -38,3 +38,7 @@ Setelah `GOPATH` berhasil dikenali, perlu disiapkan 3 buah sub folder di dalamny
 ![Struktur folder dalam worskpace](images/A_gopath_workspace_2_workspace.png)
 
 Struktur di atas merupakan struktur standar workspace Go. Jadi pastikan penamaan dan hirarki folder adalah sama.
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

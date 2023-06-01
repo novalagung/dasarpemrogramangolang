@@ -23,3 +23,7 @@ Sudah banyak industri dan perusahaan yg menggunakan Go sampai level production, 
 Pada buku ini (terutama semua serial chapter A) kita akan belajar tentang dasar pemrograman Go, mulai dari 0, dan gratis.
 
 ![The Go Logo](images/A_introduction_1_logo.png)
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

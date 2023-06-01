@@ -176,3 +176,7 @@ Kita telah mempelajari bagaimana cara membuat http request sederhana untuk kirim
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.55-client-http-request-simple">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.55...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

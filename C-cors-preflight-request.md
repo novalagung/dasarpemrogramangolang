@@ -289,13 +289,13 @@ Berikut adalah list konfigurasi yang bisa dimanfaatkan dari library ini.
  - [CORS](https://github.com/rs/cors), by Olivier Poitrey, MIT license
  - [Echo](https://github.com/labstack/echo), by Vishal Rana (Lab Stack), MIT license
 
-<!-- https://www.html5rocks.com/en/tutorials/cors/ -->
-<!-- https://stackoverflow.com/questions/12320467/jquery-cors-content-type-options -->
-<!-- https://stackoverflow.com/questions/22343384/the-access-control-allow-origin-header-contains-multiple-values -->
-
 ---
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.14-cors-preflight-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.14...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

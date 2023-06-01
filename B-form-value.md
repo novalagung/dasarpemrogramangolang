@@ -135,3 +135,7 @@ OK, sekarang coba jalankan program yang telah kita buat, dan cek hasilnya.
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.12-form-value">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.12...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

@@ -168,3 +168,7 @@ Pada contoh di atas, ekspresi regexp `[a-b]+` digunakan sebagai kriteria split. 
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.45-regexp">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.45...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

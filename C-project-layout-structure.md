@@ -116,3 +116,7 @@ Ok, sampai sini saja pembahasan mengenai project layout, selanjutnya silakan men
 ---
 
  - [Standard Go Project Layout](https://github.com/golang-standards/project-layout/), by Kyle Quest
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

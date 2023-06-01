@@ -118,3 +118,7 @@ curl -X GET http://localhost:9000/user?name=Joe&email=nope@novalagung.com
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.4-parsing-http-request-payload-echo">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.4...</a>
 </div>
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>

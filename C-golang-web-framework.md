@@ -60,3 +60,7 @@ Silakan mencoba-coba dan memilih kombinasi library yang cocok sesuai kebutuhan d
 Saya sangat menganjurkan pembaca untuk mencoba banyak library dan framework.
 
 Ok, saya rasa cukup untuk pembahasan kali ini. Semoga bermanfaat
+
+---
+
+<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>
