@@ -5,14 +5,14 @@ body {
     font-family: Source Sans Pro, Helvetica Neue, Arial, sans-serif;
 }
 
-/* disable search bar, replace it with the book title instead */
-.book-summary #book-search-input {
+/* unmark to disable search bar, replace it with the book title instead */
+/* .book-summary #book-search-input {
     position: relative;
     opacity: 0;
     overflow: hidden;
     height: 0px;
     padding: 0;
-}
+} */
 /* .book-summary #book-search-input:after {
     content: "Dasar Pemrograman Golang";
     padding-top: 17px;
