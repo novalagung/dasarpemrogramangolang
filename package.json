@@ -4,6 +4,10 @@
   "description": "[Golang](https://golang.org/), atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang [menggunakan bahasa ini](https://github.com/golang/go/wiki/GoUsers) dalam pengembangan produk-produk mereka, hingga level production tentunya.",
   "main": "gitbook-plugin-disqus.js",
   "devDependencies": {
+    "gitbook-plugin-disqus": "^1.0.1",
+    "gitbook-plugin-docsearch-v3": "git+https://github.com/novalagung/gitbook-plugin-docsearch-v3.git",
+    "gitbook-plugin-meta": "^0.1.12",
+    "gitbook-plugin-sitemap": "^1.2.0",
     "honkit": "^4.0.7"
   },
   "scripts": {
