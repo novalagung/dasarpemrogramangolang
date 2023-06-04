@@ -5,7 +5,7 @@
   "main": "gitbook-plugin-disqus.js",
   "devDependencies": {
     "gitbook-plugin-disqus": "^1.0.1",
-    "gitbook-plugin-docsearch-v3": "git+https://github.com/novalagung/gitbook-plugin-docsearch-v3.git",
+    "gitbook-plugin-docsearch-v3": "^1.0.1",
     "gitbook-plugin-meta": "^0.1.12",
     "gitbook-plugin-sitemap": "^1.2.0",
     "honkit": "^4.0.7"
