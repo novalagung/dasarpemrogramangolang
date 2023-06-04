@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang>
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang Advanced Configuration: Viper - Dasar Pemrograman Golang</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        
+        <title>Golang Advanced Configuration: Viper &#xB7; GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
         
         
@@ -16,15 +16,19 @@
     
             
                 
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-docsearch-v3/style.css">
+                
+            
+                
                 <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
                 
             
                 
                 <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
-                
-            
-                
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -52,16 +56,16 @@
         
     
     
-    <meta  name="google-site-verification"  content="UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE" >
+    <meta name="google-site-verification" content="UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE">
     
-    <meta  name="og:image"  content="https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg" >
+    <meta name="og:image" content="https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg">
     
-    <meta  name="twitter:image"  content="https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg" >
-    
-    
+    <meta name="twitter:image" content="https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg">
     
     
-    <meta name="HandheldFriendly" content="true"/>
+    
+    
+    <meta name="HandheldFriendly" content="true">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -69,14 +73,14 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="C-best-practice-configuration-env-var.html" />
+    <link rel="next" href="C-best-practice-configuration-env-var.html">
     
     
-    <link rel="prev" href="C-flag-parser.html" />
+    <link rel="prev" href="C-flag-parser.html">
     
 
 
-    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2023.06.01.092502"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/adjustment.css?v=3.2023.06.04.141543"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -86,13 +90,9 @@
     <body>
         
 <div class="book">
-    <div class="book-summary">
+    <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
-<div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
-</div>
-
             
                 <nav role="navigation">
                 
@@ -121,7 +121,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" >
+        <li class="chapter " data-level="1.2">
             
                 <a target="_blank" href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf">
             
@@ -139,7 +139,7 @@
                 <a href="CONTRIBUTING.html">
             
                     
-                    Author & Contributors
+                    Author &amp; Contributors
             
                 </a>
             
@@ -167,7 +167,7 @@
         
         
     
-        <li class="chapter " data-level="2.1" >
+        <li class="chapter " data-level="2.1">
             
                 <span>
             
@@ -181,12 +181,12 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.1.1" >
+        <li class="chapter " data-level="2.1.1">
             
                 <a target="_blank" href="https://dasarpemrogramanrust.novalagung.com/">
             
                     
-                    📖 Ebook: Dasar Pemrograman Rust
+                    &#x1F4D6; Ebook: Dasar Pemrograman Rust
             
                 </a>
             
@@ -194,12 +194,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.2" >
+        <li class="chapter " data-level="2.1.2">
             
                 <a target="_blank" href="https://learndevops.novalagung.com/">
             
                     
-                    📖 Ebook: Learn DevOps
+                    &#x1F4D6; Ebook: Learn DevOps
             
                 </a>
             
@@ -207,12 +207,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.3" >
+        <li class="chapter " data-level="2.1.3">
             
                 <a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=FREE-202306">
             
                     
-                    ▶️ Udemy Course: Belajar Docker & Kubernetes (FREE Juni 2023)
+                    &#x25B6;&#xFE0F; Udemy Course: Belajar Docker &amp; Kubernetes (FREE Juni 2023)
             
                 </a>
             
@@ -232,7 +232,7 @@
         
         
     
-        <li class="chapter " data-level="3.1" >
+        <li class="chapter " data-level="3.1">
             
                 <span>
             
@@ -264,7 +264,7 @@
                 <a href="2-instalasi-golang.html">
             
                     
-                    A.2. Instalasi Golang (Stable & Unstable)
+                    A.2. Instalasi Golang (Stable &amp; Unstable)
             
                 </a>
             
@@ -680,7 +680,7 @@
                 <a href="A-channel-range-close.html">
             
                     
-                    A.34. Channel - Range & Close
+                    A.34. Channel - Range &amp; Close
             
                 </a>
             
@@ -706,7 +706,7 @@
                 <a href="A-defer-exit.html">
             
                     
-                    A.36. Defer & Exit
+                    A.36. Defer &amp; Exit
             
                 </a>
             
@@ -719,7 +719,7 @@
                 <a href="A-error-panic-recover.html">
             
                     
-                    A.37. Error, Panic, & Recover
+                    A.37. Error, Panic, &amp; Recover
             
                 </a>
             
@@ -758,7 +758,7 @@
                 <a href="A-time-parsing-format.html">
             
                     
-                    A.40. Time, Parsing Time, & Format Time
+                    A.40. Time, Parsing Time, &amp; Format Time
             
                 </a>
             
@@ -771,7 +771,7 @@
                 <a href="A-timer-ticker-scheduler.html">
             
                     
-                    A.41. Timer, Ticker, & Scheduler
+                    A.41. Timer, Ticker, &amp; Scheduler
             
                 </a>
             
@@ -862,7 +862,7 @@
                 <a href="A-command-line-args-flag.html">
             
                     
-                    A.48. Arguments & Flag
+                    A.48. Arguments &amp; Flag
             
                 </a>
             
@@ -1103,7 +1103,7 @@
         
         
     
-        <li class="chapter " data-level="4.1" >
+        <li class="chapter " data-level="4.1">
             
                 <span>
             
@@ -1187,7 +1187,7 @@
                 <a href="B-template-actions-variables.html">
             
                     
-                    B.6. Template: Actions & Variables
+                    B.6. Template: Actions &amp; Variables
             
                 </a>
             
@@ -1252,7 +1252,7 @@
                 <a href="B-http-method-basic.html">
             
                     
-                    B.11. HTTP Method: POST & GET
+                    B.11. HTTP Method: POST &amp; GET
             
                 </a>
             
@@ -1428,7 +1428,7 @@
         
         
     
-        <li class="chapter " data-level="5.1" >
+        <li class="chapter " data-level="5.1">
             
                 <span>
             
@@ -1473,7 +1473,7 @@
                 <a href="C-echo-routing.html">
             
                     
-                    C.3. Echo Framework & Routing
+                    C.3. Echo Framework &amp; Routing
             
                 </a>
             
@@ -1538,7 +1538,7 @@
                 <a href="C-advanced-middleware-and-logging.html">
             
                     
-                    C.8. Advanced Middleware & Logging (Logrus, Echo Logger)
+                    C.8. Advanced Middleware &amp; Logging (Logrus, Echo Logger)
             
                 </a>
             
@@ -1616,7 +1616,7 @@
                 <a href="C-cors-preflight-request.html">
             
                     
-                    C.14. CORS & Preflight Request
+                    C.14. CORS &amp; Preflight Request
             
                 </a>
             
@@ -1681,7 +1681,7 @@
                 <a href="C-read-write-excel-xlsx-file.html">
             
                     
-                    C.19. Read & Write Excel XLSX File (Excelize)
+                    C.19. Read &amp; Write Excel XLSX File (Excelize)
             
                 </a>
             
@@ -1720,7 +1720,7 @@
                 <a href="C-scraping-parsing-html.html">
             
                     
-                    C.22. Scraping & Parsing HTML (goquery)
+                    C.22. Scraping &amp; Parsing HTML (goquery)
             
                 </a>
             
@@ -1733,7 +1733,7 @@
                 <a href="C-xml-parser.html">
             
                     
-                    C.23. Parse & Generate XML (etree)
+                    C.23. Parse &amp; Generate XML (etree)
             
                 </a>
             
@@ -1759,7 +1759,7 @@
                 <a href="C-http2-server-push.html">
             
                     
-                    C.25. HTTP/2 & HTTP/2 Server Push
+                    C.25. HTTP/2 &amp; HTTP/2 Server Push
             
                 </a>
             
@@ -1785,7 +1785,7 @@
                 <a href="C-secure-insecure-client-http-request.html">
             
                     
-                    C.27. Secure & Insecure Client HTTP Request
+                    C.27. Secure &amp; Insecure Client HTTP Request
             
                 </a>
             
@@ -1811,7 +1811,7 @@
                 <a href="C-golang-ssh-sftp.html">
             
                     
-                    C.29. SSH & SFTP
+                    C.29. SSH &amp; SFTP
             
                 </a>
             
@@ -1935,7 +1935,7 @@
         
         
     
-        <li class="chapter " data-level="6.1" >
+        <li class="chapter " data-level="6.1">
             
                 <span>
             
@@ -2023,7 +2023,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >C.10. Advanced Configuration: Viper</a>
+        <a href=".">C.10. Advanced Configuration: Viper</a>
     </h1>
 </div>
 
@@ -2033,9 +2033,6 @@
                     <div class="page-wrapper" tabindex="-1" role="main">
                         <div class="page-inner">
                             
-<div id="book-search-results">
-    <div class="search-noresults">
-    
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="c10-advanced-configuration-menggunakan-viper">C.10. Advanced Configuration Menggunakan Viper</h1>
@@ -2206,22 +2203,6 @@ viper.OnConfigChange(<span class="hljs-keyword">func</span>(e fsnotify.Event) {
                                 
                                 </section>
                             
-    </div>
-    <div class="search-results">
-        <div class="has-results">
-            
-            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
-            <ul class="search-results-list"></ul>
-            
-        </div>
-        <div class="no-results">
-            
-            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
-            
-        </div>
-    </div>
-</div>
-
                         </div>
                     </div>
                 
@@ -2245,7 +2226,7 @@ viper.OnConfigChange(<span class="hljs-keyword">func</span>(e fsnotify.Event) {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.10. Advanced Configuration: Viper","level":"5.1.10","depth":2,"next":{"title":"C.11. Best Practice Configuration: Environment Variable","level":"5.1.11","depth":2,"path":"C-best-practice-configuration-env-var.md","ref":"C-best-practice-configuration-env-var.md","articles":[]},"previous":{"title":"C.9. CLI Flag Parser (Kingpin)","level":"5.1.9","depth":2,"path":"C-flag-parser.md","ref":"C-flag-parser.md","articles":[]},"dir":"ltr"},"config":{"plugins":["disqus","meta","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","lunr":{"maxIndexSize":1000000000},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"C-advanced-configuration-viper.md","mtime":"2023-06-01T09:23:24.380Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-01T09:24:31.336Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.10. Advanced Configuration: Viper","level":"5.1.10","depth":2,"next":{"title":"C.11. Best Practice Configuration: Environment Variable","level":"5.1.11","depth":2,"path":"C-best-practice-configuration-env-var.md","ref":"C-best-practice-configuration-env-var.md","articles":[]},"previous":{"title":"C.9. CLI Flag Parser (Kingpin)","level":"5.1.9","depth":2,"path":"C-flag-parser.md","ref":"C-flag-parser.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-advanced-configuration-viper.md","mtime":"2023-06-04T14:14:14.499Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-04T14:15:17.948Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2255,27 +2236,19 @@ viper.OnConfigChange(<span class="hljs-keyword">func</span>(e fsnotify.Event) {
     <script src="gitbook/theme.js"></script>
     
         
+        <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
         
     
         
         <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-search/search.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
         
     
         
