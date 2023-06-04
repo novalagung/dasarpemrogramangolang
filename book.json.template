@@ -2,7 +2,7 @@
     "plugins": [
         "-search",
         "-lunr",
-        "docsearch-v3"
+        "docsearch-v3",
         "disqus",
         "meta",
         "sitemap"
