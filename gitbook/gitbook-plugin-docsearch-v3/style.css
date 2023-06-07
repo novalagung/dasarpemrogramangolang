@@ -2,3 +2,7 @@
     margin: 0px !important;
     width: 100%;
 }
+
+.DocSearch-Button-Placeholder {
+    font-size: 1.4rem !important;
+}
