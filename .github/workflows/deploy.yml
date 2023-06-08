@@ -19,6 +19,7 @@ jobs:
         check-latest: true
     - name: 'Installing requirements'
       run: |
+        npm install -g gitbook-cli
         gitbook install
         cp ./book.json ./book.json.template
         cd ~/.gitbook/versions/3.2.3 && npm i npm@5
