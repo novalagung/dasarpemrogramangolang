@@ -41,7 +41,7 @@ Source code contoh-contoh program bisa diunduh di [github.com/novalagung/dasarpe
 
 ## Kontribusi
 
-Ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Cek juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTORS.html) untuk melihat list kontributor.
+Ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Silakan lihat juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html) untuk lebih detailnya mengenai kontribusi ke project ini.
 
 ## Lisensi dan Status FOSSA
 

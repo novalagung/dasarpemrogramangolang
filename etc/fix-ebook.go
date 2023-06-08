@@ -42,7 +42,7 @@ func preAdjustment() {
 
 	// ==== adjust version
 	versionToFind := `((VERSION))`
-	mdString = strings.Replace(mdString, versionToFind, getVersion(), -1)
+	mdString = strings.ReplaceAll(mdString, versionToFind, getVersion())
 
 	err = ioutil.WriteFile(readmePath, []byte(mdString), 0644)
 	if err != nil {
