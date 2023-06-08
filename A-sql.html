@@ -2,11 +2,10 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang SQL &#xB7; GitBook</title>
+        <title>Golang SQL &#xB7; HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="generator" content="HonKit 4.0.7">
         
         
         
@@ -24,11 +23,7 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
-                
-            
-                
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
                 
@@ -80,7 +75,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.071245"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.080718"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -89,7 +84,7 @@
 		</script></head>
     <body>
         
-<div class="book">
+<div class="book honkit-cloak">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1999,8 +1994,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
         </a>
     </li>
 </ul>
@@ -2056,20 +2051,20 @@ go get github.com/go-sql-driver/mysql
 <p>Sebelumnya pastikan sudah ada <a href="https://dev.mysql.com/downloads/mysql/" target="_blank">mysql server</a> yang terinstal di lokal anda.</p>
 </blockquote>
 <p>Buat database baru bernama <code>db_belajar_golang</code>, dan tabel baru bernama <code>tb_student</code>.</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> <span class="hljs-string">`tb_student`</span> (
-  <span class="hljs-string">`id`</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">5</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-  <span class="hljs-string">`name`</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-  <span class="hljs-string">`age`</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-  <span class="hljs-string">`grade`</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
-) <span class="hljs-keyword">ENGINE</span>=<span class="hljs-keyword">InnoDB</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">CHARSET</span>=latin1;
+<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> `tb_student` (
+  `id` <span class="hljs-type">varchar</span>(<span class="hljs-number">5</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,
+  `name` <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,
+  `age` <span class="hljs-type">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,
+  `grade` <span class="hljs-type">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>
+) ENGINE<span class="hljs-operator">=</span>InnoDB <span class="hljs-keyword">DEFAULT</span> CHARSET<span class="hljs-operator">=</span>latin1;
 
-<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> <span class="hljs-string">`tb_student`</span> (<span class="hljs-string">`id`</span>, <span class="hljs-string">`name`</span>, <span class="hljs-string">`age`</span>, <span class="hljs-string">`grade`</span>) <span class="hljs-keyword">VALUES</span>
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> `tb_student` (`id`, `name`, `age`, `grade`) <span class="hljs-keyword">VALUES</span>
 (<span class="hljs-string">&apos;B001&apos;</span>, <span class="hljs-string">&apos;Jason Bourne&apos;</span>, <span class="hljs-number">29</span>, <span class="hljs-number">1</span>),
 (<span class="hljs-string">&apos;B002&apos;</span>, <span class="hljs-string">&apos;James Bond&apos;</span>, <span class="hljs-number">27</span>, <span class="hljs-number">1</span>),
 (<span class="hljs-string">&apos;E001&apos;</span>, <span class="hljs-string">&apos;Ethan Hunt&apos;</span>, <span class="hljs-number">27</span>, <span class="hljs-number">2</span>),
 (<span class="hljs-string">&apos;W001&apos;</span>, <span class="hljs-string">&apos;John Wick&apos;</span>, <span class="hljs-number">28</span>, <span class="hljs-number">2</span>);
 
-<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-string">`tb_student`</span> <span class="hljs-keyword">ADD</span> PRIMARY <span class="hljs-keyword">KEY</span> (<span class="hljs-string">`id`</span>);
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> `tb_student` <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">PRIMARY</span> KEY (`id`);
 </code></pre>
 <h2 id="a563-membaca-data-dari-mysql-server">A.56.3. Membaca Data Dari MySQL Server</h2>
 <p>Import package yang dibutuhkan, lalu disiapkan struct dengan skema yang sama seperti pada tabel <code>tb_student</code> di database. Nantinya struct ini digunakan sebagai tipe data penampung hasil query.</p>
@@ -2088,7 +2083,7 @@ go get github.com/go-sql-driver/mysql
 </code></pre>
 <p>Driver database yang digunakan perlu di-import menggunakan tanda <code>_</code>, karena meskipun dibutuhkan oleh package <code>database/sql</code>, kita tidak langsung berinteraksi dengan driver tersebut.</p>
 <p>Selanjutnya buat fungsi untuk koneksi ke database.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> connect() (*sql.DB, error) {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">connect</span><span class="hljs-params">()</span> <span class="hljs-params">(*sql.DB, error)</span></span> {
     db, err := sql.Open(<span class="hljs-string">&quot;mysql&quot;</span>, <span class="hljs-string">&quot;root:@tcp(127.0.0.1:3306)/db_belajar_golang&quot;</span>)
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
@@ -2109,7 +2104,7 @@ user@tcp(host:port)/dbname
 // port     =&gt; 3306
 // dbname   =&gt; db_belajar_golang
 </code></pre><p>Setelah fungsi untuk konektivitas dengan database sudah dibuat, saatnya untuk mempraktekan proses pembacaan data dari server database. Siapkan fungsi <code>sqlQuery()</code> dengan isi adalah kode berikut.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> sqlQuery() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sqlQuery</span><span class="hljs-params">()</span></span> {
     db, err := connect()
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         fmt.Println(err.Error())
@@ -2162,7 +2157,7 @@ select id, name, grade ...
 rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
 </code></pre><p>Data record yang didapat kemudian di-append ke slice <code>result</code>, lewat statement <code>result = append(result, each)</code>.</p>
 <p>OK, sekarang tinggal panggil fungsi <code>sqlQuery()</code> di <code>main</code>, lalu jalankan program.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     sqlQuery()
 }
 </code></pre>
@@ -2170,7 +2165,7 @@ rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
 <p><img src="images/A_sql_2_sql_query.png" alt="Dasar Pemrograman Golang - Membaca data dari database server"></p>
 <h2 id="a564-membaca-1-record-data-menggunakan-method-queryrow">A.56.4. Membaca 1 Record Data Menggunakan Method <code>QueryRow()</code></h2>
 <p>Untuk query yang menghasilkan 1 baris record saja, bisa gunakan method <code>QueryRow()</code>, dengan metode ini kode menjadi lebih ringkas. Chain dengan method <code>Scan()</code> untuk mendapatkan value-nya.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> sqlQueryRow() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sqlQueryRow</span><span class="hljs-params">()</span></span> {
     <span class="hljs-keyword">var</span> db, err = connect()
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         fmt.Println(err.Error())
@@ -2191,7 +2186,7 @@ rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
     fmt.Printf(<span class="hljs-string">&quot;name: %s\ngrade: %d\n&quot;</span>, result.name, result.grade)
 }
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     sqlQueryRow()
 }
 </code></pre>
@@ -2205,7 +2200,7 @@ rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
 <h2 id="a565-eksekusi-query-menggunakan-prepare">A.56.5. Eksekusi Query Menggunakan <code>Prepare()</code></h2>
 <p>Teknik <strong>prepared statement</strong> adalah teknik penulisan query di awal dengan kelebihan bisa di re-use atau digunakan banyak kali untuk eksekusi yang berbeda-beda.</p>
 <p>Metode ini bisa digabung dengan <code>Query()</code> maupun <code>QueryRow()</code>. Berikut merupakan contoh penerapannya.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> sqlPrepare() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sqlPrepare</span><span class="hljs-params">()</span></span> {
     db, err := connect()
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         fmt.Println(err.Error())
@@ -2232,7 +2227,7 @@ rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
     fmt.Printf(<span class="hljs-string">&quot;name: %s\ngrade: %d\n&quot;</span>, result3.name, result3.grade)
 }
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     sqlPrepare()
 }
 </code></pre>
@@ -2240,7 +2235,7 @@ rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
 <p><img src="images/A_sql_4_prepared_statement.png" alt="Dasar Pemrograman Golang - Prepared statement"></p>
 <h2 id="a566-insert-update--delete-data-menggunakan-exec">A.56.6. Insert, Update, &amp; Delete Data Menggunakan <code>Exec()</code></h2>
 <p>Untuk operasi <strong>insert</strong>, <strong>update</strong>, dan <strong>delete</strong>; dianjurkan untuk tidak menggunakan fungsi <code>sql.Query()</code> ataupun <code>sql.QueryRow()</code> untuk eksekusinya. Direkomendasikan eksekusi perintah-perintah tersebut lewat fungsi <code>Exec()</code>, contohnya seperti pada kode berikut.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> sqlExec() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sqlExec</span><span class="hljs-params">()</span></span> {
     db, err := connect()
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         fmt.Println(err.Error())
@@ -2270,7 +2265,7 @@ rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
     fmt.Println(<span class="hljs-string">&quot;delete success!&quot;</span>)
 }
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     sqlExec()
 }
 </code></pre>
@@ -2329,12 +2324,56 @@ _, err := db.Exec(<span class="hljs-string">&quot;insert into tb_student values 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.56. SQL","level":"3.1.56","depth":2,"next":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"path":"A-mongodb.md","ref":"A-mongodb.md","articles":[]},"previous":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"path":"A-client-http-request-simple.md","ref":"A-client-http-request-simple.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-sql.md","mtime":"2023-06-08T07:10:56.623Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T07:12:17.261Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.56. SQL","level":"3.1.56","depth":2,"next":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"path":"A-mongodb.md","ref":"A-mongodb.md","articles":[]},"previous":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"path":"A-client-http-request-simple.md","ref":"A-client-http-request-simple.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-sql.md","mtime":"2023-06-08T08:06:37.747Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:06:52.358Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2344,18 +2383,6 @@ _, err := db.Exec(<span class="hljs-string">&quot;insert into tb_student values 
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
-        
-    
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

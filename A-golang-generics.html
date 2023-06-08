@@ -2,11 +2,10 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Go Generics &#xB7; GitBook</title>
+        <title>Go Generics &#xB7; HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="generator" content="HonKit 4.0.7">
         
         
         
@@ -24,11 +23,7 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
-                
-            
-                
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
                 
@@ -78,7 +73,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.071245"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.080718"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -87,7 +82,7 @@
 		</script></head>
     <body>
         
-<div class="book">
+<div class="book honkit-cloak">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1997,8 +1992,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
         </a>
     </li>
 </ul>
@@ -2046,7 +2041,7 @@
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
 
-<span class="hljs-keyword">func</span> Sum(numbers []<span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span> {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sum</span><span class="hljs-params">(numbers []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> {
     <span class="hljs-keyword">var</span> total <span class="hljs-keyword">int</span>
     <span class="hljs-keyword">for</span> _, e := <span class="hljs-keyword">range</span> numbers {
         total += e
@@ -2054,7 +2049,7 @@
     <span class="hljs-keyword">return</span> total
 }
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     total1 := Sum([]<span class="hljs-keyword">int</span>{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>})
     fmt.Println(<span class="hljs-string">&quot;total:&quot;</span>, total1)
 }
@@ -2063,7 +2058,7 @@
 <p>Fungsi <code>Sum()</code> memiliki satu limitasinya, yaitu hanya bisa digunakan pada data yang tipenya <code>[]int</code>, tidak bisa untuk tipe slice numerik lain. Bagaimana jika menggunakan tipe <code>interface{}</code>? apakah bisa? bisa saja sebenarnya, tapi pastinya lebih report karena sulit untuk menerapkan <em>type assertion</em> kalau tidak tau tipe pasti parameter <code>numbers</code> itu apa. Penggunaan <code>interface{}</code> perlu dibarengi dengan penerapan <a href="A-reflect.html">reflection API</a>.</p>
 <p>Di sini kita bisa terapkan Generic, kita akan modifikasi fungsi di atas agar bisa menampung tipe data slice numerik lainnya diluar <code>[]int</code>.</p>
 <p>Ok, sekarang ubah kode fungsi <code>Sum</code> menjadi seperti di bawah ini:</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> Sum[V <span class="hljs-keyword">int</span>](numbers []V) V {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sum</span>[<span class="hljs-title">V</span> <span class="hljs-title">int</span>]<span class="hljs-params">(numbers []V)</span> <span class="hljs-title">V</span></span> {
     <span class="hljs-keyword">var</span> total V
     <span class="hljs-keyword">for</span> _, e := <span class="hljs-keyword">range</span> numbers {
         total += e
@@ -2073,21 +2068,21 @@
 </code></pre>
 <p>Notasi penulisan di atas mungkin akan cukup asing teruntuk pembaca yang belum pernah menggunakan Generic pada bahasa selain Go. Tidak apa, di sini kita belajar dari awal :-)</p>
 <p>Penulisan notasi fungsi dengan Generic kurang lebih sebagai berikut:</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> FuncName[dataType &lt;ComparableType&gt;](params)
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">FuncName</span>[<span class="hljs-title">dataType</span> &lt;<span class="hljs-title">ComparableType</span>&gt;]<span class="hljs-params">(params)</span></span>
 </code></pre>
 <p>Pada kode di atas, tipe data <code>[]int</code> kita ganti menjadi tipe data <code>[]V</code>, yang di mana tipe <code>V</code> dideklarasikan dengan notasi <code>[V int]</code>. Tipe data <code>V</code> di situ artinya kompatibel atau <em>comparable</em> dengan tipe <code>int</code>. Bisa diambil kesimpulan kedua fungsi yang telah kita tulis adalah ekuivalen.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> Sum(numbers []<span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span> {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sum</span><span class="hljs-params">(numbers []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> {
     <span class="hljs-keyword">var</span> total <span class="hljs-keyword">int</span>
     <span class="hljs-comment">// ...</span>
 }
 
-<span class="hljs-keyword">func</span> Sum[V <span class="hljs-keyword">int</span>](numbers []V) V {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sum</span>[<span class="hljs-title">V</span> <span class="hljs-title">int</span>]<span class="hljs-params">(numbers []V)</span> <span class="hljs-title">V</span></span> {
     <span class="hljs-keyword">var</span> total V
     <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 <p>Ok, sekarang kita sudah mengubah penulisan kode fungsi <code>Sum</code> menggunakan Generic, tanpa merubah kegunaan fungsi. Coba jalankan aplikasi untuk mengetes hasilnya.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> Sum[V <span class="hljs-keyword">int</span>](numbers []V) V {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sum</span>[<span class="hljs-title">V</span> <span class="hljs-title">int</span>]<span class="hljs-params">(numbers []V)</span> <span class="hljs-title">V</span></span> {
     <span class="hljs-keyword">var</span> total V
     <span class="hljs-keyword">for</span> _, e := <span class="hljs-keyword">range</span> numbers {
         total += e
@@ -2095,7 +2090,7 @@
     <span class="hljs-keyword">return</span> total
 }
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     total1 := Sum([]<span class="hljs-keyword">int</span>{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>})
     fmt.Println(<span class="hljs-string">&quot;total: &quot;</span>, total1)
 }
@@ -2103,7 +2098,7 @@
 <p><img src="images/A_generics_1.png" alt="Dasar Pemrograman Golang - Golang generic"></p>
 <h2 id="a653-comparable-data-type-pada-fungsi-generic">A.65.3. Comparable Data Type pada Fungsi Generic</h2>
 <p>Selanjutnya kita modifikasi lagi fungsi <code>Sum</code> agar tipe kompatibel <code>V</code> di sini kompatibel dengan tipe numerik lainnya seperti <code>float64</code>. Caranya sangat mudah, cukup tambahkan tipe datanya pada statement <code>V int</code> dengan delimiter pipe (<code>|</code>).</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> Sum[V <span class="hljs-keyword">int</span> | <span class="hljs-keyword">float32</span> | <span class="hljs-keyword">float64</span>](numbers []V) V {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sum</span>[<span class="hljs-title">V</span> <span class="hljs-title">int</span> | <span class="hljs-title">float32</span> | <span class="hljs-title">float64</span>]<span class="hljs-params">(numbers []V)</span> <span class="hljs-title">V</span></span> {
     <span class="hljs-keyword">var</span> total V
     <span class="hljs-keyword">for</span> _, e := <span class="hljs-keyword">range</span> numbers {
         total += e
@@ -2140,7 +2135,7 @@ Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">floa
 <p>Sekarang kita akan belajar kegunaan satu keyword penting, yaitu <code>comparable</code>. Keyword tersebut merupakan tipe data yang kompatibel dengan semua tipe yang ada.</p>
 <p>Pada kode di atas kita menggunakan <code>V int | float32 | float64</code> untuk mendefinisikan tipe yang kompatibel dengan tipe <code>int</code>, <code>float32</code>, dan <code>float64</code>. Jika ingin membuat tipe <code>V</code> kompatibel dengan banyak tipe lainnya, tambahkan saja tipe2 yang diinginkan. Atau, jika ingin kompatibel dengan <strong>semua tipe data</strong> maka gunakan <code>comparable</code>, penulisannya menjadi <code>V comparable</code>.</p>
 <p>Ok, mari kita coba terapkan. O iya, sebelum mulai, agar pembaca makin paham perihal fungsi generic, kita siapkan 2 fungsi yang mirip berikut:</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> SumNumbers1(m <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int64</span>) <span class="hljs-keyword">int64</span> {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SumNumbers1</span><span class="hljs-params">(m <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int64</span>)</span> <span class="hljs-title">int64</span></span> {
     <span class="hljs-keyword">var</span> s <span class="hljs-keyword">int64</span>
     <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> m {
         s += v
@@ -2148,7 +2143,7 @@ Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">floa
     <span class="hljs-keyword">return</span> s
 }
 
-<span class="hljs-keyword">func</span> SumNumbers2[K comparable, V <span class="hljs-keyword">int64</span> | <span class="hljs-keyword">float64</span>](m <span class="hljs-keyword">map</span>[K]V) V {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SumNumbers2</span>[<span class="hljs-title">K</span> <span class="hljs-title">comparable</span>, <span class="hljs-title">V</span> <span class="hljs-title">int64</span> | <span class="hljs-title">float64</span>]<span class="hljs-params">(m <span class="hljs-keyword">map</span>[K]V)</span> <span class="hljs-title">V</span></span> {
     <span class="hljs-keyword">var</span> s V
     <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> m {
         s += v
@@ -2156,7 +2151,7 @@ Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">floa
     <span class="hljs-keyword">return</span> s
 }
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     ints := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int64</span>{ <span class="hljs-string">&quot;first&quot;</span>: <span class="hljs-number">34</span>, <span class="hljs-string">&quot;second&quot;</span>: <span class="hljs-number">12</span> }
     floats := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">float64</span>{ <span class="hljs-string">&quot;first&quot;</span>: <span class="hljs-number">35.98</span>, <span class="hljs-string">&quot;second&quot;</span>: <span class="hljs-number">26.99</span> }
 
@@ -2192,7 +2187,7 @@ Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">floa
     <span class="hljs-keyword">int64</span> | <span class="hljs-keyword">float64</span>
 }
 
-<span class="hljs-keyword">func</span> SumNumbers3[K comparable, V Number](m <span class="hljs-keyword">map</span>[K]V) V {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SumNumbers3</span>[<span class="hljs-title">K</span> <span class="hljs-title">comparable</span>, <span class="hljs-title">V</span> <span class="hljs-title">Number</span>]<span class="hljs-params">(m <span class="hljs-keyword">map</span>[K]V)</span> <span class="hljs-title">V</span></span> {
     <span class="hljs-keyword">var</span> s V
     <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> m {
         s += v
@@ -2212,15 +2207,15 @@ Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">floa
     Scores []T
 }
 
-<span class="hljs-keyword">func</span> (m *UserModel[<span class="hljs-keyword">int</span>]) SetScoresA(scores []<span class="hljs-keyword">int</span>) {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m *UserModel[<span class="hljs-keyword">int</span>])</span> <span class="hljs-title">SetScoresA</span><span class="hljs-params">(scores []<span class="hljs-keyword">int</span>)</span></span> {
     m.Scores = scores
 }
 
-<span class="hljs-keyword">func</span> (m *UserModel[<span class="hljs-keyword">float64</span>]) SetScoresB(scores []<span class="hljs-keyword">float64</span>) {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m *UserModel[<span class="hljs-keyword">float64</span>])</span> <span class="hljs-title">SetScoresB</span><span class="hljs-params">(scores []<span class="hljs-keyword">float64</span>)</span></span> {
     m.Scores = scores
 }
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     <span class="hljs-keyword">var</span> m1 UserModel[<span class="hljs-keyword">int</span>]
     m1.Name = <span class="hljs-string">&quot;Noval&quot;</span>
     m1.Scores = []<span class="hljs-keyword">int</span>{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>}
@@ -2269,12 +2264,56 @@ Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">floa
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.65. Go Generics","level":"3.1.65","depth":2,"next":{"title":"B. Pemrograman Web Go Dasar","level":"4.1","depth":1,"ref":"","articles":[{"title":"B.1. Golang Web App: Hello World","level":"4.1.1","depth":2,"path":"B-golang-web-hello-world.md","ref":"B-golang-web-hello-world.md","articles":[]},{"title":"B.2. Routing http.HandleFunc","level":"4.1.2","depth":2,"path":"B-routing-http-handlefunc.md","ref":"B-routing-http-handlefunc.md","articles":[]},{"title":"B.3. Routing Static Assets","level":"4.1.3","depth":2,"path":"B-routing-static-assets.md","ref":"B-routing-static-assets.md","articles":[]},{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"path":"B-template-render-html.md","ref":"B-template-render-html.md","articles":[]},{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"path":"B-template-actions-variables.md","ref":"B-template-actions-variables.md","articles":[]},{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},{"title":"B.8. Template: Custom Functions","level":"4.1.8","depth":2,"path":"B-template-custom-functions.md","ref":"B-template-custom-functions.md","articles":[]},{"title":"B.9. Template: Render Specific HTML Template","level":"4.1.9","depth":2,"path":"B-render-specific-html-template.md","ref":"B-render-specific-html-template.md","articles":[]},{"title":"B.10. Template: Render HTML String","level":"4.1.10","depth":2,"path":"B-render-html-string.md","ref":"B-render-html-string.md","articles":[]},{"title":"B.11. HTTP Method: POST & GET","level":"4.1.11","depth":2,"path":"B-http-method-basic.md","ref":"B-http-method-basic.md","articles":[]},{"title":"B.12. Form Value","level":"4.1.12","depth":2,"path":"B-form-value.md","ref":"B-form-value.md","articles":[]},{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"path":"B-form-upload-file.md","ref":"B-form-upload-file.md","articles":[]},{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"path":"B-ajax-json-payload.md","ref":"B-ajax-json-payload.md","articles":[]},{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"path":"B-middleware-using-http-handler.md","ref":"B-middleware-using-http-handler.md","articles":[]},{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"path":"B-custom-mux-multiplexer.md","ref":"B-custom-mux-multiplexer.md","articles":[]},{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"path":"B-simple-configuration.md","ref":"B-simple-configuration.md","articles":[]},{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]}]},"previous":{"title":"A.64. Concurrency Pattern: Context Cancellation Pipeline","level":"3.1.64","depth":2,"path":"A-pipeline-context-cancellation.md","ref":"A-pipeline-context-cancellation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-golang-generics.md","mtime":"2023-06-08T07:10:56.619Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T07:12:17.261Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.65. Go Generics","level":"3.1.65","depth":2,"next":{"title":"B. Pemrograman Web Go Dasar","level":"4.1","depth":1,"ref":"","articles":[{"title":"B.1. Golang Web App: Hello World","level":"4.1.1","depth":2,"path":"B-golang-web-hello-world.md","ref":"B-golang-web-hello-world.md","articles":[]},{"title":"B.2. Routing http.HandleFunc","level":"4.1.2","depth":2,"path":"B-routing-http-handlefunc.md","ref":"B-routing-http-handlefunc.md","articles":[]},{"title":"B.3. Routing Static Assets","level":"4.1.3","depth":2,"path":"B-routing-static-assets.md","ref":"B-routing-static-assets.md","articles":[]},{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"path":"B-template-render-html.md","ref":"B-template-render-html.md","articles":[]},{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"path":"B-template-actions-variables.md","ref":"B-template-actions-variables.md","articles":[]},{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},{"title":"B.8. Template: Custom Functions","level":"4.1.8","depth":2,"path":"B-template-custom-functions.md","ref":"B-template-custom-functions.md","articles":[]},{"title":"B.9. Template: Render Specific HTML Template","level":"4.1.9","depth":2,"path":"B-render-specific-html-template.md","ref":"B-render-specific-html-template.md","articles":[]},{"title":"B.10. Template: Render HTML String","level":"4.1.10","depth":2,"path":"B-render-html-string.md","ref":"B-render-html-string.md","articles":[]},{"title":"B.11. HTTP Method: POST & GET","level":"4.1.11","depth":2,"path":"B-http-method-basic.md","ref":"B-http-method-basic.md","articles":[]},{"title":"B.12. Form Value","level":"4.1.12","depth":2,"path":"B-form-value.md","ref":"B-form-value.md","articles":[]},{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"path":"B-form-upload-file.md","ref":"B-form-upload-file.md","articles":[]},{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"path":"B-ajax-json-payload.md","ref":"B-ajax-json-payload.md","articles":[]},{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"path":"B-middleware-using-http-handler.md","ref":"B-middleware-using-http-handler.md","articles":[]},{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"path":"B-custom-mux-multiplexer.md","ref":"B-custom-mux-multiplexer.md","articles":[]},{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"path":"B-simple-configuration.md","ref":"B-simple-configuration.md","articles":[]},{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]}]},"previous":{"title":"A.64. Concurrency Pattern: Context Cancellation Pipeline","level":"3.1.64","depth":2,"path":"A-pipeline-context-cancellation.md","ref":"A-pipeline-context-cancellation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-golang-generics.md","mtime":"2023-06-08T08:06:37.747Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:06:52.358Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2284,18 +2323,6 @@ Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">floa
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
-        
-    
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

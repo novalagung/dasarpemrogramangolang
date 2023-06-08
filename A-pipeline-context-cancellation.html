@@ -2,11 +2,10 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang Concurrency Pattern: Context Cancellation Pipeline &#xB7; GitBook</title>
+        <title>Golang Concurrency Pattern: Context Cancellation Pipeline &#xB7; HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="generator" content="HonKit 4.0.7">
         
         
         
@@ -24,11 +23,7 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
-                
-            
-                
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
                 
@@ -80,7 +75,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.071245"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.080718"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -89,7 +84,7 @@
 		</script></head>
     <body>
         
-<div class="book">
+<div class="book honkit-cloak">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1999,8 +1994,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
         </a>
     </li>
 </ul>
@@ -2076,7 +2071,7 @@
 }
 </code></pre>
 <h4 id="fungsi-main">&#x2022; Fungsi <code>main()</code></h4>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     log.Println(<span class="hljs-string">&quot;start&quot;</span>)
     start := time.Now()
 
@@ -2087,7 +2082,7 @@
 }
 </code></pre>
 <h4 id="fungsi-randomstring">&#x2022; Fungsi <code>randomString()</code></h4>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> randomString(length <span class="hljs-keyword">int</span>) <span class="hljs-keyword">string</span> {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">randomString</span><span class="hljs-params">(length <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">string</span></span> {
     randomizer := rand.New(rand.NewSource(time.Now().Unix()))
     letters := []<span class="hljs-keyword">rune</span>(<span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>)
 
@@ -2101,7 +2096,7 @@
 }
 </code></pre>
 <h4 id="fungsi-generatefiles">&#x2022; Fungsi <code>generateFiles()</code></h4>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFiles() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateFiles</span><span class="hljs-params">()</span></span> {
     os.RemoveAll(tempPath)
     os.MkdirAll(tempPath, os.ModePerm)
 
@@ -2128,10 +2123,10 @@
 }
 </code></pre>
 <h4 id="fungsi-generatefileindexes">&#x2022; Fungsi <code>generateFileIndexes()</code></h4>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFileIndexes() &lt;-<span class="hljs-keyword">chan</span> FileInfo {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateFileIndexes</span><span class="hljs-params">()</span> &lt;-<span class="hljs-title">chan</span> <span class="hljs-title">FileInfo</span></span> {
     chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
 
-    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
         <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; totalFile; i++ {
             chanOut &lt;- FileInfo{
                 Index:    i,
@@ -2145,15 +2140,15 @@
 }
 </code></pre>
 <h4 id="fungsi-createfiles">&#x2022; Fungsi <code>createFiles()</code></h4>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> createFiles(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo, numberOfWorkers <span class="hljs-keyword">int</span>) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createFiles</span><span class="hljs-params">(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo, numberOfWorkers <span class="hljs-keyword">int</span>)</span> &lt;-<span class="hljs-title">chan</span> <span class="hljs-title">FileInfo</span></span> {
     chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
 
     wg := <span class="hljs-built_in">new</span>(sync.WaitGroup)
     wg.Add(numberOfWorkers)
 
-    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
         <span class="hljs-keyword">for</span> workerIndex := <span class="hljs-number">0</span>; workerIndex &lt; numberOfWorkers; workerIndex++ {
-            <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(workerIndex <span class="hljs-keyword">int</span>) {
+            <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(workerIndex <span class="hljs-keyword">int</span>)</span></span> {
                 <span class="hljs-keyword">for</span> job := <span class="hljs-keyword">range</span> chanIn {
                     filePath := filepath.Join(tempPath, job.FileName)
                     content := randomString(contentLength)
@@ -2173,7 +2168,7 @@
         }
     }()
 
-    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
         wg.Wait()
         <span class="hljs-built_in">close</span>(chanOut)
     }()
@@ -2238,18 +2233,18 @@ generateFilesWithContext(ctx)
 </ul>
 <h4 id="modifikasi-fungsi-generatefiles">&#x2022; Modifikasi fungsi <code>generateFiles()</code></h4>
 <p>Isi dari fungsi <code>generateFiles()</code> kita ubah menjadi pemanggilan fungsi <code>generateFilesWithContext()</code> dengan parameter context kosong.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFiles() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateFiles</span><span class="hljs-params">()</span></span> {
     generateFilesWithContext(context.Background())
 }
 </code></pre>
 <p>Pada fungsi <code>generateFilesWithContext()</code> sendiri, isinya adalah isi <code>generateFiles()</code> sebelumnya tapi ditambahkan beberapa hal. Silakan tulis dulu kode berikut.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFilesWithContext(ctx context.Context) {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateFilesWithContext</span><span class="hljs-params">(ctx context.Context)</span></span> {
     os.RemoveAll(tempPath)
     os.MkdirAll(tempPath, os.ModePerm)
 
     done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)
 
-    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
         <span class="hljs-comment">// pipeline 1: job distribution</span>
         chanFileIndex := generateFileIndexes(ctx)
 
@@ -2291,10 +2286,10 @@ generateFilesWithContext(ctx)
 <p>Kenapa ini perlu? karena <strong>meski eksekusi fungsi <code>generateFilesWithContext()</code> otomatis di stop ketika cancelled, proses di dalamnya akan tetap berjalan jika tidak di-<em>handle</em> dengan baik <em>cancellation</em>-nya.</strong></p>
 <p>Maka dari itu kita perlu memodifikasi, memastikan bahwa cancellation juga diberlakukan dalam level sub proses.</p>
 <p>Silakan tulis kode berikut pada fungsi <code>generateFileIndexes()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFileIndexes(ctx context.Context) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateFileIndexes</span><span class="hljs-params">(ctx context.Context)</span> &lt;-<span class="hljs-title">chan</span> <span class="hljs-title">FileInfo</span></span> {
     chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
 
-    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
         <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; totalFile; i++ {
             <span class="hljs-keyword">select</span> {
             <span class="hljs-keyword">case</span> &lt;-ctx.Done():
@@ -2321,15 +2316,15 @@ generateFilesWithContext(ctx)
 <p>Hal yang sama (cancel di level sub prosees) juga perlu diterapkan pada <code>createFiles()</code>, karena jika tidak, maka proses pembuatan file akan tetap berjalan sesuai dengan jumlah jobs yang dikirim meskipun sudah di-cancel secara paksa.</p>
 <p>Sebenarnya penambahan cancellation pada fungsi <code>generateFiles()</code> sudah cukup, karena ketika cancelled maka sisa jobs tidak akan dikirim. Tapi pada contoh ini penulis ingin ketika cancelled, maka tidak hanya pengiriman jobs tapi eksekusi jobs juga di-stop secara paksa (meski mungkin masih ada sebagian jobs yang masih dalam antrian).</p>
 <p>Silakan tulis kode berikut.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> createFiles(ctx context.Context, chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo, numberOfWorkers <span class="hljs-keyword">int</span>) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createFiles</span><span class="hljs-params">(ctx context.Context, chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo, numberOfWorkers <span class="hljs-keyword">int</span>)</span> &lt;-<span class="hljs-title">chan</span> <span class="hljs-title">FileInfo</span></span> {
     chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
 
     wg := <span class="hljs-built_in">new</span>(sync.WaitGroup)
     wg.Add(numberOfWorkers)
 
-    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
         <span class="hljs-keyword">for</span> workerIndex := <span class="hljs-number">0</span>; workerIndex &lt; numberOfWorkers; workerIndex++ {
-            <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(workerIndex <span class="hljs-keyword">int</span>) {
+            <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(workerIndex <span class="hljs-keyword">int</span>)</span></span> {
                 <span class="hljs-keyword">for</span> job := <span class="hljs-keyword">range</span> chanIn {
                     <span class="hljs-keyword">select</span> {
                     <span class="hljs-keyword">case</span> &lt;-ctx.Done():
@@ -2354,7 +2349,7 @@ generateFilesWithContext(ctx)
         }
     }()
 
-    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
         wg.Wait()
         <span class="hljs-built_in">close</span>(chanOut)
     }()
@@ -2419,12 +2414,56 @@ generateFilesWithContext(ctx)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.64. Concurrency Pattern: Context Cancellation Pipeline","level":"3.1.64","depth":2,"next":{"title":"A.65. Go Generics","level":"3.1.65","depth":2,"path":"A-golang-generics.md","ref":"A-golang-generics.md","articles":[]},"previous":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"path":"A-simplified-fan-in-fan-out-pipeline.md","ref":"A-simplified-fan-in-fan-out-pipeline.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-pipeline-context-cancellation.md","mtime":"2023-06-08T07:10:56.623Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T07:12:17.261Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.64. Concurrency Pattern: Context Cancellation Pipeline","level":"3.1.64","depth":2,"next":{"title":"A.65. Go Generics","level":"3.1.65","depth":2,"path":"A-golang-generics.md","ref":"A-golang-generics.md","articles":[]},"previous":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"path":"A-simplified-fan-in-fan-out-pipeline.md","ref":"A-simplified-fan-in-fan-out-pipeline.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-pipeline-context-cancellation.md","mtime":"2023-06-08T08:06:37.747Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:06:52.358Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2434,18 +2473,6 @@ generateFilesWithContext(ctx)
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
-        
-    
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

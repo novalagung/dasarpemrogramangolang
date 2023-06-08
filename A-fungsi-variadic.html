@@ -2,11 +2,10 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang Fungsi Variadic &#xB7; GitBook</title>
+        <title>Golang Fungsi Variadic &#xB7; HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="generator" content="HonKit 4.0.7">
         
         
         
@@ -24,11 +23,7 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
-                
-            
-                
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
                 
@@ -80,7 +75,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.071245"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.080718"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -89,7 +84,7 @@
 		</script></head>
     <body>
         
-<div class="book">
+<div class="book honkit-cloak">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1999,8 +1994,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
         </a>
     </li>
 </ul>
@@ -2046,13 +2041,13 @@
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     <span class="hljs-keyword">var</span> avg = calculate(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>)
     <span class="hljs-keyword">var</span> msg = fmt.Sprintf(<span class="hljs-string">&quot;Rata-rata : %.2f&quot;</span>, avg)
     fmt.Println(msg)
 }
 
-<span class="hljs-keyword">func</span> calculate(numbers ...<span class="hljs-keyword">int</span>) <span class="hljs-keyword">float64</span> {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">calculate</span><span class="hljs-params">(numbers ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">float64</span></span> {
     <span class="hljs-keyword">var</span> total <span class="hljs-keyword">int</span> = <span class="hljs-number">0</span>
     <span class="hljs-keyword">for</span> _, number := <span class="hljs-keyword">range</span> numbers {
         total += number
@@ -2065,7 +2060,7 @@
 <p>Output program:</p>
 <p><img src="images/A_fungsi_variadic_1_variadic_param.png" alt="Dasar Pemrograman Golang - Contoh penerapan parameter variadic"></p>
 <p>Bisa dilihat pada fungsi <code>calculate()</code>, parameter <code>numbers</code> dideklarasikan dengan disisipkan tanda 3 titik (<code>...</code>), menandakan bahwa <code>numbers</code> adalah sebuah parameter variadic dengan tipe data <code>int</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> calculate(numbers ...<span class="hljs-keyword">int</span>) <span class="hljs-keyword">float64</span> {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">calculate</span><span class="hljs-params">(numbers ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">float64</span></span> {
 </code></pre>
 <p>Pemanggilan fungsi dilakukan seperti biasa, hanya saja jumlah parameter yang disisipkan bisa banyak.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> avg = calculate(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>)
@@ -2107,7 +2102,7 @@ fmt.Println(msg)
 <pre><code class="lang-go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;strings&quot;</span>
 
-<span class="hljs-keyword">func</span> yourHobbies(name <span class="hljs-keyword">string</span>, hobbies ...<span class="hljs-keyword">string</span>) {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">yourHobbies</span><span class="hljs-params">(name <span class="hljs-keyword">string</span>, hobbies ...<span class="hljs-keyword">string</span>)</span></span> {
     <span class="hljs-keyword">var</span> hobbiesAsString = strings.Join(hobbies, <span class="hljs-string">&quot;, &quot;</span>)
 
     fmt.Printf(<span class="hljs-string">&quot;Hello, my name is: %s\n&quot;</span>, name)
@@ -2116,12 +2111,12 @@ fmt.Println(msg)
 </code></pre>
 <p>Nilai parameter pertama fungsi <code>yourHobbies()</code> akan ditampung oleh <code>name</code>, sedangkan nilai parameter kedua dan seterusnya akan ditampung oleh <code>hobbies</code> sebagai slice.</p>
 <p>Cara pemanggilannya masih sama seperi pada fungsi biasa.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     yourHobbies(<span class="hljs-string">&quot;wick&quot;</span>, <span class="hljs-string">&quot;sleeping&quot;</span>, <span class="hljs-string">&quot;eating&quot;</span>)
 }
 </code></pre>
 <p>Jika parameter kedua dan seterusnya ingin diisi dengan data dari slice, maka gunakan tanda titik tiga kali.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     <span class="hljs-keyword">var</span> hobbies = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;sleeping&quot;</span>, <span class="hljs-string">&quot;eating&quot;</span>}
     yourHobbies(<span class="hljs-string">&quot;wick&quot;</span>, hobbies...)
 }
@@ -2163,12 +2158,56 @@ fmt.Println(msg)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.20. Fungsi Variadic","level":"3.1.20","depth":2,"next":{"title":"A.21. Fungsi Closure","level":"3.1.21","depth":2,"path":"A-fungsi-closure.md","ref":"A-fungsi-closure.md","articles":[]},"previous":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-fungsi-variadic.md","mtime":"2023-06-08T07:10:56.619Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T07:12:17.261Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.20. Fungsi Variadic","level":"3.1.20","depth":2,"next":{"title":"A.21. Fungsi Closure","level":"3.1.21","depth":2,"path":"A-fungsi-closure.md","ref":"A-fungsi-closure.md","articles":[]},"previous":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-fungsi-variadic.md","mtime":"2023-06-08T08:06:37.747Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:06:52.358Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2178,18 +2217,6 @@ fmt.Println(msg)
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
-        
-    
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

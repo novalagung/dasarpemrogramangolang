@@ -2,11 +2,10 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang Web Socket: Chatting App &#xB7; GitBook</title>
+        <title>Golang Web Socket: Chatting App &#xB7; HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="generator" content="HonKit 4.0.7">
         
         
         
@@ -24,11 +23,7 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
-                
-            
-                
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
                 
@@ -78,7 +73,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.071245"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.080718"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -87,7 +82,7 @@
 		</script></head>
     <body>
         
-<div class="book">
+<div class="book honkit-cloak">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1997,8 +1992,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
         </a>
     </li>
 </ul>
@@ -2044,9 +2039,9 @@
 <p><img src="images/D_golang_web_socket_chatting_app_3_chatting.png" alt="Dasar Pemrograman Golang - Chatting App"></p>
 <h2 id="d31-back-end">D.3.1. Back End</h2>
 <p>Buat folder project baru.</p>
-<pre><code class="lang-bash">mkdir chapter<span class="hljs-_">-d</span>3
-<span class="hljs-built_in">cd</span> chapter<span class="hljs-_">-d</span>3
-go mod init chapter<span class="hljs-_">-d</span>3
+<pre><code class="lang-bash">mkdir chapter-d3
+<span class="hljs-built_in">cd</span> chapter-d3
+go mod init chapter-d3
 
 go get -u github.com/gorilla/websocket@v1.4.1
 go get -u github.com/novalagung/gubrak/v2
@@ -2104,8 +2099,8 @@ go get -u github.com/novalagung/gubrak/v2
 </li>
 </ul>
 <p>Selanjutnya buat fungsi <code>main()</code>, siapkan satu buah rute, <code>/</code>, isinya menampilkan template view <code>index.html</code>. Siapkan juga rute <code>/ws</code> yang akan menjadi gateway komunikasi socket.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
-    http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
         content, err := ioutil.ReadFile(<span class="hljs-string">&quot;index.html&quot;</span>)
         <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
             http.Error(w, <span class="hljs-string">&quot;Could not open requested file&quot;</span>, http.StatusInternalServerError)
@@ -2115,7 +2110,7 @@ go get -u github.com/novalagung/gubrak/v2
         fmt.Fprintf(w, <span class="hljs-string">&quot;%s&quot;</span>, content)
     })
 
-    http.HandleFunc(<span class="hljs-string">&quot;/ws&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+    http.HandleFunc(<span class="hljs-string">&quot;/ws&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
         <span class="hljs-comment">// socket code here</span>
     })
 
@@ -2124,7 +2119,7 @@ go get -u github.com/novalagung/gubrak/v2
 }
 </code></pre>
 <p>Handler <code>/ws</code> diisi dengan proses untuk konversi koneksi HTTP ke koneksi web socket. Statement <code>websocket.Upgrade()</code> digunakan untuk ini. Pada statement tersebut, parameter ke-4 adalah besar read buffer, sedangkan parameter ke-5 adalah besar write buffer.</p>
-<pre><code class="lang-go">http.HandleFunc(<span class="hljs-string">&quot;/ws&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+<pre><code class="lang-go">http.HandleFunc(<span class="hljs-string">&quot;/ws&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
     currentGorillaConn, err := websocket.Upgrade(w, r, w.Header(), <span class="hljs-number">1024</span>, <span class="hljs-number">1024</span>)
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         http.Error(w, <span class="hljs-string">&quot;Could not open websocket connection&quot;</span>, http.StatusBadRequest)
@@ -2144,8 +2139,8 @@ go get -u github.com/novalagung/gubrak/v2
 <p>Slice <code>connections</code> menampung semua koneksi web socket, termasuk <code>currentConn</code>.</p>
 <p>Di akhir handler, fungsi <code>handleIO()</code> dipanggil sebagai sebuah goroutine, dalam pemanggilannya objek <code>currentConn</code> dan <code>connections</code> disisipkan. Tugas fungsi <code>handleIO()</code> ini adalah untuk me-manage komunikasi antara client dan server. Proses broadcast message ke semua client yg terhubung dilakukan dalam fungsi ini.</p>
 <p>Berikut adalah isi fungsi <code>handleIO()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> handleIO(currentConn *WebSocketConnection, connections []*WebSocketConnection) {
-    <span class="hljs-keyword">defer</span> <span class="hljs-keyword">func</span>() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">handleIO</span><span class="hljs-params">(currentConn *WebSocketConnection, connections []*WebSocketConnection)</span></span> {
+    <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
         <span class="hljs-keyword">if</span> r := <span class="hljs-built_in">recover</span>(); r != <span class="hljs-literal">nil</span> {
             log.Println(<span class="hljs-string">&quot;ERROR&quot;</span>, fmt.Sprintf(<span class="hljs-string">&quot;%v&quot;</span>, r))
         }
@@ -2179,8 +2174,8 @@ go get -u github.com/novalagung/gubrak/v2
 <p>Berikut adalah deklarasi fungsi <code>ejectConnection()</code> dan <code>broadcastMessage()</code>.</p>
 <ul>
 <li><p>Fungsi <code>ejectConnection()</code>:</p>
-<pre><code class="lang-go"> <span class="hljs-keyword">func</span> ejectConnection(currentConn *WebSocketConnection) {
-     filtered := gubrak.From(connections).Reject(<span class="hljs-keyword">func</span>(each *WebSocketConnection) <span class="hljs-keyword">bool</span> {
+<pre><code class="lang-go"> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ejectConnection</span><span class="hljs-params">(currentConn *WebSocketConnection)</span></span> {
+     filtered := gubrak.From(connections).Reject(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(each *WebSocketConnection)</span> <span class="hljs-title">bool</span></span> {
          <span class="hljs-keyword">return</span> each == currentConn
      }).Result()
      connections = filtered.([]*WebSocketConnection)
@@ -2188,7 +2183,7 @@ go get -u github.com/novalagung/gubrak/v2
 </code></pre>
 </li>
 <li><p>Fungsi <code>broadcastMessage()</code>:</p>
-<pre><code class="lang-go"> <span class="hljs-keyword">func</span> broadcastMessage(currentConn *WebSocketConnection, kind, message <span class="hljs-keyword">string</span>) {
+<pre><code class="lang-go"> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">broadcastMessage</span><span class="hljs-params">(currentConn *WebSocketConnection, kind, message <span class="hljs-keyword">string</span>)</span></span> {
      <span class="hljs-keyword">for</span> _, eachConn := <span class="hljs-keyword">range</span> connections {
          <span class="hljs-keyword">if</span> eachConn == currentConn {
              <span class="hljs-keyword">continue</span>
@@ -2213,14 +2208,14 @@ go get -u github.com/novalagung/gubrak/v2
 <li>Sebuah form dengan isi satu inputan text dan satu button. Nantinya user menulis pesan yang ingin di-broadcast ke inputan text, lalu klik button untuk submit message tersebut.</li>
 </ol>
 <p>Kurang lebih kode-nya seperti berikut.</p>
-<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>WebSocket<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><span class="undefined">
+    <span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span>
         // styles here
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -2235,7 +2230,7 @@ go get -u github.com/novalagung/gubrak/v2
         <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="actionscript">
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript">
         <span class="hljs-comment">// js script here</span>
     </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
@@ -2345,7 +2340,7 @@ app.init = <span class="hljs-function"><span class="hljs-keyword">function</span
 <pre><code class="lang-js">app.doSendMessage = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> messageRaw = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&apos;.input-message&apos;</span>).value
     app.ws.send(<span class="hljs-built_in">JSON</span>.stringify({
-        Message: messageRaw
+        <span class="hljs-attr">Message</span>: messageRaw
     }));
 
     <span class="hljs-keyword">var</span> message = <span class="hljs-string">&apos;&lt;b&gt;me&lt;/b&gt;: &apos;</span> + messageRaw
@@ -2398,12 +2393,56 @@ app.init = <span class="hljs-function"><span class="hljs-keyword">function</span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"previous":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"D-golang-web-socket-chatting-app.md","mtime":"2023-06-08T07:10:56.627Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T07:12:17.261Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"previous":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"D-golang-web-socket-chatting-app.md","mtime":"2023-06-08T08:06:37.755Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:06:52.358Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2413,18 +2452,6 @@ app.init = <span class="hljs-function"><span class="hljs-keyword">function</span
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
-        
-    
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

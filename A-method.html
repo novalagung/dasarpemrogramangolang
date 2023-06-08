@@ -2,11 +2,10 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang Method &#xB7; GitBook</title>
+        <title>Golang Method &#xB7; HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="generator" content="HonKit 4.0.7">
         
         
         
@@ -24,11 +23,7 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
-                
-            
-                
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
                 
@@ -80,7 +75,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.071245"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.080718"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -89,7 +84,7 @@
 		</script></head>
     <body>
         
-<div class="book">
+<div class="book honkit-cloak">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1999,8 +1994,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
         </a>
     </li>
 </ul>
@@ -2050,18 +2045,18 @@
     grade <span class="hljs-keyword">int</span>
 }
 
-<span class="hljs-keyword">func</span> (s student) sayHello() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s student)</span> <span class="hljs-title">sayHello</span><span class="hljs-params">()</span></span> {
     fmt.Println(<span class="hljs-string">&quot;halo&quot;</span>, s.name)
 }
 
-<span class="hljs-keyword">func</span> (s student) getNameAt(i <span class="hljs-keyword">int</span>) <span class="hljs-keyword">string</span> {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s student)</span> <span class="hljs-title">getNameAt</span><span class="hljs-params">(i <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">string</span></span> {
     <span class="hljs-keyword">return</span> strings.Split(s.name, <span class="hljs-string">&quot; &quot;</span>)[i<span class="hljs-number">-1</span>]
 }
 </code></pre>
 <p>Cara deklarasi method sama seperti fungsi, hanya saja perlu ditambahkan deklarasi variabel objek di sela-sela keyword <code>func</code> dan nama fungsi. Struct yang digunakan akan menjadi pemilik method.</p>
 <p><code>func (s student) sayHello()</code> maksudnya adalah fungsi <code>sayHello</code> dideklarasikan sebagai method milik struct <code>student</code>. Pada contoh di atas struct <code>student</code> memiliki dua buah method, yaitu <code>sayHello()</code> dan <code>getNameAt()</code>.</p>
 <p>Contoh pemanfaatan method bisa dilihat pada kode berikut.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     <span class="hljs-keyword">var</span> s1 = student{<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-number">21</span>}
     s1.sayHello()
 
@@ -2076,11 +2071,11 @@
 <span class="hljs-keyword">var</span> name = s1.getNameAt(<span class="hljs-number">2</span>)
 </code></pre>
 <p>Method memiliki sifat yang sama persis dengan fungsi biasa. Seperti bisa berparameter, memiliki nilai balik, dan lainnya. Dari segi sintaks, pembedanya hanya ketika pengaksesan dan deklarasi. Bisa dilihat di kode berikut, sekilas perbandingan penulisan fungsi dan method.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> sayHello() {
-<span class="hljs-keyword">func</span> (s student) sayHello() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sayHello</span><span class="hljs-params">()</span></span> {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s student)</span> <span class="hljs-title">sayHello</span><span class="hljs-params">()</span></span> {
 
-<span class="hljs-keyword">func</span> getNameAt(i <span class="hljs-keyword">int</span>) <span class="hljs-keyword">string</span> {
-<span class="hljs-keyword">func</span> (s student) getNameAt(i <span class="hljs-keyword">int</span>) <span class="hljs-keyword">string</span> {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getNameAt</span><span class="hljs-params">(i <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">string</span></span> {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s student)</span> <span class="hljs-title">getNameAt</span><span class="hljs-params">(i <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">string</span></span> {
 </code></pre>
 <h2 id="a252-method-pointer">A.25.2. Method Pointer</h2>
 <p>Method pointer adalah method yang variabel objek pemilik method tersebut berupa pointer.</p>
@@ -2094,17 +2089,17 @@
     grade <span class="hljs-keyword">int</span>
 }
 
-<span class="hljs-keyword">func</span> (s student) changeName1(name <span class="hljs-keyword">string</span>) {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s student)</span> <span class="hljs-title">changeName1</span><span class="hljs-params">(name <span class="hljs-keyword">string</span>)</span></span> {
     fmt.Println(<span class="hljs-string">&quot;---&gt; on changeName1, name changed to&quot;</span>, name)
     s.name = name
 }
 
-<span class="hljs-keyword">func</span> (s *student) changeName2(name <span class="hljs-keyword">string</span>) {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *student)</span> <span class="hljs-title">changeName2</span><span class="hljs-params">(name <span class="hljs-keyword">string</span>)</span></span> {
     fmt.Println(<span class="hljs-string">&quot;---&gt; on changeName2, name changed to&quot;</span>, name)
     s.name = name
 }
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     <span class="hljs-keyword">var</span> s1 = student{<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-number">21</span>}
     fmt.Println(<span class="hljs-string">&quot;s1 before&quot;</span>, s1.name)
     <span class="hljs-comment">// john wick</span>
@@ -2177,12 +2172,56 @@ s2.sayHello()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.25. Method","level":"3.1.25","depth":2,"next":{"title":"A.26. Properti Public dan Private (Exported vs Unexported)","level":"3.1.26","depth":2,"path":"A-properti-public-dan-private.md","ref":"A-properti-public-dan-private.md","articles":[]},"previous":{"title":"A.24. Struct","level":"3.1.24","depth":2,"path":"A-struct.md","ref":"A-struct.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-method.md","mtime":"2023-06-08T07:10:56.623Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T07:12:17.261Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.25. Method","level":"3.1.25","depth":2,"next":{"title":"A.26. Properti Public dan Private (Exported vs Unexported)","level":"3.1.26","depth":2,"path":"A-properti-public-dan-private.md","ref":"A-properti-public-dan-private.md","articles":[]},"previous":{"title":"A.24. Struct","level":"3.1.24","depth":2,"path":"A-struct.md","ref":"A-struct.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-method.md","mtime":"2023-06-08T08:06:37.747Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:06:52.358Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2192,18 +2231,6 @@ s2.sayHello()
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
-        
-    
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

@@ -2,11 +2,10 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang File &#xB7; GitBook</title>
+        <title>Golang File &#xB7; HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="generator" content="HonKit 4.0.7">
         
         
         
@@ -24,11 +23,7 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
-                
-            
-                
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
                 
@@ -80,7 +75,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.071245"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.080718"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -89,7 +84,7 @@
 		</script></head>
     <body>
         
-<div class="book">
+<div class="book honkit-cloak">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1999,8 +1994,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
         </a>
     </li>
 </ul>
@@ -2047,7 +2042,7 @@
 
 <span class="hljs-keyword">var</span> path = <span class="hljs-string">&quot;/Users/novalagung/Documents/temp/test.txt&quot;</span>
 
-<span class="hljs-keyword">func</span> isError(err error) <span class="hljs-keyword">bool</span> {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isError</span><span class="hljs-params">(err error)</span> <span class="hljs-title">bool</span></span> {
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         fmt.Println(err.Error())
     }
@@ -2055,7 +2050,7 @@
     <span class="hljs-keyword">return</span> (err != <span class="hljs-literal">nil</span>)
 }
 
-<span class="hljs-keyword">func</span> createFile() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createFile</span><span class="hljs-params">()</span></span> {
     <span class="hljs-comment">// deteksi apakah file sudah ada</span>
     <span class="hljs-keyword">var</span> _, err = os.Stat(path)
 
@@ -2069,7 +2064,7 @@
     fmt.Println(<span class="hljs-string">&quot;==&gt; file berhasil dibuat&quot;</span>, path)
 }
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     createFile()
 }
 </code></pre>
@@ -2079,7 +2074,7 @@
 <p><img src="images/A_file_1_create.png" alt="Dasar Pemrograman Golang - Membuat file baru"></p>
 <h2 id="a502-mengedit-isi-file">A.50.2. Mengedit Isi File</h2>
 <p>Untuk mengedit file, yang perlu dilakukan pertama adalah membuka file dengan level akses <strong>write</strong>. Setelah mendapatkan objek file-nya, gunakan method <code>WriteString()</code> untuk pengisian data. Terakhir panggil method <code>Sync()</code> untuk menyimpan perubahan.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> writeFile() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">writeFile</span><span class="hljs-params">()</span></span> {
     <span class="hljs-comment">// buka file dengan level akses READ &amp; WRITE</span>
     <span class="hljs-keyword">var</span> file, err = os.OpenFile(path, os.O_RDWR, <span class="hljs-number">0644</span>)
     <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
@@ -2098,7 +2093,7 @@
     fmt.Println(<span class="hljs-string">&quot;==&gt; file berhasil di isi&quot;</span>)
 }
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     writeFile()
 }
 </code></pre>
@@ -2109,7 +2104,7 @@
 <pre><code class="lang-go"><span class="hljs-comment">// tambahkan di bagian import package io</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;io&quot;</span>
 
-<span class="hljs-keyword">func</span> readFile() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">readFile</span><span class="hljs-params">()</span></span> {
     <span class="hljs-comment">// buka file</span>
     <span class="hljs-keyword">var</span> file, err = os.OpenFile(path, os.O_RDONLY, <span class="hljs-number">0644</span>)
     <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
@@ -2132,7 +2127,7 @@
     fmt.Println(<span class="hljs-keyword">string</span>(text))
 }
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     readFile()
 }
 </code></pre>
@@ -2147,14 +2142,14 @@
 <p><img src="images/A_file_3_read.png" alt="Dasar Pemrograman Golang - Membaca isi file"></p>
 <h2 id="a504-menghapus-file">A.50.4. Menghapus File</h2>
 <p>Cara menghapus file sangatlah mudah, cukup panggil fungsi <code>os.Remove()</code>, masukan path file yang ingin dihapus sebagai parameter.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> deleteFile() {
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">deleteFile</span><span class="hljs-params">()</span></span> {
     <span class="hljs-keyword">var</span> err = os.Remove(path)
     <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
 
     fmt.Println(<span class="hljs-string">&quot;==&gt; file berhasil di delete&quot;</span>)
 }
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     deleteFile()
 }
 </code></pre>
@@ -2194,12 +2189,56 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.50. File","level":"3.1.50","depth":2,"next":{"title":"A.51. Web Server","level":"3.1.51","depth":2,"path":"A-web-server.md","ref":"A-web-server.md","articles":[]},"previous":{"title":"A.49. Exec","level":"3.1.49","depth":2,"path":"A-exec.md","ref":"A-exec.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-file.md","mtime":"2023-06-08T07:10:56.619Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T07:12:17.261Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.50. File","level":"3.1.50","depth":2,"next":{"title":"A.51. Web Server","level":"3.1.51","depth":2,"path":"A-web-server.md","ref":"A-web-server.md","articles":[]},"previous":{"title":"A.49. Exec","level":"3.1.49","depth":2,"path":"A-exec.md","ref":"A-exec.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-file.md","mtime":"2023-06-08T08:06:37.747Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:06:52.358Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2209,18 +2248,6 @@
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
-        
-    
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

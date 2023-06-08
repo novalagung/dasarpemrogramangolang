@@ -2,11 +2,10 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang CSRF &#xB7; GitBook</title>
+        <title>Golang CSRF &#xB7; HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="generator" content="HonKit 4.0.7">
         
         
         
@@ -24,11 +23,7 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
-                
-            
-                
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
                 
@@ -80,7 +75,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.071245"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.080718"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -89,7 +84,7 @@
 		</script></head>
     <body>
         
-<div class="book">
+<div class="book honkit-cloak">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1999,8 +1994,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
         </a>
     </li>
 </ul>
@@ -2059,7 +2054,7 @@
 
 <span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
 
-<span class="hljs-keyword">func</span> main() {
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
     tmpl := template.Must(template.ParseGlob(<span class="hljs-string">&quot;./*.html&quot;</span>))
 
     e := echo.New()
@@ -2079,7 +2074,7 @@ e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
     ContextKey:  CSRFKey,
 }))
 
-e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
+e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {
     data := <span class="hljs-built_in">make</span>(M)
     data[CSRFKey] = c.Get(CSRFKey)
     <span class="hljs-keyword">return</span> tmpl.Execute(c.Response(), data)
@@ -2093,7 +2088,7 @@ e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-key
 <p>Isi value <code>TokenLookup</code> dengan <code>&quot;form:&lt;name&gt;&quot;</code> jika token disispkan dalam form data request, dan <code>&quot;query:&lt;name&gt;&quot;</code> jika token disisipkan dalam query string.</p>
 </blockquote>
 <p>Selanjutnya siapkan satu endpoint lagi, yaitu <code>/sayhello</code>, endpoint ini nantinya menjadi tujuan request yang di-dispatch dari event submit form.</p>
-<pre><code class="lang-go">e.POST(<span class="hljs-string">&quot;/sayhello&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
+<pre><code class="lang-go">e.POST(<span class="hljs-string">&quot;/sayhello&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {
     data := <span class="hljs-built_in">make</span>(M)
     <span class="hljs-keyword">if</span> err := c.Bind(&amp;data); err != <span class="hljs-literal">nil</span> {
         <span class="hljs-keyword">return</span> err
@@ -2106,7 +2101,7 @@ e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-key
 <p>Pada handler endpoint <code>/sayhello</code> tidak ada pengecekan token csrf, karena sudah ditangani secara implisit oleh middleware.</p>
 <h2 id="c153-front-end">C.15.3. Front End</h2>
 <p>Buat <code>view.html</code>, lalu isi kode berikut.</p>
-<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
@@ -2131,9 +2126,9 @@ e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-key
         <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://code.jquery.com/jquery-3.3.1.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://code.jquery.com/jquery-3.3.1.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="actionscript">
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript">
         <span class="hljs-comment">// JS code here ...</span>
     </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
@@ -2147,11 +2142,11 @@ e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-key
     $(<span class="hljs-string">&apos;form&apos;</span>).on(<span class="hljs-string">&apos;submit&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
         e.preventDefault()
 
-        <span class="hljs-keyword">var</span> self = $(<span class="hljs-keyword">this</span>)
+        <span class="hljs-keyword">var</span> self = $(<span class="hljs-built_in">this</span>)
 
         <span class="hljs-keyword">var</span> formData = {
-            name: self.find(<span class="hljs-string">&apos;[name=&quot;name&quot;]&apos;</span>).val(),
-            gender: self.find(<span class="hljs-string">&apos;[name=&quot;gender&quot;]&apos;</span>).val(),
+            <span class="hljs-attr">name</span>: self.find(<span class="hljs-string">&apos;[name=&quot;name&quot;]&apos;</span>).val(),
+            <span class="hljs-attr">gender</span>: self.find(<span class="hljs-string">&apos;[name=&quot;gender&quot;]&apos;</span>).val(),
         }
 
         <span class="hljs-keyword">var</span> url = self.attr(<span class="hljs-string">&apos;action&apos;</span>)
@@ -2159,11 +2154,11 @@ e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-key
         <span class="hljs-keyword">var</span> payload = <span class="hljs-built_in">JSON</span>.stringify(formData)
 
         $.ajax({
-            url: url,
-            type: method,
-            contentType: <span class="hljs-string">&apos;application/json&apos;</span>,
-            data: payload,
-            beforeSend: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req</span>) </span>{
+            <span class="hljs-attr">url</span>: url,
+            <span class="hljs-attr">type</span>: method,
+            <span class="hljs-attr">contentType</span>: <span class="hljs-string">&apos;application/json&apos;</span>,
+            <span class="hljs-attr">data</span>: payload,
+            <span class="hljs-attr">beforeSend</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req</span>) </span>{
                 <span class="hljs-keyword">var</span> csrfToken = self.find(<span class="hljs-string">&apos;[name=csrf]&apos;</span>).val()
                 req.setRequestHeader(<span class="hljs-string">&quot;X-CSRF-Token&quot;</span>, csrfToken)
             },
@@ -2199,7 +2194,7 @@ e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-key
 <p>Coba tembak langsung endpoint nya lewat CURL.</p>
 <pre><code class="lang-bash">$ curl -X POST http://localhost:9000/sayhello \
      -H <span class="hljs-string">&apos;Content-Type: application/json&apos;</span> \
-     <span class="hljs-_">-d</span> <span class="hljs-string">&apos;{&quot;name&quot;:&quot;noval&quot;,&quot;gender&quot;:&quot;male&quot;}&apos;</span>
+     -d <span class="hljs-string">&apos;{&quot;name&quot;:&quot;noval&quot;,&quot;gender&quot;:&quot;male&quot;}&apos;</span>
 </code></pre>
 <p><img src="images/C_csrf_2_csrf_curl.png" alt="Dasar Pemrograman Golang - CSRF test curl"></p>
 <p>Hasilnya error, karena token csrf tidak di-sisipkan. </p>
@@ -2243,12 +2238,56 @@ e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-key
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.15. CSRF","level":"5.1.15","depth":2,"next":{"title":"C.16. Secure Middleware","level":"5.1.16","depth":2,"path":"C-secure-middleware.md","ref":"C-secure-middleware.md","articles":[]},"previous":{"title":"C.14. CORS & Preflight Request","level":"5.1.14","depth":2,"path":"C-cors-preflight-request.md","ref":"C-cors-preflight-request.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-csrf.md","mtime":"2023-06-08T07:10:56.627Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T07:12:17.261Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.15. CSRF","level":"5.1.15","depth":2,"next":{"title":"C.16. Secure Middleware","level":"5.1.16","depth":2,"path":"C-secure-middleware.md","ref":"C-secure-middleware.md","articles":[]},"previous":{"title":"C.14. CORS & Preflight Request","level":"5.1.14","depth":2,"path":"C-cors-preflight-request.md","ref":"C-cors-preflight-request.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-csrf.md","mtime":"2023-06-08T08:06:37.751Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:06:52.358Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2258,18 +2297,6 @@ e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-key
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
-        
-    
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         
