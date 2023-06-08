@@ -2,6 +2,15 @@
 
 E-book Dasar Pemrograman Golang adalah proyek *open source*. Siapapun bebas untuk berkontribusi di sini, bisa dalam bentuk perbaikan *typo*, update kalimat, maupun submit tulisan baru. Bagi teman-teman yang berminat untuk berkontribusi, silakan *fork* https://github.com/novalagung/dasarpemrogramangolang, kemudian langsung saja cek/buat *issue* kemudian submit relevan *pull request* untuk issue tersebut 😊.
 
+## Local Development
+
+Jalankan command berikut untuk run project ini di local environment:
+
+```bash
+npm install
+npm run serve
+```
+
 ## Original Author
 
 E-book ini di-inisialisasi oleh [Noval Agung Prayogo](https://linktr.ee/novalagung).

@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "honkit build",
-    "serve": "honkit serve"
+    "serve": "cd content && honkit serve"
   },
   "repository": {
     "type": "git",
