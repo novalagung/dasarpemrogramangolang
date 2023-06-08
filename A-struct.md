@@ -8,7 +8,7 @@ Dari sebuah struct, kita bisa buat variabel baru, yang memiliki atribut sesuai s
 
 > Konsep struct di golang mirip dengan konsep **class** pada OOP, meski sebenarnya berbeda. Di sini penulis menggunakan konsep OOP sebagai analogi, dengan tujuan untuk mempermudah dalam mencerna isi chapter ini.
 
-Dengan memanfaatkan struct, grouping data akan lebih mudah, selain itu dan rapi dan gampang untuk di-maintain.
+Dengan memanfaatkan struct, grouping data akan lebih mudah, selain itu rapi dan gampang untuk di-maintain.
 
 ## A.24.1. Deklarasi Struct
 
