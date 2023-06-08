@@ -87,7 +87,7 @@ func postAdjustment() {
 		}(htmlString)
 
 		newTitle := oldTitle
-		isLandingPage := (oldTitle == "Introduction · HonKit") || (oldTitle == "Introduction &#xB7; HonKit")
+		isLandingPage := (oldTitle == "Introduction · GitBook") || (oldTitle == "Introduction · HonKit") || (oldTitle == "Introduction &#xB7; GitBook") || (oldTitle == "Introduction &#xB7; HonKit")
 		if isLandingPage {
 			newTitle = bookName
 		} else {
@@ -104,7 +104,9 @@ func postAdjustment() {
 			if newTitle == "Belajar Golang" {
 				newTitle = "Tutorial Gratis Belajar Dasar Pemrograman Golang Mulai Dari 0"
 			}
+			newTitle = strings.ReplaceAll(newTitle, "· GitBook", fmt.Sprintf("- %s", bookName))
 			newTitle = strings.ReplaceAll(newTitle, "· HonKit", fmt.Sprintf("- %s", bookName))
+			newTitle = strings.ReplaceAll(newTitle, "&#xB7; GitBook", fmt.Sprintf("- %s", bookName))
 			newTitle = strings.ReplaceAll(newTitle, "&#xB7; HonKit", fmt.Sprintf("- %s", bookName))
 
 			// ==== remove the "A.2"-ish from the title
