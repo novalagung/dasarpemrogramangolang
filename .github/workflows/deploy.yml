@@ -19,14 +19,14 @@ jobs:
         check-latest: true
     - name: 'Installing requirements'
       run: |
-        rm -f README.md
-        mv content/* .
-        mv etc/* .
         npm install -g gitbook-cli
         cd ~/.gitbook/versions/3.2.3 && npm i npm@5
         cd ${{ github.workspace }}
     - name: 'Generating distributable files'
       run: |
+        rm -f README.md
+        mv content/* .
+        mv etc/* .
         go run fix-webbook.go -type=pre
         gitbook install
         gitbook build
