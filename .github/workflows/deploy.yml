@@ -23,14 +23,14 @@ jobs:
       run: npm install -g gitbook-cli
     - name: 'Generating distributable files'
       run: |
-        go run adjustment.go -type=pre
+        go run fix-webbook.go -type=pre
         gitbook install
         cp ./book.json.template ./book.json
         cd ~/.gitbook/versions/3.2.3 && npm i npm@5
         cd ${{ github.workspace }}
         gitbook install
         gitbook build
-        go run adjustment.go -type=post
+        go run fix-webbook.go -type=post
         cd _book
         echo '<html><head><meta http-equiv="refresh" content="0; url=https://dasarpemrogramangolang.novalagung.com/"></head></html>' > 404.html
         rm -rf LICENSE
