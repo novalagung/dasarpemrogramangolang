@@ -23,11 +23,11 @@ jobs:
         mv content/* .
         mv etc/* .
         npm install -g gitbook-cli
-        cp ./book.json ./book.json.template
+        mv ./book.json ./book.json.template
         gitbook install
         cd ~/.gitbook/versions/3.2.3 && npm i npm@5
         cd ${{ github.workspace }}
-        cp ./book.json.template ./book.json
+        mv ./book.json.template ./book.json
         gitbook install
         go run fix-webbook.go -type=pre
         gitbook build
