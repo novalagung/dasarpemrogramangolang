@@ -11,27 +11,19 @@ jobs:
     name: 'deploy website'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 11
-        check-latest: true
-    - uses: actions/setup-go@v2
-      with:
-        go-version: 1.14
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+    - uses: actions/setup-go@v4
     - name: 'Installing requirements'
-      run: npm install -g gitbook-cli
-    - name: 'Generating distributable files'
       run: |
         rm -f README.md
         mv content/* .
         mv etc/* .
+        npm install
+    - name: 'Generating distributable files'
+      run: |
         go run fix-webbook.go -type=pre
-        gitbook install
-        cd ~/.gitbook/versions/3.2.3 && npm i npm@5
-        cd ${{ github.workspace }}
-        gitbook install
-        gitbook build
+        npm run build
         go run fix-webbook.go -type=post
         cd _book
         echo '<html><head><meta http-equiv="refresh" content="0; url=https://dasarpemrogramangolang.novalagung.com/"></head></html>' > 404.html
@@ -74,6 +66,7 @@ jobs:
         rm -f README.md
         mv content/* .
         mv etc/* .
+        rm -f book.json
         go run fix-ebook.go -type=pre
         mkdir _book
         gitbook install
