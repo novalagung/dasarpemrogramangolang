@@ -2,7 +2,6 @@
   "name": "dasarpemrogramangolang",
   "version": "1.0.0",
   "description": "Ebook belajar dasar pemrograman Go, mulai dari 0",
-  "main": "gitbook-plugin-disqus.js",
   "devDependencies": {
     "gitbook-plugin-disqus": "^1.0.1",
     "gitbook-plugin-docsearch-v3": "^1.0.1",
