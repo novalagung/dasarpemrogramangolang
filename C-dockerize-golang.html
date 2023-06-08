@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Dockerize Aplikasi Golang - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Dockerize Aplikasi Golang &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -75,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -84,7 +89,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1994,8 +1999,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2060,7 +2065,7 @@
     <span class="hljs-string">&quot;os&quot;</span>
 )
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     <span class="hljs-comment">// ...</span>
 }
 </code></pre>
@@ -2078,7 +2083,7 @@ instanceID := os.Getenv(<span class="hljs-string">&quot;INSTANCE_ID&quot;</span>
 </code></pre>
 <p>Selanjutnya siapkan satu buah <em>multiplexor</em> dengan isi satu buah route <code>GET /</code>, yang <em>handler</em>-nya mengembalikan sebuah pesan teks <code>Hello world</code>. Jika <em>env var</em> <code>INSTANCE_ID</code> di set, maka akan ditampilkan isinya sebagai bagian dari respon handler ini.</p>
 <pre><code class="lang-go">mux := http.NewServeMux()
-mux.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
+mux.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-keyword">if</span> r.Method != <span class="hljs-string">&quot;GET&quot;</span> {
         http.Error(w, <span class="hljs-string">&quot;http method not allowed&quot;</span>, http.StatusBadRequest)
         <span class="hljs-keyword">return</span>
@@ -2121,18 +2126,18 @@ go run main.go
 <p>Jadi sekarang buat file baru bernama <code>Dockerfile</code>, lalu isi dengan kode berikut.</p>
 <pre><code class="lang-dockerfile"><span class="hljs-keyword">FROM</span> golang:alpine
 
-<span class="hljs-keyword">RUN</span><span class="bash"> apk update &amp;&amp; apk add --no-cache git</span>
-
-<span class="hljs-keyword">WORKDIR</span><span class="bash"> /app</span>
-
-<span class="hljs-keyword">COPY</span><span class="bash"> . .</span>
-
-<span class="hljs-keyword">RUN</span><span class="bash"> go mod tidy</span>
-
-<span class="hljs-keyword">RUN</span><span class="bash"> go build -o binary</span>
-
-<span class="hljs-keyword">ENTRYPOINT</span><span class="bash"> [<span class="hljs-string">&quot;/app/binary&quot;</span>]</span>
-</code></pre>
+<span class="hljs-keyword">RUN</span> <span class="bash">apk update &amp;&amp; apk add --no-cache git
+</span>
+<span class="hljs-keyword">WORKDIR</span> <span class="bash">/app
+</span>
+<span class="hljs-keyword">COPY</span> <span class="bash">. .
+</span>
+<span class="hljs-keyword">RUN</span> <span class="bash">go mod tidy
+</span>
+<span class="hljs-keyword">RUN</span> <span class="bash">go build -o binary
+</span>
+<span class="hljs-keyword">ENTRYPOINT</span> <span class="bash">[<span class="hljs-string">&quot;/app/binary&quot;</span>]
+</span></code></pre>
 <p>Berikut adalah penjelasan per baris dari kode di atas.</p>
 <h4 id="1-statement-from-golangalpine">1. Statement <code>FROM golang:alpine</code></h4>
 <p>Keyword <code>FROM</code> ini digunakan untuk inisialisasi <em>build stage</em> dan juga menentukan basis Image yang digunakan. Informasi <code>golang:alpine</code> di sini adalah basis image yang dimaksud, yaitu image bernama <code>golang</code> dengan tag bernama <code>alpine</code> yang tersedia di laman officila Docker Hub Golang <a href="https://hub.docker.com/_/golang" target="_blank">https://hub.docker.com/_/golang</a>.</p>
@@ -2167,7 +2172,7 @@ docker build -t my-image-hello-world .
 <p><img src="images/C_dockerize_golang_2_build_image.png" alt="Dasar Pemrograman Golang - Build Image"></p>
 <h4 id="create-container">&#x2022; Create Container</h4>
 <p>Image sudah siap, sekarang mari kita buat container baru menggunakan basis image <code>my-image-hello-world</code>. <em>Command</em>-nya kurang lebih berikut:</p>
-<pre><code class="lang-bash">docker container create --name my-container-hello-world -e PORT=8080 -e INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
+<pre><code class="lang-bash">docker container create --name my-container-hello-world <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
 </code></pre>
 <p>Command di atas akan menjalankan sebuah proses yang isinya kurang lebih berikut:</p>
 <ol>
@@ -2211,15 +2216,15 @@ docker images
 <p>Atau bisa juga menggunakan <em>command</em> <code>docker run</code>. <em>Command</em> ini akan membuat container baru kemudian otomatis menjalankannya. Tapi saya sampaikan bahwa lewat cara ini tidak ada pengecekan apakah container sudah dibuat atau tidak sebelumnya, pasti akan dibuat container baru.</p>
 <p>Mungkin perbandingannya seperti ini:</p>
 <h4 id="jalankan-container-lewat-create-lalu-start">&#x2022; Jalankan container lewat <code>create</code> lalu <code>start</code></h4>
-<pre><code class="lang-bash">docker container create --name my-container-hello-world -e PORT=8080 -e INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
+<pre><code class="lang-bash">docker container create --name my-container-hello-world <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
 docker container start my-container-hello-world
 </code></pre>
 <h4 id="jalankan-container-lewat-run">&#x2022; Jalankan container lewat <code>run</code></h4>
-<pre><code class="lang-bash">docker container run --name my-container-hello-world -e PORT=8080 -e INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
+<pre><code class="lang-bash">docker container run --name my-container-hello-world <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
 </code></pre>
 <p>Bisa dilihat bukan bedanya, hanya sedikit.</p>
 <p>O iya, khusus untuk <em>command</em> <code>docker run</code> biasanya dijalankan dengan tambahan beberapa flag agar lebih mudah kontrol-nya, yaitu ditambahkan flag <code>--rm</code> dan <code>-it</code>.</p>
-<pre><code class="lang-bash">docker container run --name my-container-hello-world --rm -it -e PORT=8080 -e INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
+<pre><code class="lang-bash">docker container run --name my-container-hello-world --rm -it <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
 </code></pre>
 <h4 id="flag---rm">&#x2022; Flag <code>--rm</code></h4>
 <p>Flag ini digunakan untuk meng-automatisasi proses penghapusan container sewaktu container tersebut di stop. Jadi kita tidak perlu delete manual pakai <code>docker container rm</code>. Hal ini sangat membantu karena <em>command</em> <code>docker run</code> akan membuat container baru setiap dijalankan. Tapi sebenarnya pada contoh sebelumnya kita tidak perlu khawatir akan dibuat container baru karena sudah ada flag <code>--name</code>. Flag tersebut digunakan untuk menentukan nama container, yang di mana nama container harus unik. Jadi kalau ada duplikasi pasti langsung error. Nah dari sini berarti kalau temen-temen tidak pakai <code>--name</code> sangat dianjurkan paka <code>--rm</code> dalam penerapan <code>docker run</code>.</p>
@@ -2227,7 +2232,7 @@ docker container start my-container-hello-world
 <p>Flag ini merupakan flag gabungan antara <code>-i</code> yang digunakan untuk meng-enable <em>interactive mode</em> dan <code>-t</code> untuk <em>enable</em> <code>TTY</code>. Dengan ini kita bisa masuk ke mode interaktif yang di mana jika kita terminate atau kill command menggunakan <code>CTRL + C</code> atau <code>CMD + C</code> (untuk mac), maka otomatis container akan di stop.</p>
 <p>Nah dengan menggabungkan flag <code>--rm</code> dan flag <code>-it</code> kita bisa dengan mudah stop kemudian hapus container.</p>
 <p>Selain itu ada juga flag yang mungkin penting yaitu <code>-d</code> atau dettach. Flag ini bisa digabung dengan <code>-it</code>. Dettach adalah mode di mana ketika command <code>docker run</code> dijalankan, command akan langsung selesai. Dari sini untuk stop container berarti harus menggunakan command <code>docker stop</code>. Contoh:</p>
-<pre><code class="lang-bash">docker container run --name my-container-hello-world --rm -itd -e PORT=8080 -e INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
+<pre><code class="lang-bash">docker container run --name my-container-hello-world --rm -itd <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
 docker container stop my-container-hello-world
 </code></pre>
 <hr>
@@ -2265,56 +2270,12 @@ docker container stop my-container-hello-world
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.35. Dockerize Aplikasi Golang","level":"5.1.35","depth":2,"next":{"title":"C.36. Redis","level":"5.1.36","depth":2,"path":"C-golang-redis.md","ref":"C-golang-redis.md","articles":[]},"previous":{"title":"C.34. SSO SAML (Service Provider)","level":"5.1.34","depth":2,"path":"C-golang-sso-saml-sp.md","ref":"C-golang-sso-saml-sp.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-dockerize-golang.md","mtime":"2023-06-08T08:22:04.000Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.35. Dockerize Aplikasi Golang","level":"5.1.35","depth":2,"next":{"title":"C.36. Redis","level":"5.1.36","depth":2,"path":"C-golang-redis.md","ref":"C-golang-redis.md","articles":[]},"previous":{"title":"C.34. SSO SAML (Service Provider)","level":"5.1.34","depth":2,"path":"C-golang-sso-saml-sp.md","ref":"C-golang-sso-saml-sp.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-dockerize-golang.md","mtime":"2023-06-08T08:57:06.942Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2324,6 +2285,18 @@ docker container stop my-container-hello-world
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

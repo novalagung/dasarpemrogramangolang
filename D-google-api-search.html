@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Google API Search Dengan Timeout - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Google API Search Dengan Timeout &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -75,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -84,7 +89,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1994,8 +1999,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2035,9 +2040,9 @@
 <p>Proses pembelajaran dilakukan dengan praktek membuat sebuah aplikasi web service kecil, yang tugasnya melakukan pencarian data. Nantinya akan dibuat juga middleware <code>MiddlewareUtility</code>, tugasnya menyisipkan informasi origin dispatcher request, ke dalam context request, sebelum akhirnya sampai pada handler endpoint yg sedang diakses.</p>
 <h2 id="d21-context-value">D.2.1. Context Value</h2>
 <p>Ok, langsung saja, siapkan folder project baru dengan struktur seperti berikut.</p>
-<pre><code class="lang-bash">mkdir chapter-d2
-<span class="hljs-built_in">cd</span> chapter-d2
-go mod init chapter-d2
+<pre><code class="lang-bash">mkdir chapter<span class="hljs-_">-d</span>2
+<span class="hljs-built_in">cd</span> chapter<span class="hljs-_">-d</span>2
+go mod init chapter<span class="hljs-_">-d</span>2
 
 <span class="hljs-comment"># then prepare underneath structures</span>
 tree .
@@ -2054,14 +2059,14 @@ tree .
 
 <span class="hljs-keyword">type</span> CustomMux <span class="hljs-keyword">struct</span> {
     http.ServeMux
-    middlewares []<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(next http.Handler)</span> <span class="hljs-title">http</span>.<span class="hljs-title">Handler</span></span>
+    middlewares []<span class="hljs-keyword">func</span>(next http.Handler) http.Handler
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *CustomMux)</span> <span class="hljs-title">RegisterMiddleware</span><span class="hljs-params">(next <span class="hljs-keyword">func</span>(next http.Handler)</span> <span class="hljs-title">http</span>.<span class="hljs-title">Handler</span>)</span> {
+<span class="hljs-keyword">func</span> (c *CustomMux) RegisterMiddleware(next <span class="hljs-keyword">func</span>(next http.Handler) http.Handler) {
     c.middlewares = <span class="hljs-built_in">append</span>(c.middlewares, next)
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *CustomMux)</span> <span class="hljs-title">ServeHTTP</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
+<span class="hljs-keyword">func</span> (c *CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-keyword">var</span> current http.Handler = &amp;c.ServeMux
 
     <span class="hljs-keyword">for</span> _, next := <span class="hljs-keyword">range</span> c.middlewares {
@@ -2082,11 +2087,11 @@ tree .
 
 <span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     mux := <span class="hljs-built_in">new</span>(CustomMux)
     mux.RegisterMiddleware(MiddlewareUtility)
 
-    mux.HandleFunc(<span class="hljs-string">&quot;/api/search&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
+    mux.HandleFunc(<span class="hljs-string">&quot;/api/search&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
         from := r.Context().Value(<span class="hljs-string">&quot;from&quot;</span>).(<span class="hljs-keyword">string</span>)
         w.Write([]<span class="hljs-keyword">byte</span>(from))
     })
@@ -2102,8 +2107,8 @@ tree .
 <p>Cara mengakses context request adalah lewat method <code>.Context()</code> milik objek request. Lalu chain dengan method <code>Value()</code> untuk mengambil data sesuai dengan key yang disisipkan pada parameter.</p>
 <p>Untuk sekarang, tugas dari endpoint <code>/api/search</code> hanya menampilkan data tersebut, tidak lebih.</p>
 <p>Selanjutnya siapkan middleware <code>MiddlewareUtility</code>. Di dalamnya, ada pengecekan header <code>Referer</code>, jika ada maka dijadikan value data <code>from</code> (yang kemudian disimpan pada context); sedangkan jika tidak ada maka value-nya berasal dari property <code>.Host</code> milik objek request.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">MiddlewareUtility</span><span class="hljs-params">(next http.Handler)</span> <span class="hljs-title">http</span>.<span class="hljs-title">Handler</span></span> {
-    <span class="hljs-keyword">return</span> http.HandlerFunc(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> MiddlewareUtility(next http.Handler) http.Handler {
+    <span class="hljs-keyword">return</span> http.HandlerFunc(<span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
         ctx := r.Context()
         <span class="hljs-keyword">if</span> ctx == <span class="hljs-literal">nil</span> {
             ctx = context.Background()
@@ -2139,7 +2144,7 @@ tree .
 <h2 id="d22-context-timeout--cancellation">D.2.2. Context Timeout &amp; Cancellation</h2>
 <p>Melanjutkan program yang sudah dibuat, nantinya pada endpoint <code>/api/search</code> akan dilakukan sebuah pencarian ke Google sesuai dengan keyword yang diinginkan. Pencarian dilakukan dengan memanfaatkan <a href="https://developers.google.com/custom-search/json-api/v1/overview" target="_blank">Custom Search JSON API</a> milik Google.</p>
 <p>Sekarang ubah isi handler endpoint tersebut menjadi seperti berikut.</p>
-<pre><code class="lang-go">mux.HandleFunc(<span class="hljs-string">&quot;/api/search&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
+<pre><code class="lang-go">mux.HandleFunc(<span class="hljs-string">&quot;/api/search&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
     ctx := r.Context()
 
     keyword := r.URL.Query().Get(<span class="hljs-string">&quot;keyword&quot;</span>)
@@ -2174,12 +2179,12 @@ tree .
 </li>
 </ul>
 <p>Sekarang kita mulai masuk ke bagian pembuatan fungsi pencarian <code>doSearch()</code>. Silakan tulis kode berikut.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doSearch</span><span class="hljs-params">(
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> doSearch(
     ctx context.Context,
     keyword <span class="hljs-keyword">string</span>,
     chanRes <span class="hljs-keyword">chan</span> []<span class="hljs-keyword">byte</span>,
     chanErr <span class="hljs-keyword">chan</span> error,
-)</span></span> {
+) {
     innerChanRes := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> []<span class="hljs-keyword">byte</span>)
     innerChanErr := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> error)
 
@@ -2220,7 +2225,7 @@ client.Transport = transport
 <p>Selain itu, data <code>from</code> yang didapat dari request context disisipkan sebagai request header pada objek <code>req</code>.</p>
 <p>Disiapkan juga objek <code>transport</code> yang bertipe <code>*http.Transport</code> dan objek <code>client</code> yang bertipe <code>*http.Client</code>.</p>
 <p>Setelah ini, tulis kode untuk dispatch request yang sudah dibuat lalu handle response nya. Jalankan proses-nya sebagai goroutine.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
     resp, err := client.Do(req)
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         innerChanErr &lt;- err
@@ -2325,56 +2330,12 @@ client.Transport = transport
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"next":{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]},"previous":{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"D-google-api-search.md","mtime":"2023-06-08T08:22:04.000Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"next":{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]},"previous":{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"D-google-api-search.md","mtime":"2023-06-08T08:57:06.942Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2384,6 +2345,18 @@ client.Transport = transport
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

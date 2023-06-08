@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Golang Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Golang Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -73,7 +78,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -82,7 +87,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1992,8 +1997,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2045,21 +2050,21 @@
 <p>File <a href="https://blog.majestic.com/development/majestic-million-csv-daily/" target="_blank">majestic-million-csv</a> digunakan sebagai bahan dalam praktek. File tersebut gratis dengan lisensi CCA3. Isinya adalah list dari top website berjumlah 1 juta.</p>
 <p>Silakan download file nya di sini <a href="http://downloads.majestic.com/majestic_million.csv" target="_blank">http://downloads.majestic.com/majestic_million.csv</a>.</p>
 <p>Setelah itu siapkan My SQL database server, create database dan sebuah tabel di dalamnya dengan nama domain.</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> DATABASE IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> test;
-USE test;
-<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> domain (
-    GlobalRank <span class="hljs-type">int</span>,
-    TldRank <span class="hljs-type">int</span>,
-    Domain <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>),
-    TLD <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>),
-    RefSubNets <span class="hljs-type">int</span>,
-    RefIPs <span class="hljs-type">int</span>,
-    IDN_Domain <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>),
-    IDN_TLD <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>),
-    PrevGlobalRank <span class="hljs-type">int</span>,
-    PrevTldRank <span class="hljs-type">int</span>,
-    PrevRefSubNets <span class="hljs-type">int</span>,
-    PrevRefIPs <span class="hljs-type">int</span>
+<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">DATABASE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> <span class="hljs-keyword">test</span>;
+<span class="hljs-keyword">USE</span> <span class="hljs-keyword">test</span>;
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> <span class="hljs-keyword">domain</span> (
+    GlobalRank <span class="hljs-built_in">int</span>,
+    TldRank <span class="hljs-built_in">int</span>,
+    <span class="hljs-keyword">Domain</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>),
+    TLD <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>),
+    RefSubNets <span class="hljs-built_in">int</span>,
+    RefIPs <span class="hljs-built_in">int</span>,
+    IDN_Domain <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>),
+    IDN_TLD <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>),
+    PrevGlobalRank <span class="hljs-built_in">int</span>,
+    PrevTldRank <span class="hljs-built_in">int</span>,
+    PrevRefSubNets <span class="hljs-built_in">int</span>,
+    PrevRefIPs <span class="hljs-built_in">int</span>
 );
 </code></pre>
 <p>Setelah itu buat project baru, dan sebuah file <code>main.go</code>, dan tempatkan file csv yang sudah didownload dalam folder yang sama.</p>
@@ -2091,7 +2096,7 @@ USE test;
 <p>Buat fungsi untuk buka koneksi database, yg dikembalikan objek database kembalian fungsi <code>sql.Open()</code>.</p>
 <p>Jangan lupa set nilai <code>MaxOpenConns</code> dan <code>MaxIdleConns</code>.</p>
 <p>O iya, untuk yang tidak menggunakan mysql, maka sesuaikan saja nilai argument pertama statement <code>sql.Open()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">openDbConnection</span><span class="hljs-params">()</span> <span class="hljs-params">(*sql.DB, error)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> openDbConnection() (*sql.DB, error) {
     log.Println(<span class="hljs-string">&quot;=&gt; open db connection&quot;</span>)
 
     db, err := sql.Open(<span class="hljs-string">&quot;mysql&quot;</span>, dbConnString)
@@ -2110,7 +2115,7 @@ USE test;
 </code></pre>
 <h4 id="fungsi-baca-csv">&#x2022; Fungsi Baca CSV</h4>
 <p>Buka file CSV, lalu gunakan objek file untuk membuat objek CSV reader baru.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">openCsvFile</span><span class="hljs-params">()</span> <span class="hljs-params">(*csv.Reader, *os.File, error)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> openCsvFile() (*csv.Reader, *os.File, error) {
     log.Println(<span class="hljs-string">&quot;=&gt; open csv file&quot;</span>)
 
     f, err := os.Open(csvFile)
@@ -2127,9 +2132,9 @@ USE test;
 <p>Tiap-tiap goroutine tersebut adalah worker atau pekerja, yang tugasnya nanti akan meng-insert data ke database.</p>
 <p>Saat aplikasi dijalankan, sejumlah 100 worker akan berlomba-lomba menyelesaikan job insert data sejumlah 1 juta data.</p>
 <p>1 job adalah 1 data, maka rata-rata setiap worker akan menyelesaikan operasi insert sekitar 10k. Tapi ini jelasnya tidak pasti karena worker akan berkompetisi dalam penyelesaian job, jadi sangat besar kemungkinan akan ada job yang menyelesaikan lebih dari 10k jobs, ataupun yg di bawah 10k jobs.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">dispatchWorkers</span><span class="hljs-params">(db *sql.DB, jobs &lt;-<span class="hljs-keyword">chan</span> []<span class="hljs-keyword">interface</span>{}, wg *sync.WaitGroup)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> dispatchWorkers(db *sql.DB, jobs &lt;-<span class="hljs-keyword">chan</span> []<span class="hljs-keyword">interface</span>{}, wg *sync.WaitGroup) {
     <span class="hljs-keyword">for</span> workerIndex := <span class="hljs-number">0</span>; workerIndex &lt;= totalWorker; workerIndex++ {
-        <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(workerIndex <span class="hljs-keyword">int</span>, db *sql.DB, jobs &lt;-<span class="hljs-keyword">chan</span> []<span class="hljs-keyword">interface</span>{}, wg *sync.WaitGroup)</span></span> {
+        <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(workerIndex <span class="hljs-keyword">int</span>, db *sql.DB, jobs &lt;-<span class="hljs-keyword">chan</span> []<span class="hljs-keyword">interface</span>{}, wg *sync.WaitGroup) {
             counter := <span class="hljs-number">0</span>
 
             <span class="hljs-keyword">for</span> job := <span class="hljs-keyword">range</span> jobs {
@@ -2149,7 +2154,7 @@ USE test;
 <blockquote>
 <p>Proses baca satu file tidak bisa di-konkurensi-kan</p>
 </blockquote>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">readCsvFilePerLineThenSendToWorker</span><span class="hljs-params">(csvReader *csv.Reader, jobs <span class="hljs-keyword">chan</span>&lt;- []<span class="hljs-keyword">interface</span>{}, wg *sync.WaitGroup)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> readCsvFilePerLineThenSendToWorker(csvReader *csv.Reader, jobs <span class="hljs-keyword">chan</span>&lt;- []<span class="hljs-keyword">interface</span>{}, wg *sync.WaitGroup) {
     <span class="hljs-keyword">for</span> {
         row, err := csvReader.Read()
         <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
@@ -2179,11 +2184,11 @@ USE test;
 <p>Setelah proses baca data selesai, channel di close. Karena pengiriman dan penerimaan data pada channel bersifat synchronous untuk unbuffered channel. Jadi aman untuk berasumsi bahwa ketika semua data berhasil dikirim, maka semua data tersebut juga berhasil diterima.</p>
 <p>Jika blok kode perulangan dalam fungsi di atas selesai, maka sudah tidak ada lagi operasi kirim terima data, maka kita close channelnya.</p>
 <h4 id="fungsi-insert-data-ke-database">&#x2022; Fungsi Insert Data ke Database</h4>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doTheJob</span><span class="hljs-params">(workerIndex, counter <span class="hljs-keyword">int</span>, db *sql.DB, values []<span class="hljs-keyword">interface</span>{})</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> doTheJob(workerIndex, counter <span class="hljs-keyword">int</span>, db *sql.DB, values []<span class="hljs-keyword">interface</span>{}) {
     <span class="hljs-keyword">for</span> {
         <span class="hljs-keyword">var</span> outerError error
-        <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(outerError *error)</span></span> {
-            <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-keyword">func</span>(outerError *error) {
+            <span class="hljs-keyword">defer</span> <span class="hljs-keyword">func</span>() {
                 <span class="hljs-keyword">if</span> err := <span class="hljs-built_in">recover</span>(); err != <span class="hljs-literal">nil</span> {
                     *outerError = fmt.Errorf(<span class="hljs-string">&quot;%v&quot;</span>, err)
                 }
@@ -2215,7 +2220,7 @@ USE test;
     }
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateQuestionsMark</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> []<span class="hljs-title">string</span></span> {
+<span class="hljs-keyword">func</span> generateQuestionsMark(n <span class="hljs-keyword">int</span>) []<span class="hljs-keyword">string</span> {
     s := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>, <span class="hljs-number">0</span>)
     <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ {
         s = <span class="hljs-built_in">append</span>(s, <span class="hljs-string">&quot;?&quot;</span>)
@@ -2233,7 +2238,7 @@ USE test;
 <p>Btw, di atas juga ada satu fungsi lagi, <code>generateQuestionsMark()</code>, gunanya untuk membantu pembentukan query insert data secara dinamis.</p>
 <h4 id="fungsi-main">&#x2022; Fungsi Main</h4>
 <p>Terakhir, panggil semua fungsi yang sudah dibuat pada main.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     start := time.Now()
 
     db, err := openDbConnection()
@@ -2310,56 +2315,12 @@ USE test;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"next":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},"previous":{"title":"D. Studi Kasus","level":"6.1","depth":1,"ref":"","articles":[{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]},{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","mtime":"2023-06-08T08:22:04.000Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"next":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},"previous":{"title":"D. Studi Kasus","level":"6.1","depth":1,"ref":"","articles":[{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]},{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","mtime":"2023-06-08T08:57:06.946Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2369,6 +2330,18 @@ USE test;
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

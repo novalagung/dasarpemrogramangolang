@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Golang Concurrency Pattern: Simplified Fan-in Fan-out Pipeline - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Golang Concurrency Pattern: Simplified Fan-in Fan-out Pipeline &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -75,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -84,7 +89,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1994,8 +1999,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2062,7 +2067,7 @@
 <span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.60-worker-pool&quot;</span>)
 </code></pre>
 <h4 id="fungsi-main">&#x2022; Fungsi <code>main()</code></h4>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     log.Println(<span class="hljs-string">&quot;start&quot;</span>)
     start := time.Now()
 
@@ -2073,7 +2078,7 @@
 }
 </code></pre>
 <h4 id="fungsi-randomstring">&#x2022; Fungsi <code>randomString()</code></h4>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">randomString</span><span class="hljs-params">(length <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">string</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> randomString(length <span class="hljs-keyword">int</span>) <span class="hljs-keyword">string</span> {
     randomizer := rand.New(rand.NewSource(time.Now().Unix()))
     letters := []<span class="hljs-keyword">rune</span>(<span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>)
 
@@ -2086,7 +2091,7 @@
 }
 </code></pre>
 <h4 id="fungsi-generatefiles">&#x2022; Fungsi <code>generateFiles()</code></h4>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateFiles</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFiles() {
     os.RemoveAll(tempPath)
     os.MkdirAll(tempPath, os.ModePerm)
 
@@ -2144,7 +2149,7 @@
 <li>Property <code>Err</code> default isinya kosong. Nantinya akan diisi dengan objek error ketika ada error saat pembuatan file.</li>
 </ul>
 <h4 id="fungsi-main">&#x2022; Fungsi <code>main()</code></h4>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     log.Println(<span class="hljs-string">&quot;start&quot;</span>)
     start := time.Now()
 
@@ -2155,7 +2160,7 @@
 }
 </code></pre>
 <h4 id="fungsi-randomstring">&#x2022; Fungsi <code>randomString()</code></h4>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">randomString</span><span class="hljs-params">(length <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">string</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> randomString(length <span class="hljs-keyword">int</span>) <span class="hljs-keyword">string</span> {
     randomizer := rand.New(rand.NewSource(time.Now().Unix()))
     letters := []<span class="hljs-keyword">rune</span>(<span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>)
 
@@ -2168,7 +2173,7 @@
 }
 </code></pre>
 <h4 id="fungsi-generatefiles">&#x2022; Fungsi <code>generateFiles()</code></h4>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateFiles</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFiles() {
     os.RemoveAll(tempPath)
     os.MkdirAll(tempPath, os.ModePerm)
 
@@ -2205,10 +2210,10 @@
 <p>Fungsi <code>createFiles()</code> menghasilkan channel yang isinya merupakan result dari operasi tiap-tiap jobs. Dari data yang dilewatkan via channel tersebut akan ketahuan misal ada error atau tidak saat pembuatan files. Channel tersebut kemudian di-loop lalu ditampilkan tiap-tiap result-nya.</p>
 <h4 id="fungsi-generatefileindexes">&#x2022; Fungsi <code>generateFileIndexes()</code></h4>
 <p>Fungsi ini merupakan fungsi Fan-out distribusi jobs. Di dalamnya dilakukan perulangan sejumlah <code>totalFile</code>, kemudian data tiap index digunakan untuk pembentukan filename lalu dikirim ke channel outputnya.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateFileIndexes</span><span class="hljs-params">()</span> &lt;-<span class="hljs-title">chan</span> <span class="hljs-title">FileInfo</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFileIndexes() &lt;-<span class="hljs-keyword">chan</span> FileInfo {
     chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
 
-    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
         <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; totalFile; i++ {
             chanOut &lt;- FileInfo{
                 Index:    i,
@@ -2225,7 +2230,7 @@
 <h4 id="fungsi-dispatchworkers">&#x2022; Fungsi <code>dispatchWorkers()</code></h4>
 <p>Bagian ini merupakan yang paling butuh <em>effort</em> untuk dipahami. Jadi fungsi <code>createFiles()</code> seperti yang sudah saja jelaskan secara singkat di atas, fungsi ini merupakan fungsi gabungan Fan-out (menerima channel output dari pipeline sebelumnya) dan juga Fan-in (menjalankan beberapa worker untuk memproses channel output dari pipeline sebelumnya, lalu output masing-masing worker yang juga merupakan channel - langsung di merge jadi satu channel saja).</p>
 <p>Mungkin lebih enak silakan tulis dulu fungsinya, lalu kita bahas satu per satu setelahnya.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createFiles</span><span class="hljs-params">(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo, numberOfWorkers <span class="hljs-keyword">int</span>)</span> &lt;-<span class="hljs-title">chan</span> <span class="hljs-title">FileInfo</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> createFiles(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo, numberOfWorkers <span class="hljs-keyword">int</span>) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
     chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
 
     <span class="hljs-comment">// wait group to control the workers</span>
@@ -2234,11 +2239,11 @@
     <span class="hljs-comment">// allocate N of workers</span>
     wg.Add(numberOfWorkers)
 
-    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
 
         <span class="hljs-comment">// dispatch N workers</span>
         <span class="hljs-keyword">for</span> workerIndex := <span class="hljs-number">0</span>; workerIndex &lt; numberOfWorkers; workerIndex++ {
-            <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(workerIndex <span class="hljs-keyword">int</span>)</span></span> {
+            <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(workerIndex <span class="hljs-keyword">int</span>) {
 
                 <span class="hljs-comment">// listen to `chanIn` channel for incoming jobs</span>
                 <span class="hljs-keyword">for</span> job := <span class="hljs-keyword">range</span> chanIn {
@@ -2267,7 +2272,7 @@
 
     <span class="hljs-comment">// wait until `chanIn` closed and then all workers are done,</span>
     <span class="hljs-comment">// because right after that - we need to close the `chanOut` channel.</span>
-    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
         wg.Wait()
         <span class="hljs-built_in">close</span>(chanOut)
     }()
@@ -2336,56 +2341,12 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"next":{"title":"A.64. Concurrency Pattern: Context Cancellation Pipeline","level":"3.1.64","depth":2,"path":"A-pipeline-context-cancellation.md","ref":"A-pipeline-context-cancellation.md","articles":[]},"previous":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"path":"A-concurrency-pipeline.md","ref":"A-concurrency-pipeline.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-simplified-fan-in-fan-out-pipeline.md","mtime":"2023-06-08T08:22:03.996Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"next":{"title":"A.64. Concurrency Pattern: Context Cancellation Pipeline","level":"3.1.64","depth":2,"path":"A-pipeline-context-cancellation.md","ref":"A-pipeline-context-cancellation.md","articles":[]},"previous":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"path":"A-concurrency-pipeline.md","ref":"A-concurrency-pipeline.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-simplified-fan-in-fan-out-pipeline.md","mtime":"2023-06-08T08:57:06.938Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2395,6 +2356,18 @@
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

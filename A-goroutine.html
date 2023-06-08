@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Goroutine - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Goroutine &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -75,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -84,7 +89,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1994,8 +1999,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2048,13 +2053,13 @@
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;runtime&quot;</span>
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">print</span><span class="hljs-params">(till <span class="hljs-keyword">int</span>, message <span class="hljs-keyword">string</span>)</span></span> {
+<span class="hljs-keyword">func</span> <span class="hljs-built_in">print</span>(till <span class="hljs-keyword">int</span>, message <span class="hljs-keyword">string</span>) {
     <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; till; i++ {
         fmt.Println((i + <span class="hljs-number">1</span>), message)
     }
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     runtime.GOMAXPROCS(<span class="hljs-number">2</span>)
 
     <span class="hljs-keyword">go</span> <span class="hljs-built_in">print</span>(<span class="hljs-number">5</span>, <span class="hljs-string">&quot;halo&quot;</span>)
@@ -2077,7 +2082,7 @@
 <p>Jumlah yang diinputkan secara otomatis akan disesuaikan dengan jumlah asli <em>logical processor</em> yang ada. Jika jumlahnya lebih, maka dianggap menggunakan sejumlah prosesor yang ada.</p>
 <h2 id="a3012-penggunaan-fungsi-fmtscanln">A.30.1.2. Penggunaan Fungsi <code>fmt.Scanln()</code></h2>
 <p>Fungsi ini akan meng-capture semua karakter sebelum user menekan tombol enter, lalu menyimpannya pada variabel.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Scanln</span><span class="hljs-params">(a ...<span class="hljs-keyword">interface</span>{})</span> <span class="hljs-params">(n <span class="hljs-keyword">int</span>, err error)</span></span>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> Scanln(a ...<span class="hljs-keyword">interface</span>{}) (n <span class="hljs-keyword">int</span>, err error)
 </code></pre>
 <p>Kode di atas merupakan skema fungsi <code>fmt.Scanln()</code>. Fungsi tersebut bisa menampung parameter bertipe <code>interface{}</code> berjumlah tak terbatas. Tiap parameter akan menampung karakter-karakter inputan user yang sudah dipisah dengan tanda spasi. Agar lebih jelas, silakan perhatikan contoh berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> s1, s2, s3 <span class="hljs-keyword">string</span>
@@ -2125,56 +2130,12 @@ fmt.Println(s3) <span class="hljs-comment">// law</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"next":{"title":"A.31. Channel","level":"3.1.31","depth":2,"path":"A-channel.md","ref":"A-channel.md","articles":[]},"previous":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-goroutine.md","mtime":"2023-06-08T08:22:03.996Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"next":{"title":"A.31. Channel","level":"3.1.31","depth":2,"path":"A-channel.md","ref":"A-channel.md","articles":[]},"previous":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-goroutine.md","mtime":"2023-06-08T08:57:06.938Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2184,6 +2145,18 @@ fmt.Println(s3) <span class="hljs-comment">// law</span>
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

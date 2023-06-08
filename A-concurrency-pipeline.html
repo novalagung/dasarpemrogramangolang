@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Golang Concurrency Pattern: Pipeline - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Golang Concurrency Pattern: Pipeline &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -75,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -84,7 +89,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1994,8 +1999,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2152,7 +2157,7 @@
 <span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.59-pipeline-temp&quot;</span>)
 </code></pre>
 <p>Kemudian siapkan fungsi <code>main()</code> yang isinya statement pemanggilan fungsi <code>generate()</code>. Selain itu juga ada beberapa statement untuk keperluan <em>benchmark</em> performa dari sisi <em>execution time</em>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     log.Println(<span class="hljs-string">&quot;start&quot;</span>)
     start := time.Now()
 
@@ -2163,7 +2168,7 @@
 }
 </code></pre>
 <p>Sekarang siapkan fungsi <code>randomString()</code>-nya:</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">randomString</span><span class="hljs-params">(length <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">string</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> randomString(length <span class="hljs-keyword">int</span>) <span class="hljs-keyword">string</span> {
     randomizer := rand.New(rand.NewSource(time.Now().Unix()))
     letters := []<span class="hljs-keyword">rune</span>(<span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>)
 
@@ -2176,7 +2181,7 @@
 }
 </code></pre>
 <p>Lalu siapkan fungsi <code>generateFiles()</code>-nya. isinya kurang lebih adalah generate banyak file sejumlah <code>totalFile</code>. Lalu di tiap-tiap file di-isi dengan <em>random string</em> dengan lebar sepanjang <code>contentLength</code>. Untuk nama file-nya sendiri, formatnya adalah <code>file-&lt;index&gt;.txt</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateFiles</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFiles() {
     os.RemoveAll(tempPath)
     os.MkdirAll(tempPath, os.ModePerm)
 
@@ -2219,7 +2224,7 @@
 <span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.59-pipeline-temp&quot;</span>)
 </code></pre>
 <p>Lanjut siapkan fungsi <code>main()</code> dengan isi memanggil fungsi <code>proceed()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     log.Println(<span class="hljs-string">&quot;start&quot;</span>)
     start := time.Now()
 
@@ -2230,10 +2235,10 @@
 }
 </code></pre>
 <p>Isi dari fungsi <code>proceed()</code> sendiri adalah bisnis logic dari aplikasi yang akan kita buat, yaitu membaca file, mencari md5 hash, lalu rename file.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">proceed</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> proceed() {
     counterTotal := <span class="hljs-number">0</span>
     counterRenamed := <span class="hljs-number">0</span>
-    err := filepath.Walk(tempPath, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error)</span> <span class="hljs-title">error</span></span> {
+    err := filepath.Walk(tempPath, <span class="hljs-keyword">func</span>(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error) error {
 
         <span class="hljs-comment">// if there is an error, return immediatelly</span>
         <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
@@ -2322,7 +2327,7 @@
 <p>Kurang lebih sama seperti sebelumnya, hanya saja ada beberapa packages lain yg di-import dan ada struct <code>FileInfo</code>. Struct ini digunakan sebagai metadata tiap file. Karena nantinya proses read file, md5sum, dan rename file akan dipecah menjadi 3 goroutine berbeda, maka perlu ada metadata untuk mempermudah tracking file, agar nanti ketika dapat md5 sum nya tidak salah simpan, dan ketika rename tidak salah file.</p>
 <h4 id="pipeline-1-baca-file">&#x2022; Pipeline 1: Baca File</h4>
 <p>Siapkan fungsi main, lalu panggil fungsi <code>readFiles()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     log.Println(<span class="hljs-string">&quot;start&quot;</span>)
     start := time.Now()
 
@@ -2333,11 +2338,11 @@
 }
 </code></pre>
 <p>Fungsi <code>readFiles()</code> isinya adalah pembacaan semua file. Fungsi ini mengembalikan variabel <code>channel</code> bernama <code>chanFileContent</code>. Lanjut siapkan fungsi tersebut.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">readFiles</span><span class="hljs-params">()</span> &lt;-<span class="hljs-title">chan</span> <span class="hljs-title">FileInfo</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> readFiles() &lt;-<span class="hljs-keyword">chan</span> FileInfo {
     chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
 
-    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
-        err := filepath.Walk(tempPath, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error)</span> <span class="hljs-title">error</span></span> {
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        err := filepath.Walk(tempPath, <span class="hljs-keyword">func</span>(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error) error {
 
             <span class="hljs-comment">// if there is an error, return immediatelly</span>
             <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
@@ -2378,7 +2383,7 @@
 <p>Ok lanjut, karena di sini ada channel yang digunakan sebagai media pengiriman data (<code>FileInfo</code>), maka juga harus ada penerima data channel-nya dong. Yups.</p>
 <h4 id="pipeline-2-md5-hash-konten-file">&#x2022; Pipeline 2: MD5 Hash Konten File</h4>
 <p>Tepat di bawah pipeline 1, tambahkan pemanggilan fungsi <code>getSum()</code> sebanyak 3x, bisa lebih banyak sih sebenarnya, bebas. Kemudian jadikan nilai balik pemanggilan fungsi tersebut sebagai variadic argument pemanggilan fungsi <code>mergeChanFileInfo()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     <span class="hljs-comment">// ...</span>
 
     <span class="hljs-comment">// pipeline 2: calculate md5sum</span>
@@ -2400,10 +2405,10 @@
 <li>Fungsi Fan-in digunakan untuk <em>multiplexing</em> atau menggabung banyak worker ke satu channel saja, yang di mana channel baru ini juga otomatis di-close ketika channel input adalah closed.</li>
 </ul>
 <p>Lanjut buat fungsi <code>getSum()</code>-nya.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getSum</span><span class="hljs-params">(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo)</span> &lt;-<span class="hljs-title">chan</span> <span class="hljs-title">FileInfo</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> getSum(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
     chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
 
-    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
         <span class="hljs-keyword">for</span> fileInfo := <span class="hljs-keyword">range</span> chanIn {
             fileInfo.Sum = fmt.Sprintf(<span class="hljs-string">&quot;%x&quot;</span>, md5.Sum(fileInfo.Content))
             chanOut &lt;- fileInfo
@@ -2417,13 +2422,13 @@
 <p>Bisa dilihat, di situ channel inputan <code>chanIn</code> di-listen dan setiap ada penerimaan data (via channel tersebut) dilanjut ke proses kalkulasi md5 hash. Hasil hash-nya di tambahkan ke data <code>FileInfo</code> kemudian dikirim lagi ke channel <code>chanOut</code> yang di mana channel ini merupakan nilai balik fungsi <code>getSum()</code>.</p>
 <p>Ketika <code>chanIn</code> closed, maka bisa diasumsikan semua data sudah dikirim. Jika memang iya dan data-data tersebut sudah di proses (pencarian md5hash-nya), maka channel <code>chanOut</code> juga di-close.</p>
 <p>Next, buat fungsi merger-nya.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mergeChanFileInfo</span><span class="hljs-params">(chanInMany ...&lt;-<span class="hljs-keyword">chan</span> FileInfo)</span> &lt;-<span class="hljs-title">chan</span> <span class="hljs-title">FileInfo</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> mergeChanFileInfo(chanInMany ...&lt;-<span class="hljs-keyword">chan</span> FileInfo) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
     wg := <span class="hljs-built_in">new</span>(sync.WaitGroup)
     chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
 
     wg.Add(<span class="hljs-built_in">len</span>(chanInMany))
     <span class="hljs-keyword">for</span> _, eachChan := <span class="hljs-keyword">range</span> chanInMany {
-        <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(eachChan &lt;-<span class="hljs-keyword">chan</span> FileInfo)</span></span> {
+        <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(eachChan &lt;-<span class="hljs-keyword">chan</span> FileInfo) {
             <span class="hljs-keyword">for</span> eachChanData := <span class="hljs-keyword">range</span> eachChan {
                 chanOut &lt;- eachChanData
             }
@@ -2431,7 +2436,7 @@
         }(eachChan)
     }
 
-    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
         wg.Wait()
         <span class="hljs-built_in">close</span>(chanOut)
     }()
@@ -2449,7 +2454,7 @@
 </ul>
 <h4 id="pipeline-3-rename-file">&#x2022; Pipeline 3: Rename file</h4>
 <p>Tambahkan statement pipeline ketiga, yaitu pemanggilan fungsi Fan-out <code>rename()</code>, lalu panggil fungsi Fan-in <code>mergeChanFileInfo()</code> untuk multiplex channel kembalian fungsi <code>rename()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     <span class="hljs-comment">// ...</span>
 
     <span class="hljs-comment">// pipeline 3: rename files</span>
@@ -2464,10 +2469,10 @@
 </code></pre>
 <p>Di atas bisa dilihat ada 4 buah worker untuk rename di-<em>dispatch</em>. Fungsi rename ini sendiri tugasnya adalah me-rename file yang sudah kita baca isinya ke nama baru dengan format <code>file-&lt;md5hash&gt;.txt</code>.</p>
 <p>Tulis definisi fungsi <code>rename()</code>-nya. Secara garis besar semua penulisan fungsi Fan-out pasti mirip, yang beda hanya isi bisnis logic-nya saja. Kalau dalam <code>getSum()</code> isinya statement untuk kalkulasi hash, pada <code>rename()</code> ini isinya ya statements untuk rename file.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">rename</span><span class="hljs-params">(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo)</span> &lt;-<span class="hljs-title">chan</span> <span class="hljs-title">FileInfo</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> rename(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
     chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
 
-    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
         <span class="hljs-keyword">for</span> fileInfo := <span class="hljs-keyword">range</span> chanIn {
             newPath := filepath.Join(tempPath, fmt.Sprintf(<span class="hljs-string">&quot;file-%s.txt&quot;</span>, fileInfo.Sum))
             err := os.Rename(fileInfo.FilePath, newPath)
@@ -2485,7 +2490,7 @@
 <p>Setelah semua file berhasil di-rename, maka channel <code>chanOut</code> di-close.</p>
 <h4 id="pipeline-4--output">&#x2022; Pipeline 4 / Output</h4>
 <p>Serangkaian proses yang sudah kita setup punya ketergantungan tinggi satu sama lain, dan eksekusinya harus berurutan meskipun <em>concurrently</em>. Ini secara langsung juga mempermudah kita dalam mengolah output hasil pipeline. Kita cukup fokus ke channel hasil Fan-in yang paling terakhir, yaitu channel <code>chanRename</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     <span class="hljs-comment">// ...</span>
 
     <span class="hljs-comment">// print output</span>
@@ -2547,56 +2552,12 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"next":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"path":"A-simplified-fan-in-fan-out-pipeline.md","ref":"A-simplified-fan-in-fan-out-pipeline.md","articles":[]},"previous":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-concurrency-pipeline.md","mtime":"2023-06-08T08:22:03.992Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"next":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"path":"A-simplified-fan-in-fan-out-pipeline.md","ref":"A-simplified-fan-in-fan-out-pipeline.md","articles":[]},"previous":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-concurrency-pipeline.md","mtime":"2023-06-08T08:57:06.934Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2606,6 +2567,18 @@
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Golang NoSQL MongoDB - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Golang NoSQL MongoDB &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -75,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -84,7 +89,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1994,8 +1999,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2072,7 +2077,7 @@ go get go.mongodb.org/mongo-driver/mongo
 <p>Tag <code>bson</code> pada property struct digunakan sebagai penentu nama field ketika data disimpan ke dalam collection. Jika sebuah property tidak memiliki tag bson, secara default nama field adalah sama dengan nama property hanya saja lowercase. Untuk customize nama field, gunakan tag <code>bson</code>.</p>
 <p>Pada contoh di atas, property <code>Name</code> ditentukan nama field mongo-nya sebagai <code>name</code>, dan <code>Grade</code> sebagai <code>Grade</code>.</p>
 <p>Selanjutnya siapkan fungsi untuk membuat satu buah mongo connection. Dari objek connection diambil object database, kemudian dijadikan sebagai nilai balik fungsi.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">connect</span><span class="hljs-params">()</span> <span class="hljs-params">(*mongo.Database, error)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> connect() (*mongo.Database, error) {
     clientOptions := options.Client()
     clientOptions.ApplyURI(<span class="hljs-string">&quot;mongodb://localhost:27017&quot;</span>)
     client, err := mongo.NewClient(clientOptions)
@@ -2094,7 +2099,7 @@ go get go.mongodb.org/mongo-driver/mongo
 </blockquote>
 <p>Dari object client, panggil method <code>.Connect()</code> untuk inisialisasi koneksi ke db server. Setelah itu panggil method <code>.Database()</code> untuk set database yang aktif.</p>
 <p>Lanjut buat fungsi yang di dalamnya berisikan kode untuk insert data ke mongodb, lalu panggil fungsi tersebut di <code>main()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">insert</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> insert() {
     db, err := connect()
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         log.Fatal(err.Error())
@@ -2113,24 +2118,24 @@ go get go.mongodb.org/mongo-driver/mongo
     fmt.Println(<span class="hljs-string">&quot;Insert success!&quot;</span>)
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     insert()
 }
 </code></pre>
 <p>Fungsi <code>connect()</code> mengembalikan objek bertipe <code>*mongo.Database</code>. Dari objek tersebut akses method <code>.Collection()</code> lalu chain dengan method lainnya untuk melakukan operasi database, kurang lebih skema statement-nya sama seperti operasi mongodb.</p>
 <p>Sebagai contoh, pada kode di atas <code>.InsertOne()</code> digunakan untuk insert satu data ke database. Perbandingannya kurang lebih seperti berikut:</p>
 <pre><code class="lang-js"><span class="hljs-comment">// mongodb</span>
-db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).insertOne({ <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Wick&quot;</span>, <span class="hljs-attr">Grade</span>: <span class="hljs-number">2</span> })
+db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).insertOne({ name: <span class="hljs-string">&quot;Wick&quot;</span>, Grade: <span class="hljs-number">2</span> })
 
 <span class="hljs-comment">// mongo-go-driver</span>
-db.Collection(<span class="hljs-string">&quot;student&quot;</span>).InsertOne(ctx, student{ <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Wick&quot;</span>, <span class="hljs-attr">Grade</span>: <span class="hljs-number">2</span>})
+db.Collection(<span class="hljs-string">&quot;student&quot;</span>).InsertOne(ctx, student{ name: <span class="hljs-string">&quot;Wick&quot;</span>, Grade: <span class="hljs-number">2</span>})
 </code></pre>
 <p>Perlu diketahui, bahwa di mongo-go-driver setiap operasi biasanya membutuhkan objek context untuk disisipkan sebagai parameter pertama. Pada contoh di atas kita gunakan variabel <code>ctx</code> yang sudah dideklarasikan sebelumnya.</p>
 <p><img src="images/A_mongodb_1_insert.png" alt="Dasar Pemrograman Golang - Insert mongo"></p>
 <h2 id="a573-membaca-data">A.57.3. Membaca Data</h2>
 <p>Method <code>.Find()</code> digunakan untuk membaca atau mencari data. Method ini mengembalikan objek cursor, objek ini harus digunakan dalam perulangan untuk mengambil data yang ditemukan.</p>
 <p>Dalam pencarian, sisipkan query atau filter sebagai parameter ke-dua method <code>.Find()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">find</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> find() {
     db, err := connect()
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         log.Fatal(err.Error())
@@ -2159,7 +2164,7 @@ db.Collection(<span class="hljs-string">&quot;student&quot;</span>).InsertOne(ct
     }
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     find()
 }
 </code></pre>
@@ -2182,7 +2187,7 @@ db.Collection(<span class="hljs-string">&quot;student&quot;</span>).Find(ctx, bs
 <li>Parameter ketiga adalah perubahan datanya.</li>
 </ol>
 <p>Di bawah ini adalah contok implementasi method <code>Update()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">update</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> update() {
     db, err := connect()
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         log.Fatal(err.Error())
@@ -2198,7 +2203,7 @@ db.Collection(<span class="hljs-string">&quot;student&quot;</span>).Find(ctx, bs
     fmt.Println(<span class="hljs-string">&quot;Update success!&quot;</span>)
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     update()
 }
 </code></pre>
@@ -2214,7 +2219,7 @@ db.Collection(<span class="hljs-string">&quot;student&quot;</span>).UpdateOne(ct
 <p>Selain method <code>.UpdateOne()</code> ada juga method <code>.UpdateMany()</code>, kegunaan masing-masing bisa dilihat dari nama fungsinya.</p>
 <h2 id="a575-menghapus-data">A.57.5. Menghapus Data</h2>
 <p>Untuk menghapus data gunakan method <code>.DeleteOne()</code> atau <code>.DeleteMany()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">remove</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> remove() {
     db, err := connect()
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         log.Fatal(err.Error())
@@ -2229,7 +2234,7 @@ db.Collection(<span class="hljs-string">&quot;student&quot;</span>).UpdateOne(ct
     fmt.Println(<span class="hljs-string">&quot;Remove success!&quot;</span>)
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     remove()
 }
 </code></pre>
@@ -2323,56 +2328,12 @@ result := <span class="hljs-built_in">make</span>([]bson.M, <span class="hljs-nu
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"next":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"path":"A-unit-test.md","ref":"A-unit-test.md","articles":[]},"previous":{"title":"A.56. SQL","level":"3.1.56","depth":2,"path":"A-sql.md","ref":"A-sql.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-mongodb.md","mtime":"2023-06-08T08:22:03.996Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"next":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"path":"A-unit-test.md","ref":"A-unit-test.md","articles":[]},"previous":{"title":"A.56. SQL","level":"3.1.56","depth":2,"path":"A-sql.md","ref":"A-sql.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-mongodb.md","mtime":"2023-06-08T08:57:06.938Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2382,6 +2343,18 @@ result := <span class="hljs-built_in">make</span>([]bson.M, <span class="hljs-nu
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

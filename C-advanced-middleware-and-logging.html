@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Golang Advanced Middleware &amp; Logging (Logrus, Echo Logger) - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Golang Advanced Middleware &amp; Logging (Logrus, Echo Logger) &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -75,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -84,7 +89,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1994,8 +1999,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2044,12 +2049,12 @@
     <span class="hljs-string">&quot;net/http&quot;</span>
 )
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     e := echo.New()
 
     <span class="hljs-comment">// middleware here</span>
 
-    e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c echo.Context)</span> <span class="hljs-params">(err error)</span></span> {
+    e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) (err error) {
         fmt.Println(<span class="hljs-string">&quot;threeeeee!&quot;</span>)
 
         <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, <span class="hljs-literal">true</span>)
@@ -2060,22 +2065,22 @@
 </code></pre>
 <p>Kode di atas merupakan aplikasi web kecil, berisi satu buah rute <code>/index</code> yang ketika di akses akan print log <code>&quot;threeeeee!&quot;</code> ke console.</p>
 <p>Selanjutnya, buat dua middleware, <code>middlewareOne</code> dan <code>middlewareTwo</code>. Isinya juga menampilkan log.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">middlewareOne</span><span class="hljs-params">(next echo.HandlerFunc)</span> <span class="hljs-title">echo</span>.<span class="hljs-title">HandlerFunc</span></span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> middlewareOne(next echo.HandlerFunc) echo.HandlerFunc {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">func</span>(c echo.Context) error {
         fmt.Println(<span class="hljs-string">&quot;from middleware one&quot;</span>)
         <span class="hljs-keyword">return</span> next(c)
     }
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">middlewareTwo</span><span class="hljs-params">(next echo.HandlerFunc)</span> <span class="hljs-title">echo</span>.<span class="hljs-title">HandlerFunc</span></span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {
+<span class="hljs-keyword">func</span> middlewareTwo(next echo.HandlerFunc) echo.HandlerFunc {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">func</span>(c echo.Context) error {
         fmt.Println(<span class="hljs-string">&quot;from middleware two&quot;</span>)
         <span class="hljs-keyword">return</span> next(c)
     }
 }
 </code></pre>
 <p>Registrasikan kedua middleware di atas. Kode di bawah ini adalah contoh cara registrasinya.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     e := echo.New()
 
     e.Use(middlewareOne)
@@ -2089,14 +2094,14 @@
 <p>Di echo, fungsi middleware harus memiliki skema <code>func(echo.HandlerFunc)echo.HandlerFunc</code>. Untuk 3rd party middleware, tetap bisa dikombinasikan dengan echo, namun membutuhkan sedikit penyesuaian tentunya. </p>
 <p>Echo menyediakan solusi mudah untuk membantu integrasi 3rd party middleware, yaitu dengan menggunakan fungsi <code>echo.WrapMiddleware()</code> untuk mengkonversi middleware menjadi echo-compatible-middleware, dengan syarat skema harus dalam bentuk <code>func(http.Handler)http.Handler</code>.</p>
 <p>Silakan praktekan kode berikut.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">middlewareSomething</span><span class="hljs-params">(next http.Handler)</span> <span class="hljs-title">http</span>.<span class="hljs-title">Handler</span></span> {
-    <span class="hljs-keyword">return</span> http.HandlerFunc(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> middlewareSomething(next http.Handler) http.Handler {
+    <span class="hljs-keyword">return</span> http.HandlerFunc(<span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
         fmt.Println(<span class="hljs-string">&quot;from middleware something&quot;</span>)
         next.ServeHTTP(w, r)
     })
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     e := echo.New()
 
     e.Use(echo.WrapMiddleware(middlewareSomething))
@@ -2116,14 +2121,14 @@
     <span class="hljs-string">&quot;net/http&quot;</span>
 )
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     e := echo.New()
 
     e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
         Format: <span class="hljs-string">&quot;method=${method}, uri=${uri}, status=${status}\n&quot;</span>,
     }))
 
-    e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c echo.Context)</span> <span class="hljs-params">(err error)</span></span> {
+    e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) (err error) {
         <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, <span class="hljs-literal">true</span>)
     })
 
@@ -2171,7 +2176,7 @@
     <span class="hljs-string">&quot;time&quot;</span>
 )
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">makeLogEntry</span><span class="hljs-params">(c echo.Context)</span> *<span class="hljs-title">log</span>.<span class="hljs-title">Entry</span></span> {
+<span class="hljs-keyword">func</span> makeLogEntry(c echo.Context) *log.Entry {
     <span class="hljs-keyword">if</span> c == <span class="hljs-literal">nil</span> {
         <span class="hljs-keyword">return</span> log.WithFields(log.Fields{
             <span class="hljs-string">&quot;at&quot;</span>: time.Now().Format(<span class="hljs-string">&quot;2006-01-02 15:04:05&quot;</span>),
@@ -2188,14 +2193,14 @@
 </code></pre>
 <p>Fungsi <code>makeLogEntry()</code> bertugas membuat basis log objek yang akan ditampilkan. Informasi standar seperti waktu, dibentuk di dalam fungsi ini. Khusus untuk log yang berhubungan dengan http request, maka informasi yang lebih detail dimunculkan (http method, url, dan IP).</p>
 <p>Selanjutnya, buat fungsi <code>middlewareLogging()</code> dan <code>errorHandler()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">middlewareLogging</span><span class="hljs-params">(next echo.HandlerFunc)</span> <span class="hljs-title">echo</span>.<span class="hljs-title">HandlerFunc</span></span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> middlewareLogging(next echo.HandlerFunc) echo.HandlerFunc {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">func</span>(c echo.Context) error {
         makeLogEntry(c).Info(<span class="hljs-string">&quot;incoming request&quot;</span>)
         <span class="hljs-keyword">return</span> next(c)
     }
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">errorHandler</span><span class="hljs-params">(err error, c echo.Context)</span></span> {
+<span class="hljs-keyword">func</span> errorHandler(err error, c echo.Context) {
     report, ok := err.(*echo.HTTPError)
     <span class="hljs-keyword">if</span> ok {
         report.Message = fmt.Sprintf(<span class="hljs-string">&quot;http error %d - %v&quot;</span>, report.Code, report.Message)
@@ -2210,18 +2215,18 @@
 <p>Fungsi <code>middlewareLogging()</code> bertugas untuk menampilkan log setiap ada http request masuk. Dari objek <code>*log.Entry</code> -yang-dicetak-lewat-fungsi-<code>makeLogEntry()</code>-, panggil method <code>Info()</code> untuk menampilkan pesan log dengan level adalah INFO.</p>
 <p>Sedang fungsi <code>errorHandler</code> akan digunakan untuk meng-override default http error handler milik echo. Dalam fungsi ini log dengan level ERROR dimunculkan lewat pemanggilan method <code>Error()</code> milik <code>*log.Entry</code>.</p>
 <p>Buat fungsi <code>main()</code>, implementasikan semua fungsi tersebut, siapkan yang harus disiapkan.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     e := echo.New()
 
     e.Use(middlewareLogging)
     e.HTTPErrorHandler = errorHandler
 
-    e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {
+    e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
         <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, <span class="hljs-literal">true</span>)
     })
 
     lock := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> error)
-    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(lock <span class="hljs-keyword">chan</span> error)</span></span> { lock &lt;- e.Start(<span class="hljs-string">&quot;:9000&quot;</span>) }(lock)
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(lock <span class="hljs-keyword">chan</span> error) { lock &lt;- e.Start(<span class="hljs-string">&quot;:9000&quot;</span>) }(lock)
 
     time.Sleep(<span class="hljs-number">1</span> * time.Millisecond)
     makeLogEntry(<span class="hljs-literal">nil</span>).Warning(<span class="hljs-string">&quot;application started without ssl/tls enabled&quot;</span>)
@@ -2279,56 +2284,12 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.8. Advanced Middleware & Logging (Logrus, Echo Logger)","level":"5.1.8","depth":2,"next":{"title":"C.9. CLI Flag Parser (Kingpin)","level":"5.1.9","depth":2,"path":"C-flag-parser.md","ref":"C-flag-parser.md","articles":[]},"previous":{"title":"C.7. Template Rendering in Echo","level":"5.1.7","depth":2,"path":"C-echo-template-rendering.md","ref":"C-echo-template-rendering.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-advanced-middleware-and-logging.md","mtime":"2023-06-08T08:22:04.000Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.8. Advanced Middleware & Logging (Logrus, Echo Logger)","level":"5.1.8","depth":2,"next":{"title":"C.9. CLI Flag Parser (Kingpin)","level":"5.1.9","depth":2,"path":"C-flag-parser.md","ref":"C-flag-parser.md","articles":[]},"previous":{"title":"C.7. Template Rendering in Echo","level":"5.1.7","depth":2,"path":"C-echo-template-rendering.md","ref":"C-echo-template-rendering.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-advanced-middleware-and-logging.md","mtime":"2023-06-08T08:57:06.942Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2338,6 +2299,18 @@
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

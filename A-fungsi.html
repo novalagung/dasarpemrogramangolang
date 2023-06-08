@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Golang Fungsi - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Golang Fungsi &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -75,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -84,7 +89,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1994,8 +1999,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2043,12 +2048,12 @@
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;strings&quot;</span>
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     <span class="hljs-keyword">var</span> names = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;John&quot;</span>, <span class="hljs-string">&quot;Wick&quot;</span>}
     printMessage(<span class="hljs-string">&quot;halo&quot;</span>, names)
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printMessage</span><span class="hljs-params">(message <span class="hljs-keyword">string</span>, arr []<span class="hljs-keyword">string</span>)</span></span> {
+<span class="hljs-keyword">func</span> printMessage(message <span class="hljs-keyword">string</span>, arr []<span class="hljs-keyword">string</span>) {
     <span class="hljs-keyword">var</span> nameString = strings.Join(arr, <span class="hljs-string">&quot; &quot;</span>)
     fmt.Println(message, nameString)
 }
@@ -2070,7 +2075,7 @@
 
 <span class="hljs-keyword">var</span> randomizer = rand.New(rand.NewSource(time.Now().Unix()))
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     <span class="hljs-keyword">var</span> randomValue <span class="hljs-keyword">int</span>
 
     randomValue = randomWithRange(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>)
@@ -2081,7 +2086,7 @@
     fmt.Println(<span class="hljs-string">&quot;random number:&quot;</span>, randomValue)
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">randomWithRange</span><span class="hljs-params">(min, max <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> {
+<span class="hljs-keyword">func</span> randomWithRange(min, max <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span> {
     <span class="hljs-keyword">var</span> value = randomizer.Int()%(max-min+<span class="hljs-number">1</span>) + min
     <span class="hljs-keyword">return</span> value
 }
@@ -2089,7 +2094,7 @@
 <p>Fungsi <code>randomWithRange</code> bertugas untuk <em>generate</em> angka acak sesuai dengan range yang ditentukan, yang kemudian angka tersebut dijadikan nilai kembalian fungsi.</p>
 <p><img src="images/A_fungsi_2_function_return_type.png" alt="Dasar Pemrograman Golang - Fungsi dengan nilai balik"></p>
 <p>Cara menentukan tipe data nilai balik fungsi adalah dengan menuliskan tipe data yang diinginkan setelah kurung parameter. Bisa dilihat pada kode di atas, bahwa <code>int</code> merupakan tipe data nilai balik fungsi <code>randomWithRange</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">randomWithRange</span><span class="hljs-params">(min, max <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> randomWithRange(min, max <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span>
 </code></pre>
 <p>Sedangkan cara untuk mengembalikan nilai itu sendiri adalah dengan menggunakan keyword <code>return</code> diikuti data yang ingin dikembalikan. Pada contoh di atas, <code>return value</code> artinya nilai variabel <code>value</code> dijadikan nilai kembalian fungsi.</p>
 <p>Eksekusi keyword <code>return</code> akan menjadikan proses dalam blok fungsi berhenti pada saat itu juga. Semua statement setelah keyword tersebut tidak akan dieksekusi.</p>
@@ -2120,11 +2125,11 @@
 </code></pre>
 <h2 id="a185-deklarasi-parameter-bertipe-data-sama">A.18.5. Deklarasi Parameter Bertipe Data Sama</h2>
 <p>Khusus untuk fungsi yang tipe data parameternya sama, bisa ditulis dengan gaya yang unik. Tipe datanya dituliskan cukup sekali saja di akhir. Contohnya bisa dilihat pada kode berikut.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">nameOfFunc</span><span class="hljs-params">(paramA <span class="hljs-keyword">type</span>, paramB <span class="hljs-keyword">type</span>, paramC <span class="hljs-keyword">type</span>)</span> <span class="hljs-title">returnType</span></span>
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">nameOfFunc</span><span class="hljs-params">(paramA, paramB, paramC <span class="hljs-keyword">type</span>)</span> <span class="hljs-title">returnType</span></span>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> nameOfFunc(paramA <span class="hljs-keyword">type</span>, paramB <span class="hljs-keyword">type</span>, paramC <span class="hljs-keyword">type</span>) returnType
+<span class="hljs-keyword">func</span> nameOfFunc(paramA, paramB, paramC <span class="hljs-keyword">type</span>) returnType
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">randomWithRange</span><span class="hljs-params">(min <span class="hljs-keyword">int</span>, max <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span>
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">randomWithRange</span><span class="hljs-params">(min, max <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span>
+<span class="hljs-keyword">func</span> randomWithRange(min <span class="hljs-keyword">int</span>, max <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span>
+<span class="hljs-keyword">func</span> randomWithRange(min, max <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span>
 </code></pre>
 <h2 id="a186-penggunaan-keyword-return-untuk-menghentikan-proses-dalam-fungsi">A.18.6. Penggunaan Keyword <code>return</code> Untuk Menghentikan Proses Dalam Fungsi</h2>
 <p>Selain sebagai penanda nilai balik, keyword <code>return</code> juga bisa dimanfaatkan untuk menghentikan proses dalam blok fungsi di mana ia dipakai. Contohnya bisa dilihat pada kode berikut.</p>
@@ -2132,13 +2137,13 @@
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     divideNumber(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>)
     divideNumber(<span class="hljs-number">4</span>, <span class="hljs-number">0</span>)
     divideNumber(<span class="hljs-number">8</span>, <span class="hljs-number">-4</span>)
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">divideNumber</span><span class="hljs-params">(m, n <span class="hljs-keyword">int</span>)</span></span> {
+<span class="hljs-keyword">func</span> divideNumber(m, n <span class="hljs-keyword">int</span>) {
     <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> {
         fmt.Printf(<span class="hljs-string">&quot;invalid divider. %d cannot divided by %d\n&quot;</span>, m, n)
         <span class="hljs-keyword">return</span>
@@ -2186,56 +2191,12 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"next":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"previous":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-fungsi.md","mtime":"2023-06-08T08:22:03.992Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"next":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"previous":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-fungsi.md","mtime":"2023-06-08T08:57:06.938Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2245,6 +2206,18 @@
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

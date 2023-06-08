@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Session (Gorilla Session) - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Session (Gorilla Session) &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -75,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -84,7 +89,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1994,8 +1999,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2051,7 +2056,7 @@
 <p>Cookie merupakan salah satu header pada http request, operasi yang berhubungan dengan cookie pasti membutuhkan objek <code>http.Request</code> dan <code>http.ResponseWriter</code>. Jika menggunakan echo, kedua objek tersebut bisa diakses lewat objek http context <code>echo.Context</code>.</p>
 <h2 id="c132-membuat-objek-session-baru">C.13.2. Membuat Objek Session Baru</h2>
 <p>Berikut adalah contoh cara membuat session lewat store.</p>
-<pre><code class="lang-go">e.GET(<span class="hljs-string">&quot;/set&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {
+<pre><code class="lang-go">e.GET(<span class="hljs-string">&quot;/set&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
     session, _ := store.Get(c.Request(), SESSION_ID)
     session.Values[<span class="hljs-string">&quot;message1&quot;</span>] = <span class="hljs-string">&quot;hello&quot;</span>
     session.Values[<span class="hljs-string">&quot;message2&quot;</span>] = <span class="hljs-string">&quot;world&quot;</span>
@@ -2073,7 +2078,7 @@
 <p>Cara menyimpan session adalah dengan memanggil method <code>.Save()</code> milik objek session, dengan parameter adalah http request dan response.</p>
 <h2 id="c133-mengakses-sessiondata">C.13.3. Mengakses SessionData</h2>
 <p>SessionData diakses dari objek session, berikut merupakan contoh caranya.</p>
-<pre><code class="lang-go">e.GET(<span class="hljs-string">&quot;/get&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {
+<pre><code class="lang-go">e.GET(<span class="hljs-string">&quot;/get&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
     session, _ := store.Get(c.Request(), SESSION_ID)
 
     <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(session.Values) == <span class="hljs-number">0</span> {
@@ -2092,7 +2097,7 @@
 <p>Pada kode di atas, jika SessionData kosong maka string <code>empty result</code> ditampilkan ke layar. Sedangkan jika ada, maka kedua SessionData (message1 dan message2) diambil lalu ditampilkan.</p>
 <h2 id="c134-menghapus-session">C.13.4. Menghapus Session</h2>
 <p>Cara menghapus session adalah dengan meng-expired-kan max age cookie-nya. Property max age bisa diakses lewat <code>session.Options.MaxAge</code>.</p>
-<pre><code class="lang-go">e.GET(<span class="hljs-string">&quot;/delete&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {
+<pre><code class="lang-go">e.GET(<span class="hljs-string">&quot;/delete&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
     session, _ := store.Get(c.Request(), SESSION_ID)
     session.Options.MaxAge = <span class="hljs-number">-1</span>
     session.Save(c.Request(), c.Response())
@@ -2139,14 +2144,14 @@
 
 <span class="hljs-keyword">const</span> SESSION_ID = <span class="hljs-string">&quot;id&quot;</span>
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     store := newMongoStore()
 
     e := echo.New()
 
     e.Use(echo.WrapMiddleware(context.ClearHandler))
 
-    e.GET(<span class="hljs-string">&quot;/set&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {
+    e.GET(<span class="hljs-string">&quot;/set&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
         session, _ := store.Get(c.Request(), SESSION_ID)
         session.Values[<span class="hljs-string">&quot;message1&quot;</span>] = <span class="hljs-string">&quot;hello&quot;</span>
         session.Values[<span class="hljs-string">&quot;message2&quot;</span>] = <span class="hljs-string">&quot;world&quot;</span>
@@ -2180,7 +2185,7 @@
 
 <span class="hljs-comment">// ...</span>
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newMongoStore</span><span class="hljs-params">()</span> *<span class="hljs-title">mongostore</span>.<span class="hljs-title">MongoStore</span></span> {
+<span class="hljs-keyword">func</span> newMongoStore() *mongostore.MongoStore {
     mgoSession, err := mgo.Dial(<span class="hljs-string">&quot;localhost:27123&quot;</span>)
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         log.Println(<span class="hljs-string">&quot;ERROR&quot;</span>, err)
@@ -2225,7 +2230,7 @@
 
 <span class="hljs-comment">// ...</span>
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newPostgresStore</span><span class="hljs-params">()</span> *<span class="hljs-title">pgstore</span>.<span class="hljs-title">PGStore</span></span> {
+<span class="hljs-keyword">func</span> newPostgresStore() *pgstore.PGStore {
     url := <span class="hljs-string">&quot;postgres://novalagung:@127.0.0.1:5432/novalagung?sslmode=disable&quot;</span>
     authKey := []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;my-auth-key-very-secret&quot;</span>)
     encryptionKey := []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;my-encryption-key-very-secret123&quot;</span>)
@@ -2251,7 +2256,7 @@
 
 <span class="hljs-comment">// ...</span>
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newCookieStore</span><span class="hljs-params">()</span> *<span class="hljs-title">sessions</span>.<span class="hljs-title">CookieStore</span></span> {
+<span class="hljs-keyword">func</span> newCookieStore() *sessions.CookieStore {
     authKey := []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;my-auth-key-very-secret&quot;</span>)
     encryptionKey := []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;my-encryption-key-very-secret123&quot;</span>)
 
@@ -2318,56 +2323,12 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.13. Session (Gorilla Session)","level":"5.1.13","depth":2,"next":{"title":"C.14. CORS & Preflight Request","level":"5.1.14","depth":2,"path":"C-cors-preflight-request.md","ref":"C-cors-preflight-request.md","articles":[]},"previous":{"title":"C.12. Secure Cookie (Gorilla Securecookie)","level":"5.1.12","depth":2,"path":"C-securecookie.md","ref":"C-securecookie.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-session.md","mtime":"2023-06-08T08:22:04.000Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.13. Session (Gorilla Session)","level":"5.1.13","depth":2,"next":{"title":"C.14. CORS & Preflight Request","level":"5.1.14","depth":2,"path":"C-cors-preflight-request.md","ref":"C-cors-preflight-request.md","articles":[]},"previous":{"title":"C.12. Secure Cookie (Gorilla Securecookie)","level":"5.1.12","depth":2,"path":"C-securecookie.md","ref":"C-securecookie.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-session.md","mtime":"2023-06-08T08:57:06.942Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2377,6 +2338,18 @@
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Golang gRPC + Protobuf - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Golang gRPC + Protobuf &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -75,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -84,7 +89,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1994,8 +1999,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2113,10 +2118,10 @@ tree .
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;google/protobuf/Empty.proto&quot;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">service</span> <span class="hljs-title">Users</span> </span>{
-    <span class="hljs-function"><span class="hljs-keyword">rpc</span> Register(User) <span class="hljs-keyword">returns</span> (google.protobuf.Empty) </span>{}
-    <span class="hljs-function"><span class="hljs-keyword">rpc</span> List(google.protobuf.Empty) <span class="hljs-keyword">returns</span> (UserList) </span>{}
+    <span class="hljs-function"><span class="hljs-keyword">rpc</span> Register(User) <span class="hljs-keyword">returns</span> (google.protobuf.Empty) {}
+    <span class="hljs-keyword">rpc</span> List(google.protobuf.Empty) <span class="hljs-keyword">returns</span> (UserList) {}
 }
-</code></pre>
+</span></code></pre>
 <p>Sebuah service bernama <code>Users</code> didefinisikan, dengan isi dua buah method.</p>
 <ul>
 <li><code>Register()</code>, menerima parameter bertipe model <code>User</code>, dan mengembalikan <code>google.protobuf.Empty</code>.</li>
@@ -2150,10 +2155,10 @@ tree .
 <pre><code class="lang-protobuf"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;google/protobuf/Empty.proto&quot;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">service</span> <span class="hljs-title">Garages</span> </span>{
-    <span class="hljs-function"><span class="hljs-keyword">rpc</span> List(string) <span class="hljs-keyword">returns</span> (GarageList) </span>{}
-    <span class="hljs-function"><span class="hljs-keyword">rpc</span> Add(string, Garage) <span class="hljs-keyword">returns</span> (google.protobuf.Empty) </span>{}
+    <span class="hljs-function"><span class="hljs-keyword">rpc</span> List(string) <span class="hljs-keyword">returns</span> (GarageList) {}
+    <span class="hljs-keyword">rpc</span> Add(string, Garage) <span class="hljs-keyword">returns</span> (google.protobuf.Empty) {}
 }
-</code></pre>
+</span></code></pre>
 <p>Perlu diketahui bahwa protobuf mewajibkan pada rpc method untuk tidak menggunakan tipe primitif sebagai tipe argument maupun tipe nilai balik. Tipe <code>string</code> pada <code>rpc List(string)</code> akan menghasilkan error saat di-compile. Dan juga protobuf mewajibkan method untuk hanya menerima satu buah parameter, maka jelasnya <code>rpc Add(string, Garage)</code> juga invalid.</p>
 <p>Lalu bagaimana solusinya? Buat model baru lagi, property nya sesuaikan dengan parameter yang dibutuhkan di masing-masing rpc method.</p>
 <pre><code class="lang-protobuf"><span class="hljs-class"><span class="hljs-keyword">message</span> <span class="hljs-title">GarageUserId</span> </span>{
@@ -2166,10 +2171,10 @@ tree .
 }
 
 <span class="hljs-class"><span class="hljs-keyword">service</span> <span class="hljs-title">Garages</span> </span>{
-    <span class="hljs-function"><span class="hljs-keyword">rpc</span> List(GarageUserId) <span class="hljs-keyword">returns</span> (GarageList) </span>{}
-    <span class="hljs-function"><span class="hljs-keyword">rpc</span> Add(GarageAndUserId) <span class="hljs-keyword">returns</span> (google.protobuf.Empty) </span>{}
+    <span class="hljs-function"><span class="hljs-keyword">rpc</span> List(GarageUserId) <span class="hljs-keyword">returns</span> (GarageList) {}
+    <span class="hljs-keyword">rpc</span> Add(GarageAndUserId) <span class="hljs-keyword">returns</span> (google.protobuf.Empty) {}
 }
-</code></pre>
+</span></code></pre>
 <p>Sama seperti service <code>Users</code>, service <code>Garages</code> juga akan di-compile menjadi interface.</p>
 <ul>
 <li><p>Interface <code>GaragesServer</code>.</p>
@@ -2212,7 +2217,7 @@ tree .
 <p>Lalu buat satu buah objek bernama <code>localStorage</code> bertipe <code>*model.UserList</code>. Objek ini nantinya menampung data user yang ditambahkan dari aplikasi client (via rpc) lewat method <code>Register()</code>. Dan data objek ini juga dikembalikan ke client ketika <code>List()</code> diakses.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> localStorage *model.UserList
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> init() {
     localStorage = <span class="hljs-built_in">new</span>(model.UserList)
     localStorage.List = <span class="hljs-built_in">make</span>([]*model.User, <span class="hljs-number">0</span>)
 }
@@ -2220,7 +2225,7 @@ tree .
 <p>Buat struct baru <code>UsersServer</code>. Struct ini akan menjadi implementasi dari generated interface <code>model.UsersServer</code>. Siapkan method-method-nya sesuai spesifikasi interface.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> UsersServer <span class="hljs-keyword">struct</span>{}
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(UsersServer)</span> <span class="hljs-title">Register</span><span class="hljs-params">(ctx context.Context, param *model.User)</span> <span class="hljs-params">(*empty.Empty, error)</span></span> {
+<span class="hljs-keyword">func</span> (UsersServer) Register(ctx context.Context, param *model.User) (*empty.Empty, error) {
     localStorage.List = <span class="hljs-built_in">append</span>(localStorage.List, param)
 
   log.Println(<span class="hljs-string">&quot;Registering user&quot;</span>, param.String())
@@ -2228,12 +2233,12 @@ tree .
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">new</span>(empty.Empty), <span class="hljs-literal">nil</span>
 }
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(UsersServer)</span> <span class="hljs-title">List</span><span class="hljs-params">(ctx context.Context, void *empty.Empty)</span> <span class="hljs-params">(*model.UserList, error)</span></span> {
+<span class="hljs-keyword">func</span> (UsersServer) List(ctx context.Context, void *empty.Empty) (*model.UserList, error) {
     <span class="hljs-keyword">return</span> localStorage, <span class="hljs-literal">nil</span>
 }
 </code></pre>
 <p>Buat fungsi <code>main()</code>, buat objek grpc server dan objek implementasi <code>UsersServer</code>, lalu registrasikan kedua objek tersebut ke model menggunakan statement <code>model.RegisterUsersServer()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     srv := grpc.NewServer()
     <span class="hljs-keyword">var</span> userSrv UsersServer
     model.RegisterUsersServer(srv, userSrv)
@@ -2261,7 +2266,7 @@ log.Fatal(srv.Serve(l))
 <p>Buat file <code>services/service-garage/main.go</code>, import package yang sama seperti pada <code>service-user</code>. Lalu buat objek <code>localStorage</code> dari struct <code>*model.GarageListByUser</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> localStorage *model.GarageListByUser
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> init() {
     localStorage = <span class="hljs-built_in">new</span>(model.GarageListByUser)
     localStorage.List = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*model.GarageList)
 }
@@ -2272,7 +2277,7 @@ log.Fatal(srv.Serve(l))
 <p>Selanjutnya buat implementasi interface <code>model.GaragesServer</code>, lalu siapkan method-method-nya.</p>
 <ul>
 <li><p>Method <code>Add()</code></p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(GaragesServer)</span> <span class="hljs-title">Add</span><span class="hljs-params">(ctx context.Context, param *model.GarageAndUserId)</span> <span class="hljs-params">(*empty.Empty, error)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> (GaragesServer) Add(ctx context.Context, param *model.GarageAndUserId) (*empty.Empty, error) {
    userId := param.UserId
    garage := param.Garage
 
@@ -2289,7 +2294,7 @@ log.Fatal(srv.Serve(l))
 </code></pre>
 </li>
 <li><p>Method <code>List()</code></p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(GaragesServer)</span> <span class="hljs-title">List</span><span class="hljs-params">(ctx context.Context, param *model.GarageUserId)</span> <span class="hljs-params">(*model.GarageList, error)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> (GaragesServer) List(ctx context.Context, param *model.GarageUserId) (*model.GarageList, error) {
    userId := param.UserId
 
    <span class="hljs-keyword">return</span> localStorage.List[userId], <span class="hljs-literal">nil</span>
@@ -2298,7 +2303,7 @@ log.Fatal(srv.Serve(l))
 </li>
 </ul>
 <p>Start rpc server, gunakan <code>config.SERVICE_GARAGE_PORT</code> sebagai port aplikasi.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     srv := grpc.NewServer()
     <span class="hljs-keyword">var</span> garageSrv GaragesServer
     model.RegisterGaragesServer(srv, garageSrv)
@@ -2317,7 +2322,7 @@ log.Fatal(srv.Serve(l))
 <p>Buat file <code>client/main.go</code>, import package yang sama seperti pada <code>service-user</code> maupun <code>service-garage</code>. Lalu siapkan dua buah method yang mengembalikan rpc client yang terhubung ke dua service yang sudah kita buat.</p>
 <ul>
 <li><p>RPC client garage:</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">serviceGarage</span><span class="hljs-params">()</span> <span class="hljs-title">model</span>.<span class="hljs-title">GaragesClient</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> serviceGarage() model.GaragesClient {
    port := config.SERVICE_GARAGE_PORT
    conn, err := grpc.Dial(port, grpc.WithInsecure())
    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
@@ -2331,7 +2336,7 @@ log.Fatal(srv.Serve(l))
 </ul>
 <ul>
 <li><p>RPC client user:</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">serviceUser</span><span class="hljs-params">()</span> <span class="hljs-title">model</span>.<span class="hljs-title">UsersClient</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> serviceUser() model.UsersClient {
     port := config.SERVICE_USER_PORT
     conn, err := grpc.Dial(port, grpc.WithInsecure())
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
@@ -2344,7 +2349,7 @@ log.Fatal(srv.Serve(l))
 </li>
 </ul>
 <p>Buat fungsi <code>main()</code>, isi dengan pembuatan object dari generated-struct yang ada di package <code>model</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
   user1 := model.User{
         Id:       <span class="hljs-string">&quot;n001&quot;</span>,
         Name:     <span class="hljs-string">&quot;Noval Agung&quot;</span>,
@@ -2486,56 +2491,12 @@ log.Println(<span class="hljs-keyword">string</span>(res3String))
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"next":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.32","depth":2,"path":"C-golang-jwt.md","ref":"C-golang-jwt.md","articles":[]},"previous":{"title":"C.30. Protobuf","level":"5.1.30","depth":2,"path":"C-golang-protobuf-implementation.md","ref":"C-golang-protobuf-implementation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-grpc-protobuf.md","mtime":"2023-06-08T08:22:04.000Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"next":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.32","depth":2,"path":"C-golang-jwt.md","ref":"C-golang-jwt.md","articles":[]},"previous":{"title":"C.30. Protobuf","level":"5.1.30","depth":2,"path":"C-golang-protobuf-implementation.md","ref":"C-golang-protobuf-implementation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-grpc-protobuf.md","mtime":"2023-06-08T08:57:06.942Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2545,6 +2506,18 @@ log.Println(<span class="hljs-keyword">string</span>(res3String))
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

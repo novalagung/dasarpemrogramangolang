@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Golang Singleflight - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Golang Singleflight &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -73,7 +78,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -82,7 +87,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1992,8 +1997,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2058,9 +2063,9 @@
     chi <span class="hljs-string">&quot;github.com/go-chi/chi/v5&quot;</span>
 )
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     r := chi.NewRouter()
-    r.Route(<span class="hljs-string">&quot;/api&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(r chi.Router)</span></span> {
+    r.Route(<span class="hljs-string">&quot;/api&quot;</span>, <span class="hljs-keyword">func</span>(r chi.Router) {
         r.Get(<span class="hljs-string">&quot;/report/download/{reportID}&quot;</span>, HandlerDownloadReport)
     })
 
@@ -2070,7 +2075,7 @@
 }
 </code></pre>
 <p>Selanjutnya siapkan <code>HandlerDownloadReport</code>, yang isinya kurang lebih men-generate report sesuai <code>reportID</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">HandlerDownloadReport</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> HandlerDownloadReport(w http.ResponseWriter, r *http.Request) {
     reportID := chi.URLParam(r, <span class="hljs-string">&quot;reportID&quot;</span>)
 
     <span class="hljs-comment">// construct the report path</span>
@@ -2103,7 +2108,7 @@
 <p>Yang dilakukan setelahnya, kita cek file report tersebut, apakah sudah ada atau belum. Jika belum, maka generate dulu report nya.</p>
 <p>Di dalam blok kode <em>report generation</em> disimulasikan proses memakan waktu <code>5 detik</code>.</p>
 <p>Ok, sekarang tambahkan kode berikut:</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">HandlerDownloadReport</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> HandlerDownloadReport(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-comment">// ...</span>
 
     <span class="hljs-comment">// open the file, download it</span>
@@ -2131,7 +2136,7 @@
 <p>Ok, sekarang mari kita test.</p>
 <h2 id="c372-download-file">C.37.2. Download File</h2>
 <p>Pada contoh berikut penulis menggunakan command <code>curl</code> untuk mengetes endpoint. Endpoint yang sama di-call secara hampir bersamaan dari 2 terminal prompt berbeda.</p>
-<pre><code class="lang-bash">curl -s -w <span class="hljs-string">&quot;elapsed: %{time_total}s\n&quot;</span> -i -X GET http://localhost:8080/api/report/download/sales-2021-10
+<pre><code class="lang-bash">curl <span class="hljs-_">-s</span> -w <span class="hljs-string">&quot;elapsed: %{time_total}s\n&quot;</span> -i -X GET http://localhost:8080/api/report/download/sales-2021-10
 </code></pre>
 <p><img src="images/C_singleflight_1.png" alt="Dasar Pemrograman Golang - Golang singleflight"></p>
 <p>Ok, bisa dilihat, dua operasi <code>curl</code> yang hampir bersamaan, masing-masing butuh minimal 5 detik untuk selesai, ini karena kita set proses generate report 5 detik.</p>
@@ -2156,12 +2161,12 @@
 </code></pre>
 <p>Variabel <code>singleflightGroupDownloadReport</code> akan kita gunakan untuk men-<em>suppress</em> duplicate call terhadap kode generate report.</p>
 <p>Selanjutnya, modifikasi isi handler antara statement <code>path := ...</code> dan statement <code>f, err := ...</code></p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">HandlerDownloadReport</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> HandlerDownloadReport(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-comment">// ...</span>
     path := filepath.Join(os.TempDir(), reportName)
 
     sharedProcessKey := fmt.Sprintf(<span class="hljs-string">&quot;generate %s&quot;</span>, reportName)
-    _, err, shared := singleflightGroupDownloadReport.Do(sharedProcessKey, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span> <span class="hljs-params">(<span class="hljs-keyword">interface</span>{}, error)</span></span> {
+    _, err, shared := singleflightGroupDownloadReport.Do(sharedProcessKey, <span class="hljs-keyword">func</span>() (<span class="hljs-keyword">interface</span>{}, error) {
         <span class="hljs-comment">// if the report is not exists, generate it first.</span>
         <span class="hljs-comment">// otherwise, immediatelly download it</span>
         <span class="hljs-keyword">if</span> _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
@@ -2201,7 +2206,7 @@
 <p>Melanjutkan pembahasan pada contoh yang dijelaskan, berarti dari 10 api call hanya 1 request yang benar-benar men-generate report. Lalu bagaimana dengan 9 api call yang lain. Yang terjadi adalah request yang lain juga akan menunggu hingga <code>singleflightGroupDownloadReport.Do()</code> selesai dieksekusi, hanya saja tanpa mengeksekusi kode di dalam <code>singleflightGroupDownloadReport.Do()</code>.</p>
 <p>Agar lebih jelas, mari kita test saja.</p>
 <h2 id="c374-generate-report-dengan-singleflight-api">C.37.4. Generate report dengan <code>singleflight</code> API</h2>
-<pre><code class="lang-bash">curl -s -w <span class="hljs-string">&quot;elapsed: %{time_total}s\n&quot;</span> -i -X GET http://localhost:8080/api/report/download/sales-2021-09
+<pre><code class="lang-bash">curl <span class="hljs-_">-s</span> -w <span class="hljs-string">&quot;elapsed: %{time_total}s\n&quot;</span> -i -X GET http://localhost:8080/api/report/download/sales-2021-09
 </code></pre>
 <p><img src="images/C_singleflight_3.png" alt="Dasar Pemrograman Golang - Golang singleflight"></p>
 <p>Bisa dilihat pada gambar di atas, log <code>generate report report-sales....</code> hanya dipanggil sekali meskipun ada dua concurrent api call ke endpoint tersebut. Ini tandanya fungsi untuk generate <code>report-sales-2021-08.txt</code> di-suppress agar tidak redundant.</p>
@@ -2243,56 +2248,12 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.37. Singleflight","level":"5.1.37","depth":2,"next":{"title":"D. Studi Kasus","level":"6.1","depth":1,"ref":"","articles":[{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]},{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]}]},"previous":{"title":"C.36. Redis","level":"5.1.36","depth":2,"path":"C-golang-redis.md","ref":"C-golang-redis.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-singleflight.md","mtime":"2023-06-08T08:22:04.000Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.37. Singleflight","level":"5.1.37","depth":2,"next":{"title":"D. Studi Kasus","level":"6.1","depth":1,"ref":"","articles":[{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]},{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]}]},"previous":{"title":"C.36. Redis","level":"5.1.36","depth":2,"path":"C-golang-redis.md","ref":"C-golang-redis.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-singleflight.md","mtime":"2023-06-08T08:57:06.942Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2302,6 +2263,18 @@
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

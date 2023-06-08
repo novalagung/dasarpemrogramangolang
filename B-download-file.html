@@ -2,10 +2,11 @@
 <html lang>
     <head>
         <meta charset="UTF-8">
-        <title>Golang Download File - Dasar Pemrograman Golang</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Golang Download File &#xB7; GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
-        <meta name="generator" content="HonKit 4.0.7">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -23,7 +24,11 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-disqus/plugin.css" media="print" onload="this.media='all'">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css" media="print" onload="this.media='all'">
                 
             
                 
@@ -75,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.082247"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.06.08.085834"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -84,7 +89,7 @@
 		</script></head>
     <body>
         
-<div class="book honkit-cloak">
+<div class="book">
     <div class="book-summary"><div id="book-search-input"><div id="book-doc-search-input"></div></div>
         
             
@@ -1994,8 +1999,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
-            Published with HonKit
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
         </a>
     </li>
 </ul>
@@ -2041,11 +2046,11 @@
 <h2 id="b172-front-end">B.17.2. Front End</h2>
 <p>Kali ini di bagian front end kita tidak menggunakan jQuery, cukup javascript saja tanpa library. </p>
 <p>Pertama siapkan dahulu template nya, isi file <code>view.html</code> dengan kode berikut.</p>
-<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Download file<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
             <span class="hljs-comment">// javascript code goes here</span>
         </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
@@ -2057,7 +2062,7 @@
 <p>Tag <code>&lt;ul /&gt;</code> nantinya akan berisikan list semua file yang ada dalam folder <code>files</code>. Data list file didapat dari back end. Diperlukan sebuah AJAX untuk pengambilan data tersebut.</p>
 <p>Siapkan sebuah fungsi dengan nama <code>Yo</code> atau bisa lainnya, fungsi ini berisikan closure <code>renderData()</code>, <code>getAllListFiles()</code>, dan method <code>init()</code>. Buat instance object baru dari <code>Yo</code>, lalu akses method <code>init()</code>, tempatkan dalam event <code>window.onload</code>.</p>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Yo</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">var</span> self = <span class="hljs-built_in">this</span>;
+    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
     <span class="hljs-keyword">var</span> $ul = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;list-files&quot;</span>);
 
     <span class="hljs-keyword">var</span> renderData = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
@@ -2120,7 +2125,7 @@
 
 <span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-keyword">func</span> main() {
     http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, handleIndex)
     http.HandleFunc(<span class="hljs-string">&quot;/list-files&quot;</span>, handleListFiles)
     http.HandleFunc(<span class="hljs-string">&quot;/download&quot;</span>, handleDownload)
@@ -2130,7 +2135,7 @@
 }
 </code></pre>
 <p>Buat handler untuk rute <code>/</code>.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">handleIndex</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> handleIndex(w http.ResponseWriter, r *http.Request) {
     tmpl := template.Must(template.ParseFiles(<span class="hljs-string">&quot;view.html&quot;</span>))
     <span class="hljs-keyword">if</span> err := tmpl.Execute(w, <span class="hljs-literal">nil</span>); err != <span class="hljs-literal">nil</span> {
         http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -2138,12 +2143,12 @@
 }
 </code></pre>
 <p>Lalu siapkan juga route handler <code>/list-files</code>. Isi dari handler ini adalah membaca semua file yang ada pada folder <code>files</code> untuk kemudian dikembalikan sebagai output berupa JSON. Endpoint ini akan diakses oleh AJAX dari front end.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">handleListFiles</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> handleListFiles(w http.ResponseWriter, r *http.Request) {
     files := []M{}
     basePath, _ := os.Getwd()
     filesLocation := filepath.Join(basePath, <span class="hljs-string">&quot;files&quot;</span>)
 
-    err := filepath.Walk(filesLocation, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error)</span> <span class="hljs-title">error</span></span> {
+    err := filepath.Walk(filesLocation, <span class="hljs-keyword">func</span>(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error) error {
         <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
             <span class="hljs-keyword">return</span> err
         }
@@ -2176,7 +2181,7 @@
 </blockquote>
 <p>Fungsi <code>filepath.Walk</code> berguna untuk membaca isi dari sebuah direktori, apa yang ada di dalamnya (file maupun folder) akan di-loop. Dengan memanfaatkan callback parameter kedua fungsi ini (yang bertipe <code>filepath.WalkFunc</code>), kita bisa mengamil informasi tiap item satu-per satu.</p>
 <p>Selanjutnya siapkan handler untuk <code>/download</code>. Implementasi teknik download pada dasarnya sama pada semua bahasa pemrograman, yaitu dengan memainkan header <strong>Content-Disposition</strong> pada response.</p>
-<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">handleDownload</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> {
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> handleDownload(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-keyword">if</span> err := r.ParseForm(); err != <span class="hljs-literal">nil</span> {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         <span class="hljs-keyword">return</span>
@@ -2241,56 +2246,12 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.17. Download File","level":"4.1.17","depth":2,"next":{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},"previous":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"docsearch-v3":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-download-file.md","mtime":"2023-06-08T08:22:03.996Z","type":"markdown"},"gitbook":{"version":"4.0.7","time":"2023-06-08T08:22:19.529Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.17. Download File","level":"4.1.17","depth":2,"next":{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},"previous":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-download-file.md","mtime":"2023-06-08T08:57:06.938Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:58:08.028Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <noscript>
-        <style>
-            .honkit-cloak {
-                display: block !important;
-            }
-        </style>
-    </noscript>
-    <script>
-        // Restore sidebar state as critical path for prevent layout shift
-        function __init__getSidebarState(defaultValue){
-            var baseKey = "";
-            var key = baseKey + ":sidebar";
-            try {
-                var value = localStorage[key];
-                if (value === undefined) {
-                    return defaultValue;
-                }
-                var parsed = JSON.parse(value);
-                return parsed == null ? defaultValue : parsed;
-            } catch (e) {
-                return defaultValue;
-            }
-        }
-        function __init__restoreLastSidebarState() {
-            var isMobile = window.matchMedia("(max-width: 600px)").matches;
-            if (isMobile) {
-                // Init last state if not mobile
-                return;
-            }
-            var sidebarState = __init__getSidebarState(true);
-            var book = document.querySelector(".book");
-            // Show sidebar if it enabled
-            if (sidebarState && book) {
-                book.classList.add("without-animation", "with-summary");
-            }
-        }
-
-        try {
-            __init__restoreLastSidebarState();
-        } finally {
-            var book = document.querySelector(".book");
-            book.classList.remove("honkit-cloak");
-        }
-    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     
@@ -2300,6 +2261,18 @@
     
         
         <script src="gitbook/gitbook-plugin-docsearch-v3/init.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         
