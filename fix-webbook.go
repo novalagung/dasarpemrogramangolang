@@ -138,7 +138,7 @@ func postAdjustment() {
 			"gitbook/gitbook-plugin-highlight/website.css",
 			"gitbook/gitbook-plugin-search/search.css",
 			"gitbook/gitbook-plugin-fontsettings/website.css",
-			// `/style.css?v=` + getVersion() + `"`,
+			// `/custom.css?v=` + getVersion() + `"`,
 		}
 		for _, cssFileNameToFind := range cssToLoad {
 			cssFileNameReplacement := fmt.Sprintf(`%s" media="print" onload="this.media='all'`, cssFileNameToFind)
@@ -151,10 +151,10 @@ func postAdjustment() {
 		htmlString = strings.Replace(htmlString, buttonToFind, buttonReplacement, -1)
 
 		// ==== inject adjustment css
-		adjustmentCSSBuf, _ := ioutil.ReadFile("./style.css")
-		ioutil.WriteFile("./_book/gitbook/style.css", adjustmentCSSBuf, 0644)
+		adjustmentCSSBuf, _ := ioutil.ReadFile("./custom.css")
+		ioutil.WriteFile("./_book/gitbook/custom.css", adjustmentCSSBuf, 0644)
 		adjustmentCSSToFind := `</head>`
-		adjustmentCSSReplacement := `<link rel="stylesheet" href="gitbook/style.css?v=` + getVersion() + `">` + adjustmentCSSToFind
+		adjustmentCSSReplacement := `<link rel="stylesheet" href="gitbook/custom.css?v=` + getVersion() + `">` + adjustmentCSSToFind
 		htmlString = strings.Replace(htmlString, adjustmentCSSToFind, adjustmentCSSReplacement, -1)
 
 		// ==== inject github stars js script
