@@ -69,6 +69,7 @@ jobs:
         sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
     - name: 'Generating distributable files'
       run: |
+        go run fix-ebook.go -type=pre
         mkdir _book
         gitbook install
     - name: 'Generating ebook in pdf'
