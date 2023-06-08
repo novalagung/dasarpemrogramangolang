@@ -78,7 +78,14 @@ func postAdjustment() {
 		htmlString = strings.Replace(htmlString, ` lang="" xml:lang=""`, "", -1)
 
 		// ==== adjust title for SEO purpose
-		oldTitle := getTitle(htmlString)
+		oldTitle := func(htmlString string) string {
+			regexFindTitle := regexp.MustCompile(`<title>(.*?)<\/title>`)
+			title := regexFindTitle.FindString(htmlString)
+			title = strings.Replace(title, "<title>", "", -1)
+			title = strings.Replace(title, "</title>", "", -1)
+			return title
+		}(htmlString)
+
 		newTitle := oldTitle
 		isLandingPage := oldTitle == "Introduction · GitBook"
 		if isLandingPage {
@@ -131,7 +138,7 @@ func postAdjustment() {
 			"gitbook/gitbook-plugin-highlight/website.css",
 			"gitbook/gitbook-plugin-search/search.css",
 			"gitbook/gitbook-plugin-fontsettings/website.css",
-			// `/adjustment.css?v=` + getVersion() + `"`,
+			// `/style.css?v=` + getVersion() + `"`,
 		}
 		for _, cssFileNameToFind := range cssToLoad {
 			cssFileNameReplacement := fmt.Sprintf(`%s" media="print" onload="this.media='all'`, cssFileNameToFind)
@@ -144,10 +151,10 @@ func postAdjustment() {
 		htmlString = strings.Replace(htmlString, buttonToFind, buttonReplacement, -1)
 
 		// ==== inject adjustment css
-		adjustmentCSSBuf, _ := ioutil.ReadFile("./adjustment.css")
-		ioutil.WriteFile("./_book/gitbook/adjustment.css", adjustmentCSSBuf, 0644)
+		adjustmentCSSBuf, _ := ioutil.ReadFile("./style.css")
+		ioutil.WriteFile("./_book/gitbook/style.css", adjustmentCSSBuf, 0644)
 		adjustmentCSSToFind := `</head>`
-		adjustmentCSSReplacement := `<link rel="stylesheet" href="gitbook/adjustment.css?v=` + getVersion() + `">` + adjustmentCSSToFind
+		adjustmentCSSReplacement := `<link rel="stylesheet" href="gitbook/style.css?v=` + getVersion() + `">` + adjustmentCSSToFind
 		htmlString = strings.Replace(htmlString, adjustmentCSSToFind, adjustmentCSSReplacement, -1)
 
 		// ==== inject github stars js script
@@ -200,9 +207,10 @@ func postAdjustment() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+	sitemapContent := string(buf)
 
 	// ===== change crawl frequency
-	sitemapContent := strings.Replace(string(buf), `<changefreq>weekly</changefreq>`, `<changefreq>daily</changefreq>`, -1)
+	// sitemapContent = strings.Replace(sitemapContent, `<changefreq>weekly</changefreq>`, `<changefreq>daily</changefreq>`, -1)
 
 	// ===== inject files into sitemap
 	sitemapContent = strings.ReplaceAll(sitemapContent, `</urlset>`, strings.TrimSpace(`
@@ -233,13 +241,4 @@ func postAdjustment() {
 
 func getVersion() string {
 	return fmt.Sprintf("%d.%s", baseVersion, now.Format("2006.01.02.150405"))
-}
-
-func getTitle(htmlString string) string {
-	regexFindTitle := regexp.MustCompile(`<title>(.*?)<\/title>`)
-	title := regexFindTitle.FindString(htmlString)
-	title = strings.Replace(title, "<title>", "", -1)
-	title = strings.Replace(title, "</title>", "", -1)
-
-	return title
 }
