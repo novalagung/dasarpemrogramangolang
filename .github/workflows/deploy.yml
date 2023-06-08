@@ -19,9 +19,13 @@ jobs:
         check-latest: true
     - name: 'Installing requirements'
       run: |
-        npm install -g gitbook-cli
+        gitbook install
+        cp ./book.json ./book.json.template
         cd ~/.gitbook/versions/3.2.3 && npm i npm@5
         cd ${{ github.workspace }}
+        cp ./book.json.template ./book.json
+        gitbook install
+        gitbook build
     - name: 'Generating distributable files'
       run: |
         rm -f README.md
