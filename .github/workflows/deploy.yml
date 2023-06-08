@@ -17,22 +17,19 @@ jobs:
       with:
         node-version: 11
         check-latest: true
-    - name: 'Installing requirements'
-      run: |
-        gitbook install
-        cp ./book.json ./book.json.template
-        cd ~/.gitbook/versions/3.2.3 && npm i npm@5
-        cd ${{ github.workspace }}
-        cp ./book.json.template ./book.json
-        gitbook install
-        gitbook build
     - name: 'Generating distributable files'
       run: |
         rm -f README.md
         mv content/* .
         mv etc/* .
-        go run fix-webbook.go -type=pre
+        npm install -g gitbook-cli
+        cp ./book.json ./book.json.template
         gitbook install
+        cd ~/.gitbook/versions/3.2.3 && npm i npm@5
+        cd ${{ github.workspace }}
+        cp ./book.json.template ./book.json
+        gitbook install
+        go run fix-webbook.go -type=pre
         gitbook build
         go run fix-webbook.go -type=post
         cd _book
