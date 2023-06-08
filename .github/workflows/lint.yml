@@ -11,14 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
     - uses: actions/setup-go@v4
-    - name: 'Installing requirements'
+    - uses: actions/setup-node@v3
+    - name: 'Test build distributable files'
       run: |
         rm -f README.md
         mv content/* .
         mv etc/* .
         npm install
-    - name: 'Test build distributable files'
-      run: |
         npm run build
