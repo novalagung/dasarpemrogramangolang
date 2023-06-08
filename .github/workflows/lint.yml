@@ -22,5 +22,7 @@ jobs:
       run: npm install -g gitbook-cli
     - name: 'Generating distributable files'
       run: |
+        mv content/* .
+        mv etc/* .
         gitbook install
         gitbook build

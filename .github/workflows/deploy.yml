@@ -23,6 +23,8 @@ jobs:
       run: npm install -g gitbook-cli
     - name: 'Generating distributable files'
       run: |
+        mv content/* .
+        mv etc/* .
         go run fix-webbook.go -type=pre
         gitbook install
         cp ./book.json.template ./book.json
@@ -69,6 +71,8 @@ jobs:
         sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
     - name: 'Generating distributable files'
       run: |
+        mv content/* .
+        mv etc/* .
         go run fix-ebook.go -type=pre
         mkdir _book
         gitbook install

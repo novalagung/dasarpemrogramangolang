@@ -11,8 +11,7 @@
     "honkit": "^4.0.7"
   },
   "scripts": {
-    "build": "honkit build",
-    "serve": "honkit serve"
+    "serve": "cd content && honkit serve"
   },
   "repository": {
     "type": "git",
