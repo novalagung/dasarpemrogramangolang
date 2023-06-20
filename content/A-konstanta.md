@@ -54,8 +54,8 @@ const (
 )
 ```
 
-- `isToday`, dideklarasikan dengan metode _type inference_ dengan tipe data **bool** dan nilainya **true**
-- `square`, dideklarasikan dengan metode _manifest typing_ dengan tipe data **string** dan nilainya **"kotak"**
+- `square`, dideklarasikan dengan metode _type inference_ dengan tipe data **string** dan nilainya **"kotak"**
+- `isToday`, dideklarasikan dengan metode _manifest typing_ dengan tipe data **bool** dan nilainya **true**
 - `numeric`, dideklarasikan dengan metode _manifest typing_ dengan tipe data **uint8** dan nilainya **1**
 - `floatNum`, dideklarasikan dengan metode _type inference_ dengan tipe data **float** dan nilainya **2.2**
 
