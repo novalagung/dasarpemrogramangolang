@@ -76,6 +76,15 @@ Di dalam package `math/rand`, ada banyak fungsi untuk generate angka random. Met
 
 Selain itu, ada juga `randomizer.Float32()` yang menghasilkan angka random bertipe `float32`. Ada juga `randomizer.Uint32()` yang menghasilkan angka random bertipe *unsigned* int, dan lainnya.
 
+Contoh penerapan fungsi-fungsi tersebut:
+
+```go
+randomizer := rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
+fmt.Println("random int:", randomizer.Int())
+fmt.Println("random float32:", randomizer.Float32())
+fmt.Println("random uint:", randomizer.Uint32())
+```
+
 lebih detailnya silakan merujuk ke https://golang.org/pkg/math/rand/
 
 ## A.39.5. Angka Random Index Tertentu
