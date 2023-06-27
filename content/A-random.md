@@ -106,6 +106,10 @@ func randomString(length int) string {
 	}
 	return string(b)
 }
+
+func main() {
+	fmt.Println("random string 5 karakter:", randomString(5))
+}
 ```
 
 Dengan fungsi di atas kita bisa dengan mudah meng-generate string random dengan panjang karakter yang sudah ditentukan, misal `randomString(10)` akan menghasilkan random string 10 karakter.
