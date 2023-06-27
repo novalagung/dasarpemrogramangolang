@@ -60,7 +60,7 @@ Jadi begini, setiap kali `randomizer.Int()` dipanggil, hasilnya itu selalu berbe
 Coba modifikasi program dengan kode berikut, lalu jalankan ulang. Jangan lupa meng-import package `time` ya.
 
 ```go
-randomizer := rand.New(rand.NewSource(10))
+randomizer := rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
 fmt.Println("random ke-1:", randomizer.Int())
 fmt.Println("random ke-2:", randomizer.Int())
 fmt.Println("random ke-3:", randomizer.Int())
@@ -75,6 +75,15 @@ Bisa dilihat, setiap program dieksekusi angka random nya selalu berbeda, hal ini
 Di dalam package `math/rand`, ada banyak fungsi untuk generate angka random. Method `Int()` milik object randomizer hanya salah satu dari fungsi yang tersedia di dalam package tersebut, yang gunanya adalah menghasilkan angka random bertipe `int`.
 
 Selain itu, ada juga `randomizer.Float32()` yang menghasilkan angka random bertipe `float32`. Ada juga `randomizer.Uint32()` yang menghasilkan angka random bertipe *unsigned* int, dan lainnya.
+
+Contoh penerapan fungsi-fungsi tersebut:
+
+```go
+randomizer := rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
+fmt.Println("random int:", randomizer.Int())
+fmt.Println("random float32:", randomizer.Float32())
+fmt.Println("random uint:", randomizer.Uint32())
+```
 
 lebih detailnya silakan merujuk ke https://golang.org/pkg/math/rand/
 
