@@ -60,7 +60,7 @@ Jadi begini, setiap kali `randomizer.Int()` dipanggil, hasilnya itu selalu berbe
 Coba modifikasi program dengan kode berikut, lalu jalankan ulang. Jangan lupa meng-import package `time` ya.
 
 ```go
-randomizer := rand.New(rand.NewSource(10))
+randomizer := rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
 fmt.Println("random ke-1:", randomizer.Int())
 fmt.Println("random ke-2:", randomizer.Int())
 fmt.Println("random ke-3:", randomizer.Int())
