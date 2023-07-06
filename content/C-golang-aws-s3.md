@@ -1,4 +1,4 @@
-# C.38. Amazon Simple Storage Service (S3)
+# C.38. Amazon S3 (Simple Storage Service)
 
 Pada bab ini kita akan belajar untuk membuat koneksi ke Amazon S3 menggunakan Golang. Mulai dari cara membuat bucket di S3, melihat semua daftar bucket di S3, melihat semua object/file yang ada di dalam sebuah bucket S3, serta mengupload dan mendownload file dari S3 bucket.
 
@@ -380,6 +380,55 @@ func main() {
 Jalankan program dan lihat hasilnya.
 
 ![S3 test](images/C_aws_s3_6.png)
+
+## C.39.10 Presign URL
+
+Presign URL adalah salah satu metode untuk sharing object bisa diakses oleh publik (lewat internet). Dengan presign url, kita bisa menentukan durasi berapa lama object bisa diakses oleh public.
+
+Cara penerapannya cukup mudah, pertama akses *instance* object menggunakan method `GetObjectRequest()`. Pada argument pemanggilan method, isi `Key` dengan nama object. Lalu gunakan nilai balik pertama statement untuk mengakses method `Presign()` sekaligus tentukan durasinya.
+
+Pada kode berikut, method `Presign()` mengembalikan URL object yang valid selama `15 menit`.
+
+```go
+func presignUrl(client *s3.S3, bucketName string, fileName string) (string, error) {
+	req, _ := client.GetObjectRequest(&s3.GetObjectInput{
+		Bucket: aws.String(bucketName),
+		Key:    aws.String(fileName),
+	})
+
+	urlStr, err := req.Presign(15 * time.Minute)
+	if err != nil {
+		return "", err
+	}
+
+	return urlStr, nil
+}
+```
+
+Panggil method tersebut di fungsi `main()` lalu coba akses URL nya.
+
+```go
+func main() {
+	// ...
+
+	// =============== presign url ===============
+	fileName := "adamstudio.jpg"
+	bucketName := "adamstudio-new-bucket"
+	urlStr, err := presignUrl(s3Client, bucketName, fileName)
+	if err != nil {
+		fmt.Printf("Couldn't presign url: %v", err)
+		return
+	}
+
+	fmt.Println("Presign url:", urlStr)
+}
+```
+
+Hasilnya:
+
+![S3 test](images/C_aws_s3_7.png)
+
+![S3 test](images/C_aws_s3_8.png)
 
 ---
 
