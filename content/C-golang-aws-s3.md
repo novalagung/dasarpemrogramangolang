@@ -294,8 +294,8 @@ Untuk proses download, kita harus mempersiapkan satu file object terlebih dahulu
 Pada contoh berikut, object `file` adalah file yang akan menampung operasi download. Object tersebut disisipkan sebagai argument pemanggilan fungsi `Download()` milik object downloader bertipe `*s3manager.Downloader`.
 
 ```go
-func downloadFile(downloader *s3manager.Downloader, bucketName string, key string) error {
-	file, err := os.Create(filepath.Join("download", key))
+func downloadFile(downloader *s3manager.Downloader, bucketName string, key string, downloadPath string) error {
+	file, err := os.Create(downloadPath)
 	if err != nil {
 		return err
 	}
@@ -326,8 +326,8 @@ func main() {
 	downloader := s3manager.NewDownloader(sess)
 	fileName := "adamstudio.jpg"
 	bucketName := "adamstudio-new-bucket"
-	err = downloadFile(downloader, bucketName, fileName)
-
+	downloadPath := filepath.Join("download", fileName)
+	err = downloadFile(downloader, bucketName, fileName, downloadPath)
 	if err != nil {
 		fmt.Printf("Couldn't download file: %v", err)
 		return
