@@ -142,7 +142,7 @@ func main() {
 }
 ```
 
-Jalankan program dan lihat hasilnya:
+Jalankan program dan lihat hasilnya.
 
 ![S3 test](images/C_aws_s3_1.png)
 
@@ -182,7 +182,7 @@ func main() {
 }
 ```
 
-Jalankan program dan lihat hasilnya:
+Jalankan program dan lihat hasilnya.
 
 ![S3 test](images/C_aws_s3_2.png)
 
@@ -240,7 +240,7 @@ func main() {
 }
 ```
 
-Jalankan program dan lihat hasilnya:
+Jalankan program dan lihat hasilnya.
 
 ![S3 test](images/C_aws_s3_3.png)
 
@@ -282,6 +282,10 @@ func main() {
 	// ...
 }
 ```
+
+Jalankan program dan lihat hasilnya.
+
+![S3 test](images/C_aws_s3_5.png)
 
 ## C.39.8 Men-download object dari S3 bucket
 
@@ -335,7 +339,7 @@ func main() {
 }
 ```
 
-Jalankan program dan lihat hasilnya:
+Jalankan program dan lihat hasilnya.
 
 ![S3 test](images/C_aws_s3_4.png)
 
@@ -373,7 +377,7 @@ func main() {
 }
 ```
 
-Jalankan program dan lihat hasilnya
+Jalankan program dan lihat hasilnya.
 
 ![S3 test](images/C_aws_s3_6.png)
 
