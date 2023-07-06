@@ -38,6 +38,7 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 1. [Dipta Harimbawa](https://github.com/diptarimba)
 1. [Dwi Hujianto](https://github.com/dwihujianto)
 1. [Edi Santoso](https://github.com/repodevs)
+1. [Eky Pradhana](https://github.com/ekypradhana)
 1. [Fadhil Riyanto](https://github.com/fadhil-riyanto)
 1. [Faizar Septiawan](https://github.com/icarrr)
 1. [Fajar Islami](https://github.com/Fajar-Islami)

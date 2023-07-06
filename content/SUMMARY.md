@@ -152,6 +152,7 @@
   * [C.35. Dockerize Aplikasi Golang](C-dockerize-golang.md)
   * [C.36. Redis](C-golang-redis.md)
   * [C.37. Singleflight](C-singleflight.md)
+  * [C.38. AWS S3](C-golang-aws-s3.md)
   <!-- distlock -->
   <!-- goreleaser -->
   <!-- nats -->
