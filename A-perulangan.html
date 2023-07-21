@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.07.06.132024"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.07.21.091150"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2084,7 +2084,32 @@
 </code></pre>
 <p>Dalam perulangan tanpa henti di atas, variabel <code>i</code> yang nilai awalnya <code>0</code> di-inkrementasi. Ketika nilai <code>i</code> sudah mencapai <code>5</code>, keyword <code>break</code> digunakan, dan perulangan akan berhenti.</p>
 <h2 id="a144-penggunaan-keyword-for---range">A.14.4. Penggunaan Keyword <code>for</code> - <code>range</code></h2>
-<p>Cara ke-4 adalah perulangan dengan menggunakan kombinasi keyword <code>for</code> dan <code>range</code>. Cara ini biasa digunakan untuk me-looping data bertipe array. Detailnya akan dibahas dalam chapter selanjutnya (<a href="A-array.html">A.15. Array</a>).</p>
+<p>Cara ke-4 adalah perulangan dengan menggunakan kombinasi keyword <code>for</code> dan <code>range</code>. Cara ini biasa digunakan untuk me-looping data gabungan (misalnya string, array, slice, map). Detailnya akan dibahas dalam chapter-chapter selanjutnya (<a href="A-array.html">A.15. Array</a>, <a href="A-slice.html">A.16. Slice</a>, <a href="A-map.html">A.17. Map</a>).</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> xs = <span class="hljs-string">&quot;123&quot;</span> <span class="hljs-comment">// string</span>
+<span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> xs {
+    fmt.Println(<span class="hljs-string">&quot;Index=&quot;</span>, i, <span class="hljs-string">&quot;Value=&quot;</span>, v)
+}
+
+<span class="hljs-keyword">var</span> ys = [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span>{<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>, <span class="hljs-number">50</span>} <span class="hljs-comment">// array</span>
+<span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> ys {
+    fmt.Println(<span class="hljs-string">&quot;Value=&quot;</span>, v)
+}
+
+<span class="hljs-keyword">var</span> zs = ys[<span class="hljs-number">0</span>:<span class="hljs-number">2</span>] <span class="hljs-comment">// slice</span>
+<span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> zs {
+    fmt.Println(<span class="hljs-string">&quot;Value=&quot;</span>, v)
+}
+
+<span class="hljs-keyword">var</span> kvs = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">byte</span>]<span class="hljs-keyword">int</span>{<span class="hljs-string">&apos;a&apos;</span>: <span class="hljs-number">0</span>, <span class="hljs-string">&apos;b&apos;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&apos;c&apos;</span>: <span class="hljs-number">2</span>} <span class="hljs-comment">// map</span>
+<span class="hljs-keyword">for</span> k, v := <span class="hljs-keyword">range</span> kvs {
+    fmt.Println(<span class="hljs-string">&quot;Key=&quot;</span>, k, <span class="hljs-string">&quot;Value=&quot;</span>, v)
+}
+
+<span class="hljs-comment">// boleh juga baik k dan atau v nya diabaikan</span>
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">range</span> kvs {
+    fmt.Println(<span class="hljs-string">&quot;Done&quot;</span>)
+}
+</code></pre>
 <h2 id="a145-penggunaan-keyword-break--continue">A.14.5. Penggunaan Keyword <code>break</code> &amp; <code>continue</code></h2>
 <p>Keyword <code>break</code> digunakan untuk menghentikan secara paksa sebuah perulangan, sedangkan <code>continue</code> dipakai untuk memaksa maju ke perulangan berikutnya.</p>
 <p>Berikut merupakan contoh penerapan <code>continue</code> dan <code>break</code>. Kedua keyword tersebut dimanfaatkan untuk menampilkan angka genap berurutan yang lebih besar dari 0 dan kurang dari atau sama dengan 8.</p>
@@ -2171,7 +2196,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"next":{"title":"A.15. Array","level":"3.1.15","depth":2,"path":"A-array.md","ref":"A-array.md","articles":[]},"previous":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"path":"A-seleksi-kondisi.md","ref":"A-seleksi-kondisi.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-perulangan.md","mtime":"2023-07-06T13:18:54.294Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-07-06T13:19:57.846Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"next":{"title":"A.15. Array","level":"3.1.15","depth":2,"path":"A-array.md","ref":"A-array.md","articles":[]},"previous":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"path":"A-seleksi-kondisi.md","ref":"A-seleksi-kondisi.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-perulangan.md","mtime":"2023-07-21T09:10:03.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-07-21T09:11:18.896Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
