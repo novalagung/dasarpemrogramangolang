@@ -57,6 +57,7 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 1. [Ma'mur Rezeki](https://github.com/erzqy)
 1. [MH Rohman Masyhar](https://github.com/rohmanhm)
 1. [Muhammad Faris 'Afif](https://github.com/muhfaris)
+1. [Muhammad Ridho](https://github.com/reedho)
 1. [Mulia Nasution](https://github.com/mul14)
 1. [nekonako](https://github.com/nekonako)
 1. [Nuevo Querto](https://github.com/NuevoQuerto)
