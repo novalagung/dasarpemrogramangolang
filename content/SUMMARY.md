@@ -8,8 +8,9 @@
 <hr>
 
 * Referensi Belajar Lainnya
-  * [📖 Ebook: Dasar Pemrograman Rust](https://dasarpemrogramanrust.novalagung.com/)
-  * [📖 Ebook: Learn DevOps](https://learndevops.novalagung.com/)
+  * [📖 Dasar Pemrograman Python](https://dasarpemrogramanpython.novalagung.com/)
+  * [📖 Dasar Pemrograman Rust](https://dasarpemrogramanrust.novalagung.com/)
+  * [📖 How To](https://howto.novalagung.com)
   * [▶️ Udemy Course: Belajar Docker & Kubernetes (FREE Juni 2023)](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=FREE-202306)
 
 <hr>
@@ -80,10 +81,6 @@
   * [A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](A-simplified-fan-in-fan-out-pipeline.md)
   * [A.64. Concurrency Pattern: Context Cancellation Pipeline](A-pipeline-context-cancellation.md)
   * [A.65. Go Generics](A-golang-generics.md)
-  <!-- crypto -->
-  <!-- race -->
-  <!-- profile -->
-  <!-- embed -->
 
 <hr>
 
@@ -153,11 +150,6 @@
   * [C.36. Redis](C-golang-redis.md)
   * [C.37. Singleflight](C-singleflight.md)
   * [C.38. AWS S3](C-golang-aws-s3.md)
-  <!-- distlock -->
-  <!-- goreleaser -->
-  <!-- nats -->
-  <!-- etcd -->
-  <!-- sso IDP -->
 
 <hr>
 
