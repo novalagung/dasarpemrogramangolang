@@ -53,6 +53,7 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 1. [Jono](https://github.com/josterand)
 1. [Kiswono Prayogo](https://github.com/kokizzu)
 1. [Lufri Rais Maulana](https://github.com/raismaulana)
+1. [M Rafi Raihandika](https://github.com/mananispiwpiw)
 1. [M. Ilham Syaputra](https://github.com/ilhamsyaputra)
 1. [Ma'mur Rezeki](https://github.com/erzqy)
 1. [MH Rohman Masyhar](https://github.com/rohmanhm)
