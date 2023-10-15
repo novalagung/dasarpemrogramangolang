@@ -28,7 +28,7 @@ import (
 func main() {
     runtime.GOMAXPROCS(2)
 
-    messages := make(chan int, 2)
+    messages := make(chan int, 3)
 
     go func() {
         for {
