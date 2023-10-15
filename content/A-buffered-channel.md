@@ -19,26 +19,32 @@ Berikut adalah contoh penerapan buffered channel. Program di bawah ini merupakan
 ```go
 package main
 
-import "fmt"
-import "runtime"
+import (
+	"fmt"
+	"runtime"
+	"time"
+)
 
 func main() {
-    runtime.GOMAXPROCS(2)
+	runtime.GOMAXPROCS(2)
 
-    messages := make(chan int, 3)
+	messages := make(chan int, 2)
 
-    go func() {
-        for {
-            i := <-messages
-            fmt.Println("receive data", i)
-        }
-    }()
+	go func() {
+		for {
+			i := <-messages
+			fmt.Println("receive data", i)
+		}
+	}()
 
-    for i := 0; i < 5; i++ {
-        fmt.Println("send data", i)
-        messages <- i
-    }
+	for i := 0; i < 5; i++ {
+		fmt.Println("send data", i)
+		messages <- i
+	}
+
+	time.Sleep(1 * time.Second)
 }
+
 ```
 
 Pada kode di atas, parameter kedua fungsi `make()` adalah representasi jumlah buffer. Perlu diperhatikan bahwa nilai buffered channel dimulai dari `0`. Ketika nilainya adalah **3** berarti jumlah buffer maksimal ada **4**.
@@ -50,6 +56,14 @@ Bisa dilihat terdapat IIFE goroutine yang isinya proses penerimaan data dari cha
 Bisa dilihat output di atas, pada proses pengiriman data ke-4, diikuti dengan proses penerimaan data; yang kedua proses tersebut berlangsung secara blocking.
 
 Pengiriman data indeks ke 0, 1, 2 dan 3 akan berjalan secara asynchronous, hal ini karena channel ditentukan nilai buffer-nya sebanyak 3 (ingat, jika nilai buffer adalah 3, maka 4 data yang akan di-buffer). Pengiriman selanjutnya (indeks 5) hanya akan terjadi jika ada salah satu data dari ke-empat data yang sebelumnya telah dikirimkan sudah diterima (dengan serah terima data yang bersifat blocking). Setelahnya, pengiriman data kembali dilakukan secara asynchronous (karena sudah ada slot buffer ada yang kosong).
+
+Karena pengiriman dan penerimaan data via buffered channel terjadi tidak selalu sycnrhonous (tergantung jumlah buffer-nya), maka ada kemungkinan dimana eksekusi program selesai namun tidak semua data diterima via channel `messages`. Karena alasan ini pada bagian akhir ditambahkan statement `time.Sleep(1 * time.Second)` agar ada jeda 1 detik sebelum program selesai.
+
+#### • Fungsi `time.Sleep()`
+
+Fungsi ini digunakan untuk menambahkan delay sebelum statement berikutnya dieksekusi. Durasi delay ditentukan oleh parameter, misal `1 * time.Second` maka durasi delay adalah 1 detik.
+
+Lebih detailnya mengenai fungsi `time.Sleep()` dan `time.Second` dibahas pada chapter terpisah, yaitu [Time Duration](https://dasarpemrogramangolang.novalagung.com/A-time-duration.html).
 
 ---
 
