@@ -229,7 +229,10 @@ Hal tersebut memiliki beberapa konsekuensi, untuk aplikasi yang di-manage secara
 
 #### • Solusi
 
-Kita akan membahas solusi dari beberapa masalah di atas pada chapter terpisah, yaitu ketika masuk ke C.8.
+Kita akan membahas solusi dari beberapa masalah di atas pada chapter terpisah, yaitu [Best Practice Configuration Menggunakan Environment Variable
+](/C-best-practice-configuration-env-var)
+
+---
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
