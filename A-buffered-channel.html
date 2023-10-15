@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.09.01.072317"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.10.15.111358"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2072,8 +2072,11 @@
 <p>Berikut adalah contoh penerapan buffered channel. Program di bawah ini merupakan pembuktian bahwa pengiriman data lewat buffered channel adalah asynchronous selama jumlah data yang sedang di-buffer oleh channel tidak melebihi kapasitas buffer.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;runtime&quot;</span>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;runtime&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
 
 <span class="hljs-keyword">func</span> main() {
     runtime.GOMAXPROCS(<span class="hljs-number">2</span>)
@@ -2091,6 +2094,8 @@
         fmt.Println(<span class="hljs-string">&quot;send data&quot;</span>, i)
         messages &lt;- i
     }
+
+    time.Sleep(<span class="hljs-number">1</span> * time.Second)
 }
 </code></pre>
 <p>Pada kode di atas, parameter kedua fungsi <code>make()</code> adalah representasi jumlah buffer. Perlu diperhatikan bahwa nilai buffered channel dimulai dari <code>0</code>. Ketika nilainya adalah <strong>3</strong> berarti jumlah buffer maksimal ada <strong>4</strong>.</p>
@@ -2098,6 +2103,10 @@
 <p><img src="images/A_buffered_channel_2_buffered_channel.png" alt="Dasar Pemrograman Golang - Implementasi buffered channel"></p>
 <p>Bisa dilihat output di atas, pada proses pengiriman data ke-4, diikuti dengan proses penerimaan data; yang kedua proses tersebut berlangsung secara blocking.</p>
 <p>Pengiriman data indeks ke 0, 1, 2 dan 3 akan berjalan secara asynchronous, hal ini karena channel ditentukan nilai buffer-nya sebanyak 3 (ingat, jika nilai buffer adalah 3, maka 4 data yang akan di-buffer). Pengiriman selanjutnya (indeks 5) hanya akan terjadi jika ada salah satu data dari ke-empat data yang sebelumnya telah dikirimkan sudah diterima (dengan serah terima data yang bersifat blocking). Setelahnya, pengiriman data kembali dilakukan secara asynchronous (karena sudah ada slot buffer ada yang kosong).</p>
+<p>Karena pengiriman dan penerimaan data via buffered channel terjadi tidak selalu sycnrhonous (tergantung jumlah buffer-nya), maka ada kemungkinan dimana eksekusi program selesai namun tidak semua data diterima via channel <code>messages</code>. Karena alasan ini pada bagian akhir ditambahkan statement <code>time.Sleep(1 * time.Second)</code> agar ada jeda 1 detik sebelum program selesai.</p>
+<h4 id="fungsi-timesleep">&#x2022; Fungsi <code>time.Sleep()</code></h4>
+<p>Fungsi ini digunakan untuk menambahkan delay sebelum statement berikutnya dieksekusi. Durasi delay ditentukan oleh parameter, misal <code>1 * time.Second</code> maka durasi delay adalah 1 detik.</p>
+<p>Lebih detailnya mengenai fungsi <code>time.Sleep()</code> dan <code>time.Second</code> dibahas pada chapter terpisah, yaitu <a href="https://dasarpemrogramangolang.novalagung.com/A-time-duration.html" target="_blank">Time Duration</a>.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
@@ -2133,7 +2142,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.32. Buffered Channel","level":"3.1.32","depth":2,"next":{"title":"A.33. Channel - Select","level":"3.1.33","depth":2,"path":"A-channel-select.md","ref":"A-channel-select.md","articles":[]},"previous":{"title":"A.31. Channel","level":"3.1.31","depth":2,"path":"A-channel.md","ref":"A-channel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-buffered-channel.md","mtime":"2023-09-01T07:21:34.417Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-09-01T07:22:45.082Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.32. Buffered Channel","level":"3.1.32","depth":2,"next":{"title":"A.33. Channel - Select","level":"3.1.33","depth":2,"path":"A-channel-select.md","ref":"A-channel-select.md","articles":[]},"previous":{"title":"A.31. Channel","level":"3.1.31","depth":2,"path":"A-channel.md","ref":"A-channel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-buffered-channel.md","mtime":"2023-10-15T11:12:32.935Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-10-15T11:13:32.896Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
