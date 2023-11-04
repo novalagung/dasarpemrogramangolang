@@ -200,11 +200,11 @@ Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` y
 ![Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda](images/A_properti_public_private_4_success.png)
 
 ## A.26.5. Import Dengan Prefix Tanda Titik
+> PERINGATAN! Menggunakan tanda titik pada saat import package bisa menyebabkan kode menjadi ambigu. Oleh karena itu, penggunaan tanda titik pada saat import package tidak disarankan untuk golang versi terbaru.
 
 Seperti yang kita tahu, untuk mengakses fungsi/struct/variabel yg berada di package lain, nama package nya perlu ditulis, contohnya seperti pada penggunaan `library.Student` dan `fmt.Println()`.
 
 Di Go, komponen yang berada di package lain yang di-import bisa dijadikan se-level dengan komponen package peng-import, caranya dengan menambahkan tanda titik (`.`) setelah penulisan keyword `import`. Maksud dari se-level di sini adalah, semua properti di package lain yg di-import bisa diakses tanpa perlu menuliskan nama package, seperti ketika mengakses sesuatu dari file yang sama.
-
 ```go
 import (
     . "belajar-golang-level-akses/library"
