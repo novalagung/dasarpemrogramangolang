@@ -92,3 +92,7 @@ typings/
 
 # Desktop Service Store
 .DS_Store
+
+# IDE
+.idea
+.vscode

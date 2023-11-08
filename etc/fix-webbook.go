@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -37,7 +36,7 @@ func preAdjustment() {
 	basePath, _ := os.Getwd()
 	readmePath := filepath.Join(basePath, "README.md")
 
-	buf, err := ioutil.ReadFile(readmePath)
+	buf, err := os.ReadFile(readmePath)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -47,7 +46,7 @@ func preAdjustment() {
 	versionToFind := `((VERSION))`
 	mdString = strings.ReplaceAll(mdString, versionToFind, getVersion())
 
-	err = ioutil.WriteFile(readmePath, []byte(mdString), 0644)
+	err = os.WriteFile(readmePath, []byte(mdString), 0644)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -68,7 +67,7 @@ func postAdjustment() {
 			return nil
 		}
 
-		buf, err := ioutil.ReadFile(path)
+		buf, err := os.ReadFile(path)
 		if err != nil {
 			return err
 		}
@@ -131,8 +130,8 @@ func postAdjustment() {
 		htmlString = strings.ReplaceAll(htmlString, imagesAltToFind, imagesAltReplacement)
 
 		// ==== disqus lazy load
-		disqusJSBuf, _ := ioutil.ReadFile("./gitbook-plugin-disqus.js")
-		ioutil.WriteFile("./_book/gitbook/gitbook-plugin-disqus/plugin.js", disqusJSBuf, 0644)
+		disqusJSBuf, _ := os.ReadFile("./gitbook-plugin-disqus.js")
+		os.WriteFile("./_book/gitbook/gitbook-plugin-disqus/plugin.js", disqusJSBuf, 0644)
 
 		// ==== gitbook assets lazy load
 		cssToLoad := []string{
@@ -154,8 +153,8 @@ func postAdjustment() {
 		htmlString = strings.ReplaceAll(htmlString, buttonToFind, buttonReplacement)
 
 		// ==== inject adjustment css
-		adjustmentCSSBuf, _ := ioutil.ReadFile("./custom.css")
-		ioutil.WriteFile("./_book/gitbook/custom.css", adjustmentCSSBuf, 0644)
+		adjustmentCSSBuf, _ := os.ReadFile("./custom.css")
+		os.WriteFile("./_book/gitbook/custom.css", adjustmentCSSBuf, 0644)
 		adjustmentCSSToFind := `</head>`
 		adjustmentCSSReplacement := `<link rel="stylesheet" href="gitbook/custom.css?v=` + getVersion() + `">` + adjustmentCSSToFind
 		htmlString = strings.ReplaceAll(htmlString, adjustmentCSSToFind, adjustmentCSSReplacement)
@@ -192,7 +191,7 @@ func postAdjustment() {
 		// htmlString = strings.Replace(htmlString, infoBannerToFind, infoBannerReplacement)
 
 		// ==== update file
-		err = ioutil.WriteFile(path, []byte(strings.TrimSpace(htmlString)), info.Mode())
+		err = os.WriteFile(path, []byte(strings.TrimSpace(htmlString)), info.Mode())
 		if err != nil {
 			return err
 		}
@@ -206,7 +205,7 @@ func postAdjustment() {
 	}
 
 	siteMapPath := filepath.Join(basePath, "_book", "sitemap.xml")
-	buf, err := ioutil.ReadFile(siteMapPath)
+	buf, err := os.ReadFile(siteMapPath)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -234,7 +233,7 @@ func postAdjustment() {
 	</url>
 </urlset>`))
 
-	err = ioutil.WriteFile(siteMapPath, []byte(sitemapContent), 0644)
+	err = os.WriteFile(siteMapPath, []byte(sitemapContent), 0644)
 	if err != nil {
 		log.Fatal(err.Error())
 	}

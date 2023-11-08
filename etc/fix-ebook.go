@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -34,7 +33,7 @@ func preAdjustment() {
 	basePath, _ := os.Getwd()
 	readmePath := filepath.Join(basePath, "README.md")
 
-	buf, err := ioutil.ReadFile(readmePath)
+	buf, err := os.ReadFile(readmePath)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -44,7 +43,7 @@ func preAdjustment() {
 	versionToFind := `((VERSION))`
 	mdString = strings.ReplaceAll(mdString, versionToFind, getVersion())
 
-	err = ioutil.WriteFile(readmePath, []byte(mdString), 0644)
+	err = os.WriteFile(readmePath, []byte(mdString), 0644)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -61,7 +60,7 @@ func preAdjustment() {
 			return nil
 		}
 
-		buf, err := ioutil.ReadFile(path)
+		buf, err := os.ReadFile(path)
 		if err != nil {
 			return err
 		}
@@ -72,7 +71,7 @@ func preAdjustment() {
 		htmlString = strings.ReplaceAll(htmlString, substackEmbedToRemove, "")
 
 		// ==== update file
-		err = ioutil.WriteFile(path, []byte(strings.TrimSpace(htmlString)), info.Mode())
+		err = os.WriteFile(path, []byte(strings.TrimSpace(htmlString)), info.Mode())
 		if err != nil {
 			return err
 		}

@@ -56,7 +56,10 @@ package main
 
 import (
 	"context"
+	"io"
 	"fmt"
+	"errors"
+	"time"
 	"net/http"
 )
 
@@ -242,7 +245,7 @@ go func() {
 
 	if resp != nil {
 		defer resp.Body.Close()
-		resData, err := ioutil.ReadAll(resp.Body)
+		resData, err := io.ReadAll(resp.Body)
 		if err != nil {
 			innerChanErr <- err
 			return

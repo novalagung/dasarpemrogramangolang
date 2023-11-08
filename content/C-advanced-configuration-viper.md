@@ -58,6 +58,11 @@ Berikut merupakan list format yang didukung oleh viper.
  - properties
  - props
  - prop
+ - env
+ - dotenv
+ - tfvars
+ - ini
+ - hcl
 
 Fungsi `.AddConfigPath()` digunakan untuk mendaftarkan path folder di mana file-file konfigurasi berada. Fungsi ini bisa dipanggil beberapa kali, jika memang ada banyak file konfigurasi tersimpan dalam path berbeda.
 
