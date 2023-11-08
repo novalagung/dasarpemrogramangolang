@@ -74,7 +74,6 @@ package main
 
 import (
     "fmt"
-    "io/ioutil"
     "log"
     "math/rand"
     "os"
@@ -128,7 +127,7 @@ func generateFiles() {
     for i := 0; i < totalFile; i++ {
         filename := filepath.Join(tempPath, fmt.Sprintf("file-%d.txt", i))
         content := randomString(contentLength)
-        err := ioutil.WriteFile(filename, []byte(content), os.ModePerm)
+        err := os.WriteFile(filename, []byte(content), os.ModePerm)
         if err != nil {
             log.Println("Error writing file", filename)
         }
@@ -164,7 +163,6 @@ package main
 import (
     "crypto/md5"
     "fmt"
-    "io/ioutil"
     "log"
     "os"
     "path/filepath"
@@ -209,7 +207,7 @@ func proceed() {
         counterTotal++
 
         // read file
-        buf, err := ioutil.ReadFile(path)
+        buf, err := os.ReadFile(path)
         if err != nil {
             return err
         }
@@ -241,7 +239,7 @@ Cukup panjang isi fungsi ini, tetapi isinya cukup *straightforward* kok.
 * Kedua, kita siapkan `counterRenamed` sebagai counter jumlah file yang berhasil di-rename. Untuk ini juga idealnya sama dengan nilai pada `counterTotal`, kecuali ada error
 * Kita gunakan `filepath.Walk` untuk melakukan pembacaan semua file yang ada dalam folder `$TEMP/chapter-A.59-pipeline-temp`.
 * File akan dibaca secara sekuensial, di tiap pembacaan jika ada error dan ditemukan sebuah direktori, maka kita ignore kemudian lanjut pembacaan file selanjutnya.
-* File dibaca menggunakan `ioutil.ReadFile()`, kemudian lewat fungsi `md5.Sum()` kita cari md5 hash sum dari konten file.
+* File dibaca menggunakan `os.ReadFile()`, kemudian lewat fungsi `md5.Sum()` kita cari md5 hash sum dari konten file.
 * Setelahnya, kita rename file dengan nama `file-<md5hash>.txt`.
 
 Semoga cukup jelas. Kalo iya, jalankan programnya.
@@ -274,7 +272,6 @@ package main
 import (
     "crypto/md5"
     "fmt"
-    "io/ioutil"
     "log"
     "os"
     "path/filepath"
@@ -329,7 +326,7 @@ func readFiles() <-chan FileInfo {
                 return nil
             }
 
-            buf, err := ioutil.ReadFile(path)
+            buf, err := os.ReadFile(path)
             if err != nil {
                 return err
             }
