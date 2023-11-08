@@ -26,7 +26,6 @@ package main
 
 import (
     "fmt"
-    "io/ioutil"
     "log"
     "math/rand"
     "os"
@@ -147,7 +146,7 @@ func createFiles(chanIn <-chan FileInfo, numberOfWorkers int) <-chan FileInfo {
                 for job := range chanIn {
                     filePath := filepath.Join(tempPath, job.FileName)
                     content := randomString(contentLength)
-                    err := ioutil.WriteFile(filePath, []byte(content), os.ModePerm)
+                    err := os.WriteFile(filePath, []byte(content), os.ModePerm)
 
                     log.Println("worker", workerIndex, "working on", job.FileName, "file generation")
 
@@ -381,7 +380,7 @@ func createFiles(ctx context.Context, chanIn <-chan FileInfo, numberOfWorkers in
                     default:
                         filePath := filepath.Join(tempPath, job.FileName)
                         content := randomString(contentLength)
-                        err := ioutil.WriteFile(filePath, []byte(content), os.ModePerm)
+                        err := os.WriteFile(filePath, []byte(content), os.ModePerm)
 
                         log.Println("worker", workerIndex, "working on", job.FileName, "file generation")
 
