@@ -15,7 +15,6 @@ package main
 
 import (
     "golang.org/x/crypto/ssh"
-    "io/ioutil"
     "log"
     "os"
 )
@@ -57,7 +56,7 @@ sshConfig := &ssh.ClientConfig{
 }
 
 func PublicKeyFile(file string) ssh.AuthMethod {
-    buffer, err := ioutil.ReadFile(file)
+    buffer, err := os.ReadFile(file)
     if err != nil {
         return nil
     }
