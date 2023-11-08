@@ -34,7 +34,7 @@ import (
     "fmt"
     "github.com/gorilla/websocket"
     gubrak "github.com/novalagung/gubrak/v2"
-    "io/ioutil"
+    "os"
     "log"
     "net/http"
     "strings"
@@ -91,7 +91,7 @@ Selanjutnya buat fungsi `main()`, siapkan satu buah rute, `/`, isinya menampilka
 ```go
 func main() {
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        content, err := ioutil.ReadFile("index.html")
+        content, err := os.ReadFile("index.html")
         if err != nil {
             http.Error(w, "Could not open requested file", http.StatusInternalServerError)
             return
