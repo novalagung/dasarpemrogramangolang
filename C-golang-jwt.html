@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.10.21.073823"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.11.08.075728"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2155,7 +2155,6 @@ go get -u github.com/novalagung/gubrak/v2
     <span class="hljs-string">&quot;context&quot;</span>
     <span class="hljs-string">&quot;encoding/json&quot;</span>
     <span class="hljs-string">&quot;fmt&quot;</span>
-    <span class="hljs-string">&quot;io/ioutil&quot;</span>
     <span class="hljs-string">&quot;net/http&quot;</span>
     <span class="hljs-string">&quot;os&quot;</span>
     <span class="hljs-string">&quot;path/filepath&quot;</span>
@@ -2265,7 +2264,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(tokenString))
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> authenticateUser(username, password <span class="hljs-keyword">string</span>) (<span class="hljs-keyword">bool</span>, M) {
     basePath, _ := os.Getwd()
     dbPath := filepath.Join(basePath, <span class="hljs-string">&quot;users.json&quot;</span>)
-    buf, _ := ioutil.ReadFile(dbPath)
+    buf, _ := os.ReadFile(dbPath)
 
     data := <span class="hljs-built_in">make</span>([]M, <span class="hljs-number">0</span>)
     err := json.Unmarshal(buf, &amp;data)
@@ -2406,7 +2405,7 @@ next.ServeHTTP(w, r)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.32","depth":2,"next":{"title":"C.33. LDAP Authentication","level":"5.1.33","depth":2,"path":"C-golang-ldap-authentication.md","ref":"C-golang-ldap-authentication.md","articles":[]},"previous":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"path":"C-golang-grpc-protobuf.md","ref":"C-golang-grpc-protobuf.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-jwt.md","mtime":"2023-10-21T07:36:52.847Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-10-21T07:37:56.232Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.32","depth":2,"next":{"title":"C.33. LDAP Authentication","level":"5.1.33","depth":2,"path":"C-golang-ldap-authentication.md","ref":"C-golang-ldap-authentication.md","articles":[]},"previous":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"path":"C-golang-grpc-protobuf.md","ref":"C-golang-grpc-protobuf.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-jwt.md","mtime":"2023-11-08T07:56:14.891Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-11-08T07:57:09.108Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
