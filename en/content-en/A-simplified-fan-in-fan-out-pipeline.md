@@ -27,7 +27,6 @@ package main
 
 import (
     "fmt"
-    "io/ioutil"
     "log"
     "math/rand"
     "os"
@@ -82,7 +81,7 @@ func generateFiles() {
     for i := 0; i < totalFile; i++ {
         filename := filepath.Join(tempPath, fmt.Sprintf("file-%d.txt", i))
         content := randomString(contentLength)
-        err := ioutil.WriteFile(filename, []byte(content), os.ModePerm)
+        err := os.WriteFile(filename, []byte(content), os.ModePerm)
         if err != nil {
             log.Println("Error writing file", filename)
         }
@@ -113,7 +112,6 @@ package main
 
 import (
     "fmt"
-    "io/ioutil"
     "log"
     "math/rand"
     "os"
@@ -269,7 +267,7 @@ func createFiles(chanIn <-chan FileInfo, numberOfWorkers int) <-chan FileInfo {
                     // do the jobs
                     filePath := filepath.Join(tempPath, job.FileName)
                     content := randomString(contentLength)
-                    err := ioutil.WriteFile(filePath, []byte(content), os.ModePerm)
+                    err := os.WriteFile(filePath, []byte(content), os.ModePerm)
 
                     log.Println("worker", workerIndex, "working on", job.FileName, "file generation")
 
