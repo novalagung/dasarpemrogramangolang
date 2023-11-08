@@ -157,7 +157,7 @@ if err != nil {
     log.Fatal(err.Error())
 }
 
-test1ContentInBytes, err := ioutil.ReadAll(fileTest1)
+test1ContentInBytes, err := io.ReadAll(fileTest1)
 fileTest1.Close()
 if err != nil {
     log.Fatal(err.Error())
@@ -166,9 +166,9 @@ if err != nil {
 fmt.Println(" ->", fileTest1Path, "->", string(test1ContentInBytes))
 ```
 
-Baca isi objek response tersebut menggunakan method `.Read()` miliknya, atau bisa juga menggunakan `ioutil.ReadAll()` lebih praktisnya (nilai baliknya bertipe `[]byte` maka cast ke tipe `string` terlebih dahulu untuk menampilkan isinya).
+Baca isi objek response tersebut menggunakan method `.Read()` miliknya, atau bisa juga menggunakan `io.ReadAll()` lebih praktisnya (nilai baliknya bertipe `[]byte` maka cast ke tipe `string` terlebih dahulu untuk menampilkan isinya).
 
-> Jangan lupa untuk import package `io/ioutil`.
+> Jangan lupa untuk import package `io`.
 
 Di kode di atas file `test1.txt` dibaca. Lakukan operasi yang sama pada file `somefolder/test3.txt`.
 
@@ -179,7 +179,7 @@ if err != nil {
     log.Fatal(err.Error())
 }
 
-test2ContentInBytes, err := ioutil.ReadAll(fileTest2)
+test2ContentInBytes, err := io.ReadAll(fileTest2)
 fileTest2.Close()
 if err != nil {
     log.Fatal(err.Error())
