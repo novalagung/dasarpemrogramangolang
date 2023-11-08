@@ -26,6 +26,7 @@ import (
     "net/http"
     "strings"
     "time"
+    "log"
 )
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
@@ -97,7 +98,7 @@ go func() {
     // do the process here
     // simulate a long-time request by putting 10 seconds sleep
 
-    body, err := ioutil.ReadAll(r.Body)
+    body, err := io.ReadAll(r.Body)
     // ...
 
     time.Sleep(10 * time.Second)
