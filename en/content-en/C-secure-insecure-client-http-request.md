@@ -109,7 +109,7 @@ Isi `client.Transport` dengan konfigurasi secure request. Hapus saja konfigurasi
 Kurang lebih kode-nya seperti berikut.
 
 ```go
-certFile, err := ioutil.ReadFile("server.crt")
+certFile, err := os.ReadFile("server.crt")
 if err != nil {
     return nil, err
 }
