@@ -837,7 +837,7 @@ func main() {
 - Di file ``` main.go ``` berisi banyak konfigurasi seperti database, logger, dan http server. Di sini juga layer-layer yang sudah kita buat di tempelkan di file ini sehingga bisnis proses dari 3 layer tersebut bisa digunakan.
 ## D.4.4 Testing
 Setelah sudah membuat clean architecture, kita akan mengetest hasil dari implementasi yang sudah kita buat. Jalankan aplikasi server ``` main.go ```.
-![](image/D-run-server.png)
+![](images/D-run-server.png)
 Seperti yang kita bahas sebelumnya, model entities yang sudah kita buat akan migrasi ke konfigurasi database environment. Lalu kita akan mencoba testing menggunakan api dengan Postman.
 Untuk testing di sini kita akan menggunakan api untuk insert data. Isikan request data seperti dibawah ini:
 ```json
