@@ -26,7 +26,7 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 
 1. [Acep Saepudin](https://github.com/acepsaepudin)
 1. [Adev Saputra](https://github.com/adev22)
-1. [Afifurrohman](afifurrohman-id)
+1. [Afifurrohman](https://github.com/afifurrohman-id)
 1. [Agus Budiono](https://github.com/dyon048)
 1. [Ahmad Syafiq Aqil Wafi](https://github.com/Syafiqjos)
 1. [Akul Nurislamimanudin](https://github.com/akulnurislam)
