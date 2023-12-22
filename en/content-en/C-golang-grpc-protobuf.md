@@ -23,15 +23,13 @@ Sekedar informasi bahwa sebelum mulai mengikuti pembelajaran pada chapter ini, *
 Siapkan satu project baru dengan struktur sebagai berikut.
 
 ```bash
-# perform go get outside of go mod project, so the binary will be stored in $GOPATH/bin.
-# more details, take a look at https://stackoverflow.com/a/30097929/1467988
-go get -u github.com/golang/protobuf/protoc-gen-go
+# Install protobuf go runtime
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 
 mkdir chapter-c30
 cd chapter-c30
 go mod init chapter-c30
 
-go get -u github.com/golang/protobuf@v1.3.2
 go get -u google.golang.org/grpc@v1.26.0
 
 # then prepare underneath structures
@@ -44,7 +42,6 @@ tree .
 │   └── model
 │       ├── garage.proto
 │       ├── user.proto
-│       └── util.proto
 │
 ├── client
 │   └── main.go
@@ -87,8 +84,8 @@ Siapkan file bernama `config.go` dalam `common/config`. Di dalam file config ini
 package config
 
 const (
-    SERVICE_GARAGE_PORT = ":7000"
-    SERVICE_USER_PORT   = ":9000"
+    ServiceGaragePort = ":7000"
+    ServiceUserPort   = ":9000"
 )
 ```
 
@@ -107,7 +104,7 @@ Buka file `user.proto`, tambahkan kode berikut di akhir baris.
 ```protobuf
 // ...
 
-import "google/protobuf/Empty.proto";
+import "google/protobuf/empty.proto";
 
 service Users {
     rpc Register(User) returns (google.protobuf.Empty) {}
@@ -124,7 +121,7 @@ Silakan dilihat bagaimana cara untuk membuat service pada kode atas.
 
 Pada method `Register()` sebenarnya kita tidak butuh nilai balik. Tapi karena requirements dari protobuf mewajibkan semua rpc method harus memiliki nilai balik, maka kita gunakan model `Empty` milik google protobuf.
 
-Cara penggunaan model `Empty` adalah dengan meng-import file proto-nya terlebih dahulu, `google/protobuf/Empty.proto`, lalu menggunakan `google.protobuf.Empty` sebagai model.
+Cara penggunaan model `Empty` adalah dengan meng-import file proto-nya terlebih dahulu, `google/protobuf/empty.proto`, lalu menggunakan `google.protobuf.Empty` sebagai model.
 
 Juga, pada method `List()`, sebenarnya argument tidak dibutuhkan, tapi karena protobuf mewajibkan pendefinisian rpc method untuk memiliki satu buah argument dan satu buah return type, maka mau tidak mau harus ada argument.
 
@@ -134,8 +131,8 @@ Setelah di-compile, dua buah interface terbuat dengan skema nama `<interfacename
 
   ```go
   type UsersServer interface {
-    Register(context.Context, *User) (*empty.Empty, error)
-    List(context.Context, *empty.Empty) (*UserList, error)
+    Register(context.Context, *User) (*emptypb.Empty, error)
+    List(context.Context, *emptypb.Empty) (*UserList, error)
   }
   ```
   Interface ini nantinya harus diimplementasikan di aplikasi rpc server.
@@ -144,8 +141,8 @@ Setelah di-compile, dua buah interface terbuat dengan skema nama `<interfacename
 
   ```go
   type UsersClient interface {
-    Register(ctx context.Context, in *User, opts ...grpc.CallOption) (*empty.Empty, error)
-    List(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*UserList, error)
+    Register(ctx context.Context, in *User, opts ...grpc.CallOption) (*emptypb.Empty, error)
+    List(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*UserList, error)
   }
   ```
   Interface ini nantinya harus diimplementasikan di aplikasi rpc client.
@@ -155,7 +152,7 @@ Setelah di-compile, dua buah interface terbuat dengan skema nama `<interfacename
 Pada file `garage.proto`, definisikan service `Garages` dengan isi dua buah method, `Add()` dan `List()`.
 
 ```protobuf
-import "google/protobuf/Empty.proto";
+import "google/protobuf/empty.proto";
 
 service Garages {
     rpc List(string) returns (GarageList) {}
@@ -189,7 +186,7 @@ Sama seperti service `Users`, service `Garages` juga akan di-compile menjadi int
 
   ```go
   type GaragesServer interface {
-    Add(context.Context, *GarageAndUserId) (*empty.Empty, error)
+    Add(context.Context, *GarageAndUserId) (*emptypb.Empty, error)
     List(context.Context, *GarageUserId) (*GarageList, error)
   }
   ```
@@ -198,22 +195,28 @@ Sama seperti service `Users`, service `Garages` juga akan di-compile menjadi int
 
   ```go
   type GaragesClient interface {
-    Add(ctx context.Context, in *GarageAndUserId, opts ...grpc.CallOption) (*empty.Empty, error)
+    Add(ctx context.Context, in *GarageAndUserId, opts ...grpc.CallOption) (*emptypb.Empty, error)
     List(ctx context.Context, in *GarageUserId, opts ...grpc.CallOption) (*GarageList, error)
   }
   ```
 
 ## C.31.6. Kompilasi File `.proto` Dengan Enable Plugin `grpc`
 
-Gunakan command berikut untuk generate file .go dari file .proto yang sudah kita buat:
+Sebelum itu kita harus install protobuf compiler plugin untuk grpc terlebih dahulu.
 
 ```bash
-PATH=$PATH:$GOPATH/bin/ protoc --go_out=plugins=grpc:. *.proto
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 ```
 
-Perhatikan baik-baik command di atas, Pada flag `--go_out` isinya adalah `plugins=grpc:.`, ada `plugins=grpc` di situ (berbeda dibanding pada chapter sebelumnya yang isinya langsung `.`).
+Gunakan command berikut untuk generate file `.go` dari file `.proto` yang sudah kita buat:
 
-Plugin `grpc` ini dipergunakan untuk men-*generate* **service bindings behaviour** yang ada pada gRPC. Seperti yang kita telah praktekan bahwa di atas kita menuliskan definisi `service`. Dengan menambahkan `plugins=grpc` maka definisi `service` tersebut akan bisa dipahami oleh generator untuk kemudian di-*transform* menjadi definisi interface beserta isi method-nya.
+```bash
+protoc --go_out . --go-grpc_out . common/model/*.proto
+```
+
+Perhatikan baik-baik command di atas, Pada flag `--go-grpc_out` di situ kita menggunakan plugin grpc yang sebelumnya kita install (berbeda dibanding pada chapter sebelumnya yang hanya menggunakan `--go_out` `.`).
+
+Plugin `grpc` ini dipergunakan untuk men-*generate* **service bindings behaviour** yang ada pada gRPC. Seperti yang kita telah praktekan bahwa di atas kita menuliskan definisi `service`. Dengan menambahkan flag `--go-grpc_out` maka definisi `service` tersebut akan bisa dipahami oleh generator untuk kemudian di-*transform* menjadi definisi interface beserta isi method-nya.
 
 ## C.31.7. Aplikasi Server `service-user`
 
@@ -230,7 +233,7 @@ import (
     "chapter-c30/common/config"
     "chapter-c30/common/model"
 
-    "github.com/golang/protobuf/ptypes/empty"
+    "google.golang.org/protobuf/types/known/emptypb"
     "google.golang.org/grpc"
 )
 ```
@@ -249,17 +252,22 @@ func init() {
 Buat struct baru `UsersServer`. Struct ini akan menjadi implementasi dari generated interface `model.UsersServer`. Siapkan method-method-nya sesuai spesifikasi interface.
 
 ```go
-type UsersServer struct{}
-
-func (UsersServer) Register(ctx context.Context, param *model.User) (*empty.Empty, error) {
-    localStorage.List = append(localStorage.List, param)
-
-  log.Println("Registering user", param.String())
-
-    return new(empty.Empty), nil
+type UsersServer struct {
+      // Wajib menyertakan embed struct unimplemented dari hasil generate protobuf jika tidak maka akan error
+      model.UnimplementedUsersServer
 }
 
-func (UsersServer) List(ctx context.Context, void *empty.Empty) (*model.UserList, error) {
+func (UsersServer) Register(_ context.Context, param *model.User) (*emptypb.Empty, error) {
+    user := param
+
+    localStorage.List = append(localStorage.List, user)
+
+    log.Println("Registering user", user.String())
+
+    return new(emptypb.Empty), nil
+}
+
+func (UsersServer) List(context.Context, *emptypb.Empty) (*model.UserList, error) {
     return localStorage, nil
 }
 ```
@@ -272,8 +280,7 @@ func main() {
     var userSrv UsersServer
     model.RegisterUsersServer(srv, userSrv)
 
-    log.Println("Starting RPC server at", config.SERVICE_USER_PORT)
-
+    log.Println("Starting RPC server at", config.ServiceUserPort)
   // more code here ...
 }
 ```
@@ -282,14 +289,14 @@ Pembuatan objek grpc server dilakukan lewat `grpc.NewServer()`. Package [google.
 
 > Fungsi `RegisterUsersServer()` otomatis digenerate oleh protoc, karena service `Users` didefinisikan. Contoh lainnya misal service `SomeServiceTest` disiapkan, maka fungsi `RegisterSomeServiceTestServer()` dibuat.
 
-Selanjutnya, siapkan objek listener yang listen ke port `config.SERVICE_USER_PORT`, lalu gunakan listener tersebut sebagai argument method `.Serve()` milik objek rpc server.
+Selanjutnya, siapkan objek listener yang listen ke port `config.ServiceUserPort`, lalu gunakan listener tersebut sebagai argument method `.Serve()` milik objek rpc server.
 
 ```go
 // ...
 
-l, err := net.Listen("tcp", config.SERVICE_USER_PORT)
+l, err := net.Listen("tcp", config.ServiceUserPort)
 if err != nil {
-  log.Fatalf("could not listen to %s: %v", config.SERVICE_USER_PORT, err)
+    log.Fatalf("could not listen to %s: %v", config.ServiceUserPort, err)
 }
 
 log.Fatal(srv.Serve(l))
@@ -307,7 +314,9 @@ func init() {
     localStorage.List = make(map[string]*model.GarageList)
 }
 
-type GaragesServer struct{}
+type GaragesServer struct {
+    model.UnimplementedGaragesServer
+}
 ```
 
 Tugas `localStorage` kurang lebih sama seperti pada `service-user`, hanya saja pada aplikasi ini data garage disimpan per user dalam map.
@@ -317,33 +326,33 @@ Selanjutnya buat implementasi interface `model.GaragesServer`, lalu siapkan meth
  - Method `Add()`
 
   ```go
-  func (GaragesServer) Add(ctx context.Context, param *model.GarageAndUserId) (*empty.Empty, error) {
-    userId := param.UserId
-    garage := param.Garage
+  func (GaragesServer) Add(_ context.Context, param *model.GarageAndUserId) (*empty.Empty, error) {
+      userId := param.UserId
+      garage := param.Garage
 
-    if _, ok := localStorage.List[userId]; !ok {
-        localStorage.List[userId] = new(model.GarageList)
-        localStorage.List[userId].List = make([]*model.Garage, 0)
-    }
-    localStorage.List[userId].List = append(localStorage.List[userId].List, garage)
+      if _, ok := localStorage.List[userId]; !ok {
+          localStorage.List[userId] = new(model.GarageList)
+          localStorage.List[userId].List = make([]*model.Garage, 0)
+      }
+      localStorage.List[userId].List = append(localStorage.List[userId].List, garage)
 
-    log.Println("Adding garage", garage.String(), "for user", userId)
+      log.Println("Adding garage", garage.String(), "for user", userId)
 
-    return new(empty.Empty), nil
+      return new(empty.Empty), nil
   }
   ```
 
  - Method `List()`
 
   ```go
-  func (GaragesServer) List(ctx context.Context, param *model.GarageUserId) (*model.GarageList, error) {
-    userId := param.UserId
+  func (GaragesServer) List(_ context.Context, param *model.GarageUserId) (*model.GarageList, error) {
+      userId := param.UserId
 
-    return localStorage.List[userId], nil
+      return localStorage.List[userId], nil
   }
   ```
 
-Start rpc server, gunakan `config.SERVICE_GARAGE_PORT` sebagai port aplikasi.
+Start rpc server, gunakan `config.ServiceGaragePort` sebagai port aplikasi.
 
 ```go
 func main() {
@@ -351,11 +360,11 @@ func main() {
     var garageSrv GaragesServer
     model.RegisterGaragesServer(srv, garageSrv)
 
-    log.Println("Starting RPC server at", config.SERVICE_GARAGE_PORT)
+    log.Println("Starting RPC server at", config.ServiceGaragePort)
 
-    l, err := net.Listen("tcp", config.SERVICE_GARAGE_PORT)
+    l, err := net.Listen("tcp", config.ServiceGaragePort)
     if err != nil {
-        log.Fatalf("could not listen to %s: %v", config.SERVICE_GARAGE_PORT, err)
+        log.Fatalf("could not listen to %s: %v", config.ServiceGaragePort, err)
     }
 
     log.Fatal(srv.Serve(l))
@@ -366,12 +375,12 @@ func main() {
 
 Buat file `client/main.go`, import package yang sama seperti pada `service-user` maupun `service-garage`. Lalu siapkan dua buah method yang mengembalikan rpc client yang terhubung ke dua service yang sudah kita buat.
 
- - RPC client garage:
+- RPC client garage:
 
   ```go
   func serviceGarage() model.GaragesClient {
-    port := config.SERVICE_GARAGE_PORT
-    conn, err := grpc.Dial(port, grpc.WithInsecure())
+    port := config.ServiceGaragePort
+    conn, err := grpc.Dial(port, grpc.WithTransportCredentials(insecure.NewCredentials()))
     if err != nil {
         log.Fatal("could not connect to", port, err)
     }
@@ -384,8 +393,8 @@ Buat file `client/main.go`, import package yang sama seperti pada `service-user`
 
   ```go
   func serviceUser() model.UsersClient {
-    port := config.SERVICE_USER_PORT
-    conn, err := grpc.Dial(port, grpc.WithInsecure())
+    port := config.ServiceUserPort
+    conn, err := grpc.Dial(port, grpc.WithTransportCredentials(insecure.NewCredentials()))
     if err != nil {
         log.Fatal("could not connect to", port, err)
     }
@@ -425,7 +434,7 @@ Selanjutnya akses fungsi `serviceUser()` untuk memperoleh objek rpc client user.
 ```go
 user := serviceUser()
 
-fmt.Println("\n", "===========> user test")
+fmt.Printf("\n %s> user test\n", strings.Repeat("=", 10))
 
 // register user1
 user.Register(context.Background(), &user1)
@@ -444,7 +453,7 @@ Sekarang coba panggil method `.List()`. Jalankan ulang aplikasi client untuk mel
 
 ```go
 // show all registered users
-res1, err := user.List(context.Background(), new(empty.Empty))
+res1, err := user.List(context.Background(), new(emptypb.Empty))
 if err != nil {
     log.Fatal(err.Error())
 }
@@ -465,18 +474,18 @@ Tambahkan beberapa statement untuk memanggil method yang ada di `service-garage`
   ```go
   garage := serviceGarage()
 
-  fmt.Println("\n", "===========> garage test A")
+  fmt.Printf("\n %s> garage test A\n", strings.Repeat("=", 10))
 
   // add garage1 to user1
   garage.Add(context.Background(), &model.GarageAndUserId{
-    UserId: user1.Id,
-    Garage: &garage1,
+      UserId: user1.Id,
+      Garage: &garage1,
   })
 
   // add garage2 to user1
   garage.Add(context.Background(), &model.GarageAndUserId{
-    UserId: user1.Id,
-    Garage: &garage2,
+      UserId: user1.Id,
+      Garage: &garage2,
   })
   ```
 
@@ -486,7 +495,7 @@ Tambahkan beberapa statement untuk memanggil method yang ada di `service-garage`
   // show all garages of user1
   res2, err := garage.List(context.Background(), &model.GarageUserId{UserId: user1.Id})
   if err != nil {
-    log.Fatal(err.Error())
+      log.Fatal(err.Error())
   }
   res2String, _ := json.Marshal(res2.List)
   log.Println(string(res2String))
@@ -495,7 +504,7 @@ Tambahkan beberapa statement untuk memanggil method yang ada di `service-garage`
  - Menambahkan garage untuk user `user2`:
 
   ```go
-  fmt.Println("\n", "===========> garage test B")
+  fmt.Printf("\n %s> garage test B\n", strings.Repeat("=", 10))
 
   // add garage3 to user2
   garage.Add(context.Background(), &model.GarageAndUserId{
@@ -510,7 +519,7 @@ Tambahkan beberapa statement untuk memanggil method yang ada di `service-garage`
   // show all garages of user2
   res3, err := garage.List(context.Background(), &model.GarageUserId{UserId: user2.Id})
   if err != nil {
-    log.Fatal(err.Error())
+      log.Fatal(err.Error())
   }
   res3String, _ := json.Marshal(res3.List)
   log.Println(string(res3String))
