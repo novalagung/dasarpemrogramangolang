@@ -37,14 +37,12 @@ Silakan merujuk ke http://google.github.io/proto-lens/installing-protoc.html unt
 Selain `protoc`, masih ada satu lagi yang perlu di install, yaitu protobuf runtime untuk Go (karena di sini kita menggunakan bahasa Go). Cara instalasinya cukup mudah:
 
 ```bash
-go get -u github.com/golang/protobuf/protoc-gen-go
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 ```
-
-Wajib mengeksekusi command di atas di luar Go Modules, agar dependency tersebut binary nya tersimpan dalam $GOPATH/bin. Jika tidak, maka bisa muncul masalah (see https://stackoverflow.com/a/30097929/1467988).
 
 > Protobuf runtime tersedia untuk banyak bahasa selain Go, selengkapnya silakan cek https://github.com/protocolbuffers/protobuf.
 
-## C.30.3. Pembuatan File `.Proto`
+## C.30.3. Pembuatan File `.proto`
 
 Siapkan satu buah folder dengan skema seperti berikut.
 
@@ -70,8 +68,9 @@ OK, mari kita masuk ke bagian tulis-menulis kode. Buka file `user.proto`, tulis 
 
 ```protobuf
 syntax = "proto3";
-
 package model;
+
+option go_package = "./model";
 
 enum UserGender {
     UNDEFINED = 0;
@@ -84,7 +83,9 @@ Bahasa yang digunakan dalam file proto sangat minimalis, dan cukup mudah untuk d
 
 Statement `syntax = "proto3";`, artinya adalah versi proto yang digunakan adalah `proto3`. Ada juga versi `proto2`, namun kita tidak menggunakannya.
 
-Statement `package model;`, digunakan untuk menge-set nama package dari file yang nantinya di-generate. File `user.proto` akan di-compile, menghasilkan file `user.pb.go`. File Go tersebut package-nya adalah sesuai dengan yang sudah didefinisikan di statement, pada contoh ini `model`.
+Statement `option go_package = "./model";`, artinya adalah file model yang di-generate nantinya akan diletakkan di dalam folder `model` dengan nama GO package `model`.
+
+Statement `package model;`, digunakan untuk menge-set nama package dari file proto. Untuk mencegah terjadinya konflik jika terdapat model dengan nama yang sama.
 
 Statement `enum UserGender` digunakan untuk pendefinisian enum. Tulis nama-nama enum beserta value di dalam kurung kurawal. Keyword `UserGender` sendiri nantinya menjadi tipe enum. Value enum di protobuf hanya bisa menggunakan tipe data numerik int.
 
@@ -131,14 +132,23 @@ Kode protobuf di atas menghasilkan kode Go berikut.
 
 ```go
 type User struct {
-    Id       string
-    Name     string
-    Password string
-    Gender   UserGender
+   // Ini adalah field implementasi protobuf
+   state         protoimpl.MessageState
+   sizeCache     protoimpl.SizeCache
+   unknownFields protoimpl.UnknownFields
+
+   Id       string     `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+   Name     string     `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+   Password string     `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+   Gender   UserGender `protobuf:"varint,4,opt,name=gender,proto3,enum=model.UserGender" json:"gender,omitempty"`
 }
 
 type UserList struct {
-    List []*User
+   state         protoimpl.MessageState
+   sizeCache     protoimpl.SizeCache
+   unknownFields protoimpl.UnknownFields
+
+   List []*User `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
 }
 ```
 
@@ -148,8 +158,9 @@ Sekarang beralih ke file ke-dua, `garage.proto`. Silakan tulis kode berikut.
 
 ```protobuf
 syntax = "proto3";
-
 package model;
+
+option go_package = "./model";
 
 message GarageCoordinate {
     float latitude = 1;
@@ -187,25 +198,32 @@ Kembali ke topik, dua message di atas akan menghasilkan kode Go berikut.
 
 ```go
 type GarageList struct {
-    List []*Garage
+   state         protoimpl.MessageState
+   sizeCache     protoimpl.SizeCache
+   unknownFields protoimpl.UnknownFields
+
+   List []*Garage `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
 }
 
 type GarageListByUser struct {
-    List map[string]*GarageList
+   state         protoimpl.MessageState
+   sizeCache     protoimpl.SizeCache
+   unknownFields protoimpl.UnknownFields
+
+   List map[string]*GarageList `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 }
 ```
 
-## C.30.4. Kompilasi File `.Proto`
+## C.30.4. Kompilasi File `.proto`
 
 File `.proto` sudah siap, sekarang saatnya untuk meng-compile file-file tersebut agar menjadi `.go`. Kompilasi dilakukan lewat command `protoc`. Agar output berupa file Go, maka gunakan flag `--go_out`. Lebih jelasnya silakan ikut command berikut.
 
 ```bash
-cd chapter-c29/model
+protoc --go_out . model/*.proto
 
-PATH=$PATH:$GOPATH/bin/ protoc --go_out=. *.proto
+tree model
 
-tree .
-.
+model
 ├── garage.pb.go
 ├── garage.proto
 ├── user.pb.go
@@ -224,7 +242,6 @@ Sekarang kita akan belajar tentang pengoperasian file proto yang sudah di-genera
 package main
 
 import (
-    "bytes"
     "fmt"
     "os"
 
@@ -304,7 +321,7 @@ Print salah satu objek yang sudah dibuat di atas.
 fmt.Printf("# ==== Original\n       %#v \n", user1)
 
 // =========== as string
-fmt.Printf("# ==== As String\n       %v \n", user1.String())
+fmt.Printf("# ==== As String\n       %s \n", user1.String())
 ```
 
 Jalankan aplikasi untuk melihat hasilnya.
@@ -321,23 +338,21 @@ Tambahkan kode berikut:
 
 ```go
 // =========== as json string
-var buf bytes.Buffer
-err1 := (&jsonpb.Marshaler{}).Marshal(&buf, garageList)
+jsonb, err1 := protojson.Marshal(garageList)
 if err1 != nil {
-    fmt.Println(err1.Error())
-    os.Exit(0)
+   fmt.Println(err1.Error())
+   os.Exit(0)
 }
-jsonString := buf.String()
-fmt.Printf("# ==== As JSON String\n       %v \n", jsonString)
+fmt.Printf("# ==== As JSON String\n       %s \n", string(jsonb))
 ```
 
-Di atas kita membuat banyak objek lewat generated struct. Objek tersebut bisa dikonversi ke bentuk JSON string, caranya dengan memanfaatkan package [github.com/golang/protobuf/jsonpb](https://github.com/golang/protobuf/). Lakukan `go get` pada package jika belum punya, dan jangan lupa untuk meng-importnya pada file yang sedang dibuat.
+Di atas kita membuat banyak objek lewat generated struct. Objek tersebut bisa dikonversi ke bentuk JSON string, caranya dengan memanfaatkan package [google.golang.org/protobuf/encoding/protojson](google.golang.org/protobuf/encoding/protojson). Lakukan `go get` pada package jika belum punya, dan jangan lupa untuk meng-importnya pada file yang sedang dibuat.
 
 ```bash
-go get -u github.com/golang/protobuf@v1.3.2
+go get -u google.golang.org/protobuf
 ```
 
-Kembali ke pembahasan, buat objek pointer baru dari struct `jsonpb.Marshaler`, lalu akses method `.Marshal()`. Sisipkan objek bertipe `io.Writer` penampung hasil konversi sebagai parameter pertama (pada contoh di atas kita gunakan `bytes.Buffer`). Lalu sisipkan juga objek proto yang ingin dikonversi sebagai parameter kedua.
+Kembali ke pembahasan, untuk konversi ke json string, gunakan method `.Marshal()` pada package `protojson`. Parameter adalah objek proto pointer, dan hasilnya adalah json byte.
 
 Jalankan aplikasi, cek hasilnya.
 
@@ -347,38 +362,19 @@ Selain method `.Marshal()`, konversi ke json string bisa dilakukan lewat method 
 
 #### • Konversi json string ke objek proto
 
-Proses unmarshal dari json string ke objek proto, bisa dilakukan lewat dua cara:
+Proses unmarshal dari json string ke objek proto, dapat menggunakan `protojson.Unmarshal`, dengan parameter pertama disisipi data json byte dan parameter kedua disisipi objek proto pointer.
 
- - Membuat objek pointer dari struct `jsonpb.Unmarshaler`, lalu mengakses method `.Unmarshal()`. Parameter pertama diisi dengan objek `io.Reader` yang isinya json string, dan parameter kedua adalah receiver.
+```go
+protoObject := new(model.GarageList)
+err2 := protojson.Unmarshal(jsonb, protoObject)
 
-    ```go
-    buf2 := strings.NewReader(jsonString)
-    protoObject := new(model.GarageList)
+if err2 != nil {
+  fmt.Println(err2.Error())
+  os.Exit(0)
+}
 
-    err2 := (&jsonpb.Unmarshaler{}).Unmarshal(buf2, protoObject)
-    if err2 != nil {
-        fmt.Println(err2.Error())
-        os.Exit(0)
-    }
-
-    fmt.Printf("# ==== As String\n       %v \n", protoObject.String())
-    ```
-
- - Menggunakan `jsonpb.UnmarshalString`, dengan parameter pertama disisipi data json string.
-
-    ```go
-    protoObject := new(model.GarageList)
-
-    err2 := jsonpb.UnmarshalString(jsonString, protoObject)
-    if err2 != nil {
-        fmt.Println(err2.Error())
-        os.Exit(0)
-    }
-
-    fmt.Printf("# ==== As String\n       %v \n", protoObject.String())
-    ```
-
-Silakan pilih cara yang cocok sesuai kebutuhan. Lalu jalankan aplikasi dan lihat hasilnya.
+fmt.Printf("# ==== As String\n       %s \n", protoObject.String())
+```
 
 ![Unmarshal from JSON string](images/C_golang_protobuf_implementation_5_unmarshal.png)
 
