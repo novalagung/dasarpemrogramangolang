@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.11.08.082555"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2023.12.22.093750"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2084,13 +2084,12 @@
 <p>Schema yang ditulis dalam <code>.proto</code> di-compile ke bentuk file sesuai bahasa yang dipilih. Dari sini jelasnya sebuah compiler dibutuhkan, maka dari itu protobuf harus install terlebih dahulu di lokal masing-masing. Compiler tersebut bernama <code>protoc</code> atau proto compiler.</p>
 <p>Silakan merujuk ke <a href="http://google.github.io/proto-lens/installing-protoc.html" target="_blank">http://google.github.io/proto-lens/installing-protoc.html</a> untuk mengetahui cara instalasi <code>protoc</code> sesuai sistem operasi yang dibutuhkan.</p>
 <p>Selain <code>protoc</code>, masih ada satu lagi yang perlu di install, yaitu protobuf runtime untuk Go (karena di sini kita menggunakan bahasa Go). Cara instalasinya cukup mudah:</p>
-<pre><code class="lang-bash">go get -u github.com/golang/protobuf/protoc-gen-go
+<pre><code class="lang-bash">go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 </code></pre>
-<p>Wajib mengeksekusi command di atas di luar Go Modules, agar dependency tersebut binary nya tersimpan dalam $GOPATH/bin. Jika tidak, maka bisa muncul masalah (see <a href="https://stackoverflow.com/a/30097929/1467988" target="_blank">https://stackoverflow.com/a/30097929/1467988</a>).</p>
 <blockquote>
 <p>Protobuf runtime tersedia untuk banyak bahasa selain Go, selengkapnya silakan cek <a href="https://github.com/protocolbuffers/protobuf" target="_blank">https://github.com/protocolbuffers/protobuf</a>.</p>
 </blockquote>
-<h2 id="c303-pembuatan-file-proto">C.30.3. Pembuatan File <code>.Proto</code></h2>
+<h2 id="c303-pembuatan-file-proto">C.30.3. Pembuatan File <code>.proto</code></h2>
 <p>Siapkan satu buah folder dengan skema seperti berikut.</p>
 <pre><code class="lang-bash">mkdir chapter-c29
 <span class="hljs-built_in">cd</span> chapter-c29
@@ -2108,8 +2107,9 @@ tree .
 <h4 id="file-userproto">&#x2022; File <code>user.proto</code></h4>
 <p>OK, mari kita masuk ke bagian tulis-menulis kode. Buka file <code>user.proto</code>, tulis kode berikut.</p>
 <pre><code class="lang-protobuf">syntax = <span class="hljs-string">&quot;proto3&quot;</span>;
-
 <span class="hljs-keyword">package</span> model;
+
+<span class="hljs-keyword">option</span> go_package = <span class="hljs-string">&quot;./model&quot;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">UserGender</span> </span>{
     UNDEFINED = <span class="hljs-number">0</span>;
@@ -2119,7 +2119,8 @@ tree .
 </code></pre>
 <p>Bahasa yang digunakan dalam file proto sangat minimalis, dan cukup mudah untuk dipahami.</p>
 <p>Statement <code>syntax = &quot;proto3&quot;;</code>, artinya adalah versi proto yang digunakan adalah <code>proto3</code>. Ada juga versi <code>proto2</code>, namun kita tidak menggunakannya.</p>
-<p>Statement <code>package model;</code>, digunakan untuk menge-set nama package dari file yang nantinya di-generate. File <code>user.proto</code> akan di-compile, menghasilkan file <code>user.pb.go</code>. File Go tersebut package-nya adalah sesuai dengan yang sudah didefinisikan di statement, pada contoh ini <code>model</code>.</p>
+<p>Statement <code>option go_package = &quot;./model&quot;;</code>, artinya adalah file model yang di-generate nantinya akan diletakkan di dalam folder <code>model</code> dengan nama GO package <code>model</code>.</p>
+<p>Statement <code>package model;</code>, digunakan untuk menge-set nama package dari file proto. Untuk mencegah terjadinya konflik jika terdapat model dengan nama yang sama.</p>
 <p>Statement <code>enum UserGender</code> digunakan untuk pendefinisian enum. Tulis nama-nama enum beserta value di dalam kurung kurawal. Keyword <code>UserGender</code> sendiri nantinya menjadi tipe enum. Value enum di protobuf hanya bisa menggunakan tipe data numerik int.</p>
 <p>Setelah proses kompilasi ke bentuk Go, kode di atas kurang lebihnya akan menjadi seperti berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> model
@@ -2155,21 +2156,31 @@ tree .
 <p>Selain <code>User</code>, model <code>UserList</code> juga didefinisikan. Isinya hanya satu property yaitu <code>list</code> yang tipe-nya adalah <code>User</code>. Keyword repeated pada property digunakan untuk pendefinisian tipe array atau slice. Statement <code>repeated User</code> adalah ekuivalen dengan <code>[]*User</code> (tipe element slice pasti pointer).</p>
 <p>Kode protobuf di atas menghasilkan kode Go berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> {
-    Id       <span class="hljs-keyword">string</span>
-    Name     <span class="hljs-keyword">string</span>
-    Password <span class="hljs-keyword">string</span>
-    Gender   UserGender
+   <span class="hljs-comment">// Ini adalah field implementasi protobuf</span>
+   state         protoimpl.MessageState
+   sizeCache     protoimpl.SizeCache
+   unknownFields protoimpl.UnknownFields
+
+   Id       <span class="hljs-keyword">string</span>     <span class="hljs-string">`protobuf:&quot;bytes,1,opt,name=id,proto3&quot; json:&quot;id,omitempty&quot;`</span>
+   Name     <span class="hljs-keyword">string</span>     <span class="hljs-string">`protobuf:&quot;bytes,2,opt,name=name,proto3&quot; json:&quot;name,omitempty&quot;`</span>
+   Password <span class="hljs-keyword">string</span>     <span class="hljs-string">`protobuf:&quot;bytes,3,opt,name=password,proto3&quot; json:&quot;password,omitempty&quot;`</span>
+   Gender   UserGender <span class="hljs-string">`protobuf:&quot;varint,4,opt,name=gender,proto3,enum=model.UserGender&quot; json:&quot;gender,omitempty&quot;`</span>
 }
 
 <span class="hljs-keyword">type</span> UserList <span class="hljs-keyword">struct</span> {
-    List []*User
+   state         protoimpl.MessageState
+   sizeCache     protoimpl.SizeCache
+   unknownFields protoimpl.UnknownFields
+
+   List []*User <span class="hljs-string">`protobuf:&quot;bytes,1,rep,name=list,proto3&quot; json:&quot;list,omitempty&quot;`</span>
 }
 </code></pre>
 <h4 id="file-garageproto">&#x2022; File <code>garage.proto</code></h4>
 <p>Sekarang beralih ke file ke-dua, <code>garage.proto</code>. Silakan tulis kode berikut.</p>
 <pre><code class="lang-protobuf">syntax = <span class="hljs-string">&quot;proto3&quot;</span>;
-
 <span class="hljs-keyword">package</span> model;
+
+<span class="hljs-keyword">option</span> go_package = <span class="hljs-string">&quot;./model&quot;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">message</span> <span class="hljs-title">GarageCoordinate</span> </span>{
     <span class="hljs-built_in">float</span> latitude = <span class="hljs-number">1</span>;
@@ -2200,21 +2211,28 @@ tree .
 </blockquote>
 <p>Kembali ke topik, dua message di atas akan menghasilkan kode Go berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> GarageList <span class="hljs-keyword">struct</span> {
-    List []*Garage
+   state         protoimpl.MessageState
+   sizeCache     protoimpl.SizeCache
+   unknownFields protoimpl.UnknownFields
+
+   List []*Garage <span class="hljs-string">`protobuf:&quot;bytes,1,rep,name=list,proto3&quot; json:&quot;list,omitempty&quot;`</span>
 }
 
 <span class="hljs-keyword">type</span> GarageListByUser <span class="hljs-keyword">struct</span> {
-    List <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*GarageList
+   state         protoimpl.MessageState
+   sizeCache     protoimpl.SizeCache
+   unknownFields protoimpl.UnknownFields
+
+   List <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*GarageList <span class="hljs-string">`protobuf:&quot;bytes,1,rep,name=list,proto3&quot; json:&quot;list,omitempty&quot; protobuf_key:&quot;bytes,1,opt,name=key,proto3&quot; protobuf_val:&quot;bytes,2,opt,name=value,proto3&quot;`</span>
 }
 </code></pre>
-<h2 id="c304-kompilasi-file-proto">C.30.4. Kompilasi File <code>.Proto</code></h2>
+<h2 id="c304-kompilasi-file-proto">C.30.4. Kompilasi File <code>.proto</code></h2>
 <p>File <code>.proto</code> sudah siap, sekarang saatnya untuk meng-compile file-file tersebut agar menjadi <code>.go</code>. Kompilasi dilakukan lewat command <code>protoc</code>. Agar output berupa file Go, maka gunakan flag <code>--go_out</code>. Lebih jelasnya silakan ikut command berikut.</p>
-<pre><code class="lang-bash"><span class="hljs-built_in">cd</span> chapter-c29/model
+<pre><code class="lang-bash">protoc --go_out . model/*.proto
 
-PATH=<span class="hljs-variable">$PATH</span>:<span class="hljs-variable">$GOPATH</span>/bin/ protoc --go_out=. *.proto
+tree model
 
-tree .
-.
+model
 &#x251C;&#x2500;&#x2500; garage.pb.go
 &#x251C;&#x2500;&#x2500; garage.proto
 &#x251C;&#x2500;&#x2500; user.pb.go
@@ -2228,7 +2246,6 @@ tree .
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> (
-    <span class="hljs-string">&quot;bytes&quot;</span>
     <span class="hljs-string">&quot;fmt&quot;</span>
     <span class="hljs-string">&quot;os&quot;</span>
 
@@ -2295,7 +2312,7 @@ tree .
 fmt.Printf(<span class="hljs-string">&quot;# ==== Original\n       %#v \n&quot;</span>, user1)
 
 <span class="hljs-comment">// =========== as string</span>
-fmt.Printf(<span class="hljs-string">&quot;# ==== As String\n       %v \n&quot;</span>, user1.String())
+fmt.Printf(<span class="hljs-string">&quot;# ==== As String\n       %s \n&quot;</span>, user1.String())
 </code></pre>
 <p>Jalankan aplikasi untuk melihat hasilnya.</p>
 <p><img src="images/C_golang_protobuf_implementation_3_print.png" alt="Dasar Pemrograman Golang - Print object protobuf"></p>
@@ -2304,52 +2321,32 @@ fmt.Printf(<span class="hljs-string">&quot;# ==== As String\n       %v \n&quot;<
 <h4 id="konversi-objek-proto-ke-json-string">&#x2022; Konversi objek proto ke json string</h4>
 <p>Tambahkan kode berikut:</p>
 <pre><code class="lang-go"><span class="hljs-comment">// =========== as json string</span>
-<span class="hljs-keyword">var</span> buf bytes.Buffer
-err1 := (&amp;jsonpb.Marshaler{}).Marshal(&amp;buf, garageList)
+jsonb, err1 := protojson.Marshal(garageList)
 <span class="hljs-keyword">if</span> err1 != <span class="hljs-literal">nil</span> {
-    fmt.Println(err1.Error())
-    os.Exit(<span class="hljs-number">0</span>)
+   fmt.Println(err1.Error())
+   os.Exit(<span class="hljs-number">0</span>)
 }
-jsonString := buf.String()
-fmt.Printf(<span class="hljs-string">&quot;# ==== As JSON String\n       %v \n&quot;</span>, jsonString)
+fmt.Printf(<span class="hljs-string">&quot;# ==== As JSON String\n       %s \n&quot;</span>, <span class="hljs-keyword">string</span>(jsonb))
 </code></pre>
-<p>Di atas kita membuat banyak objek lewat generated struct. Objek tersebut bisa dikonversi ke bentuk JSON string, caranya dengan memanfaatkan package <a href="https://github.com/golang/protobuf/" target="_blank">github.com/golang/protobuf/jsonpb</a>. Lakukan <code>go get</code> pada package jika belum punya, dan jangan lupa untuk meng-importnya pada file yang sedang dibuat.</p>
-<pre><code class="lang-bash">go get -u github.com/golang/protobuf@v1.3.2
+<p>Di atas kita membuat banyak objek lewat generated struct. Objek tersebut bisa dikonversi ke bentuk JSON string, caranya dengan memanfaatkan package <a href="google.golang.org/protobuf/encoding/protojson">google.golang.org/protobuf/encoding/protojson</a>. Lakukan <code>go get</code> pada package jika belum punya, dan jangan lupa untuk meng-importnya pada file yang sedang dibuat.</p>
+<pre><code class="lang-bash">go get -u google.golang.org/protobuf
 </code></pre>
-<p>Kembali ke pembahasan, buat objek pointer baru dari struct <code>jsonpb.Marshaler</code>, lalu akses method <code>.Marshal()</code>. Sisipkan objek bertipe <code>io.Writer</code> penampung hasil konversi sebagai parameter pertama (pada contoh di atas kita gunakan <code>bytes.Buffer</code>). Lalu sisipkan juga objek proto yang ingin dikonversi sebagai parameter kedua.</p>
+<p>Kembali ke pembahasan, untuk konversi ke json string, gunakan method <code>.Marshal()</code> pada package <code>protojson</code>. Parameter adalah objek proto pointer, dan hasilnya adalah json byte.</p>
 <p>Jalankan aplikasi, cek hasilnya.</p>
 <p><img src="images/C_golang_protobuf_implementation_4_print_json.png" alt="Dasar Pemrograman Golang - Print as JSON string"></p>
 <p>Selain method <code>.Marshal()</code>, konversi ke json string bisa dilakukan lewat method <code>.MarshalToString()</code>.</p>
 <h4 id="konversi-json-string-ke-objek-proto">&#x2022; Konversi json string ke objek proto</h4>
-<p>Proses unmarshal dari json string ke objek proto, bisa dilakukan lewat dua cara:</p>
-<ul>
-<li><p>Membuat objek pointer dari struct <code>jsonpb.Unmarshaler</code>, lalu mengakses method <code>.Unmarshal()</code>. Parameter pertama diisi dengan objek <code>io.Reader</code> yang isinya json string, dan parameter kedua adalah receiver.</p>
-<pre><code class="lang-go"> buf2 := strings.NewReader(jsonString)
- protoObject := <span class="hljs-built_in">new</span>(model.GarageList)
+<p>Proses unmarshal dari json string ke objek proto, dapat menggunakan <code>protojson.Unmarshal</code>, dengan parameter pertama disisipi data json byte dan parameter kedua disisipi objek proto pointer.</p>
+<pre><code class="lang-go">protoObject := <span class="hljs-built_in">new</span>(model.GarageList)
+err2 := protojson.Unmarshal(jsonb, protoObject)
 
- err2 := (&amp;jsonpb.Unmarshaler{}).Unmarshal(buf2, protoObject)
- <span class="hljs-keyword">if</span> err2 != <span class="hljs-literal">nil</span> {
-     fmt.Println(err2.Error())
-     os.Exit(<span class="hljs-number">0</span>)
- }
+<span class="hljs-keyword">if</span> err2 != <span class="hljs-literal">nil</span> {
+  fmt.Println(err2.Error())
+  os.Exit(<span class="hljs-number">0</span>)
+}
 
- fmt.Printf(<span class="hljs-string">&quot;# ==== As String\n       %v \n&quot;</span>, protoObject.String())
+fmt.Printf(<span class="hljs-string">&quot;# ==== As String\n       %s \n&quot;</span>, protoObject.String())
 </code></pre>
-</li>
-<li><p>Menggunakan <code>jsonpb.UnmarshalString</code>, dengan parameter pertama disisipi data json string.</p>
-<pre><code class="lang-go"> protoObject := <span class="hljs-built_in">new</span>(model.GarageList)
-
- err2 := jsonpb.UnmarshalString(jsonString, protoObject)
- <span class="hljs-keyword">if</span> err2 != <span class="hljs-literal">nil</span> {
-     fmt.Println(err2.Error())
-     os.Exit(<span class="hljs-number">0</span>)
- }
-
- fmt.Printf(<span class="hljs-string">&quot;# ==== As String\n       %v \n&quot;</span>, protoObject.String())
-</code></pre>
-</li>
-</ul>
-<p>Silakan pilih cara yang cocok sesuai kebutuhan. Lalu jalankan aplikasi dan lihat hasilnya.</p>
 <p><img src="images/C_golang_protobuf_implementation_5_unmarshal.png" alt="Dasar Pemrograman Golang - Unmarshal from JSON string"></p>
 <h2 id="c306-grpc--protobuf">C.30.6. gRPC + Protobuf</h2>
 <p>Pada chapter selanjutnya kita akan belajar tentang penerapan gRPC dan protobuf.</p>
@@ -2392,7 +2389,7 @@ fmt.Printf(<span class="hljs-string">&quot;# ==== As JSON String\n       %v \n&q
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.30. Protobuf","level":"5.1.30","depth":2,"next":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"path":"C-golang-grpc-protobuf.md","ref":"C-golang-grpc-protobuf.md","articles":[]},"previous":{"title":"C.29. SSH & SFTP","level":"5.1.29","depth":2,"path":"C-golang-ssh-sftp.md","ref":"C-golang-ssh-sftp.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-protobuf-implementation.md","mtime":"2023-11-08T08:24:44.091Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-11-08T08:25:35.377Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.30. Protobuf","level":"5.1.30","depth":2,"next":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"path":"C-golang-grpc-protobuf.md","ref":"C-golang-grpc-protobuf.md","articles":[]},"previous":{"title":"C.29. SSH & SFTP","level":"5.1.29","depth":2,"path":"C-golang-ssh-sftp.md","ref":"C-golang-ssh-sftp.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-protobuf-implementation.md","mtime":"2023-12-22T09:36:37.658Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-12-22T09:37:30.816Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
