@@ -200,7 +200,6 @@ Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan `struct` y
 ![Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda](images/A_properti_public_private_4_success.png)
 
 ## A.26.5. Import Dengan Prefix Tanda Titik
-> PERINGATAN! Menggunakan tanda titik pada saat import package bisa menyebabkan kode menjadi ambigu. Oleh karena itu, penggunaan tanda titik pada saat import package tidak disarankan untuk golang versi terbaru.
 
 > PERINGATAN! Penggunaan tanda titik pada saat import package bisa menyebabkan kode menjadi ambigu, karena alasan tersebut teknik import ini kurang direkomendasikan.
 
