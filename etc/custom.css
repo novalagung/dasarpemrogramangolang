@@ -209,7 +209,8 @@ ins.adsbygoogle {
     }
 }
 
-.markdown-section hr {
+.markdown-section hr,
+.ebook-wrapper hr {
     height: 1px !important;
     background-color: #e7e9ee !important;
 }
