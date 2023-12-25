@@ -88,4 +88,4 @@ Jika ada keperluan untuk menambahkan middleware baru lainnya, cukup registrasika
 
 ---
 
-<iframe src="partial/ebooks.html" class="partial-ebooks-wrapper" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/ebooks.html" width="100%" height="360px" frameborder="0" scrolling="no"></iframe>

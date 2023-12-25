@@ -137,4 +137,4 @@ Warning `NET::ERR_CERT_AUTHORITY_INVALID` muncul ketika mengakses sebuah website
 
 ---
 
-<iframe src="partial/ebooks.html" class="partial-ebooks-wrapper" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/ebooks.html" width="100%" height="360px" frameborder="0" scrolling="no"></iframe>

@@ -106,4 +106,4 @@ Variabel `result` bernilai `true` karena string `"ang"` merupakan bagian dari st
 
 ---
 
-<iframe src="partial/ebooks.html" class="partial-ebooks-wrapper" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/ebooks.html" width="100%" height="360px" frameborder="0" scrolling="no"></iframe>
