@@ -19,4 +19,4 @@ Library FTP client yang kita gunakan adalah [github.com/jlaffaye/ftp](https://gi
 
 ---
 
-<iframe src="https://novalagung.substack.com/embed" width="100%" height="320" class="substack-embed" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
