@@ -241,4 +241,4 @@ Cukup berguna bukan? Dengan adahnya singleflight API ini, beban backend akan sed
 
 ---
 
-<iframe src="partial/ebooks.html" width="100%" height="360px" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>

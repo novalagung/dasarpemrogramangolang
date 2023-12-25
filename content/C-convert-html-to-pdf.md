@@ -178,4 +178,4 @@ Cara ini cocok digunakan untuk konversi data HTML yang isinya muncul pada saat p
 
 ---
 
-<iframe src="partial/ebooks.html" width="100%" height="360px" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
