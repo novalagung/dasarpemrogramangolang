@@ -214,13 +214,3 @@ ins.adsbygoogle {
     height: 1px !important;
     background-color: #e7e9ee !important;
 }
-
-.partial-substack-wrapper {
-    width: 100%;
-    height: 320px;
-}
-.partial-ebooks-wrapper {
-    display: block;
-    height: 100%;
-    width: 360px;
-}
