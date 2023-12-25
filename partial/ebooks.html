@@ -1,0 +1,90 @@
+<div class="ebook-wrapper">
+    <hr>
+    <h3>Serial ebook/webbook <span class="underline">Dasar Pemrograman</span> lainnya:</h3>
+    <div class="ebook ebook-current">
+        <a href="https://dasarpemrogramangolang.novalagung.com/" target="_blank">
+            <span class="ebook-checkmark">✅</span>
+            <img class="ebook-img" src="/images/cover_ebook_golang.png">
+            <span class="ebook-title">Ebook: Dasar Pemrograman Golang</span>
+        </a>
+    </div>
+    <div class="ebook">
+        <a href="https://dasarpemrogramanpython.novalagung.com/" target="_blank">
+            <span class="ebook-checkmark">✅</span>
+            <img class="ebook-img" src="/images/cover_ebook_python.png">
+            <span class="ebook-title">Ebook: Dasar Pemrograman Python</span>
+        </a>
+    </div>
+    <div class="ebook">
+        <a href="https://dasarpemrogramanrust.novalagung.com/" target="_blank">
+            <span class="ebook-checkmark">✅</span>
+            <img class="ebook-img" src="/images/cover_ebook_rust.png">
+            <span class="ebook-title">Ebook: Dasar Pemrograman Rust</span>
+        </a>
+    </div>
+</div>
+
+<style>
+    .ebook-wrapper {
+        display: block;
+        text-align: center;
+        margin-top: 40px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    .ebook-wrapper h3 {
+        margin-bottom: 10px;
+    }
+    .ebook-wrapper h3 .underline {
+        padding-bottom: 2px;
+        border-bottom: 1px solid rgb(194, 194, 194);
+    }
+    .ebook-wrapper .ebook {
+        position: relative;
+        width: 200px;
+        display: inline-block;
+        margin: 5px;
+        vertical-align: top;
+        padding: 10px;
+    }
+    .ebook-wrapper .ebook a {
+        display: block;
+        cursor: pointer;
+        color: black;
+    }
+    .ebook-wrapper .ebook .ebook-checkmark {
+        position: absolute;
+        top: -15px;
+        left: -10px;
+        font-size: 30px;
+        display: none;
+    }
+    .ebook-wrapper .ebook.ebook-current .ebook-checkmark {
+        display: block;
+    }
+    .ebook-wrapper .ebook.ebook-current {
+        cursor: no-drop;
+    }
+    .ebook-wrapper .ebook.ebook-current a {
+        pointer-events: none;
+    }
+    .ebook-wrapper .ebook .ebook-img {
+        max-width: 100%;
+        display: block;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        margin-bottom: 20px;
+    }
+    .ebook-wrapper .ebook:not(.ebook-current):hover .ebook-img {
+        box-shadow: rgba(99, 99, 99, 0.5) 0px 3px 9px 0px;
+    }
+    .ebook-wrapper .ebook .ebook-title {
+        display: inline-block;
+        text-align: center;
+        font-style: italic;
+        font-weight: var(--ifm-h3-font-size);
+        opacity: 0.8;
+        line-height: 1.5em;
+    }
+    .ebook-wrapper .ebook:not(.ebook-current):hover .ebook-title {
+        opacity: 1;
+    }
+</style>
