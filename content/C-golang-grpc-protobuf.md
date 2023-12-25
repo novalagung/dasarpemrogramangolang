@@ -547,4 +547,4 @@ OK, jika anda membaca sampai baris ini, berarti anda telah berhasil sabar dalam 
 
 ---
 
-<iframe src="partial/ebooks.html" width="100%" height="430px" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/ebooks.html" class="partial-ebooks-wrapper" frameborder="0" scrolling="no"></iframe>

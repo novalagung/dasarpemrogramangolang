@@ -26,5 +26,5 @@ Pada buku ini (terutama semua serial chapter A) kita akan belajar tentang dasar 
 
 ---
 
-<iframe src="partial/substack.html" width="100%" height="320px" frameborder="0" scrolling="no"></iframe>
-<iframe src="partial/ebooks.html" width="100%" height="430px" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/substack.html" class="partial-substack-wrapper" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/ebooks.html" class="partial-ebooks-wrapper" frameborder="0" scrolling="no"></iframe>

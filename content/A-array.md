@@ -203,4 +203,4 @@ Parameter pertama keyword `make` diisi dengan tipe data elemen array yang diingi
 
 ---
 
-<iframe src="partial/ebooks.html" width="100%" height="430px" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/ebooks.html" class="partial-ebooks-wrapper" frameborder="0" scrolling="no"></iframe>
