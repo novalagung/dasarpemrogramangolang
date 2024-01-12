@@ -23,7 +23,7 @@ Ada total sekitar <b>120 chapter</b> yang dibahas dalam ebook ini. Kumpulan chap
 	</li>
 </ol>
 
-Versi e-book: **((VERSION))**, dan versi Go **1.20**.
+Versi e-book: **((VERSION))**, dan versi Go **1.21.6**.
 
 ## Download File E-book (pdf, epub, mobi)
 
@@ -49,6 +49,8 @@ Ebook Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk 
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large)
 
+[Apa itu CC BY-SA 4.0 ?](https://www-creativecommons-org.translate.goog/licenses/by-sa/4.0/?_x_tr_sl=en&_x_tr_tl=id&_x_tr_hl=id&_x_tr_pto=tc)
+
 ## Author
 
-Ebook ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan saran, silakan drop email ke [hello@novalagung.com](mailto:hello@novalagung.com).
+Ebook ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan saran, silakan kirim email ke [hello@novalagung.com](mailto:hello@novalagung.com).
