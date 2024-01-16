@@ -19,29 +19,29 @@ var (
 )
 
 func main() {
-	flagFor := flag.String("for", "", "mode (webbook/ebook)")
-	flagType := flag.String("type", "", "adjustment type (pre/post)")
+	flagMode := flag.String("mode", "", "mode (webbook/ebook)")
+	flagAdjustment := flag.String("adjustment", "", "adjustment type (pre/post)")
 	flag.Parse()
 
-	switch *flagFor {
+	switch *flagMode {
 	case "webbook":
-		switch *flagType {
+		switch *flagAdjustment {
 		case "pre":
 			webbookPreAdjustment()
 		case "post":
 			webbookPostAdjustment()
 		default:
-			log.Fatalf("unrecognized flag -type")
+			log.Fatalf("unrecognized flag -adjustment")
 		}
 	case "ebook":
-		switch *flagType {
+		switch *flagAdjustment {
 		case "pre":
 			ebookPreAdjustment()
 		default:
-			log.Fatalf("unrecognized flag -type")
+			log.Fatalf("unrecognized flag -adjustment")
 		}
 	default:
-		log.Fatalf("unrecognized flag -for")
+		log.Fatalf("unrecognized flag -mode")
 	}
 }
 
