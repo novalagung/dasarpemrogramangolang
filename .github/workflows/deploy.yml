@@ -29,9 +29,9 @@ jobs:
         cd ${{ github.workspace }}
         mv ./book.json.template ./book.json
         gitbook install
-        go run fix-webbook.go -type=pre
+        go run main.go -mode=webbook -adjustment=pre
         gitbook build
-        go run fix-webbook.go -type=post
+        go run main.go -mode=webbook -adjustment=post
         cd _book
         echo '<html><head><meta http-equiv="refresh" content="0; url=https://dasarpemrogramangolang.novalagung.com/"></head></html>' > 404.html
         rm -rf LICENSE
@@ -72,8 +72,8 @@ jobs:
         mv content/* .
         mv etc/* .
         rm -f book.json
-        go run fix-ebook.go -type=pre
         mkdir _book
+        go run main.go -mode=ebook -adjustment=pre
         gitbook install
     - name: 'Generating ebook in pdf'
       run: gitbook pdf ./ ./_book/dasarpemrogramangolang.pdf
