@@ -21,30 +21,32 @@ jobs:
       run: |
         rm -f README.md
         mv content/* .
-        mv etc/* .
+        mv etc/cover_small.jpg .
+        mv etc/cover_square.png .
+        mv etc/cover.jpg .
+        mv etc/custom.css .
+        mv etc/main.go .
+        mv etc/robots.txt .
         npm install -g gitbook-cli
-        mv ./book.json ./book.json.template
         gitbook install
         cd ~/.gitbook/versions/3.2.3 && npm i npm@5
         cd ${{ github.workspace }}
-        mv ./book.json.template ./book.json
+        mv etc/book.json .
         gitbook install
-        go run fix-webbook.go -type=pre
+        go run main.go -mode=webbook -adjustment=pre
         gitbook build
-        go run fix-webbook.go -type=post
+        go run main.go -mode=webbook -adjustment=post
         cd _book
         echo '<html><head><meta http-equiv="refresh" content="0; url=https://dasarpemrogramangolang.novalagung.com/"></head></html>' > 404.html
-        rm -rf LICENSE
-        rm -rf book*
-        rm -rf .git
-        rm -rf .gitignore
-        rm -rf .github
         rm -rf *.md
-        rm -rf *.sh
-        rm -rf *.psd
-        rm -rf *.go
-        rm -rf *.css
-        rm -rf *.js
+        rm -rf .gitmodules
+        rm -rf main.go
+        rm -rf in-progress
+        rm -rf crowdin.yml
+        rm -rf LICENSE
+        rm -rf package-lock.json
+        rm -rf package.json
+        rm -rf etc
     - name: 'Deploying'
       uses: peaceiris/actions-gh-pages@v3
       with:
@@ -70,17 +72,22 @@ jobs:
       run: |
         rm -f README.md
         mv content/* .
-        mv etc/* .
-        rm -f book.json
-        go run fix-ebook.go -type=pre
-        mkdir _book
+        mv etc/cover_small.jpg .
+        mv etc/cover_square.png .
+        mv etc/cover.jpg .
+        mv etc/main.go .
+        go run main.go -mode=ebook -adjustment=pre
         gitbook install
+        mkdir _book/
     - name: 'Generating ebook in pdf'
       run: gitbook pdf ./ ./_book/dasarpemrogramangolang.pdf
+      continue-on-error: true
     - name: 'Generating ebook in epub'
       run: gitbook epub ./ ./_book/dasarpemrogramangolang.epub
+      continue-on-error: true
     - name: 'Generating ebook in mobi'
       run: gitbook mobi ./ ./_book/dasarpemrogramangolang.mobi
+      continue-on-error: true
     - name: 'Deploying'
       uses: peaceiris/actions-gh-pages@v3
       with:

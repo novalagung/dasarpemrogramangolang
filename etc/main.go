@@ -19,20 +19,37 @@ var (
 )
 
 func main() {
-	flagAdjustment := flag.String("type", "", "adjustment type (pre/post)")
+	flagMode := flag.String("mode", "", "mode (webbook/ebook)")
+	flagAdjustment := flag.String("adjustment", "", "adjustment type (pre/post)")
 	flag.Parse()
 
-	switch *flagAdjustment {
-	case "pre":
-		preAdjustment()
-	case "post":
-		postAdjustment()
+	switch *flagMode {
+	case "webbook":
+		switch *flagAdjustment {
+		case "pre":
+			webbookPreAdjustment()
+		case "post":
+			webbookPostAdjustment()
+		default:
+			log.Fatalf("unrecognized flag -adjustment")
+		}
+	case "ebook":
+		switch *flagAdjustment {
+		case "pre":
+			ebookPreAdjustment()
+		default:
+			log.Fatalf("unrecognized flag -adjustment")
+		}
 	default:
-		break
+		log.Fatalf("unrecognized flag -mode")
 	}
 }
 
-func preAdjustment() {
+func getVersion() string {
+	return fmt.Sprintf("%d.%s", baseVersion, now.Format("2006.01.02.150405"))
+}
+
+func webbookPreAdjustment() {
 	basePath, _ := os.Getwd()
 	readmePath := filepath.Join(basePath, "README.md")
 
@@ -52,7 +69,7 @@ func preAdjustment() {
 	}
 }
 
-func postAdjustment() {
+func webbookPostAdjustment() {
 	basePath, _ := os.Getwd()
 	bookPath := filepath.Join(basePath, "_book")
 
@@ -149,7 +166,12 @@ func postAdjustment() {
 
 		// ==== inject github stars button
 		buttonToFind := `</body>`
-		buttonReplacement := `<div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);"><a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a><script async defer src="https://buttons.github.io/buttons.js"></script></div>` + buttonToFind
+		buttonReplacement := `<div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);">
+			<a class="github-button" href="https://github.com/sponsors/novalagung" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @novalagung on GitHub">Sponsor</a>&nbsp;
+			<a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;
+			<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a>
+			<script async defer src="https://buttons.github.io/buttons.js"></script>
+		</div>` + buttonToFind
 		htmlString = strings.ReplaceAll(htmlString, buttonToFind, buttonReplacement)
 
 		// ==== inject adjustment css
@@ -180,16 +202,6 @@ func postAdjustment() {
 		// fbPixelReplacement := `<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1247398778924723');fbq('track','PageView');</script><noscript><imgheight="1"width="1"style="display:none"src="https://www.facebook.com/tr?id=1247398778924723&ev=PageView&noscript=1"/></noscript>` + fbPixelToFind
 		// htmlString = strings.Replace(htmlString, fbPixelToFind, fbPixelReplacement)
 
-		// ===== inject banner of new ebook
-		// bannerToFind := `</body>`
-		// bannerReplacement := `<a href="https://devops.novalagung.com/" target="_blank" class="book-news">Halo semua, Saya telah merilis ebook baru lo, tentang devops. Di ebook tersebut fokus tentang pembahasan banyak sekali stacks/teknologi devops, jadi tidak hanya membahas satu stack saja. Dan kabar baiknya tersedia dalam dua bahasa, Indonesia dan Inggris. Yuk mampir https://devops.novalagung.com/</a>` + bannerToFind
-		// htmlString = strings.Replace(htmlString, bannerToFind, bannerReplacement)
-
-		// ===== inject popup info banner if exists
-		// infoBannerToFind := `</body>`
-		// infoBannerReplacement := `<div class="banner-container" onclick="this.style.display = 'none';"><div><a target="_blank" href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/"><img src="/images/banner.png?v=` + getVersion() + `"></a></div></div><script>var bannerCounter = parseInt(localStorage.getItem("banner-counter")); if (isNaN(bannerCounter)) { bannerCounter = 0; } var bannerEl = document.querySelector('.banner-container'); if (bannerCounter % 5 === 1 && bannerEl) { bannerEl.style.display = 'block'; } localStorage.setItem("banner-counter", String(bannerCounter + 1));</script>` + infoBannerToFind
-		// htmlString = strings.Replace(htmlString, infoBannerToFind, infoBannerReplacement)
-
 		// ==== update file
 		err = os.WriteFile(path, []byte(strings.TrimSpace(htmlString)), info.Mode())
 		if err != nil {
@@ -210,9 +222,6 @@ func postAdjustment() {
 		log.Fatal(err.Error())
 	}
 	sitemapContent := string(buf)
-
-	// ===== change crawl frequency
-	// sitemapContent = strings.Replace(sitemapContent, `<changefreq>weekly</changefreq>`, `<changefreq>daily</changefreq>`)
 
 	// ===== inject files into sitemap
 	sitemapContent = strings.ReplaceAll(sitemapContent, `</urlset>`, strings.TrimSpace(`
@@ -241,6 +250,61 @@ func postAdjustment() {
 	fmt.Println("  ==>", siteMapPath)
 }
 
-func getVersion() string {
-	return fmt.Sprintf("%d.%s", baseVersion, now.Format("2006.01.02.150405"))
+func ebookPreAdjustment() {
+	basePath, _ := os.Getwd()
+	readmePath := filepath.Join(basePath, "README.md")
+
+	buf, err := os.ReadFile(readmePath)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	mdString := string(buf)
+
+	// ==== adjust version
+	versionToFind := `((VERSION))`
+	mdString = strings.ReplaceAll(mdString, versionToFind, getVersion())
+
+	err = os.WriteFile(readmePath, []byte(mdString), 0644)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	// ==== adjust content
+	err = filepath.Walk(basePath, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if info.IsDir() {
+			return nil
+		}
+		if filepath.Ext(info.Name()) != ".md" {
+			return nil
+		}
+
+		buf, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		htmlString := string(buf)
+
+		// ==== remove substack embed
+		substackEmbedToRemove := `<iframe src="partial/substack.html" width="100%" height="320px" frameborder="0" scrolling="no"></iframe>`
+		htmlString = strings.ReplaceAll(htmlString, substackEmbedToRemove, "")
+
+		// ==== remove ebooks embed
+		ebooksEmbedToRemove := `<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>`
+		htmlString = strings.ReplaceAll(htmlString, ebooksEmbedToRemove, "")
+
+		// ==== update file
+		err = os.WriteFile(path, []byte(strings.TrimSpace(htmlString)), info.Mode())
+		if err != nil {
+			return err
+		}
+
+		fmt.Println("  ==>", path)
+		return nil
+	})
+	if err != nil {
+		log.Fatal(err.Error())
+	}
 }
