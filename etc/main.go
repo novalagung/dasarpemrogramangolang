@@ -147,8 +147,14 @@ func webbookPostAdjustment() {
 		htmlString = strings.ReplaceAll(htmlString, imagesAltToFind, imagesAltReplacement)
 
 		// ==== disqus lazy load
-		disqusJSBuf, _ := os.ReadFile("./gitbook-plugin-disqus.js")
-		os.WriteFile("./_book/gitbook/gitbook-plugin-disqus/plugin.js", disqusJSBuf, 0644)
+		disqusJSBuf, err := os.ReadFile("./gitbook-plugin-disqus.js")
+		if err != nil {
+			fmt.Println("error", err)
+		}
+		err = os.WriteFile("./_book/gitbook/gitbook-plugin-disqus/plugin.js", disqusJSBuf, 0644)
+		if err != nil {
+			fmt.Println("error", err)
+		}
 
 		// ==== gitbook assets lazy load
 		cssToLoad := []string{
