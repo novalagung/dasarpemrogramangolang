@@ -27,6 +27,7 @@ jobs:
         mv etc/custom.css .
         mv etc/main.go .
         mv etc/robots.txt .
+        mv etc/gitbook-plugin-disqus.js .
         npm install -g gitbook-cli
         gitbook install
         cd ~/.gitbook/versions/3.2.3 && npm i npm@5
