@@ -35,6 +35,7 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 1. [Ananda Wiradharma](https://github.com/anandawira)
 1. [Andreas Giovani](https://github.com/compatc)
 1. [Arian Saputra](https://github.com/Rhyanz46)
+1. [Arsy Opraza Akma](https://github.com/arasopraza)
 1. [Burhanudin Yahya](https://github.com/burhanudinyahya)
 1. [Dipta Harimbawa](https://github.com/diptarimba)
 1. [Dwi Hujianto](https://github.com/dwihujianto)

@@ -36,11 +36,11 @@ go mod init <nama-project>
 go mod init project-pertama
 ```
 
-Untuk nama project, umumnya adalah disamakan dengan nama direktori, tapi bisa saja sebenarnya menggunakan nama yang lain.
+Untuk nama project, umumnya disamakan dengan nama direktori, tapi bisa saja sebenarnya menggunakan nama yang lain.
 
 > Nama project dan Nama module merupakan istilah yang sama.
 
-Eksekusi perintah `go mod init` menghasilkan satu buah file baru bernama `go.mod`. File ini digunakan oleh Go toolchain untuk menandai bahwa folder di mana file tersebut berada adalah folder project. Jadi jangan di hapus ya file tersebut.
+Eksekusi perintah `go mod init` menghasilkan satu buah file baru bernama `go.mod`. File ini digunakan oleh Go toolchain untuk menandai bahwa folder di mana file tersebut berada adalah folder project. Jadi jangan dihapus ya file tersebut.
 
 ---
 
