@@ -90,7 +90,7 @@ Mari belajar "Golang".`
 fmt.Println(message)
 ```
 
-Ketika dijalankan, output akan muncul sama persisi sesuai nilai variabel `message` di atas. Tanda petik dua akan muncul, baris baru juga muncul, sama persis.
+Ketika dijalankan, output akan muncul sama persis sesuai nilai variabel `message` di atas. Tanda petik dua akan muncul, baris baru juga muncul, sama persis.
 
 ![String menggunakan grave accent](images/A_tipe_data_2_unescaped_string.png)
 
