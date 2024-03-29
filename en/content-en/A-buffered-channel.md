@@ -57,7 +57,7 @@ Bisa dilihat output di atas, pada proses pengiriman data ke-4, diikuti dengan pr
 
 Pengiriman data indeks ke 0, 1, 2 dan 3 akan berjalan secara asynchronous, hal ini karena channel ditentukan nilai buffer-nya sebanyak 3 (ingat, jika nilai buffer adalah 3, maka 4 data yang akan di-buffer). Pengiriman selanjutnya (indeks 5) hanya akan terjadi jika ada salah satu data dari ke-empat data yang sebelumnya telah dikirimkan sudah diterima (dengan serah terima data yang bersifat blocking). Setelahnya, pengiriman data kembali dilakukan secara asynchronous (karena sudah ada slot buffer ada yang kosong).
 
-Karena pengiriman dan penerimaan data via buffered channel terjadi tidak selalu sycnrhonous (tergantung jumlah buffer-nya), maka ada kemungkinan dimana eksekusi program selesai namun tidak semua data diterima via channel `messages`. Karena alasan ini pada bagian akhir ditambahkan statement `time.Sleep(1 * time.Second)` agar ada jeda 1 detik sebelum program selesai.
+Karena pengiriman dan penerimaan data via buffered channel terjadi tidak selalu synchronous (tergantung jumlah buffer-nya), maka ada kemungkinan dimana eksekusi program selesai namun tidak semua data diterima via channel `messages`. Karena alasan ini pada bagian akhir ditambahkan statement `time.Sleep(1 * time.Second)` agar ada jeda 1 detik sebelum program selesai.
 
 #### • Fungsi `time.Sleep()`
 
