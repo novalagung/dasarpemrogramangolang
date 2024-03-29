@@ -112,7 +112,7 @@ Karena user memiliki security context, maka SP merespon dengan balasan berupa ta
 
 > Selanjutnya, setiap kali ada request target resource, maka point 7 dan 8 akan diulang.
 
-![SAML Flow](https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Saml2-browser-sso-redirect-post.png/600px-Saml2-browser-sso-redirect-post.png)
+![SAML Flow](https://images.ctfassets.net/23aumh6u8s0i/2iNQwccfZWMELfLjk65SVe/b9b4427c66165a56c8800c3e391e8fd0/saml-flow-diagram)
 
 ## C.34.4. SAML Metadata
 
@@ -126,7 +126,7 @@ Metadata diperlukan secara *mandatory* dalam operasi dan komunikasi antar SP dan
 
 > Metadata berisi informasi penting. Di antaranya adalah entity ID, key pair, protocol endpoints, dan lainnya.
 
-![Metadata share](https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/SAML_Web_Browser_SSO_With_Static_Metadata.png/440px-SAML_Web_Browser_SSO_With_Static_Metadata.png)
+![Metadata share](https://images.ctfassets.net/23aumh6u8s0i/60UOe2pqoOcYFJqeGMzfA7/e0dd3cdd9a12b682fa648f27869b9588/SAMLResponse)
 
 Ada dua jenis metode pertukaran metadata, **static metadata exchange** dan **dynamic metadata exchange**. Yang kita terapkan pada pembahasan ini adalah yg static.
 
