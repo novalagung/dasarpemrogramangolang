@@ -33,7 +33,7 @@ Cara termudah instalasi Go di MacOS adalah menggunakan [Homebrew](http://brew.sh
  1. *Install* terlebih dahulu Homebrew (jika belum ada), caranya jalankan perintah berikut di **terminal**.
 
     ```bash
-    $ ruby -e "$(curl -fsSL http://git.io/pVOl)"
+    $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     ```
 
  2. *Install* Go menggunakan command `brew`.
