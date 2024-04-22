@@ -81,6 +81,11 @@ for k, v := range kvs {
 for range kvs {
     fmt.Println("Done")
 }
+
+// Untuk go versi >= 1.22.x, bisa juga dengan:
+for i := range 5 {
+    fmt.Print(i) // 01234
+}
 ```
 
 ## A.14.5. Penggunaan Keyword `break` & `continue`
