@@ -81,6 +81,11 @@ for k, v := range kvs {
 for range kvs {
     fmt.Println("Done")
 }
+
+// selain itu, bisa juga dengan cukup menentukan nilai numerik perulangan
+for i := range 5 {
+    fmt.Print(i) // 01234
+}
 ```
 
 ## A.14.5. Penggunaan Keyword `break` & `continue`
