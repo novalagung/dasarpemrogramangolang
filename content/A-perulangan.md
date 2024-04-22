@@ -82,7 +82,7 @@ for range kvs {
     fmt.Println("Done")
 }
 
-// Untuk go versi >= 1.22.x, bisa juga dengan:
+// selain itu, bisa juga dengan cukup menentukan nilai numerik perulangan
 for i := range 5 {
     fmt.Print(i) // 01234
 }
