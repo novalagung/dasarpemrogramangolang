@@ -131,9 +131,9 @@ Passing data bertipe channel lewat parameter sifatnya **pass by reference**, yan
 
 ![Parameter channel](images/A_channel_3_channel_param.png)
 
----
+## A.32.3 Penjelasan tambahan
 
-Berikut merupakan penjelasan tambahan untuk kode di atas.
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
 
 #### • Iterasi Data Slice/Array Langsung Pada Saat Inisialisasi
 
