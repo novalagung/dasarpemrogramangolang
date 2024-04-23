@@ -125,7 +125,7 @@ var jsonString = string(jsonData)
 fmt.Println(jsonString)
 ```
 
-Output:
+Output program:
 
 ![Encode data ke JSON](images/A_json_2_encode.png)
 

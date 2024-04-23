@@ -157,7 +157,7 @@ func main() {
 }
 ```
 
-Output:
+Output program:
 
 ![Handle panic menggunakan recover](images/A_error_panic_recover_4_recover.png)
 

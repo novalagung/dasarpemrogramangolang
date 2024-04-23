@@ -377,7 +377,7 @@ Jalankan aplikasi, lalu test menggunakan curl.
 curl -X POST --user noval:kaliparejaya123 http://localhost:8080/login
 ```
 
-Output:
+Output program:
 
 ![JWT Authentication](images/C_golang_jwt_2_jwt_authentication.png)
 
@@ -391,7 +391,7 @@ curl -X GET \
 	http://localhost:8080/index
 ```
 
-Output:
+Output program:
 
 ![JWT Authorization](images/C_golang_jwt_3_jwt_authorization.png)
 
