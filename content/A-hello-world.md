@@ -1,8 +1,8 @@
 # A.7. Program Pertama: Hello World
 
-Semua persiapan sudah selesai, saatnya masuk pada sesi programming. Program pertama yang akan kita buat adalah aplikasi kecil yang menampilkan text **Hello world**.
+Semua persiapan sudah selesai, saatnya masuk pada sesi programming. Program pertama yang akan kita buat adalah cukup terkenal di kalangan programmer, yaitu program untuk memunculkan text **Hello world**.
 
-Pada chapter ini akan dijelaskan secara komprehensif *step-by-step* mulai dari awal. Mulai dari pembuatan project, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi program.
+Proses pembelajaran di chapter ini akan disampaikan secara runtun dan komprehensif, *step-by-step* mulai dari awal. Mulai dari pembuatan project, pembuatan file program, sesi penulisan kode (coding), hingga eksekusi program.
 
 ## A.7.1. Inisialisasi Project
 
@@ -24,7 +24,7 @@ Buka editor, di sini penulis menggunakan VSCode. Cari menu untuk menambahkan pro
 
 ## A.7.3. Menyiapkan File Program
 
-File program di sini maksudnya adalah file yang isinya *source code* Go. File ini berekstensi `.go`.
+File program di sini maksudnya adalah file yang isinya *source code* Go. Ciri khas file program adalah memiliki ekstensi `.go`.
 
 Di dalam project yang telah dibuat, siapkan sebuah file dengan nama bebas, yang jelas harus ber-ekstensi `.go`. Pada contoh ini saya menggunakan nama file `main.go`.
 
@@ -34,9 +34,9 @@ Pembuatan file program bisa dilakukan lewat CLI atau browser, atau juga lewat ed
 
 ## A.7.4. Program Pertama: Hello Word
 
-Setelah project folder dan file program sudah siap, saatnya untuk *programming*.
+Setelah project folder dan file program sudah siap, saatnya untuk *coding*.
 
-Di bawah ini merupakan contoh kode program sederhana untuk memunculkan text **Hello world** ke layar output command prompt. Silakan salin kode berikut ke file program yang telah dibuat. Sebisa mungkin jangan copy paste. Biasakan untuk menulis dari awal, agar cepat terbiasa dan familiar dengan Go.
+Silakan salin kode berikut ke file program yang telah dibuat. Sebisa mungkin jangan copy paste. Biasakan untuk menulis dari awal, agar cepat terbiasa dan familiar dengan Go.
 
 ```go
 package main
