@@ -51,17 +51,17 @@ Bisa dilihat di output, tulisan `"halo"` dan `"apa kabar"` bermunculan selang-se
 
 Pada gambar di atas, program dieksekusi 2 kali. Hasil eksekusi pertama berbeda dengan kedua, penyebabnya adalah karena kita menggunakan 2 prosesor. Goroutine mana yang dieksekusi terlebih dahulu tergantung kedua prosesor tersebut.
 
----
+## A.30.2. Penjelasan tambahan
 
-Berikut adalah penjelasan tambahan tentang beberapa fungsi yang baru kita pelajari di atas.
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
 
-## A.30.1.1. Penggunaan Fungsi `runtime.GOMAXPROCS()`
+#### ◉ Penggunaan Fungsi `runtime.GOMAXPROCS()`
 
 Fungsi ini digunakan untuk menentukan jumlah core atau processor yang digunakan dalam eksekusi program.
 
 Jumlah yang diinputkan secara otomatis akan disesuaikan dengan jumlah asli *logical processor* yang ada. Jika jumlahnya lebih, maka dianggap menggunakan sejumlah prosesor yang ada.
 
-## A.30.1.2. Penggunaan Fungsi `fmt.Scanln()`
+#### ◉ Penggunaan Fungsi `fmt.Scanln()`
 
 Fungsi ini akan meng-capture semua karakter sebelum user menekan tombol enter, lalu menyimpannya pada variabel.
 

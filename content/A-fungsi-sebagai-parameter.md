@@ -82,11 +82,11 @@ func filter(data []string, callback FilterCallback) []string {
 
 Skema `func(string) bool` diubah menjadi tipe dengan nama `FilterCallback`. Tipe tersebut kemudian digunakan sebagai tipe data parameter `callback`.
 
----
+## A.22.3. Penjelasan tambahan
 
 Di bawah ini merupakan penjelasan tambahan mengenai fungsi `strings.Contains()`.
 
-## A.22.2.1. Penggunaan Fungsi `string.Contains()`
+#### ◉ Penggunaan Fungsi `string.Contains()`
 
 Inti dari fungsi ini adalah untuk deteksi apakah sebuah substring adalah bagian dari string, jika iya maka akan bernilai `true`, dan sebaliknya. Contoh penggunaannya:
 

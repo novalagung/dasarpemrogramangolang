@@ -56,17 +56,17 @@ Nilai tiap parameter bisa diakses seperti cara pengaksesan tiap elemen slice. Pa
 for _, number := range numbers {
 ```
 
----
+## A.20.2. Penjelasan tambahan
 
-Berikut merupakan penjelasan tambahan dari kode yang telah kita tulis.
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
 
-#### • Penggunaan Fungsi `fmt.Sprintf()`
+#### ◉ Penggunaan Fungsi `fmt.Sprintf()`
 
 Fungsi `fmt.Sprintf()` pada dasarnya sama dengan `fmt.Printf()`, hanya saja fungsi ini tidak menampilkan nilai, melainkan mengembalikan nilainya dalam bentuk string. Pada kasus di atas, nilai kembalian `fmt.Sprintf()` ditampung oleh variabel `msg`.
 
 Selain `fmt.Sprintf()`, ada juga `fmt.Sprint()` dan `fmt.Sprintln()`.
 
-#### • Penggunaan Fungsi `float64()`
+#### ◉ Penggunaan Fungsi `float64()`
 
 Sebelumnya sudah dibahas bahwa `float64` merupakan tipe data. Tipe data jika ditulis sebagai fungsi (penandanya ada tanda kurungnya) berguna untuk **casting**. Casting sendiri adalah teknik untuk konversi tipe sebuah data ke tipe lain. Sebagian besar tipe data dasar yang telah dipelajari pada chapter [A.9. Variabel](/A-variabel.html) bisa di-cast. Dan cara penerapannya juga sama, cukup panggil sebagai fungsi, lalu masukan data yang ingin dikonversi sebagai parameter.
 
