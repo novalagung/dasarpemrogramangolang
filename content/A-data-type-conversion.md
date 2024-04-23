@@ -6,7 +6,7 @@ Di beberapa chapter sebelum ini kita telah menerapkan beberapa cara konversi dat
 
 Package `strconv` berisi banyak fungsi yang sangat membantu kita untuk melakukan konversi. Berikut merupakan beberapa fungsi yang dalam package tersebut.
 
-#### • Fungsi `strconv.Atoi()`
+#### ◉ Fungsi `strconv.Atoi()`
 
 Fungsi ini digunakan untuk konversi data dari tipe `string` ke `int`. `strconv.Atoi()` menghasilkan 2 buah nilai kembalian, yaitu hasil konversi dan `error` (jika konversi sukses, maka `error` berisi `nil`).
 
@@ -26,7 +26,7 @@ func main() {
 }
 ```
 
-#### • Fungsi `strconv.Itoa()`
+#### ◉ Fungsi `strconv.Itoa()`
 
 Merupakan kebalikan dari `strconv.Atoi`, berguna untuk konversi `int` ke `string`.
 
@@ -37,7 +37,7 @@ var str = strconv.Itoa(num)
 fmt.Println(str) // "124"
 ```
 
-#### • Fungsi `strconv.ParseInt()`
+#### ◉ Fungsi `strconv.ParseInt()`
 
 Digunakan untuk konversi `string` berbentuk numerik dengan basis tertentu ke tipe numerik non-desimal dengan lebar data bisa ditentukan.
 
@@ -63,7 +63,7 @@ if err == nil {
 }
 ```
 
-#### • Fungsi `strconv.FormatInt()`
+#### ◉ Fungsi `strconv.FormatInt()`
 
 Berguna untuk konversi data numerik `int64` ke `string` dengan basis numerik bisa ditentukan sendiri.
 
@@ -74,7 +74,7 @@ var str = strconv.FormatInt(num, 8)
 fmt.Println(str) // 30
 ```
 
-#### • Fungsi `strconv.ParseFloat()`
+#### ◉ Fungsi `strconv.ParseFloat()`
 
 Digunakan untuk konversi `string` ke numerik desimal dengan lebar data bisa ditentukan.
 
@@ -89,7 +89,7 @@ if err == nil {
 
 Pada contoh di atas, string `"24.12"` dikonversi ke float dengan lebar tipe data `float32`. Hasil konversi `strconv.ParseFloat` adalah sesuai dengan standar [IEEE Standard for Floating-Point Arithmetic](https://en.wikipedia.org/wiki/IEEE_floating_point).
 
-#### • Fungsi `strconv.FormatFloat()`
+#### ◉ Fungsi `strconv.FormatFloat()`
 
 Berguna untuk konversi data bertipe `float64` ke `string` dengan format eksponen, lebar digit desimal, dan lebar tipe data bisa ditentukan.
 
@@ -113,7 +113,7 @@ Ada beberapa format eksponen yang bisa digunakan. Detailnya bisa dilihat di tabe
 | `g` | Akan menggunakan format eksponen `e` untuk eksponen besar dan `f` untuk selainnya |
 | `G` | Akan menggunakan format eksponen `E` untuk eksponen besar dan `f` untuk selainnya |
 
-#### • Fungsi `strconv.ParseBool()`
+#### ◉ Fungsi `strconv.ParseBool()`
 
 Digunakan untuk konversi `string` ke `bool`.
 
@@ -126,7 +126,7 @@ if err == nil {
 }
 ```
 
-#### • Fungsi `strconv.FormatBool()`
+#### ◉ Fungsi `strconv.FormatBool()`
 
 Digunakan untuk konversi `bool` ke `string`.
 

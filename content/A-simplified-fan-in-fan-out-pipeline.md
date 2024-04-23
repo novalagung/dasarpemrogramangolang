@@ -20,7 +20,7 @@ Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program
 
 Siapkan folder project baru, isinya satu buah file `1-generate-dummy-files-sequentially.go`.
 
-#### • Import Packages dan Definisi Variabel
+#### ◉ Import Packages dan Definisi Variabel
 
 ```go
 package main
@@ -40,7 +40,7 @@ const contentLength = 5000
 var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.60-worker-pool")
 ```
 
-#### • Fungsi `main()`
+#### ◉ Fungsi `main()`
 
 ```go
 func main() {
@@ -54,7 +54,7 @@ func main() {
 }
 ```
 
-#### • Fungsi `randomString()`
+#### ◉ Fungsi `randomString()`
 
 ```go
 func randomString(length int) string {
@@ -71,7 +71,7 @@ func randomString(length int) string {
 
 ```
 
-#### • Fungsi `generateFiles()`
+#### ◉ Fungsi `generateFiles()`
 
 ```go
 func generateFiles() {
@@ -103,7 +103,7 @@ Kita lanjut dulu saja. Berikut adalah output jika program di atas di-run.
 
 Sekarang saya buat file program `2-generate-dummy-files-concurrently.go` yang isinya adalah sama yaitu untuk keperluan generate dummy files, tapi pembuatannya dilakukan secara konkuren.
 
-#### • Import Packages dan Definisi Variabel
+#### ◉ Import Packages dan Definisi Variabel
 
 Import beberapa hal pada file baru ini, lalu definisikan beberapa variabel juga.
 
@@ -126,7 +126,7 @@ const contentLength = 5000
 var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.60-worker-pool")
 ```
 
-#### • Definisi struct `FileInfo`
+#### ◉ Definisi struct `FileInfo`
 
 Kita perlu siapkan struct baru bernama `FileInfo`, struct ini digunakan sebagai skema payload data ketika dikirimkan via channel dari goroutine jobs ke goroutine worker.
 
@@ -143,7 +143,7 @@ type FileInfo struct {
 * Property `WorkerIndex` digunakan sebagai penanda worker mana yang akan melakukan operasi pembuatan file tersebut.
 * Property `Err` default isinya kosong. Nantinya akan diisi dengan objek error ketika ada error saat pembuatan file.
 
-#### • Fungsi `main()`
+#### ◉ Fungsi `main()`
 
 ```go
 func main() {
@@ -157,7 +157,7 @@ func main() {
 }
 ```
 
-#### • Fungsi `randomString()`
+#### ◉ Fungsi `randomString()`
 
 ```go
 func randomString(length int) string {
@@ -173,7 +173,7 @@ func randomString(length int) string {
 }
 ```
 
-#### • Fungsi `generateFiles()`
+#### ◉ Fungsi `generateFiles()`
 
 ```go
 func generateFiles() {
@@ -215,7 +215,7 @@ Fungsi `createFiles()` di sini merupakan fungsi **Fan-out Fan-in** karena meneri
 
 Fungsi `createFiles()` menghasilkan channel yang isinya merupakan result dari operasi tiap-tiap jobs. Dari data yang dilewatkan via channel tersebut akan ketahuan misal ada error atau tidak saat pembuatan files. Channel tersebut kemudian di-loop lalu ditampilkan tiap-tiap result-nya.
 
-#### • Fungsi `generateFileIndexes()`
+#### ◉ Fungsi `generateFileIndexes()`
 
 Fungsi ini merupakan fungsi Fan-out distribusi jobs. Di dalamnya dilakukan perulangan sejumlah `totalFile`, kemudian data tiap index digunakan untuk pembentukan filename lalu dikirim ke channel outputnya.
 
@@ -239,7 +239,7 @@ func generateFileIndexes() <-chan FileInfo {
 
 Setelah dipastikan semua job terkirim, kita close channel output `chanOut` tersebut.
 
-#### • Fungsi `dispatchWorkers()`
+#### ◉ Fungsi `dispatchWorkers()`
 
 Bagian ini merupakan yang paling butuh *effort* untuk dipahami. Jadi fungsi `createFiles()` seperti yang sudah saja jelaskan secara singkat di atas, fungsi ini merupakan fungsi gabungan Fan-out (menerima channel output dari pipeline sebelumnya) dan juga Fan-in (menjalankan beberapa worker untuk memproses channel output dari pipeline sebelumnya, lalu output masing-masing worker yang juga merupakan channel - langsung di merge jadi satu channel saja).
 
@@ -315,13 +315,13 @@ Semoga cukup jelas ya. Kelebihan metode ini ini salah satunya adalah kita bisa d
 
 Saya akan coba jalankan program pertama dan kedua, lalu mari kita lihat perbedaannya.
 
-#### • Program Generate Dummy File *Sequentially*
+#### ◉ Program Generate Dummy File *Sequentially*
 
 ![Generate dummy files sequentially](images/A_simplified_fan_in_fan_out_pipeline_2_benchmark.png)
 
 Testing di awal chapter ini hasilnya butuh sekitar **19 detik** untuk menyelesaikan generate dummy files sebanyak 3000 secara sekuensial. Tapi kali ini lebih lambat, yaitu **23 detik** dan ini wajar, karena di tiap operasi kita munculkan log ke stdout (via `log.Println()`).
 
-#### • Program Generate Dummy File *Concurrently*
+#### ◉ Program Generate Dummy File *Concurrently*
 
 ![Generate dummy files concurrently](images/A_simplified_fan_in_fan_out_pipeline_3_concurrent.png)
 

@@ -59,7 +59,7 @@ Pengiriman data indeks ke 0, 1, 2 dan 3 akan berjalan secara asynchronous, hal i
 
 Karena pengiriman dan penerimaan data via buffered channel terjadi tidak selalu synchronous (tergantung jumlah buffer-nya), maka ada kemungkinan dimana eksekusi program selesai namun tidak semua data diterima via channel `messages`. Karena alasan ini pada bagian akhir ditambahkan statement `time.Sleep(1 * time.Second)` agar ada jeda 1 detik sebelum program selesai.
 
-#### • Fungsi `time.Sleep()`
+#### ◉ Fungsi `time.Sleep()`
 
 Fungsi ini digunakan untuk menambahkan delay sebelum statement berikutnya dieksekusi. Durasi delay ditentukan oleh parameter, misal `1 * time.Second` maka durasi delay adalah 1 detik.
 

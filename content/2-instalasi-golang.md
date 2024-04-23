@@ -10,7 +10,7 @@ URL untuk mengunduh *installer* Go: https://golang.org/dl/. Silakan langsung und
 
 ## A.2.1. Instalasi Go *Stable*
 
-#### • Instalasi Go di Windows
+#### ◉ Instalasi Go di Windows
 
  1. Download terlebih dahulu *installer*-nya di [https://golang.org/dl/](https://golang.org/dl/). Pilih *installer* untuk sistem operasi Windows sesuai jenis bit yang digunakan.
 
@@ -26,7 +26,7 @@ URL untuk mengunduh *installer* Go: https://golang.org/dl/. Silakan langsung und
 
 > Sering terjadi, command `go version` tidak bisa dijalankan meskipun instalasi sukses. Solusinya bisa dengan restart CMD (tutup CMD, kemudian buka lagi). Setelah itu coba jalankan ulang command di atas.
 
-#### • Instalasi Go di MacOS
+#### ◉ Instalasi Go di MacOS
 
 Cara termudah instalasi Go di MacOS adalah menggunakan [Homebrew](http://brew.sh/).
 
@@ -57,7 +57,7 @@ Cara termudah instalasi Go di MacOS adalah menggunakan [Homebrew](http://brew.sh
 
  5. Jika output adalah sama dengan versi Go yang ter-*install*, menandakan proses instalasi berhasil.
 
-#### • Instalasi Go di Linux
+#### ◉ Instalasi Go di Linux
 
  1. Unduh arsip *installer* dari [https://golang.org/dl/](https://golang.org/dl/), pilih installer untuk Linux yang sesuai dengan jenis bit komputer anda. Proses download bisa dilakukan lewat CLI, menggunakan `wget` atau `curl`.
 

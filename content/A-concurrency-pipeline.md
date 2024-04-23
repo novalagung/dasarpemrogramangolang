@@ -260,7 +260,7 @@ Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kal
 
 Kenapa kita pecah, karena ketiga proses tersebut bisa dijalankan bersama secara konkuren, dalam artian misalnya ketika `file1` sudah selesai dibaca, perhitungan md5sum-nya bisa dijalankan secara bersama dengan pembacaan `file2`. Begitu juga untuk proses rename-nya, misalnya, proses rename `file24` bisa dijalnkan secara konkuren bersamaan dengan proses hitung md5sum `file22` dan bersamaan dengan proses baca `file28`.
 
-#### • Basis Kode Program
+#### ◉ Basis Kode Program
 
 Mungkin agar lebih terlihat perbandingannya nanti di akhir, kita siapkan file terpisah saja untuk program ini. Siapkan file baru bernama `3-find-md5-sum-of-file-then-rename-it-concurrently.go`.
 
@@ -291,7 +291,7 @@ type FileInfo struct {
 
 Kurang lebih sama seperti sebelumnya, hanya saja ada beberapa packages lain yg di-import dan ada struct `FileInfo`. Struct ini digunakan sebagai metadata tiap file. Karena nantinya proses read file, md5sum, dan rename file akan dipecah menjadi 3 goroutine berbeda, maka perlu ada metadata untuk mempermudah tracking file, agar nanti ketika dapat md5 sum nya tidak salah simpan, dan ketika rename tidak salah file.
 
-#### • Pipeline 1: Baca File
+#### ◉ Pipeline 1: Baca File
 
 Siapkan fungsi main, lalu panggil fungsi `readFiles()`.
 
@@ -359,7 +359,7 @@ Mengenai channel `chanOut` sendiri, akan di-close ketika dipastikan **semua file
 
 Ok lanjut, karena di sini ada channel yang digunakan sebagai media pengiriman data (`FileInfo`), maka juga harus ada penerima data channel-nya dong. Yups.
 
-#### • Pipeline 2: MD5 Hash Konten File
+#### ◉ Pipeline 2: MD5 Hash Konten File
 
 Tepat di bawah pipeline 1, tambahkan pemanggilan fungsi `getSum()` sebanyak 3x, bisa lebih banyak sih sebenarnya, bebas. Kemudian jadikan nilai balik pemanggilan fungsi tersebut sebagai variadic argument pemanggilan fungsi `mergeChanFileInfo()`.
 
@@ -447,7 +447,7 @@ Secara garis besar, pada fungsi ini terjadi beberapa proses:
 * Channel `chanOut` ini dijadikan sebagai nilai balik fungsi.
 * Di situ kita gunakan `sync.WaitGroup` untuk kontrol goroutine. Kita akan tunggu hingga semua channel input adalah closed, setelah itu barulah kita close channel `chanOut` ini.
 
-#### • Pipeline 3: Rename file
+#### ◉ Pipeline 3: Rename file
 
 Tambahkan statement pipeline ketiga, yaitu pemanggilan fungsi Fan-out `rename()`, lalu panggil fungsi Fan-in `mergeChanFileInfo()` untuk multiplex channel kembalian fungsi `rename()`.
 
@@ -493,7 +493,7 @@ Bisa dilihat di atas kita rename file asli yang informasi path-nya ada di `FileI
 
 Setelah semua file berhasil di-rename, maka channel `chanOut` di-close.
 
-#### • Pipeline 4 / Output
+#### ◉ Pipeline 4 / Output
 
 Serangkaian proses yang sudah kita setup punya ketergantungan tinggi satu sama lain, dan eksekusinya harus berurutan meskipun *concurrently*. Ini secara langsung juga mempermudah kita dalam mengolah output hasil pipeline. Kita cukup fokus ke channel hasil Fan-in yang paling terakhir, yaitu channel `chanRename`.
 

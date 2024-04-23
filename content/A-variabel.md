@@ -51,7 +51,7 @@ var firstName string = "john"
 
 Nilai variabel bisa di-isi langsung pada saat deklarasi variabel.
 
-#### • Penggunaan Fungsi `fmt.Printf()`
+#### ◉ Penggunaan Fungsi `fmt.Printf()`
 
 Fungsi ini digunakan untuk menampilkan output dalam bentuk tertentu. Kegunaannya sama seperti fungsi `fmt.Println()`, hanya saja struktur outputnya didefinisikan di awal.
 

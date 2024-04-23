@@ -4,11 +4,11 @@ Pada bagian ini kita akan belajar cara meng-enable fasilitas SSL/TLS pada web se
 
 ## C.24.1. Definisi
 
-#### • SSL
+#### ◉ SSL
 
 **SSL, Secure Sockets Layer**, adalah standar untuk pengamanan komunikasi lewat internet. Data atau informasi yang sedang dikomunikasikan dari sebuah system ke system lain akan di-proteksi, dengan cara adalah mengacak informasi tersebut menggunakan algoritma enkripsi.
 
-#### • SSL Certificates
+#### ◉ SSL Certificates
 
 **SSL Certificate**, adalah sebuah file berisikan informasi mengenai website, yang nantinya dibutuhkan untuk enkripsi data. SSL Certificate berisi **Public Key**. Public key digunakan untuk meng-enkripsi data yang akan di transfer.
 
@@ -26,11 +26,11 @@ Berikut merupakan penjelasan dalam bentuk gambar yang diambil dari [coinjolt.com
 
 Kedua file certificate dan file private key harus disimpan dengan sangat super aman di server.
 
-#### • TLS
+#### ◉ TLS
 
 **TLS, Transport Layer Security**, adalah versi yang lebih update dari SSL.
 
-#### • HTTPS
+#### ◉ HTTPS
 
 **HTTPS, Hyper Text Transfer Protocol Secure**, adalah ekstensi dari HTTP yang berguna untuk pengamanan komunikasi lewat internet. Data atau informasi yang dikomunikasikan di-enkripsi menggunakan **TLS**.
 
