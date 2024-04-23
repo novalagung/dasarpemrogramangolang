@@ -4,7 +4,7 @@ Hal pertama yang perlu dilakukan sebelum bisa menggunakan Go adalah meng-*instal
 
 Di sini penulis mencoba meringkas petunjuk instalasi pada *link* di atas, agar lebih mudah untuk diikuti terutama untuk pembaca yang baru belajar.
 
-> Go yang digunakan adalah versi **1.20**, direkomendasikan menggunakan versi tersebut.
+> Go yang digunakan adalah versi **1.22**, direkomendasikan menggunakan versi tersebut.
 
 URL untuk mengunduh *installer* Go: https://golang.org/dl/. Silakan langsung unduh dari *link* tersebut lalu lakukan proses instalasi, atau bisa mengikuti petunjuk pada chapter ini.
 
