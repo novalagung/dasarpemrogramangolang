@@ -45,23 +45,23 @@ Statement `gofpdf.New()` digunakan untuk membuat objek dokumen baru. Fungsi `.Ne
 
 Fungsi `.New()` mengembalikan objek PDF. Dari situ kita bisa mengakses banyak method sesuai kebutuhan, beberapa di antaranya adalah 4 buah method yang dicontohkan di atas.
 
-#### • Method `.AddPage()`
+#### ◉ Method `.AddPage()`
  
 Method ini digunakan untuk menambah halaman baru. Defaultnya, objek dokumen yang baru dibuat tidak memiliki halaman. Dengan memanggil `.AddPage()` maka halaman baru dibuat.
 
 Setelah *at least* satu halaman tersedia, kita bisa lanjut ke proses tulis menulis.
 
-#### • Method `.SetFont()`
+#### ◉ Method `.SetFont()`
 
 Method ini digunakan untuk menge-set konfigurasi font dokumen. Font Family, Font Style, dan Font Size disisipkan dalam parameter secara berurutan.
  
-#### • Method `.Text()`
+#### ◉ Method `.Text()`
 
 Digunakan untuk menulis text pada koordinat tertentu. Pada kode di atas, `40` artinya `40mm` dari kiri, sedangkan `10` artinya `10mm` dari atas. Satuan milimeter digunakan karena pada saat penciptaan objek dipilih `mm` sebagai satuan.
 
 Method ini melakukan penulisan text pada current page.
 
-#### • Method `.Image()` 
+#### ◉ Method `.Image()` 
 
 Digunakan untuk menambahkan image. Method ini memerlukan beberapa parameter.
 

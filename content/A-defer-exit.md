@@ -19,7 +19,7 @@ func main() {
 }
 ```
 
-Output:
+Output program:
 
 ![Penerapan `defer`](images/A_defer_exit_1_defer.png)
 
@@ -45,7 +45,7 @@ func orderSomeFood(menu string) {
 }
 ```
 
-Output:
+Output program:
 
 ![Penerapan `defer` dengan `return`](images/A_defer_exit_2_defer_return.png)
 
@@ -68,7 +68,7 @@ func main() {
 }
 ```
 
-Output:
+Output program:
 
 ```
 halo 1
@@ -95,7 +95,7 @@ func main() {
 }
 ```
 
-Output:
+Output program:
 
 ```
 halo 1

@@ -131,11 +131,11 @@ Passing data bertipe channel lewat parameter sifatnya **pass by reference**, yan
 
 ![Parameter channel](images/A_channel_3_channel_param.png)
 
----
+## A.32.3. Penjelasan tambahan
 
-Berikut merupakan penjelasan tambahan untuk kode di atas.
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
 
-#### • Iterasi Data Slice/Array Langsung Pada Saat Inisialisasi
+#### ◉ Iterasi Data Slice/Array Langsung Pada Saat Inisialisasi
 
 Data slice yang baru di inisialisasi bisa langsung di-iterasi, caranya mudah dengan menuliskannya langsung setelah keyword `range`.
 
@@ -145,7 +145,7 @@ for _, each := range []string{"wick", "hunt", "bourne"} {
 }
 ```
 
-#### • Eksekusi Goroutine Pada IIFE
+#### ◉ Eksekusi Goroutine Pada IIFE
 
 Eksekusi goroutine tidak harus pada fungsi atau closure yang sudah terdefinisi. Sebuah IIFE juga bisa dijalankan sebagai goroutine baru. Caranya dengan langsung menambahkan keyword `go` pada waktu deklarasi-eksekusi IIFE-nya.
 

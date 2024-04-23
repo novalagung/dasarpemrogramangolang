@@ -65,7 +65,7 @@ func main() {
 
 Pembuatan objek secure middleware dilakukan menggunakan `secure.New()` dengan isi parameter adalah konfigurasi. Bisa dilihat ada 5 buah property konfigurasi di-set. Berikut merupakan penjelasan tiap-tiap property tersebut.
 
-#### • Konfigurasi `AllowedHosts`
+#### ◉ Konfigurasi `AllowedHosts`
 
 ```go
 AllowedHosts: []string{"localhost:9000", "www.google.com"}
@@ -73,7 +73,7 @@ AllowedHosts: []string{"localhost:9000", "www.google.com"}
 
 Host yang diperbolehkan mengakses web server ditentukan hanya 2, yaitu localhost:9000 yang merupakan web server itu sendiri, dan google.com. Silakan coba mengakses aplikasi kita ini menggunakan AJAX lewat google.com dan domainnya lainnya untuk mengetes apakah fungsionalitas nya berjalan.
 
-#### • Konfigurasi `FrameDeny`
+#### ◉ Konfigurasi `FrameDeny`
 
 ```go
 FrameDeny: true
@@ -87,7 +87,7 @@ Di library secure, untuk men-disable ijin akses aplikasi dari dalam iframe, bisa
 
 Untuk mengetes, silakan buat aplikasi web terpisah yang mer-render sebuah view. Dalam view tersebut siapkan satu buah iframe yang mengarah ke `https://localhost:9000/index`.
 
-#### • Konfigurasi `CustomFrameOptionsValue`
+#### ◉ Konfigurasi `CustomFrameOptionsValue`
 
 ```go
 CustomFrameOptionsValue: "SAMEORIGIN"
@@ -99,7 +99,7 @@ Dengan menambahkan satu buah property lagi yaitu `CustomFrameOptionsValue: "SAME
 
 Untuk mengetes, buat rute baru yang me-render sebuah view. Dalam view tersebut siapkan satu buah iframe yang mengarah ke `/index`.
 
-#### • Konfigurasi `ContentTypeNosniff`
+#### ◉ Konfigurasi `ContentTypeNosniff`
 
 ```go
 ContentTypeNosniff: true
@@ -107,7 +107,7 @@ ContentTypeNosniff: true
 
 Property `ContentTypeNosniff: true` digunakan untuk disable MIME-sniffing yang dilakukan oleh browser IE. Lebih jelasnya silakan baca [X-Content-Type-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options).
 
-#### • Konfigurasi `BrowserXssFilter`
+#### ◉ Konfigurasi `BrowserXssFilter`
 
 ```go
 BrowserXssFilter: true

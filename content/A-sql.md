@@ -174,7 +174,7 @@ func main() {
 }
 ```
 
-Output:
+Output program:
 
 ![Membaca data dari database server](images/A_sql_2_sql_query.png)
 

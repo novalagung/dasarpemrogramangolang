@@ -44,7 +44,7 @@ func main() {
 }
 ```
 
-Output:
+Output program:
 
 ![Penggunaan method](images/A_method_1_method.png)
 
@@ -106,7 +106,7 @@ func main() {
 }
 ```
 
-Output:
+Output program:
 
 ![Penggunaan method pointer](images/A_method_2_method_pointer.png)
 
@@ -124,11 +124,11 @@ var s2 = &student{"ethan hunt", 22}
 s2.sayHello()
 ```
 
----
+## A.25.3. Penjelasan tambahan
 
-Berikut adalah penjelasan tambahan mengenai beberapa hal pada chapter ini.
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
 
-#### • Penggunaan Fungsi `strings.Split()`
+#### ◉ Penggunaan Fungsi `strings.Split()`
 
 Pada chapter ini ada fungsi baru yang kita gunakan: `strings.Split()`. Fungsi ini berguna untuk memisah string menggunakan pemisah yang ditentukan sendiri. Hasilnya adalah array berisikan kumpulan substring.
 

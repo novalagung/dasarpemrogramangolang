@@ -48,11 +48,11 @@ Setelah 20 data yang dikirim sukses diterima, channel `ch` di-non-aktifkan denga
 
 ![Penerapan for-range-close pada channel](images/A_channel_range_close_1_for_range_close.png)
 
----
+## A.34.2. Penjelasan tambahan
 
-Berikut adalah penjelasan tambahan mengenai channel.
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
 
-## A.34.1.1. Channel Direction
+#### ◉ Channel Direction
 
 Go mendesain API channel untuk mendukung level akses channel, apakah hanya sebagai penerima, pengirim, atau penerima sekaligus pengirim. Konsep ini disebut dengan **channel direction**.
 

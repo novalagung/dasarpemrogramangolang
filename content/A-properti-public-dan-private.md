@@ -176,7 +176,7 @@ fmt.Println("name ", s1.Name)
 fmt.Println("grade", s1.grade)
 ```
 
-Output:
+Output program:
 
 ![Error lain muncul saat menjalankan program](images/A_properti_public_private_4_error.png)
 

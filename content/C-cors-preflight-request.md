@@ -91,7 +91,7 @@ Khusus untuk beberapa header seperti `Accept`, `Origin`, `Referer`, dan `User-Ag
 
 ## C.14.3. Testing CORS
 
-#### • Persiapan
+#### ◉ Persiapan
 
 Ada beberapa hal yang perlu dipersiapkan. Pertama, pastikan punya google chrome. Lalu install extension [jQuery Injector](https://chrome.google.com/webstore/detail/jquery-injector/ekkjohcjbjcjjifokpingdbdlfekjcgi?hl=en). Buka https://www.google.com lalu inject jQuery. Dengan melakukan inject jQuery secara paksa maka dari situs google kita bisa menggunakan jQuery.
 
@@ -109,7 +109,7 @@ Silakan lihat gambar berikut untuk memperjelas.
 
 Bisa dilihat, tidak ada error, karena memang request dari google diijinkan. Silakan coba-coba melakukan request AJAX lainnya dengan method POST, DELETE, atau lainnya; atau ditambah dengan menyisipkan header tertentu dalam ajax request.
 
-#### • Akses http://localhost:9000 dari Origin yang Tidak Didaftarkan di CORS
+#### ◉ Akses http://localhost:9000 dari Origin yang Tidak Didaftarkan di CORS
 
 Selanjutnya coba buka tab baru, buka https://novalagung.com, lalu jalankan script yang sama.
 
@@ -119,7 +119,7 @@ Selanjutnya coba buka tab baru, buka https://novalagung.com, lalu jalankan scrip
 
 Dari screenshot dan error log di atas, bisa dilihat bahwa request gagal. Hal ini dikarenakan origin https://novalagung.com tidak diijinkan untuk mengakses http://localhost:9000.
 
-#### • CORS Multiple Origin
+#### ◉ CORS Multiple Origin
 
 Sekarang coba tambahkan situs https://novalagung.com ke CORS header.
 
@@ -141,7 +141,7 @@ Masih tetap error, tapi berbeda dengan error sebelumnya.
 
 Sebenarnya sudah kita singgung juga di atas, bahwa di spesifikasi adalah diperbolehkan isi header `Access-Control-Allow-Origin` lebih dari satu website. Namun, kebanyakan browser tidak mendukung bagian ini. Oleh karena itu error di atas muncul. Konfigurasi ini termasuk tidak valid, hasilnya kedua website tersebut tidak punya ijin masuk.
 
-#### • Allow All
+#### ◉ Allow All
 
 Gunakan tanda asteriks (`*`) sebagai nilai ketiga CORS header untuk memberi ijin ke semua.
 
@@ -158,7 +158,7 @@ w.Header().Set("Access-Control-Allow-Headers", "*")
 
 ## C.14.4. Preflight Request
 
-#### • Teori
+#### ◉ Teori
 
 Dalam konteks CORS, request dikategorikan menjadi 2 yaitu, **Simple Request** dan **Preflighted Request**. Beberapa contoh request yang sudah kita pelajari di atas termasuk simple request.
 
@@ -206,7 +206,7 @@ http.HandleFunc("/index", func(w http.ResponseWriter, r *http.Request) {
 })
 ```
 
-#### • Praktek
+#### ◉ Praktek
 
 Langsung saja buka google.com lalu lakukan AJAX request yang memenuhi alah satu kriteria preflighted request, misalnya, gunakan header `Content-Type: application/json`.
 
