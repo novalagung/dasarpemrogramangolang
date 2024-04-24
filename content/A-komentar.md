@@ -1,6 +1,6 @@
 # A.8. Komentar
 
-Komentar biasa dimanfaatkan untuk menyisipkan catatan pada kode program, menulis penjelasan/deskripsi mengenai suatu blok kode, atau bisa juga digunakan untuk me-*remark* kode (men-non-aktifkan kode yg tidak digunakan). Komentar akan diabaikan ketika kompilasi maupun eksekusi program.
+Komentar biasa dimanfaatkan untuk untuk menyisipkan catatan pada kode program, atau untuk menulis penjelasan/deskripsi mengenai suatu blok kode, atau bisa juga digunakan untuk me-*remark* kode (men-non-aktifkan kode yg tidak digunakan). Komentar selalu diabaikan ketika kompilasi maupun eksekusi program.
 
 Ada 2 jenis komentar di Go, *inline* & *multiline*. Pada pembahasan ini akan dijelaskan tentang penerapan dan perbedaan kedua jenis komentar tersebut.
 
@@ -22,7 +22,7 @@ func main() {
 }
 ```
 
-Mari kita praktekan kode di atas. Siapkan file program baru dalam project folder (bisa buat project baru atau gunakan project yang sudah ada). Kemudian isi dengan kode di atas, lalu jalankan.
+Mari kita praktekan kode di atas. Siapkan file program baru dalam project folder (bisa buat project baru atau gunakan project yang sudah ada). Kemudian isi file dengan kode di atas, lalu jalankan.
 
 ![Contoh komentar inline](images/A_komentar_1_inline_comment.png)
 
