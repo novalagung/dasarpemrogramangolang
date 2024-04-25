@@ -1,12 +1,12 @@
 # A.13. Seleksi Kondisi
 
-Seleksi kondisi digunakan untuk mengontrol alur program. Analoginya mirip seperti fungsi rambu lalu lintas di jalan raya. Kapan kendaraan diperbolehkan melaju dan kapan harus berhenti diatur oleh rambu tersebut. Seleksi kondisi pada program juga kurang lebih sama, kapan sebuah blok kode akan dieksekusi dikontrol.
+Seleksi kondisi digunakan untuk mengontrol alur eksekusi flow program. Analoginya mirip seperti fungsi rambu lalu lintas di jalan raya. Kapan kendaraan diperbolehkan melaju dan kapan harus berhenti diatur oleh rambu tersebut. Seleksi kondisi pada program juga kurang lebih sama, kapan sebuah blok kode dieksekusi dikontrol.
 
 Yang dijadikan acuan oleh seleksi kondisi adalah nilai bertipe `bool`, bisa berasal dari variabel, ataupun hasil operasi perbandingan. Nilai tersebut menentukan blok kode mana yang akan dieksekusi.
 
-Go memiliki 2 macam keyword untuk seleksi kondisi, yaitu **if else** dan **switch**. Pada chapter ini kita akan mempelajarinya satu-persatu.
+Go memiliki 2 macam keyword untuk seleksi kondisi, yaitu **if else** dan **switch**. Pada chapter ini kita akan mempelajari keduanya.
 
-> Go tidak mendukung seleksi kondisi menggunakan **ternary**.<br />Statement seperti: `var data = (isExist ? "ada" : "tidak ada")` adalah invalid dan menghasilkan error.
+> Go tidak mendukung seleksi kondisi menggunakan **ternary**.<br />Statement seperti `var data = (isExist ? "ada" : "tidak ada")` adalah invalid dan menghasilkan error.
 
 ## A.13.1. Seleksi Kondisi Menggunakan Keyword `if`, `else if`, & `else`
 
@@ -30,13 +30,11 @@ Dari ke-empat kondisi di atas, yang terpenuhi adalah `if point > 5`, karena nila
 
 ![Seleksi kondisi `if` - `else`](images/A_seleksi_kondisi_1_if_else.png)
 
-Skema if else Go sama seperti pada pemrograman umumnya. Yaitu di awal seleksi kondisi menggunakan `if`, dan ketika kondisinya tidak terpenuhi akan menuju ke `else` (jika ada). Ketika ada banyak kondisi, gunakan `else if`.
-
-> Di bahasa pemrograman lain, ketika ada seleksi kondisi yang isi blok-nya hanya 1 baris saja, kurung kurawal boleh tidak dituliskan. Berbeda dengan aturan di Go, kurung kurawal harus tetap dituliskan meski isinya hanya 1 blok satement.
+Penulisan if else Go diawali dengan keyword `if` kemudian diikuti nilai seleksi kondisi dan blok kode ketika kondisi terpenuhi. Ketika kondisinya tidak terpenuhi akan blok kode `else` dipanggil (jika blok kode `else` tersebut ada). Ketika ada banyak kondisi, gunakan `else if`.
 
 ## A.13.2. Variabel Temporary Pada `if` - `else`
 
-Variabel temporary adalah variabel yang hanya bisa digunakan pada blok seleksi kondisi di mana ia ditempatkan saja. Penggunaan variabel ini membawa beberapa manfaat, antara lain:
+Variabel temporary adalah variabel yang hanya bisa digunakan pada deretan blok seleksi kondisi di mana ia ditempatkan. Penggunaan variabel ini membawa beberapa manfaat, antara lain:
 
  - Scope atau cakupan variabel jelas, hanya bisa digunakan pada blok seleksi kondisi itu saja
  - Kode menjadi lebih rapi
@@ -54,9 +52,9 @@ if percent := point / 100; percent >= 100 {
 }
 ```
 
-Variabel `percent` nilainya didapat dari hasil perhitungan, dan hanya bisa digunakan di deretan blok seleksi kondisi itu saja.
+Variabel `percent` nilainya didapat dari hasil perhitungan, dan hanya bisa digunakan di deretan blok seleksi kondisi itu saja yang mencakup blok `if`, `else if`, dan `else`.
 
-> Deklarasi variabel temporary hanya bisa dilakukan lewat metode type inference yang menggunakan tanda `:=`. Penggunaan keyword `var` di situ tidak diperbolehkan karena akan menyebabkan error.
+> Deklarasi variabel temporary hanya bisa dilakukan lewat metode type inference yang menggunakan tanda `:=`. Penggunaan keyword `var` di situ tidak diperbolehkan karena menyebabkan error.
 
 ## A.13.3. Seleksi Kondisi Menggunakan Keyword `switch` - `case`
 
@@ -77,7 +75,7 @@ default:
 
 Pada kode di atas, tidak ada kondisi atau `case` yang terpenuhi karena nilai variabel `point` tetap `6`. Ketika hal seperti ini terjadi, blok kondisi `default` dipanggil. Bisa dibilang bahwa `default` merupakan `else` dalam sebuah switch.
 
-Perlu diketahui, switch pada pemrograman Go memiliki perbedaan dibanding bahasa lain. Di Go, ketika sebuah case terpenuhi, tidak akan dilanjutkan ke pengecekan case selanjutnya, meskipun tidak ada keyword `break` di situ. Konsep ini berkebalikan dengan switch pada umumnya, yang ketika sebuah case terpenuhi, maka akan tetap dilanjut mengecek case selanjutnya kecuali ada keyword `break`.
+Perlu diketahui, switch pada pemrograman Go memiliki perbedaan dibanding bahasa lain. Di Go, ketika sebuah case terpenuhi, tidak akan dilanjutkan ke pengecekan case selanjutnya, meskipun tidak ada keyword `break` di situ. Konsep ini berkebalikan dengan switch pada umumnya pemrograman lain (yang ketika sebuah case terpenuhi, maka akan tetap dilanjut mengecek case selanjutnya kecuali ada keyword `break`).
 
 ## A.13.4. Pemanfaatan `case` Untuk Banyak Kondisi
 
@@ -100,7 +98,7 @@ Kondisi `case 7, 6, 5, 4:` akan terpenuhi ketika nilai variabel `point` adalah 7
 
 ## A.13.5. Kurung Kurawal Pada Keyword `case` & `default`
 
-Tanda kurung kurawal (`{ }`) bisa diterapkan pada keyword `case` dan `default`. Tanda ini opsional, boleh dipakai boleh tidak. Bagus jika dipakai pada blok kondisi yang di dalamnya ada banyak statement, kode akan terlihat lebih rapi dan mudah di-maintain.
+Tanda kurung kurawal (`{ }`) bisa diterapkan pada keyword `case` dan `default`. Tanda ini opsional, boleh dipakai boleh tidak. Bagus jika dipakai pada blok kondisi yang di dalamnya ada banyak statement, dengannya kode akan terlihat lebih rapi.
 
 Perhatikan kode berikut, bisa dilihat pada keyword `default` terdapat kurung kurawal yang mengapit 2 statement di dalamnya.
 
@@ -146,7 +144,7 @@ default:
 
 Seperti yang sudah dijelaskan sebelumnya, bahwa switch pada Go memiliki perbedaan dengan bahasa lain. Ketika sebuah `case` terpenuhi, pengecekan kondisi tidak akan diteruskan ke case-case setelahnya.
 
-Keyword `fallthrough` digunakan untuk memaksa proses pengecekan diteruskan ke satu `case` selanjutnya dengan **tanpa menghiraukan nilai kondisinya**, jadi satu case di pengecekan selanjutnya tersebut selalu dianggap benar (meskipun aslinya adalah salah). Dalam sebuah `switch` lebih dari satu `fallthrough` bisa di tempatkan untuk memaksa melanjutkan proses pengecekan ke satu `case` setelahnya.
+Keyword `fallthrough` digunakan untuk memaksa proses pengecekan tetap diteruskan ke `case` selanjutnya dengan **tanpa menghiraukan nilai kondisinya**, efeknya adalah case di pengecekan selanjutnya selalu dianggap `true` (meskipun aslinya bisa saja kondisi tersebut tidak terpenuhi, akan tetap dianggap `true`).
 
 ```go
 var point = 6
@@ -167,10 +165,11 @@ default:
 }
 ```
 
-
-Setelah pengecekan `case (point < 8) && (point > 3)` selesai, akan dilanjut ke pengecekan `case point < 5`, karena ada `fallthrough` di situ.
+Di contoh, setelah pengecekan `case (point < 8) && (point > 3)` selesai, dilanjut ke pengecekan `case point < 5`, karena ada `fallthrough` di situ. Dan kondisi `case < 5` tersebut dianggap `true` meskipun secara logika harusnya tidak terpenuhi.
 
 ![Penggunaan `fallthrough` dalam `switch`](images/A_seleksi_kondisi_2_fallthrough.png)
+
+Pada `case` dalam sebuah `switch`, diperbolehkan terdapat lebih dari satu `fallthrough`.
 
 ## A.13.8. Seleksi Kondisi Bersarang
 

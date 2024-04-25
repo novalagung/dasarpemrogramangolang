@@ -1,14 +1,12 @@
 # A.48. Arguments & Flag
 
-**Arguments** adalah data opsional yang disisipkan ketika eksekusi program. Sedangkan **flag** merupakan ekstensi dari argument. Dengan flag, penulisan argument menjadi lebih rapi dan terstruktur.
+**Arguments** adalah data argument opsional yang disisipkan ketika eksekusi program. Sedangkan **flag** merupakan ekstensi dari argument. Dengan flag, penulisan argument menjadi lebih rapi dan terstruktur.
 
-Pada chapter ini kita akan belajar tentang penggunaan arguments dan flag.
+Pada chapter ini kita akan belajar tentang penerapan arguments dan flag.
 
 ## A.48.1. Penggunaan Arguments
 
-Data arguments bisa didapat lewat variabel `os.Args` (package `os` perlu di-import terlebih dahulu). Data tersebut tersimpan dalam bentuk array dengan pemisah adalah tanda spasi.
-
-Berikut merupakan contoh penggunaannya.
+Data arguments bisa didapat lewat variabel `os.Args` (package `os` perlu di-import terlebih dahulu). Data tersebut tersimpan dalam bentuk array. Setiap data argument yang disisipkan saat pemanggilan program, datanya dipecah menggunakan karakter spasi lalu di-map ke bentuk array. Contoh penerapan:
 
 ```go
 package main
@@ -27,9 +25,7 @@ func main() {
 }
 ```
 
-Pada saat eksekusi program disisipkan juga argument-nya. Sebagai contoh disisipkan 3 buah data sebagai argumen, yaitu: `banana`, `potato`, dan `ice cream`.
-
-Untuk eksekusinya sendiri bisa menggunakan `go run` ataupun dengan cara build-execute.
+Argument disisipkan saat eksekusi program. Sebagai contoh, kita ingin menyisipkan 3 buah argumen berikut: `banana`, `potato`, dan `ice cream`. Maka penulisan saat pemanggilan program-nya seperti ini:
 
  - Menggunakan `go run`
 
@@ -44,11 +40,13 @@ Untuk eksekusinya sendiri bisa menggunakan `go run` ataupun dengan cara build-ex
     $ ./bab45 banana potato "ice cream"
     ```
 
-Variabel `os.Args` mengembalikan tak hanya arguments saja, tapi juga path file executable (jika eksekusi-nya menggunakan `go run` maka path akan merujuk ke folder temporary). Gunakan `os.Args[1:]` untuk mengambil slice arguments-nya saja.
+Output program:
 
 ![Pemanfaatan arguments](images/A_cli_flag_arg_1_argument.png)
 
-Bisa dilihat pada kode di atas, bahwa untuk data argumen yang ada karakter spasi nya (<code> </code>), maka harus diapit tanda petik (`"`), agar tidak dideteksi sebagai 2 argumen.
+Bisa dilihat pada kode di atas, bahwa untuk data argumen yang ada karakter spasi-nya (<code> </code>) harus dituliskan dengan diapit tanda petik (`"`) agar tidak dideteksi sebagai 2 argumen.
+
+Variabel `os.Args` mengembalikan tak hanya arguments saja, tapi juga path file executable (jika eksekusi-nya menggunakan `go run` maka path akan merujuk ke folder temporary). Maka disini penting untuk hanya mengambil element index ke 1 hingga seterusnya saja via statement `os.Args[1:]`.
 
 ## A.48.2. Penggunaan Flag
 
@@ -85,7 +83,7 @@ fmt.Println(*dataName)
 
 Kode tersebut maksudnya adalah, disiapkan flag bertipe `string`, dengan key adalah `name`, dengan nilai default `"anonymous"`, dan keterangan `"type your name"`. Nilai flag nya sendiri akan disimpan ke dalam variabel `dataName`.
 
-Nilai balik fungsi `flag.String()` adalah string pointer, jadi perlu di-*dereference* terlebih dahulu agar bisa mendapatkan nilai aslinya (`*dataName`).
+Nilai balik fungsi `flag.String()` adalah string pointer, jadi perlu di-*dereference* terlebih dahulu untuk mengakses nilai aslinya (`*dataName`).
 
 ![Contoh penggunaan flag](images/A_cli_flag_arg_2_flag.png)
 
@@ -110,7 +108,7 @@ Sebenarnya ada 2 cara deklarasi flag yang bisa digunakan, dan cara di atas merup
 
 Cara kedua mirip dengan cara pertama, perbedannya adalah kalau di cara pertama nilai pointer flag dikembalikan lalu ditampung variabel. Sedangkan pada cara kedua, nilainya diambil lewat parameter pointer.
 
-Agar lebih jelas perhatikan contoh berikut.
+Agar lebih jelas perhatikan contoh berikut:
 
 ```go
 // cara ke-1

@@ -1,6 +1,6 @@
 # A.16. Slice
 
-**Slice** adalah *reference* elemen array. Slice bisa dibuat, atau bisa juga dihasilkan dari manipulasi sebuah array ataupun slice lainnya. Karena merupakan data *reference*, menjadikan perubahan data di tiap elemen slice akan berdampak pada slice lain yang memiliki alamat memori yang sama.
+**Slice** adalah *reference* elemen array. Slice bisa dibuat, atau bisa juga dihasilkan dari manipulasi sebuah array ataupun slice lainnya. Karena slice merupakan data *reference*, menjadikan perubahan data di tiap elemen slice akan berdampak pada slice lain yang memiliki alamat memori yang sama.
 
 ## A.16.1. Inisialisasi Slice
 
@@ -40,9 +40,9 @@ Kode `fruits[0:2]`  maksudnya adalah pengaksesan elemen dalam slice `fruits` yan
 
 Ketika mengakses elemen array menggunakan satu buah indeks (seperti `data[2]`), nilai yang didapat merupakan hasil **copy** dari referensi aslinya. Berbeda dengan pengaksesan elemen menggunakan 2 indeks (seperti `data[0:2]`), nilai yang didapat adalah *reference* elemen atau slice.
 
-> Tidak apa jikalau pembaca masih bingung, di bawah akan dijelaskan lebih mendetail lagi tentang slice dan *reference*
+> Sampai sini tidak apa jika pembaca masih bingung. Sebentar lagi kita akan bahas lebih detail lagi tentang penerapan slice dan *reference*
 
-Tabel berikut adalah list operasi operasi menggunakan teknik 2 indeks yang bisa dilakukan.
+Tabel berikut berisi contoh macam-macam operasi slice (atau *slicing*) menggunakan teknik 2 indeks yang bisa dilakukan di Go.
 
 ```go
 var fruits = []string{"apple", "grape", "banana", "melon"}
@@ -115,7 +115,7 @@ fmt.Println(len(fruits)) // 4
 
 ## A.16.5. Fungsi `cap()`
 
-Fungsi `cap()` digunakan untuk menghitung lebar atau kapasitas maksimum slice. Nilai kembalian fungsi ini untuk slice yang baru dibuat pasti sama dengan `len`, tapi bisa berubah seiring operasi slice yang dilakukan. Agar lebih jelas, silakan disimak kode berikut.
+Fungsi `cap()` digunakan untuk menghitung lebar atau kapasitas maksimum slice. Nilai kembalian fungsi ini untuk slice yang baru dibuat pasti sama dengan `len`, tapi bisa berubah seiring operasi slice yang dilakukan. Agar lebih jelas, silakan pelajari kode berikut.
 
 ```go
 var fruits = []string{"apple", "grape", "banana", "melon"}
@@ -233,7 +233,7 @@ Jika dilihat pada kode di atas, isi `dst` masih tetap 3 elements, tapi dua eleme
 
 ## A.16.8. Pengaksesan Elemen Slice Dengan 3 Indeks
 
-**3 index** adalah teknik slicing elemen yang sekaligus menentukan kapasitasnya. Cara menggunakannnya yaitu dengan menyisipkan angka kapasitas di belakang, seperti `fruits[0:1:1]`. Angka kapasitas yang diisikan tidak boleh melebihi kapasitas slice yang akan di slicing.
+**3 index** adalah teknik slicing untuk pengaksesan elemen yang sekaligus menentukan kapasitasnya. Cara penggunaannya yaitu dengan menyisipkan angka kapasitas di belakang, seperti `fruits[0:1:1]`. Angka kapasitas yang diisikan tidak boleh melebihi kapasitas slice yang akan di slicing.
 
 Berikut merupakan contoh penerapannya.
 

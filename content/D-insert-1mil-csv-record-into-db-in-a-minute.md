@@ -6,13 +6,13 @@ Pada bagian insert data kita terapkan mekanisme failover, jadi ketika ada operas
 
 ## D.1.1. Penjelasan
 
-#### • Worker Pool
+#### ◉ Worker Pool
 
 Worker pool adalah teknik manajemen goroutine dalam *concurrent programming* pada Go. Sejumlah worker dijalankan dan masing-masing memiliki tugas yang sama yaitu menyelesaikan sejumlah jobs.
 
 Dengan metode worker pool ini, maka penggunaan memory dan performansi program akan bisa optimal.
 
-#### • Database Connection Pool
+#### ◉ Database Connection Pool
 
 *Connection pool* adalah metode untuk manajemen sejumlah koneksi database, agar bisa digunakan secara optimal.
 
@@ -20,7 +20,7 @@ Connection pool sangat penting dalam kasus operasi data yang berhubungan dengan 
 
 Karena pada concurrent programming, beberapa proses akan berjalan bersamaan, maka penggunaan 1 koneksi db akan menghambat proses tersebut. Perlu ada beberapa koneksi database, agar goroutine tidak rebutan objek koneksi database.
 
-#### • Failover
+#### ◉ Failover
 
 Failover merupakan mekanisme backup ketika sebuah proses gagal. Pada konteks ini, failover mengarah ke proses untuk me-retry operasi insert ketika gagal.
 
@@ -63,7 +63,7 @@ Jika pembaca ingin menggunakan driver lain, juga silakan.
 
 ## D.1.3. Praktek
 
-#### • Definisi Konstanta
+#### ◉ Definisi Konstanta
 
 Ada beberapa konstanta yang perlu dipersiapkan. Pertama connection string untuk komunikasi ke database server. Sesuaikan value nya dengan yang dipergunakan.
 
@@ -101,7 +101,7 @@ Terakhir, siapkan variabel untuk menampung data header dari pembacaan CSV nanti.
 var dataHeaders = make([]string, 0)
 ```
 
-#### • Fungsi Buka Koneksi Database
+#### ◉ Fungsi Buka Koneksi Database
 
 Buat fungsi untuk buka koneksi database, yg dikembalikan objek database kembalian fungsi `sql.Open()`.
 
@@ -131,7 +131,7 @@ O iya jangan lupa untuk import driver nya.
 import _ "github.com/go-sql-driver/mysql"
 ```
 
-#### • Fungsi Baca CSV
+#### ◉ Fungsi Baca CSV
 
 Buka file CSV, lalu gunakan objek file untuk membuat objek CSV reader baru.
 
@@ -149,7 +149,7 @@ func openCsvFile() (*csv.Reader, *os.File, error) {
 }
 ```
 
-#### • Fungsi Menjalankan Workers
+#### ◉ Fungsi Menjalankan Workers
 
 Ok, sekarang kita mulai masuk ke aspek konkurensi dari pembahasan ini. Siapkan fungsi yang isinya men-dispatch beberapa goroutine sejumlah `totalWorker`.
 
@@ -181,7 +181,7 @@ Fungsi `doTheJob()` yang nantinya kita buat, isinya adalah operasi insert data k
 
 Idealnya di akhir aplikasi akan terjadi pemanggilan `wg.Done()` sejumlah 1 juta karena ada 1 juta jobs.
 
-#### • Fungsi Baca CSV dan Pengiriman Jobs ke Worker
+#### ◉ Fungsi Baca CSV dan Pengiriman Jobs ke Worker
 
 Proses pembacaan CSV, apapun metodenya pasti yang dijalankan adalah membaca data dari line ke line dari baris paling bawah.
 
@@ -221,7 +221,7 @@ Setelah proses baca data selesai, channel di close. Karena pengiriman dan peneri
 
 Jika blok kode perulangan dalam fungsi di atas selesai, maka sudah tidak ada lagi operasi kirim terima data, maka kita close channelnya.
 
-#### • Fungsi Insert Data ke Database
+#### ◉ Fungsi Insert Data ke Database
 
 ```go
 func doTheJob(workerIndex, counter int, db *sql.DB, values []interface{}) {
@@ -281,7 +281,7 @@ O iya, mengenai kode untuk manajemen db connection poll mana ya? sepertinya tida
 
 Btw, di atas juga ada satu fungsi lagi, `generateQuestionsMark()`, gunanya untuk membantu pembentukan query insert data secara dinamis.
 
-#### • Fungsi Main
+#### ◉ Fungsi Main
 
 Terakhir, panggil semua fungsi yang sudah dibuat pada main.
 
