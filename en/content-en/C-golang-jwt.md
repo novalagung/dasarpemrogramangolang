@@ -57,7 +57,7 @@ tree .
 └── users.json
 ```
 
-#### • File `middleware.go`
+#### ◉ File `middleware.go`
 
 Lanjut isi file `middleware.go` dengan kode middleware yang sudah biasa kita gunakan.
 
@@ -86,7 +86,7 @@ func (c *CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-#### • File `users.json`
+#### ◉ File `users.json`
 
 Juga isi file `users.json` yang merupakan database aplikasi. Silakan tambahkan data JSON berikut.
 
@@ -104,7 +104,7 @@ Juga isi file `users.json` yang merupakan database aplikasi. Silakan tambahkan d
 }]
 ```
 
-#### • File `main.go`
+#### ◉ File `main.go`
 
 Sekarang kita fokus ke file `main.go`. Import packages yang diperlukan. Salah satu dari packages tersebut adalah [golang-jwt/jwt](https://github.com/golang-jwt/jwt), yang digunakan untuk keperluan JWT.
 
@@ -353,7 +353,7 @@ r = r.WithContext(ctx)
 next.ServeHTTP(w, r)
 ```
 
-#### • Handler Index
+#### ◉ Handler Index
 
 Terakhir, kita perlu menyiapkan handler untuk rute `/index`.
 
@@ -371,17 +371,17 @@ Informasi `userInfo` diambil dari context, lalu ditampilkan sebagai response end
 
 Jalankan aplikasi, lalu test menggunakan curl.
 
-#### • Otentikasi
+#### ◉ Otentikasi
 
 ```bash
 curl -X POST --user noval:kaliparejaya123 http://localhost:8080/login
 ```
 
-Output:
+Output program:
 
 ![JWT Authentication](images/C_golang_jwt_2_jwt_authentication.png)
 
-#### • Mengakses Endpoint
+#### ◉ Mengakses Endpoint
 
 Test endpoint `/index`. Sisipkan token yang dikembalikan pada saat otentikasi, sebagai value header otorisasi dengan skema `Authorization: Bearer <token>`.
 
@@ -391,7 +391,7 @@ curl -X GET \
     http://localhost:8080/index
 ```
 
-Output:
+Output program:
 
 ![JWT Authorization](images/C_golang_jwt_3_jwt_authorization.png)
 
