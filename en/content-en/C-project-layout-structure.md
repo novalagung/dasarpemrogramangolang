@@ -109,7 +109,7 @@ Ada cukup banyak folder dan subfolder dalam project layout, berikut kami ringkas
 └── ...
 ```
 
-Hmm, cukup banyak juga ya yang perlu dipelajari? 😅 Tenang, tidak perlu untuk dihafal, cukup dipahami saja. Selain itu semua direktori di atas juga belum tentu dipakai semua, perlu disesuaikan dengan proyek yang sedang teman-teman kembangkan.
+Hmm, cukup banyak juga ya yang perlu dipelajari? 😅 Tenang, tidak perlu untuk dihafal, cukup dipahami saja. Selain itu semua direktori di atas juga belum tentu dipakai semua, perlu disesuaikan dengan proyek yang sedang pembaca kembangkan.
 
 Ok, sampai sini saja pembahasan mengenai project layout, selanjutnya silakan mencoba-coba jika berkenan, bisa dengan men-develop mulai awal, atau *clone* existing project untuk dipelajari strukturnya.
 
