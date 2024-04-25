@@ -79,7 +79,7 @@ Method `ctx.String()` dari objek context milik handler digunakan untuk mempermud
 
 Selain `ctx.String()` ada banyak method sejenis lainnya, berikut selengkapnya.
 
-#### • Method `.String()`
+#### ◉ Method `.String()`
 
 Digunakan untuk render plain text sebagai output (isi response header `Content-Type` adalah `text/plain`). Method ini tugasnya sama dengan method `.Write()` milik objek `http.ResponseWriter`.
 
@@ -90,7 +90,7 @@ r.GET("/index", func(ctx echo.Context) error {
 })
 ```
 
-#### • Method `.HTML()`
+#### ◉ Method `.HTML()`
 
 Digunakan untuk render html sebagai output. Isi response header `Content-Type` adalah `text/html`.
 
@@ -101,7 +101,7 @@ r.GET("/html", func(ctx echo.Context) error {
 })
 ```
 
-#### • Method `.Redirect()`
+#### ◉ Method `.Redirect()`
 
 Digunakan untuk redirect, pengganti `http.Redirect()`.
 
@@ -111,7 +111,7 @@ r.GET("/index", func(ctx echo.Context) error {
 })
 ```
 
-#### • Method `.JSON()`
+#### ◉ Method `.JSON()`
 
 Digunakan untuk render data JSON sebagai output. Isi response header `Content-Type` adalah `application/json`.
 
@@ -126,7 +126,7 @@ r.GET("/json", func(ctx echo.Context) error {
 
 Echo juga menyediakan beberapa method untuk keperluan parsing request, di antaranya:
 
-#### • Parsing Query String
+#### ◉ Parsing Query String
 
 Method `.QueryParam()` digunakan untuk mengambil data pada query string request, sesuai dengan key yang diinginkan.
 
@@ -145,7 +145,7 @@ Test menggunakan curl:
 curl -X GET http://localhost:9000/page1?name=grayson
 ```
 
-#### • Parsing URL Path Param
+#### ◉ Parsing URL Path Param
 
 Method `.Param()` digunakan untuk mengambil data path parameter sesuai skema rute.
 
@@ -166,7 +166,7 @@ Test menggunakan curl:
 curl -X GET http://localhost:9000/page2/grayson
 ```
 
-#### • Parsing URL Path Param dan Setelahnya
+#### ◉ Parsing URL Path Param dan Setelahnya
 
 Selain mengambil parameter sesuai spesifik path, kita juga bisa mengambil data **parameter path dan setelahnya**.
 
@@ -189,7 +189,7 @@ Test menggunakan curl:
 curl -X GET http://localhost:9000/page3/tim/need/some/sleep
 ```
 
-#### • Parsing Form Data
+#### ◉ Parsing Form Data
 
 Data yang dikirim sebagai request body dengan jenis adalah Form Data bisa di-ambil dengan mudah menggunakan `ctx.FormValue()`.
 
