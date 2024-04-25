@@ -1,17 +1,18 @@
 # A.56. SQL
 
-Go menyediakan package `database/sql` berisikan generic interface untuk keperluan interaksi dengan database sql. Package ini hanya bisa digunakan ketika **driver** database engine yang dipilih juga ada.
+Go menyediakan package `database/sql` berisikan generic interface untuk keperluan interaksi dengan database sql. Package ini mewajibkan pengguna untuk juga menggunakan **driver** database engine yang dipilih.
 
-Ada cukup banyak sql driver yang tersedia untuk Go, detailnya bisa diakses di [https://github.com/golang/go/wiki/SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers). Beberapa di antaranya:
+Ada cukup banyak sql driver yang tersedia untuk Go, detailnya bisa diakses di [https://go.dev/wiki/SQLDrivers](https://go.dev/wiki/SQLDrivers). Beberapa di antaranya:
 
- - MySql
+ - MySQL / MariaDB
  - Oracle
- - MS Sql Server
+ - MS SQL Server
+ - Postgres
  - dan lainnya
 
-Driver-driver tersebut merupakan project open source yang diinisiasi oleh komunitas di Github. Artinya kita selaku developer juga bisa ikut berkontribusi di dalamnya.
+Driver-driver tersebut merupakan project open source yang diinisiasi oleh komunitas di Github. Kita yang juga seorang developer juga bisa ikut berkontribusi di sana.
 
-Pada chapter ini kita akan belajar bagaimana berkomunikasi dengan database MySQL menggunakan driver [Go MySQL Driver](https://github.com/go-sql-driver/mysql).
+Pada chapter ini kita akan belajar bagaimana membuat Go bisa berkomunikasi dengan database MySQL menggunakan driver [Go MySQL Driver](https://github.com/go-sql-driver/mysql).
 
 ## A.56.1. Instalasi Driver
 
@@ -26,9 +27,9 @@ go get github.com/go-sql-driver/mysql
 
 ## A.56.2. Setup Database
 
-> Sebelumnya pastikan sudah ada [mysql server](https://dev.mysql.com/downloads/mysql/) yang terinstal di lokal anda.
+Sebelumnya mulai, pastikan sudah ada [mysql server](https://dev.mysql.com/downloads/mysql/) yang terinstal dan jalan di lokal environment pembaca.
 
-Buat database baru bernama `db_belajar_golang`, dan tabel baru bernama `tb_student`.
+Jika database server sudah siap, buat database baru bernama `db_belajar_golang`, dan tabel baru bernama `tb_student`.
 
 ```sql
 CREATE TABLE IF NOT EXISTS `tb_student` (
@@ -81,9 +82,10 @@ func connect() (*sql.DB, error) {
 }
 ```
 
-Fungsi `sql.Open()` digunakan untuk memulai koneksi dengan database. Fungsi tersebut memiliki 2 parameter mandatory, nama driver dan **connection string**.
+Fungsi `sql.Open()` digunakan untuk memulai koneksi dengan database. Fungsi tersebut memiliki 2 parameter mandatory yang harus diisi, yaitu nama driver dan **connection string**.
 
 Skema connection string untuk driver mysql yang kita gunakan cukup unik, `root@tcp(127.0.0.1:3306)/db_belajar_golang`. Di bawah ini merupakan skema connection string yang bisa digunakan pada driver Go MySQL Driver. Jika anda menggunakan driver mysql lain, skema koneksinya bisa saja berbeda tergantung driver yang digunakan.
+
 ```
 user:password@tcp(host:port)/dbname
 user@tcp(host:port)/dbname
@@ -146,7 +148,9 @@ func sqlQuery() {
 
 Setiap kali terbuat koneksi baru, jangan lupa untuk selalu **close** instance koneksinya. Bisa menggunakan keyword `defer` seperti pada kode di atas, `defer db.Close()`.
 
-Fungsi `db.Query()` digunakan untuk eksekusi sql query. Fungsi tersebut parameter keduanya adalah variadic, sehingga boleh tidak diisi. Pada kode di atas bisa dilihat bahwa nilai salah satu clause `where` adalah tanda tanya (`?`). Tanda tersebut kemudian akan ter-replace oleh nilai pada parameter setelahnya (nilai variabel `age`). Teknik penulisan query sejenis ini sangat dianjurkan, untuk mencegah [sql injection](https://en.wikipedia.org/wiki/SQL_injection).
+Fungsi `db.Query()` digunakan untuk eksekusi sql query. Fungsi tersebut memiliki parameter ke-2 berbentuk variadic, jadi boleh tidak diisi.
+
+Pada kode di atas bisa dilihat bahwa nilai salah satu clause `where` adalah tanda tanya (`?`). Tanda tersebut kemudian akan di-replace oleh nilai pada argument parameter setelahnya (nilai variabel `age`). Teknik penulisan query sejenis ini sangat dianjurkan, untuk mencegah optensi serangan [sql injection](https://en.wikipedia.org/wiki/SQL_injection).
 
 Fungsi tersebut menghasilkan instance bertipe `sql.*Rows`, yang juga perlu di **close** ketika sudah tidak digunakan (`defer rows.Close()`).
 
@@ -174,13 +178,13 @@ func main() {
 }
 ```
 
-Output:
+Output program:
 
 ![Membaca data dari database server](images/A_sql_2_sql_query.png)
 
 ## A.56.4. Membaca 1 Record Data Menggunakan Method `QueryRow()`
 
-Untuk query yang menghasilkan 1 baris record saja, bisa gunakan method `QueryRow()`, dengan metode ini kode menjadi lebih ringkas. Chain dengan method `Scan()` untuk mendapatkan value-nya.
+Untuk query yang menghasilkan 1 baris record saja, bisa gunakan method `QueryRow()`. Penggunaannya membuat kode menjadi lebih ringkas. Chain dengan method `Scan()` untuk mendapatkan value yang dicari sesuai query.
 
 ```go
 func sqlQueryRow() {
@@ -209,7 +213,7 @@ func main() {
 }
 ```
 
-Dari kode di atas ada statement yang dituliskan cukup unik, chain statement boleh dituliskan dalam beberapa baris, contohnya:
+Di kode di atas bisa dilihat statement chain method ditulis multi-baris. Hal seperti ini diperbolehkan dengan catatan tanda titik untuk pengaksesan method berikutnya harus selalu di tuliskan di akhir baris.
 
 ```go
 err = db.
@@ -266,7 +270,7 @@ Method `Prepare()` digunakan untuk deklarasi query, yang mengembalikan objek ber
 
 ## A.56.6. Insert, Update, & Delete Data Menggunakan `Exec()`
 
-Untuk operasi **insert**, **update**, dan **delete**; dianjurkan untuk tidak menggunakan fungsi `sql.Query()` ataupun `sql.QueryRow()` untuk eksekusinya. Direkomendasikan eksekusi perintah-perintah tersebut lewat fungsi `Exec()`, contohnya seperti pada kode berikut.
+Untuk operasi **insert**, **update**, dan **delete**; dianjurkan untuk tidak menggunakan fungsi `sql.Query()` ataupun `sql.QueryRow()` untuk eksekusinya. Gunakan fungsi `Exec()`, contoh penerapannya bisa dilihat di bawah ini:
 
 ```go
 func sqlExec() {
@@ -329,7 +333,7 @@ Sebagai contoh saya menggunakan driver [pq](https://github.com/lib/pq) untuk kon
 sql.Open("postgres", "user=postgres password=secret dbname=test sslmode=disable")
 ```
 
-Selengkapya mengenai driver yang tersedia bisa dilihat di [https://github.com/golang/go/wiki/SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers).
+Selengkapya mengenai driver yang tersedia di Go silakan lihat di [https://go.dev/wiki/SQLDrivers](https://go.dev/wiki/SQLDrivers).
 
 ---
 
