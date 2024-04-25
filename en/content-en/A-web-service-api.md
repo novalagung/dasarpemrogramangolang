@@ -1,8 +1,8 @@
 # A.54. Web Service API Server
 
-Pada chapter ini kita akan mengkombinasikan pembahasan 2 chapter sebelumnya, yaitu web programming dan JSON, untuk membuat sebuah web service API dengan tipe data reponse berbentuk JSON.
+Pada chapter ini kita akan mencoba mengkombinasikan hasl pembelajaran di 2 chapter sebelumnya (yaitu web programming dan JSON), untuk membuat sebuah web service API yang memilikki endpoint dengan reponse data mengadopsi format JSON.
 
-> Web Service API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML.
+> Web Service API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML atau format lainnya.
 
 ## A.54.1. Pembuatan Web API
 
@@ -129,13 +129,16 @@ Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-
 
 ## A.54.3. Test Web Service API via `cURL`
 
-Untuk testing bisa juga memanfaatkan cURL. Apabila pembaca menggunakan Windows 10, seharusnya sudah ter-include cURL. Jika bukan pengguna Windows 10, bisa menginstall-nya dan mendaftarkannya ke path variables (agar bisa diakses melalui terminal/cmd dari mana saja).
+Testing bisa juga dilakukan via cURL. Pastikan untuk menginstall cURL terlebih dahulu agar bisa menggunakan command berikut.
 
-curl -X GET http://localhost:8080/users curl -X GET http://localhost:8080/user?id=B002 ```
+```
+curl -X GET http://localhost:8080/users
+curl -X GET http://localhost:8080/user?id=B002
+```
 
 ![cURL test](images/A_web_service_4.png)
 
-Data ID yang ingin dicari melalui endpoint /user, ditulis dengan ?id=B002 yang berarti dilewatkan melalui query parameters (umumnya data yang ingin dilampirkan melalui method GET adalah dengan query parameters).
+Data user ID pada endpoint `/user` ditulis dalam format query parameters, yaitu `?id=B002`.
 
 ---
 
