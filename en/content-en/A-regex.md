@@ -1,14 +1,14 @@
-# A.45. Regex
+# A.45. Regexp
 
-Regex atau regexp atau **regular expression** adalah suatu teknik yang digunakan untuk pencocokan string dengan pola tertentu. Regex biasa dimanfaatkan untuk pencarian dan pengubahan data string.
+Regexp atau regex atau **regular expression** adalah suatu teknik yang digunakan untuk pencocokan string yang memiliki pola tertentu. Regex biasa dimanfaatkan untuk pencarian dan pengubahan data string.
 
-Go mengadopsi standar regex **RE2**, untuk melihat sintaks yang di-support engine ini bisa langsung merujuk ke dokumentasinya di [https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax).
+Go mengadopsi spesifikasi regex **RE2**. Lebih detailnya mengenai RE2 bisa langsung cek dokumentasinya di [https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax).
 
 Pada chapter ini kita akan belajar mengenai pengaplikasian regex dengan memanfaatkan fungsi-fungsi dalam package `regexp`.
 
 ## A.45.1. Penerapan Regexp
 
-Fungsi `regexp.Compile()` digunakan untuk mengkompilasi ekspresi regex. Fungsi tersebut mengembalikan objek bertipe `regexp.*Regexp`.
+Fungsi `regexp.Compile()` digunakan untuk mengkompilasi ekspresi regex. Fungsi tersebut mengembalikan objek bertipe `*regexp.Regexp`.
 
 Berikut merupakan contoh penerapan regex untuk pencarian karakter.
 
@@ -36,13 +36,13 @@ func main() {
 }
 ```
 
-Ekspresi `[a-z]+` maknanya adalah, semua string yang merupakan alphabet yang hurufnya kecil. Ekspresi tersebut di-compile oleh `regexp.Compile()` lalu disimpan ke variabel objek `regex` bertipe `regexp.*Regexp`.
+Ekspresi `[a-z]+` maknanya adalah semua string yang merupakan alphabet yang hurufnya kecil. Ekspresi tersebut di-compile oleh `regexp.Compile()` lalu disimpan ke variabel objek `regex` bertipe `*regexp.Regexp`.
 
 Struct `regexp.Regexp` memiliki banyak method, salah satunya adalah `FindAllString()`, berfungsi untuk mencari semua string yang sesuai dengan ekspresi regex, dengan kembalian berupa slice string.
 
-Jumlah hasil pencarian dari `regex.FindAllString()` bisa ditentukan. Contohnya pada `res1`, ditentukan maksimal `2` data saja pada nilai kembalian. Jika batas di set `-1`, maka akan mengembalikan semua data.
+Jumlah hasil pencarian dari `regex.FindAllString()` bisa ditentukan. Contohnya pada `res1`, ditentukan maksimal `2` data saja pada nilai kembalian. Jika batas di set `-1`, maka semua hasil yang cocok dikembalikan oleh fungsi tersebut.
 
-Ada cukup banyak method struct `regexp.*Regexp` yang bisa kita manfaatkan untuk keperluan pengelolaan string. Berikut merupakan pembahasan tiap method-nya.
+Ada cukup banyak method struct `*regexp.Regexp` yang bisa kita manfaatkan untuk keperluan pengelolaan string. Berikut merupakan pembahasan tiap method-nya.
 
 ## A.45.2. Method `MatchString()`
 
@@ -143,7 +143,7 @@ fmt.Println(str)
 // "banana potato soup"
 ```
 
-Pada contoh di atas, jika salah satu substring yang *match* adalah `"burger"` maka akan diganti dengan `"potato"`, string selainnya tidak di replace.
+Pada contoh di atas, jika ada substring yang *match* dengan kata `"burger"`, maka akan diganti dengan `"potato"`.
 
 ## A.45.8. Method `Split()`
 
