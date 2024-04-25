@@ -1,6 +1,6 @@
 # A.44. Fungsi String
 
-Go menyediakan package `strings`, isinya banyak fungsi untuk keperluan pengolahan data string. Chapter ini berisi pembahasan mengenai beberapa fungsi yang ada di dalam package tersebut.
+Go menyediakan package `strings`, isinya banyak fungsi untuk keperluan pengolahan data string. Chapter ini berisi pembahasan mengenai penggunaan fungsi yang ada di dalam package tersebut.
 
 ## A.44.1. Fungsi `strings.Contains()`
 
