@@ -4,7 +4,7 @@
 
 ## A.36.1. Penerapan keyword `defer`
 
-Seperti yang sudah dijelaskan secara singkat di atas, bahwa defer digunakan untuk mengakhirkan eksekusi baris kode **dalam skope blok fungsi**. Ketika eksekusi blok sudah hampir selesai, statement yang di-defer dijalankan.
+Seperti yang sudah dijelaskan singkat di atas, bahwa defer digunakan untuk mengakhirkan eksekusi baris kode **dalam skope blok fungsi**. Ketika eksekusi blok sudah hampir selesai, statement yang di-defer dijalankan.
 
 Defer bisa ditempatkan di mana saja, awal maupun akhir blok. Tetapi tidak mempengaruhi kapan waktu dieksekusinya, akan selalu dieksekusi di akhir.
 
@@ -19,7 +19,7 @@ func main() {
 }
 ```
 
-Output:
+Output program:
 
 ![Penerapan `defer`](images/A_defer_exit_1_defer.png)
 
@@ -45,7 +45,7 @@ func orderSomeFood(menu string) {
 }
 ```
 
-Output:
+Output program:
 
 ![Penerapan `defer` dengan `return`](images/A_defer_exit_2_defer_return.png)
 
@@ -68,7 +68,7 @@ func main() {
 }
 ```
 
-Output:
+Output program:
 
 ```
 halo 1
@@ -95,7 +95,7 @@ func main() {
 }
 ```
 
-Output:
+Output program:
 
 ```
 halo 1

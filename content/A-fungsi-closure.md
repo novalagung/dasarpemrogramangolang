@@ -1,12 +1,12 @@
 # A.21. Fungsi Closure
 
-Definisi **Closure** adalah sebuah fungsi yang bisa disimpan dalam variabel. Dengan menerapkan konsep tersebut, kita bisa membuat fungsi di dalam fungsi, atau bahkan membuat fungsi yang mengembalikan fungsi.
-
-Closure merupakan *anonymous function* atau fungsi tanpa nama. Biasa dimanfaatkan untuk membungkus suatu proses yang hanya dipakai sekali atau dipakai pada blok tertentu saja.
+Definisi **Closure** adalah suatu *anonymous function* (atau fungsi tanpa nama) yang disimpan dalam variabel. Dengan adanya closure, kita bisa mendesain beberapa hal diantaranya seperti: membuat fungsi di dalam fungsi, atau bahkan membuat fungsi yang mengembalikan fungsi. Closure biasa dimanfaatkan untuk membungkus suatu proses yang hanya dijalankan sekali saja atau hanya dipakai pada blok tertentu saja.
 
 ## A.21.1. Closure Disimpan Sebagai Variabel
 
-Sebuah fungsi tanpa nama bisa disimpan dalam variabel. Variabel yang menyimpan closure memiliki sifat seperti fungsi yang disimpannya. Di bawah ini adalah contoh program sederhana untuk mencari nilai terendah dan tertinggi dari suatu array. Logika pencarian dibungkus dalam closure yang ditampung oleh variabel `getMinMax`.
+Sebuah fungsi tanpa nama bisa disimpan dalam variabel. Variabel closure memiliki sifat seperti fungsi yang disimpannya.
+
+Di bawah ini adalah contoh program sederhana yang menerapkan closure untuk pencarian nilai terendah dan tertinggi dari data array. Logika pencarian dibungkus dalam closure yang ditampung oleh variabel `getMinMax`.
 
 ```go
 package main
@@ -35,8 +35,7 @@ func main() {
 }
 ```
 
-
-Bisa dilihat pada kode di atas bagaimana sebuah closure dibuat dan dipanggil. Sedikit berbeda memang dibanding pembuatan fungsi biasa. Fungsi ditulis tanpa nama, lalu ditampung dalam variabel.
+Bisa dilihat pada kode di atas bagaimana cara deklarasi closure dan cara pemanggilannya. Sedikit berbeda memang dibanding pembuatan fungsi biasa, pada closure fungsi ditulis tanpa memiliki nama lalu ditampung ke variabel.
 
 ```go
 var getMinMax = func(n []int) (int, int) {
@@ -44,7 +43,7 @@ var getMinMax = func(n []int) (int, int) {
 }
 ```
 
-Cara pemanggilannya, dengan menuliskan nama variabel tersebut sebagai fungsi, seperti pemanggilan fungsi biasa.
+Cara pemanggilan closure adalah dengan memperlakukan variabel closure seperti fungsi, dituliskan seperti pemanggilan fungsi.
 
 ```go
 var min, max = getMinMax(numbers)
@@ -54,25 +53,25 @@ Output program:
 
 ![Penerapan closure](images/A_fungsi_closure_1_closure.png)
 
----
+## A.21.2. Penjelasan tambahan
 
-Berikut adalah penjelasan tambahan mengenai kode di atas
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
 
-## A.21.1.1. Penggunaan Template String `%v`
+#### ◉ Penggunaan Template String `%v`
 
-Template `%v` digunakan untuk menampilkan segala jenis data. Bisa array, int, float, bool, dan lainnya.
+Template `%v` digunakan untuk menampilkan data tanpa melihat tipe datanya. Jadi bisa digunakan untuk menampilkan data array, int, float, bool, dan lainnya. Bisa dilihat di contoh statement, data bertipe array dan numerik ditampilkan menggunakan `%v`.
 
 ```go
 fmt.Printf("data : %v\nmin  : %v\nmax  : %v\n", numbers, min, max)
 ```
 
-Bisa dilihat pada statement di atas, data bertipe array dan numerik ditampilkan menggunakan `%v`. Template ini biasa dimanfaatkan untuk menampilkan sebuah data yang tipe nya bisa dinamis atau belum diketahui. Sangat tepat jika digunakan pada data bertipe `interface{}` yang nantinya akan di bahas pada chapter [A.27. Interface](/A-interface.html).
+Template `%v` ini biasa dimanfaatkan untuk menampilkan sebuah data yang tipe nya bisa dinamis atau belum diketahui. Biasa digunakan untuk keperluan debugging, misalnya untuk menampilkan data bertipe `any` atau `interface{}`.
 
----
+> Pembahasan mengenai tipe data `any` atau `interface{}` ada di chapter [A.27. Interface](/A-interface.html)
 
-## A.21.2. Immediately-Invoked Function Expression (IIFE)
+#### ◉ Immediately-Invoked Function Expression (IIFE)
 
-Closure jenis ini dieksekusi langsung pada saat deklarasinya. Biasa digunakan untuk membungkus proses yang hanya dilakukan sekali, bisa mengembalikan nilai, bisa juga tidak.
+Closure jenis IIFE ini eksekusinya adalah langsung saat deklarasi. Teknik ini biasa diterapkan untuk membungkus proses yang hanya dilakukan sekali. IIFE bisa memiliki nilai balik atau bisa juga tidak.
 
 Di bawah ini merupakan contoh sederhana penerapan metode IIFE untuk filtering data array.
 
@@ -104,7 +103,7 @@ Output program:
 
 ![Penerapan IIFE](images/A_fungsi_closure_2_iife.png)
 
-Ciri khas IIFE adalah adanya kurung parameter tepat setelah deklarasi closure berakhir. Jika ada parameter, bisa juga dituliskan dalam kurung parameternya.
+Ciri khas dari penulisan IIFE adalah adanya tanda kurung parameter yang ditulis di akhir deklarasi closure. Jika IIFE memiliki parameter, maka argument-nya juga ditulis. Contoh:
 
 ```go
 var newNumbers = func(min int) []int {
@@ -112,13 +111,13 @@ var newNumbers = func(min int) []int {
 }(3)
 ```
 
-Pada contoh di atas IIFE menghasilkan nilai balik yang kemudian ditampung `newNumber`. Perlu diperhatikan bahwa yang ditampung adalah **nilai kembaliannya** bukan body fungsi atau **closure**.
+Di contoh sederhana di atas, IIFE menghasilkan nilai balik yang ditampung variabel `newNumber`. Perlu diperhatikan bahwa yang ditampung adalah **nilai kembaliannya** bukan body fungsi atau **closure**-nya.
 
 > Closure bisa juga dengan gaya manifest typing, caranya dengan menuliskan skema closure-nya sebagai tipe data. Contoh:<br /><code>var closure (func (string, int, []string) int)</code><br /><code>closure = func (a string, b int, c []string) int {</code><br /><code>&nbsp;&nbsp;&nbsp;&nbsp;// ..</code><br /><code>}</code>
 
 ## A.21.3. Closure Sebagai Nilai Kembalian
 
-Salah satu keunikan closure lainnya adalah bisa dijadikan sebagai nilai balik fungsi, cukup aneh memang, tapi pada suatu kondisi teknik ini sangat membantu. Di bawah ini disediakan sebuah fungsi bernama `findMax()`, fungsi ini salah satu nilai kembaliannya berupa closure.
+Salah satu keunikan lain dari closure adalah: closure bisa dijadikan sebagai nilai balik fungsi. Cukup aneh, tapi pada kondisi tertentu teknik ini sangat berguna. Sebagai contoh, di bawah ini dideklarasikan sebuah fungsi bernama `findMax()` yang salah satu nilai kembaliannya adalah berupa closure.
 
 ```go
 package main
@@ -148,7 +147,12 @@ return len(res), func() []int {
 
 > Fungsi tanpa nama yang akan dikembalikan boleh disimpan pada variabel terlebih dahulu. Contohnya:<br /><code>var getNumbers = func() []int {</code><br /><code>&nbsp;&nbsp;&nbsp;&nbsp;return res</code><br /><code>}</code><br /><code>return len(res), getNumbers</code>
 
-Sedikit tentang fungsi `findMax()`, fungsi ini digunakan untuk mencari banyaknya angka-angka yang nilainya di bawah atau sama dengan angka tertentu. Nilai kembalian pertama adalah jumlah angkanya. Nilai kembalian kedua berupa closure yang mengembalikan angka-angka yang dicari. Berikut merupakan contoh implementasi fungsi tersebut.
+Tentang fungsi `findMax()` sendiri, fungsi ini dibuat untuk mempermudah pencarian angka-angka yang nilainya di bawah atau sama dengan angka tertentu. Fungsi ini mengembalikan dua buah nilai balik:
+
+- Nilai balik pertama adalah jumlah angkanya. 
+- Nilai balik kedua berupa closure yang mengembalikan angka-angka yang dicari.
+
+Berikut merupakan contoh implementasi fungsi tersebut:
 
 ```go
 func main() {

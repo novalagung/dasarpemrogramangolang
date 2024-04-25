@@ -1,6 +1,6 @@
 # A.47. Hash SHA1
 
-Hash adalah algoritma enkripsi untuk mengubah text menjadi deretan karakter acak. Jumlah karakter hasil hash selalu sama. Hash termasuk *one-way encryption*, membuat hasil dari hash tidak bisa dikembalikan ke text asli.
+Hash adalah algoritma enkripsi satu arah untuk mengubah text menjadi deretan karakter acak. Jumlah karakter hasil hash selalu sama. Hash termasuk *one-way encryption*, hasil dari hash tidak bisa dikembalikan ke text asli.
 
 SHA1 atau **Secure Hash Algorithm 1** merupakan salah satu algoritma hashing yang sering digunakan untuk enkripsi data. Hasil dari sha1 adalah data dengan lebar **20 byte** atau **160 bit**, biasa ditampilkan dalam bentuk bilangan heksadesimal 40 digit.
 
@@ -55,7 +55,6 @@ import "time"
 func doHashUsingSalt(text string) (string, string) {
     var salt = fmt.Sprintf("%d", time.Now().UnixNano())
     var saltedText = fmt.Sprintf("text: '%s', salt: %s", text, salt)
-    fmt.Println(saltedText)
     var sha = sha1.New()
     sha.Write([]byte(saltedText))
     var encrypted = sha.Sum(nil)
@@ -89,7 +88,7 @@ func main() {
 }
 ```
 
-Hasil ekripsi fungsi `doHashUsingSalt` akan selalu beda, karena salt yang digunakan adalah waktu.
+Hasil ekripsi fungsi `doHashUsingSalt()` akan selalu beda, karena salt yang digunakan adalah waktu.
 
 ![Hashing dengan salt](images/A_hash_2_hash_salt_sha1.png)
 

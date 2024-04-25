@@ -1,6 +1,6 @@
 # A.55. Simple Client HTTP Request
 
-Pada chapter sebelumnya telah dibahas bagaimana membuat Web Service API yang mem-provide data JSON, pada chapter ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
+Pada chapter sebelumnya telah dibahas bagaimana cara membuat Web Service API yang response data-nya berbentuk JSON. Pada chapter ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
 
 Pastikan anda sudah mempraktekkan apa-apa yang ada pada chapter sebelumnya ([A.54. Web Service API Server](/A-web-service-api.html)), karena web service yang telah dibuat di situ juga dipergunakan pada chapter ini.
 
@@ -8,9 +8,9 @@ Pastikan anda sudah mempraktekkan apa-apa yang ada pada chapter sebelumnya ([A.5
 
 ## A.55.1. Penggunaan HTTP Request
 
-Package `net/http`, selain berisikan tools untuk keperluan pembuatan web, juga berisikan fungsi-fungsi untuk melakukan http request. Salah satunya adalah `http.NewRequest()` yang akan kita bahas di sini.
+Package `net/http`, selain berisikan tools untuk keperluan pembuatan web, juga berisikan fungsi-fungsi untuk melakukan http request. Salah satunya adalah `http.NewRequest()` yang akan kita bahas di sini. Untuk menggunakannya pastikan import package-nya terlebih dahulu.
 
-Sebelumnya, import package yang dibutuhkan. Dan siapkan struct `student` yang nantinya akan dipakai sebagai tipe data reponse dari web API. Struk tersebut skema nya sama dengan yang ada pada chapter ([A.54. Web Service API Server](/A-web-service-api.html)).
+Kemudian siapkan struct `student` yang nantinya akan dipakai sebagai tipe data reponse dari web API. Struk tersebut skema nya sama dengan yang ada pada chapter ([A.54. Web Service API Server](/A-web-service-api.html)).
 
 ```go
 package main
@@ -60,19 +60,19 @@ Statement `&http.Client{}` menghasilkan instance `http.Client`. Objek ini nantin
 
 Fungsi `http.NewRequest()` digunakan untuk membuat request baru. Fungsi tersebut memiliki 3 parameter yang wajib diisi.
 
- 1. Parameter pertama, berisikan tipe request **POST** atau **GET** atau lainnya
- 2. Parameter kedua, adalah URL tujuan request
- 3. Parameter ketiga, form data request (jika ada)
+1. Parameter pertama, berisikan tipe request **POST** atau **GET** atau lainnya
+2. Parameter kedua, adalah URL tujuan request
+3. Parameter ketiga, form data request (jika ada)
 
-Fungsi tersebut menghasilkan instance bertipe `http.Request`. Objek tersebut nantinya disisipkan pada saat eksekusi request.
+Fungsi tersebut menghasilkan instance bertipe `http.Request` yang nantinya digunakan saat eksekusi request.
 
-Cara eksekusi request sendiri adalah dengan memanggil method `Do()` pada instance `http.Client` yang sudah dibuat, dengan parameter adalah instance request-nya. Contohnya seperti pada `client.Do(request)`.
+Cara eksekusi request sendiri adalah dengan memanggil method `Do()` pada variabel `client` yang sudah dibuat. Fungsi `Do()` dipanggil dengan disisipkan argument fungsi yaitu object `request`. Penulisannya: `client.Do(request)`.
 
-Method tersebut mengembalikan instance bertipe `http.Response`, yang di dalamnya berisikan informasi yang dikembalikan dari web API.
+Method tersebut mengembalikan instance bertipe `http.Response` yang di contoh ditampung oleh variabel `response`. Dari data response tersebut kita bisa mengakses informasi yang berhubungan dengan HTTP response, termasuk response body.
 
-Data response bisa diambil lewat property `Body` dalam bentuk string. Gunakan JSON Decoder untuk mengkonversinya menjadi bentuk JSON. Contohnya bisa dilihat di kode di atas, `json.NewDecoder(response.Body).Decode(&data)`. Setelah itu barulah kita bisa menampilkannya.
+Data response body tersedia via property `Body` dalam tipe `[]byte`. Gunakan JSON Decoder untuk mengkonversinya menjadi bentuk JSON. Contohnya bisa dilihat di kode di atas, `json.NewDecoder(response.Body).Decode(&data)`.
 
-Perlu diketahui, data response perlu di-**close** setelah tidak dipakai. Caranya seperti pada kode `defer response.Body.Close()`.
+Perlu diketahui, data response perlu di-**close** setelah tidak dipakai. Caranya dengan memanggil method `Close()` milik property `Body` yang dalam penerapannya umumnya di-defer. Contohnya: `defer response.Body.Close()`.
 
 Selanjutnya, eksekusi fungsi `fetchUsers()` dalam fungsi `main()`.
 
@@ -90,20 +90,20 @@ func main() {
 }
 ```
 
-Ok, terakhir sebelum memulai testing, pastikan telah run aplikasi pada chapter sebelumya ([A.54. Web Service API Server](/A-web-service-api.html)). Kemudian start prompt cmd/terminal baru dan jalankan program yang barusan kita buat pada chapter ini.
+Ok, terakhir sebelum memulai testing, pastikan telah run aplikasi pada chapter sebelumya ([A.54. Web Service API Server](/A-web-service-api.html)). Setelah itu start prompt cmd/terminal baru dan jalankan program yang telah dibuat di chapter ini.
 
 ![HTTP Request](images/A_http_request_1_http_request.png)
 
 ## A.55.2. HTTP Request Dengan Form Data
 
-Untuk menyisipkan data pada sebuah request, ada beberapa hal yang perlu ditambahkan. Yang pertama, import beberapa package lagi, `bytes` dan `net/url`.
+Untuk menyisipkan data pada sebuah request, ada beberapa hal yang perlu ditambahkan. Pertama, import package `bytes` dan `net/url`.
 
 ```go
 import "bytes"
 import "net/url"
 ```
 
-Buat fungsi baru, isinya request ke [http://localhost:8080/user](http://localhost:8080/user) dengan data yang disisipkan adalah `ID`.
+Kemudian buat fungsi baru, isinya request ke [http://localhost:8080/user](http://localhost:8080/user) dengan data yang disisipkan adalah `ID`.
 
 ```go
 func fetchUser(ID string) (student, error) {
@@ -136,13 +136,13 @@ func fetchUser(ID string) (student, error) {
 }
 ```
 
-Isi fungsi di atas bisa dilihat memiliki beberapa kemiripan dengan fungsi `fetchUsers()` sebelumnya.
+Isi fungsi `fetchUser()` memiliki beberapa kemiripan dengan fungsi `fetchUsers()` sebelumnya.
 
 Statement `url.Values{}` akan menghasilkan objek yang nantinya digunakan sebagai form data request. Pada objek tersebut perlu di set data apa saja yang ingin dikirimkan menggunakan fungsi `Set()` seperti pada `param.Set("id", ID)`.
 
-Statement `bytes.NewBufferString(param.Encode())` maksudnya, objek form data di-encode lalu diubah menjadi bentuk `bytes.Buffer`, yang nantinya disisipkan pada parameter ketiga pemanggilan fungsi `http.NewRequest()`.
+Statement `bytes.NewBufferString(param.Encode())` melakukan proses encoding pada data param untuk kemudian diubah menjadi bentuk `bytes.Buffer`. Nantinya data buffer tersebut disisipkan pada parameter ketiga pemanggilan fungsi `http.NewRequest()`.
 
-Karena data yang akan dikirim di-encode, maka pada header perlu di set tipe konten request-nya. Kode `request.Header.Set("Content-Type", "application/x-www-form-urlencoded")` artinya tipe konten request di set sebagai `application/x-www-form-urlencoded`.
+Karena data yang akan dikirim adalah *encoded*, maka pada header perlu dituliskan juga tipe encoding-nya. Kode `request.Header.Set("Content-Type", "application/x-www-form-urlencoded")` menandai bahwa HTTP request berisi body yang ter-encode sesuai spesifikasi `application/x-www-form-urlencoded`.
 
 > Pada konteks HTML, HTTP Request yang di trigger dari tag `<form></form>` secara default tipe konten-nya sudah di set `application/x-www-form-urlencoded`. Lebih detailnya bisa merujuk ke spesifikasi HTML form [http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1](http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1)
 
@@ -168,7 +168,7 @@ Untuk keperluan testing, kita hardcode `ID` nilainya `"E001"`. Jalankan program 
 
 ## A.55.3. Secure & Insecure HTTP Request
 
-Kita telah mempelajari bagaimana cara membuat http request sederhana untuk kirim data dan juga ambil data. Nantinya pada chapter [C.27. Secure & Insecure Client HTTP Request](/C-secure-insecure-client-http-request.html) kita akan belajar cara membuat http client request yang lebih *njlimet* untuk kasus yang lebih advance, tapi sabar dulu hehe.
+Sampai sini kita telah belajar bagaimana cara membuat http request sederhana untuk kirim data dan juga ambil data. Nantinya pada chapter [C.27. Secure & Insecure Client HTTP Request](/C-secure-insecure-client-http-request.html) pembelajaran topik HTTP request dilanjutkan kembali, kita akan bahas tentang aspek keamanan/security suatu HTTP request.
 
 ---
 

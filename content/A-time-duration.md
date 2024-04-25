@@ -1,10 +1,10 @@
 # A.42. Time Duration
 
-Pada chapter ini kita akan belajar tentang tipe waktu durasi yaitu `time.Duration`.
+Pada chapter ini kita akan belajar tentang tipe data untuk pengolahan durasi waktu yaitu `time.Duration`.
 
 Tipe `time.Duration` ini merepresentasikan durasi, contohnya seperti 1 menit, 2 jam 5 detik, dst. Data dengan tipe ini bisa dihasilkan dari operasi pencarian delta atau selisih dari dua buah objek `time.Time`, atau bisa juga kita buat sendiri.
 
-Tipe durasi ini sangat berguna untuk banyak hal, seperti *benchmarking* durasi ataupun operasi-operasi lainnya yang membutuhkan informasi durasi.
+Tipe ini sangat berguna untuk banyak hal, salah satunya untuk *benchmarking* ataupun operasi-operasi lainnya yang membutuhkan informasi durasi waktu.
 
 ## A.42.1. Praktek 
 
@@ -48,7 +48,7 @@ Dari list di atas bisa dicontohkan bahwa sebuah data dengan tipe `time.Duration`
 
 Kembali ke pembahasan fungsi `time.Sleep()`, fungsi ini membutuhkan argumen/parameter durasi dalam bentuk `time.Duration`. Misalnya saya tulis `time.Sleep(1)` maka yang terjadi adalah, waktu statement tersebut hanya akan menghentikan proses selama **1 nanosecond** saja. Jika ingin menghentikan selama 1 detik, maka harus ditulis `time.Sleep(1000000000)`. Nah daripada menulis angka sepanjang itu, cukup saja tulis dengan `1 * time.Second`, artinya adalah 1 detik. Cukup mudah bukan.
 
-Di atas kita gunakan `5 * time.Second` sebagai argumen `time.Sleep()`, maka dengan itu proses akan diberhentikan selama 5 detik.
+Di atas, kita gunakan `5 * time.Second` sebagai argumen `time.Sleep()`, maka dengan itu proses akan diberhentikan selama 5 detik.
 
 Sekarang jalankan program yang sudah dibuat.
 
@@ -56,7 +56,7 @@ Sekarang jalankan program yang sudah dibuat.
 
 Bisa dilihat, hasilnya adalah semua statement di bawah `time.Sleep()` dieksekusi setelah 5 detik berlalu. Ini merupakan contoh penggunaan tipe data durasi pada fungsi `time.Sleep()`.
 
-## A.42.2. Kalkulasi Durasi Menggunakan `time.Since()`.
+## A.42.2. Hitung Durasi Menggunakan `time.Since()`.
 
 Pada kode di atas, variabel `duration` berisi durasi atau lama waktu antara kapan variabel `start` di-inisialisasi hingga kapan variabel `duration` ini statement-nya dieksekusi.
 
@@ -64,7 +64,7 @@ Cara menghitung durasi bisa menggunakan `time.Since()`. Isi argumen fungsi terse
 
 Pada contoh di atas, karena ada statement `time.Sleep(5 * time.Second)` maka idealnya `time.Since(start)` isinya adalah 5 detik (mungkin lebih sedikit, sekian mili/micro/nano-second, karena eksekusi statement juga butuh waktu).
 
-## A.42.3. Method `time.Duration`
+## A.42.3. Method milik tipe `time.Duration`
 
 Tipe `time.Duration` memiliki beberapa method yang sangat-sangat berguna untuk keperluan mengambil nilai durasinya dalam unit tertentu. Misalnya, objek durasi tersebut ingin di-ambil nilainya dalam satuan unit detik, maka gunakan `.Seconds()`. Jika ingin dalam bentuk menit, maka gunakan `.Minutes()`, dan lainnya.
 
@@ -102,10 +102,9 @@ Kita bisa mengalikan angka literal dengan konstanta `time.Duration` untuk mencip
 233 * time.Nanosecond 		// 233 nano detik
 ```
 
-Sedikit kembali ke pembahasan dasar di awal-awal chapter, operasi aritmatika di golang hanya bisa dilakukan ketika data adalah 1 tipe. Selebihnya harus ada casting atau konversi tipe data agar bisa dioperasikan.
+Mengulas kembali pembahasan dasar di awal-awal chapter, operasi aritmatika di golang hanya bisa dilakukan ketika data adalah 1 tipe. Selebihnya harus ada casting atau konversi tipe data agar bisa dioperasikan.
 
 Tipe `time.Duration` diciptakan menggunakan tipe `ìnt64`. Jadi jika ingin mengalikan `time.Duration` dengan suatu angka, maka pastikan tipe-nya juga sama yaitu `time.Duration`. Jika angka tersebut tidak ditampung dalam variabel terlebih dahulu (contohnya seperti di atas) maka bisa langsung kalikan saja. Jika ditampung ke variabel terlebih dahulu, maka pastikan tipe variabelnya adalah `time.Duration`. Contoh:
-
 
 ```go
 var n time.Duration = 5

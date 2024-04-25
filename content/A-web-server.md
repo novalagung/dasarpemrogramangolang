@@ -1,8 +1,8 @@
 # A.51. Web Server
 
-Go menyediakan package `net/http`, berisi berbagai macam fitur untuk keperluan pembuatan aplikasi berbasis web. Termasuk di dalamnya web server, routing, templating, dan lainnya.
+Go menyediakan package `net/http`, berisi berbagai macam fitur untuk keperluan pembuatan aplikasi berbasis web. Termasuk di dalamnya mencakup web server, routing, templating, dan lainnya.
 
-Go memiliki web server sendiri, dan web server tersebut berada di dalam Go, tidak seperti bahasa lain yang servernya terpisah dan perlu diinstal sendiri (seperti PHP yang memerlukan Apache, .NET yang memerlukan IIS).
+Go memiliki web server sendiri, tersedia dalam package Go yang bisa kita import dengan mudah. Jadi berbeda dibanding beberapa bahasa lain yang servernya terpisah yang perlu diinstal sendiri (seperti PHP yang memerlukan Apache, .NET yang memerlukan IIS).
 
 Pada chapter ini kita akan belajar cara pembuatan aplikasi web sederhana dan pemanfaatan template untuk mendesain view.
 
@@ -38,7 +38,7 @@ Jalankan program tersebut.
 
 ![Eksekusi program](images/A_web_server_1_start_server.png)
 
-Jika muncul dialog **Do you want the application “bab48” to accept incoming network connections?** atau sejenis, pilih allow. Setelah itu, buka url [http://localhost/](http://localhost/) dan [http://localhost/index](http://localhost/index/) lewat browser.
+Jika muncul dialog **Do you want the application “bab48” to accept incoming network connections?** atau sejenis, pilih allow. Setelah itu, buka url [http://localhost/](http://localhost/) dan [http://localhost/index](http://localhost/index) di browser.
 
 ![Contoh penerapan net/http](images/A_web_server_2_web_server.png)
 
@@ -108,7 +108,7 @@ func main() {
 }
 ```
 
-Jalankan, lalu buka [http://localhost:8080/](http://localhost:8080/), maka data `Nama` dan `Message` akan muncul di view.
+Jalankan, lalu buka [http://localhost:8080](http://localhost:8080), maka data `Nama` dan `Message` akan muncul di view.
 
 ![Penggunaan template](images/A_web_server_3_template.png)
 
@@ -120,7 +120,7 @@ Pada contoh di atas, statement di view `{{.Name}}` akan menampilkan isi dari `da
 
 ## A.51.3. Advanced Web Programming
 
-Sampai chapter ini yang kita pelajari adalah dasar-dasar pemrograman Go, dibahas per topik adalah per chapter. Nantinya jika sudah masuk [B.1. Golang Web App: Hello World](/B-golang-web-hello-world.html) hingga seterusnya akan lebih banyak membahas mengenai pemrograman web, jadi sabar dulu. Mari kita selesaikan dulu yang fundamental sebelum masuk ke web development.
+Sampai chapter ini yang kita pelajari adalah yang sifatnya fundamental atau dasar di pemrograman Go. Nantinya di chapter [B.1. Golang Web App: Hello World](/B-golang-web-hello-world.html) hingga seterusnya akan lebih banyak membahas mengenai pemrograman web. Jadi untuk sekarang sabar dulu ya. Mari kita selesaikan pembelajaran fundamental secara runtun, sebelum masuk ke bagian pengembangan web.
 
 ---
 

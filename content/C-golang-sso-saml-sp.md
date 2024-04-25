@@ -8,7 +8,7 @@ Kali ini topik yang dipilih adalah SAML SSO versi 2.0. Kita akan pelajari cara p
 
 Sebelum kita masuk ke bagian tulis menulis kode, alangkah baiknya sedikit membahas tentang definisi dari SSO dan SAML itu sendiri.
 
-#### • SSO
+#### ◉ SSO
 
 SSO atau Single Sign-On merupakan servis untuk otentikasi dan manajemen session. Dengan SSO, maka akses ke banyak aplikasi cukup bisa sekali otentikasi saja. Contoh SSO:
 
@@ -20,7 +20,7 @@ SSO atau Single Sign-On merupakan servis untuk otentikasi dan manajemen session.
 
 Ada beberapa jenis penerapan SSO yang bisa dipilih, salah satunya adalah **Security Assertion Markup Language** atau **SAML** yang akan kita bahas pada chapter ini.
 
-#### • SAML
+#### ◉ SAML
 
 SAML merupakan protokol open standard untuk otentikasi dan otorisasi antara penyedia layanan (**Service Provider**) dan penyedia identitas (**Identity Provider**). SAML berbasis *assertion* berupa XML.
 
@@ -112,7 +112,7 @@ Karena user memiliki security context, maka SP merespon dengan balasan berupa ta
 
 > Selanjutnya, setiap kali ada request target resource, maka point 7 dan 8 akan diulang.
 
-![SAML Flow](https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Saml2-browser-sso-redirect-post.png/600px-Saml2-browser-sso-redirect-post.png)
+![SAML Flow](https://images.ctfassets.net/23aumh6u8s0i/2iNQwccfZWMELfLjk65SVe/b9b4427c66165a56c8800c3e391e8fd0/saml-flow-diagram)
 
 ## C.34.4. SAML Metadata
 
@@ -126,7 +126,7 @@ Metadata diperlukan secara *mandatory* dalam operasi dan komunikasi antar SP dan
 
 > Metadata berisi informasi penting. Di antaranya adalah entity ID, key pair, protocol endpoints, dan lainnya.
 
-![Metadata share](https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/SAML_Web_Browser_SSO_With_Static_Metadata.png/440px-SAML_Web_Browser_SSO_With_Static_Metadata.png)
+![Metadata share](https://images.ctfassets.net/23aumh6u8s0i/60UOe2pqoOcYFJqeGMzfA7/e0dd3cdd9a12b682fa648f27869b9588/SAMLResponse)
 
 Ada dua jenis metode pertukaran metadata, **static metadata exchange** dan **dynamic metadata exchange**. Yang kita terapkan pada pembahasan ini adalah yg static.
 

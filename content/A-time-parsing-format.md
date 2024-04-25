@@ -1,10 +1,10 @@
 # A.40. Time, Parsing Time, & Format Time
 
-Pada chapter ini kita akan belajar tentang pemanfaatan data bertipe date-time, method-method yang disediakan, dan juga **format** & **parsing** data `string` ke tipe `time.Time` dan sebaliknya.
+Pada chapter ini kita akan belajar tentang pemanfaatan data bertipe datetime serta method-method-nya, juga tentang **format** & **parsing** data `string` ke tipe `time.Time` dan sebaliknya.
 
-Go menyediakan package `time` yang berisikan banyak sekali komponen yang bisa digunakan untuk keperluan pemanfaatan date-time. Salah satunya adalah `time.Time`, yang merupakan tipe untuk data tanggal dan waktu di Go.
+Go menyediakan package `time` yang berisikan banyak sekali komponen yang bisa digunakan untuk keperluan pemanfaatan date dan time. Salah satunya adalah `time.Time`, yang merupakan tipe untuk data tanggal dan waktu di Go.
 
-> Time di sini maksudnya adalah gabungan **date** dan **time**, bukan hanya waktu saja.
+> Meskipun nama package-nya adalah `time`, yang dicakup adalah **date** dan **time**, jadi bukan hanya waktu saja.
 
 ## A.40.1. Penggunaan `time.Time`
 
@@ -32,7 +32,7 @@ func main() {
 }
 ```
 
-Fungsi `time.Now()` mengembalikan objek `time.Time` dengan informasi adalah date-time tepat ketika statement tersebut dijalankan. Bisa dilihat pada saat di-print muncul informasi date-time sesuai dengan tanggal program tersebut dieksekusi.
+Fungsi `time.Now()` mengembalikan objek `time.Time` dengan nilai adalah informasi date-time tepat ketika statement tersebut dijalankan. Bisa dilihat pada saat di-print muncul informasi date-time sesuai dengan tanggal program tersebut dieksekusi.
 
 ![Penggunaan time](images/A_time_parsing_format_1_time_instance.png)
 
@@ -42,7 +42,7 @@ Fungsi `time.Date()` digunakan untuk membuat objek `time.Time` baru yang informa
 time.Date(tahun, bulan, tanggal, jam, menit, detik, nanodetik, timezone)
 ```
 
-Objek cetakan fungsi `time.Now()`, informasi timezone-nya adalah relatif terhadap lokasi kita. Karena kebetulan penulis berlokasi di Jawa Timur, maka akan terdeteksi masuk dalam **GMT+7** atau **WIB**. Berbeda dengan variabel `time2` yang lokasinya sudah kita tentukan secara eksplisit yaitu **UTC**.
+Objek cetakan fungsi `time.Now()` memiliki timezone yang relatif terhadap lokasi kita. Karena kebetulan penulis berlokasi di Jawa Timur, maka akan terdeteksi masuk dalam **GMT+7** atau **WIB**. Berbeda dengan variabel `time2` yang lokasinya sudah kita tentukan secara eksplisit yaitu **UTC**.
 
 Selain menggunakan `time.UTC` untuk penentuan lokasi, tersedia juga `time.Local` yang nilainya adalah relatif terhadap date-time lokal kita.
 
@@ -194,7 +194,7 @@ Variabel `date` di atas berisikan hasil parsing data dengan format `time.RFC822`
 
 ## A.40.6. Handle Error Parsing `time.Time`
 
-Ketika parsing `string` ke `time.Time`, sangat memungkinkan bisa terjadi error karena struktur data yang akan di-parse tidak sesuai layout format yang digunakan. Error tidaknya parsing bisa diketahui lewat nilai kembalian ke-2 fungsi `time.Parse()`. Berikut adalah contoh penerapannya.
+Parsing `string` ke `time.Time` memungkinkan terjadinya error, misalnya karena struktur data yang akan di-parse tidak sesuai layout format yang digunakan. Error-tidaknya parsing bisa diketahui lewat nilai kembalian ke-2 fungsi `time.Parse()`. Contoh:
 
 ```go
 var date, err = time.Parse("06 Jan 15", "02 Sep 15 08:00 WIB")

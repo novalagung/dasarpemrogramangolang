@@ -4,13 +4,13 @@ Hal pertama yang perlu dilakukan sebelum bisa menggunakan Go adalah meng-*instal
 
 Di sini penulis mencoba meringkas petunjuk instalasi pada *link* di atas, agar lebih mudah untuk diikuti terutama untuk pembaca yang baru belajar.
 
-> Go yang digunakan adalah versi **1.20**, direkomendasikan menggunakan versi tersebut.
+> Go yang digunakan adalah versi **1.22**, direkomendasikan menggunakan versi tersebut.
 
 URL untuk mengunduh *installer* Go: https://golang.org/dl/. Silakan langsung unduh dari *link* tersebut lalu lakukan proses instalasi, atau bisa mengikuti petunjuk pada chapter ini.
 
 ## A.2.1. Instalasi Go *Stable*
 
-#### • Instalasi Go di Windows
+#### ◉ Instalasi Go di Windows
 
  1. Download terlebih dahulu *installer*-nya di [https://golang.org/dl/](https://golang.org/dl/). Pilih *installer* untuk sistem operasi Windows sesuai jenis bit yang digunakan.
 
@@ -26,14 +26,14 @@ URL untuk mengunduh *installer* Go: https://golang.org/dl/. Silakan langsung und
 
 > Sering terjadi, command `go version` tidak bisa dijalankan meskipun instalasi sukses. Solusinya bisa dengan restart CMD (tutup CMD, kemudian buka lagi). Setelah itu coba jalankan ulang command di atas.
 
-#### • Instalasi Go di MacOS
+#### ◉ Instalasi Go di MacOS
 
 Cara termudah instalasi Go di MacOS adalah menggunakan [Homebrew](http://brew.sh/).
 
  1. *Install* terlebih dahulu Homebrew (jika belum ada), caranya jalankan perintah berikut di **terminal**.
 
     ```bash
-    $ ruby -e "$(curl -fsSL http://git.io/pVOl)"
+    $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     ```
 
  2. *Install* Go menggunakan command `brew`.
@@ -57,7 +57,7 @@ Cara termudah instalasi Go di MacOS adalah menggunakan [Homebrew](http://brew.sh
 
  5. Jika output adalah sama dengan versi Go yang ter-*install*, menandakan proses instalasi berhasil.
 
-#### • Instalasi Go di Linux
+#### ◉ Instalasi Go di Linux
 
  1. Unduh arsip *installer* dari [https://golang.org/dl/](https://golang.org/dl/), pilih installer untuk Linux yang sesuai dengan jenis bit komputer anda. Proses download bisa dilakukan lewat CLI, menggunakan `wget` atau `curl`.
 

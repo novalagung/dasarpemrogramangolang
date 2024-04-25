@@ -1,16 +1,18 @@
 # A.31. Channel
 
-**Channel** digunakan untuk menghubungkan goroutine satu dengan goroutine lain. Mekanisme yang dilakukan adalah serah-terima data lewat channel tersebut. Dalam komunikasinya, sebuah channel difungsikan sebagai pengirim di sebuah goroutine, dan juga sebagai penerima di goroutine lainnya. Pengiriman dan penerimaan data pada channel bersifat **blocking** atau **synchronous**.
+**Channel** digunakan untuk menghubungkan goroutine satu dengan goroutine lain dengan mekanisme serah terima data, jadi harus ada data yang dikirim dari goroutine A untuk kemudian diterima di goroutine B.
+
+Peran channel adalah sebagai media perantara bagi pengirim data dan juga penerima data. Jadi channel adalah *thread safe*, aman digunakan di banyak goroutine.
+
+Pengiriman dan penerimaan data pada channel bersifat **blocking** atau **synchronous**. Artinya, statement di-bawah syntax pengiriman dan penerimaan data via channel hanya akan dieksekusi setelah proses serah terima berlangsung dan selesai.
 
 ![Analogi channel](images/A_channel_1_analogy.png)
 
-Pada chapter ini kita akan belajar mengenai pemanfaatan channel.
-
 ## A.31.1. Penerapan Channel
 
-Channel merupakan sebuah variabel, dibuat dengan menggunakan kombinasi keyword `make` dan `chan`. Variabel channel memiliki satu tugas, menjadi pengirim, atau penerima data.
+Channel berbentuk variabel, dibuat dengan menggunakan kombinasi keyword `make` dan `chan`.
 
-Program berikut adalah contoh implementasi channel. 3 buah goroutine dieksekusi, di masing-masing goroutine terdapat proses pengiriman data lewat channel. Data tersebut akan diterima 3 kali di goroutine utama `main`.
+Program berikut adalah contoh implementasi channel. 3 buah goroutine dieksekusi, di masing-masing goroutine terdapat proses pengiriman data lewat channel. Kesemua data tersebut nantinya diterima oleh di goroutine utama yaitu proses yang dijalankan di dalam blok fungsi `main()`.
 
 ```go
 package main
@@ -43,7 +45,7 @@ func main() {
 }
 ```
 
-Pada kode di atas, variabel `messages` dideklarasikan bertipe channel `string`. Cara pembuatan channel yaitu dengan menuliskan keyword `make` dengan isi keyword `chan` diikuti dengan tipe data channel yang diinginkan.
+Pada kode di atas, variabel `messages` dideklarasikan bertipe channel `string`. Contoh cara pembuatan channel bisa dilihat di situ, yaitu dengan memanggil fungsi `make()` dengan isi adalah keyword `chan` diikuti dengan tipe data channel yang diinginkan.
 
 ```go
 var messages = make(chan string)
@@ -75,21 +77,24 @@ var message1 = <-messages
 fmt.Println(message1)
 ```
 
-Penerimaan channel bersifat blocking. Artinya statement `var message1 = <-messages` hingga setelahnya tidak akan dieksekusi sebelum ada data yang dikirim lewat channel.
+Penerimaan channel bersifat blocking. Artinya:
 
-Ke semua data yang dikirim dari tiga goroutine berbeda tersebut datanya akan diterima secara berurutan oleh `message1`, `message2`, `message3`; untuk kemudian ditampilkan.
+- Statement `var message1 = <-messages` hingga setelahnya tidak akan dieksekusi sebelum ada data yang dikirim lewat channel.
+- Berlaku juga dengan statement `messages <- data`. Statement dibawahnya tidak akan dieksekusi hingga data yang dikirim ke channel `messages` benar-benar diterima oleh penerima, yaitu variabel `message1`.
+
+Ke semua data yang dikirim dari tiga goroutine berbeda tersebut nantinya diterima oleh `message1`, `message2`, `message3`; untuk kemudian ditampilkan.
 
 ![Implementasi channel](images/A_channel_2_channel.png)
 
 Dari screenshot output di atas bisa dilihat bahwa text yang dikembalikan oleh `sayHelloTo` tidak selalu berurutan, meskipun penerimaan datanya adalah berurutan. Hal ini dikarenakan, pengiriman data adalah dari 3 goroutine yang berbeda, yang kita tidak tau mana yang prosesnya selesai lebih dulu. Goroutine yang dieksekusi lebih awal belum tentu selesai lebih awal, yang jelas proses yang selesai lebih awal datanya akan diterima lebih awal.
 
-Karena pengiriman dan penerimaan data lewat channel bersifat **blocking**, tidak perlu memanfaatkan sifat blocking dari fungsi sejenis `fmt.Scanln()` atau lainnya, untuk mengantisipasi goroutine utama `main` selesai sebelum ketiga goroutine di atas selesai.
+Karena pengiriman dan penerimaan data lewat channel bersifat **blocking**, tidak perlu memanfaatkan sifat blocking dari fungsi seperti `fmt.Scanln()` (atau lainnya) untuk mengantisipasi goroutine utama (yaitu `main`) selesai sebelum ketiga goroutine di atas selesai.
 
 ## A.31.2. Channel Sebagai Tipe Data Parameter
 
-Variabel channel bisa di-pass ke fungsi lain sebagai parameter. Cukup tambahkan keyword `chan` pada deklarasi parameter agar operasi pass channel variabel bisa dilakukan.
+Variabel channel bisa di-pass ke fungsi lain via parameter. Cukup tambahkan keyword `chan` pada deklarasi parameter agar operasi pass channel variabel bisa dilakukan.
 
-Siapkan fungsi `printMessage` dengan parameter adalah channel. Lalu ambil data yang dikirimkan lewat channel tersebut untuk ditampilkan.
+Siapkan fungsi `printMessage()` dengan parameter adalah channel. Lalu ambil data yang dikirimkan lewat channel tersebut untuk ditampilkan.
 
 ```go
 func printMessage(what chan string) {
@@ -97,7 +102,7 @@ func printMessage(what chan string) {
 }
 ```
 
-Setelah itu ubah implementasi di fungsi `main`.
+Setelah itu ubah implementasi di fungsi `main()`.
 
 ```go
 func main() {
@@ -120,17 +125,17 @@ func main() {
 
 Output program di atas sama dengan program sebelumnya.
 
-Parameter `what` fungsi `printMessage` bertipe channel `string`, bisa dilihat dari kode `chan string` pada cara deklarasinya. Operasi serah-terima data akan bisa dilakukan pada variabel tersebut, dan akan berdampak juga pada variabel `messages` di fungsi `main`.
+Parameter `what` pada fungsi `printMessage()` bertipe channel `string`, bisa dilihat dari kode `chan string` pada cara deklarasinya. Operasi serah-terima data akan bisa dilakukan pada variabel tersebut, dan akan berdampak juga pada variabel `messages` di fungsi `main()`.
 
 Passing data bertipe channel lewat parameter sifatnya **pass by reference**, yang di transferkan adalah pointer datanya, bukan nilai datanya.
 
 ![Parameter channel](images/A_channel_3_channel_param.png)
 
----
+## A.32.3. Penjelasan tambahan
 
-Berikut merupakan penjelasan tambahan untuk kode di atas.
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
 
-#### • Iterasi Data Slice/Array Langsung Pada Saat Inisialisasi
+#### ◉ Iterasi Data Slice/Array Langsung Pada Saat Inisialisasi
 
 Data slice yang baru di inisialisasi bisa langsung di-iterasi, caranya mudah dengan menuliskannya langsung setelah keyword `range`.
 
@@ -140,7 +145,7 @@ for _, each := range []string{"wick", "hunt", "bourne"} {
 }
 ```
 
-#### • Eksekusi Goroutine Pada IIFE
+#### ◉ Eksekusi Goroutine Pada IIFE
 
 Eksekusi goroutine tidak harus pada fungsi atau closure yang sudah terdefinisi. Sebuah IIFE juga bisa dijalankan sebagai goroutine baru. Caranya dengan langsung menambahkan keyword `go` pada waktu deklarasi-eksekusi IIFE-nya.
 

@@ -1,8 +1,8 @@
 # A.46. Encode - Decode Base64
 
-Go memiliki package `encoding/base64`, berisikan fungsi-fungsi untuk kebutuhan **encode** dan **decode** data ke base64 dan sebaliknya. Data yang akan di-encode harus bertipe `[]byte`, perlu dilakukan casting untuk data-data yang belum sesuai tipenya.
+Go menyediakan package `encoding/base64`, berisikan fungsi-fungsi untuk kebutuhan **encode** dan **decode** data ke bentuk base64 dan sebaliknya. Data yang akan di-encode harus bertipe `[]byte`, maka perlu dilakukan casting untuk data-data yang tipenya belum `[]byte`.
 
-Ada beberapa cara yang bisa digunakan untuk encode dan decode data, dan pada chapter ini kita akan mempelajarinya.
+Proses encoding dan decoding bisa dilakukan via beberapa cara yang pada chapter ini kita akan pelajari.
 
 ## A.46.1. Penerapan Fungsi `EncodeToString()` & `DecodeString()`
 
@@ -59,7 +59,7 @@ Fungsi `base64.StdEncoding.EncodedLen(len(data))` menghasilkan informasi lebar v
 
 Fungsi `base64.StdEncoding.DecodedLen()` memiliki kegunaan sama dengan `EncodedLen()`, hanya saja digunakan untuk keperluan decoding.
 
-Dibanding 2 fungsi sebelumnya, fungsi `Encode()` dan `Decode()` memiliki beberapa perbedaan. Selain lebar data penampung encode/decode harus dicari terlebih dahulu, terdapat perbedaan lainnya, yaitu pada fungsi ini hasil encode/decode tidak didapat dari nilai kembalian, melainkan dari parameter. Variabel yang digunakan untuk menampung hasil, disisipkan pada parameter fungsi tersebut.
+Dibanding 2 fungsi sebelumnya, fungsi `Encode()` dan `Decode()` ini memiliki beberapa perbedaan. Selain lebar data penampung encode/decode harus dicari terlebih dahulu, terdapat perbedaan lainnya, yaitu pada fungsi ini hasil encode/decode tidak didapat dari nilai kembalian, melainkan dari parameter. Variabel yang digunakan untuk menampung hasil, disisipkan pada parameter fungsi tersebut.
 
 Pada pemanggilan fungsi encode/decode, variabel `encoded` dan `decoded` tidak disisipkan nilai pointer-nya, cukup di-pass dengan cara biasa, tipe datanya sudah dalam bentuk `[]byte`.
 

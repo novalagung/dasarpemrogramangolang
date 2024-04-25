@@ -1,18 +1,18 @@
 # A.24. Struct
 
-Go tidak memiliki class yang ada di bahasa-bahasa strict OOP lain. Tapi Go memiliki tipe data struktur yang disebut dengan Struct.
+Go tidak mengadopsi konsep class seperti pada beberapa bahasa pemrograman OOP lainnya. Namun Go memiliki tipe data struktur Struct.
 
 Struct adalah kumpulan definisi variabel (atau property) dan atau fungsi (atau method), yang dibungkus sebagai tipe data baru dengan nama tertentu. Property dalam struct, tipe datanya bisa bervariasi. Mirip seperti `map`, hanya saja key-nya sudah didefinisikan di awal, dan tipe data tiap itemnya bisa berbeda.
 
-Dari sebuah struct, kita bisa buat variabel baru, yang memiliki atribut sesuai skema struct tersebut. Kita sepakati dalam buku ini, variabel tersebut dipanggil dengan istilah **object** atau **object struct**.
+Dari sebuah struct, kita bisa buat variabel baru, yang memiliki atribut sesuai skema struct tersebut. Kita sepakati dalam buku ini, variabel tersebut dipanggil dengan istilah **object** atau **variabel object**.
 
-> Konsep struct di golang mirip dengan konsep **class** pada OOP, meski sebenarnya berbeda. Di sini penulis menggunakan konsep OOP sebagai analogi, dengan tujuan untuk mempermudah dalam mencerna isi chapter ini.
+> Konsep struct di golang mirip dengan konsep **class** pada OOP, meski sebenarnya memiliki perbedaan. Di sini penulis menggunakan konsep OOP sebagai analogi, untuk mempermudah pembaca untuk memahami pembelajaran di chapter ini.
 
-Dengan memanfaatkan struct, grouping data akan lebih mudah, selain itu rapi dan gampang untuk di-maintain.
+Dengan memanfaatkan struct, penyimpanan data yang sifatnya kolektif menjadi lebih mudah, lebih rapi, dan mudah untuk dikelola.
 
 ## A.24.1. Deklarasi Struct
 
-Keyword `type` digunakan untuk deklarasi struct. Di bawah ini merupakan contoh cara penggunaannya.
+Kombinasi keyword `type` dan `struct` digunakan untuk deklarasi struct. Di bawah ini merupakan contoh cara penerapannya.
 
 ```go
 type student struct {
@@ -21,11 +21,11 @@ type student struct {
 }
 ```
 
-Struct `student` dideklarasikan memiliki 2 property, yaitu `name` dan `grade`. Objek yang dibuat dengan struct ini nantinya memiliki skema atau struktur yang sama.
+Struct `student` dideklarasikan memiliki 2 property, yaitu `name` dan `grade`. Property adalah istilah untuk variabel yang menempel ke struct.
 
-## A.24.2. Penerapan Struct
+## A.24.2. Penerapan Struct Untuk Membuat Object
 
-Struct `student` yang sudah disiapkan di atas akan kita manfaatkan untuk membuat variabel objek. Property variabel tersebut di-isi kemudian ditampilkan.
+Struct `student` yang sudah disiapkan di atas kita gunakan untuk membuat variabel objek. Variabel tersebut tipe datanya adalah `student`. Kemudian dari variabel object, kita bisa mengakses isi property variabel. Contoh:
 
 ```go
 func main() {
@@ -40,7 +40,7 @@ func main() {
 
 Cara membuat variabel objek sama seperti pembuatan variabel biasa. Tinggal tulis saja nama variabel diikuti nama struct, contoh: `var s1 student`.
 
-Semua property variabel objek pada awalnya memiliki zero value sesuai tipe datanya.
+Semua property variabel objek pada awalnya memiliki zero value sesuai tipe datanya. Misalnya, 0 untuk tipe `int`, dan string kosong `""` untuk string.
 
 Property variabel objek bisa diakses nilainya menggunakan notasi titik, contohnya `s1.name`. Nilai property-nya juga bisa diubah, contohnya `s1.grade = 2`.
 
@@ -48,7 +48,7 @@ Property variabel objek bisa diakses nilainya menggunakan notasi titik, contohny
 
 ## A.24.3. Inisialisasi Object Struct
 
-Cara inisialisasi variabel objek adalah dengan menambahkan kurung kurawal setelah nama struct. Nilai masing-masing property bisa diisi pada saat inisialisasi.
+Cara inisialisasi variabel objek adalah dengan menuliskan nama struct yang telah dibuat diikuti dengan kurung kurawal. Nilai masing-masing property bisa diisi pada saat inisialisasi.
 
 Pada contoh berikut, terdapat 3 buah variabel objek yang dideklarasikan dengan cara berbeda.
 
@@ -136,11 +136,11 @@ Pada kode di atas, disiapkan struct `person` dengan properti yang tersedia adala
 
 Embedded struct adalah **mutable**, nilai property-nya nya bisa diubah.
 
-Khusus untuk properti yang bukan properti asli (properti turunan dari struct lain), bisa diakses dengan cara mengakses struct *parent*-nya terlebih dahulu, contohnya `s1.person.age`. Nilai yang dikembalikan memiliki referensi yang sama dengan `s1.age`.
+Khusus untuk properti yang bukan merupakan properti asli (melainkan properti turunan dari struct lain), pengaksesannya dilakukan dengan cara mengakses struct *parent*-nya terlebih dahulu, contohnya `s1.person.age`. Nilai yang dikembalikan memiliki referensi yang sama dengan `s1.age`.
 
 ## A.24.6. Embedded Struct Dengan Nama Property Yang Sama
 
-Jika salah satu nama properti sebuah struct memiliki kesamaan dengan properti milik struct lain yang di-embed, maka pengaksesan property-nya harus dilakukan secara eksplisit atau jelas. Contoh bisa dilihat di kode berikut.
+Jika salah satu nama properti sebuah struct memiliki kesamaan dengan properti milik struct lain yang di-embed, maka pengaksesan property-nya harus dilakukan secara eksplisit atau jelas. Silakan lihat kode berikut agar lebih jelas.
 
 ```go
 package main
@@ -189,7 +189,7 @@ Pada deklarasi `s1`, property `person` diisi variabel objek `p1`.
 
 ## A.24.8. Anonymous Struct
 
-Anonymous struct adalah struct yang tidak dideklarasikan di awal sebagai tipe data baru, melainkan langsung ketika pembuatan objek. Teknik ini cukup efisien untuk pembuatan variabel objek yang struct-nya hanya dipakai sekali.
+Anonymous struct adalah struct yang tidak dideklarasikan di awal sebagai tipe data baru, melainkan langsung ketika pembuatan objek. Teknik ini cukup efisien digunakan pada *use case* pembuatan variabel objek yang struct-nya hanya dipakai sekali.
 
 ```go
 package main
@@ -292,7 +292,7 @@ student.grade = 2
 
 Statement `type student struct` adalah contoh cara deklarasi struct. Maknanya akan berbeda ketika keyword `type` diganti `var`, seperti pada contoh di atas `var student struct`, yang artinya dicetak sebuah objek dari anonymous struct kemudian disimpan pada variabel bernama `student`.
 
-Deklarasi anonymous struct menggunakan metode ini juga bisa dilakukan beserta inisialisasi-nya.
+Deklarasi anonymous struct menggunakan metode ini juga bisa dilakukan dengan disertai inisialisasi data.
 
 ```go
 // hanya deklarasi
@@ -323,7 +323,7 @@ type student struct {
 }
 ```
 
-Teknik ini biasa digunakan ketika decoding data **json** yang struktur datanya cukup kompleks dengan proses decode hanya sekali.
+Teknik ini biasa digunakan ketika decoding data **JSON** yang struktur datanya cukup kompleks dengan proses decode hanya sekali.
 
 ## A.24.13. Deklarasi Dan Inisialisasi Struct Secara Horizontal
 
@@ -340,11 +340,9 @@ var p1 = struct { name string; age int } { age: 22, name: "wick" }
 var p2 = struct { name string; age int } { "ethan", 23 }
 ```
 
-Bagi pengguna editor Sublime yang terinstal plugin GoSublime di dalamnya, cara ini tidak akan bisa dilakukan, karena setiap kali file di-save, kode program dirapikan. Jadi untuk mengetesnya bisa dengan menggunakan editor lain.
-
 ## A.24.14. Tag property dalam struct
 
-Tag merupakan informasi opsional yang bisa ditambahkan pada masing-masing property struct.
+Tag merupakan informasi opsional yang bisa ditambahkan pada property struct.
 
 ```go
 type person struct {
@@ -353,7 +351,7 @@ type person struct {
 }
 ```
 
-Tag biasa dimanfaatkan untuk keperluan encode/decode data json. Informasi tag juga bisa diakses lewat reflect. Nantinya akan ada pembahasan yang lebih detail mengenai pemanfaatan tag dalam struct, terutama ketika sudah masuk chapter JSON.
+Tag biasa dimanfaatkan untuk keperluan encode/decode data. Informasi tag juga bisa diakses lewat reflect. Nantinya akan ada pembahasan yang lebih detail mengenai pemanfaatan tag dalam struct, terutama ketika sudah masuk chapter JSON.
 
 ## A.24.15. Type Alias
 
@@ -398,9 +396,9 @@ type People2 = struct {
 }
 ```
 
-Struct `People1` dideklarasikan. Struct alias `People2` juga dideklarasikan, struct ini merupakan alias dari anonymous struct. Penggunaan teknik type alias untuk anonymous struct menghasilkan output yang ekuivalen dengan pendeklarasian struct.
+Struct `People1` dideklarasikan, kemudian struct alias `People2` juga dideklarasikan. Struct `People2` merupakan alias dari anonymous struct. Penggunaan teknik type alias untuk anonymous struct menghasilkan output yang ekuivalen dengan pendeklarasian struct.
 
-Perlu diketahui juga, dan di atas sudah sempat disinggung, bahwa teknik type alias ini tidak dirancang hanya untuk pembuatan alias pada tipe struct saja, semua jenis tipe data bisa dibuatkan alias. Di contoh berikut, dipersiapkan tipe `Number` yang merupakan alias dari tipe data `int`.
+Teknik type alias ini tidak dirancang hanya untuk pembuatan alias pada tipe struct saja, semua jenis tipe data bisa dibuatkan alias. Contohnya seperti pada kode berikut, ada tipe data baru bernama `Number` yang merupakan alias dari tipe data `int`.
 
 ```go
 type Number = int

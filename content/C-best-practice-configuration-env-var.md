@@ -6,7 +6,7 @@ Pada bagian ini kita akan mempelajari penerapan konfigurasi pada *environment va
 
 *Environment variable* merupakan variabel yang berada di lapisan *runtime* sistem operasi. Karena *env var* atau *environment variable* merupakan variabel seperti pada umumnya, maka kita bisa melakukan operasi seperti mengubah nilainya atau mengambil nilainya.
 
-Salah satu *env var* yang mungkin sering temen-temen temui adalah `PATH`. `PATH` sendiri merupakan variabel yang digunakan oleh sistem operasi untuk men-*specify* direktori tempat di mana *binary* atau *executable* berada.
+Salah satu *env var* yang mungkin sering pembaca temui adalah `PATH`. `PATH` sendiri merupakan variabel yang digunakan oleh sistem operasi untuk men-*specify* direktori tempat di mana *binary* atau *executable* berada.
 
 Default-nya, sistem operasi pasti mempunyai beberapa *env var* yang sudah ada tanpa kita set, salah satunya seperti `PATH` tadi, juga lainnya. Variabel-variabel tersebut digunakan oleh sistem operasi untuk keperluan mereka. Tapi karena variabel juga bisa diakses oleh kita (selaku developer), maka kita pun juga bisa mempergunakannya untuk kebutuhan tertentu.
 
@@ -138,7 +138,7 @@ set SERVER_WRITE_TIMEOUT_IN_MINUTE=2
 go run main.go
 ```
 
-Agak sedikit report memang untuk bagian ini, tapi mungkin bisa diperingkas dengan membuat file `.sh` untuk non-Windows, dan file `.bat` untuk Windows. Jadi nanti bisa tinggal eksekusi sh/bat-nya saja. Atau temen-temen bisa tulis saja dalam `Makefile`. Untuk windows bisa kok eksekusi command `make` caranya dengan install [make](https://chocolatey.org/packages/make) lewat [Chocolatey](https://chocolatey.org/).
+Agak sedikit report memang untuk bagian ini, tapi mungkin bisa diperingkas dengan membuat file `.sh` untuk non-Windows, dan file `.bat` untuk Windows. Jadi nanti bisa tinggal eksekusi sh/bat-nya saja. Atau pembaca bisa tulis saja dalam `Makefile`. Untuk windows bisa kok eksekusi command `make` caranya dengan install [make](https://chocolatey.org/packages/make) lewat [Chocolatey](https://chocolatey.org/).
 
 Berikut adalah penampakan contoh run program lewat bat-file di Windows.
 
@@ -148,7 +148,7 @@ Berikut adalah penampakan contoh run program lewat bat-file di Windows.
 
 Memang saya setuju jika lebih butuh *effort* baik dari sisi programming maupun dari sisi eksekusi program-nya. Tapi *trust me*, pada production yang notabene *deployment* di-automatisasi (entah itu container based, pakai orchestrator, maupun tidak), pasti lebih mudah.
 
-Mungkin dari sini temen-temen bisa lanjut ke chapter [C.35. Dockerize Aplikasi Golang](/C-dockerize-golang.html) untuk melihat praktek nyata penerapan konfigurasi via *env var*.
+Mungkin dari sini pembaca bisa lanjut ke chapter [C.35. Dockerize Aplikasi Golang](/C-dockerize-golang.html) untuk melihat praktek nyata penerapan konfigurasi via *env var*.
 
 ---
 

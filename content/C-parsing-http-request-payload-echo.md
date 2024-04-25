@@ -66,7 +66,7 @@ Jalankan aplikasi, lakukan testing. Bisa gunakan `curl` ataupun API testing tool
 
 Di bawah ini shortcut untuk melakukan request menggunakan `curl` pada 4 jenis payload yang kita telah bahas. Response dari seluruh request adalah sama, menandakan bahwa data yang dikirim berhasil ditampung.
 
-#### • Form Data
+#### ◉ Form Data
 
 ```bash
 curl -X POST http://localhost:9000/user \
@@ -76,7 +76,7 @@ curl -X POST http://localhost:9000/user \
 # output => {"name":"Nope","email":"nope@novalagung.com"}
 ```
 
-#### • JSON Payload
+#### ◉ JSON Payload
 
 ```bash
 curl -X POST http://localhost:9000/user \
@@ -86,7 +86,7 @@ curl -X POST http://localhost:9000/user \
 # output => {"name":"Nope","email":"nope@novalagung.com"}
 ```
 
-#### • XML Payload
+#### ◉ XML Payload
 
 ```bash
 curl -X POST http://localhost:9000/user \
@@ -100,7 +100,7 @@ curl -X POST http://localhost:9000/user \
 # output => {"name":"Nope","email":"nope@novalagung.com"}
 ```
 
-#### • Query String
+#### ◉ Query String
 
 ```bash
 curl -X GET http://localhost:9000/user?name=Joe&email=nope@novalagung.com

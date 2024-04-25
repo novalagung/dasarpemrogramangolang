@@ -1,10 +1,10 @@
 # A.53. JSON Data
 
-**JSON** atau *Javascript Object Notation* adalah notasi standar yang umum digunakan untuk komunikasi data dalam web. JSON merupakan subset dari *javascript*.
+**JSON** atau *Javascript Object Notation* adalah notasi standar penulisan data yang umum digunakan untuk komunikasi antar aplikasi/service. JSON sendiri sebenarnya merupakan subset dari *javascript*.
 
 Go menyediakan package `encoding/json` yang berisikan banyak fungsi untuk kebutuhan operasi json.
 
-Pada chapter ini, kita akan belajar cara untuk konverstri string yang berbentuk json menjadi objek Go, dan sebaliknya.
+Pada chapter ini, kita akan belajar cara untuk konverstri string yang ditulis dalam format json menjadi objek Go, dan sebaliknya.
 
 ## A.53.1. Decode JSON Ke Variabel Objek Struct
 
@@ -24,9 +24,9 @@ type User struct {
 }
 ```
 
-Struct `User` ini nantinya digunakan untuk membuat variabel baru penampung hasil decode json string. Proses decode sendiri dilakukan lewat fungsi `json.Unmarshal()`, dengan json string tersebut dimasukan ke statement fungsi tersebut.
+Struct `User` ini nantinya digunakan untuk membuat variabel baru penampung hasil decode json string. Proses decode sendiri dilakukan lewat fungsi `json.Unmarshal()`, dalam penggunaannya data json string dimasukan sebagai argument pemanggilan fungsi.
 
-Silakan tulis kode berikut.
+Contoh praktiknya bisa dilihat di bawah ini.
 
 ```go
 func main() {
@@ -46,19 +46,19 @@ func main() {
 }
 ```
 
-Fungsi unmarshal hanya menerima data json dalam bentuk `[]byte`, maka dari itu data json string pada kode di atas di-casting terlebih dahulu ke tipe `[]byte` sebelum dipergunakan pada fungsi unmarshal.
+Fungsi unmarshal hanya menerima data json dalam bentuk `[]byte`, maka dari itu data json string perlu di-casting terlebih dahulu ke tipe `[]byte`, sebelum akhirnya digunakan pada pemanggilan fungsi `json.Unmarshal()`.
 
-Juga, perlu diperhatikan, argument ke-2 fungsi unmarshal harus diisi dengan **pointer** dari objek yang nantinya akan menampung hasilnya.
+Perlu diperhatikan, argument ke-2 pemanggilan fungsi tersebut harus diisi dengan variabel **pointer** yang nantinya akan menampung hasil operasi decoding.
 
 ![Decode data json ke variabel objek](images/A_json_1_decode.png)
 
-Jika kita perhatikan lagi, pada struct `User`, salah satu property-nya yaitu `FullName` memiliki **tag** `json:"Name"`. Tag tersebut digunakan untuk mapping informasi json ke property yang bersangkutan.
+Property `FullName` milik struct `User` memiliki **tag** `json:"Name"`. Tag tersebut digunakan untuk mapping informasi field json ke property struct.
 
-Data json yang akan diparsing memiliki 2 property yaitu `Name` dan `Age`. Kebetulan penulisan `Age` pada data json dan pada struktur struct adalah sama, berbeda dengan `Name` yang tidak ada pada struct.
+Data json yang akan di-parsing memiliki 2 property yaitu `Name` dan `Age`. Di contoh, penulisan `Age` di data json dan pada struktur struct adalah sama, berbeda dengan `Name` yang ada di data json tapi tidak ada di struct.
 
 Dengan menambahkan tag json, maka property `FullName` struct akan secara cerdas menampung data json property `Name`.
 
-> Pada kasus decoding data json string ke variabel objek struct, semua level akses property struct penampung harus publik.
+> Pada operasi decoding data json string ke variabel objek struct, semua level akses property struct penampung harus publik.
 
 ## A.53.2. Decode JSON Ke `map[string]interface{}` & `interface{}`
 
@@ -85,7 +85,7 @@ fmt.Println("age  :", decodedData["Age"])
 
 ## A.53.3. Decode Array JSON Ke Array Objek
 
-Decode data dari array json ke slice/array objek masih sama, siapkan saja variabel penampung hasil decode dengan tipe slice struct. Contohnya bisa dilihat pada kode berikut.
+Operasi decode data dari array json ke slice/array objek caranya juga sama. Langsung praktek saja agar lebih jelas. Siapkan sebuah variabel baru untuk menampung hasil decode dengan tipe slice struct, lalu gunakan pada fungsi `json.Unmarshal()`.
 
 ```go
 var jsonString = `[
@@ -107,11 +107,11 @@ fmt.Println("user 2:", data[1].FullName)
 
 ## A.53.4. Encode Objek Ke JSON String
 
-Setelah sebelumnya dijelaskan beberapa cara decode data dari json string ke objek, sekarang kita akan belajar cara **encode** data objek ke bentuk json string.
+Setelah sebelumnya dijelaskan beberapa cara decode data dari json string ke objek, sekarang kita akan belajar cara **encode** data objek di Go ke bentuk json string.
 
-Fungsi `json.Marshal` digunakan untuk encoding data ke json string. Sumber data bisa berupa variabel objek cetakan struct, `map[string]interface{}`, atau slice.
+Fungsi `json.Marshal()` digunakan untuk encoding data ke json string. Sumber data bisa berupa variabel objek cetakan struct, data bertipe `map[string]interface{}`, slice, atau lainnya.
 
-Pada contoh berikut, data slice struct dikonversi ke dalam bentuk json string. Hasil konversi berupa `[]byte`, casting terlebih dahulu ke tipe `string` agar bisa ditampilkan bentuk json string-nya.
+Pada contoh berikut, data slice struct dikonversi ke dalam bentuk json string. Hasil konversi adalah data bertipe `[]byte`, maka pastikan untuk meng-casting terlebih dahulu ke tipe `string` agar bisa ditampilkan bentuk json string-nya.
 
 ```go
 var object = []User{{"john wick", 27}, {"ethan hunt", 32}}
@@ -125,7 +125,7 @@ var jsonString = string(jsonData)
 fmt.Println(jsonString)
 ```
 
-Output:
+Output program:
 
 ![Encode data ke JSON](images/A_json_2_encode.png)
 

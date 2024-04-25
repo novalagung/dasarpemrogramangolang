@@ -1,12 +1,12 @@
 # A.43. Konversi Antar Tipe Data
 
-Pada chapter sebelum-sebelumnyanya kita sudah mengaplikasikan beberapa cara konversi data, contohnya seperti konversi `string` ↔ `int` menggunakan `strconv`, dan `time.Time` ↔ `string`. Pada chapter ini kita akan belajar lebih banyak.
+Di beberapa chapter sebelum ini kita telah menerapkan beberapa cara konversi data, contohnya seperti konversi `string` ↔ `int` menggunakan `strconv`, dan `time.Time` ↔ `string`. Pada chapter ini kita akan mempelajarinya lebih detail.
 
 ## A.43.1. Konversi Menggunakan `strconv`
 
 Package `strconv` berisi banyak fungsi yang sangat membantu kita untuk melakukan konversi. Berikut merupakan beberapa fungsi yang dalam package tersebut.
 
-#### • Fungsi `strconv.Atoi()`
+#### ◉ Fungsi `strconv.Atoi()`
 
 Fungsi ini digunakan untuk konversi data dari tipe `string` ke `int`. `strconv.Atoi()` menghasilkan 2 buah nilai kembalian, yaitu hasil konversi dan `error` (jika konversi sukses, maka `error` berisi `nil`).
 
@@ -26,7 +26,7 @@ func main() {
 }
 ```
 
-#### • Fungsi `strconv.Itoa()`
+#### ◉ Fungsi `strconv.Itoa()`
 
 Merupakan kebalikan dari `strconv.Atoi`, berguna untuk konversi `int` ke `string`.
 
@@ -37,7 +37,7 @@ var str = strconv.Itoa(num)
 fmt.Println(str) // "124"
 ```
 
-#### • Fungsi `strconv.ParseInt()`
+#### ◉ Fungsi `strconv.ParseInt()`
 
 Digunakan untuk konversi `string` berbentuk numerik dengan basis tertentu ke tipe numerik non-desimal dengan lebar data bisa ditentukan.
 
@@ -63,7 +63,7 @@ if err == nil {
 }
 ```
 
-#### • Fungsi `strconv.FormatInt()`
+#### ◉ Fungsi `strconv.FormatInt()`
 
 Berguna untuk konversi data numerik `int64` ke `string` dengan basis numerik bisa ditentukan sendiri.
 
@@ -74,7 +74,7 @@ var str = strconv.FormatInt(num, 8)
 fmt.Println(str) // 30
 ```
 
-#### • Fungsi `strconv.ParseFloat()`
+#### ◉ Fungsi `strconv.ParseFloat()`
 
 Digunakan untuk konversi `string` ke numerik desimal dengan lebar data bisa ditentukan.
 
@@ -89,7 +89,7 @@ if err == nil {
 
 Pada contoh di atas, string `"24.12"` dikonversi ke float dengan lebar tipe data `float32`. Hasil konversi `strconv.ParseFloat` adalah sesuai dengan standar [IEEE Standard for Floating-Point Arithmetic](https://en.wikipedia.org/wiki/IEEE_floating_point).
 
-#### • Fungsi `strconv.FormatFloat()`
+#### ◉ Fungsi `strconv.FormatFloat()`
 
 Berguna untuk konversi data bertipe `float64` ke `string` dengan format eksponen, lebar digit desimal, dan lebar tipe data bisa ditentukan.
 
@@ -113,7 +113,7 @@ Ada beberapa format eksponen yang bisa digunakan. Detailnya bisa dilihat di tabe
 | `g` | Akan menggunakan format eksponen `e` untuk eksponen besar dan `f` untuk selainnya |
 | `G` | Akan menggunakan format eksponen `E` untuk eksponen besar dan `f` untuk selainnya |
 
-#### • Fungsi `strconv.ParseBool()`
+#### ◉ Fungsi `strconv.ParseBool()`
 
 Digunakan untuk konversi `string` ke `bool`.
 
@@ -126,7 +126,7 @@ if err == nil {
 }
 ```
 
-#### • Fungsi `strconv.FormatBool()`
+#### ◉ Fungsi `strconv.FormatBool()`
 
 Digunakan untuk konversi `bool` ke `string`.
 
@@ -139,12 +139,14 @@ fmt.Println(str) // true
 
 ## A.43.2. Konversi Data Menggunakan Teknik Casting
 
-Keyword tipe data bisa digunakan untuk casting, atau konversi antar tipe data. Cara penggunaannya adalah dengan menuliskan tipe data tujuan casting sebagai fungsi, lalu menyisipkan data yang akan dikonversi sebagai parameter fungsi tersebut.
+Cara penerapannya adalah dengan menggunakan keyword tipe data sebagai nama fungsi, kemudiaan argument pemanggilannya diisi dengan data yang ingin dikonversi tipenya.
 
 ```go
+// konversi nilai 24 bertipe int ke float64
 var a float64 = float64(24)
 fmt.Println(a) // 24
 
+// konversi nilai 24.00 bertipe float32 ke int32
 var b int32 = int32(24.00)
 fmt.Println(b) // 24
 ```
@@ -175,7 +177,7 @@ fmt.Printf("%s \n", s)
 // halo
 ```
 
-Pada contoh di-atas, beberapa kode byte dituliskan dalam bentuk slice, ditampung variabel `byte1`. Lalu, nilai variabel tersebut di-cast ke `string`, untuk kemudian ditampilkan.
+Di contoh ke-2 di-atas, beberapa kode byte dituliskan dalam bentuk slice, ditampung variabel `byte1`. Lalu, nilai variabel tersebut di-cast ke `string`, untuk kemudian ditampilkan.
 
 Selain itu, tiap karakter string juga bisa di-casting ke bentuk `int`, hasilnya adalah sama yaitu data byte dalam bentuk numerik basis desimal, dengan ketentuan literal string yang digunakan adalah tanda petik satu (<code>'</code>).
 
@@ -189,9 +191,9 @@ var d string = string(104)
 fmt.Println(d) // h
 ```
 
-## A.43.4. Type Assertions Pada Interface Kosong (`interface{}`)
+## A.43.4. Type Assertions Pada Tipe `any` atau Interface Kosong (`interface{}`)
 
-**Type assertions** merupakan teknik untuk mengambil tipe data konkret dari data yang terbungkus dalam `interface{}`. Jadi bisa disimpulkan bahwa teknik type assertions hanya bisa dilakukan pada data bertipe `interface{}`. Lebih jelasnya silakan cek contoh berikut.
+**Type assertions** merupakan teknik untuk mengambil tipe data konkret dari data yang terbungkus dalam `interface{}` atau `any`. Lebih jelasnya silakan cek contoh berikut.
 
 Variabel `data` disiapkan bertipe `map[string]interface{}`, map tersebut berisikan beberapa item dengan tipe data value-nya berbeda satu sama lain, sementara tipe data untuk key-nya sama yaitu `string`.
 
@@ -215,7 +217,7 @@ Statement `data["nama"].(string)` maksudnya adalah, nilai `data["nama"]` yang be
 
 Pada kode di atas, tidak akan terjadi panic error, karena semua operasi type assertion adalah dilakukan menggunakan tipe data yang sudah sesuai dengan tipe data nilai aslinya. Seperti `data["nama"]` yang merupakan `string` pasti bisa di-asertasi ke tipe `string`.
 
-Coba lakukan asertasi ke tipe yang tidak sesuai dengan tipe nilai aslinya, seperti `data["nama"].(int)`, pasti akan men-trigger panic error.
+Coba lakukan asertasi ke tipe yang tidak sesuai dengan tipe nilai aslinya, seperti `data["nama"].(int)`, hasilnya adalah panic error.
 
 Nah, dari penjelasan di atas, terlihat bahwa kita harus tau terlebih dahulu apa tipe data asli dari data yang tersimpan dalam interface. Jika misal tidak tau, maka bisa gunakan teknik di bawah ini untuk pengecekan sukses tidaknya proses asertasi.
 

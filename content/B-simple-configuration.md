@@ -202,11 +202,11 @@ Coba ubah konfigurasi pada `config.json` nilai `log.verbose` menjadi `false`. La
 
 Ok, kita telah selesai belajar tentang cara membuat file konfigurasi yang mudah dibaca dan praktis. Namun penerapan kontrol konfigurasi dengan metode ini kurang dianjurkan karena beberapa hal:
 
-#### • Tidak mendukung komentar
+#### ◉ Tidak mendukung komentar
 
 Komentar sangat penting karena untuk aplikasi besar yang konfigurasi item-nya sangat banyak - akan susah untuk dipahami. Sebenarnya perihal ini bisa di-*resolve* menggunakan jenis konfigurasi lain seperti `YAML`, `.env`, atau lainnya.
 
-#### • Nilai konfigurasi harus diketahui di awal
+#### ◉ Nilai konfigurasi harus diketahui di awal
 
 Kita harus tau semua value tiap-tiap konfigurasi terlebih dahulu, dan dituliskan ke file, sebelum aplikasi di-up. Dari sini akan sangat susah jika misal ada beberapa konfigurasi yang kita tidak tau nilainya tapi tau cara pengambilannya.
 
@@ -214,19 +214,19 @@ Contohnya pada beberapa kasus, seperti di AWS, database server yang di-setup sec
 
 Dengan ini akan sangat susah jika kita harus cari terlebih dahulu value konfigurasi tersebut untuk kemudian dituliskan ke file. Memakan waktu dan kurang baik dari banyak sisi.
 
-#### • Tidak terpusat
+#### ◉ Tidak terpusat
 
 Dalam pengembangan aplikasi, banyak konfigurasi yang nilai-nya akan didapat lewat jalan lain, seperti *environment variables* atau *command arguments*.
 
 Akan lebih mudah jika hanya ada satu sumber konfigurasi saja untuk dijadikan acuan.
 
-#### • Statis (tidak dinamis)
+#### ◉ Statis (tidak dinamis)
 
 Konfigurasi umumnya dibaca hanya jika diperlukan. Penulisan konfigurasi dalam file membuat proses pembacaan file harus dilakukan di awal, haru kemudian kita bisa ambil nilai konfigurasi dari data yang sudah ada di memori.
 
 Hal tersebut memiliki beberapa konsekuensi, untuk aplikasi yang di-manage secara automated, sangat mungkin adanya perubahan nilai konfigurasi. Dari sini berarti pembacaan konfigurasi file tidak boleh hanya dilakukan di awal saja. Tapi juga tidak boleh dilakukan di setiap waktu, karena membaca file itu ada *cost*-nya dari prespektif I/O.
 
-#### • Solusi
+#### ◉ Solusi
 
 Kita akan membahas solusi dari beberapa masalah di atas pada chapter terpisah, yaitu [Best Practice Configuration Menggunakan Environment Variable
 ](/C-best-practice-configuration-env-var)
