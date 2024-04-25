@@ -14,11 +14,11 @@ Pada dasarnya Simple Storage Service (S3) adalah layanan penyimpanan file/object
 
 Beberapa istilah yang biasa kita temukan saat kita bekerja dengan Amazon S3 antara lain:
 
-#### • Bucket
+#### ◉ Bucket
 
 Bucket adalah wadah untuk object bisa disimpan ke dalam Amazon S3. Kita bisa menganalogikan bucket seperti directory yang ada di harddisk kita, dimana kita bisa membuat folder/path dan menyimpan file di dalamnya. Seperti contoh, misal kita membuat bucket `adamstudio-bucket` di region `ap-southeast-1` dan mengupload file `adamstudio.jpg`, maka kita bisa mengakses file tersebut dengan URL `https://adamstudio-bucket.s3.ap-southeast-1.amazonaws.com/adamstudio.jpg` (dengan authorisasi tertentu pastinya).
 
-#### • Object
+#### ◉ Object
 
 Object secara singkat bisa kita artikan sebagai file, meskipun pada dasarnya berbeda, karena object juga menyimpan metadata file dan data-data lainnya.
 
