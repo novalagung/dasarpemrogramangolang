@@ -11,7 +11,7 @@
   * [📖 Dasar Pemrograman Python](https://dasarpemrogramanpython.novalagung.com/)
   * [📖 Dasar Pemrograman Rust](https://dasarpemrogramanrust.novalagung.com/)
   * [📖 How To](https://howto.novalagung.com)
-  * [▶️ Udemy Course: Belajar Docker & Kubernetes (FREE Juni 2023)](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/?couponCode=FREE-202306)
+  * [▶️ Udemy Course: Belajar Docker & Kubernetes](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/)
 
 <hr>
 
