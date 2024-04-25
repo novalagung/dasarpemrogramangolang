@@ -1,14 +1,14 @@
 # A.61. Go Vendoring
 
-Pada bagian ini kita akan belajar cara pemanfaatan vendoring untuk menyimpan dependensi di lokal.
+Pada bagian ini kita akan belajar cara pemanfaatan vendoring untuk menyimpan copy dependency di lokal dalam folder project.
 
 ## A.61.1. Penjelasan
 
-Vendoring di Go merupakan kapabilitas untuk mengunduh semua dependency atau *3rd party*, untuk disimpan di lokal dalam folder project, dalam folder bernama `vendor`.
+Vendoring di Go memberikan kita kapabilitas untuk mengunduh semua dependency atau *3rd party*, untuk disimpan di lokal dalam folder project, dalam subfolder bernama `vendor`.
 
-Dengan adanya folder tersebut, maka Go tidak akan *lookup* 3rd party ke cache folder, melainkan langsung mempergunakan yang ada dalam folder `vendor`. Jadi tidak perlu download lagi dari internet.
+Dengan adanya folder tersebut, maka Go tidak akan *lookup* 3rd party ke cache folder ataupun ke GOPATH, melainkan langsung mengambil dari yang ada dalam folder `vendor`. Jadi kalau dependency sudah ada di dalam `vendor`, maka kita tidak perlu download lagi dari internet menggunakan command `go mod download` ataupun `go mod tidy`.
 
-Ok lanjut.
+Ok lanjut ke praktek ya.
 
 ## A.61.2. Praktek Vendoring
 
@@ -38,7 +38,7 @@ func main() {
 }
 ```
 
-Setelah itu jalankan command `go mod vendor` untuk vendoring *3rd party library* yang dipergunakan, dalam contoh ini adlah gubrak.
+Setelah itu jalankan command `go mod vendor` untuk vendoring *3rd party library* yang dipergunakan, dalam contoh ini adalah gubrak.
 
 ![Vendoring](images/A_go_vendoring_1_vendor.png)
 
@@ -46,14 +46,7 @@ Bisa dilihat, sekarang library gubrak *source code*-nya disimpan dalam folder `v
 
 ## A.61.3 Build dan Run Project yang Menerapkan Vendoring
 
-Untuk membuat proses build lookup ke folder vendor, kita tidak perlu melakukan apa-apa, setidaknya jika versi Go yang diinstall adalah 1.14 ke atas. Maka command build maupun run masih sama.
-
-```
-go run main.go
-go build -o executable
-```
-
-Untuk yg menggunakan versi Go di bawah 1.14, penulis sarankan untuk upgrade. Atau bisa gunakan flag `-mod=vendor` untuk memaksa Go lookup ke folder `vendor`.
+Cara agar Go lookup ke folder `vendor` saat build adalah dengan menambahkan flag `-mod=vendor` sewaktu build atau run project.
 
 ```
 go run -mod=vendor main.go
@@ -62,11 +55,9 @@ go build -mod=vendor -o executable
 
 ## A.61.3. Manfaat Vendoring
 
-Manfaat vendoring adalah pada sisi kompatibilitas dan kestabilan 3rd party. Jadi dengan vendor, misal 3rd party yang kita gunakan di itu ada update yg sifatnya tidak *backward compatible*, maka aplikasi kita tetap aman karena menggunakan yang ada dalam folder `vendor`.
+Manfaat vendoring adalah pada sisi kompatibilitas & kestabilan 3rd party, selain itu kita tidak perlu repot mendownload dependency karena semuanya sudah ada di lokal.
 
-Jika tidak menggunakan vendoring, maka bisa saja saat `go mod tidy` sukses, namun sewaktu build error, karena ada fungsi yg tidak kompatibel lagi misalnya.
-
-Untuk penggunaan vendor apakah wajib? menurut saya tidak. Sesuaikan kebutuhan saja.
+Konsekuensi penerapan vendoring adalah size project menjadi cukup besar. Untuk penggunaan vendor apakah wajib? menurut saya tidak. Sesuaikan kebutuhan saja.
 
 ---
 
