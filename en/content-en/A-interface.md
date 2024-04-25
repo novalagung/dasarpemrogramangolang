@@ -1,12 +1,12 @@
 # A.27. Interface
 
-Interface adalah kumpulan definisi method yang tidak memiliki isi (hanya definisi saja), yang dibungkus dengan nama tertentu.
+Interface adalah definisi suatu kumpulan method yang tidak memiliki isi, jadi hanya definisi header/schema-nya saja. Kumpulan method tersebut ditulis dalam satu block interface dengan nama tertentu.
 
-Interface merupakan tipe data. Nilai objek bertipe interface zero value-nya adalah `nil`. Interface mulai bisa digunakan jika sudah ada isinya, yaitu objek konkret yang memiliki definisi method minimal sama dengan yang ada di interface-nya.
+Interface merupakan tipe data. Objek bertipe interface memiliki zero value yaitu `nil`. Variabel bertipe interface digunakan untuk menampung nilai objek konkret yang memiliki definisi method minimal sama dengan yang ada di interface.
 
 ## A.27.1. Penerapan Interface
 
-Yang pertama perlu dilakukan untuk menerapkan interface adalah menyiapkan interface beserta definisi method nya. Keyword `type` dan `interface` digunakan untuk pendefinisian interface.
+Untuk menerapkan interface, pertama siapkan deklarasi tipe baru menggunakan keyword `type` dan tipe data `interface` lalu siapkan juga isinya (definisi method-nya).
 
 ```go
 package main
@@ -20,11 +20,11 @@ type hitung interface {
 }
 ```
 
-Pada kode di atas, interface `hitung` memiliki 2 definisi method, `luas()` dan `keliling()`. Interface ini nantinya digunakan sebagai tipe data pada variabel, di mana variabel tersebut akan menampung objek bangun datar hasil dari struct yang akan kita buat.
+Di atas, interface `hitung` dideklarasikan memiliki 2 buah method yaitu `luas()` dan `keliling()`. Interface ini nantinya digunakan sebagai tipe data pada variabel untuk menampung objek bangun datar hasil dari struct yang akan dibuat.
 
-Dengan memanfaatkan interface `hitung`, perhitungan luas dan keliling bangun datar bisa dilakukan, tanpa perlu tahu jenis bangun datarnya sendiri itu apa.
+Dengan adanya interface `hitung` ini, maka perhitungan luas dan keliling bangun datar bisa dilakukan tanpa perlu tahu jenis bangun datarnya sendiri itu apa.
 
-Siapkan struct bangun datar `lingkaran`, struct ini memiliki method yang beberapa di antaranya terdefinisi di interface `hitung`.
+Selanjutnya, siapkan struct bangun datar `lingkaran`, struct ini memiliki definisi method yang sebagian adalah ada di interface `hitung`.
 
 ```go
 type lingkaran struct {
@@ -44,9 +44,9 @@ func (l lingkaran) keliling() float64 {
 }
 ```
 
-Struct `lingkaran` di atas memiliki tiga method, `jariJari()`, `luas()`, dan `keliling()`.
+Struct `lingkaran` memiliki tiga buah method yaitu `jariJari()`, `luas()`, dan `keliling()`.
 
-Selanjutnya, siapkan struct bangun datar `persegi`.
+Berikutnya, siapkan struct bangun datar `persegi` berikut:
 
 ```go
 type persegi struct {
@@ -62,9 +62,9 @@ func (p persegi) keliling() float64 {
 }
 ```
 
-Perbedaan struct `persegi` dengan `lingkaran` terletak pada method `jariJari()`. Struct `persegi` tidak memiliki method tersebut. Tetapi meski demikian, variabel objek hasil cetakan 2 struct ini akan tetap bisa ditampung oleh variabel cetakan interface `hitung`, karena dua method yang ter-definisi di interface tersebut juga ada pada struct `persegi` dan `lingkaran`, yaitu `luas()` dan `keliling()`.
+Perbedaan struct `persegi` dengan `lingkaran` terletak pada method `jariJari()`. Struct `persegi` tidak memiliki method tersebut. Tetapi meski demikian, variabel objek hasil cetakan 2 struct ini akan tetap bisa ditampung oleh variabel cetakan interface `hitung`, karena dua method yang ter-definisi di interface tersebut juga ada pada struct `persegi` dan `lingkaran`, yaitu method `luas()` dan `keliling()`.
 
-Buat implementasi perhitungan di `main`.
+Sekarang buat implementasi perhitungan di fungsi `main()`.
 
 ```go
 func main() {
@@ -89,7 +89,7 @@ Dari variabel tersebut, method `luas()` dan `keliling()` diakses. Secara otomati
 
 ![Pemanfaatan interface](images/A_interface_1_interface.png)
 
-Method `jariJari()` pada struct `lingkaran` tidak akan bisa diakses karena tidak terdefinisi dalam interface `hitung`. Pengaksesannya dengan paksa akan menyebabkan error.
+Method `jariJari()` pada struct `lingkaran` tidak akan bisa diakses karena tidak terdefinisi dalam interface `hitung`. Pengaksesannya secara paksa menyebabkan error.
 
 Untuk mengakses method yang tidak ter-definisi di interface, variabel-nya harus di-casting terlebih dahulu ke tipe asli variabel konkritnya (pada kasus ini tipenya `lingkaran`), setelahnya method akan bisa diakses.
 
@@ -102,11 +102,13 @@ var bangunLingkaran lingkaran = bangunDatar.(lingkaran)
 bangunLingkaran.jariJari()
 ```
 
-Perlu diketahui juga, jika ada interface yang menampung objek konkrit di mana struct-nya tidak memiliki salah satu method yang terdefinisi di interface, error juga akan muncul. Intinya kembali ke aturan awal, variabel interface hanya bisa menampung objek yang minimal memiliki semua method yang terdefinisi di interface-nya.
+> Metode casting pada tipe data interface biasa disebut dengan **type assertion**
+
+Perlu diketahui juga, jika ada interface yang menampung objek konkrit yang mana struct-nya tidak memiliki salah satu method yang terdefinisi di interface, maka error akan muncul. Intinya kembali ke aturan awal, variabel interface hanya bisa menampung objek yang minimal memiliki semua method yang terdefinisi di interface tersebut.
 
 ## A.27.2. Embedded Interface
 
-Interface bisa di-embed ke interface lain, sama seperti struct. Cara penerapannya juga sama, cukup dengan menuliskan nama interface yang ingin di-embed ke dalam interface tujuan.
+Interface bisa di-embed ke interface lain, sama seperti struct. Cara penerapannya juga sama, cukup dengan menuliskan nama interface yang ingin di-embed ke dalam body interface tujuan.
 
 Pada contoh berikut, disiapkan interface bernama `hitung2d` dan `hitung3d`. Kedua interface tersebut kemudian di-embed ke interface baru bernama `hitung`.
 
@@ -131,7 +133,7 @@ type hitung interface {
 }
 ```
 
-Interface `hitung2d` berisikan method untuk kalkulasi luas dan keliling, sedang `hitung3d` berisikan method untuk mencari volume bidang. Kedua interface tersebut diturunkan di interface `hitung`, menjadikannya memiliki kemampuan untuk menghitung luas, keliling, dan volume.
+Interface `hitung2d` berisikan method untuk kalkulasi luas dan keliling, sedang `hitung3d` berisikan method untuk mencari volume bidang. Kedua interface tersebut embed ke interface `hitung`, menjadikannya memiliki kemampuan untuk mengakses method `luas()`, `keliling()`, dan `volume()`.
 
 Next, siapkan struct baru bernama `kubus` yang memiliki method `luas()`, `keliling()`, dan `volume()`.
 
@@ -155,7 +157,7 @@ func (k *kubus) keliling() float64 {
 
 Objek hasil cetakan struct `kubus` di atas, nantinya akan ditampung oleh objek cetakan interface `hitung` yang isinya merupakan gabungan interface `hitung2d` dan `hitung3d`.
 
-Terakhir, buat implementasi-nya di main.
+Terakhir, buat implementasi-nya di fungsi `main()`.
 
 ```go
 func main() {
@@ -168,7 +170,7 @@ func main() {
 }
 ```
 
-Bisa dilihat di kode di atas, lewat interface `hitung`, method `luas`, `keliling`, dan `volume` bisa di akses.
+Bisa dilihat di kode di atas, lewat interface `hitung`, method `luas()`, `keliling()`, dan `volume()` bisa di akses.
 
 Pada chapter [A.23. Pointer](/A-pointer.html) dijelaskan bahwa method pointer bisa diakses lewat variabel objek biasa dan variabel objek pointer. Variabel objek yang dicetak menggunakan struct yang memiliki method pointer, jika ditampung ke dalam variabel interface, harus diambil referensi-nya terlebih dahulu. Contohnya bisa dilihat pada kode di atas `var bangunRuang hitung = &kubus{4}`.
 
