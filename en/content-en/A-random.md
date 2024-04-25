@@ -1,27 +1,27 @@
 # A.39. Random
 
-Pada chapter ini kita akan belajar cara untuk mengutilisasi package `math/rand` untuk menciptakan data acak atau random.
+Pada chapter ini kita akan belajar pemanfaatan package `math/rand` untuk pembuatan data acak atau random.
 
 ## A.39.1. Definisi
 
 Random Number Generator (RNG) merupakan sebuah perangkat (bisa software, bisa hardware) yang menghasilkan data deret/urutan angka yang sifatnya acak.
 
-RNG bisa berupa hardware yang murni bisa menghasilkan data angka acak, atau bisa saja sebuah [pseudo-random](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) yang menghasilkan deret angka-angka yang **terlihat acak** tetapi sebenarnya tidak benar-benar acak, yang deret angka tersebut sebenarnya merupakan hasil kalkulasi algoritma deterministik dan probabilitas. Jadi untuk pseudo-random ini, asalkan kita tau *state*-nya maka kita akan bisa menebak hasil deret angka random-nya.
+RNG bisa berupa hardware yang murni bisa menghasilkan data angka acak, atau bisa saja sebuah [pseudo-random](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) yang menghasilkan deret angka-angka yang **terlihat acak** tetapi sebenarnya tidak benar-benar acak. Deret angka tersebut sebenarnya merupakan hasil kalkulasi algoritma deterministik dan probabilitas. Jadi untuk pseudo-random ini, asalkan kita tau *state*-nya maka kita akan bisa menebak hasil deret angka random-nya.
 
-Dalam per-randoman-duniawi terdapat istilah **seed** atau titik mulai (*starting point*). Seed ini digunakan oleh RNG dalam peng-generate-an angka random di tiap urutannya.
+Dalam per-randoman-duniawi terdapat istilah **seed** atau titik mulai (*starting point*). Seed ini digunakan oleh RNG untuk pembuatan angka random.
 
 Sedikit ilustrasi mengenai korelasi antara seed dengan RNG, agar lebih jelas.
 
-- Dimisalkan saya menggunakan seed yaitu angka `10`, maka ketika fungsi RNG dijalankan untuk pertama kalinya, output angka yang dihasilkan pasti `5221277731205826435`. Angka random tersebut pasti *fix* dan akan selalu menjadi output angka random pertama yang dihasilkan, ketika seed yang digunakan adalah angka `10`.
+- Dimisalkan saya menggunakan seed yaitu angka `10`, maka ketika fungsi RNG dijalankan untuk pertama kalinya, output angka yang dihasilkan pasti `5221277731205826435`. Angka random tersebut pasti *fix* dan akan selalu menjadi hasil pertama ketika seed yang digunakan adalah angka `10`.
 - Misalnya lagi, fungsi RNG di-eksekusi untuk ke-dua kalinya, maka angka random kedua yang dihasilkan adalah pasti `3852159813000522384`. Dan seterusnya.
 - Misalkan lagi, fungsi RNG di-eksekusi lagi, maka angka random ketiga pasti `8532807521486154107`.
 - Jadi untuk seed angka `10`, akan selalu menghasilkan angka random ke-1: `5221277731205826435`, ke-2: `3852159813000522384`, ke-3 `8532807521486154107`. Meskipun fungsi random dijalankan di program yang berbeda, di waktu yang berbeda, di environment yang berbeda, jika seed adalah `10` maka deret angka random yang dihasilkan pasti sama seperti contoh di atas.
 
 ## A.39.2. Package `math/rand`
 
-Di Go terdapat sebuah package yaitu `math/rand` yang isinya banyak sekali API untuk keperluan penciptaan angka random. Package ini mengadopsi **PRNG** atau *pseudo-random* number generator. Deret angka random yang dihasilkan sangat tergantung dengan angka **seed** yang digunakan.
+Go menyediakan package `math/rand`, isinya banyak sekali API untuk keperluan pembuatan angka random. Package ini mengadopsi **PRNG** atau *pseudo-random* number generator. Deret angka random yang dihasilkan sangat tergantung dengan angka **seed** yang digunakan.
 
-Cara menggunakan package ini sangat mudah, yaitu cukup import `math/rand`, lalu set seed-nya, lalu panggil fungsi untuk generate angka random-nya. Lebih jelasnya silakan cek contoh berikut.
+Cara penggunaan package ini sangat mudah, cukup import `math/rand`, lalu tentukan nilai seed, kemudian panggil fungsi untuk generate angka random-nya. Lebih jelasnya silakan cek contoh berikut.
 
 ```go
 package main
@@ -53,9 +53,9 @@ Jika perlu jalankan program di atas beberapa kali, hasilnya selalu sama untuk an
 
 ## A.39.3. Unique Seed
 
-Lalu bagaimana cara agar angka yang dihasilkan selalu berbeda setiap kali dipanggil? Apakah harus set ulang seed-nya? Jangan, karena kalau seed di-set ulang maka urutan deret random akan berubah. Seed hanya perlu di set sekali di awal. Lha, terus bagaimana?
+Lalu bagaimana cara agar angka yang dihasilkan selalu berbeda setiap kali dipanggil? Apakah harus set ulang seed-nya? Jangan, karena kalau seed di-set ulang maka urutan deret random akan berubah. Seed hanya perlu di set sekali di awal. Lalu apa solusi yang benar?
 
-Jadi begini, setiap kali `randomizer.Int()` dipanggil, hasilnya itu selalu berbeda, tapi sangat bisa diprediksi jika kita tau seed-nya, dan ini adalah masalah besar. Nah, ada cara agar angka random yang dihasilkan tidak berulang-ulang selalu contoh di-atas, caranya adalah menggunakan angka yang *unique*/unik sebagai seed, contohnya seperti angka [unix nano](https://en.wikipedia.org/wiki/GNU_nano) dari waktu sekarang.
+Jadi begini, setiap kali `randomizer.Int()` dipanggil, hasilnya itu selalu berbeda, tapi sangat bisa diprediksi jika kita tau seed-nya. Ada cara agar angka random yang dihasilkan tidak berulang-ulang seperti yang ada di contoh, caranya yaitu dengan menggunakan angka unik *unique*/unik sebagai seed, contohnya seperti angka [unix nano](https://en.wikipedia.org/wiki/GNU_nano) yang didapat dari informasi waktu sekarang.
 
 Coba modifikasi program dengan kode berikut, lalu jalankan ulang. Jangan lupa meng-import package `time` ya.
 
@@ -68,7 +68,7 @@ fmt.Println("random ke-3:", randomizer.Int())
 
 ![Random Golang with unix nano seed](images/A_random_2.png)
 
-Bisa dilihat, setiap program dieksekusi angka random nya selalu berbeda, hal ini karena seed yang digunakan pasti berbeda satu sama lain saat program dijalankan. Seed-nya adalah angka unix nano dari waktu sekarang.
+Bisa dilihat, setiap program dieksekusi angka random nya selalu berbeda, hal ini karena seed yang digunakan pasti berbeda di setiap eksekusi program. Disitu seed yang digunakan adalah data numerik unix nano dari informasi waktu sekarang.
 
 ## A.39.4. Random Tipe Data Numerik Lainnya
 
@@ -89,11 +89,11 @@ lebih detailnya silakan merujuk ke https://golang.org/pkg/math/rand/
 
 ## A.39.5. Angka Random Index Tertentu
 
-Gunakan `randomizer.Intn(n)` untuk mendapatkan angka random dengan batas `0` hingga <`n`, contoh: `randomizer.Intn(100)` akan mengembalikan angka acak dari 0 hingga 99.
+Gunakan `randomizer.Intn(n)` untuk mendapatkan angka random dengan batas `0` hingga `n - 1`, contoh: `randomizer.Intn(100)` akan mengembalikan angka acak dari 0 hingga 99.
 
 ## A.39.6. Random Tipe Data String
 
-Untuk menghasilkan data random string, ada banyak cara yang bisa digunakan, salah satunya adalah dengan memafaatkan alfabet dan hasil random numerik.
+Untuk menghasilkan data random string, ada banyak cara yang bisa diterapkan, salah satunya adalah dengan memafaatkan alfabet dan hasil random numerik.
 
 ```go
 var randomizer = rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
