@@ -62,7 +62,7 @@ tree .
 
 Folder `yourproject/model` berisikan file-file `.proto` (dua buah file proto didefinisikan). Dari kedua file di atas akan di-generate file model `.go` menggunakan command `protoc`. Nantinya generated file tersebut dipakai dalam `main.go`.
 
-#### • File `user.proto`
+#### ◉ File `user.proto`
 
 OK, mari kita masuk ke bagian tulis-menulis kode. Buka file `user.proto`, tulis kode berikut.
 
@@ -152,7 +152,7 @@ type UserList struct {
 }
 ```
 
-#### • File `garage.proto`
+#### ◉ File `garage.proto`
 
 Sekarang beralih ke file ke-dua, `garage.proto`. Silakan tulis kode berikut.
 
@@ -312,7 +312,7 @@ Package model yang isinya generated proto file, di-import. Dari package tersebut
     }
     ```
 
-#### • Print proto object
+#### ◉ Print proto object
 
 Print salah satu objek yang sudah dibuat di atas.
 
@@ -332,7 +332,7 @@ Pada statement print pertama, objek ditampilkan apa adanya. Generated struct mem
 
 Di statement print kedua, method `.String()` diakses, menampilkan semua property yang didefinisikan dalam proto message (property `XXX_` tidak dimunculkan).
 
-#### • Konversi objek proto ke json string
+#### ◉ Konversi objek proto ke json string
 
 Tambahkan kode berikut:
 
@@ -360,7 +360,7 @@ Jalankan aplikasi, cek hasilnya.
 
 Selain method `.Marshal()`, konversi ke json string bisa dilakukan lewat method `.MarshalToString()`.
 
-#### • Konversi json string ke objek proto
+#### ◉ Konversi json string ke objek proto
 
 Proses unmarshal dari json string ke objek proto, dapat menggunakan `protojson.Unmarshal`, dengan parameter pertama disisipi data json byte dan parameter kedua disisipi objek proto pointer.
 
