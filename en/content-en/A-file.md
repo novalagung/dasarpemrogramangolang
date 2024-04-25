@@ -1,12 +1,12 @@
 # A.50. File
 
-Ada beberapa cara yang bisa digunakan untuk operasi file di Go. Pada chapter ini kita akan mempelajari teknik yang paling dasar, yaitu dengan memanfaatkan `os.File`.
+Pada chapter ini kita akan belajar beberapa teknik operasi file yang paling dasar.
 
 ## A.50.1. Membuat File Baru
 
-Pembuatan file di Go sangatlah mudah, cukup dengan memanggil fungsi `os.Create()` lalu memasukkan path file yang ingin dibuat sebagai parameter. Jika ternyata file yang akan dibuat sudah ada, maka akan ditimpa. Bisa memanfaatkan `os.IsNotExist()` untuk mendeteksi apakah file sudah dibuat atau belum.
+Pembuatan file di Go sangat mudah, dilakukan dengan memanfaatkan fungsi `os.Create()` disertai path file sebagai argument pemanggilan fungsi. Jika ternyata file yang akan dibuat sudah ada duluan, maka operasi `os.Create()` akan menimpa file yang sudah ada dengan file baru. Untuk menghindari penimpaan file, gunakan fungsi `os.IsNotExist()` untuk mendeteksi apakah file yang ingin dibuat sudah ada atau belum.
 
-Berikut merupakan contoh pembuatan file.
+Contoh program operasi pembuatan file:
 
 ```go
 package main
@@ -43,17 +43,17 @@ func main() {
 }
 ```
 
-Fungsi `os.Stat()` mengembalikan 2 data, yaitu informasi tetang path yang dicari, dan error (jika ada). Masukkan error kembalian fungsi tersebut sebagai parameter fungsi `os.IsNotExist()`, untuk mendeteksi apakah file yang akan dibuat sudah ada. Jika belum ada, maka fungsi tersebut akan mengembalikan nilai `true`.
+Fungsi `os.Stat()` mengembalikan 2 data, yaitu informasi tetang path yang dicari, dan error (jika ada). Masukkan error kembalian fungsi tersebut sebagai argument pemanggilan fungsi `os.IsNotExist()`, untuk mengetahui apakah file yang akan dibuat sudah ada. Jika rupanya file belum ada ada, maka fungsi tersebut akan mengembalikan nilai `true`.
 
-Fungsi `os.Create()` digunakan untuk membuat file pada path tertentu. Fungsi ini mengembalikan objek `*os.File` dari file yang bersangkutan. File yang baru terbuat statusnya adalah otomatis **open**, maka dari itu perlu untuk di-**close** menggunakan method `file.Close()` setelah file tidak digunakan lagi.
+Fungsi `os.Create()` ini mengembalikan objek bertipe `*os.File`. File yang baru dibuat, statusnya adalah otomatis **open**. Setelah operasi file selesai, file harus di-**close** menggunakan method `file.Close()`.
 
-Membiarkan file terbuka ketika sudah tak lagi digunakan bukan hal yang baik, karena efeknya ke memory dan akses ke file itu sendiri, file akan di-lock sehingga tidak bisa digunakan oleh proses lain selama status file masih open atau belum di-close.
+Membiarkan file terbuka ketika sudah tak lagi digunakan adalah tidak baik, karena ada efek ke memory dan akses ke file itu sendiri, file menjadi terkunci/locked, membuatnya tidak bisa diakses oleh proses lain selama status file statusnya masih **open** dan belum di-close.
 
 ![Membuat file baru](images/A_file_1_create.png)
 
 ## A.50.2. Mengedit Isi File
 
-Untuk mengedit file, yang perlu dilakukan pertama adalah membuka file dengan level akses **write**. Setelah mendapatkan objek file-nya, gunakan method `WriteString()` untuk pengisian data. Terakhir panggil method `Sync()` untuk menyimpan perubahan.
+Untuk mengedit file, yang pertama perlu dilakukan adalah membuka file dengan level akses **write**. Setelah mendapatkan objek file-nya, gunakan method `WriteString()` untuk penulisan data. Di akhir, panggil method `Sync()` untuk menyimpan perubahan.
 
 ```go
 func writeFile() {
@@ -80,13 +80,13 @@ func main() {
 }
 ```
 
-Pada program di atas, file dibuka dengan level akses **read** dan **write** dengan kode permission **0664**. Setelah itu, beberapa string diisikan ke dalam file tersebut menggunakan `WriteString()`. Di akhir, semua perubahan terhadap file akan disimpan dengan dipanggilnya `Sync()`.
+Pada program di atas, file dibuka dengan level akses **read** dan **write** dengan kode permission **0664**. Setelah itu, beberapa string diisikan ke dalam file tersebut menggunakan `WriteString()`. Di akhir, semua perubahan terhadap file menjadi tersimpan dengan adanya pemanggilan method `Sync()`.
 
 ![Mengedit file](images/A_file_2_write.png)
 
 ## A.50.3. Membaca Isi File
 
-File yang ingin dibaca harus dibuka terlebih dahulu menggunakan fungsi `os.OpenFile()` dengan level akses minimal adalah **read**. Setelah itu, gunakan method `Read()` dengan parameter adalah variabel, yang di mana hasil proses baca akan disimpan ke variabel tersebut.
+File yang ingin dibaca harus dibuka terlebih dahulu menggunakan fungsi `os.OpenFile()` dengan level akses minimal adalah **read**. Dari object file kembalian fungsi tersebut, gunakan method `Read()` dengan disertai argument berupa variabel yang akan menampung data hasil operasi baca.
 
 ```go
 // tambahkan di bagian import package io
@@ -120,21 +120,21 @@ func main() {
 }
 ```
 
-Pada kode di atas `os.OpenFile()` digunakan untuk membuka file. Fungsi tersebut memiliki beberapa parameter.
+Fungsi `os.OpenFile()` dalam pemanggilannya memerlukan beberapa argument parameter untuk di-isi:
 
  1. Parameter pertama adalah path file yang akan dibuka.
  2. Parameter kedua adalah level akses. `os.O_RDONLY` maksudnya adalah **read only**.
  3. Parameter ketiga adalah permission file-nya.
 
-Variabel `text` disiapkan bertipe slice `[]byte` dengan alokasi elemen 1024. Variabel tersebut bertugas menampung data hasil statement `file.Read()`. Proses pembacaan file akan dilakukan terus menerus, berurutan dari baris pertama hingga akhir.
+Variabel `text` disiapkan bertipe slice `[]byte` dengan alokasi elemen `1024`. Variabel tersebut bertugas menampung data hasil statement `file.Read()`. Proses pembacaan file dilakukan terus menerus, berurutan dari baris pertama hingga akhir.
 
-Error yang muncul ketika eksekusi `file.Read()` akan di-filter, ketika error tersebut adalah selain `io.EOF` maka proses baca file akan berlanjut. Error `io.EOF` sendiri menandakan bahwa file yang sedang dibaca adalah baris terakhir isi atau **end of file**.
+Error yang muncul ketika eksekusi `file.Read()` akan di-filter, ketika error adalah selain `io.EOF` maka proses baca file akan berlanjut. Error `io.EOF` sendiri menandakan bahwa file yang sedang dibaca adalah baris terakhir isi atau **end of file**.
 
 ![Membaca isi file](images/A_file_3_read.png)
 
 ## A.50.4. Menghapus File
 
-Cara menghapus file sangatlah mudah, cukup panggil fungsi `os.Remove()`, masukan path file yang ingin dihapus sebagai parameter.
+Operasi menghapus file dilakukan via fungsi `os.Remove()`. Panggil fungsi tersebut, kemudian isi path dari file yang ingin dihapus sebagai argument fungsi.
 
 ```go
 func deleteFile() {
