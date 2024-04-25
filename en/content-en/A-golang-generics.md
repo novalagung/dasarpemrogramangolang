@@ -1,20 +1,20 @@
 # A.65. Go Generics
 
-Pada chapter ini kita akan belajar tentang Generics di Go.
+Pada chapter ini kita akan belajar tentang penerapan Generics di Go.
 
 ## A.65.1. Konsep Generic Programming
 
-Generic Programming adalah salah satu metode dalam penulisan kode program, di mana tipe data dalam kode didefinisikan menggunakan tipe data yang tipe pastinya adalah dituliskan belakangan saat kode tersebut di-call atau dieksekusi. Konsep ini sudah cukup umum terutama pada bahasa yang static type.
+Generic Programming adalah salah satu metode dalam penulisan kode program, di mana tipe data dalam kode didefinisikan menggunakan suatu tipe yang tipe pastinya ditulis belakangan saat kode tersebut di-call atau dieksekusi. Konsep generic ini cukup umum diterapkan terutama pada bahasa pemrograman yang mengadopsi static typing.
 
-Di Go, kita punya tipe `interface{}` yang biasa difungsikan sebagai tipe untuk menampung data yang tidak pasti tipe datanya. Generic dan `interface{}` berbeda. Tipe `interface{}` akan membungkus data aslinya atau *underlying value*-nya, dan untuk mengakses data tersebut, kita perlu menerapkan *type assertion*, contohnya `data.(int)`.
+Di Go, kita punya tipe `any` atau `interface{}` yang biasa difungsikan sebagai penampung data yang tidak pasti tipe datanya. Generic berbeda dibanding `any`. Tipe `any` dalam prakteknya membungkus data asli atau *underlying value*-nya, dengan pengaksesan data asli tersebut dilakukan via metode *type assertion*, contohnya `data.(int)`.
 
-Berbeda dibanding `interface{}`, pada penggunaan generic kita perlu mendefinisikan cakupan tipe data yang kompatibel untuk dipakai saat pemanggilan kode, atau bisa juga menggunakan keyword `comparable`, yang artinya tipe data adalah kompatibel dengan tipe apapun.
+Berbeda dibanding `any`, pada Generic kita perlu mendefinisikan cakupan tipe data yang kompatibel untuk digunakan saat pemanggilan kode.
 
-Ok, mari kita lanjut ke pembahasan yang lebih teknis agar tidak bingung.
+Ok, mari kita lanjut ke praktek saja agar tidak makin bingung.
 
 ## A.65.2. Penerapan Generic pada Fungsi
 
-Mari kita mulai pembelajaran dengan kode di bawah ini:
+Mari kita mulai pembelajaran dengan kode sederhana berikut:
 
 ```go
 package main
@@ -37,9 +37,11 @@ func main() {
 
 Pada kode di atas, didefinisikan sebuah fungsi `Sum()` yang tugasnya menghitung total atau *summary* dari data slice numerik yang disisipkan di parameter. Dalam `main()`, kita panggil fungsi tersebut untuk menghitung total dari sejumlah data dengan tipe `[]int`. Saya rasa sampai sini cukup jelas.
 
-Fungsi `Sum()` memiliki satu limitasinya, yaitu hanya bisa digunakan pada data yang tipenya `[]int`, tidak bisa untuk tipe slice numerik lain. Bagaimana jika menggunakan tipe `interface{}`? apakah bisa? bisa saja sebenarnya, tapi pastinya lebih report karena sulit untuk menerapkan *type assertion* kalau tidak tau tipe pasti parameter `numbers` itu apa. Penggunaan `interface{}` perlu dibarengi dengan penerapan [reflection API](/A-reflect.html).
+Fungsi `Sum()` memiliki satu limitasinya, yaitu hanya bisa digunakan pada data yang tipenya `[]int`, tidak bisa untuk tipe slice numerik lain. Bagaimana jika menggunakan tipe `interface{}`? apakah bisa? bisa saja sebenarnya, tapi pastinya lebih report karena sulit untuk menerapkan *type assertion* kalau tidak tau pasti cakupan tipe yang di-support oleh parameter `numbers` itu apa saja.
 
-Di sini kita bisa terapkan Generic, kita akan modifikasi fungsi di atas agar bisa menampung tipe data slice numerik lainnya diluar `[]int`.
+> Alternatifnya, penggunaan `interface{}` bisa dibarengi dengan penerapan [reflection API](/A-reflect.html).
+
+Nah, agar tidak repot, di sini kita akan terapkan Generic. Kode akan dimodifikasi atas agar bisa menampung tipe data slice numerik lainnya diluar tipe `[]int`.
 
 Ok, sekarang ubah kode fungsi `Sum` menjadi seperti di bawah ini:
 
@@ -93,11 +95,13 @@ func main() {
 }
 ```
 
+Output program:
+
 ![Golang generic](images/A_generics_1.png)
 
 ## A.65.3. Comparable Data Type pada Fungsi Generic
 
-Selanjutnya kita modifikasi lagi fungsi `Sum` agar tipe kompatibel `V` di sini kompatibel dengan tipe numerik lainnya seperti `float64`. Caranya sangat mudah, cukup tambahkan tipe datanya pada statement `V int` dengan delimiter pipe (`|`).
+Selanjutnya, modifikasi lagi fungsi `Sum` agar tipe kompatibel `V` di sini bisa kompatibel dengan tipe numerik lainnya seperti `float64`. Caranya sangat mudah, cukup tambahkan tipe data yang diinginkan untuk kompatibel pada statement `V int` menggunakan delimiter pipe (`|`).
 
 ```go
 func Sum[V int | float32 | float64](numbers []V) V {
@@ -126,7 +130,7 @@ fmt.Println("total:", total3)
 
 ![Golang generic](images/A_generics_2.png)
 
-Nice, hasilnya sesuai harapan. Sampai sini kita sudah paham bagaimana cara pendefinisian tipe kompatibel pada fungsi dan cara pemanfaatannya.
+Jos gandos, hasilnya sesuai harapan. Sampai sini kita sudah paham bagaimana cara pendefinisian tipe kompatibel pada fungsi dan cara pemanfaatannya.
 
 ## A.65.4. Tipe Argumen Saat Pemanggilan Fungsi Generic
 
@@ -146,15 +150,15 @@ Sum[float32]([]float32{2.5, 7.2})
 Sum[float64]([]float64{1.23, 6.33, 12.6})
 ```
 
-Di case ini (dan banyak case lainnya), tipe data kompatibel tidak perlu dituliskan secara eksplisit karena secara cerdas kompiler bisa mendeteksi tipe yang kompatibel berdasarkan tipe data parameter saat pemanggilan fungsi.
+Di case ini (dan banyak case lainnya), tipe data yang sudah kompatibel tidak perlu dituliskan secara eksplisit karena kompiler secara cerdas bisa mendeteksi tipe yang kompatibel berdasarkan tipe data parameter saat pemanggilan fungsi.
 
 ## A.65.5. Keyword `comparable`
 
-Sekarang kita akan belajar kegunaan satu keyword penting, yaitu `comparable`. Keyword tersebut merupakan tipe data yang kompatibel dengan semua tipe yang ada.
+Sekarang kita akan belajar kegunaan satu keyword penting lainnya, yaitu `comparable`. Keyword ini merepresentasikan semua tipe data yang kompatibel.
 
 Pada kode di atas kita menggunakan `V int | float32 | float64` untuk mendefinisikan tipe yang kompatibel dengan tipe `int`, `float32`, dan `float64`. Jika ingin membuat tipe `V` kompatibel dengan banyak tipe lainnya, tambahkan saja tipe2 yang diinginkan. Atau, jika ingin kompatibel dengan **semua tipe data** maka gunakan `comparable`, penulisannya menjadi `V comparable`.
 
-Ok, mari kita coba terapkan. O iya, sebelum mulai, agar pembaca makin paham perihal fungsi generic, kita siapkan 2 fungsi yang mirip berikut:
+Ok, mari kita coba terapkan. Kita tidak akan menerapkan `comparable` pada contoh di atas karena fungsi `Sum()` kita desain untuk komputasi nilai numerik. Jika `comparable` diterapkan disitu jadinya kurang pas. Oleh karena itu kita siapkan 2 fungsi baru yang mirip berikut sebagai bahan praktek selanjutnya.
 
 ```go
 func SumNumbers1(m map[string]int64) int64 {
@@ -183,16 +187,16 @@ func main() {
 }
 ```
 
-Dua fungsi di atas mirip, tapi memiliki beberapa perbedaan:
+Dua fungsi di atas mirip, tapi memiliki beberapa perbedaan yaitu:
 
-1. Penulisan `SumNumbers1` adalah non-generic, sedangkan `SumNumbers2` adalah generic.
-2. Pada `SumNumbers1`, kita menggunakan kombinasi dua tipe data untuk membentuk `map`, yaitu `string` sebagai map key dan `int64` sebagai map value.
-3. Pada `SumNumbers2`, kita breakdown pendefinisian tipe data map menjadi lebih mendetail:
+1. Penulisan `SumNumbers1()` adalah non-generic, sedangkan `SumNumbers2()` adalah generic.
+2. Pada `SumNumbers1()`, kita menggunakan kombinasi dua tipe data untuk membentuk `map`, yaitu `string` sebagai map key dan `int64` sebagai map value.
+3. Pada `SumNumbers2()`, kita breakdown pendefinisian tipe data map menjadi lebih mendetail:
     - Tipe map key adalah `K` yang tipe datanya kompatibel dengan semua tipe data.
     - Tipe map value adalah `V` yang tipe datanya kompatibel dengan `int64` dan `float64`.
     - Yang sebelumnya `map[string]int64` kini menjadi `map[K]V`.
 
-Karena `SumNumbers2` menggunakan generic, maka fungsi ini mendukung sangat banyak tipe data karena menggunakan kombinasi dari tipe `K` yang kompatibel dengan semua tipe; dan tipe `V` yang kompatibel dengan `int64` dan `float64`.
+Karena `SumNumbers2()` menggunakan generic, maka fungsi ini mendukung sangat banyak tipe data karena menggunakan kombinasi dari tipe `K` yang kompatibel dengan semua tipe; dan tipe `V` yang kompatibel dengan `int64` dan `float64`.
 
 - `map[string]int64`
 - `map[interface{}]int64`
@@ -206,7 +210,7 @@ Jalankan kode, lihat hasilnya.
 
 ## A.65.6. Generic *Type Constraint*
 
-Selanjutnya buat fungsi `SumNumbers3`, isinya kurang lebih sama, hanya saja pada tipe data generic kita tidak menggunakan `V int64 | float64`, yang digunakan adalah `Number` yang merupakan tipe data baru (generic *type constraint*).
+Selanjutnya buat fungsi `SumNumbers3()` yang isinya kurang adalah lebih sama. Kali ini kita tidak menggunakan `V int64 | float64`, melainkan menggunakan tipe `Number` yang merupakan tipe data baru yang akan kita buat juga (generic *type constraint*).
 
 ```go
 type Number interface {
@@ -222,15 +226,15 @@ func SumNumbers3[K comparable, V Number](m map[K]V) V {
 }
 ```
 
-Cara pendefinisian generic *type constraint* adalah seperti pendefinisan tipe data kustom menggunakan keyword `type`, bedanya adalah di sini `interface{}` dipergunakan sebagai tipe, dan di dalamnya di-embed 2 tipe yang diinginkan untuk menjadi *comparable type*, yaitu `int64` dan `float64`. Dari sini, selanjutnya tipe `Number` bisa dimanfaatkan sebagai tipe data kompatibel dalam generic.
+Cara pendefinisian generic *type constraint* adalah seperti pendefinisan tipe data kustom menggunakan keyword `type`, bedanya adalah di sini `interface{}` dipergunakan sebagai tipe, yang di dalamnya di-embed 2 tipe yang diinginkan untuk menjadi *comparable type*, yaitu `int64` dan `float64`. Hasilnya, tipe `Number` bisa dimanfaatkan dalam penerapan generic sebagai tipe data yang kompatibel.
 
 > Perlu diketahui, tipe yang didefinisikan menggunakan *type constraint* ini hanya bisa dimanfaatkan pada generic. Tipe jenis ini tidak bisa digunakan di luar scope kode generic. Sebagai contoh, coba deklarasikan `var s Number` dalam fungsi `main()`, hasilnya akan muncul syntax error.
 
-Ok, sekarang mari ubah pemanggilan fungsi `SumNumbers2` pada main menjadi `SumNumbers3` dan lihat hasilnya, jalan.
+Ok, sekarang ubah pemanggilan fungsi `SumNumbers2()` pada main menjadi `SumNumbers3()` lalu coba jalankan dan lihat hasilnya, pasti outputnya sama, menandakan bahwa kode program berjalan sesuai desain.
 
 ## A.65.7. Struct Generic
 
-Generic juga bisa diterapkan pada pendefinisian struct, contohnya seperti berikut:
+Generic juga bisa diterapkan pada struct, contohnya:
 
 ```go
 type UserModel[T int | float64] struct {
@@ -259,7 +263,7 @@ func main() {
 }
 ```
 
-Pada penulisan struct, sisipkan notasi generic. Lalu pada deklarasi variabel object, tulis secara eksplisit tipe data untuk variabel kompatibel.
+Cukup tuliskan notasi generic pada deklarasi struct. Kemudian siapkan variabel object, tulis secara eksplisit tipe data untuk variabel kompatibel.
 
 ![Golang generic](images/A_generics_4.png)
 
@@ -267,9 +271,7 @@ Pada penulisan struct, sisipkan notasi generic. Lalu pada deklarasi variabel obj
 
 Sampai artikel ini ditulis, generic tidak bisa diterapkan pada method (meski bisa diterapkan pada fungsi)
 
----
-
-Ok, sekian pembahasan mengenai generics. Jika ada update perihal generic API akan penulis update ke chapter ini juga.
+> Penulis akan update konten chapter ini jika ada update pada spesifikasi generic API.
 
 ---
 
