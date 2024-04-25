@@ -1,6 +1,6 @@
 # Author & Contributors
 
-E-book Dasar Pemrograman Golang adalah proyek *open source*. Siapapun bebas untuk berkontribusi di sini, bisa dalam bentuk perbaikan *typo*, update kalimat, maupun submit tulisan baru. Bagi teman-teman yang berminat untuk berkontribusi, silakan ikuti petunjuk berikut:
+E-book Dasar Pemrograman Golang adalah proyek *open source*. Siapapun bebas untuk berkontribusi di sini, bisa dalam bentuk perbaikan *typo*, update kalimat, maupun submit tulisan baru. Bagi pembaca yang berminat untuk berkontribusi, silakan ikuti petunjuk berikut:
 
 1. *Fork* https://github.com/novalagung/dasarpemrogramangolang.
 1. *Commit* perbaikan anda ke branch baru.
