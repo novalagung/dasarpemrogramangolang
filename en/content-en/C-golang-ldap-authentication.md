@@ -4,11 +4,11 @@ Pada chapter ini kita belajar mengenai otentikasi user ke *Directory Service* le
 
 ## C.33.1. Definisi
 
-#### • LDAP
+#### ◉ LDAP
 
 LDAP (Lightweight Directory Access Protocol) adalah protokol yang digunakan untuk mengakses **Directory Services** dalam sebuah komunikasi client-server.
 
-#### • Directory Services
+#### ◉ Directory Services
 
 Directory Services adalah sebuah sistem yang menyimpan, mengelola, dan menyediakan akses informasi untuk menghubungkan sumber daya network (atau network resources). Network resources yang dimaksud contohnya:
 
@@ -26,11 +26,11 @@ Dengan terhubungnya resources tersebut, akan mudah bagi kita untuk mengelola ban
 
 Selain itu, juga LDAP sering dimanfaatkan dalam implementasi SSO (Single sign-on).
 
-#### • Bind Operation
+#### ◉ Bind Operation
 
 Operasi bind digunakan untuk otentikasi client ke directory server, dan juga untuk mengubah state otorisasi client tersebut. Operasi bind dilakukan dengan mengirim informasi bind dn dan password.
 
-#### • Directory Server untuk Testing
+#### ◉ Directory Server untuk Testing
 
 Karena komunikasi adalah client-server maka kita perlu menggunakan salah satu directory server untuk keperluan testing. Beruntung-nya [Forum Systems](http://www.forumsys.com) berbaik hati menyediakan directory server yg bisa diakses secara gratis oleh public, dan pada chapter ini akan kita menggunakannya.
 
