@@ -1,12 +1,12 @@
 # A.49. Exec
 
-**Exec** digunakan untuk eksekusi perintah command line lewat kode program. Command yang bisa dieksekusi adalah semua command yang bisa dieksekusi di terminal (atau CMD untuk pengguna Windows).
+**Exec** digunakan untuk eksekusi perintah command line lewat kode program. Command yang bisa dieksekusi adalah semua command yang bisa dieksekusi di command line sesuai sistem operasinya (Linux-distros, Windows, MacOS, dan lainnya).
 
 ## A.49.1. Penggunaan Exec
 
-Go menyediakan package `exec` berisikan banyak fungsi untuk keperluan eksekusi perintah CLI.
+Go menyediakan package `exec` isinya banyak sekali API atau fungsi untuk keperluan eksekusi perintah command line.
 
-Cara untuk eksekusi command cukup mudah, yaitu dengan menuliskan command dalam bentuk string, diikuti arguments-nya (jika ada) sebagai parameter variadic pada fungsi `exec.Command()`.
+Cara eksekusi command adalah menggunakan fungsi `exec.Command()` dengan argument pemanggilan fungsi diisi command CLI yang diinginkan. Contoh:
 
 ```go
 package main
@@ -26,15 +26,17 @@ func main() {
 }
 ```
 
-Fungsi `exec.Command()` digunakan untuk menjalankan command. Fungsi tersebut bisa langsung di-chain dengan method `Output()`, jika ingin mendapatkan outputnya. Output yang dihasilkan berbentuk `[]byte`, gunakan cast ke string untuk mengambil bentuk string-nya.
+Fungsi `exec.Command()` menjalankan command yang dituliskan pada argument pemanggilan fungsi.
+
+Untuk mendapatkan outputnya, chain saja langsung dengan method `Output()`. Output yang dihasilkan berbentuk `[]byte`, maka pastikan cast ke string terlebih dahulu untuk membaca isi outputnya.
 
 ![Ekeskusi command menggunakan exec](images/A_exec_1_exec.png)
 
 ## A.49.2. Rekomendasi Penggunaan Exec
 
-Kadang kala, pada saat eksekusi command yang sudah jelas-jelas ada (seperti `ls`, `dir`, atau lainnya) kita menemui error yang mengatakan command not found. Hal itu terjadi karena executable dari command-command tersebut tidak ada. Seperti di windows tidak ada `dir.exe` dan lainnya. Di OS non-windows-pun juga demikian.
+Ada kalanya saat eksekusi command yang sudah jelas-jelas ada (seperti `ls`, `dir`, atau lainnya), error muncul menginformasikan bahwa command tidak ditemukan (command not found). Hal ini biasanya terjadi karena executable dari command-command tersebut tidak ada. Seperti di windows tidak ada `cmd` atau `cmd.exe`, di Linux tidak ditentukan apakah memakai `bash` atau `shell`, dan lainnya
 
-Untuk mengatasi masalah ini, tambahkan `bash -c` pada linux/nix command atau `cmd /C` untuk windows.
+Untuk mengatasi masalah ini, tambahkan `bash -c` pada sistem operasi berbasi Linux, MacOS, Unix, atau `cmd /C` untuk OS Windows.
 
 ```go
 if runtime.GOOS == "windows" {
@@ -44,11 +46,11 @@ if runtime.GOOS == "windows" {
 }
 ```
 
-Statement `runtime.GOOS` mengembalikan informasi sistem operasi dalam string.
+Statement `runtime.GOOS` penggunaannya mengembalikan informasi sistem operasi dalam bentuk string. Manfaatkan seleksi kondisi untuk memastikan command yang ingin dieksekusi sudah sesuai dengan OS atau belum.
 
 ## A.49.3. Method Exec Lainnya
 
-Selain `.Output()` ada sangat banyak sekali API untuk keperluan komunikasi dengan OS/CLI yang bisa dipergunakan. Detailnya silakan langsung merujuk ke dokumentasi [https://golang.org/pkg/os/exec/](https://golang.org/pkg/os/exec/)
+Selain `.Output()` ada sangat banyak sekali API untuk keperluan komunikasi dengan OS/CLI yang bisa dipergunakan. Lebih detailnya silakan langsung melihat dokumentasi package tersebut di [https://golang.org/pkg/os/exec/](https://golang.org/pkg/os/exec/)
 
 ---
 
