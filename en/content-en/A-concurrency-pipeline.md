@@ -1,14 +1,14 @@
 # A.62. Concurrency Pattern: Pipeline
 
-Kita sudah membahas beberapa kali tentang *concurrency* atau konkurensi di Go programming. Pada chapter ini kita akan belajar salah satu best practice konkurensi dalam Go, yaitu *pipeline*, yang merupakan satu di antara banyak *concurrency pattern* yang ada di Go.
+Kita sudah membahas beberapa kali tentang topik *concurrency* atau konkurensi di Go programming. Pada chapter ini kita akan belajar salah satu best practice konkurensi dalam Go, yaitu teknik *pipeline*, yang merupakan satu di antara banyak *concurrency pattern* yang ada di Go.
 
-Go memiliki beberapa API untuk keperluan konkurensi, di antara *goroutine* dan *channel*. Dengan memanfaatkan APIs yang ada kita bisa membentuk sebuah *streaming data pipeline* yang benefitnya adalah efisiensi penggunaan I/O dan efisiensi penggunaan banyak CPU.
+Go memiliki beberapa API untuk keperluan konkurensi, dua diantaranya adalah *goroutine* dan *channel*. Dengan memanfaatkan APIs yang ada kita bisa membentuk sebuah *streaming data pipeline* yang benefitnya adalah efisiensi penggunaan I/O dan efisiensi penggunaan banyak CPU.
 
 ## A.62.1. Konsep *Pipeline*
 
 Definisi *pipeline* yang paling mudah versi penulis adalah **beberapa/banyak proses yang berjalan secara konkuren yang masing-masing proses merupakan bagian dari serangkaian tahapan proses yang berhubungan satu sama lain**.
 
-Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database secara rutin, yang di mana database yang di backup ada banyak. Untuk backup-nya sendiri kita menggunakan program Go, bukan *shell script*. Mungkin secara garis besar serangkaian tahapan proses yang akan dijalankan adalah berikut:
+Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database secara rutin, yang di mana database server yang perlu di-backup ada banyak. Untuk backup-nya sendiri kita menggunakan program Go, bukan *shell script*. Mungkin secara garis besar serangkaian tahapan proses yang akan dijalankan adalah berikut:
 
 1. Kita perlu data *list* dari semua database yang harus di-backup, beserta alamat akses dan kredensial-nya.
 2. Kita jalankan proses backup, bisa secara sekuensial (setelah `db1` selesai, lanjut `db2`, lanjut `db3`, dst), atau secara paralel (proses backup `db1`, `db2`, `db3`, dan lainnya dijalankan secara bersamaan).
@@ -18,7 +18,7 @@ Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database 
     * B. File-file hasil dump kemudian di-*archive* ke bentuk `.zip` atau `.tar.gz` (misalnya).
     * C. File archive di-kirim ke server backup, sebagai contoh AWS S3.
 
-Kalau diperhatikan pada kasus di atas, mungkin akan lebih bagus dari segi performansi kalau proses backup banyak database tersebut dilakukan secara parallel. Dan untuk ini penulis setuju.
+Kalau diperhatikan pada kasus di atas, mungkin akan lebih bagus dari segi performansi kalau proses backup banyak database tersebut dilakukan secara parallel.
 
 Dan akan lebih bagus lagi, jika di masing-masing proses backup database tersebut, proses A, B, dan C dijalankan secara konkuren. Dengan menjadikan ketiga proses tersebut (A, B, C) sebagai proses konkuren, maka I/O akan lebih efisien. Nantinya antara proses A, B, dan C eksekusinya akan tetap berurutan (karena memang harus berjalan secara urut. Tidak boleh kalau misal B lebih dulu dieksekusi kemudian A); akan tetapi, ketika goroutine yang bertanggung jawab untuk eksekusi proses A selesai, kita bisa lanjut dengan eksekusi proses B (yang memang *next stage*-nya proses A) plus eksekusi proses A lainnya (database lain) secara paralel. Jadi goroutine yang handle A ini ga sampai menganggur.
 
@@ -47,13 +47,13 @@ Untuk mempermudah memahami tabel di atas silakan ikuti penjelasan beruntun berik
 
 Pada contoh ini kita asumsikan pipeline A adalah hanya satu goroutine, pipeline B juga satu goroutine, demikian juga pipeline C. Tapi sebenarnya dalam implementasi *real world* bisa saja ada banyak goroutine untuk masing-masing pipeline (banyak goroutine untuk pipeline A, banyak goroutine untuk pipeline B, banyak goroutine untuk pipeline C).
 
-Semoga cukup jelas ya. Gpp kalau bingung, nanti kita sambil praktek juga jadi bisa saja temen-temen mulai benar-benar pahamnya setelah praktek.
+Semoga cukup jelas ya. Tapi jika masih bingung, juga tidak apa. Kita sambil praktek juga, dan bisa saja pembaca mulai benar-benar pahamnya saat praktek.
+
+> Penulis sarankan untuk benar-benar memahami setiap bagian praktek ini, karena topik ini merupakan pembahasan yang cukup berat untuk pemula, tapi masih dalam klasifikasi fundamental kalau di Go programming. Bingung tidak apa, nanti bisa di-ulang-ulang, yang penting tidak sekadar *copy-paste*.
 
 ## A.62.2. Skenario Praktek
 
 Ok, penjabaran teori sepanjang sungai `nil` tidak akan banyak membawa penjelasan yang real kalau tidak diiringi dengan praktek. So, mari kita mulai praktek.
-
-Penulis sarankan untuk benar-benar memahami setiap bagian praktek ini, karena topik ini merupakan pembahasan yang cukup berat untuk pemula, tapi masih dalam klasifikasi fundamental kalau di Go programming. Bingung tidak apa, nanti bisa di-ulang-ulang, yang penting tidak sekadar *copy-paste*.
 
 Untuk skenario praktek kita tidak menggunakan analogi backup database di atas ya, karena untuk setup environment-nya butuh banyak *effort*. Skenario praktek yang kita pakai adalah mencari [md5 sum](https://en.wikipedia.org/wiki/Md5sum) dari banyak file, kemudian menggunakan hash dari content-nya sebagai nama file. Jadi file yang lama akan di-rename dengan nama baru yaitu hash dari konten file tersebut.
 
@@ -63,7 +63,7 @@ Agar skenario ini bisa kita eksekusi, kita perlu siapkan dulu sebuah program unt
 
 Buat project baru dengan nama bebas <span style="text-decoration: line-through">loss gak reweellll</span> beserta satu buah file bernama `1-dummy-file-generator.go`.
 
-Dalam file tersebut import beberapa hal dan definisikan, yaitu:
+Dalam file tersebut import dan definisikan beberapa hal, diantaranya:
 
 1. Konstanta `totalFile` yang isinya jumlah file yang ingin di-generate.
 1. Variabel `contentLength` yang isinya panjang karakter random yang merupakan isi dari masing-masing *generated* file.
@@ -87,7 +87,7 @@ const contentLength = 5000
 var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.59-pipeline-temp")
 ```
 
-Kemudian siapkan fungsi `main()` yang isinya statement pemanggilan fungsi `generate()`. Selain itu juga ada beberapa statement untuk keperluan *benchmark* performa dari sisi *execution time*.
+Kemudian siapkan fungsi `main()` yang isinya statement pemanggilan fungsi `generate()`, dan beberapa hal lainnya untuk keperluan *benchmark* performa dari sisi *execution time*.
 
 ```go
 func main() {
@@ -117,7 +117,7 @@ func randomString(length int) string {
 }
 ```
 
-Lalu siapkan fungsi `generateFiles()`-nya. isinya kurang lebih adalah generate banyak file sejumlah `totalFile`. Lalu di tiap-tiap file di-isi dengan *random string* dengan lebar sepanjang `contentLength`. Untuk nama file-nya sendiri, formatnya adalah `file-<index>.txt`.
+Siapkan fungsi `generateFiles()`-nya, isinya kurang lebih adalah generate banyak file sejumlah `totalFile`. Lalu di tiap-tiap file di-isi dengan *random string* dengan lebar sepanjang `contentLength`. Untuk nama file-nya sendiri, formatnya adalah `file-<index>.txt`.
 
 ```go
 func generateFiles() {
@@ -151,9 +151,9 @@ Bisa dilihat sebanyak 3000 dummy file di-generate pada folder temporary os, di s
 
 ## A.62.4. Program 2: Baca Semua Files, Cari MD5 Hash-nya, Lalu Gunakan Hash Untuk Rename File
 
-Sesuai judul sub bagian, kita akan buat satu file program lagi, yang isinya kurang lebih adalah melakukan pembacaan terhadap semua dummy file yang sudah di-generate untuk kemudian dicari *hash*-nya, lalu menggunakan value hash tersebut sebagai nama file baru masing-masing file.
+Sesuai judul sub bagian, kita akan buat satu file program lagi, yang isinya adalah melakukan operasi baca terhadap semua dummy file yang sudah di-generate, untuk kemudian dicari *hash*-nya lalu menggunakan nilai hash tersebut sebagai nama untuk file-file baru yang akan dibuat.
 
-Pada bagian ini kita belum masuk ke aspek konkurensi-nya ya. Sabar dulu. Saya akan coba sampaikan dengan penjabaran yang bisa diterima oleh banyak pembaca termasuk yang masih junior.
+Pada bagian ini kita belum masuk ke aspek konkurensi-nya ya. Sabar dulu. Saya akan coba sampaikan dengan penjabaran yang bisa diterima oleh banyak pembaca (termasuk yang masih awam banget).
 
 Siapkan file `2-find-md5-sum-of-file-then-rename-it.go`, import beberapa *packages* dan siapkan definisi variabel `tempPath`.
 
@@ -233,7 +233,7 @@ func proceed() {
 }
 ```
 
-Cukup panjang isi fungsi ini, tetapi isinya cukup *straightforward* kok.
+Cukup panjang isi fungsi ini, tetapi isinya cukup *straight forward* kok.
 
 * Pertama kita siapkan `counterTotal` sebagai counter jumlah file yang ditemukan dalam `$TEMP/chapter-A.59-pipeline-temp`. Idealnya jumlahnya adalah sama dengan isi variabel `totalFile` pada program pertama, kecuali ada error.
 * Kedua, kita siapkan `counterRenamed` sebagai counter jumlah file yang berhasil di-rename. Untuk ini juga idealnya sama dengan nilai pada `counterTotal`, kecuali ada error
@@ -250,7 +250,7 @@ Selesai dalam waktu **1,17 detik**, lumayan untuk eksekusi proses sekuensial.
 
 Ok, aplikasi sudah siap. Selanjutnya kita akan refactor aplikasi tersebut ke bentuk konkuren menggunakan metode *pipeline*.
 
-## A.62.5. Program 3: Lakukan Proses Secara Concurrent Menggunakan Pipeline
+## A.62.5. Program 3: Lakukan Proses Secara Concurrent Menggunakan Teknik Pipeline
 
 Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kalau dilihat dari perspektif bisnis logic, tapi metode yang kita terapkan dari sisi engineering berbeda. Di sini kita akan terapkan *pipeline*. Bisnis logic akan dipecah menjadi 3 dan seluruhnya dieksekusi secara konkuren, yaitu:
 
@@ -258,9 +258,9 @@ Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kal
 * Proses perhitungan md5 hash sum
 * Proses rename file
 
-Kenapa kita pecah, karena ketiga proses tersebut bisa dijalankan bersama secara konkuren, dalam artian misalnya ketika file1 sudah selesai dibaca, perhitungan md5 sum nya bisa dijalankan secara bersama dengan pembacaan file2. Begitu juga untuk proses rename-nya, misalnya, proses rename file24 bisa dijalnkan secara konkuren bersamaan dengan proses hitung md5 sum file22 dan bersamaan dengan proses baca file28.
+Kenapa kita pecah, karena ketiga proses tersebut bisa dijalankan bersama secara konkuren, dalam artian misalnya ketika `file1` sudah selesai dibaca, perhitungan md5sum-nya bisa dijalankan secara bersama dengan pembacaan `file2`. Begitu juga untuk proses rename-nya, misalnya, proses rename `file24` bisa dijalnkan secara konkuren bersamaan dengan proses hitung md5sum `file22` dan bersamaan dengan proses baca `file28`.
 
-#### • Basis Kode Program
+#### ◉ Basis Kode Program
 
 Mungkin agar lebih terlihat perbandingannya nanti di akhir, kita siapkan file terpisah saja untuk program ini. Siapkan file baru bernama `3-find-md5-sum-of-file-then-rename-it-concurrently.go`.
 
@@ -291,7 +291,7 @@ type FileInfo struct {
 
 Kurang lebih sama seperti sebelumnya, hanya saja ada beberapa packages lain yg di-import dan ada struct `FileInfo`. Struct ini digunakan sebagai metadata tiap file. Karena nantinya proses read file, md5sum, dan rename file akan dipecah menjadi 3 goroutine berbeda, maka perlu ada metadata untuk mempermudah tracking file, agar nanti ketika dapat md5 sum nya tidak salah simpan, dan ketika rename tidak salah file.
 
-#### • Pipeline 1: Baca File
+#### ◉ Pipeline 1: Baca File
 
 Siapkan fungsi main, lalu panggil fungsi `readFiles()`.
 
@@ -349,17 +349,17 @@ func readFiles() <-chan FileInfo {
 }
 ```
 
-Bisa dilihat isi fungsi `readFiles()`. Di fungsi tersebut ada sebuah channel bernama `chanOut` tipenya channel `FileInfo`, yang variabel channel ini langsung dijadikan nilai balik dari fungsi `readFiles()`.
+Bisa dilihat isi fungsi `readFiles()`. Di fungsi tersebut ada sebuah channel bernama `chanOut` tipenya channel `FileInfo`, variabel channel ini dijadikan nilai balik dari fungsi `readFiles()`.
 
 Di dalam fungsi `readFiles()` juga ada proses lain yang berjalan secara *asynchronous* dan *concurrent* yaitu goroutine yang isinya pembacaan file. Dalam blok kode baca file, informasi `path` dan konten file dibungkus dalam objek baru dengan tipe `FileInfo` kemudian dikirim ke channel `chanOut`.
 
-Karena proses utama dalam fungsi `readFiles` berada dalam goroutine, maka di `main()`, ketika statement `chanFileContent := readFiles()` selesai dieksekusi, bukan berarti proses pembacaan file selesai, malah mungkin baru saja dimulai. Ini karena proses baca file dijalankan dalam goroutine di dalam fungsi `readFiles()` tersebut.
+Karena proses utama dalam fungsi `readFiles()` berada dalam goroutine, maka di `main()`, ketika statement `chanFileContent := readFiles()` selesai dieksekusi, bukan berarti proses pembacaan file selesai, malah mungkin baru saja dimulai. Ini karena proses baca file dijalankan dalam goroutine di dalam fungsi `readFiles()` tersebut.
 
 Mengenai channel `chanOut` sendiri, akan di-close ketika dipastikan **semua file sudah dikirim datanya ke channel tersebut** (silakan lihat statement `close(chanOut)` di akhir goroutine).
 
 Ok lanjut, karena di sini ada channel yang digunakan sebagai media pengiriman data (`FileInfo`), maka juga harus ada penerima data channel-nya dong. Yups.
 
-#### • Pipeline 2: MD5 Hash Konten File
+#### ◉ Pipeline 2: MD5 Hash Konten File
 
 Tepat di bawah pipeline 1, tambahkan pemanggilan fungsi `getSum()` sebanyak 3x, bisa lebih banyak sih sebenarnya, bebas. Kemudian jadikan nilai balik pemanggilan fungsi tersebut sebagai variadic argument pemanggilan fungsi `mergeChanFileInfo()`.
 
@@ -390,7 +390,7 @@ Jadi TL;DR nya:
 * Fungsi Fan-out digunakan untuk pembuatan worker, untuk distribusi job, yang proses distribusinya sendiri akan berhenti ketika channel inputan di-close.
 * Fungsi Fan-in digunakan untuk *multiplexing* atau menggabung banyak worker ke satu channel saja, yang di mana channel baru ini juga otomatis di-close ketika channel input adalah closed.
 
-Lanjut buat fungsi `getSum()`-nya.
+Sekarang lanjut buat fungsi `getSum()`.
 
 ```go
 func getSum(chanIn <-chan FileInfo) <-chan FileInfo {
@@ -447,7 +447,7 @@ Secara garis besar, pada fungsi ini terjadi beberapa proses:
 * Channel `chanOut` ini dijadikan sebagai nilai balik fungsi.
 * Di situ kita gunakan `sync.WaitGroup` untuk kontrol goroutine. Kita akan tunggu hingga semua channel input adalah closed, setelah itu barulah kita close channel `chanOut` ini.
 
-#### • Pipeline 3: Rename file
+#### ◉ Pipeline 3: Rename file
 
 Tambahkan statement pipeline ketiga, yaitu pemanggilan fungsi Fan-out `rename()`, lalu panggil fungsi Fan-in `mergeChanFileInfo()` untuk multiplex channel kembalian fungsi `rename()`.
 
@@ -493,7 +493,7 @@ Bisa dilihat di atas kita rename file asli yang informasi path-nya ada di `FileI
 
 Setelah semua file berhasil di-rename, maka channel `chanOut` di-close.
 
-#### • Pipeline 4 / Output
+#### ◉ Pipeline 4 / Output
 
 Serangkaian proses yang sudah kita setup punya ketergantungan tinggi satu sama lain, dan eksekusinya harus berurutan meskipun *concurrently*. Ini secara langsung juga mempermudah kita dalam mengolah output hasil pipeline. Kita cukup fokus ke channel hasil Fan-in yang paling terakhir, yaitu channel `chanRename`.
 
@@ -528,9 +528,11 @@ Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutu
 
 ## A.62.6. Kesimpulan
 
-Pipeline concurrency pattern sangat bagus untuk diterapkan pada kasus yang proses-nya bisa di-klasifikasi menjadi sub-proses kecil-kecil yang secara I/O tidak saling tunggu (tapi secara flow harus berurutan).
+Pipeline concurrency pattern sangat bagus untuk diterapkan pada case yang proses-nya bisa diklasifikasi menjadi sub-proses kecil-kecil yang secara I/O tidak saling tunggu (tapi secara flow harus berurutan).
 
-Untuk banyak kasus, metode pipeline ini sangat tepat guna. Kita bisa dengan mudah mengontrol penggunaan resource seperti **CPU** dengan cara menentukan angka ideal jumlah worker untuk masing-masing pipeline, tapi untuk bagian ini butuh *test and try*, karena tidak selalu banyak worker itu menghasilkan proses yang lebih cepat. Bisa jadi karena terlalu banyak worker malah lebih lambat. Jadi silakan lakukan testing saja, sesuaikan dengan spesifikasi CPU laptop/komputer/server yang digunakan.
+Untuk banyak kasus, metode pipeline ini sangat tepat guna. Kita bisa dengan mudah mengontrol penggunaan resource seperti **CPU** dengan cara menentukan angka ideal jumlah worker untuk masing-masing pipeline, tapi untuk bagian ini butuh *test and try* juga, karena tidak selalu banyak worker itu menghasilkan proses yang lebih cepat, dan misalpun bisa, perlu dicek juga konsumsi resource-nya berlebihan atau tidak. Bisa jadi karena terlalu banyak worker malah lebih lambat karena ada constraint I/O.
+
+Intinya butuh banyak percobaan dan testing, sesuaikan dengan spesifikasi hardware laptop/komputer/server yang digunakan.
 
 Ok sekian untuk chapter panjang ini.
 
