@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,10 +2062,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a50-file">A.50. File</h1>
-<p>Ada beberapa cara yang bisa digunakan untuk operasi file di Go. Pada chapter ini kita akan mempelajari teknik yang paling dasar, yaitu dengan memanfaatkan <code>os.File</code>.</p>
+<p>Pada chapter ini kita akan belajar beberapa teknik operasi file yang paling dasar.</p>
 <h2 id="a501-membuat-file-baru">A.50.1. Membuat File Baru</h2>
-<p>Pembuatan file di Go sangatlah mudah, cukup dengan memanggil fungsi <code>os.Create()</code> lalu memasukkan path file yang ingin dibuat sebagai parameter. Jika ternyata file yang akan dibuat sudah ada, maka akan ditimpa. Bisa memanfaatkan <code>os.IsNotExist()</code> untuk mendeteksi apakah file sudah dibuat atau belum.</p>
-<p>Berikut merupakan contoh pembuatan file.</p>
+<p>Pembuatan file di Go sangat mudah, dilakukan dengan memanfaatkan fungsi <code>os.Create()</code> disertai path file sebagai argument pemanggilan fungsi. Jika ternyata file yang akan dibuat sudah ada duluan, maka operasi <code>os.Create()</code> akan menimpa file yang sudah ada dengan file baru. Untuk menghindari penimpaan file, gunakan fungsi <code>os.IsNotExist()</code> untuk mendeteksi apakah file yang ingin dibuat sudah ada atau belum.</p>
+<p>Contoh program operasi pembuatan file:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2099,12 +2099,12 @@
     createFile()
 }
 </code></pre>
-<p>Fungsi <code>os.Stat()</code> mengembalikan 2 data, yaitu informasi tetang path yang dicari, dan error (jika ada). Masukkan error kembalian fungsi tersebut sebagai parameter fungsi <code>os.IsNotExist()</code>, untuk mendeteksi apakah file yang akan dibuat sudah ada. Jika belum ada, maka fungsi tersebut akan mengembalikan nilai <code>true</code>.</p>
-<p>Fungsi <code>os.Create()</code> digunakan untuk membuat file pada path tertentu. Fungsi ini mengembalikan objek <code>*os.File</code> dari file yang bersangkutan. File yang baru terbuat statusnya adalah otomatis <strong>open</strong>, maka dari itu perlu untuk di-<strong>close</strong> menggunakan method <code>file.Close()</code> setelah file tidak digunakan lagi.</p>
-<p>Membiarkan file terbuka ketika sudah tak lagi digunakan bukan hal yang baik, karena efeknya ke memory dan akses ke file itu sendiri, file akan di-lock sehingga tidak bisa digunakan oleh proses lain selama status file masih open atau belum di-close.</p>
+<p>Fungsi <code>os.Stat()</code> mengembalikan 2 data, yaitu informasi tetang path yang dicari, dan error (jika ada). Masukkan error kembalian fungsi tersebut sebagai argument pemanggilan fungsi <code>os.IsNotExist()</code>, untuk mengetahui apakah file yang akan dibuat sudah ada. Jika rupanya file belum ada ada, maka fungsi tersebut akan mengembalikan nilai <code>true</code>.</p>
+<p>Fungsi <code>os.Create()</code> ini mengembalikan objek bertipe <code>*os.File</code>. File yang baru dibuat, statusnya adalah otomatis <strong>open</strong>. Setelah operasi file selesai, file harus di-<strong>close</strong> menggunakan method <code>file.Close()</code>.</p>
+<p>Membiarkan file terbuka ketika sudah tak lagi digunakan adalah tidak baik, karena ada efek ke memory dan akses ke file itu sendiri, file menjadi terkunci/locked, membuatnya tidak bisa diakses oleh proses lain selama status file statusnya masih <strong>open</strong> dan belum di-close.</p>
 <p><img src="images/A_file_1_create.png" alt="Dasar Pemrograman Golang - Membuat file baru"></p>
 <h2 id="a502-mengedit-isi-file">A.50.2. Mengedit Isi File</h2>
-<p>Untuk mengedit file, yang perlu dilakukan pertama adalah membuka file dengan level akses <strong>write</strong>. Setelah mendapatkan objek file-nya, gunakan method <code>WriteString()</code> untuk pengisian data. Terakhir panggil method <code>Sync()</code> untuk menyimpan perubahan.</p>
+<p>Untuk mengedit file, yang pertama perlu dilakukan adalah membuka file dengan level akses <strong>write</strong>. Setelah mendapatkan objek file-nya, gunakan method <code>WriteString()</code> untuk penulisan data. Di akhir, panggil method <code>Sync()</code> untuk menyimpan perubahan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> writeFile() {
     <span class="hljs-comment">// buka file dengan level akses READ &amp; WRITE</span>
     <span class="hljs-keyword">var</span> file, err = os.OpenFile(path, os.O_RDWR, <span class="hljs-number">0644</span>)
@@ -2128,10 +2128,10 @@
     writeFile()
 }
 </code></pre>
-<p>Pada program di atas, file dibuka dengan level akses <strong>read</strong> dan <strong>write</strong> dengan kode permission <strong>0664</strong>. Setelah itu, beberapa string diisikan ke dalam file tersebut menggunakan <code>WriteString()</code>. Di akhir, semua perubahan terhadap file akan disimpan dengan dipanggilnya <code>Sync()</code>.</p>
+<p>Pada program di atas, file dibuka dengan level akses <strong>read</strong> dan <strong>write</strong> dengan kode permission <strong>0664</strong>. Setelah itu, beberapa string diisikan ke dalam file tersebut menggunakan <code>WriteString()</code>. Di akhir, semua perubahan terhadap file menjadi tersimpan dengan adanya pemanggilan method <code>Sync()</code>.</p>
 <p><img src="images/A_file_2_write.png" alt="Dasar Pemrograman Golang - Mengedit file"></p>
 <h2 id="a503-membaca-isi-file">A.50.3. Membaca Isi File</h2>
-<p>File yang ingin dibaca harus dibuka terlebih dahulu menggunakan fungsi <code>os.OpenFile()</code> dengan level akses minimal adalah <strong>read</strong>. Setelah itu, gunakan method <code>Read()</code> dengan parameter adalah variabel, yang di mana hasil proses baca akan disimpan ke variabel tersebut.</p>
+<p>File yang ingin dibaca harus dibuka terlebih dahulu menggunakan fungsi <code>os.OpenFile()</code> dengan level akses minimal adalah <strong>read</strong>. Dari object file kembalian fungsi tersebut, gunakan method <code>Read()</code> dengan disertai argument berupa variabel yang akan menampung data hasil operasi baca.</p>
 <pre><code class="lang-go"><span class="hljs-comment">// tambahkan di bagian import package io</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;io&quot;</span>
 
@@ -2162,17 +2162,17 @@
     readFile()
 }
 </code></pre>
-<p>Pada kode di atas <code>os.OpenFile()</code> digunakan untuk membuka file. Fungsi tersebut memiliki beberapa parameter.</p>
+<p>Fungsi <code>os.OpenFile()</code> dalam pemanggilannya memerlukan beberapa argument parameter untuk di-isi:</p>
 <ol>
 <li>Parameter pertama adalah path file yang akan dibuka.</li>
 <li>Parameter kedua adalah level akses. <code>os.O_RDONLY</code> maksudnya adalah <strong>read only</strong>.</li>
 <li>Parameter ketiga adalah permission file-nya.</li>
 </ol>
-<p>Variabel <code>text</code> disiapkan bertipe slice <code>[]byte</code> dengan alokasi elemen 1024. Variabel tersebut bertugas menampung data hasil statement <code>file.Read()</code>. Proses pembacaan file akan dilakukan terus menerus, berurutan dari baris pertama hingga akhir.</p>
-<p>Error yang muncul ketika eksekusi <code>file.Read()</code> akan di-filter, ketika error tersebut adalah selain <code>io.EOF</code> maka proses baca file akan berlanjut. Error <code>io.EOF</code> sendiri menandakan bahwa file yang sedang dibaca adalah baris terakhir isi atau <strong>end of file</strong>.</p>
+<p>Variabel <code>text</code> disiapkan bertipe slice <code>[]byte</code> dengan alokasi elemen <code>1024</code>. Variabel tersebut bertugas menampung data hasil statement <code>file.Read()</code>. Proses pembacaan file dilakukan terus menerus, berurutan dari baris pertama hingga akhir.</p>
+<p>Error yang muncul ketika eksekusi <code>file.Read()</code> akan di-filter, ketika error adalah selain <code>io.EOF</code> maka proses baca file akan berlanjut. Error <code>io.EOF</code> sendiri menandakan bahwa file yang sedang dibaca adalah baris terakhir isi atau <strong>end of file</strong>.</p>
 <p><img src="images/A_file_3_read.png" alt="Dasar Pemrograman Golang - Membaca isi file"></p>
 <h2 id="a504-menghapus-file">A.50.4. Menghapus File</h2>
-<p>Cara menghapus file sangatlah mudah, cukup panggil fungsi <code>os.Remove()</code>, masukan path file yang ingin dihapus sebagai parameter.</p>
+<p>Operasi menghapus file dilakukan via fungsi <code>os.Remove()</code>. Panggil fungsi tersebut, kemudian isi path dari file yang ingin dihapus sebagai argument fungsi.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> deleteFile() {
     <span class="hljs-keyword">var</span> err = os.Remove(path)
     <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
@@ -2220,7 +2220,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.50. File","level":"3.1.50","depth":2,"next":{"title":"A.51. Web Server","level":"3.1.51","depth":2,"path":"A-web-server.md","ref":"A-web-server.md","articles":[]},"previous":{"title":"A.49. Exec","level":"3.1.49","depth":2,"path":"A-exec.md","ref":"A-exec.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-file.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.50. File","level":"3.1.50","depth":2,"next":{"title":"A.51. Web Server","level":"3.1.51","depth":2,"path":"A-web-server.md","ref":"A-web-server.md","articles":[]},"previous":{"title":"A.49. Exec","level":"3.1.49","depth":2,"path":"A-exec.md","ref":"A-exec.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-file.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

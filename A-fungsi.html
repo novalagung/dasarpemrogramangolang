@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,13 +2062,16 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a18-fungsi">A.18. Fungsi</h1>
-<p>Fungsi merupakan aspek penting dalam pemrograman. Definisi fungsi sendiri adalah sekumpulan blok kode yang dibungkus dengan nama tertentu. Penerapan fungsi yang tepat akan menjadikan kode lebih modular dan juga <em>dry</em> (singkatan dari <em>don&apos;t repeat yourself</em>), tak perlu menuliskan banyak kode yang kegunaannya berkali-kali, cukup sekali saja lalu panggil sesuai kebutuhan.</p>
-<p>Pada chapter ini kita akan belajar tentang penggunaan fungsi di Go.</p>
+<p>Dalam konteks pemrograman, fungsi adalah sekumpulan blok kode yang dibungkus dengan nama tertentu. Penerapan fungsi yang tepat akan menjadikan kode lebih modular dan juga <em>dry</em> (singkatan dari <em>don&apos;t repeat yourself</em>) yang artinya kita tidak perlu menuliskan banyak kode untuk kegunaan yang sama berulang kali. Cukup deklarasikan sekali saja blok kode sebagai suatu fungsi, lalu panggil sesuai kebutuhan.</p>
+<p>Pada chapter ini kita akan belajar tentang penerapannya di Go.</p>
 <h2 id="a181-penerapan-fungsi">A.18.1. Penerapan Fungsi</h2>
-<p>Sebenarnya tanpa sadar, kita sudah menerapkan fungsi pada pembahasan-pembahasan sebelum ini, yaitu pada fungsi <code>main</code>. Fungsi <code>main</code> merupakan fungsi yang paling utama pada program Go.</p>
-<p>Cara membuat fungsi cukup mudah, yaitu dengan menuliskan keyword <code>func</code>, diikuti setelahnya nama fungsi, kurung yang berisikan parameter, dan kurung kurawal untuk membungkus blok kode.</p>
-<p>Parameter sendiri adalah variabel yang disisipkan pada saat pemanggilan fungsi.</p>
-<p>Silakan lihat dan praktekan kode tentang implementasi fungsi berikut.</p>
+<p>Mungkin pembaca sadar, bahwa sebenarnya kita sudah mengimplementasikan fungsi pada banyak praktek sebelumnya, yaitu fungsi <code>main()</code>. Fungsi <code>main()</code> sendiri merupakan fungsi utama pada program Go, yang akan dieksekusi ketika program dijalankan.</p>
+<p>Selain fungsi <code>main()</code>, kita juga bisa membuat fungsi lainnya. Dan caranya cukup mudah, yaitu dengan menuliskan keyword <code>func</code> kemudian diikuti nama fungsi, lalu kurung <code>()</code> (yang bisa diisi parameter), dan diakhiri dengan kurung kurawal untuk membungkus blok kode.</p>
+<p>Parameter merupakan variabel yang menempel di fungsi yang nilainya ditentukan saat pemanggilan fungsi tersebut. Parameter sifatnya opsional, suatu fungsi bisa tidak memiliki parameter, atau bisa saja memeliki satu atau banyak parameter (tergantung kebutuhan).</p>
+<blockquote>
+<p>Data yang digunakan sebagai value parameter saat pemanggilan fungsi biasa disebut dengan argument parameter (atau argument).</p>
+</blockquote>
+<p>Agar lebih jelas, silakan lihat dan praktekan kode contoh implementasi fungsi berikut ini:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2084,12 +2087,19 @@
     fmt.Println(message, nameString)
 }
 </code></pre>
-<p>Pada kode di atas, sebuah fungsi baru dibuat dengan nama <code>printMessage</code> memiliki 2 buah parameter yaitu string <code>message</code> dan slice string <code>arr</code>.</p>
-<p>Fungsi tersebut dipanggil dalam <code>main</code>, dengan disisipkan 2 buah data sebagai parameter, data pertama adalah string <code>&quot;halo&quot;</code> yang ditampung parameter <code>message</code>, dan parameter ke 2 adalah slice string <code>names</code> yang nilainya ditampung oleh parameter <code>arr</code>.</p>
-<p>Di dalam <code>printMessage</code>, nilai <code>arr</code> yang merupakan slice string digabungkan menjadi sebuah string dengan pembatas adalah karakter <strong>spasi</strong>. Penggabungan slice dapat dilakukan dengan memanfaatkan fungsi <code>strings.Join()</code> (berada di dalam package <code>strings</code>).</p>
+<p>Pada kode di atas, sebuah fungsi baru dibuat dengan nama <code>printMessage()</code> memiliki 2 buah parameter yaitu string <code>message</code> dan slice string <code>arr</code>.</p>
+<p>Fungsi tersebut dipanggil dalam <code>main()</code>, dalam pemanggilannya disisipkan dua buah argument parameter.</p>
+<ol>
+<li>Argument parameter pertama adalah string <code>&quot;halo&quot;</code> yang ditampung parameter <code>message</code></li>
+<li>Argument parameter ke-2 adalah slice string <code>names</code> yang nilainya ditampung oleh parameter <code>arr</code></li>
+</ol>
+<p>Di dalam <code>printMessage()</code>, nilai <code>arr</code> yang merupakan slice string digabungkan menjadi sebuah string dengan pembatas adalah karakter <strong>spasi</strong>. Penggabungan slice dapat dilakukan dengan memanfaatkan fungsi <code>strings.Join()</code> (berada di dalam package <code>strings</code>).</p>
 <p><img src="images/A_fungsi_1_function.png" alt="Dasar Pemrograman Golang - Contoh penggunaan fungsi"></p>
 <h2 id="a182-fungsi-dengan-return-value--nilai-balik">A.18.2. Fungsi Dengan Return Value / Nilai Balik</h2>
-<p>Sebuah fungsi bisa dirancang tidak mengembalikan nilai balik (<em>void</em>), atau bisa mengembalikan suatu nilai. Fungsi yang memiliki nilai kembalian, harus ditentukan tipe data nilai baliknya pada saat deklarasi.</p>
+<p>Selain parameter, fungsi bisa memiliki attribute <strong>return value</strong> atau nilai balik. Fungsi yang memiliki return value, saat deklarasinya harus ditentukan terlebih dahulu tipe data dari nilai baliknya.</p>
+<blockquote>
+<p>Fungsi yang tidak mengembalikan nilai apapun (contohnya seperti fungsi <code>main()</code> dan <code>printMessage()</code>) biasa disebut dengan <strong>void function</strong></p>
+</blockquote>
 <p>Program berikut merupakan contoh penerapan fungsi yang memiliki return value.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
@@ -2106,8 +2116,10 @@
 
     randomValue = randomWithRange(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>)
     fmt.Println(<span class="hljs-string">&quot;random number:&quot;</span>, randomValue)
+
     randomValue = randomWithRange(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>)
     fmt.Println(<span class="hljs-string">&quot;random number:&quot;</span>, randomValue)
+
     randomValue = randomWithRange(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>)
     fmt.Println(<span class="hljs-string">&quot;random number:&quot;</span>, randomValue)
 }
@@ -2117,26 +2129,25 @@
     <span class="hljs-keyword">return</span> value
 }
 </code></pre>
-<p>Fungsi <code>randomWithRange</code> bertugas untuk <em>generate</em> angka acak sesuai dengan range yang ditentukan, yang kemudian angka tersebut dijadikan nilai kembalian fungsi.</p>
+<p>Fungsi <code>randomWithRange()</code> didesain untuk <em>generate</em> angka acak sesuai dengan range yang ditentukan lewat parameter, yang kemudian angka tersebut dijadikan nilai balik fungsi.</p>
 <p><img src="images/A_fungsi_2_function_return_type.png" alt="Dasar Pemrograman Golang - Fungsi dengan nilai balik"></p>
-<p>Cara menentukan tipe data nilai balik fungsi adalah dengan menuliskan tipe data yang diinginkan setelah kurung parameter. Bisa dilihat pada kode di atas, bahwa <code>int</code> merupakan tipe data nilai balik fungsi <code>randomWithRange</code>.</p>
+<p>Cara menentukan tipe data nilai balik fungsi adalah dengan menuliskan tipe data yang diinginkan setelah kurung parameter. Bisa dilihat pada kode di atas, bahwa <code>int</code> merupakan tipe data nilai balik fungsi <code>randomWithRange()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> randomWithRange(min, max <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span>
 </code></pre>
-<p>Sedangkan cara untuk mengembalikan nilai itu sendiri adalah dengan menggunakan keyword <code>return</code> diikuti data yang ingin dikembalikan. Pada contoh di atas, <code>return value</code> artinya nilai variabel <code>value</code> dijadikan nilai kembalian fungsi.</p>
+<p>Sedangkan cara untuk mengembalikan nilai itu sendiri adalah dengan menggunakan keyword <code>return</code> diikuti data yang dikembalikan. Pada contoh di atas, <code>return value</code> artinya nilai variabel <code>value</code> dijadikan nilai kembalian fungsi.</p>
 <p>Eksekusi keyword <code>return</code> akan menjadikan proses dalam blok fungsi berhenti pada saat itu juga. Semua statement setelah keyword tersebut tidak akan dieksekusi.</p>
-<hr>
 <p>Dari kode di atas mungkin ada beberapa hal yang belum pernah kita lakukan pada pembahasan-pembahasan sebelumnya, kita akan bahas satu-persatu.</p>
 <h2 id="a183-penggunaan-fungsi-randnew">A.18.3. Penggunaan Fungsi <code>rand.New()</code></h2>
-<p>Fungsi ini digunakan untuk membuat object randomizer, yang dari object tersebut nilai random/acak bisa di-generate. Dalam penerapannya, fungsi <code>rand.New()</code> membutuhkan argument yaitu random source seed, yang bisa kita buat lewat statement <code>rand.NewSource(time.Now().Unix())</code>.</p>
+<p>Fungsi <code>rand.New()</code> digunakan untuk membuat object randomizer, yang dari object tersebut kita bisa mendapatkan nilai random/acak hasil generator. Dalam penerapannya, fungsi <code>rand.New()</code> membutuhkan argument yaitu random source seed, yang bisa kita buat lewat statement <code>rand.NewSource(time.Now().Unix())</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> randomizer = rand.New(rand.NewSource(time.Now().Unix()))
 </code></pre>
 <blockquote>
-<p>Dalam penggunaan fungsi <code>rand.NewSource</code>, argument bisa diisi dengan nilai apapun, salah satunya adalah <code>time.Now().Unix()</code>.</p>
-<p>Lebih detailnya mengenai random dibahas pada chapter <a href="A-random.html">A.39. Random</a>.</p>
+<p>Dalam penggunaan fungsi <code>rand.NewSource()</code>, argument bisa diisi dengan nilai apapun, salah satunya adalah <code>time.Now().Unix()</code>.</p>
+<p>Lebih detailnya mengenai random dan apa peran seed dibahas pada chapter <a href="A-random.html">A.39. Random</a>.</p>
 </blockquote>
-<p>Fungsi <code>rand.New()</code> berada dalam package <code>math/rand</code>, yang harus di-import terlebih dahulu sebelum bisa dimanfaatkan. Package <code>time</code> juga perlu di-import karena kita menggunakan fungsi <code>(time.Now().Unix())</code> di situ.</p>
+<p>Fungsi <code>rand.New()</code> berada dalam package <code>math/rand</code>. Package tersebut harus di-import terlebih dahulu sebelum bisa menggunakan fungsi-fungsi yang ada didalamnya. Package <code>time</code> juga perlu di-import karena di contoh ini fungsi <code>(time.Now().Unix())</code> digunakan.</p>
 <h2 id="a184-import-banyak-package">A.18.4. Import Banyak Package</h2>
-<p>Penulisan keyword <code>import</code> untuk banyak package bisa dilakukan dengan dua cara, dengan menuliskannya di tiap package, atau cukup sekali saja, bebas.</p>
+<p>Penulisan keyword <code>import</code> untuk banyak package bisa dilakukan dengan dua cara, dengan menuliskannya di tiap package, atau cukup sekali saja, bebas silakan pilih sesuai selera.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;math/rand&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;time&quot;</span>
@@ -2158,7 +2169,7 @@
 <span class="hljs-keyword">func</span> randomWithRange(min, max <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span>
 </code></pre>
 <h2 id="a186-penggunaan-keyword-return-untuk-menghentikan-proses-dalam-fungsi">A.18.6. Penggunaan Keyword <code>return</code> Untuk Menghentikan Proses Dalam Fungsi</h2>
-<p>Selain sebagai penanda nilai balik, keyword <code>return</code> juga bisa dimanfaatkan untuk menghentikan proses dalam blok fungsi di mana ia dipakai. Contohnya bisa dilihat pada kode berikut.</p>
+<p>Selain sebagai penanda nilai balik, keyword <code>return</code> juga bisa dimanfaatkan untuk menghentikan proses dalam blok fungsi di mana ia ditulis. Contohnya bisa dilihat pada kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2179,7 +2190,7 @@
     fmt.Printf(<span class="hljs-string">&quot;%d / %d = %d\n&quot;</span>, m, n, res)
 }
 </code></pre>
-<p>Fungsi <code>divideNumber</code> dirancang tidak memiliki nilai balik. Fungsi ini dibuat untuk membungkus proses pembagian 2 bilangan, lalu menampilkan hasilnya.</p>
+<p>Fungsi <code>divideNumber()</code> dirancang tidak memiliki nilai balik. Fungsi ini dibuat untuk membungkus proses pembagian 2 bilangan, lalu menampilkan hasilnya.</p>
 <p>Di dalamnya terdapat proses validasi nilai variabel pembagi, jika nilainya adalah 0, maka akan ditampilkan pesan bahwa pembagian tidak bisa dilakukan, lalu proses dihentikan pada saat itu juga (dengan memanfaatkan keyword <code>return</code>). Jika nilai pembagi valid, maka proses pembagian diteruskan.</p>
 <p><img src="images/A_fungsi_3_function_return_as_break.png" alt="Dasar Pemrograman Golang - Keyword return menjadikan proses dalam fungsi berhenti"></p>
 <hr>
@@ -2217,7 +2228,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"next":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"previous":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-fungsi.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"next":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"previous":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-fungsi.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

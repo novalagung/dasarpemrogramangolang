@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,14 +2062,14 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a33-channel---select">A.33. Channel - Select</h1>
-<p>Disediakannya channel membuat engineer menjadi mudah dalam me-manage goroutine. Namun perlu di-ingat, meskipun lewat channel manajemen goroutine menjadi mudah, fungsi utama channel bukan untuk kontrol, melainkan untuk sharing data antar goroutine.</p>
+<p>Channel membuat manajemen goroutine menjadi sangat mudah di Go. Namun perlu di-ingat, fungsi utama channel adalah bukan untuk kontrol eksekusi goroutine, melainkan untuk sharing data atau komunikasi goroutine.</p>
 <blockquote>
-<p>Nantinya pada chapter <a href="A-waitgroup.html">A.59. sync.WaitGroup</a> akan dibahas secara komprehensif bagaimana cara optimal mengontrol goroutine.</p>
+<p>Pada chapter <a href="A-waitgroup.html">A.59. sync.WaitGroup</a> akan dibahas secara komprehensif tentang cara yang lebih optimal untuk kontrol eksekusi goroutine.</p>
 </blockquote>
-<p>Ada kalanya kita butuh tak hanya satu channel saja untuk melakukan komunikasi data antar goroutine. Tergantung jenis kasusnya, sangat mungkin lebih dari satu channel dibutuhkan. Nah, di situlah kegunaan dari <code>select</code>. Select ini mempermudah kontrol komunikasi data lewat satu ataupun banyak channel.</p>
+<p>Tergantung jenis kasusnya, ada kalanya kita butuh lebih dari satu channel untuk komunikasi data antar goroutine. Penerimaan data pada banyak goroutine penerapannya masih sama, yaitu dengan menambahkan karakter <code>&lt;-</code> pada statement. Selain itu, ada juga cara lain yaitu menggunakan keyword <code>select</code>. Keyword ini mempermudah kontrol penerimaan data via satu atau lebih dari satu channel.</p>
 <p>Cara penggunaan <code>select</code> untuk kontrol channel sama seperti penggunaan <code>switch</code> untuk seleksi kondisi.</p>
 <h2 id="a331-penerapan-keyword-select">A.33.1. Penerapan Keyword <code>select</code></h2>
-<p>Program berikut merupakan contoh sederhana penerapan select dalam channel. Dipersiapkan 2 buah goroutine, satu untuk pencarian rata-rata, dan satu untuk nilai tertinggi. Hasil operasi di masing-masing goroutine dikirimkan ke fungsi <code>main()</code> via channel (ada dua channel). Di fungsi <code>main()</code> sendiri, data tersebut diterima dengan memanfaatkan keyword <code>select</code>.</p>
+<p>Program berikut merupakan contoh sederhana penerapan keyword <code>select</code>. Di sini disiapkan 2 buah goroutine, satu untuk menghitung rata-rata dari data array numerik, dan satu lagi untuk pencarian nilai tertinggi. Hasil operasi di masing-masing goroutine dikirimkan ke fungsi <code>main()</code> via channel (ada dua channel). Di fungsi <code>main()</code> sendiri, data tersebut diterima dengan memanfaatkan keyword <code>select</code>.</p>
 <p>Ok, langsung saja kita praktek. Pertama, siapkan 2 fungsi yang sudah dibahas di atas. Fungsi pertama digunakan untuk mencari rata-rata, dan fungsi kedua untuk penentuan nilai tertinggi dari sebuah slice.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
@@ -2161,7 +2161,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.33. Channel - Select","level":"3.1.33","depth":2,"next":{"title":"A.34. Channel - Range & Close","level":"3.1.34","depth":2,"path":"A-channel-range-close.md","ref":"A-channel-range-close.md","articles":[]},"previous":{"title":"A.32. Buffered Channel","level":"3.1.32","depth":2,"path":"A-buffered-channel.md","ref":"A-buffered-channel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-channel-select.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.33. Channel - Select","level":"3.1.33","depth":2,"next":{"title":"A.34. Channel - Range & Close","level":"3.1.34","depth":2,"path":"A-channel-range-close.md","ref":"A-channel-range-close.md","articles":[]},"previous":{"title":"A.32. Buffered Channel","level":"3.1.32","depth":2,"path":"A-buffered-channel.md","ref":"A-buffered-channel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-channel-select.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

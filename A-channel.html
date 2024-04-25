@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,12 +2062,13 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a31-channel">A.31. Channel</h1>
-<p><strong>Channel</strong> digunakan untuk menghubungkan goroutine satu dengan goroutine lain. Mekanisme yang dilakukan adalah serah-terima data lewat channel tersebut. Dalam komunikasinya, sebuah channel difungsikan sebagai pengirim di sebuah goroutine, dan juga sebagai penerima di goroutine lainnya. Pengiriman dan penerimaan data pada channel bersifat <strong>blocking</strong> atau <strong>synchronous</strong>.</p>
+<p><strong>Channel</strong> digunakan untuk menghubungkan goroutine satu dengan goroutine lain dengan mekanisme serah terima data, jadi harus ada data yang dikirim dari goroutine A untuk kemudian diterima di goroutine B.</p>
+<p>Peran channel adalah sebagai media perantara bagi pengirim data dan juga penerima data. Jadi channel adalah <em>thread safe</em>, aman digunakan di banyak goroutine.</p>
+<p>Pengiriman dan penerimaan data pada channel bersifat <strong>blocking</strong> atau <strong>synchronous</strong>. Artinya, statement di-bawah syntax pengiriman dan penerimaan data via channel hanya akan dieksekusi setelah proses serah terima berlangsung dan selesai.</p>
 <p><img src="images/A_channel_1_analogy.png" alt="Dasar Pemrograman Golang - Analogi channel"></p>
-<p>Pada chapter ini kita akan belajar mengenai pemanfaatan channel.</p>
 <h2 id="a311-penerapan-channel">A.31.1. Penerapan Channel</h2>
-<p>Channel merupakan sebuah variabel, dibuat dengan menggunakan kombinasi keyword <code>make</code> dan <code>chan</code>. Variabel channel memiliki satu tugas, menjadi pengirim, atau penerima data.</p>
-<p>Program berikut adalah contoh implementasi channel. 3 buah goroutine dieksekusi, di masing-masing goroutine terdapat proses pengiriman data lewat channel. Data tersebut akan diterima 3 kali di goroutine utama <code>main</code>.</p>
+<p>Channel berbentuk variabel, dibuat dengan menggunakan kombinasi keyword <code>make</code> dan <code>chan</code>.</p>
+<p>Program berikut adalah contoh implementasi channel. 3 buah goroutine dieksekusi, di masing-masing goroutine terdapat proses pengiriman data lewat channel. Kesemua data tersebut nantinya diterima oleh di goroutine utama yaitu proses yang dijalankan di dalam blok fungsi <code>main()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2097,7 +2098,7 @@
     fmt.Println(message3)
 }
 </code></pre>
-<p>Pada kode di atas, variabel <code>messages</code> dideklarasikan bertipe channel <code>string</code>. Cara pembuatan channel yaitu dengan menuliskan keyword <code>make</code> dengan isi keyword <code>chan</code> diikuti dengan tipe data channel yang diinginkan.</p>
+<p>Pada kode di atas, variabel <code>messages</code> dideklarasikan bertipe channel <code>string</code>. Contoh cara pembuatan channel bisa dilihat di situ, yaitu dengan memanggil fungsi <code>make()</code> dengan isi adalah keyword <code>chan</code> diikuti dengan tipe data channel yang diinginkan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> messages = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">string</span>)
 </code></pre>
 <p>Selain itu disiapkan juga closure <code>sayHelloTo</code> yang tugasnya membuat sebuah pesan string yang kemudian dikirim via channel. Pesan string tersebut dikirim lewat channel <code>messages</code>. Tanda <code>&lt;-</code> jika dituliskan di sebelah kiri nama variabel, berarti sedang berlangsung proses pengiriman data dari variabel yang berada di kanan lewat channel yang berada di kiri (pada konteks ini, variabel <code>data</code> dikirim lewat channel <code>messages</code>).</p>
@@ -2118,19 +2119,23 @@
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> message1 = &lt;-messages
 fmt.Println(message1)
 </code></pre>
-<p>Penerimaan channel bersifat blocking. Artinya statement <code>var message1 = &lt;-messages</code> hingga setelahnya tidak akan dieksekusi sebelum ada data yang dikirim lewat channel.</p>
-<p>Ke semua data yang dikirim dari tiga goroutine berbeda tersebut datanya akan diterima secara berurutan oleh <code>message1</code>, <code>message2</code>, <code>message3</code>; untuk kemudian ditampilkan.</p>
+<p>Penerimaan channel bersifat blocking. Artinya:</p>
+<ul>
+<li>Statement <code>var message1 = &lt;-messages</code> hingga setelahnya tidak akan dieksekusi sebelum ada data yang dikirim lewat channel.</li>
+<li>Berlaku juga dengan statement <code>messages &lt;- data</code>. Statement dibawahnya tidak akan dieksekusi hingga data yang dikirim ke channel <code>messages</code> benar-benar diterima oleh penerima, yaitu variabel <code>message1</code>.</li>
+</ul>
+<p>Ke semua data yang dikirim dari tiga goroutine berbeda tersebut nantinya diterima oleh <code>message1</code>, <code>message2</code>, <code>message3</code>; untuk kemudian ditampilkan.</p>
 <p><img src="images/A_channel_2_channel.png" alt="Dasar Pemrograman Golang - Implementasi channel"></p>
 <p>Dari screenshot output di atas bisa dilihat bahwa text yang dikembalikan oleh <code>sayHelloTo</code> tidak selalu berurutan, meskipun penerimaan datanya adalah berurutan. Hal ini dikarenakan, pengiriman data adalah dari 3 goroutine yang berbeda, yang kita tidak tau mana yang prosesnya selesai lebih dulu. Goroutine yang dieksekusi lebih awal belum tentu selesai lebih awal, yang jelas proses yang selesai lebih awal datanya akan diterima lebih awal.</p>
-<p>Karena pengiriman dan penerimaan data lewat channel bersifat <strong>blocking</strong>, tidak perlu memanfaatkan sifat blocking dari fungsi sejenis <code>fmt.Scanln()</code> atau lainnya, untuk mengantisipasi goroutine utama <code>main</code> selesai sebelum ketiga goroutine di atas selesai.</p>
+<p>Karena pengiriman dan penerimaan data lewat channel bersifat <strong>blocking</strong>, tidak perlu memanfaatkan sifat blocking dari fungsi seperti <code>fmt.Scanln()</code> (atau lainnya) untuk mengantisipasi goroutine utama (yaitu <code>main</code>) selesai sebelum ketiga goroutine di atas selesai.</p>
 <h2 id="a312-channel-sebagai-tipe-data-parameter">A.31.2. Channel Sebagai Tipe Data Parameter</h2>
-<p>Variabel channel bisa di-pass ke fungsi lain sebagai parameter. Cukup tambahkan keyword <code>chan</code> pada deklarasi parameter agar operasi pass channel variabel bisa dilakukan.</p>
-<p>Siapkan fungsi <code>printMessage</code> dengan parameter adalah channel. Lalu ambil data yang dikirimkan lewat channel tersebut untuk ditampilkan.</p>
+<p>Variabel channel bisa di-pass ke fungsi lain via parameter. Cukup tambahkan keyword <code>chan</code> pada deklarasi parameter agar operasi pass channel variabel bisa dilakukan.</p>
+<p>Siapkan fungsi <code>printMessage()</code> dengan parameter adalah channel. Lalu ambil data yang dikirimkan lewat channel tersebut untuk ditampilkan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> printMessage(what <span class="hljs-keyword">chan</span> <span class="hljs-keyword">string</span>) {
     fmt.Println(&lt;-what)
 }
 </code></pre>
-<p>Setelah itu ubah implementasi di fungsi <code>main</code>.</p>
+<p>Setelah itu ubah implementasi di fungsi <code>main()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     runtime.GOMAXPROCS(<span class="hljs-number">2</span>)
 
@@ -2149,18 +2154,18 @@ fmt.Println(message1)
 }
 </code></pre>
 <p>Output program di atas sama dengan program sebelumnya.</p>
-<p>Parameter <code>what</code> fungsi <code>printMessage</code> bertipe channel <code>string</code>, bisa dilihat dari kode <code>chan string</code> pada cara deklarasinya. Operasi serah-terima data akan bisa dilakukan pada variabel tersebut, dan akan berdampak juga pada variabel <code>messages</code> di fungsi <code>main</code>.</p>
+<p>Parameter <code>what</code> pada fungsi <code>printMessage()</code> bertipe channel <code>string</code>, bisa dilihat dari kode <code>chan string</code> pada cara deklarasinya. Operasi serah-terima data akan bisa dilakukan pada variabel tersebut, dan akan berdampak juga pada variabel <code>messages</code> di fungsi <code>main()</code>.</p>
 <p>Passing data bertipe channel lewat parameter sifatnya <strong>pass by reference</strong>, yang di transferkan adalah pointer datanya, bukan nilai datanya.</p>
 <p><img src="images/A_channel_3_channel_param.png" alt="Dasar Pemrograman Golang - Parameter channel"></p>
-<hr>
-<p>Berikut merupakan penjelasan tambahan untuk kode di atas.</p>
-<h4 id="iterasi-data-slicearray-langsung-pada-saat-inisialisasi">&#x2022; Iterasi Data Slice/Array Langsung Pada Saat Inisialisasi</h4>
+<h2 id="a323-penjelasan-tambahan">A.32.3. Penjelasan tambahan</h2>
+<p>Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:</p>
+<h4 id="&#x25C9;-iterasi-data-slicearray-langsung-pada-saat-inisialisasi">&#x25C9; Iterasi Data Slice/Array Langsung Pada Saat Inisialisasi</h4>
 <p>Data slice yang baru di inisialisasi bisa langsung di-iterasi, caranya mudah dengan menuliskannya langsung setelah keyword <code>range</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">for</span> _, each := <span class="hljs-keyword">range</span> []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;wick&quot;</span>, <span class="hljs-string">&quot;hunt&quot;</span>, <span class="hljs-string">&quot;bourne&quot;</span>} {
     <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<h4 id="eksekusi-goroutine-pada-iife">&#x2022; Eksekusi Goroutine Pada IIFE</h4>
+<h4 id="&#x25C9;-eksekusi-goroutine-pada-iife">&#x25C9; Eksekusi Goroutine Pada IIFE</h4>
 <p>Eksekusi goroutine tidak harus pada fungsi atau closure yang sudah terdefinisi. Sebuah IIFE juga bisa dijalankan sebagai goroutine baru. Caranya dengan langsung menambahkan keyword <code>go</code> pada waktu deklarasi-eksekusi IIFE-nya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> messages = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">string</span>)
 
@@ -2207,7 +2212,7 @@ fmt.Println(message)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.31. Channel","level":"3.1.31","depth":2,"next":{"title":"A.32. Buffered Channel","level":"3.1.32","depth":2,"path":"A-buffered-channel.md","ref":"A-buffered-channel.md","articles":[]},"previous":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"path":"A-goroutine.md","ref":"A-goroutine.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-channel.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.31. Channel","level":"3.1.31","depth":2,"next":{"title":"A.32. Buffered Channel","level":"3.1.32","depth":2,"path":"A-buffered-channel.md","ref":"A-buffered-channel.md","articles":[]},"previous":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"path":"A-goroutine.md","ref":"A-goroutine.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-channel.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

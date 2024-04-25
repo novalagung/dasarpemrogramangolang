@@ -78,7 +78,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -301,7 +301,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -613,7 +613,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -834,7 +834,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2063,14 +2063,14 @@
 <p>Pada chapter ini kita akan praktek penerapan salah satu teknik concurrent programming di Go yaitu worker pool, dikombinasikan dengan database connection pool, untuk membaca 1 juta rows data dari sebuah file csv untuk kemudian di-insert-kan ke mysql server.</p>
 <p>Pada bagian insert data kita terapkan mekanisme failover, jadi ketika ada operasi insert gagal, maka akan otomatis di recover dan di retry. Jadi idealnya di akhir, semua data, sejumlah satu juta, akan berhasil di-insert.</p>
 <h2 id="d11-penjelasan">D.1.1. Penjelasan</h2>
-<h4 id="worker-pool">&#x2022; Worker Pool</h4>
+<h4 id="&#x25C9;-worker-pool">&#x25C9; Worker Pool</h4>
 <p>Worker pool adalah teknik manajemen goroutine dalam <em>concurrent programming</em> pada Go. Sejumlah worker dijalankan dan masing-masing memiliki tugas yang sama yaitu menyelesaikan sejumlah jobs.</p>
 <p>Dengan metode worker pool ini, maka penggunaan memory dan performansi program akan bisa optimal.</p>
-<h4 id="database-connection-pool">&#x2022; Database Connection Pool</h4>
+<h4 id="&#x25C9;-database-connection-pool">&#x25C9; Database Connection Pool</h4>
 <p><em>Connection pool</em> adalah metode untuk manajemen sejumlah koneksi database, agar bisa digunakan secara optimal.</p>
 <p>Connection pool sangat penting dalam kasus operasi data yang berhubungan dengan database yang di mana concurrent programming diterapkan.</p>
 <p>Karena pada concurrent programming, beberapa proses akan berjalan bersamaan, maka penggunaan 1 koneksi db akan menghambat proses tersebut. Perlu ada beberapa koneksi database, agar goroutine tidak rebutan objek koneksi database.</p>
-<h4 id="failover">&#x2022; Failover</h4>
+<h4 id="&#x25C9;-failover">&#x25C9; Failover</h4>
 <p>Failover merupakan mekanisme backup ketika sebuah proses gagal. Pada konteks ini, failover mengarah ke proses untuk me-retry operasi insert ketika gagal.</p>
 <h2 id="d12-persiapan">D.1.2. Persiapan</h2>
 <p>File <a href="https://blog.majestic.com/development/majestic-million-csv-daily/" target="_blank">majestic-million-csv</a> digunakan sebagai bahan dalam praktek. File tersebut gratis dengan lisensi CCA3. Isinya adalah list dari top website berjumlah 1 juta.</p>
@@ -2099,7 +2099,7 @@
 </code></pre>
 <p>Jika pembaca ingin menggunakan driver lain, juga silakan.</p>
 <h2 id="d13-praktek">D.1.3. Praktek</h2>
-<h4 id="definisi-konstanta">&#x2022; Definisi Konstanta</h4>
+<h4 id="&#x25C9;-definisi-konstanta">&#x25C9; Definisi Konstanta</h4>
 <p>Ada beberapa konstanta yang perlu dipersiapkan. Pertama connection string untuk komunikasi ke database server. Sesuaikan value nya dengan yang dipergunakan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">const</span> dbConnString = <span class="hljs-string">&quot;root@/test&quot;</span>
 </code></pre>
@@ -2118,7 +2118,7 @@
 <p>Terakhir, siapkan variabel untuk menampung data header dari pembacaan CSV nanti.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> dataHeaders = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>, <span class="hljs-number">0</span>)
 </code></pre>
-<h4 id="fungsi-buka-koneksi-database">&#x2022; Fungsi Buka Koneksi Database</h4>
+<h4 id="&#x25C9;-fungsi-buka-koneksi-database">&#x25C9; Fungsi Buka Koneksi Database</h4>
 <p>Buat fungsi untuk buka koneksi database, yg dikembalikan objek database kembalian fungsi <code>sql.Open()</code>.</p>
 <p>Jangan lupa set nilai <code>MaxOpenConns</code> dan <code>MaxIdleConns</code>.</p>
 <p>O iya, untuk yang tidak menggunakan mysql, maka sesuaikan saja nilai argument pertama statement <code>sql.Open()</code>.</p>
@@ -2139,7 +2139,7 @@
 <p>O iya jangan lupa untuk import driver nya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">import</span> _ <span class="hljs-string">&quot;github.com/go-sql-driver/mysql&quot;</span>
 </code></pre>
-<h4 id="fungsi-baca-csv">&#x2022; Fungsi Baca CSV</h4>
+<h4 id="&#x25C9;-fungsi-baca-csv">&#x25C9; Fungsi Baca CSV</h4>
 <p>Buka file CSV, lalu gunakan objek file untuk membuat objek CSV reader baru.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> openCsvFile() (*csv.Reader, *os.File, error) {
     log.Println(<span class="hljs-string">&quot;=&gt; open csv file&quot;</span>)
@@ -2153,7 +2153,7 @@
     <span class="hljs-keyword">return</span> reader, f, <span class="hljs-literal">nil</span>
 }
 </code></pre>
-<h4 id="fungsi-menjalankan-workers">&#x2022; Fungsi Menjalankan Workers</h4>
+<h4 id="&#x25C9;-fungsi-menjalankan-workers">&#x25C9; Fungsi Menjalankan Workers</h4>
 <p>Ok, sekarang kita mulai masuk ke aspek konkurensi dari pembahasan ini. Siapkan fungsi yang isinya men-dispatch beberapa goroutine sejumlah <code>totalWorker</code>.</p>
 <p>Tiap-tiap goroutine tersebut adalah worker atau pekerja, yang tugasnya nanti akan meng-insert data ke database.</p>
 <p>Saat aplikasi dijalankan, sejumlah 100 worker akan berlomba-lomba menyelesaikan job insert data sejumlah 1 juta data.</p>
@@ -2175,7 +2175,7 @@
 <p>Bisa dilihat dalam fungsi di atas, di dalam goroutine/worker, isi channel jobs (yang berupa data dari proses pembacaan CSV), didistribusikan ke worker, ke goroutine.</p>
 <p>Fungsi <code>doTheJob()</code> yang nantinya kita buat, isinya adalah operasi insert data ke database server. Setiap satu operasi insert selesai, <code>wg.Done()</code> untuk menandai bahwa 1 job adalah selesai.</p>
 <p>Idealnya di akhir aplikasi akan terjadi pemanggilan <code>wg.Done()</code> sejumlah 1 juta karena ada 1 juta jobs.</p>
-<h4 id="fungsi-baca-csv-dan-pengiriman-jobs-ke-worker">&#x2022; Fungsi Baca CSV dan Pengiriman Jobs ke Worker</h4>
+<h4 id="&#x25C9;-fungsi-baca-csv-dan-pengiriman-jobs-ke-worker">&#x25C9; Fungsi Baca CSV dan Pengiriman Jobs ke Worker</h4>
 <p>Proses pembacaan CSV, apapun metodenya pasti yang dijalankan adalah membaca data dari line ke line dari baris paling bawah.</p>
 <blockquote>
 <p>Proses baca satu file tidak bisa di-konkurensi-kan</p>
@@ -2209,7 +2209,7 @@
 <p>Data dibaca dalam perulangan per baris. Pada pembacaan pertama, rows akan ditampung ke variabel <code>dataHeaders</code>. Selanjutnya, data dikirimkan ke worker lewat channel <code>jobs</code>.</p>
 <p>Setelah proses baca data selesai, channel di close. Karena pengiriman dan penerimaan data pada channel bersifat synchronous untuk unbuffered channel. Jadi aman untuk berasumsi bahwa ketika semua data berhasil dikirim, maka semua data tersebut juga berhasil diterima.</p>
 <p>Jika blok kode perulangan dalam fungsi di atas selesai, maka sudah tidak ada lagi operasi kirim terima data, maka kita close channelnya.</p>
-<h4 id="fungsi-insert-data-ke-database">&#x2022; Fungsi Insert Data ke Database</h4>
+<h4 id="&#x25C9;-fungsi-insert-data-ke-database">&#x25C9; Fungsi Insert Data ke Database</h4>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> doTheJob(workerIndex, counter <span class="hljs-keyword">int</span>, db *sql.DB, values []<span class="hljs-keyword">interface</span>{}) {
     <span class="hljs-keyword">for</span> {
         <span class="hljs-keyword">var</span> outerError error
@@ -2262,7 +2262,7 @@
 <p>Conn returns a single connection by either opening a new connection or returning an existing connection from the connection pool. Conn will block until either a connection is returned or ctx is canceled. Queries run on the same Conn will be run in the same database session.<br>Every Conn must be returned to the database pool after use by calling Conn.Close.</p>
 </blockquote>
 <p>Btw, di atas juga ada satu fungsi lagi, <code>generateQuestionsMark()</code>, gunanya untuk membantu pembentukan query insert data secara dinamis.</p>
-<h4 id="fungsi-main">&#x2022; Fungsi Main</h4>
+<h4 id="&#x25C9;-fungsi-main">&#x25C9; Fungsi Main</h4>
 <p>Terakhir, panggil semua fungsi yang sudah dibuat pada main.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     start := time.Now()
@@ -2341,7 +2341,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"next":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},"previous":{"title":"D. Studi Kasus","level":"6.1","depth":1,"ref":"","articles":[{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]},{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","mtime":"2024-04-22T10:05:29.836Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"next":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},"previous":{"title":"D. Studi Kasus","level":"6.1","depth":1,"ref":"","articles":[{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]},{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","mtime":"2024-04-25T12:05:09.337Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

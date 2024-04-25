@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2105,7 +2105,7 @@ tree .
 &#x251C;&#x2500;&#x2500; middleware.go
 &#x2514;&#x2500;&#x2500; users.json
 </code></pre>
-<h4 id="file-middlewarego">&#x2022; File <code>middleware.go</code></h4>
+<h4 id="&#x25C9;-file-middlewarego">&#x25C9; File <code>middleware.go</code></h4>
 <p>Lanjut isi file <code>middleware.go</code> dengan kode middleware yang sudah biasa kita gunakan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
@@ -2130,7 +2130,7 @@ tree .
     current.ServeHTTP(w, r)
 }
 </code></pre>
-<h4 id="file-usersjson">&#x2022; File <code>users.json</code></h4>
+<h4 id="&#x25C9;-file-usersjson">&#x25C9; File <code>users.json</code></h4>
 <p>Juga isi file <code>users.json</code> yang merupakan database aplikasi. Silakan tambahkan data JSON berikut.</p>
 <pre><code class="lang-json">[{
     <span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-string">&quot;noval&quot;</span>,
@@ -2144,7 +2144,7 @@ tree .
     <span class="hljs-string">&quot;group&quot;</span>: <span class="hljs-string">&quot;publisher&quot;</span>
 }]
 </code></pre>
-<h4 id="file-maingo">&#x2022; File <code>main.go</code></h4>
+<h4 id="&#x25C9;-file-maingo">&#x25C9; File <code>main.go</code></h4>
 <p>Sekarang kita fokus ke file <code>main.go</code>. Import packages yang diperlukan. Salah satu dari packages tersebut adalah <a href="https://github.com/golang-jwt/jwt" target="_blank">golang-jwt/jwt</a>, yang digunakan untuk keperluan JWT.</p>
 <pre><code class="lang-bash">go get -u github.com/golang-jwt/jwt/v4@v4.2.0
 go get -u github.com/novalagung/gubrak/v2
@@ -2339,7 +2339,7 @@ r = r.WithContext(ctx)
 
 next.ServeHTTP(w, r)
 </code></pre>
-<h4 id="handler-index">&#x2022; Handler Index</h4>
+<h4 id="&#x25C9;-handler-index">&#x25C9; Handler Index</h4>
 <p>Terakhir, kita perlu menyiapkan handler untuk rute <code>/index</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> HandlerIndex(w http.ResponseWriter, r *http.Request) {
     userInfo := r.Context().Value(<span class="hljs-string">&quot;userInfo&quot;</span>).(jwt.MapClaims)
@@ -2350,18 +2350,18 @@ next.ServeHTTP(w, r)
 <p>Informasi <code>userInfo</code> diambil dari context, lalu ditampilkan sebagai response endpoint.</p>
 <h2 id="c325-testing">C.32.5. Testing</h2>
 <p>Jalankan aplikasi, lalu test menggunakan curl.</p>
-<h4 id="otentikasi">&#x2022; Otentikasi</h4>
+<h4 id="&#x25C9;-otentikasi">&#x25C9; Otentikasi</h4>
 <pre><code class="lang-bash">curl -X POST --user noval:kaliparejaya123 http://localhost:8080/login
 </code></pre>
-<p>Output:</p>
+<p>Output program:</p>
 <p><img src="images/C_golang_jwt_2_jwt_authentication.png" alt="Dasar Pemrograman Golang - JWT Authentication"></p>
-<h4 id="mengakses-endpoint">&#x2022; Mengakses Endpoint</h4>
+<h4 id="&#x25C9;-mengakses-endpoint">&#x25C9; Mengakses Endpoint</h4>
 <p>Test endpoint <code>/index</code>. Sisipkan token yang dikembalikan pada saat otentikasi, sebagai value header otorisasi dengan skema <code>Authorization: Bearer &lt;token&gt;</code>.</p>
 <pre><code class="lang-bash">curl -X GET \
     --header <span class="hljs-string">&quot;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Mzg2NTI0NzksImlzcyI6Ik15IFNpbXBsZSBKV1QgQXBwIiwiVXNlcm5hbWUiOiJub3ZhbCIsIkVtYWlsIjoidGVycGFsbXVyYWhAZ21haWwuY29tIiwiR3JvdXAiOiJhZG1pbiJ9.JREJgUAYs2R5zuquqyX8tk23QlajVVe19susm6JsZq8&quot;</span> \
     http://localhost:8080/index
 </code></pre>
-<p>Output:</p>
+<p>Output program:</p>
 <p><img src="images/C_golang_jwt_3_jwt_authorization.png" alt="Dasar Pemrograman Golang - JWT Authorization"></p>
 <p>Semua berjalan sesuai harapan. Agar lebih meyakinkan, coba lakukan beberapa test dengan skenario yg salah, seperti:</p>
 <p><img src="images/C_golang_jwt_4_invalid_jwt_token.png" alt="Dasar Pemrograman Golang - JWT Error"></p>
@@ -2405,7 +2405,7 @@ next.ServeHTTP(w, r)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.32","depth":2,"next":{"title":"C.33. LDAP Authentication","level":"5.1.33","depth":2,"path":"C-golang-ldap-authentication.md","ref":"C-golang-ldap-authentication.md","articles":[]},"previous":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"path":"C-golang-grpc-protobuf.md","ref":"C-golang-grpc-protobuf.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-jwt.md","mtime":"2024-04-22T10:05:29.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.32","depth":2,"next":{"title":"C.33. LDAP Authentication","level":"5.1.33","depth":2,"path":"C-golang-ldap-authentication.md","ref":"C-golang-ldap-authentication.md","articles":[]},"previous":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"path":"C-golang-grpc-protobuf.md","ref":"C-golang-grpc-protobuf.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-jwt.md","mtime":"2024-04-25T12:05:09.337Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

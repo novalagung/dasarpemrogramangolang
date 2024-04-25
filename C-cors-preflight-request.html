@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2131,7 +2131,7 @@
 </ul>
 <p>Khusus untuk beberapa header seperti <code>Accept</code>, <code>Origin</code>, <code>Referer</code>, dan <code>User-Agent</code> tidak terkena efek CORS, karena header-header tersebut secara otomatis di-set di setiap request.</p>
 <h2 id="c143-testing-cors">C.14.3. Testing CORS</h2>
-<h4 id="persiapan">&#x2022; Persiapan</h4>
+<h4 id="&#x25C9;-persiapan">&#x25C9; Persiapan</h4>
 <p>Ada beberapa hal yang perlu dipersiapkan. Pertama, pastikan punya google chrome. Lalu install extension <a href="https://chrome.google.com/webstore/detail/jquery-injector/ekkjohcjbjcjjifokpingdbdlfekjcgi?hl=en" target="_blank">jQuery Injector</a>. Buka <a href="https://www.google.com" target="_blank">https://www.google.com</a> lalu inject jQuery. Dengan melakukan inject jQuery secara paksa maka dari situs google kita bisa menggunakan jQuery.</p>
 <p>Buka chrome developer tools, klik tab console. Lalu jalankan perintah jQuery AJAX berikut.</p>
 <pre><code class="lang-js">$.ajax({
@@ -2141,13 +2141,13 @@
 <p>Silakan lihat gambar berikut untuk memperjelas.</p>
 <p><img src="images/C_cors_preflight_request_1_cors_from_google_to_localhost.png" alt="Dasar Pemrograman Golang - CORS google to localhost"></p>
 <p>Bisa dilihat, tidak ada error, karena memang request dari google diijinkan. Silakan coba-coba melakukan request AJAX lainnya dengan method POST, DELETE, atau lainnya; atau ditambah dengan menyisipkan header tertentu dalam ajax request.</p>
-<h4 id="akses-httplocalhost9000-dari-origin-yang-tidak-didaftarkan-di-cors">&#x2022; Akses <a href="http://localhost:9000" target="_blank">http://localhost:9000</a> dari Origin yang Tidak Didaftarkan di CORS</h4>
+<h4 id="&#x25C9;-akses-httplocalhost9000-dari-origin-yang-tidak-didaftarkan-di-cors">&#x25C9; Akses <a href="http://localhost:9000" target="_blank">http://localhost:9000</a> dari Origin yang Tidak Didaftarkan di CORS</h4>
 <p>Selanjutnya coba buka tab baru, buka <a href="https://novalagung.com" target="_blank">https://novalagung.com</a>, lalu jalankan script yang sama.</p>
 <p><img src="images/C_cors_preflight_request_2_cors_from_novalagung_to_localhost.png" alt="Dasar Pemrograman Golang - CORS novalagung to localhost"></p>
 <pre style="font-size: .85em; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">Failed to load http://localhost:9000/index: The &apos;Access-Control-Allow-Origin&apos; header has a value &apos;https://www.google.com&apos; that is not equal to the supplied origin. Origin &apos;https://novalagung.com&apos; is therefore not allowed access.</pre>
 
 <p>Dari screenshot dan error log di atas, bisa dilihat bahwa request gagal. Hal ini dikarenakan origin <a href="https://novalagung.com" target="_blank">https://novalagung.com</a> tidak diijinkan untuk mengakses <a href="http://localhost:9000" target="_blank">http://localhost:9000</a>.</p>
-<h4 id="cors-multiple-origin">&#x2022; CORS Multiple Origin</h4>
+<h4 id="&#x25C9;-cors-multiple-origin">&#x25C9; CORS Multiple Origin</h4>
 <p>Sekarang coba tambahkan situs <a href="https://novalagung.com" target="_blank">https://novalagung.com</a> ke CORS header.</p>
 <pre><code class="lang-go">http.HandleFunc(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
     w.Header().Set(<span class="hljs-string">&quot;Access-Control-Allow-Origin&quot;</span>, 
@@ -2161,7 +2161,7 @@
 <pre style="font-size: .85em; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">Failed to load http://localhost:9000/index: The &apos;Access-Control-Allow-Origin&apos; header contains multiple values &apos;https://www.google.com, https://novalagung.com&apos;, but only one is allowed. Origin &apos;https://novalagung.com&apos; is therefore not allowed access.</pre>
 
 <p>Sebenarnya sudah kita singgung juga di atas, bahwa di spesifikasi adalah diperbolehkan isi header <code>Access-Control-Allow-Origin</code> lebih dari satu website. Namun, kebanyakan browser tidak mendukung bagian ini. Oleh karena itu error di atas muncul. Konfigurasi ini termasuk tidak valid, hasilnya kedua website tersebut tidak punya ijin masuk.</p>
-<h4 id="allow-all">&#x2022; Allow All</h4>
+<h4 id="&#x25C9;-allow-all">&#x25C9; Allow All</h4>
 <p>Gunakan tanda asteriks (<code>*</code>) sebagai nilai ketiga CORS header untuk memberi ijin ke semua.</p>
 <pre><code class="lang-go"><span class="hljs-comment">// semua origin mendapat ijin akses</span>
 w.Header().Set(<span class="hljs-string">&quot;Access-Control-Allow-Origin&quot;</span>, <span class="hljs-string">&quot;*&quot;</span>)
@@ -2173,7 +2173,7 @@ w.Header().Set(<span class="hljs-string">&quot;Access-Control-Allow-Methods&quot
 w.Header().Set(<span class="hljs-string">&quot;Access-Control-Allow-Headers&quot;</span>, <span class="hljs-string">&quot;*&quot;</span>)
 </code></pre>
 <h2 id="c144-preflight-request">C.14.4. Preflight Request</h2>
-<h4 id="teori">&#x2022; Teori</h4>
+<h4 id="&#x25C9;-teori">&#x25C9; Teori</h4>
 <p>Dalam konteks CORS, request dikategorikan menjadi 2 yaitu, <strong>Simple Request</strong> dan <strong>Preflighted Request</strong>. Beberapa contoh request yang sudah kita pelajari di atas termasuk simple request.</p>
 <p>Sedangkan mengenai preflighted request sendiri, mungkin pembaca secara tidak langsung juga pernah menerapkannya, terutama ketika bekerja di bagian front-end yang mengonsumsi data dari RESTful API yang server nya terpisah antara layer front end dan back end.</p>
 <p>Ketika melakukan cross origin request dengan payload adalah JSON, atau request jenis lainnya, biasanya di developer tools -&gt; network log muncul 2 kali request, request pertama method-nya <code>OPTIONS</code> dan request ke-2 adalah actual request.</p>
@@ -2218,7 +2218,7 @@ w.Header().Set(<span class="hljs-string">&quot;Access-Control-Allow-Headers&quot
     <span class="hljs-comment">// ...</span>
 })
 </code></pre>
-<h4 id="praktek">&#x2022; Praktek</h4>
+<h4 id="&#x25C9;-praktek">&#x25C9; Praktek</h4>
 <p>Langsung saja buka google.com lalu lakukan AJAX request yang memenuhi alah satu kriteria preflighted request, misalnya, gunakan header <code>Content-Type: application/json</code>.</p>
 <p><img src="images/C_cors_preflight_request_4_preflight_allowed.png" alt="Dasar Pemrograman Golang - Preflight Request Preview"></p>
 <p>Bisa dilihat pada screenshot, dua request muncul, yang pertama adalah preflight yang kedua adalah actual request.</p>
@@ -2351,7 +2351,7 @@ e.Use(echo.WrapMiddleware(corsMiddleware.Handler))
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.14. CORS & Preflight Request","level":"5.1.14","depth":2,"next":{"title":"C.15. CSRF","level":"5.1.15","depth":2,"path":"C-csrf.md","ref":"C-csrf.md","articles":[]},"previous":{"title":"C.13. Session (Gorilla Session)","level":"5.1.13","depth":2,"path":"C-session.md","ref":"C-session.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-cors-preflight-request.md","mtime":"2024-04-22T10:05:29.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.14. CORS & Preflight Request","level":"5.1.14","depth":2,"next":{"title":"C.15. CSRF","level":"5.1.15","depth":2,"path":"C-csrf.md","ref":"C-csrf.md","articles":[]},"previous":{"title":"C.13. Session (Gorilla Session)","level":"5.1.13","depth":2,"path":"C-session.md","ref":"C-session.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-cors-preflight-request.md","mtime":"2024-04-25T12:05:09.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

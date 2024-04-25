@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2110,15 +2110,15 @@ tree .
 </code></pre>
 <p>Salah satu pembeda yang paling terlihat dibanding chapter sebelumnya adalah di sini kita go get package <code>google.golang.org/grpc</code>. Package ini diperlukan oleh generator untuk bisa memahami dan men-<em>generate</em> spesifikasi <code>service</code>. Lebih jelasnya akan kita bahas sambil praktek.</p>
 <p>Lanjut. Di bawah ini merupakan penjelasan per bagian dari struktur project di atas.</p>
-<h4 id="folder-common">&#x2022; Folder <code>common</code></h4>
+<h4 id="&#x25C9;-folder-common">&#x25C9; Folder <code>common</code></h4>
 <p>Folder <code>common</code>, berisikan 2 buah sub folder, <code>config</code> dan <code>model</code>.</p>
 <ul>
 <li>Folder <code>config</code> berisikan informasi shared atau global, yang digunakan aplikasi client maupun server.</li>
 <li>Folder <code>model</code> berisikan file <code>.proto</code>. Silakan salin file <code>garage.proto</code> dan <code>user.proto</code> pada chapter sebelumnya ke folder tersebut.</li>
 </ul>
-<h4 id="folder-client">&#x2022; Folder <code>client</code></h4>
+<h4 id="&#x25C9;-folder-client">&#x25C9; Folder <code>client</code></h4>
 <p>Isinya adalah satu buah file main, yang nantinya di jalankan sebagai aplikasi client. Aplikasi client ini akan berkomunikasi dengan 2 buah aplikasi server.</p>
-<h4 id="folder-services">&#x2022; Folder <code>services</code></h4>
+<h4 id="&#x25C9;-folder-services">&#x25C9; Folder <code>services</code></h4>
 <p>Satu buah file proto untuk satu aplikasi rpc server (service). Karena ada dua file proto, berarti jelasnya ada dua aplikasi rpc server, <code>service-user</code> dan <code>service-garage</code>. Folder <code>services</code> ini menampung kedua aplikasi service tersebut.</p>
 <p>File <code>garage.proto</code> dan <code>user.proto</code> tidak dijadikan satu dalam respektif folder <code>service-garage</code> dan <code>service-user</code>, karena kedua file ini juga digunakan pada aplikasi client, itulah kenapa file ini dipisah ke dalam folder <code>common/model</code>.</p>
 <h2 id="c314-file-konfigurasi-pada-folder-commonconfig">C.31.4. File Konfigurasi pada folder <code>common/config</code></h2>
@@ -2134,7 +2134,7 @@ tree .
 <p>Setelah kedua file <code>user.proto</code> dan <code>garage.proto</code> pada chapter sebelumnya disalin, kita perlu menambahkan pendefinisian service pada masing-masing file proto.</p>
 <p>Keyword <code>service</code> digunakan untuk membuat service. Service ini nantinya juga ikut di konversi ke bentuk Go (menjadi interface), lewat command <code>protoc</code>. Di aplikasi rpc server, nantinya harus dibuat implementasi dari interface tersebut.</p>
 <p>OK, sekarang tambahkan kode berikut ke file proto.</p>
-<h4 id="service-users">&#x2022; Service <code>Users</code></h4>
+<h4 id="&#x25C9;-service-users">&#x25C9; Service <code>Users</code></h4>
 <p>Buka file <code>user.proto</code>, tambahkan kode berikut di akhir baris.</p>
 <pre><code class="lang-protobuf"><span class="hljs-comment">// ...</span>
 
@@ -2173,7 +2173,7 @@ tree .
 <p>Interface ini nantinya harus diimplementasikan di aplikasi rpc client.</p>
 </li>
 </ul>
-<h4 id="service-garages">&#x2022; Service <code>Garages</code></h4>
+<h4 id="&#x25C9;-service-garages">&#x25C9; Service <code>Garages</code></h4>
 <p>Pada file <code>garage.proto</code>, definisikan service <code>Garages</code> dengan isi dua buah method, <code>Add()</code> dan <code>List()</code>.</p>
 <pre><code class="lang-protobuf"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;google/protobuf/empty.proto&quot;</span>;
 
@@ -2399,7 +2399,7 @@ log.Fatal(srv.Serve(l))
   <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<h4 id="test-rpc-client-user">&#x2022; Test rpc client user</h4>
+<h4 id="&#x25C9;-test-rpc-client-user">&#x25C9; Test rpc client user</h4>
 <p>Selanjutnya akses fungsi <code>serviceUser()</code> untuk memperoleh objek rpc client user. Dari situ eksekusi method <code>.Register()</code>.</p>
 <pre><code class="lang-go">user := serviceUser()
 
@@ -2425,7 +2425,7 @@ log.Println(<span class="hljs-keyword">string</span>(res1String))
 </code></pre>
 <p>Bisa dilihat pada gambar berikut, pemanggilan method <code>.List()</code> juga sukses. Dua buah data yang sebelumnya didaftarkan muncul.</p>
 <p><img src="images/C_golang_grpc_protobuf_2_grpc_test2.png" alt="Dasar Pemrograman Golang - gRPC Test 2"></p>
-<h4 id="test-rpc-client-garage">&#x2022; Test rpc client garage</h4>
+<h4 id="&#x25C9;-test-rpc-client-garage">&#x25C9; Test rpc client garage</h4>
 <p>Tambahkan beberapa statement untuk memanggil method yang ada di <code>service-garage</code>.</p>
 <ul>
 <li><p>Menambahkan garage untuk user <code>user1</code>:</p>
@@ -2521,7 +2521,7 @@ log.Println(<span class="hljs-keyword">string</span>(res3String))
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"next":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.32","depth":2,"path":"C-golang-jwt.md","ref":"C-golang-jwt.md","articles":[]},"previous":{"title":"C.30. Protobuf","level":"5.1.30","depth":2,"path":"C-golang-protobuf-implementation.md","ref":"C-golang-protobuf-implementation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-grpc-protobuf.md","mtime":"2024-04-22T10:05:29.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"next":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.32","depth":2,"path":"C-golang-jwt.md","ref":"C-golang-jwt.md","articles":[]},"previous":{"title":"C.30. Protobuf","level":"5.1.30","depth":2,"path":"C-golang-protobuf-implementation.md","ref":"C-golang-protobuf-implementation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-grpc-protobuf.md","mtime":"2024-04-25T12:05:09.337Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

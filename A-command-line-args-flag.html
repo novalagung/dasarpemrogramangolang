@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,11 +2062,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a48-arguments--flag">A.48. Arguments &amp; Flag</h1>
-<p><strong>Arguments</strong> adalah data opsional yang disisipkan ketika eksekusi program. Sedangkan <strong>flag</strong> merupakan ekstensi dari argument. Dengan flag, penulisan argument menjadi lebih rapi dan terstruktur.</p>
-<p>Pada chapter ini kita akan belajar tentang penggunaan arguments dan flag.</p>
+<p><strong>Arguments</strong> adalah data argument opsional yang disisipkan ketika eksekusi program. Sedangkan <strong>flag</strong> merupakan ekstensi dari argument. Dengan flag, penulisan argument menjadi lebih rapi dan terstruktur.</p>
+<p>Pada chapter ini kita akan belajar tentang penerapan arguments dan flag.</p>
 <h2 id="a481-penggunaan-arguments">A.48.1. Penggunaan Arguments</h2>
-<p>Data arguments bisa didapat lewat variabel <code>os.Args</code> (package <code>os</code> perlu di-import terlebih dahulu). Data tersebut tersimpan dalam bentuk array dengan pemisah adalah tanda spasi.</p>
-<p>Berikut merupakan contoh penggunaannya.</p>
+<p>Data arguments bisa didapat lewat variabel <code>os.Args</code> (package <code>os</code> perlu di-import terlebih dahulu). Data tersebut tersimpan dalam bentuk array. Setiap data argument yang disisipkan saat pemanggilan program, datanya dipecah menggunakan karakter spasi lalu di-map ke bentuk array. Contoh penerapan:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2082,8 +2081,7 @@
     <span class="hljs-comment">// -&gt; []string{&quot;banana&quot;, &quot;potatao&quot;, &quot;ice cream&quot;}</span>
 }
 </code></pre>
-<p>Pada saat eksekusi program disisipkan juga argument-nya. Sebagai contoh disisipkan 3 buah data sebagai argumen, yaitu: <code>banana</code>, <code>potato</code>, dan <code>ice cream</code>.</p>
-<p>Untuk eksekusinya sendiri bisa menggunakan <code>go run</code> ataupun dengan cara build-execute.</p>
+<p>Argument disisipkan saat eksekusi program. Sebagai contoh, kita ingin menyisipkan 3 buah argumen berikut: <code>banana</code>, <code>potato</code>, dan <code>ice cream</code>. Maka penulisan saat pemanggilan program-nya seperti ini:</p>
 <ul>
 <li><p>Menggunakan <code>go run</code></p>
 <pre><code> go run bab45.go banana potato &quot;ice cream&quot;
@@ -2093,9 +2091,10 @@
  $ ./bab45 banana potato &quot;ice cream&quot;
 </code></pre></li>
 </ul>
-<p>Variabel <code>os.Args</code> mengembalikan tak hanya arguments saja, tapi juga path file executable (jika eksekusi-nya menggunakan <code>go run</code> maka path akan merujuk ke folder temporary). Gunakan <code>os.Args[1:]</code> untuk mengambil slice arguments-nya saja.</p>
+<p>Output program:</p>
 <p><img src="images/A_cli_flag_arg_1_argument.png" alt="Dasar Pemrograman Golang - Pemanfaatan arguments"></p>
-<p>Bisa dilihat pada kode di atas, bahwa untuk data argumen yang ada karakter spasi nya (<code> </code>), maka harus diapit tanda petik (<code>&quot;</code>), agar tidak dideteksi sebagai 2 argumen.</p>
+<p>Bisa dilihat pada kode di atas, bahwa untuk data argumen yang ada karakter spasi-nya (<code> </code>) harus dituliskan dengan diapit tanda petik (<code>&quot;</code>) agar tidak dideteksi sebagai 2 argumen.</p>
+<p>Variabel <code>os.Args</code> mengembalikan tak hanya arguments saja, tapi juga path file executable (jika eksekusi-nya menggunakan <code>go run</code> maka path akan merujuk ke folder temporary). Maka disini penting untuk hanya mengambil element index ke 1 hingga seterusnya saja via statement <code>os.Args[1:]</code>.</p>
 <h2 id="a482-penggunaan-flag">A.48.2. Penggunaan Flag</h2>
 <p>Flag memiliki kegunaan yang sama seperti arguments, yaitu untuk <em>parameterize</em> eksekusi program, dengan penulisan dalam bentuk key-value. Berikut merupakan contoh penerapannya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2119,7 +2118,7 @@
 fmt.Println(*dataName)
 </code></pre>
 <p>Kode tersebut maksudnya adalah, disiapkan flag bertipe <code>string</code>, dengan key adalah <code>name</code>, dengan nilai default <code>&quot;anonymous&quot;</code>, dan keterangan <code>&quot;type your name&quot;</code>. Nilai flag nya sendiri akan disimpan ke dalam variabel <code>dataName</code>.</p>
-<p>Nilai balik fungsi <code>flag.String()</code> adalah string pointer, jadi perlu di-<em>dereference</em> terlebih dahulu agar bisa mendapatkan nilai aslinya (<code>*dataName</code>).</p>
+<p>Nilai balik fungsi <code>flag.String()</code> adalah string pointer, jadi perlu di-<em>dereference</em> terlebih dahulu untuk mengakses nilai aslinya (<code>*dataName</code>).</p>
 <p><img src="images/A_cli_flag_arg_2_flag.png" alt="Dasar Pemrograman Golang - Contoh penggunaan flag"></p>
 <p>Flag yang nilainya tidak di set, secara otomatis akan mengembalikan nilai default.</p>
 <p>Tabel berikut merupakan macam-macam fungsi flag yang tersedia untuk tiap jenis tipe data.</p>
@@ -2168,7 +2167,7 @@ fmt.Println(*dataName)
 <h2 id="a483-deklarasi-flag-dengan-cara-passing-reference-variabel-penampung-data">A.48.3. Deklarasi Flag Dengan Cara Passing Reference Variabel Penampung Data</h2>
 <p>Sebenarnya ada 2 cara deklarasi flag yang bisa digunakan, dan cara di atas merupakan cara pertama.</p>
 <p>Cara kedua mirip dengan cara pertama, perbedannya adalah kalau di cara pertama nilai pointer flag dikembalikan lalu ditampung variabel. Sedangkan pada cara kedua, nilainya diambil lewat parameter pointer.</p>
-<p>Agar lebih jelas perhatikan contoh berikut.</p>
+<p>Agar lebih jelas perhatikan contoh berikut:</p>
 <pre><code class="lang-go"><span class="hljs-comment">// cara ke-1</span>
 <span class="hljs-keyword">var</span> data1 = flag.String(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;anonymous&quot;</span>, <span class="hljs-string">&quot;type your name&quot;</span>)
 fmt.Println(*data1)
@@ -2216,7 +2215,7 @@ fmt.Println(data2)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.48. Arguments & Flag","level":"3.1.48","depth":2,"next":{"title":"A.49. Exec","level":"3.1.49","depth":2,"path":"A-exec.md","ref":"A-exec.md","articles":[]},"previous":{"title":"A.47. Hash Sha1","level":"3.1.47","depth":2,"path":"A-hash-sha1.md","ref":"A-hash-sha1.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-command-line-args-flag.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.48. Arguments & Flag","level":"3.1.48","depth":2,"next":{"title":"A.49. Exec","level":"3.1.49","depth":2,"path":"A-exec.md","ref":"A-exec.md","articles":[]},"previous":{"title":"A.47. Hash Sha1","level":"3.1.47","depth":2,"path":"A-hash-sha1.md","ref":"A-hash-sha1.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-command-line-args-flag.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

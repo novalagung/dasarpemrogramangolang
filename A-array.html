@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,7 +2062,8 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a15-array">A.15. Array</h1>
-<p>Array adalah kumpulan data bertipe sama, yang disimpan dalam sebuah variabel. Array memiliki kapasitas yang nilainya ditentukan pada saat pembuatan, menjadikan elemen/data yang disimpan di array tersebut jumlahnya tidak boleh melebihi yang sudah dialokasikan. Default nilai tiap elemen array pada awalnya tergantung dari tipe datanya. Jika <code>int</code> maka tiap element zero value-nya adalah <code>0</code>, jika <code>bool</code> maka <code>false</code>, dan seterusnya. Setiap elemen array memiliki indeks berupa angka yang merepresentasikan posisi urutan elemen tersebut. Indeks array dimulai dari 0.</p>
+<p>Array adalah kumpulan data bertipe sama, yang disimpan dalam sebuah variabel. Array memiliki kapasitas yang nilainya ditentukan pada saat pembuatan, menjadikan elemen/data yang disimpan di array tersebut jumlahnya tidak boleh melebihi yang sudah dialokasikan.</p>
+<p>Default nilai tiap elemen array pada awalnya tergantung dari tipe datanya. Jika <code>int</code> maka tiap element zero value-nya adalah <code>0</code>, jika <code>bool</code> maka <code>false</code>, dan seterusnya. Setiap elemen array memiliki indeks berupa angka yang merepresentasikan posisi urutan elemen tersebut. Indeks array dimulai dari 0.</p>
 <p>Contoh penerapan array:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> names [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>
 names[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;trafalgar&quot;</span>
@@ -2072,10 +2073,10 @@ names[<span class="hljs-number">3</span>] = <span class="hljs-string">&quot;law&
 
 fmt.Println(names[<span class="hljs-number">0</span>], names[<span class="hljs-number">1</span>], names[<span class="hljs-number">2</span>], names[<span class="hljs-number">3</span>])
 </code></pre>
-<p>Variabel <code>names</code> dideklarasikan sebagai <code>array string</code> dengan alokasi elemen <code>4</code> slot. Cara mengisi slot elemen array bisa dilihat di kode di atas, yaitu dengan langsung mengakses elemen menggunakan indeks, lalu mengisinya.</p>
+<p>Variabel <code>names</code> dideklarasikan sebagai <code>array string</code> dengan alokasi kapasitas elemen adalah <code>4</code> slot. Cara mengisi slot elemen array bisa dilihat di kode di atas, yaitu dengan langsung mengakses elemen menggunakan indeks, lalu mengisinya.</p>
 <p><img src="images/A_array_0_array.png" alt="Dasar Pemrograman Golang - Menampilkan elemen array"></p>
 <h2 id="a151-pengisian-elemen-array-yang-melebihi-alokasi-awal">A.15.1. Pengisian Elemen Array yang Melebihi Alokasi Awal</h2>
-<p>Pengisian elemen array pada indeks yang tidak sesuai dengan alokasi menghasilkan error. Contoh sederhana, jika array memiliki 4 slot, maka pengisian nilai slot 5 seterusnya adalah tidak valid.</p>
+<p>Pengisian elemen array pada indeks yang tidak sesuai dengan jumlah alokasi menghasilkan error. Contoh: jika array memiliki 4 slot, maka pengisian nilai slot 5 seterusnya adalah tidak valid.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> names [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>
 names[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;trafalgar&quot;</span>
 names[<span class="hljs-number">1</span>] = <span class="hljs-string">&quot;d&quot;</span>
@@ -2083,7 +2084,7 @@ names[<span class="hljs-number">2</span>] = <span class="hljs-string">&quot;wate
 names[<span class="hljs-number">3</span>] = <span class="hljs-string">&quot;law&quot;</span>
 names[<span class="hljs-number">4</span>] = <span class="hljs-string">&quot;ez&quot;</span> <span class="hljs-comment">// baris kode ini menghasilkan error</span>
 </code></pre>
-<p>Solusi dari masalah di atas adalah dengan menggunakan keyword <code>append</code>, yang nantinya pada chapter selanjutnya (<a href="A-slice.html">A.16. Slice</a>) akan kita bahas.</p>
+<p>Solusi dari masalah di atas adalah dengan menggunakan keyword <code>append</code>, yang pembahasannya ada pada chapter selanjutnya, (<a href="A-slice.html">A.16. Slice</a>).</p>
 <h2 id="a152-inisialisasi-nilai-awal-array">A.15.2. Inisialisasi Nilai Awal Array</h2>
 <p>Pengisian elemen array bisa dilakukan pada saat deklarasi variabel. Caranya dengan menuliskan data elemen dalam kurung kurawal setelah tipe data, dengan pembatas antar elemen adalah tanda koma (<code>,</code>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
@@ -2091,9 +2092,9 @@ names[<span class="hljs-number">4</span>] = <span class="hljs-string">&quot;ez&q
 fmt.Println(<span class="hljs-string">&quot;Jumlah element \t\t&quot;</span>, <span class="hljs-built_in">len</span>(fruits))
 fmt.Println(<span class="hljs-string">&quot;Isi semua element \t&quot;</span>, fruits)
 </code></pre>
-<p>Penggunaan fungsi <code>fmt.Println()</code> pada data array tanpa mengakses indeks tertentu, akan menghasilkan output dalam bentuk string dari semua array yang ada. Teknik ini biasa digunakan untuk <em>debugging</em> data array.</p>
+<p>Penggunaan fungsi <code>fmt.Println()</code> pada data array tanpa mengakses indeks tertentu, menghasilkan output dalam bentuk string dari semua array yang ada. Teknik ini umum digunakan untuk keperluan <em>debugging</em> data array.</p>
 <p><img src="images/A_array_1_array_initialization_and_len.png" alt="Dasar Pemrograman Golang - Menghitung jumlah elemen dan menampilkan isi array"></p>
-<p>Fungsi <code>len()</code> dipakai untuk menghitung jumlah elemen sebuah array.</p>
+<p>Fungsi <code>len()</code> berfungsi untuk menghitung jumlah elemen sebuah array.</p>
 <h2 id="a153-inisialisasi-nilai-array-dengan-gaya-vertikal">A.15.3. Inisialisasi Nilai Array Dengan Gaya Vertikal</h2>
 <p>Elemen array bisa dituliskan dalam bentuk horizontal (seperti yang sudah dicontohkan di atas) ataupun dalam bentuk vertikal.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>
@@ -2109,30 +2110,33 @@ fruits  = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string<
     <span class="hljs-string">&quot;melon&quot;</span>,
 }
 </code></pre>
-<p>Khusus untuk deklarasi array dengan cara vertikal, tanda koma wajib dituliskan setelah elemen, termasuk elemen terakhir. Jika tidak, maka akan muncul error.</p>
+<p>Khusus untuk deklarasi array dengan cara vertikal, tanda koma wajib dituliskan setelah setiap elemen (termasuk elemen terakhir), agar tidak memunculkan syntax error.</p>
 <h2 id="a154-inisialisasi-nilai-awal-array-tanpa-jumlah-elemen">A.15.4. Inisialisasi Nilai Awal Array Tanpa Jumlah Elemen</h2>
-<p>Deklarasi array yang nilainya diset di awal, boleh tidak dituliskan jumlah lebar array-nya, cukup ganti dengan tanda 3 titik (<code>...</code>). Jumlah elemen akan di kalkulasi secara otomatis menyesuaikan data elemen yang diisikan.</p>
+<p>Deklarasi array yang nilainya diset di awal, boleh tidak dituliskan jumlah lebar array-nya, cukup ganti dengan tanda 3 titik (<code>...</code>). Metode penulisan ini membuat kapasitas array otomatis dihitung dari jumlah elemen array yang ditulis.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> numbers = [...]<span class="hljs-keyword">int</span>{<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>}
 
 fmt.Println(<span class="hljs-string">&quot;data array \t:&quot;</span>, numbers)
 fmt.Println(<span class="hljs-string">&quot;jumlah elemen \t:&quot;</span>, <span class="hljs-built_in">len</span>(numbers))
 </code></pre>
-<p>Variabel <code>numbers</code> akan secara otomatis memiliki jumlah elemen <code>5</code>, karena pada saat deklarasi disiapkan 5 buah elemen.</p>
+<p>Variabel <code>numbers</code> secara otomatis kapasitas elemennya adalah <code>5</code>.</p>
 <p><img src="images/A_array_1_1_array_dots.png" alt="Dasar Pemrograman Golang - Deklarasi array menggunakan tanda 3 titik"></p>
 <h2 id="a155-array-multidimensi">A.15.5. Array Multidimensi</h2>
-<p>Array multidimensi adalah array yang tiap elemennya juga berupa array (dan bisa seterusnya, tergantung ke dalaman dimensinya).</p>
-<p>Cara deklarasi array multidimensi secara umum sama dengan cara deklarasi array biasa, dengan cara menuliskan data array dimensi selanjutnya sebagai elemen array dimensi sebelumnya.</p>
-<p>Khusus untuk array yang merupakan sub dimensi atau elemen, boleh tidak dituliskan jumlah datanya. Contohnya bisa dilihat pada deklarasi variabel <code>numbers2</code> di kode berikut.</p>
+<p>Array multidimensi adalah array yang tiap elemennya juga berupa array.</p>
+<blockquote>
+<p>Level kedalaman array multidimensi adalah tidak terbatas, bisa saja suatu array berisi elemen array yang setiap elemennya juga adalah nilai array, dst.</p>
+</blockquote>
+<p>Cara deklarasi array multidimensi secara umum sama dengan array biasa, bedanya adalah pada array biasa, setiap elemen berisi satu nilai, sedangkan pada array multidimensi setiap elemen berisi array.</p>
+<p>Khusus penulisan array yang merupakan subdimensi/elemen, boleh tidak dituliskan jumlah datanya. Contohnya bisa dilihat pada deklarasi variabel <code>numbers2</code> di kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> numbers1 = [<span class="hljs-number">2</span>][<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span>{[<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span>{<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>}, [<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span>{<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>}}
 <span class="hljs-keyword">var</span> numbers2 = [<span class="hljs-number">2</span>][<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span>{{<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>}, {<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>}}
 
 fmt.Println(<span class="hljs-string">&quot;numbers1&quot;</span>, numbers1)
 fmt.Println(<span class="hljs-string">&quot;numbers2&quot;</span>, numbers2)
 </code></pre>
-<p>Kedua array di atas memiliki elemen yang sama.</p>
+<p>Kedua array di atas memiliki jumlah dan isi elemen yang sama.</p>
 <p><img src="images/A_array_2_array_multidimension.png" alt="Dasar Pemrograman Golang - Array multidimensi"></p>
 <h2 id="a156-perulangan-elemen-array-menggunakan-keyword-for">A.15.6. Perulangan Elemen Array Menggunakan Keyword <code>for</code></h2>
-<p>Keyword <code>for</code> dan array memiliki hubungan yang sangat erat. Dengan memanfaatkan perulangan menggunakan keyword ini, elemen-elemen dalam array bisa didapat.</p>
+<p>Keyword <code>for</code> dan array memiliki hubungan yang sangat erat. Dengan memanfaatkan perulangan/looping menggunakan keyword ini, elemen-elemen dalam array bisa didapat.</p>
 <p>Ada beberapa cara yang bisa digunakan untuk me-looping data array, yg pertama adalah dengan memanfaatkan variabel iterasi perulangan untuk mengakses elemen berdasarkan indeks-nya. Contoh:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
 
@@ -2143,7 +2147,7 @@ fmt.Println(<span class="hljs-string">&quot;numbers2&quot;</span>, numbers2)
 <p>Perulangan di atas dijalankan sebanyak jumlah elemen array <code>fruits</code> (bisa diketahui dari kondisi <code>i &lt; len(fruits</code>). Di tiap perulangan, elemen array diakses lewat variabel iterasi <code>i</code>.</p>
 <p><img src="images/A_array_3_for_range.png" alt="Dasar Pemrograman Golang - Iterasi elemen array"></p>
 <h2 id="a157-perulangan-elemen-array-menggunakan-keyword-for---range">A.15.7. Perulangan Elemen Array Menggunakan Keyword <code>for</code> - <code>range</code></h2>
-<p>Ada cara yang lebih sederhana me-looping data array, dengan menggunakan keyword <code>for</code> - <code>range</code>. Contoh pengaplikasiannya bisa dilihat di kode berikut.</p>
+<p>Ada cara lain yang lebih sederhana untuk operasi perulangan array, yaitu menggunakan kombinasi keyword <code>for</code> - <code>range</code>. Contoh pengaplikasiannya bisa dilihat di kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
 
 <span class="hljs-keyword">for</span> i, fruit := <span class="hljs-keyword">range</span> fruits {
@@ -2151,19 +2155,18 @@ fmt.Println(<span class="hljs-string">&quot;numbers2&quot;</span>, numbers2)
 }
 </code></pre>
 <p>Array <code>fruits</code> diambil elemen-nya secara berurutan. Nilai tiap elemen ditampung variabel oleh <code>fruit</code> (tanpa huruf s), sedangkan indeks nya ditampung variabel <code>i</code>.</p>
-<p>Output program di atas, sama dengan output program sebelumnya, hanya cara yang digunakan berbeda.</p>
+<p>Output program di atas, sama persis dengan output program sebelumnya, hanya saja cara yang diterapkan berbeda.</p>
 <h2 id="a158-penggunaan-variabel-underscore--dalam-for---range">A.15.8. Penggunaan Variabel Underscore <code>_</code> Dalam <code>for</code> - <code>range</code></h2>
-<p>Kadang kala ketika <em>looping</em> menggunakan <code>for</code> - <code>range</code>, ada kemungkinan di mana data yang dibutuhkan adalah elemen-nya saja, indeks-nya tidak. Sedangkan kode di atas, <code>range</code> mengembalikan 2 data, yaitu indeks dan elemen.</p>
-<p>Seperti yang sudah diketahui, bahwa di Go tidak memperbolehkan adanya variabel yang menganggur atau tidak dipakai. Jika dipaksakan, error akan muncul, contohnya seperti kode berikut.</p>
+<p>Terkadang, dalam penerapan <em>looping</em> menggunakan <code>for</code> - <code>range</code>, ada kebutuhan di mana yang dibutuhkan dari perulangan adlah adalah elemen-nya saja, sedangkan indeks-nya tidak, contoh:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
 
 <span class="hljs-keyword">for</span> i, fruit := <span class="hljs-keyword">range</span> fruits {
     fmt.Printf(<span class="hljs-string">&quot;nama buah : %s\n&quot;</span>, fruit)
 }
 </code></pre>
-<p>Hasil dari kode program di atas:</p>
+<p>Hasil dari kode program di atas adalah error, karena Go tidak memperbolehkan adanya variabel yang menganggur atau tidak dipakai.</p>
 <p><img src="images/A_array_4_for_range_error.png" alt="Dasar Pemrograman Golang - Error karena ada variabel yang tidak digunakan"></p>
-<p>Di sinilah salah satu kegunaan variabel pengangguran, atau underscore (<code>_</code>). Tampung saja nilai yang tidak ingin digunakan ke underscore.</p>
+<p>Di sinilah salah satu kegunaan dari variabel pengangguran, atau underscore (<code>_</code>). Tampung saja nilai yang tidak ingin digunakan ke underscore.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
 
 <span class="hljs-keyword">for</span> _, fruit := <span class="hljs-keyword">range</span> fruits {
@@ -2172,20 +2175,20 @@ fmt.Println(<span class="hljs-string">&quot;numbers2&quot;</span>, numbers2)
 </code></pre>
 <p>Pada kode di atas, yang sebelumnya adalah variabel <code>i</code> diganti dengan <code>_</code>, karena kebetulan variabel <code>i</code> tidak digunakan.</p>
 <p><img src="images/A_array_5_for_range_underscore.png" alt="Dasar Pemrograman Golang - For range tanpa indeks"></p>
-<p>Jika yang dibutuhkan hanya indeks elemen-nya saja, bisa gunakan 1 buah variabel setelah keyword <code>for</code>.</p>
+<p>Bagaiamana jika sebaliknya? Misal, yang dibutuhkan hanya indeks-nya saja, nilainya tidak penting. Maka cukup tulis satu variabel saja setelah keyword <code>for</code>, yaitu variabel penampung nilai indeks.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">for</span> i, _ := <span class="hljs-keyword">range</span> fruits { }
 <span class="hljs-comment">// atau</span>
 <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> fruits { }
 </code></pre>
 <h2 id="a159-alokasi-elemen-array-menggunakan-keyword-make">A.15.9. Alokasi Elemen Array Menggunakan Keyword <code>make</code></h2>
-<p>Deklarasi sekaligus alokasi data array juga bisa dilakukan lewat keyword <code>make</code>.</p>
+<p>Deklarasi sekaligus alokasi kapasitas array juga bisa dilakukan lewat keyword <code>make</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>, <span class="hljs-number">2</span>)
 fruits[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;apple&quot;</span>
 fruits[<span class="hljs-number">1</span>] = <span class="hljs-string">&quot;manggo&quot;</span>
 
 fmt.Println(fruits)  <span class="hljs-comment">// [apple manggo]</span>
 </code></pre>
-<p>Parameter pertama keyword <code>make</code> diisi dengan tipe data elemen array yang diinginkan, parameter kedua adalah jumlah elemennya. Pada kode di atas, variabel <code>fruits</code> tercetak sebagai array string dengan alokasi 2 slot.</p>
+<p>Parameter pertama keyword <code>make</code> diisi dengan tipe data elemen array yang diinginkan, parameter kedua adalah jumlah elemennya. Pada kode di atas, variabel <code>fruits</code> tercetak sebagai array string dengan kapasitas alokasi 2 slot.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
@@ -2221,7 +2224,7 @@ fmt.Println(fruits)  <span class="hljs-comment">// [apple manggo]</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.15. Array","level":"3.1.15","depth":2,"next":{"title":"A.16. Slice","level":"3.1.16","depth":2,"path":"A-slice.md","ref":"A-slice.md","articles":[]},"previous":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"path":"A-perulangan.md","ref":"A-perulangan.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-array.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.15. Array","level":"3.1.15","depth":2,"next":{"title":"A.16. Slice","level":"3.1.16","depth":2,"path":"A-slice.md","ref":"A-slice.md","articles":[]},"previous":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"path":"A-perulangan.md","ref":"A-perulangan.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-array.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

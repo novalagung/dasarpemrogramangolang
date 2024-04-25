@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,10 +2062,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a43-konversi-antar-tipe-data">A.43. Konversi Antar Tipe Data</h1>
-<p>Pada chapter sebelum-sebelumnyanya kita sudah mengaplikasikan beberapa cara konversi data, contohnya seperti konversi <code>string</code> &#x2194; <code>int</code> menggunakan <code>strconv</code>, dan <code>time.Time</code> &#x2194; <code>string</code>. Pada chapter ini kita akan belajar lebih banyak.</p>
+<p>Di beberapa chapter sebelum ini kita telah menerapkan beberapa cara konversi data, contohnya seperti konversi <code>string</code> &#x2194; <code>int</code> menggunakan <code>strconv</code>, dan <code>time.Time</code> &#x2194; <code>string</code>. Pada chapter ini kita akan mempelajarinya lebih detail.</p>
 <h2 id="a431-konversi-menggunakan-strconv">A.43.1. Konversi Menggunakan <code>strconv</code></h2>
 <p>Package <code>strconv</code> berisi banyak fungsi yang sangat membantu kita untuk melakukan konversi. Berikut merupakan beberapa fungsi yang dalam package tersebut.</p>
-<h4 id="fungsi-strconvatoi">&#x2022; Fungsi <code>strconv.Atoi()</code></h4>
+<h4 id="&#x25C9;-fungsi-strconvatoi">&#x25C9; Fungsi <code>strconv.Atoi()</code></h4>
 <p>Fungsi ini digunakan untuk konversi data dari tipe <code>string</code> ke <code>int</code>. <code>strconv.Atoi()</code> menghasilkan 2 buah nilai kembalian, yaitu hasil konversi dan <code>error</code> (jika konversi sukses, maka <code>error</code> berisi <code>nil</code>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
@@ -2081,14 +2081,14 @@
     }
 }
 </code></pre>
-<h4 id="fungsi-strconvitoa">&#x2022; Fungsi <code>strconv.Itoa()</code></h4>
+<h4 id="&#x25C9;-fungsi-strconvitoa">&#x25C9; Fungsi <code>strconv.Itoa()</code></h4>
 <p>Merupakan kebalikan dari <code>strconv.Atoi</code>, berguna untuk konversi <code>int</code> ke <code>string</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> num = <span class="hljs-number">124</span>
 <span class="hljs-keyword">var</span> str = strconv.Itoa(num)
 
 fmt.Println(str) <span class="hljs-comment">// &quot;124&quot;</span>
 </code></pre>
-<h4 id="fungsi-strconvparseint">&#x2022; Fungsi <code>strconv.ParseInt()</code></h4>
+<h4 id="&#x25C9;-fungsi-strconvparseint">&#x25C9; Fungsi <code>strconv.ParseInt()</code></h4>
 <p>Digunakan untuk konversi <code>string</code> berbentuk numerik dengan basis tertentu ke tipe numerik non-desimal dengan lebar data bisa ditentukan.</p>
 <p>Pada contoh berikut, string <code>&quot;124&quot;</code> dikonversi ke tipe numerik dengan ketentuan basis yang digunakan <code>10</code> dan lebar datanya mengikuti tipe <code>int64</code> (lihat parameter ketiga).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> str = <span class="hljs-string">&quot;124&quot;</span>
@@ -2106,14 +2106,14 @@ fmt.Println(str) <span class="hljs-comment">// &quot;124&quot;</span>
     fmt.Println(num) <span class="hljs-comment">// 10</span>
 }
 </code></pre>
-<h4 id="fungsi-strconvformatint">&#x2022; Fungsi <code>strconv.FormatInt()</code></h4>
+<h4 id="&#x25C9;-fungsi-strconvformatint">&#x25C9; Fungsi <code>strconv.FormatInt()</code></h4>
 <p>Berguna untuk konversi data numerik <code>int64</code> ke <code>string</code> dengan basis numerik bisa ditentukan sendiri.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> num = <span class="hljs-keyword">int64</span>(<span class="hljs-number">24</span>)
 <span class="hljs-keyword">var</span> str = strconv.FormatInt(num, <span class="hljs-number">8</span>)
 
 fmt.Println(str) <span class="hljs-comment">// 30</span>
 </code></pre>
-<h4 id="fungsi-strconvparsefloat">&#x2022; Fungsi <code>strconv.ParseFloat()</code></h4>
+<h4 id="&#x25C9;-fungsi-strconvparsefloat">&#x25C9; Fungsi <code>strconv.ParseFloat()</code></h4>
 <p>Digunakan untuk konversi <code>string</code> ke numerik desimal dengan lebar data bisa ditentukan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> str = <span class="hljs-string">&quot;24.12&quot;</span>
 <span class="hljs-keyword">var</span> num, err = strconv.ParseFloat(str, <span class="hljs-number">32</span>)
@@ -2123,7 +2123,7 @@ fmt.Println(str) <span class="hljs-comment">// 30</span>
 }
 </code></pre>
 <p>Pada contoh di atas, string <code>&quot;24.12&quot;</code> dikonversi ke float dengan lebar tipe data <code>float32</code>. Hasil konversi <code>strconv.ParseFloat</code> adalah sesuai dengan standar <a href="https://en.wikipedia.org/wiki/IEEE_floating_point" target="_blank">IEEE Standard for Floating-Point Arithmetic</a>.</p>
-<h4 id="fungsi-strconvformatfloat">&#x2022; Fungsi <code>strconv.FormatFloat()</code></h4>
+<h4 id="&#x25C9;-fungsi-strconvformatfloat">&#x25C9; Fungsi <code>strconv.FormatFloat()</code></h4>
 <p>Berguna untuk konversi data bertipe <code>float64</code> ke <code>string</code> dengan format eksponen, lebar digit desimal, dan lebar tipe data bisa ditentukan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> num = <span class="hljs-keyword">float64</span>(<span class="hljs-number">24.12</span>)
 <span class="hljs-keyword">var</span> str = strconv.FormatFloat(num, <span class="hljs-string">&apos;f&apos;</span>, <span class="hljs-number">6</span>, <span class="hljs-number">64</span>)
@@ -2166,7 +2166,7 @@ fmt.Println(str) <span class="hljs-comment">// 24.120000</span>
 </tr>
 </tbody>
 </table>
-<h4 id="fungsi-strconvparsebool">&#x2022; Fungsi <code>strconv.ParseBool()</code></h4>
+<h4 id="&#x25C9;-fungsi-strconvparsebool">&#x25C9; Fungsi <code>strconv.ParseBool()</code></h4>
 <p>Digunakan untuk konversi <code>string</code> ke <code>bool</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> str = <span class="hljs-string">&quot;true&quot;</span>
 <span class="hljs-keyword">var</span> bul, err = strconv.ParseBool(str)
@@ -2175,7 +2175,7 @@ fmt.Println(str) <span class="hljs-comment">// 24.120000</span>
     fmt.Println(bul) <span class="hljs-comment">// true</span>
 }
 </code></pre>
-<h4 id="fungsi-strconvformatbool">&#x2022; Fungsi <code>strconv.FormatBool()</code></h4>
+<h4 id="&#x25C9;-fungsi-strconvformatbool">&#x25C9; Fungsi <code>strconv.FormatBool()</code></h4>
 <p>Digunakan untuk konversi <code>bool</code> ke <code>string</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> bul = <span class="hljs-literal">true</span>
 <span class="hljs-keyword">var</span> str = strconv.FormatBool(bul)
@@ -2183,10 +2183,12 @@ fmt.Println(str) <span class="hljs-comment">// 24.120000</span>
 fmt.Println(str) <span class="hljs-comment">// true</span>
 </code></pre>
 <h2 id="a432-konversi-data-menggunakan-teknik-casting">A.43.2. Konversi Data Menggunakan Teknik Casting</h2>
-<p>Keyword tipe data bisa digunakan untuk casting, atau konversi antar tipe data. Cara penggunaannya adalah dengan menuliskan tipe data tujuan casting sebagai fungsi, lalu menyisipkan data yang akan dikonversi sebagai parameter fungsi tersebut.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">var</span> a <span class="hljs-keyword">float64</span> = <span class="hljs-keyword">float64</span>(<span class="hljs-number">24</span>)
+<p>Cara penerapannya adalah dengan menggunakan keyword tipe data sebagai nama fungsi, kemudiaan argument pemanggilannya diisi dengan data yang ingin dikonversi tipenya.</p>
+<pre><code class="lang-go"><span class="hljs-comment">// konversi nilai 24 bertipe int ke float64</span>
+<span class="hljs-keyword">var</span> a <span class="hljs-keyword">float64</span> = <span class="hljs-keyword">float64</span>(<span class="hljs-number">24</span>)
 fmt.Println(a) <span class="hljs-comment">// 24</span>
 
+<span class="hljs-comment">// konversi nilai 24.00 bertipe float32 ke int32</span>
 <span class="hljs-keyword">var</span> b <span class="hljs-keyword">int32</span> = <span class="hljs-keyword">int32</span>(<span class="hljs-number">24.00</span>)
 fmt.Println(b) <span class="hljs-comment">// 24</span>
 </code></pre>
@@ -2207,7 +2209,7 @@ fmt.Printf(<span class="hljs-string">&quot;%d %d %d %d \n&quot;</span>, b[<span 
 fmt.Printf(<span class="hljs-string">&quot;%s \n&quot;</span>, s)
 <span class="hljs-comment">// halo</span>
 </code></pre>
-<p>Pada contoh di-atas, beberapa kode byte dituliskan dalam bentuk slice, ditampung variabel <code>byte1</code>. Lalu, nilai variabel tersebut di-cast ke <code>string</code>, untuk kemudian ditampilkan.</p>
+<p>Di contoh ke-2 di-atas, beberapa kode byte dituliskan dalam bentuk slice, ditampung variabel <code>byte1</code>. Lalu, nilai variabel tersebut di-cast ke <code>string</code>, untuk kemudian ditampilkan.</p>
 <p>Selain itu, tiap karakter string juga bisa di-casting ke bentuk <code>int</code>, hasilnya adalah sama yaitu data byte dalam bentuk numerik basis desimal, dengan ketentuan literal string yang digunakan adalah tanda petik satu (<code>&apos;</code>).</p>
 <p>Juga berlaku sebaliknya, data numerik jika di-casting ke bentuk string dideteksi sebagai kode ASCII dari karakter yang akan dihasilkan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> c <span class="hljs-keyword">int64</span> = <span class="hljs-keyword">int64</span>(<span class="hljs-string">&apos;h&apos;</span>)
@@ -2216,8 +2218,8 @@ fmt.Println(c) <span class="hljs-comment">// 104</span>
 <span class="hljs-keyword">var</span> d <span class="hljs-keyword">string</span> = <span class="hljs-keyword">string</span>(<span class="hljs-number">104</span>)
 fmt.Println(d) <span class="hljs-comment">// h</span>
 </code></pre>
-<h2 id="a434-type-assertions-pada-interface-kosong-interface">A.43.4. Type Assertions Pada Interface Kosong (<code>interface{}</code>)</h2>
-<p><strong>Type assertions</strong> merupakan teknik untuk mengambil tipe data konkret dari data yang terbungkus dalam <code>interface{}</code>. Jadi bisa disimpulkan bahwa teknik type assertions hanya bisa dilakukan pada data bertipe <code>interface{}</code>. Lebih jelasnya silakan cek contoh berikut.</p>
+<h2 id="a434-type-assertions-pada-tipe-any-atau-interface-kosong-interface">A.43.4. Type Assertions Pada Tipe <code>any</code> atau Interface Kosong (<code>interface{}</code>)</h2>
+<p><strong>Type assertions</strong> merupakan teknik untuk mengambil tipe data konkret dari data yang terbungkus dalam <code>interface{}</code> atau <code>any</code>. Lebih jelasnya silakan cek contoh berikut.</p>
 <p>Variabel <code>data</code> disiapkan bertipe <code>map[string]interface{}</code>, map tersebut berisikan beberapa item dengan tipe data value-nya berbeda satu sama lain, sementara tipe data untuk key-nya sama yaitu <code>string</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}{
     <span class="hljs-string">&quot;nama&quot;</span>:    <span class="hljs-string">&quot;john wick&quot;</span>,
@@ -2235,7 +2237,7 @@ fmt.Println(data[<span class="hljs-string">&quot;hobbies&quot;</span>].([]<span 
 </code></pre>
 <p>Statement <code>data[&quot;nama&quot;].(string)</code> maksudnya adalah, nilai <code>data[&quot;nama&quot;]</code> yang bertipe <code>interface{}</code> diambil nilai konkretnya dalam bentuk string <code>string</code>.</p>
 <p>Pada kode di atas, tidak akan terjadi panic error, karena semua operasi type assertion adalah dilakukan menggunakan tipe data yang sudah sesuai dengan tipe data nilai aslinya. Seperti <code>data[&quot;nama&quot;]</code> yang merupakan <code>string</code> pasti bisa di-asertasi ke tipe <code>string</code>.</p>
-<p>Coba lakukan asertasi ke tipe yang tidak sesuai dengan tipe nilai aslinya, seperti <code>data[&quot;nama&quot;].(int)</code>, pasti akan men-trigger panic error.</p>
+<p>Coba lakukan asertasi ke tipe yang tidak sesuai dengan tipe nilai aslinya, seperti <code>data[&quot;nama&quot;].(int)</code>, hasilnya adalah panic error.</p>
 <p>Nah, dari penjelasan di atas, terlihat bahwa kita harus tau terlebih dahulu apa tipe data asli dari data yang tersimpan dalam interface. Jika misal tidak tau, maka bisa gunakan teknik di bawah ini untuk pengecekan sukses tidaknya proses asertasi.</p>
 <p>Tipe asli data pada variabel <code>interface{}</code> bisa diketahui dengan cara meng-casting ke tipe <code>type</code>, namun casting ini hanya bisa dilakukan pada <code>switch</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">for</span> _, val := <span class="hljs-keyword">range</span> data {
@@ -2291,7 +2293,7 @@ fmt.Println(data[<span class="hljs-string">&quot;hobbies&quot;</span>].([]<span 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.43. Konversi Antar Tipe Data","level":"3.1.43","depth":2,"next":{"title":"A.44. Fungsi String","level":"3.1.44","depth":2,"path":"A-strings.md","ref":"A-strings.md","articles":[]},"previous":{"title":"A.42. Time Duration","level":"3.1.42","depth":2,"path":"A-time-duration.md","ref":"A-time-duration.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-data-type-conversion.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.43. Konversi Antar Tipe Data","level":"3.1.43","depth":2,"next":{"title":"A.44. Fungsi String","level":"3.1.44","depth":2,"path":"A-strings.md","ref":"A-strings.md","articles":[]},"previous":{"title":"A.42. Time Duration","level":"3.1.42","depth":2,"path":"A-time-duration.md","ref":"A-time-duration.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-data-type-conversion.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

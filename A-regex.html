@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang Regex - Dasar Pemrograman Golang</title>
+        <title>Golang Regexp - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2049,7 +2049,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">A.45. Regex</a>
+        <a href=".">A.45. Regexp</a>
     </h1>
 </div>
 
@@ -2061,12 +2061,12 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="a45-regex">A.45. Regex</h1>
-<p>Regex atau regexp atau <strong>regular expression</strong> adalah suatu teknik yang digunakan untuk pencocokan string dengan pola tertentu. Regex biasa dimanfaatkan untuk pencarian dan pengubahan data string.</p>
-<p>Go mengadopsi standar regex <strong>RE2</strong>, untuk melihat sintaks yang di-support engine ini bisa langsung merujuk ke dokumentasinya di <a href="https://github.com/google/re2/wiki/Syntax" target="_blank">https://github.com/google/re2/wiki/Syntax</a>.</p>
+                                <h1 id="a45-regexp">A.45. Regexp</h1>
+<p>Regexp atau regex atau <strong>regular expression</strong> adalah suatu teknik yang digunakan untuk pencocokan string yang memiliki pola tertentu. Regex biasa dimanfaatkan untuk pencarian dan pengubahan data string.</p>
+<p>Go mengadopsi spesifikasi regex <strong>RE2</strong>. Lebih detailnya mengenai RE2 bisa langsung cek dokumentasinya di <a href="https://github.com/google/re2/wiki/Syntax" target="_blank">https://github.com/google/re2/wiki/Syntax</a>.</p>
 <p>Pada chapter ini kita akan belajar mengenai pengaplikasian regex dengan memanfaatkan fungsi-fungsi dalam package <code>regexp</code>.</p>
 <h2 id="a451-penerapan-regexp">A.45.1. Penerapan Regexp</h2>
-<p>Fungsi <code>regexp.Compile()</code> digunakan untuk mengkompilasi ekspresi regex. Fungsi tersebut mengembalikan objek bertipe <code>regexp.*Regexp</code>.</p>
+<p>Fungsi <code>regexp.Compile()</code> digunakan untuk mengkompilasi ekspresi regex. Fungsi tersebut mengembalikan objek bertipe <code>*regexp.Regexp</code>.</p>
 <p>Berikut merupakan contoh penerapan regex untuk pencarian karakter.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
@@ -2090,10 +2090,10 @@
     <span class="hljs-comment">// []string{&quot;banana&quot;, &quot;burger&quot;, &quot;soup&quot;}</span>
 }
 </code></pre>
-<p>Ekspresi <code>[a-z]+</code> maknanya adalah, semua string yang merupakan alphabet yang hurufnya kecil. Ekspresi tersebut di-compile oleh <code>regexp.Compile()</code> lalu disimpan ke variabel objek <code>regex</code> bertipe <code>regexp.*Regexp</code>.</p>
+<p>Ekspresi <code>[a-z]+</code> maknanya adalah semua string yang merupakan alphabet yang hurufnya kecil. Ekspresi tersebut di-compile oleh <code>regexp.Compile()</code> lalu disimpan ke variabel objek <code>regex</code> bertipe <code>*regexp.Regexp</code>.</p>
 <p>Struct <code>regexp.Regexp</code> memiliki banyak method, salah satunya adalah <code>FindAllString()</code>, berfungsi untuk mencari semua string yang sesuai dengan ekspresi regex, dengan kembalian berupa slice string.</p>
-<p>Jumlah hasil pencarian dari <code>regex.FindAllString()</code> bisa ditentukan. Contohnya pada <code>res1</code>, ditentukan maksimal <code>2</code> data saja pada nilai kembalian. Jika batas di set <code>-1</code>, maka akan mengembalikan semua data.</p>
-<p>Ada cukup banyak method struct <code>regexp.*Regexp</code> yang bisa kita manfaatkan untuk keperluan pengelolaan string. Berikut merupakan pembahasan tiap method-nya.</p>
+<p>Jumlah hasil pencarian dari <code>regex.FindAllString()</code> bisa ditentukan. Contohnya pada <code>res1</code>, ditentukan maksimal <code>2</code> data saja pada nilai kembalian. Jika batas di set <code>-1</code>, maka semua hasil yang cocok dikembalikan oleh fungsi tersebut.</p>
+<p>Ada cukup banyak method struct <code>*regexp.Regexp</code> yang bisa kita manfaatkan untuk keperluan pengelolaan string. Berikut merupakan pembahasan tiap method-nya.</p>
 <h2 id="a452-method-matchstring">A.45.2. Method <code>MatchString()</code></h2>
 <p>Method ini digunakan untuk mendeteksi apakah string memenuhi sebuah pola regexp.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;banana burger soup&quot;</span>
@@ -2165,7 +2165,7 @@ fmt.Println(str)
 fmt.Println(str)
 <span class="hljs-comment">// &quot;banana potato soup&quot;</span>
 </code></pre>
-<p>Pada contoh di atas, jika salah satu substring yang <em>match</em> adalah <code>&quot;burger&quot;</code> maka akan diganti dengan <code>&quot;potato&quot;</code>, string selainnya tidak di replace.</p>
+<p>Pada contoh di atas, jika ada substring yang <em>match</em> dengan kata <code>&quot;burger&quot;</code>, maka akan diganti dengan <code>&quot;potato&quot;</code>.</p>
 <h2 id="a458-method-split">A.45.8. Method <code>Split()</code></h2>
 <p>Digunakan untuk memisah string dengan pemisah adalah substring yang memenuhi kriteria regexp yang telah ditentukan.</p>
 <p>Jumlah karakter yang akan di split bisa ditentukan dengan mengisi parameter kedua fungsi <code>regex.Split()</code>. Jika di-isi <code>-1</code> maka semua karakter yang memenuhi kriteria regex akan menjadi <em>separator</em> dalam operasi pemisahan/split. Contoh lain, jika di-isi <code>2</code>, maka hanya 2 karakter pertama yang memenuhi kriteria regex akan menjadi <em>separator</em> dalam split tersebut.</p>
@@ -2212,7 +2212,7 @@ fmt.Printf(<span class="hljs-string">&quot;%#v \n&quot;</span>, str)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.45. Regex","level":"3.1.45","depth":2,"next":{"title":"A.46. Encode - Decode Base64","level":"3.1.46","depth":2,"path":"A-encoding-base64.md","ref":"A-encoding-base64.md","articles":[]},"previous":{"title":"A.44. Fungsi String","level":"3.1.44","depth":2,"path":"A-strings.md","ref":"A-strings.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-regex.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.45. Regexp","level":"3.1.45","depth":2,"next":{"title":"A.46. Encode - Decode Base64","level":"3.1.46","depth":2,"path":"A-encoding-base64.md","ref":"A-encoding-base64.md","articles":[]},"previous":{"title":"A.44. Fungsi String","level":"3.1.44","depth":2,"path":"A-strings.md","ref":"A-strings.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-regex.md","mtime":"2024-04-25T12:05:09.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

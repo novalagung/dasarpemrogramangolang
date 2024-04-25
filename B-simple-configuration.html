@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2221,19 +2221,19 @@ err := server.ListenAndServe()
 <p>Coba ubah konfigurasi pada <code>config.json</code> nilai <code>log.verbose</code> menjadi <code>false</code>. Lalu restart aplikasi, maka log tidak muncul.</p>
 <h2 id="b225-kekurangan-konfigurasi-file">B.22.5. Kekurangan Konfigurasi File</h2>
 <p>Ok, kita telah selesai belajar tentang cara membuat file konfigurasi yang mudah dibaca dan praktis. Namun penerapan kontrol konfigurasi dengan metode ini kurang dianjurkan karena beberapa hal:</p>
-<h4 id="tidak-mendukung-komentar">&#x2022; Tidak mendukung komentar</h4>
+<h4 id="&#x25C9;-tidak-mendukung-komentar">&#x25C9; Tidak mendukung komentar</h4>
 <p>Komentar sangat penting karena untuk aplikasi besar yang konfigurasi item-nya sangat banyak - akan susah untuk dipahami. Sebenarnya perihal ini bisa di-<em>resolve</em> menggunakan jenis konfigurasi lain seperti <code>YAML</code>, <code>.env</code>, atau lainnya.</p>
-<h4 id="nilai-konfigurasi-harus-diketahui-di-awal">&#x2022; Nilai konfigurasi harus diketahui di awal</h4>
+<h4 id="&#x25C9;-nilai-konfigurasi-harus-diketahui-di-awal">&#x25C9; Nilai konfigurasi harus diketahui di awal</h4>
 <p>Kita harus tau semua value tiap-tiap konfigurasi terlebih dahulu, dan dituliskan ke file, sebelum aplikasi di-up. Dari sini akan sangat susah jika misal ada beberapa konfigurasi yang kita tidak tau nilainya tapi tau cara pengambilannya.</p>
 <p>Contohnya pada beberapa kasus, seperti di AWS, database server yang di-setup secara automated akan meng-generate connection string yang host-nya bisa berganti-ganti tiap start-up, dan tidak hanya itu, bisa saja username, password dan lainnya juga tidak statis.</p>
 <p>Dengan ini akan sangat susah jika kita harus cari terlebih dahulu value konfigurasi tersebut untuk kemudian dituliskan ke file. Memakan waktu dan kurang baik dari banyak sisi.</p>
-<h4 id="tidak-terpusat">&#x2022; Tidak terpusat</h4>
+<h4 id="&#x25C9;-tidak-terpusat">&#x25C9; Tidak terpusat</h4>
 <p>Dalam pengembangan aplikasi, banyak konfigurasi yang nilai-nya akan didapat lewat jalan lain, seperti <em>environment variables</em> atau <em>command arguments</em>.</p>
 <p>Akan lebih mudah jika hanya ada satu sumber konfigurasi saja untuk dijadikan acuan.</p>
-<h4 id="statis-tidak-dinamis">&#x2022; Statis (tidak dinamis)</h4>
+<h4 id="&#x25C9;-statis-tidak-dinamis">&#x25C9; Statis (tidak dinamis)</h4>
 <p>Konfigurasi umumnya dibaca hanya jika diperlukan. Penulisan konfigurasi dalam file membuat proses pembacaan file harus dilakukan di awal, haru kemudian kita bisa ambil nilai konfigurasi dari data yang sudah ada di memori.</p>
 <p>Hal tersebut memiliki beberapa konsekuensi, untuk aplikasi yang di-manage secara automated, sangat mungkin adanya perubahan nilai konfigurasi. Dari sini berarti pembacaan konfigurasi file tidak boleh hanya dilakukan di awal saja. Tapi juga tidak boleh dilakukan di setiap waktu, karena membaca file itu ada <em>cost</em>-nya dari prespektif I/O.</p>
-<h4 id="solusi">&#x2022; Solusi</h4>
+<h4 id="&#x25C9;-solusi">&#x25C9; Solusi</h4>
 <p>Kita akan membahas solusi dari beberapa masalah di atas pada chapter terpisah, yaitu <a href="C-best-practice-configuration-env-var">Best Practice Configuration Menggunakan Environment Variable
 </a></p>
 <hr>
@@ -2271,7 +2271,7 @@ err := server.ListenAndServe()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"next":{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]},"previous":{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-simple-configuration.md","mtime":"2024-04-22T10:05:29.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"next":{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]},"previous":{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-simple-configuration.md","mtime":"2024-04-25T12:05:09.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

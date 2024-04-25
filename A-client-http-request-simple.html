@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,12 +2062,12 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a55-simple-client-http-request">A.55. Simple Client HTTP Request</h1>
-<p>Pada chapter sebelumnya telah dibahas bagaimana membuat Web Service API yang mem-provide data JSON, pada chapter ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.</p>
+<p>Pada chapter sebelumnya telah dibahas bagaimana cara membuat Web Service API yang response data-nya berbentuk JSON. Pada chapter ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.</p>
 <p>Pastikan anda sudah mempraktekkan apa-apa yang ada pada chapter sebelumnya (<a href="A-web-service-api.html">A.54. Web Service API Server</a>), karena web service yang telah dibuat di situ juga dipergunakan pada chapter ini.</p>
 <p><img src="images/A_web_service_1_server.png" alt="Dasar Pemrograman Golang - Jalankan web server"></p>
 <h2 id="a551-penggunaan-http-request">A.55.1. Penggunaan HTTP Request</h2>
-<p>Package <code>net/http</code>, selain berisikan tools untuk keperluan pembuatan web, juga berisikan fungsi-fungsi untuk melakukan http request. Salah satunya adalah <code>http.NewRequest()</code> yang akan kita bahas di sini.</p>
-<p>Sebelumnya, import package yang dibutuhkan. Dan siapkan struct <code>student</code> yang nantinya akan dipakai sebagai tipe data reponse dari web API. Struk tersebut skema nya sama dengan yang ada pada chapter (<a href="A-web-service-api.html">A.54. Web Service API Server</a>).</p>
+<p>Package <code>net/http</code>, selain berisikan tools untuk keperluan pembuatan web, juga berisikan fungsi-fungsi untuk melakukan http request. Salah satunya adalah <code>http.NewRequest()</code> yang akan kita bahas di sini. Untuk menggunakannya pastikan import package-nya terlebih dahulu.</p>
+<p>Kemudian siapkan struct <code>student</code> yang nantinya akan dipakai sebagai tipe data reponse dari web API. Struk tersebut skema nya sama dengan yang ada pada chapter (<a href="A-web-service-api.html">A.54. Web Service API Server</a>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2114,11 +2114,11 @@
 <li>Parameter kedua, adalah URL tujuan request</li>
 <li>Parameter ketiga, form data request (jika ada)</li>
 </ol>
-<p>Fungsi tersebut menghasilkan instance bertipe <code>http.Request</code>. Objek tersebut nantinya disisipkan pada saat eksekusi request.</p>
-<p>Cara eksekusi request sendiri adalah dengan memanggil method <code>Do()</code> pada instance <code>http.Client</code> yang sudah dibuat, dengan parameter adalah instance request-nya. Contohnya seperti pada <code>client.Do(request)</code>.</p>
-<p>Method tersebut mengembalikan instance bertipe <code>http.Response</code>, yang di dalamnya berisikan informasi yang dikembalikan dari web API.</p>
-<p>Data response bisa diambil lewat property <code>Body</code> dalam bentuk string. Gunakan JSON Decoder untuk mengkonversinya menjadi bentuk JSON. Contohnya bisa dilihat di kode di atas, <code>json.NewDecoder(response.Body).Decode(&amp;data)</code>. Setelah itu barulah kita bisa menampilkannya.</p>
-<p>Perlu diketahui, data response perlu di-<strong>close</strong> setelah tidak dipakai. Caranya seperti pada kode <code>defer response.Body.Close()</code>.</p>
+<p>Fungsi tersebut menghasilkan instance bertipe <code>http.Request</code> yang nantinya digunakan saat eksekusi request.</p>
+<p>Cara eksekusi request sendiri adalah dengan memanggil method <code>Do()</code> pada variabel <code>client</code> yang sudah dibuat. Fungsi <code>Do()</code> dipanggil dengan disisipkan argument fungsi yaitu object <code>request</code>. Penulisannya: <code>client.Do(request)</code>.</p>
+<p>Method tersebut mengembalikan instance bertipe <code>http.Response</code> yang di contoh ditampung oleh variabel <code>response</code>. Dari data response tersebut kita bisa mengakses informasi yang berhubungan dengan HTTP response, termasuk response body.</p>
+<p>Data response body tersedia via property <code>Body</code> dalam tipe <code>[]byte</code>. Gunakan JSON Decoder untuk mengkonversinya menjadi bentuk JSON. Contohnya bisa dilihat di kode di atas, <code>json.NewDecoder(response.Body).Decode(&amp;data)</code>.</p>
+<p>Perlu diketahui, data response perlu di-<strong>close</strong> setelah tidak dipakai. Caranya dengan memanggil method <code>Close()</code> milik property <code>Body</code> yang dalam penerapannya umumnya di-defer. Contohnya: <code>defer response.Body.Close()</code>.</p>
 <p>Selanjutnya, eksekusi fungsi <code>fetchUsers()</code> dalam fungsi <code>main()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     <span class="hljs-keyword">var</span> users, err = fetchUsers()
@@ -2132,14 +2132,14 @@
     }
 }
 </code></pre>
-<p>Ok, terakhir sebelum memulai testing, pastikan telah run aplikasi pada chapter sebelumya (<a href="A-web-service-api.html">A.54. Web Service API Server</a>). Kemudian start prompt cmd/terminal baru dan jalankan program yang barusan kita buat pada chapter ini.</p>
+<p>Ok, terakhir sebelum memulai testing, pastikan telah run aplikasi pada chapter sebelumya (<a href="A-web-service-api.html">A.54. Web Service API Server</a>). Setelah itu start prompt cmd/terminal baru dan jalankan program yang telah dibuat di chapter ini.</p>
 <p><img src="images/A_http_request_1_http_request.png" alt="Dasar Pemrograman Golang - HTTP Request"></p>
 <h2 id="a552-http-request-dengan-form-data">A.55.2. HTTP Request Dengan Form Data</h2>
-<p>Untuk menyisipkan data pada sebuah request, ada beberapa hal yang perlu ditambahkan. Yang pertama, import beberapa package lagi, <code>bytes</code> dan <code>net/url</code>.</p>
+<p>Untuk menyisipkan data pada sebuah request, ada beberapa hal yang perlu ditambahkan. Pertama, import package <code>bytes</code> dan <code>net/url</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;bytes&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/url&quot;</span>
 </code></pre>
-<p>Buat fungsi baru, isinya request ke <a href="http://localhost:8080/user" target="_blank">http://localhost:8080/user</a> dengan data yang disisipkan adalah <code>ID</code>.</p>
+<p>Kemudian buat fungsi baru, isinya request ke <a href="http://localhost:8080/user" target="_blank">http://localhost:8080/user</a> dengan data yang disisipkan adalah <code>ID</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> fetchUser(ID <span class="hljs-keyword">string</span>) (student, error) {
     <span class="hljs-keyword">var</span> err error
     <span class="hljs-keyword">var</span> client = &amp;http.Client{}
@@ -2169,10 +2169,10 @@
     <span class="hljs-keyword">return</span> data, <span class="hljs-literal">nil</span>
 }
 </code></pre>
-<p>Isi fungsi di atas bisa dilihat memiliki beberapa kemiripan dengan fungsi <code>fetchUsers()</code> sebelumnya.</p>
+<p>Isi fungsi <code>fetchUser()</code> memiliki beberapa kemiripan dengan fungsi <code>fetchUsers()</code> sebelumnya.</p>
 <p>Statement <code>url.Values{}</code> akan menghasilkan objek yang nantinya digunakan sebagai form data request. Pada objek tersebut perlu di set data apa saja yang ingin dikirimkan menggunakan fungsi <code>Set()</code> seperti pada <code>param.Set(&quot;id&quot;, ID)</code>.</p>
-<p>Statement <code>bytes.NewBufferString(param.Encode())</code> maksudnya, objek form data di-encode lalu diubah menjadi bentuk <code>bytes.Buffer</code>, yang nantinya disisipkan pada parameter ketiga pemanggilan fungsi <code>http.NewRequest()</code>.</p>
-<p>Karena data yang akan dikirim di-encode, maka pada header perlu di set tipe konten request-nya. Kode <code>request.Header.Set(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;)</code> artinya tipe konten request di set sebagai <code>application/x-www-form-urlencoded</code>.</p>
+<p>Statement <code>bytes.NewBufferString(param.Encode())</code> melakukan proses encoding pada data param untuk kemudian diubah menjadi bentuk <code>bytes.Buffer</code>. Nantinya data buffer tersebut disisipkan pada parameter ketiga pemanggilan fungsi <code>http.NewRequest()</code>.</p>
+<p>Karena data yang akan dikirim adalah <em>encoded</em>, maka pada header perlu dituliskan juga tipe encoding-nya. Kode <code>request.Header.Set(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;)</code> menandai bahwa HTTP request berisi body yang ter-encode sesuai spesifikasi <code>application/x-www-form-urlencoded</code>.</p>
 <blockquote>
 <p>Pada konteks HTML, HTTP Request yang di trigger dari tag <code>&lt;form&gt;&lt;/form&gt;</code> secara default tipe konten-nya sudah di set <code>application/x-www-form-urlencoded</code>. Lebih detailnya bisa merujuk ke spesifikasi HTML form <a href="http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1" target="_blank">http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1</a></p>
 </blockquote>
@@ -2191,7 +2191,7 @@
 <p>Untuk keperluan testing, kita hardcode <code>ID</code> nilainya <code>&quot;E001&quot;</code>. Jalankan program untuk test apakah data yang dikembalikan sesuai.</p>
 <p><img src="images/A_http_request_2_http_request_form_data.png" alt="Dasar Pemrograman Golang - HTTP request Form Data"></p>
 <h2 id="a553-secure--insecure-http-request">A.55.3. Secure &amp; Insecure HTTP Request</h2>
-<p>Kita telah mempelajari bagaimana cara membuat http request sederhana untuk kirim data dan juga ambil data. Nantinya pada chapter <a href="C-secure-insecure-client-http-request.html">C.27. Secure &amp; Insecure Client HTTP Request</a> kita akan belajar cara membuat http client request yang lebih <em>njlimet</em> untuk kasus yang lebih advance, tapi sabar dulu hehe.</p>
+<p>Sampai sini kita telah belajar bagaimana cara membuat http request sederhana untuk kirim data dan juga ambil data. Nantinya pada chapter <a href="C-secure-insecure-client-http-request.html">C.27. Secure &amp; Insecure Client HTTP Request</a> pembelajaran topik HTTP request dilanjutkan kembali, kita akan bahas tentang aspek keamanan/security suatu HTTP request.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
@@ -2227,7 +2227,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"next":{"title":"A.56. SQL","level":"3.1.56","depth":2,"path":"A-sql.md","ref":"A-sql.md","articles":[]},"previous":{"title":"A.54. Web Service API Server","level":"3.1.54","depth":2,"path":"A-web-service-api.md","ref":"A-web-service-api.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-client-http-request-simple.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"next":{"title":"A.56. SQL","level":"3.1.56","depth":2,"path":"A-sql.md","ref":"A-sql.md","articles":[]},"previous":{"title":"A.54. Web Service API Server","level":"3.1.54","depth":2,"path":"A-web-service-api.md","ref":"A-web-service-api.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-client-http-request-simple.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

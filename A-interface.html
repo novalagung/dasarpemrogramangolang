@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,10 +2062,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a27-interface">A.27. Interface</h1>
-<p>Interface adalah kumpulan definisi method yang tidak memiliki isi (hanya definisi saja), yang dibungkus dengan nama tertentu.</p>
-<p>Interface merupakan tipe data. Nilai objek bertipe interface zero value-nya adalah <code>nil</code>. Interface mulai bisa digunakan jika sudah ada isinya, yaitu objek konkret yang memiliki definisi method minimal sama dengan yang ada di interface-nya.</p>
+<p>Interface adalah definisi suatu kumpulan method yang tidak memiliki isi, jadi hanya definisi header/schema-nya saja. Kumpulan method tersebut ditulis dalam satu block interface dengan nama tertentu.</p>
+<p>Interface merupakan tipe data. Objek bertipe interface memiliki zero value yaitu <code>nil</code>. Variabel bertipe interface digunakan untuk menampung nilai objek konkret yang memiliki definisi method minimal sama dengan yang ada di interface.</p>
 <h2 id="a271-penerapan-interface">A.27.1. Penerapan Interface</h2>
-<p>Yang pertama perlu dilakukan untuk menerapkan interface adalah menyiapkan interface beserta definisi method nya. Keyword <code>type</code> dan <code>interface</code> digunakan untuk pendefinisian interface.</p>
+<p>Untuk menerapkan interface, pertama siapkan deklarasi tipe baru menggunakan keyword <code>type</code> dan tipe data <code>interface</code> lalu siapkan juga isinya (definisi method-nya).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2076,9 +2076,9 @@
     keliling() <span class="hljs-keyword">float64</span>
 }
 </code></pre>
-<p>Pada kode di atas, interface <code>hitung</code> memiliki 2 definisi method, <code>luas()</code> dan <code>keliling()</code>. Interface ini nantinya digunakan sebagai tipe data pada variabel, di mana variabel tersebut akan menampung objek bangun datar hasil dari struct yang akan kita buat.</p>
-<p>Dengan memanfaatkan interface <code>hitung</code>, perhitungan luas dan keliling bangun datar bisa dilakukan, tanpa perlu tahu jenis bangun datarnya sendiri itu apa.</p>
-<p>Siapkan struct bangun datar <code>lingkaran</code>, struct ini memiliki method yang beberapa di antaranya terdefinisi di interface <code>hitung</code>.</p>
+<p>Di atas, interface <code>hitung</code> dideklarasikan memiliki 2 buah method yaitu <code>luas()</code> dan <code>keliling()</code>. Interface ini nantinya digunakan sebagai tipe data pada variabel untuk menampung objek bangun datar hasil dari struct yang akan dibuat.</p>
+<p>Dengan adanya interface <code>hitung</code> ini, maka perhitungan luas dan keliling bangun datar bisa dilakukan tanpa perlu tahu jenis bangun datarnya sendiri itu apa.</p>
+<p>Selanjutnya, siapkan struct bangun datar <code>lingkaran</code>, struct ini memiliki definisi method yang sebagian adalah ada di interface <code>hitung</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> lingkaran <span class="hljs-keyword">struct</span> {
     diameter <span class="hljs-keyword">float64</span>
 }
@@ -2095,8 +2095,8 @@
     <span class="hljs-keyword">return</span> math.Pi * l.diameter
 }
 </code></pre>
-<p>Struct <code>lingkaran</code> di atas memiliki tiga method, <code>jariJari()</code>, <code>luas()</code>, dan <code>keliling()</code>.  </p>
-<p>Selanjutnya, siapkan struct bangun datar <code>persegi</code>.</p>
+<p>Struct <code>lingkaran</code> memiliki tiga buah method yaitu <code>jariJari()</code>, <code>luas()</code>, dan <code>keliling()</code>.  </p>
+<p>Berikutnya, siapkan struct bangun datar <code>persegi</code> berikut:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> persegi <span class="hljs-keyword">struct</span> {
     sisi <span class="hljs-keyword">float64</span>
 }
@@ -2109,8 +2109,8 @@
     <span class="hljs-keyword">return</span> p.sisi * <span class="hljs-number">4</span>
 }
 </code></pre>
-<p>Perbedaan struct <code>persegi</code> dengan <code>lingkaran</code> terletak pada method <code>jariJari()</code>. Struct <code>persegi</code> tidak memiliki method tersebut. Tetapi meski demikian, variabel objek hasil cetakan 2 struct ini akan tetap bisa ditampung oleh variabel cetakan interface <code>hitung</code>, karena dua method yang ter-definisi di interface tersebut juga ada pada struct <code>persegi</code> dan <code>lingkaran</code>, yaitu <code>luas()</code> dan <code>keliling()</code>.</p>
-<p>Buat implementasi perhitungan di <code>main</code>.</p>
+<p>Perbedaan struct <code>persegi</code> dengan <code>lingkaran</code> terletak pada method <code>jariJari()</code>. Struct <code>persegi</code> tidak memiliki method tersebut. Tetapi meski demikian, variabel objek hasil cetakan 2 struct ini akan tetap bisa ditampung oleh variabel cetakan interface <code>hitung</code>, karena dua method yang ter-definisi di interface tersebut juga ada pada struct <code>persegi</code> dan <code>lingkaran</code>, yaitu method <code>luas()</code> dan <code>keliling()</code>.</p>
+<p>Sekarang buat implementasi perhitungan di fungsi <code>main()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     <span class="hljs-keyword">var</span> bangunDatar hitung
 
@@ -2129,7 +2129,7 @@
 <p>Perhatikan kode di atas. Variabel objek <code>bangunDatar</code> bertipe interface <code>hitung</code>. Variabel tersebut digunakan untuk menampung objek konkrit buatan struct <code>lingkaran</code> dan <code>persegi</code>.</p>
 <p>Dari variabel tersebut, method <code>luas()</code> dan <code>keliling()</code> diakses. Secara otomatis Golang akan mengarahkan pemanggilan method pada interface ke method asli milik struct yang bersangkutan.</p>
 <p><img src="images/A_interface_1_interface.png" alt="Dasar Pemrograman Golang - Pemanfaatan interface"></p>
-<p>Method <code>jariJari()</code> pada struct <code>lingkaran</code> tidak akan bisa diakses karena tidak terdefinisi dalam interface <code>hitung</code>. Pengaksesannya dengan paksa akan menyebabkan error.</p>
+<p>Method <code>jariJari()</code> pada struct <code>lingkaran</code> tidak akan bisa diakses karena tidak terdefinisi dalam interface <code>hitung</code>. Pengaksesannya secara paksa menyebabkan error.</p>
 <p>Untuk mengakses method yang tidak ter-definisi di interface, variabel-nya harus di-casting terlebih dahulu ke tipe asli variabel konkritnya (pada kasus ini tipenya <code>lingkaran</code>), setelahnya method akan bisa diakses.</p>
 <p>Cara casting objek interface sedikit unik, yaitu dengan menuliskan nama tipe tujuan dalam kurung, ditempatkan setelah nama interface dengan menggunakan notasi titik (seperti cara mengakses property, hanya saja ada tanda kurung nya). Contohnya bisa dilihat di kode berikut. Statement <code>bangunDatar.(lingkaran)</code> adalah contoh casting pada objek interface.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> bangunDatar hitung = lingkaran{<span class="hljs-number">14.0</span>}
@@ -2137,9 +2137,12 @@
 
 bangunLingkaran.jariJari()
 </code></pre>
-<p>Perlu diketahui juga, jika ada interface yang menampung objek konkrit di mana struct-nya tidak memiliki salah satu method yang terdefinisi di interface, error juga akan muncul. Intinya kembali ke aturan awal, variabel interface hanya bisa menampung objek yang minimal memiliki semua method yang terdefinisi di interface-nya.</p>
+<blockquote>
+<p>Metode casting pada tipe data interface biasa disebut dengan <strong>type assertion</strong></p>
+</blockquote>
+<p>Perlu diketahui juga, jika ada interface yang menampung objek konkrit yang mana struct-nya tidak memiliki salah satu method yang terdefinisi di interface, maka error akan muncul. Intinya kembali ke aturan awal, variabel interface hanya bisa menampung objek yang minimal memiliki semua method yang terdefinisi di interface tersebut.</p>
 <h2 id="a272-embedded-interface">A.27.2. Embedded Interface</h2>
-<p>Interface bisa di-embed ke interface lain, sama seperti struct. Cara penerapannya juga sama, cukup dengan menuliskan nama interface yang ingin di-embed ke dalam interface tujuan.</p>
+<p>Interface bisa di-embed ke interface lain, sama seperti struct. Cara penerapannya juga sama, cukup dengan menuliskan nama interface yang ingin di-embed ke dalam body interface tujuan.</p>
 <p>Pada contoh berikut, disiapkan interface bernama <code>hitung2d</code> dan <code>hitung3d</code>. Kedua interface tersebut kemudian di-embed ke interface baru bernama <code>hitung</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
@@ -2160,7 +2163,7 @@ bangunLingkaran.jariJari()
     hitung3d
 }
 </code></pre>
-<p>Interface <code>hitung2d</code> berisikan method untuk kalkulasi luas dan keliling, sedang <code>hitung3d</code> berisikan method untuk mencari volume bidang. Kedua interface tersebut diturunkan di interface <code>hitung</code>, menjadikannya memiliki kemampuan untuk menghitung luas, keliling, dan volume.</p>
+<p>Interface <code>hitung2d</code> berisikan method untuk kalkulasi luas dan keliling, sedang <code>hitung3d</code> berisikan method untuk mencari volume bidang. Kedua interface tersebut embed ke interface <code>hitung</code>, menjadikannya memiliki kemampuan untuk mengakses method <code>luas()</code>, <code>keliling()</code>, dan <code>volume()</code>.</p>
 <p>Next, siapkan struct baru bernama <code>kubus</code> yang memiliki method <code>luas()</code>, <code>keliling()</code>, dan <code>volume()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> kubus <span class="hljs-keyword">struct</span> {
     sisi <span class="hljs-keyword">float64</span>
@@ -2179,7 +2182,7 @@ bangunLingkaran.jariJari()
 }
 </code></pre>
 <p>Objek hasil cetakan struct <code>kubus</code> di atas, nantinya akan ditampung oleh objek cetakan interface <code>hitung</code> yang isinya merupakan gabungan interface <code>hitung2d</code> dan <code>hitung3d</code>.</p>
-<p>Terakhir, buat implementasi-nya di main.</p>
+<p>Terakhir, buat implementasi-nya di fungsi <code>main()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     <span class="hljs-keyword">var</span> bangunRuang hitung = &amp;kubus{<span class="hljs-number">4</span>}
 
@@ -2189,7 +2192,7 @@ bangunLingkaran.jariJari()
     fmt.Println(<span class="hljs-string">&quot;volume    :&quot;</span>, bangunRuang.volume())
 }
 </code></pre>
-<p>Bisa dilihat di kode di atas, lewat interface <code>hitung</code>, method <code>luas</code>, <code>keliling</code>, dan <code>volume</code> bisa di akses.</p>
+<p>Bisa dilihat di kode di atas, lewat interface <code>hitung</code>, method <code>luas()</code>, <code>keliling()</code>, dan <code>volume()</code> bisa di akses.</p>
 <p>Pada chapter <a href="A-pointer.html">A.23. Pointer</a> dijelaskan bahwa method pointer bisa diakses lewat variabel objek biasa dan variabel objek pointer. Variabel objek yang dicetak menggunakan struct yang memiliki method pointer, jika ditampung ke dalam variabel interface, harus diambil referensi-nya terlebih dahulu. Contohnya bisa dilihat pada kode di atas <code>var bangunRuang hitung = &amp;kubus{4}</code>.</p>
 <p><img src="images/A_interface_2_embedded_interface.png" alt="Dasar Pemrograman Golang - Embedded interface"></p>
 <hr>
@@ -2216,7 +2219,7 @@ bangunLingkaran.jariJari()
                 </a>
                 
                 
-                <a href="A-interface-kosong.html" class="navigation navigation-next " aria-label="Next page: A.28. Interface Kosong (Any)">
+                <a href="A-interface-kosong.html" class="navigation navigation-next " aria-label="Next page: A.28. Any / interface{} / Interface Kosong">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2227,7 +2230,7 @@ bangunLingkaran.jariJari()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.27. Interface","level":"3.1.27","depth":2,"next":{"title":"A.28. Interface Kosong (Any)","level":"3.1.28","depth":2,"path":"A-interface-kosong.md","ref":"A-interface-kosong.md","articles":[]},"previous":{"title":"A.26. Properti Public dan Private (Exported vs Unexported)","level":"3.1.26","depth":2,"path":"A-properti-public-dan-private.md","ref":"A-properti-public-dan-private.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-interface.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.27. Interface","level":"3.1.27","depth":2,"next":{"title":"A.28. Any / interface{} / Interface Kosong","level":"3.1.28","depth":2,"path":"A-interface-kosong.md","ref":"A-interface-kosong.md","articles":[]},"previous":{"title":"A.26. Properti Public dan Private (Exported vs Unexported)","level":"3.1.26","depth":2,"path":"A-properti-public-dan-private.md","ref":"A-properti-public-dan-private.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-interface.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

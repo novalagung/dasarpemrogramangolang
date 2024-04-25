@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,11 +2062,11 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a13-seleksi-kondisi">A.13. Seleksi Kondisi</h1>
-<p>Seleksi kondisi digunakan untuk mengontrol alur program. Analoginya mirip seperti fungsi rambu lalu lintas di jalan raya. Kapan kendaraan diperbolehkan melaju dan kapan harus berhenti diatur oleh rambu tersebut. Seleksi kondisi pada program juga kurang lebih sama, kapan sebuah blok kode akan dieksekusi dikontrol.</p>
+<p>Seleksi kondisi digunakan untuk mengontrol alur eksekusi flow program. Analoginya mirip seperti fungsi rambu lalu lintas di jalan raya. Kapan kendaraan diperbolehkan melaju dan kapan harus berhenti diatur oleh rambu tersebut. Seleksi kondisi pada program juga kurang lebih sama, kapan sebuah blok kode dieksekusi dikontrol.</p>
 <p>Yang dijadikan acuan oleh seleksi kondisi adalah nilai bertipe <code>bool</code>, bisa berasal dari variabel, ataupun hasil operasi perbandingan. Nilai tersebut menentukan blok kode mana yang akan dieksekusi.</p>
-<p>Go memiliki 2 macam keyword untuk seleksi kondisi, yaitu <strong>if else</strong> dan <strong>switch</strong>. Pada chapter ini kita akan mempelajarinya satu-persatu.</p>
+<p>Go memiliki 2 macam keyword untuk seleksi kondisi, yaitu <strong>if else</strong> dan <strong>switch</strong>. Pada chapter ini kita akan mempelajari keduanya.</p>
 <blockquote>
-<p>Go tidak mendukung seleksi kondisi menggunakan <strong>ternary</strong>.<br>Statement seperti: <code>var data = (isExist ? &quot;ada&quot; : &quot;tidak ada&quot;)</code> adalah invalid dan menghasilkan error.</p>
+<p>Go tidak mendukung seleksi kondisi menggunakan <strong>ternary</strong>.<br>Statement seperti <code>var data = (isExist ? &quot;ada&quot; : &quot;tidak ada&quot;)</code> adalah invalid dan menghasilkan error.</p>
 </blockquote>
 <h2 id="a131-seleksi-kondisi-menggunakan-keyword-if-else-if--else">A.13.1. Seleksi Kondisi Menggunakan Keyword <code>if</code>, <code>else if</code>, &amp; <code>else</code></h2>
 <p>Cara penerapan if-else di Go sama seperti pada bahasa pemrograman lain. Yang membedakan hanya tanda kurungnya <em>(parentheses)</em>, di Go tidak perlu ditulis. Kode berikut merupakan contoh penerapan seleksi kondisi if else, dengan jumlah kondisi 4 buah.</p>
@@ -2084,12 +2084,9 @@
 </code></pre>
 <p>Dari ke-empat kondisi di atas, yang terpenuhi adalah <code>if point &gt; 5</code>, karena nilai variabel <code>point</code> memang lebih besar dari <code>5</code>. Maka blok kode tepat di bawah kondisi tersebut akan dieksekusi (blok kode ditandai kurung kurawal buka dan tutup), hasilnya text <code>&quot;lulus&quot;</code> muncul sebagai output.</p>
 <p><img src="images/A_seleksi_kondisi_1_if_else.png" alt="Dasar Pemrograman Golang - Seleksi kondisi `if` - `else`"></p>
-<p>Skema if else Go sama seperti pada pemrograman umumnya. Yaitu di awal seleksi kondisi menggunakan <code>if</code>, dan ketika kondisinya tidak terpenuhi akan menuju ke <code>else</code> (jika ada). Ketika ada banyak kondisi, gunakan <code>else if</code>.</p>
-<blockquote>
-<p>Di bahasa pemrograman lain, ketika ada seleksi kondisi yang isi blok-nya hanya 1 baris saja, kurung kurawal boleh tidak dituliskan. Berbeda dengan aturan di Go, kurung kurawal harus tetap dituliskan meski isinya hanya 1 blok satement.</p>
-</blockquote>
+<p>Penulisan if else Go diawali dengan keyword <code>if</code> kemudian diikuti nilai seleksi kondisi dan blok kode ketika kondisi terpenuhi. Ketika kondisinya tidak terpenuhi akan blok kode <code>else</code> dipanggil (jika blok kode <code>else</code> tersebut ada). Ketika ada banyak kondisi, gunakan <code>else if</code>.</p>
 <h2 id="a132-variabel-temporary-pada-if---else">A.13.2. Variabel Temporary Pada <code>if</code> - <code>else</code></h2>
-<p>Variabel temporary adalah variabel yang hanya bisa digunakan pada blok seleksi kondisi di mana ia ditempatkan saja. Penggunaan variabel ini membawa beberapa manfaat, antara lain:</p>
+<p>Variabel temporary adalah variabel yang hanya bisa digunakan pada deretan blok seleksi kondisi di mana ia ditempatkan. Penggunaan variabel ini membawa beberapa manfaat, antara lain:</p>
 <ul>
 <li>Scope atau cakupan variabel jelas, hanya bisa digunakan pada blok seleksi kondisi itu saja</li>
 <li>Kode menjadi lebih rapi</li>
@@ -2105,9 +2102,9 @@
     fmt.Printf(<span class="hljs-string">&quot;%.1f%s not bad\n&quot;</span>, percent, <span class="hljs-string">&quot;%&quot;</span>)
 }
 </code></pre>
-<p>Variabel <code>percent</code> nilainya didapat dari hasil perhitungan, dan hanya bisa digunakan di deretan blok seleksi kondisi itu saja.</p>
+<p>Variabel <code>percent</code> nilainya didapat dari hasil perhitungan, dan hanya bisa digunakan di deretan blok seleksi kondisi itu saja yang mencakup blok <code>if</code>, <code>else if</code>, dan <code>else</code>.</p>
 <blockquote>
-<p>Deklarasi variabel temporary hanya bisa dilakukan lewat metode type inference yang menggunakan tanda <code>:=</code>. Penggunaan keyword <code>var</code> di situ tidak diperbolehkan karena akan menyebabkan error.</p>
+<p>Deklarasi variabel temporary hanya bisa dilakukan lewat metode type inference yang menggunakan tanda <code>:=</code>. Penggunaan keyword <code>var</code> di situ tidak diperbolehkan karena menyebabkan error.</p>
 </blockquote>
 <h2 id="a133-seleksi-kondisi-menggunakan-keyword-switch---case">A.13.3. Seleksi Kondisi Menggunakan Keyword <code>switch</code> - <code>case</code></h2>
 <p>Switch merupakan seleksi kondisi yang sifatnya fokus pada satu variabel, lalu kemudian di-cek nilainya. Contoh sederhananya seperti penentuan apakah nilai variabel <code>x</code> adalah: <code>1</code>, <code>2</code>, <code>3</code>, atau lainnya.</p>
@@ -2123,7 +2120,7 @@
 }
 </code></pre>
 <p>Pada kode di atas, tidak ada kondisi atau <code>case</code> yang terpenuhi karena nilai variabel <code>point</code> tetap <code>6</code>. Ketika hal seperti ini terjadi, blok kondisi <code>default</code> dipanggil. Bisa dibilang bahwa <code>default</code> merupakan <code>else</code> dalam sebuah switch.</p>
-<p>Perlu diketahui, switch pada pemrograman Go memiliki perbedaan dibanding bahasa lain. Di Go, ketika sebuah case terpenuhi, tidak akan dilanjutkan ke pengecekan case selanjutnya, meskipun tidak ada keyword <code>break</code> di situ. Konsep ini berkebalikan dengan switch pada umumnya, yang ketika sebuah case terpenuhi, maka akan tetap dilanjut mengecek case selanjutnya kecuali ada keyword <code>break</code>.</p>
+<p>Perlu diketahui, switch pada pemrograman Go memiliki perbedaan dibanding bahasa lain. Di Go, ketika sebuah case terpenuhi, tidak akan dilanjutkan ke pengecekan case selanjutnya, meskipun tidak ada keyword <code>break</code> di situ. Konsep ini berkebalikan dengan switch pada umumnya pemrograman lain (yang ketika sebuah case terpenuhi, maka akan tetap dilanjut mengecek case selanjutnya kecuali ada keyword <code>break</code>).</p>
 <h2 id="a134-pemanfaatan-case-untuk-banyak-kondisi">A.13.4. Pemanfaatan <code>case</code> Untuk Banyak Kondisi</h2>
 <p>Sebuah <code>case</code> dapat menampung banyak kondisi. Cara penerapannya yaitu dengan menuliskan nilai pembanding-pembanding variabel yang di-switch setelah keyword <code>case</code> dipisah tanda koma (<code>,</code>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> point = <span class="hljs-number">6</span>
@@ -2139,7 +2136,7 @@
 </code></pre>
 <p>Kondisi <code>case 7, 6, 5, 4:</code> akan terpenuhi ketika nilai variabel <code>point</code> adalah 7 atau 6 atau 5 atau 4.</p>
 <h2 id="a135-kurung-kurawal-pada-keyword-case--default">A.13.5. Kurung Kurawal Pada Keyword <code>case</code> &amp; <code>default</code></h2>
-<p>Tanda kurung kurawal (<code>{ }</code>) bisa diterapkan pada keyword <code>case</code> dan <code>default</code>. Tanda ini opsional, boleh dipakai boleh tidak. Bagus jika dipakai pada blok kondisi yang di dalamnya ada banyak statement, kode akan terlihat lebih rapi dan mudah di-maintain.</p>
+<p>Tanda kurung kurawal (<code>{ }</code>) bisa diterapkan pada keyword <code>case</code> dan <code>default</code>. Tanda ini opsional, boleh dipakai boleh tidak. Bagus jika dipakai pada blok kondisi yang di dalamnya ada banyak statement, dengannya kode akan terlihat lebih rapi.</p>
 <p>Perhatikan kode berikut, bisa dilihat pada keyword <code>default</code> terdapat kurung kurawal yang mengapit 2 statement di dalamnya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> point = <span class="hljs-number">6</span>
 
@@ -2174,7 +2171,7 @@
 </code></pre>
 <h2 id="a137-penggunaan-keyword-fallthrough-dalam-switch">A.13.7. Penggunaan Keyword <code>fallthrough</code> Dalam <code>switch</code></h2>
 <p>Seperti yang sudah dijelaskan sebelumnya, bahwa switch pada Go memiliki perbedaan dengan bahasa lain. Ketika sebuah <code>case</code> terpenuhi, pengecekan kondisi tidak akan diteruskan ke case-case setelahnya.</p>
-<p>Keyword <code>fallthrough</code> digunakan untuk memaksa proses pengecekan diteruskan ke satu <code>case</code> selanjutnya dengan <strong>tanpa menghiraukan nilai kondisinya</strong>, jadi satu case di pengecekan selanjutnya tersebut selalu dianggap benar (meskipun aslinya adalah salah). Dalam sebuah <code>switch</code> lebih dari satu <code>fallthrough</code> bisa di tempatkan untuk memaksa melanjutkan proses pengecekan ke satu <code>case</code> setelahnya.</p>
+<p>Keyword <code>fallthrough</code> digunakan untuk memaksa proses pengecekan tetap diteruskan ke <code>case</code> selanjutnya dengan <strong>tanpa menghiraukan nilai kondisinya</strong>, efeknya adalah case di pengecekan selanjutnya selalu dianggap <code>true</code> (meskipun aslinya bisa saja kondisi tersebut tidak terpenuhi, akan tetap dianggap <code>true</code>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> point = <span class="hljs-number">6</span>
 
 <span class="hljs-keyword">switch</span> {
@@ -2192,8 +2189,9 @@
     }
 }
 </code></pre>
-<p>Setelah pengecekan <code>case (point &lt; 8) &amp;&amp; (point &gt; 3)</code> selesai, akan dilanjut ke pengecekan <code>case point &lt; 5</code>, karena ada <code>fallthrough</code> di situ.</p>
+<p>Di contoh, setelah pengecekan <code>case (point &lt; 8) &amp;&amp; (point &gt; 3)</code> selesai, dilanjut ke pengecekan <code>case point &lt; 5</code>, karena ada <code>fallthrough</code> di situ. Dan kondisi <code>case &lt; 5</code> tersebut dianggap <code>true</code> meskipun secara logika harusnya tidak terpenuhi.</p>
 <p><img src="images/A_seleksi_kondisi_2_fallthrough.png" alt="Dasar Pemrograman Golang - Penggunaan `fallthrough` dalam `switch`"></p>
+<p>Pada <code>case</code> dalam sebuah <code>switch</code>, diperbolehkan terdapat lebih dari satu <code>fallthrough</code>.</p>
 <h2 id="a138-seleksi-kondisi-bersarang">A.13.8. Seleksi Kondisi Bersarang</h2>
 <p>Seleksi kondisi bersarang adalah seleksi kondisi, yang berada dalam seleksi kondisi, yang mungkin juga berada dalam seleksi kondisi, dan seterusnya. Seleksi kondisi bersarang bisa dilakukan pada <code>if</code> - <code>else</code>, <code>switch</code>, ataupun kombinasi keduanya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> point = <span class="hljs-number">10</span>
@@ -2253,7 +2251,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"next":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"path":"A-perulangan.md","ref":"A-perulangan.md","articles":[]},"previous":{"title":"A.12. Operator","level":"3.1.12","depth":2,"path":"A-operator.md","ref":"A-operator.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-seleksi-kondisi.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"next":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"path":"A-perulangan.md","ref":"A-perulangan.md","articles":[]},"previous":{"title":"A.12. Operator","level":"3.1.12","depth":2,"path":"A-operator.md","ref":"A-operator.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-seleksi-kondisi.md","mtime":"2024-04-25T12:05:09.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

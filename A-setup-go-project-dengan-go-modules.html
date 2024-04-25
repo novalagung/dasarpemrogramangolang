@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,35 +2062,35 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a3-go-modules">A.3. Go Modules</h1>
-<p>Pada bagian ini kita akan belajar cara inisialisasi project menggunakan Go Modules (atau Modules).</p>
+<p>Pada bagian ini kita akan belajar cara pembuatan project baru menggunakan Go Modules.</p>
 <h2 id="a31-penjelasan">A.3.1. Penjelasan</h2>
-<p>Go modules merupakan manajemen dependensi resmi untuk Go. Modules ini diperkenalkan pertama kali di <code>go1.11</code>, sebelum itu pengembangan project Go dilakukan dalam <code>GOPATH</code>.</p>
-<p>Modules digunakan untuk menginisialisasi sebuah project, sekaligus melakukan manajemen terhadap <em>3rd party</em> atau <em>library</em> lain yang dipergunakan.</p>
-<p>Modules penggunaannya adalah lewat CLI. Dan jika temen-temen sudah sukses meng-<em>install</em> Go, maka otomatis bisa mempergunakan Go Modules.</p>
+<p>Go modules merupakan tools untuk manajemen dependensi resmi milik Go. Modules digunakan untuk menginisialisasi sebuah project, sekaligus melakukan manajemen terhadap <em>3rd party</em> atau <em>library</em> atau <em>dependency</em> yang digunakan dalam project.</p>
+<p>Modules penggunaannya adalah via CLI. Jika pembaca sudah sukses meng-<em>install</em> Go, maka otomatis bisa menggunakan operasi CLI Go Modules.</p>
 <blockquote>
-<p>Modules atau Module di sini merupakan istilah untuk project ya. Jadi jangan bingung.</p>
+<p>Di Go, istilah modules (atau module) maknanya adalah sama dengan project. Jadi gak perlu bingung</p>
 </blockquote>
 <h2 id="a32-inisialisasi-project-menggunakan-go-modules">A.3.2. Inisialisasi Project Menggunakan Go Modules</h2>
 <p>Command <code>go mod init</code> digunakan untuk menginisialisasi project baru.</p>
-<p>Mari kita praktekan, buat folder baru, bisa via CLI atau lewat browser/finder.</p>
+<p>Mari langsung praktekan saja. Buat folder baru, bisa via CLI atau lewat browser/finder.</p>
 <pre><code class="lang-bash">mkdir project-pertama
 <span class="hljs-built_in">cd</span> project-pertama
 go mod init project-pertama
-dir
 </code></pre>
-<p>Bisa dilihat pada <em>command</em> di atas ada direktori <code>project-pertama</code>, dibuat. Setelah masuk ke direktori tersebut, perintah <code>go mod init project-pertama</code> dijalankan. Dengan ini maka kita telah menginisialisasi direktori <code>project-pertama</code> sebagai sebuah project Go dengan nama <code>project-pertama</code> (kebetulan di sini nama project sama dengan nama direktori-nya).</p>
+<p>Bisa dilihat pada <em>command</em> di atas ada direktori <code>project-pertama</code>, dibuat. Setelah masuk ke direktori tersebut, perintah <code>go mod init project-pertama</code> dijalankan. Dengan ini maka kita telah menginisialisasi direktori/folder <code>project-pertama</code> sebagai sebuah project Go dengan nama <code>project-pertama</code>.</p>
 <p><img src="images/A_go_modules_1_initmodule.png" alt="Dasar Pemrograman Golang - Init project"></p>
 <p>Skema penulisan command <code>go mod</code>:</p>
 <pre><code>go mod init &lt;nama-project&gt;
 go mod init project-pertama
-</code></pre><p>Untuk nama project, umumnya disamakan dengan nama direktori, tapi bisa saja sebenarnya menggunakan nama yang lain.</p>
+</code></pre><p>Di sini kita tentukan nama project adalah sama dengan nama folder, ini merupakan <em>best practice</em> di Go.</p>
 <blockquote>
-<p>Nama project dan Nama module merupakan istilah yang sama.</p>
+<p>Nama project dan nama module merupakan artinya adalah sama. Ingat, module adalah sama dengan project</p>
 </blockquote>
-<p>Eksekusi perintah <code>go mod init</code> menghasilkan satu buah file baru bernama <code>go.mod</code>. File ini digunakan oleh Go toolchain untuk menandai bahwa folder di mana file tersebut berada adalah folder project. Jadi jangan dihapus ya file tersebut.</p>
-<hr>
+<p>Eksekusi perintah <code>go mod init</code> menghasilkan satu buah file baru bernama <code>go.mod</code>. File ini digunakan oleh Go toolchain untuk menandai bahwa folder di mana file tersebut berada adalah folder project. Jadi pastikan untuk tidak menghapus file tersebut.</p>
 <p>Ok, sekian. Cukup itu saja cara inisialisasi project di Go.</p>
-<p>O iya, sebenarnya selain Go Modules, setup project di Go juga bisa menggunakan <code>$GOPATH</code> (<a href="A-gopath-dan-workspace.html">A.4. Setup GOPATH Dan Workspace</a>). Tapi inisialisasi project dengan GOPATH sudah outdate dan kurang dianjurkan untuk project-project yang dikembangkan menggunakan Go versi terbaru (1.14 ke atas). Jadi setelah chapter ini, bisa langsung lanjut ke <a href="A-instalasi-editor.html">A. Instalasi Editor</a>.</p>
+<hr>
+<p>O iya, sebenarnya selain Go Modules, setup project di Go juga bisa menggunakan <code>$GOPATH</code> yang pembahasannya ada di chapter (<a href="A-gopath-dan-workspace.html">A.4. Setup GOPATH Dan Workspace</a>).</p>
+<p>Namun metode inisialisasi project via GOPATH sudah outdate dan kurang dianjurkan untuk project-project yang dikembangkan menggunakan Go versi terbaru (1.14 ke atas).</p>
+<p>Jadi setelah chapter ini, penulis boleh langsung lompat ke pembahasan di chapter <a href="A-instalasi-editor.html">A.5. Instalasi Editor</a>.</p>
 <hr>
 <iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
@@ -2109,7 +2109,7 @@ go mod init project-pertama
                 </a>
                 
                 
-                <a href="A-gopath-dan-workspace.html" class="navigation navigation-next " aria-label="Next page: A.4. Setup GOPATH Dan Workspace">
+                <a href="A-gopath-dan-workspace.html" class="navigation navigation-next " aria-label="Next page: A.4. Setup GOPATH dan Workspace">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2120,7 +2120,7 @@ go mod init project-pertama
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.3. Setup Go Modules","level":"3.1.3","depth":2,"next":{"title":"A.4. Setup GOPATH Dan Workspace","level":"3.1.4","depth":2,"path":"A-gopath-dan-workspace.md","ref":"A-gopath-dan-workspace.md","articles":[]},"previous":{"title":"A.2. Instalasi Golang (Stable & Unstable)","level":"3.1.2","depth":2,"path":"2-instalasi-golang.md","ref":"2-instalasi-golang.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-setup-go-project-dengan-go-modules.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.3. Setup Go Modules","level":"3.1.3","depth":2,"next":{"title":"A.4. Setup GOPATH dan Workspace","level":"3.1.4","depth":2,"path":"A-gopath-dan-workspace.md","ref":"A-gopath-dan-workspace.md","articles":[]},"previous":{"title":"A.2. Instalasi Golang (Stable & Unstable)","level":"3.1.2","depth":2,"path":"2-instalasi-golang.md","ref":"2-instalasi-golang.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-setup-go-project-dengan-go-modules.md","mtime":"2024-04-25T12:05:09.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

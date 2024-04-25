@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,63 +2062,61 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a6-command">A.6. Command</h1>
-<p>Pengembangan aplikasi Go tak jauh dari hal-hal yang berbau CLI atau <em>Command Line Interface</em>. Proses inisialisasi project, kompilasi, testing, eksekusi program, semuanya dilakukan lewat command line.</p>
+<p>Pengembangan aplikasi Go pastinya tak akan jauh dari hal-hal yang berbau CLI atau <em>Command Line Interface</em>. Di Go, proses inisialisasi project, kompilasi, testing, eksekusi program, semuanya dilakukan lewat command line.</p>
 <p>Go menyediakan command <code>go</code>, dan pada chapter ini kita akan mempelajari beberapa di antaranya.</p>
 <blockquote>
-<p>Pada pembelajaran chapter ini, pembaca tidak harus praktek, cukup pelajari saja untuk tahu. Mengenai praktek sendiri akan dimulai pada chapter selanjutnya, yaitu <a href="A-hello-world.html">A.7. Program Pertama: Hello World</a>.</p>
+<p>Pada pembelajaran chapter ini, pembaca tidak harus menghafal dan mempraktekan semuanya, cukup ikuti saja pembelajaran agar mulai familiar. Perihal prakteknya sendiri akan dimulai pada chapter selanjutnya, yaitu <a href="A-hello-world.html">A.7. Program Pertama: Hello World</a>.</p>
 </blockquote>
 <h2 id="a61-command-go-mod-init">A.6.1. Command <code>go mod init</code></h2>
-<p><em>Command</em> <code>go mod init</code> digunakan untuk inisialisasi project pada Go (menggunakan Go Modules). Untuk nama project bisa menggunakan apapun, tapi umumnya adalah disamakan dengan nama direktori.</p>
+<p><em>Command</em> <code>go mod init</code> digunakan untuk inisialisasi project pada Go yang menggunakan Go Modules. Untuk nama project bisa menggunakan apapun, tapi umumnya disamakan dengan nama direktori/folder.</p>
 <p>Nama project ini penting karena nantinya berpengaruh pada <em>import path sub packages</em> yang ada dalam project tersebut.</p>
 <pre><code>mkdir &lt;nama-project&gt;
 cd &lt;nama-project&gt;
 go mod init &lt;nama-project&gt;
 </code></pre><h2 id="a62-command-go-run">A.6.2. Command <code>go run</code></h2>
-<p><em>Command</em> <code>go run</code> digunakan untuk eksekusi file program (file ber-ekstensi <code>.go</code>). Cara penggunaannya dengan menuliskan <em>command</em> tersebut diikuti argumen nama file.</p>
+<p><em>Command</em> <code>go run</code> digunakan untuk eksekusi file program, yaitu file yang ber-ekstensi <code>.go</code>. Cara penggunaannya dengan menuliskan <em>command</em> tersebut diikuti argumen nama file.</p>
 <p>Berikut adalah contoh penerapan <code>go run</code> untuk eksekusi file program <code>main.go</code> yang tersimpan di path <code>project-pertama</code> yang path tersebut sudah diinisialisasi menggunakan <code>go mod init</code>.</p>
 <pre><code class="lang-bash"><span class="hljs-built_in">cd</span> project-pertama
 go run main.go
 </code></pre>
 <p><img src="images/A_go_command_1_go_run.png" alt="Dasar Pemrograman Golang - Eksekusi file program menggunakan `go run`"></p>
-<p><em>Command</em> <code>go run</code> hanya bisa digunakan pada file yang nama package-nya adalah <code>main</code>. Lebih jelasnya dibahas pada chapter selanjutnya (<a href="A-hello-world.html">A.7. Program Pertama: Hello World</a>).</p>
+<p><em>Command</em> <code>go run</code> hanya bisa digunakan pada file yang nama package-nya adalah <code>main</code>. Lebih jelasnya dibahas pada chapter selanjutnya, yaitu (<a href="A-hello-world.html">A.7. Program Pertama: Hello World</a>).</p>
 <p>Jika ada banyak file yang package-nya <code>main</code> dan file-file tersebut berada pada satu direktori level dengan file utama, maka eksekusinya adalah dengan menuliskan semua file sebagai argument <em>command</em> <code>go run</code>. Contohnya bisa dilihat pada kode berikut.</p>
 <pre><code class="lang-bash">go run main.go library.go
 </code></pre>
-<blockquote>
-<p>Lebih jelasnya perihal argument dan flag akan dibahas pada chapter <a href="A-command-line-args-flag.html">A.48. Arguments &amp; Flag</a>)</p>
-</blockquote>
 <h2 id="a63-command-go-test">A.6.3. Command <code>go test</code></h2>
-<p>Go menyediakan package <code>testing</code>, berguna untuk keperluan unit test. File yang akan di-test harus memiliki akhiran <code>_test.go</code>.</p>
+<p>Go menyediakan package <code>testing</code>, berguna untuk keperluan pembuatan file test. Pada penerapannya, ada aturan yang wajib diikuti yaitu nama file test harus berakhiran <code>_test.go</code>.</p>
 <p>Berikut adalah contoh penggunaan <em>command</em> <code>go test</code> untuk testing file <code>main_test.go</code>.</p>
 <pre><code class="lang-bash">go <span class="hljs-built_in">test</span> main_test.go
 </code></pre>
 <p><img src="images/A_go_command_3_go_test.png" alt="Dasar Pemrograman Golang - Unit testing menggunakan `go test`"></p>
 <h2 id="a64-command-go-build">A.6.4. Command <code>go build</code></h2>
 <p><em>Command</em> ini digunakan untuk mengkompilasi file program.</p>
-<p>Sebenarnya ketika eksekusi program menggunakan <code>go run</code>, terjadi proses kompilasi juga. File hasil kompilasi akan disimpan pada folder temporary untuk selanjutnya langsung dieksekusi.</p>
-<p>Berbeda dengan <code>go build</code>, <em>command</em> ini menghasilkan file <em>executable</em> atau <em>binary</em> pada folder yang sedang aktif. Contohnya bisa dilihat pada kode berikut.</p>
+<p>Sebenarnya ketika eksekusi program menggunakan <code>go run</code> didalamnya terjadi proses kompilasi juga. File hasil kompilasi kemudian disimpan pada folder temporary untuk selanjutnya langsung dieksekusi.</p>
+<p>Berbeda dengan <code>go build</code>, <em>command</em> ini menghasilkan file <em>executable</em> atau <em>binary</em> pada folder yang sedang aktif. Contoh praktiknya bisa dilihat di bawah ini.</p>
 <p><img src="images/A_go_command_4_go_build.png" alt="Dasar Pemrograman Golang - Kompilasi file program menghasilkan file executable"></p>
-<p>Pada contoh di atas, project <code>project-pertama</code> di-build, menghasilkan file baru pada folder yang sama, yaitu <code>project-pertama.exe</code>, yang kemudian dieksekusi. <em>Default</em>-nya nama project akan otomatis dijadikan nama <em>binary</em>.</p>
-<p>Untuk nama executable sendiri bisa diubah menggunakan flag <code>-o</code>. Contoh:</p>
+<p>Di contoh, project <code>project-pertama</code> di-build, hasilnya adalah file baru bernama <code>project-pertama.exe</code> berada di folder yang sama. File <em>executable</em> tersebut kemudian dieksekusi.</p>
+<p><em>Default</em> nama file binary atau executable adalah sesuai dengan nama project. Untuk mengubah nama file executable, gunakan flag <code>-o</code>. Contoh:</p>
 <pre><code>go build -o &lt;nama-executable&gt;
 go build -o program.exe
 </code></pre><blockquote>
-<p>Untuk sistem operasi non-windows, tidak perlu menambahkan akhiran <code>.exe</code> pada nama <em>binary</em></p>
+<p>Khusus untuk sistem operasi non-windows, tidak perlu menambahkan akhiran <code>.exe</code> pada nama <em>binary</em></p>
 </blockquote>
 <h2 id="a65-command-go-get">A.6.5. Command <code>go get</code></h2>
-<p><em>Command</em> <code>go get</code> digunakan untuk men-download package. Sebagai contoh saya ingin men-download package Kafka driver untuk Go pada project <code>project-pertama</code>.</p>
+<p><em>Command</em> <code>go get</code> digunakan untuk men-download package atau <em>dependency</em>. Sebagai contoh, penulis ingin men-download package Kafka driver untuk Go pada project <code>project-pertama</code>, maka command-nya kurang lebih seperti berikut:</p>
 <pre><code class="lang-bash"><span class="hljs-built_in">cd</span> project-pertama
 go get github.com/segmentio/kafka-go
-dir
 </code></pre>
 <p><img src="images/A_go_command_6_go_get.png" alt="Dasar Pemrograman Golang - Download package menggunakan `go get`"></p>
-<p>Pada contoh di atas, <code>github.com/segmentio/kafka-go</code> adalah URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder di mana <em>command</em> <code>go get</code> dieksekusi, menjadikan project tersebut bisa meng-<em>import</em> package terunduh.</p>
-<p>Untuk mengunduh dependensi versi terbaru, gunakan flag <code>-u</code> pada command <code>go get</code>, misalnya:</p>
+<p>Pada contoh di atas, bisa dilihat bahwa URL <code>github.com/segmentio/kafka-go</code> merupakan URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder di mana <em>command</em> <code>go get</code> dieksekusi, menjadikan project tersebut bisa meng-<em>import</em> package yang telah di-download.</p>
+<p>Untuk mengunduh package/dependency versi terbaru, gunakan flag <code>-u</code> pada command <code>go get</code>, contohnya:</p>
 <pre><code>go get -u github.com/segmentio/kafka-go
-</code></pre><p>Command <code>go get</code> <strong>harus dijalankan dalam folder project</strong>. Jika dijalankan di-luar project maka akan diunduh ke pada GOPATH.</p>
-<h2 id="a66-command-go-mod-tidy">A.6.6. Command <code>go mod tidy</code></h2>
-<p><em>Command</em> <code>go mod tidy</code> digunakan untuk memvalidasi dependensi. Jika ada dependensi yang belum ter-download, maka akan otomatis di-download.</p>
-<h2 id="a67-command-go-mod-vendor">A.6.7. Command <code>go mod vendor</code></h2>
+</code></pre><p>Command <code>go get</code> <strong>harus dijalankan dalam folder project</strong>. Jika dijalankan di-luar path project maka dependency yang ter-unduh akan ter-link dengan GOPATH, bukan dengan project.</p>
+<h2 id="a66-command-go-mod-download">A.6.6. Command <code>go mod download</code></h2>
+<p><em>Command</em> <code>go mod download</code> digunakan untuk men-download dependency.</p>
+<h2 id="a67-command-go-mod-tidy">A.6.7. Command <code>go mod tidy</code></h2>
+<p><em>Command</em> <code>go mod tidy</code> digunakan untuk memvalidasi dependency sekaligus men-download-nya jika memang belum ter-download.</p>
+<h2 id="a68-command-go-mod-vendor">A.6.8. Command <code>go mod vendor</code></h2>
 <p>Command ini digunakan untuk vendoring. Lebih detailnya akan dibahas di akhir serial chapter A, pada chapter <a href="A-go-vendoring.html">A.61. Go Vendoring</a>.</p>
 <hr>
 <iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
@@ -2149,7 +2147,7 @@ dir
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.6. Go Command","level":"3.1.6","depth":2,"next":{"title":"A.7. Program Pertama: Hello World","level":"3.1.7","depth":2,"path":"A-hello-world.md","ref":"A-hello-world.md","articles":[]},"previous":{"title":"A.5. Instalasi Editor","level":"3.1.5","depth":2,"path":"A-instalasi-editor.md","ref":"A-instalasi-editor.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-go-command.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.6. Go Command","level":"3.1.6","depth":2,"next":{"title":"A.7. Program Pertama: Hello World","level":"3.1.7","depth":2,"path":"A-hello-world.md","ref":"A-hello-world.md","articles":[]},"previous":{"title":"A.5. Instalasi Editor","level":"3.1.5","depth":2,"path":"A-instalasi-editor.md","ref":"A-instalasi-editor.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-go-command.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

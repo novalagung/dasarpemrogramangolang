@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,11 +2062,11 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a61-go-vendoring">A.61. Go Vendoring</h1>
-<p>Pada bagian ini kita akan belajar cara pemanfaatan vendoring untuk menyimpan dependensi di lokal.</p>
+<p>Pada bagian ini kita akan belajar cara pemanfaatan vendoring untuk menyimpan copy dependency di lokal dalam folder project.</p>
 <h2 id="a611-penjelasan">A.61.1. Penjelasan</h2>
-<p>Vendoring di Go merupakan kapabilitas untuk mengunduh semua dependency atau <em>3rd party</em>, untuk disimpan di lokal dalam folder project, dalam folder bernama <code>vendor</code>.</p>
-<p>Dengan adanya folder tersebut, maka Go tidak akan <em>lookup</em> 3rd party ke cache folder, melainkan langsung mempergunakan yang ada dalam folder <code>vendor</code>. Jadi tidak perlu download lagi dari internet.</p>
-<p>Ok lanjut.</p>
+<p>Vendoring di Go memberikan kita kapabilitas untuk mengunduh semua dependency atau <em>3rd party</em>, untuk disimpan di lokal dalam folder project, dalam subfolder bernama <code>vendor</code>.</p>
+<p>Dengan adanya folder tersebut, maka Go tidak akan <em>lookup</em> 3rd party ke cache folder ataupun ke GOPATH, melainkan langsung mengambil dari yang ada dalam folder <code>vendor</code>. Jadi kalau dependency sudah ada di dalam <code>vendor</code>, maka kita tidak perlu download lagi dari internet menggunakan command <code>go mod download</code> ataupun <code>go mod tidy</code>.</p>
+<p>Ok lanjut ke praktek ya.</p>
 <h2 id="a612-praktek-vendoring">A.61.2. Praktek Vendoring</h2>
 <p>Kita akan coba praktekan untuk vendoring sebuah 3rd party bernama <a href="https://github.com/novalagung/gubrak/v2" target="_blank">gubrak</a>.</p>
 <p>Buat folder project baru dengan nama <code>belajar-vendor</code> dengan isi satu file <code>main.go</code>. Lalu go get library gubrak.</p>
@@ -2087,20 +2087,16 @@ go get -u github.com/novalagung/gubrak/v2
     fmt.Println(gubrak.RandomInt(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>))
 }
 </code></pre>
-<p>Setelah itu jalankan command <code>go mod vendor</code> untuk vendoring <em>3rd party library</em> yang dipergunakan, dalam contoh ini adlah gubrak.</p>
+<p>Setelah itu jalankan command <code>go mod vendor</code> untuk vendoring <em>3rd party library</em> yang dipergunakan, dalam contoh ini adalah gubrak.</p>
 <p><img src="images/A_go_vendoring_1_vendor.png" alt="Dasar Pemrograman Golang - Vendoring"></p>
 <p>Bisa dilihat, sekarang library gubrak <em>source code</em>-nya disimpan dalam folder <code>vendor</code>. Nah ini juga akan berlaku untuk semua <em>library</em> lainnya yg digunakan jika ada.</p>
 <h2 id="a613-build-dan-run-project-yang-menerapkan-vendoring">A.61.3 Build dan Run Project yang Menerapkan Vendoring</h2>
-<p>Untuk membuat proses build lookup ke folder vendor, kita tidak perlu melakukan apa-apa, setidaknya jika versi Go yang diinstall adalah 1.14 ke atas. Maka command build maupun run masih sama.</p>
-<pre><code>go run main.go
-go build -o executable
-</code></pre><p>Untuk yg menggunakan versi Go di bawah 1.14, penulis sarankan untuk upgrade. Atau bisa gunakan flag <code>-mod=vendor</code> untuk memaksa Go lookup ke folder <code>vendor</code>.</p>
+<p>Cara agar Go lookup ke folder <code>vendor</code> saat build adalah dengan menambahkan flag <code>-mod=vendor</code> sewaktu build atau run project.</p>
 <pre><code>go run -mod=vendor main.go
 go build -mod=vendor -o executable
 </code></pre><h2 id="a613-manfaat-vendoring">A.61.3. Manfaat Vendoring</h2>
-<p>Manfaat vendoring adalah pada sisi kompatibilitas dan kestabilan 3rd party. Jadi dengan vendor, misal 3rd party yang kita gunakan di itu ada update yg sifatnya tidak <em>backward compatible</em>, maka aplikasi kita tetap aman karena menggunakan yang ada dalam folder <code>vendor</code>.</p>
-<p>Jika tidak menggunakan vendoring, maka bisa saja saat <code>go mod tidy</code> sukses, namun sewaktu build error, karena ada fungsi yg tidak kompatibel lagi misalnya.</p>
-<p>Untuk penggunaan vendor apakah wajib? menurut saya tidak. Sesuaikan kebutuhan saja.</p>
+<p>Manfaat vendoring adalah pada sisi kompatibilitas &amp; kestabilan 3rd party, selain itu kita tidak perlu repot mendownload dependency karena semuanya sudah ada di lokal.</p>
+<p>Konsekuensi penerapan vendoring adalah size project menjadi cukup besar. Untuk penggunaan vendor apakah wajib? menurut saya tidak. Sesuaikan kebutuhan saja.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
@@ -2136,7 +2132,7 @@ go build -mod=vendor -o executable
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"next":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"path":"A-concurrency-pipeline.md","ref":"A-concurrency-pipeline.md","articles":[]},"previous":{"title":"A.60. sync.Mutex","level":"3.1.60","depth":2,"path":"A-mutex.md","ref":"A-mutex.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-go-vendoring.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"next":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"path":"A-concurrency-pipeline.md","ref":"A-concurrency-pipeline.md","articles":[]},"previous":{"title":"A.60. sync.Mutex","level":"3.1.60","depth":2,"path":"A-mutex.md","ref":"A-mutex.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-go-vendoring.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

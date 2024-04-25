@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,8 +2062,8 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a22-fungsi-sebagai-parameter">A.22. Fungsi Sebagai parameter</h1>
-<p>Setelah pada chapter sebelumnya kita belajar mengenai fungsi yang mengembalikan nilai balik berupa fungsi, kali ini topiknya tidak kalah unik, yaitu fungsi yang digunakan sebagai parameter.</p>
-<p>Di Go, fungsi bisa dijadikan sebagai tipe data variabel. Dari situ sangat memungkinkan untuk menjadikannya sebagai parameter juga.</p>
+<p>Pada chapter sebelumnya kita telah belajar tentang fungsi yang mengembalikan nilai balik berupa fungsi. Kali ini topiknya tidak kalah unik, yaitu tentang fungsi yang memiliki parameter sebuah fungsi.</p>
+<p>Di Go, fungsi bisa dijadikan sebagai tipe data variabel, maka sangat memungkinkan untuk menjadikannya sebagai parameter.</p>
 <h2 id="a221-penerapan-fungsi-sebagai-parameter">A.22.1. Penerapan Fungsi Sebagai Parameter</h2>
 <p>Cara membuat parameter fungsi adalah dengan langsung menuliskan skema fungsi nya sebagai tipe data. Contohnya bisa dilihat pada kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2102,7 +2102,7 @@
     <span class="hljs-comment">// filter jumlah huruf &quot;5&quot; : [jason ethan]</span>
 }
 </code></pre>
-<p>Ada cukup banyak hal yang terjadi di dalam tiap pemanggilan fungsi <code>filter()</code> di atas. Berikut merupakan penjelasannya.</p>
+<p>Ada cukup banyak hal yang terjadi di dalam tiap pemanggilan fungsi <code>filter()</code> di atas. Berikut adalah penjelasannya:</p>
 <ol>
 <li>Data array (yang didapat dari parameter pertama) akan di-looping.</li>
 <li>Di tiap perulangannya, closure <code>callback</code> dipanggil, dengan disisipkan data tiap elemen perulangan sebagai parameter.</li>
@@ -2112,11 +2112,12 @@
 </ol>
 <p><img src="images/A_fungsi_sebagai_parameter_1_filtering.png" alt="Dasar Pemrograman Golang - Filtering data"></p>
 <p>Pada <code>dataContainsO</code>, parameter kedua fungsi <code>filter()</code> berisikan statement untuk deteksi apakah terdapat substring <code>&quot;o&quot;</code> di dalam nilai variabel <code>each</code> (yang merupakan data tiap elemen), jika iya, maka kondisi filter bernilai <code>true</code>, dan sebaliknya.</p>
-<p>pada contoh ke-2 (<code>dataLength5</code>), closure <code>callback</code> berisikan statement untuk deteksi jumlah karakter tiap elemen. Jika ada elemen yang jumlah karakternya adalah 5, berarti elemen tersebut lolos filter.</p>
-<p>Memang butuh usaha ekstra untuk memahami pemanfaatan closure sebagai parameter fungsi. Tapi setelah paham, penerapan teknik ini pada kondisi yang tepat akan sangat membantu proses pembuatan aplikasi.</p>
+<p>Pada contoh ke-2 (<code>dataLength5</code>), closure <code>callback</code> berisikan statement untuk deteksi jumlah karakter tiap elemen. Jika ada elemen yang jumlah karakternya adalah 5, berarti elemen tersebut lolos filter.</p>
+<p>Memang butuh usaha ekstra untuk memahami pemanfaatan closure sebagai parameter fungsi. Tapi setelah paham, penerapan teknik ini pada kondisi yang tepat akan sangat berguna.</p>
 <h2 id="a222-alias-skema-closure">A.22.2. Alias Skema Closure</h2>
-<p>Kita sudah mempelajari bahwa closure bisa dimanfaatkan sebagai tipe parameter, contohnya seperti pada fungsi <code>filter()</code>. Pada fungsi tersebut kebetulan skema tipe parameter closure-nya tidak terlalu panjang, hanya ada satu buah parameter dan satu buah nilai balik.</p>
-<p>Pada fungsi yang skema-nya cukup panjang, akan lebih baik jika menggunakan alias, apalagi ketika ada parameter fungsi lain yang juga menggunakan skema yang sama. Membuat alias fungsi berarti menjadikan skema fungsi tersebut menjadi tipe data baru. Caranya dengan menggunakan keyword <code>type</code>. Contoh:</p>
+<p>Kita sudah mempelajari bahwa closure bisa dimanfaatkan sebagai tipe parameter, contohnya seperti pada fungsi <code>filter()</code>. Di fungsi tersebut kebetulan skema tipe parameter closure-nya tidak terlalu panjang, hanya ada satu buah parameter dan satu buah nilai balik.</p>
+<p>Untuk fungsi yang skema-nya cukup panjang, akan lebih baik jika menggunakan alias dalam pendefinisiannya, apalagi ketika ada parameter fungsi lain yang juga menggunakan skema yang sama, maka kita tidak perlu menuliskan skema panjang fungsi tersebut berulang-ulang.</p>
+<p>Membuat alias fungsi berarti menjadikan skema fungsi tersebut menjadi tipe data baru. Caranya dengan menggunakan keyword <code>type</code>. Contoh:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> FilterCallback <span class="hljs-keyword">func</span>(<span class="hljs-keyword">string</span>) <span class="hljs-keyword">bool</span>
 
 <span class="hljs-keyword">func</span> filter(data []<span class="hljs-keyword">string</span>, callback FilterCallback) []<span class="hljs-keyword">string</span> {
@@ -2124,9 +2125,9 @@
 }
 </code></pre>
 <p>Skema <code>func(string) bool</code> diubah menjadi tipe dengan nama <code>FilterCallback</code>. Tipe tersebut kemudian digunakan sebagai tipe data parameter <code>callback</code>.</p>
-<hr>
+<h2 id="a223-penjelasan-tambahan">A.22.3. Penjelasan tambahan</h2>
 <p>Di bawah ini merupakan penjelasan tambahan mengenai fungsi <code>strings.Contains()</code>.</p>
-<h2 id="a2221-penggunaan-fungsi-stringcontains">A.22.2.1. Penggunaan Fungsi <code>string.Contains()</code></h2>
+<h4 id="&#x25C9;-penggunaan-fungsi-stringcontains">&#x25C9; Penggunaan Fungsi <code>string.Contains()</code></h4>
 <p>Inti dari fungsi ini adalah untuk deteksi apakah sebuah substring adalah bagian dari string, jika iya maka akan bernilai <code>true</code>, dan sebaliknya. Contoh penggunaannya:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> result = strings.Contains(<span class="hljs-string">&quot;Golang&quot;</span>, <span class="hljs-string">&quot;ang&quot;</span>)
 <span class="hljs-comment">// true</span>
@@ -2167,7 +2168,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.22. Fungsi Sebagai parameter","level":"3.1.22","depth":2,"next":{"title":"A.23. Pointer","level":"3.1.23","depth":2,"path":"A-pointer.md","ref":"A-pointer.md","articles":[]},"previous":{"title":"A.21. Fungsi Closure","level":"3.1.21","depth":2,"path":"A-fungsi-closure.md","ref":"A-fungsi-closure.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-fungsi-sebagai-parameter.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.22. Fungsi Sebagai parameter","level":"3.1.22","depth":2,"next":{"title":"A.23. Pointer","level":"3.1.23","depth":2,"path":"A-pointer.md","ref":"A-pointer.md","articles":[]},"previous":{"title":"A.21. Fungsi Closure","level":"3.1.21","depth":2,"path":"A-fungsi-closure.md","ref":"A-fungsi-closure.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-fungsi-sebagai-parameter.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

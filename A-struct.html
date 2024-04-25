@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,23 +2062,23 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a24-struct">A.24. Struct</h1>
-<p>Go tidak memiliki class yang ada di bahasa-bahasa strict OOP lain. Tapi Go memiliki tipe data struktur yang disebut dengan Struct.</p>
+<p>Go tidak mengadopsi konsep class seperti pada beberapa bahasa pemrograman OOP lainnya. Namun Go memiliki tipe data struktur Struct.</p>
 <p>Struct adalah kumpulan definisi variabel (atau property) dan atau fungsi (atau method), yang dibungkus sebagai tipe data baru dengan nama tertentu. Property dalam struct, tipe datanya bisa bervariasi. Mirip seperti <code>map</code>, hanya saja key-nya sudah didefinisikan di awal, dan tipe data tiap itemnya bisa berbeda.</p>
-<p>Dari sebuah struct, kita bisa buat variabel baru, yang memiliki atribut sesuai skema struct tersebut. Kita sepakati dalam buku ini, variabel tersebut dipanggil dengan istilah <strong>object</strong> atau <strong>object struct</strong>.</p>
+<p>Dari sebuah struct, kita bisa buat variabel baru, yang memiliki atribut sesuai skema struct tersebut. Kita sepakati dalam buku ini, variabel tersebut dipanggil dengan istilah <strong>object</strong> atau <strong>variabel object</strong>.</p>
 <blockquote>
-<p>Konsep struct di golang mirip dengan konsep <strong>class</strong> pada OOP, meski sebenarnya berbeda. Di sini penulis menggunakan konsep OOP sebagai analogi, dengan tujuan untuk mempermudah dalam mencerna isi chapter ini.</p>
+<p>Konsep struct di golang mirip dengan konsep <strong>class</strong> pada OOP, meski sebenarnya memiliki perbedaan. Di sini penulis menggunakan konsep OOP sebagai analogi, untuk mempermudah pembaca untuk memahami pembelajaran di chapter ini.</p>
 </blockquote>
-<p>Dengan memanfaatkan struct, grouping data akan lebih mudah, selain itu rapi dan gampang untuk di-maintain.</p>
+<p>Dengan memanfaatkan struct, penyimpanan data yang sifatnya kolektif menjadi lebih mudah, lebih rapi, dan mudah untuk dikelola.</p>
 <h2 id="a241-deklarasi-struct">A.24.1. Deklarasi Struct</h2>
-<p>Keyword <code>type</code> digunakan untuk deklarasi struct. Di bawah ini merupakan contoh cara penggunaannya.</p>
+<p>Kombinasi keyword <code>type</code> dan <code>struct</code> digunakan untuk deklarasi struct. Di bawah ini merupakan contoh cara penerapannya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> student <span class="hljs-keyword">struct</span> {
     name <span class="hljs-keyword">string</span>
     grade <span class="hljs-keyword">int</span>
 }
 </code></pre>
-<p>Struct <code>student</code> dideklarasikan memiliki 2 property, yaitu <code>name</code> dan <code>grade</code>. Objek yang dibuat dengan struct ini nantinya memiliki skema atau struktur yang sama.</p>
-<h2 id="a242-penerapan-struct">A.24.2. Penerapan Struct</h2>
-<p>Struct <code>student</code> yang sudah disiapkan di atas akan kita manfaatkan untuk membuat variabel objek. Property variabel tersebut di-isi kemudian ditampilkan.</p>
+<p>Struct <code>student</code> dideklarasikan memiliki 2 property, yaitu <code>name</code> dan <code>grade</code>. Property adalah istilah untuk variabel yang menempel ke struct.</p>
+<h2 id="a242-penerapan-struct-untuk-membuat-object">A.24.2. Penerapan Struct Untuk Membuat Object</h2>
+<p>Struct <code>student</code> yang sudah disiapkan di atas kita gunakan untuk membuat variabel objek. Variabel tersebut tipe datanya adalah <code>student</code>. Kemudian dari variabel object, kita bisa mengakses isi property variabel. Contoh:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     <span class="hljs-keyword">var</span> s1 student
     s1.name = <span class="hljs-string">&quot;john wick&quot;</span>
@@ -2089,11 +2089,11 @@
 }
 </code></pre>
 <p>Cara membuat variabel objek sama seperti pembuatan variabel biasa. Tinggal tulis saja nama variabel diikuti nama struct, contoh: <code>var s1 student</code>.</p>
-<p>Semua property variabel objek pada awalnya memiliki zero value sesuai tipe datanya.</p>
+<p>Semua property variabel objek pada awalnya memiliki zero value sesuai tipe datanya. Misalnya, 0 untuk tipe <code>int</code>, dan string kosong <code>&quot;&quot;</code> untuk string.</p>
 <p>Property variabel objek bisa diakses nilainya menggunakan notasi titik, contohnya <code>s1.name</code>. Nilai property-nya juga bisa diubah, contohnya <code>s1.grade = 2</code>.</p>
 <p><img src="images/A_struct_1_struct.png" alt="Dasar Pemrograman Golang - Pengaksesan property variabel objek"></p>
 <h2 id="a243-inisialisasi-object-struct">A.24.3. Inisialisasi Object Struct</h2>
-<p>Cara inisialisasi variabel objek adalah dengan menambahkan kurung kurawal setelah nama struct. Nilai masing-masing property bisa diisi pada saat inisialisasi.</p>
+<p>Cara inisialisasi variabel objek adalah dengan menuliskan nama struct yang telah dibuat diikuti dengan kurung kurawal. Nilai masing-masing property bisa diisi pada saat inisialisasi.</p>
 <p>Pada contoh berikut, terdapat 3 buah variabel objek yang dideklarasikan dengan cara berbeda.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> s1 = student{}
 s1.name = <span class="hljs-string">&quot;wick&quot;</span>
@@ -2158,9 +2158,9 @@ fmt.Println(<span class="hljs-string">&quot;student 4, name :&quot;</span>, s2.n
 </code></pre>
 <p>Pada kode di atas, disiapkan struct <code>person</code> dengan properti yang tersedia adalah <code>name</code> dan <code>age</code>. Disiapkan juga struct <code>student</code> dengan property <code>grade</code>. Struct <code>person</code> di-embed ke dalam struct <code>student</code>. Caranya cukup mudah, yaitu dengan menuliskan nama struct yang ingin di-embed ke dalam body <code>struct</code> target.</p>
 <p>Embedded struct adalah <strong>mutable</strong>, nilai property-nya nya bisa diubah.</p>
-<p>Khusus untuk properti yang bukan properti asli (properti turunan dari struct lain), bisa diakses dengan cara mengakses struct <em>parent</em>-nya terlebih dahulu, contohnya <code>s1.person.age</code>. Nilai yang dikembalikan memiliki referensi yang sama dengan <code>s1.age</code>.</p>
+<p>Khusus untuk properti yang bukan merupakan properti asli (melainkan properti turunan dari struct lain), pengaksesannya dilakukan dengan cara mengakses struct <em>parent</em>-nya terlebih dahulu, contohnya <code>s1.person.age</code>. Nilai yang dikembalikan memiliki referensi yang sama dengan <code>s1.age</code>.</p>
 <h2 id="a246-embedded-struct-dengan-nama-property-yang-sama">A.24.6. Embedded Struct Dengan Nama Property Yang Sama</h2>
-<p>Jika salah satu nama properti sebuah struct memiliki kesamaan dengan properti milik struct lain yang di-embed, maka pengaksesan property-nya harus dilakukan secara eksplisit atau jelas. Contoh bisa dilihat di kode berikut.</p>
+<p>Jika salah satu nama properti sebuah struct memiliki kesamaan dengan properti milik struct lain yang di-embed, maka pengaksesan property-nya harus dilakukan secara eksplisit atau jelas. Silakan lihat kode berikut agar lebih jelas.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2199,7 +2199,7 @@ fmt.Println(<span class="hljs-string">&quot;grade :&quot;</span>, s1.grade)
 </code></pre>
 <p>Pada deklarasi <code>s1</code>, property <code>person</code> diisi variabel objek <code>p1</code>.</p>
 <h2 id="a248-anonymous-struct">A.24.8. Anonymous Struct</h2>
-<p>Anonymous struct adalah struct yang tidak dideklarasikan di awal sebagai tipe data baru, melainkan langsung ketika pembuatan objek. Teknik ini cukup efisien untuk pembuatan variabel objek yang struct-nya hanya dipakai sekali.</p>
+<p>Anonymous struct adalah struct yang tidak dideklarasikan di awal sebagai tipe data baru, melainkan langsung ketika pembuatan objek. Teknik ini cukup efisien digunakan pada <em>use case</em> pembuatan variabel objek yang struct-nya hanya dipakai sekali.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2282,7 +2282,7 @@ student.person = person{<span class="hljs-string">&quot;wick&quot;</span>, <span
 student.grade = <span class="hljs-number">2</span>
 </code></pre>
 <p>Statement <code>type student struct</code> adalah contoh cara deklarasi struct. Maknanya akan berbeda ketika keyword <code>type</code> diganti <code>var</code>, seperti pada contoh di atas <code>var student struct</code>, yang artinya dicetak sebuah objek dari anonymous struct kemudian disimpan pada variabel bernama <code>student</code>.</p>
-<p>Deklarasi anonymous struct menggunakan metode ini juga bisa dilakukan beserta inisialisasi-nya.</p>
+<p>Deklarasi anonymous struct menggunakan metode ini juga bisa dilakukan dengan disertai inisialisasi data.</p>
 <pre><code class="lang-go"><span class="hljs-comment">// hanya deklarasi</span>
 <span class="hljs-keyword">var</span> student <span class="hljs-keyword">struct</span> {
     grade <span class="hljs-keyword">int</span>
@@ -2306,7 +2306,7 @@ student.grade = <span class="hljs-number">2</span>
     hobbies []<span class="hljs-keyword">string</span>
 }
 </code></pre>
-<p>Teknik ini biasa digunakan ketika decoding data <strong>json</strong> yang struktur datanya cukup kompleks dengan proses decode hanya sekali.</p>
+<p>Teknik ini biasa digunakan ketika decoding data <strong>JSON</strong> yang struktur datanya cukup kompleks dengan proses decode hanya sekali.</p>
 <h2 id="a2413-deklarasi-dan-inisialisasi-struct-secara-horizontal">A.24.13. Deklarasi Dan Inisialisasi Struct Secara Horizontal</h2>
 <p>Deklarasi struct bisa dituliskan secara horizontal, caranya bisa dilihat pada kode berikut:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> person <span class="hljs-keyword">struct</span> { name <span class="hljs-keyword">string</span>; age <span class="hljs-keyword">int</span>; hobbies []<span class="hljs-keyword">string</span> }
@@ -2315,15 +2315,14 @@ student.grade = <span class="hljs-number">2</span>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> p1 = <span class="hljs-keyword">struct</span> { name <span class="hljs-keyword">string</span>; age <span class="hljs-keyword">int</span> } { age: <span class="hljs-number">22</span>, name: <span class="hljs-string">&quot;wick&quot;</span> }
 <span class="hljs-keyword">var</span> p2 = <span class="hljs-keyword">struct</span> { name <span class="hljs-keyword">string</span>; age <span class="hljs-keyword">int</span> } { <span class="hljs-string">&quot;ethan&quot;</span>, <span class="hljs-number">23</span> }
 </code></pre>
-<p>Bagi pengguna editor Sublime yang terinstal plugin GoSublime di dalamnya, cara ini tidak akan bisa dilakukan, karena setiap kali file di-save, kode program dirapikan. Jadi untuk mengetesnya bisa dengan menggunakan editor lain.</p>
 <h2 id="a2414-tag-property-dalam-struct">A.24.14. Tag property dalam struct</h2>
-<p>Tag merupakan informasi opsional yang bisa ditambahkan pada masing-masing property struct.</p>
+<p>Tag merupakan informasi opsional yang bisa ditambahkan pada property struct.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> person <span class="hljs-keyword">struct</span> {
     name <span class="hljs-keyword">string</span> <span class="hljs-string">`tag1`</span>
     age  <span class="hljs-keyword">int</span>    <span class="hljs-string">`tag2`</span>
 }
 </code></pre>
-<p>Tag biasa dimanfaatkan untuk keperluan encode/decode data json. Informasi tag juga bisa diakses lewat reflect. Nantinya akan ada pembahasan yang lebih detail mengenai pemanfaatan tag dalam struct, terutama ketika sudah masuk chapter JSON.</p>
+<p>Tag biasa dimanfaatkan untuk keperluan encode/decode data. Informasi tag juga bisa diakses lewat reflect. Nantinya akan ada pembahasan yang lebih detail mengenai pemanfaatan tag dalam struct, terutama ketika sudah masuk chapter JSON.</p>
 <h2 id="a2415-type-alias">A.24.15. Type Alias</h2>
 <p>Sebuah tipe data, seperti struct, bisa dibuatkan alias baru, caranya dengan <code>type NamaAlias = TargetStruct</code>. Contoh:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> Person <span class="hljs-keyword">struct</span> {
@@ -2356,8 +2355,8 @@ fmt.Println(People(person))
     age  <span class="hljs-keyword">int</span>
 }
 </code></pre>
-<p>Struct <code>People1</code> dideklarasikan. Struct alias <code>People2</code> juga dideklarasikan, struct ini merupakan alias dari anonymous struct. Penggunaan teknik type alias untuk anonymous struct menghasilkan output yang ekuivalen dengan pendeklarasian struct.</p>
-<p>Perlu diketahui juga, dan di atas sudah sempat disinggung, bahwa teknik type alias ini tidak dirancang hanya untuk pembuatan alias pada tipe struct saja, semua jenis tipe data bisa dibuatkan alias. Di contoh berikut, dipersiapkan tipe <code>Number</code> yang merupakan alias dari tipe data <code>int</code>.</p>
+<p>Struct <code>People1</code> dideklarasikan, kemudian struct alias <code>People2</code> juga dideklarasikan. Struct <code>People2</code> merupakan alias dari anonymous struct. Penggunaan teknik type alias untuk anonymous struct menghasilkan output yang ekuivalen dengan pendeklarasian struct.</p>
+<p>Teknik type alias ini tidak dirancang hanya untuk pembuatan alias pada tipe struct saja, semua jenis tipe data bisa dibuatkan alias. Contohnya seperti pada kode berikut, ada tipe data baru bernama <code>Number</code> yang merupakan alias dari tipe data <code>int</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> Number = <span class="hljs-keyword">int</span>
 <span class="hljs-keyword">var</span> num Number = <span class="hljs-number">12</span>
 </code></pre>
@@ -2396,7 +2395,7 @@ fmt.Println(People(person))
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.24. Struct","level":"3.1.24","depth":2,"next":{"title":"A.25. Method","level":"3.1.25","depth":2,"path":"A-method.md","ref":"A-method.md","articles":[]},"previous":{"title":"A.23. Pointer","level":"3.1.23","depth":2,"path":"A-pointer.md","ref":"A-pointer.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-struct.md","mtime":"2024-04-22T10:05:29.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.24. Struct","level":"3.1.24","depth":2,"next":{"title":"A.25. Method","level":"3.1.25","depth":2,"path":"A-method.md","ref":"A-method.md","articles":[]},"previous":{"title":"A.23. Pointer","level":"3.1.23","depth":2,"path":"A-pointer.md","ref":"A-pointer.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-struct.md","mtime":"2024-04-25T12:05:09.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

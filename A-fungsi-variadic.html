@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,12 +2062,12 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a20-fungsi-variadic">A.20. Fungsi Variadic</h1>
-<p>Go mengadopsi konsep <strong>variadic function</strong> atau pembuatan fungsi dengan parameter sejenis yang tak terbatas. Maksud <strong>tak terbatas</strong> di sini adalah jumlah parameter yang disisipkan ketika pemanggilan fungsi bisa berapa saja.</p>
-<p>Parameter variadic memiliki sifat yang mirip dengan slice. Nilai dari parameter-parameter yang disisipkan bertipe data sama, dan ditampung oleh sebuah variabel saja. Cara pengaksesan tiap datanya juga sama, dengan menggunakan index.</p>
+<p>Go mengadopsi konsep <strong>variadic function</strong> atau pembuatan fungsi dengan parameter bisa menampung nilai sejenis yang tidak terbatas jumlahnya.</p>
+<p>Parameter variadic memiliki sifat yang mirip dengan slice, yaitu nilai dari parameter-parameter yang disisipkan bertipe data sama, dan kesemuanya cukup ditampung oleh satu variabel saja. Cara pengaksesan tiap nilai juga mirip, yaitu dengan menggunakan index.</p>
 <p>Pada chapter ini kita akan belajar mengenai cara penerapan fungsi variadic.</p>
 <h2 id="a201-penerapan-fungsi-variadic">A.20.1. Penerapan Fungsi Variadic</h2>
-<p>Deklarasi parameter variadic sama dengan cara deklarasi variabel biasa, pembedanya adalah pada parameter jenis ini ditambahkan tanda titik tiga kali (<code>...</code>) tepat setelah penulisan variabel (sebelum tipe data). Nantinya semua nilai yang disisipkan sebagai parameter akan ditampung oleh variabel tersebut.</p>
-<p>Berikut merupakan contoh penerepannya.</p>
+<p>Deklarasi parameter variadic sama dengan cara deklarasi variabel biasa, pembedanya adalah pada parameter jenis ini ditambahkan tanda titik tiga kali (<code>...</code>) tepat setelah penulisan variabel, sebelum tipe data. Nantinya semua nilai yang disisipkan sebagai parameter akan ditampung oleh variabel tersebut.</p>
+<p>Contoh program:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2099,27 +2099,27 @@
 <p>Nilai tiap parameter bisa diakses seperti cara pengaksesan tiap elemen slice. Pada contoh di atas metode yang dipilih adalah <code>for</code> - <code>range</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">for</span> _, number := <span class="hljs-keyword">range</span> numbers {
 </code></pre>
-<hr>
-<p>Berikut merupakan penjelasan tambahan dari kode yang telah kita tulis.</p>
-<h4 id="penggunaan-fungsi-fmtsprintf">&#x2022; Penggunaan Fungsi <code>fmt.Sprintf()</code></h4>
-<p>Fungsi <code>fmt.Sprintf()</code> pada dasarnya sama dengan <code>fmt.Printf()</code>, hanya saja fungsi ini tidak menampilkan nilai, melainkan mengembalikan nilainya dalam bentuk string. Pada kasus di atas, nilai kembalian <code>fmt.Sprintf()</code> ditampung oleh variabel <code>msg</code>.</p>
+<h2 id="a202-penjelasan-tambahan">A.20.2. Penjelasan tambahan</h2>
+<p>Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:</p>
+<h4 id="&#x25C9;-penggunaan-fungsi-fmtsprintf">&#x25C9; Penggunaan Fungsi <code>fmt.Sprintf()</code></h4>
+<p>Fungsi <code>fmt.Sprintf()</code> pada dasarnya sama dengan <code>fmt.Printf()</code>, hanya saja fungsi ini tidak menampilkan nilai, melainkan mengembalikan nilainya dalam bentuk string. Pada case di atas, nilai kembalian <code>fmt.Sprintf()</code> ditampung oleh variabel <code>msg</code>.</p>
 <p>Selain <code>fmt.Sprintf()</code>, ada juga <code>fmt.Sprint()</code> dan <code>fmt.Sprintln()</code>.</p>
-<h4 id="penggunaan-fungsi-float64">&#x2022; Penggunaan Fungsi <code>float64()</code></h4>
-<p>Sebelumnya sudah dibahas bahwa <code>float64</code> merupakan tipe data. Tipe data jika ditulis sebagai fungsi (penandanya ada tanda kurungnya) berguna untuk <strong>casting</strong>. Casting sendiri adalah teknik untuk konversi tipe sebuah data ke tipe lain. Sebagian besar tipe data dasar yang telah dipelajari pada chapter <a href="A-variabel.html">A.9. Variabel</a> bisa di-cast. Dan cara penerapannya juga sama, cukup panggil sebagai fungsi, lalu masukan data yang ingin dikonversi sebagai parameter.</p>
+<h4 id="&#x25C9;-penggunaan-fungsi-float64">&#x25C9; Penggunaan Fungsi <code>float64()</code></h4>
+<p>Sebelumnya sudah dibahas bahwa <code>float64</code> merupakan tipe data. Tipe data jika ditulis sebagai fungsi (penandanya ada tanda kurungnya) menandakan bahwa digunakan untuk keperluan <strong>casting</strong>. Casting sendiri adalah teknik untuk konversi tipe sebuah data ke tipe lain. Sebagian besar tipe data dasar yang telah dipelajari pada chapter <a href="A-variabel.html">A.9. Variabel</a> bisa di-casting.</p>
+<p>Cara penerapan casting: panggil saja tipe data yang diingunkan seperti pemanggilan fungsi, lalu masukan data yang ingin dikonversi sebagai argument pemanggilan fungsi tersebut.</p>
 <p>Pada contoh di atas, variabel <code>total</code> yang tipenya adalah <code>int</code>, dikonversi menjadi <code>float64</code>, begitu juga <code>len(numbers)</code> yang menghasilkan <code>int</code> dikonversi ke <code>float64</code>.</p>
 <p>Variabel <code>avg</code> perlu dijadikan <code>float64</code> karena penghitungan rata-rata lebih sering menghasilkan nilai desimal.</p>
 <p>Operasi bilangan (perkalian, pembagian, dan lainnya) di Go hanya bisa dilakukan jika tipe datanya sejenis. Maka dari itulah perlu adanya casting ke tipe <code>float64</code> pada tiap operand.</p>
-<hr>
-<h2 id="a202-pengisian-parameter-fungsi-variadic-menggunakan-data-slice">A.20.2. Pengisian Parameter Fungsi Variadic Menggunakan Data Slice</h2>
-<p>Slice bisa digunakan sebagai parameter variadic. Caranya dengan menambahkan tanda titik tiga kali, tepat setelah nama variabel yang dijadikan parameter. Contohnya bisa dilihat pada kode berikut.</p>
+<h2 id="a203-pengisian-parameter-fungsi-variadic-menggunakan-data-slice">A.20.3. Pengisian Parameter Fungsi Variadic Menggunakan Data Slice</h2>
+<p>Slice bisa digunakan sebagai argument pada fungsi variadic. Caranya penerapannya: tulis saja nama variabel tapi disertai dengan tanda titik tiga kali, dituliskan tepat setelah nama variabel yang dijadikan parameter. Contohnya bisa dilihat pada kode berikut:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> numbers = []<span class="hljs-keyword">int</span>{<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>}
 <span class="hljs-keyword">var</span> avg = calculate(numbers...)
 <span class="hljs-keyword">var</span> msg = fmt.Sprintf(<span class="hljs-string">&quot;Rata-rata : %.2f&quot;</span>, avg)
 
 fmt.Println(msg)
 </code></pre>
-<p>Pada kode di atas, variabel <code>numbers</code> yang merupakan slice int, disisipkan ke fungsi <code>calculate()</code> sebagai parameter variadic (bisa dilihat tanda 3 titik setelah penulisan variabel). Teknik ini sangat berguna ketika sebuah data slice ingin difungsikan sebagai parameter variadic.</p>
-<p>Perhatikan juga kode berikut ini. Intinya adalah sama, hanya caranya yang berbeda.</p>
+<p>Pada kode di atas, variabel <code>numbers</code> bertipe data slice int, disisipkan pada pemanggilan fungsi <code>calculate()</code> sebagai argument parameter fungsi variadic (bisa dilihat tanda 3 titik setelah penulisan variabel). Teknik ini sangat berguna pada case dimana sebuah data slice perlu untuk digunakan sebagai argument parameter variadic.</p>
+<p>Agar lebih jelas, perhatikan 2 kode berikut. Intinya sama, hanya cara penulisannya yang berbeda.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> numbers = []<span class="hljs-keyword">int</span>{<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>}
 <span class="hljs-keyword">var</span> avg = calculate(numbers...)
 
@@ -2128,7 +2128,7 @@ fmt.Println(msg)
 <span class="hljs-keyword">var</span> avg = calculate(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>)
 </code></pre>
 <p>Pada deklarasi parameter fungsi variadic, tanda 3 titik (<code>...</code>) dituliskan sebelum tipe data parameter. Sedangkan pada pemanggilan fungsi dengan menyisipkan parameter array, tanda tersebut dituliskan di belakang variabelnya.</p>
-<h2 id="a203-fungsi-dengan-parameter-biasa--variadic">A.20.3. Fungsi Dengan Parameter Biasa &amp; Variadic</h2>
+<h2 id="a204-fungsi-dengan-parameter-biasa--variadic">A.20.4. Fungsi Dengan Parameter Biasa &amp; Variadic</h2>
 <p>Parameter variadic bisa dikombinasikan dengan parameter biasa, dengan syarat parameter variadic-nya harus diposisikan di akhir. Contohnya bisa dilihat pada kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;strings&quot;</span>
@@ -2141,12 +2141,12 @@ fmt.Println(msg)
 }
 </code></pre>
 <p>Nilai parameter pertama fungsi <code>yourHobbies()</code> akan ditampung oleh <code>name</code>, sedangkan nilai parameter kedua dan seterusnya akan ditampung oleh <code>hobbies</code> sebagai slice.</p>
-<p>Cara pemanggilannya masih sama seperi pada fungsi biasa.</p>
+<p>Cara pemanggilannya masih sama seperi pada fungsi biasa, contoh:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     yourHobbies(<span class="hljs-string">&quot;wick&quot;</span>, <span class="hljs-string">&quot;sleeping&quot;</span>, <span class="hljs-string">&quot;eating&quot;</span>)
 }
 </code></pre>
-<p>Jika parameter kedua dan seterusnya ingin diisi dengan data dari slice, maka gunakan tanda titik tiga kali.</p>
+<p>Jika parameter kedua dan seterusnya ingin diisi dengan data dari slice, maka gunakan tanda titik tiga kali seperti ini:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     <span class="hljs-keyword">var</span> hobbies = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;sleeping&quot;</span>, <span class="hljs-string">&quot;eating&quot;</span>}
     yourHobbies(<span class="hljs-string">&quot;wick&quot;</span>, hobbies...)
@@ -2189,7 +2189,7 @@ fmt.Println(msg)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.20. Fungsi Variadic","level":"3.1.20","depth":2,"next":{"title":"A.21. Fungsi Closure","level":"3.1.21","depth":2,"path":"A-fungsi-closure.md","ref":"A-fungsi-closure.md","articles":[]},"previous":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-fungsi-variadic.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.20. Fungsi Variadic","level":"3.1.20","depth":2,"next":{"title":"A.21. Fungsi Closure","level":"3.1.21","depth":2,"path":"A-fungsi-closure.md","ref":"A-fungsi-closure.md","articles":[]},"previous":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-fungsi-variadic.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

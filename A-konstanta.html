@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,20 +2062,20 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a11-konstanta">A.11. Konstanta</h1>
-<p>Konstanta adalah jenis variabel yang nilainya tidak bisa diubah. Inisialisasi nilai hanya dilakukan sekali di awal, setelah itu variabel tidak bisa diubah nilainya.</p>
+<p>Konstanta adalah jenis variabel yang nilainya tidak bisa diubah setelah dideklarasikan. Inisialisasi nilai konstanta hanya dilakukan sekali saja di awal, setelah itu variabel tidak bisa diubah nilainya.</p>
 <h2 id="a111-penggunaan-konstanta">A.11.1. Penggunaan Konstanta</h2>
-<p>Data seperti <strong>pi</strong> (22/7), kecepatan cahaya (299.792.458 m/s), adalah contoh data yang tepat jika dideklarasikan sebagai konstanta daripada variabel, karena nilainya sudah pasti dan tidak berubah.</p>
-<p>Cara penerapan konstanta sama seperti deklarasi variabel biasa, selebihnya tinggal ganti keyword <code>var</code> dengan <code>const</code>.</p>
+<p>Data seperti <strong>pi</strong> (22/7), kecepatan cahaya (299.792.458 m/s), adalah contoh data yang tepat untuk dideklarasikan sebagai konstanta (daripada variabel), karena nilainya sudah pasti dan tidak akan berubah.</p>
+<p>Cara penerapan konstanta sama seperti deklarasi variabel biasa, perbedaannya ada pada keyword yang digunakan, yaitu <code>const</code> (bukan <code>var</code>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">const</span> firstName <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;john&quot;</span>
 fmt.Print(<span class="hljs-string">&quot;halo &quot;</span>, firstName, <span class="hljs-string">&quot;!\n&quot;</span>)
 </code></pre>
-<p>Teknik type inference bisa diterapkan pada konstanta, caranya yaitu cukup dengan menghilangkan tipe data pada saat deklarasi.</p>
+<p>Teknik type inference bisa diterapkan pada konstanta, caranya cukup dengan menghilangkan tipe data pada saat deklarasi.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">const</span> lastName = <span class="hljs-string">&quot;wick&quot;</span>
 fmt.Print(<span class="hljs-string">&quot;nice to meet you &quot;</span>, lastName, <span class="hljs-string">&quot;!\n&quot;</span>)
 </code></pre>
-<h4 id="penggunaan-fungsi-fmtprint">&#x2022; Penggunaan Fungsi <code>fmt.Print()</code></h4>
-<p>Fungsi ini memiliki peran yang sama seperti fungsi <code>fmt.Println()</code>, pembedanya fungsi <code>fmt.Print()</code> tidak menghasilkan baris baru di akhir outputnya.</p>
-<p>Perbedaan lainnya adalah, nilai pada parameter-parameter yang dimasukkan ke fungsi tersebut digabungkan tanpa pemisah. Tidak seperti pada fungsi <code>fmt.Println()</code> yang nilai paremeternya digabung menggunakan penghubung spasi.</p>
+<h4 id="&#x25C9;-penggunaan-fungsi-fmtprint">&#x25C9; Penggunaan Fungsi <code>fmt.Print()</code></h4>
+<p>Fungsi ini memiliki peran yang sama seperti fungsi <code>fmt.Println()</code>, perbedaannya fungsi <code>fmt.Print()</code> tidak menghasilkan baris baru di akhir output-nya.</p>
+<p>Perbedaan lainnya: nilai argument parameter yang ditulis saat pemanggilan fungsi akan di-print tanpa pemisah. Tidak seperti pada fungsi <code>fmt.Println()</code> yang nilai argument paremeternya dipisah menggunakan karakter spasi.</p>
 <pre><code class="lang-go">fmt.Println(<span class="hljs-string">&quot;john wick&quot;</span>)
 fmt.Println(<span class="hljs-string">&quot;john&quot;</span>, <span class="hljs-string">&quot;wick&quot;</span>)
 
@@ -2084,10 +2084,9 @@ fmt.Print(<span class="hljs-string">&quot;john &quot;</span>, <span class="hljs-
 fmt.Print(<span class="hljs-string">&quot;john&quot;</span>, <span class="hljs-string">&quot; &quot;</span>, <span class="hljs-string">&quot;wick\n&quot;</span>)
 </code></pre>
 <p>Kode di atas menunjukkan perbedaan antara <code>fmt.Println()</code> dan <code>fmt.Print()</code>. Output yang dihasilkan oleh 5 statement di atas adalah sama, meski cara yang digunakan berbeda.</p>
-<p>Bila menggunakan <code>fmt.Println()</code> tidak perlu menambahkan spasi di tiap kata, karena fungsi tersebut akan secara otomatis menambahkannya di sela-sela nilai. Berbeda dengan <code>fmt.Print()</code>, perlu ditambahkan spasi, karena fungsi ini tidak menambahkan spasi di sela-sela nilai parameter yang digabungkan.</p>
+<p>Bila menggunakan <code>fmt.Println()</code>, maka tidak perlu menambahkan spasi di tiap kata, karena fungsi tersebut akan secara otomatis menambahkannya di sela-sela text. Berbeda dengan <code>fmt.Print()</code> yang perlu ditambahkan spasi, karena fungsi ini tidak menambahkan spasi secara otomatis di sela-sela nilai text yang digabungkan.</p>
 <h2 id="a112-deklarasi-multi-konstanta">A.11.2. Deklarasi Multi Konstanta</h2>
-<p>Sama seperti variabel, konstanta juga dapat dideklarasikan secara bersamaan.</p>
-<p>Berikut adalah contoh deklarasi konstanta dengan tipe data dan nilai yang berbeda.</p>
+<p>Sama seperti variabel, konstanta juga dapat dideklarasikan secara bersamaan. Berikut adalah contoh deklarasi konstanta dengan tipe data dan nilai yang berbeda.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">const</span> (
     square          = <span class="hljs-string">&quot;kotak&quot;</span>
     isToday <span class="hljs-keyword">bool</span>    = <span class="hljs-literal">true</span>
@@ -2171,7 +2170,7 @@ fmt.Print(<span class="hljs-string">&quot;john&quot;</span>, <span class="hljs-s
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.11. Konstanta","level":"3.1.11","depth":2,"next":{"title":"A.12. Operator","level":"3.1.12","depth":2,"path":"A-operator.md","ref":"A-operator.md","articles":[]},"previous":{"title":"A.10. Tipe Data","level":"3.1.10","depth":2,"path":"A-tipe-data.md","ref":"A-tipe-data.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-konstanta.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.11. Konstanta","level":"3.1.11","depth":2,"next":{"title":"A.12. Operator","level":"3.1.12","depth":2,"path":"A-operator.md","ref":"A-operator.md","articles":[]},"previous":{"title":"A.10. Tipe Data","level":"3.1.10","depth":2,"path":"A-tipe-data.md","ref":"A-tipe-data.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-konstanta.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

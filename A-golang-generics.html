@@ -78,7 +78,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -301,7 +301,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -613,7 +613,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -834,7 +834,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2060,14 +2060,14 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a65-go-generics">A.65. Go Generics</h1>
-<p>Pada chapter ini kita akan belajar tentang Generics di Go.</p>
+<p>Pada chapter ini kita akan belajar tentang penerapan Generics di Go.</p>
 <h2 id="a651-konsep-generic-programming">A.65.1. Konsep Generic Programming</h2>
-<p>Generic Programming adalah salah satu metode dalam penulisan kode program, di mana tipe data dalam kode didefinisikan menggunakan tipe data yang tipe pastinya adalah dituliskan belakangan saat kode tersebut di-call atau dieksekusi. Konsep ini sudah cukup umum terutama pada bahasa yang static type.</p>
-<p>Di Go, kita punya tipe <code>interface{}</code> yang biasa difungsikan sebagai tipe untuk menampung data yang tidak pasti tipe datanya. Generic dan <code>interface{}</code> berbeda. Tipe <code>interface{}</code> akan membungkus data aslinya atau <em>underlying value</em>-nya, dan untuk mengakses data tersebut, kita perlu menerapkan <em>type assertion</em>, contohnya <code>data.(int)</code>.</p>
-<p>Berbeda dibanding <code>interface{}</code>, pada penggunaan generic kita perlu mendefinisikan cakupan tipe data yang kompatibel untuk dipakai saat pemanggilan kode, atau bisa juga menggunakan keyword <code>comparable</code>, yang artinya tipe data adalah kompatibel dengan tipe apapun.</p>
-<p>Ok, mari kita lanjut ke pembahasan yang lebih teknis agar tidak bingung.</p>
+<p>Generic Programming adalah salah satu metode dalam penulisan kode program, di mana tipe data dalam kode didefinisikan menggunakan suatu tipe yang tipe pastinya ditulis belakangan saat kode tersebut di-call atau dieksekusi. Konsep generic ini cukup umum diterapkan terutama pada bahasa pemrograman yang mengadopsi static typing.</p>
+<p>Di Go, kita punya tipe <code>any</code> atau <code>interface{}</code> yang biasa difungsikan sebagai penampung data yang tidak pasti tipe datanya. Generic berbeda dibanding <code>any</code>. Tipe <code>any</code> dalam prakteknya membungkus data asli atau <em>underlying value</em>-nya, dengan pengaksesan data asli tersebut dilakukan via metode <em>type assertion</em>, contohnya <code>data.(int)</code>.</p>
+<p>Berbeda dibanding <code>any</code>, pada Generic kita perlu mendefinisikan cakupan tipe data yang kompatibel untuk digunakan saat pemanggilan kode.</p>
+<p>Ok, mari kita lanjut ke praktek saja agar tidak makin bingung.</p>
 <h2 id="a652-penerapan-generic-pada-fungsi">A.65.2. Penerapan Generic pada Fungsi</h2>
-<p>Mari kita mulai pembelajaran dengan kode di bawah ini:</p>
+<p>Mari kita mulai pembelajaran dengan kode sederhana berikut:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2086,8 +2086,11 @@
 }
 </code></pre>
 <p>Pada kode di atas, didefinisikan sebuah fungsi <code>Sum()</code> yang tugasnya menghitung total atau <em>summary</em> dari data slice numerik yang disisipkan di parameter. Dalam <code>main()</code>, kita panggil fungsi tersebut untuk menghitung total dari sejumlah data dengan tipe <code>[]int</code>. Saya rasa sampai sini cukup jelas.</p>
-<p>Fungsi <code>Sum()</code> memiliki satu limitasinya, yaitu hanya bisa digunakan pada data yang tipenya <code>[]int</code>, tidak bisa untuk tipe slice numerik lain. Bagaimana jika menggunakan tipe <code>interface{}</code>? apakah bisa? bisa saja sebenarnya, tapi pastinya lebih report karena sulit untuk menerapkan <em>type assertion</em> kalau tidak tau tipe pasti parameter <code>numbers</code> itu apa. Penggunaan <code>interface{}</code> perlu dibarengi dengan penerapan <a href="A-reflect.html">reflection API</a>.</p>
-<p>Di sini kita bisa terapkan Generic, kita akan modifikasi fungsi di atas agar bisa menampung tipe data slice numerik lainnya diluar <code>[]int</code>.</p>
+<p>Fungsi <code>Sum()</code> memiliki satu limitasinya, yaitu hanya bisa digunakan pada data yang tipenya <code>[]int</code>, tidak bisa untuk tipe slice numerik lain. Bagaimana jika menggunakan tipe <code>interface{}</code>? apakah bisa? bisa saja sebenarnya, tapi pastinya lebih report karena sulit untuk menerapkan <em>type assertion</em> kalau tidak tau pasti cakupan tipe yang di-support oleh parameter <code>numbers</code> itu apa saja.</p>
+<blockquote>
+<p>Alternatifnya, penggunaan <code>interface{}</code> bisa dibarengi dengan penerapan <a href="A-reflect.html">reflection API</a>.</p>
+</blockquote>
+<p>Nah, agar tidak repot, di sini kita akan terapkan Generic. Kode akan dimodifikasi atas agar bisa menampung tipe data slice numerik lainnya diluar tipe <code>[]int</code>.</p>
 <p>Ok, sekarang ubah kode fungsi <code>Sum</code> menjadi seperti di bawah ini:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> Sum[V <span class="hljs-keyword">int</span>](numbers []V) V {
     <span class="hljs-keyword">var</span> total V
@@ -2126,9 +2129,10 @@
     fmt.Println(<span class="hljs-string">&quot;total: &quot;</span>, total1)
 }
 </code></pre>
+<p>Output program:</p>
 <p><img src="images/A_generics_1.png" alt="Dasar Pemrograman Golang - Golang generic"></p>
 <h2 id="a653-comparable-data-type-pada-fungsi-generic">A.65.3. Comparable Data Type pada Fungsi Generic</h2>
-<p>Selanjutnya kita modifikasi lagi fungsi <code>Sum</code> agar tipe kompatibel <code>V</code> di sini kompatibel dengan tipe numerik lainnya seperti <code>float64</code>. Caranya sangat mudah, cukup tambahkan tipe datanya pada statement <code>V int</code> dengan delimiter pipe (<code>|</code>).</p>
+<p>Selanjutnya, modifikasi lagi fungsi <code>Sum</code> agar tipe kompatibel <code>V</code> di sini bisa kompatibel dengan tipe numerik lainnya seperti <code>float64</code>. Caranya sangat mudah, cukup tambahkan tipe data yang diinginkan untuk kompatibel pada statement <code>V int</code> menggunakan delimiter pipe (<code>|</code>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> Sum[V <span class="hljs-keyword">int</span> | <span class="hljs-keyword">float32</span> | <span class="hljs-keyword">float64</span>](numbers []V) V {
     <span class="hljs-keyword">var</span> total V
     <span class="hljs-keyword">for</span> _, e := <span class="hljs-keyword">range</span> numbers {
@@ -2149,7 +2153,7 @@ total3 := Sum([]<span class="hljs-keyword">float64</span>{<span class="hljs-numb
 fmt.Println(<span class="hljs-string">&quot;total:&quot;</span>, total3)
 </code></pre>
 <p><img src="images/A_generics_2.png" alt="Dasar Pemrograman Golang - Golang generic"></p>
-<p>Nice, hasilnya sesuai harapan. Sampai sini kita sudah paham bagaimana cara pendefinisian tipe kompatibel pada fungsi dan cara pemanfaatannya.</p>
+<p>Jos gandos, hasilnya sesuai harapan. Sampai sini kita sudah paham bagaimana cara pendefinisian tipe kompatibel pada fungsi dan cara pemanfaatannya.</p>
 <h2 id="a654-tipe-argumen-saat-pemanggilan-fungsi-generic">A.65.4. Tipe Argumen Saat Pemanggilan Fungsi Generic</h2>
 <p>Ada 2 cara pemanggilan fungsi generic, yang pertama seperti contoh di atas.</p>
 <pre><code class="lang-go">Sum([]<span class="hljs-keyword">int</span>{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>})
@@ -2161,11 +2165,11 @@ Sum([]<span class="hljs-keyword">float64</span>{<span class="hljs-number">1.23</
 Sum[<span class="hljs-keyword">float32</span>]([]<span class="hljs-keyword">float32</span>{<span class="hljs-number">2.5</span>, <span class="hljs-number">7.2</span>})
 Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">float64</span>{<span class="hljs-number">1.23</span>, <span class="hljs-number">6.33</span>, <span class="hljs-number">12.6</span>})
 </code></pre>
-<p>Di case ini (dan banyak case lainnya), tipe data kompatibel tidak perlu dituliskan secara eksplisit karena secara cerdas kompiler bisa mendeteksi tipe yang kompatibel berdasarkan tipe data parameter saat pemanggilan fungsi.</p>
+<p>Di case ini (dan banyak case lainnya), tipe data yang sudah kompatibel tidak perlu dituliskan secara eksplisit karena kompiler secara cerdas bisa mendeteksi tipe yang kompatibel berdasarkan tipe data parameter saat pemanggilan fungsi.</p>
 <h2 id="a655-keyword-comparable">A.65.5. Keyword <code>comparable</code></h2>
-<p>Sekarang kita akan belajar kegunaan satu keyword penting, yaitu <code>comparable</code>. Keyword tersebut merupakan tipe data yang kompatibel dengan semua tipe yang ada.</p>
+<p>Sekarang kita akan belajar kegunaan satu keyword penting lainnya, yaitu <code>comparable</code>. Keyword ini merepresentasikan semua tipe data yang kompatibel.</p>
 <p>Pada kode di atas kita menggunakan <code>V int | float32 | float64</code> untuk mendefinisikan tipe yang kompatibel dengan tipe <code>int</code>, <code>float32</code>, dan <code>float64</code>. Jika ingin membuat tipe <code>V</code> kompatibel dengan banyak tipe lainnya, tambahkan saja tipe2 yang diinginkan. Atau, jika ingin kompatibel dengan <strong>semua tipe data</strong> maka gunakan <code>comparable</code>, penulisannya menjadi <code>V comparable</code>.</p>
-<p>Ok, mari kita coba terapkan. O iya, sebelum mulai, agar pembaca makin paham perihal fungsi generic, kita siapkan 2 fungsi yang mirip berikut:</p>
+<p>Ok, mari kita coba terapkan. Kita tidak akan menerapkan <code>comparable</code> pada contoh di atas karena fungsi <code>Sum()</code> kita desain untuk komputasi nilai numerik. Jika <code>comparable</code> diterapkan disitu jadinya kurang pas. Oleh karena itu kita siapkan 2 fungsi baru yang mirip berikut sebagai bahan praktek selanjutnya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> SumNumbers1(m <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int64</span>) <span class="hljs-keyword">int64</span> {
     <span class="hljs-keyword">var</span> s <span class="hljs-keyword">int64</span>
     <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> m {
@@ -2191,18 +2195,18 @@ Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">floa
         SumNumbers2(floats))
 }
 </code></pre>
-<p>Dua fungsi di atas mirip, tapi memiliki beberapa perbedaan:</p>
+<p>Dua fungsi di atas mirip, tapi memiliki beberapa perbedaan yaitu:</p>
 <ol>
-<li>Penulisan <code>SumNumbers1</code> adalah non-generic, sedangkan <code>SumNumbers2</code> adalah generic.</li>
-<li>Pada <code>SumNumbers1</code>, kita menggunakan kombinasi dua tipe data untuk membentuk <code>map</code>, yaitu <code>string</code> sebagai map key dan <code>int64</code> sebagai map value.</li>
-<li>Pada <code>SumNumbers2</code>, kita breakdown pendefinisian tipe data map menjadi lebih mendetail:<ul>
+<li>Penulisan <code>SumNumbers1()</code> adalah non-generic, sedangkan <code>SumNumbers2()</code> adalah generic.</li>
+<li>Pada <code>SumNumbers1()</code>, kita menggunakan kombinasi dua tipe data untuk membentuk <code>map</code>, yaitu <code>string</code> sebagai map key dan <code>int64</code> sebagai map value.</li>
+<li>Pada <code>SumNumbers2()</code>, kita breakdown pendefinisian tipe data map menjadi lebih mendetail:<ul>
 <li>Tipe map key adalah <code>K</code> yang tipe datanya kompatibel dengan semua tipe data.</li>
 <li>Tipe map value adalah <code>V</code> yang tipe datanya kompatibel dengan <code>int64</code> dan <code>float64</code>.</li>
 <li>Yang sebelumnya <code>map[string]int64</code> kini menjadi <code>map[K]V</code>.</li>
 </ul>
 </li>
 </ol>
-<p>Karena <code>SumNumbers2</code> menggunakan generic, maka fungsi ini mendukung sangat banyak tipe data karena menggunakan kombinasi dari tipe <code>K</code> yang kompatibel dengan semua tipe; dan tipe <code>V</code> yang kompatibel dengan <code>int64</code> dan <code>float64</code>.</p>
+<p>Karena <code>SumNumbers2()</code> menggunakan generic, maka fungsi ini mendukung sangat banyak tipe data karena menggunakan kombinasi dari tipe <code>K</code> yang kompatibel dengan semua tipe; dan tipe <code>V</code> yang kompatibel dengan <code>int64</code> dan <code>float64</code>.</p>
 <ul>
 <li><code>map[string]int64</code></li>
 <li><code>map[interface{}]int64</code></li>
@@ -2213,7 +2217,7 @@ Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">floa
 <p>Jalankan kode, lihat hasilnya.</p>
 <p><img src="images/A_generics_3.png" alt="Dasar Pemrograman Golang - Golang generic"></p>
 <h2 id="a656-generic-type-constraint">A.65.6. Generic <em>Type Constraint</em></h2>
-<p>Selanjutnya buat fungsi <code>SumNumbers3</code>, isinya kurang lebih sama, hanya saja pada tipe data generic kita tidak menggunakan <code>V int64 | float64</code>, yang digunakan adalah <code>Number</code> yang merupakan tipe data baru (generic <em>type constraint</em>).</p>
+<p>Selanjutnya buat fungsi <code>SumNumbers3()</code> yang isinya kurang adalah lebih sama. Kali ini kita tidak menggunakan <code>V int64 | float64</code>, melainkan menggunakan tipe <code>Number</code> yang merupakan tipe data baru yang akan kita buat juga (generic <em>type constraint</em>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> Number <span class="hljs-keyword">interface</span> {
     <span class="hljs-keyword">int64</span> | <span class="hljs-keyword">float64</span>
 }
@@ -2226,13 +2230,13 @@ Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">floa
     <span class="hljs-keyword">return</span> s
 }
 </code></pre>
-<p>Cara pendefinisian generic <em>type constraint</em> adalah seperti pendefinisan tipe data kustom menggunakan keyword <code>type</code>, bedanya adalah di sini <code>interface{}</code> dipergunakan sebagai tipe, dan di dalamnya di-embed 2 tipe yang diinginkan untuk menjadi <em>comparable type</em>, yaitu <code>int64</code> dan <code>float64</code>. Dari sini, selanjutnya tipe <code>Number</code> bisa dimanfaatkan sebagai tipe data kompatibel dalam generic.</p>
+<p>Cara pendefinisian generic <em>type constraint</em> adalah seperti pendefinisan tipe data kustom menggunakan keyword <code>type</code>, bedanya adalah di sini <code>interface{}</code> dipergunakan sebagai tipe, yang di dalamnya di-embed 2 tipe yang diinginkan untuk menjadi <em>comparable type</em>, yaitu <code>int64</code> dan <code>float64</code>. Hasilnya, tipe <code>Number</code> bisa dimanfaatkan dalam penerapan generic sebagai tipe data yang kompatibel.</p>
 <blockquote>
 <p>Perlu diketahui, tipe yang didefinisikan menggunakan <em>type constraint</em> ini hanya bisa dimanfaatkan pada generic. Tipe jenis ini tidak bisa digunakan di luar scope kode generic. Sebagai contoh, coba deklarasikan <code>var s Number</code> dalam fungsi <code>main()</code>, hasilnya akan muncul syntax error.</p>
 </blockquote>
-<p>Ok, sekarang mari ubah pemanggilan fungsi <code>SumNumbers2</code> pada main menjadi <code>SumNumbers3</code> dan lihat hasilnya, jalan.</p>
+<p>Ok, sekarang ubah pemanggilan fungsi <code>SumNumbers2()</code> pada main menjadi <code>SumNumbers3()</code> lalu coba jalankan dan lihat hasilnya, pasti outputnya sama, menandakan bahwa kode program berjalan sesuai desain.</p>
 <h2 id="a657-struct-generic">A.65.7. Struct Generic</h2>
-<p>Generic juga bisa diterapkan pada pendefinisian struct, contohnya seperti berikut:</p>
+<p>Generic juga bisa diterapkan pada struct, contohnya:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> UserModel[T <span class="hljs-keyword">int</span> | <span class="hljs-keyword">float64</span>] <span class="hljs-keyword">struct</span> {
     Name <span class="hljs-keyword">string</span>
     Scores []T
@@ -2258,12 +2262,13 @@ Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">floa
     fmt.Println(<span class="hljs-string">&quot;scores:&quot;</span>, m2.Scores)
 }
 </code></pre>
-<p>Pada penulisan struct, sisipkan notasi generic. Lalu pada deklarasi variabel object, tulis secara eksplisit tipe data untuk variabel kompatibel.</p>
+<p>Cukup tuliskan notasi generic pada deklarasi struct. Kemudian siapkan variabel object, tulis secara eksplisit tipe data untuk variabel kompatibel.</p>
 <p><img src="images/A_generics_4.png" alt="Dasar Pemrograman Golang - Golang generic"></p>
 <h2 id="a658-method-generic">A.65.8. Method Generic</h2>
 <p>Sampai artikel ini ditulis, generic tidak bisa diterapkan pada method (meski bisa diterapkan pada fungsi)</p>
-<hr>
-<p>Ok, sekian pembahasan mengenai generics. Jika ada update perihal generic API akan penulis update ke chapter ini juga.</p>
+<blockquote>
+<p>Penulis akan update konten chapter ini jika ada update pada spesifikasi generic API.</p>
+</blockquote>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
@@ -2295,7 +2300,7 @@ Sum[<span class="hljs-keyword">float64</span>]([]<span class="hljs-keyword">floa
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.65. Go Generics","level":"3.1.65","depth":2,"next":{"title":"B. Pemrograman Web Go Dasar","level":"4.1","depth":1,"ref":"","articles":[{"title":"B.1. Golang Web App: Hello World","level":"4.1.1","depth":2,"path":"B-golang-web-hello-world.md","ref":"B-golang-web-hello-world.md","articles":[]},{"title":"B.2. Routing http.HandleFunc","level":"4.1.2","depth":2,"path":"B-routing-http-handlefunc.md","ref":"B-routing-http-handlefunc.md","articles":[]},{"title":"B.3. Routing Static Assets","level":"4.1.3","depth":2,"path":"B-routing-static-assets.md","ref":"B-routing-static-assets.md","articles":[]},{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"path":"B-template-render-html.md","ref":"B-template-render-html.md","articles":[]},{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"path":"B-template-actions-variables.md","ref":"B-template-actions-variables.md","articles":[]},{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},{"title":"B.8. Template: Custom Functions","level":"4.1.8","depth":2,"path":"B-template-custom-functions.md","ref":"B-template-custom-functions.md","articles":[]},{"title":"B.9. Template: Render Specific HTML Template","level":"4.1.9","depth":2,"path":"B-render-specific-html-template.md","ref":"B-render-specific-html-template.md","articles":[]},{"title":"B.10. Template: Render HTML String","level":"4.1.10","depth":2,"path":"B-render-html-string.md","ref":"B-render-html-string.md","articles":[]},{"title":"B.11. HTTP Method: POST & GET","level":"4.1.11","depth":2,"path":"B-http-method-basic.md","ref":"B-http-method-basic.md","articles":[]},{"title":"B.12. Form Value","level":"4.1.12","depth":2,"path":"B-form-value.md","ref":"B-form-value.md","articles":[]},{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"path":"B-form-upload-file.md","ref":"B-form-upload-file.md","articles":[]},{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"path":"B-ajax-json-payload.md","ref":"B-ajax-json-payload.md","articles":[]},{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"path":"B-middleware-using-http-handler.md","ref":"B-middleware-using-http-handler.md","articles":[]},{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"path":"B-custom-mux-multiplexer.md","ref":"B-custom-mux-multiplexer.md","articles":[]},{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"path":"B-simple-configuration.md","ref":"B-simple-configuration.md","articles":[]},{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]}]},"previous":{"title":"A.64. Concurrency Pattern: Context Cancellation Pipeline","level":"3.1.64","depth":2,"path":"A-pipeline-context-cancellation.md","ref":"A-pipeline-context-cancellation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-golang-generics.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.65. Go Generics","level":"3.1.65","depth":2,"next":{"title":"B. Pemrograman Web Go Dasar","level":"4.1","depth":1,"ref":"","articles":[{"title":"B.1. Golang Web App: Hello World","level":"4.1.1","depth":2,"path":"B-golang-web-hello-world.md","ref":"B-golang-web-hello-world.md","articles":[]},{"title":"B.2. Routing http.HandleFunc","level":"4.1.2","depth":2,"path":"B-routing-http-handlefunc.md","ref":"B-routing-http-handlefunc.md","articles":[]},{"title":"B.3. Routing Static Assets","level":"4.1.3","depth":2,"path":"B-routing-static-assets.md","ref":"B-routing-static-assets.md","articles":[]},{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"path":"B-template-render-html.md","ref":"B-template-render-html.md","articles":[]},{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"path":"B-template-actions-variables.md","ref":"B-template-actions-variables.md","articles":[]},{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},{"title":"B.8. Template: Custom Functions","level":"4.1.8","depth":2,"path":"B-template-custom-functions.md","ref":"B-template-custom-functions.md","articles":[]},{"title":"B.9. Template: Render Specific HTML Template","level":"4.1.9","depth":2,"path":"B-render-specific-html-template.md","ref":"B-render-specific-html-template.md","articles":[]},{"title":"B.10. Template: Render HTML String","level":"4.1.10","depth":2,"path":"B-render-html-string.md","ref":"B-render-html-string.md","articles":[]},{"title":"B.11. HTTP Method: POST & GET","level":"4.1.11","depth":2,"path":"B-http-method-basic.md","ref":"B-http-method-basic.md","articles":[]},{"title":"B.12. Form Value","level":"4.1.12","depth":2,"path":"B-form-value.md","ref":"B-form-value.md","articles":[]},{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"path":"B-form-upload-file.md","ref":"B-form-upload-file.md","articles":[]},{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"path":"B-ajax-json-payload.md","ref":"B-ajax-json-payload.md","articles":[]},{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"path":"B-middleware-using-http-handler.md","ref":"B-middleware-using-http-handler.md","articles":[]},{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"path":"B-custom-mux-multiplexer.md","ref":"B-custom-mux-multiplexer.md","articles":[]},{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"path":"B-simple-configuration.md","ref":"B-simple-configuration.md","articles":[]},{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]}]},"previous":{"title":"A.64. Concurrency Pattern: Context Cancellation Pipeline","level":"3.1.64","depth":2,"path":"A-pipeline-context-cancellation.md","ref":"A-pipeline-context-cancellation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-golang-generics.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

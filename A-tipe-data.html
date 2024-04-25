@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2063,8 +2063,8 @@
                                 
                                 <h1 id="a10-tipe-data">A.10. Tipe Data</h1>
 <p>Go mengenal beberapa jenis tipe data, di antaranya adalah tipe data numerik (desimal &amp; non-desimal), string, dan boolean.</p>
-<p>Pada pembahasan-pembahasan sebelumnya secara tak sadar kita sudah mengaplikasikan beberapa tipe data, seperti <code>string</code> dan tipe numerik <code>int</code>.</p>
-<p>Pada chapter ini akan dijelaskan beberapa macam tipe data standar yang disediakan oleh Go, beserta cara penggunaannya.</p>
+<p>Pada pembahasan-pembahasan sebelumnya secara tak sadar kita sudah mengaplikasikan beberapa tipe data, diantaranya ada <code>string</code> dan tipe numerik <code>int</code>.</p>
+<p>Pada chapter ini akan dijelaskan beberapa macam tipe data standar yang disediakan oleh Go, disertai juga contohnya.</p>
 <h2 id="a101-tipe-data-numerik-non-desimal">A.10.1. Tipe Data Numerik Non-Desimal</h2>
 <p>Tipe data numerik non-desimal atau <strong>non floating point</strong> di Go ada beberapa jenis. Secara umum ada 2 tipe data kategori ini yang perlu diketahui.</p>
 <ul>
@@ -2138,7 +2138,7 @@ fmt.Printf(<span class="hljs-string">&quot;bilangan positif: %d\n&quot;</span>, 
 fmt.Printf(<span class="hljs-string">&quot;bilangan negatif: %d\n&quot;</span>, negativeNumber)
 </code></pre>
 <p>Variabel <code>positiveNumber</code> bertipe <code>uint8</code> dengan nilai awal <code>89</code>. Sedangkan variabel <code>negativeNumber</code> dideklarasikan dengan nilai awal <code>-1243423644</code>. Compiler secara cerdas akan menentukan tipe data variabel tersebut sebagai <code>int32</code> (karena angka tersebut masuk ke cakupan tipe data <code>int32</code>).</p>
-<p>Template <code>%d</code> pada <code>fmt.Printf()</code> digunakan untuk memformat data numerik non-desimal.</p>
+<p>String format <code>%d</code> pada <code>fmt.Printf()</code> digunakan untuk memformat data numerik non-desimal.</p>
 <h2 id="a102-tipe-data-numerik-desimal">A.10.2. Tipe Data Numerik Desimal</h2>
 <p>Tipe data numerik desimal yang perlu diketahui ada 2, <code>float32</code> dan <code>float64</code>. Perbedaan kedua tipe data tersebut berada di lebar cakupan nilai desimal yang bisa ditampung. Untuk lebih jelasnya bisa merujuk ke spesifikasi <a href="http://www.h-schmidt.net/FloatConverter/IEEE754.html" target="_blank">IEEE-754 32-bit floating-point numbers</a>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> decimalNumber = <span class="hljs-number">2.62</span>
@@ -2148,7 +2148,7 @@ fmt.Printf(<span class="hljs-string">&quot;bilangan desimal: %.3f\n&quot;</span>
 </code></pre>
 <p>Pada kode di atas, variabel <code>decimalNumber</code> akan memiliki tipe data <code>float32</code>, karena nilainya berada di cakupan tipe data tersebut.</p>
 <p><img src="images/A_tipe_data_1_decimal_data_type.png" alt="Dasar Pemrograman Golang - Tipe data numerik desimal"></p>
-<p>Template <code>%f</code> digunakan untuk memformat data numerik desimal menjadi string. Digit desimal yang akan dihasilkan adalah <strong>6 digit</strong>. Pada contoh di atas, hasil format variabel <code>decimalNumber</code> adalah <code>2.620000</code>. Jumlah digit yang muncul bisa dikontrol menggunakan <code>%.nf</code>, tinggal ganti <code>n</code> dengan angka yang diinginkan. Contoh: <code>%.3f</code> maka akan menghasilkan 3 digit desimal, <code>%.10f</code> maka akan menghasilkan 10 digit desimal.</p>
+<p>String format <code>%f</code> digunakan untuk memformat data numerik desimal menjadi string. Digit desimal yang akan dihasilkan adalah <strong>6 digit</strong>. Pada contoh di atas, hasil format variabel <code>decimalNumber</code> adalah <code>2.620000</code>. Jumlah digit yang muncul bisa dikontrol menggunakan <code>%.nf</code>, tinggal ganti <code>n</code> dengan angka yang diinginkan. Contoh: <code>%.3f</code> maka akan menghasilkan 3 digit desimal, <code>%.10f</code> maka akan menghasilkan 10 digit desimal.</p>
 <h2 id="a103-tipe-data-bool-boolean">A.10.3. Tipe Data <code>bool</code> (Boolean)</h2>
 <p>Tipe data <code>bool</code> berisikan hanya 2 variansi nilai, <code>true</code> dan <code>false</code>. Tipe data ini biasa dimanfaatkan dalam seleksi kondisi dan perulangan (yang nantinya akan kita bahas pada <a href="A-seleksi-kondisi.html">A.13. Seleksi Kondisi</a> dan <a href="A-perulangan.html">A.14. Perulangan</a>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> exist <span class="hljs-keyword">bool</span> = <span class="hljs-literal">true</span>
@@ -2178,7 +2178,8 @@ fmt.Println(message)
 <li>Zero value dari tipe numerik non-desimal adalah <code>0</code>.</li>
 <li>Zero value dari tipe numerik desimal adalah <code>0.0</code>.</li>
 </ul>
-<p>Zero value berbeda dengan <code>nil</code>. <code>Nil</code> adalah nilai kosong, benar-benar kosong. <code>nil</code> tidak bisa digunakan pada tipe data yang sudah dibahas di atas. Ada beberapa tipe data yang bisa di-set nilainya dengan <code>nil</code>, di antaranya:</p>
+<p>Selain tipe data yang disebutkan di atas, ada juga tipe data lain yang zero value-nya adalah <code>nil</code>. <code>Nil</code> merepresentasikan nilai kosong, benar-benar kosong. <code>nil</code> tidak bisa digunakan pada tipe data yang sudah dibahas di atas.</p>
+<p>Beberapa tipe data yang bisa di-set nilainya dengan <code>nil</code>, di antaranya:</p>
 <ul>
 <li>pointer</li>
 <li>tipe data fungsi</li>
@@ -2187,7 +2188,7 @@ fmt.Println(message)
 <li><code>channel</code></li>
 <li>interface kosong atau <code>any</code> (yang merupakan alias dari <code>interface{}</code>)</li>
 </ul>
-<p>Nantinya kita akan sering bertemu dengan <code>nil</code> setelah masuk pada pembahasan-pembahasan tersebut.</p>
+<p>Nantinya kita akan sering bertemu dengan nilai <code>nil</code> setelah masuk pada pembahasan-pembahasan tersebut.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
@@ -2223,7 +2224,7 @@ fmt.Println(message)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.10. Tipe Data","level":"3.1.10","depth":2,"next":{"title":"A.11. Konstanta","level":"3.1.11","depth":2,"path":"A-konstanta.md","ref":"A-konstanta.md","articles":[]},"previous":{"title":"A.9. Variabel","level":"3.1.9","depth":2,"path":"A-variabel.md","ref":"A-variabel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-tipe-data.md","mtime":"2024-04-22T10:05:29.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.10. Tipe Data","level":"3.1.10","depth":2,"next":{"title":"A.11. Konstanta","level":"3.1.11","depth":2,"path":"A-konstanta.md","ref":"A-konstanta.md","articles":[]},"previous":{"title":"A.9. Variabel","level":"3.1.9","depth":2,"path":"A-variabel.md","ref":"A-variabel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-tipe-data.md","mtime":"2024-04-25T12:05:09.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

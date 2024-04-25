@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,9 +2062,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a30-goroutine">A.30. Goroutine</h1>
-<p>Goroutine mirip dengan thread, tapi sebenarnya bukan. Sebuah <em>native thread</em> bisa berisikan sangat banyak goroutine. Mungkin lebih pas kalau goroutine disebut sebagai <strong>mini thread</strong>. Goroutine sangat ringan, hanya dibutuhkan sekitar <strong>2kB</strong> memori saja untuk satu buah goroutine. Eksekusi goroutine bersifat <em>asynchronous</em>, menjadikannya tidak saling tunggu dengan goroutine lain.</p>
+<p>Goroutine secara konsep mirip seperti <em>thread</em>, meskipun sebenarnya berbeda. Sebuah <em>native thread</em> bisa berisikan sangat banyak goroutine. Mungkin lebih pas kalau goroutine disebut sebagai <strong>mini thread</strong>. Goroutine sangat ringan, hanya dibutuhkan sekitar <strong>2kB</strong> memori saja untuk satu buah goroutine. Eksekusi goroutine bersifat <em>asynchronous</em>, menjadikannya tidak saling tunggu dengan goroutine lain.</p>
 <blockquote>
 <p>Karena goroutine sangat ringan, maka eksekusi banyak goroutine bukan masalah. Akan tetapi jika jumlah goroutine sangat banyak sekali (contoh 1 juta goroutine dijalankan pada komputer dengan RAM terbatas), memang proses akan jauh lebih cepat selesai, tapi memory/RAM pasti bengkak.</p>
+<p>Selain itu, dalam pengaplikasiannya jangan hanya terpaku pada size goroutine yang kecil tersebut, tapi pertimbangkan juga kode/proses/logic yang dibuat di dalam goroutine itu sekompleks apa, karena hal tersebut sangat berpengaruh dengan konsumsi resource hardware.</p>
 </blockquote>
 <p>Goroutine merupakan salah satu bagian paling penting dalam <em>concurrent programming</em> di Go. Salah satu yang membuat goroutine sangat istimewa adalah eksekusi-nya dijalankan di multi core processor. Kita bisa tentukan berapa banyak core yang aktif, makin banyak akan makin cepat.</p>
 <p>Mulai chapter <strong>A.29</strong> ini hingga <strong>A.34</strong>, lalu dilanjut <strong>A.56</strong> dan <strong>A.57</strong>, kita akan membahas tentang fitur-fitur yang disediakan Go untuk kebutuhan <em>concurrent programming</em>.</p>
@@ -2072,7 +2073,7 @@
 <p>Concurrency atau konkurensi berbeda dengan paralel. Paralel adalah eksekusi banyak proses secara bersamaan. Sedangkan konkurensi adalah komposisi dari sebuah proses. Konkurensi merupakan struktur, sedangkan paralel adalah bagaimana eksekusinya berlangsung.</p>
 </blockquote>
 <h2 id="a301-penerapan-goroutine">A.30.1. Penerapan Goroutine</h2>
-<p>Untuk menerapkan goroutine, proses yang akan dieksekusi sebagai goroutine harus dibungkus ke dalam sebuah fungsi. Pada saat pemanggilan fungsi tersebut, ditambahkan keyword <code>go</code> di depannya, dengan itu goroutine baru akan dibuat dengan tugas adalah menjalankan proses yang ada dalam fungsi tersebut.</p>
+<p>Untuk menerapkan goroutine, proses yang akan dieksekusi sebagai goroutine harus dibungkus ke dalam sebuah fungsi, ini hukumnya wajib. Kemudian nantinya saat pemanggilan fungsi, tambahkan keyword <code>go</code> di depannya, dengan ini maka goroutine baru dibuat dengan tugas adalah menjalankan proses yang ada dalam fungsi tersebut.</p>
 <p>Berikut merupakan contoh implementasi sederhana tentang goroutine. Program di bawah ini menampilkan 10 baris teks, 5 dieksekusi dengan cara biasa, dan 5 lainnya dieksekusi sebagai goroutine baru.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
@@ -2098,15 +2099,16 @@
 <p>Pada kode di atas, Fungsi <code>runtime.GOMAXPROCS(n)</code> digunakan untuk menentukan jumlah core yang diaktifkan untuk eksekusi program.</p>
 <p>Pembuatan goroutine baru ditandai dengan keyword <code>go</code>. Contohnya pada statement <code>go print(5, &quot;halo&quot;)</code>, di situ fungsi <code>print()</code> dieksekusi sebagai goroutine baru.</p>
 <p>Fungsi <code>fmt.Scanln()</code> mengakibatkan proses jalannya aplikasi berhenti di baris itu (<strong>blocking</strong>) hingga user menekan tombol enter. Hal ini perlu dilakukan karena ada kemungkinan waktu selesainya eksekusi goroutine <code>print()</code> lebih lama dibanding waktu selesainya goroutine utama <code>main()</code>, mengingat bahwa keduanya sama-sama asnychronous. Jika itu terjadi, goroutine yang belum selesai secara paksa dihentikan prosesnya karena goroutine utama sudah selesai dijalankan.</p>
+<p>Output program:</p>
 <p><img src="images/A_goroutine_1_goroutine.png" alt="Dasar Pemrograman Golang - Implementasi goroutine"></p>
-<p>Bisa dilihat di output, tulisan <code>&quot;halo&quot;</code> dan <code>&quot;apa kabar&quot;</code> bermunculan selang-seling. Ini disebabkan karena statement <code>print(5, &quot;halo&quot;)</code> dijalankan sebagai goroutine baru, menjadikannya tidak saling tunggu dengan <code>print(5, &quot;apa kabar&quot;)</code>.</p>
+<p>Bisa dilihat di output, tulisan <code>&quot;halo&quot;</code> dan <code>&quot;apa kabar&quot;</code> bermunculan selang-seling. Ini disebabkan karena statement <code>print(5, &quot;halo&quot;)</code> dijalankan sebagai goroutine, menjadikannya tidak saling tunggu dengan <code>print(5, &quot;apa kabar&quot;)</code>.</p>
 <p>Pada gambar di atas, program dieksekusi 2 kali. Hasil eksekusi pertama berbeda dengan kedua, penyebabnya adalah karena kita menggunakan 2 prosesor. Goroutine mana yang dieksekusi terlebih dahulu tergantung kedua prosesor tersebut.</p>
-<hr>
-<p>Berikut adalah penjelasan tambahan tentang beberapa fungsi yang baru kita pelajari di atas.</p>
-<h2 id="a3011-penggunaan-fungsi-runtimegomaxprocs">A.30.1.1. Penggunaan Fungsi <code>runtime.GOMAXPROCS()</code></h2>
+<h2 id="a302-penjelasan-tambahan">A.30.2. Penjelasan tambahan</h2>
+<p>Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:</p>
+<h4 id="&#x25C9;-penggunaan-fungsi-runtimegomaxprocs">&#x25C9; Penggunaan Fungsi <code>runtime.GOMAXPROCS()</code></h4>
 <p>Fungsi ini digunakan untuk menentukan jumlah core atau processor yang digunakan dalam eksekusi program.</p>
 <p>Jumlah yang diinputkan secara otomatis akan disesuaikan dengan jumlah asli <em>logical processor</em> yang ada. Jika jumlahnya lebih, maka dianggap menggunakan sejumlah prosesor yang ada.</p>
-<h2 id="a3012-penggunaan-fungsi-fmtscanln">A.30.1.2. Penggunaan Fungsi <code>fmt.Scanln()</code></h2>
+<h4 id="&#x25C9;-penggunaan-fungsi-fmtscanln">&#x25C9; Penggunaan Fungsi <code>fmt.Scanln()</code></h4>
 <p>Fungsi ini akan meng-capture semua karakter sebelum user menekan tombol enter, lalu menyimpannya pada variabel.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> Scanln(a ...<span class="hljs-keyword">interface</span>{}) (n <span class="hljs-keyword">int</span>, err error)
 </code></pre>
@@ -2156,7 +2158,7 @@ fmt.Println(s3) <span class="hljs-comment">// law</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"next":{"title":"A.31. Channel","level":"3.1.31","depth":2,"path":"A-channel.md","ref":"A-channel.md","articles":[]},"previous":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-goroutine.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"next":{"title":"A.31. Channel","level":"3.1.31","depth":2,"path":"A-channel.md","ref":"A-channel.md","articles":[]},"previous":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-goroutine.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

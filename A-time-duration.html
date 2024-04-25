@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,9 +2062,9 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a42-time-duration">A.42. Time Duration</h1>
-<p>Pada chapter ini kita akan belajar tentang tipe waktu durasi yaitu <code>time.Duration</code>.</p>
+<p>Pada chapter ini kita akan belajar tentang tipe data untuk pengolahan durasi waktu yaitu <code>time.Duration</code>.</p>
 <p>Tipe <code>time.Duration</code> ini merepresentasikan durasi, contohnya seperti 1 menit, 2 jam 5 detik, dst. Data dengan tipe ini bisa dihasilkan dari operasi pencarian delta atau selisih dari dua buah objek <code>time.Time</code>, atau bisa juga kita buat sendiri.</p>
-<p>Tipe durasi ini sangat berguna untuk banyak hal, seperti <em>benchmarking</em> durasi ataupun operasi-operasi lainnya yang membutuhkan informasi durasi.</p>
+<p>Tipe ini sangat berguna untuk banyak hal, salah satunya untuk <em>benchmarking</em> ataupun operasi-operasi lainnya yang membutuhkan informasi durasi waktu.</p>
 <h2 id="a421-praktek">A.42.1. Praktek</h2>
 <p>Mari kita bahas sambil praktek. Silakan tulis kode berikut lalu jalankan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2099,15 +2099,15 @@
 </ul>
 <p>Dari list di atas bisa dicontohkan bahwa sebuah data dengan tipe <code>time.Duration</code> yang nilainya <code>1</code>, maka artinya durasi adalah <strong>1 nanosecond</strong>.</p>
 <p>Kembali ke pembahasan fungsi <code>time.Sleep()</code>, fungsi ini membutuhkan argumen/parameter durasi dalam bentuk <code>time.Duration</code>. Misalnya saya tulis <code>time.Sleep(1)</code> maka yang terjadi adalah, waktu statement tersebut hanya akan menghentikan proses selama <strong>1 nanosecond</strong> saja. Jika ingin menghentikan selama 1 detik, maka harus ditulis <code>time.Sleep(1000000000)</code>. Nah daripada menulis angka sepanjang itu, cukup saja tulis dengan <code>1 * time.Second</code>, artinya adalah 1 detik. Cukup mudah bukan.</p>
-<p>Di atas kita gunakan <code>5 * time.Second</code> sebagai argumen <code>time.Sleep()</code>, maka dengan itu proses akan diberhentikan selama 5 detik.</p>
+<p>Di atas, kita gunakan <code>5 * time.Second</code> sebagai argumen <code>time.Sleep()</code>, maka dengan itu proses akan diberhentikan selama 5 detik.</p>
 <p>Sekarang jalankan program yang sudah dibuat.</p>
 <p><img src="images/A_time_duration_1.png" alt="Dasar Pemrograman Golang - Time Duration"></p>
 <p>Bisa dilihat, hasilnya adalah semua statement di bawah <code>time.Sleep()</code> dieksekusi setelah 5 detik berlalu. Ini merupakan contoh penggunaan tipe data durasi pada fungsi <code>time.Sleep()</code>.</p>
-<h2 id="a422-kalkulasi-durasi-menggunakan-timesince">A.42.2. Kalkulasi Durasi Menggunakan <code>time.Since()</code>.</h2>
+<h2 id="a422-hitung-durasi-menggunakan-timesince">A.42.2. Hitung Durasi Menggunakan <code>time.Since()</code>.</h2>
 <p>Pada kode di atas, variabel <code>duration</code> berisi durasi atau lama waktu antara kapan variabel <code>start</code> di-inisialisasi hingga kapan variabel <code>duration</code> ini statement-nya dieksekusi.</p>
 <p>Cara menghitung durasi bisa menggunakan <code>time.Since()</code>. Isi argumen fungsi tersebut dengan variabel bertipe waktu, maka durasi antara waktu pada argument vs ketika statement <code>time.Since()</code> akan dihitung.</p>
 <p>Pada contoh di atas, karena ada statement <code>time.Sleep(5 * time.Second)</code> maka idealnya <code>time.Since(start)</code> isinya adalah 5 detik (mungkin lebih sedikit, sekian mili/micro/nano-second, karena eksekusi statement juga butuh waktu).</p>
-<h2 id="a423-method-timeduration">A.42.3. Method <code>time.Duration</code></h2>
+<h2 id="a423-method-milik-tipe-timeduration">A.42.3. Method milik tipe <code>time.Duration</code></h2>
 <p>Tipe <code>time.Duration</code> memiliki beberapa method yang sangat-sangat berguna untuk keperluan mengambil nilai durasinya dalam unit tertentu. Misalnya, objek durasi tersebut ingin di-ambil nilainya dalam satuan unit detik, maka gunakan <code>.Seconds()</code>. Jika ingin dalam bentuk menit, maka gunakan <code>.Minutes()</code>, dan lainnya.</p>
 <p>Pada contoh di atas, kita mengambil nilai durasi waktu dalam tiga bentuk, yaitu detik, menit, dan jam. Caranya cukup akses saja method-nya, maka kita akan langsung dapat nilainya, tanpa perlu memikirkan operasi aritmatik konversinya. Cukup mudah bukan.</p>
 <h2 id="a424-kalkulasi-durasi-antara-2-objek-waktu">A.42.4. Kalkulasi Durasi Antara 2 Objek Waktu</h2>
@@ -2132,7 +2132,7 @@ fmt.Println(<span class="hljs-string">&quot;time elapsed in hours:&quot;</span>,
 <span class="hljs-number">45</span> * time.Microsecond         <span class="hljs-comment">// 45 microdetik</span>
 <span class="hljs-number">233</span> * time.Nanosecond         <span class="hljs-comment">// 233 nano detik</span>
 </code></pre>
-<p>Sedikit kembali ke pembahasan dasar di awal-awal chapter, operasi aritmatika di golang hanya bisa dilakukan ketika data adalah 1 tipe. Selebihnya harus ada casting atau konversi tipe data agar bisa dioperasikan.</p>
+<p>Mengulas kembali pembahasan dasar di awal-awal chapter, operasi aritmatika di golang hanya bisa dilakukan ketika data adalah 1 tipe. Selebihnya harus ada casting atau konversi tipe data agar bisa dioperasikan.</p>
 <p>Tipe <code>time.Duration</code> diciptakan menggunakan tipe <code>&#xEC;nt64</code>. Jadi jika ingin mengalikan <code>time.Duration</code> dengan suatu angka, maka pastikan tipe-nya juga sama yaitu <code>time.Duration</code>. Jika angka tersebut tidak ditampung dalam variabel terlebih dahulu (contohnya seperti di atas) maka bisa langsung kalikan saja. Jika ditampung ke variabel terlebih dahulu, maka pastikan tipe variabelnya adalah <code>time.Duration</code>. Contoh:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> n time.Duration = <span class="hljs-number">5</span>
 duration := n * time.Second
@@ -2176,7 +2176,7 @@ duration := time.Duration(n) * time.Second
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.42. Time Duration","level":"3.1.42","depth":2,"next":{"title":"A.43. Konversi Antar Tipe Data","level":"3.1.43","depth":2,"path":"A-data-type-conversion.md","ref":"A-data-type-conversion.md","articles":[]},"previous":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"path":"A-timer-ticker-scheduler.md","ref":"A-timer-ticker-scheduler.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-time-duration.md","mtime":"2024-04-22T10:05:29.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.42. Time Duration","level":"3.1.42","depth":2,"next":{"title":"A.43. Konversi Antar Tipe Data","level":"3.1.43","depth":2,"path":"A-data-type-conversion.md","ref":"A-data-type-conversion.md","articles":[]},"previous":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"path":"A-timer-ticker-scheduler.md","ref":"A-timer-ticker-scheduler.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-time-duration.md","mtime":"2024-04-25T12:05:09.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

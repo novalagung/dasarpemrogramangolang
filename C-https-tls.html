@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2064,9 +2064,9 @@
                                 <h1 id="c24-httpstls-web-server">C.24. HTTPS/TLS Web Server</h1>
 <p>Pada bagian ini kita akan belajar cara meng-enable fasilitas SSL/TLS pada web server.</p>
 <h2 id="c241-definisi">C.24.1. Definisi</h2>
-<h4 id="ssl">&#x2022; SSL</h4>
+<h4 id="&#x25C9;-ssl">&#x25C9; SSL</h4>
 <p><strong>SSL, Secure Sockets Layer</strong>, adalah standar untuk pengamanan komunikasi lewat internet. Data atau informasi yang sedang dikomunikasikan dari sebuah system ke system lain akan di-proteksi, dengan cara adalah mengacak informasi tersebut menggunakan algoritma enkripsi.</p>
-<h4 id="ssl-certificates">&#x2022; SSL Certificates</h4>
+<h4 id="&#x25C9;-ssl-certificates">&#x25C9; SSL Certificates</h4>
 <p><strong>SSL Certificate</strong>, adalah sebuah file berisikan informasi mengenai website, yang nantinya dibutuhkan untuk enkripsi data. SSL Certificate berisi <strong>Public Key</strong>. Public key digunakan untuk meng-enkripsi data yang akan di transfer.</p>
 <p>Certificate ditandatangi secara digital oleh <strong>Certificate Authorities (CA)</strong>. Digital Signature atau tanda tangan digital merupakan sebuah kode unik yang di-generate dengan teknologi cryptography <strong>(Public Key Infrastructure)</strong>.</p>
 <p>Certificate Authorities sendiri merupakan entitas atau institusi legal yang mengeluarkan dan mem-verifikasi sertifikat digital.</p>
@@ -2075,9 +2075,9 @@
 <p>Berikut merupakan penjelasan dalam bentuk gambar yang diambil dari <a href="https://coinjolt.com/what-is-a-public-and-private-key/" target="_blank">coinjolt.com</a>.</p>
 <p><img src="images/C_https_tls_1_diagram.png" alt="Dasar Pemrograman Golang - Anatomy"></p>
 <p>Kedua file certificate dan file private key harus disimpan dengan sangat super aman di server.</p>
-<h4 id="tls">&#x2022; TLS</h4>
+<h4 id="&#x25C9;-tls">&#x25C9; TLS</h4>
 <p><strong>TLS, Transport Layer Security</strong>, adalah versi yang lebih update dari SSL.</p>
-<h4 id="https">&#x2022; HTTPS</h4>
+<h4 id="&#x25C9;-https">&#x25C9; HTTPS</h4>
 <p><strong>HTTPS, Hyper Text Transfer Protocol Secure</strong>, adalah ekstensi dari HTTP yang berguna untuk pengamanan komunikasi lewat internet. Data atau informasi yang dikomunikasikan di-enkripsi menggunakan <strong>TLS</strong>.</p>
 <h2 id="c242-generate-private-key--public-key-menggunakan-openssl">C.24.2. Generate Private Key &amp; Public Key Menggunakan <code>openssl</code></h2>
 <p>Untuk menerapkan TLS pada web server aplikasi golang, private key dan public key perlu kita siapkan terlebih dahulu. </p>
@@ -2182,7 +2182,7 @@ $ openssl ecparam -genkey -name secp384r1 -out server.key
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.24. HTTPS/TLS Web Server","level":"5.1.24","depth":2,"next":{"title":"C.25. HTTP/2 & HTTP/2 Server Push","level":"5.1.25","depth":2,"path":"C-http2-server-push.md","ref":"C-http2-server-push.md","articles":[]},"previous":{"title":"C.23. Parse & Generate XML (etree)","level":"5.1.23","depth":2,"path":"C-xml-parser.md","ref":"C-xml-parser.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-https-tls.md","mtime":"2024-04-22T10:05:29.836Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.24. HTTPS/TLS Web Server","level":"5.1.24","depth":2,"next":{"title":"C.25. HTTP/2 & HTTP/2 Server Push","level":"5.1.25","depth":2,"path":"C-http2-server-push.md","ref":"C-http2-server-push.md","articles":[]},"previous":{"title":"C.23. Parse & Generate XML (etree)","level":"5.1.23","depth":2,"path":"C-xml-parser.md","ref":"C-xml-parser.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-https-tls.md","mtime":"2024-04-25T12:05:09.337Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

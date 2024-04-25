@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,10 +2062,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a40-time-parsing-time--format-time">A.40. Time, Parsing Time, &amp; Format Time</h1>
-<p>Pada chapter ini kita akan belajar tentang pemanfaatan data bertipe date-time, method-method yang disediakan, dan juga <strong>format</strong> &amp; <strong>parsing</strong> data <code>string</code> ke tipe <code>time.Time</code> dan sebaliknya.</p>
-<p>Go menyediakan package <code>time</code> yang berisikan banyak sekali komponen yang bisa digunakan untuk keperluan pemanfaatan date-time. Salah satunya adalah <code>time.Time</code>, yang merupakan tipe untuk data tanggal dan waktu di Go.</p>
+<p>Pada chapter ini kita akan belajar tentang pemanfaatan data bertipe datetime serta method-method-nya, juga tentang <strong>format</strong> &amp; <strong>parsing</strong> data <code>string</code> ke tipe <code>time.Time</code> dan sebaliknya.</p>
+<p>Go menyediakan package <code>time</code> yang berisikan banyak sekali komponen yang bisa digunakan untuk keperluan pemanfaatan date dan time. Salah satunya adalah <code>time.Time</code>, yang merupakan tipe untuk data tanggal dan waktu di Go.</p>
 <blockquote>
-<p>Time di sini maksudnya adalah gabungan <strong>date</strong> dan <strong>time</strong>, bukan hanya waktu saja.</p>
+<p>Meskipun nama package-nya adalah <code>time</code>, yang dicakup adalah <strong>date</strong> dan <strong>time</strong>, jadi bukan hanya waktu saja.</p>
 </blockquote>
 <h2 id="a401-penggunaan-timetime">A.40.1. Penggunaan <code>time.Time</code></h2>
 <p>Tipe <code>time.Time</code> merupakan representasi untuk objek date-time. Ada 2 cara yang bisa dipilih untuk membuat data bertipe ini.</p>
@@ -2089,12 +2089,12 @@
     <span class="hljs-comment">// time2 2011-12-24 10:20:00 +0000 UTC</span>
 }
 </code></pre>
-<p>Fungsi <code>time.Now()</code> mengembalikan objek <code>time.Time</code> dengan informasi adalah date-time tepat ketika statement tersebut dijalankan. Bisa dilihat pada saat di-print muncul informasi date-time sesuai dengan tanggal program tersebut dieksekusi.</p>
+<p>Fungsi <code>time.Now()</code> mengembalikan objek <code>time.Time</code> dengan nilai adalah informasi date-time tepat ketika statement tersebut dijalankan. Bisa dilihat pada saat di-print muncul informasi date-time sesuai dengan tanggal program tersebut dieksekusi.</p>
 <p><img src="images/A_time_parsing_format_1_time_instance.png" alt="Dasar Pemrograman Golang - Penggunaan time"></p>
 <p>Fungsi <code>time.Date()</code> digunakan untuk membuat objek <code>time.Time</code> baru yang informasi date-time-nya kita tentukan sendiri. Fungsi ini memiliki 8 buah parameter <em>mandatory</em> dengan skema bisa dilihat di kode berikut:</p>
 <pre><code class="lang-go">time.Date(tahun, bulan, tanggal, jam, menit, detik, nanodetik, timezone)
 </code></pre>
-<p>Objek cetakan fungsi <code>time.Now()</code>, informasi timezone-nya adalah relatif terhadap lokasi kita. Karena kebetulan penulis berlokasi di Jawa Timur, maka akan terdeteksi masuk dalam <strong>GMT+7</strong> atau <strong>WIB</strong>. Berbeda dengan variabel <code>time2</code> yang lokasinya sudah kita tentukan secara eksplisit yaitu <strong>UTC</strong>.</p>
+<p>Objek cetakan fungsi <code>time.Now()</code> memiliki timezone yang relatif terhadap lokasi kita. Karena kebetulan penulis berlokasi di Jawa Timur, maka akan terdeteksi masuk dalam <strong>GMT+7</strong> atau <strong>WIB</strong>. Berbeda dengan variabel <code>time2</code> yang lokasinya sudah kita tentukan secara eksplisit yaitu <strong>UTC</strong>.</p>
 <p>Selain menggunakan <code>time.UTC</code> untuk penentuan lokasi, tersedia juga <code>time.Local</code> yang nilainya adalah relatif terhadap date-time lokal kita.</p>
 <h2 id="a402-method-milik-timetime">A.40.2. Method Milik <code>time.Time</code></h2>
 <p>Tipe data <code>time.Time</code> merupakan struct, memiliki beberapa method yang bisa dipakai.</p>
@@ -2445,7 +2445,7 @@ fmt.Println(<span class="hljs-string">&quot;dateS2&quot;</span>, dateS2)
 <p>Variabel <code>date</code> di atas berisikan hasil parsing data dengan format <code>time.RFC822</code>. Data tersebut kemudian diformat sebagai string 2 kali dengan layout format berbeda.</p>
 <p><img src="images/A_time_parsing_format_3_time_format.png" alt="Dasar Pemrograman Golang - Contoh penggunaan method `Format()`"></p>
 <h2 id="a406-handle-error-parsing-timetime">A.40.6. Handle Error Parsing <code>time.Time</code></h2>
-<p>Ketika parsing <code>string</code> ke <code>time.Time</code>, sangat memungkinkan bisa terjadi error karena struktur data yang akan di-parse tidak sesuai layout format yang digunakan. Error tidaknya parsing bisa diketahui lewat nilai kembalian ke-2 fungsi <code>time.Parse()</code>. Berikut adalah contoh penerapannya.</p>
+<p>Parsing <code>string</code> ke <code>time.Time</code> memungkinkan terjadinya error, misalnya karena struktur data yang akan di-parse tidak sesuai layout format yang digunakan. Error-tidaknya parsing bisa diketahui lewat nilai kembalian ke-2 fungsi <code>time.Parse()</code>. Contoh:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> date, err = time.Parse(<span class="hljs-string">&quot;06 Jan 15&quot;</span>, <span class="hljs-string">&quot;02 Sep 15 08:00 WIB&quot;</span>)
 
 <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
@@ -2492,7 +2492,7 @@ fmt.Println(date)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"next":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"path":"A-timer-ticker-scheduler.md","ref":"A-timer-ticker-scheduler.md","articles":[]},"previous":{"title":"A.39. Random","level":"3.1.39","depth":2,"path":"A-random.md","ref":"A-random.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-time-parsing-format.md","mtime":"2024-04-22T10:05:29.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"next":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"path":"A-timer-ticker-scheduler.md","ref":"A-timer-ticker-scheduler.md","articles":[]},"previous":{"title":"A.39. Random","level":"3.1.39","depth":2,"path":"A-random.md","ref":"A-random.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-time-parsing-format.md","mtime":"2024-04-25T12:05:09.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

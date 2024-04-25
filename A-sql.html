@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,26 +2062,25 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a56-sql">A.56. SQL</h1>
-<p>Go menyediakan package <code>database/sql</code> berisikan generic interface untuk keperluan interaksi dengan database sql. Package ini hanya bisa digunakan ketika <strong>driver</strong> database engine yang dipilih juga ada.</p>
-<p>Ada cukup banyak sql driver yang tersedia untuk Go, detailnya bisa diakses di <a href="https://github.com/golang/go/wiki/SQLDrivers" target="_blank">https://github.com/golang/go/wiki/SQLDrivers</a>. Beberapa di antaranya:</p>
+<p>Go menyediakan package <code>database/sql</code> berisikan generic interface untuk keperluan interaksi dengan database sql. Package ini mewajibkan pengguna untuk juga menggunakan <strong>driver</strong> database engine yang dipilih.</p>
+<p>Ada cukup banyak sql driver yang tersedia untuk Go, detailnya bisa diakses di <a href="https://go.dev/wiki/SQLDrivers" target="_blank">https://go.dev/wiki/SQLDrivers</a>. Beberapa di antaranya:</p>
 <ul>
-<li>MySql</li>
+<li>MySQL / MariaDB</li>
 <li>Oracle</li>
-<li>MS Sql Server</li>
+<li>MS SQL Server</li>
+<li>Postgres</li>
 <li>dan lainnya</li>
 </ul>
-<p>Driver-driver tersebut merupakan project open source yang diinisiasi oleh komunitas di Github. Artinya kita selaku developer juga bisa ikut berkontribusi di dalamnya.</p>
-<p>Pada chapter ini kita akan belajar bagaimana berkomunikasi dengan database MySQL menggunakan driver <a href="https://github.com/go-sql-driver/mysql" target="_blank">Go MySQL Driver</a>.</p>
+<p>Driver-driver tersebut merupakan project open source yang diinisiasi oleh komunitas di Github. Kita yang juga seorang developer juga bisa ikut berkontribusi di sana.</p>
+<p>Pada chapter ini kita akan belajar bagaimana membuat Go bisa berkomunikasi dengan database MySQL menggunakan driver <a href="https://github.com/go-sql-driver/mysql" target="_blank">Go MySQL Driver</a>.</p>
 <h2 id="a561-instalasi-driver">A.56.1. Instalasi Driver</h2>
 <p>Unduh driver mysql menggunakan <code>go get</code>.</p>
 <pre><code>cd &lt;folder-project&gt;
 go get github.com/go-sql-driver/mysql
 </code></pre><p><img src="images/A_sql_1_go_get_driver.png" alt="Dasar Pemrograman Golang - Download mysql driver"></p>
 <h2 id="a562-setup-database">A.56.2. Setup Database</h2>
-<blockquote>
-<p>Sebelumnya pastikan sudah ada <a href="https://dev.mysql.com/downloads/mysql/" target="_blank">mysql server</a> yang terinstal di lokal anda.</p>
-</blockquote>
-<p>Buat database baru bernama <code>db_belajar_golang</code>, dan tabel baru bernama <code>tb_student</code>.</p>
+<p>Sebelumnya mulai, pastikan sudah ada <a href="https://dev.mysql.com/downloads/mysql/" target="_blank">mysql server</a> yang terinstal dan jalan di lokal environment pembaca.</p>
+<p>Jika database server sudah siap, buat database baru bernama <code>db_belajar_golang</code>, dan tabel baru bernama <code>tb_student</code>.</p>
 <pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> <span class="hljs-string">`tb_student`</span> (
   <span class="hljs-string">`id`</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">5</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
   <span class="hljs-string">`name`</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
@@ -2123,7 +2122,7 @@ go get github.com/go-sql-driver/mysql
     <span class="hljs-keyword">return</span> db, <span class="hljs-literal">nil</span>
 }
 </code></pre>
-<p>Fungsi <code>sql.Open()</code> digunakan untuk memulai koneksi dengan database. Fungsi tersebut memiliki 2 parameter mandatory, nama driver dan <strong>connection string</strong>.</p>
+<p>Fungsi <code>sql.Open()</code> digunakan untuk memulai koneksi dengan database. Fungsi tersebut memiliki 2 parameter mandatory yang harus diisi, yaitu nama driver dan <strong>connection string</strong>.</p>
 <p>Skema connection string untuk driver mysql yang kita gunakan cukup unik, <code>root@tcp(127.0.0.1:3306)/db_belajar_golang</code>. Di bawah ini merupakan skema connection string yang bisa digunakan pada driver Go MySQL Driver. Jika anda menggunakan driver mysql lain, skema koneksinya bisa saja berbeda tergantung driver yang digunakan.</p>
 <pre><code>user:password@tcp(host:port)/dbname
 user@tcp(host:port)/dbname
@@ -2176,7 +2175,8 @@ user@tcp(host:port)/dbname
 }
 </code></pre>
 <p>Setiap kali terbuat koneksi baru, jangan lupa untuk selalu <strong>close</strong> instance koneksinya. Bisa menggunakan keyword <code>defer</code> seperti pada kode di atas, <code>defer db.Close()</code>.</p>
-<p>Fungsi <code>db.Query()</code> digunakan untuk eksekusi sql query. Fungsi tersebut parameter keduanya adalah variadic, sehingga boleh tidak diisi. Pada kode di atas bisa dilihat bahwa nilai salah satu clause <code>where</code> adalah tanda tanya (<code>?</code>). Tanda tersebut kemudian akan ter-replace oleh nilai pada parameter setelahnya (nilai variabel <code>age</code>). Teknik penulisan query sejenis ini sangat dianjurkan, untuk mencegah <a href="https://en.wikipedia.org/wiki/SQL_injection" target="_blank">sql injection</a>.</p>
+<p>Fungsi <code>db.Query()</code> digunakan untuk eksekusi sql query. Fungsi tersebut memiliki parameter ke-2 berbentuk variadic, jadi boleh tidak diisi.</p>
+<p>Pada kode di atas bisa dilihat bahwa nilai salah satu clause <code>where</code> adalah tanda tanya (<code>?</code>). Tanda tersebut kemudian akan di-replace oleh nilai pada argument parameter setelahnya (nilai variabel <code>age</code>). Teknik penulisan query sejenis ini sangat dianjurkan, untuk mencegah optensi serangan <a href="https://en.wikipedia.org/wiki/SQL_injection" target="_blank">sql injection</a>.</p>
 <p>Fungsi tersebut menghasilkan instance bertipe <code>sql.*Rows</code>, yang juga perlu di <strong>close</strong> ketika sudah tidak digunakan (<code>defer rows.Close()</code>).</p>
 <p>Selanjutnya, sebuah array dengan tipe elemen struct <code>student</code> disiapkan dengan nama <code>result</code>. Nantinya hasil query akan ditampung ke variabel tersebut.</p>
 <p>Kemudian dilakukan perulangan dengan acuan kondisi adalah <code>rows.Next()</code>. Perulangan dengan cara ini dilakukan sebanyak jumlah total record yang ada, berurutan dari record pertama hingga akhir, satu per satu.</p>
@@ -2192,10 +2192,10 @@ rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
     sqlQuery()
 }
 </code></pre>
-<p>Output:</p>
+<p>Output program:</p>
 <p><img src="images/A_sql_2_sql_query.png" alt="Dasar Pemrograman Golang - Membaca data dari database server"></p>
 <h2 id="a564-membaca-1-record-data-menggunakan-method-queryrow">A.56.4. Membaca 1 Record Data Menggunakan Method <code>QueryRow()</code></h2>
-<p>Untuk query yang menghasilkan 1 baris record saja, bisa gunakan method <code>QueryRow()</code>, dengan metode ini kode menjadi lebih ringkas. Chain dengan method <code>Scan()</code> untuk mendapatkan value-nya.</p>
+<p>Untuk query yang menghasilkan 1 baris record saja, bisa gunakan method <code>QueryRow()</code>. Penggunaannya membuat kode menjadi lebih ringkas. Chain dengan method <code>Scan()</code> untuk mendapatkan value yang dicari sesuai query.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> sqlQueryRow() {
     <span class="hljs-keyword">var</span> db, err = connect()
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
@@ -2221,7 +2221,7 @@ rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
     sqlQueryRow()
 }
 </code></pre>
-<p>Dari kode di atas ada statement yang dituliskan cukup unik, chain statement boleh dituliskan dalam beberapa baris, contohnya:</p>
+<p>Di kode di atas bisa dilihat statement chain method ditulis multi-baris. Hal seperti ini diperbolehkan dengan catatan tanda titik untuk pengaksesan method berikutnya harus selalu di tuliskan di akhir baris.</p>
 <pre><code class="lang-go">err = db.
     QueryRow(<span class="hljs-string">&quot;select name, grade from tb_student where id = ?&quot;</span>, id).
     Scan(&amp;result.name, &amp;result.grade)
@@ -2265,7 +2265,7 @@ rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
 <p>Method <code>Prepare()</code> digunakan untuk deklarasi query, yang mengembalikan objek bertipe <code>sql.*Stmt</code>. Dari objek tersebut, dipanggil method <code>QueryRow()</code> beberapa kali dengan isi value untuk <code>id</code> berbeda-beda untuk tiap pemanggilannya.</p>
 <p><img src="images/A_sql_4_prepared_statement.png" alt="Dasar Pemrograman Golang - Prepared statement"></p>
 <h2 id="a566-insert-update--delete-data-menggunakan-exec">A.56.6. Insert, Update, &amp; Delete Data Menggunakan <code>Exec()</code></h2>
-<p>Untuk operasi <strong>insert</strong>, <strong>update</strong>, dan <strong>delete</strong>; dianjurkan untuk tidak menggunakan fungsi <code>sql.Query()</code> ataupun <code>sql.QueryRow()</code> untuk eksekusinya. Direkomendasikan eksekusi perintah-perintah tersebut lewat fungsi <code>Exec()</code>, contohnya seperti pada kode berikut.</p>
+<p>Untuk operasi <strong>insert</strong>, <strong>update</strong>, dan <strong>delete</strong>; dianjurkan untuk tidak menggunakan fungsi <code>sql.Query()</code> ataupun <code>sql.QueryRow()</code> untuk eksekusinya. Gunakan fungsi <code>Exec()</code>, contoh penerapannya bisa dilihat di bawah ini:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> sqlExec() {
     db, err := connect()
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
@@ -2315,7 +2315,7 @@ _, err := db.Exec(<span class="hljs-string">&quot;insert into tb_student values 
 <p>Sebagai contoh saya menggunakan driver <a href="https://github.com/lib/pq" target="_blank">pq</a> untuk koneksi ke server Postgres, maka connection string-nya:</p>
 <pre><code class="lang-go">sql.Open(<span class="hljs-string">&quot;postgres&quot;</span>, <span class="hljs-string">&quot;user=postgres password=secret dbname=test sslmode=disable&quot;</span>)
 </code></pre>
-<p>Selengkapya mengenai driver yang tersedia bisa dilihat di <a href="https://github.com/golang/go/wiki/SQLDrivers" target="_blank">https://github.com/golang/go/wiki/SQLDrivers</a>.</p>
+<p>Selengkapya mengenai driver yang tersedia di Go silakan lihat di <a href="https://go.dev/wiki/SQLDrivers" target="_blank">https://go.dev/wiki/SQLDrivers</a>.</p>
 <hr>
 <ul>
 <li><a href="https://github.com/go-sql-driver/mysql" target="_blank">Go MySQL Driver</a>, by Julien Schmidt, MPL-2.0 license</li>
@@ -2355,7 +2355,7 @@ _, err := db.Exec(<span class="hljs-string">&quot;insert into tb_student values 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.56. SQL","level":"3.1.56","depth":2,"next":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"path":"A-mongodb.md","ref":"A-mongodb.md","articles":[]},"previous":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"path":"A-client-http-request-simple.md","ref":"A-client-http-request-simple.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-sql.md","mtime":"2024-04-22T10:05:29.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.56. SQL","level":"3.1.56","depth":2,"next":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"path":"A-mongodb.md","ref":"A-mongodb.md","articles":[]},"previous":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"path":"A-client-http-request-simple.md","ref":"A-client-http-request-simple.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-sql.md","mtime":"2024-04-25T12:05:09.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

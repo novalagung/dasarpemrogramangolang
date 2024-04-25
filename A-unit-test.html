@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,8 +2062,8 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a58-unit-test">A.58. Unit Test</h1>
-<p>Go menyediakan package <code>testing</code>, berisikan banyak sekali tools untuk keperluan unit test.</p>
-<p>Pada chapter ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan <a href="https://github.com/stretchr/testify" target="_blank">testify</a>.</p>
+<p>Go menyediakan package <code>testing</code> yang isinya banyak sekali API untuk keperluan pembuatan test file.</p>
+<p>Pada chapter ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan <em>3rd party</em> <a href="https://github.com/stretchr/testify" target="_blank">testify</a>.</p>
 <h2 id="a581-persiapan">A.58.1. Persiapan</h2>
 <p>Langsung saja kita praktek. Pertama siapkan terlebih dahulu sebuah struct <code>Kubus</code>. Variabel object hasil struct ini nantinya kita gunakan sebagai bahan testing.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2087,8 +2087,8 @@
 }
 </code></pre>
 <p>Simpan kode di atas dengan nama <code>bab55.go</code>.</p>
-<h2 id="a582-testing">A.58.2. Testing</h2>
-<p>File untuk keperluan testing dipisah dengan file utama, namanya harus berakhiran <code>_test.go</code>, dan package-nya harus sama. Pada chapter ini, file utama adalah <code>bab55.go</code>, maka file testing harus bernama <code>bab55_test.go</code>.</p>
+<h2 id="a582-file-testing">A.58.2. File Testing</h2>
+<p>Di Go, file untuk keperluan testing dipisah dengan file utama. Nama file testing harus berakhiran <code>_test.go</code>, dan harus ditempatkan di package yang sama seperti source code yang akan di-test. Pada chapter ini, file utama adalah <code>bab55.go</code>, maka file testing harus bernama <code>bab55_test.go</code>.</p>
 <p>Unit test di Go dituliskan dalam bentuk fungsi, yang memiliki parameter yang bertipe <code>*testing.T</code>, dengan nama fungsi harus diawali kata <strong>Test</strong> (pastikan sudah meng-import package <code>testing</code> sebelumnya). Lewat parameter tersebut, kita bisa mengakses method-method untuk keperluan testing.</p>
 <p>Pada contoh di bawah ini disiapkan 3 buah fungsi test, yang masing-masing digunakan untuk mengecek apakah hasil kalkulasi volume, luas, dan keliling kubus adalah benar.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2220,9 +2220,8 @@
 <p><img src="images/A_unit_test_3_benchmark.png" alt="Dasar Pemrograman Golang - Benchmark"></p>
 <p>Arti dari <code>30000000  51.1 ns/op</code> adalah, fungsi di atas di-test sebanyak <strong>30 juta</strong> kali, hasilnya membutuhkan waktu rata-rata <strong>51 nano detik</strong> untuk run satu fungsi.</p>
 <h2 id="a585-testing-menggunakan-testify">A.58.5. Testing Menggunakan testify</h2>
-<p>Package <strong>testify</strong> berisikan banyak sekali tools yang bisa dimanfaatkan untuk keperluan testing di Go.</p>
-<p>Testify bisa di-download pada <a href="https://github.com/stretchr/testify" target="_blank">github.com/stretchr/testify</a> menggunakan <code>go get</code>.</p>
-<p>Di dalam testify terdapat 5 package dengan kegunaan berbeda-beda satu dengan lainnya. Detailnya bisa dilihat pada tabel berikut.</p>
+<p>Package <strong>testify</strong> merupakan salah satu dari sekian banyak <em>3rd party</em> yang tersedia untuk keperluan testing di Go. Testify bisa di-download di <a href="https://github.com/stretchr/testify" target="_blank">github.com/stretchr/testify</a> menggunakan perintah <code>go get</code>.</p>
+<p>Dalam testify terdapat 5 package yang masing-masing memiliki kegunaan berbeda-beda satu sama lain. Detailnya bisa dilihat pada tabel berikut.</p>
 <table>
 <thead>
 <tr>
@@ -2232,28 +2231,28 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">assert</td>
+<td style="text-align:left"><code>assert</code></td>
 <td style="text-align:left">Berisikan tools standar untuk testing</td>
 </tr>
 <tr>
-<td style="text-align:left">http</td>
+<td style="text-align:left"><code>http</code></td>
 <td style="text-align:left">Berisikan tools untuk keperluan testing http</td>
 </tr>
 <tr>
-<td style="text-align:left">mock</td>
+<td style="text-align:left"><code>mock</code></td>
 <td style="text-align:left">Berisikan tools untuk mocking object</td>
 </tr>
 <tr>
-<td style="text-align:left">require</td>
+<td style="text-align:left"><code>require</code></td>
 <td style="text-align:left">Sama seperti assert, hanya saja jika terjadi fail pada saat test akan menghentikan eksekusi program</td>
 </tr>
 <tr>
-<td style="text-align:left">suite</td>
+<td style="text-align:left"><code>suite</code></td>
 <td style="text-align:left">Berisikan tools testing yang berhubungan dengan struct dan method</td>
 </tr>
 </tbody>
 </table>
-<p>Pada chapter ini akan kita contohkan bagaimana penggunaan package assert. Silakan perhatikan contoh berikut.</p>
+<p>Pada chapter ini akan kita contohkan bagaimana penggunaan package <code>assert</code>. Silakan perhatikan contoh berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;github.com/stretchr/testify/assert&quot;</span>
 
 ...
@@ -2311,7 +2310,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"next":{"title":"A.59. sync.WaitGroup","level":"3.1.59","depth":2,"path":"A-waitgroup.md","ref":"A-waitgroup.md","articles":[]},"previous":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"path":"A-mongodb.md","ref":"A-mongodb.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-unit-test.md","mtime":"2024-04-22T10:05:29.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"next":{"title":"A.59. sync.WaitGroup","level":"3.1.59","depth":2,"path":"A-waitgroup.md","ref":"A-waitgroup.md","articles":[]},"previous":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"path":"A-mongodb.md","ref":"A-mongodb.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-unit-test.md","mtime":"2024-04-25T12:05:09.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

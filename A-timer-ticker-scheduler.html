@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2062,7 +2062,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a41-timer-ticker--scheduler">A.41. Timer, Ticker, &amp; Scheduler</h1>
-<p>Ada beberapa fungsi dalam package <code>time</code> yang bisa dimanfaatkan untuk menunda atau mengatur jadwal eksekusi sebuah proses dalam jeda waktu tertentu.</p>
+<p>Ada beberapa fungsi dalam package <code>time</code> yang bisa dimanfaatkan untuk operasi penundaan eksekusi, countdown timer, dan pengaturan jadwal eksekusi sebuah proses.</p>
 <h2 id="a411-fungsi-timesleep">A.41.1. Fungsi <code>time.Sleep()</code></h2>
 <p>Fungsi ini digunakan untuk menghentikan program sejenak. <code>time.Sleep()</code> bersifat <strong>blocking</strong>, statement di bawahnya tidak akan dieksekusi sampai pemberhentian usai. Contoh sederhana penerapan bisa dilihat pada kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2110,7 +2110,7 @@ fmt.Println(<span class="hljs-string">&quot;finish&quot;</span>)
 </code></pre>
 <p>Hasil dari kode di atas, tulisan <code>&quot;start&quot;</code> muncul kemudian setelah 4 detik berlalu, tulisan <code>&quot;expired&quot;</code> muncul.</p>
 <p>Di dalam callback terdapat proses transfer data lewat channel, menjadikan tulisan <code>&quot;finish&quot;</code> akan muncul tepat setelah tulisan <code>&quot;expired&quot;</code> muncul.</p>
-<p>Beberapa hal yang perlu diketahui dalam menggunakan fungsi ini:</p>
+<p>Beberapa hal yang perlu diketahui ketika menggunakan fungsi ini:</p>
 <ul>
 <li>Jika tidak ada serah terima data lewat channel, maka eksekusi <code>time.AfterFunc()</code> adalah asynchronous (tidak blocking).</li>
 <li>Jika ada serah terima data lewat channel, maka fungsi akan tetap berjalan asynchronous hingga baris kode di mana penerimaan data channel dilakukan. Proses blocking nya berada pada baris kode penerimaan channel.</li>
@@ -2152,7 +2152,7 @@ fmt.Println(<span class="hljs-string">&quot;expired&quot;</span>)
 }
 </code></pre>
 <p>Pada contoh di atas bisa dilihat, selain ticker disiapkan juga variabel channel <code>done</code>. Variabel ini kita gunakan untuk mengontrol kapan ticker harus di stop.</p>
-<p>Cara kerja program di atas: teknik <code>for</code> - <code>select</code> pada channel digunakan untuk mengecek penerimaan data dari channel <code>done</code> dan <code>ticker.C</code>. By default, channel <code>ticker.C</code> akan menerima kiriman data setiap N duration yang di mana pada kode di atas adalah 1 detik (lihat argumen inisialisasi objek ticker).</p>
+<p>Cara kerja program di atas: teknik <code>for</code> - <code>select</code> pada channel digunakan untuk mengecek penerimaan data dari channel <code>done</code> dan <code>ticker.C</code>. By default, channel <code>ticker.C</code> akan menerima kiriman data setiap <code>X</code> duration yang di mana pada kode di atas adalah 1 detik (lihat argumen inisialisasi objek ticker).</p>
 <p>Data yang dikirimkan via channel <code>ticker.C</code> adalah data date-time kapan event itu terjadi. Pada kode di atas, setiap ada kiriman data via channel tersebut kita tampilkan.</p>
 <p>Sebelum blok kode perulangan <code>for</code>, bisa kita lihat ada goroutine baru di-dispatch, isinya adalah mengirim data ke channel <code>done</code> setelah 10 detik. Data tersebut nantinya akan diterima oleh blok kode <code>for</code> - <code>select</code>, dan ketika itu terjadi, method <code>.Stop()</code> milik objek ticker dipanggil untuk menonaktifkan scheduler pada ticker tersebut.</p>
 <p>Jadi, selama 10 detik, di setiap detiknya akan muncul pesan halo.</p>
@@ -2198,7 +2198,7 @@ fmt.Println(<span class="hljs-string">&quot;expired&quot;</span>)
     }
 }
 </code></pre>
-<p>Ketika user tidak menginputkan apa-apa dalam kurun waktu 5 detik, maka akan muncul pesan timeout, lalu program dihentikan.</p>
+<p>Ketika user tidak menginputkan apa-apa dalam kurun waktu 5 detik, pesan timeout muncul lalu program berhenti.</p>
 <p><img src="images/A_timer_ticker_scheduler_1_timer.png" alt="Dasar Pemrograman Golang - Penerapan timer dalam goroutine"></p>
 <hr>
 <div class="source-code-link">
@@ -2235,7 +2235,7 @@ fmt.Println(<span class="hljs-string">&quot;expired&quot;</span>)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"next":{"title":"A.42. Time Duration","level":"3.1.42","depth":2,"path":"A-time-duration.md","ref":"A-time-duration.md","articles":[]},"previous":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"path":"A-time-parsing-format.md","ref":"A-time-parsing-format.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-timer-ticker-scheduler.md","mtime":"2024-04-22T10:05:29.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"next":{"title":"A.42. Time Duration","level":"3.1.42","depth":2,"path":"A-time-duration.md","ref":"A-time-duration.md","articles":[]},"previous":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"path":"A-time-parsing-format.md","ref":"A-time-parsing-format.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-timer-ticker-scheduler.md","mtime":"2024-04-25T12:05:09.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

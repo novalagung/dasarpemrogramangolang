@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2064,7 +2064,7 @@
                                 <h1 id="a36-defer--exit">A.36. Defer &amp; Exit</h1>
 <p><strong>Defer</strong> digunakan untuk mengakhirkan eksekusi sebuah statement tepat sebelum blok fungsi selesai. Sedangkan <strong>Exit</strong> digunakan untuk menghentikan program secara paksa (ingat, menghentikan program, tidak seperti <code>return</code> yang hanya menghentikan blok kode).</p>
 <h2 id="a361-penerapan-keyword-defer">A.36.1. Penerapan keyword <code>defer</code></h2>
-<p>Seperti yang sudah dijelaskan secara singkat di atas, bahwa defer digunakan untuk mengakhirkan eksekusi baris kode <strong>dalam skope blok fungsi</strong>. Ketika eksekusi blok sudah hampir selesai, statement yang di-defer dijalankan.</p>
+<p>Seperti yang sudah dijelaskan singkat di atas, bahwa defer digunakan untuk mengakhirkan eksekusi baris kode <strong>dalam skope blok fungsi</strong>. Ketika eksekusi blok sudah hampir selesai, statement yang di-defer dijalankan.</p>
 <p>Defer bisa ditempatkan di mana saja, awal maupun akhir blok. Tetapi tidak mempengaruhi kapan waktu dieksekusinya, akan selalu dieksekusi di akhir.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
@@ -2075,7 +2075,7 @@
     fmt.Println(<span class="hljs-string">&quot;selamat datang&quot;</span>)
 }
 </code></pre>
-<p>Output:</p>
+<p>Output program:</p>
 <p><img src="images/A_defer_exit_1_defer.png" alt="Dasar Pemrograman Golang - Penerapan `defer`"></p>
 <p>Keyword <code>defer</code> di atas akan mengakhirkan ekseusi <code>fmt.Println(&quot;halo&quot;)</code>, efeknya pesan <code>&quot;halo&quot;</code> akan muncul setelah <code>&quot;selamat datang&quot;</code>.</p>
 <p>Statement yang di-defer akan tetap muncul meskipun blok kode diberhentikan ditengah jalan menggunakan <code>return</code>. Contohnya seperti pada kode berikut.</p>
@@ -2095,7 +2095,7 @@
     fmt.Println(<span class="hljs-string">&quot;Pesanan anda:&quot;</span>, menu)
 }
 </code></pre>
-<p>Output:</p>
+<p>Output program:</p>
 <p><img src="images/A_defer_exit_2_defer_return.png" alt="Dasar Pemrograman Golang - Penerapan `defer` dengan `return`"></p>
 <p>Info tambahan, ketika ada banyak statement yang di-defer, maka seluruhnya akan dieksekusi di akhir secara berurutan.</p>
 <h2 id="a362-kombinasi-defer-dan-iife">A.36.2. Kombinasi <code>defer</code> dan IIFE</h2>
@@ -2111,7 +2111,7 @@
     fmt.Println(<span class="hljs-string">&quot;halo 2&quot;</span>)
 }
 </code></pre>
-<p>Output:</p>
+<p>Output program:</p>
 <pre><code>halo 1
 halo 2
 halo 3
@@ -2130,7 +2130,7 @@ halo 3
     fmt.Println(<span class="hljs-string">&quot;halo 2&quot;</span>)
 }
 </code></pre>
-<p>Output:</p>
+<p>Output program:</p>
 <pre><code>halo 1
 halo 3
 halo 2
@@ -2186,7 +2186,7 @@ halo 2
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.36. Defer & Exit","level":"3.1.36","depth":2,"next":{"title":"A.37. Error, Panic, & Recover","level":"3.1.37","depth":2,"path":"A-error-panic-recover.md","ref":"A-error-panic-recover.md","articles":[]},"previous":{"title":"A.35. Channel - Timeout","level":"3.1.35","depth":2,"path":"A-channel-timeout.md","ref":"A-channel-timeout.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-defer-exit.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.36. Defer & Exit","level":"3.1.36","depth":2,"next":{"title":"A.37. Error, Panic, & Recover","level":"3.1.37","depth":2,"path":"A-error-panic-recover.md","ref":"A-error-panic-recover.md","articles":[]},"previous":{"title":"A.35. Channel - Timeout","level":"3.1.35","depth":2,"path":"A-channel-timeout.md","ref":"A-channel-timeout.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-defer-exit.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

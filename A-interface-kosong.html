@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang Interface Kosong (Any) - Dasar Pemrograman Golang</title>
+        <title>Golang Any / interface{} / Interface Kosong - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.22.101430"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.120705"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -303,7 +303,7 @@
                 <a href="A-gopath-dan-workspace.html">
             
                     
-                    A.4. Setup GOPATH Dan Workspace
+                    A.4. Setup GOPATH dan Workspace
             
                 </a>
             
@@ -615,7 +615,7 @@
                 <a href="A-interface-kosong.html">
             
                     
-                    A.28. Interface Kosong (Any)
+                    A.28. Any / interface{} / Interface Kosong
             
                 </a>
             
@@ -836,7 +836,7 @@
                 <a href="A-regex.html">
             
                     
-                    A.45. Regex
+                    A.45. Regexp
             
                 </a>
             
@@ -2049,7 +2049,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">A.28. Interface Kosong (Any)</a>
+        <a href=".">A.28. Any / interface{} / Interface Kosong</a>
     </h1>
 </div>
 
@@ -2061,10 +2061,13 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="a28-interface-kosong-any">A.28. Interface Kosong (Any)</h1>
-<p>Interface kosong atau <em>empty interface</em> yang dinotasikan dengan <code>interface{}</code> atau <code>any</code>, merupakan tipe data yang sangat spesial. Variabel bertipe ini bisa menampung segala jenis data, bahkan array, pointer, apapun. Tipe data dengan konsep ini biasa disebut dengan <strong>dynamic typing</strong>.</p>
-<h2 id="a281-penggunaan-interface">A.28.1. Penggunaan <code>interface{}</code></h2>
-<p><code>interface{}</code> merupakan tipe data, sehingga cara penggunaannya sama seperti pada tipe data lainnya, hanya saja nilai yang diisikan bisa apa saja. Contoh:</p>
+                                <h1 id="a28-any--interface--interface-kosong">A.28. Any / interface{} / Interface Kosong</h1>
+<p>Interface kosong atau <em>empty interface</em> yang dinotasikan dengan <code>interface{}</code> atau <code>any</code>, merupakan tipe data yang sangat spesial karena variabel bertipe ini bisa menampung segala jenis data, baik itu numerik, string, bahkan array, pointer, apapun.</p>
+<blockquote>
+<p>Dalam konsep pemrograman umum, konsep variabel yang bisa menampung banyak jenis tipe data disebut dengan <strong>dynamic typing</strong>.</p>
+</blockquote>
+<h2 id="a281-penggunaan-any--interface">A.28.1. Penggunaan <code>any</code> / <code>interface{}</code></h2>
+<p><code>any</code> atau <code>interface{}</code> merupakan tipe data, sehingga cara penggunaannya sama seperti tipe data pada umumnya, perbedaannya pada variabel bertipe ini nilainya bisa diisi dengan apapun. Contoh:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2106,8 +2109,8 @@ data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</
     <span class="hljs-string">&quot;breakfast&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;manggo&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>},
 }
 </code></pre>
-<h2 id="a283-casting-variabel-interface-kosong">A.28.3. Casting Variabel Interface Kosong</h2>
-<p>Variabel bertipe <code>interface{}</code> bisa ditampilkan ke layar sebagai <code>string</code> dengan memanfaatkan fungsi print, seperti <code>fmt.Println()</code>. Tapi perlu diketahui bahwa nilai yang dimunculkan tersebut bukanlah nilai asli, melainkan bentuk string dari nilai aslinya.</p>
+<h2 id="a283-casting-variabel-any--interface-kosong">A.28.3. Casting Variabel Any / Interface Kosong</h2>
+<p>Variabel bertipe <code>interface{}</code> bisa ditampilkan ke layar sebagai <code>string</code> dengan memanfaatkan fungsi print, seperti <code>fmt.Println()</code>. Tapi perlu diketahui bahwa nilai yang dimunculkan tersebut bukanlah nilai asli, melainkan bentuk text dari nilai aslinya.</p>
 <p>Hal ini penting diketahui, karena untuk melakukan operasi yang membutuhkan nilai asli pada variabel yang bertipe <code>interface{}</code>, diperlukan casting ke tipe aslinya. Contoh seperti pada kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
@@ -2129,7 +2132,7 @@ data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</
 <p>Pertama, variabel <code>secret</code> menampung nilai bertipe numerik. Ada kebutuhan untuk mengalikan nilai yang ditampung variabel tersebut dengan angka <code>10</code>. Maka perlu dilakukan casting ke tipe aslinya, yaitu <code>int</code>, setelahnya barulah nilai bisa dioperasikan, yaitu <code>secret.(int) * 10</code>.</p>
 <p>Pada contoh kedua, <code>secret</code> berisikan array string. Kita memerlukan string tersebut untuk digabungkan dengan pemisah tanda koma. Maka perlu di-casting ke <code>[]string</code> terlebih dahulu sebelum bisa digunakan di <code>strings.Join()</code>, contohnya pada <code>strings.Join(secret.([]string), &quot;, &quot;)</code>.</p>
 <p><img src="images/A_interface_kosong_2_interface_casting.png" alt="Dasar Pemrograman Golang - Casting pada variabel bertipe `interface{}`"></p>
-<p>Teknik casting pada interface disebut dengan <strong>type assertions</strong>.</p>
+<p>Teknik casting pada <code>any</code> disebut dengan <strong>type assertions</strong>.</p>
 <h2 id="a284-casting-variabel-interface-kosong-ke-objek-pointer">A.28.4. Casting Variabel Interface Kosong Ke Objek Pointer</h2>
 <p>Variabel <code>interface{}</code> bisa menyimpan data apa saja, termasuk data objek, pointer, ataupun gabungan keduanya. Di bawah ini merupakan contoh penerapan interface untuk menampung data objek pointer.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> person <span class="hljs-keyword">struct</span> {
@@ -2144,7 +2147,7 @@ fmt.Println(name)
 <p>Variabel <code>secret</code> dideklarasikan bertipe <code>interface{}</code> menampung referensi objek cetakan struct <code>person</code>. Cara casting dari <code>interface{}</code> ke struct pointer adalah dengan menuliskan nama struct-nya dan ditambahkan tanda asterisk (<code>*</code>) di awal, contohnya seperti <code>secret.(*person)</code>. Setelah itu barulah nilai asli bisa diakses.</p>
 <p><img src="images/A_interface_kosong_3_interface_pointer.png" alt="Dasar Pemrograman Golang - Casting `interface{}` ke variabel objek"></p>
 <h2 id="a285-kombinasi-slice-map-dan-interface">A.28.5. Kombinasi Slice, <code>map</code>, dan <code>interface{}</code></h2>
-<p>Tipe <code>[]map[string]interface{}</code> adalah salah satu tipe yang paling sering digunakan (menurut saya), karena tipe data tersebut bisa menjadi alternatif tipe slice struct.</p>
+<p>Tipe <code>[]map[string]interface{}</code> adalah salah satu tipe yang paling sering digunakan untuk menyimpan sekumpulan data berbasis <em>key-value</em>. Tipe tersebut merupakan alternatif dari slice struct.</p>
 <p>Pada contoh berikut, variabel <code>person</code> dideklarasikan berisi data slice <code>map</code> berisikan 2 item dengan key adalah <code>name</code> dan <code>age</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> person = []<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}{
     {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>: <span class="hljs-number">23</span>},
@@ -2202,7 +2205,7 @@ fmt.Println(name)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.28. Interface Kosong (Any)","level":"3.1.28","depth":2,"next":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"previous":{"title":"A.27. Interface","level":"3.1.27","depth":2,"path":"A-interface.md","ref":"A-interface.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-interface-kosong.md","mtime":"2024-04-22T10:05:29.828Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-22T10:14:09.540Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.28. Any / interface{} / Interface Kosong","level":"3.1.28","depth":2,"next":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"previous":{"title":"A.27. Interface","level":"3.1.27","depth":2,"path":"A-interface.md","ref":"A-interface.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-interface-kosong.md","mtime":"2024-04-25T12:05:09.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:06:44.741Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
