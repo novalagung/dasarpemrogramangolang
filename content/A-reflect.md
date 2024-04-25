@@ -1,13 +1,13 @@
 # A.29. Reflect
 
-Reflection adalah teknik untuk inspeksi variabel, mengambil informasi dari variabel tersebut atau bahkan memanipulasinya. Cakupan informasi yang bisa didapatkan lewat reflection sangat luas, seperti melihat struktur variabel, tipe, nilai pointer, dan banyak lagi.
+Reflection adalah teknik untuk inspeksi variabel, mengambil informasi dari suatu variabel untuk dilihat metadatanya atau untuk keperluan manipulasi. Cakupan informasi yang bisa didapatkan lewat reflection sangat luas, seperti melihat struktur variabel, tipe, nilai pointer, dan banyak lagi.
 
 Go menyediakan package `reflect`, berisikan banyak sekali fungsi untuk keperluan reflection. Pada chapter ini, kita akan belajar tentang dasar penggunaan package tersebut.
 
 Dari banyak fungsi yang tersedia di dalam package tersebut, ada 2 fungsi yang paling penting untuk diketahui, yaitu `reflect.ValueOf()` dan `reflect.TypeOf()`.
 
-- Fungsi `reflect.ValueOf()` akan mengembalikan objek dalam tipe `reflect.Value`, yang berisikan informasi yang berhubungan dengan nilai pada variabel yang dicari.
-- Sedangkan `reflect.TypeOf()` mengembalikan objek dalam tipe `reflect.Type`. Objek tersebut berisikan informasi yang berhubungan dengan tipe data variabel yang dicari.
+- Fungsi `reflect.ValueOf()` akan mengembalikan objek dalam tipe `reflect.Value`, yang berisikan informasi yang berhubungan dengan nilai/data variabel yang diinspeksi.
+- Sedangkan `reflect.TypeOf()` mengembalikan objek dalam tipe `reflect.Type`. Objek tersebut berisikan informasi yang berhubungan dengan tipe data variabel yang diinspeksi.
 
 ## A.29.1. Mencari Tipe Data & Value Menggunakan Reflect
 
@@ -39,11 +39,11 @@ Objek `reflect.Value` memiliki beberapa method, salah satunya `Type()`. Method i
 
 Statement `reflectValue.Int()` menghasilkan nilai `int` dari variabel `number`. Untuk menampilkan nilai variabel reflect, harus dipastikan dulu tipe datanya. Ketika tipe data adalah `int`, maka bisa menggunakan method `Int()`. Ada banyak lagi method milik struct `reflect.Value` yang bisa digunakan untuk pengambilan nilai dalam bentuk tertentu, contohnya: `reflectValue.String()` digunakan untuk mengambil nilai `string`, `reflectValue.Float64()` untuk nilai `float64`, dan lainnya.
 
-Perlu diketahui, fungsi yang digunakan harus sesuai dengan tipe data nilai yang ditampung variabel. Jika fungsi yang digunakan berbeda dengan tipe data variabelnya, maka akan menghasilkan error. Contohnya pada variabel menampung nilai bertipe `float64`, maka tidak bisa menggunakan method `String()`.
+Perlu diketahui, fungsi yang digunakan harus sesuai dengan tipe data nilai yang ditampung variabel. Jika fungsi yang digunakan berbeda dengan tipe data variabelnya, maka dipastikan muncul error. Contohnya seperti pada variabel yang nilainya bertipe `float64`, penggunaan method `String()` di situ pasti menghasilkan error.
 
-Diperlukan adanya pengecekan tipe data nilai yang disimpan, agar pengambilan nilai bisa tepat. Salah satunya bisa dengan cara seperti kode di atas, yaitu dengan mengecek dahulu apa jenis tipe datanya menggunakan method `Kind()`, setelah itu diambil nilainya dengan method yang sesuai.
+Diperlukan adanya pengecekan tipe data pada nilai yang disimpan, agar penggunaan method untuk pengambilan nilai bisa tepat. Salah satunya bisa dengan cara yang dicontohkan di atas, yaitu dengan mengecek dahulu apa jenis tipe datanya menggunakan method `Kind()`, setelah itu diambil nilainya dengan method yang sesuai.
 
-List konstanta tipe data dan method yang bisa digunakan dalam refleksi di Go bisa dilihat di https://godoc.org/reflect#Kind
+List konstanta tipe data dan method yang bisa digunakan dalam *reflection* di Go bisa dilihat di https://pkg.go.dev/reflect#Kind
 
 ## Pengaksesan Nilai Dalam Bentuk `interface{}`
 
@@ -57,7 +57,7 @@ fmt.Println("tipe  variabel :", reflectValue.Type())
 fmt.Println("nilai variabel :", reflectValue.Interface())
 ```
 
-Fungsi `Interface()` mengembalikan nilai interface kosong atau `interface{}`. Nilai aslinya sendiri bisa diakses dengan meng-casting interface kosong tersebut.
+Fungsi `Interface()` mengembalikan nilai interface kosong atau `interface{}` atau `any`. Nilai aslinya sendiri bisa diakses dengan meng-casting interface kosong tersebut menggunakan teknik *type assertion*.
 
 ```go
 var nilai = reflectValue.Interface().(int)
@@ -65,7 +65,9 @@ var nilai = reflectValue.Interface().(int)
 
 ## A.29.2. Pengaksesan Informasi Property Variabel Objek
 
-Reflect bisa digunakan untuk mengambil informasi semua property variabel objek cetakan struct, dengan catatan property-property tersebut bermodifier public. Langsung saja kita praktekan, siapkan sebuah struct bernama `student`.
+Reflect API bisa digunakan untuk melihat metadata suatu property variabel objek cetakan struct, dengan catatan property-property tersebut bermodifier public. Contohnya bisa dilihat pada kode berikut.
+
+Siapkan sebuah struct bernama `student`.
 
 ```go
 type student struct {
@@ -95,7 +97,7 @@ func (s *student) getPropertyInfo() {
 }
 ```
 
-Terakhir, lakukan uji coba method di fungsi `main`.
+Terakhir, lakukan uji coba method `getPropertyInfo()` di fungsi `main()`.
 
 ```go
 func main() {
@@ -106,13 +108,13 @@ func main() {
 
 ![Pengaksesan property menggunakan reflect](images/A_reflect_1_accessing_properties.png)
 
-Di dalam method `getPropertyInfo` terjadi beberapa hal. Pertama objek `reflect.Value` dari variabel `s` diambil. Setelah itu dilakukan pengecekan apakah variabel objek tersebut merupakan pointer atau tidak (bisa dilihat dari `if reflectValue.Kind() == reflect.Ptr`, jika bernilai `true` maka variabel adalah pointer). jika ternyata variabel memang pointer, maka perlu diambil objek reflect aslinya dengan cara memanggil method `Elem()`.
+Di dalam method `getPropertyInfo()` terjadi beberapa hal. Pertama objek `reflect.Value` dari variabel `s` diambil. Setelah itu dilakukan pengecekan apakah variabel objek tersebut merupakan pointer atau tidak (bisa dilihat dari `if reflectValue.Kind() == reflect.Ptr`, jika bernilai `true` maka variabel adalah pointer). jika ternyata variabel memang berisi pointer, maka perlu diambil data objek reflect aslinya via method `Elem()`.
 
-Setelah itu, dilakukan perulangan sebanyak jumlah property yang ada pada struct `student`. Method `NumField()` akan mengembalikan jumlah property publik yang ada dalam struct.
+Masih di dalam method `getPropertyInfo()`, dilakukan perulangan sebanyak jumlah property yang ada pada struct `student`. Method `NumField()` mengembalikan jumlah property publik yang ada dalam struct.
 
 Di tiap perulangan, informasi tiap property struct diambil berurutan dengan lewat method `Field()`. Method ini ada pada tipe `reflect.Value` dan `reflect.Type`.
 
-- `reflectType.Field(i).Name` akan mengembalikan nama property
+- `reflectType.Field(i).Name` mengembalikan nama property
 - `reflectType.Field(i).Type` mengembalikan tipe data property
 - `reflectValue.Field(i).Interface()` mengembalikan nilai property dalam bentuk `interface{}`
 
@@ -122,7 +124,7 @@ Pengambilan informasi property, selain menggunakan indeks, bisa diambil berdasar
 
 Informasi mengenai method juga bisa diakses lewat reflect, syaratnya masih sama seperti pada pengaksesan proprerty, yaitu harus bermodifier public.
 
-Pada contoh di bawah ini informasi method `SetName` akan diambil lewat reflection. Siapkan method baru di struct `student`, dengan nama `SetName`.
+Pada contoh di bawah ini informasi method `SetName()` akan diambil lewat reflection. Siapkan method baru di struct `student`, dengan nama `SetName()`.
 
 ```go
 func (s *student) SetName(name string) {
@@ -130,7 +132,7 @@ func (s *student) SetName(name string) {
 }
 ```
 
-Buat contoh penerapannya di fungsi `main`.
+Buat contoh penerapannya di fungsi `main()`.
 
 ```go
 func main() {
@@ -149,11 +151,11 @@ func main() {
 
 ![Eksekusi method lewat reflection](images/A_reflect_2_accessing_method_information.png)
 
-Pada kode di atas, disiapkan variabel `s1` yang merupakan instance struct `student`. Awalnya property `Name` variabel tersebut berisikan string `"john wick"`.
+Pada kode di atas, disiapkan variabel `s1` yang merupakan instance struct `student`. Variabel tersebut memiliki property `Name` yang nilainya ditentukan di awal, yaitu string `"john wick"`.
 
-Setelah itu, refleksi nilai objek tersebut diambil, refleksi method `SetName` juga diambil. Pengambilan refleksi method dilakukan menggunakan `MethodByName` dengan argument adalah nama method yang diinginkan, atau bisa juga lewat indeks method-nya (menggunakan `Method(i)`).
+Setelah itu, data *reflection* nilai objek tersebut diambil, *reflection* method `SetName` juga diambil. Pengambilan *reflection* method dilakukan menggunakan `MethodByName` dengan argument adalah nama method yang diinginkan, atau bisa juga lewat indeks method-nya (menggunakan `Method(i)`).
 
-Setelah refleksi method yang dicari sudah didapatkan, `Call()` dipanggil untuk eksekusi method.
+Setelah *reflection* method yang dicari sudah didapatkan, `Call()` dipanggil untuk eksekusi method.
 
 Jika eksekusi method diikuti pengisian parameter, maka parameternya harus ditulis dalam bentuk array `[]reflect.Value` berurutan sesuai urutan deklarasi parameter-nya. Dan nilai yang dimasukkan ke array tersebut harus dalam bentuk `reflect.Value` (gunakan `reflect.ValueOf()` untuk pengambilannya).
 
