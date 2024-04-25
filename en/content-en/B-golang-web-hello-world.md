@@ -69,7 +69,7 @@ Cek pada browser rute yang sudah dibuat, output akan muncul.
 
 Berikut merupakan penjelasan detail per-bagian program yang telah kita buat dari contoh di atas.
 
-#### • Penggunaan `http.HandleFunc()`
+#### ◉ Penggunaan `http.HandleFunc()`
 
 Fungsi ini digunakan untuk **routing**, menentukan aksi dari sebuah url tertentu ketika diakses (di sini url tersebut kita sebut sebagai rute/route). Rute dituliskan dalam `string` sebagai parameter pertama, dan aksi-nya sendiri dibungkus dalam fungsi (bisa berupa closure) yang ditempatkan pada parameter kedua (kita sebut sebagai handler).
 
@@ -83,7 +83,7 @@ Ketika rute-rute tersebut diakses lewat browser, outpunya adalah isi-handler dar
 
 > Pada contoh di atas, ketika rute yang tidak terdaftar diakses, secara otomatis handler rute `/` akan terpanggil.
 
-#### • Penjelasan Mengenai **Handler**
+#### ◉ Penjelasan Mengenai **Handler**
 
 Route handler atau handler atau parameter kedua fungsi `http.HandleFunc()`, adalah sebuah fungsi dengan ber-skema `func (ResponseWriter, *Request)`.
 
@@ -105,7 +105,7 @@ Pada contoh program yang telah kita buat, handler `Index()` memunculkan text `"W
 
 Sebuah handler bisa dipergunakan pada banyak rute, bisa dilihat pada di atas handler `Index()` digunakan pada rute `/` dan `/index`.
 
-#### • Penggunaan `http.ListenAndServe()`
+#### ◉ Penggunaan `http.ListenAndServe()`
 
 Fungsi ini digunakan untuk membuat web server baru. Pada contoh yang telah dibuat, web server di-*start* pada port `9000` (bisa dituliskan dalam bentuk `localhost:9000` atau cukup `:9000` saja).
 
