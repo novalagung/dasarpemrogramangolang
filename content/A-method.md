@@ -1,12 +1,14 @@
 # A.25. Method
 
-**Method** adalah fungsi yang menempel pada `type` (bisa `struct` atau tipe data lainnya). Method bisa diakses lewat variabel objek.
+**Method** adalah fungsi yang menempel pada suatu tipe data, misalnya custom `struct`. Method bisa diakses lewat variabel objek yang dibuat dari tipe custom struct tersebut.
 
-Keunggulan method dibanding fungsi biasa adalah memiliki akses ke property struct hingga level *private* (level akses nantinya akan dibahas lebih detail pada chapter selanjutnya). Dan juga, dengan menggunakan method sebuah proses bisa di-enkapsulasi dengan baik.
+Keunggulan method dibanding fungsi biasa adalah method memiliki akses ke property struct hingga level akses *private*. Selain itu, dengan menggunakan method, suatu proses bisa di-enkapsulasi dengan baik.
+
+> Perihal topik level nantinya dibahas secara terpisah pada chapter berikutnya
 
 ## A.25.1. Penerapan Method
 
-Cara menerapkan method sedikit berbeda dibanding penggunaan fungsi. Ketika deklarasi, ditentukan juga siapa pemilik method tersebut. Contohnya bisa dilihat pada kode berikut:
+Cara penerapan method sedikit berbeda dibanding fungsi. Saat proses deklarasi, pada method perlu ditentukan juga siapa pemiliknya. Contohnya bisa dilihat pada kode berikut, dua method diciptakan sebagai property dari struct bernama `student`.
 
 ```go
 package main
@@ -28,9 +30,9 @@ func (s student) getNameAt(i int) string {
 }
 ```
 
-Cara deklarasi method sama seperti fungsi, hanya saja perlu ditambahkan deklarasi variabel objek di sela-sela keyword `func` dan nama fungsi. Struct yang digunakan akan menjadi pemilik method.
+Cara deklarasi method mirip seperti fungsi, tapi dalam penulisannya perlu ditambahkan deklarasi variabel objek di sela-sela keyword `func` dan nama fungsi. Pada contoh di atas struct `student` ditentukan sebagai pemilik method.
 
-`func (s student) sayHello()` maksudnya adalah fungsi `sayHello` dideklarasikan sebagai method milik struct `student`. Pada contoh di atas struct `student` memiliki dua buah method, yaitu `sayHello()` dan `getNameAt()`.
+`func (s student) sayHello()` maksudnya adalah fungsi `sayHello` dideklarasikan sebagai method milik struct `student`. Di contoh, struct `student` memiliki dua buah method yaitu `sayHello()` dan `getNameAt()`.
 
 Contoh pemanfaatan method bisa dilihat pada kode berikut.
 
@@ -48,28 +50,30 @@ Output program:
 
 ![Penggunaan method](images/A_method_1_method.png)
 
-Cara mengakses method sama seperti pengaksesan properti berupa variabel. Tinggal panggil saja methodnya.
+Cara mengakses method sama seperti pada pengaksesan property, yaitu dengan cukup panggil saja nama methodnya.
 
 ```go
 s1.sayHello()
 var name = s1.getNameAt(2)
 ```
 
-Method memiliki sifat yang sama persis dengan fungsi biasa. Seperti bisa berparameter, memiliki nilai balik, dan lainnya. Dari segi sintaks, pembedanya hanya ketika pengaksesan dan deklarasi. Bisa dilihat di kode berikut, sekilas perbandingan penulisan fungsi dan method.
+Method memiliki sifat yang sama persis dengan fungsi biasa, yaitu bisa memiliki parameter, nilai balik, dan sifat-sifat lainnya.
+
+Dari segi sintaks, perbedaan yang paling terlihat hanya di bagian penulisan deklarasi dan cara pengaksesan. Silakan lihat kode berikut agar lebih jelas:
 
 ```go
-func sayHello() {
-func (s student) sayHello() {
+func sayHello() { }
+func (s student) sayHello() { }
 
-func getNameAt(i int) string {
-func (s student) getNameAt(i int) string {
+func getNameAt(i int) string { }
+func (s student) getNameAt(i int) string { }
 ```
 
 ## A.25.2. Method Pointer
 
-Method pointer adalah method yang variabel objek pemilik method tersebut berupa pointer.
+Method pointer adalah method yang dimana variabel objek pemilik method tersebut adalah berbentuk pointer.
 
-Kelebihan method jenis ini adalah, ketika kita melakukan manipulasi nilai pada property lain yang masih satu struct, nilai pada property tersebut akan di rubah pada reference nya. Lebih jelasnya perhatikan kode berikut.
+Kelebihan method jenis ini adalah ketika kita melakukan manipulasi nilai pada property lain yang masih satu struct, nilai pada property tersebut bisa diubah di-level reference-nya. Lebih jelasnya perhatikan kode berikut.
 
 ```go
 package main
@@ -110,9 +114,9 @@ Output program:
 
 ![Penggunaan method pointer](images/A_method_2_method_pointer.png)
 
-Setelah eksekusi statement `s1.changeName1("jason bourne")`, nilai `s1.name` tidak berubah. Sebenarnya nilainya berubah tapi hanya dalam method `changeName1()` saja, nilai pada reference di objek-nya tidak berubah. Karena itulah ketika objek di print value dari `s1.name` tidak berubah.
+Setelah statement `s1.changeName1("jason bourne")` dieksekusi, nilai `s1.name` tidak berubah. Sebenarnya nilainya berubah tapi hanya dalam method `changeName1()` saja, nilai pada reference objek-nya tidak berubah.
 
-Keistimewaan lain method pointer adalah, method itu sendiri bisa dipanggil dari objek pointer maupun objek biasa.
+Keistimewaan lain method pointer adalah method itu sendiri bisa dipanggil dari objek pointer maupun objek biasa.
 
 ```go
 // pengaksesan method dari variabel objek biasa
@@ -130,22 +134,25 @@ Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah di
 
 #### ◉ Penggunaan Fungsi `strings.Split()`
 
-Pada chapter ini ada fungsi baru yang kita gunakan: `strings.Split()`. Fungsi ini berguna untuk memisah string menggunakan pemisah yang ditentukan sendiri. Hasilnya adalah array berisikan kumpulan substring.
+Pada chapter ini ada fungsi baru yang kita gunakan saat praktek, yaitu `strings.Split()`. Fungsi ini berguna untuk memisahkan string menggunakan pemisah yang kita tentukan sendiri. Hasilnya berupa array berisikan kumpulan substring.
 
 ```go
 strings.Split("ethan hunt", " ")
 // ["ethan", "hunt"]
 ```
 
-Pada contoh di atas, string `"ethan hunt"` dipisah menggunakan separator spasi `" "`. Maka hasilnya terbentuk array berisikan 2 data, `"ethan"` dan `"hunt"`.
+Pada contoh di atas, string `"ethan hunt"` dipisah menggunakan separator spasi `" "`, hasilnya adalah array berisikan 2 elemen, `"ethan"` dan `"hunt"`.
 
 ## A.25.3. Apakah `fmt.Println()` & `strings.Split()` Juga Merupakan Method?
 
-Setelah tahu apa itu method dan bagaimana penggunaannya, mungkin akan muncul di benak kita bahwa kode seperti `fmt.Println()`, `strings.Split()` dan lainnya-yang-berada-pada-package-lain adalah merupakan method. Tapi sayangnya **bukan**. `fmt` di situ bukanlah variabel objek, dan `Println()` bukan merupakan method-nya.
+Setelah tahu apa itu method dan bagaimana penggunaannya, mungkin akan muncul di benak kita bahwa kode seperti `fmt.Println()`, `strings.Split()` dan lainnya-yang-berada-pada-package-lain adalah merupakan method. Jawabannya,**bukan!**. `fmt` di situ bukanlah variabel objek, dan `Println()` bukan merupakan method.
 
-`fmt` adalah nama **package** yang di-import (bisa dilihat pada kode `import "fmt"`). Sedangkan `Println()` adalah **nama fungsi**. Untuk mengakses fungsi yang berada pada package lain, harus dituliskan nama package-nya. Hal ini berlaku juga di dalam package `main`. Jika ada fungsi dalam package main yang diakses dari package lain yang berbeda, maka penulisannya `main.NamaFungsi()`.
+`fmt` adalah nama **package** yang di-import (bisa dilihat pada kode `import "fmt"`). Sedangkan `Println()` adalah **nama fungsi**. Untuk mengakses fungsi yang berada pada package lain, harus dituliskan juga nama package-nya, contoh:
 
-Lebih detailnya akan dibahas pada chapter selanjutnya.
+- Statement `fmt.Println()` berarti pengaksesan fungsi `Println()` yang berada di package `fmt`
+- Statement `strings.Split()` berarti pengaksesan fungsi `Split()` yang berada di package `strings`
+
+Lebih detailnya dibahas pada chapter selanjutnya.
 
 ---
 
