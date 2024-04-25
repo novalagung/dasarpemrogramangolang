@@ -6,7 +6,7 @@ Pada chapter sebelumnya, yaitu chapter [A.62. Concurrency Pattern: Pipeline](/A-
 
 Pada chapter ini kita akan mempelajari concurrency pattern juga, lanjutan dari sebelumnya. Pada versi ini kalau dilihat dari perspektif coding penerapannya akan lebih ringkas. Tapi apakah lebih mudah dan lebih *performant* dibanding penerapan pipeline sebelumnya? Jawabannya sangat tergantung dengan kasus yang dihadapi, tergantung spesifikasi hardware-nya juga, dan mungkin juga tergantung dengan taste dari si engineer pembuat program.
 
-Perbedaannya sebenarnya hanya pada bagian Fan-out Fan-in nya saja. Di sini (hampir) semua pipeline isinya adalah gabungan dari Fan-out dan juga Fan-in. Jadi kita tidak perlu report *merge*. Dan juga beda lainnya adalah, jumlah worker bisa kita tentukan sesuai kebutuhan (*parameterized*).
+Kalau dilihat lebih dalam, perbedaannya sebenarnya hanya pada bagian Fan-out Fan-in nya saja. Di metode ini (hampir) semua pipeline isinya adalah gabungan dari Fan-out dan juga Fan-in. Jadi kita tidak perlu report *merge*. Selain itu, di sini kita bisa dengan mudah mengatur jumlah worker sesuai kebutuhan.
 
 Ok, agar lebih jelas mari kita mulai praktek.
 
@@ -16,11 +16,11 @@ Kita akan modifikasi file program `1-dummy-file-generator.go` yang pada chapter 
 
 ## A.63.2. Program Generate Dummy File *Sequentially*
 
-Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi sekuensialnya. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan merujuk ke chapter sebelumnya saja, di sini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
+Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi sekuensialnya. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan cek saja di chapter sebelumnya saja, di sini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
 
 Siapkan folder project baru, isinya satu buah file `1-generate-dummy-files-sequentially.go`.
 
-#### • Import Packages dan Definisi Variabel
+#### ◉ Import Packages dan Definisi Variabel
 
 ```go
 package main
@@ -40,7 +40,7 @@ const contentLength = 5000
 var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.60-worker-pool")
 ```
 
-#### • Fungsi `main()`
+#### ◉ Fungsi `main()`
 
 ```go
 func main() {
@@ -54,7 +54,7 @@ func main() {
 }
 ```
 
-#### • Fungsi `randomString()`
+#### ◉ Fungsi `randomString()`
 
 ```go
 func randomString(length int) string {
@@ -71,7 +71,7 @@ func randomString(length int) string {
 
 ```
 
-#### • Fungsi `generateFiles()`
+#### ◉ Fungsi `generateFiles()`
 
 ```go
 func generateFiles() {
@@ -101,9 +101,9 @@ Kita lanjut dulu saja. Berikut adalah output jika program di atas di-run.
 
 ## A.63.3. Program Generate Dummy File *Concurrently*
 
-Sekarang saya buat file program `2-generate-dummy-files-concurrently.go` yang isinya adalah sama yaitu untuk keperluan generate dummy files, tapi pembuatannya dilakukan secara konkuren.
+Selanjutnya, buat file program `2-generate-dummy-files-concurrently.go` yang isinya adalah sama yaitu untuk keperluan generate dummy files tapi dilakukan secara konkuren.
 
-#### • Import Packages dan Definisi Variabel
+#### ◉ Import Packages dan Definisi Variabel
 
 Import beberapa hal pada file baru ini, lalu definisikan beberapa variabel juga.
 
@@ -126,7 +126,7 @@ const contentLength = 5000
 var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.60-worker-pool")
 ```
 
-#### • Definisi struct `FileInfo`
+#### ◉ Definisi struct `FileInfo`
 
 Kita perlu siapkan struct baru bernama `FileInfo`, struct ini digunakan sebagai skema payload data ketika dikirimkan via channel dari goroutine jobs ke goroutine worker.
 
@@ -143,7 +143,7 @@ type FileInfo struct {
 * Property `WorkerIndex` digunakan sebagai penanda worker mana yang akan melakukan operasi pembuatan file tersebut.
 * Property `Err` default isinya kosong. Nantinya akan diisi dengan objek error ketika ada error saat pembuatan file.
 
-#### • Fungsi `main()`
+#### ◉ Fungsi `main()`
 
 ```go
 func main() {
@@ -157,7 +157,7 @@ func main() {
 }
 ```
 
-#### • Fungsi `randomString()`
+#### ◉ Fungsi `randomString()`
 
 ```go
 func randomString(length int) string {
@@ -173,7 +173,7 @@ func randomString(length int) string {
 }
 ```
 
-#### • Fungsi `generateFiles()`
+#### ◉ Fungsi `generateFiles()`
 
 ```go
 func generateFiles() {
@@ -203,7 +203,7 @@ func generateFiles() {
 }
 ```
 
-Isi fungsi generate files ini secara garis besar ada 3:
+Secara garis besar, isi fungsi generate files ini ada 3:
 
 * Pipeline 1, bertugas men-*dispatch* goroutine untuk distribusi jobs.
 * Pipeline 2, bertugas men-*dispatch* goroutine untuk start worker yang masing-masing worker punya tugas utama yaitu membuat files.
@@ -211,11 +211,11 @@ Isi fungsi generate files ini secara garis besar ada 3:
 
 Fungsi `generateFileIndexes()` nantinya akan mengembalikan channel `chanFileIndex` yang fungsi dari channel ini adalah untuk media komunikasi antara proses dalam fungsi `generateFileIndexes()` (yaitu distribusi jobs) dengan proses dalam fungsi selanjutnya yaitu `createFiles()`.
 
-Fungsi `createFiles()` di sini merupakan fungsi **Fan-out Fan-in** karena menerima parameter channel pipeline sebelumnya, lalu kemudian min-dispatch goroutine worker dan menge-track output dari masing-masing worker ke channel output. Jadi fungsi `createFiles()` ini merupakan gabungan dari fungsi Fan-out dan Fan-in (proses merge channel output dari Fan-out juga ada di dalam fungsi tersebut).
+Fungsi `createFiles()` di sini merupakan fungsi **Fan-out Fan-in** karena menerima parameter channel pipeline sebelumnya, kemudian min-dispatch goroutine worker dan melacak output dari masing-masing worker ke channel output. Bisa dibilang fungsi `createFiles()` merupakan gabungan dari fungsi Fan-out dan Fan-in (proses merge channel output dari Fan-out juga ada di dalam fungsi tersebut).
 
 Fungsi `createFiles()` menghasilkan channel yang isinya merupakan result dari operasi tiap-tiap jobs. Dari data yang dilewatkan via channel tersebut akan ketahuan misal ada error atau tidak saat pembuatan files. Channel tersebut kemudian di-loop lalu ditampilkan tiap-tiap result-nya.
 
-#### • Fungsi `generateFileIndexes()`
+#### ◉ Fungsi `generateFileIndexes()`
 
 Fungsi ini merupakan fungsi Fan-out distribusi jobs. Di dalamnya dilakukan perulangan sejumlah `totalFile`, kemudian data tiap index digunakan untuk pembentukan filename lalu dikirim ke channel outputnya.
 
@@ -239,11 +239,11 @@ func generateFileIndexes() <-chan FileInfo {
 
 Setelah dipastikan semua job terkirim, kita close channel output `chanOut` tersebut.
 
-#### • Fungsi `dispatchWorkers()`
+#### ◉ Fungsi `dispatchWorkers()`
 
 Bagian ini merupakan yang paling butuh *effort* untuk dipahami. Jadi fungsi `createFiles()` seperti yang sudah saja jelaskan secara singkat di atas, fungsi ini merupakan fungsi gabungan Fan-out (menerima channel output dari pipeline sebelumnya) dan juga Fan-in (menjalankan beberapa worker untuk memproses channel output dari pipeline sebelumnya, lalu output masing-masing worker yang juga merupakan channel - langsung di merge jadi satu channel saja).
 
-Mungkin lebih enak silakan tulis dulu fungsinya, lalu kita bahas satu per satu setelahnya.
+Mungkin lebih enak silakan tulis dulu fungsinya, kemudian kita bahas satu per satu.
 
 ```go
 func createFiles(chanIn <-chan FileInfo, numberOfWorkers int) <-chan FileInfo {
@@ -309,27 +309,27 @@ Penjelasan:
 
 Semoga cukup jelas ya. Kelebihan metode ini ini salah satunya adalah kita bisa dengan mudah menentukan jumlah workernya.
 
-> Untuk temen-temen yang bingung, mungkin fungsi ini bisa dipecah menjadi satu fungsi Fan-out dan satu fungsi Fan-in seperti chapter sebelumnya.
+> Untuk pembaca yang bingung, mungkin fungsi ini bisa dipecah menjadi satu fungsi Fan-out dan satu fungsi Fan-in seperti chapter sebelumnya.
 
 ## A.63.4. Test Eksekusi Program
 
 Saya akan coba jalankan program pertama dan kedua, lalu mari kita lihat perbedaannya.
 
-#### • Program Generate Dummy File *Sequentially*
+#### ◉ Program Generate Dummy File *Sequentially*
 
 ![Generate dummy files sequentially](images/A_simplified_fan_in_fan_out_pipeline_2_benchmark.png)
 
 Testing di awal chapter ini hasilnya butuh sekitar **19 detik** untuk menyelesaikan generate dummy files sebanyak 3000 secara sekuensial. Tapi kali ini lebih lambat, yaitu **23 detik** dan ini wajar, karena di tiap operasi kita munculkan log ke stdout (via `log.Println()`).
 
-#### • Program Generate Dummy File *Concurrently*
+#### ◉ Program Generate Dummy File *Concurrently*
 
 ![Generate dummy files concurrently](images/A_simplified_fan_in_fan_out_pipeline_3_concurrent.png)
 
 Bandingkan dengan ini, **3 detik** saja! luar biasa sekali bukan beda performanya. Dan pastinya akan lebih cepat lagi kalau kita hapus statement untuk logging ke stdout (`log.Println()`).
 
-Nah dari sini semoga cukup jelas ya bedanya kalau dari sisi performa. Inilah pentingnya kenapa konkurensi di Go harus diterapkan (untuk kasus yang memang bisa di-konkurensikan prosesnya). Tapi temen-temen juga harus hati-hati dalam mendesain pipeline dan menentukan jumlah workernya, karena jika tidak tepat bisa makan *resources* seperti CPU dan RAM cukup tinggi.
+Nah dari sini semoga cukup jelas ya bedanya kalau dari sisi performa. Inilah pentingnya kenapa konkurensi di Go harus diterapkan (untuk kasus yang memang bisa di-konkurensikan prosesnya). Tapi pembaca juga harus hati-hati dalam mendesain pipeline dan menentukan jumlah workernya, karena jika tidak tepat bisa makan *resources* seperti CPU dan RAM cukup tinggi, efeknya bisa terjadi bottleneck yang mempengaruhi performa program secara menyeluruh.
 
-> Untuk menentukan jumlah worker yang ideal, caranya adalah dengan coba-coba dan disesuaikan dengan spesifikasi server/laptopnya. Jadi tidak ada angka yang pasti berapa jumlah worker ideal. Sangat tergantung ke banyak hal (jenis proses, jumlah pipeline, jumlah worker per pipeline, spesifikasi hardware, dsb).
+> Untuk menentukan jumlah worker yang ideal, perlu banya coba-coba dan perlu dipertimbangkan juga faktor spesifikasi server/laptopnya. Jadi tidak ada angka yang pasti berapa jumlah worker ideal karena ada banyak faktor yang mempengaruhi (jenis proses, jumlah pipeline, jumlah worker per pipeline, spesifikasi hardware, dsb).
 
 ---
 
