@@ -1,8 +1,8 @@
 # A.58. Unit Test
 
-Go menyediakan package `testing`, berisikan banyak sekali tools untuk keperluan unit test.
+Go menyediakan package `testing` yang isinya banyak sekali API untuk keperluan pembuatan test file.
 
-Pada chapter ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan [testify](https://github.com/stretchr/testify).
+Pada chapter ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan *3rd party* [testify](https://github.com/stretchr/testify).
 
 ## A.58.1. Persiapan
 
@@ -32,9 +32,9 @@ func (k Kubus) Keliling() float64 {
 
 Simpan kode di atas dengan nama `bab55.go`.
 
-## A.58.2. Testing
+## A.58.2. File Testing
 
-File untuk keperluan testing dipisah dengan file utama, namanya harus berakhiran `_test.go`, dan package-nya harus sama. Pada chapter ini, file utama adalah `bab55.go`, maka file testing harus bernama `bab55_test.go`.
+Di Go, file untuk keperluan testing dipisah dengan file utama. Nama file testing harus berakhiran `_test.go`, dan harus ditempatkan di package yang sama seperti source code yang akan di-test. Pada chapter ini, file utama adalah `bab55.go`, maka file testing harus bernama `bab55_test.go`.
 
 Unit test di Go dituliskan dalam bentuk fungsi, yang memiliki parameter yang bertipe `*testing.T`, dengan nama fungsi harus diawali kata **Test** (pastikan sudah meng-import package `testing` sebelumnya). Lewat parameter tersebut, kita bisa mengakses method-method untuk keperluan testing.
 
@@ -144,21 +144,19 @@ Arti dari `30000000  51.1 ns/op` adalah, fungsi di atas di-test sebanyak **30 ju
 
 ## A.58.5. Testing Menggunakan testify
 
-Package **testify** berisikan banyak sekali tools yang bisa dimanfaatkan untuk keperluan testing di Go.
+Package **testify** merupakan salah satu dari sekian banyak *3rd party* yang tersedia untuk keperluan testing di Go. Testify bisa di-download di [github.com/stretchr/testify](https://github.com/stretchr/testify) menggunakan perintah `go get`.
 
-Testify bisa di-download pada [github.com/stretchr/testify](https://github.com/stretchr/testify) menggunakan `go get`.
+Dalam testify terdapat 5 package yang masing-masing memiliki kegunaan berbeda-beda satu sama lain. Detailnya bisa dilihat pada tabel berikut.
 
-Di dalam testify terdapat 5 package dengan kegunaan berbeda-beda satu dengan lainnya. Detailnya bisa dilihat pada tabel berikut.
+| Package   | Kegunaan                                                                                            |
+|:--------- |:--------------------------------------------------------------------------------------------------- |
+| `assert`  | Berisikan tools standar untuk testing                                                               |
+| `http`    | Berisikan tools untuk keperluan testing http                                                        |
+| `mock`    | Berisikan tools untuk mocking object                                                                |
+| `require` | Sama seperti assert, hanya saja jika terjadi fail pada saat test akan menghentikan eksekusi program |
+| `suite`   | Berisikan tools testing yang berhubungan dengan struct dan method                                   |
 
-| Package | Kegunaan                                                                                            |
-|:------- |:--------------------------------------------------------------------------------------------------- |
-| assert  | Berisikan tools standar untuk testing                                                               |
-| http    | Berisikan tools untuk keperluan testing http                                                        |
-| mock    | Berisikan tools untuk mocking object                                                                |
-| require | Sama seperti assert, hanya saja jika terjadi fail pada saat test akan menghentikan eksekusi program |
-| suite   | Berisikan tools testing yang berhubungan dengan struct dan method                                   |
-
-Pada chapter ini akan kita contohkan bagaimana penggunaan package assert. Silakan perhatikan contoh berikut.
+Pada chapter ini akan kita contohkan bagaimana penggunaan package `assert`. Silakan perhatikan contoh berikut.
 
 ```go
 import "github.com/stretchr/testify/assert"
