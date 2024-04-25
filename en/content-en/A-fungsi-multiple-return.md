@@ -1,12 +1,10 @@
 # A.19. Fungsi Multiple Return
 
-Umumnya fungsi hanya memiliki satu buah nilai balik saja. Jika ada kebutuhan di mana data yang dikembalikan harus banyak, biasanya digunakanlah tipe seperti `map`, slice, atau `struct` sebagai nilai balik.
+Di Go, suatu fungsi bisa saja mengembalikan nilai belik lebih dari 1 buah. Teknik ini bisa menjadi alternatif selain menggunakan tipe data kolektif seperti `map`, slice, atau `struct` sebagai nilai balik. Pada chapter ini kita akan belajar penerapannya.
 
-Go menyediakan kapabilitas bagi programmer untuk membuat fungsi memiliki banyak nilai balik. Pada chapter ini akan dibahas bagaimana penerapannya.
+## A.19.1. Penerapan Fungsi Multiple Return
 
-## A.19.1 Penerapan Fungsi Multiple Return
-
-Cara membuat fungsi yang memiliki banyak nilai balik tidaklah sulit. Tinggal tulis saja pada saat deklarasi fungsi semua tipe data nilai yang dikembalikan, dan pada keyword `return` tulis semua data yang ingin dikembalikan. Contoh bisa dilihat pada berikut.
+Cara membuat fungsi agar memiliki banyak nilai balik tidaklah sulit, caranya pada saat deklarasi fungsi, tulis semua tipe data nilai balik yang ingin dikembalikan. Kemudian dalam body fungsi, pada penggunaan keyword `return`, tulis semua data yang ingin dikembalikan. Contoh:
 
 ```go
 package main
@@ -25,7 +23,7 @@ func calculate(d float64) (float64, float64) {
 }
 ```
 
-Fungsi `calculate()` di atas menerima satu buah parameter (`diameter`) yang digunakan dalam proses perhitungan. Di dalam fungsi tersebut ada 2 hal yang dihitung, yaitu nilai **luas** dan **keliling**. Kedua nilai tersebut kemudian dijadikan sebagai return value fungsi.
+Fungsi `calculate()` di atas memiliki satu buah parameter yaitu `d` (diameter). Di dalam fungsi terdapat operasi perhitungan nilai **luas** dan **keliling** dari nilai `d`. Kedua hasilnya kemudian dijadikan sebagai return value.
 
 Cara pendefinisian banyak nilai balik bisa dilihat pada kode di atas, langsung tulis tipe data semua nilai balik dipisah tanda koma, lalu ditambahkan kurung di antaranya.
 
@@ -39,7 +37,7 @@ Tak lupa di bagian penulisan keyword `return` harus dituliskan juga semua data y
 return area, circumference
 ```
 
-Implementasi dari fungsi `calculate()` di atas, bisa dilihat pada kode berikut.
+Sekarang, coba panggil fungsi `calculate()` yang sudah dibuat untuk mencari nilai luas dan keliling dari suatu diameter.
 
 ```go
 func main() {
@@ -55,13 +53,13 @@ Output program:
 
 ![Penerapan teknik multiple return](images/A_fungsi_multiple_return_1_multiple_return.png)
 
-Karena fungsi tersebut memiliki banyak nilai balik, maka pada pemanggilannya harus disiapkan juga banyak variabel untuk menampung nilai kembalian yang ada (sesuai jumlah nilai balik fungsi).
+Fungsi `calculate()` memiliki banyak nilai balik, maka dalam pemanggilannya harus disiapkan juga sejumlah variabel untuk menampung nilai balik fungsi (sesuai dengan jumlah nilai balik yang dideklarasikan).
 
 ```go
 var area, circumference = calculate(diameter)
 ```
 
-## A.19.2 Fungsi Dengan Predefined Return Value
+## A.19.2. Fungsi Dengan Predefined Return Value
 
 Keunikan lainnya yang jarang ditemui di bahasa lain adalah, di Go variabel yang digunakan sebagai nilai balik bisa didefinisikan di awal.
 
@@ -84,15 +82,15 @@ Fungsi dideklarasikan memiliki 2 buah tipe data, dan variabel yang nantinya dija
 
 Karena variabel nilai balik sudah ditentukan di awal, untuk mengembalikan nilai cukup dengan memanggil `return` tanpa perlu diikuti variabel apapun. Nilai terakhir `area` dan `circumference` sebelum pemanggilan keyword `return` adalah hasil dari fungsi di atas.
 
----
+## A.19.3. Penjelasan tambahan
 
-Ada beberapa hal baru dari kode di atas yang perlu dibahas, seperti `math.Pow()` dan `math.Pi`. Berikut adalah penjelasannya.
+Ada beberapa hal baru dari kode di atas yang perlu dibahas, diantaranya `math.Pow()` dan `math.Pi`.
 
-#### • Penggunaan Fungsi `math.Pow()`
+#### ◉ Penggunaan Fungsi `math.Pow()`
 
-Fungsi `math.Pow()` digunakan untuk memangkat nilai. `math.Pow(2, 3)` berarti 2 pangkat 3, hasilnya 8. Fungsi ini berada dalam package `math`.
+Fungsi `math.Pow()` digunakan untuk operasi pangkat nilai. `math.Pow(2, 3)` berarti 2 pangkat 3, hasilnya 8. Fungsi ini berada dalam package `math`.
 
-#### • Penggunaan Konstanta `math.Pi`
+#### ◉ Penggunaan Konstanta `math.Pi`
 
 `math.Pi` adalah konstanta bawaan `package math` yang merepresentasikan **Pi** atau **22/7**.
 
