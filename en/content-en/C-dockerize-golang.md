@@ -2,7 +2,7 @@
 
 Pada chapter ini kita akan praktek men-*dockerize* aplikasi Go, membungkus aplikasi hello world sebagai docker image untuk kemudian di jalankan sebagai container.
 
-Kita tidak akan membahas docker secara detail ya, hanya pengenalannya saja. Untuk teman-teman yang tertarik belajar docker secara komprehensif mulai dari awal, hingga masuk ke docker compose kemudian kubernetes *from zero to hero*, bisa *enroll* course Udemy [Praktis Belajar Docker dan Kubernetes untuk Pemula](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/) berikut.
+Kita tidak akan membahas docker secara detail ya, hanya pengenalannya saja. Untuk pembaca yang tertarik belajar docker secara komprehensif mulai dari awal, hingga masuk ke docker compose kemudian kubernetes *from zero to hero*, bisa *enroll* course Udemy [Praktis Belajar Docker dan Kubernetes untuk Pemula](https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/) berikut.
 
 <a href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/" target="_blank">
     <img src="https://dasarpemrogramangolang.novalagung.com/images/banner.png" style="border: none;">
@@ -14,23 +14,23 @@ Pastikan Docker Engine ter-*install* untuk pengguna Windows atau MacOS. Untuk pe
 
 ## C.35.2. Istilah Dalam Docker
 
-#### • Container
+#### ◉ Container
 
 Container adalah sebuah environment ter-isolasi, merupakan bentuk virtualisasi yang lebih kecil dan ringan dibanding VM (Virtual Machine). Virtualisasi pada container disebut dengan *Containerization*.
 
-#### • Docker Container
+#### ◉ Docker Container
 
 Docker container adalah sebuah container yang di-manage oleh Docker Engine.
 
-#### • Docker Engine
+#### ◉ Docker Engine
 
 Docker engine merupakan *daemon* yang bertugas untuk manajemen container-container.
 
-#### • Docker Image
+#### ◉ Docker Image
 
 Docker Image adalah sebuah file yang di-*generate* oleh docker, yang file tersebut nantinya digunakan untuk basis pembuatan dan eksekusi container.
 
-#### • Containerize dan Dockerize
+#### ◉ Containerize dan Dockerize
 
 Containerize merupakan istilah terhadap aplikasi yang di-*build* ke bentuk Image. Sedangkan Dockerize merupakan istilah untuk containerize menggunakan Docker. Perlu diketahui bahwa penyedia container tidak hanya Docker saja, ada banyak engine container lainnya yang bisa dipergunakan.
 
@@ -189,7 +189,7 @@ Ok, file `Dockerfile` sudah siap, mari kita lanjut ke proses *build* dan *start 
 
 ## C.35.6. *Build Image* dan *Create Container*
 
-#### • Build Image
+#### ◉ Build Image
 
 Pertama masuk ke direktori folder project, lalu jalankan *command* `docker build` berikut.
 
@@ -204,7 +204,7 @@ Kurang lebih outputnya seperti gambar berikut. O iya gunakan *command* `docker i
 
 ![Build Image](images/C_dockerize_golang_2_build_image.png)
 
-#### • Create Container
+#### ◉ Create Container
 
 Image sudah siap, sekarang mari kita buat container baru menggunakan basis image `my-image-hello-world`. *Command*-nya kurang lebih berikut:
 
@@ -227,7 +227,7 @@ Semoga cukup jelas penjabaran di atas. Setelah container berhasil dibuat, cek me
 
 ![Create Container](images/C_dockerize_golang_3_create_container.png)
 
-#### • Start Container
+#### ◉ Start Container
 
 Ok, sekarang container juga sudah dibuat, lanjut untuk *start* container tersebut, caranya menggunakan command `docker container start`. Jika sudah, coba cek di browser aplikasi web hello world, harusnya sudah bisa diakses.
 
@@ -244,7 +244,7 @@ Jika mengalami error saat start container, bisa jadi karena port `8080` sudak di
 
 O iya, pada image di atas juga bisa dilihat penggunaan *command* `docker container ls` untuk memunculkan list container yang sedand *running* atau aktif. Untuk menampilkan semua container (aktif maupun non-aktif), cukup dengan menambahkan flag `-a` atau `--all`.
 
-#### • Stop Container
+#### ◉ Stop Container
 
 Untuk stop container bisa dengan *command* `docker container stop <nama-container-atau-container-id>`.
 
@@ -253,7 +253,7 @@ docker container stop my-container-hello-world
 docker container ls
 ```
 
-#### • Hapus Container
+#### ◉ Hapus Container
 
 Untuk hapus container bisa dengan *command* `docker container rm <nama-container-atau-container-id>`.
 
@@ -262,7 +262,7 @@ docker container rm my-container-hello-world
 docker container ls
 ```
 
-#### • Hapus Image
+#### ◉ Hapus Image
 
 Untuk hapus image bisa dengan *command* `docker image rm <nama-image-atau-image-id>`. O iya, untuk penghapusan image, harus dipastikan terlebih dahulu tidak ada container yang running menggunakan basis image yang ingin dihapus.
 
@@ -279,14 +279,14 @@ Atau bisa juga menggunakan *command* `docker run`. *Command* ini akan membuat co
 
 Mungkin perbandingannya seperti ini:
 
-#### • Jalankan container lewat `create` lalu `start`
+#### ◉ Jalankan container lewat `create` lalu `start`
 
 ```bash
 docker container create --name my-container-hello-world -e PORT=8080 -e INSTANCE_ID="my first instance" -p 8080:8080 my-image-hello-world
 docker container start my-container-hello-world
 ```
 
-#### • Jalankan container lewat `run`
+#### ◉ Jalankan container lewat `run`
 
 ```bash
 docker container run --name my-container-hello-world -e PORT=8080 -e INSTANCE_ID="my first instance" -p 8080:8080 my-image-hello-world
@@ -300,11 +300,11 @@ O iya, khusus untuk *command* `docker run` biasanya dijalankan dengan tambahan b
 docker container run --name my-container-hello-world --rm -it -e PORT=8080 -e INSTANCE_ID="my first instance" -p 8080:8080 my-image-hello-world
 ```
 
-#### • Flag `--rm`
+#### ◉ Flag `--rm`
 
-Flag ini digunakan untuk meng-automatisasi proses penghapusan container sewaktu container tersebut di stop. Jadi kita tidak perlu delete manual pakai `docker container rm`. Hal ini sangat membantu karena *command* `docker run` akan membuat container baru setiap dijalankan. Tapi sebenarnya pada contoh sebelumnya kita tidak perlu khawatir akan dibuat container baru karena sudah ada flag `--name`. Flag tersebut digunakan untuk menentukan nama container, yang di mana nama container harus unik. Jadi kalau ada duplikasi pasti langsung error. Nah dari sini berarti kalau temen-temen tidak pakai `--name` sangat dianjurkan paka `--rm` dalam penerapan `docker run`.
+Flag ini digunakan untuk meng-automatisasi proses penghapusan container sewaktu container tersebut di stop. Jadi kita tidak perlu delete manual pakai `docker container rm`. Hal ini sangat membantu karena *command* `docker run` akan membuat container baru setiap dijalankan. Tapi sebenarnya pada contoh sebelumnya kita tidak perlu khawatir akan dibuat container baru karena sudah ada flag `--name`. Flag tersebut digunakan untuk menentukan nama container, yang di mana nama container harus unik. Jadi kalau ada duplikasi pasti langsung error. Nah dari sini berarti kalau pembaca tidak pakai `--name` sangat dianjurkan paka `--rm` dalam penerapan `docker run`.
 
-#### • Flag `-it`
+#### ◉ Flag `-it`
 
 Flag ini merupakan flag gabungan antara `-i` yang digunakan untuk meng-enable *interactive mode* dan `-t` untuk *enable* `TTY`. Dengan ini kita bisa masuk ke mode interaktif yang di mana jika kita terminate atau kill command menggunakan `CTRL + C` atau `CMD + C` (untuk mac), maka otomatis container akan di stop.
 
