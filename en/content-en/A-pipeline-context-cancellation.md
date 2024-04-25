@@ -19,7 +19,7 @@ Jadi kurang lebih akan ada dua result:
 
 Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi *concurrent* tanpa *cancellation*. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan merujuk ke chapter sebelumnya saja, di sini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
 
-#### • Import Packages dan Definisi Variabel
+#### ◉ Import Packages dan Definisi Variabel
 
 ```go
 package main
@@ -40,7 +40,7 @@ const contentLength = 5000
 var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.61-pipeline-cancellation-context")
 ```
 
-#### • Definisi struct `FileInfo`
+#### ◉ Definisi struct `FileInfo`
 
 ```go
 type FileInfo struct {
@@ -51,7 +51,7 @@ type FileInfo struct {
 }
 ```
 
-#### • Fungsi `main()`
+#### ◉ Fungsi `main()`
 
 ```go
 func main() {
@@ -65,7 +65,7 @@ func main() {
 }
 ```
 
-#### • Fungsi `randomString()`
+#### ◉ Fungsi `randomString()`
 
 ```go
 func randomString(length int) string {
@@ -82,7 +82,7 @@ func randomString(length int) string {
 }
 ```
 
-#### • Fungsi `generateFiles()`
+#### ◉ Fungsi `generateFiles()`
 
 ```go
 func generateFiles() {
@@ -111,7 +111,7 @@ func generateFiles() {
     log.Printf("%d/%d of total files created", counterSuccess, counterTotal)
 }
 ```
-#### • Fungsi `generateFileIndexes()`
+#### ◉ Fungsi `generateFileIndexes()`
 
 ```go
 func generateFileIndexes() <-chan FileInfo {
@@ -131,7 +131,7 @@ func generateFileIndexes() <-chan FileInfo {
 }
 ```
 
-#### • Fungsi `createFiles()`
+#### ◉ Fungsi `createFiles()`
 
 ```go
 func createFiles(chanIn <-chan FileInfo, numberOfWorkers int) <-chan FileInfo {
@@ -179,7 +179,7 @@ Hasil eksekusi program:
 
 Ok, sekarang kita akan refactor kode tersebut, kita tambahkan mekanisme *cancellation* menggunakan `context.Context` API. Silakan duplikasi file program, lalu ikuti petunjuk berikut.
 
-#### • Import package `context`
+#### ◉ Import package `context`
 
 Tambahkan package `context` dalam block import packages.
 
@@ -191,7 +191,7 @@ import (
 )
 ```
 
-#### • Tambahkan definisi konstanta timeout
+#### ◉ Tambahkan definisi konstanta timeout
 
 Di sini saya tentukan timeout adalah 3 detik. Nantinya kita akan modifikasi angka timeout untuk keperluan testing.
 
@@ -199,7 +199,7 @@ Di sini saya tentukan timeout adalah 3 detik. Nantinya kita akan modifikasi angk
 const timeoutDuration = 3 * time.Second
 ```
 
-#### • Penerapan context di fungsi `main()`
+#### ◉ Penerapan context di fungsi `main()`
 
 Pada fungsi main, lakukan sedikit perubahan. Yang sebelumnya ada statement berikut:
 
@@ -253,7 +253,7 @@ Jadi pada contoh yang kita tulis di atas, kurang lebih yang akan dilakukan adala
 * Fungsi `generateFilesWithContext()` dipanggil dengan disisipkan object context.
 * Callback `context.CancelFunc` dipanggil secara deferred. Ini merupakan idiomatic Go dalam penerapan context. Meskipun context sudah punya timeout atau deadline dan kita tidak perlu meng-*cancel* context secara manual, sangat dianjurkan untuk tetap memanggil callback `cancel()` tersebut secara deferred.
 
-#### • Modifikasi fungsi `generateFiles()`
+#### ◉ Modifikasi fungsi `generateFiles()`
 
 Isi dari fungsi `generateFiles()` kita ubah menjadi pemanggilan fungsi `generateFilesWithContext()` dengan parameter context kosong.
 
@@ -319,7 +319,7 @@ Nah jadi lewat seleksi kondisi 2 case di atas, kita bisa dengan mudah mengidenti
 
 Selain beberapa hal yang sudah saya sampaikan, ada *minor changes* lainnya, yaitu pada pemanggilan fungsi `generateFileIndexes()` dan `createFiles()` ditambahkan argument context.
 
-#### • Penambahan context pada fungsi `generateFiles()`
+#### ◉ Penambahan context pada fungsi `generateFiles()`
 
 Kenapa ini perlu? karena **meski eksekusi fungsi `generateFilesWithContext()` otomatis di stop ketika cancelled, proses di dalamnya akan tetap berjalan jika tidak di-*handle* dengan baik *cancellation*-nya.**
 
@@ -355,7 +355,7 @@ Dibanding sebelumnya, perbedaannya adalah ada *channel selection*. Jadi di bagia
 * Jika ada notif cancel paksa, maka case pertama akan terpenuhi, dan perulangan di-`break`.
 * Selebihnya, pengiriman jobs akan berlangsung seperti normalnya.
 
-#### • Penambahan context pada fungsi `createFiles()`
+#### ◉ Penambahan context pada fungsi `createFiles()`
 
 Hal yang sama (cancel di level sub prosees) juga perlu diterapkan pada `createFiles()`, karena jika tidak, maka proses pembuatan file akan tetap berjalan sesuai dengan jumlah jobs yang dikirim meskipun sudah di-cancel secara paksa.
 
