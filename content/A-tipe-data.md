@@ -2,9 +2,9 @@
 
 Go mengenal beberapa jenis tipe data, di antaranya adalah tipe data numerik (desimal & non-desimal), string, dan boolean.
 
-Pada pembahasan-pembahasan sebelumnya secara tak sadar kita sudah mengaplikasikan beberapa tipe data, seperti `string` dan tipe numerik `int`.
+Pada pembahasan-pembahasan sebelumnya secara tak sadar kita sudah mengaplikasikan beberapa tipe data, diantaranya ada `string` dan tipe numerik `int`.
 
-Pada chapter ini akan dijelaskan beberapa macam tipe data standar yang disediakan oleh Go, beserta cara penggunaannya.
+Pada chapter ini akan dijelaskan beberapa macam tipe data standar yang disediakan oleh Go, disertai juga contohnya.
 
 ## A.10.1. Tipe Data Numerik Non-Desimal
 
@@ -42,7 +42,7 @@ fmt.Printf("bilangan negatif: %d\n", negativeNumber)
 
 Variabel `positiveNumber` bertipe `uint8` dengan nilai awal `89`. Sedangkan variabel `negativeNumber` dideklarasikan dengan nilai awal `-1243423644`. Compiler secara cerdas akan menentukan tipe data variabel tersebut sebagai `int32` (karena angka tersebut masuk ke cakupan tipe data `int32`).
 
-Template `%d` pada `fmt.Printf()` digunakan untuk memformat data numerik non-desimal.
+String format `%d` pada `fmt.Printf()` digunakan untuk memformat data numerik non-desimal.
 
 ## A.10.2. Tipe Data Numerik Desimal
 
@@ -59,7 +59,7 @@ Pada kode di atas, variabel `decimalNumber` akan memiliki tipe data `float32`, k
 
 ![Tipe data numerik desimal](images/A_tipe_data_1_decimal_data_type.png)
 
-Template `%f` digunakan untuk memformat data numerik desimal menjadi string. Digit desimal yang akan dihasilkan adalah **6 digit**. Pada contoh di atas, hasil format variabel `decimalNumber` adalah `2.620000`. Jumlah digit yang muncul bisa dikontrol menggunakan `%.nf`, tinggal ganti `n` dengan angka yang diinginkan. Contoh: `%.3f` maka akan menghasilkan 3 digit desimal, `%.10f` maka akan menghasilkan 10 digit desimal.
+String format `%f` digunakan untuk memformat data numerik desimal menjadi string. Digit desimal yang akan dihasilkan adalah **6 digit**. Pada contoh di atas, hasil format variabel `decimalNumber` adalah `2.620000`. Jumlah digit yang muncul bisa dikontrol menggunakan `%.nf`, tinggal ganti `n` dengan angka yang diinginkan. Contoh: `%.3f` maka akan menghasilkan 3 digit desimal, `%.10f` maka akan menghasilkan 10 digit desimal.
 
 ## A.10.3. Tipe Data `bool` (Boolean)
 
@@ -106,7 +106,9 @@ Semua tipe data yang sudah dibahas di atas memiliki zero value (nilai default ti
  - Zero value dari tipe numerik non-desimal adalah `0`.
  - Zero value dari tipe numerik desimal adalah `0.0`.
 
-Zero value berbeda dengan `nil`. `Nil` adalah nilai kosong, benar-benar kosong. `nil` tidak bisa digunakan pada tipe data yang sudah dibahas di atas. Ada beberapa tipe data yang bisa di-set nilainya dengan `nil`, di antaranya:
+Selain tipe data yang disebutkan di atas, ada juga tipe data lain yang zero value-nya adalah `nil`. `Nil` merepresentasikan nilai kosong, benar-benar kosong. `nil` tidak bisa digunakan pada tipe data yang sudah dibahas di atas.
+
+Beberapa tipe data yang bisa di-set nilainya dengan `nil`, di antaranya:
 
 - pointer
 - tipe data fungsi
@@ -115,7 +117,7 @@ Zero value berbeda dengan `nil`. `Nil` adalah nilai kosong, benar-benar kosong. 
 - `channel`
 - interface kosong atau `any` (yang merupakan alias dari `interface{}`)
 
-Nantinya kita akan sering bertemu dengan `nil` setelah masuk pada pembahasan-pembahasan tersebut.
+Nantinya kita akan sering bertemu dengan nilai `nil` setelah masuk pada pembahasan-pembahasan tersebut.
 
 ---
 
