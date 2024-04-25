@@ -1,6 +1,6 @@
 # A.41. Timer, Ticker, & Scheduler
 
-Ada beberapa fungsi dalam package `time` yang bisa dimanfaatkan untuk menunda atau mengatur jadwal eksekusi sebuah proses dalam jeda waktu tertentu.
+Ada beberapa fungsi dalam package `time` yang bisa dimanfaatkan untuk operasi penundaan eksekusi, countdown timer, dan pengaturan jadwal eksekusi sebuah proses.
 
 ## A.41.1. Fungsi `time.Sleep()`
 
@@ -72,7 +72,7 @@ Hasil dari kode di atas, tulisan `"start"` muncul kemudian setelah 4 detik berla
 
 Di dalam callback terdapat proses transfer data lewat channel, menjadikan tulisan `"finish"` akan muncul tepat setelah tulisan `"expired"` muncul.
 
-Beberapa hal yang perlu diketahui dalam menggunakan fungsi ini:
+Beberapa hal yang perlu diketahui ketika menggunakan fungsi ini:
 
  - Jika tidak ada serah terima data lewat channel, maka eksekusi `time.AfterFunc()` adalah asynchronous (tidak blocking).
  - Jika ada serah terima data lewat channel, maka fungsi akan tetap berjalan asynchronous hingga baris kode di mana penerimaan data channel dilakukan. Proses blocking nya berada pada baris kode penerimaan channel.
@@ -126,7 +126,7 @@ func main() {
 
 Pada contoh di atas bisa dilihat, selain ticker disiapkan juga variabel channel `done`. Variabel ini kita gunakan untuk mengontrol kapan ticker harus di stop.
 
-Cara kerja program di atas: teknik `for` - `select` pada channel digunakan untuk mengecek penerimaan data dari channel `done` dan `ticker.C`. By default, channel `ticker.C` akan menerima kiriman data setiap N duration yang di mana pada kode di atas adalah 1 detik (lihat argumen inisialisasi objek ticker).
+Cara kerja program di atas: teknik `for` - `select` pada channel digunakan untuk mengecek penerimaan data dari channel `done` dan `ticker.C`. By default, channel `ticker.C` akan menerima kiriman data setiap `X` duration yang di mana pada kode di atas adalah 1 detik (lihat argumen inisialisasi objek ticker).
 
 Data yang dikirimkan via channel `ticker.C` adalah data date-time kapan event itu terjadi. Pada kode di atas, setiap ada kiriman data via channel tersebut kita tampilkan.
 
@@ -190,7 +190,7 @@ func main() {
 }
 ```
 
-Ketika user tidak menginputkan apa-apa dalam kurun waktu 5 detik, maka akan muncul pesan timeout, lalu program dihentikan.
+Ketika user tidak menginputkan apa-apa dalam kurun waktu 5 detik, pesan timeout muncul lalu program berhenti.
 
 ![Penerapan timer dalam goroutine](images/A_timer_ticker_scheduler_1_timer.png)
 
