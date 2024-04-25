@@ -1,8 +1,8 @@
 # A.22. Fungsi Sebagai parameter
 
-Setelah pada chapter sebelumnya kita belajar mengenai fungsi yang mengembalikan nilai balik berupa fungsi, kali ini topiknya tidak kalah unik, yaitu fungsi yang digunakan sebagai parameter.
+Pada chapter sebelumnya kita telah belajar tentang fungsi yang mengembalikan nilai balik berupa fungsi. Kali ini topiknya tidak kalah unik, yaitu tentang fungsi yang memiliki parameter sebuah fungsi.
 
-Di Go, fungsi bisa dijadikan sebagai tipe data variabel. Dari situ sangat memungkinkan untuk menjadikannya sebagai parameter juga.
+Di Go, fungsi bisa dijadikan sebagai tipe data variabel, maka sangat memungkinkan untuk menjadikannya sebagai parameter.
 
 ## A.22.1. Penerapan Fungsi Sebagai Parameter
 
@@ -50,7 +50,7 @@ func main() {
 }
 ```
 
-Ada cukup banyak hal yang terjadi di dalam tiap pemanggilan fungsi `filter()` di atas. Berikut merupakan penjelasannya.
+Ada cukup banyak hal yang terjadi di dalam tiap pemanggilan fungsi `filter()` di atas. Berikut adalah penjelasannya:
 
  1. Data array (yang didapat dari parameter pertama) akan di-looping.
  2. Di tiap perulangannya, closure `callback` dipanggil, dengan disisipkan data tiap elemen perulangan sebagai parameter.
@@ -62,15 +62,17 @@ Ada cukup banyak hal yang terjadi di dalam tiap pemanggilan fungsi `filter()` di
 
 Pada `dataContainsO`, parameter kedua fungsi `filter()` berisikan statement untuk deteksi apakah terdapat substring `"o"` di dalam nilai variabel `each` (yang merupakan data tiap elemen), jika iya, maka kondisi filter bernilai `true`, dan sebaliknya.
 
-pada contoh ke-2 (`dataLength5`), closure `callback` berisikan statement untuk deteksi jumlah karakter tiap elemen. Jika ada elemen yang jumlah karakternya adalah 5, berarti elemen tersebut lolos filter.
+Pada contoh ke-2 (`dataLength5`), closure `callback` berisikan statement untuk deteksi jumlah karakter tiap elemen. Jika ada elemen yang jumlah karakternya adalah 5, berarti elemen tersebut lolos filter.
 
-Memang butuh usaha ekstra untuk memahami pemanfaatan closure sebagai parameter fungsi. Tapi setelah paham, penerapan teknik ini pada kondisi yang tepat akan sangat membantu proses pembuatan aplikasi.
+Memang butuh usaha ekstra untuk memahami pemanfaatan closure sebagai parameter fungsi. Tapi setelah paham, penerapan teknik ini pada kondisi yang tepat akan sangat berguna.
 
 ## A.22.2. Alias Skema Closure
 
-Kita sudah mempelajari bahwa closure bisa dimanfaatkan sebagai tipe parameter, contohnya seperti pada fungsi `filter()`. Pada fungsi tersebut kebetulan skema tipe parameter closure-nya tidak terlalu panjang, hanya ada satu buah parameter dan satu buah nilai balik.
+Kita sudah mempelajari bahwa closure bisa dimanfaatkan sebagai tipe parameter, contohnya seperti pada fungsi `filter()`. Di fungsi tersebut kebetulan skema tipe parameter closure-nya tidak terlalu panjang, hanya ada satu buah parameter dan satu buah nilai balik.
 
-Pada fungsi yang skema-nya cukup panjang, akan lebih baik jika menggunakan alias, apalagi ketika ada parameter fungsi lain yang juga menggunakan skema yang sama. Membuat alias fungsi berarti menjadikan skema fungsi tersebut menjadi tipe data baru. Caranya dengan menggunakan keyword `type`. Contoh:
+Untuk fungsi yang skema-nya cukup panjang, akan lebih baik jika menggunakan alias dalam pendefinisiannya, apalagi ketika ada parameter fungsi lain yang juga menggunakan skema yang sama, maka kita tidak perlu menuliskan skema panjang fungsi tersebut berulang-ulang.
+
+Membuat alias fungsi berarti menjadikan skema fungsi tersebut menjadi tipe data baru. Caranya dengan menggunakan keyword `type`. Contoh:
 
 ```go
 type FilterCallback func(string) bool
@@ -82,11 +84,11 @@ func filter(data []string, callback FilterCallback) []string {
 
 Skema `func(string) bool` diubah menjadi tipe dengan nama `FilterCallback`. Tipe tersebut kemudian digunakan sebagai tipe data parameter `callback`.
 
----
+## A.22.3. Penjelasan tambahan
 
 Di bawah ini merupakan penjelasan tambahan mengenai fungsi `strings.Contains()`.
 
-## A.22.2.1. Penggunaan Fungsi `string.Contains()`
+#### ◉ Penggunaan Fungsi `string.Contains()`
 
 Inti dari fungsi ini adalah untuk deteksi apakah sebuah substring adalah bagian dari string, jika iya maka akan bernilai `true`, dan sebaliknya. Contoh penggunaannya:
 
