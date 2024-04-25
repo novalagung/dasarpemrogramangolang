@@ -168,7 +168,7 @@ Cara penggunannya juga masih sama.
 </p>
 ```
 
-Output:
+Output program:
 
 ![Fungsi String](images/B_template_functions_4_string_func.png)
 
@@ -205,7 +205,7 @@ Berikut merupakan contoh penerapan fungsi `len` dan `index`.
 </p>
 ```
 
-Output:
+Output program:
 
 ![Fungsi <code>len</code> dan <code>index</code>](images/B_template_functions_5_len_index.png)
 
@@ -224,7 +224,7 @@ Selain fungsi operator perbandingan, terdapat juga operator logika `or`, `and`, 
 {{end}}
 ```
 
-Output:
+Output program:
 
 ![Fungsi <code>or</code>, <code>and</code>, dan <code>not</code>](images/B_template_functions_6_or_and_not.png)
 
