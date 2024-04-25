@@ -1,14 +1,14 @@
 # A.9. Variabel
 
-Go mengadopsi dua jenis penulisan variabel, yaitu yang dituliskan tipe data-nya, dan juga yang tidak. Kedua cara tersebut valid dan tujuannya sama, pembedanya hanya cara penulisannya saja.
+Go mengadopsi dua jenis penulisan variabel, yaitu yang dituliskan tipe data-nya dan yang tidak. Kedua cara tersebut valid dan tujuannya sama yaitu untuk deklarasi variabel, pembedanya hanya pada cara penulisannya saja.
 
 Pada chapter ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel.
 
 ## A.9.1. Deklarasi Variabel Beserta Tipe Data
 
-Go memiliki aturan cukup ketat dalam hal penulisan variabel. Ketika deklarasi, tipe data yg digunakan harus dituliskan juga. Istilah lain dari konsep ini adalah **manifest typing**.
+Go memiliki aturan cukup ketat dalam hal penulisan variabel. Ketika deklarasi, tipe data yg digunakan harus dituliskan juga. Istilah dari metode deklarasi variabel ini adalah **manifest typing**.
 
-Berikut adalah contoh cara pembuatan variabel yang tipe datanya harus ditulis. Silakan tulis pada project baru atau pada project yang sudah ada, bebas. Pastikan saja untuk setiap project baru untuk tidak lupa inisialisasi project menggunakan command `go mod init <nama-project>`. Ok lanjut.
+Berikut adalah contoh cara pembuatan variabel yang tipe datanya harus ditulis. Silakan tulis pada project baru atau pada project yang sudah ada, bebas. Pastikan pada setiap pembuatan project baru untuk tidak lupa menginisialisasi project menggunakan command `go mod init <nama-project>`.
 
 ```go
 package main
@@ -51,7 +51,7 @@ var firstName string = "john"
 
 Nilai variabel bisa di-isi langsung pada saat deklarasi variabel.
 
-#### • Penggunaan Fungsi `fmt.Printf()`
+#### ◉ Penggunaan Fungsi `fmt.Printf()`
 
 Fungsi ini digunakan untuk menampilkan output dalam bentuk tertentu. Kegunaannya sama seperti fungsi `fmt.Println()`, hanya saja struktur outputnya didefinisikan di awal.
 
@@ -65,13 +65,13 @@ fmt.Printf("halo %s %s!\n", firstName, lastName)
 fmt.Println("halo", firstName, lastName + "!")
 ```
 
-Tanda plus (`+`) jika ditempatkan di antara string, fungsinya adalah untuk penggabungan string atau *string concatenation*.
+Tanda plus (`+`) jika digunakan untuk penghubung 2 data string fungsinya adalah untuk operasi penggabungan string atau *string concatenation*.
 
 Fungsi `fmt.Printf()` tidak menghasilkan baris baru di akhir text, oleh karena itu digunakanlah literal *newline* yaitu `\n`, untuk memunculkan baris baru di akhir. Hal ini sangat berbeda jika dibandingkan dengan fungsi `fmt.Println()` yang secara otomatis menghasilkan new line (baris baru) di akhir.
 
 ## A.9.3. Deklarasi Variabel Tanpa Tipe Data
 
-Selain *manifest typing*, Go juga mengadopsi konsep **type inference**, yaitu metode deklarasi variabel yang tipe data-nya ditentukan oleh tipe data nilainya, cara kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword `var` dan tipe data tidak perlu ditulis.
+Selain *manifest typing*, Go juga mengadopsi konsep **type inference**, yaitu metode deklarasi variabel yang tipe data-nya diketahui secara otomatis dari data/nilai variabel. Cara ini kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword `var` dan tipe data tidak perlu ditulis.
 
 ```go
 var firstName string = "john"
@@ -94,7 +94,7 @@ var firstName = "john"
 lastName := "wick"
 ```
 
-Kedua deklarasi di atas maksudnya sama. Silakan pilih yang nyaman di hati.
+Kedua deklarasi di atas maksudnya sama. Silakan pilih sesuai preferensi.
 
 Tanda `:=` hanya digunakan sekali di awal pada saat deklarasi. Untuk assignment nilai selanjutnya harus menggunakan tanda `=`, contoh:
 
@@ -104,7 +104,7 @@ lastName = "ethan"
 lastName = "bourne"
 ```
 
-> Perlu diketahui, deklarasi menggunakan `:=` hanya bisa dilakukan di dalam blok fungsi.
+> Deklarasi menggunakan `:=` hanya bisa dilakukan di dalam blok fungsi, misalnya dalam blok fungsi `main()`
 
 ## A.9.4. Deklarasi Multi Variabel
 
@@ -129,7 +129,7 @@ seventh, eight, ninth := "tujuh", "delapan", "sembilan"
 
 Dengan menggunakan teknik type inference, deklarasi multi variabel bisa dilakukan untuk variabel-variabel yang tipe data satu sama lainnya berbeda.
 
-```
+```go
 one, isFriday, twoPointTwo, say := 1, true, 2.2, "hello"
 ```
 
@@ -153,11 +153,11 @@ Variabel underscore adalah *predefined*, jadi tidak perlu menggunakan `:=` untuk
 
 Biasanya variabel underscore sering dimanfaatkan untuk menampung nilai balik fungsi yang tidak digunakan.
 
-Perlu diketahui, bahwa isi variabel underscore tidak dapat ditampilkan. Data yang sudah masuk variabel tersebut akan hilang. Ibaratkan variabel underscore seperti blackhole, objek apapun yang masuk ke dalamnya, akan terjebak selamanya di-dalam singularity dan tidak akan bisa keluar 😁
+Perlu diketahui, bahwa isi variabel underscore tidak dapat ditampilkan. Data yang sudah masuk variabel tersebut akan hilang. Ibarat variabel underscore ini seperti blackhole, objek apapun yang masuk ke dalamnya, akan terjebak selamanya di-dalam singularity dan tidak akan bisa keluar 😁
 
 ## A.9.6. Deklarasi Variabel Menggunakan Keyword `new`
 
-Keyword `new` digunakan untuk membuat variabel **pointer** dengan tipe data tertentu. Nilai data default-nya akan menyesuaikan tipe datanya.
+Fungsi `new()` digunakan untuk membuat variabel **pointer** dengan tipe data tertentu. Nilai data default-nya akan menyesuaikan tipe datanya.
 
 ```go
 name := new(string)
@@ -166,19 +166,19 @@ fmt.Println(name)   // 0x20818a220
 fmt.Println(*name)  // ""
 ```
 
-Variabel `name` menampung data bertipe **pointer string**. Jika ditampilkan yang muncul bukanlah nilainya melainkan alamat memori nilai tersebut (dalam bentuk notasi heksadesimal). Untuk menampilkan nilai aslinya, variabel tersebut perlu di-**dereference** terlebih dahulu, menggunakan tanda asterisk (`*`).
+Variabel `name` menampung data bertipe **pointer string**. Jika ditampilkan yang muncul bukanlah nilainya melainkan alamat memori nilai tersebut (dalam bentuk notasi heksadesimal). Untuk menampilkan nilai aslinya, variabel tersebut perlu di-**dereference** terlebih dahulu, caranya dengan menuliskan tanda asterisk (`*`) sebelum nama variabel.
 
 Mungkin untuk sekarang banyak yang akan bingung tentang apa itu pointer, namun tak apa, karena nantinya pada chapter [A.23. Pointer](/A-pointer.html) akan dikupas habis topik tersebut.
 
 ## A.9.7. Deklarasi Variabel Menggunakan Keyword `make`
 
-Keyword ini hanya bisa digunakan untuk pembuatan beberapa jenis variabel saja, yaitu:
+Fungsi `make()` ini hanya bisa digunakan untuk pembuatan beberapa jenis variabel saja, yaitu:
 
 - channel
 - slice
 - map
 
-Dan lagi, mungkin banyak yang akan bingung. Ketika sudah masuk ke pembahasan masing-masing poin tersebut, akan terlihat apa kegunaan dari keyword `make` ini.
+Nantinya kita akan bahas lebih detail ketika sudah masuk ke pembahasan masing-masing poin tersebut.
 
 ---
 
