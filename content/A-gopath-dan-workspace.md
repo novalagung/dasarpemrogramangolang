@@ -1,4 +1,4 @@
-# A.4. GOPATH Dan Workspace
+# A.4. GOPATH dan Workspace
 
 Pada chapter ini kita akan belajar tentang apa itu GOPATH beserta cara setupnya.
 
