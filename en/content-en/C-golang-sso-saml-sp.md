@@ -8,7 +8,7 @@ Kali ini topik yang dipilih adalah SAML SSO versi 2.0. Kita akan pelajari cara p
 
 Sebelum kita masuk ke bagian tulis menulis kode, alangkah baiknya sedikit membahas tentang definisi dari SSO dan SAML itu sendiri.
 
-#### • SSO
+#### ◉ SSO
 
 SSO atau Single Sign-On merupakan servis untuk otentikasi dan manajemen session. Dengan SSO, maka akses ke banyak aplikasi cukup bisa sekali otentikasi saja. Contoh SSO:
 
@@ -20,7 +20,7 @@ SSO atau Single Sign-On merupakan servis untuk otentikasi dan manajemen session.
 
 Ada beberapa jenis penerapan SSO yang bisa dipilih, salah satunya adalah **Security Assertion Markup Language** atau **SAML** yang akan kita bahas pada chapter ini.
 
-#### • SAML
+#### ◉ SAML
 
 SAML merupakan protokol open standard untuk otentikasi dan otorisasi antara penyedia layanan (**Service Provider**) dan penyedia identitas (**Identity Provider**). SAML berbasis *assertion* berupa XML.
 
