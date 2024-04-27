@@ -1,6 +1,6 @@
 # B.8. Template: Custom Functions
 
-Pada chapter sebelumnya kita telah mengenal beberapa *predefined* function yang disediakan oleh Go. Kali ini kita akan belajar tentang fungsi custom, bagaimana cara membuat dan menggunakannya dalam template.
+Pada chapter sebelumnya kita telah berkenalan dengan beberapa *predefined* function yang disediakan oleh Go. Kali ini kita akan belajar tentang fungsi custom, bagaimana cara pembuatan dan penggunaannya dalam template.
 
 ## B.8.1. Front End
 
@@ -20,14 +20,14 @@ Pertama, siapkan project baru. Buat file template `view.html`, lalu isi dengan k
 </html>
 ```
 
-Ada 2 hal yang perlu diperhatikan dari kode di atas. Pertama, terdapat dua buah fungsi yang dipanggil beberapa kali.
+Ada 2 hal yang perlu diperhatikan dari kode di atas. Terdapat dua buah fungsi yang dipanggil beberapa kali.
 
  1. Fungsi `unescape()`, digunakan untuk menampilkan string tanpa di-escape
  2. Fungsi `avg()`, digunakan untuk mencari rata-rata dari angka-angka yang disisipkan sebagai parameter
 
 Kedua fungsi tersebut adalah fungsi kustom yang akan kita buat.
 
-Hal ke-2, terdapat 1 baris statement yang penulisannya agak unik, yaitu `{{"</h2>" | unescape}}`. Statement tersebut maknanya adalah string `"</h2>"` digunakan sebagai parameter dalam pemanggilan fungsi `unescape`. Tanda pipe atau `|` adalah penanda bahwa parameter dituliskan terlebih dahulu sebelum nama fungsi nya.
+Di contoh terdapat 1 baris statement yang penulisannya agak unik, yaitu `{{"</h2>" | unescape}}`. Statement tersebut maknanya adalah string `"</h2>"` digunakan sebagai parameter dalam pemanggilan fungsi `unescape`. Tanda pipe atau `|` adalah penanda bahwa parameter dituliskan terlebih dahulu sebelum nama fungsi-nya.
 
 ## B.8.2. Back End
 
@@ -62,7 +62,7 @@ var funcMap = template.FuncMap{
 
 Dalam `funcMap` di atas, dua buah fungsi disiapkan, `unescape()` dan `avg()`. Nantinya fungsi ini kita gunakan di view.
 
-Setelah itu, siapkan fungsi `main()` dengan isi route handler untuk `/`. Di dalam handler ini, `view.html` diparsing, kemudian disisipkan fungsi yang telah dibuat di atas ke dalamnya.
+Setelah itu, siapkan fungsi `main()` dengan isi route handler untuk `/`. Di dalam handler ini, `view.html` diparsing, kemudian fungsi yang telah dibuat di atas disisipkan ke dalam view.
 
 ```go
 func main() {
@@ -86,7 +86,7 @@ Berikut merupakan penjelasan step-by-step mengenai kode panjang untuk parsing da
  2. Fungsi custom yang telah kita buat, diregistrasikan agar dikenali oleh template tersebut. Bisa dilihat pada pemanggilan method `Funcs()`.
  3. Setelah itu, lewat method `ParseFiles()`, view `view.html` di-parsing. Akan dicari dalam file tersebut apakah ada template yang didefinisikan dengan nama `view.html`. Karena di dalam template view tidak ada deklarasi template sama sekali (<code>\{\{template "namatemplate"\}\}</code>), maka akan dicari view yang namanya adalah `view.html`. Keseluruhan isi `view.html` akan dianggap sebagai sebuah template dengan nama template adalah nama file itu sendiri.
 
-## B.8.3. Test
+## B.8.3. Testing
 
 Tes hasilnya lewat browser.
 
@@ -96,9 +96,9 @@ Tes hasilnya lewat browser.
 
 Pada kode di atas, pemanggilan `template.New()` menghasilkan objek bertipe `*template.Template`.
 
-Pada chapter [B.5. Template: Render Partial HTML Template](/B-template-render-partial-html.html) kita telah belajar mengenai fungsi `template.ParseFiles()`, yang fungsi tersebut juga mengembalikan objek bertipe `*template.Template`.
+Pada chapter [B.5. Template: Render Partial HTML Template](/B-template-render-partial-html.html) kita telah belajar mengenai fungsi `template.ParseFiles()` yang fungsi tersebut juga mengembalikan objek bertipe `*template.Template`.
 
-Pada kode di atas, method `ParseFiles()` yang dipanggil bukanlah fungsi `template.ParseFiles()` yang kita telah pelajari sebelumnya. Meskipun namanya sama, kedua fungsi/method ini berbeda.
+Di contoh di chapter ini, method `ParseFiles()` yang dipanggil bukanlah fungsi `template.ParseFiles()` yang kita telah pelajari sebelumnya. Meskipun namanya sama, kedua fungsi/method ini berbeda.
 
  - Fungsi `template.ParseFiles()`, adalah milik package `template`. Fungsi ini digunakan untuk mem-parsing semua view yang disisipkan sebagai parameter.
  - Method `ParseFiles()`, milik `*template.Template`, digunakan untuk memparsing semua view yang disisipkan sebagai parameter, lalu diambil hanya bagian yang nama template-nya adalah sama dengan nama template yang sudah di-alokasikan menggunakan `template.New()`. Jika template yang dicari tidak ada, maka akan mencari yang nama file-nya sama dengan nama template yang sudah ter-alokasi.
@@ -108,7 +108,7 @@ Chapter selanjutnya akan membahas lebih detail mengenai penggunaan method `Parse
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.8-template-custom-functions">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.8...</a>
 </div>
 
