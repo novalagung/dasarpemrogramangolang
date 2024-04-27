@@ -1,10 +1,10 @@
 # B.21. HTTP Cookie
 
-Cookie adalah data dalam bentuk teks yang disimpan pada komputer (oleh web browser) ketika pengunjung sedang surfing ke sebuah situs. Cookie dapat dibuat dari sisi front end (javascript) maupun back end (dalam konteks ini Go).
+Cookie adalah data berbentuk teks yang disimpan pada komputer (oleh web browser) yang biasanya didapat ketika pengunjung sedang surfing di internet, mengakses situs website. Pembuatan cookie dilakukan di sisi aplikasi website, pembuatnya bisa si front end (javascript) bisa juga back end (dalam konteks ini Go).
 
-Cookie merupakan salah satu aspek penting dalam pengembangan aplikasi web. Sangat sering kita membutuhkan sebuah data bisa disimpan dan diakses untuk keperluan aplikasi web kita, seperti pengecekan preferensi pengunjung, pengecekan status login tidak nya user.
+Cookie merupakan salah satu aspek penting dalam pengembangan aplikasi web. Sangat sering kita memerlukan data di web yang perlu untuk disimpan dan mudah diakses oleh aplikasi web yang dikembangkan, diantaranya untuk keperluan seperti pengecekan preferensi pengunjung, pengecekan status login tidaknya user, dan lainnya.
 
-Pada chapter ini kita akan belajar bagaimana cara membuat dan mengakses cookie di Go.
+Pada chapter ini kita akan belajar bagaimana cara membuat dan mengakses cookie lewat Go.
 
 ## B.21.1. Praktek
 
@@ -35,10 +35,10 @@ func main() {
 
 Variabel `cookieName` berisikan string, nantinya digunakan sebagai nama cookie.
 
- - Rute `/` bertugas untuk membuat cookie baru (jika belum ada atau cookie sudah ada namun expired).
+ - Rute `/` bertugas untuk membuat cookie baru (jika belum ada atau cookie sudah ada namun expired)
  - Rute `/delete` mempunyai tugas untuk menghapus cookie, lalu redirect ke `/` sehingga cookie baru akan dibuat
 
-OK, sekarang buat fungsi handler `ActionIndex()`. Di dalam fungsi ini, data berupa random string disimpan dalam cookie.
+OK, sekarang buat fungsi handler `ActionIndex()`. Di dalam handler tersebut terdapat pembuatan cookie yang value-nya diisi data random string.
 
 ```go
 func ActionIndex(w http.ResponseWriter, r *http.Request) {
@@ -62,24 +62,21 @@ func ActionIndex(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Cookie bisa dikases lewat method `.Cookie()` milik objek `*http.Request`. Method ini mengembalikan 2 informasi: 
-
- - Objek cookie 
- - Error, jika ada
-
-Pada kode di atas, ketika `storedCookie` nilainya bukanlah `nil` (berarti cookie dengan nama `cookieName` sudah dibuat), maka objek cookie tersebut disimpan dalam `c`.
+Cookie bisa dikases lewat method `.Cookie()` milik objek `*http.Request`. Method ini mengembalikan 2 informasi yaitu objek cookie dan error, jika ada.
 
 Pembuatan cookie cukup mudah, tinggal cetak saja objek baru dari struct `http.Cookie`.
 
-Jika `c.Value` adalah kosong, kita asumsikan bahwa cookie belum pernah dibuat (atau expired), maka kita buat cookie baru dengan data adalah random string. 
+Pada kode di atas, ketika `storedCookie` nilainya bukan `nil` (berarti cookie dengan nama `cookieName` sudah dibuat), maka objek `storedCookie` nilainya disimpan ke variabel `c`.
+
+Jika `c.Value` bernilai kosong, diasumsikan cookie belum pernah dibuat (atau expired), maka dibuatkanlah cookie baru dengan data adalah random string. 
 
 > Untuk mempermudah generate random string, kita gunakan library bernama [Gubrak v2](https://github.com/novalagung/gubrak). Fungsi `gubrak.RandomString(32)` akan menghasilkan string 32 karakter.
 
-Cookie bisa expired. Lama cookie aktif ditentukan lewat property `Expires`. Pada kode di atas expiration duration kita set selama 5 menit.
+Cookie bisa expired. Lama aktifnya cookie ditentukan lewat property `Expires`. Di contoh durasi 5 menit digunakan sebagai expiration duration cookie.
 
 Gunakan `http.SetCookie()` untuk menyimpan cookie yang baru dibuat.
 
-OK, selanjutnya buat handler `ActionDelete()`, seperti yang sudah disinggung di atas. Handler ini difungsikan untuk menghapus cookie dengan nama `cookieName`, lalu redirect ke `/` agar cookie baru diciptakan.
+Selanjutnya buat handler `ActionDelete()`. Handler ini difungsikan untuk menghapus cookie dengan nama `cookieName`, lalu me-redirect request ke endpoint `/` agar cookie baru diciptakan.
 
 ```go
 func ActionDelete(w http.ResponseWriter, r *http.Request) {
@@ -93,11 +90,11 @@ func ActionDelete(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Cara menghapus cookie adalah dengan menge-set ulang cookie dengan nama yang sama, dengan isi property `Expires = time.Unix(0, 0)` dan `MaxAge = -1`. Tujuannya agar cookie expired.
+Cara menghapus cookie adalah dengan menge-set ulang cookie dengan nama yang sama namun dengan isi property `Expires = time.Unix(0, 0)` dan `MaxAge = -1`.
 
 ## B.21.2. Testing
 
-Jalankan aplikasi, lalu akses `/`. Sebuah random string akan muncul di layar, dan jika kita cek pada bagian response header, informasi cookie nya juga tampil.
+Jalankan aplikasi, lalu akses endpoint `/`. Di halaman website akan muncul sebuah random string, dan jika kita cek pada bagian response header, informasi cookie-nya juga tampil.
 
 ![Cookie](images/B_cookie_1_cookie.png)
 

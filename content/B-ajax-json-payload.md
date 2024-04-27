@@ -1,22 +1,24 @@
 # B.14. AJAX JSON Payload
 
-Sebelumnya kita telah belajar bagaimana cara submit data dari front-end ke back-end menggunakan teknik **Form Data**. Kali ini kita akan belajar tentang cara request menggunakan teknik **Request Payload** dengan tipe payload adalah **JSON**.
+Sebelumnya kita telah mempelajari cara submit data dari front-end ke back-end dengan menggunakan payload **Form Data**. Kali ini kita akan belajar tentang cara request menggunakan payload **JSON**.
 
-Teknik request **Form Data** digunakan salah satu nya pada request submit lewat `<form />`. Pada chapter ini, kita tidak akan menggunakan cara submit lewat form, melainkan menggunakan teknik AJAX (Asynchronous JavaScript And XML), dengan payload ber-tipe JSON.
+> **Form Data** merupakan tipe payload default HTTP request via tag `<form />`
 
-[Perbedaan](http://stackoverflow.com/a/23152367/1467988) antara kedua jenis request tersebut adalah pada isi header `Content-Type`, dan bentuk informasi dikirimkan. Secara default, request lewat `<form />`, content type-nya adalah `application/x-www-form-urlencoded`. Data dikirimkan dalam bentuk query string (key-value) seperti `id=n001&nama=bruce`.
+Pada chapter ini, kita tidak akan menggunakan tag `<form />` untuk submit data, melainkan dengan memanfaatkan teknik AJAX (Asynchronous JavaScript And XML) dengan payload JSON.
 
-> Ketika di form ditambahkan atribut `enctype="multipart/form-data"`, maka content type berubah menjadi `multipart/form-data`.
+Sebenarnya [perbedaan](http://stackoverflow.com/a/23152367/1467988) antara kedua jenis request tersebut ada di dua hal, yaitu isi header `Content-Type` dan struktur informasi dikirimkan. Request lewat `<form />` secara default memiliki content type `application/x-www-form-urlencoded`, efeknya data dikirimkan dalam bentuk query string (key-value) seperti `id=n001&nama=bruce`.
 
-Request Payload JSON sedikit berbeda, `Content-Type` berisikan `application/json`, dan data disisipkan dalam `Body` dalam bentuk **JSON** string.
+> Pengiriman data via tag `<form />` sebenarnya bisa menggunakan content-type selain `application/x-www-form-urlencoded`, yaitu `multipart/form-data`.
+
+Untuk payload JSON, `Content-Type` yang digunakan adalah `application/json`. Dengannya, data disisipkan di dalam `Body` request dalam bentuk **JSON** string.
 
 ## B.14.1. Struktur Folder Proyek 
 
-OK, langsung saja, pertama siapkan proyek dengan struktur seperti pada gambar di bawah ini.
+OK, mari praktek. Pertama siapkan proyek dengan struktur seperti gambar berikut.
 
 ![Struktur proyek](images/B_ajax_json_payload_1_structure.png)
 
-> Silakan unduh file js jQuery dari situs official-nya.
+> Silakan unduh file JS jQuery dari situs official-nya.
 
 ## B.14.2. Front End - HTML
 
@@ -43,7 +45,7 @@ Layout dari view perlu disiapkan terlebih dahulu, tulis kode berikut pada file `
 </html>
 ```
 
-Selanjutnya, pada tag `<form />` tambahkan tabel sederhana berisikan inputan-inputan yang diperlukan. Ada tiga buah inputan yang harus dipersiapkan, yaitu: *Name*, *Age*, dan *Gender*; dan juga sebuah button untuk submit form.
+Selanjutnya, pada tag `<form />` tambahkan tabel sederhana dengan isi didalamnya adalah inputan form. Ada tiga buah inputan yang perlu dibuat yaitu: *Name*, *Age*, dan *Gender*. Selain itu, sebuah button untuk keperluan submit form juga perlu disiapkan.
 
 ```html
 <table noborder>
@@ -79,7 +81,7 @@ Selanjutnya, pada tag `<form />` tambahkan tabel sederhana berisikan inputan-inp
 
 ## B.14.3. Front End - HTML
 
-Sekarang kita masuk ke bagian paling menyenangkan/menyebalkan (tergantung taste), yaitu javascript. Siapkan sebuah event `submit` pada `#user-form`. Dalam event tersebut default handler event submit milik `<form />` di-override, diganti dengan AJAX request.
+Sekarang kita masuk ke bagian paling menyenangkan/menyebalkan (tergantung taste), yaitu javascript. Siapkan sebuah event `submit` pada `#user-form`. Default handler untuk event submit milik `<form />` di-override, diganti dengan AJAX request.
 
 ```js
 $("#user-form").on("submit", function (e) {
@@ -105,9 +107,9 @@ $("#user-form").on("submit", function (e) {
 });
 ```
 
-Value semua inputan diambil lalu dimasukkan dalam sebuah objek lalu di stringify (agar menjadi JSON string), untuk kemudian di jadikan sebagai payload request. Bisa dilihat pada kode AJAX di atas, `contentType` nilainya adalah `application/json`. 
+Value semua inputan dalam form diambil, kemudian dimasukkan ke sebuah objek lalu di stringify, agar berubah menjadi JSON string untuk kemudian di jadikan sebagai payload request. Bisa dilihat pada kode AJAX di atas, `contentType` nilainya adalah `application/json`. 
 
-Respon dari ajax di atas akan dimunculkan pada `<p class="message"></p>`.
+Respon dari AJAX di atas nantinya dimunculkan pada `<p class="message"></p>`.
 
 ## B.14.4. Back End
 
@@ -145,7 +147,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Sedangkan `handleSave` akan memproses request yang di-submit dari bagian depan.
+Sedangkan `handleSave` akan memproses request yang di-submit dari front-end.
 
 ```go
 func handleSave(w http.ResponseWriter, r *http.Request) {
@@ -175,17 +177,18 @@ func handleSave(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Isi payload didapatkan dengan cara men-decode body request (`r.Body`). Proses decoding tidak dilakukan menggunakan `json.Unmarshal()` melainkan lewat json decoder, karena akan [lebih efisien](http://stackoverflow.com/a/21198571/1467988) untuk jenis kasus seperti ini.
+Isi payload didapatkan dengan cara men-decode body request (`r.Body`). Proses decoding tidak dilakukan menggunakan `json.Unmarshal()` melainkan lewat JSON decoder dengan alasan [efisiensinya lebih baik](http://stackoverflow.com/a/21198571/1467988).
 
-> Gunakan `json.Decoder` jika data adalah stream `io.Reader`. Gunakan `json.Unmarshal()` untuk decode data sumbernya sudah ada di memory.
+- `json.Decoder` cocok digunakan untuk decode data JSON yang sumber datanya adalah stream `io.Reader`, contohnya seperti `r.Body`.
+- `json.Unmarshal()` cocok untuk proses decoding yang sumber datanya sudah tersimpan di variabel (bukan stream).
 
 ## B.14.5. Test
 
-Jalankan program, test hasilnya di browser.
+Jalankan program yang telah dibuat, test hasilnya di browser.
 
 ![Hasil tes](images/B_ajax_json_payload_2_test.png)
 
-Gunakan fasilitas Developer Tools pada Chrome untuk melihat detail dari request.
+Gunakan fasilitas Developer Tools pada Chrome untuk menginspeksi aktifitas AJAX-nya.
 
 ![Request](images/B_ajax_json_payload_3_inspect.png)
 
