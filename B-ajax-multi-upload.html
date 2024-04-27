@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,24 +2062,24 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b16-ajax-multiple-file-upload">B.16. AJAX Multiple File Upload</h1>
-<p>Pada chapter ini, kita akan belajar 3 hal dalam satu waktu, yaitu: </p>
+<p>Pada chapter ini, kita akan belajar 3 hal sekaligus yang mencakup poin-poin berikut: </p>
 <ol>
-<li>Bagaiamana cara untuk upload file via AJAX.</li>
-<li>Cara untuk handle upload banyak file sekaligus.</li>
-<li>Cara handle upload file yang lebih hemat memori.</li>
+<li>Cara untuk upload file via AJAX</li>
+<li>Cara untuk handle upload banyak file sekaligus</li>
+<li>Cara handle upload file yang lebih hemat memori</li>
 </ol>
-<p>Sebelumnya pada chapter <a href="B-form-upload-file.html">B.13. Form Upload File</a>, pemrosesan file upload dilakukan lewat <strong>ParseMultipartForm</strong>, sedangkan pada chapter ini metode yang dipakai berbeda, yaitu menggunakan <strong>MultipartReader</strong>. </p>
-<p>Kelebihan dari <code>MultipartReader</code> adalah, file yang di upload <strong>tidak</strong> di simpan sebagai file temporary di lokal terlebih dahulu (tidak seperti <code>ParseMultipartForm</code>), melainkan langsung diambil dari stream <code>io.Reader</code>.</p>
-<p>Di bagian front end, upload file secara asynchronous bisa dilakukan menggunakan objek <a href="https://developer.mozilla.org/en/docs/Web/API/FormData" target="_blank">FormData</a>. Semua file dimasukkan dalam objek <code>FormData</code>, setelah itu objek tersebut dijadikan sebagai payload AJAX request.</p>
+<p>Sebelumnya, pada chapter <a href="B-form-upload-file.html">B.13. Form Upload File</a>, pemrosesan file upload dilakukan lewat <strong>ParseMultipartForm</strong>, sedangkan pada chapter ini metode yang dipakai berbeda, yaitu <strong>MultipartReader</strong>. </p>
+<p>Kelebihan dari <code>MultipartReader</code> adalah, file yang di upload <strong>tidak</strong> di simpan pada file temporary di lokal terlebih dahulu (tidak seperti <code>ParseMultipartForm</code>), melainkan data file bisa diambil langsung dari stream <code>io.Reader</code>.</p>
+<p>Cara penerapan <code>MultipartReader</code> ini membutuhkan front-end untuk melakukan upload file secara asynchronous menggunakan objek <a href="https://developer.mozilla.org/en/docs/Web/API/FormData" target="_blank">FormData</a>. Semua file yang akan di-upload diambil konten dan metadatanya menggunakan javascript untuk dimasukkan ke objek <code>FormData</code>. Setelahnya, object tersebut dijadikan sebagai payload AJAX request.</p>
 <h2 id="b161-struktur-folder-proyek">B.16.1. Struktur Folder Proyek</h2>
-<p>Mari langsung kita praktekkan, pertama siapkan proyek dengan struktur seperti gambar di bawah ini.</p>
+<p>Mari praktekkan, pertama siapkan proyek dengan struktur seperti gambar di bawah ini.</p>
 <p><img src="images/B_ajax_multi_upload_1_structure.png" alt="Dasar Pemrograman Golang - Folder Structure"></p>
 <blockquote>
 <p>Silakan unduh file js jQuery dari situs official jQuery.</p>
 </blockquote>
 <h2 id="b162-front-end">B.16.2. Front End</h2>
-<p>Buka <code>view.html</code>, siapkan template dasar view. Dalam file ini terdapat satu buah inputan upload file yang mendukung multi upload, dan satu buah tombol submit.</p>
-<p>Untuk meng-enable kapabilitas multi upload, cukup tambahkan atribut <code>multiple</code> pada input file.</p>
+<p>Buka <code>view.html</code>, siapkan template dasar view. Dalam file ini terdapat satu buah inputan upload file yang mendukung multi-upload, dan satu buah tombol submit.</p>
+<p>Untuk mengaktifkan kapabilitas multi upload, cukup tambahkan atribut <code>multiple</code> pada input file.</p>
 <pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
@@ -2126,15 +2126,15 @@
     });
 });
 </code></pre>
-<p>Objek inputan files (yang didapat dari <code>$(&quot;#upload-file&quot;)[0].files</code>) memiliki property <code>.files</code> yang isinya merupakan array dari semua file yang dipilih oleh user ketika upload. File-file tersebut di-loop, dimasukkan ke dalam objek <code>FormData</code> yang telah dibuat.</p>
-<p>AJAX dilakukan lewat <code>jQuery.ajax</code>. Berikut adalah penjelasan mengenai konfigurasi <code>processData</code> dan <code>contentType</code> dalam AJAX yang sudah dibuat. </p>
+<p>Objek inputan files (yang didapat dari <code>$(&quot;#upload-file&quot;)[0]</code>) memiliki property <code>.files</code> yang isinya merupakan array dari semua file yang dipilih oleh user ketika upload. File-file tersebut diiterasi, setiap datanya dimasukkan ke dalam objek <code>FormData</code> yang telah dibuat.</p>
+<p>Operasi AJAX request dilakukan lewat <code>jQuery.ajax</code>. Berikut adalah penjelasan mengenai konfigurasi <code>processData</code> dan <code>contentType</code> dalam AJAX yang sudah dibuat. </p>
 <ul>
 <li>Konfigurasi <code>contentType</code> perlu di set ke <code>false</code> agar header Content-Type yang dikirim bisa menyesuaikan data yang disisipkan. </li>
 <li>Konfigurasi <code>processData</code> juga perlu di set ke <code>false</code>, agar data yang akan di kirim tidak otomatis dikonversi ke query string atau json string (tergantung <code>contentType</code>). Pada konteks ini kita memerlukan payload tetap dalam tipe <code>FormData</code>.</li>
 </ul>
-<h2 id="b163-back-end">B.16.3. Back End</h2>
-<p>Ada 2 route handler yang harus dipersiapkan di back end. Pertama adalah rute <code>/</code> yang menampilkan form upload, dan rute <code>/upload</code> untuk pemrosesan upload sendiri.</p>
-<p>Buka file <code>main.go</code>, isi dengan package yang dibutuhkan, lalu lakukan registrasi dua rute yang dimaksud di atas, beserta satu buah rute untuk static assets.</p>
+<h2 id="b163-back-end">B.16.3. Back-End</h2>
+<p>Ada 2 route handler yang harus dipersiapkan di back-end. Pertama adalah rute <code>/</code> untuk keperluan memunculkan form upload, dan rute <code>/upload</code> untuk pemrosesan upload dari AJAX request.</p>
+<p>Buka file <code>main.go</code>, import package yang diperlukan, lalu deklarasikan dua rute yang telah disebut di atas, beserta satu buah rute baru untuk <em>serving</em> static assets.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2163,9 +2163,9 @@
     }
 }
 </code></pre>
-<p>Sebelumnya, pada chapter <a href="B-form-upload-file.html">B.13. Form Upload File</a>, metode yang digunakan untuk handle file upload adalah menggunakan <code>ParseMultipartForm</code>, file di proses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.</p>
+<p>Sebelumnya, pada chapter <a href="B-form-upload-file.html">B.13. Form Upload File</a>, metode yang digunakan untuk handle file upload adalah <code>ParseMultipartForm</code>. Cara kerjanya, file di proses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.</p>
 <p>Metode tersebut kurang tepat guna jika digunakan untuk memproses file yang ukurannya besar (file size melebihi <code>maxMemory</code>) atau jumlah file-nya sangat banyak (memakan waktu, karena isi dari masing-masing file akan ditampung pada file <em>temporary</em> sebelum benar-benar di-copy ke file tujuan).</p>
-<p>Solusinya dari dua masalah di atas adalah menggunakan <code>MultipartReader</code> untuk handling file upload. Dengan metode ini, file destinasi isinya akan di-copy lagsung dari stream <code>io.Reader</code>, tanpa butuh file temporary untuk perantara.</p>
+<p>Solusi dari dua masalah yang telah disebutkan adalah menggunakan <code>MultipartReader</code> untuk handling file upload. Lewat metode ini, file destinasi isidi-copy lagsung dari stream <code>io.Reader</code> tanpa butuh file temporary untuk perantara.</p>
 <p>Kembali ke bagian perkodingan, siapkan fungsi <code>handleUpload</code>, isinya kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> handleUpload(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-keyword">if</span> r.Method != <span class="hljs-string">&quot;POST&quot;</span> {
@@ -2183,8 +2183,8 @@
     <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<p>Bisa dilihat, method <code>.MultipartReader()</code> dipanggil dari objek request milik handler. Mengembalikan dua objek, pertama <code>*multipart.Reader</code> dan <code>error</code> (jika ada).</p>
-<p>Selanjutnya lakukan perulangan terhadap objek <code>reader</code>. Setiap file yang di-upload di proses di masing-masing perulangan. Setelah looping berakhir. idealnya semua file sudah terproses dengan benar.</p>
+<p>Bisa dilihat, method <code>.MultipartReader()</code> dipanggil dari objek request milik handler. Operasi tersebut menghasilkan dua nilai balik, <code>*multipart.Reader</code> dan <code>error</code> (jika ada).</p>
+<p>Selanjutnya, lakukan perulangan terhadap objek <code>reader</code>. Setiap file yang di-upload di proses di masing-masing perulangan. Setelah looping berakhir, idealnya semua file sudah terproses dengan benar.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">for</span> {
     part, err := reader.NextPart()
     <span class="hljs-keyword">if</span> err == io.EOF {
@@ -2210,9 +2210,9 @@
 w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">`all files uploaded`</span>))
 </code></pre>
 <p>Method <code>.NextPart()</code> mengembalikan 2 informasi, yaitu objek stream <code>io.Reader</code> (dari file yg di upload), dan <code>error</code>. </p>
-<p>File destinasi dipersiapkan, kemudian diisi dengan data dari stream file, menggunakan <code>io.Copy()</code>.</p>
-<p>Jika <code>reader.NextPart()</code> mengembalikan error <code>io.EOF</code>, menandakan bahwa semua file sudah di proses, maka hentikan perulangan.</p>
-<p>OK, semua persiapan sudah cukup.</p>
+<p>File destinasi disiapkan kemudian diisi dengan data dari stream file, menggunakan <code>io.Copy()</code>.</p>
+<p>Jika <code>reader.NextPart()</code> mengembalikan error <code>io.EOF</code>, maka bisa disimpulkan semua file telah di proses, kemudian perulangan dihentikan.</p>
+<p>OK, semua persiapan sudah cukup, selanjutnya masuk fase testing.</p>
 <h2 id="b164-testing">B.16.4. Testing</h2>
 <p>Buka browser, test program yang telah dibuat. Coba lakukan pengujian dengan beberapa buah file.</p>
 <p><img src="images/B_ajax_multi_upload_2_upload_files.png" alt="Dasar Pemrograman Golang - Upload files"></p>
@@ -2220,7 +2220,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">`all 
 <p><img src="images/B_ajax_multi_upload_3_uploaded_files.png" alt="Dasar Pemrograman Golang - Uploaded files"></p>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.16-ajax-multi-upload" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.16...</a>
 </div>
 
@@ -2253,7 +2253,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">`all 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"next":{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},"previous":{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-ajax-multi-upload.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"next":{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},"previous":{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-ajax-multi-upload.md","mtime":"2024-04-27T15:33:07.270Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

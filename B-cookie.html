@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,9 +2062,9 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b21-http-cookie">B.21. HTTP Cookie</h1>
-<p>Cookie adalah data dalam bentuk teks yang disimpan pada komputer (oleh web browser) ketika pengunjung sedang surfing ke sebuah situs. Cookie dapat dibuat dari sisi front end (javascript) maupun back end (dalam konteks ini Go).</p>
-<p>Cookie merupakan salah satu aspek penting dalam pengembangan aplikasi web. Sangat sering kita membutuhkan sebuah data bisa disimpan dan diakses untuk keperluan aplikasi web kita, seperti pengecekan preferensi pengunjung, pengecekan status login tidak nya user.</p>
-<p>Pada chapter ini kita akan belajar bagaimana cara membuat dan mengakses cookie di Go.</p>
+<p>Cookie adalah data berbentuk teks yang disimpan pada komputer (oleh web browser) yang biasanya didapat ketika pengunjung sedang surfing di internet, mengakses situs website. Pembuatan cookie dilakukan di sisi aplikasi website, pembuatnya bisa si front end (javascript) bisa juga back end (dalam konteks ini Go).</p>
+<p>Cookie merupakan salah satu aspek penting dalam pengembangan aplikasi web. Sangat sering kita memerlukan data di web yang perlu untuk disimpan dan mudah diakses oleh aplikasi web yang dikembangkan, diantaranya untuk keperluan seperti pengecekan preferensi pengunjung, pengecekan status login tidaknya user, dan lainnya.</p>
+<p>Pada chapter ini kita akan belajar bagaimana cara membuat dan mengakses cookie lewat Go.</p>
 <h2 id="b211-praktek">B.21.1. Praktek</h2>
 <p>Buat sebuah folder proyek, siapkan satu buah file <code>main.go</code>. Buat fungsi <code>main()</code>, registrasikan dua buah rute.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2090,10 +2090,10 @@
 </code></pre>
 <p>Variabel <code>cookieName</code> berisikan string, nantinya digunakan sebagai nama cookie.</p>
 <ul>
-<li>Rute <code>/</code> bertugas untuk membuat cookie baru (jika belum ada atau cookie sudah ada namun expired).</li>
+<li>Rute <code>/</code> bertugas untuk membuat cookie baru (jika belum ada atau cookie sudah ada namun expired)</li>
 <li>Rute <code>/delete</code> mempunyai tugas untuk menghapus cookie, lalu redirect ke <code>/</code> sehingga cookie baru akan dibuat</li>
 </ul>
-<p>OK, sekarang buat fungsi handler <code>ActionIndex()</code>. Di dalam fungsi ini, data berupa random string disimpan dalam cookie.</p>
+<p>OK, sekarang buat fungsi handler <code>ActionIndex()</code>. Di dalam handler tersebut terdapat pembuatan cookie yang value-nya diisi data random string.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> ActionIndex(w http.ResponseWriter, r *http.Request) {
     cookieName := <span class="hljs-string">&quot;CookieData&quot;</span>
 
@@ -2114,20 +2114,16 @@
     w.Write([]<span class="hljs-keyword">byte</span>(c.Value))
 }
 </code></pre>
-<p>Cookie bisa dikases lewat method <code>.Cookie()</code> milik objek <code>*http.Request</code>. Method ini mengembalikan 2 informasi: </p>
-<ul>
-<li>Objek cookie </li>
-<li>Error, jika ada</li>
-</ul>
-<p>Pada kode di atas, ketika <code>storedCookie</code> nilainya bukanlah <code>nil</code> (berarti cookie dengan nama <code>cookieName</code> sudah dibuat), maka objek cookie tersebut disimpan dalam <code>c</code>.</p>
+<p>Cookie bisa dikases lewat method <code>.Cookie()</code> milik objek <code>*http.Request</code>. Method ini mengembalikan 2 informasi yaitu objek cookie dan error, jika ada.</p>
 <p>Pembuatan cookie cukup mudah, tinggal cetak saja objek baru dari struct <code>http.Cookie</code>.</p>
-<p>Jika <code>c.Value</code> adalah kosong, kita asumsikan bahwa cookie belum pernah dibuat (atau expired), maka kita buat cookie baru dengan data adalah random string. </p>
+<p>Pada kode di atas, ketika <code>storedCookie</code> nilainya bukan <code>nil</code> (berarti cookie dengan nama <code>cookieName</code> sudah dibuat), maka objek <code>storedCookie</code> nilainya disimpan ke variabel <code>c</code>.</p>
+<p>Jika <code>c.Value</code> bernilai kosong, diasumsikan cookie belum pernah dibuat (atau expired), maka dibuatkanlah cookie baru dengan data adalah random string. </p>
 <blockquote>
 <p>Untuk mempermudah generate random string, kita gunakan library bernama <a href="https://github.com/novalagung/gubrak" target="_blank">Gubrak v2</a>. Fungsi <code>gubrak.RandomString(32)</code> akan menghasilkan string 32 karakter.</p>
 </blockquote>
-<p>Cookie bisa expired. Lama cookie aktif ditentukan lewat property <code>Expires</code>. Pada kode di atas expiration duration kita set selama 5 menit.</p>
+<p>Cookie bisa expired. Lama aktifnya cookie ditentukan lewat property <code>Expires</code>. Di contoh durasi 5 menit digunakan sebagai expiration duration cookie.</p>
 <p>Gunakan <code>http.SetCookie()</code> untuk menyimpan cookie yang baru dibuat.</p>
-<p>OK, selanjutnya buat handler <code>ActionDelete()</code>, seperti yang sudah disinggung di atas. Handler ini difungsikan untuk menghapus cookie dengan nama <code>cookieName</code>, lalu redirect ke <code>/</code> agar cookie baru diciptakan.</p>
+<p>Selanjutnya buat handler <code>ActionDelete()</code>. Handler ini difungsikan untuk menghapus cookie dengan nama <code>cookieName</code>, lalu me-redirect request ke endpoint <code>/</code> agar cookie baru diciptakan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> ActionDelete(w http.ResponseWriter, r *http.Request) {
     c := &amp;http.Cookie{}
     c.Name = cookieName
@@ -2138,9 +2134,9 @@
     http.Redirect(w, r, <span class="hljs-string">&quot;/&quot;</span>, http.StatusTemporaryRedirect)
 }
 </code></pre>
-<p>Cara menghapus cookie adalah dengan menge-set ulang cookie dengan nama yang sama, dengan isi property <code>Expires = time.Unix(0, 0)</code> dan <code>MaxAge = -1</code>. Tujuannya agar cookie expired.</p>
+<p>Cara menghapus cookie adalah dengan menge-set ulang cookie dengan nama yang sama namun dengan isi property <code>Expires = time.Unix(0, 0)</code> dan <code>MaxAge = -1</code>.</p>
 <h2 id="b212-testing">B.21.2. Testing</h2>
-<p>Jalankan aplikasi, lalu akses <code>/</code>. Sebuah random string akan muncul di layar, dan jika kita cek pada bagian response header, informasi cookie nya juga tampil.</p>
+<p>Jalankan aplikasi, lalu akses endpoint <code>/</code>. Di halaman website akan muncul sebuah random string, dan jika kita cek pada bagian response header, informasi cookie-nya juga tampil.</p>
 <p><img src="images/B_cookie_1_cookie.png" alt="Dasar Pemrograman Golang - Cookie"></p>
 <p>Coba refresh page beberapa kali, informasi header cookie dan data yang muncul adalah tetap sama. Karena ketika cookie sudah pernah dibuat, maka seterusnya endpoint ini akan menggunakan data cookie yang sudah tersimpan tersebut.</p>
 <p>Selanjutnya, buka url <code>/delete</code>, halaman akan di redirect kembali ke <code>/</code>, dan random string baru beserta cookie baru terbuat. Dalam endpoint ini, cookie di hapus, dan karena step selanjutnya adalah redirect ke <code>/</code>, maka proses pengecekan dan pembuatan cookie akan dimulai kembali. Pengunjung akan mendapatkan data cookie baru dengan nama yang sama.</p>
@@ -2198,7 +2194,7 @@
 </ul>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.21-cookie" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.21...</a>
 </div>
 
@@ -2231,7 +2227,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"next":{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"path":"B-simple-configuration.md","ref":"B-simple-configuration.md","articles":[]},"previous":{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"path":"B-custom-mux-multiplexer.md","ref":"B-custom-mux-multiplexer.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-cookie.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"next":{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"path":"B-simple-configuration.md","ref":"B-simple-configuration.md","articles":[]},"previous":{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"path":"B-custom-mux-multiplexer.md","ref":"B-custom-mux-multiplexer.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-cookie.md","mtime":"2024-04-27T15:33:07.270Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

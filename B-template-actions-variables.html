@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,13 +2062,13 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b6-template-actions--variables">B.6. Template: Actions &amp; Variables</h1>
-<p><a href="https://golang.org/pkg/text/template/#hdr-Actions" target="_blank"><strong>Actions</strong></a> adalah <em>predefined</em> keyword yang sudah disediakan Go, biasa dimanfaatkan dalam pembuatan template. </p>
+<p><a href="https://golang.org/pkg/text/template/#hdr-Actions" target="_blank"><strong>Actions</strong></a> merupakan <em>predefined</em> keyword yang disediakan oleh Go. Actions biasa dimanfaatkan dalam pembuatan template. </p>
 <p>Sebenarnya pada dua chapter sebelumnya, secara tidak sadar kita telah menggunakan beberapa jenis actions, di antaranya:</p>
 <ul>
 <li>Penggunaan <strong>pipeline output</strong>. Nilai yang diapit tanda <code>{{ }}</code>, yang nantinya akan dimunculkan di layar sebagai output, contohnya: <code>{{&quot;hello world&quot;}}</code>.</li>
 <li>Include template lain menggunakan keyword <code>template</code>, contohnya: <code>{{template &quot;name&quot;}}</code>.</li>
 </ul>
-<p>Pada chapter ini, kita akan belajar lebih banyak lagi tentang actions lain yang disediakan Go, juga cara pembuatan dan pemanfaatan variabel pada template view.</p>
+<p>Pada chapter ini, kita akan belajar lebih banyak lagi tentang actions lain, juga cara pembuatan dan pemanfaatan variabel pada template view.</p>
 <h2 id="b61-persiapan">B.6.1. Persiapan</h2>
 <p>Pertama-tama, siapkan sebuah file bernama <code>main.go</code>, lalu isi dengan kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2089,7 +2089,7 @@
     Info    Info
 }
 </code></pre>
-<p>Pada kode di atas, dua buah struct disiapkan, <code>Info</code> dan <code>Person</code> (yang di mana struct <code>Info</code> di-embed ke dalam struct <code>Person</code>). Kedua struct tersebut nantinya akan digunakan untuk pembuatan objek, yang kemudian object tersebut disisipkan ke dalam view.</p>
+<p>Pada kode di atas, dua buah struct disiapkan, <code>Info</code> dan <code>Person</code> (yang mana struct <code>Info</code> di-embed ke dalam struct <code>Person</code>). Kedua struct tersebut nantinya akan digunakan untuk pembuatan objek untuk kemudian disisipkan ke dalam view.</p>
 <p>Selanjutnya, siapkan fungsi <code>main()</code>, dengan di dalamnya berisikan 1 buah route handler <code>/</code>, dan juga kode untuk menjalankan server pada port <code>9000</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
@@ -2110,8 +2110,8 @@
     http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
 }
 </code></pre>
-<p>Pada route handler <code>/</code> di atas, variabel objek <code>person</code> dibuat, lalu disisipkan sebagai data pada view <code>view.html</code> yang sebelumya sudah diparsing.</p>
-<p>Perlu diketahui, ketika data yang disisipkan ke view berbentuk <code>map</code>, maka <code>key</code> (yang nantinya akan menjadi nama variabel) boleh dituliskan dalam huruf kecil. Sedangkan jika berupa variabel objek <code>struct</code>, maka property harus dituliskan public (huruf pertama kapital).</p>
+<p>Pada route handler <code>/</code> di atas, variabel objek <code>person</code> dibuat, kemudian disisipkan sebagai data pada view <code>view.html</code>.</p>
+<p>Perlu diketahui, ketika data yang disisipkan ke view bertipe <code>map</code>, maka <code>key</code> (yang nantinya akan menjadi nama variabel) boleh dituliskan dalam huruf kecil. Sedangkan jika berupa variabel objek <code>struct</code>, maka property harus dituliskan public (huruf pertama kapital).</p>
 <blockquote>
 <p>Data yang disisipkan ke view, jika tipe nya adalah struct, maka hanya properties ber-modifier public (ditandai dengan huruf kapital di awal nama property) yang bisa diakses dari view.</p>
 </blockquote>
@@ -2128,7 +2128,7 @@
 </code></pre>
 <p>Selanjutnya silakan ikuti step-step berikut.</p>
 <h2 id="b62-pipeline-output--komentar">B.6.2. Pipeline Output &amp; Komentar</h2>
-<p>Actions pertama yang akan kita coba terapkan adalah pipeline output, menampilkan output ke layar. Caranya cukup mudah, cukup dengan menuliskan apa yang ingin ditampilkan di layar dengan diapit tanda <code>{{ }}</code> (bisa berupa variabel yang dilempar dari back end, bisa juga literal string).</p>
+<p>Actions pertama yang akan kita coba terapkan adalah pipeline output, menampilkan output ke layar. Caranya cukup mudah, dengan menuliskan apa yang ingin ditampilkan di layar dengan diapit tanda <code>{{ }}</code> (bisa berupa variabel yang dilempar dari back end, bisa juga literal string).</p>
 <p>Tulis kode berikut di dalam tag <code>&lt;table&gt;&lt;/table&gt;</code> pada <code>view.html</code>.</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
     {{/* example how to use actions */}}
@@ -2163,7 +2163,7 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
 </code></pre>
-<p>Penulisannya cukup unik, keyword <code>range</code> dituliskan terlebih dahulu, diikuti variabel penampung index dan elemen. Jika yang dibutuhkan hanya elemen saja, bisa cukup gunakan <code>{{range $elem := .Hobbies}}</code>. Semua kode setelah baris deklarasi hingga penutup <code>{{end}}</code>, akan diulang sesuai jumlah elemen/item-nya.</p>
+<p>Penulisannya cukup unik, keyword <code>range</code> dituliskan terlebih dahulu, diikuti variabel penampung index dan elemen. Jika yang dibutuhkan hanya elemen saja, maka gunakan <code>{{range $elem := .Hobbies}}</code>. Semua kode setelah baris deklarasi hingga penutup <code>{{end}}</code>, akan diulang sesuai jumlah elemen/item-nya.</p>
 <p><img src="images/B_template_actions_variables_3_loop.png" alt="Dasar Pemrograman Golang - Perulangan"></p>
 <h2 id="b65-pengaksesan-property-variabel-objek">B.6.5. Pengaksesan Property Variabel Objek</h2>
 <p>Cara mengakses property sebuah variabel objek bisa dilakukan lewat notasi titik <code>.</code>, dengan ketentuan property tersebut bermodifier public.</p>
@@ -2187,7 +2187,7 @@
 <p><img src="images/B_template_actions_variables_5_method.png" alt="Dasar Pemrograman Golang - Mengakses property"></p>
 <p>Lalu bagaimana cara pengaksesan method yang membutuhkan parameter, jika tanda kurungnya tidak boleh dituliskan? Jawabannya akan kita temukan pada chapter selanjutnya.</p>
 <h2 id="b66-penggunaan-keyword-with-untuk-mengganti-scope-variabel-pada-suatu-blok">B.6.6. Penggunaan Keyword <code>with</code> Untuk Mengganti Scope Variabel Pada Suatu Blok</h2>
-<p>Secara default <strong>current scope</strong> di template view adalah data yang dilempar back end. Scope current objek bisa diganti dengan menggunakan keyword <code>with</code>, sehingga nantinya untuk mengakses sub-property variabel objek (seperti <code>.Info.Affiliation</code>), bisa tidak dilakukan dari objek terluar.</p>
+<p>Default-nya, <strong>current scope</strong> di template view adalah data yang dilempar back end. Scope current objek bisa diganti dengan menggunakan keyword <code>with</code>, sehingga nantinya untuk mengakses sub-property variabel objek (seperti <code>.Info.Affiliation</code>), bisa tidak dilakukan dari objek terluar.</p>
 <blockquote>
 <p>Current scope yg dimaksud di sini adalah seperti object <code>this</code> ibarat bahasa pemrograman lain.</p>
 </blockquote>
@@ -2242,7 +2242,7 @@
 </code></pre>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.6-template-actions-variables" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.6...</a>
 </div>
 
@@ -2275,7 +2275,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"next":{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},"previous":{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-template-actions-variables.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"next":{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},"previous":{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-template-actions-variables.md","mtime":"2024-04-27T15:33:07.274Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

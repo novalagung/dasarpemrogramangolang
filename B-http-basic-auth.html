@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,23 +2062,26 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b18-http-basic-authentication">B.18. HTTP Basic Authentication</h1>
-<p>HTTP Basic Auth adalah salah satu teknik otentikasi http request. Metode ini membutuhkan informasi username dan password untuk disisipkan dalam header request (dengan format tertentu), jadi cukup sederhana, tidak memerlukan cookies maupun session. Lebih jelasnya silakan baca <a href="https://tools.ietf.org/html/rfc7617" target="_blank">RFC-7617</a>.</p>
-<p>Informasi username dan password tidak serta merta disisipkan dalam header, informasi tersebut harus di-encode terlebih dahulu ke dalam format yg sudah ditentukan sesuai spesifikasi, sebelum dimasukan ke header.</p>
-<p>Berikut adalah contoh penulisan basic auth.</p>
+<p>HTTP Basic Auth adalah salah satu spesifikasi yang mengatur otentikasi pada HTTP request. Metode ini mewajibkan client request untuk menyertakan username dan password dalam header request. Dengan menerapkan basic auth maka kita tidak perlu menggunakan token untuk mendapatkan session.</p>
+<blockquote>
+<p>Lebih jelasnya mengenai spesifikasi Basic Auth bisa di lihat di<a href="https://tools.ietf.org/html/rfc7617" target="_blank">RFC-7617</a></p>
+</blockquote>
+<p>Informasi username dan password harus di-encode terlebih dahulu ke format yg sudah ditentukan sesuai spesifikasi, kemudian dijadikan value dari header <code>Authentication</code>.</p>
+<p>Berikut adalah contoh format penulisan basic auth:</p>
 <pre><code class="lang-js"><span class="hljs-comment">// Request header</span>
 Authorization: Basic c29tZXVzZXJuYW1lOnNvbWVwYXNzd29yZA==
 </code></pre>
-<p>Informasi disisipkan dalam request header dengan key <code>Authorization</code>, dan value adalah <code>Basic</code> spasi hasil enkripsi dari data username dan password. Data username dan password digabung dengan separator tanda titik dua (<code>:</code>), lalu di-encode dalam format encoding Base 64.</p>
+<p>Informasi disisipkan dalam request header dengan key <code>Authorization</code>, dan value adalah <code>Basic</code> diikut karakter spasi dan hasil encode terhadap data username dan password. Data username dan password digabung dengan separator tanda titik dua (<code>:</code>) lalu di-encode dalam format encoding Base64.</p>
 <pre><code class="lang-js"><span class="hljs-comment">// Username password encryption</span>
 base64encode(<span class="hljs-string">&quot;someusername:somepassword&quot;</span>)
 <span class="hljs-comment">// Hasilnya adalah c29tZXVzZXJuYW1lOnNvbWVwYXNzd29yZA==</span>
 </code></pre>
-<p>Golang menyediakan fungsi untuk meng-handle request basic auth dengan cukup mudah, jadi tidak perlu untuk memparsing header request terlebih dahulu untuk mendapatkan informasi username dan password.</p>
+<p>Go menyediakan fasilitas untuk mengambil informasi basic auth dari suatu HTTP request dengan mudah, tanpa perlu untuk memparsing header request terlebih dahulu secara manual.</p>
 <h2 id="b181-struktur-folder-proyek-dan-endpoint">B.18.1. Struktur Folder Proyek dan Endpoint</h2>
-<p>Ok, mari kita praktekan. Pada chapter ini kita akan membuat sebuah web service sederhana, isinya satu buah endpoint. Endpoint ini kita manfaatkan sebagai dua endpoint, dengan pembeda adalah informasi pada query string-nya.</p>
+<p>Pada chapter ini kita akan membuat sebuah web service sederhana, isinya hanya satu buah endpoint. Endpoint ini didesain untuk bisa menerima query parameter atau tanpa query parameter.</p>
 <ul>
-<li>Endpoint <code>/student</code>, menampilkan semua data siswa.</li>
-<li>Endpoint <code>/student?id=s001</code>, menampilkan data siswa sesuai dengan id yang di minta.</li>
+<li>Endpoint <code>/student</code> menghasilkan response berisi semua data siswa</li>
+<li>Endpoint <code>/student?id=s001</code> menghasilkan response berisi data siswa sesuai dengan id yang di minta</li>
 </ul>
 <p>Data siswa sendiri merupakan slice object yang disimpan di variabel global.</p>
 <p>OK, langsung saja kita praktekan. Siapkan 3 buah file berikut, tempatkan dalam satu folder proyek.</p>
@@ -2101,10 +2104,14 @@ base64encode(<span class="hljs-string">&quot;someusername:somepassword&quot;</sp
     server.ListenAndServe()
 }
 </code></pre>
-<p>Siapkan handler untuk rute <code>/student</code>.</p>
+<p>Lalu siapkan handler untuk rute <code>/student</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> ActionStudent(w http.ResponseWriter, r *http.Request) {
-    <span class="hljs-keyword">if</span> !Auth(w, r)         { <span class="hljs-keyword">return</span> }
-    <span class="hljs-keyword">if</span> !AllowOnlyGET(w, r) { <span class="hljs-keyword">return</span> }
+    <span class="hljs-keyword">if</span> !Auth(w, r)         {
+        <span class="hljs-keyword">return</span>
+    }
+    <span class="hljs-keyword">if</span> !AllowOnlyGET(w, r) {
+        <span class="hljs-keyword">return</span>
+    }
 
     <span class="hljs-keyword">if</span> id := r.URL.Query().Get(<span class="hljs-string">&quot;id&quot;</span>); id != <span class="hljs-string">&quot;&quot;</span> {
         OutputJSON(w, SelectStudent(id))
@@ -2116,15 +2123,15 @@ base64encode(<span class="hljs-string">&quot;someusername:somepassword&quot;</sp
 </code></pre>
 <p>Di dalam rute <code>/student</code> terdapat beberapa validasi.</p>
 <ul>
-<li>Validasi <code>!Auth(w, r)</code>; Nantinya akan kita buat fungsi <code>Auth()</code> untuk mengecek apakah request merupakan valid basic auth request atau tidak.</li>
-<li>Validasi <code>!AllowOnlyGET(w, r)</code>; Nantinya juga akan kita siapkan fungsi <code>AllowOnlyGET()</code>, gunanya untuk memastikan hanya request dengan method <code>GET</code> yang diperbolehkan masuk.</li>
+<li>Validasi <code>!Auth(w, r)</code>; Nantinya kita siapkan fungsi <code>Auth()</code> yang gunanya adalah untuk mengecek apakah request merupakan valid basic auth request atau tidak.</li>
+<li>Validasi <code>!AllowOnlyGET(w, r)</code>; Akan dibuat juga fungsi <code>AllowOnlyGET()</code>, tugasnya memastikan hanya request dengan method <code>GET</code> yang diperbolehkan masuk.</li>
 </ul>
-<p>Setelah request lolos dari 2 validasi di atas, kita cek lagi apakah request ini memiliki parameter student id.</p>
+<p>Setelah request lolos dari 2 validasi di atas, lanjut ke pengecekan berikutnya yaitu mendeteksi apakah request memiliki parameter student id.</p>
 <ul>
-<li>Ketika tidak ada parameter student id, maka endpoint ini mengembalikan semua data user yang ada, lewat pemanggilan fungsi <code>GetStudents()</code>.</li>
-<li>Sedangkan jika ada parameter student id, maka hanya user dengan id yg diinginkan yg dijadikan nilai balik, lewat fungsi <code>SelectStudent(id)</code>.</li>
+<li>Ketika tidak ada parameter student id, maka endpoint ini mengembalikan semua data user yang ada. Fungsi <code>GetStudents()</code> dieksekusi.</li>
+<li>Sedangkan jika ada parameter student id, maka hanya user dengan id yg diinginkan yg dijadikan nilai balik. Fungsi <code>SelectStudent(id)</code> dieksekusi.</li>
 </ul>
-<p>Selanjutnya tambahkan satu fungsi lagi di main, <code>OutputJSON()</code>. Fungsi ini digunakan untuk mengkonversi data menjadi JSON string.</p>
+<p>Selanjutnya tambahkan satu fungsi lagi di <code>main()</code> yaitu <code>OutputJSON()</code>. Fungsi ini digunakan konversi data ke bentuk JSON string.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> OutputJSON(w http.ResponseWriter, o <span class="hljs-keyword">interface</span>{}) {
     res, err := json.Marshal(o)
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
@@ -2136,9 +2143,9 @@ base64encode(<span class="hljs-string">&quot;someusername:somepassword&quot;</sp
     w.Write(res)
 }
 </code></pre>
-<p>Konversi dari objek atau slice ke JSON string bisa dilakukan dengan memanfaatkan <code>json.Marshal</code>. Untuk lebih jelasnya silakan baca lagi chapter <a href="A-json.html">A.53. JSON Data</a>.</p>
+<p>Konversi dari objek atau slice ke JSON string dilakukan via <code>json.Marshal()</code>. Lebih jelasnya mengenai fungsi tersebut di bahas di chapter <a href="A-json.html">A.53. JSON Data</a>.</p>
 <h2 id="b183-data-student">B.18.3. Data <code>Student</code></h2>
-<p>Buka file <code>student.go</code>, siapkan struct <code>Student</code> dan variabel untuk menampung data yang bertipe <code>[]Student</code>. Data inilah yang dijadikan nilai balik di endpoint yang sudah dibuat.</p>
+<p>Buka file <code>student.go</code>, siapkan struct <code>Student</code> dan variabel untuk menampung data yang bertipe <code>[]Student</code>. Data inilah yang nantinya dijadikan nilai balik endpoint <code>/student</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">var</span> students = []*Student{}
@@ -2149,7 +2156,7 @@ base64encode(<span class="hljs-string">&quot;someusername:somepassword&quot;</sp
     Grade <span class="hljs-keyword">int32</span>
 }
 </code></pre>
-<p>Buat fungsi <code>GetStudents()</code>, fungsi ini mengembalikan semua data student. Dan buat juga fungsi <code>SelectStudent(id)</code>, fungsi ini mengembalikan data student sesuai dengan id terpilih.</p>
+<p>Buat fungsi <code>GetStudents()</code>, fungsi ini mengembalikan semua data student. Buat juga fungsi <code>SelectStudent(id)</code>, fungsi ini mengembalikan data student sesuai dengan id terpilih.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> GetStudents() []*Student {
     <span class="hljs-keyword">return</span> students
 }
@@ -2164,7 +2171,7 @@ base64encode(<span class="hljs-string">&quot;someusername:somepassword&quot;</sp
     <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
 }
 </code></pre>
-<p><em>Last but not least</em>, implementasikan fungsi <code>init()</code>, buat beberapa dummy data untuk ditampung pada variabel <code>students</code>. </p>
+<p><em>Last but not least</em>, implementasikan fungsi <code>init()</code> yang didalamnya berisi pembuatan beberapa dummy data untuk ditampung variabel <code>students</code>. </p>
 <blockquote>
 <p>Fungsi <code>init()</code> adalah fungsi yang secara otomatis dipanggil ketika package tersebut di import atau di run.</p>
 </blockquote>
@@ -2175,7 +2182,7 @@ base64encode(<span class="hljs-string">&quot;someusername:somepassword&quot;</sp
 }
 </code></pre>
 <h2 id="b184-fungsi-auth-dan-allowonlyget">B.18.4. Fungsi <code>Auth()</code> dan <code>AllowOnlyGET()</code></h2>
-<p>Selanjutnya, kita perlu menyiapkan beberapa fungsi yg digunakan pada <code>main.go</code>, yaitu <code>Auth()</code> dan <code>AllowOnlyGET()</code>.</p>
+<p>Selanjutnya, ada dua fungsi lainnya yang perlu dipersiapkan yaitu <code>Auth()</code> dan <code>AllowOnlyGET()</code>.</p>
 <h4 id="&#x25C9;-fungsi-auth">&#x25C9; Fungsi <code>Auth()</code></h4>
 <p>Buka <code>middleware.go</code>, siapkan fungsi <code>Auth()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2208,9 +2215,9 @@ base64encode(<span class="hljs-string">&quot;someusername:somepassword&quot;</sp
 <li>Password</li>
 <li>Nilai balik ke-3 ini adalah representasi valid tidak nya basic auth request yang sedang berlangsung</li>
 </ol>
-<p>Jika basic auth request tidak valid, maka tampilkan pesan error sebagai nilai balik. Sedangkan jika basic auth adalah valid, maka dilanjutkan ke proses otentikasi, mengecek apakah username dan password yang dikirim cocok dengan username dan password yang ada di aplikasi kita.</p>
+<p>Error dimunculkan ketika basic auth terdeteksi adalah tidak valid. Sedangkan jika ternyata valid, maka dilanjutkan ke proses otentikasi, mengecek apakah username dan password yang dikirim cocok dengan username dan password yang sudah di-<em>hardcode</em>.</p>
 <h4 id="&#x25C9;-fungsi-allowonlyget">&#x25C9; Fungsi <code>AllowOnlyGET()</code></h4>
-<p>Fungsi ini bertugas untuk memastikan bahwa request yang diperbolehkan hanya yang ber-method <code>GET</code>. Selainnya, maka akan dianggap invalid request.</p>
+<p>Fungsi ini bertugas memastikan bahwa request yang diperbolehkan hanya yang ber-method <code>GET</code>. Selainnya, maka dianggap invalid request.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> AllowOnlyGET(w http.ResponseWriter, r *http.Request) <span class="hljs-keyword">bool</span> {
     <span class="hljs-keyword">if</span> r.Method != <span class="hljs-string">&quot;GET&quot;</span> {
         w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;Only GET is allowed&quot;</span>))
@@ -2221,19 +2228,19 @@ base64encode(<span class="hljs-string">&quot;someusername:somepassword&quot;</sp
 }
 </code></pre>
 <h2 id="b185-testing">B.18.5. Testing</h2>
-<p>Semuanya sudah siap, jalankan aplikasi.</p>
+<p>Semuanya sudah siap, sekarang jalankan aplikasi.</p>
 <pre><code class="lang-bash">go run *.go
 </code></pre>
-<p>Jangan menggunakan <code>go run main.go</code>, dikarenakan dalam package <code>main</code> terdapat beberapa file lain yang harus di-ikut-sertakan pada saat runtime.</p>
+<p>Jangan menggunakan <code>go run main.go</code>, dikarenakan dalam package <code>main</code> terdapat beberapa file lain yang harus diikutsertakan pada saat runtime.</p>
 <p><img src="images/B_http_basic_auth_2_run_server.png" alt="Dasar Pemrograman Golang - Run the server"></p>
-<p>Test web service kecil ini menggunakan command <code>curl</code>.</p>
+<p>Test web service yang telah dibuat menggunakan command <code>curl</code>.</p>
 <pre><code class="lang-bash">$ curl -X GET --user batman:secret http://localhost:9000/student
 $ curl -X GET --user batman:secret http://localhost:9000/student?id=s001
 </code></pre>
 <p><img src="images/B_http_basic_auth_3_test_api.png" alt="Dasar Pemrograman Golang - Consume API"></p>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.18-http-basic-auth" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.18...</a>
 </div>
 
@@ -2266,7 +2273,7 @@ $ curl -X GET --user batman:secret http://localhost:9000/student?id=s001
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"next":{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"path":"B-middleware-using-http-handler.md","ref":"B-middleware-using-http-handler.md","articles":[]},"previous":{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-http-basic-auth.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"next":{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"path":"B-middleware-using-http-handler.md","ref":"B-middleware-using-http-handler.md","articles":[]},"previous":{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-http-basic-auth.md","mtime":"2024-04-27T15:33:07.270Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

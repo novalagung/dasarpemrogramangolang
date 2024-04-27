@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,8 +2062,8 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b4-template-render-html-template">B.4. Template: Render HTML Template</h1>
-<p>Pada bagian ini kita akan belajar bagaimana cara render file <strong>template</strong> ber-tipe <strong>HTML</strong>, untuk ditampilkan pada browser. </p>
-<p>Terdapat banyak jenis template pada Go, yang akan kita pakai adalah template HTML. Package <code>html/template</code> berisi banyak sekali fungsi untuk kebutuhan rendering dan parsing file template jenis ini.</p>
+<p>Pada bagian ini kita akan belajar bagaimana cara render file <strong>template</strong> yang berisi <strong>HTML</strong> untuk ditampilkan ke layar browser. </p>
+<p>Terdapat banyak jenis template pada Go, di sini yang akan kita pakai adalah template HTML. Package <code>html/template</code> berisi banyak sekali fungsi untuk operasi rendering dan parsing file template HTML.</p>
 <h2 id="b41-struktur-aplikasi">B.4.1. Struktur Aplikasi</h2>
 <p>Buat project baru, siapkan file dan folder dengan struktur sesuai dengan gambar berikut.</p>
 <p><img src="images/B_template_render_html_1_structure.png" alt="Dasar Pemrograman Golang - Structure"></p>
@@ -2106,12 +2106,12 @@ err = tmpl.Execute(w, data)
 </code></pre>
 <p>Package <code>path</code> berisikan banyak fungsi yang berhubungan dengan lokasi folder atau path, yang salah satu di antaranya adalah fungsi <code>path.Join()</code>. Fungsi ini digunakan untuk menggabungkan folder atau file atau keduanya menjadi sebuah path, dengan separator relatif terhadap OS yang digunakan.</p>
 <blockquote>
-<p>Separator yang digunakan oleh <code>path.Join()</code> adalah <code>\</code> untuk wind*ws dan <code>/</code> untuk un*x.</p>
+<p>Separator yang digunakan oleh <code>path.Join()</code> adalah <code>\</code> untuk windows dan <code>/</code> untuk linux/unix/macos.</p>
 </blockquote>
 <p>Contoh penerapan <code>path.Join()</code> bisa dilihat di kode di atas, <code>views</code> di-join dengan <code>index.html</code>, menghasilkan <code>views/index.html</code>.</p>
 <p>Sedangkan <code>template.ParseFiles()</code>, digunakan untuk parsing file template, dalam contoh ini file <code>view/index.html</code>. Fungsi ini mengembalikan 2 data, yaitu hasil dari proses parsing yang bertipe <code>*template.Template</code>, dan informasi <code>error</code> jika ada.</p>
-<p>Fungsi <code>http.Error()</code> digunakan untuk menandai response (<code>http.ResponseWriter</code>) bahwa terjadi error, dengan kode error dan pesan error bisa ditentukan. Pada contoh di atas yang digunakan adalah <strong>500 - internal server error</strong> yang direpresentasikan oleh variabel <code>http.StatusInternalServerError</code>.</p>
-<p>Method <code>Execute()</code> milik <code>*template.Template</code>, digunakan untuk menyisipkan data pada template, untuk kemudian ditampilkan ke browser. Data bisa disipkan dalam bentuk <code>struct</code>, <code>map</code>, atau <code>interface{}</code>.</p>
+<p>Fungsi <code>http.Error()</code> digunakan untuk menandai HTTP request dengan response berupa error dengan kode serta pesan error bisa kita tentukan sendiri. Pada contoh di atas yang digunakan adalah <strong>500 - internal server error</strong>, direpresentasikan oleh variabel <code>http.StatusInternalServerError</code>.</p>
+<p>Method <code>Execute()</code> milik <code>*template.Template</code>, digunakan untuk menyisipkan data pada template, kemudian menampilkannya ke browser. Data bisa disipkan ke view dalam bentuk <code>struct</code>, <code>map</code>, atau <code>interface{}</code>.</p>
 <ul>
 <li>Jika dituliskan dalam bentuk <code>map</code>, maka <strong>key</strong> akan menjadi nama variabel dan <strong>value</strong> menjadi nilainya</li>
 <li>Jika dituliskan dalam bentuk variabel objek cetakan <code>struct</code>, nama <strong>property</strong> akan menjadi nama variabel</li>
@@ -2132,10 +2132,10 @@ err = tmpl.Execute(w, data)
 <p>Untuk menampilkan variabel yang disisipkan ke dalam template, gunakan notasi <code>{{.namaVariabel}}</code>. Pada contoh di atas, data <code>title</code> dan <code>name</code> yang dikirim dari back end ditampilkan.</p>
 <p>Tanda titik &quot;.&quot; pada {{.namaVariabel}} menerangkan bahwa variabel tersebut diakses dari <strong>current scope</strong>. Dan current scope default adalah data <code>map</code> atau objek yang dilempar back end.</p>
 <h2 id="b44-testing">B.4.4. Testing</h2>
-<p>Semua sudah siap, maka jalankan program lalu lakukan testing via browser.</p>
+<p>Semua sudah siap, sekarang jalankan program, lalu lakukan testing di browser.</p>
 <p><img src="images/B_template_render_html_2_output.png" alt="Dasar Pemrograman Golang - Output HTML"></p>
 <h2 id="b45-static-file-css">B.4.5. Static File CSS</h2>
-<p>Kita akan coba tambahkan sebuah stylesheet di sini. Langsung saja, buat file statis <code>assets/site.css</code>, isi dengan kode berikut.</p>
+<p>Coba tambahkan sebuah stylesheet di sini. Buat file <code>assets/site.css</code>, isi dengan kode berikut.</p>
 <pre><code class="lang-css"><span class="hljs-selector-tag">body</span> {
     <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&quot;Helvetica Neue&quot;</span>;
     <span class="hljs-attribute">font-weight</span>: bold;
@@ -2162,7 +2162,7 @@ err = tmpl.Execute(w, data)
 <p><img src="images/B_template_render_html_3_static_route.png" alt="Dasar Pemrograman Golang - CSS berhasil di-load"></p>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.4-template-render-html" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.4...</a>
 </div>
 
@@ -2195,7 +2195,7 @@ err = tmpl.Execute(w, data)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"next":{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},"previous":{"title":"B.3. Routing Static Assets","level":"4.1.3","depth":2,"path":"B-routing-static-assets.md","ref":"B-routing-static-assets.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-template-render-html.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"next":{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},"previous":{"title":"B.3. Routing Static Assets","level":"4.1.3","depth":2,"path":"B-routing-static-assets.md","ref":"B-routing-static-assets.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-template-render-html.md","mtime":"2024-04-27T15:33:07.274Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

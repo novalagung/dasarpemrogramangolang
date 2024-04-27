@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,11 +2062,11 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b13-form-upload-file">B.13. Form Upload File</h1>
-<p>Pada bagian ini kita akan belajar bagaimana cara meng-handle upload file lewat form. Di beberapa bagian caranya mirip seperti pada chapter sebelumnya, hanya perlu ditambahkan proses untuk handling file yang di-upload. File tersebut disimpan ke dalam path/folder tertentu.</p>
+<p>Pada bagian ini kita akan belajar bagaimana cara meng-handle upload file yang dilakukan via form submit di sisi front-end. Pada beberapa bagian, caranya mirip seperti pada chapter sebelumnya, perbedaannya kali ini handler berisi proses untuk handling file yang di-upload. Proses yang dimaksud adalah memproses payload file dari front-end untuk kemudian disimpan ke path/folder.</p>
 <h2 id="b131-struktur-folder-proyek">B.13.1. Struktur Folder Proyek</h2>
 <p>Sebelum mulai masuk ke bagian koding, siapkan terlebih dahulu file dan folder dengan struktur seperti gambar berikut.</p>
 <p><img src="images/B_form_upload_file_1_structure.png" alt="Dasar Pemrograman Golang - Folder Structure"></p>
-<p>Program sederhana yang akan kita buat, memiliki satu form dengan 2 inputan, alias dan file. Data file nantinya disimpan pada folder <code>files</code> yang telah dibuat, dengan nama sesuai nama file aslinya. Kecuali ketika user mengisi inputan alias, maka nama tersebut yang akan digunakan sebagai nama file tersimpan.</p>
+<p>Program sederhana yang akan dibuat memiliki satu form dengan 2 inputan yaitu alias dan file. Di back-end, nantinya data file disimpan ke folder <code>files</code>, dengan default nama file sesuai nama file aslinya. Kecuali ketika user mengisi inputan alias, maka nama tersebut yang akan digunakan sebagai nama file tersimpan.</p>
 <h2 id="b132-front-end">B.13.2. Front End</h2>
 <p>Di bagian front end, isi file <code>view.html</code> dengan kode berikut. Template file ini nantinya yang dimunculkan sebagai landing page.</p>
 <pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
@@ -2087,10 +2087,10 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
-<p>Perlu diperhatikan, pada tag <code>&lt;form&gt;</code> perlu ditambahkan atribut <code>enctype=&quot;multipart/form-data&quot;</code>, agar http request mendukung upload file.</p>
-<h2 id="b133-back-end">B.13.3. Back End</h2>
-<p>Di layer back end ada cukup banyak package yang perlu di-import, seperti <code>os, io, path/filepath</code>, dan lainnya. Packages tersebut kita perlukan untuk handling file upload.</p>
-<p>Pada fungsi <code>main()</code> siapkan 2 buah route handler, satu untuk landing page, dan satunya lagi digunakan ketika proses upload selesai (sama seperti pada chapter sebelumnya).</p>
+<p>Perlu diperhatikan, pada tag <code>&lt;form&gt;</code> perlu ditambahkan atribut <code>enctype=&quot;multipart/form-data&quot;</code>, agar HTTP request mendukung operasi upload file.</p>
+<h2 id="b133-back-end">B.13.3. Back-End</h2>
+<p>Di layer back-end ada cukup banyak package yang perlu di-import, seperti <code>os, io, path/filepath</code>, dan lainnya. Packages tersebut kita perlukan untuk handling file upload.</p>
+<p>Pada fungsi <code>main()</code> siapkan 2 buah route handler, satu untuk landing page dan satunya lagi digunakan ketika proses upload selesai (sama seperti pada chapter sebelumnya).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
@@ -2138,7 +2138,7 @@
     <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<p>Method <code>ParseMultipartForm()</code> digunakan untuk mem-parsing form data yang ada data file nya. Argumen <code>1024</code> pada method tersebut adalah <code>maxMemory</code>. Pemanggilan method tersebut membuat file yang terupload disimpan sementara pada memory dengan alokasi adalah sesuai dengan <code>maxMemory</code>. Jika ternyata kapasitas yang sudah dialokasikan tersebut tidak cukup, maka file akan disimpan dalam temporary file.</p>
+<p>Method <code>ParseMultipartForm()</code> digunakan untuk mem-parsing form data yang ada data file-nya. Argumen <code>1024</code> pada method tersebut adalah <code>maxMemory</code>. Pemanggilan method tersebut membuat file yang terupload disimpan sementara pada memory dengan alokasi sesuai <code>maxMemory</code>. Jika ternyata kapasitas yang sudah dialokasikan tersebut tidak cukup, maka file akan disimpan dalam temporary file.</p>
 <p>Masih dalam fungsi <code>routeSubmitPost()</code>, tambahkan kode untuk mengambil data alias dan file.</p>
 <pre><code class="lang-go">alias := r.FormValue(<span class="hljs-string">&quot;alias&quot;</span>)
 
@@ -2155,13 +2155,13 @@ dir, err := os.Getwd()
     <span class="hljs-keyword">return</span>
 }
 </code></pre>
-<p>Statement <code>r.FormFile(&quot;file&quot;)</code> digunakan untuk mengambil file yg di upload, mengembalikan 3 objek: </p>
+<p>Statement <code>r.FormFile(&quot;file&quot;)</code> digunakan untuk mengambil file yg di upload, dan mengembalikan 3 objek: </p>
 <ul>
 <li>Objek bertipe multipart.File (yang merupakan turunan dari <code>*os.File</code>)</li>
 <li>Informasi header file (bertipe <code>*multipart.FileHeader</code>)</li>
 <li>Dan <code>error</code> jika ada</li>
 </ul>
-<p>Tahap selanjutnya adalah, menambahkan kode membuat file baru, yang nantinya file ini akan diisi dengan isi dari file yang ter-upload. Jika inputan <code>alias</code> di-isi, maka nama nilai inputan tersebut dijadikan sebagai nama file.</p>
+<p>Tahap selanjutnya adalah menambahkan kode membuat file baru, yang nantinya file ini akan diisi dengan isi dari file yang ter-upload. Jika inputan <code>alias</code> di-isi, maka nama nilai inputan tersebut dijadikan sebagai nama file.</p>
 <pre><code class="lang-go">filename := handler.Filename
 <span class="hljs-keyword">if</span> alias != <span class="hljs-string">&quot;&quot;</span> {
     filename = fmt.Sprintf(<span class="hljs-string">&quot;%s%s&quot;</span>, alias, filepath.Ext(handler.Filename))
@@ -2182,18 +2182,18 @@ targetFile, err := os.OpenFile(fileLocation, os.O_WRONLY|os.O_CREATE, <span clas
 
 w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;done&quot;</span>))
 </code></pre>
-<p>Fungsi <code>filepath.Ext</code> digunakan untuk mengambil ekstensi dari sebuah file. Pada kode di atas, <code>handler.Filename</code> yang berisi nama file terupload diambil ekstensinya, lalu digabung dengan <code>alias</code> yang sudah terisi.</p>
-<p>Fungsi <code>filepath.Join</code> berguna untuk pembentukan path.</p>
-<p>Fungsi <code>os.OpenFile</code> digunakan untuk membuka file. Fungsi ini membutuhkan 3 buah parameter:</p>
+<p>Fungsi <code>filepath.Ext()</code> digunakan untuk mengambil ekstensi dari sebuah file. Pada kode di atas, <code>handler.Filename</code> yang berisi nama file terupload diambil ekstensinya, lalu digabung dengan <code>alias</code> yang sudah terisi.</p>
+<p>Fungsi <code>filepath.Join()</code> berguna untuk pembentukan path.</p>
+<p>Fungsi <code>os.OpenFile()</code> digunakan untuk membuka file. Fungsi ini membutuhkan 3 buah argument parameter dalam pemanggilannya:</p>
 <ul>
-<li>Parameter pertama merupakan path atau lokasi dari file yang ingin di buka</li>
+<li>Parameter pertama merupakan path atau lokasi dari file yang ingin di buka.</li>
 <li>Parameter kedua adalah flag mode, apakah <em>read only</em>, <em>write only</em>, atau keduanya, atau lainnya. <ul>
 <li><code>os.O_WRONLY|os.O_CREATE</code> maknanya, file yang dibuka hanya akan bisa di tulis saja (<em>write only</em> konsantanya adalah <code>os.O_WRONLY</code>), dan file tersebut akan dibuat jika belum ada (konstantanya <code>os.O_CREATE</code>). </li>
 </ul>
 </li>
 <li>Sedangkan parameter terakhir adalah permission dari file, yang digunakan dalam pembuatan file itu sendiri.</li>
 </ul>
-<p>Fungsi <code>io.Copy</code> akan mengisi konten file parameter pertama (<code>targetFile</code>) dengan isi parameter kedua (<code>uploadedFile</code>). File kosong yang telah kita buat tadi akan diisi dengan data file yang tersimpan di memory.</p>
+<p>Fungsi <code>io.Copy()</code> mengisi konten file parameter pertama (<code>targetFile</code>) dengan isi parameter kedua (<code>uploadedFile</code>). File kosong yang telah kita buat tadi akan diisi dengan data file yang tersimpan di memory.</p>
 <blockquote>
 <p>Nantinya pada salah satu pembahasan pada chapter <a href="B-ajax-multi-upload.html">B.16. AJAX Multiple File Upload</a> akan dijelaskan cara handling file upload dengan metode yang lebih efektif dan hemat memori, yaitu menggunakan <code>MultipartReader</code>.</p>
 </blockquote>
@@ -2202,7 +2202,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot
 <p><img src="images/B_form_upload_file_2_files.png" alt="Dasar Pemrograman Golang - Test upload"></p>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.13-form-upload-file" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.13...</a>
 </div>
 
@@ -2235,7 +2235,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"next":{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"path":"B-ajax-json-payload.md","ref":"B-ajax-json-payload.md","articles":[]},"previous":{"title":"B.12. Form Value","level":"4.1.12","depth":2,"path":"B-form-value.md","ref":"B-form-value.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-form-upload-file.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"next":{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"path":"B-ajax-json-payload.md","ref":"B-ajax-json-payload.md","articles":[]},"previous":{"title":"B.12. Form Value","level":"4.1.12","depth":2,"path":"B-form-value.md","ref":"B-form-value.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-form-upload-file.md","mtime":"2024-04-27T15:33:07.270Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

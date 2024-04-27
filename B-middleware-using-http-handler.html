@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,26 +2062,33 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b19-middleware-httphandler">B.19. Middleware <code>http.Handler</code></h1>
-<p>Pada chapter ini, kita akan belajar penggunaan interface <code>http.Handler</code> untuk implementasi custom middleware. Kita akan menggunakan sample proyek pada chapter sebelumnya <a href="B-http-basic-auth.html">B.18. HTTP Basic Auth</a> sebagai dasar bahan pembahasan chapter ini.</p>
+<p>Pada chapter ini, topik yang dibahas adalah penerapan interface <code>http.Handler</code> untuk implementasi custom middleware. Kita gunakan sample proyek pada chapter sebelumnya <a href="B-http-basic-auth.html">B.18. HTTP Basic Auth</a> sebagai dasar bahan pembahasan chapter ini.</p>
 <blockquote>
-<p>Apa itu middleware? Istilah middleware berbeda-beda di tiap bahasa/framework. NodeJS dan Rails ada istilah middleware. Pada pemrograman Java Enterprise, istilah filters digunakan. Pada C# istilahnya adalah delegate handlers. Definisi dari middleware sendiri versi penulis, sebuah blok kode yang dipanggil sebelum ataupun sesudah http request di proses.</p>
+<p>Apa itu middleware? </p>
+<p>Istilah middleware berbeda-beda di tiap bahasa/framework. Di NodeJS dan Rails ada istilah middleware. Pada pemrograman Java Enterprise, istilah filters digunakan. Pada C# middleware disebut dengan delegate handlers. Definisi sederhana middleware adalah sebuah blok kode yang dipanggil sebelum ataupun sesudah http request di proses.</p>
 </blockquote>
-<p>Pada chapter sebelumnya, kalau dilihat, ada beberapa proses yang dijalankan dalam handler rute <code>/student</code>, yaitu pengecekan otentikasi dan pengecekan method. Misalnya terdapat rute lagi, maka dua validasi tersebut juga harus dipanggil lagi dalam handlernya.</p>
+<p>Pada chapter sebelumnya, terdapat beberapa proses yang dijalankan dalam handler rute <code>/student</code>, yaitu pengecekan otentikasi dan pengecekan HTTP method. Misalnya terdapat rute lagi, maka dua validasi tersebut juga harus dipanggil lagi dalam handlernya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> ActionStudent(w http.ResponseWriter, r *http.Request) {
-    <span class="hljs-keyword">if</span> !Auth(w, r) { <span class="hljs-keyword">return</span> }
-    <span class="hljs-keyword">if</span> !AllowOnlyGET(w, r) { <span class="hljs-keyword">return</span> }
+    <span class="hljs-keyword">if</span> !Auth(w, r) {
+        <span class="hljs-keyword">return</span>
+    }
+    <span class="hljs-keyword">if</span> !AllowOnlyGET(w, r) {
+        <span class="hljs-keyword">return</span>
+    }
 
     <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<p>Jika ada banyak rute, apa yang harus kita lakukan? salah satu solusi yang bisa digunakan adalah dengan memanggil fungsi <code>Auth()</code> dan <code>AllowOnlyGet()</code> di semua handler rute yang ada. Namun jelasnya ini bukan best practice. Dan juga belum tentu di tiap rute hanya ada dua validasi ini, bisa saja ada lebih banyak proses, misalnya pengecekan csrf, authorization, dan lainnya. </p>
-<p>Solusi dari masalah tersebut adalah, mengkonversi fungsi-fungsi di atas menjadi middleware.</p>
+<p>Jika ada banyak rute, apa yang harus kita lakukan? salah satu solusi adalah dengan memanggil fungsi <code>Auth()</code> dan <code>AllowOnlyGet()</code> di setiap handler rute yang ada. Namun jelasnya ini bukan best practice karena mengharuskan penulisan kode yang berulang-ulang. Selain itu, bisa jadi ada jenis validasi lainnya yang harus diterapkan, misalnya misalnya pengecekan csrf, authorization, dan lainnya. Maka perlu ada desain penataan kode yang lebih efisien tanpa harus menuliskan validasi yang banyak tersebut berulang-ulang. </p>
+<p>Solusi yang pas adalah dengan membuat middleware baru untuk keperluan validasi.</p>
 <h2 id="b191-interface-httphandler">B.19.1. Interface <code>http.Handler</code></h2>
-<p>Interface <code>http.Handler</code> merupakan tipe data paling populer di Go untuk keperluan manajemen middleware. Struct yang mengimplementasikan interface ini diwajibkan memilik method dengan skema <code>ServeHTTP(ResponseWriter, *Request)</code>.</p>
-<p>Di Go sendiri objek utama untuk keperluan routing yaitu <code>mux</code> atau multiplexer, adalah mengimplementasikan interface <code>http.Handler</code> ini.</p>
-<p>Dengan memanfaatkan interface ini, kita akan membuat beberapa middleware. Fungsi  pengecekan otentikasi dan pengecekan method akan kita ubah menjadi middleware terpisah.</p>
+<p>Interface <code>http.Handler</code> merupakan tipe data paling populer di Go untuk keperluan manajemen middleware. Struct yang mengimplementasikan interface ini diwajibkan untuk memilik method dengan skema <code>ServeHTTP(ResponseWriter, *Request)</code>.</p>
+<blockquote>
+<p>Di Go, objek utama untuk keperluan routing web server adalah <code>mux</code> (kependekan dari multiplexer), dan <code>mux</code> ini mengimplementasikan interface <code>http.Handler</code>.</p>
+</blockquote>
+<p>Kita akan buat beberapa middleware baru dengan memanfaatkan interface <code>http.Handler</code> untuk keperluan pengecekan otentikasi dan pengecekan HTTP method.</p>
 <h2 id="b192-persiapan">B.19.2. Persiapan</h2>
-<p>OK, mari kita praktekan. Pertama duplikat folder project sebelumnya sebagai folder proyek baru.  Lalu pada <code>main.go</code>, ubah isi fungsi <code>ActionStudent</code> dan <code>main</code>.</p>
+<p>OK, mari masuk ke bagian <em>coding</em>. Pertama duplikat folder project sebelumnya sebagai folder proyek baru. Lalu pada <code>main.go</code>, ubah isi fungsi <code>ActionStudent()</code> dan <code>main()</code>.</p>
 <ul>
 <li><p>Fungsi<code>ActionStudent()</code></p>
 <pre><code class="lang-go"> <span class="hljs-keyword">func</span> ActionStudent(w http.ResponseWriter, r *http.Request) {
@@ -2114,10 +2121,11 @@
 </code></pre>
 </li>
 </ul>
-<p>Perubahan pada kode <code>ActionStudent()</code> adalah, pengecekan basic auth dan pengecekan method dihapus. Selain itu di fungsi <code>main()</code> juga terdapat cukup banyak perubahan, yang detailnya akan kita bahas di bawah ini.</p>
+<p>Perubahan pada kode <code>ActionStudent()</code> adalah penghapusan kode untuk pengecekan basic auth dan HTTP method. Selain itu, di fungsi <code>main()</code> juga terdapat cukup banyak perubahan, yang detailnya akan dijelaskan sebentar lagi.</p>
 <h2 id="b193-mux--multiplexer">B.19.3. Mux / Multiplexer</h2>
 <p>Di Go, mux (kependekan dari multiplexer) adalah router. Semua routing pasti dilakukan lewat objek mux.</p>
-<p>Apa benar? routing <code>http.HandleFunc()</code> sepertinya tidak menggunakan mux? Begini, sebenarnya routing tersebut juga menggunakan mux. Go memiliki default objek mux yaitu <code>http.DefaultServeMux</code>. Routing yang langsung dilakukan dari fungsi <code>HandleFunc()</code> milik package <code>net/http</code> sebenarnya mengarah ke method default mux <code>http.DefaultServeMux.HandleFunc()</code>. Agar lebih jelas, silakan perhatikan dua kode berikut.</p>
+<p>Apa benar? Routing <code>http.HandleFunc()</code> sepertinya tidak menggunakan mux? Begini, sebenarnya routing tersebut juga menggunakan mux. Go memiliki default objek mux yaitu <code>http.DefaultServeMux</code>. Routing yang langsung dilakukan dari fungsi <code>HandleFunc()</code> milik package <code>net/http</code> sebenarnya mengarah ke method default mux <code>http.DefaultServeMux.HandleFunc()</code>.</p>
+<p>Agar lebih jelas perbedaannya, silakan perhatikan dua kode berikut.</p>
 <pre><code class="lang-go">http.HandleFunc(<span class="hljs-string">&quot;/student&quot;</span>, ActionStudent)
 
 <span class="hljs-comment">// vs</span>
@@ -2125,21 +2133,23 @@
 mux := http.DefaultServeMux
 mux.HandleFunc(<span class="hljs-string">&quot;/student&quot;</span>, ActionStudent)
 </code></pre>
-<p>Dua kode di atas menghasilkan hasil yang sama persis.</p>
-<p>Mux sendiri adalah bentuk nyata struct yang mengimplementasikan interface <code>http.Handler</code>. Untuk lebih jelasnya silakan baca dokumentasi package net/http di <a href="https://golang.org/pkg/net/http/#Handle" target="_blank">https://golang.org/pkg/net/http/#Handle</a>.</p>
-<p>Kembali ke pembahasan source code. Di kode setelah routing, bisa dilihat objek <code>mux</code> ditampung ke variabel baru bertipe <code>http.Handler</code>. Seperti ini adalah valid karena memang struct multiplexer memenuhi kriteria interface <code>http.Handler</code>, yaitu memiliki method <code>ServeHTTP()</code>. </p>
-<p>Lalu dari objek <code>handler</code> tersebut, ke-dua middleware dipanggil dengan parameter adalah objek <code>handler</code> itu sendiri dan nilai baliknya ditampung pada objek yang sama.</p>
+<p>Dua kode di atas melakukan prosees yang ekuivalen.</p>
+<p>Mux sendiri adalah bentuk nyata struct yang mengimplementasikan interface <code>http.Handler</code>. Di kode setelah routing, bisa dilihat objek <code>mux</code> ditampung ke variabel baru bertipe <code>http.Handler</code>. Seperti ini adalah valid karena memang struct multiplexer memenuhi kriteria interface <code>http.Handler</code>, yaitu memiliki method <code>ServeHTTP()</code>. </p>
+<blockquote>
+<p>Untuk lebih jelasnya silakan baca dokumentasi package net/http di <a href="https://golang.org/pkg/net/http/#Handle" target="_blank">https://golang.org/pkg/net/http/#Handle</a></p>
+</blockquote>
+<p>Lalu dari objek <code>handler</code> tersebut, ke-dua middleware dipanggil dengan argument parameter diisi objek <code>handler</code> itu sendiri, dan nilai baliknya ditampung pada objek yang sama.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> handler http.Handler = mux
 handler = MiddlewareAuth(handler)
 handler = MiddlewareAllowOnlyGet(handler)
 </code></pre>
-<p>Fungsi <code>MiddlewareAuth()</code> dan <code>MiddlewareAllowOnlyGet()</code> adalah middleware yang akan kita buat setelah ini. Cara registrasi middleware yang paling populer adalah dengan memanggilnya secara sekuensial atau berurutan, seperti pada kode di atas.</p>
+<p>Fungsi <code>MiddlewareAuth()</code> dan <code>MiddlewareAllowOnlyGet()</code> adalah middleware yang akan kita buat sebentar lagi. Cara registrasi middleware yang paling populer adalah dengan memanggilnya secara sekuensial atau berurutan, seperti pada kode di atas.</p>
 <ul>
-<li><code>MiddlewareAuth()</code> bertugas untuk melakukan pengencekan credentials, basic auth.</li>
-<li><code>MiddlewareAllowOnlyGet()</code> bertugas untuk melakukan pengecekan method.</li>
+<li><code>MiddlewareAuth()</code> bertugas melakukan pengencekan credentials, basic auth.</li>
+<li><code>MiddlewareAllowOnlyGet()</code> bertugas melakukan pengecekan method.</li>
 </ul>
 <blockquote>
-<p>Silakan lihat source code beberapa library middleware yang sudah terkenal seperti gorilla, gin-contrib, echo middleware, dan lainnya; Semua metode implementasi middleware-nya adalah sama, atau paling tidak mirip. Point plus nya, beberapa di antara library tersebut mudah diintegrasikan dan compatible satu sama lain.</p>
+<p>Silakan lihat source code beberapa library middleware yang sudah terkenal seperti gorilla, gin-contrib, echo middleware, dan lainnya; Semua metode implementasi middleware-nya adalah sama, atau minimal mirip. Point plus nya, beberapa di antara library tersebut mudah diintegrasikan dan <em>compatible</em> satu sama lain.</p>
 </blockquote>
 <p>Kedua middleware yang akan kita buat tersebut mengembalikan fungsi bertipe <code>http.Handler</code>. Eksekusi middleware sendiri terjadi pada saat ada http request masuk.</p>
 <p>Setelah semua middleware diregistrasi. Masukan objek <code>handler</code> ke property <code>.Handler</code> milik server.</p>
@@ -2167,8 +2177,8 @@ server.Handler = handler
     })
 }
 </code></pre>
-<p>Idealnya fungsi middleware harus mengembalikan struct yang implements <code>http.Handler</code>. Beruntungnya, Go sudah menyiapkan fungsi ajaib untuk mempersingkat pembuatan struct-yang-implemenets-<code>http.Handler</code>. Fungsi tersebut adalah <code>http.HandlerFunc</code>, cukup bungkus callback <code>func(http.ResponseWriter,*http.Request)</code> sebagai tipe <code>http.HandlerFunc</code> dan semuanya beres.</p>
-<p>Isi dari <code>MiddlewareAuth()</code> sendiri adalah pengecekan basic auth, sama seperti pada chapter sebelumnya.</p>
+<p>Idealnya fungsi middleware harus mengembalikan struct yang implements <code>http.Handler</code>. Beruntungnya, Go sudah menyiapkan fungsi ajaib untuk mempersingkat pembuatan struct yang implement <code>http.Handler</code>, yaitu fungsi <code>http.HandlerFunc()</code>. Cukup bungkus callback <code>func(http.ResponseWriter,*http.Request)</code> sebagai tipe <code>http.HandlerFunc()</code> maka semuanya beres.</p>
+<p>Isi dari <code>MiddlewareAuth()</code> sendiri adalah pengecekan basic auth (sama seperti pada chapter sebelumnya).</p>
 <p>Tak lupa, ubah juga <code>AllowOnlyGet()</code> menjadi <code>MiddlewareAllowOnlyGet()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> MiddlewareAllowOnlyGet(next http.Handler) http.Handler {
     <span class="hljs-keyword">return</span> http.HandlerFunc(<span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
@@ -2186,10 +2196,10 @@ server.Handler = handler
 <p><img src="images/B_http_basic_auth_2_run_server.png" alt="Dasar Pemrograman Golang - Run the server"></p>
 <p>Lalu test menggunakan <code>curl</code>, hasilnya adalah sama dengan pada chapter sebelumnya.</p>
 <p><img src="images/B_http_basic_auth_3_test_api.png" alt="Dasar Pemrograman Golang - Consume API"></p>
-<p>Dibanding metode pada chapter sebelumnya, dengan teknik ini kita bisa sangat mudah mengontrol lalu lintas routing aplikasi, karena semua rute pasti melewati middleware terlebih dahulu sebelum sampai ke tujuan. Cukup maksimalkan middleware tersebut tanpa menggangu fungsi callback masing-masing rute.</p>
+<p>Dibanding metode pada chapter sebelumnya, dengan teknik ini kita lebih mudah mengontrol lalu lintas routing aplikasi, karena semua rute pasti melewati layer middleware terlebih dahulu sebelum sampai ke handler tujuan. Cukup maksimalkan saja penerapan middleware tanpa perlu menambahkan validasi di masing-masing handler.</p>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.19-middleware-using-http-handler" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.19...</a>
 </div>
 
@@ -2222,7 +2232,7 @@ server.Handler = handler
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"next":{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"path":"B-custom-mux-multiplexer.md","ref":"B-custom-mux-multiplexer.md","articles":[]},"previous":{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-middleware-using-http-handler.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"next":{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"path":"B-custom-mux-multiplexer.md","ref":"B-custom-mux-multiplexer.md","articles":[]},"previous":{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-middleware-using-http-handler.md","mtime":"2024-04-27T15:33:07.274Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

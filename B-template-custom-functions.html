@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,7 +2062,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b8-template-custom-functions">B.8. Template: Custom Functions</h1>
-<p>Pada chapter sebelumnya kita telah mengenal beberapa <em>predefined</em> function yang disediakan oleh Go. Kali ini kita akan belajar tentang fungsi custom, bagaimana cara membuat dan menggunakannya dalam template.</p>
+<p>Pada chapter sebelumnya kita telah berkenalan dengan beberapa <em>predefined</em> function yang disediakan oleh Go. Kali ini kita akan belajar tentang fungsi custom, bagaimana cara pembuatan dan penggunaannya dalam template.</p>
 <h2 id="b81-front-end">B.8.1. Front End</h2>
 <p>Pertama, siapkan project baru. Buat file template <code>view.html</code>, lalu isi dengan kode berikut.</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
@@ -2077,13 +2077,13 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
-<p>Ada 2 hal yang perlu diperhatikan dari kode di atas. Pertama, terdapat dua buah fungsi yang dipanggil beberapa kali.</p>
+<p>Ada 2 hal yang perlu diperhatikan dari kode di atas. Terdapat dua buah fungsi yang dipanggil beberapa kali.</p>
 <ol>
 <li>Fungsi <code>unescape()</code>, digunakan untuk menampilkan string tanpa di-escape</li>
 <li>Fungsi <code>avg()</code>, digunakan untuk mencari rata-rata dari angka-angka yang disisipkan sebagai parameter</li>
 </ol>
 <p>Kedua fungsi tersebut adalah fungsi kustom yang akan kita buat.</p>
-<p>Hal ke-2, terdapat 1 baris statement yang penulisannya agak unik, yaitu <code>{{&quot;&lt;/h2&gt;&quot; | unescape}}</code>. Statement tersebut maknanya adalah string <code>&quot;&lt;/h2&gt;&quot;</code> digunakan sebagai parameter dalam pemanggilan fungsi <code>unescape</code>. Tanda pipe atau <code>|</code> adalah penanda bahwa parameter dituliskan terlebih dahulu sebelum nama fungsi nya.</p>
+<p>Di contoh terdapat 1 baris statement yang penulisannya agak unik, yaitu <code>{{&quot;&lt;/h2&gt;&quot; | unescape}}</code>. Statement tersebut maknanya adalah string <code>&quot;&lt;/h2&gt;&quot;</code> digunakan sebagai parameter dalam pemanggilan fungsi <code>unescape</code>. Tanda pipe atau <code>|</code> adalah penanda bahwa parameter dituliskan terlebih dahulu sebelum nama fungsi-nya.</p>
 <h2 id="b82-back-end">B.8.2. Back End</h2>
 <p>View sudah siap, sekarang saatnya pindah ke bagian back end. Isi <code>main.go</code>, tentukan package sebagai <code>main</code> dan import package lain yang diperlukan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2110,7 +2110,7 @@
 <p>Tipe <code>template.FuncMap</code> sebenarnya merupakan alias dari <code>map[string]interface{}</code></p>
 </blockquote>
 <p>Dalam <code>funcMap</code> di atas, dua buah fungsi disiapkan, <code>unescape()</code> dan <code>avg()</code>. Nantinya fungsi ini kita gunakan di view.</p>
-<p>Setelah itu, siapkan fungsi <code>main()</code> dengan isi route handler untuk <code>/</code>. Di dalam handler ini, <code>view.html</code> diparsing, kemudian disisipkan fungsi yang telah dibuat di atas ke dalamnya.</p>
+<p>Setelah itu, siapkan fungsi <code>main()</code> dengan isi route handler untuk <code>/</code>. Di dalam handler ini, <code>view.html</code> diparsing, kemudian fungsi yang telah dibuat di atas disisipkan ke dalam view.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
         <span class="hljs-keyword">var</span> tmpl = template.Must(template.New(<span class="hljs-string">&quot;view.html&quot;</span>).
@@ -2131,13 +2131,13 @@
 <li>Fungsi custom yang telah kita buat, diregistrasikan agar dikenali oleh template tersebut. Bisa dilihat pada pemanggilan method <code>Funcs()</code>.</li>
 <li>Setelah itu, lewat method <code>ParseFiles()</code>, view <code>view.html</code> di-parsing. Akan dicari dalam file tersebut apakah ada template yang didefinisikan dengan nama <code>view.html</code>. Karena di dalam template view tidak ada deklarasi template sama sekali (<code>{{template &quot;namatemplate&quot;}}</code>), maka akan dicari view yang namanya adalah <code>view.html</code>. Keseluruhan isi <code>view.html</code> akan dianggap sebagai sebuah template dengan nama template adalah nama file itu sendiri.</li>
 </ol>
-<h2 id="b83-test">B.8.3. Test</h2>
+<h2 id="b83-testing">B.8.3. Testing</h2>
 <p>Tes hasilnya lewat browser.</p>
 <p><img src="images/B_template_custom_functions_1_func.png" alt="Dasar Pemrograman Golang - Custom Function"></p>
 <h2 id="b84-perbadaan-fungsi-templateparsefiles--method-parsefiles-milik-templatetemplate">B.8.4. Perbadaan Fungsi <code>template.ParseFiles()</code> &amp; Method <code>ParseFiles()</code> Milik <code>*template.Template</code></h2>
 <p>Pada kode di atas, pemanggilan <code>template.New()</code> menghasilkan objek bertipe <code>*template.Template</code>. </p>
-<p>Pada chapter <a href="B-template-render-partial-html.html">B.5. Template: Render Partial HTML Template</a> kita telah belajar mengenai fungsi <code>template.ParseFiles()</code>, yang fungsi tersebut juga mengembalikan objek bertipe <code>*template.Template</code>.</p>
-<p>Pada kode di atas, method <code>ParseFiles()</code> yang dipanggil bukanlah fungsi <code>template.ParseFiles()</code> yang kita telah pelajari sebelumnya. Meskipun namanya sama, kedua fungsi/method ini berbeda.</p>
+<p>Pada chapter <a href="B-template-render-partial-html.html">B.5. Template: Render Partial HTML Template</a> kita telah belajar mengenai fungsi <code>template.ParseFiles()</code> yang fungsi tersebut juga mengembalikan objek bertipe <code>*template.Template</code>.</p>
+<p>Di contoh di chapter ini, method <code>ParseFiles()</code> yang dipanggil bukanlah fungsi <code>template.ParseFiles()</code> yang kita telah pelajari sebelumnya. Meskipun namanya sama, kedua fungsi/method ini berbeda.</p>
 <ul>
 <li>Fungsi <code>template.ParseFiles()</code>, adalah milik package <code>template</code>. Fungsi ini digunakan untuk mem-parsing semua view yang disisipkan sebagai parameter.</li>
 <li>Method <code>ParseFiles()</code>, milik <code>*template.Template</code>, digunakan untuk memparsing semua view yang disisipkan sebagai parameter, lalu diambil hanya bagian yang nama template-nya adalah sama dengan nama template yang sudah di-alokasikan menggunakan <code>template.New()</code>. Jika template yang dicari tidak ada, maka akan mencari yang nama file-nya sama dengan nama template yang sudah ter-alokasi.</li>
@@ -2145,7 +2145,7 @@
 <p>Chapter selanjutnya akan membahas lebih detail mengenai penggunaan method <code>ParseFiles()</code>.</p>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.8-template-custom-functions" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.8...</a>
 </div>
 
@@ -2178,7 +2178,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.8. Template: Custom Functions","level":"4.1.8","depth":2,"next":{"title":"B.9. Template: Render Specific HTML Template","level":"4.1.9","depth":2,"path":"B-render-specific-html-template.md","ref":"B-render-specific-html-template.md","articles":[]},"previous":{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-template-custom-functions.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.8. Template: Custom Functions","level":"4.1.8","depth":2,"next":{"title":"B.9. Template: Render Specific HTML Template","level":"4.1.9","depth":2,"path":"B-render-specific-html-template.md","ref":"B-render-specific-html-template.md","articles":[]},"previous":{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-template-custom-functions.md","mtime":"2024-04-27T15:33:07.274Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

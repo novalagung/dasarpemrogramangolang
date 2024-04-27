@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,7 +2062,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b10-template-render-html-string">B.10. Template: Render HTML String</h1>
-<p>Output HTML yang muncul, selain bersumber dari template view, bisa juga bersumber dari sebuah string. Dengan menggunakan method <code>Parse()</code> milik <code>*template.Template</code> kita bisa menjadikan string html sebagai output.</p>
+<p>Output HTML yang muncul, selain bersumber dari template view bisa juga bersumber dari sebuah string. Dengan menggunakan method <code>Parse()</code> milik <code>*template.Template</code> kita bisa menjadikan HTML string sebagai output di web.</p>
 <h2 id="b101-praktek">B.10.1. Praktek</h2>
 <p>Langsung saja kita praktekkan, siapkan folder project baru beserta file <code>main.go</code>, isi dengan kode berikut. </p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2080,9 +2080,9 @@
     &lt;/body&gt;
 &lt;/html&gt;`</span>
 </code></pre>
-<p>Konstanta bernama <code>view</code> bertipe <code>string</code> disiapkan, dengan isi adalah string html yang akan kita jadikan sebagai output nantinya.</p>
+<p>Konstanta bernama <code>view</code> dengan tipe <code>string</code> disiapkan, isinya HTML string yang nanbtinya kita jadikan sebagai output pengaksesan endpoint.</p>
 <p>Kemudian buat fungsi <code>main()</code>, isinya adalah route handler <code>/index</code>. Dalam handler tersebut, string html <code>view</code> diparsing lalu dirender sebagai output.</p>
-<p>Tambahkan juga rute <code>/</code>, yang isinya adalah me-redirect request secara paksa ke <code>/index</code> menggunakan fungsi <code>http.Redirect()</code>.</p>
+<p>Tambahkan juga rute <code>/</code> yang isinya adalah me-redirect request secara paksa ke <code>/index</code> (via fungsi <code>http.Redirect()</code>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     http.HandleFunc(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
         <span class="hljs-keyword">var</span> tmpl = template.Must(template.New(<span class="hljs-string">&quot;main-template&quot;</span>).Parse(view))
@@ -2099,13 +2099,13 @@
     http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
 }
 </code></pre>
-<p>Pada kode di atas bisa dilihat, sebuah template bernama <code>main-template</code> disiapkan. Template tersebut diisi dengan hasil parsing string html <code>view</code> lewat method <code>Parse()</code>.</p>
-<h2 id="b102-test">B.10.2. Test</h2>
+<p>Pada kode di atas bisa dilihat sebuah template bernama <code>main-template</code> disiapkan. Template tersebut diisi dengan hasil parsing string html <code>view</code> lewat method <code>Parse()</code>.</p>
+<h2 id="b102-testing">B.10.2. Testing</h2>
 <p>Lakukan tes dan lihat hasilnya.</p>
 <p><img src="images/B_render_html_string_1_parse.png" alt="Dasar Pemrograman Golang - String html sebagai output"></p>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.10-render-html-string" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.10...</a>
 </div>
 
@@ -2138,7 +2138,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.10. Template: Render HTML String","level":"4.1.10","depth":2,"next":{"title":"B.11. HTTP Method: POST & GET","level":"4.1.11","depth":2,"path":"B-http-method-basic.md","ref":"B-http-method-basic.md","articles":[]},"previous":{"title":"B.9. Template: Render Specific HTML Template","level":"4.1.9","depth":2,"path":"B-render-specific-html-template.md","ref":"B-render-specific-html-template.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-render-html-string.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.10. Template: Render HTML String","level":"4.1.10","depth":2,"next":{"title":"B.11. HTTP Method: POST & GET","level":"4.1.11","depth":2,"path":"B-http-method-basic.md","ref":"B-http-method-basic.md","articles":[]},"previous":{"title":"B.9. Template: Render Specific HTML Template","level":"4.1.9","depth":2,"path":"B-render-specific-html-template.md","ref":"B-render-specific-html-template.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-render-html-string.md","mtime":"2024-04-27T15:33:07.274Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

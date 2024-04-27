@@ -78,7 +78,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2060,20 +2060,21 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b1-golang-web-app-hello-world">B.1. Golang Web App: Hello World</h1>
-<p>Pada serial chapter B ini, kita masih tetap akan belajar tentang topik fundamental atau dasar tapi lebih spesifik ke arah web development. Kita awali dengan pembahasan bagaimana cara membuat aplikasi web &quot;Hello World&quot; sederhana menggunakan Go.</p>
+<p>Pada serial chapter B ini, fokus pembelajaran masih tetap tentang topik-topik fundamental atau dasar, tapi lebih spesifik ke area yang berhubungan dengan web development atau pengembangan web.</p>
+<p>Pembahasan diawali dengan pembuatan aplikasi web &quot;Hello World&quot; sederhana menggunakan Go.</p>
 <h2 id="b11-pembuatan-aplikasi">B.1.1. Pembuatan Aplikasi</h2>
-<p>Mari belajar dengan praktek langsung. Pertama buat folder project baru dengan isi <code>main.go</code>, tentukan package-nya sebagai <code>main</code>, lalu import package <code>fmt</code> dan <code>net/http</code>.</p>
+<p>Mari belajar sambil praktik. Pertama buat folder project baru dengan isi <code>main.go</code>, tentukan package-nya sebagai <code>main</code>, lalu import package <code>fmt</code> dan <code>net/http</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
 </code></pre>
-<p>Setelah itu, siapkan dua buah fungsi, masing-masing fungsi memiliki skema parameter yang sama seperti berikut.</p>
+<p>Setelah itu, siapkan dua buah fungsi, masing-masing memiliki skema parameter yang sama:</p>
 <ul>
 <li>Parameter ke-1 bertipe <code>http.ResponseWrite</code></li>
 <li>Parameter ke-2 bertipe <code>*http.Request</code></li>
 </ul>
-<p>Fungsi dengan struktur di atas diperlukan oleh <code>http.HandleFunc</code> untuk keperluan penanganan request ke rute yang ditentukan. Berikut merupakan dua fungsi yang dimaksud.</p>
+<p>Fungsi dengan struktur di atas diperlukan oleh <code>http.HandleFunc</code> sebagai handler untuk keperluan penanganan request ke rute yang ditentukan. Berikut adalah dua fungsi yang dimaksud:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> handlerIndex(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-keyword">var</span> message = <span class="hljs-string">&quot;Welcome&quot;</span>
     w.Write([]<span class="hljs-keyword">byte</span>(message))
@@ -2084,9 +2085,9 @@
     w.Write([]<span class="hljs-keyword">byte</span>(message))
 }
 </code></pre>
-<p>Method <code>Write()</code> milik parameter pertama (yang bertipe <code>http.ResponseWrite</code>), digunakan untuk meng-output-kan nilai balik data. Argumen method adalah data yang ingin dijadikan output, ditulis dalam bentuk <code>[]byte</code>. </p>
-<p>Pada contoh ini, data yang akan kita tampilkan bertipe string, maka perlu dilakukan casting dari <code>string</code> ke <code>[]byte</code>. Contohnya bisa dilihat seperta pada kode di atas, di bagian <code>w.Write([]byte(message))</code>.</p>
-<p>Selanjutnya, siapkan fungsi <code>main()</code> dengan isi di dalamnya adalah beberapa rute atau route, dengan aksi adalah kedua fungsi yang sudah disiapkan di atas. Tak lupa siapkan juga kode untuk start server.</p>
+<p>Method <code>Write()</code> milik parameter pertama (yang bertipe <code>http.ResponseWrite</code>), digunakan untuk meng-output-kan data ke HTTP response. Argumen method adalah data yang ingin dijadikan output, dituliskan dalam bentuk <code>[]byte</code>. </p>
+<p>Pada contoh ini, data yang akan kita tampilkan bertipe string, maka perlu dilakukan casting dari <code>string</code> ke <code>[]byte</code>. Praktiknya bisa dilihat seperta pada kode di atas, di bagian <code>w.Write([]byte(message))</code>.</p>
+<p>Selanjutnya, siapkan fungsi <code>main()</code> dengan isi di dalamnya adalah beberapa rute (atau <em>route</em>), dengan aksi adalah kedua fungsi yang sudah disiapkan di atas. Tak lupa siapkan juga kode untuk start web server.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, handlerIndex)
     http.HandleFunc(<span class="hljs-string">&quot;/index&quot;</span>, handlerIndex)
@@ -2100,10 +2101,10 @@
     }
 }
 </code></pre>
-<p>Fungsi <code>http.HandleFunc()</code> digunakan untuk routing. Parameter pertama adalah rute dan parameter ke-2 adalah handler-nya.</p>
+<p>Fungsi <code>http.HandleFunc()</code> digunakan untuk keperluan routing. Parameter pertama adalah rute dan parameter ke-2 adalah handler-nya.</p>
 <p>Fungsi <code>http.ListenAndServe()</code> digunakan membuat sekaligus start server baru, dengan parameter pertama adalah alamat web server yang diiginkan (bisa diisi host, host &amp; port, atau port saja). Parameter kedua merupakan object mux atau multiplexer. </p>
 <blockquote>
-<p>Dalam chapter ini kita menggunakan default mux yang sudah disediakan oleh Go, jadi untuk parameter ke-2 cukup isi dengan <code>nil</code>.</p>
+<p>Dalam chapter ini kita menggunakan <em>default</em> mux yang sudah disediakan oleh Go, jadi untuk parameter ke-2 cukup isi dengan <code>nil</code>.</p>
 </blockquote>
 <p>Ok, sekarang program sudah siap, jalankan menggunakan <code>go run</code>.</p>
 <p><img src="images/B_golang_web_hello_world_1_start_server.png" alt="Dasar Pemrograman Golang - Jalankan program"></p>
@@ -2111,16 +2112,16 @@
 <p><img src="images/B_golang_web_hello_world_2_browse.png" alt="Dasar Pemrograman Golang - Mengakses aplikasi web"></p>
 <p>Berikut merupakan penjelasan detail per-bagian program yang telah kita buat dari contoh di atas.</p>
 <h4 id="&#x25C9;-penggunaan-httphandlefunc">&#x25C9; Penggunaan <code>http.HandleFunc()</code></h4>
-<p>Fungsi ini digunakan untuk <strong>routing</strong>, menentukan aksi dari sebuah url tertentu ketika diakses (di sini url tersebut kita sebut sebagai rute/route). Rute dituliskan dalam <code>string</code> sebagai parameter pertama, dan aksi-nya sendiri dibungkus dalam fungsi (bisa berupa closure) yang ditempatkan pada parameter kedua (kita sebut sebagai handler).</p>
+<p>Fungsi ini digunakan untuk <strong>routing</strong>, menentukan aksi dari pengaksesan URL/rute tertentu. Rute dituliskan dalam tipe data <code>string</code> sebagai parameter pertama, dan aksi-nya sendiri dibungkus dalam fungsi (bisa berupa closure) pada parameter kedua (biasanya disebut sebagai handler).</p>
 <p>Pada kode di atas, tiga buah rute didaftarkan:</p>
 <ul>
 <li>Rute <code>/</code> dengan aksi adalah fungsi <code>handlerIndex()</code></li>
 <li>Rute <code>/index</code> dengan aksi adalah sama dengan <code>/</code>, yaitu fungsi <code>handlerIndex()</code></li>
 <li>Rute <code>/hello</code> dengan aksi fungsi <code>handlerHello()</code></li>
 </ul>
-<p>Ketika rute-rute tersebut diakses lewat browser, outpunya adalah isi-handler dari rute yang bersangkutan. Kebetulan pada chapter ini, ketiga rute tersebut outputnya adalah sama, yaitu berupa string.</p>
+<p>Ketika rute-rute di atas diakses lewat browser, outpunya adalah isi-handler rute yang bersangkutan. Kebetulan pada chapter ini, ketiga rute tersebut outputnya adalah sama, yaitu berupa string.</p>
 <blockquote>
-<p>Pada contoh di atas, ketika rute yang tidak terdaftar diakses, secara otomatis handler rute <code>/</code> akan terpanggil.</p>
+<p>Pada contoh di atas, ketika rute yang tidak terdaftar diakses, maka secara otomatis handler rute <code>/</code> yang dipanggil.</p>
 </blockquote>
 <h4 id="&#x25C9;-penjelasan-mengenai-handler">&#x25C9; Penjelasan Mengenai <strong>Handler</strong></h4>
 <p>Route handler atau handler atau parameter kedua fungsi <code>http.HandleFunc()</code>, adalah sebuah fungsi dengan ber-skema <code>func (ResponseWriter, *Request)</code>. </p>
@@ -2134,11 +2135,11 @@
     w.Write([]<span class="hljs-keyword">byte</span>(message))
 }
 </code></pre>
-<p>Output dari rute, dituliskan di dalam handler menggunakan method <code>Write()</code> milik objek <code>ResponseWriter</code> (parameter pertama). Output bisa berupa apapun, untuk output text tinggal lakukan casting dari tipe <code>string</code> ke <code>[]byte</code>, aturan ini juga berlaku untuk beberapa jenis output lainnya seperti html dan json, namun response header <code>Content-Type</code> perlu disesuaikan.</p>
+<p>Output dari rute dituliskan di dalam handler menggunakan method <code>Write()</code> milik objek <code>ResponseWriter</code> (parameter pertama). Output bisa berupa apapun, untuk output text tinggal lakukan casting dari tipe <code>string</code> ke <code>[]byte</code>, aturan ini juga berlaku untuk banyak jenis output lainnya seperti HTML, XML, JSON, dan lainnya (dengan catatan response header <code>Content-Type</code>-nya juga perlu disesuaikan).</p>
 <p>Pada contoh program yang telah kita buat, handler <code>Index()</code> memunculkan text <code>&quot;Welcome&quot;</code>, dan handler <code>Hello()</code> memunculkan text <code>&quot;Hello world!&quot;</code>.</p>
 <p>Sebuah handler bisa dipergunakan pada banyak rute, bisa dilihat pada di atas handler <code>Index()</code> digunakan pada rute <code>/</code> dan <code>/index</code>.</p>
 <h4 id="&#x25C9;-penggunaan-httplistenandserve">&#x25C9; Penggunaan <code>http.ListenAndServe()</code></h4>
-<p>Fungsi ini digunakan untuk membuat web server baru. Pada contoh yang telah dibuat, web server di-<em>start</em> pada port <code>9000</code> (bisa dituliskan dalam bentuk <code>localhost:9000</code> atau cukup <code>:9000</code> saja).</p>
+<p>Fungsi ini digunakan untuk membuat web server baru. Pada contoh yang telah dibuat, web server di-<em>start</em> pada port <code>9000</code> (bisa dituliskan dalam bentuk <code>localhost:9000</code>, <code>0.0.0.0:9000</code>, atau cukup <code>:9000</code> saja).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> address = <span class="hljs-string">&quot;:9000&quot;</span>
 fmt.Printf(<span class="hljs-string">&quot;server started at %s\n&quot;</span>, address)
 err := http.ListenAndServe(address, <span class="hljs-literal">nil</span>)
@@ -2159,14 +2160,14 @@ err := server.ListenAndServe()
 }
 </code></pre>
 <p>Informasi host/port perlu dimasukan dalam property <code>.Addr</code> milik objek server. Lalu dari objek tersebut panggil method <code>.ListenAndServe()</code> untuk start web server.</p>
-<p>Kelebihan menggunakan <code>http.Server</code> salah satunya adalah kemampuan untuk mengubah beberapa konfigurasi default web server Go. </p>
-<p>Contoh, pada kode berikut, timeout untuk read request dan write request di ubah menjadi 10 detik.</p>
-<pre><code>server.ReadTimeout = time.Second * 10
-server.WriteTimeout = time.Second * 10
-</code></pre><p>Ada banyak lagi property dari struct <code>http.Server</code> ini, yang pastinya akan dibahas pada pembahasan-pembahasan selanjutnya.</p>
+<p>Kelebihan menggunakan <code>http.Server</code> salah satunya adalah kemampuan untuk mengubah beberapa konfigurasi default web server Go. Contohnya bisa dilihat pada kode berikut, timeout untuk read request dan write request di ubah menjadi 10 detik.</p>
+<pre><code class="lang-go">server.ReadTimeout = time.Second * <span class="hljs-number">10</span>
+server.WriteTimeout = time.Second * <span class="hljs-number">10</span>
+</code></pre>
+<p>Struct <code>http.Server</code> memiliki cukup banyak property lainnya, yang pastinya akan dibahas pada pembahasan-pembahasan selanjutnya.</p>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.1-golang-web-hello-world" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.1...</a>
 </div>
 
@@ -2195,7 +2196,7 @@ server.WriteTimeout = time.Second * 10
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.1. Golang Web App: Hello World","level":"4.1.1","depth":2,"next":{"title":"B.2. Routing http.HandleFunc","level":"4.1.2","depth":2,"path":"B-routing-http-handlefunc.md","ref":"B-routing-http-handlefunc.md","articles":[]},"previous":{"title":"B. Pemrograman Web Go Dasar","level":"4.1","depth":1,"ref":"","articles":[{"title":"B.1. Golang Web App: Hello World","level":"4.1.1","depth":2,"path":"B-golang-web-hello-world.md","ref":"B-golang-web-hello-world.md","articles":[]},{"title":"B.2. Routing http.HandleFunc","level":"4.1.2","depth":2,"path":"B-routing-http-handlefunc.md","ref":"B-routing-http-handlefunc.md","articles":[]},{"title":"B.3. Routing Static Assets","level":"4.1.3","depth":2,"path":"B-routing-static-assets.md","ref":"B-routing-static-assets.md","articles":[]},{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"path":"B-template-render-html.md","ref":"B-template-render-html.md","articles":[]},{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"path":"B-template-actions-variables.md","ref":"B-template-actions-variables.md","articles":[]},{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},{"title":"B.8. Template: Custom Functions","level":"4.1.8","depth":2,"path":"B-template-custom-functions.md","ref":"B-template-custom-functions.md","articles":[]},{"title":"B.9. Template: Render Specific HTML Template","level":"4.1.9","depth":2,"path":"B-render-specific-html-template.md","ref":"B-render-specific-html-template.md","articles":[]},{"title":"B.10. Template: Render HTML String","level":"4.1.10","depth":2,"path":"B-render-html-string.md","ref":"B-render-html-string.md","articles":[]},{"title":"B.11. HTTP Method: POST & GET","level":"4.1.11","depth":2,"path":"B-http-method-basic.md","ref":"B-http-method-basic.md","articles":[]},{"title":"B.12. Form Value","level":"4.1.12","depth":2,"path":"B-form-value.md","ref":"B-form-value.md","articles":[]},{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"path":"B-form-upload-file.md","ref":"B-form-upload-file.md","articles":[]},{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"path":"B-ajax-json-payload.md","ref":"B-ajax-json-payload.md","articles":[]},{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"path":"B-middleware-using-http-handler.md","ref":"B-middleware-using-http-handler.md","articles":[]},{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"path":"B-custom-mux-multiplexer.md","ref":"B-custom-mux-multiplexer.md","articles":[]},{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"path":"B-simple-configuration.md","ref":"B-simple-configuration.md","articles":[]},{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-golang-web-hello-world.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.1. Golang Web App: Hello World","level":"4.1.1","depth":2,"next":{"title":"B.2. Routing http.HandleFunc","level":"4.1.2","depth":2,"path":"B-routing-http-handlefunc.md","ref":"B-routing-http-handlefunc.md","articles":[]},"previous":{"title":"B. Pemrograman Web Go Dasar","level":"4.1","depth":1,"ref":"","articles":[{"title":"B.1. Golang Web App: Hello World","level":"4.1.1","depth":2,"path":"B-golang-web-hello-world.md","ref":"B-golang-web-hello-world.md","articles":[]},{"title":"B.2. Routing http.HandleFunc","level":"4.1.2","depth":2,"path":"B-routing-http-handlefunc.md","ref":"B-routing-http-handlefunc.md","articles":[]},{"title":"B.3. Routing Static Assets","level":"4.1.3","depth":2,"path":"B-routing-static-assets.md","ref":"B-routing-static-assets.md","articles":[]},{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"path":"B-template-render-html.md","ref":"B-template-render-html.md","articles":[]},{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"path":"B-template-actions-variables.md","ref":"B-template-actions-variables.md","articles":[]},{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},{"title":"B.8. Template: Custom Functions","level":"4.1.8","depth":2,"path":"B-template-custom-functions.md","ref":"B-template-custom-functions.md","articles":[]},{"title":"B.9. Template: Render Specific HTML Template","level":"4.1.9","depth":2,"path":"B-render-specific-html-template.md","ref":"B-render-specific-html-template.md","articles":[]},{"title":"B.10. Template: Render HTML String","level":"4.1.10","depth":2,"path":"B-render-html-string.md","ref":"B-render-html-string.md","articles":[]},{"title":"B.11. HTTP Method: POST & GET","level":"4.1.11","depth":2,"path":"B-http-method-basic.md","ref":"B-http-method-basic.md","articles":[]},{"title":"B.12. Form Value","level":"4.1.12","depth":2,"path":"B-form-value.md","ref":"B-form-value.md","articles":[]},{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"path":"B-form-upload-file.md","ref":"B-form-upload-file.md","articles":[]},{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"path":"B-ajax-json-payload.md","ref":"B-ajax-json-payload.md","articles":[]},{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"path":"B-middleware-using-http-handler.md","ref":"B-middleware-using-http-handler.md","articles":[]},{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"path":"B-custom-mux-multiplexer.md","ref":"B-custom-mux-multiplexer.md","articles":[]},{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"path":"B-simple-configuration.md","ref":"B-simple-configuration.md","articles":[]},{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-golang-web-hello-world.md","mtime":"2024-04-27T15:33:07.270Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

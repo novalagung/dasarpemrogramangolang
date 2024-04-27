@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,9 +2062,9 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b12-form-value">B.12. Form Value</h1>
-<p>Pada chapter ini kita akan belajar bagaimana cara untuk submit data, dari form di layer front end, ke back end. </p>
-<h1 id="b121-front-end">B.12.1. Front End</h1>
-<p>Pertama siapkan folder project baru, dan sebuah file template view <code>view.html</code>. Pada file ini perlu didefinisikan 2 buah template, yaitu <code>form</code> dan <code>result</code>. Template pertama (<code>form</code>) dijadikan landing page program, isinya beberapa inputan untuk submit data.</p>
+<p>Pada chapter ini kita akan belajar bagaimana cara untuk submit data dari form di front-end untuk dikirim ke back-end melalui API call (HTTP request).</p>
+<h1 id="b121-front-end">B.12.1. Front-End</h1>
+<p>Pertama siapkan folder project baru dan sebuah file template view <code>view.html</code>. Pada file ini perlu didefinisikan 2 buah template, yaitu <code>form</code> dan <code>result</code>. Template pertama (<code>form</code>) dijadikan landing page program, isinya beberapa inputan untuk submit data.</p>
 <pre><code class="lang-html">{{define &quot;form&quot;}}
 <span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
@@ -2087,7 +2087,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 {{end}}
 </code></pre>
-<p>Aksi dari form di atas adalah <code>/process</code>, yang di mana url tersebut nantinya akan mengembalikan output berupa html hasil render template <code>result</code>. Silakan tulis template result berikut dalam <code>view.html</code> (jadi file view ini berisi 2 buah template).</p>
+<p>Aksi dari form di atas adalah <code>/process</code>, yang mana url tersebut nantinya akan mengembalikan output berupa html hasil render template <code>result</code>. Silakan tulis template result berikut dalam <code>view.html</code> (jadi file view ini berisi 2 buah template).</p>
 <pre><code class="lang-html">{{define &quot;result&quot;}}
 <span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
@@ -2101,7 +2101,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 {{end}}
 </code></pre>
-<h2 id="b122-back-end">B.12.2. Back End</h2>
+<h2 id="b122-back-end">B.12.2. Back-End</h2>
 <p>Buat file <code>main.go</code>. Dalam file ini 2 buah route handler diregistrasikan.</p>
 <ul>
 <li>Route <code>/</code> adalah landing page, menampilkan form input.</li>
@@ -2121,7 +2121,7 @@
     http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
 }
 </code></pre>
-<p>Handler route <code>/</code> dibungkus dalam fungsi bernama <code>routeIndexGet</code>. Di dalamnya, template <code>form</code> dalam file template <code>view.html</code> akan di-render ke view. Request dalam handler ini hanya dibatasi untuk method GET saja, request dengan method lain akan menghasilkan response 400 Bad Request.</p>
+<p>Handler route <code>/</code> dibungkus dalam fungsi bernama <code>routeIndexGet()</code>. Di dalamnya, template <code>form</code> dalam file template <code>view.html</code> akan di-render ke view. Request dalam handler ini hanya dibatasi untuk method GET saja, request dengan method lain akan menghasilkan response <code>400 Bad Request</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> routeIndexGet(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-keyword">if</span> r.Method == <span class="hljs-string">&quot;GET&quot;</span> {
         <span class="hljs-keyword">var</span> tmpl = template.Must(template.New(<span class="hljs-string">&quot;form&quot;</span>).ParseFiles(<span class="hljs-string">&quot;view.html&quot;</span>))
@@ -2136,7 +2136,7 @@
     http.Error(w, <span class="hljs-string">&quot;&quot;</span>, http.StatusBadRequest)
 }
 </code></pre>
-<p>Fungsi <code>routeSubmitPost</code> yang merupakan handler route <code>/process</code>, berisikan proses yang mirip seperti handler route <code>/</code>, yaitu parsing <code>view.html</code> untuk di ambil template <code>result</code>-nya. Selain itu, pada handler ini ada proses pengambilan data yang dikirim dari form ketika di-submit, untuk kemudian disisipkan ke template view.</p>
+<p>Fungsi <code>routeSubmitPost()</code> yang merupakan handler route <code>/process</code>, berisikan proses yang mirip seperti handler route <code>/</code>, yaitu parsing <code>view.html</code> untuk di ambil template <code>result</code>-nya. Selain itu, pada handler ini ada proses pengambilan data yang dikirim dari form submit, untuk kemudian disisipkan ke template view.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> routeSubmitPost(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-keyword">if</span> r.Method == <span class="hljs-string">&quot;POST&quot;</span> {
         <span class="hljs-keyword">var</span> tmpl = template.Must(template.New(<span class="hljs-string">&quot;result&quot;</span>).ParseFiles(<span class="hljs-string">&quot;view.html&quot;</span>))
@@ -2160,16 +2160,16 @@
     http.Error(w, <span class="hljs-string">&quot;&quot;</span>, http.StatusBadRequest)
 }
 </code></pre>
-<p>Ketika user submit ke <code>/process</code>, maka data-data yang ada di form input dikirim. Method <code>ParseForm()</code> pada statement <code>r.ParseForm()</code> berguna untuk parsing form data yang dikirim dari view, sebelum akhirnya bisa diambil data-datanya. Method tersebut mengembalikan data <code>error</code> jika proses parsing gagal (kemungkinan karena data yang dikirim ada yang tidak valid).</p>
-<p>Pengambilan data yang dikirim dilakukan lewat method <code>FormValue()</code>. Contohnya seperti pada kode di atas, <code>r.FormValue(&quot;name&quot;)</code>, akan mengembalikan data inputan <code>name</code> (data dari inputan <code>&lt;input name=&quot;name&quot; /&gt;</code>).</p>
+<p>Ketika user submit ke <code>/process</code>, maka data-data yang ada di form input dikirim. Method <code>ParseForm()</code> pada statement <code>r.ParseForm()</code> berguna untuk parsing form data yang dikirim dari view, sebelum akhirnya bisa diambil datanya. Method tersebut mengembalikan <code>error</code> jika proses parsing gagal (kemungkinan karena data yang dikirim ada yang tidak valid).</p>
+<p>Pengambilan data dilakukan lewat method <code>FormValue()</code>. Contohnya seperti pada kode di atas, <code>r.FormValue(&quot;name&quot;)</code>, akan mengembalikan data inputan <code>name</code> (data dari inputan <code>&lt;input name=&quot;name&quot; /&gt;</code>).</p>
 <p>Selain lewat method <code>FormValue()</code>, pengaksesan data juga bisa dilakukan dengan cara mengakses property <code>Form</code> terlebih dahulu, kemudian mengakses method <code>Get()</code>. Contohnya seperti <code>r.Form.Get(&quot;message&quot;)</code>, yang akan menghasilkan data inputan <code>message</code>. Hasil dari kedua cara di atas adalah sama.</p>
 <p>Setelah data dari form sudah ditangkap oleh back-end, data ditampung dalam variabel <code>data</code> yang bertipe <code>map[string]string</code>. Variabel <code>data</code> tersebut kemudian disisipkan ke view, lewat statement <code>tmpl.Execute(w, data)</code>.</p>
-<h2 id="b123-test">B.12.3. Test</h2>
+<h2 id="b123-testing">B.12.3. Testing</h2>
 <p>OK, sekarang coba jalankan program yang telah kita buat, dan cek hasilnya.</p>
 <p><img src="images/B_form_value_1_form.png" alt="Dasar Pemrograman Golang - Form Value"></p>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.12-form-value" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.12...</a>
 </div>
 
@@ -2202,7 +2202,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.12. Form Value","level":"4.1.12","depth":2,"next":{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"path":"B-form-upload-file.md","ref":"B-form-upload-file.md","articles":[]},"previous":{"title":"B.11. HTTP Method: POST & GET","level":"4.1.11","depth":2,"path":"B-http-method-basic.md","ref":"B-http-method-basic.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-form-value.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.12. Form Value","level":"4.1.12","depth":2,"next":{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"path":"B-form-upload-file.md","ref":"B-form-upload-file.md","articles":[]},"previous":{"title":"B.11. HTTP Method: POST & GET","level":"4.1.11","depth":2,"path":"B-http-method-basic.md","ref":"B-http-method-basic.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-form-value.md","mtime":"2024-04-27T15:33:07.270Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

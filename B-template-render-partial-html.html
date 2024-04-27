@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,14 +2062,14 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b5-template-render-partial-html-template">B.5. Template: Render Partial HTML Template</h1>
-<p>Satu buah halaman yang berisikan html, bisa terbentuk dari banyak template html (parsial). Pada chapter ini kita akan belajar bagaimana membuat, mem-parsing, dan me-render semua file tersebut.</p>
-<p>Ada beberapa metode yang bisa digunakan, dari ke semuanya akan kita bahas 2 di antaranya, yaitu:</p>
+<p>Satu buah halaman yang berisikan html bisa saja terbentuk dari lebih dari satu proses parsing template html (parsial). Pada chapter ini kita akan belajar bagaimana membuat, mem-parsing, dan me-render semua template file.</p>
+<p>Ada beberapa metode yang bisa digunakan, 2 di antaranya:</p>
 <ul>
 <li>Menggunakan fungsi <code>template.ParseGlob()</code>.</li>
 <li>Menggunakan fungsi <code>template.ParseFiles()</code>.</li>
 </ul>
 <h2 id="b51-struktur-aplikasi">B.5.1. Struktur Aplikasi</h2>
-<p>Mari langsung kita praktekan. Buat project baru, siapkan file dan folder dengan susunan seperti dengan gambar berikut.</p>
+<p>Mari belajar sambil praktek seperti biasa. Buat project baru, siapkan file dan folder dengan susunan seperti dengan gambar berikut.</p>
 <p><img src="images/B_template_render_partial_html_1_structure.png" alt="Dasar Pemrograman Golang - Structure"></p>
 <h2 id="b52-back-end">B.5.2. Back End</h2>
 <p>Buka <code>main.go</code>, isi dengan kode berikut.</p>
@@ -2092,11 +2092,11 @@
 }
 </code></pre>
 <p>Tipe <code>M</code> merupakan alias dari <code>map[string]interface{}</code>, disiapkan untuk mempersingkat penulisan tipe map tersebut. Pada pembahasan-pembahasan selanjutnya kita akan banyak menggunakan tipe ini.</p>
-<p>Pada kode di atas, di dalam fungsi <code>main()</code>, fungsi <code>template.ParseGlob()</code> dipanggil, dengan parameter adalah pattern path <code>&quot;views/*&quot;</code>. Fungsi ini digunakan untuk memparsing semua file yang match dengan pattern yang ditentukan, dan fungsi ini mengembalikan 2 objek: <code>*template.Template</code> &amp; <code>error</code>.</p>
+<p>Pada kode di atas, di dalam fungsi <code>main()</code>, fungsi <code>template.ParseGlob()</code> dipanggil, dengan parameter adalah pattern path <code>&quot;views/*&quot;</code>. Fungsi ini digunakan untuk memparsing semua file yang match dengan <em>pattern</em>/pola yang ditentukan. Fungsi ini mengembalikan 2 objek yaitu <code>*template.Template</code> &amp; <code>error</code>.</p>
 <blockquote>
 <p>Pattern path pada fungsi <code>template.ParseGlob()</code> nantinya akan di proses oleh <code>filepath.Glob()</code></p>
 </blockquote>
-<p>Proses parsing semua file html dalam folder <code>views</code> dilakukan di awal, agar ketika mengakses rute-tertentu-yang-menampilkan-html, tidak terjadi proses parsing lagi.</p>
+<p>Proses parsing semua file html dalam folder <code>views</code> dilakukan di awal, agar ketika suatu endpoint diakses nantinya tidak terjadi proses parsing melainkan hanya proses rendering saja.</p>
 <blockquote>
 <p>Parsing semua file menggunakan <code>template.ParseGlob()</code> yang dilakukan di luar handler, tidak direkomendasikan dalam fase development. Karena akan mempersulit testing html. Lebih detailnya akan dibahas di bagian bawah.</p>
 </blockquote>
@@ -2192,7 +2192,7 @@ http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span cl
 <p><img src="images/B_template_render_partial_html_2_routes.png" alt="Dasar Pemrograman Golang - Rute `/about` &amp; `/index`"></p>
 <p>Bisa dilihat pada gambar di atas, ketika rute <code>/index</code> dan <code>/about</code> di akses, konten yang keluar adalah berbeda, sesuai dengan template yang di-render di masing-masing rute.</p>
 <h2 id="b56-parsing-banyak-file-html-menggunakan-templateparsefiles">B.5.6. Parsing Banyak File HTML Menggunakan <code>template.ParseFiles()</code></h2>
-<p>Metode parsing menggunakan <code>template.ParseGlob()</code> memiliki kekurangan yaitu sangat tergantung terhadap pattern path yang digunakan. Jika dalam suatu proyek terdapat sangat banyak file html dan folder, sedangkan hanya beberapa yang digunakan, pemilihan pattern path yang kurang tepat akan menjadikan file lain ikut ter-parsing dengan sia-sia.</p>
+<p>Metode parsing menggunakan <code>template.ParseGlob()</code> memiliki kekurangan yaitu sangat tergantung terhadap pattern path yang digunakan. Jika dalam suatu proyek terdapat sangat banyak file html dan folder, sedangkan hanya beberapa yang digunakan, pemilihan pattern path yang kurang tepat akan menjadikan file lain ikut ter-parsing sia-sia.</p>
 <p>Dan juga, karena statement <code>template.ParseGlob()</code> dieksekusi diluar handler, maka ketika ada perubahan pada salah satu view, lalu halaman di refresh, output yang dihasilkan akan tetap sama. Solusi dari masalah ini adalah dengan memanggil <code>template.ParseGlob()</code> di tiap handler rute-rute yang diregistrasikan.</p>
 <blockquote>
 <p>Best practices yang bisa diterapkan, ketika environment adalah production, maka tempatkan <code>template.ParseGlob()</code> di luar (sebelum) handler. Sedangkan pada environment development, taruh <code>template.ParseGlob()</code> di dalam masing-masing handler. Gunakan seleksi kondisi untuk mengakomodir skenario ini.</p>
@@ -2232,7 +2232,7 @@ http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span cl
  })
 </code></pre>
 </li>
-<li><p><strong>Hapus</strong> statement <code>template.ParseGlob()</code>.</p>
+<li><p>Tak lupa <strong>hapus</strong> statement <code>template.ParseGlob()</code>.</p>
 <pre><code class="lang-go"> <span class="hljs-keyword">var</span> tmpl, err = template.ParseGlob(<span class="hljs-string">&quot;views/*&quot;</span>)
  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
      <span class="hljs-built_in">panic</span>(err.Error())
@@ -2246,7 +2246,7 @@ http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span cl
 <p>Jalankan aplikasi untuk test hasilnya.</p>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.5-template-render-partial-html" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.5...</a>
 </div>
 
@@ -2279,7 +2279,7 @@ http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span cl
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"next":{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"path":"B-template-actions-variables.md","ref":"B-template-actions-variables.md","articles":[]},"previous":{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"path":"B-template-render-html.md","ref":"B-template-render-html.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-template-render-partial-html.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"next":{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"path":"B-template-actions-variables.md","ref":"B-template-actions-variables.md","articles":[]},"previous":{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"path":"B-template-render-html.md","ref":"B-template-render-html.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-template-render-partial-html.md","mtime":"2024-04-27T15:33:07.274Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

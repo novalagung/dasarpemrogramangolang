@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,10 +2062,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b22-simple-configuration">B.22. Simple Configuration</h1>
-<p>Dalam development, pasti banyak sekali variabel dan konstanta yang diperlukan. Mulai dari variabel yang dibutuhkan untuk start server seperti port, timeout, hingga variabel global dan variabel shared lainnya.</p>
-<p>Pada chapter ini, kita akan belajar cara membuat config file modular. </p>
+<p>Dalam development, pastinya kita programmer akan berurusan dengan banyak sekali variabel dan konstanta untuk keperluan konfigurasi. Misalnya, variabel berisi informasi port web server, timeout, variabel global, dan lainnya.</p>
+<p>Pada chapter ini, kita akan belajar dasar pengelolahan variabel konfigurasi dengan memanfaatkan file JSON. </p>
 <h2 id="b221-struktur-aplikasi">B.22.1. Struktur Aplikasi</h2>
-<p>Pertama-tama, buat project baru, siapkan dengan struktur seperti gambar berikut.</p>
+<p>Pertama-tama, buat project baru dengan struktur seperti gambar berikut.</p>
 <p><img src="images/B_simple_configuration_1_structure.png" alt="Dasar Pemrograman Golang - Structure"></p>
 <p>Folder <code>conf</code> berisi 2 file.</p>
 <ol>
@@ -2073,7 +2073,7 @@
 <li>File <code>config.go</code>. Berisikan beberapa fungsi dan operasi untuk mempermudah pengaksesan konfigurasi dari file <code>config.json</code>.</li>
 </ol>
 <h2 id="b222-file-konfigurasi-json-configjson">B.22.2. File Konfigurasi JSON <code>config.json</code></h2>
-<p>Semua konfigurasi perlu dituliskan dalam file ini. Desain struktur JSON nya untuk bisa mudah dipahami. Tulis data berikut di file tersebut.</p>
+<p>Semua konfigurasi dituliskan dalam file ini. Desain struktur JSON-nya untuk bisa mudah dipahami, contoh:</p>
 <pre><code class="lang-json">{
     <span class="hljs-string">&quot;server&quot;</span>: {
         <span class="hljs-string">&quot;port&quot;</span>: <span class="hljs-number">9000</span>,
@@ -2086,7 +2086,7 @@
     }
 }
 </code></pre>
-<p>Ada 4 buah konfigurasi disiapkan.</p>
+<p>Data JSON di atas berisi 4 buah data konfigurasi.</p>
 <ol>
 <li>Property <code>server.port</code>. Port yang digunakan saat start web server.</li>
 <li>Property <code>server.read_timeout</code>. Dijadikan sebagai timeout read.</li>
@@ -2094,7 +2094,7 @@
 <li>Property <code>log.verbose</code>. Penentu apakah log di print atau tidak.</li>
 </ol>
 <h2 id="b223-pemrosesan-konfigurasi">B.22.3. Pemrosesan Konfigurasi</h2>
-<p>Pada file <code>config.go</code>, nantinya kita akan buat sebuah fungsi, isinya mengembalikan objek cetakan struct representasi dari <code>config.json</code>.</p>
+<p>Pada file <code>config.go</code> kita akan siapkan sebuah fungsi yang isinya mengembalikan objek cetakan struct didapat dari konten file <code>config.json</code>.</p>
 <p>Siapkan struct nya terlebih dahulu.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> conf
 
@@ -2119,10 +2119,10 @@
     } <span class="hljs-string">`json:&quot;log&quot;`</span>
 }
 </code></pre>
-<p>Bisa dilihat pada kode di atas, struct bernama <code>_Configuration</code> dibuat. Struct ini berisikan banyak property yang strukturnya sama persis dengan isi file <code>config.json</code>. Dengan desain seperti ini, akan sangat memudahkan developer dalam pengaksesan konfigurasi.</p>
-<p>Dari struct tersebut tercetak private objek bernama <code>shared</code>. Variabel inilah yang nantinya akan dikembalikan lewat fungsi yang akan kita buat.</p>
-<p>Selanjutnya, isi <code>init()</code> dengan beberapa proses: membaca file json, lalu di decode ke object <code>shared</code>. </p>
-<p>Dengan menuliskan proses barusan ke fungsi <code>init()</code>, pada saat package <code>conf</code> ini di import ke package lain maka file <code>config.json</code> akan otomatis di parsing. Dan dengan menambahkan sedikit validasi, parsing hanya akan terjadi sekali di awal.</p>
+<p>Bisa dilihat pada kode di atas, struct bernama <code>_Configuration</code> dibuat. Struct ini berisikan banyak property yang strukturnya sama persis dengan isi file <code>config.json</code>. Dengan skema seperti itu akan cukup mempermudah developer dalam pengaksesan data konfigurasi.</p>
+<p>Dari struct tersebut disiapkan objek bernama <code>shared</code>. Variabel ini berisi informasi konfigurasi hasil baca <code>config.json</code>, dan nantinya isinya bisa diakses via fungsi fungsi yang sebentar lagi akan dibuat.</p>
+<p>Selanjutnya, siapkan fungsi <code>init()</code> dengan isi operasi baca file <code>config.json</code> serta operasi decode data JSON dari isi file tersebut ke variabel <code>shared</code>. </p>
+<p>Dengan adanya fungsi <code>init()</code> maka pada saat package <code>conf</code> ini di-import ke package lain otomatis file <code>config.json</code> dibaca dan di-parse untuk disimpan di variabel <code>shared</code>. Tambahkan juga validasi untuk memastikan kode hanya di-parse sekali saja.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> init() {
     <span class="hljs-keyword">if</span> shared != <span class="hljs-literal">nil</span> {
         <span class="hljs-keyword">return</span>
@@ -2148,7 +2148,7 @@
     }
 }
 </code></pre>
-<p>Lalu buat fungsi yang mengembalikan object <code>shared</code>.</p>
+<p>Kemudian buat fungsi <code>Configuration()</code> yang isinya menjembatani pengaksesan object <code>shared</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> Configuration() _Configuration {
     <span class="hljs-keyword">return</span> *shared
 }
@@ -2178,7 +2178,7 @@
 }
 </code></pre>
 <p>Bisa dilihat dalam method <code>ServeHTTP()</code> di atas, ada pengecekan salah satu konfigurasi, yaitu <code>Log.Verbose</code>. Cara pengaksesannya cukup mudah, yaitu lewat fungsi <code>Configuration()</code> milik package <code>conf</code> yang telah di-import.</p>
-<p>OK, kembali lagi ke contoh, dari mux di atas, buat object baru bernama <code>router</code>, lalu lakukan registrasi beberapa rute.</p>
+<p>OK, kembali lagi ke contoh, dari mux di atas dibuatkan object baru bernama <code>router</code>, lalu beberapa rute didaftarkan ke object mux tersebut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     router := <span class="hljs-built_in">new</span>(CustomMux)
     router.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
@@ -2191,7 +2191,7 @@
     <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<p>Selanjutnya, kita akan start web server untuk serve mux di atas. Masih di dalam <code>main.go</code>, tambahkan kode berikut.</p>
+<p>Selanjutnya, siapkan kode untuk start web server. Tulis kode berikut di dalam fungsi <code>main()</code> tepat setelah kode deklarasi route handler.</p>
 <pre><code class="lang-go">server := <span class="hljs-built_in">new</span>(http.Server)
 server.Handler = router
 server.ReadTimeout = conf.Configuration().Server.ReadTimeout * time.Second
@@ -2207,38 +2207,37 @@ err := server.ListenAndServe()
     <span class="hljs-built_in">panic</span>(err)
 }
 </code></pre>
-<p>Objek baru bernama <code>server</code> telah dibuat dari struct <code>http.Server</code>. Untuk start server cukup panggil method <code>ListenAndServe()</code> milik objek tersebut.</p>
+<p>Di atas, ada objek baru dibuat dari struct <code>http.Server</code>, yaitu <code>server</code>. Untuk start server, panggil method <code>ListenAndServe()</code> milik objek tersebut.</p>
 <p>Dengan memanfaatkan struct ini, kita bisa meng-custom beberapa konfigurasi default pada Go web server. Di antaranya seperti <code>ReadTimeout</code> dan <code>WriteTimeout</code>.</p>
-<p>Pada kode di atas bisa kita lihat, ada 4 buah properti milik <code>server</code> di-isi.</p>
+<p>Bisa dilihat di contoh ada 4 buah properti milik <code>server</code> yang diisi nilainya dengan data konfigurasi.</p>
 <ul>
 <li><code>server.Handler</code>. Properti ini wajib di isi dengan custom mux yang dibuat.</li>
 <li><code>server.ReadTimeout</code>. Adalah timeout ketika memproses sebuah request. Kita isi dengan nilai dari configurasi.</li>
 <li><code>server.WriteTimeout</code>. Adalah timeout ketika memproses response.</li>
 <li><code>server.Addr</code>. Port yang digunakan web server pada saat start.</li>
 </ul>
-<p>Terakhir jalankan aplikasi, akses dua buah endpoint yang sudah dibuat, lalu coba cek di console.</p>
+<p>Ok. Sekarang jalankan aplikasi, akses dua buah endpoint yang sudah dibuat, kemudian cek di console.</p>
 <p><img src="images/B_simple_configuration_2_log.png" alt="Dasar Pemrograman Golang - Structure"></p>
 <p>Coba ubah konfigurasi pada <code>config.json</code> nilai <code>log.verbose</code> menjadi <code>false</code>. Lalu restart aplikasi, maka log tidak muncul.</p>
 <h2 id="b225-kekurangan-konfigurasi-file">B.22.5. Kekurangan Konfigurasi File</h2>
-<p>Ok, kita telah selesai belajar tentang cara membuat file konfigurasi yang mudah dibaca dan praktis. Namun penerapan kontrol konfigurasi dengan metode ini kurang dianjurkan karena beberapa hal:</p>
+<p>Ok, kita telah selesai belajar tentang cara membuat file konfigurasi yang terpusat dan mudah dibaca. Metode konfigurasi seperti ini umum digunakan, tapi dalam penerapannya memiliki beberapa <em>cons</em> yang mungkin akan mulai terasa ketika aplikasi arsitektur aplikasi berkembang dan arsitektur sistemnya menjadi kompleks. <em>Cons</em> yang dimaksud diantaranya adalah:</p>
 <h4 id="&#x25C9;-tidak-mendukung-komentar">&#x25C9; Tidak mendukung komentar</h4>
-<p>Komentar sangat penting karena untuk aplikasi besar yang konfigurasi item-nya sangat banyak - akan susah untuk dipahami. Sebenarnya perihal ini bisa di-<em>resolve</em> menggunakan jenis konfigurasi lain seperti <code>YAML</code>, <code>.env</code>, atau lainnya.</p>
+<p>Komentar sangat penting karena untuk aplikasi besar yang konfigurasi item-nya sangat banyak, konfigurasi seperti pada contoh ini akan cukup susah untuk dikelola. Sebenarnya masalah ini bisa diselesaikan dengan mudah dengan cara mengadopsi file format lainnya, misalnya <code>YAML</code>, <code>.env</code>, atau lainnya.</p>
 <h4 id="&#x25C9;-nilai-konfigurasi-harus-diketahui-di-awal">&#x25C9; Nilai konfigurasi harus diketahui di awal</h4>
-<p>Kita harus tau semua value tiap-tiap konfigurasi terlebih dahulu, dan dituliskan ke file, sebelum aplikasi di-up. Dari sini akan sangat susah jika misal ada beberapa konfigurasi yang kita tidak tau nilainya tapi tau cara pengambilannya.</p>
-<p>Contohnya pada beberapa kasus, seperti di AWS, database server yang di-setup secara automated akan meng-generate connection string yang host-nya bisa berganti-ganti tiap start-up, dan tidak hanya itu, bisa saja username, password dan lainnya juga tidak statis.</p>
-<p>Dengan ini akan sangat susah jika kita harus cari terlebih dahulu value konfigurasi tersebut untuk kemudian dituliskan ke file. Memakan waktu dan kurang baik dari banyak sisi.</p>
+<p>Kita harus tau semua value tiap-tiap konfigurasi terlebih dahulu sebelum dituliskan ke file, dan sebelum aplikasi di-up. Dari sini akan sangat susah jika misal ada beberapa konfigurasi yang kita tidak tau nilainya tapi tau cara pengambilannya.</p>
+<p>Contohnya seperti ini, di beberapa kasus, misalnya di AWS, database server yang di-setup secara automated akan meng-generate connection string yang host-nya bisa berganti-ganti tiap start-up, dan tidak hanya itu saja, bisa saja username, password dan lainnya juga tidak statis.</p>
+<p>Dengan ini akan cukup merepotkan jika kita harus cari terlebih dahulu value konfigurasi tersebut untuk kemudian dituliskan ke file secara manual.</p>
 <h4 id="&#x25C9;-tidak-terpusat">&#x25C9; Tidak terpusat</h4>
-<p>Dalam pengembangan aplikasi, banyak konfigurasi yang nilai-nya akan didapat lewat jalan lain, seperti <em>environment variables</em> atau <em>command arguments</em>.</p>
-<p>Akan lebih mudah jika hanya ada satu sumber konfigurasi saja untuk dijadikan acuan.</p>
+<p>Dalam pengembangan aplikasi, banyak konfigurasi yang nilai-nya akan didapat lewat jalan lain, seperti <em>environment variables</em> atau <em>command arguments</em>. Menyimpan konfigurasi file itu sudah cukup bagus, cuman untuk <em>case</em> dimana terdapat banyak sekali services, agak merepotkan pengelolahannya.</p>
+<p>Ketika ada perubahan konfigurasi, semua services harus direstart.</p>
 <h4 id="&#x25C9;-statis-tidak-dinamis">&#x25C9; Statis (tidak dinamis)</h4>
 <p>Konfigurasi umumnya dibaca hanya jika diperlukan. Penulisan konfigurasi dalam file membuat proses pembacaan file harus dilakukan di awal, haru kemudian kita bisa ambil nilai konfigurasi dari data yang sudah ada di memori.</p>
 <p>Hal tersebut memiliki beberapa konsekuensi, untuk aplikasi yang di-manage secara automated, sangat mungkin adanya perubahan nilai konfigurasi. Dari sini berarti pembacaan konfigurasi file tidak boleh hanya dilakukan di awal saja. Tapi juga tidak boleh dilakukan di setiap waktu, karena membaca file itu ada <em>cost</em>-nya dari prespektif I/O.</p>
 <h4 id="&#x25C9;-solusi">&#x25C9; Solusi</h4>
-<p>Kita akan membahas solusi dari beberapa masalah di atas pada chapter terpisah, yaitu <a href="C-best-practice-configuration-env-var">Best Practice Configuration Menggunakan Environment Variable
-</a></p>
+<p>Kita akan membahas solusi dari beberapa masalah di atas (tidak semuanya) pada chapter terpisah, yaitu <a href="C-best-practice-configuration-env-var.html">C.11. Best Practice Configuration Menggunakan Environment Variable</a></p>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.22-simple-configuration" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.22...</a>
 </div>
 
@@ -2271,7 +2270,7 @@ err := server.ListenAndServe()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"next":{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]},"previous":{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-simple-configuration.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"next":{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]},"previous":{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-simple-configuration.md","mtime":"2024-04-27T15:33:07.274Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

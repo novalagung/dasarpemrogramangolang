@@ -80,7 +80,7 @@
     
 
 
-    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.25.121242"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
+    <link rel="stylesheet" href="gitbook/custom.css?v=3.2024.04.27.153419"><script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -2062,13 +2062,13 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b17-download-file">B.17. Download File</h1>
-<p>Setelah sebelumnya belajar cara untuk handle upload file, kali ini kita akan belajar bagaimana cara membuat handler yang hasilnya adalah download file.</p>
-<p>Sebenarnya download file bisa dengan mudah di-implementasikan menggunakan teknik routing static file, langsung akses url dari public assets di browser. Namun outcome dari teknik ini sangat tergantung pada browser. Tiap browser memiliki behaviour berbeda, ada yang file tidak di-download melainkan dibuka di tab, ada yang ter-download.</p>
-<p>Dengan menggunakan teknik berikut, file pasti akan ter-download.</p>
+<p>Sebelumnya kita telah belajar cara untuk handle upload file, kali ini kita akan belajar bagaimana cara membuat HTTP handler yang menghasilkan response berbentuk download file.</p>
+<p>Sebenarnya download file bisa dengan mudah di-implementasikan menggunakan teknik routing static file, lalu langsung mengakses url assets di browser. Namun outcome dari teknik ini sangat tergantung default konfigurasi browser. Tiap browser memiliki <em>behaviour</em> berbeda, ada yang akan merespon dengan membuka file di tab, ada juga yang merespon dengan men-download file tersebut.</p>
+<p>Dengan penerapan teknik yang dibahas pada chapter ini, file bisa dipastikan di-download oleh browser sewaktu diakses.</p>
 <h2 id="b171-struktur-folder-proyek">B.17.1. Struktur Folder Proyek</h2>
 <p>OK, pertama siapkan terlebih dahulu proyek dengan struktur seperti gambar berikut.</p>
 <p><img src="images/B_download_file_1_structure.png" alt="Dasar Pemrograman Golang - Project structure"></p>
-<p>File yang berada di folder <code>files</code> adalah dummy, jadi anda bisa gunakan file apapun dengan jumlah berapapun untuk keperluan belajar.</p>
+<p>File yang berada di folder <code>files</code> adalah dummy file. Silakan gunakan file apapun dengan jumlah berapapun untuk keperluan praktek ini.</p>
 <h2 id="b172-front-end">B.17.2. Front End</h2>
 <p>Kali ini di bagian front end kita tidak menggunakan jQuery, cukup javascript saja tanpa library. </p>
 <p>Pertama siapkan dahulu template nya, isi file <code>view.html</code> dengan kode berikut.</p>
@@ -2085,8 +2085,8 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
-<p>Tag <code>&lt;ul /&gt;</code> nantinya akan berisikan list semua file yang ada dalam folder <code>files</code>. Data list file didapat dari back end. Diperlukan sebuah AJAX untuk pengambilan data tersebut.</p>
-<p>Siapkan sebuah fungsi dengan nama <code>Yo</code> atau bisa lainnya, fungsi ini berisikan closure <code>renderData()</code>, <code>getAllListFiles()</code>, dan method <code>init()</code>. Buat instance object baru dari <code>Yo</code>, lalu akses method <code>init()</code>, tempatkan dalam event <code>window.onload</code>.</p>
+<p>Tag <code>&lt;ul /&gt;</code> nantinya diisi dengan data list file yang ada dalam folder <code>files</code>. Data list file sendiri nantinya didapat dari API call ke back end. Di sini sebuah AJAX diperlukan untuk pengambilan data.</p>
+<p>Selanjutnya, siapkan sebuah fungsi dengan nama <code>Yo</code> atau bisa lainnya, fungsi ini berisikan closure <code>renderData()</code>, <code>getAllListFiles()</code>, dan method <code>init()</code>. Buat instance object baru dari <code>Yo</code>, lalu akses method <code>init()</code>, tempatkan dalam event <code>window.onload</code>.</p>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Yo</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
     <span class="hljs-keyword">var</span> $ul = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;list-files&quot;</span>);
@@ -2124,7 +2124,7 @@
     });
 };
 </code></pre>
-<p>Sedangkan closure <code>getAllListFiles()</code>, memiliki tugas untuk request ke back end, mengambil data list semua file. Request dilakukan dalam bentuk AJAX, nilai baliknya adalah data JSON. Setelah data sudah di tangan, fungsi <code>renderData()</code> dipanggil.</p>
+<p>Sedangkan closure <code>getAllListFiles()</code>, memiliki tugas untuk request ke back end, mengambil data list semua file. Request dilakukan dalam bentuk AJAX, nilai baliknya adalah data JSON. Setelah data sudah didapatkan, fungsi <code>renderData()</code> dipanggil.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> getAllListFiles = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
     xhr.open(<span class="hljs-string">&quot;GET&quot;</span>, <span class="hljs-string">&quot;/list-files&quot;</span>);
@@ -2205,8 +2205,8 @@
 <blockquote>
 <p>Fungsi <code>filepath.Join</code> akan menggabungkan item-item dengan path separator sesuai dengan sistem operasi di mana program dijalankan. <code>\</code> untuk Windows dan <code>/</code> untuk Linux/Unix.</p>
 </blockquote>
-<p>Fungsi <code>filepath.Walk</code> berguna untuk membaca isi dari sebuah direktori, apa yang ada di dalamnya (file maupun folder) akan di-loop. Dengan memanfaatkan callback parameter kedua fungsi ini (yang bertipe <code>filepath.WalkFunc</code>), kita bisa mengamil informasi tiap item satu-per satu.</p>
-<p>Selanjutnya siapkan handler untuk <code>/download</code>. Implementasi teknik download pada dasarnya sama pada semua bahasa pemrograman, yaitu dengan memainkan header <strong>Content-Disposition</strong> pada response.</p>
+<p>Fungsi <code>filepath.Walk</code> berguna untuk operasi list isi folder, apa yang ada di dalamnya (baik itu file maupun folder) akan diiterasi. Dengan memanfaatkan callback parameter kedua fungsi ini (yang bertipe <code>filepath.WalkFunc</code>), kita bisa mengambil informasi tiap item satu-per satu.</p>
+<p>Selanjutnya siapkan handler untuk <code>/download</code>. Implementasi teknik download pada dasarnya sama pada semua bahasa pemrograman, yaitu dengan memainkan isi dari header <strong>Content-Disposition</strong> pada HTTP response.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> handleDownload(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-keyword">if</span> err := r.ParseForm(); err != <span class="hljs-literal">nil</span> {
         http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -2232,14 +2232,15 @@
     }
 }
 </code></pre>
-<p><strong>Content-Disposition</strong> adalah salah satu ekstensi MIME protocol, berguna untuk menginformasikan browser bagaimana dia harus berinteraksi dengan output. Ada banyak jenis value content-disposition, salah satunya adalah <code>attachment</code>. Pada kode di atas, header <code>Content-Disposition: attachment; filename=filename.json</code> menghasilkan output response berupa attachment atau file, yang kemudian akan di-download oleh browser.</p>
+<p><strong>Content-Disposition</strong> adalah salah satu ekstensi MIME protocol, berguna untuk menginformasikan browser bagaimana mereka harus berinteraksi dengan output API endpoint.</p>
+<p>Ada banyak jenis value content-disposition, salah satunya adalah <code>attachment</code>. Pada kode di atas, header <code>Content-Disposition: attachment; filename=filename.json</code> menghasilkan output response berupa attachment atau file, yang kemudian akan di-download oleh browser.</p>
 <p>Objek file yang direpresentasikan variabel <code>f</code>, isinya di-copy ke objek response lewat statement <code>io.Copy(w, f)</code>.</p>
 <h2 id="b174-testing">B.17.4. Testing</h2>
 <p>Jalankan program, akses rute <code>/</code>. List semua file dalam folder <code>files</code> muncul di sana. Klik salah satu file untuk men-download-nya.</p>
 <p><img src="images/B_download_file_2_download.png" alt="Dasar Pemrograman Golang - Download file"></p>
 <hr>
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.17-download-file" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.17...</a>
 </div>
 
@@ -2272,7 +2273,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.17. Download File","level":"4.1.17","depth":2,"next":{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},"previous":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-download-file.md","mtime":"2024-04-25T12:11:26.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-25T12:12:21.921Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.17. Download File","level":"4.1.17","depth":2,"next":{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},"previous":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-download-file.md","mtime":"2024-04-27T15:33:07.270Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-27T15:33:59.247Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
