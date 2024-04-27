@@ -1,10 +1,12 @@
 # B.1. Golang Web App: Hello World
 
-Pada serial chapter B ini, kita masih tetap akan belajar tentang topik fundamental atau dasar tapi lebih spesifik ke arah web development. Kita awali dengan pembahasan bagaimana cara membuat aplikasi web "Hello World" sederhana menggunakan Go.
+Pada serial chapter B ini, fokus pembelajaran masih tetap tentang topik-topik fundamental atau dasar, tapi lebih spesifik ke area yang berhubungan dengan web development atau pengembangan web.
+
+Pembahasan diawali dengan pembuatan aplikasi web "Hello World" sederhana menggunakan Go.
 
 ## B.1.1. Pembuatan Aplikasi
 
-Mari belajar dengan praktek langsung. Pertama buat folder project baru dengan isi `main.go`, tentukan package-nya sebagai `main`, lalu import package `fmt` dan `net/http`.
+Mari belajar sambil praktik. Pertama buat folder project baru dengan isi `main.go`, tentukan package-nya sebagai `main`, lalu import package `fmt` dan `net/http`.
 
 ```go
 package main
@@ -13,12 +15,12 @@ import "fmt"
 import "net/http"
 ```
 
-Setelah itu, siapkan dua buah fungsi, masing-masing fungsi memiliki skema parameter yang sama seperti berikut.
+Setelah itu, siapkan dua buah fungsi, masing-masing memiliki skema parameter yang sama:
 
  - Parameter ke-1 bertipe `http.ResponseWrite`
  - Parameter ke-2 bertipe `*http.Request`
 
-Fungsi dengan struktur di atas diperlukan oleh `http.HandleFunc` untuk keperluan penanganan request ke rute yang ditentukan. Berikut merupakan dua fungsi yang dimaksud.
+Fungsi dengan struktur di atas diperlukan oleh `http.HandleFunc` sebagai handler untuk keperluan penanganan request ke rute yang ditentukan. Berikut adalah dua fungsi yang dimaksud:
 
 ```go
 func handlerIndex(w http.ResponseWriter, r *http.Request) {
@@ -32,11 +34,11 @@ func handlerHello(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Method `Write()` milik parameter pertama (yang bertipe `http.ResponseWrite`), digunakan untuk meng-output-kan nilai balik data. Argumen method adalah data yang ingin dijadikan output, ditulis dalam bentuk `[]byte`. 
+Method `Write()` milik parameter pertama (yang bertipe `http.ResponseWrite`), digunakan untuk meng-output-kan data ke HTTP response. Argumen method adalah data yang ingin dijadikan output, dituliskan dalam bentuk `[]byte`. 
 
-Pada contoh ini, data yang akan kita tampilkan bertipe string, maka perlu dilakukan casting dari `string` ke `[]byte`. Contohnya bisa dilihat seperta pada kode di atas, di bagian `w.Write([]byte(message))`.
+Pada contoh ini, data yang akan kita tampilkan bertipe string, maka perlu dilakukan casting dari `string` ke `[]byte`. Praktiknya bisa dilihat seperta pada kode di atas, di bagian `w.Write([]byte(message))`.
 
-Selanjutnya, siapkan fungsi `main()` dengan isi di dalamnya adalah beberapa rute atau route, dengan aksi adalah kedua fungsi yang sudah disiapkan di atas. Tak lupa siapkan juga kode untuk start server.
+Selanjutnya, siapkan fungsi `main()` dengan isi di dalamnya adalah beberapa rute (atau *route*), dengan aksi adalah kedua fungsi yang sudah disiapkan di atas. Tak lupa siapkan juga kode untuk start web server.
 
 ```go
 func main() {
@@ -53,11 +55,11 @@ func main() {
 }
 ```
 
-Fungsi `http.HandleFunc()` digunakan untuk routing. Parameter pertama adalah rute dan parameter ke-2 adalah handler-nya.
+Fungsi `http.HandleFunc()` digunakan untuk keperluan routing. Parameter pertama adalah rute dan parameter ke-2 adalah handler-nya.
 
 Fungsi `http.ListenAndServe()` digunakan membuat sekaligus start server baru, dengan parameter pertama adalah alamat web server yang diiginkan (bisa diisi host, host & port, atau port saja). Parameter kedua merupakan object mux atau multiplexer. 
 
-> Dalam chapter ini kita menggunakan default mux yang sudah disediakan oleh Go, jadi untuk parameter ke-2 cukup isi dengan `nil`.
+> Dalam chapter ini kita menggunakan *default* mux yang sudah disediakan oleh Go, jadi untuk parameter ke-2 cukup isi dengan `nil`.
 
 Ok, sekarang program sudah siap, jalankan menggunakan `go run`.
 
@@ -71,7 +73,7 @@ Berikut merupakan penjelasan detail per-bagian program yang telah kita buat dari
 
 #### ◉ Penggunaan `http.HandleFunc()`
 
-Fungsi ini digunakan untuk **routing**, menentukan aksi dari sebuah url tertentu ketika diakses (di sini url tersebut kita sebut sebagai rute/route). Rute dituliskan dalam `string` sebagai parameter pertama, dan aksi-nya sendiri dibungkus dalam fungsi (bisa berupa closure) yang ditempatkan pada parameter kedua (kita sebut sebagai handler).
+Fungsi ini digunakan untuk **routing**, menentukan aksi dari pengaksesan URL/rute tertentu. Rute dituliskan dalam tipe data `string` sebagai parameter pertama, dan aksi-nya sendiri dibungkus dalam fungsi (bisa berupa closure) pada parameter kedua (biasanya disebut sebagai handler).
 
 Pada kode di atas, tiga buah rute didaftarkan:
 
@@ -79,9 +81,9 @@ Pada kode di atas, tiga buah rute didaftarkan:
  - Rute `/index` dengan aksi adalah sama dengan `/`, yaitu fungsi `handlerIndex()`
  - Rute `/hello` dengan aksi fungsi `handlerHello()`
 
-Ketika rute-rute tersebut diakses lewat browser, outpunya adalah isi-handler dari rute yang bersangkutan. Kebetulan pada chapter ini, ketiga rute tersebut outputnya adalah sama, yaitu berupa string.
+Ketika rute-rute di atas diakses lewat browser, outpunya adalah isi-handler rute yang bersangkutan. Kebetulan pada chapter ini, ketiga rute tersebut outputnya adalah sama, yaitu berupa string.
 
-> Pada contoh di atas, ketika rute yang tidak terdaftar diakses, secara otomatis handler rute `/` akan terpanggil.
+> Pada contoh di atas, ketika rute yang tidak terdaftar diakses, maka secara otomatis handler rute `/` yang dipanggil.
 
 #### ◉ Penjelasan Mengenai **Handler**
 
@@ -99,7 +101,7 @@ func handlerIndex(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Output dari rute, dituliskan di dalam handler menggunakan method `Write()` milik objek `ResponseWriter` (parameter pertama). Output bisa berupa apapun, untuk output text tinggal lakukan casting dari tipe `string` ke `[]byte`, aturan ini juga berlaku untuk beberapa jenis output lainnya seperti html dan json, namun response header `Content-Type` perlu disesuaikan.
+Output dari rute dituliskan di dalam handler menggunakan method `Write()` milik objek `ResponseWriter` (parameter pertama). Output bisa berupa apapun, untuk output text tinggal lakukan casting dari tipe `string` ke `[]byte`, aturan ini juga berlaku untuk banyak jenis output lainnya seperti HTML, XML, JSON, dan lainnya (dengan catatan response header `Content-Type`-nya juga perlu disesuaikan).
 
 Pada contoh program yang telah kita buat, handler `Index()` memunculkan text `"Welcome"`, dan handler `Hello()` memunculkan text `"Hello world!"`.
 
@@ -107,7 +109,7 @@ Sebuah handler bisa dipergunakan pada banyak rute, bisa dilihat pada di atas han
 
 #### ◉ Penggunaan `http.ListenAndServe()`
 
-Fungsi ini digunakan untuk membuat web server baru. Pada contoh yang telah dibuat, web server di-*start* pada port `9000` (bisa dituliskan dalam bentuk `localhost:9000` atau cukup `:9000` saja).
+Fungsi ini digunakan untuk membuat web server baru. Pada contoh yang telah dibuat, web server di-*start* pada port `9000` (bisa dituliskan dalam bentuk `localhost:9000`, `0.0.0.0:9000`, atau cukup `:9000` saja).
 
 ```go
 var address = ":9000"
@@ -139,21 +141,19 @@ if err != nil {
 
 Informasi host/port perlu dimasukan dalam property `.Addr` milik objek server. Lalu dari objek tersebut panggil method `.ListenAndServe()` untuk start web server.
 
-Kelebihan menggunakan `http.Server` salah satunya adalah kemampuan untuk mengubah beberapa konfigurasi default web server Go. 
+Kelebihan menggunakan `http.Server` salah satunya adalah kemampuan untuk mengubah beberapa konfigurasi default web server Go. Contohnya bisa dilihat pada kode berikut, timeout untuk read request dan write request di ubah menjadi 10 detik.
 
-Contoh, pada kode berikut, timeout untuk read request dan write request di ubah menjadi 10 detik.
-
-```
+```go
 server.ReadTimeout = time.Second * 10
 server.WriteTimeout = time.Second * 10
 ```
 
-Ada banyak lagi property dari struct `http.Server` ini, yang pastinya akan dibahas pada pembahasan-pembahasan selanjutnya.
+Struct `http.Server` memiliki cukup banyak property lainnya, yang pastinya akan dibahas pada pembahasan-pembahasan selanjutnya.
 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.1-golang-web-hello-world">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.1...</a>
 </div>
 
