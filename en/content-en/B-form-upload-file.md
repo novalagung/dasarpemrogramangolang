@@ -1,6 +1,6 @@
 # B.13. Form Upload File
 
-Pada bagian ini kita akan belajar bagaimana cara meng-handle upload file lewat form. Di beberapa bagian caranya mirip seperti pada chapter sebelumnya, hanya perlu ditambahkan proses untuk handling file yang di-upload. File tersebut disimpan ke dalam path/folder tertentu.
+Pada bagian ini kita akan belajar bagaimana cara meng-handle upload file yang dilakukan via form submit di sisi front-end. Pada beberapa bagian, caranya mirip seperti pada chapter sebelumnya, perbedaannya kali ini handler berisi proses untuk handling file yang di-upload. Proses yang dimaksud adalah memproses payload file dari front-end untuk kemudian disimpan ke path/folder.
 
 ## B.13.1. Struktur Folder Proyek
 
@@ -8,7 +8,7 @@ Sebelum mulai masuk ke bagian koding, siapkan terlebih dahulu file dan folder de
 
 ![Folder Structure](images/B_form_upload_file_1_structure.png)
 
-Program sederhana yang akan kita buat, memiliki satu form dengan 2 inputan, alias dan file. Data file nantinya disimpan pada folder `files` yang telah dibuat, dengan nama sesuai nama file aslinya. Kecuali ketika user mengisi inputan alias, maka nama tersebut yang akan digunakan sebagai nama file tersimpan.
+Program sederhana yang akan dibuat memiliki satu form dengan 2 inputan yaitu alias dan file. Di back-end, nantinya data file disimpan ke folder `files`, dengan default nama file sesuai nama file aslinya. Kecuali ketika user mengisi inputan alias, maka nama tersebut yang akan digunakan sebagai nama file tersimpan.
 
 ## B.13.2. Front End
 
@@ -34,13 +34,13 @@ Di bagian front end, isi file `view.html` dengan kode berikut. Template file ini
 </html>
 ```
 
-Perlu diperhatikan, pada tag `<form>` perlu ditambahkan atribut `enctype="multipart/form-data"`, agar http request mendukung upload file.
+Perlu diperhatikan, pada tag `<form>` perlu ditambahkan atribut `enctype="multipart/form-data"`, agar HTTP request mendukung operasi upload file.
 
-## B.13.3. Back End
+## B.13.3. Back-End
 
-Di layer back end ada cukup banyak package yang perlu di-import, seperti `os, io, path/filepath`, dan lainnya. Packages tersebut kita perlukan untuk handling file upload.
+Di layer back-end ada cukup banyak package yang perlu di-import, seperti `os, io, path/filepath`, dan lainnya. Packages tersebut kita perlukan untuk handling file upload.
 
-Pada fungsi `main()` siapkan 2 buah route handler, satu untuk landing page, dan satunya lagi digunakan ketika proses upload selesai (sama seperti pada chapter sebelumnya).
+Pada fungsi `main()` siapkan 2 buah route handler, satu untuk landing page dan satunya lagi digunakan ketika proses upload selesai (sama seperti pada chapter sebelumnya).
 
 ```go
 package main
@@ -97,7 +97,7 @@ func routeSubmitPost(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Method `ParseMultipartForm()` digunakan untuk mem-parsing form data yang ada data file nya. Argumen `1024` pada method tersebut adalah `maxMemory`. Pemanggilan method tersebut membuat file yang terupload disimpan sementara pada memory dengan alokasi adalah sesuai dengan `maxMemory`. Jika ternyata kapasitas yang sudah dialokasikan tersebut tidak cukup, maka file akan disimpan dalam temporary file.
+Method `ParseMultipartForm()` digunakan untuk mem-parsing form data yang ada data file-nya. Argumen `1024` pada method tersebut adalah `maxMemory`. Pemanggilan method tersebut membuat file yang terupload disimpan sementara pada memory dengan alokasi sesuai `maxMemory`. Jika ternyata kapasitas yang sudah dialokasikan tersebut tidak cukup, maka file akan disimpan dalam temporary file.
 
 Masih dalam fungsi `routeSubmitPost()`, tambahkan kode untuk mengambil data alias dan file.
 
@@ -118,13 +118,13 @@ if err != nil {
 }
 ```
 
-Statement `r.FormFile("file")` digunakan untuk mengambil file yg di upload, mengembalikan 3 objek:
+Statement `r.FormFile("file")` digunakan untuk mengambil file yg di upload, dan mengembalikan 3 objek:
 
  - Objek bertipe multipart.File (yang merupakan turunan dari `*os.File`)
  - Informasi header file (bertipe `*multipart.FileHeader`)
  - Dan `error` jika ada
 
-Tahap selanjutnya adalah, menambahkan kode membuat file baru, yang nantinya file ini akan diisi dengan isi dari file yang ter-upload. Jika inputan `alias` di-isi, maka nama nilai inputan tersebut dijadikan sebagai nama file.
+Tahap selanjutnya adalah menambahkan kode membuat file baru, yang nantinya file ini akan diisi dengan isi dari file yang ter-upload. Jika inputan `alias` di-isi, maka nama nilai inputan tersebut dijadikan sebagai nama file.
 
 ```go
 filename := handler.Filename
@@ -148,18 +148,18 @@ if _, err := io.Copy(targetFile, uploadedFile); err != nil {
 w.Write([]byte("done"))
 ```
 
-Fungsi `filepath.Ext` digunakan untuk mengambil ekstensi dari sebuah file. Pada kode di atas, `handler.Filename` yang berisi nama file terupload diambil ekstensinya, lalu digabung dengan `alias` yang sudah terisi.
+Fungsi `filepath.Ext()` digunakan untuk mengambil ekstensi dari sebuah file. Pada kode di atas, `handler.Filename` yang berisi nama file terupload diambil ekstensinya, lalu digabung dengan `alias` yang sudah terisi.
 
-Fungsi `filepath.Join` berguna untuk pembentukan path.
+Fungsi `filepath.Join()` berguna untuk pembentukan path.
 
-Fungsi `os.OpenFile` digunakan untuk membuka file. Fungsi ini membutuhkan 3 buah parameter:
+Fungsi `os.OpenFile()` digunakan untuk membuka file. Fungsi ini membutuhkan 3 buah argument parameter dalam pemanggilannya:
 
- - Parameter pertama merupakan path atau lokasi dari file yang ingin di buka
+ - Parameter pertama merupakan path atau lokasi dari file yang ingin di buka.
  - Parameter kedua adalah flag mode, apakah *read only*, *write only*, atau keduanya, atau lainnya.
     - `os.O_WRONLY|os.O_CREATE` maknanya, file yang dibuka hanya akan bisa di tulis saja (*write only* konsantanya adalah `os.O_WRONLY`), dan file tersebut akan dibuat jika belum ada (konstantanya `os.O_CREATE`).
  - Sedangkan parameter terakhir adalah permission dari file, yang digunakan dalam pembuatan file itu sendiri.
 
-Fungsi `io.Copy` akan mengisi konten file parameter pertama (`targetFile`) dengan isi parameter kedua (`uploadedFile`). File kosong yang telah kita buat tadi akan diisi dengan data file yang tersimpan di memory.
+Fungsi `io.Copy()` mengisi konten file parameter pertama (`targetFile`) dengan isi parameter kedua (`uploadedFile`). File kosong yang telah kita buat tadi akan diisi dengan data file yang tersimpan di memory.
 
 > Nantinya pada salah satu pembahasan pada chapter [B.16. AJAX Multiple File Upload](/B-ajax-multi-upload.html) akan dijelaskan cara handling file upload dengan metode yang lebih efektif dan hemat memori, yaitu menggunakan `MultipartReader`.
 
@@ -172,7 +172,7 @@ Jalankan program, test hasilnya lewat browser.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.13-form-upload-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.13...</a>
 </div>
 
