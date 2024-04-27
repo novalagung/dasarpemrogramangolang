@@ -172,7 +172,7 @@ Jalankan program, test hasilnya lewat browser.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.13-form-upload-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.13...</a>
 </div>
 

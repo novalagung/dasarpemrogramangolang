@@ -157,7 +157,7 @@ Mungkin dari sini pembaca bisa lanjut ke chapter [C.35. Dockerize Aplikasi Golan
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.11-best-practice-configuration-env-var">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.11...</a>
 </div>
 

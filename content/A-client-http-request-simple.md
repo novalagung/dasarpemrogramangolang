@@ -173,7 +173,7 @@ Sampai sini kita telah belajar bagaimana cara membuat http request sederhana unt
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.55-client-http-request-simple">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.55...</a>
 </div>
 

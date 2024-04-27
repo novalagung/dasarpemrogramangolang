@@ -192,7 +192,7 @@ Jalankan aplikasi untuk mengecek hasilnya.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.19-read-write-excel-xlsx-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.19...</a>
 </div>
 

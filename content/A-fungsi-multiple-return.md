@@ -97,7 +97,7 @@ Fungsi `math.Pow()` digunakan untuk operasi pangkat nilai. `math.Pow(2, 3)` bera
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.19-fungsi-multiple-return">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.19...</a>
 </div>
 

@@ -143,7 +143,7 @@ Data user ID pada endpoint `/user` ditulis dalam format query parameters, yaitu 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.54-web-service-api">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.54...</a>
 </div>
 

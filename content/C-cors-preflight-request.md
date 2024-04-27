@@ -292,7 +292,7 @@ Berikut adalah list konfigurasi yang bisa dimanfaatkan dari library ini.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.14-cors-preflight-request">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.14...</a>
 </div>
 

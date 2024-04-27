@@ -342,7 +342,7 @@ Praktek pada chapter ini sifatnya adalah POC, jadi sangat mungkin diperlukan pen
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-D.1-insert-1mil-csv-record-into-db-in-a-minute">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>
 

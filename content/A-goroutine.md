@@ -91,7 +91,7 @@ Bisa dilihat pada kode di atas, untuk menampung inputan text `trafalgar d law`, 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.30-goroutine">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.30...</a>
 </div>
 

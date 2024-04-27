@@ -407,7 +407,7 @@ Semua berjalan sesuai harapan. Agar lebih meyakinkan, coba lakukan beberapa test
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.32-golang-jwt">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.32...</a>
 </div>
 

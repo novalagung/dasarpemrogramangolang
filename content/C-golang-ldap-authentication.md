@@ -317,7 +317,7 @@ if err != nil {
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.33-ldap-authentication">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.33...</a>
 </div>
 

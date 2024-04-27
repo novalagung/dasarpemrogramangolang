@@ -183,7 +183,7 @@ Nantinya kita akan bahas lebih detail ketika sudah masuk ke pembahasan masing-ma
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.9-variabel">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.9...</a>
 </div>
 

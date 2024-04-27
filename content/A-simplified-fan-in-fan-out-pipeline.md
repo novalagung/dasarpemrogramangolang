@@ -334,7 +334,7 @@ Nah dari sini semoga cukup jelas ya bedanya kalau dari sisi performa. Inilah pen
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.63-simplified-fan-in-fan-out-pipeline">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.63...</a>
 </div>
 

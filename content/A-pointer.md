@@ -101,7 +101,7 @@ Nilai variabel `number` berubah menjadi `10` karena perubahan yang terjadi di da
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.23-pointer">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.23...</a>
 </div>
 

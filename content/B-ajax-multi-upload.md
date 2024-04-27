@@ -200,7 +200,7 @@ Cek apakah file sudah terupload.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.16-ajax-multi-upload">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.16...</a>
 </div>
 
