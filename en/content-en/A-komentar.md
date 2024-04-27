@@ -47,7 +47,7 @@ Sifat komentar ini sama seperti komentar inline, yaitu sama-sama diabaikan oleh 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.8-komentar">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.8...</a>
 </div>
 
