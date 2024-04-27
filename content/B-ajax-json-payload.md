@@ -182,7 +182,7 @@ Isi payload didapatkan dengan cara men-decode body request (`r.Body`). Proses de
 - `json.Decoder` cocok digunakan untuk decode data JSON yang sumber datanya adalah stream `io.Reader`, contohnya seperti `r.Body`.
 - `json.Unmarshal()` cocok untuk proses decoding yang sumber datanya sudah tersimpan di variabel (bukan stream).
 
-## B.14.5. Test
+## B.14.5. Testing
 
 Jalankan program yang telah dibuat, test hasilnya di browser.
 

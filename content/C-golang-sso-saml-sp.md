@@ -272,7 +272,7 @@ http.ListenAndServe(portString, nil)
 go run *.go
 ```
 
-Oops, muncul error pada saat mengakses `http://localhost:9000/index`. Meski url ini merupakan protected url, yang di mana hanya bisa diakses ketika sudah login, harusnya user akan di-redirect ke halaman login, bukan malah memunculkan error.
+Oops, muncul error pada saat mengakses `http://localhost:9000/index`. Meski url ini merupakan protected url, yang mana hanya bisa diakses ketika sudah login, harusnya user akan di-redirect ke halaman login, bukan malah memunculkan error.
 
 ![Metadata share](images/C_golang_sso_saml_sp_1_saml_metadata_missing.png)
 

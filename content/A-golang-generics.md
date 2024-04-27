@@ -63,7 +63,7 @@ Penulisan notasi fungsi dengan Generic kurang lebih sebagai berikut:
 func FuncName[dataType <ComparableType>](params)
 ```
 
-Pada kode di atas, tipe data `[]int` kita ganti menjadi tipe data `[]V`, yang di mana tipe `V` dideklarasikan dengan notasi `[V int]`. Tipe data `V` di situ artinya kompatibel atau *comparable* dengan tipe `int`. Bisa diambil kesimpulan kedua fungsi yang telah kita tulis adalah ekuivalen.
+Pada kode di atas, tipe data `[]int` kita ganti menjadi tipe data `[]V`, yang mana tipe `V` dideklarasikan dengan notasi `[V int]`. Tipe data `V` di situ artinya kompatibel atau *comparable* dengan tipe `int`. Bisa diambil kesimpulan kedua fungsi yang telah kita tulis adalah ekuivalen.
 
 ```go
 func Sum(numbers []int) int {

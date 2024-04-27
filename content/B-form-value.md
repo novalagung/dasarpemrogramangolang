@@ -30,7 +30,7 @@ Pertama siapkan folder project baru dan sebuah file template view `view.html`. P
 {{end}}
 ```
 
-Aksi dari form di atas adalah `/process`, yang di mana url tersebut nantinya akan mengembalikan output berupa html hasil render template `result`. Silakan tulis template result berikut dalam `view.html` (jadi file view ini berisi 2 buah template).
+Aksi dari form di atas adalah `/process`, yang mana url tersebut nantinya akan mengembalikan output berupa html hasil render template `result`. Silakan tulis template result berikut dalam `view.html` (jadi file view ini berisi 2 buah template).
 
 ```html
 {{define "result"}}
@@ -123,7 +123,7 @@ Selain lewat method `FormValue()`, pengaksesan data juga bisa dilakukan dengan c
 
 Setelah data dari form sudah ditangkap oleh back-end, data ditampung dalam variabel `data` yang bertipe `map[string]string`. Variabel `data` tersebut kemudian disisipkan ke view, lewat statement `tmpl.Execute(w, data)`.
 
-## B.12.3. Test
+## B.12.3. Testing
 
 OK, sekarang coba jalankan program yang telah kita buat, dan cek hasilnya.
 

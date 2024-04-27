@@ -1,6 +1,6 @@
 # B.10. Template: Render HTML String
 
-Output HTML yang muncul, selain bersumber dari template view, bisa juga bersumber dari sebuah string. Dengan menggunakan method `Parse()` milik `*template.Template` kita bisa menjadikan string html sebagai output.
+Output HTML yang muncul, selain bersumber dari template view bisa juga bersumber dari sebuah string. Dengan menggunakan method `Parse()` milik `*template.Template` kita bisa menjadikan HTML string sebagai output di web.
 
 ## B.10.1. Praktek
 
@@ -23,11 +23,11 @@ const view string = `<html>
 </html>`
 ```
 
-Konstanta bernama `view` bertipe `string` disiapkan, dengan isi adalah string html yang akan kita jadikan sebagai output nantinya.
+Konstanta bernama `view` dengan tipe `string` disiapkan, isinya HTML string yang nanbtinya kita jadikan sebagai output pengaksesan endpoint.
 
 Kemudian buat fungsi `main()`, isinya adalah route handler `/index`. Dalam handler tersebut, string html `view` diparsing lalu dirender sebagai output.
 
-Tambahkan juga rute `/`, yang isinya adalah me-redirect request secara paksa ke `/index` menggunakan fungsi `http.Redirect()`.
+Tambahkan juga rute `/` yang isinya adalah me-redirect request secara paksa ke `/index` (via fungsi `http.Redirect()`).
 
 ```go
 func main() {
@@ -47,9 +47,9 @@ func main() {
 }
 ```
 
-Pada kode di atas bisa dilihat, sebuah template bernama `main-template` disiapkan. Template tersebut diisi dengan hasil parsing string html `view` lewat method `Parse()`.
+Pada kode di atas bisa dilihat sebuah template bernama `main-template` disiapkan. Template tersebut diisi dengan hasil parsing string html `view` lewat method `Parse()`.
 
-## B.10.2. Test
+## B.10.2. Testing
 
 Lakukan tes dan lihat hasilnya.
 

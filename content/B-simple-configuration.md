@@ -1,12 +1,12 @@
 # B.22. Simple Configuration
 
-Dalam development, pasti banyak sekali variabel dan konstanta yang diperlukan. Mulai dari variabel yang dibutuhkan untuk start server seperti port, timeout, hingga variabel global dan variabel shared lainnya.
+Dalam development, pastinya kita programmer akan berurusan dengan banyak sekali variabel dan konstanta untuk keperluan konfigurasi. Misalnya, variabel berisi informasi port web server, timeout, variabel global, dan lainnya.
 
-Pada chapter ini, kita akan belajar cara membuat config file modular. 
+Pada chapter ini, kita akan belajar dasar pengelolahan variabel konfigurasi dengan memanfaatkan file JSON. 
 
 ## B.22.1. Struktur Aplikasi
 
-Pertama-tama, buat project baru, siapkan dengan struktur seperti gambar berikut.
+Pertama-tama, buat project baru dengan struktur seperti gambar berikut.
 
 ![Structure](images/B_simple_configuration_1_structure.png)
 
@@ -17,7 +17,7 @@ Folder `conf` berisi 2 file.
 
 ## B.22.2. File Konfigurasi JSON `config.json`
 
-Semua konfigurasi perlu dituliskan dalam file ini. Desain struktur JSON nya untuk bisa mudah dipahami. Tulis data berikut di file tersebut.
+Semua konfigurasi dituliskan dalam file ini. Desain struktur JSON-nya untuk bisa mudah dipahami, contoh:
 
 ```json
 {
@@ -33,7 +33,7 @@ Semua konfigurasi perlu dituliskan dalam file ini. Desain struktur JSON nya untu
 }
 ```
 
-Ada 4 buah konfigurasi disiapkan.
+Data JSON di atas berisi 4 buah data konfigurasi.
 
  1. Property `server.port`. Port yang digunakan saat start web server.
  2. Property `server.read_timeout`. Dijadikan sebagai timeout read.
@@ -42,7 +42,7 @@ Ada 4 buah konfigurasi disiapkan.
 
 ## B.22.3. Pemrosesan Konfigurasi
 
-Pada file `config.go`, nantinya kita akan buat sebuah fungsi, isinya mengembalikan objek cetakan struct representasi dari `config.json`.
+Pada file `config.go` kita akan siapkan sebuah fungsi yang isinya mengembalikan objek cetakan struct didapat dari konten file `config.json`.
 
 Siapkan struct nya terlebih dahulu.
 
@@ -71,14 +71,13 @@ type _Configuration struct {
 }
 ```
 
-Bisa dilihat pada kode di atas, struct bernama `_Configuration` dibuat. Struct ini berisikan banyak property yang strukturnya sama persis dengan isi file `config.json`. Dengan desain seperti ini, akan sangat memudahkan developer dalam pengaksesan konfigurasi.
+Bisa dilihat pada kode di atas, struct bernama `_Configuration` dibuat. Struct ini berisikan banyak property yang strukturnya sama persis dengan isi file `config.json`. Dengan skema seperti itu akan cukup mempermudah developer dalam pengaksesan data konfigurasi.
 
-Dari struct tersebut tercetak private objek bernama `shared`. Variabel inilah yang nantinya akan dikembalikan lewat fungsi yang akan kita buat.
+Dari struct tersebut disiapkan objek bernama `shared`. Variabel ini berisi informasi konfigurasi hasil baca `config.json`, dan nantinya isinya bisa diakses via fungsi fungsi yang sebentar lagi akan dibuat.
 
-Selanjutnya, isi `init()` dengan beberapa proses: membaca file json, lalu di decode ke object `shared`. 
+Selanjutnya, siapkan fungsi `init()` dengan isi operasi baca file `config.json` serta operasi decode data JSON dari isi file tersebut ke variabel `shared`. 
 
-Dengan menuliskan proses barusan ke fungsi `init()`, pada saat package `conf` ini di import ke package lain maka file `config.json` akan otomatis di parsing. Dan dengan menambahkan sedikit validasi, parsing hanya akan terjadi sekali di awal.
-
+Dengan adanya fungsi `init()` maka pada saat package `conf` ini di-import ke package lain otomatis file `config.json` dibaca dan di-parse untuk disimpan di variabel `shared`. Tambahkan juga validasi untuk memastikan kode hanya di-parse sekali saja.
 
 ```go
 func init() {
@@ -107,7 +106,7 @@ func init() {
 }
 ```
 
-Lalu buat fungsi yang mengembalikan object `shared`.
+Kemudian buat fungsi `Configuration()` yang isinya menjembatani pengaksesan object `shared`.
 
 ```go
 func Configuration() _Configuration {
@@ -145,7 +144,7 @@ func (c CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 Bisa dilihat dalam method `ServeHTTP()` di atas, ada pengecekan salah satu konfigurasi, yaitu `Log.Verbose`. Cara pengaksesannya cukup mudah, yaitu lewat fungsi `Configuration()` milik package `conf` yang telah di-import.
 
-OK, kembali lagi ke contoh, dari mux di atas, buat object baru bernama `router`, lalu lakukan registrasi beberapa rute.
+OK, kembali lagi ke contoh, dari mux di atas dibuatkan object baru bernama `router`, lalu beberapa rute didaftarkan ke object mux tersebut.
 
 ```go
 func main() {
@@ -161,8 +160,7 @@ func main() {
 }
 ```
 
-Selanjutnya, kita akan start web server untuk serve mux di atas. Masih di dalam `main.go`, tambahkan kode berikut.
-
+Selanjutnya, siapkan kode untuk start web server. Tulis kode berikut di dalam fungsi `main()` tepat setelah kode deklarasi route handler.
 
 ```go
 server := new(http.Server)
@@ -181,18 +179,18 @@ if err != nil {
 }
 ```
 
-Objek baru bernama `server` telah dibuat dari struct `http.Server`. Untuk start server cukup panggil method `ListenAndServe()` milik objek tersebut.
+Di atas, ada objek baru dibuat dari struct `http.Server`, yaitu `server`. Untuk start server, panggil method `ListenAndServe()` milik objek tersebut.
 
 Dengan memanfaatkan struct ini, kita bisa meng-custom beberapa konfigurasi default pada Go web server. Di antaranya seperti `ReadTimeout` dan `WriteTimeout`.
 
-Pada kode di atas bisa kita lihat, ada 4 buah properti milik `server` di-isi.
+Bisa dilihat di contoh ada 4 buah properti milik `server` yang diisi nilainya dengan data konfigurasi.
 
  - `server.Handler`. Properti ini wajib di isi dengan custom mux yang dibuat.
  - `server.ReadTimeout`. Adalah timeout ketika memproses sebuah request. Kita isi dengan nilai dari configurasi.
  - `server.WriteTimeout`. Adalah timeout ketika memproses response.
  - `server.Addr`. Port yang digunakan web server pada saat start.
 
-Terakhir jalankan aplikasi, akses dua buah endpoint yang sudah dibuat, lalu coba cek di console.
+Ok. Sekarang jalankan aplikasi, akses dua buah endpoint yang sudah dibuat, kemudian cek di console.
 
 ![Structure](images/B_simple_configuration_2_log.png)
 
@@ -200,25 +198,25 @@ Coba ubah konfigurasi pada `config.json` nilai `log.verbose` menjadi `false`. La
 
 ## B.22.5. Kekurangan Konfigurasi File
 
-Ok, kita telah selesai belajar tentang cara membuat file konfigurasi yang mudah dibaca dan praktis. Namun penerapan kontrol konfigurasi dengan metode ini kurang dianjurkan karena beberapa hal:
+Ok, kita telah selesai belajar tentang cara membuat file konfigurasi yang terpusat dan mudah dibaca. Metode konfigurasi seperti ini umum digunakan, tapi dalam penerapannya memiliki beberapa *cons* yang mungkin akan mulai terasa ketika aplikasi arsitektur aplikasi berkembang dan arsitektur sistemnya menjadi kompleks. *Cons* yang dimaksud diantaranya adalah:
 
 #### ◉ Tidak mendukung komentar
 
-Komentar sangat penting karena untuk aplikasi besar yang konfigurasi item-nya sangat banyak - akan susah untuk dipahami. Sebenarnya perihal ini bisa di-*resolve* menggunakan jenis konfigurasi lain seperti `YAML`, `.env`, atau lainnya.
+Komentar sangat penting karena untuk aplikasi besar yang konfigurasi item-nya sangat banyak, konfigurasi seperti pada contoh ini akan cukup susah untuk dikelola. Sebenarnya masalah ini bisa diselesaikan dengan mudah dengan cara mengadopsi file format lainnya, misalnya `YAML`, `.env`, atau lainnya.
 
 #### ◉ Nilai konfigurasi harus diketahui di awal
 
-Kita harus tau semua value tiap-tiap konfigurasi terlebih dahulu, dan dituliskan ke file, sebelum aplikasi di-up. Dari sini akan sangat susah jika misal ada beberapa konfigurasi yang kita tidak tau nilainya tapi tau cara pengambilannya.
+Kita harus tau semua value tiap-tiap konfigurasi terlebih dahulu sebelum dituliskan ke file, dan sebelum aplikasi di-up. Dari sini akan sangat susah jika misal ada beberapa konfigurasi yang kita tidak tau nilainya tapi tau cara pengambilannya.
 
-Contohnya pada beberapa kasus, seperti di AWS, database server yang di-setup secara automated akan meng-generate connection string yang host-nya bisa berganti-ganti tiap start-up, dan tidak hanya itu, bisa saja username, password dan lainnya juga tidak statis.
+Contohnya seperti ini, di beberapa kasus, misalnya di AWS, database server yang di-setup secara automated akan meng-generate connection string yang host-nya bisa berganti-ganti tiap start-up, dan tidak hanya itu saja, bisa saja username, password dan lainnya juga tidak statis.
 
-Dengan ini akan sangat susah jika kita harus cari terlebih dahulu value konfigurasi tersebut untuk kemudian dituliskan ke file. Memakan waktu dan kurang baik dari banyak sisi.
+Dengan ini akan cukup merepotkan jika kita harus cari terlebih dahulu value konfigurasi tersebut untuk kemudian dituliskan ke file secara manual.
 
 #### ◉ Tidak terpusat
 
-Dalam pengembangan aplikasi, banyak konfigurasi yang nilai-nya akan didapat lewat jalan lain, seperti *environment variables* atau *command arguments*.
+Dalam pengembangan aplikasi, banyak konfigurasi yang nilai-nya akan didapat lewat jalan lain, seperti *environment variables* atau *command arguments*. Menyimpan konfigurasi file itu sudah cukup bagus, cuman untuk *case* dimana terdapat banyak sekali services, agak merepotkan pengelolahannya.
 
-Akan lebih mudah jika hanya ada satu sumber konfigurasi saja untuk dijadikan acuan.
+Ketika ada perubahan konfigurasi, semua services harus direstart.
 
 #### ◉ Statis (tidak dinamis)
 
@@ -228,8 +226,7 @@ Hal tersebut memiliki beberapa konsekuensi, untuk aplikasi yang di-manage secara
 
 #### ◉ Solusi
 
-Kita akan membahas solusi dari beberapa masalah di atas pada chapter terpisah, yaitu [Best Practice Configuration Menggunakan Environment Variable
-](/C-best-practice-configuration-env-var)
+Kita akan membahas solusi dari beberapa masalah di atas (tidak semuanya) pada chapter terpisah, yaitu [C.11. Best Practice Configuration Menggunakan Environment Variable](/C-best-practice-configuration-env-var.html)
 
 ---
 

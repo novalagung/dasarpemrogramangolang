@@ -1,35 +1,41 @@
 # B.19. Middleware `http.Handler`
 
-Pada chapter ini, kita akan belajar penggunaan interface `http.Handler` untuk implementasi custom middleware. Kita akan menggunakan sample proyek pada chapter sebelumnya [B.18. HTTP Basic Auth](/B-http-basic-auth.html) sebagai dasar bahan pembahasan chapter ini.
+Pada chapter ini, topik yang dibahas adalah penerapan interface `http.Handler` untuk implementasi custom middleware. Kita gunakan sample proyek pada chapter sebelumnya [B.18. HTTP Basic Auth](/B-http-basic-auth.html) sebagai dasar bahan pembahasan chapter ini.
 
-> Apa itu middleware? Istilah middleware berbeda-beda di tiap bahasa/framework. NodeJS dan Rails ada istilah middleware. Pada pemrograman Java Enterprise, istilah filters digunakan. Pada C# istilahnya adalah delegate handlers. Definisi dari middleware sendiri versi penulis, sebuah blok kode yang dipanggil sebelum ataupun sesudah http request di proses.
+> Apa itu middleware? 
+> 
+> Istilah middleware berbeda-beda di tiap bahasa/framework. Di NodeJS dan Rails ada istilah middleware. Pada pemrograman Java Enterprise, istilah filters digunakan. Pada C# middleware disebut dengan delegate handlers. Definisi sederhana middleware adalah sebuah blok kode yang dipanggil sebelum ataupun sesudah http request di proses.
 
-Pada chapter sebelumnya, kalau dilihat, ada beberapa proses yang dijalankan dalam handler rute `/student`, yaitu pengecekan otentikasi dan pengecekan method. Misalnya terdapat rute lagi, maka dua validasi tersebut juga harus dipanggil lagi dalam handlernya.
+Pada chapter sebelumnya, terdapat beberapa proses yang dijalankan dalam handler rute `/student`, yaitu pengecekan otentikasi dan pengecekan HTTP method. Misalnya terdapat rute lagi, maka dua validasi tersebut juga harus dipanggil lagi dalam handlernya.
 
 ```go
 func ActionStudent(w http.ResponseWriter, r *http.Request) {
-    if !Auth(w, r) { return }
-    if !AllowOnlyGET(w, r) { return }
+    if !Auth(w, r) {
+        return
+    }
+    if !AllowOnlyGET(w, r) {
+        return
+    }
 
     // ...
 }
 ```
 
-Jika ada banyak rute, apa yang harus kita lakukan? salah satu solusi yang bisa digunakan adalah dengan memanggil fungsi `Auth()` dan `AllowOnlyGet()` di semua handler rute yang ada. Namun jelasnya ini bukan best practice. Dan juga belum tentu di tiap rute hanya ada dua validasi ini, bisa saja ada lebih banyak proses, misalnya pengecekan csrf, authorization, dan lainnya. 
+Jika ada banyak rute, apa yang harus kita lakukan? salah satu solusi adalah dengan memanggil fungsi `Auth()` dan `AllowOnlyGet()` di setiap handler rute yang ada. Namun jelasnya ini bukan best practice karena mengharuskan penulisan kode yang berulang-ulang. Selain itu, bisa jadi ada jenis validasi lainnya yang harus diterapkan, misalnya misalnya pengecekan csrf, authorization, dan lainnya. Maka perlu ada desain penataan kode yang lebih efisien tanpa harus menuliskan validasi yang banyak tersebut berulang-ulang. 
 
-Solusi dari masalah tersebut adalah, mengkonversi fungsi-fungsi di atas menjadi middleware.
+Solusi yang pas adalah dengan membuat middleware baru untuk keperluan validasi.
 
 ## B.19.1. Interface `http.Handler`
 
-Interface `http.Handler` merupakan tipe data paling populer di Go untuk keperluan manajemen middleware. Struct yang mengimplementasikan interface ini diwajibkan memilik method dengan skema `ServeHTTP(ResponseWriter, *Request)`.
+Interface `http.Handler` merupakan tipe data paling populer di Go untuk keperluan manajemen middleware. Struct yang mengimplementasikan interface ini diwajibkan untuk memilik method dengan skema `ServeHTTP(ResponseWriter, *Request)`.
 
-Di Go sendiri objek utama untuk keperluan routing yaitu `mux` atau multiplexer, adalah mengimplementasikan interface `http.Handler` ini.
+> Di Go, objek utama untuk keperluan routing web server adalah `mux` (kependekan dari multiplexer), dan `mux` ini mengimplementasikan interface `http.Handler`.
 
-Dengan memanfaatkan interface ini, kita akan membuat beberapa middleware. Fungsi  pengecekan otentikasi dan pengecekan method akan kita ubah menjadi middleware terpisah.
+Kita akan buat beberapa middleware baru dengan memanfaatkan interface `http.Handler` untuk keperluan pengecekan otentikasi dan pengecekan HTTP method.
 
 ## B.19.2. Persiapan
 
-OK, mari kita praktekan. Pertama duplikat folder project sebelumnya sebagai folder proyek baru.  Lalu pada `main.go`, ubah isi fungsi `ActionStudent` dan `main`.
+OK, mari masuk ke bagian *coding*. Pertama duplikat folder project sebelumnya sebagai folder proyek baru. Lalu pada `main.go`, ubah isi fungsi `ActionStudent()` dan `main()`.
 
  - Fungsi`ActionStudent()`
 
@@ -66,13 +72,15 @@ OK, mari kita praktekan. Pertama duplikat folder project sebelumnya sebagai fold
     ```
 
 
-Perubahan pada kode `ActionStudent()` adalah, pengecekan basic auth dan pengecekan method dihapus. Selain itu di fungsi `main()` juga terdapat cukup banyak perubahan, yang detailnya akan kita bahas di bawah ini.
+Perubahan pada kode `ActionStudent()` adalah penghapusan kode untuk pengecekan basic auth dan HTTP method. Selain itu, di fungsi `main()` juga terdapat cukup banyak perubahan, yang detailnya akan dijelaskan sebentar lagi.
 
 ## B.19.3. Mux / Multiplexer
 
 Di Go, mux (kependekan dari multiplexer) adalah router. Semua routing pasti dilakukan lewat objek mux.
 
-Apa benar? routing `http.HandleFunc()` sepertinya tidak menggunakan mux? Begini, sebenarnya routing tersebut juga menggunakan mux. Go memiliki default objek mux yaitu `http.DefaultServeMux`. Routing yang langsung dilakukan dari fungsi `HandleFunc()` milik package `net/http` sebenarnya mengarah ke method default mux `http.DefaultServeMux.HandleFunc()`. Agar lebih jelas, silakan perhatikan dua kode berikut.
+Apa benar? Routing `http.HandleFunc()` sepertinya tidak menggunakan mux? Begini, sebenarnya routing tersebut juga menggunakan mux. Go memiliki default objek mux yaitu `http.DefaultServeMux`. Routing yang langsung dilakukan dari fungsi `HandleFunc()` milik package `net/http` sebenarnya mengarah ke method default mux `http.DefaultServeMux.HandleFunc()`.
+
+Agar lebih jelas perbedaannya, silakan perhatikan dua kode berikut.
 
 ```go
 http.HandleFunc("/student", ActionStudent)
@@ -83,13 +91,13 @@ mux := http.DefaultServeMux
 mux.HandleFunc("/student", ActionStudent)
 ```
 
-Dua kode di atas menghasilkan hasil yang sama persis.
+Dua kode di atas melakukan prosees yang ekuivalen.
 
-Mux sendiri adalah bentuk nyata struct yang mengimplementasikan interface `http.Handler`. Untuk lebih jelasnya silakan baca dokumentasi package net/http di https://golang.org/pkg/net/http/#Handle.
+Mux sendiri adalah bentuk nyata struct yang mengimplementasikan interface `http.Handler`. Di kode setelah routing, bisa dilihat objek `mux` ditampung ke variabel baru bertipe `http.Handler`. Seperti ini adalah valid karena memang struct multiplexer memenuhi kriteria interface `http.Handler`, yaitu memiliki method `ServeHTTP()`. 
 
-Kembali ke pembahasan source code. Di kode setelah routing, bisa dilihat objek `mux` ditampung ke variabel baru bertipe `http.Handler`. Seperti ini adalah valid karena memang struct multiplexer memenuhi kriteria interface `http.Handler`, yaitu memiliki method `ServeHTTP()`. 
+> Untuk lebih jelasnya silakan baca dokumentasi package net/http di [https://golang.org/pkg/net/http/#Handle](https://golang.org/pkg/net/http/#Handle)
 
-Lalu dari objek `handler` tersebut, ke-dua middleware dipanggil dengan parameter adalah objek `handler` itu sendiri dan nilai baliknya ditampung pada objek yang sama.
+Lalu dari objek `handler` tersebut, ke-dua middleware dipanggil dengan argument parameter diisi objek `handler` itu sendiri, dan nilai baliknya ditampung pada objek yang sama.
 
 ```go
 var handler http.Handler = mux
@@ -97,12 +105,12 @@ handler = MiddlewareAuth(handler)
 handler = MiddlewareAllowOnlyGet(handler)
 ```
 
-Fungsi `MiddlewareAuth()` dan `MiddlewareAllowOnlyGet()` adalah middleware yang akan kita buat setelah ini. Cara registrasi middleware yang paling populer adalah dengan memanggilnya secara sekuensial atau berurutan, seperti pada kode di atas.
+Fungsi `MiddlewareAuth()` dan `MiddlewareAllowOnlyGet()` adalah middleware yang akan kita buat sebentar lagi. Cara registrasi middleware yang paling populer adalah dengan memanggilnya secara sekuensial atau berurutan, seperti pada kode di atas.
 
- - `MiddlewareAuth()` bertugas untuk melakukan pengencekan credentials, basic auth.
- - `MiddlewareAllowOnlyGet()` bertugas untuk melakukan pengecekan method.
+ - `MiddlewareAuth()` bertugas melakukan pengencekan credentials, basic auth.
+ - `MiddlewareAllowOnlyGet()` bertugas melakukan pengecekan method.
 
-> Silakan lihat source code beberapa library middleware yang sudah terkenal seperti gorilla, gin-contrib, echo middleware, dan lainnya; Semua metode implementasi middleware-nya adalah sama, atau paling tidak mirip. Point plus nya, beberapa di antara library tersebut mudah diintegrasikan dan compatible satu sama lain.
+> Silakan lihat source code beberapa library middleware yang sudah terkenal seperti gorilla, gin-contrib, echo middleware, dan lainnya; Semua metode implementasi middleware-nya adalah sama, atau minimal mirip. Point plus nya, beberapa di antara library tersebut mudah diintegrasikan dan *compatible* satu sama lain.
 
 Kedua middleware yang akan kita buat tersebut mengembalikan fungsi bertipe `http.Handler`. Eksekusi middleware sendiri terjadi pada saat ada http request masuk.
 
@@ -138,9 +146,9 @@ func MiddlewareAuth(next http.Handler) http.Handler {
 }
 ```
 
-Idealnya fungsi middleware harus mengembalikan struct yang implements `http.Handler`. Beruntungnya, Go sudah menyiapkan fungsi ajaib untuk mempersingkat pembuatan struct-yang-implemenets-`http.Handler`. Fungsi tersebut adalah `http.HandlerFunc`, cukup bungkus callback `func(http.ResponseWriter,*http.Request)` sebagai tipe `http.HandlerFunc` dan semuanya beres.
+Idealnya fungsi middleware harus mengembalikan struct yang implements `http.Handler`. Beruntungnya, Go sudah menyiapkan fungsi ajaib untuk mempersingkat pembuatan struct yang implement `http.Handler`, yaitu fungsi `http.HandlerFunc()`. Cukup bungkus callback `func(http.ResponseWriter,*http.Request)` sebagai tipe `http.HandlerFunc()` maka semuanya beres.
 
-Isi dari `MiddlewareAuth()` sendiri adalah pengecekan basic auth, sama seperti pada chapter sebelumnya.
+Isi dari `MiddlewareAuth()` sendiri adalah pengecekan basic auth (sama seperti pada chapter sebelumnya).
 
 Tak lupa, ubah juga `AllowOnlyGet()` menjadi `MiddlewareAllowOnlyGet()`.
 
@@ -167,7 +175,7 @@ Lalu test menggunakan `curl`, hasilnya adalah sama dengan pada chapter sebelumny
 
 ![Consume API](images/B_http_basic_auth_3_test_api.png)
 
-Dibanding metode pada chapter sebelumnya, dengan teknik ini kita bisa sangat mudah mengontrol lalu lintas routing aplikasi, karena semua rute pasti melewati middleware terlebih dahulu sebelum sampai ke tujuan. Cukup maksimalkan middleware tersebut tanpa menggangu fungsi callback masing-masing rute.
+Dibanding metode pada chapter sebelumnya, dengan teknik ini kita lebih mudah mengontrol lalu lintas routing aplikasi, karena semua rute pasti melewati layer middleware terlebih dahulu sebelum sampai ke handler tujuan. Cukup maksimalkan saja penerapan middleware tanpa perlu menambahkan validasi di masing-masing handler.
 
 ---
 

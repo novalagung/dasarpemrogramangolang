@@ -151,7 +151,7 @@ fruits[x:y]
 
 **Slicing** yang dimulai dari indeks **0** hingga **y** akan mengembalikan elemen-elemen mulai indeks **0** hingga sebelum indeks **y**, dengan lebar kapasitas adalah sama dengan slice aslinya.
 
-Sedangkan slicing yang dimulai dari indeks **x**, yang di mana nilai **x** adalah lebih dari **0**, membuat elemen ke-**x** slice yang diambil menjadi elemen ke-0 slice baru. Hal inilah yang membuat kapasitas slice berubah.
+Sedangkan slicing yang dimulai dari indeks **x**, yang mana nilai **x** adalah lebih dari **0**, membuat elemen ke-**x** slice yang diambil menjadi elemen ke-0 slice baru. Hal inilah yang membuat kapasitas slice berubah.
 
 ## A.16.6. Fungsi `append()`
 
