@@ -1,10 +1,10 @@
 # B.12. Form Value
 
-Pada chapter ini kita akan belajar bagaimana cara untuk submit data, dari form di layer front end, ke back end.
+Pada chapter ini kita akan belajar bagaimana cara untuk submit data dari form di front-end untuk dikirim ke back-end melalui API call (HTTP request).
 
-# B.12.1. Front End
+# B.12.1. Front-End
 
-Pertama siapkan folder project baru, dan sebuah file template view `view.html`. Pada file ini perlu didefinisikan 2 buah template, yaitu `form` dan `result`. Template pertama (`form`) dijadikan landing page program, isinya beberapa inputan untuk submit data.
+Pertama siapkan folder project baru dan sebuah file template view `view.html`. Pada file ini perlu didefinisikan 2 buah template, yaitu `form` dan `result`. Template pertama (`form`) dijadikan landing page program, isinya beberapa inputan untuk submit data.
 
 ```html
 {{define "form"}}
@@ -30,7 +30,7 @@ Pertama siapkan folder project baru, dan sebuah file template view `view.html`. 
 {{end}}
 ```
 
-Aksi dari form di atas adalah `/process`, yang di mana url tersebut nantinya akan mengembalikan output berupa html hasil render template `result`. Silakan tulis template result berikut dalam `view.html` (jadi file view ini berisi 2 buah template).
+Aksi dari form di atas adalah `/process`, yang mana url tersebut nantinya akan mengembalikan output berupa html hasil render template `result`. Silakan tulis template result berikut dalam `view.html` (jadi file view ini berisi 2 buah template).
 
 ```html
 {{define "result"}}
@@ -47,7 +47,7 @@ Aksi dari form di atas adalah `/process`, yang di mana url tersebut nantinya aka
 {{end}}
 ```
 
-## B.12.2. Back End
+## B.12.2. Back-End
 
 Buat file `main.go`. Dalam file ini 2 buah route handler diregistrasikan.
 
@@ -70,7 +70,7 @@ func main() {
 }
 ```
 
-Handler route `/` dibungkus dalam fungsi bernama `routeIndexGet`. Di dalamnya, template `form` dalam file template `view.html` akan di-render ke view. Request dalam handler ini hanya dibatasi untuk method GET saja, request dengan method lain akan menghasilkan response 400 Bad Request.
+Handler route `/` dibungkus dalam fungsi bernama `routeIndexGet()`. Di dalamnya, template `form` dalam file template `view.html` akan di-render ke view. Request dalam handler ini hanya dibatasi untuk method GET saja, request dengan method lain akan menghasilkan response `400 Bad Request`.
 
 ```go
 func routeIndexGet(w http.ResponseWriter, r *http.Request) {
@@ -88,7 +88,7 @@ func routeIndexGet(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Fungsi `routeSubmitPost` yang merupakan handler route `/process`, berisikan proses yang mirip seperti handler route `/`, yaitu parsing `view.html` untuk di ambil template `result`-nya. Selain itu, pada handler ini ada proses pengambilan data yang dikirim dari form ketika di-submit, untuk kemudian disisipkan ke template view.
+Fungsi `routeSubmitPost()` yang merupakan handler route `/process`, berisikan proses yang mirip seperti handler route `/`, yaitu parsing `view.html` untuk di ambil template `result`-nya. Selain itu, pada handler ini ada proses pengambilan data yang dikirim dari form submit, untuk kemudian disisipkan ke template view.
 
 ```go
 func routeSubmitPost(w http.ResponseWriter, r *http.Request) {
@@ -115,15 +115,15 @@ func routeSubmitPost(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Ketika user submit ke `/process`, maka data-data yang ada di form input dikirim. Method `ParseForm()` pada statement `r.ParseForm()` berguna untuk parsing form data yang dikirim dari view, sebelum akhirnya bisa diambil data-datanya. Method tersebut mengembalikan data `error` jika proses parsing gagal (kemungkinan karena data yang dikirim ada yang tidak valid).
+Ketika user submit ke `/process`, maka data-data yang ada di form input dikirim. Method `ParseForm()` pada statement `r.ParseForm()` berguna untuk parsing form data yang dikirim dari view, sebelum akhirnya bisa diambil datanya. Method tersebut mengembalikan `error` jika proses parsing gagal (kemungkinan karena data yang dikirim ada yang tidak valid).
 
-Pengambilan data yang dikirim dilakukan lewat method `FormValue()`. Contohnya seperti pada kode di atas, `r.FormValue("name")`, akan mengembalikan data inputan `name` (data dari inputan `<input name="name" />`).
+Pengambilan data dilakukan lewat method `FormValue()`. Contohnya seperti pada kode di atas, `r.FormValue("name")`, akan mengembalikan data inputan `name` (data dari inputan `<input name="name" />`).
 
 Selain lewat method `FormValue()`, pengaksesan data juga bisa dilakukan dengan cara mengakses property `Form` terlebih dahulu, kemudian mengakses method `Get()`. Contohnya seperti `r.Form.Get("message")`, yang akan menghasilkan data inputan `message`. Hasil dari kedua cara di atas adalah sama.
 
 Setelah data dari form sudah ditangkap oleh back-end, data ditampung dalam variabel `data` yang bertipe `map[string]string`. Variabel `data` tersebut kemudian disisipkan ke view, lewat statement `tmpl.Execute(w, data)`.
 
-## B.12.3. Test
+## B.12.3. Testing
 
 OK, sekarang coba jalankan program yang telah kita buat, dan cek hasilnya.
 
@@ -132,7 +132,7 @@ OK, sekarang coba jalankan program yang telah kita buat, dan cek hasilnya.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.12-form-value">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.12...</a>
 </div>
 
