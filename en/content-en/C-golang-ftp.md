@@ -293,7 +293,7 @@ Jalankan aplikasi, cek hasilnya. Untuk memvalidasi bahwa file di client dan di s
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.28-golang-ftp">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.28...</a>
 </div>
 
