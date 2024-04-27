@@ -1,6 +1,8 @@
 # B.7. Template: Functions
 
-Go menyediakan beberapa *predefiend* function yang bisa digunakan dalam file template. Pada chapter ini kita akan membahas beberapa di antaranya beserta cara penggunaannya. Cara pemanggilan fungsi atau method sebuah objek pada file template sedikit berbeda dibanding seperti pada chapter sebelumnya.
+Go menyediakan beberapa *predefiend* function yang bisa digunakan langsung dalam file template. Pada chapter ini kita akan membahas beberapa di antaranya beserta cara penggunaannya.
+
+Cara pemanggilan fungsi atau method sebuah objek pada file template sedikit berbeda dibanding dengan yang telah dicontohkan pada chapter sebelumnya.
 
 ## B.7.1. Persiapan
 
@@ -160,7 +162,7 @@ Go juga menyediakan beberapa fungsi string yang bisa dimanfaatkan, yaitu:
  - `printf` (merupakan alias dari `fmt.Sprintf`)
  - `println` (merupakan alias dari `fmt.Sprintln`)
 
-Cara penggunannya juga masih sama.
+Cara penggunannya juga masih sama, contoh:
 
 ```html
 <p>
@@ -231,7 +233,7 @@ Output program:
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.7-template-functions">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.7...</a>
 </div>
 
