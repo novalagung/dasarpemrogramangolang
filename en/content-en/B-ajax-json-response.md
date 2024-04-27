@@ -1,6 +1,6 @@
 # B.15. AJAX JSON Response
 
-Pada chapter sebelumnya, kita belajar cara untuk memproses request dengan payload bertipe JSON. Pada chapter ini kita akan belajar untuk membuat satu endpoint yang mengembalikan data JSON string.
+Kita telah belajar cara untuk memproses request dengan payload bertipe JSON di chapter sebelumnya. Pembelajaran kali ini masih tentang tipe data JSON tapi lebih fokus ke bagian back-end-nya, yaitu membuat sebuah Web Service API sederhana yang mengembalikan response berbentuk JSON.
 
 ## B.15.1. Praktek
 
@@ -21,7 +21,7 @@ func main() {
 }
 ```
 
-Selanjutnya buat handler untuk rute `/`. Di dalam fungsi ini, data dummy ber-tipe slice object disiapkan. Data ini akan dikonversi ke JSON lalu dijadikan nilai balik endpoint `/`.
+Selanjutnya buat handler untuk rute `/`. Di dalam fungsi tersenit, disiapkan data dummy ber-tipe slice object. Data ini kemudian dikonversi ke JSON lalu dijadikan nilai balik endpoint `/`.
 
 ```go
 func ActionIndex(w http.ResponseWriter, r *http.Request) {
@@ -46,29 +46,27 @@ func ActionIndex(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Cara mengkonversi data ke bentuk json cukup mudah, bisa menggunakan `json.Marshal()`. Fungsi ini mengembalikan dua nilai balik, data json (dalam bentuk `[]byte`) dan error jika ada.
+Cara mengkonversi data ke bentuk json cukup mudah, bisa menggunakan `json.Marshal()`. Fungsi ini mengembalikan dua nilai balik, data JSON dalam bentuk `[]byte`, dan error jika ada.
 
 > Untuk mengambil bentuk string dari hasil konversi JSON, cukup lakukan casting pada data slice bytes tersebut. Contoh: `string(jsonInBytes)`
 
-Karena nilai balik konversi sudah dalam bentuk bytes, maka langsung saja panggil method `Write()` milik `http.ResponseWriter` dan sisipkan data json sebagai argument pemanggilan method.
+Karena nilai balik konversi sudah dalam bentuk bytes, maka langsung saja panggil method `Write()` milik `http.ResponseWriter` untuk menjadikannya sebagai API response. Panggil method tersebut, kemudian sisipkan data JSON sebagai argument pemanggilan method.
 
 Jangan lupa juga untuk menambahkan response header `Content-Type: application/json`.
 
 ## B.15.2. Testing
 
-OK, semua sudah selesai, lakukan testing.
+OK, semua sudah selesai, jalankan program lalu test API-nya.
 
 ![Testing web server](images/B_ajax_json_response_1_test.png)
 
 ## B.15.3. JSON Response menggunakan JSON.Encoder
 
-Pada chapter sebelumnya sudah disinggung, bahwa lebih baik menggunakan `json.Decoder` jika ingin men-decode data yang sumbernya ada di stream `io.Reader`
+Pada chapter sebelumnya telah disinggung bahwa lebih baik menggunakan `json.Decoder` jika ingin men-decode data yang sumbernya ada di stream `io.Reader`
 
-Package json juga memiliki fungsi lain-nya yaitu `json.Encoder`, yang sangat cocok digunakan untuk meng-encode data menjadi JSON dengan tujuan objek langsung ke stream `io.Reader`.
+Selain `json.Decoder`, ada juga `json.Encoder` yang penggunaannya adalah untuk meng-encode data menjadi JSON dengan output langsung disimpan ke stream `io.Reader`.
 
-Karena tipe `http.ResponseWriter` adalah meng-embed `io.Reader`, maka jelasnya bisa kita terapkan penggunaan encoder di sini.
-
-Contohnya penerapannya sebagai berikut.
+Tipe `http.ResponseWriter` adalah meng-embed `io.Reader`, maka tipe tersebut bisa kita gunakan pada proses encoding menggunakan `json.Encoder`. Contoh penerapannya bisa dilihat berikut ini.
 
 ```go
 w.Header().Set("Content-Type", "application/json")
@@ -80,12 +78,12 @@ if err != nil {
 }
 ```
 
-Kode di atas hasilnya ekuivalen dengan penggunaan `json.Marshal`.
+Kode di atas hasilnya ekuivalen dengan encoding data object ke JSON string menggunakan `json.Marshal()`.
 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.15-ajax-json-response">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.15...</a>
 </div>
 
