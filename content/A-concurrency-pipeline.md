@@ -8,7 +8,7 @@ Go memiliki beberapa API untuk keperluan konkurensi, dua diantaranya adalah *gor
 
 Definisi *pipeline* yang paling mudah versi penulis adalah **beberapa/banyak proses yang berjalan secara konkuren yang masing-masing proses merupakan bagian dari serangkaian tahapan proses yang berhubungan satu sama lain**.
 
-Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database secara rutin, yang di mana database server yang perlu di-backup ada banyak. Untuk backup-nya sendiri kita menggunakan program Go, bukan *shell script*. Mungkin secara garis besar serangkaian tahapan proses yang akan dijalankan adalah berikut:
+Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database secara rutin, yang mana database server yang perlu di-backup ada banyak. Untuk backup-nya sendiri kita menggunakan program Go, bukan *shell script*. Mungkin secara garis besar serangkaian tahapan proses yang akan dijalankan adalah berikut:
 
 1. Kita perlu data *list* dari semua database yang harus di-backup, beserta alamat akses dan kredensial-nya.
 2. Kita jalankan proses backup, bisa secara sekuensial (setelah `db1` selesai, lanjut `db2`, lanjut `db3`, dst), atau secara paralel (proses backup `db1`, `db2`, `db3`, dan lainnya dijalankan secara bersamaan).
@@ -383,12 +383,12 @@ Fungsi `getSum()` menerima channel dan akan secara aktif memantau dan membaca da
 
 Nah, karena di sini kita punya 3 worker yang jelasnya menghasilkan 3 buah channel baru, kita perlu sebuah mekanisme untuk menggabung channel tersebut, agar nanti mudah untuk dikontrol ([SSoT](https://en.wikipedia.org/wiki/Single_source_of_truth)). Di sinilah peran fungsi `mergeChanFileInfo()`.
 
-Fungsi `mergeChanFileInfo()` digunakan untuk *multiplexing* atau menggabung banyak channel ke satu channel saja, yang di mana channel ini juga akan **otomatis di-close ketika channel input (`chanFileContent`) adalah *closed***. Fungsi jenis seperti ini biasa disebut dengan **Fan-in function**.
+Fungsi `mergeChanFileInfo()` digunakan untuk *multiplexing* atau menggabung banyak channel ke satu channel saja, yang mana channel ini juga akan **otomatis di-close ketika channel input (`chanFileContent`) adalah *closed***. Fungsi jenis seperti ini biasa disebut dengan **Fan-in function**.
 
 Jadi TL;DR nya:
 
 * Fungsi Fan-out digunakan untuk pembuatan worker, untuk distribusi job, yang proses distribusinya sendiri akan berhenti ketika channel inputan di-close.
-* Fungsi Fan-in digunakan untuk *multiplexing* atau menggabung banyak worker ke satu channel saja, yang di mana channel baru ini juga otomatis di-close ketika channel input adalah closed.
+* Fungsi Fan-in digunakan untuk *multiplexing* atau menggabung banyak worker ke satu channel saja, yang mana channel baru ini juga otomatis di-close ketika channel input adalah closed.
 
 Sekarang lanjut buat fungsi `getSum()`.
 
@@ -408,7 +408,7 @@ func getSum(chanIn <-chan FileInfo) <-chan FileInfo {
 }
 ```
 
-Bisa dilihat, di situ channel inputan `chanIn` di-listen dan setiap ada penerimaan data (via channel tersebut) dilanjut ke proses kalkulasi md5 hash. Hasil hash-nya di tambahkan ke data `FileInfo` kemudian dikirim lagi ke channel `chanOut` yang di mana channel ini merupakan nilai balik fungsi `getSum()`.
+Bisa dilihat, di situ channel inputan `chanIn` di-listen dan setiap ada penerimaan data (via channel tersebut) dilanjut ke proses kalkulasi md5 hash. Hasil hash-nya di tambahkan ke data `FileInfo` kemudian dikirim lagi ke channel `chanOut` yang mana channel ini merupakan nilai balik fungsi `getSum()`.
 
 Ketika `chanIn` closed, maka bisa diasumsikan semua data sudah dikirim. Jika memang iya dan data-data tersebut sudah di proses (pencarian md5hash-nya), maka channel `chanOut` juga di-close.
 
@@ -539,7 +539,7 @@ Ok sekian untuk chapter panjang ini.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.62-concurrency-pipeline">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.62...</a>
 </div>
 

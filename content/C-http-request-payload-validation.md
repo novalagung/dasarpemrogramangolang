@@ -109,7 +109,7 @@ Nah, pada chapter selanjutnya kita akan belajar cara membuat custom error handle
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.5-http-request-payload-validation">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.5...</a>
 </div>
 

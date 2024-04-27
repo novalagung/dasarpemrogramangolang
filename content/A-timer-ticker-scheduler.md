@@ -126,7 +126,7 @@ func main() {
 
 Pada contoh di atas bisa dilihat, selain ticker disiapkan juga variabel channel `done`. Variabel ini kita gunakan untuk mengontrol kapan ticker harus di stop.
 
-Cara kerja program di atas: teknik `for` - `select` pada channel digunakan untuk mengecek penerimaan data dari channel `done` dan `ticker.C`. By default, channel `ticker.C` akan menerima kiriman data setiap `X` duration yang di mana pada kode di atas adalah 1 detik (lihat argumen inisialisasi objek ticker).
+Cara kerja program di atas: teknik `for` - `select` pada channel digunakan untuk mengecek penerimaan data dari channel `done` dan `ticker.C`. By default, channel `ticker.C` akan menerima kiriman data setiap `X` duration yang mana pada kode di atas adalah 1 detik (lihat argumen inisialisasi objek ticker).
 
 Data yang dikirimkan via channel `ticker.C` adalah data date-time kapan event itu terjadi. Pada kode di atas, setiap ada kiriman data via channel tersebut kita tampilkan.
 
@@ -197,7 +197,7 @@ Ketika user tidak menginputkan apa-apa dalam kurun waktu 5 detik, pesan timeout 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.41-timer-ticker-scheduler">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.41...</a>
 </div>
 

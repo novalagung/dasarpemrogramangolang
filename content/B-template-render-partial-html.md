@@ -1,15 +1,15 @@
 # B.5. Template: Render Partial HTML Template
 
-Satu buah halaman yang berisikan html, bisa terbentuk dari banyak template html (parsial). Pada chapter ini kita akan belajar bagaimana membuat, mem-parsing, dan me-render semua file tersebut.
+Satu buah halaman yang berisikan html bisa saja terbentuk dari lebih dari satu proses parsing template html (parsial). Pada chapter ini kita akan belajar bagaimana membuat, mem-parsing, dan me-render semua template file.
 
-Ada beberapa metode yang bisa digunakan, dari ke semuanya akan kita bahas 2 di antaranya, yaitu:
+Ada beberapa metode yang bisa digunakan, 2 di antaranya:
 
  - Menggunakan fungsi `template.ParseGlob()`.
  - Menggunakan fungsi `template.ParseFiles()`.
 
 ## B.5.1. Struktur Aplikasi
 
-Mari langsung kita praktekan. Buat project baru, siapkan file dan folder dengan susunan seperti dengan gambar berikut.
+Mari belajar sambil praktek seperti biasa. Buat project baru, siapkan file dan folder dengan susunan seperti dengan gambar berikut.
 
 ![Structure](images/B_template_render_partial_html_1_structure.png)
 
@@ -39,11 +39,11 @@ func main() {
 
 Tipe `M` merupakan alias dari `map[string]interface{}`, disiapkan untuk mempersingkat penulisan tipe map tersebut. Pada pembahasan-pembahasan selanjutnya kita akan banyak menggunakan tipe ini.
 
-Pada kode di atas, di dalam fungsi `main()`, fungsi `template.ParseGlob()` dipanggil, dengan parameter adalah pattern path `"views/*"`. Fungsi ini digunakan untuk memparsing semua file yang match dengan pattern yang ditentukan, dan fungsi ini mengembalikan 2 objek: `*template.Template` & `error`.
+Pada kode di atas, di dalam fungsi `main()`, fungsi `template.ParseGlob()` dipanggil, dengan parameter adalah pattern path `"views/*"`. Fungsi ini digunakan untuk memparsing semua file yang match dengan *pattern*/pola yang ditentukan. Fungsi ini mengembalikan 2 objek yaitu `*template.Template` & `error`.
 
 > Pattern path pada fungsi `template.ParseGlob()` nantinya akan di proses oleh `filepath.Glob()`
 
-Proses parsing semua file html dalam folder `views` dilakukan di awal, agar ketika mengakses rute-tertentu-yang-menampilkan-html, tidak terjadi proses parsing lagi.
+Proses parsing semua file html dalam folder `views` dilakukan di awal, agar ketika suatu endpoint diakses nantinya tidak terjadi proses parsing melainkan hanya proses rendering saja.
 
 > Parsing semua file menggunakan `template.ParseGlob()` yang dilakukan di luar handler, tidak direkomendasikan dalam fase development. Karena akan mempersulit testing html. Lebih detailnya akan dibahas di bagian bawah.
 
@@ -164,7 +164,7 @@ Bisa dilihat pada gambar di atas, ketika rute `/index` dan `/about` di akses, ko
 
 ## B.5.6. Parsing Banyak File HTML Menggunakan `template.ParseFiles()`
 
-Metode parsing menggunakan `template.ParseGlob()` memiliki kekurangan yaitu sangat tergantung terhadap pattern path yang digunakan. Jika dalam suatu proyek terdapat sangat banyak file html dan folder, sedangkan hanya beberapa yang digunakan, pemilihan pattern path yang kurang tepat akan menjadikan file lain ikut ter-parsing dengan sia-sia.
+Metode parsing menggunakan `template.ParseGlob()` memiliki kekurangan yaitu sangat tergantung terhadap pattern path yang digunakan. Jika dalam suatu proyek terdapat sangat banyak file html dan folder, sedangkan hanya beberapa yang digunakan, pemilihan pattern path yang kurang tepat akan menjadikan file lain ikut ter-parsing sia-sia.
 
 Dan juga, karena statement `template.ParseGlob()` dieksekusi diluar handler, maka ketika ada perubahan pada salah satu view, lalu halaman di refresh, output yang dihasilkan akan tetap sama. Solusi dari masalah ini adalah dengan memanggil `template.ParseGlob()` di tiap handler rute-rute yang diregistrasikan.
 
@@ -210,7 +210,7 @@ Mari kita praktekan. Ubah handler rute `/index` dan `/about`. Gunakan `template.
 	})
 	```
 
- - **Hapus** statement `template.ParseGlob()`.
+ - Tak lupa **hapus** statement `template.ParseGlob()`.
 
 	```go
 	var tmpl, err = template.ParseGlob("views/*")
@@ -229,7 +229,7 @@ Jalankan aplikasi untuk test hasilnya.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.5-template-render-partial-html">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.5...</a>
 </div>
 

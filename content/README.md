@@ -35,7 +35,7 @@ Ebook ini bisa di-download dalam bentuk file via link berikut:
 
 Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.
 
-## Source Code Praktek
+## Source Code Praktik
 
 Source code contoh-contoh program bisa diunduh di [github.com/novalagung/dasarpemrogramangolang-example](https://github.com/novalagung/dasarpemrogramangolang-example). Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.
 

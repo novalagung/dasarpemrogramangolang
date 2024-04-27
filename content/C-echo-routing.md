@@ -279,7 +279,7 @@ Jalankan aplikasi, lalu coba akses `http://localhost:9000/static/layout.js`.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.3-echo-routing">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.3...</a>
 </div>
 

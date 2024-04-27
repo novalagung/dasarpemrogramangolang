@@ -1,10 +1,10 @@
 # B.17. Download File
 
-Setelah sebelumnya belajar cara untuk handle upload file, kali ini kita akan belajar bagaimana cara membuat handler yang hasilnya adalah download file.
+Sebelumnya kita telah belajar cara untuk handle upload file, kali ini kita akan belajar bagaimana cara membuat HTTP handler yang menghasilkan response berbentuk download file.
 
-Sebenarnya download file bisa dengan mudah di-implementasikan menggunakan teknik routing static file, langsung akses url dari public assets di browser. Namun outcome dari teknik ini sangat tergantung pada browser. Tiap browser memiliki behaviour berbeda, ada yang file tidak di-download melainkan dibuka di tab, ada yang ter-download.
+Sebenarnya download file bisa dengan mudah di-implementasikan menggunakan teknik routing static file, lalu langsung mengakses url assets di browser. Namun outcome dari teknik ini sangat tergantung default konfigurasi browser. Tiap browser memiliki *behaviour* berbeda, ada yang akan merespon dengan membuka file di tab, ada juga yang merespon dengan men-download file tersebut.
 
-Dengan menggunakan teknik berikut, file pasti akan ter-download.
+Dengan penerapan teknik yang dibahas pada chapter ini, file bisa dipastikan di-download oleh browser sewaktu diakses.
 
 ## B.17.1. Struktur Folder Proyek
 
@@ -12,7 +12,7 @@ OK, pertama siapkan terlebih dahulu proyek dengan struktur seperti gambar beriku
 
 ![Project structure](images/B_download_file_1_structure.png)
 
-File yang berada di folder `files` adalah dummy, jadi anda bisa gunakan file apapun dengan jumlah berapapun untuk keperluan belajar.
+File yang berada di folder `files` adalah dummy file. Silakan gunakan file apapun dengan jumlah berapapun untuk keperluan praktek ini.
 
 ## B.17.2. Front End
 
@@ -35,9 +35,9 @@ Pertama siapkan dahulu template nya, isi file `view.html` dengan kode berikut.
 </html>
 ```
 
-Tag `<ul />` nantinya akan berisikan list semua file yang ada dalam folder `files`. Data list file didapat dari back end. Diperlukan sebuah AJAX untuk pengambilan data tersebut.
+Tag `<ul />` nantinya diisi dengan data list file yang ada dalam folder `files`. Data list file sendiri nantinya didapat dari API call ke back end. Di sini sebuah AJAX diperlukan untuk pengambilan data.
 
-Siapkan sebuah fungsi dengan nama `Yo` atau bisa lainnya, fungsi ini berisikan closure `renderData()`, `getAllListFiles()`, dan method `init()`. Buat instance object baru dari `Yo`, lalu akses method `init()`, tempatkan dalam event `window.onload`.
+Selanjutnya, siapkan sebuah fungsi dengan nama `Yo` atau bisa lainnya, fungsi ini berisikan closure `renderData()`, `getAllListFiles()`, dan method `init()`. Buat instance object baru dari `Yo`, lalu akses method `init()`, tempatkan dalam event `window.onload`.
 
 ```js
 function Yo() {
@@ -81,7 +81,7 @@ var renderData = function (res) {
 };
 ```
 
-Sedangkan closure `getAllListFiles()`, memiliki tugas untuk request ke back end, mengambil data list semua file. Request dilakukan dalam bentuk AJAX, nilai baliknya adalah data JSON. Setelah data sudah di tangan, fungsi `renderData()` dipanggil.
+Sedangkan closure `getAllListFiles()`, memiliki tugas untuk request ke back end, mengambil data list semua file. Request dilakukan dalam bentuk AJAX, nilai baliknya adalah data JSON. Setelah data sudah didapatkan, fungsi `renderData()` dipanggil.
 
 ```js
 var getAllListFiles = function () {
@@ -135,7 +135,6 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-
 Lalu siapkan juga route handler `/list-files`. Isi dari handler ini adalah membaca semua file yang ada pada folder `files` untuk kemudian dikembalikan sebagai output berupa JSON. Endpoint ini akan diakses oleh AJAX dari front end.
 
 ```go
@@ -176,9 +175,9 @@ Fungsi `os.Getwd()` mengembalikan informasi absolute path di mana aplikasi di-ek
 
 > Fungsi `filepath.Join` akan menggabungkan item-item dengan path separator sesuai dengan sistem operasi di mana program dijalankan. `\` untuk Windows dan `/` untuk Linux/Unix.
 
-Fungsi `filepath.Walk` berguna untuk membaca isi dari sebuah direktori, apa yang ada di dalamnya (file maupun folder) akan di-loop. Dengan memanfaatkan callback parameter kedua fungsi ini (yang bertipe `filepath.WalkFunc`), kita bisa mengamil informasi tiap item satu-per satu.
+Fungsi `filepath.Walk` berguna untuk operasi list isi folder, apa yang ada di dalamnya (baik itu file maupun folder) akan diiterasi. Dengan memanfaatkan callback parameter kedua fungsi ini (yang bertipe `filepath.WalkFunc`), kita bisa mengambil informasi tiap item satu-per satu.
 
-Selanjutnya siapkan handler untuk `/download`. Implementasi teknik download pada dasarnya sama pada semua bahasa pemrograman, yaitu dengan memainkan header **Content-Disposition** pada response.
+Selanjutnya siapkan handler untuk `/download`. Implementasi teknik download pada dasarnya sama pada semua bahasa pemrograman, yaitu dengan memainkan isi dari header **Content-Disposition** pada HTTP response.
 
 ```go
 func handleDownload(w http.ResponseWriter, r *http.Request) {
@@ -207,7 +206,9 @@ func handleDownload(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-**Content-Disposition** adalah salah satu ekstensi MIME protocol, berguna untuk menginformasikan browser bagaimana dia harus berinteraksi dengan output. Ada banyak jenis value content-disposition, salah satunya adalah `attachment`. Pada kode di atas, header `Content-Disposition: attachment; filename=filename.json` menghasilkan output response berupa attachment atau file, yang kemudian akan di-download oleh browser.
+**Content-Disposition** adalah salah satu ekstensi MIME protocol, berguna untuk menginformasikan browser bagaimana mereka harus berinteraksi dengan output API endpoint.
+
+Ada banyak jenis value content-disposition, salah satunya adalah `attachment`. Pada kode di atas, header `Content-Disposition: attachment; filename=filename.json` menghasilkan output response berupa attachment atau file, yang kemudian akan di-download oleh browser.
 
 Objek file yang direpresentasikan variabel `f`, isinya di-copy ke objek response lewat statement `io.Copy(w, f)`.
 
@@ -220,7 +221,7 @@ Jalankan program, akses rute `/`. List semua file dalam folder `files` muncul di
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.17-download-file">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.17...</a>
 </div>
 

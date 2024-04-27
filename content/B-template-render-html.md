@@ -1,8 +1,8 @@
 # B.4. Template: Render HTML Template
 
-Pada bagian ini kita akan belajar bagaimana cara render file **template** ber-tipe **HTML**, untuk ditampilkan pada browser. 
+Pada bagian ini kita akan belajar bagaimana cara render file **template** yang berisi **HTML** untuk ditampilkan ke layar browser. 
 
-Terdapat banyak jenis template pada Go, yang akan kita pakai adalah template HTML. Package `html/template` berisi banyak sekali fungsi untuk kebutuhan rendering dan parsing file template jenis ini.
+Terdapat banyak jenis template pada Go, di sini yang akan kita pakai adalah template HTML. Package `html/template` berisi banyak sekali fungsi untuk operasi rendering dan parsing file template HTML.
 
 ## B.4.1. Struktur Aplikasi
 
@@ -57,15 +57,15 @@ if err != nil {
 
 Package `path` berisikan banyak fungsi yang berhubungan dengan lokasi folder atau path, yang salah satu di antaranya adalah fungsi `path.Join()`. Fungsi ini digunakan untuk menggabungkan folder atau file atau keduanya menjadi sebuah path, dengan separator relatif terhadap OS yang digunakan.
 
-> Separator yang digunakan oleh `path.Join()` adalah `\` untuk wind\*ws dan `/` untuk un\*x.
+> Separator yang digunakan oleh `path.Join()` adalah `\` untuk windows dan `/` untuk linux/unix/macos.
 
 Contoh penerapan `path.Join()` bisa dilihat di kode di atas, `views` di-join dengan `index.html`, menghasilkan `views/index.html`.
 
 Sedangkan `template.ParseFiles()`, digunakan untuk parsing file template, dalam contoh ini file `view/index.html`. Fungsi ini mengembalikan 2 data, yaitu hasil dari proses parsing yang bertipe `*template.Template`, dan informasi `error` jika ada.
 
-Fungsi `http.Error()` digunakan untuk menandai response (`http.ResponseWriter`) bahwa terjadi error, dengan kode error dan pesan error bisa ditentukan. Pada contoh di atas yang digunakan adalah **500 - internal server error** yang direpresentasikan oleh variabel `http.StatusInternalServerError`.
+Fungsi `http.Error()` digunakan untuk menandai HTTP request dengan response berupa error dengan kode serta pesan error bisa kita tentukan sendiri. Pada contoh di atas yang digunakan adalah **500 - internal server error**, direpresentasikan oleh variabel `http.StatusInternalServerError`.
 
-Method `Execute()` milik `*template.Template`, digunakan untuk menyisipkan data pada template, untuk kemudian ditampilkan ke browser. Data bisa disipkan dalam bentuk `struct`, `map`, atau `interface{}`.
+Method `Execute()` milik `*template.Template`, digunakan untuk menyisipkan data pada template, kemudian menampilkannya ke browser. Data bisa disipkan ke view dalam bentuk `struct`, `map`, atau `interface{}`.
 
  - Jika dituliskan dalam bentuk `map`, maka **key** akan menjadi nama variabel dan **value** menjadi nilainya
  - Jika dituliskan dalam bentuk variabel objek cetakan `struct`, nama **property** akan menjadi nama variabel
@@ -94,13 +94,13 @@ Tanda titik "\." pada \{\{\.namaVariabel\}\} menerangkan bahwa variabel tersebut
 
 ## B.4.4. Testing
 
-Semua sudah siap, maka jalankan program lalu lakukan testing via browser.
+Semua sudah siap, sekarang jalankan program, lalu lakukan testing di browser.
 
 ![Output HTML](images/B_template_render_html_2_output.png)
 
 ## B.4.5. Static File CSS
 
-Kita akan coba tambahkan sebuah stylesheet di sini. Langsung saja, buat file statis `assets/site.css`, isi dengan kode berikut.
+Coba tambahkan sebuah stylesheet di sini. Buat file `assets/site.css`, isi dengan kode berikut.
 
 ```css
 body {
@@ -139,7 +139,7 @@ Jalankan aplikasi untuk test hasil.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.4-template-render-html">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.4...</a>
 </div>
 

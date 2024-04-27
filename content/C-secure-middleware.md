@@ -149,7 +149,7 @@ Lebih mendetailnya silakan langsung cek halaman official library secure di https
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.16-secure-middleware">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.16...</a>
 </div>
 

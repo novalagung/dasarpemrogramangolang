@@ -105,7 +105,7 @@ Silakan ubah kode `fmt.Sprintf("%d.html", report.Code)` sesuai format nama halam
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.6-http-error-handling">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.6...</a>
 </div>
 

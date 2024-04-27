@@ -130,7 +130,7 @@ Kegunaan dari parameter terakhir method-method flag adalah untuk memunculkan hin
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.48-cli-arguments-flag">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.48...</a>
 </div>
 

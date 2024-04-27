@@ -1,6 +1,6 @@
 # A.63. Concurrency Pattern: Simplified Fan-out Fan-in Pipeline
 
-Pada chapter sebelumnya, yaitu chapter [A.62. Concurrency Pattern: Pipeline](/A-concurrency-pipeline.html), kita telah mempelajari tentang pipeline pattern, yang di mana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-*handle* jenis kasus sekarangkain proses yang berjalan secara konkuren.
+Pada chapter sebelumnya, yaitu chapter [A.62. Concurrency Pattern: Pipeline](/A-concurrency-pipeline.html), kita telah mempelajari tentang pipeline pattern, yang mana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-*handle* jenis kasus sekarangkain proses yang berjalan secara konkuren.
 
 > Penulis sangat anjurkan untuk mencoba mempelajari praktek chapter sebelumnya terlebih dahulu jika belum. Karena chapter kali ini ada hubungannya dengan chapter tersebut.
 
@@ -334,7 +334,7 @@ Nah dari sini semoga cukup jelas ya bedanya kalau dari sisi performa. Inilah pen
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.63-simplified-fan-in-fan-out-pipeline">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.63...</a>
 </div>
 

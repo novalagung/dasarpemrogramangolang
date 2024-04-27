@@ -1,13 +1,13 @@
 # B.6. Template: Actions & Variables
 
-[**Actions**](https://golang.org/pkg/text/template/#hdr-Actions) adalah *predefined* keyword yang sudah disediakan Go, biasa dimanfaatkan dalam pembuatan template. 
+[**Actions**](https://golang.org/pkg/text/template/#hdr-Actions) merupakan *predefined* keyword yang disediakan oleh Go. Actions biasa dimanfaatkan dalam pembuatan template. 
 
 Sebenarnya pada dua chapter sebelumnya, secara tidak sadar kita telah menggunakan beberapa jenis actions, di antaranya:
 
  - Penggunaan **pipeline output**. Nilai yang diapit tanda <code>\{\{ \}\}</code>, yang nantinya akan dimunculkan di layar sebagai output, contohnya: <code>\{\{"hello world"\}\}</code>.
  - Include template lain menggunakan keyword `template`, contohnya: <code>\{\{template "name"\}\}</code>.
 
-Pada chapter ini, kita akan belajar lebih banyak lagi tentang actions lain yang disediakan Go, juga cara pembuatan dan pemanfaatan variabel pada template view.
+Pada chapter ini, kita akan belajar lebih banyak lagi tentang actions lain, juga cara pembuatan dan pemanfaatan variabel pada template view.
 
 ## B.6.1. Persiapan
 
@@ -33,7 +33,7 @@ type Person struct {
 }
 ```
 
-Pada kode di atas, dua buah struct disiapkan, `Info` dan `Person` (yang di mana struct `Info` di-embed ke dalam struct `Person`). Kedua struct tersebut nantinya akan digunakan untuk pembuatan objek, yang kemudian object tersebut disisipkan ke dalam view.
+Pada kode di atas, dua buah struct disiapkan, `Info` dan `Person` (yang mana struct `Info` di-embed ke dalam struct `Person`). Kedua struct tersebut nantinya akan digunakan untuk pembuatan objek untuk kemudian disisipkan ke dalam view.
 
 Selanjutnya, siapkan fungsi `main()`, dengan di dalamnya berisikan 1 buah route handler `/`, dan juga kode untuk menjalankan server pada port `9000`.
 
@@ -58,9 +58,9 @@ func main() {
 }
 ```
 
-Pada route handler `/` di atas, variabel objek `person` dibuat, lalu disisipkan sebagai data pada view `view.html` yang sebelumya sudah diparsing.
+Pada route handler `/` di atas, variabel objek `person` dibuat, kemudian disisipkan sebagai data pada view `view.html`.
 
-Perlu diketahui, ketika data yang disisipkan ke view berbentuk `map`, maka `key` (yang nantinya akan menjadi nama variabel) boleh dituliskan dalam huruf kecil. Sedangkan jika berupa variabel objek `struct`, maka property harus dituliskan public (huruf pertama kapital).
+Perlu diketahui, ketika data yang disisipkan ke view bertipe `map`, maka `key` (yang nantinya akan menjadi nama variabel) boleh dituliskan dalam huruf kecil. Sedangkan jika berupa variabel objek `struct`, maka property harus dituliskan public (huruf pertama kapital).
 
 > Data yang disisipkan ke view, jika tipe nya adalah struct, maka hanya properties ber-modifier public (ditandai dengan huruf kapital di awal nama property) yang bisa diakses dari view.
 
@@ -82,7 +82,7 @@ Selanjutnya silakan ikuti step-step berikut.
 
 ## B.6.2. Pipeline Output & Komentar
 
-Actions pertama yang akan kita coba terapkan adalah pipeline output, menampilkan output ke layar. Caranya cukup mudah, cukup dengan menuliskan apa yang ingin ditampilkan di layar dengan diapit tanda `{{ }}` (bisa berupa variabel yang dilempar dari back end, bisa juga literal string).
+Actions pertama yang akan kita coba terapkan adalah pipeline output, menampilkan output ke layar. Caranya cukup mudah, dengan menuliskan apa yang ingin ditampilkan di layar dengan diapit tanda `{{ }}` (bisa berupa variabel yang dilempar dari back end, bisa juga literal string).
 
 Tulis kode berikut di dalam tag `<table></table>` pada `view.html`.
 
@@ -135,7 +135,7 @@ Actions `range` digunakan untuk melakukan perulangan pada template view. Keyword
 </tr>
 ```
 
-Penulisannya cukup unik, keyword `range` dituliskan terlebih dahulu, diikuti variabel penampung index dan elemen. Jika yang dibutuhkan hanya elemen saja, bisa cukup gunakan `{{range $elem := .Hobbies}}`. Semua kode setelah baris deklarasi hingga penutup `{{end}}`, akan diulang sesuai jumlah elemen/item-nya.
+Penulisannya cukup unik, keyword `range` dituliskan terlebih dahulu, diikuti variabel penampung index dan elemen. Jika yang dibutuhkan hanya elemen saja, maka gunakan `{{range $elem := .Hobbies}}`. Semua kode setelah baris deklarasi hingga penutup `{{end}}`, akan diulang sesuai jumlah elemen/item-nya.
 
 ![Perulangan](images/B_template_actions_variables_3_loop.png)
 
@@ -175,7 +175,7 @@ Lalu bagaimana cara pengaksesan method yang membutuhkan parameter, jika tanda ku
 
 ## B.6.6. Penggunaan Keyword `with` Untuk Mengganti Scope Variabel Pada Suatu Blok
 
-Secara default **current scope** di template view adalah data yang dilempar back end. Scope current objek bisa diganti dengan menggunakan keyword `with`, sehingga nantinya untuk mengakses sub-property variabel objek (seperti `.Info.Affiliation`), bisa tidak dilakukan dari objek terluar.
+Default-nya, **current scope** di template view adalah data yang dilempar back end. Scope current objek bisa diganti dengan menggunakan keyword `with`, sehingga nantinya untuk mengakses sub-property variabel objek (seperti `.Info.Affiliation`), bisa tidak dilakukan dari objek terluar.
 
 > Current scope yg dimaksud di sini adalah seperti object `this` ibarat bahasa pemrograman lain.
 
@@ -247,7 +247,7 @@ Untuk seleksi kondisi yang kondisinya adalah bersumber dari variabel bertipe `bo
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.6-template-actions-variables">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.6...</a>
 </div>
 

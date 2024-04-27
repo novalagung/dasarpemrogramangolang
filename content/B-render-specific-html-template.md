@@ -1,6 +1,6 @@
 # B.9. Template: Render Specific HTML Template
 
-Pada chapter ini, kita akan belajar bagaimana cara untuk render template html tertentu. Sebuah file view bisa berisikan banyak template. Template mana yang ingin di-render bisa ditentukan.
+Pada chapter ini kita akan mempelajari cara render template html tertentu untuk dijadikan output pengaksesan endpoint. Sebuah file view bisa berisikan banyak template. Template mana yang ingin di-render bisa ditentukan.
 
 ## B.9.1. Front End
 
@@ -30,11 +30,14 @@ Siapkan folder project baru, buat file template bernama `view.html`, lalu isi de
 {{end}}
 ```
 
-Pada file view di atas, terlihat terdapat 2 template didefinisikan dalam 1 file, template `index` dan `test`. Rencananya template `index` akan ditampilkan ketika rute `/` diakses, dan template `test` ketika rute `/test` diakses.
+Pada file view di atas, terlihat terdapat 2 template didefinisikan dalam 1 file, template `index` dan `test`.
+
+- Template `index` ditampilkan ketika rute `/` diakses 
+- Template `test` ditampilkan ketika rute `/test` diakses
 
 ## B.9.2. Back End
 
-Selanjutnya siapkan back end program, buat file `main.go`, tulis kode berikut.
+Selanjutnya siapkan kode di sisi back-end, buat file `main.go`, tulis kode berikut.
 
 ```go
 package main
@@ -63,11 +66,11 @@ func main() {
 }
 ```
 
-Pada kode di atas bisa dilihat, terdapat 2 rute yang masing-masing memparsing file yang sama, tapi spesifik template yang dipilih untuk di-render berbeda.
+Pada kode di atas bisa dilihat, terdapat 2 rute yang masing-masing mem-parsing file yang sama, tapi spesifik template yang dipilih untuk di-render berbeda.
 
-Contoh di rute `/`, sebuah template dialokasikan dengan nama `index`, kemudian di-parsing-lah view bernama `view.html` menggunakan method `ParseFiles()`. Golang secara cerdas akan melakukan mencari dalam file view tersebut, apakah ada template yang namanya adalah `index` atau tidak. Jika ada akan ditampilkan. Hal ini juga berlaku pada rute `/test`, jika isi dari template bernama `test` akan ditampilkan tiap kali rute tersebut diakses.
+Contoh di rute `/`, sebuah template dialokasikan dengan nama `index`, kemudian di-parsing-lah view bernama `view.html` menggunakan method `ParseFiles()`. Go secara cerdas melakukan pencarian dalam file view tersebut, apakah ada template yang namanya adalah `index` atau tidak. Jika ada maka ditampilkan. Hal ini juga berlaku pada rute `/test`, jika isi dari template bernama `test` ada maka ditampilkan.
 
-## B.9.3. Test
+## B.9.3. Testing
 
 Lakukan tes pada program yang telah kita buat, kurang lebih hasilnya seperti pada gambar berikut.
 
@@ -76,7 +79,7 @@ Lakukan tes pada program yang telah kita buat, kurang lebih hasilnya seperti pad
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.9-render-specific-html-template">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.9...</a>
 </div>
 

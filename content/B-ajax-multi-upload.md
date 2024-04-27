@@ -1,20 +1,20 @@
 # B.16. AJAX Multiple File Upload
 
-Pada chapter ini, kita akan belajar 3 hal dalam satu waktu, yaitu: 
+Pada chapter ini, kita akan belajar 3 hal sekaligus yang mencakup poin-poin berikut: 
 
-1. Bagaiamana cara untuk upload file via AJAX.
-2. Cara untuk handle upload banyak file sekaligus.
-3. Cara handle upload file yang lebih hemat memori.
+1. Cara untuk upload file via AJAX
+2. Cara untuk handle upload banyak file sekaligus
+3. Cara handle upload file yang lebih hemat memori
 
-Sebelumnya pada chapter [B.13. Form Upload File](/B-form-upload-file.html), pemrosesan file upload dilakukan lewat **ParseMultipartForm**, sedangkan pada chapter ini metode yang dipakai berbeda, yaitu menggunakan **MultipartReader**. 
+Sebelumnya, pada chapter [B.13. Form Upload File](/B-form-upload-file.html), pemrosesan file upload dilakukan lewat **ParseMultipartForm**, sedangkan pada chapter ini metode yang dipakai berbeda, yaitu **MultipartReader**. 
 
-Kelebihan dari `MultipartReader` adalah, file yang di upload **tidak** di simpan sebagai file temporary di lokal terlebih dahulu (tidak seperti `ParseMultipartForm`), melainkan langsung diambil dari stream `io.Reader`.
+Kelebihan dari `MultipartReader` adalah, file yang di upload **tidak** di simpan pada file temporary di lokal terlebih dahulu (tidak seperti `ParseMultipartForm`), melainkan data file bisa diambil langsung dari stream `io.Reader`.
 
-Di bagian front end, upload file secara asynchronous bisa dilakukan menggunakan objek [FormData](https://developer.mozilla.org/en/docs/Web/API/FormData). Semua file dimasukkan dalam objek `FormData`, setelah itu objek tersebut dijadikan sebagai payload AJAX request.
+Cara penerapan `MultipartReader` ini membutuhkan front-end untuk melakukan upload file secara asynchronous menggunakan objek [FormData](https://developer.mozilla.org/en/docs/Web/API/FormData). Semua file yang akan di-upload diambil konten dan metadatanya menggunakan javascript untuk dimasukkan ke objek `FormData`. Setelahnya, object tersebut dijadikan sebagai payload AJAX request.
 
 ## B.16.1. Struktur Folder Proyek
 
-Mari langsung kita praktekkan, pertama siapkan proyek dengan struktur seperti gambar di bawah ini.
+Mari praktekkan, pertama siapkan proyek dengan struktur seperti gambar di bawah ini.
 
 ![Folder Structure](images/B_ajax_multi_upload_1_structure.png)
 
@@ -22,9 +22,9 @@ Mari langsung kita praktekkan, pertama siapkan proyek dengan struktur seperti ga
 
 ## B.16.2. Front End
 
-Buka `view.html`, siapkan template dasar view. Dalam file ini terdapat satu buah inputan upload file yang mendukung multi upload, dan satu buah tombol submit.
+Buka `view.html`, siapkan template dasar view. Dalam file ini terdapat satu buah inputan upload file yang mendukung multi-upload, dan satu buah tombol submit.
 
-Untuk meng-enable kapabilitas multi upload, cukup tambahkan atribut `multiple` pada input file.
+Untuk mengaktifkan kapabilitas multi upload, cukup tambahkan atribut `multiple` pada input file.
 
 ```html
 <!DOCTYPE html>
@@ -77,18 +77,18 @@ $("#user-form").on("submit", function (e) {
 });
 ```
 
-Objek inputan files (yang didapat dari `$("#upload-file")[0].files`) memiliki property `.files` yang isinya merupakan array dari semua file yang dipilih oleh user ketika upload. File-file tersebut di-loop, dimasukkan ke dalam objek `FormData` yang telah dibuat.
+Objek inputan files (yang didapat dari `$("#upload-file")[0]`) memiliki property `.files` yang isinya merupakan array dari semua file yang dipilih oleh user ketika upload. File-file tersebut diiterasi, setiap datanya dimasukkan ke dalam objek `FormData` yang telah dibuat.
 
-AJAX dilakukan lewat `jQuery.ajax`. Berikut adalah penjelasan mengenai konfigurasi `processData` dan `contentType` dalam AJAX yang sudah dibuat. 
+Operasi AJAX request dilakukan lewat `jQuery.ajax`. Berikut adalah penjelasan mengenai konfigurasi `processData` dan `contentType` dalam AJAX yang sudah dibuat. 
 
  - Konfigurasi `contentType` perlu di set ke `false` agar header Content-Type yang dikirim bisa menyesuaikan data yang disisipkan. 
  - Konfigurasi `processData` juga perlu di set ke `false`, agar data yang akan di kirim tidak otomatis dikonversi ke query string atau json string (tergantung `contentType`). Pada konteks ini kita memerlukan payload tetap dalam tipe `FormData`.
 
-## B.16.3. Back End
+## B.16.3. Back-End
 
-Ada 2 route handler yang harus dipersiapkan di back end. Pertama adalah rute `/` yang menampilkan form upload, dan rute `/upload` untuk pemrosesan upload sendiri.
+Ada 2 route handler yang harus dipersiapkan di back-end. Pertama adalah rute `/` untuk keperluan memunculkan form upload, dan rute `/upload` untuk pemrosesan upload dari AJAX request.
 
-Buka file `main.go`, isi dengan package yang dibutuhkan, lalu lakukan registrasi dua rute yang dimaksud di atas, beserta satu buah rute untuk static assets.
+Buka file `main.go`, import package yang diperlukan, lalu deklarasikan dua rute yang telah disebut di atas, beserta satu buah rute baru untuk *serving* static assets.
 
 ```go
 package main
@@ -123,11 +123,11 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Sebelumnya, pada chapter [B.13. Form Upload File](/B-form-upload-file.html), metode yang digunakan untuk handle file upload adalah menggunakan `ParseMultipartForm`, file di proses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.
+Sebelumnya, pada chapter [B.13. Form Upload File](/B-form-upload-file.html), metode yang digunakan untuk handle file upload adalah `ParseMultipartForm`. Cara kerjanya, file di proses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.
 
 Metode tersebut kurang tepat guna jika digunakan untuk memproses file yang ukurannya besar (file size melebihi `maxMemory`) atau jumlah file-nya sangat banyak (memakan waktu, karena isi dari masing-masing file akan ditampung pada file *temporary* sebelum benar-benar di-copy ke file tujuan).
 
-Solusinya dari dua masalah di atas adalah menggunakan `MultipartReader` untuk handling file upload. Dengan metode ini, file destinasi isinya akan di-copy lagsung dari stream `io.Reader`, tanpa butuh file temporary untuk perantara.
+Solusi dari dua masalah yang telah disebutkan adalah menggunakan `MultipartReader` untuk handling file upload. Lewat metode ini, file destinasi isidi-copy lagsung dari stream `io.Reader` tanpa butuh file temporary untuk perantara.
 
 Kembali ke bagian perkodingan, siapkan fungsi `handleUpload`, isinya kode berikut.
 
@@ -149,9 +149,9 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Bisa dilihat, method `.MultipartReader()` dipanggil dari objek request milik handler. Mengembalikan dua objek, pertama `*multipart.Reader` dan `error` (jika ada).
+Bisa dilihat, method `.MultipartReader()` dipanggil dari objek request milik handler. Operasi tersebut menghasilkan dua nilai balik, `*multipart.Reader` dan `error` (jika ada).
 
-Selanjutnya lakukan perulangan terhadap objek `reader`. Setiap file yang di-upload di proses di masing-masing perulangan. Setelah looping berakhir. idealnya semua file sudah terproses dengan benar.
+Selanjutnya, lakukan perulangan terhadap objek `reader`. Setiap file yang di-upload di proses di masing-masing perulangan. Setelah looping berakhir, idealnya semua file sudah terproses dengan benar.
 
 ```go
 for {
@@ -181,11 +181,11 @@ w.Write([]byte(`all files uploaded`))
 
 Method `.NextPart()` mengembalikan 2 informasi, yaitu objek stream `io.Reader` (dari file yg di upload), dan `error`. 
 
-File destinasi dipersiapkan, kemudian diisi dengan data dari stream file, menggunakan `io.Copy()`.
+File destinasi disiapkan kemudian diisi dengan data dari stream file, menggunakan `io.Copy()`.
 
-Jika `reader.NextPart()` mengembalikan error `io.EOF`, menandakan bahwa semua file sudah di proses, maka hentikan perulangan.
+Jika `reader.NextPart()` mengembalikan error `io.EOF`, maka bisa disimpulkan semua file telah di proses, kemudian perulangan dihentikan.
 
-OK, semua persiapan sudah cukup.
+OK, semua persiapan sudah cukup, selanjutnya masuk fase testing.
 
 ## B.16.4. Testing
 
@@ -200,7 +200,7 @@ Cek apakah file sudah terupload.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.16-ajax-multi-upload">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.16...</a>
 </div>
 

@@ -337,7 +337,7 @@ Di Go, setiap package masing-masing boleh memiliki fungsi `init()`. Fungsi terse
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.26-property-public-private">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.26...</a>
 </div>
 
