@@ -214,7 +214,7 @@ Kode di atas menghasilkan error karena format tidak sesuai dengan skema data yan
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.40-time-parsing-format">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.40...</a>
 </div>
 
