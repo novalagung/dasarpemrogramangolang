@@ -177,7 +177,7 @@ Di dalamnya terdapat proses validasi nilai variabel pembagi, jika nilainya adala
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.18-fungsi">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.18...</a>
 </div>
 
