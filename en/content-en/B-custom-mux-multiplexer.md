@@ -1,16 +1,16 @@
 # B.20. Custom Multiplexer
 
-Pada chapter ini, kita akan belajar membuat custom multiplexer sendiri, lalu memanfaatkannya untuk mempermudah manajemen middleware.
+Pada chapter ini, kita akan belajar cara membuat custom multiplexer sendiri, lalu memanfaatkannya untuk keperluan manajemen middleware.
 
-Silakan salin project sebelumnya, chapter [B.19. Middleware http.Handler](/B-middleware-using-http-handler.html), ke folder baru untuk keperluan pembelajaran.
+Silakan salin project sebelumnya (chapter [B.19. Middleware http.Handler](/B-middleware-using-http-handler.html)) ke folder baru untuk keperluan pembelajaran.
 
 ## B.20.1. Pembuatan Custom Mux
 
-Pada chapter sebelumnya, default mux milik Go digunakan untuk routing dan implementasi middleware. Kali ini default mux tersebut tidak digunakan, kita akan buat mux baru.
+Pada chapter sebelumnya, default mux milik Go digunakan untuk routing dan implementasi middleware. Kali ini default mux tersebut tidak digunakan karena mux baru akan dibuat.
 
-Namun pembuatan mux baru tidaklah cukup, karena *naturally* mux baru tersebut tidak akan ada beda dengan default mux. Oleh karena itu agar lebih berguna, kita akan buat tipe mux baru, meng-embed `http.ServeMux` ke dalamnya, lalu membuat beberapa hal dalam struct tersebut.
+Sebenarnya, pembuatan mux baru tidaklah cukup, karena mux baru tidak memiliki perbedaan signifikan dibanding default mux. Agar mux baru menjadi lebih berguna, mux baru tersebut perlu meng-embed `http.ServeMux` dan kita juga perlu mempersiapkan beberapa method.
 
-OK, langsung saja kita praktekan. Ubah isi fungsi main menjadi seperti berikut.
+OK, mari kita praktekan. Ubah isi fungsi `main()` menjadi seperti berikut.
 
 ```go
 mux := new(CustomMux)
@@ -28,11 +28,11 @@ fmt.Println("server started at localhost:9000")
 server.ListenAndServe()
 ```
 
-Objek `mux` dicetak dari struct `CustomMux` yang jelasnya akan di buat. Struct ini di dalamnya meng-embed `http.ServeMux`.
+Objek `mux` dicetak dari struct `CustomMux` yang mana nantinya struct ini dibuat dengan meng-embed `http.ServeMux`.
 
-Registrasi middleware juga diubah, sekarang menggunakan method `.RegisterMiddleware()` milik mux.
+Registrasi middleware juga perlu diubah, sekarang menggunakan method `.RegisterMiddleware()` milik `CustomMux`.
 
-Pada file `middleware.go`, siapkan struct `CustomMux`. Selain meng-embed objek mux milik Go, siapkan juga satu variabel bertipe slice-dari-tipe-fungsi-middleware.
+Selanjutnya, di file `middleware.go` siapkan struct `CustomMux`. Selain meng-embed objek mux milik Go, siapkan juga satu variabel bertipe `[]func(next http.Handler) http.Handler`.
 
 ```go
 type CustomMux struct {
@@ -49,7 +49,7 @@ func (c *CustomMux) RegisterMiddleware(next func(next http.Handler) http.Handler
 }
 ```
 
-Lalu buat method `ServeHTTP`. Method ini diperlukan dalam custom mux agar memenuhi kriteria interface `http.Handler`.
+Lalu buat method `ServeHTTP()`. Method ini diperlukan agar custom mux memenuhi kriteria interface `http.Handler`.
 
 ```go
 func (c *CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -63,9 +63,11 @@ func (c *CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Method `ServeHTTP()` milik mux adalah method yang pasti dipanggil pada web server, di setiap request yang masuk.
+Method `ServeHTTP()` milik mux dipanggil setiap kali ada HTTP request. Dengan perubahan di atas, maka setiap kali ada request masuk pasti akan melewati middleware-middleware terlebih dahulu secara berurutan.
 
-Dengan perubahan di atas, setiap kali ada request masuk pasti akan melewati middleware-middleware terlebih dahulu secara berurutan. Jika lolos middleware ke-1, lanjut ke-2; jika lolos middleware ke-2, lanjut ke-3; dan seterusnya.
+- Jika lolos middleware ke-1, lanjut ke-2
+- Jika lolos middleware ke-2, lanjut ke-3
+- ... dan seterusnya
 
 ## B.20.2. Testing
 
@@ -73,16 +75,18 @@ Jalankan aplikasi.
 
 ![Run the server](images/B_http_basic_auth_2_run_server.png)
 
-Lalu test menggunakan `curl`, hasilnya adalah sama dengan pada chapter sebelumnya.
+Lalu test menggunakan `curl`, hasilnya pasti sama dengan pada chapter sebelumnya.
 
 ![Consume API](images/B_http_basic_auth_3_test_api.png)
 
-Jika ada keperluan untuk menambahkan middleware baru lainnya, cukup registrasikan lewat `.RegisterMiddleware()`. Source code menjadi lebih rapi dan nyaman untuk dilihat.
+Jika ada keperluan untuk menambahkan middleware baru lainnya, cukup registrasikan lewat `.RegisterMiddleware()`. Pengaplikasian teknik custom mux ini membuat manajemen middleware menjadi lebih mudah.
+
+> Fun fact: semua *3rd party* router di Go (seperti Gin, Chi, Gorilla Mux, dan lainnya) menerapkan teknik custom multiplexer
 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.20-custom-mux-multiplexer">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.20...</a>
 </div>
 
