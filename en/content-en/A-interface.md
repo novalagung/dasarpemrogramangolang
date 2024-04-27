@@ -179,7 +179,7 @@ Pada chapter [A.23. Pointer](/A-pointer.html) dijelaskan bahwa method pointer bi
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.27-interface">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.27...</a>
 </div>
 
