@@ -271,7 +271,7 @@ Satu kata, *cantik*.
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.8-advanced-middleware-and-logging">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.8...</a>
 </div>
 
