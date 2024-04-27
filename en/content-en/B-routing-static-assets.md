@@ -1,6 +1,8 @@
 # B.3. Routing Static Assets
 
-Pada bagian ini kita akan belajar bagaimana cara routing static assets atau static contents. Seperti file css, js, gambar, umumnya dikategorikan sebagai static assets.
+Pada bagian ini kita akan mempelajari cara routing static assets / static contents. Static assets yang dimaksud adalah seperti file statis css, js, gambar, dan lainnya.
+
+Ok, mari belajar sambil praktek.
 
 ## B.3.1. Struktur Aplikasi
 
@@ -8,7 +10,7 @@ Buat project baru, siapkan file dan folder dengan struktur sesuai dengan gambar 
 
 ![Structure](images/B_routing_static_assets_1_structure.png)
 
-Dalam folder `assets`, isi dengan file apapun, bisa gambar atau file js. Selanjutnya masuk ke bagian routing static assets.
+Dalam folder `assets`, isi dengan file apapun bebas, bisa gambar atau file js. Selanjutnya masuk ke bagian routing static assets.
 
 ## B.3.2. Routing
 
@@ -30,13 +32,13 @@ func main() {
 }
 ```
 
-Syarat yang dibutuhkan untuk routing static assets masih sama dengan routing handler, yaitu perlu didefiniskan rute-nya dan handler-nya. Hanya saja pembedanya, dalam routing static assets yang digunakan adalah `http.Handle()`, bukan `http.HandleFunc()`.
+Syarat yang dibutuhkan untuk routing static assets masih sama dengan routing handler, yaitu perlu didefiniskan rute beserta handler-nya. Hanya saja pembedanya di sini adalah dalam routing static assets yang digunakan adalah `http.Handle()`, bukan `http.HandleFunc()`.
 
  1. Rute terpilih adalah `/static/`, maka nantinya semua request yang di awali dengan `/static/` akan diarahkan ke sini. Registrasi rute menggunakan `http.Handle()` adalah berbeda dengan routing menggunakan `http.HandleFunc()`, lebih jelasnya akan ada sedikit penjelasan pada chapter lain.
 
  2. Sedang untuk handler-nya bisa di-lihat, ada pada parameter ke-2 yang isinya statement `http.StripPrefix()`. Sebenarnya actual handler nya berada pada `http.FileServer()`. Fungsi `http.StripPrefix()` hanya digunakan untuk membungkus actual handler.
 
-Fungsi `http.FileServer()` mengembalikan objek ber-tipe `http.Handler`. Fungsi ini berguna untuk men-serve semua http request, dengan konten yang didefinisikan pada parameter. Pada konteks ini yang di-maksud adalah `http.Dir("assets")`. Semua konten, entah file ataupun folder, yang ada di dalam folder `assets` akan di proses dalam handler.
+Fungsi `http.FileServer()` mengembalikan objek ber-tipe `http.Handler`. Fungsi ini berguna untuk merespon http request dengan konten yang ada di dalam folder `assets` sesuai permintaan.
 
 Jalankan `main.go`, lalu test hasilnya di browser `http://localhost:9000/static/`.
 
@@ -57,36 +59,36 @@ Jika dilihat pada struktur folder yang sudah di-buat, di dalam folder `assets` t
  * Request ke `/some/folder/test.png` mengarah path `./some/folder/test.png` relatif dari folder `assets`
  * ... dan seterusnya
 
-> Fungsi `http.Dir()` berguna untuk adjustment path parameter. Separator dari path yang di-definisikan akan otomatis di-konversi ke path separator sesuai sistem operasi.
+> Fungsi `http.Dir()` berguna untuk *adjustment path parameter*. Separator dari path yang di-definisikan otomatis di-konversi ke path separator sesuai sistem operasi.
 
-Contoh selanjutnya, silakan perhatikan kode berikut.
+Sekarang coba perhatikan kode berikut.
 
 ```go
 http.Handle("/static", http.FileServer(http.Dir("assets")))
 ```
 
-Hasil dari routing:
+Dengan skema routing di atas, maka:
 
  * Request ke `/static/site.css` mengarah ke `./static/site.css` relatif dari folder `assets`
  * Request ke `/static/script.js` mengarah ke `./static/script.js` relatif dari folder `assets`
  * Request ke `/static/some/folder/test.png` mengarah ke `./static/some/folder/test.png` relatif dari folder `assets`
  * ... dan seterusnya
 
-Terlihat bahwa rute yang didaftarkan juga akan digabung dengan path destinasi file yang dicari, dan ini menjadikan path tidak valid. File `site.css` berada pada path `assets/site.css`, sedangkan dari routing di atas pencarian file mengarah ke path `assets/static/site.css`. Di sinilah kegunaan dari fungsi `http.StripPrefix()`.
+Bisa dilihat bahwa rute yang didaftarkan juga akan digabung dengan path destinasi file yang dicari, dan ini menjadikan path tidak valid. File `site.css` berada pada path `assets/site.css`, sedangkan dari routing di atas pencarian file mengarah ke path `assets/static/site.css`. Di sinilah kegunaan dari fungsi `http.StripPrefix()`.
 
-Fungsi `http.StripPrefix()` ini berguna untuk menghapus prefix dari endpoint yang di-request. Pada contoh paling atas, request ke url yang di awali dengan `/static/` hanya akan di ambil url setelahnya.
+Fungsi `http.StripPrefix()` berguna untuk menghapus prefix dari endpoint yang diakses. Request ke URL yang di awali dengan `/static/` akan diambil informasi endpoint-nya tanpa prefix `/static/`.
 
- * Request ke `/static/site.css` menjadi `/site.css`
- * Request ke `/static/script.js` menjadi `/script.js`
- * Request ke `/static/some/folder/test.png` menjadi `/some/folder/test.png`
+ * Request ke `/static/site.css` mengarah ke `site.css`
+ * Request ke `/static/script.js` mengarah ke `script.js`
+ * Request ke `/static/some/folder/test.png` mengarah ke `some/folder/test.png`
  * ... dan seterusnya
 
-Routing static assets menjadi valid, karena file yang di-request akan cocok dengan path folder dari file yang di request.
+Dengan penerapan `http.StripPrefix()` maka routing static assets menjadi valid, karena file yang di-request akan cocok dengan path folder yang telah dibuat.
 
 ---
 
 <div class="source-code-link">
-    <div class="source-code-link-message">Source code praktek chapter ini tersedia di Github</div>
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
     <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.3-routing-static-assets">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.3...</a>
 </div>
 
