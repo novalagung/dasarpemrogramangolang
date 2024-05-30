@@ -2,9 +2,9 @@
 
 [Golang](https://golang.org/), atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang [menggunakan bahasa ini](https://github.com/golang/go/wiki/GoUsers) dalam pengembangan produk-produk mereka, hingga level production tentunya.
 
-Ebook ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.
+Website/ebook ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.
 
-Ada total sekitar <b>120 chapter</b> yang dibahas dalam ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.
+Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.
 
 <ol type="A">
 	<li>
@@ -25,7 +25,7 @@ Versi e-book: **((VERSION))**, dan versi Go **1.22**.
 
 ## Download File E-book (pdf, epub, mobi)
 
-Ebook ini bisa di-download dalam bentuk file via link berikut:
+Versi ebook bisa di-download dalam bentuk file via link berikut:
 
 - [PDF](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=((VERSION)))
 - [Epub](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=((VERSION)))
@@ -39,14 +39,14 @@ Source code contoh-contoh program bisa diunduh di [github.com/novalagung/dasarpe
 
 ## Kontribusi
 
-Ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Silakan lihat juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html) untuk lebih detailnya mengenai kontribusi ke project ini.
+Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Silakan lihat juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html) untuk lebih detailnya mengenai kontribusi ke project ini.
 
 ## Lisensi dan Status FOSSA
 
-Ebook Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu **Dasar Pemrograman Golang** atau **novalagung**) dan tidak mengubah lisensi aslinya (yaitu **CC BY-SA 4.0**). Lebih detailnya silakan cek halaman [lisensi dan distribusi konten](https://dasarpemrogramangolang.novalagung.com/LICENSE.html).
+Website/ebook Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu **Dasar Pemrograman Golang** atau **novalagung**) dan tidak mengubah lisensi aslinya (yaitu **CC BY-SA 4.0**). Lebih detailnya silakan cek halaman [lisensi dan distribusi konten](https://dasarpemrogramangolang.novalagung.com/LICENSE.html).
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large)
 
 ## Author
 
-Ebook ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan saran, silakan drop email ke [hello@novalagung.com](mailto:hello@novalagung.com).
+Website/ebook ini dibuat oleh **Noval Agung Prayogo**. Untuk pertanyaan, kritik, dan saran, silakan drop email ke [hello@novalagung.com](mailto:hello@novalagung.com).
