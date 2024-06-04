@@ -2,7 +2,7 @@
 
 [Golang](https://golang.org/), atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang [menggunakan bahasa ini](https://github.com/golang/go/wiki/GoUsers) dalam pengembangan produk-produk mereka, hingga level production tentunya.
 
-Website/ebook Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.
+Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.
 
 Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.
 
@@ -43,7 +43,7 @@ Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ing
 
 ## Lisensi dan Status FOSSA
 
-Website/ebook Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu **Dasar Pemrograman Golang** atau **novalagung**) dan tidak mengubah lisensi aslinya (yaitu **CC BY-SA 4.0**). Lebih detailnya silakan cek halaman [lisensi dan distribusi konten](https://dasarpemrogramangolang.novalagung.com/LICENSE.html).
+Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu **Dasar Pemrograman Golang** atau **novalagung**) dan tidak mengubah lisensi aslinya (yaitu **CC BY-SA 4.0**). Lebih detailnya silakan cek halaman [lisensi dan distribusi konten](https://dasarpemrogramangolang.novalagung.com/LICENSE.html).
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large)
 
