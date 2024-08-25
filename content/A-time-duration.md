@@ -41,8 +41,8 @@ Ada beberapa *predefined* konstanta durasi yang perlu kita ketahui:
 - `time.Microsecond` yang nilainya adalah `1000`, atau `1000` x `time.Nanosecond`
 - `time.Millisecond` yang nilainya adalah `1000000`, atau `1000` x `time.Microsecond`
 - `time.Second` yang nilainya adalah `1000000000`, atau `1000` x `time.Millisecond`
-- `time.Minute` yang nilainya adalah `1000000000000`, atau `1000` x `time.Second`
-- `time.Hour` yang nilainya adalah `1000000000000000`, atau `1000` x `time.Minute`
+- `time.Minute` yang nilainya adalah `60000000000`, atau `60` x `time.Second`
+- `time.Hour` yang nilainya adalah `3600000000000`, atau `60` x `time.Minute`
 
 Dari list di atas bisa dicontohkan bahwa sebuah data dengan tipe `time.Duration` yang nilainya `1`, maka artinya durasi adalah **1 nanosecond**.
 
