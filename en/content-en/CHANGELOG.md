@@ -4,8 +4,22 @@
 
 #### ◉ Chapter update
 
-- [Time Duration](https://dasarpemrogramangolang.novalagung.com/A-time-duration.html)
-  - Perbaikan kesalahan pada `time.Duration`
+- [A.2. Instalasi Golang (Stable & Unstable)](/2-instalasi-golang.html)
+  - Update command instalasi
+- [A.3. Go Modules](/A-setup-go-project-dengan-go-modules.html)
+  - Peningkatan konten & perbaikan typo
+- [A.10. Tipe Data](A-tipe-data.html)
+  - Peningkatan konten & perbaikan typo
+- [A.14. Perulangan](/A-perulangan.html)
+  - Penambahan penjelasan tentang `for i := range N`
+- [A.18. Fungsi](/A-fungsi.html)
+  - Peningkatan konten & perbaikan typo
+- [A.32. Buffered Channel](/A-buffered-channel.html)
+  - Peningkatan konten & perbaikan typo
+- [A.42. Time Duration](/A-time-duration.html)
+  - Perbaikan kesalahan penjelasan pada `time.Duration`
+- [C.34. SSO SAML 2.0 (Service Provider)](/C-golang-sso-saml-sp.html)
+  - Peningkatan gambar
 - Perbaikan narasi konten semua chapter di section A
 - Perbaikan narasi konten semua chapter di section B
 
