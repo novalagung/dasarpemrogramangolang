@@ -1,7 +1,8 @@
 # Summary
 
 * [Dasar Pemrograman Golang](README.md)
-* [Download versi PDF](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf)
+* [Version Changelogs & Updates](CHANGELOG.md)
+* [Download Ebook](download-ebook.md)
 * [Author & Contributors](CONTRIBUTING.md)
 * [Lisensi dan Distribusi Konten](DISTRIBUTION.md)
 
