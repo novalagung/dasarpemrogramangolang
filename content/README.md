@@ -21,15 +21,15 @@ Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpu
 	</li>
 </ol>
 
-Versi e-book: **v4.0.20240830**, dan versi Go **1.22**.
+Versi e-book: **v4.0.20241115**, dan versi Go **1.22**.
 
 ## Download File E-book (pdf, epub, mobi)
 
 Versi ebook bisa di-download dalam bentuk file via link berikut:
 
-- [PDF](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830)
-- [Epub](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830)
-- [Mobi](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830)
+- [PDF](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20241115)
+- [Epub](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20241115)
+- [Mobi](https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20241115)
 
 Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.
 

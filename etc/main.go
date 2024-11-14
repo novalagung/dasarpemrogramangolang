@@ -147,7 +147,7 @@ func webbookPostAdjustment() {
 		htmlString = strings.ReplaceAll(htmlString, imagesAltToFind, imagesAltReplacement)
 
 		// ==== disqus lazy load
-		disqusJSBuf, err := os.ReadFile("./gitbook-plugin-disqus.js")
+		disqusJSBuf, err := os.ReadFile("./script-gitbook-plugin-disqus.js")
 		if err != nil {
 			fmt.Println("error", err)
 		}
@@ -163,7 +163,6 @@ func webbookPostAdjustment() {
 			"gitbook/gitbook-plugin-highlight/website.css",
 			"gitbook/gitbook-plugin-search/search.css",
 			"gitbook/gitbook-plugin-fontsettings/website.css",
-			// `/custom.css?v=` + getVersion() + `"`,
 		}
 		for _, cssFileNameToFind := range cssToLoad {
 			cssFileNameReplacement := fmt.Sprintf(`%s" media="print" onload="this.media='all'`, cssFileNameToFind)
@@ -179,13 +178,6 @@ func webbookPostAdjustment() {
 			<script async defer src="https://buttons.github.io/buttons.js"></script>
 		</div>` + buttonToFind
 		htmlString = strings.ReplaceAll(htmlString, buttonToFind, buttonReplacement)
-
-		// ==== inject adjustment css
-		adjustmentCSSBuf, _ := os.ReadFile("./custom.css")
-		os.WriteFile("./_book/gitbook/custom.css", adjustmentCSSBuf, 0644)
-		adjustmentCSSToFind := `</head>`
-		adjustmentCSSReplacement := `<link rel="stylesheet" href="gitbook/custom.css?v=` + getVersion() + `">` + adjustmentCSSToFind
-		htmlString = strings.ReplaceAll(htmlString, adjustmentCSSToFind, adjustmentCSSReplacement)
 
 		// ==== inject github stars js script
 		buttonScriptToFind := `</head>`

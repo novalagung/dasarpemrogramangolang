@@ -7,6 +7,9 @@
         "meta",
         "sitemap"
     ],
+    "styles": {
+        "website": "style-custom.css"
+    },
     "pluginsConfig": {
         "disqus": {
             "shortName": "dasarpemrogramangolang"
