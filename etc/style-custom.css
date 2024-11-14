@@ -138,7 +138,8 @@ ins.adsbygoogle {
 
 /* disquss block */
 #disqus_thread {
-    margin-top: 40px;
+    margin: 40px auto 5px;
+    max-width: 800px;
 }
 #disqus_thread + #disqus_thread {
     display: none;
