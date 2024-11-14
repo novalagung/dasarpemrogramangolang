@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Encode - Decode Base64 - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-hash-sha1.html">
     
+    
+    <link rel="prev" href="A-regex.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -855,7 +857,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.46" data-path="A-encoding-base64.html">
+        <li class="chapter active" data-level="3.1.46" data-path="A-encoding-base64.html">
             
                 <a href="A-encoding-base64.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.46. Encode - Decode Base64</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,72 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a46-encode---decode-base64">A.46. Encode - Decode Base64</h1>
+<p>Go menyediakan package <code>encoding/base64</code>, berisikan fungsi-fungsi untuk kebutuhan <strong>encode</strong> dan <strong>decode</strong> data ke bentuk base64 dan sebaliknya. Data yang akan di-encode harus bertipe <code>[]byte</code>, maka perlu dilakukan casting untuk data-data yang tipenya belum <code>[]byte</code>.</p>
+<p>Proses encoding dan decoding bisa dilakukan via beberapa cara yang pada chapter ini kita akan pelajari.</p>
+<h2 id="a461-penerapan-fungsi-encodetostring--decodestring">A.46.1. Penerapan Fungsi <code>EncodeToString()</code> &amp; <code>DecodeString()</code></h2>
+<p>Fungsi <code>EncodeToString()</code> digunakan untuk encode data dari bentuk string ke base64. Fungsi <code>DecodeString()</code> melakukan kebalikan dari <code>EncodeToString()</code>. Berikut adalah contoh penerapannya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;encoding/base64&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> data = <span class="hljs-string">&quot;john wick&quot;</span>
+
+    <span class="hljs-keyword">var</span> encodedString = base64.StdEncoding.EncodeToString([]<span class="hljs-keyword">byte</span>(data))
+    fmt.Println(<span class="hljs-string">&quot;encoded:&quot;</span>, encodedString)
+
+    <span class="hljs-keyword">var</span> decodedByte, _ = base64.StdEncoding.DecodeString(encodedString)
+    <span class="hljs-keyword">var</span> decodedString = <span class="hljs-keyword">string</span>(decodedByte)
+    fmt.Println(<span class="hljs-string">&quot;decoded:&quot;</span>, decodedString)
+}
+</code></pre>
+<p>Variabel <code>data</code> yang bertipe <code>string</code>, harus di-casting terlebih dahulu ke dalam bentuk <code>[]byte</code> sebelum di-encode menggunakan fungsi <code>base64.StdEncoding.EncodeToString()</code>. Hasil encode adalah data base64 bertipe <code>string</code>.</p>
+<p>Sedangkan pada fungsi decode <code>base64.StdEncoding.DecodeString()</code>, data base64 bertipe <code>string</code> di-decode kembali ke string aslinya, tapi bertipe <code>[]byte</code>. Ekspresi <code>string(decodedByte)</code> menjadikan data <code>[]byte</code> tersebut berubah menjadi string.</p>
+<p><img src="images/A_encoding_base64_1_encode_decode.png" alt="Dasar Pemrograman Golang - Encode &amp; decode data string"></p>
+<h2 id="a462-penerapan-fungsi-encode--decode">A.46.2. Penerapan Fungsi <code>Encode()</code> &amp; <code>Decode()</code></h2>
+<p>Kedua fungsi ini kegunaannya sama dengan fungsi yang sebelumnya kita bahas, salah satu pembedanya adalah data yang akan dikonversi dan hasilnya bertipe <code>[]byte</code>. Penggunaan cara ini cukup panjang karena variabel penyimpan hasil encode maupun decode harus disiapkan terlebih dahulu, dan harus memiliki lebar data sesuai dengan hasil yang akan ditampung (yang nilainya bisa dicari menggunakan fungsi <code>EncodedLen()</code> dan <code>DecodedLen()</code>).</p>
+<p>Lebih jelasnya silakan perhatikan contoh berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> data = <span class="hljs-string">&quot;john wick&quot;</span>
+
+<span class="hljs-keyword">var</span> encoded = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">byte</span>, base64.StdEncoding.EncodedLen(<span class="hljs-built_in">len</span>(data)))
+base64.StdEncoding.Encode(encoded, []<span class="hljs-keyword">byte</span>(data))
+<span class="hljs-keyword">var</span> encodedString = <span class="hljs-keyword">string</span>(encoded)
+fmt.Println(encodedString)
+
+<span class="hljs-keyword">var</span> decoded = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">byte</span>, base64.StdEncoding.DecodedLen(<span class="hljs-built_in">len</span>(encoded)))
+<span class="hljs-keyword">var</span> _, err = base64.StdEncoding.Decode(decoded, encoded)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    fmt.Println(err.Error())
+}
+<span class="hljs-keyword">var</span> decodedString = <span class="hljs-keyword">string</span>(decoded)
+fmt.Println(decodedString)
+</code></pre>
+<p>Fungsi <code>base64.StdEncoding.EncodedLen(len(data))</code> menghasilkan informasi lebar variable <code>data</code> ketika sudah di-encode. Nilai tersebut kemudian ditentukan sebagai lebar alokasi tipe <code>[]byte</code> pada variabel <code>encoded</code> yang nantinya digunakan untuk menampung hasil encoding.</p>
+<p>Fungsi <code>base64.StdEncoding.DecodedLen()</code> memiliki kegunaan sama dengan <code>EncodedLen()</code>, hanya saja digunakan untuk keperluan decoding.</p>
+<p>Dibanding 2 fungsi sebelumnya, fungsi <code>Encode()</code> dan <code>Decode()</code> ini memiliki beberapa perbedaan. Selain lebar data penampung encode/decode harus dicari terlebih dahulu, terdapat perbedaan lainnya, yaitu pada fungsi ini hasil encode/decode tidak didapat dari nilai kembalian, melainkan dari parameter. Variabel yang digunakan untuk menampung hasil, disisipkan pada parameter fungsi tersebut.</p>
+<p>Pada pemanggilan fungsi encode/decode, variabel <code>encoded</code> dan <code>decoded</code> tidak disisipkan nilai pointer-nya, cukup di-pass dengan cara biasa, tipe datanya sudah dalam bentuk <code>[]byte</code>.</p>
+<h2 id="a463-encode--decode-data-url">A.46.3. Encode &amp; Decode Data URL</h2>
+<p>Khusus encode data string yang isinya merupakan URL, lebih efektif menggunakan <code>URLEncoding</code> dibandingkan <code>StdEncoding</code>.</p>
+<p>Cara penerapannya kurang lebih sama, bisa menggunakan metode pertama maupun metode kedua yang sudah dibahas di atas. Cukup ganti <code>StdEncoding</code> menjadi <code>URLEncoding</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> data = <span class="hljs-string">&quot;https://kalipare.com/&quot;</span>
+
+<span class="hljs-keyword">var</span> encodedString = base64.URLEncoding.EncodeToString([]<span class="hljs-keyword">byte</span>(data))
+fmt.Println(encodedString)
+
+<span class="hljs-keyword">var</span> decodedByte, _ = base64.URLEncoding.DecodeString(encodedString)
+<span class="hljs-keyword">var</span> decodedString = <span class="hljs-keyword">string</span>(decodedByte)
+fmt.Println(decodedString)
+</code></pre>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.46-encode-decode-base64" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.46...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2151,12 @@
 
             
                 
+                <a href="A-regex.html" class="navigation navigation-prev " aria-label="Previous page: A.45. Regexp">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-hash-sha1.html" class="navigation navigation-next " aria-label="Next page: A.47. Hash Sha1">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2167,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.46. Encode - Decode Base64","level":"3.1.46","depth":2,"next":{"title":"A.47. Hash Sha1","level":"3.1.47","depth":2,"path":"A-hash-sha1.md","ref":"A-hash-sha1.md","articles":[]},"previous":{"title":"A.45. Regexp","level":"3.1.45","depth":2,"path":"A-regex.md","ref":"A-regex.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-encoding-base64.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

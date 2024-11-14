@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang JSON Data - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-web-service-api.html">
     
+    
+    <link rel="prev" href="A-url-parsing.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -946,7 +948,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.53" data-path="A-json.html">
+        <li class="chapter active" data-level="3.1.53" data-path="A-json.html">
             
                 <a href="A-json.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.53. JSON Data</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,108 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a53-json-data">A.53. JSON Data</h1>
+<p><strong>JSON</strong> atau <em>Javascript Object Notation</em> adalah notasi standar penulisan data yang umum digunakan untuk komunikasi antar aplikasi/service. JSON sendiri sebenarnya merupakan subset dari <em>javascript</em>.</p>
+<p>Go menyediakan package <code>encoding/json</code> yang berisikan banyak fungsi untuk kebutuhan operasi json.</p>
+<p>Pada chapter ini, kita akan belajar cara untuk konverstri string yang ditulis dalam format json menjadi objek Go, dan sebaliknya.</p>
+<h2 id="a531-decode-json-ke-variabel-objek-struct">A.53.1. Decode JSON Ke Variabel Objek Struct</h2>
+<p>Di Go, data json dituliskan sebagai <code>string</code>. Dengan menggunakan <code>json.Unmarshal</code>, json string bisa dikonversi menjadi bentuk objek, entah itu dalam bentuk <code>map[string]interface{}</code> ataupun objek struct.</p>
+<p>Program berikut ini adalah contoh cara decoding json ke bentuk objek. Pertama import package yang dibutuhkan, lalu siapkan struct <code>User</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;encoding/json&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> {
+    FullName <span class="hljs-keyword">string</span> <span class="hljs-string">`json:&quot;Name&quot;`</span>
+    Age      <span class="hljs-keyword">int</span>
+}
+</code></pre>
+<p>Struct <code>User</code> ini nantinya digunakan untuk membuat variabel baru penampung hasil decode json string. Proses decode sendiri dilakukan lewat fungsi <code>json.Unmarshal()</code>, dalam penggunaannya data json string dimasukan sebagai argument pemanggilan fungsi.</p>
+<p>Contoh praktiknya bisa dilihat di bawah ini.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> jsonString = <span class="hljs-string">`{&quot;Name&quot;: &quot;john wick&quot;, &quot;Age&quot;: 27}`</span>
+    <span class="hljs-keyword">var</span> jsonData = []<span class="hljs-keyword">byte</span>(jsonString)
+
+    <span class="hljs-keyword">var</span> data User
+
+    <span class="hljs-keyword">var</span> err = json.Unmarshal(jsonData, &amp;data)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;user :&quot;</span>, data.FullName)
+    fmt.Println(<span class="hljs-string">&quot;age  :&quot;</span>, data.Age)
+}
+</code></pre>
+<p>Fungsi unmarshal hanya menerima data json dalam bentuk <code>[]byte</code>, maka dari itu data json string perlu di-casting terlebih dahulu ke tipe <code>[]byte</code>, sebelum akhirnya digunakan pada pemanggilan fungsi <code>json.Unmarshal()</code>.</p>
+<p>Perlu diperhatikan, argument ke-2 pemanggilan fungsi tersebut harus diisi dengan variabel <strong>pointer</strong> yang nantinya akan menampung hasil operasi decoding.</p>
+<p><img src="images/A_json_1_decode.png" alt="Dasar Pemrograman Golang - Decode data json ke variabel objek"></p>
+<p>Property <code>FullName</code> milik struct <code>User</code> memiliki <strong>tag</strong> <code>json:&quot;Name&quot;</code>. Tag tersebut digunakan untuk mapping informasi field json ke property struct.</p>
+<p>Data json yang akan di-parsing memiliki 2 property yaitu <code>Name</code> dan <code>Age</code>. Di contoh, penulisan <code>Age</code> di data json dan pada struktur struct adalah sama, berbeda dengan <code>Name</code> yang ada di data json tapi tidak ada di struct.</p>
+<p>Dengan menambahkan tag json, maka property <code>FullName</code> struct akan secara cerdas menampung data json property <code>Name</code>.</p>
+<blockquote>
+<p>Pada operasi decoding data json string ke variabel objek struct, semua level akses property struct penampung harus publik.</p>
+</blockquote>
+<h2 id="a532-decode-json-ke-mapstringinterface--interface">A.53.2. Decode JSON Ke <code>map[string]interface{}</code> &amp; <code>interface{}</code></h2>
+<p>Tak hanya ke objek cetakan struct, target decoding data json juga bisa berupa variabel bertipe <code>map[string]interface{}</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> data1 <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
+json.Unmarshal(jsonData, &amp;data1)
+
+fmt.Println(<span class="hljs-string">&quot;user :&quot;</span>, data1[<span class="hljs-string">&quot;Name&quot;</span>])
+fmt.Println(<span class="hljs-string">&quot;age  :&quot;</span>, data1[<span class="hljs-string">&quot;Age&quot;</span>])
+</code></pre>
+<p>Variabel bertipe <code>interface{}</code> juga bisa digunakan untuk menampung hasil decode. Dengan catatan pada pengaksesan nilai property, harus dilakukan casting terlebih dahulu ke <code>map[string]interface{}</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> data2 <span class="hljs-keyword">interface</span>{}
+json.Unmarshal(jsonData, &amp;data2)
+
+<span class="hljs-keyword">var</span> decodedData = data2.(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{})
+fmt.Println(<span class="hljs-string">&quot;user :&quot;</span>, decodedData[<span class="hljs-string">&quot;Name&quot;</span>])
+fmt.Println(<span class="hljs-string">&quot;age  :&quot;</span>, decodedData[<span class="hljs-string">&quot;Age&quot;</span>])
+</code></pre>
+<h2 id="a533-decode-array-json-ke-array-objek">A.53.3. Decode Array JSON Ke Array Objek</h2>
+<p>Operasi decode data dari array json ke slice/array objek caranya juga sama. Langsung praktek saja agar lebih jelas. Siapkan sebuah variabel baru untuk menampung hasil decode dengan tipe slice struct, lalu gunakan pada fungsi <code>json.Unmarshal()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> jsonString = <span class="hljs-string">`[
+    {&quot;Name&quot;: &quot;john wick&quot;, &quot;Age&quot;: 27},
+    {&quot;Name&quot;: &quot;ethan hunt&quot;, &quot;Age&quot;: 32}
+]`</span>
+
+<span class="hljs-keyword">var</span> data []User
+
+<span class="hljs-keyword">var</span> err = json.Unmarshal([]<span class="hljs-keyword">byte</span>(jsonString), &amp;data)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    fmt.Println(err.Error())
+    <span class="hljs-keyword">return</span>
+}
+
+fmt.Println(<span class="hljs-string">&quot;user 1:&quot;</span>, data[<span class="hljs-number">0</span>].FullName)
+fmt.Println(<span class="hljs-string">&quot;user 2:&quot;</span>, data[<span class="hljs-number">1</span>].FullName)
+</code></pre>
+<h2 id="a534-encode-objek-ke-json-string">A.53.4. Encode Objek Ke JSON String</h2>
+<p>Setelah sebelumnya dijelaskan beberapa cara decode data dari json string ke objek, sekarang kita akan belajar cara <strong>encode</strong> data objek di Go ke bentuk json string.</p>
+<p>Fungsi <code>json.Marshal()</code> digunakan untuk encoding data ke json string. Sumber data bisa berupa variabel objek cetakan struct, data bertipe <code>map[string]interface{}</code>, slice, atau lainnya.</p>
+<p>Pada contoh berikut, data slice struct dikonversi ke dalam bentuk json string. Hasil konversi adalah data bertipe <code>[]byte</code>, maka pastikan untuk meng-casting terlebih dahulu ke tipe <code>string</code> agar bisa ditampilkan bentuk json string-nya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> object = []User{{<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-number">27</span>}, {<span class="hljs-string">&quot;ethan hunt&quot;</span>, <span class="hljs-number">32</span>}}
+<span class="hljs-keyword">var</span> jsonData, err = json.Marshal(object)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    fmt.Println(err.Error())
+    <span class="hljs-keyword">return</span>
+}
+
+<span class="hljs-keyword">var</span> jsonString = <span class="hljs-keyword">string</span>(jsonData)
+fmt.Println(jsonString)
+</code></pre>
+<p>Output program:</p>
+<p><img src="images/A_json_2_encode.png" alt="Dasar Pemrograman Golang - Encode data ke JSON"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.53-json" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.53...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2187,12 @@
 
             
                 
+                <a href="A-url-parsing.html" class="navigation navigation-prev " aria-label="Previous page: A.52. URL Parsing">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-web-service-api.html" class="navigation navigation-next " aria-label="Next page: A.54. Web Service API Server">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2203,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.53. JSON Data","level":"3.1.53","depth":2,"next":{"title":"A.54. Web Service API Server","level":"3.1.54","depth":2,"path":"A-web-service-api.md","ref":"A-web-service-api.md","articles":[]},"previous":{"title":"A.52. URL Parsing","level":"3.1.52","depth":2,"path":"A-url-parsing.md","ref":"A-url-parsing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-json.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

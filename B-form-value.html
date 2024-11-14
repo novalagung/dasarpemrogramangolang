@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Form Value - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="B-form-upload-file.html">
     
+    
+    <link rel="prev" href="B-http-method-basic.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1284,7 +1286,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.12" data-path="B-form-value.html">
+        <li class="chapter active" data-level="4.1.12" data-path="B-form-value.html">
             
                 <a href="B-form-value.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">B.12. Form Value</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,120 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="b12-form-value">B.12. Form Value</h1>
+<p>Pada chapter ini kita akan belajar bagaimana cara untuk submit data dari form di front-end untuk dikirim ke back-end melalui API call (HTTP request).</p>
+<h1 id="b121-front-end">B.12.1. Front-End</h1>
+<p>Pertama siapkan folder project baru dan sebuah file template view <code>view.html</code>. Pada file ini perlu didefinisikan 2 buah template, yaitu <code>form</code> dan <code>result</code>. Template pertama (<code>form</code>) dijadikan landing page program, isinya beberapa inputan untuk submit data.</p>
+<pre><code class="lang-html">{{define &quot;form&quot;}}
+<span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Input Message<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;post&quot;</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/process&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Name :<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;Type name here&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">required</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+            <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Message :<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;Type message here&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;message&quot;</span> <span class="hljs-attr">required</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submmit&quot;</span>&gt;</span>Print<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+{{end}}
+</code></pre>
+<p>Aksi dari form di atas adalah <code>/process</code>, yang mana url tersebut nantinya akan mengembalikan output berupa html hasil render template <code>result</code>. Silakan tulis template result berikut dalam <code>view.html</code> (jadi file view ini berisi 2 buah template).</p>
+<pre><code class="lang-html">{{define &quot;result&quot;}}
+<span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Show Message<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello {{.name}}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{.message}}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+{{end}}
+</code></pre>
+<h2 id="b122-back-end">B.12.2. Back-End</h2>
+<p>Buat file <code>main.go</code>. Dalam file ini 2 buah route handler diregistrasikan.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Route <code>/</code> adalah landing page, menampilkan form input.</li>
+<li>Route <code>/process</code> sebagai action dari form input, menampilkan text.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, routeIndexGet)
+    http.HandleFunc(<span class="hljs-string">&quot;/process&quot;</span>, routeSubmitPost)
+
+    fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+}
+</code></pre>
+<p>Handler route <code>/</code> dibungkus dalam fungsi bernama <code>routeIndexGet()</code>. Di dalamnya, template <code>form</code> dalam file template <code>view.html</code> akan di-render ke view. Request dalam handler ini hanya dibatasi untuk method GET saja, request dengan method lain akan menghasilkan response <code>400 Bad Request</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> routeIndexGet(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">if</span> r.Method == <span class="hljs-string">&quot;GET&quot;</span> {
+        <span class="hljs-keyword">var</span> tmpl = template.Must(template.New(<span class="hljs-string">&quot;form&quot;</span>).ParseFiles(<span class="hljs-string">&quot;view.html&quot;</span>))
+        <span class="hljs-keyword">var</span> err = tmpl.Execute(w, <span class="hljs-literal">nil</span>)
+
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+        <span class="hljs-keyword">return</span>
+    }
+
+    http.Error(w, <span class="hljs-string">&quot;&quot;</span>, http.StatusBadRequest)
+}
+</code></pre>
+<p>Fungsi <code>routeSubmitPost()</code> yang merupakan handler route <code>/process</code>, berisikan proses yang mirip seperti handler route <code>/</code>, yaitu parsing <code>view.html</code> untuk di ambil template <code>result</code>-nya. Selain itu, pada handler ini ada proses pengambilan data yang dikirim dari form submit, untuk kemudian disisipkan ke template view.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> routeSubmitPost(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">if</span> r.Method == <span class="hljs-string">&quot;POST&quot;</span> {
+        <span class="hljs-keyword">var</span> tmpl = template.Must(template.New(<span class="hljs-string">&quot;result&quot;</span>).ParseFiles(<span class="hljs-string">&quot;view.html&quot;</span>))
+
+        <span class="hljs-keyword">if</span> err := r.ParseForm(); err != <span class="hljs-literal">nil</span> {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+            <span class="hljs-keyword">return</span>
+        }
+
+        <span class="hljs-keyword">var</span> name = r.FormValue(<span class="hljs-string">&quot;name&quot;</span>)
+        <span class="hljs-keyword">var</span> message = r.Form.Get(<span class="hljs-string">&quot;message&quot;</span>)
+
+        <span class="hljs-keyword">var</span> data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;name&quot;</span>: name, <span class="hljs-string">&quot;message&quot;</span>: message}
+
+        <span class="hljs-keyword">if</span> err := tmpl.Execute(w, data); err != <span class="hljs-literal">nil</span> {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+        <span class="hljs-keyword">return</span>
+    }
+
+    http.Error(w, <span class="hljs-string">&quot;&quot;</span>, http.StatusBadRequest)
+}
+</code></pre>
+<p>Ketika user submit ke <code>/process</code>, maka data-data yang ada di form input dikirim. Method <code>ParseForm()</code> pada statement <code>r.ParseForm()</code> berguna untuk parsing form data yang dikirim dari view, sebelum akhirnya bisa diambil datanya. Method tersebut mengembalikan <code>error</code> jika proses parsing gagal (kemungkinan karena data yang dikirim ada yang tidak valid).</p>
+<p>Pengambilan data dilakukan lewat method <code>FormValue()</code>. Contohnya seperti pada kode di atas, <code>r.FormValue(&quot;name&quot;)</code>, akan mengembalikan data inputan <code>name</code> (data dari inputan <code>&lt;input name=&quot;name&quot; /&gt;</code>).</p>
+<p>Selain lewat method <code>FormValue()</code>, pengaksesan data juga bisa dilakukan dengan cara mengakses property <code>Form</code> terlebih dahulu, kemudian mengakses method <code>Get()</code>. Contohnya seperti <code>r.Form.Get(&quot;message&quot;)</code>, yang akan menghasilkan data inputan <code>message</code>. Hasil dari kedua cara di atas adalah sama.</p>
+<p>Setelah data dari form sudah ditangkap oleh back-end, data ditampung dalam variabel <code>data</code> yang bertipe <code>map[string]string</code>. Variabel <code>data</code> tersebut kemudian disisipkan ke view, lewat statement <code>tmpl.Execute(w, data)</code>.</p>
+<h2 id="b123-testing">B.12.3. Testing</h2>
+<p>OK, sekarang coba jalankan program yang telah kita buat, dan cek hasilnya.</p>
+<p><img src="images/B_form_value_1_form.png" alt="Dasar Pemrograman Golang - Form Value"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.12-form-value" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.12...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2199,12 @@
 
             
                 
+                <a href="B-http-method-basic.html" class="navigation navigation-prev " aria-label="Previous page: B.11. HTTP Method: POST &amp; GET">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="B-form-upload-file.html" class="navigation navigation-next " aria-label="Next page: B.13. Form Upload File">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2215,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.12. Form Value","level":"4.1.12","depth":2,"next":{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"path":"B-form-upload-file.md","ref":"B-form-upload-file.md","articles":[]},"previous":{"title":"B.11. HTTP Method: POST & GET","level":"4.1.11","depth":2,"path":"B-http-method-basic.md","ref":"B-http-method-basic.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-form-value.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

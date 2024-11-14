@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Hash Sha1 - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-command-line-args-flag.html">
     
+    
+    <link rel="prev" href="A-encoding-base64.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -868,7 +870,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.47" data-path="A-hash-sha1.html">
+        <li class="chapter active" data-level="3.1.47" data-path="A-hash-sha1.html">
             
                 <a href="A-hash-sha1.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.47. Hash Sha1</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,87 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a47-hash-sha1">A.47. Hash SHA1</h1>
+<p>Hash adalah algoritma enkripsi satu arah untuk mengubah text menjadi deretan karakter acak. Jumlah karakter hasil hash selalu sama. Hash termasuk <em>one-way encryption</em>, hasil dari hash tidak bisa dikembalikan ke text asli.</p>
+<p>SHA1 atau <strong>Secure Hash Algorithm 1</strong> merupakan salah satu algoritma hashing yang sering digunakan untuk enkripsi data. Hasil dari sha1 adalah data dengan lebar <strong>20 byte</strong> atau <strong>160 bit</strong>, biasa ditampilkan dalam bentuk bilangan heksadesimal 40 digit.</p>
+<p>Pada chapter ini kita akan belajar tentang pemanfaatan sha1 dan teknik salting dalam hash.</p>
+<h2 id="a471-penerapan-hash-sha1">A.47.1. Penerapan Hash SHA1</h2>
+<p>Go menyediakan package <code>crypto/sha1</code>, berisikan library untuk keperluan <em>hashing</em>. Cara penerapannya cukup mudah, contohnya bisa dilihat pada kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;crypto/sha1&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;this is secret&quot;</span>
+    <span class="hljs-keyword">var</span> sha = sha1.New()
+    sha.Write([]<span class="hljs-keyword">byte</span>(text))
+    <span class="hljs-keyword">var</span> encrypted = sha.Sum(<span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">var</span> encryptedString = fmt.Sprintf(<span class="hljs-string">&quot;%x&quot;</span>, encrypted)
+
+    fmt.Println(encryptedString)
+    <span class="hljs-comment">// f4ebfd7a42d9a43a536e2bed9ee4974abf8f8dc8</span>
+}
+</code></pre>
+<p>Variabel hasil dari <code>sha1.New()</code> adalah objek bertipe <code>hash.Hash</code>, memiliki dua buah method <code>Write()</code> dan <code>Sum()</code>.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Method <code>Write()</code> digunakan untuk menge-set data yang akan di-hash. Data harus dalam bentuk <code>[]byte</code>.</li>
+<li>Method <code>Sum()</code> digunakan untuk eksekusi proses hash, menghasilkan data yang sudah di-hash dalam bentuk <code>[]byte</code>. Method ini membutuhkan sebuah parameter, isi dengan nil.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Untuk mengambil bentuk heksadesimal string dari data yang sudah di-hash, bisa memanfaatkan fungsi <code>fmt.Sprintf</code> dengan layout format <code>%x</code>.</p>
+<p><img src="images/A_hash_1_hash_sha1.png" alt="Dasar Pemrograman Golang - Hashing menggunakan SHA1"></p>
+<h2 id="a472-metode-salting-pada-hash-sha1">A.47.2. Metode Salting Pada Hash SHA1</h2>
+<p>Salt dalam konteks kriptografi adalah data acak yang digabungkan pada data asli sebelum proses hash dilakukan.</p>
+<p>Hash merupakan enkripsi satu arah dengan lebar data yang sudah pasti, sangat mungkin sekali kalau hasil hash untuk beberapa data adalah sama. Di sinilah kegunaan <strong>salt</strong>, teknik ini berguna untuk mencegah serangan menggunakan metode pencocokan data-data yang hasil hash-nya adalah sama <em>(dictionary attack)</em>.</p>
+<p>Langsung saja kita praktekkan. Pertama import package yang dibutuhkan. Lalu buat fungsi untuk hash menggunakan salt dari waktu sekarang.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;crypto/sha1&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;time&quot;</span>
+
+<span class="hljs-keyword">func</span> doHashUsingSalt(text <span class="hljs-keyword">string</span>) (<span class="hljs-keyword">string</span>, <span class="hljs-keyword">string</span>) {
+    <span class="hljs-keyword">var</span> salt = fmt.Sprintf(<span class="hljs-string">&quot;%d&quot;</span>, time.Now().UnixNano())
+    <span class="hljs-keyword">var</span> saltedText = fmt.Sprintf(<span class="hljs-string">&quot;text: &apos;%s&apos;, salt: %s&quot;</span>, text, salt)
+    <span class="hljs-keyword">var</span> sha = sha1.New()
+    sha.Write([]<span class="hljs-keyword">byte</span>(saltedText))
+    <span class="hljs-keyword">var</span> encrypted = sha.Sum(<span class="hljs-literal">nil</span>)
+
+    <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%x&quot;</span>, encrypted), salt
+}
+</code></pre>
+<p>Salt yang digunakan adalah hasil dari ekspresi <code>time.Now().UnixNano()</code>. Hasilnya akan selalu unik setiap detiknya, karena scope terendah waktu pada fungsi tersebut adalah <em>nano second</em> atau nano detik.</p>
+<p>Selanjutnya test fungsi yang telah dibuat beberapa kali.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;this is secret&quot;</span>
+    fmt.Printf(<span class="hljs-string">&quot;original : %s\n\n&quot;</span>, text)
+
+    <span class="hljs-keyword">var</span> hashed1, salt1 = doHashUsingSalt(text)
+    fmt.Printf(<span class="hljs-string">&quot;hashed 1 : %s\n\n&quot;</span>, hashed1)
+    <span class="hljs-comment">// 929fd8b1e58afca1ebbe30beac3b84e63882ee1a</span>
+
+    <span class="hljs-keyword">var</span> hashed2, salt2 = doHashUsingSalt(text)
+    fmt.Printf(<span class="hljs-string">&quot;hashed 2 : %s\n\n&quot;</span>, hashed2)
+    <span class="hljs-comment">// cda603d95286f0aece4b3e1749abe7128a4eed78</span>
+
+    <span class="hljs-keyword">var</span> hashed3, salt3 = doHashUsingSalt(text)
+    fmt.Printf(<span class="hljs-string">&quot;hashed 3 : %s\n\n&quot;</span>, hashed3)
+    <span class="hljs-comment">// 9e2b514bca911cb76f7630da50a99d4f4bb200b4</span>
+
+    _, _, _ = salt1, salt2, salt3
+}
+</code></pre>
+<p>Hasil ekripsi fungsi <code>doHashUsingSalt()</code> akan selalu beda, karena salt yang digunakan adalah waktu.</p>
+<p><img src="images/A_hash_2_hash_salt_sha1.png" alt="Dasar Pemrograman Golang - Hashing dengan salt"></p>
+<p>Metode ini sering dipakai untuk enkripsi password user. Salt dan data hasil hash harus disimpan pada database, karena digunakan dalam pencocokan password setiap user melakukan login.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.47-hash-sha1" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.47...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2166,12 @@
 
             
                 
+                <a href="A-encoding-base64.html" class="navigation navigation-prev " aria-label="Previous page: A.46. Encode - Decode Base64">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-command-line-args-flag.html" class="navigation navigation-next " aria-label="Next page: A.48. Arguments &amp; Flag">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2182,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.47. Hash Sha1","level":"3.1.47","depth":2,"next":{"title":"A.48. Arguments & Flag","level":"3.1.48","depth":2,"path":"A-command-line-args-flag.md","ref":"A-command-line-args-flag.md","articles":[]},"previous":{"title":"A.46. Encode - Decode Base64","level":"3.1.46","depth":2,"path":"A-encoding-base64.md","ref":"A-encoding-base64.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-hash-sha1.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Perulangan - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-array.html">
     
+    
+    <link rel="prev" href="A-seleksi-kondisi.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -439,7 +441,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.14" data-path="A-perulangan.html">
+        <li class="chapter active" data-level="3.1.14" data-path="A-perulangan.html">
             
                 <a href="A-perulangan.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.14. Perulangan</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,132 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a14-perulangan">A.14. Perulangan</h1>
+<p>Perulangan adalah proses mengulang-ulang eksekusi blok kode tanpa henti, selama kondisi yang dijadikan acuan terpenuhi. Biasanya disiapkan variabel untuk iterasi atau variabel penanda kapan perulangan akan diberhentikan.</p>
+<p>Di Go keyword perulangan hanya <strong>for</strong> saja, tetapi meski demikian, kemampuannya merupakan gabungan <code>for</code>, <code>foreach</code>, dan <code>while</code> ibarat bahasa pemrograman lain.</p>
+<h2 id="a141-perulangan-menggunakan-keyword-for">A.14.1. Perulangan Menggunakan Keyword <code>for</code></h2>
+<p>Ada beberapa cara standar menggunakan <code>for</code>. Cara pertama dengan memasukkan variabel counter perulangan beserta kondisinya setelah keyword. Perhatikan dan praktekan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++ {
+    fmt.Println(<span class="hljs-string">&quot;Angka&quot;</span>, i)
+}
+</code></pre>
+<p>Perulangan di atas hanya akan berjalan ketika variabel <code>i</code> bernilai di bawah <code>5</code>, dengan ketentuan setiap kali perulangan, nilai variabel <code>i</code> akan di-iterasi atau ditambahkan 1 (<code>i++</code> artinya ditambah satu, sama seperti <code>i = i + 1</code>). Karena <code>i</code> pada awalnya bernilai 0, maka perulangan akan berlangsung 5 kali, yaitu ketika <code>i</code> bernilai 0, 1, 2, 3, dan 4.</p>
+<p><img src="images/A_perulangan_1_for.png" alt="Dasar Pemrograman Golang - Penggunaan `for`"></p>
+<h2 id="a142-penggunaan-keyword-for-dengan-argumen-hanya-kondisi">A.14.2. Penggunaan Keyword <code>for</code> Dengan Argumen Hanya Kondisi</h2>
+<p>Cara ke-2 adalah dengan menuliskan kondisi setelah keyword <code>for</code> (hanya kondisi). Deklarasi dan iterasi variabel counter tidak dituliskan setelah keyword, hanya kondisi perulangan saja. Konsepnya mirip seperti <code>while</code> milik bahasa pemrograman lain.</p>
+<p>Kode berikut adalah contoh <code>for</code> dengan argumen hanya kondisi (seperti <code>if</code>), output yang dihasilkan sama seperti penerapan <code>for</code> cara pertama.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<span class="hljs-keyword">for</span> i &lt; <span class="hljs-number">5</span> {
+    fmt.Println(<span class="hljs-string">&quot;Angka&quot;</span>, i)
+    i++
+}
+</code></pre>
+<h2 id="a143-penggunaan-keyword-for-tanpa-argumen">A.14.3. Penggunaan Keyword <code>for</code> Tanpa Argumen</h2>
+<p>Cara ke-3 adalah <code>for</code> ditulis tanpa kondisi. Dengan ini akan dihasilkan perulangan tanpa henti (sama dengan <code>for true</code>). Pemberhentian perulangan dilakukan dengan menggunakan keyword <code>break</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>
+
+<span class="hljs-keyword">for</span> {
+    fmt.Println(<span class="hljs-string">&quot;Angka&quot;</span>, i)
+
+    i++
+    <span class="hljs-keyword">if</span> i == <span class="hljs-number">5</span> {
+        <span class="hljs-keyword">break</span>
+    }
+}
+</code></pre>
+<p>Dalam perulangan tanpa henti di atas, variabel <code>i</code> yang nilai awalnya <code>0</code> di-inkrementasi. Ketika nilai <code>i</code> sudah mencapai <code>5</code>, keyword <code>break</code> digunakan, dan perulangan akan berhenti.</p>
+<h2 id="a144-penggunaan-keyword-for---range">A.14.4. Penggunaan Keyword <code>for</code> - <code>range</code></h2>
+<p>Cara ke-4 adalah perulangan dengan menggunakan kombinasi keyword <code>for</code> dan <code>range</code>. Cara ini biasa digunakan untuk me-looping data gabungan (misalnya string, array, slice, map). Detailnya akan dibahas dalam chapter-chapter selanjutnya (<a href="A-array.html">A.15. Array</a>, <a href="A-slice.html">A.16. Slice</a>, <a href="A-map.html">A.17. Map</a>).</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> xs = <span class="hljs-string">&quot;123&quot;</span> <span class="hljs-comment">// string</span>
+<span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> xs {
+    fmt.Println(<span class="hljs-string">&quot;Index=&quot;</span>, i, <span class="hljs-string">&quot;Value=&quot;</span>, v)
+}
+
+<span class="hljs-keyword">var</span> ys = [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span>{<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>, <span class="hljs-number">50</span>} <span class="hljs-comment">// array</span>
+<span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> ys {
+    fmt.Println(<span class="hljs-string">&quot;Value=&quot;</span>, v)
+}
+
+<span class="hljs-keyword">var</span> zs = ys[<span class="hljs-number">0</span>:<span class="hljs-number">2</span>] <span class="hljs-comment">// slice</span>
+<span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> zs {
+    fmt.Println(<span class="hljs-string">&quot;Value=&quot;</span>, v)
+}
+
+<span class="hljs-keyword">var</span> kvs = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">byte</span>]<span class="hljs-keyword">int</span>{<span class="hljs-string">&apos;a&apos;</span>: <span class="hljs-number">0</span>, <span class="hljs-string">&apos;b&apos;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&apos;c&apos;</span>: <span class="hljs-number">2</span>} <span class="hljs-comment">// map</span>
+<span class="hljs-keyword">for</span> k, v := <span class="hljs-keyword">range</span> kvs {
+    fmt.Println(<span class="hljs-string">&quot;Key=&quot;</span>, k, <span class="hljs-string">&quot;Value=&quot;</span>, v)
+}
+
+<span class="hljs-comment">// boleh juga baik k dan atau v nya diabaikan</span>
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">range</span> kvs {
+    fmt.Println(<span class="hljs-string">&quot;Done&quot;</span>)
+}
+
+<span class="hljs-comment">// selain itu, bisa juga dengan cukup menentukan nilai numerik perulangan</span>
+<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> <span class="hljs-number">5</span> {
+    fmt.Print(i) <span class="hljs-comment">// 01234</span>
+}
+</code></pre>
+<h2 id="a145-penggunaan-keyword-break--continue">A.14.5. Penggunaan Keyword <code>break</code> &amp; <code>continue</code></h2>
+<p>Keyword <code>break</code> digunakan untuk menghentikan secara paksa sebuah perulangan, sedangkan <code>continue</code> dipakai untuk memaksa maju ke perulangan berikutnya.</p>
+<p>Berikut merupakan contoh penerapan <code>continue</code> dan <code>break</code>. Kedua keyword tersebut dimanfaatkan untuk menampilkan angka genap berurutan yang lebih besar dari 0 dan kurang dari atau sama dengan 8.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">10</span>; i++ {
+    <span class="hljs-keyword">if</span> i % <span class="hljs-number">2</span> == <span class="hljs-number">1</span> {
+        <span class="hljs-keyword">continue</span>
+    }
+
+    <span class="hljs-keyword">if</span> i &gt; <span class="hljs-number">8</span> {
+        <span class="hljs-keyword">break</span>
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;Angka&quot;</span>, i)
+}
+</code></pre>
+<p>Kode di atas akan lebih mudah dicerna jika dijelaskan secara berurutan. Berikut adalah penjelasannya.</p>
+<ol>
+<li>Dilakukan perulangan mulai angka 1 hingga 10 dengan <code>i</code> sebagai variabel iterasi.</li>
+<li>Ketika <code>i</code> adalah ganjil (dapat diketahui dari <code>i % 2</code>, jika hasilnya <code>1</code>, berarti ganjil), maka akan dipaksa lanjut ke perulangan berikutnya.</li>
+<li>Ketika <code>i</code> lebih besar dari 8, maka perulangan akan berhenti.</li>
+<li>Nilai <code>i</code> ditampilkan.</li>
+</ol>
+<p><img src="images/A_perulangan_2_for_break_continue.png" alt="Dasar Pemrograman Golang - Penerapan keyword `for`, `break`, dan `continue`"></p>
+<h2 id="a146-perulangan-bersarang">A.14.6. Perulangan Bersarang</h2>
+<p>Tak hanya seleksi kondisi yang bisa bersarang, perulangan juga bisa. Cara pengaplikasiannya kurang lebih sama, tinggal tulis blok statement perulangan di dalam perulangan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++ {
+    <span class="hljs-keyword">for</span> j := i; j &lt; <span class="hljs-number">5</span>; j++ {
+        fmt.Print(j, <span class="hljs-string">&quot; &quot;</span>)
+    }
+
+    fmt.Println()
+}
+</code></pre>
+<p>Pada kode di atas, untuk pertama kalinya fungsi <code>fmt.Println()</code> dipanggil tanpa disisipkan parameter. Cara seperti ini bisa digunakan untuk menampilkan baris baru. Kegunaannya sama seperti output dari statement <code>fmt.Print(&quot;\n&quot;)</code>.</p>
+<p><img src="images/A_perulangan_3_nested_for.png" alt="Dasar Pemrograman Golang - Perulangan bersarang"></p>
+<h2 id="a147-pemanfaatan-label-dalam-perulangan">A.14.7. Pemanfaatan Label Dalam Perulangan</h2>
+<p>Di perulangan bersarang, <code>break</code> dan <code>continue</code> akan berlaku pada blok perulangan di mana ia digunakan saja. Ada cara agar kedua keyword ini bisa tertuju pada perulangan terluar atau perulangan tertentu, yaitu dengan memanfaatkan teknik pemberian <strong>label</strong>.</p>
+<p>Program untuk memunculkan matriks berikut merupakan contoh penerapan label perulangan.</p>
+<pre><code class="lang-go">outerLoop:
+<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++ {
+    <span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">5</span>; j++ {
+        <span class="hljs-keyword">if</span> i == <span class="hljs-number">3</span> {
+            <span class="hljs-keyword">break</span> outerLoop
+        }
+        fmt.Print(<span class="hljs-string">&quot;matriks [&quot;</span>, i, <span class="hljs-string">&quot;][&quot;</span>, j, <span class="hljs-string">&quot;]&quot;</span>, <span class="hljs-string">&quot;\n&quot;</span>)
+    }
+}
+</code></pre>
+<p>Tepat sebelum keyword <code>for</code> terluar, terdapat baris kode <code>outerLoop:</code>. Maksud dari kode tersebut adalah disiapkan sebuah label bernama <code>outerLoop</code> untuk <code>for</code> di bawahnya. Nama label bisa diganti dengan nama lain (dan harus diakhiri dengan tanda titik dua atau <em>colon</em> (<code>:</code>) ).</p>
+<p>Pada <code>for</code> bagian dalam, terdapat seleksi kondisi untuk pengecekan nilai <code>i</code>. Ketika nilai tersebut sama dengan <code>3</code>, maka <code>break</code> dipanggil dengan target adalah perulangan yang dilabeli <code>outerLoop</code>, perulangan tersebut akan dihentikan.</p>
+<p><img src="images/A_perulangan_4_for_label.png" alt="Dasar Pemrograman Golang - Penerapan label dalam perulangan"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.14-perulangan" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.14...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2211,12 @@
 
             
                 
+                <a href="A-seleksi-kondisi.html" class="navigation navigation-prev " aria-label="Previous page: A.13. Seleksi Kondisi">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-array.html" class="navigation navigation-next " aria-label="Next page: A.15. Array">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2227,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"next":{"title":"A.15. Array","level":"3.1.15","depth":2,"path":"A-array.md","ref":"A-array.md","articles":[]},"previous":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"path":"A-seleksi-kondisi.md","ref":"A-seleksi-kondisi.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-perulangan.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

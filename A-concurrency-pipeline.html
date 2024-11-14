@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Concurrency Pattern: Pipeline - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-simplified-fan-in-fan-out-pipeline.html">
     
+    
+    <link rel="prev" href="A-go-vendoring.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1063,7 +1065,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.62" data-path="A-concurrency-pipeline.html">
+        <li class="chapter active" data-level="3.1.62" data-path="A-concurrency-pipeline.html">
             
                 <a href="A-concurrency-pipeline.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.62. Concurrency Pattern: Pipeline</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,496 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="a62-concurrency-pattern-pipeline">A.62. Concurrency Pattern: Pipeline</h1>
+<p>Kita sudah membahas beberapa kali tentang topik <em>concurrency</em> atau konkurensi di Go programming. Pada chapter ini kita akan belajar salah satu best practice konkurensi dalam Go, yaitu teknik <em>pipeline</em>, yang merupakan satu di antara banyak <em>concurrency pattern</em> yang ada di Go.</p>
+<p>Go memiliki beberapa API untuk keperluan konkurensi, dua diantaranya adalah <em>goroutine</em> dan <em>channel</em>. Dengan memanfaatkan APIs yang ada kita bisa membentuk sebuah <em>streaming data pipeline</em> yang benefitnya adalah efisiensi penggunaan I/O dan efisiensi penggunaan banyak CPU.</p>
+<h2 id="a621-konsep-pipeline">A.62.1. Konsep <em>Pipeline</em></h2>
+<p>Definisi <em>pipeline</em> yang paling mudah versi penulis adalah <strong>beberapa/banyak proses yang berjalan secara konkuren yang masing-masing proses merupakan bagian dari serangkaian tahapan proses yang berhubungan satu sama lain</strong>.</p>
+<p>Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database secara rutin, yang mana database server yang perlu di-backup ada banyak. Untuk backup-nya sendiri kita menggunakan program Go, bukan <em>shell script</em>. Mungkin secara garis besar serangkaian tahapan proses yang akan dijalankan adalah berikut:</p>
+<ol>
+<li>Kita perlu data <em>list</em> dari semua database yang harus di-backup, beserta alamat akses dan kredensial-nya.</li>
+<li>Kita jalankan proses backup, bisa secara sekuensial (setelah <code>db1</code> selesai, lanjut <code>db2</code>, lanjut <code>db3</code>, dst), atau secara paralel (proses backup <code>db1</code>, <code>db2</code>, <code>db3</code>, dan lainnya dijalankan secara bersamaan).</li>
+<li><p>Di masing-masing proses backup database sendiri ada beberapa proses yang dijalankan:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>A. Lakukan operasi <em>dump</em> terhadap database, outputnya berupa banyak file disimpan ke sebuah folder.</li>
+<li>B. File-file hasil dump kemudian di-<em>archive</em> ke bentuk <code>.zip</code> atau <code>.tar.gz</code> (misalnya).</li>
+<li>C. File archive di-kirim ke server backup, sebagai contoh AWS S3.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+</li>
+</ol>
+<p>Kalau diperhatikan pada kasus di atas, mungkin akan lebih bagus dari segi performansi kalau proses backup banyak database tersebut dilakukan secara parallel.</p>
+<p>Dan akan lebih bagus lagi, jika di masing-masing proses backup database tersebut, proses A, B, dan C dijalankan secara konkuren. Dengan menjadikan ketiga proses tersebut (A, B, C) sebagai proses konkuren, maka I/O akan lebih efisien. Nantinya antara proses A, B, dan C eksekusinya akan tetap berurutan (karena memang harus berjalan secara urut. Tidak boleh kalau misal B lebih dulu dieksekusi kemudian A); akan tetapi, ketika goroutine yang bertanggung jawab untuk eksekusi proses A selesai, kita bisa lanjut dengan eksekusi proses B (yang memang <em>next stage</em>-nya proses A) plus eksekusi proses A lainnya (database lain) secara paralel. Jadi goroutine yang handle A ini ga sampai menganggur.</p>
+<p>Silakan perhatikan visualisasi berikut. Kolom merupakan representasi dari goroutine yang berjalan secara bersamaan. Tapi karena ketiga goroutine tersebut merupakan serangkaian proses, sehingga eksekusinya harus secara berurut. Sedangkan baris/row representasi dari <em>sequence</em> atau urutan.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">sequence</th>
+<th style="text-align:center">pipeline A</th>
+<th style="text-align:center">pipeline B</th>
+<th style="text-align:center">pipeline C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">db1</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">db2</td>
+<td style="text-align:center">db1</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">db3</td>
+<td style="text-align:center">db1</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">db4</td>
+<td style="text-align:center">db2</td>
+<td style="text-align:center">db1</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">db5</td>
+<td style="text-align:center">db3</td>
+<td style="text-align:center">db2</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">db5</td>
+<td style="text-align:center">db4</td>
+<td style="text-align:center">db3</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">db6</td>
+<td style="text-align:center">db5</td>
+<td style="text-align:center">db4</td>
+</tr>
+<tr>
+<td style="text-align:center">...</td>
+<td style="text-align:center">...</td>
+<td style="text-align:center">...</td>
+<td style="text-align:center">...</td>
+</tr>
+</tbody>
+</table>
+<p>Di Go, umumnya proses yang berupa goroutine yang eksekusinya adalah concurrent tapi secara flow adalah harus berurutan, itu disebut dengan <strong>pipeline</strong>. Jadi untuk sementara anggap saja pipeline A sebuah goroutine untuk proses A, pipeline B adalah goroutine proses B, dst.</p>
+<p>Untuk mempermudah memahami tabel di atas silakan ikuti penjelasan beruntun berikut:</p>
+<ol>
+<li>Sequence 1: pipeline A akan melakukan proses dump dari dari <code>db1</code>. Pada waktu yang sama, pipeline B dan C menganggur.</li>
+<li>Sequence 2: proses dump <code>db1</code> telah selesai, maka lanjut ke <em>next stage</em> yaitu proses archive data dump <code>db1</code> yang dilakukan oleh pipeline B. Dan pada waktu yang sama juga, pipeline A menjalankan proses dump <code>db2</code>. Pipeline C masih menganggur.</li>
+<li>Sequence 3: pipeline A menjalankan proses dump <code>db3</code>. Pada waktu yang sama pipeline B belum menjalankan proses archiving <code>db2</code> yang sudah di-dump karena archiving <code>db1</code> masih belum selesai. Pipeline C masih menganggur.</li>
+<li>Sequence 4: proses archiving <code>db1</code> sudah selesai, maka lanjut ke <em>next stage</em> yaitu kirim archive ke server backup yang prosesnya di-handle oleh pipeline C. Pada saat yang sama, pipeline B mulai menjalankan archiving data dump <code>db2</code> dan pipeline A dumping <code>db4</code>.</li>
+<li>... dan seterusnya.</li>
+</ol>
+<p>Pada contoh ini kita asumsikan pipeline A adalah hanya satu goroutine, pipeline B juga satu goroutine, demikian juga pipeline C. Tapi sebenarnya dalam implementasi <em>real world</em> bisa saja ada banyak goroutine untuk masing-masing pipeline (banyak goroutine untuk pipeline A, banyak goroutine untuk pipeline B, banyak goroutine untuk pipeline C).</p>
+<p>Semoga cukup jelas ya. Tapi jika masih bingung, juga tidak apa. Kita sambil praktek juga, dan bisa saja pembaca mulai benar-benar pahamnya saat praktek.</p>
+<blockquote>
+<p>Penulis sarankan untuk benar-benar memahami setiap bagian praktek ini, karena topik ini merupakan pembahasan yang cukup berat untuk pemula, tapi masih dalam klasifikasi fundamental kalau di Go programming. Bingung tidak apa, nanti bisa di-ulang-ulang, yang penting tidak sekadar <em>copy-paste</em>.</p>
+</blockquote>
+<h2 id="a622-skenario-praktek">A.62.2. Skenario Praktek</h2>
+<p>Ok, penjabaran teori sepanjang sungai <code>nil</code> tidak akan banyak membawa penjelasan yang real kalau tidak diiringi dengan praktek. So, mari kita mulai praktek.</p>
+<p>Untuk skenario praktek kita tidak menggunakan analogi backup database di atas ya, karena untuk setup environment-nya butuh banyak <em>effort</em>. Skenario praktek yang kita pakai adalah mencari <a href="https://en.wikipedia.org/wiki/Md5sum" target="_blank">md5 sum</a> dari banyak file, kemudian menggunakan hash dari content-nya sebagai nama file. Jadi file yang lama akan di-rename dengan nama baru yaitu hash dari konten file tersebut.</p>
+<p>Agar skenario ini bisa kita eksekusi, kita perlu siapkan dulu sebuah program untuk <em>generate dummy files</em>.</p>
+<h2 id="a623-program-1-generate-dummy-file">A.62.3. Program 1: Generate Dummy File</h2>
+<p>Buat project baru dengan nama bebas <span style="text-decoration: line-through">loss gak reweellll</span> beserta satu buah file bernama <code>1-dummy-file-generator.go</code>.</p>
+<p>Dalam file tersebut import dan definisikan beberapa hal, diantaranya:</p>
+<ol>
+<li>Konstanta <code>totalFile</code> yang isinya jumlah file yang ingin di-generate.</li>
+<li>Variabel <code>contentLength</code> yang isinya panjang karakter random yang merupakan isi dari masing-masing <em>generated</em> file.</li>
+<li>Variabel <code>tempPath</code> yang mengarah ke <a href="https://en.wikipedia.org/wiki/Temporary_folder" target="_blank">temporary folder</a>.</li>
+</ol>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;math/rand&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+    <span class="hljs-string">&quot;path/filepath&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">const</span> totalFile = <span class="hljs-number">3000</span>
+<span class="hljs-keyword">const</span> contentLength = <span class="hljs-number">5000</span>
+
+<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.59-pipeline-temp&quot;</span>)
+</code></pre>
+<p>Kemudian siapkan fungsi <code>main()</code> yang isinya statement pemanggilan fungsi <code>generate()</code>, dan beberapa hal lainnya untuk keperluan <em>benchmark</em> performa dari sisi <em>execution time</em>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    log.Println(<span class="hljs-string">&quot;start&quot;</span>)
+    start := time.Now()
+
+    generateFiles()
+
+    duration := time.Since(start)
+    log.Println(<span class="hljs-string">&quot;done in&quot;</span>, duration.Seconds(), <span class="hljs-string">&quot;seconds&quot;</span>)
+}
+</code></pre>
+<p>Sekarang siapkan fungsi <code>randomString()</code>-nya:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> randomString(length <span class="hljs-keyword">int</span>) <span class="hljs-keyword">string</span> {
+    randomizer := rand.New(rand.NewSource(time.Now().Unix()))
+    letters := []<span class="hljs-keyword">rune</span>(<span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>)
+
+    b := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">rune</span>, length)
+    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> b {
+        b[i] = letters[randomizer.Intn(<span class="hljs-built_in">len</span>(letters))]
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">string</span>(b)
+}
+</code></pre>
+<p>Siapkan fungsi <code>generateFiles()</code>-nya, isinya kurang lebih adalah generate banyak file sejumlah <code>totalFile</code>. Lalu di tiap-tiap file di-isi dengan <em>random string</em> dengan lebar sepanjang <code>contentLength</code>. Untuk nama file-nya sendiri, formatnya adalah <code>file-&lt;index&gt;.txt</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFiles() {
+    os.RemoveAll(tempPath)
+    os.MkdirAll(tempPath, os.ModePerm)
+
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; totalFile; i++ {
+        filename := filepath.Join(tempPath, fmt.Sprintf(<span class="hljs-string">&quot;file-%d.txt&quot;</span>, i))
+        content := randomString(contentLength)
+        err := os.WriteFile(filename, []<span class="hljs-keyword">byte</span>(content), os.ModePerm)
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            log.Println(<span class="hljs-string">&quot;Error writing file&quot;</span>, filename)
+        }
+
+        <span class="hljs-keyword">if</span> i%<span class="hljs-number">100</span> == <span class="hljs-number">0</span> &amp;&amp; i &gt; <span class="hljs-number">0</span> {
+            log.Println(i, <span class="hljs-string">&quot;files created&quot;</span>)
+        }
+    }
+
+    log.Printf(<span class="hljs-string">&quot;%d of total files created&quot;</span>, totalFile)
+}
+</code></pre>
+<p>O iya untuk logging pembuatan file saya tampilkan setiap 100 file di-generate, agar tidak mengganggu performa, karena printing output ke <code>stdout</code> atau CMD/terminal itu cukup <em>costly</em>.</p>
+<p>Oke, generator sudah siap, jalankan.</p>
+<p><img src="images/A_concurrency_pipeline_1_generate_dummy_files.png" alt="Dasar Pemrograman Golang - Generate dummy files"></p>
+<p>Bisa dilihat sebanyak 3000 dummy file di-generate pada folder temporary os, di sub folder <code>chapter-A.59-pipeline-temp</code>.</p>
+<h2 id="a624-program-2-baca-semua-files-cari-md5-hash-nya-lalu-gunakan-hash-untuk-rename-file">A.62.4. Program 2: Baca Semua Files, Cari MD5 Hash-nya, Lalu Gunakan Hash Untuk Rename File</h2>
+<p>Sesuai judul sub bagian, kita akan buat satu file program lagi, yang isinya adalah melakukan operasi baca terhadap semua dummy file yang sudah di-generate, untuk kemudian dicari <em>hash</em>-nya lalu menggunakan nilai hash tersebut sebagai nama untuk file-file baru yang akan dibuat.</p>
+<p>Pada bagian ini kita belum masuk ke aspek konkurensi-nya ya. Sabar dulu. Saya akan coba sampaikan dengan penjabaran yang bisa diterima oleh banyak pembaca (termasuk yang masih awam banget).</p>
+<p>Siapkan file <code>2-find-md5-sum-of-file-then-rename-it.go</code>, import beberapa <em>packages</em> dan siapkan definisi variabel <code>tempPath</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;crypto/md5&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+    <span class="hljs-string">&quot;path/filepath&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.59-pipeline-temp&quot;</span>)
+</code></pre>
+<p>Lanjut siapkan fungsi <code>main()</code> dengan isi memanggil fungsi <code>proceed()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    log.Println(<span class="hljs-string">&quot;start&quot;</span>)
+    start := time.Now()
+
+    proceed()
+
+    duration := time.Since(start)
+    log.Println(<span class="hljs-string">&quot;done in&quot;</span>, duration.Seconds(), <span class="hljs-string">&quot;seconds&quot;</span>)
+}
+</code></pre>
+<p>Isi dari fungsi <code>proceed()</code> sendiri adalah bisnis logic dari aplikasi yang akan kita buat, yaitu membaca file, mencari md5 hash, lalu rename file.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> proceed() {
+    counterTotal := <span class="hljs-number">0</span>
+    counterRenamed := <span class="hljs-number">0</span>
+    err := filepath.Walk(tempPath, <span class="hljs-keyword">func</span>(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error) error {
+
+        <span class="hljs-comment">// if there is an error, return immediatelly</span>
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">return</span> err
+        }
+
+        <span class="hljs-comment">// if it is a sub directory, return immediatelly</span>
+        <span class="hljs-keyword">if</span> info.IsDir() {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+        }
+
+        counterTotal++
+
+        <span class="hljs-comment">// read file</span>
+        buf, err := os.ReadFile(path)
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">return</span> err
+        }
+
+        <span class="hljs-comment">// sum it</span>
+        sum := fmt.Sprintf(<span class="hljs-string">&quot;%x&quot;</span>, md5.Sum(buf))
+
+        <span class="hljs-comment">// rename file</span>
+        destinationPath := filepath.Join(tempPath, fmt.Sprintf(<span class="hljs-string">&quot;file-%s.txt&quot;</span>, sum))
+        err = os.Rename(path, destinationPath)
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">return</span> err
+        }
+
+        counterRenamed++
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+    })
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Println(<span class="hljs-string">&quot;ERROR:&quot;</span>, err.Error())
+    }
+
+    log.Printf(<span class="hljs-string">&quot;%d/%d files renamed&quot;</span>, counterRenamed, counterTotal)
+}
+</code></pre>
+<p>Cukup panjang isi fungsi ini, tetapi isinya cukup <em>straight forward</em> kok.</p>
+<ul>
+<li>Pertama kita siapkan <code>counterTotal</code> sebagai counter jumlah file yang ditemukan dalam <code>$TEMP/chapter-A.59-pipeline-temp</code>. Idealnya jumlahnya adalah sama dengan isi variabel <code>totalFile</code> pada program pertama, kecuali ada error.</li>
+<li>Kedua, kita siapkan <code>counterRenamed</code> sebagai counter jumlah file yang berhasil di-rename. Untuk ini juga idealnya sama dengan nilai pada <code>counterTotal</code>, kecuali ada error</li>
+<li>Kita gunakan <code>filepath.Walk</code> untuk melakukan pembacaan semua file yang ada dalam folder <code>$TEMP/chapter-A.59-pipeline-temp</code>.</li>
+<li>File akan dibaca secara sekuensial, di tiap pembacaan jika ada error dan ditemukan sebuah direktori, maka kita ignore kemudian lanjut pembacaan file selanjutnya.</li>
+<li>File dibaca menggunakan <code>os.ReadFile()</code>, kemudian lewat fungsi <code>md5.Sum()</code> kita cari md5 hash sum dari konten file.</li>
+<li>Setelahnya, kita rename file dengan nama <code>file-&lt;md5hash&gt;.txt</code>.</li>
+</ul>
+<p>Semoga cukup jelas. Kalo iya, jalankan programnya.</p>
+<p><img src="images/A_concurrency_pipeline_2_rename_sequentially.png" alt="Dasar Pemrograman Golang - Generate dummy files"></p>
+<p>Selesai dalam waktu <strong>1,17 detik</strong>, lumayan untuk eksekusi proses sekuensial.</p>
+<p>Ok, aplikasi sudah siap. Selanjutnya kita akan refactor aplikasi tersebut ke bentuk konkuren menggunakan metode <em>pipeline</em>.</p>
+<h2 id="a625-program-3-lakukan-proses-secara-concurrent-menggunakan-teknik-pipeline">A.62.5. Program 3: Lakukan Proses Secara Concurrent Menggunakan Teknik Pipeline</h2>
+<p>Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kalau dilihat dari perspektif bisnis logic, tapi metode yang kita terapkan dari sisi engineering berbeda. Di sini kita akan terapkan <em>pipeline</em>. Bisnis logic akan dipecah menjadi 3 dan seluruhnya dieksekusi secara konkuren, yaitu:</p>
+<ul>
+<li>Proses baca file</li>
+<li>Proses perhitungan md5 hash sum</li>
+<li>Proses rename file</li>
+</ul>
+<p>Kenapa kita pecah, karena ketiga proses tersebut bisa dijalankan bersama secara konkuren, dalam artian misalnya ketika <code>file1</code> sudah selesai dibaca, perhitungan md5sum-nya bisa dijalankan secara bersama dengan pembacaan <code>file2</code>. Begitu juga untuk proses rename-nya, misalnya, proses rename <code>file24</code> bisa dijalnkan secara konkuren bersamaan dengan proses hitung md5sum <code>file22</code> dan bersamaan dengan proses baca <code>file28</code>.</p>
+<h4 id="&#x25C9;-basis-kode-program">&#x25C9; Basis Kode Program</h4>
+<p>Mungkin agar lebih terlihat perbandingannya nanti di akhir, kita siapkan file terpisah saja untuk program ini. Siapkan file baru bernama <code>3-find-md5-sum-of-file-then-rename-it-concurrently.go</code>.</p>
+<p>Isi file tersebut dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;crypto/md5&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+    <span class="hljs-string">&quot;path/filepath&quot;</span>
+    <span class="hljs-string">&quot;sync&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.59-pipeline-temp&quot;</span>)
+
+<span class="hljs-keyword">type</span> FileInfo <span class="hljs-keyword">struct</span> {
+    FilePath  <span class="hljs-keyword">string</span> <span class="hljs-comment">// file location</span>
+    Content   []<span class="hljs-keyword">byte</span> <span class="hljs-comment">// file content</span>
+    Sum       <span class="hljs-keyword">string</span> <span class="hljs-comment">// md5 sum of content</span>
+    IsRenamed <span class="hljs-keyword">bool</span>   <span class="hljs-comment">// indicator whether the particular file is renamed already or not</span>
+}
+</code></pre>
+<p>Kurang lebih sama seperti sebelumnya, hanya saja ada beberapa packages lain yg di-import dan ada struct <code>FileInfo</code>. Struct ini digunakan sebagai metadata tiap file. Karena nantinya proses read file, md5sum, dan rename file akan dipecah menjadi 3 goroutine berbeda, maka perlu ada metadata untuk mempermudah tracking file, agar nanti ketika dapat md5 sum nya tidak salah simpan, dan ketika rename tidak salah file.</p>
+<h4 id="&#x25C9;-pipeline-1-baca-file">&#x25C9; Pipeline 1: Baca File</h4>
+<p>Siapkan fungsi main, lalu panggil fungsi <code>readFiles()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    log.Println(<span class="hljs-string">&quot;start&quot;</span>)
+    start := time.Now()
+
+    <span class="hljs-comment">// pipeline 1: loop all files and read it</span>
+    chanFileContent := readFiles()
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Fungsi <code>readFiles()</code> isinya adalah pembacaan semua file. Fungsi ini mengembalikan variabel <code>channel</code> bernama <code>chanFileContent</code>. Lanjut siapkan fungsi tersebut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> readFiles() &lt;-<span class="hljs-keyword">chan</span> FileInfo {
+    chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
+
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        err := filepath.Walk(tempPath, <span class="hljs-keyword">func</span>(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error) error {
+
+            <span class="hljs-comment">// if there is an error, return immediatelly</span>
+            <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+                <span class="hljs-keyword">return</span> err
+            }
+
+            <span class="hljs-comment">// if it is a sub directory, return immediatelly</span>
+            <span class="hljs-keyword">if</span> info.IsDir() {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+            }
+
+            buf, err := os.ReadFile(path)
+            <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+                <span class="hljs-keyword">return</span> err
+            }
+
+            chanOut &lt;- FileInfo{
+                FilePath: path,
+                Content:  buf,
+            }
+
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+        })
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            log.Println(<span class="hljs-string">&quot;ERROR:&quot;</span>, err.Error())
+        }
+
+        <span class="hljs-built_in">close</span>(chanOut)
+    }()
+
+    <span class="hljs-keyword">return</span> chanOut
+}
+</code></pre>
+<p>Bisa dilihat isi fungsi <code>readFiles()</code>. Di fungsi tersebut ada sebuah channel bernama <code>chanOut</code> tipenya channel <code>FileInfo</code>, variabel channel ini dijadikan nilai balik dari fungsi <code>readFiles()</code>.</p>
+<p>Di dalam fungsi <code>readFiles()</code> juga ada proses lain yang berjalan secara <em>asynchronous</em> dan <em>concurrent</em> yaitu goroutine yang isinya pembacaan file. Dalam blok kode baca file, informasi <code>path</code> dan konten file dibungkus dalam objek baru dengan tipe <code>FileInfo</code> kemudian dikirim ke channel <code>chanOut</code>.</p>
+<p>Karena proses utama dalam fungsi <code>readFiles()</code> berada dalam goroutine, maka di <code>main()</code>, ketika statement <code>chanFileContent := readFiles()</code> selesai dieksekusi, bukan berarti proses pembacaan file selesai, malah mungkin baru saja dimulai. Ini karena proses baca file dijalankan dalam goroutine di dalam fungsi <code>readFiles()</code> tersebut.</p>
+<p>Mengenai channel <code>chanOut</code> sendiri, akan di-close ketika dipastikan <strong>semua file sudah dikirim datanya ke channel tersebut</strong> (silakan lihat statement <code>close(chanOut)</code> di akhir goroutine).</p>
+<p>Ok lanjut, karena di sini ada channel yang digunakan sebagai media pengiriman data (<code>FileInfo</code>), maka juga harus ada penerima data channel-nya dong. Yups.</p>
+<h4 id="&#x25C9;-pipeline-2-md5-hash-konten-file">&#x25C9; Pipeline 2: MD5 Hash Konten File</h4>
+<p>Tepat di bawah pipeline 1, tambahkan pemanggilan fungsi <code>getSum()</code> sebanyak 3x, bisa lebih banyak sih sebenarnya, bebas. Kemudian jadikan nilai balik pemanggilan fungsi tersebut sebagai variadic argument pemanggilan fungsi <code>mergeChanFileInfo()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-comment">// pipeline 2: calculate md5sum</span>
+    chanFileSum1 := getSum(chanFileContent)
+    chanFileSum2 := getSum(chanFileContent)
+    chanFileSum3 := getSum(chanFileContent)
+    chanFileSum := mergeChanFileInfo(chanFileSum1, chanFileSum2, chanFileSum3)
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Fungsi <code>getSum()</code> isinya adalah perhitungan md5hash untuk konten yang datanya dikirim via channel <code>chanFileContent</code> hasil kembalian statement <code>readFiles()</code>. Fungsi <code>getSum()</code> ini juga mengembalikan channel. Karena kita menjalankan <code>getSum()</code> tiga kali, maka akan ada 3 channel. Nah ketiga channel tersebut nantinya kita merge ke satu channel saja via fungsi <code>mergeChanFileInfo()</code>.</p>
+<p>Fungsi <code>getSum()</code> menerima channel dan akan secara aktif memantau dan membaca data yang dikirim via channel tersebut hingga channel itu sendiri di-close. Fungsi seperti ini biasa disebut dengan <strong>Fan-out function</strong>. Fungsi fan-out digunakan untuk pendistribusian job ke banyak worker. channel <code>chanFileContent</code> di situ merupakan media untuk distribusi job, sedangkan pemanggil fungsi <code>getSum()</code> ini sendiri merepresentasikan satu worker. Jadi bisa dibilang, pada contoh di atas, <strong>kita membuat 3 buah worker untuk melakukan operasi perhitungan sum MD5 terhadap data konten yang dikirim via channel <code>chanFileContent</code></strong>.</p>
+<p>Nah, karena di sini kita punya 3 worker yang jelasnya menghasilkan 3 buah channel baru, kita perlu sebuah mekanisme untuk menggabung channel tersebut, agar nanti mudah untuk dikontrol (<a href="https://en.wikipedia.org/wiki/Single_source_of_truth" target="_blank">SSoT</a>). Di sinilah peran fungsi <code>mergeChanFileInfo()</code>.</p>
+<p>Fungsi <code>mergeChanFileInfo()</code> digunakan untuk <em>multiplexing</em> atau menggabung banyak channel ke satu channel saja, yang mana channel ini juga akan <strong>otomatis di-close ketika channel input (<code>chanFileContent</code>) adalah <em>closed</em></strong>. Fungsi jenis seperti ini biasa disebut dengan <strong>Fan-in function</strong>.</p>
+<p>Jadi TL;DR nya:</p>
+<ul>
+<li>Fungsi Fan-out digunakan untuk pembuatan worker, untuk distribusi job, yang proses distribusinya sendiri akan berhenti ketika channel inputan di-close.</li>
+<li>Fungsi Fan-in digunakan untuk <em>multiplexing</em> atau menggabung banyak worker ke satu channel saja, yang mana channel baru ini juga otomatis di-close ketika channel input adalah closed.</li>
+</ul>
+<p>Sekarang lanjut buat fungsi <code>getSum()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> getSum(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
+    chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
+
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">for</span> fileInfo := <span class="hljs-keyword">range</span> chanIn {
+            fileInfo.Sum = fmt.Sprintf(<span class="hljs-string">&quot;%x&quot;</span>, md5.Sum(fileInfo.Content))
+            chanOut &lt;- fileInfo
+        }
+        <span class="hljs-built_in">close</span>(chanOut)
+    }()
+
+    <span class="hljs-keyword">return</span> chanOut
+}
+</code></pre>
+<p>Bisa dilihat, di situ channel inputan <code>chanIn</code> di-listen dan setiap ada penerimaan data (via channel tersebut) dilanjut ke proses kalkulasi md5 hash. Hasil hash-nya di tambahkan ke data <code>FileInfo</code> kemudian dikirim lagi ke channel <code>chanOut</code> yang mana channel ini merupakan nilai balik fungsi <code>getSum()</code>.</p>
+<p>Ketika <code>chanIn</code> closed, maka bisa diasumsikan semua data sudah dikirim. Jika memang iya dan data-data tersebut sudah di proses (pencarian md5hash-nya), maka channel <code>chanOut</code> juga di-close.</p>
+<p>Next, buat fungsi merger-nya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> mergeChanFileInfo(chanInMany ...&lt;-<span class="hljs-keyword">chan</span> FileInfo) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
+    wg := <span class="hljs-built_in">new</span>(sync.WaitGroup)
+    chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
+
+    wg.Add(<span class="hljs-built_in">len</span>(chanInMany))
+    <span class="hljs-keyword">for</span> _, eachChan := <span class="hljs-keyword">range</span> chanInMany {
+        <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(eachChan &lt;-<span class="hljs-keyword">chan</span> FileInfo) {
+            <span class="hljs-keyword">for</span> eachChanData := <span class="hljs-keyword">range</span> eachChan {
+                chanOut &lt;- eachChanData
+            }
+            wg.Done()
+        }(eachChan)
+    }
+
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        wg.Wait()
+        <span class="hljs-built_in">close</span>(chanOut)
+    }()
+
+    <span class="hljs-keyword">return</span> chanOut
+}
+</code></pre>
+<p>Fungsi di atas digunakan untuk merging banyak channel ke satu channel. Memang sedikit susah di awal untuk dipahami, tapi nanti lama-kelamaan akan paham. Fungsi ini saya buat sama dengan skema fungsi Fan-in pada <a href="https://blog.golang.org/pipelines" target="_blank">Go Concurrency Patterns: Pipeline</a>.</p>
+<p>Secara garis besar, pada fungsi ini terjadi beberapa proses:</p>
+<ul>
+<li>Dispatch goroutine baru untuk masing-masing channel yang dikirim via variadic argument/parameter fungsi ini.</li>
+<li>Di dalam goroutine tersebut, append data yang diterima oleh masing-masing channel ke satu buah channel baru yaitu <code>chanOut</code>.</li>
+<li>Channel <code>chanOut</code> ini dijadikan sebagai nilai balik fungsi.</li>
+<li>Di situ kita gunakan <code>sync.WaitGroup</code> untuk kontrol goroutine. Kita akan tunggu hingga semua channel input adalah closed, setelah itu barulah kita close channel <code>chanOut</code> ini.</li>
+</ul>
+<h4 id="&#x25C9;-pipeline-3-rename-file">&#x25C9; Pipeline 3: Rename file</h4>
+<p>Tambahkan statement pipeline ketiga, yaitu pemanggilan fungsi Fan-out <code>rename()</code>, lalu panggil fungsi Fan-in <code>mergeChanFileInfo()</code> untuk multiplex channel kembalian fungsi <code>rename()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-comment">// pipeline 3: rename files</span>
+    chanRename1 := rename(chanFileSum)
+    chanRename2 := rename(chanFileSum)
+    chanRename3 := rename(chanFileSum)
+    chanRename4 := rename(chanFileSum)
+    chanRename := mergeChanFileInfo(chanRename1, chanRename2, chanRename3, chanRename4)
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Di atas bisa dilihat ada 4 buah worker untuk rename di-<em>dispatch</em>. Fungsi rename ini sendiri tugasnya adalah me-rename file yang sudah kita baca isinya ke nama baru dengan format <code>file-&lt;md5hash&gt;.txt</code>.</p>
+<p>Tulis definisi fungsi <code>rename()</code>-nya. Secara garis besar semua penulisan fungsi Fan-out pasti mirip, yang beda hanya isi bisnis logic-nya saja. Kalau dalam <code>getSum()</code> isinya statement untuk kalkulasi hash, pada <code>rename()</code> ini isinya ya statements untuk rename file.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> rename(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
+    chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
+
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">for</span> fileInfo := <span class="hljs-keyword">range</span> chanIn {
+            newPath := filepath.Join(tempPath, fmt.Sprintf(<span class="hljs-string">&quot;file-%s.txt&quot;</span>, fileInfo.Sum))
+            err := os.Rename(fileInfo.FilePath, newPath)
+            fileInfo.IsRenamed = err == <span class="hljs-literal">nil</span>
+            chanOut &lt;- fileInfo
+        }
+
+        <span class="hljs-built_in">close</span>(chanOut)
+    }()
+
+    <span class="hljs-keyword">return</span> chanOut
+}
+</code></pre>
+<p>Bisa dilihat di atas kita rename file asli yang informasi path-nya ada di <code>FileInfo.FilePath</code>. Jika proses rename berhasil, maka <code>FileInfo.IsRenamed</code> di-set ke <code>true</code>.</p>
+<p>Setelah semua file berhasil di-rename, maka channel <code>chanOut</code> di-close.</p>
+<h4 id="&#x25C9;-pipeline-4--output">&#x25C9; Pipeline 4 / Output</h4>
+<p>Serangkaian proses yang sudah kita setup punya ketergantungan tinggi satu sama lain, dan eksekusinya harus berurutan meskipun <em>concurrently</em>. Ini secara langsung juga mempermudah kita dalam mengolah output hasil pipeline. Kita cukup fokus ke channel hasil Fan-in yang paling terakhir, yaitu channel <code>chanRename</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-comment">// print output</span>
+    counterRenamed := <span class="hljs-number">0</span>
+    counterTotal := <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> fileInfo := <span class="hljs-keyword">range</span> chanRename {
+        <span class="hljs-keyword">if</span> fileInfo.IsRenamed {
+            counterRenamed++
+        }
+        counterTotal++
+    }
+
+    log.Printf(<span class="hljs-string">&quot;%d/%d files renamed&quot;</span>, counterRenamed, counterTotal)
+
+    duration := time.Since(start)
+    log.Println(<span class="hljs-string">&quot;done in&quot;</span>, duration.Seconds(), <span class="hljs-string">&quot;seconds&quot;</span>)
+}
+</code></pre>
+<p>Kita lakukan perulangan terhadap channel tersebut, lalu hitung jumlah file yang ditemukan vs jumlah file yang berhasil di-rename. Idealnya keduanya nilainya adalah sama, yaitu <code>3000</code>.</p>
+<p>Ok, sekarang program sudah siap. Mari kita jalankan untuk melihat hasilnya.</p>
+<p><img src="images/A_concurrency_pipeline_3_rename_concurrently.png" alt="Dasar Pemrograman Golang - Rename file concurrently"></p>
+<p>Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu <code>1.17</code> detik, sedangkan dengan metode pipeline butuh hanya <code>0.72</code> detik. Bedanya hampir <strong>40%</strong>! dan ini hanya 3000 file saja, bayangkan kalau jutaan file, mungkin lebih terasa perbandingan performnya.</p>
+<h2 id="a626-kesimpulan">A.62.6. Kesimpulan</h2>
+<p>Pipeline concurrency pattern sangat bagus untuk diterapkan pada case yang proses-nya bisa diklasifikasi menjadi sub-proses kecil-kecil yang secara I/O tidak saling tunggu (tapi secara flow harus berurutan).</p>
+<p>Untuk banyak kasus, metode pipeline ini sangat tepat guna. Kita bisa dengan mudah mengontrol penggunaan resource seperti <strong>CPU</strong> dengan cara menentukan angka ideal jumlah worker untuk masing-masing pipeline, tapi untuk bagian ini butuh <em>test and try</em> juga, karena tidak selalu banyak worker itu menghasilkan proses yang lebih cepat, dan misalpun bisa, perlu dicek juga konsumsi resource-nya berlebihan atau tidak. Bisa jadi karena terlalu banyak worker malah lebih lambat karena ada constraint I/O.</p>
+<p>Intinya butuh banyak percobaan dan testing, sesuaikan dengan spesifikasi hardware laptop/komputer/server yang digunakan.</p>
+<p>Ok sekian untuk chapter panjang ini.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.62-concurrency-pipeline" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.62...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2575,12 @@
 
             
                 
+                <a href="A-go-vendoring.html" class="navigation navigation-prev " aria-label="Previous page: A.61. Go Vendoring">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-simplified-fan-in-fan-out-pipeline.html" class="navigation navigation-next " aria-label="Next page: A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2591,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"next":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"path":"A-simplified-fan-in-fan-out-pipeline.md","ref":"A-simplified-fan-in-fan-out-pipeline.md","articles":[]},"previous":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-concurrency-pipeline.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

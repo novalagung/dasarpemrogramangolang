@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Time, Parsing Time, &amp; Format Time - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-timer-ticker-scheduler.html">
     
+    
+    <link rel="prev" href="A-random.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -777,7 +779,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.40" data-path="A-time-parsing-format.html">
+        <li class="chapter active" data-level="3.1.40" data-path="A-time-parsing-format.html">
             
                 <a href="A-time-parsing-format.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.40. Time, Parsing Time, &amp; Format Time</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,410 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
+                                <h1 id="a40-time-parsing-time--format-time">A.40. Time, Parsing Time, &amp; Format Time</h1>
+<p>Pada chapter ini kita akan belajar tentang pemanfaatan data bertipe datetime serta method-method-nya, juga tentang <strong>format</strong> &amp; <strong>parsing</strong> data <code>string</code> ke tipe <code>time.Time</code> dan sebaliknya.</p>
+<p>Go menyediakan package <code>time</code> yang berisikan banyak sekali komponen yang bisa digunakan untuk keperluan pemanfaatan date dan time. Salah satunya adalah <code>time.Time</code>, yang merupakan tipe untuk data tanggal dan waktu di Go.</p>
+<blockquote>
+<p>Meskipun nama package-nya adalah <code>time</code>, yang dicakup adalah <strong>date</strong> dan <strong>time</strong>, jadi bukan hanya waktu saja.</p>
+</blockquote>
+<h2 id="a401-penggunaan-timetime">A.40.1. Penggunaan <code>time.Time</code></h2>
+<p>Tipe <code>time.Time</code> merupakan representasi untuk objek date-time. Ada 2 cara yang bisa dipilih untuk membuat data bertipe ini.</p>
+<ol>
+<li>Menjadikan informasi waktu sekarang sebagai objek <code>time.Time</code>, menggunakan <code>time.Now()</code>.</li>
+<li>Atau, membuat objek baru bertipe <code>time.Time</code> dengan informasi ditentukan sendiri, menggunakan <code>time.Date()</code>.</li>
 </ol>
+<p>Berikut merupakan contoh penggunannya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;time&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> time1 = time.Now()
+    fmt.Printf(<span class="hljs-string">&quot;time1 %v\n&quot;</span>, time1)
+    <span class="hljs-comment">// time1 2015-09-01 17:59:31.73600891 +0700 WIB</span>
+
+    <span class="hljs-keyword">var</span> time2 = time.Date(<span class="hljs-number">2011</span>, <span class="hljs-number">12</span>, <span class="hljs-number">24</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, time.UTC)
+    fmt.Printf(<span class="hljs-string">&quot;time2 %v\n&quot;</span>, time2)
+    <span class="hljs-comment">// time2 2011-12-24 10:20:00 +0000 UTC</span>
+}
+</code></pre>
+<p>Fungsi <code>time.Now()</code> mengembalikan objek <code>time.Time</code> dengan nilai adalah informasi date-time tepat ketika statement tersebut dijalankan. Bisa dilihat pada saat di-print muncul informasi date-time sesuai dengan tanggal program tersebut dieksekusi.</p>
+<p><img src="images/A_time_parsing_format_1_time_instance.png" alt="Dasar Pemrograman Golang - Penggunaan time"></p>
+<p>Fungsi <code>time.Date()</code> digunakan untuk membuat objek <code>time.Time</code> baru yang informasi date-time-nya kita tentukan sendiri. Fungsi ini memiliki 8 buah parameter <em>mandatory</em> dengan skema bisa dilihat di kode berikut:</p>
+<pre><code class="lang-go">time.Date(tahun, bulan, tanggal, jam, menit, detik, nanodetik, timezone)
+</code></pre>
+<p>Objek cetakan fungsi <code>time.Now()</code> memiliki timezone yang relatif terhadap lokasi kita. Karena kebetulan penulis berlokasi di Jawa Timur, maka akan terdeteksi masuk dalam <strong>GMT+7</strong> atau <strong>WIB</strong>. Berbeda dengan variabel <code>time2</code> yang lokasinya sudah kita tentukan secara eksplisit yaitu <strong>UTC</strong>.</p>
+<p>Selain menggunakan <code>time.UTC</code> untuk penentuan lokasi, tersedia juga <code>time.Local</code> yang nilainya adalah relatif terhadap date-time lokal kita.</p>
+<h2 id="a402-method-milik-timetime">A.40.2. Method Milik <code>time.Time</code></h2>
+<p>Tipe data <code>time.Time</code> merupakan struct, memiliki beberapa method yang bisa dipakai.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> now = time.Now()
+fmt.Println(<span class="hljs-string">&quot;year:&quot;</span>, now.Year(), <span class="hljs-string">&quot;month:&quot;</span>, now.Month())
+<span class="hljs-comment">// year: 2015 month: 8</span>
+</code></pre>
+<p>Kode di atas adalah contoh penggunaan beberapa method milik objek bertipe <code>time.Time</code>. Method <code>Year()</code> mengembalikan informasi tahun, dan <code>Month()</code> mengembalikan informasi angka bulan.</p>
+<p>Selain kedua method di atas, ada banyak lagi yang bisa dimanfaatkan. Tabel berikut merupakan list method yang berhubungan dengan <em>date</em>, <em>time</em>, dan <em>location</em> yang dimiliki tipe <code>time.Time</code>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">Penjelasan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>now.Year()</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">Tahun</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.YearDay()</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">Hari ke-? di mulai awal tahun</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.Month()</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">Bulan</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.Weekday()</code></td>
+<td style="text-align:left"><code>string</code></td>
+<td style="text-align:left">Nama hari. Bisa menggunakan <code>now.Weekday().String()</code> untuk mengambil bentuk string-nya</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.ISOWeek()</code></td>
+<td style="text-align:left">(<code>int</code>, <code>int</code>)</td>
+<td style="text-align:left">Tahun dan minggu ke-? mulai awal tahun</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.Day()</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">Tanggal</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.Hour()</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">Jam</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.Minute()</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">Menit</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.Second()</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">Detik</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.Nanosecond()</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">Nano detik</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.Local()</code></td>
+<td style="text-align:left"><code>time.Time</code></td>
+<td style="text-align:left">Date-time dalam timezone lokal</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.Location()</code></td>
+<td style="text-align:left"><code>*time.Location</code></td>
+<td style="text-align:left">Mengambil informasi lokasi, apakah <em>local</em> atau <em>utc</em>. Bisa menggunakan <code>now.Location().String()</code> untuk mengambil bentuk string-nya</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.Zone()</code></td>
+<td style="text-align:left">(<code>string</code>, <code>int</code>)</td>
+<td style="text-align:left">Mengembalikan informasi <em>timezone offset</em> dalam string dan numerik. Sebagai contoh <code>WIB, 25200</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.IsZero()</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left">Deteksi apakah nilai object <code>now</code> adalah <code>01 Januari tahun 1, 00:00:00 UTC</code>. Jika iya maka bernilai <code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.UTC()</code></td>
+<td style="text-align:left"><code>time.Time</code></td>
+<td style="text-align:left">Date-time dalam timezone <code>UTC</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.Unix()</code></td>
+<td style="text-align:left"><code>int64</code></td>
+<td style="text-align:left">Date-time dalam format <em>unix time</em></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.UnixNano()</code></td>
+<td style="text-align:left"><code>int64</code></td>
+<td style="text-align:left">Date-time dalam format <em>unix time</em>. Infomasi nano detik juga dimasukkan</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>now.String()</code></td>
+<td style="text-align:left"><code>string</code></td>
+<td style="text-align:left">Date-time dalam string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="a403-parsing-dari-string-ke-timetime">A.40.3. Parsing dari <code>string</code> ke <code>time.Time</code></h2>
+<p>Data <code>string</code> bisa dikonversi menjadi <code>time.Time</code> dengan memanfaatkan <code>time.Parse</code>. Fungsi ini membutuhkan 2 parameter:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Parameter ke-1 adalah layout format dari data waktu yang akan diparsing.</li>
+<li>Parameter ke-2 adalah data string yang ingin diparsing.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Contoh penerapannya bisa dilihat di kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> layoutFormat, value <span class="hljs-keyword">string</span>
+<span class="hljs-keyword">var</span> date time.Time
+
+layoutFormat = <span class="hljs-string">&quot;2006-01-02 15:04:05&quot;</span>
+value = <span class="hljs-string">&quot;2015-09-02 08:04:00&quot;</span>
+date, _ = time.Parse(layoutFormat, value)
+fmt.Println(value, <span class="hljs-string">&quot;\t-&gt;&quot;</span>, date.String())
+<span class="hljs-comment">// 2015-09-02 08:04:00 +0000 UTC</span>
+
+layoutFormat = <span class="hljs-string">&quot;02/01/2006 MST&quot;</span>
+value = <span class="hljs-string">&quot;02/09/2015 WIB&quot;</span>
+date, _ = time.Parse(layoutFormat, value)
+fmt.Println(value, <span class="hljs-string">&quot;\t\t-&gt;&quot;</span>, date.String())
+<span class="hljs-comment">// 2015-09-02 00:00:00 +0700 WIB</span>
+</code></pre>
+<p><img src="images/A_time_parsing_format_2_time_parse.png" alt="Dasar Pemrograman Golang - Contoh penggunaan **time.Parse**"></p>
+<p>Layout format date-time di Go berbeda dibanding bahasa lain. Umumnya layout format yang digunakan adalah seperti <code>&quot;DD/MM/YYYY&quot;</code>, di Go tidak.</p>
+<p>Go memiliki standar layout format yang cukup unik, contohnya seperti pada kode di atas <code>&quot;2006-01-02 15:04:05&quot;</code>. Go menggunakan <code>2006</code> untuk parsing tahun, bukan <code>YYYY</code>; <code>01</code> untuk parsing bulan; <code>02</code> untuk parsing hari; dan seterusnya. Detailnya bisa dilihat di tabel berikut.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Layout&#xA0;Format</th>
+<th style="text-align:left">Penjelasan</th>
+<th style="text-align:left">Contoh&#xA0;Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>2006</code></td>
+<td style="text-align:left">Tahun 4 digit</td>
+<td style="text-align:left"><code>2015</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>006</code></td>
+<td style="text-align:left">Tahun 3 digit</td>
+<td style="text-align:left"><code>015</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>06</code></td>
+<td style="text-align:left">Tahun 2 digit</td>
+<td style="text-align:left"><code>15</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>01</code></td>
+<td style="text-align:left">Bulan 2 digit</td>
+<td style="text-align:left"><code>05</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>1</code></td>
+<td style="text-align:left">Bulan 1 digit jika di bawah bulan 10, selainnya 2 digit</td>
+<td style="text-align:left"><code>5</code>,&#xA0;<code>12</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>January</code></td>
+<td style="text-align:left">Nama bulan dalam bahasa inggris</td>
+<td style="text-align:left"><code>September</code>,&#xA0;<code>August</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Jan</code></td>
+<td style="text-align:left">Nama bulan dalam bahasa inggris, 3 huruf</td>
+<td style="text-align:left"><code>Sep</code>,&#xA0;<code>Aug</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>02</code></td>
+<td style="text-align:left">Tanggal 2 digit</td>
+<td style="text-align:left"><code>02</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>2</code></td>
+<td style="text-align:left">Tanggal 1 digit jika di bawah bulan 10, selainnya 2 digit</td>
+<td style="text-align:left"><code>8</code>,&#xA0;<code>31</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Monday</code></td>
+<td style="text-align:left">Nama hari dalam bahasa inggris</td>
+<td style="text-align:left"><code>Saturday</code>,&#xA0;<code>Friday</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Mon</code></td>
+<td style="text-align:left">Nama hari dalam bahasa inggris, 3 huruf</td>
+<td style="text-align:left"><code>Sat</code>,&#xA0;<code>Fri</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>15</code></td>
+<td style="text-align:left">Jam dengan format <strong>24 jam</strong></td>
+<td style="text-align:left"><code>18</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>03</code></td>
+<td style="text-align:left">Jam dengan format <strong>12 jam</strong> 2 digit</td>
+<td style="text-align:left"><code>05</code>,&#xA0;<code>11</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>3</code></td>
+<td style="text-align:left">Jam dengan format <strong>12 jam</strong> 1 digit jika di bawah jam 11, selainnya 2 digit</td>
+<td style="text-align:left"><code>5</code>,&#xA0;<code>11</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>PM</code></td>
+<td style="text-align:left">AM/PM, biasa digunakan dengan format jam <strong>12 jam</strong></td>
+<td style="text-align:left"><code>PM</code>,&#xA0;<code>AM</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>04</code></td>
+<td style="text-align:left">Menit 2 digit</td>
+<td style="text-align:left"><code>08</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>4</code></td>
+<td style="text-align:left">Menit 1 digit jika di bawah menit 10, selainnya 2 digit</td>
+<td style="text-align:left"><code>8</code>,&#xA0;<code>24</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>05</code></td>
+<td style="text-align:left">Detik 2 digit</td>
+<td style="text-align:left"><code>06</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>5</code></td>
+<td style="text-align:left">Detik 1 digit jika di bawah detik 10, selainnya 2 digit</td>
+<td style="text-align:left"><code>6</code>,&#xA0;<code>36</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>999999</code></td>
+<td style="text-align:left">Nano detik</td>
+<td style="text-align:left"><code>124006</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>MST</code></td>
+<td style="text-align:left">Lokasi timezone</td>
+<td style="text-align:left"><code>UTC</code>,&#xA0;<code>WIB</code>,&#xA0;<code>EST</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Z0700</code></td>
+<td style="text-align:left">Offset timezone</td>
+<td style="text-align:left"><code>Z</code>,&#xA0;<code>+0700</code>,&#xA0;<code>-0200</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="a404-predefined-layout-format-untuk-keperluan-parsing-time">A.40.4. Predefined Layout Format Untuk Keperluan Parsing Time</h2>
+<p>Go juga menyediakan beberapa predefined layout format umum yang bisa dimanfaatkan. Jadi tidak perlu menuliskan kombinasi komponen-komponen layout format.</p>
+<p>Salah satu predefined layout yang bisa digunakan adalah <code>time.RFC822</code>, ekuivalen dengan layout format <code>02 Jan 06 15:04 MST</code>. Berikut adalah contoh penerapannya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> date, _ = time.Parse(time.RFC822, <span class="hljs-string">&quot;02 Sep 15 08:00 WIB&quot;</span>)
+fmt.Println(date.String())
+<span class="hljs-comment">// 2015-09-02 08:00:00 +0700 WIB</span>
+</code></pre>
+<p>Ada beberapa layout format lain yang tersedia, silakan lihat tabel berikut.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Predefined Layout Format</th>
+<th style="text-align:left">Layout Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>time.ANSIC</code></td>
+<td style="text-align:left">Mon Jan _2 15:04:05 2006</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.UnixDate</code></td>
+<td style="text-align:left">Mon Jan _2 15:04:05 MST 2006</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.RubyDate</code></td>
+<td style="text-align:left">Mon Jan 02 15:04:05 -0700 2006</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.RFC822</code></td>
+<td style="text-align:left">02 Jan 06 15:04 MST</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.RFC822Z</code></td>
+<td style="text-align:left">02 Jan 06 15:04 -0700</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.RFC850</code></td>
+<td style="text-align:left">Monday, 02-Jan-06 15:04:05 MST</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.RFC1123</code></td>
+<td style="text-align:left">Mon, 02 Jan 2006 15:04:05 MST</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.RFC1123Z</code></td>
+<td style="text-align:left">Mon, 02 Jan 2006 15:04:05 -0700</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.RFC3339</code></td>
+<td style="text-align:left">2006-01-02T15:04:05Z07:00</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.RFC3339Nano</code></td>
+<td style="text-align:left">2006-01-02T15:04:05.999999999Z07:00</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.Kitchen</code></td>
+<td style="text-align:left">3:04PM</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.Stamp</code></td>
+<td style="text-align:left">Jan _2 15:04:05</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.StampMilli</code></td>
+<td style="text-align:left">Jan _2 15:04:05.000</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.StampMicro</code></td>
+<td style="text-align:left">Jan _2 15:04:05.000000</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.StampNano</code></td>
+<td style="text-align:left">Jan _2 15:04:05.000000000</td>
+</tr>
+</tbody>
+</table>
+<h2 id="a405-format-dari-timetime-ke-string">A.40.5. Format dari <code>time.Time</code> ke <code>string</code></h2>
+<p>Setelah sebelumnya kita belajar tentang cara konversi data dengan tipe <code>string</code> ke <code>time.Time</code>. Kali ini kita akan belajar kebalikannya, konversi <code>time.Time</code> ke <code>string</code>.</p>
+<p>Method <code>Format()</code> milik tipe <code>time.Time</code> digunakan untuk membentuk output <code>string</code> sesuai dengan layout format yang diinginkan. Contoh bisa dilihat pada kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> date, _ = time.Parse(time.RFC822, <span class="hljs-string">&quot;02 Sep 15 08:00 WIB&quot;</span>)
+
+<span class="hljs-keyword">var</span> dateS1 = date.Format(<span class="hljs-string">&quot;Monday 02, January 2006 15:04 MST&quot;</span>)
+fmt.Println(<span class="hljs-string">&quot;dateS1&quot;</span>, dateS1)
+<span class="hljs-comment">// Wednesday 02, September 2015 08:00 WIB</span>
+
+<span class="hljs-keyword">var</span> dateS2 = date.Format(time.RFC3339)
+fmt.Println(<span class="hljs-string">&quot;dateS2&quot;</span>, dateS2)
+<span class="hljs-comment">// 2015-09-02T08:00:00+07:00</span>
+</code></pre>
+<p>Variabel <code>date</code> di atas berisikan hasil parsing data dengan format <code>time.RFC822</code>. Data tersebut kemudian diformat sebagai string 2 kali dengan layout format berbeda.</p>
+<p><img src="images/A_time_parsing_format_3_time_format.png" alt="Dasar Pemrograman Golang - Contoh penggunaan method `Format()`"></p>
+<h2 id="a406-handle-error-parsing-timetime">A.40.6. Handle Error Parsing <code>time.Time</code></h2>
+<p>Parsing <code>string</code> ke <code>time.Time</code> memungkinkan terjadinya error, misalnya karena struktur data yang akan di-parse tidak sesuai layout format yang digunakan. Error-tidaknya parsing bisa diketahui lewat nilai kembalian ke-2 fungsi <code>time.Parse()</code>. Contoh:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> date, err = time.Parse(<span class="hljs-string">&quot;06 Jan 15&quot;</span>, <span class="hljs-string">&quot;02 Sep 15 08:00 WIB&quot;</span>)
+
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    fmt.Println(<span class="hljs-string">&quot;error&quot;</span>, err.Error())
+    <span class="hljs-keyword">return</span>
+}
+
+fmt.Println(date)
+</code></pre>
+<p>Kode di atas menghasilkan error karena format tidak sesuai dengan skema data yang akan diparsing. Layout format yang seharusnya digunakan adalah <code>06 Jan 15 03:04 MST</code>.</p>
+<p><img src="images/A_time_parsing_format_4_error_parse.png" alt="Dasar Pemrograman Golang - Error parsing time.Time"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.40-time-parsing-format" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.40...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2489,12 @@
 
             
                 
+                <a href="A-random.html" class="navigation navigation-prev " aria-label="Previous page: A.39. Random">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-timer-ticker-scheduler.html" class="navigation navigation-next " aria-label="Next page: A.41. Timer, Ticker, &amp; Scheduler">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2505,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"next":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"path":"A-timer-ticker-scheduler.md","ref":"A-timer-ticker-scheduler.md","articles":[]},"previous":{"title":"A.39. Random","level":"3.1.39","depth":2,"path":"A-random.md","ref":"A-random.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-time-parsing-format.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

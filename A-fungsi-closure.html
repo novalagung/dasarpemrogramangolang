@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Fungsi Closure - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-fungsi-sebagai-parameter.html">
     
+    
+    <link rel="prev" href="A-fungsi-variadic.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -530,7 +532,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.21" data-path="A-fungsi-closure.html">
+        <li class="chapter active" data-level="3.1.21" data-path="A-fungsi-closure.html">
             
                 <a href="A-fungsi-closure.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.21. Fungsi Closure</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,147 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a21-fungsi-closure">A.21. Fungsi Closure</h1>
+<p>Definisi <strong>Closure</strong> adalah suatu <em>anonymous function</em> (atau fungsi tanpa nama) yang disimpan dalam variabel. Dengan adanya closure, kita bisa mendesain beberapa hal diantaranya seperti: membuat fungsi di dalam fungsi, atau bahkan membuat fungsi yang mengembalikan fungsi. Closure biasa dimanfaatkan untuk membungkus suatu proses yang hanya dijalankan sekali saja atau hanya dipakai pada blok tertentu saja.</p>
+<h2 id="a211-closure-disimpan-sebagai-variabel">A.21.1. Closure Disimpan Sebagai Variabel</h2>
+<p>Sebuah fungsi tanpa nama bisa disimpan dalam variabel. Variabel closure memiliki sifat seperti fungsi yang disimpannya.</p>
+<p>Di bawah ini adalah contoh program sederhana yang menerapkan closure untuk pencarian nilai terendah dan tertinggi dari data array. Logika pencarian dibungkus dalam closure yang ditampung oleh variabel <code>getMinMax</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> getMinMax = <span class="hljs-keyword">func</span>(n []<span class="hljs-keyword">int</span>) (<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>) {
+        <span class="hljs-keyword">var</span> min, max <span class="hljs-keyword">int</span>
+        <span class="hljs-keyword">for</span> i, e := <span class="hljs-keyword">range</span> n {
+            <span class="hljs-keyword">switch</span> {
+            <span class="hljs-keyword">case</span> i == <span class="hljs-number">0</span>:
+                max, min = e, e
+            <span class="hljs-keyword">case</span> e &gt; max:
+                max = e
+            <span class="hljs-keyword">case</span> e &lt; min:
+                min = e
+            }
+        }
+        <span class="hljs-keyword">return</span> min, max
+    }
+
+    <span class="hljs-keyword">var</span> numbers = []<span class="hljs-keyword">int</span>{<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>}
+    <span class="hljs-keyword">var</span> min, max = getMinMax(numbers)
+    fmt.Printf(<span class="hljs-string">&quot;data : %v\nmin  : %v\nmax  : %v\n&quot;</span>, numbers, min, max)
+}
+</code></pre>
+<p>Bisa dilihat pada kode di atas bagaimana cara deklarasi closure dan cara pemanggilannya. Sedikit berbeda memang dibanding pembuatan fungsi biasa, pada closure fungsi ditulis tanpa memiliki nama lalu ditampung ke variabel.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> getMinMax = <span class="hljs-keyword">func</span>(n []<span class="hljs-keyword">int</span>) (<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>) {
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Cara pemanggilan closure adalah dengan memperlakukan variabel closure seperti fungsi, dituliskan seperti pemanggilan fungsi.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> min, max = getMinMax(numbers)
+</code></pre>
+<p>Output program:</p>
+<p><img src="images/A_fungsi_closure_1_closure.png" alt="Dasar Pemrograman Golang - Penerapan closure"></p>
+<h2 id="a212-penjelasan-tambahan">A.21.2. Penjelasan tambahan</h2>
+<p>Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:</p>
+<h4 id="&#x25C9;-penggunaan-template-string-v">&#x25C9; Penggunaan Template String <code>%v</code></h4>
+<p>Template <code>%v</code> digunakan untuk menampilkan data tanpa melihat tipe datanya. Jadi bisa digunakan untuk menampilkan data array, int, float, bool, dan lainnya. Bisa dilihat di contoh statement, data bertipe array dan numerik ditampilkan menggunakan <code>%v</code>.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;data : %v\nmin  : %v\nmax  : %v\n&quot;</span>, numbers, min, max)
+</code></pre>
+<p>Template <code>%v</code> ini biasa dimanfaatkan untuk menampilkan sebuah data yang tipe nya bisa dinamis atau belum diketahui. Biasa digunakan untuk keperluan debugging, misalnya untuk menampilkan data bertipe <code>any</code> atau <code>interface{}</code>.</p>
+<blockquote>
+<p>Pembahasan mengenai tipe data <code>any</code> atau <code>interface{}</code> ada di chapter <a href="A-interface.html">A.27. Interface</a></p>
+</blockquote>
+<h4 id="&#x25C9;-immediately-invoked-function-expression-iife">&#x25C9; Immediately-Invoked Function Expression (IIFE)</h4>
+<p>Closure jenis IIFE ini eksekusinya adalah langsung saat deklarasi. Teknik ini biasa diterapkan untuk membungkus proses yang hanya dilakukan sekali. IIFE bisa memiliki nilai balik atau bisa juga tidak.</p>
+<p>Di bawah ini merupakan contoh sederhana penerapan metode IIFE untuk filtering data array.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> numbers = []<span class="hljs-keyword">int</span>{<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">3</span>}
+
+    <span class="hljs-keyword">var</span> newNumbers = <span class="hljs-keyword">func</span>(min <span class="hljs-keyword">int</span>) []<span class="hljs-keyword">int</span> {
+        <span class="hljs-keyword">var</span> r []<span class="hljs-keyword">int</span>
+        <span class="hljs-keyword">for</span> _, e := <span class="hljs-keyword">range</span> numbers {
+            <span class="hljs-keyword">if</span> e &lt; min {
+                <span class="hljs-keyword">continue</span>
+            }
+            r = <span class="hljs-built_in">append</span>(r, e)
+        }
+        <span class="hljs-keyword">return</span> r
+    }(<span class="hljs-number">3</span>)
+
+    fmt.Println(<span class="hljs-string">&quot;original number :&quot;</span>, numbers)
+    fmt.Println(<span class="hljs-string">&quot;filtered number :&quot;</span>, newNumbers)
+}
+</code></pre>
+<p>Output program:</p>
+<p><img src="images/A_fungsi_closure_2_iife.png" alt="Dasar Pemrograman Golang - Penerapan IIFE"></p>
+<p>Ciri khas dari penulisan IIFE adalah adanya tanda kurung parameter yang ditulis di akhir deklarasi closure. Jika IIFE memiliki parameter, maka argument-nya juga ditulis. Contoh:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> newNumbers = <span class="hljs-keyword">func</span>(min <span class="hljs-keyword">int</span>) []<span class="hljs-keyword">int</span> {
+    <span class="hljs-comment">// ...</span>
+}(<span class="hljs-number">3</span>)
+</code></pre>
+<p>Di contoh sederhana di atas, IIFE menghasilkan nilai balik yang ditampung variabel <code>newNumber</code>. Perlu diperhatikan bahwa yang ditampung adalah <strong>nilai kembaliannya</strong> bukan body fungsi atau <strong>closure</strong>-nya.</p>
+<blockquote>
+<p>Closure bisa juga dengan gaya manifest typing, caranya dengan menuliskan skema closure-nya sebagai tipe data. Contoh:<br><code>var closure (func (string, int, []string) int)</code><br><code>closure = func (a string, b int, c []string) int {</code><br><code>&#xA0;&#xA0;&#xA0;&#xA0;// ..</code><br><code>}</code></p>
+</blockquote>
+<h2 id="a213-closure-sebagai-nilai-kembalian">A.21.3. Closure Sebagai Nilai Kembalian</h2>
+<p>Salah satu keunikan lain dari closure adalah: closure bisa dijadikan sebagai nilai balik fungsi. Cukup aneh, tapi pada kondisi tertentu teknik ini sangat berguna. Sebagai contoh, di bawah ini dideklarasikan sebuah fungsi bernama <code>findMax()</code> yang salah satu nilai kembaliannya adalah berupa closure.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> findMax(numbers []<span class="hljs-keyword">int</span>, max <span class="hljs-keyword">int</span>) (<span class="hljs-keyword">int</span>, <span class="hljs-keyword">func</span>() []<span class="hljs-keyword">int</span>) {
+    <span class="hljs-keyword">var</span> res []<span class="hljs-keyword">int</span>
+    <span class="hljs-keyword">for</span> _, e := <span class="hljs-keyword">range</span> numbers {
+        <span class="hljs-keyword">if</span> e &lt;= max {
+            res = <span class="hljs-built_in">append</span>(res, e)
+        }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(res), <span class="hljs-keyword">func</span>() []<span class="hljs-keyword">int</span> {
+        <span class="hljs-keyword">return</span> res
+    }
+}
+</code></pre>
+<p>Nilai kembalian ke-2 pada fungsi di atas adalah closure dengan skema <code>func() []int</code>. Bisa dilihat di bagian akhir, ada fungsi tanpa nama yang dikembalikan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(res), <span class="hljs-keyword">func</span>() []<span class="hljs-keyword">int</span> {
+    <span class="hljs-keyword">return</span> res
+}
+</code></pre>
+<blockquote>
+<p>Fungsi tanpa nama yang akan dikembalikan boleh disimpan pada variabel terlebih dahulu. Contohnya:<br><code>var getNumbers = func() []int {</code><br><code>&#xA0;&#xA0;&#xA0;&#xA0;return res</code><br><code>}</code><br><code>return len(res), getNumbers</code></p>
+</blockquote>
+<p>Tentang fungsi <code>findMax()</code> sendiri, fungsi ini dibuat untuk mempermudah pencarian angka-angka yang nilainya di bawah atau sama dengan angka tertentu. Fungsi ini mengembalikan dua buah nilai balik:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Nilai balik pertama adalah jumlah angkanya. </li>
+<li>Nilai balik kedua berupa closure yang mengembalikan angka-angka yang dicari.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Berikut merupakan contoh implementasi fungsi tersebut:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> max = <span class="hljs-number">3</span>
+    <span class="hljs-keyword">var</span> numbers = []<span class="hljs-keyword">int</span>{<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">3</span>}
+    <span class="hljs-keyword">var</span> howMany, getNumbers = findMax(numbers, max)
+    <span class="hljs-keyword">var</span> theNumbers = getNumbers()
+
+    fmt.Println(<span class="hljs-string">&quot;numbers\t:&quot;</span>, numbers)
+    fmt.Printf(<span class="hljs-string">&quot;find \t: %d\n\n&quot;</span>, max)
+
+    fmt.Println(<span class="hljs-string">&quot;found \t:&quot;</span>, howMany)    <span class="hljs-comment">// 9</span>
+    fmt.Println(<span class="hljs-string">&quot;value \t:&quot;</span>, theNumbers) <span class="hljs-comment">// [2 3 0 3 2 0 2 0 3]</span>
+}
+</code></pre>
+<p>Output program:</p>
+<p><img src="images/A_fungsi_closure_3_combination.png" alt="Dasar Pemrograman Golang - Kombinasi parameter biasa dan variadic"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.21-fungsi-closure" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.21...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2226,12 @@
 
             
                 
+                <a href="A-fungsi-variadic.html" class="navigation navigation-prev " aria-label="Previous page: A.20. Fungsi Variadic">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-fungsi-sebagai-parameter.html" class="navigation navigation-next " aria-label="Next page: A.22. Fungsi Sebagai parameter">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2242,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.21. Fungsi Closure","level":"3.1.21","depth":2,"next":{"title":"A.22. Fungsi Sebagai parameter","level":"3.1.22","depth":2,"path":"A-fungsi-sebagai-parameter.md","ref":"A-fungsi-sebagai-parameter.md","articles":[]},"previous":{"title":"A.20. Fungsi Variadic","level":"3.1.20","depth":2,"path":"A-fungsi-variadic.md","ref":"A-fungsi-variadic.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-fungsi-closure.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

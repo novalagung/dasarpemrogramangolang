@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Unit Test - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-waitgroup.html">
     
+    
+    <link rel="prev" href="A-mongodb.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1011,7 +1013,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.58" data-path="A-unit-test.html">
+        <li class="chapter active" data-level="3.1.58" data-path="A-unit-test.html">
             
                 <a href="A-unit-test.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.58. Unit Test</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,228 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a58-unit-test">A.58. Unit Test</h1>
+<p>Go menyediakan package <code>testing</code> yang isinya banyak sekali API untuk keperluan pembuatan test file.</p>
+<p>Pada chapter ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan <em>3rd party</em> <a href="https://github.com/stretchr/testify" target="_blank">testify</a>.</p>
+<h2 id="a581-persiapan">A.58.1. Persiapan</h2>
+<p>Langsung saja kita praktek. Pertama siapkan terlebih dahulu sebuah struct <code>Kubus</code>. Variabel object hasil struct ini nantinya kita gunakan sebagai bahan testing.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;math&quot;</span>
+
+<span class="hljs-keyword">type</span> Kubus <span class="hljs-keyword">struct</span> {
+    Sisi <span class="hljs-keyword">float64</span>
+}
+
+<span class="hljs-keyword">func</span> (k Kubus) Volume() <span class="hljs-keyword">float64</span> {
+    <span class="hljs-keyword">return</span> math.Pow(k.Sisi, <span class="hljs-number">3</span>)
+}
+
+<span class="hljs-keyword">func</span> (k Kubus) Luas() <span class="hljs-keyword">float64</span> {
+    <span class="hljs-keyword">return</span> math.Pow(k.Sisi, <span class="hljs-number">2</span>) * <span class="hljs-number">6</span>
+}
+
+<span class="hljs-keyword">func</span> (k Kubus) Keliling() <span class="hljs-keyword">float64</span> {
+    <span class="hljs-keyword">return</span> k.Sisi * <span class="hljs-number">12</span>
+}
+</code></pre>
+<p>Simpan kode di atas dengan nama <code>bab55.go</code>.</p>
+<h2 id="a582-file-testing">A.58.2. File Testing</h2>
+<p>Di Go, file untuk keperluan testing dipisah dengan file utama. Nama file testing harus berakhiran <code>_test.go</code>, dan harus ditempatkan di package yang sama seperti source code yang akan di-test. Pada chapter ini, file utama adalah <code>bab55.go</code>, maka file testing harus bernama <code>bab55_test.go</code>.</p>
+<p>Unit test di Go dituliskan dalam bentuk fungsi, yang memiliki parameter yang bertipe <code>*testing.T</code>, dengan nama fungsi harus diawali kata <strong>Test</strong> (pastikan sudah meng-import package <code>testing</code> sebelumnya). Lewat parameter tersebut, kita bisa mengakses method-method untuk keperluan testing.</p>
+<p>Pada contoh di bawah ini disiapkan 3 buah fungsi test, yang masing-masing digunakan untuk mengecek apakah hasil kalkulasi volume, luas, dan keliling kubus adalah benar.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;testing&quot;</span>
+
+<span class="hljs-keyword">var</span> (
+    kubus              Kubus   = Kubus{<span class="hljs-number">4</span>}
+    volumeSeharusnya   <span class="hljs-keyword">float64</span> = <span class="hljs-number">64</span>
+    luasSeharusnya     <span class="hljs-keyword">float64</span> = <span class="hljs-number">96</span>
+    kelilingSeharusnya <span class="hljs-keyword">float64</span> = <span class="hljs-number">48</span>
+)
+
+<span class="hljs-keyword">func</span> TestHitungVolume(t *testing.T) {
+    t.Logf(<span class="hljs-string">&quot;Volume : %.2f&quot;</span>, kubus.Volume())
+
+    <span class="hljs-keyword">if</span> kubus.Volume() != volumeSeharusnya {
+        t.Errorf(<span class="hljs-string">&quot;SALAH! harusnya %.2f&quot;</span>, volumeSeharusnya)
+    }
+}
+
+<span class="hljs-keyword">func</span> TestHitungLuas(t *testing.T) {
+    t.Logf(<span class="hljs-string">&quot;Luas : %.2f&quot;</span>, kubus.Luas())
+
+    <span class="hljs-keyword">if</span> kubus.Luas() != luasSeharusnya {
+        t.Errorf(<span class="hljs-string">&quot;SALAH! harusnya %.2f&quot;</span>, luasSeharusnya)
+    }
+}
+
+<span class="hljs-keyword">func</span> TestHitungKeliling(t *testing.T) {
+    t.Logf(<span class="hljs-string">&quot;Keliling : %.2f&quot;</span>, kubus.Keliling())
+
+    <span class="hljs-keyword">if</span> kubus.Keliling() != kelilingSeharusnya {
+        t.Errorf(<span class="hljs-string">&quot;SALAH! harusnya %.2f&quot;</span>, kelilingSeharusnya)
+    }
+}
+</code></pre>
+<p>Method <code>t.Logf()</code> digunakan untuk memunculkan log. Method ini equivalen dengan <code>fmt.Printf()</code>.</p>
+<p>Method <code>Errorf()</code> digunakan untuk memunculkan log dengan diikuti keterangan bahwa terjadi <strong>fail</strong> pada saat testing.</p>
+<p>Cara eksekusi testing adalah menggunakan command <code>go test</code>. Karena struct yang diuji berada dalam file <code>bab55.go</code>, maka pada saat eksekusi test menggunakan <code>go test</code>, nama file <code>bab55_test.go</code> dan <code>bab55.go</code> perlu dituliskan sebagai argument.</p>
+<p>Argument <code>-v</code> atau verbose digunakan menampilkan semua output log pada saat pengujian.</p>
+<p>Jalankan aplikasi seperti gambar di bawah ini, terlihat bahwa tidak ada test yang fail.</p>
+<p><img src="images/A_unit_test_1_test.png" alt="Dasar Pemrograman Golang - Testing"></p>
+<p>OK, selanjutnya coba ubah rumus kalkulasi method <code>Keliling()</code>. Tujuan dari pengubahan ini adalah untuk mengetahui bagaimana penanda fail muncul ketika ada test yang gagal.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> (k Kubus) Keliling() <span class="hljs-keyword">float64</span> {
+    <span class="hljs-keyword">return</span> k.Sisi * <span class="hljs-number">15</span>
+}
+</code></pre>
+<p>Setelah itu jalankan lagi test.</p>
+<p><img src="images/A_unit_test_2_test_fail.png" alt="Dasar Pemrograman Golang - Test fail"></p>
+<h2 id="a583-method-test">A.58.3. Method Test</h2>
+<p>Table berikut berisikan method standar testing yang bisa digunakan di Go.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">Kegunaan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>Log()</code></td>
+<td style="text-align:left">Menampilkan log</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Logf()</code></td>
+<td style="text-align:left">Menampilkan log menggunakan format</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Fail()</code></td>
+<td style="text-align:left">Menandakan terjadi <code>Fail()</code> dan proses testing fungsi tetap diteruskan</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>FailNow()</code></td>
+<td style="text-align:left">Menandakan terjadi <code>Fail()</code> dan proses testing fungsi dihentikan</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Failed()</code></td>
+<td style="text-align:left">Menampilkan laporan fail</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Error()</code></td>
+<td style="text-align:left"><code>Log()</code> diikuti dengan <code>Fail()</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Errorf()</code></td>
+<td style="text-align:left"><code>Logf()</code> diikuti dengan <code>Fail()</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Fatal()</code></td>
+<td style="text-align:left"><code>Log()</code> diikuti dengan <code>failNow()</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Fatalf()</code></td>
+<td style="text-align:left"><code>Logf()</code> diikuti dengan <code>failNow()</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Skip()</code></td>
+<td style="text-align:left"><code>Log()</code> diikuti dengan <code>SkipNow()</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Skipf()</code></td>
+<td style="text-align:left"><code>Logf()</code> diikuti dengan <code>SkipNow()</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>SkipNow()</code></td>
+<td style="text-align:left">Menghentikan proses testing fungsi, dilanjutkan ke testing fungsi setelahnya</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Skiped()</code></td>
+<td style="text-align:left">Menampilkan laporan skip</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Parallel()</code></td>
+<td style="text-align:left">Menge-set bahwa eksekusi testing adalah parallel</td>
+</tr>
+</tbody>
+</table>
+<h2 id="a584-benchmark">A.58.4. Benchmark</h2>
+<p>Package <code>testing</code> selain berisikan tools untuk testing juga berisikan tools untuk benchmarking. Cara pembuatan benchmark sendiri cukup mudah yaitu dengan membuat fungsi yang namanya diawali dengan <strong>Benchmark</strong> dan parameternya bertipe <code>*testing.B</code>.</p>
+<p>Sebagai contoh, kita akan mengetes performa perhitungan luas kubus. Siapkan fungsi dengan nama <code>BenchmarkHitungLuas()</code> dengan isi adalah kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> BenchmarkHitungLuas(b *testing.B) {
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ {
+        kubus.Luas()
+    }
+}
+</code></pre>
+<p>Jalankan test menggunakan argument <code>-bench=.</code>, argumen ini digunakan untuk menandai bahwa selain testing terdapat juga benchmark yang perlu diuji.</p>
+<p><img src="images/A_unit_test_3_benchmark.png" alt="Dasar Pemrograman Golang - Benchmark"></p>
+<p>Arti dari <code>30000000  51.1 ns/op</code> adalah, fungsi di atas di-test sebanyak <strong>30 juta</strong> kali, hasilnya membutuhkan waktu rata-rata <strong>51 nano detik</strong> untuk run satu fungsi.</p>
+<h2 id="a585-testing-menggunakan-testify">A.58.5. Testing Menggunakan testify</h2>
+<p>Package <strong>testify</strong> merupakan salah satu dari sekian banyak <em>3rd party</em> yang tersedia untuk keperluan testing di Go. Testify bisa di-download di <a href="https://github.com/stretchr/testify" target="_blank">github.com/stretchr/testify</a> menggunakan perintah <code>go get</code>.</p>
+<p>Dalam testify terdapat 5 package yang masing-masing memiliki kegunaan berbeda-beda satu sama lain. Detailnya bisa dilihat pada tabel berikut.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Package</th>
+<th style="text-align:left">Kegunaan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>assert</code></td>
+<td style="text-align:left">Berisikan tools standar untuk testing</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>http</code></td>
+<td style="text-align:left">Berisikan tools untuk keperluan testing http</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>mock</code></td>
+<td style="text-align:left">Berisikan tools untuk mocking object</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>require</code></td>
+<td style="text-align:left">Sama seperti assert, hanya saja jika terjadi fail pada saat test akan menghentikan eksekusi program</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>suite</code></td>
+<td style="text-align:left">Berisikan tools testing yang berhubungan dengan struct dan method</td>
+</tr>
+</tbody>
+</table>
+<p>Pada chapter ini akan kita contohkan bagaimana penggunaan package <code>assert</code>. Silakan perhatikan contoh berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;github.com/stretchr/testify/assert&quot;</span>
+
+...
+
+<span class="hljs-keyword">func</span> TestHitungVolume(t *testing.T) {
+    assert.Equal(t, kubus.Volume(), volumeSeharusnya, <span class="hljs-string">&quot;perhitungan volume salah&quot;</span>)
+}
+
+<span class="hljs-keyword">func</span> TestHitungLuas(t *testing.T) {
+    assert.Equal(t, kubus.Luas(), luasSeharusnya, <span class="hljs-string">&quot;perhitungan luas salah&quot;</span>)
+}
+
+<span class="hljs-keyword">func</span> TestHitungKeliling(t *testing.T) {
+    assert.Equal(t, kubus.Keliling(), kelilingSeharusnya, <span class="hljs-string">&quot;perhitungan keliling salah&quot;</span>)
+}
+</code></pre>
+<p>Fungsi <code>assert.Equal()</code> digunakan untuk uji perbandingan. Parameter ke-2 dibandingkan nilainya dengan parameter ke-3. Jika tidak sama, maka pesan parameter ke-3 akan dimunculkan.</p>
+<p><img src="images/A_unit_test_4_testify.png" alt="Dasar Pemrograman Golang - Testing menggunakan testify"></p>
+<hr>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li><a href="https://github.com/stretchr/testify" target="_blank">Testify</a>, by &quot;Stretchr, Inc&quot;</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.58-unit-test" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.58...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2307,12 @@
 
             
                 
+                <a href="A-mongodb.html" class="navigation navigation-prev " aria-label="Previous page: A.57. NoSQL MongoDB">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-waitgroup.html" class="navigation navigation-next " aria-label="Next page: A.59. sync.WaitGroup">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2323,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"next":{"title":"A.59. sync.WaitGroup","level":"3.1.59","depth":2,"path":"A-waitgroup.md","ref":"A-waitgroup.md","articles":[]},"previous":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"path":"A-mongodb.md","ref":"A-mongodb.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-unit-test.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

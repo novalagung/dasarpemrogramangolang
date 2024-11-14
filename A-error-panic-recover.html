@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Error, Panic, &amp; Recover - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-string-format.html">
     
+    
+    <link rel="prev" href="A-defer-exit.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -738,7 +740,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.37" data-path="A-error-panic-recover.html">
+        <li class="chapter active" data-level="3.1.37" data-path="A-error-panic-recover.html">
             
                 <a href="A-error-panic-recover.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.37. Error, Panic, &amp; Recover</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,179 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a37-error-panic-dan-recover">A.37. Error, Panic, dan Recover</h1>
+<p>Error merupakan topik yang sangat penting dalam pemrograman Go, salah satu alasannya karena Go tidak mengadopsi konsep exception.</p>
+<p>Pada chapter ini kita akan belajar tentang pemanfaatan error dan cara membuat custom error. Selain itu, kita juga akan belajar tentang penggunaan <strong>panic</strong> untuk memunculkan panic error, dan <strong>recover</strong> untuk mengatasinya.</p>
+<h2 id="a371-pemanfaatan-error">A.37.1. Pemanfaatan Error</h2>
+<p>Di go, <code>error</code> merupakan sebuah tipe data. Error memiliki beberapa property yang salah satunya adalah method <code>Error()</code>. Method ini mengembalikan detail pesan error dalam string. Error termasuk tipe yang isinya bisa <code>nil</code>.</p>
+<p>Pada praktik pemrograman Go, pembaca akan menemui banyak sekali fungsi yang mengembalikan nilai balik lebih dari satu, yang biasanya salah satunya adalah bertipe <code>error</code>.</p>
+<p>Contohnya seperti pada fungsi <code>strconv.Atoi()</code>. Fungsi tersebut digunakan untuk konversi data string menjadi numerik. Fungsi ini mengembalikan 2 nilai balik. Nilai balik pertama adalah hasil konversi, dan nilai balik kedua adalah <code>error</code>. Ketika konversi berjalan mulus, nilai balik kedua akan bernilai <code>nil</code>. Sedangkan ketika konversi gagal, penyebabnya bisa langsung diketahui dari error yang dikembalikan.</p>
+<p>Di bawah ini merupakan contoh program sederhana untuk deteksi inputan dari user, apakah numerik atau bukan. Pada kode tersebut kita akan belajar mengenai pemanfaatan error.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;strconv&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> input <span class="hljs-keyword">string</span>
+    fmt.Print(<span class="hljs-string">&quot;Type some number: &quot;</span>)
+    fmt.Scanln(&amp;input)
+
+    <span class="hljs-keyword">var</span> number <span class="hljs-keyword">int</span>
+    <span class="hljs-keyword">var</span> err error
+    number, err = strconv.Atoi(input)
+
+    <span class="hljs-keyword">if</span> err == <span class="hljs-literal">nil</span> {
+        fmt.Println(number, <span class="hljs-string">&quot;is number&quot;</span>)
+    } <span class="hljs-keyword">else</span> {
+        fmt.Println(input, <span class="hljs-string">&quot;is not number&quot;</span>)
+        fmt.Println(err.Error())
+    }
+}
+</code></pre>
+<p>Jalankan program, maka muncul tulisan <code>&quot;Type some number: &quot;</code>. Ketik angka bebas, jika sudah maka enter.</p>
+<p>Statement <code>fmt.Scanln(&amp;input)</code> dipergunakan untuk men-capture inputan yang diketik oleh user sebelum dia menekan enter, lalu menyimpannya sebagai string ke variabel <code>input</code>.</p>
+<p>Selanjutnya variabel tersebut dikonversi ke tipe numerik menggunakan <code>strconv.Atoi()</code>. Fungsi tersebut mengembalikan 2 data, ditampung oleh <code>number</code> dan <code>err</code>.</p>
+<p>Data pertama (<code>number</code>) berisi hasil konversi. Dan data kedua <code>err</code>, berisi informasi errornya (jika memang terjadi error ketika proses konversi).</p>
+<p>Setelah itu dilakukan pengecekkan, ketika tidak ada error, <code>number</code> ditampilkan. Dan jika ada error, <code>input</code> ditampilkan beserta pesan errornya.</p>
+<p>Pesan error bisa didapat dari method <code>Error()</code> milik tipe <code>error</code>.</p>
+<p><img src="images/A_error_panic_recover_1_error.png" alt="Dasar Pemrograman Golang - Penerapan error"></p>
+<h2 id="a372-membuat-custom-error">A.37.2. Membuat Custom Error</h2>
+<p>Selain memanfaatkan error hasil kembalian suatu fungsi internal yang tersedia, kita juga bisa membuat objek error sendiri dengan menggunakan fungsi <code>errors.New()</code> (harus import package <code>errors</code> terlebih dahulu).</p>
+<p>Pada contoh berikut ditunjukkan bagaimana cara membuat custom error. Pertama siapkan fungsi dengan nama <code>validate()</code>, yang nantinya digunakan untuk pengecekan input, apakah inputan kosong atau tidak. Ketika kosong, maka error baru akan dibuat.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;errors&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;strings&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> validate(input <span class="hljs-keyword">string</span>) (<span class="hljs-keyword">bool</span>, error) {
+    <span class="hljs-keyword">if</span> strings.TrimSpace(input) == <span class="hljs-string">&quot;&quot;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>, errors.New(<span class="hljs-string">&quot;cannot be empty&quot;</span>)
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>, <span class="hljs-literal">nil</span>
+}
+</code></pre>
+<p>Selanjutnya di fungsi main, buat proses sederhana untuk capture inputan user. Manfaatkan fungsi <code>validate()</code> untuk mengecek inputannya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> name <span class="hljs-keyword">string</span>
+    fmt.Print(<span class="hljs-string">&quot;Type your name: &quot;</span>)
+    fmt.Scanln(&amp;name)
+
+    <span class="hljs-keyword">if</span> valid, err := validate(name); valid {
+        fmt.Println(<span class="hljs-string">&quot;halo&quot;</span>, name)
+    } <span class="hljs-keyword">else</span> {
+        fmt.Println(err.Error())
+    }
+}
+</code></pre>
+<p>Fungsi <code>validate()</code> mengembalikan 2 data. Data pertama adalah nilai <code>bool</code> yang menandakan inputan apakah valid atau tidak. Data ke-2 adalah pesan error-nya (jika inputan tidak valid).</p>
+<p>Fungsi <code>strings.TrimSpace()</code> digunakan untuk menghilangkan karakter spasi sebelum dan sesudah string. Ini dibutuhkan karena user bisa saja menginputkan spasi lalu enter.</p>
+<p>Ketika inputan tidak valid, maka error baru dibuat dengan memanfaatkan fungsi <code>errors.New()</code>.</p>
+<p><img src="images/A_error_panic_recover_2_custom_error.png" alt="Dasar Pemrograman Golang - Custom error"></p>
+<p>Selain menggunakan <code>errors.New()</code>, objek error bisa dibuat via fungsi <code>fmt.Errorf()</code>. Pengaplikasiannya mirip, perbedaannya fungsi <code>fmt.Errorf()</code> mendukung format string.</p>
+<h2 id="a373-penggunaan-panic">A.37.3. Penggunaan <code>panic</code></h2>
+<p>Panic digunakan untuk menampilkan <em>stack trace</em> error sekaligus menghentikan flow goroutine. Setelah ada panic, proses akan terhenti, apapun setelah tidak di-eksekusi kecuali proses yang sudah di-defer sebelumnya (akan muncul sebelum panic error).</p>
+<blockquote>
+<p>Perlu diingat bahwa <code>main()</code> juga merupakan goroutine, maka behaviour yang sama adalah berlaku.</p>
+</blockquote>
+<p>Panic menampilkan pesan error di console, sama seperti <code>fmt.Println()</code>. Informasi error yang ditampilkan adalah stack trace error, isinya sangat detail dan heboh.</p>
+<p>Kembali ke praktek, pada program yang telah kita buat tadi, ubah <code>fmt.Println()</code> yang berada di dalam blok kondisi <code>else</code> pada fungsi main menjadi <code>panic()</code>, lalu tambahkan <code>fmt.Println()</code> setelahnya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> name <span class="hljs-keyword">string</span>
+    fmt.Print(<span class="hljs-string">&quot;Type your name: &quot;</span>)
+    fmt.Scanln(&amp;name)
+
+    <span class="hljs-keyword">if</span> valid, err := validate(name); valid {
+        fmt.Println(<span class="hljs-string">&quot;halo&quot;</span>, name)
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-built_in">panic</span>(err.Error())
+        fmt.Println(<span class="hljs-string">&quot;end&quot;</span>)
+    }
+}
+</code></pre>
+<p>Jalankan program lalu langsung tekan enter, maka panic error muncul dan baris kode setelahnya tidak dijalankan.</p>
+<p><img src="images/A_error_panic_recover_3_panic.png" alt="Dasar Pemrograman Golang - Menampilkan error menggunakan panic"></p>
+<h2 id="a374-penggunaan-recover">A.37.4. Penggunaan <code>recover</code></h2>
+<p>Recover berguna untuk meng-handle panic error. Pada saat panic error muncul, recover men-take-over goroutine yang sedang panic dan efek sampingnya pesan panic tidak muncul dan eksekusi program adalah tidak error.</p>
+<p>Ok, mari kita modifikasi sedikit fungsi di-atas untuk mempraktekkan bagaimana cara penggunaan recover. Tambahkan fungsi <code>catch()</code>, dalam fungsi ini terdapat statement <code>recover()</code> yang dia akan mengembalikan pesan panic error yang seharusnya muncul.</p>
+<p>Untuk menggunakan recover, fungsi/closure/IIFE di mana <code>recover()</code> berada harus dieksekusi dengan cara di-defer.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> catch() {
+    <span class="hljs-keyword">if</span> r := <span class="hljs-built_in">recover</span>(); r != <span class="hljs-literal">nil</span> {
+        fmt.Println(<span class="hljs-string">&quot;Error occured&quot;</span>, r)
+    } <span class="hljs-keyword">else</span> {
+        fmt.Println(<span class="hljs-string">&quot;Application running perfectly&quot;</span>)
+    }
+}
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">defer</span> catch()
+
+    <span class="hljs-keyword">var</span> name <span class="hljs-keyword">string</span>
+    fmt.Print(<span class="hljs-string">&quot;Type your name: &quot;</span>)
+    fmt.Scanln(&amp;name)
+
+    <span class="hljs-keyword">if</span> valid, err := validate(name); valid {
+        fmt.Println(<span class="hljs-string">&quot;halo&quot;</span>, name)
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-built_in">panic</span>(err.Error())
+        fmt.Println(<span class="hljs-string">&quot;end&quot;</span>)
+    }
+}
+</code></pre>
+<p>Output program:</p>
+<p><img src="images/A_error_panic_recover_4_recover.png" alt="Dasar Pemrograman Golang - Handle panic menggunakan recover"></p>
+<h2 id="a375-pemanfaatan-recover-pada-iife">A.37.5. Pemanfaatan <code>recover</code> pada IIFE</h2>
+<p>Contoh penerapan recover pada IIFE:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">defer</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">if</span> r := <span class="hljs-built_in">recover</span>(); r != <span class="hljs-literal">nil</span> {
+            fmt.Println(<span class="hljs-string">&quot;Panic occured&quot;</span>, r)
+        } <span class="hljs-keyword">else</span> {
+            fmt.Println(<span class="hljs-string">&quot;Application running perfectly&quot;</span>)
+        }
+    }()
+
+    <span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;some error happen&quot;</span>)
+}
+</code></pre>
+<p>Dalam real-world development, ada kalanya recover dibutuhkan tidak dalam blok fungsi terluar, tetapi dalam blok fungsi yg lebih spesifik.</p>
+<p>Silakan perhatikan contoh kode recover perulangan berikut. Umumnya, jika terjadi panic error, maka proses proses dalam scope blok fungsi akan terhenti, mengakibatkan perulangan juga akan terhenti secara paksa. Pada contoh berikut kita coba terapkan cara handle panic error tanpa menghentikan perulangan itu sendiri.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    data := []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;superman&quot;</span>, <span class="hljs-string">&quot;aquaman&quot;</span>, <span class="hljs-string">&quot;wonder woman&quot;</span>}
+
+    <span class="hljs-keyword">for</span> _, each := <span class="hljs-keyword">range</span> data {
+
+        <span class="hljs-keyword">func</span>() {
+
+            <span class="hljs-comment">// recover untuk IIFE dalam perulangan</span>
+            <span class="hljs-keyword">defer</span> <span class="hljs-keyword">func</span>() {
+                <span class="hljs-keyword">if</span> r := <span class="hljs-built_in">recover</span>(); r != <span class="hljs-literal">nil</span> {
+                    fmt.Println(<span class="hljs-string">&quot;Panic occured on looping&quot;</span>, each, <span class="hljs-string">&quot;| message:&quot;</span>, r)
+                } <span class="hljs-keyword">else</span> {
+                    fmt.Println(<span class="hljs-string">&quot;Application running perfectly&quot;</span>)
+                }
+            }()
+
+            <span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;some error happen&quot;</span>)
+        }()
+
+    }
+}
+</code></pre>
+<p>Bisa dilihat di dalam perulangan terdapat sebuah IIFE untuk recover panic dan juga ada kode untuk men-trigger panic error secara paksa. Ketika panic error terjadi, maka idealnya perulangan terhenti, tetapi pada contoh di atas tidak, dikarenakan operasi dalam perulangan sudah di bungkus dalam IIFE dan seperti yang kita tau sifat panic error adalah menghentikan proses secara paksa dalam scope blok fungsi.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.37-error-panic-recover" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.37...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2258,12 @@
 
             
                 
+                <a href="A-defer-exit.html" class="navigation navigation-prev " aria-label="Previous page: A.36. Defer &amp; Exit">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-string-format.html" class="navigation navigation-next " aria-label="Next page: A.38. Layout Format String">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2274,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.37. Error, Panic, & Recover","level":"3.1.37","depth":2,"next":{"title":"A.38. Layout Format String","level":"3.1.38","depth":2,"path":"A-string-format.md","ref":"A-string-format.md","articles":[]},"previous":{"title":"A.36. Defer & Exit","level":"3.1.36","depth":2,"path":"A-defer-exit.md","ref":"A-defer-exit.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-error-panic-recover.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Properti Public dan Private (Exported vs Unexported) - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-interface.html">
     
+    
+    <link rel="prev" href="A-method.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -595,7 +597,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.26" data-path="A-properti-public-dan-private.html">
+        <li class="chapter active" data-level="3.1.26" data-path="A-properti-public-dan-private.html">
             
                 <a href="A-properti-public-dan-private.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.26. Properti Public dan Private (Exported vs Unexported)</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,250 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
+                                <h1 id="a26-properti-public-dan-private-exported-vs-unexported">A.26. Properti Public dan Private (Exported vs Unexported)</h1>
+<p>Chapter ini membahas tentang <em>property modifier</em> public dan private yang ada di pemrograman Go. Peran dari <em>property modifier</em> adalah sebagai penentu kapan suatu struct, fungsi, atau method bisa diakses dari package lain dan kapan tidak.</p>
+<p>Di Go sebenarnya tidak ada istilah <em>public modifier</em> dan <em>private modifier</em>. Yang ada adalah <strong>exported</strong> (yang kalau di bahasa lain ekuivalen dengan <em>public modifier</em>), dan <strong>unexported</strong> untuk <em>private modifier</em>.</p>
+<h2 id="a261-intro">A.26.1. Intro</h2>
+<p>Intro ini ditulis agar pembaca tau ekspektasi chapter ini sebenarnya apa.</p>
+<p>Pembahasan kali ini memiliki beberapa perbedaan dibanding chapter lainnya. Jika pembaca mengikuti pembelajaran di chapter ini secara berurutan, dan benar-benar membaca penjelasan serta pembahasan yang sudah tertulis, maka nantinya <strong>pasti menemui 3 buah error</strong>.</p>
+<p>Di setiap error tersebut, sebenarnya sudah terlampir informasi berikut:</p>
+<ol>
+<li>Screenshot error</li>
+<li>Penjelasan penyebab terjadinya error</li>
+<li>Cara resolve atau mengatasi error</li>
 </ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<p>Penulis menerima cukup banyak email dari pembaca mengenai beberapa error di chapter ini. Kesimpulan penulis:</p>
+<p><strong>Pembaca bingung karena mendapati error, dan tidak tau apa yang harus dilakukan. Padahal sudah ada keterangan yang cukup jelas bahwa error tersebut pasti muncul, dan sudah disediakan juga penjelasan beserta cara mengatasinya. Ini kemungkinan besar disebabkan karena pembaca hanya copy-paste source code dari chapter ini, tanpa benar-benar membaca penjelasan yang padahal sudah ditulis cukup detail</strong>.</p>
+<blockquote>
+<p>Saya sangat anjurkan untuk <strong>tidak hanya <em>copas</em> source code, usahakan dibaca! dipelajari! dan dipahami!</strong> <em>No hard feeling</em> ya &#x1F44C;&#x1F601;</p>
+</blockquote>
+<h2 id="a262-exported-package-dan-unexported-package">A.26.2. Exported Package dan Unexported Package</h2>
+<p>Pengembangan aplikasi dalam <em>real development</em> pasti membutuhkan banyak sekali file program. Tidak mungkin dalam satu buah project semua source code di tulis di hanya 1 package <code>main</code> saja, umumnya akan dipisah ke beberapa package berbeda yang masing-masing punya tugas sendiri yang berbeda satu sama lain.</p>
+<p>Project folder selain berisikan file-file <code>.go</code> juga bisa berisikan sub-folder lainnya. Di Go, setiap folder atau sub-folder adalah satu package, file-file yang ada di dalam sebuah folder package-nya harus sama. Dan package pada file-file tersebut harus berbeda dengan package pada file-file lainnya yang berada pada folder berbeda.</p>
+<blockquote>
+<p>Sederhananya, 1 folder adalah 1 package.</p>
+</blockquote>
+<p>Dalam sebuah package, biasanya kita menulis sangat banyak komponen, bisa berupa fungsi, struct, variabel, atau lainnya. Komponen-komponen tersebut bisa secara leluasa dipergunakan di kode yang masih berada di dalam package yang sama. Contohnya seperti program yang telah kita praktekan pada chapter sebelum-sebelumnya, dalam package <code>main</code> ada banyak yang di-<em>define</em>: fungsi, variabel, closure, struct, dan lainnya; semuanya bisa langsung dimanfaatkan.</p>
+<p>Jika dalam satu program terdapat lebih dari 1 package, atau ada package lain selain <code>main</code>, maka komponen dalam package lain tersebut tidak bisa diakses secara bebas dari file yang package-nya <code>main</code>, perlu dilihat dulu level akses yang sudah ditentukan apa.</p>
+<p>Go mengenal 2 jenis level akses atau hak akses:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Hak akses <strong>Exported</strong> atau <strong>public</strong>. Menandakan bahwa komponen boleh untuk diakses dari package lain</li>
+<li>Hak akses <strong>Unexported</strong> atau <strong>private</strong>. Berarti komponen hanya bisa diakses dari file yang package-nya sama, bisa dalam satu file yang sama atau di file berbeda yang masih 1 folder yang package-nya pastinya sama.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Cara menentukan level akses atau modifier di Go sangat mudah, yaitu dengan mengacu ke <strong>character case</strong> huruf pertama nama fungsi, struct, variabel, atau lainnya. Ketika namanya diawali dengan huruf kapital maka level aksesnya adalah <em>exported</em> (atau <em>public</em>). Dan sebaliknya, jika diawali huruf kecil, berarti <em>unexported</em> (atau private).</p>
+<h2 id="a263-penggunaan-package-import-dan-hak-akses-exported-dan-unexported">A.26.3. Penggunaan Package, Import, Dan Hak Akses <em>Exported</em> dan <em>Unexported</em></h2>
+<p>Agar lebih mudah dipahami, maka langsung saja kita praktekan.</p>
+<p>Pertama buat folder proyek baru bernama <code>belajar-golang-level-akses</code>, gunakan nama folder tersebut sebagai nama project. Kemudian buat file baru bernama <code>main.go</code> di dalamnya, lalu tentukan nama package file tersebut sebagai <strong>main</strong>.</p>
+<p>Kemudian, buat sub-folder baru bernama <code>library</code> di dalam folder <code>belajar-golang-level-akses</code>. Di dalam folder <code>library</code>, buat file baru <code>library.go</code>, set nama package-nya <strong>library</strong>.</p>
+<p><img src="images/A_properti_public_private_1_folder_structure.png" alt="Dasar Pemrograman Golang - Struktur folder dan file"></p>
+<p>Buka file <code>library.go</code> lalu isi dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> library
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> SayHello() {
+    fmt.Println(<span class="hljs-string">&quot;hello&quot;</span>)
+}
+
+<span class="hljs-keyword">func</span> introduce(name <span class="hljs-keyword">string</span>) {
+    fmt.Println(<span class="hljs-string">&quot;nama saya&quot;</span>, name)
+}
+</code></pre>
+<p>File <code>library.go</code> yang telah dibuat ditentukan nama package-nya adalah <code>library</code> (sesuai dengan nama folder), isinya dua buah fungsi <code>SayHello()</code> dan <code>introduce()</code>.</p>
+<ul>
+<li>Fungsi <code>SayHello()</code>, level aksesnya adalah publik, ditandai dengan nama fungsi diawali huruf besar.</li>
+<li>Fungsi <code>introduce()</code> dengan level akses private, ditandai oleh huruf kecil di awal nama fungsi.</li>
+</ul>
+<p>Selanjutnya kita siapkan beberapa kode tambahan untuk keperluan testing apakah memang fungsi yang ber-modifier private dalam package <code>library</code> tidak bisa diakses dari package lain.</p>
+<p>Buka file <code>main.go</code>, lalu tulis kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;belajar-golang-level-akses/library&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    library.SayHello()
+    library.introduce(<span class="hljs-string">&quot;ethan&quot;</span>)
+}
+</code></pre>
+<p>Bisa dilihat bahwa package <code>library</code> yang telah dibuat tadi, di-import ke dalam package <code>main</code>.</p>
+<p>Di awal telah ditentukan bahwa nama project (yang juga merupakan nama folder) adalah <code>belajar-golang-level-akses</code>, maka untuk import package lain yang merupakan subfolder, pada syntax import harus dituliskan lengkap, contoh: <code>belajar-golang-level-akses/library</code>.</p>
+<blockquote>
+<p>Penanda root folder adalah tempat di mana file <code>go.mod</code> berada</p>
+</blockquote>
+<p>Kembali ke pembahasan kode, silakan perhatikan kode berikut:</p>
+<pre><code class="lang-go">library.SayHello()
+library.introduce(<span class="hljs-string">&quot;ethan&quot;</span>)
+</code></pre>
+<p>Cara pemanggilan fungsi yang berada dalam package lain adalah dengan menuliskan nama package target diikut dengan nama fungsi menggunakan <em>dot notation</em> atau tanda titik, seperti <code>library.SayHello()</code> atau <code>library.introduce(&quot;ethan&quot;)</code>.</p>
+<p>OK, sekarang coba jalankan kode yang sudah disiapkan di atas, hasilnya error.</p>
+<p><img src="images/A_properti_public_private_2_error.png" alt="Dasar Pemrograman Golang - Error saat menjalankan program"></p>
+<p>Error di atas disebabkan oleh fungsi <code>introduce()</code> yang berada dalam package <code>library</code> memiliki level akses <em>unexported</em> (atau <em>private</em>), maka fungsi ini tidak bisa diakses dari package lain (pada kasus ini package <code>main</code>). Solusi agar bisa diakses adalah dengan mengubah level aksesnya ke <em>exported</em> (atau <em>public</em>), atau bisa dengan mengubah cara pemanggilannya.</p>
+<p>Ok, sekarang kita akan coba cara ke-2, yaitu mengubah cara pemanggilannya. Tambahkan parameter <code>name</code> pada fungsi <code>SayHello()</code>, lalu masih di dalam fungsi tersebut panggil fungsi <code>introduce()</code> dan gunakan parameter <code>name</code>-nya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> SayHello(name <span class="hljs-keyword">string</span>) {
+    fmt.Println(<span class="hljs-string">&quot;hello&quot;</span>)
+    introduce(name)
+}
+</code></pre>
+<p>Di fungsi <code>main()</code>, cukup panggil fungsi <code>library.SayHello()</code> saja. Isi parameternya dengan nilai string apapun, misalnya <code>&quot;ethan&quot;</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    library.SayHello(<span class="hljs-string">&quot;ethan&quot;</span>)
+}
+</code></pre>
+<p>Coba jalankan lagi.</p>
+<p><img src="images/A_properti_public_private_2_success.png" alt="Dasar Pemrograman Golang - Contoh penerapan pemanggilan fungsi dari package berbeda"></p>
+<h2 id="a264-penggunaan-hak-akses-exported-dan-unexported-pada-struct-dan-propertinya">A.26.4. Penggunaan Hak Akses <em>Exported</em> dan <em>Unexported</em> pada Struct dan Propertinya</h2>
+<p>Level akses <em>exported</em> (atau public) dan <em>unexported</em> (atau private) juga bisa diterapkan di fungsi, struct, method, maupun property variabel. Cara penggunaannya sama seperti pada pembahasan sebelumnya, yaitu dengan menentukan <strong>character case</strong> huruf pertama nama komponen, apakah huruf besar atau kecil.</p>
+<p>Ok, lanjut ke praktek berikutnya. Hapus isi file <code>library.go</code>, lalu buat struct baru dengan nama <code>student</code> di dalamnya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> library
+
+<span class="hljs-keyword">type</span> student <span class="hljs-keyword">struct</span> {
+    Name  <span class="hljs-keyword">string</span>
+    grade <span class="hljs-keyword">int</span>
+}
+</code></pre>
+<p>Buat contoh sederhana penerapan struct di atas pada file <code>main.go</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;belajar-golang-level-akses/library&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> s1 = library.student{<span class="hljs-string">&quot;ethan&quot;</span>, <span class="hljs-number">21</span>}
+    fmt.Println(<span class="hljs-string">&quot;name &quot;</span>, s1.Name)
+    fmt.Println(<span class="hljs-string">&quot;grade&quot;</span>, s1.grade)
+}
+</code></pre>
+<p>Setelah itu jalankan program.</p>
+<p><img src="images/A_properti_public_private_3_error.png" alt="Dasar Pemrograman Golang - Error saat menjalankan program"></p>
+<p>Error muncul lagi, kali ini penyebabnya adalah karena struct <code>student</code> level aksesnya adalah <em>unexported</em>. Ubah ke bentuk <em>exported</em> dengan cara mengubah huruf awalnya menjadi huruf besar, kemudian jalankan ulang.</p>
+<pre><code class="lang-go"><span class="hljs-comment">// file library/library.go</span>
+<span class="hljs-keyword">type</span> Student <span class="hljs-keyword">struct</span> {
+    Name  <span class="hljs-keyword">string</span>
+    grade <span class="hljs-keyword">int</span>
+}
+
+<span class="hljs-comment">// file main.go</span>
+<span class="hljs-keyword">var</span> s1 = library.Student{<span class="hljs-string">&quot;ethan&quot;</span>, <span class="hljs-number">21</span>}
+fmt.Println(<span class="hljs-string">&quot;name &quot;</span>, s1.Name)
+fmt.Println(<span class="hljs-string">&quot;grade&quot;</span>, s1.grade)
+</code></pre>
+<p>Output program:</p>
+<p><img src="images/A_properti_public_private_4_error.png" alt="Dasar Pemrograman Golang - Error lain muncul saat menjalankan program"></p>
+<p>Error masih tetap muncul, tapi kali ini berbeda. Error yang baru ini disebabkan karena salah satu properti dari struct <code>Student</code> adalah <em>unexported</em>. Properti yg dimaksud adalah <code>grade</code>. Solusinya ubah ke bentuk <em>exported</em>, lalu jalankan ulang program.</p>
+<pre><code class="lang-go"><span class="hljs-comment">// pada library/library.go</span>
+<span class="hljs-keyword">type</span> Student <span class="hljs-keyword">struct</span> {
+    Name  <span class="hljs-keyword">string</span>
+    Grade <span class="hljs-keyword">int</span>
+}
+
+<span class="hljs-comment">// pada main.go</span>
+<span class="hljs-keyword">var</span> s1 = library.Student{<span class="hljs-string">&quot;ethan&quot;</span>, <span class="hljs-number">21</span>}
+fmt.Println(<span class="hljs-string">&quot;name &quot;</span>, s1.Name)
+fmt.Println(<span class="hljs-string">&quot;grade&quot;</span>, s1.Grade)
+</code></pre>
+<p>Dari contoh program di atas, bisa disimpulkan bahwa untuk menggunakan <code>struct</code> yang berada di package lain, selain nama struct-nya harus berbentuk <em>exported</em>, properti yang diakses juga harus <em>exported</em> juga.</p>
+<p><img src="images/A_properti_public_private_4_success.png" alt="Dasar Pemrograman Golang - Contoh penerapan pemanfaatan struct dan propertynya dari package berbeda"></p>
+<h2 id="a265-import-dengan-prefix-tanda-titik">A.26.5. Import Dengan Prefix Tanda Titik</h2>
+<p>Seperti yang kita tahu, untuk mengakses fungsi/struct/variabel yg berada di package lain, nama package nya perlu ditulis, contohnya seperti pada penggunaan <code>library.Student</code> dan <code>fmt.Println()</code>.</p>
+<p>Di Go, komponen yang berada di package lain yang di-import bisa dijadikan se-level dengan komponen package peng-import, caranya dengan menambahkan tanda titik (<code>.</code>) setelah penulisan keyword <code>import</code>. Maksud dari se-level di sini adalah, semua property di package lain yg di-import bisa diakses tanpa perlu menuliskan nama package, seolah-olah property tersebut berada di file yang sama. Contoh:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">import</span> (
+    . <span class="hljs-string">&quot;belajar-golang-level-akses/library&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> s1 = Student{<span class="hljs-string">&quot;ethan&quot;</span>, <span class="hljs-number">21</span>}
+    fmt.Println(<span class="hljs-string">&quot;name &quot;</span>, s1.Name)
+    fmt.Println(<span class="hljs-string">&quot;grade&quot;</span>, s1.Grade)
+}
+</code></pre>
+<p>Pada kode di atas package <code>library</code> di-import menggunakan tanda titik. Dengan itu, pemanggilan struct <code>Student</code> tidak perlu dengan menuliskan nama package nya.</p>
+<blockquote>
+<p>PERINGATAN!</p>
+<p>Penggunaan tanda titik pada saat import package bisa menyebabkan kode menjadi ambigu, karena alasan tersebut teknik import ini kurang direkomendasikan.</p>
+</blockquote>
+<h2 id="a266-pemanfaatan-alias-saat-import-package">A.26.6. Pemanfaatan Alias Saat Import Package</h2>
+<p>Fungsi yang berada di package lain bisa diakses dengan cara menuliskan nama-package diikuti nama fungsi-nya, contohnya seperti <code>fmt.Println()</code>. Package yang sudah di-import tersebut bisa diubah nama pemanggilannya dengan menerapkan teknik alias yang dituliskan saat import. Contohnya bisa dilihat pada kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">import</span> (
+    f <span class="hljs-string">&quot;fmt&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    f.Println(<span class="hljs-string">&quot;Hello World!&quot;</span>)
+}
+</code></pre>
+<p>Pada kode di-atas, package <code>fmt</code> di tentukan aliasnya adalah <code>f</code>, untuk mengakses <code>Println()</code> cukup dengan <code>f.Println()</code>.</p>
+<h2 id="a267-mengakses-property-dalam-file-yang-package-nya-sama">A.26.7. Mengakses Property Dalam File Yang Package-nya Sama</h2>
+<p>Jika property yang ingin di akses masih dalam satu package tapi file-nya berbeda, cara mengaksesnya bisa langsung dengan memanggil namanya seperti biasa. Hanya saja saat eksekusi, file-file lain yang yang nama package-nya sama tersebut harus ikut disertakan dalam command <code>go run</code>.</p>
+<p>Langsung saja kita praktekan, buat file baru dalam folder <code>belajar-golang-level-akses</code> dengan nama <code>partial.go</code>.</p>
+<p><img src="images/A_properti_public_private_5_structure.png" alt="Dasar Pemrograman Golang - File `partial.go` disiapkan setara dengan file `main.go`"></p>
+<p>Tulis kode berikut pada file <code>partial.go</code>. File tersebut kita tentukan nama package-nya adalah <code>main</code> (sama dengan nama package file <code>main.go</code>).</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> sayHello(name <span class="hljs-keyword">string</span>) {
+    fmt.Println(<span class="hljs-string">&quot;halo&quot;</span>, name)
+}
+</code></pre>
+<p>Hapus semua isi file <code>main.go</code>, ganti dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">func</span> main() {
+    sayHello(<span class="hljs-string">&quot;ethan&quot;</span>)
+}
+</code></pre>
+<p>Sekarang terdapat 2 file berbeda (<code>main.go</code> dan <code>partial.go</code>) dengan package adalah sama, <code>main</code>. Pada saat <code>go build</code> atau <code>go run</code>, semua file dengan nama package <code>main</code> harus dituliskan sebagai argumen command.</p>
+<pre><code>go run main.go partial.go
+</code></pre><p>Fungsi <code>sayHello</code> pada file <code>partial.go</code> bisa dikenali meski level aksesnya adalah <em>unexported</em>. Hal ini karena kedua file tersebut (<code>main.go</code> dan <code>partial.go</code>) memiliki nama package yang sama.</p>
+<blockquote>
+<p>Alternatif yang lebih praktis untuk menjalankan program bisa dengan perintah <code>go run *.go</code>, dengan cara ini maka tidak perlu menuliskan nama file-nya satu per satu.</p>
+</blockquote>
+<p><img src="images/A_properti_public_private_6_multi_main.png" alt="Dasar Pemrograman Golang - Pemanggilan fungsi unexported dari dalam package yang sama"></p>
+<h2 id="a268-penjelasan-tambahan">A.26.8. Penjelasan Tambahan</h2>
+<h4 id="&#x25C9;-fungsi-init">&#x25C9; Fungsi <code>init()</code></h4>
+<p>Selain fungsi <code>main()</code>, terdapat juga fungsi spesial yaitu <code>init()</code>. Fungsi ini otomatis dipanggil saat pertama kali program dijalankan. Jika fungsi ini ditulis di package-package lain yang di-import di <code>main</code>, maka semua fungsi <code>init()</code> tersebut dipanggil lebih dulu sebelum fungsi <code>main()</code>.</p>
+<p>Agar lebih jelas mari praktekan. Buka file <code>library.go</code>, hapus isinya lalu isi dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> library
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">var</span> Student = <span class="hljs-keyword">struct</span> {
+    Name  <span class="hljs-keyword">string</span>
+    Grade <span class="hljs-keyword">int</span>
+}{}
+
+<span class="hljs-keyword">func</span> init() {
+    Student.Name = <span class="hljs-string">&quot;John Wick&quot;</span>
+    Student.Grade = <span class="hljs-number">2</span>
+
+    fmt.Println(<span class="hljs-string">&quot;--&gt; library/library.go imported&quot;</span>)
+}
+</code></pre>
+<p>Pada package tersebut, variabel <code>Student</code> dibuat dengan isi anonymous struct. Dalam fungsi init, nilai <code>Name</code> dan <code>Grade</code> variabel di-set.</p>
+<p>Selanjutnya buka file <code>main.go</code>, isi dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;belajar-golang-level-akses/library&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    fmt.Printf(<span class="hljs-string">&quot;Name  : %s\n&quot;</span>, library.Student.Name)
+    fmt.Printf(<span class="hljs-string">&quot;Grade : %d\n&quot;</span>, library.Student.Grade)
+}
+</code></pre>
+<p>Package <code>library</code> di-import, dan variabel <code>Student</code> dikonsumsi pada fungsi <code>main()</code>. Sewaktu package di-import, fungsi <code>init()</code> yang berada di dalamnya langsung dieksekusi.</p>
+<p>Di dalam fungsi <code>init()</code>, property variabel objek <code>Student</code> diisi dan sebuah pesan ditampilkan ke console.</p>
+<p><img src="images/A_properti_public_private_7_init.png" alt="Dasar Pemrograman Golang - Fungsi `init()`"></p>
+<p>Di Go, setiap package masing-masing boleh memiliki fungsi <code>init()</code>. Fungsi tersebut hanya akan dieksekusi ketika package di-import dengan urutan eksekusinya adalah sesuai dengan package mana yg di-import terlebih dahulu. Dan kesemua fungsi <code>init()</code> dipanggil sebelum fungsi <code>main()</code>.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.26-property-public-private" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.26...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2329,12 @@
 
             
                 
+                <a href="A-method.html" class="navigation navigation-prev " aria-label="Previous page: A.25. Method">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-interface.html" class="navigation navigation-next " aria-label="Next page: A.27. Interface">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2345,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.26. Properti Public dan Private (Exported vs Unexported)","level":"3.1.26","depth":2,"next":{"title":"A.27. Interface","level":"3.1.27","depth":2,"path":"A-interface.md","ref":"A-interface.md","articles":[]},"previous":{"title":"A.25. Method","level":"3.1.25","depth":2,"path":"A-method.md","ref":"A-method.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-properti-public-dan-private.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

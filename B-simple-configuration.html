@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Simple Configuration - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="B-server-handler-http-request-cancellation.html">
     
+    
+    <link rel="prev" href="B-cookie.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1414,7 +1416,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.22" data-path="B-simple-configuration.html">
+        <li class="chapter active" data-level="4.1.22" data-path="B-simple-configuration.html">
             
                 <a href="B-simple-configuration.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">B.22. Simple Configuration</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,188 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
+                                <h1 id="b22-simple-configuration">B.22. Simple Configuration</h1>
+<p>Dalam development, pastinya kita programmer akan berurusan dengan banyak sekali variabel dan konstanta untuk keperluan konfigurasi. Misalnya, variabel berisi informasi port web server, timeout, variabel global, dan lainnya.</p>
+<p>Pada chapter ini, kita akan belajar dasar pengelolahan variabel konfigurasi dengan memanfaatkan file JSON. </p>
+<h2 id="b221-struktur-aplikasi">B.22.1. Struktur Aplikasi</h2>
+<p>Pertama-tama, buat project baru dengan struktur seperti gambar berikut.</p>
+<p><img src="images/B_simple_configuration_1_structure.png" alt="Dasar Pemrograman Golang - Structure"></p>
+<p>Folder <code>conf</code> berisi 2 file.</p>
+<ol>
+<li>File <code>config.json</code>. Semua konfigurasi nantinya harus disimpan di file ini dalam struktur JSON.</li>
+<li>File <code>config.go</code>. Berisikan beberapa fungsi dan operasi untuk mempermudah pengaksesan konfigurasi dari file <code>config.json</code>.</li>
 </ol>
+<h2 id="b222-file-konfigurasi-json-configjson">B.22.2. File Konfigurasi JSON <code>config.json</code></h2>
+<p>Semua konfigurasi dituliskan dalam file ini. Desain struktur JSON-nya untuk bisa mudah dipahami, contoh:</p>
+<pre><code class="lang-json">{
+    <span class="hljs-string">&quot;server&quot;</span>: {
+        <span class="hljs-string">&quot;port&quot;</span>: <span class="hljs-number">9000</span>,
+        <span class="hljs-string">&quot;read_timeout&quot;</span>: <span class="hljs-number">5</span>,
+        <span class="hljs-string">&quot;write_timeout&quot;</span>: <span class="hljs-number">5</span>
+    },
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+    <span class="hljs-string">&quot;log&quot;</span>: {
+        <span class="hljs-string">&quot;verbose&quot;</span>: <span class="hljs-literal">true</span>
+    }
+}
+</code></pre>
+<p>Data JSON di atas berisi 4 buah data konfigurasi.</p>
+<ol>
+<li>Property <code>server.port</code>. Port yang digunakan saat start web server.</li>
+<li>Property <code>server.read_timeout</code>. Dijadikan sebagai timeout read.</li>
+<li>Property <code>server.write_timeout</code>. Dijadikan sebagai timeout write.</li>
+<li>Property <code>log.verbose</code>. Penentu apakah log di print atau tidak.</li>
+</ol>
+<h2 id="b223-pemrosesan-konfigurasi">B.22.3. Pemrosesan Konfigurasi</h2>
+<p>Pada file <code>config.go</code> kita akan siapkan sebuah fungsi yang isinya mengembalikan objek cetakan struct didapat dari konten file <code>config.json</code>.</p>
+<p>Siapkan struct nya terlebih dahulu.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> conf
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;encoding/json&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+    <span class="hljs-string">&quot;path/filepath&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">var</span> shared *_Configuration
+
+<span class="hljs-keyword">type</span> _Configuration <span class="hljs-keyword">struct</span> {
+    Server <span class="hljs-keyword">struct</span> {
+        Port         <span class="hljs-keyword">int</span>           <span class="hljs-string">`json:&quot;port&quot;`</span>
+        ReadTimeout  time.Duration <span class="hljs-string">`json:&quot;read_timeout&quot;`</span>
+        WriteTimeout time.Duration <span class="hljs-string">`json:&quot;write_timeout&quot;`</span>
+    } <span class="hljs-string">`json:&quot;server&quot;`</span>
+
+    Log <span class="hljs-keyword">struct</span> {
+        Verbose <span class="hljs-keyword">bool</span> <span class="hljs-string">`json:&quot;verbose&quot;`</span>
+    } <span class="hljs-string">`json:&quot;log&quot;`</span>
+}
+</code></pre>
+<p>Bisa dilihat pada kode di atas, struct bernama <code>_Configuration</code> dibuat. Struct ini berisikan banyak property yang strukturnya sama persis dengan isi file <code>config.json</code>. Dengan skema seperti itu akan cukup mempermudah developer dalam pengaksesan data konfigurasi.</p>
+<p>Dari struct tersebut disiapkan objek bernama <code>shared</code>. Variabel ini berisi informasi konfigurasi hasil baca <code>config.json</code>, dan nantinya isinya bisa diakses via fungsi fungsi yang sebentar lagi akan dibuat.</p>
+<p>Selanjutnya, siapkan fungsi <code>init()</code> dengan isi operasi baca file <code>config.json</code> serta operasi decode data JSON dari isi file tersebut ke variabel <code>shared</code>. </p>
+<p>Dengan adanya fungsi <code>init()</code> maka pada saat package <code>conf</code> ini di-import ke package lain otomatis file <code>config.json</code> dibaca dan di-parse untuk disimpan di variabel <code>shared</code>. Tambahkan juga validasi untuk memastikan kode hanya di-parse sekali saja.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> init() {
+    <span class="hljs-keyword">if</span> shared != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span>
+    }
+
+    basePath, err := os.Getwd()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-built_in">panic</span>(err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    bts, err := os.ReadFile(filepath.Join(basePath, <span class="hljs-string">&quot;conf&quot;</span>, <span class="hljs-string">&quot;config.json&quot;</span>))
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-built_in">panic</span>(err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    shared = <span class="hljs-built_in">new</span>(_Configuration)
+    err = json.Unmarshal(bts, &amp;shared)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-built_in">panic</span>(err)
+        <span class="hljs-keyword">return</span>
+    }
+}
+</code></pre>
+<p>Kemudian buat fungsi <code>Configuration()</code> yang isinya menjembatani pengaksesan object <code>shared</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> Configuration() _Configuration {
+    <span class="hljs-keyword">return</span> *shared
+}
+</code></pre>
+<h2 id="b224-routing--server">B.22.4. Routing &amp; Server</h2>
+<p>Masuk ke bagian implementasi, buka <code>main.go</code>, lalu buat custom mux.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;chapter-B.22/conf&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> CustomMux <span class="hljs-keyword">struct</span> {
+    http.ServeMux
+}
+
+<span class="hljs-keyword">func</span> (c CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">if</span> conf.Configuration().Log.Verbose {
+        log.Println(<span class="hljs-string">&quot;Incoming request from&quot;</span>, r.Host, <span class="hljs-string">&quot;accessing&quot;</span>, r.URL.String())
+    }
+
+    c.ServeMux.ServeHTTP(w, r)
+}
+</code></pre>
+<p>Bisa dilihat dalam method <code>ServeHTTP()</code> di atas, ada pengecekan salah satu konfigurasi, yaitu <code>Log.Verbose</code>. Cara pengaksesannya cukup mudah, yaitu lewat fungsi <code>Configuration()</code> milik package <code>conf</code> yang telah di-import.</p>
+<p>OK, kembali lagi ke contoh, dari mux di atas dibuatkan object baru bernama <code>router</code>, lalu beberapa rute didaftarkan ke object mux tersebut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    router := <span class="hljs-built_in">new</span>(CustomMux)
+    router.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;Hello World!&quot;</span>))
+    })
+    router.HandleFunc(<span class="hljs-string">&quot;/howareyou&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;How are you?&quot;</span>))
+    })
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Selanjutnya, siapkan kode untuk start web server. Tulis kode berikut di dalam fungsi <code>main()</code> tepat setelah kode deklarasi route handler.</p>
+<pre><code class="lang-go">server := <span class="hljs-built_in">new</span>(http.Server)
+server.Handler = router
+server.ReadTimeout = conf.Configuration().Server.ReadTimeout * time.Second
+server.WriteTimeout = conf.Configuration().Server.WriteTimeout * time.Second
+server.Addr = fmt.Sprintf(<span class="hljs-string">&quot;:%d&quot;</span>, conf.Configuration().Server.Port)
+
+<span class="hljs-keyword">if</span> conf.Configuration().Log.Verbose {
+    log.Printf(<span class="hljs-string">&quot;Starting server at %s \n&quot;</span>, server.Addr)
+}
+
+err := server.ListenAndServe()
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    <span class="hljs-built_in">panic</span>(err)
+}
+</code></pre>
+<p>Di atas, ada objek baru dibuat dari struct <code>http.Server</code>, yaitu <code>server</code>. Untuk start server, panggil method <code>ListenAndServe()</code> milik objek tersebut.</p>
+<p>Dengan memanfaatkan struct ini, kita bisa meng-custom beberapa konfigurasi default pada Go web server. Di antaranya seperti <code>ReadTimeout</code> dan <code>WriteTimeout</code>.</p>
+<p>Bisa dilihat di contoh ada 4 buah properti milik <code>server</code> yang diisi nilainya dengan data konfigurasi.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li><code>server.Handler</code>. Properti ini wajib di isi dengan custom mux yang dibuat.</li>
+<li><code>server.ReadTimeout</code>. Adalah timeout ketika memproses sebuah request. Kita isi dengan nilai dari configurasi.</li>
+<li><code>server.WriteTimeout</code>. Adalah timeout ketika memproses response.</li>
+<li><code>server.Addr</code>. Port yang digunakan web server pada saat start.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Ok. Sekarang jalankan aplikasi, akses dua buah endpoint yang sudah dibuat, kemudian cek di console.</p>
+<p><img src="images/B_simple_configuration_2_log.png" alt="Dasar Pemrograman Golang - Structure"></p>
+<p>Coba ubah konfigurasi pada <code>config.json</code> nilai <code>log.verbose</code> menjadi <code>false</code>. Lalu restart aplikasi, maka log tidak muncul.</p>
+<h2 id="b225-kekurangan-konfigurasi-file">B.22.5. Kekurangan Konfigurasi File</h2>
+<p>Ok, kita telah selesai belajar tentang cara membuat file konfigurasi yang terpusat dan mudah dibaca. Metode konfigurasi seperti ini umum digunakan, tapi dalam penerapannya memiliki beberapa <em>cons</em> yang mungkin akan mulai terasa ketika aplikasi arsitektur aplikasi berkembang dan arsitektur sistemnya menjadi kompleks. <em>Cons</em> yang dimaksud diantaranya adalah:</p>
+<h4 id="&#x25C9;-tidak-mendukung-komentar">&#x25C9; Tidak mendukung komentar</h4>
+<p>Komentar sangat penting karena untuk aplikasi besar yang konfigurasi item-nya sangat banyak, konfigurasi seperti pada contoh ini akan cukup susah untuk dikelola. Sebenarnya masalah ini bisa diselesaikan dengan mudah dengan cara mengadopsi file format lainnya, misalnya <code>YAML</code>, <code>.env</code>, atau lainnya.</p>
+<h4 id="&#x25C9;-nilai-konfigurasi-harus-diketahui-di-awal">&#x25C9; Nilai konfigurasi harus diketahui di awal</h4>
+<p>Kita harus tau semua value tiap-tiap konfigurasi terlebih dahulu sebelum dituliskan ke file, dan sebelum aplikasi di-up. Dari sini akan sangat susah jika misal ada beberapa konfigurasi yang kita tidak tau nilainya tapi tau cara pengambilannya.</p>
+<p>Contohnya seperti ini, di beberapa kasus, misalnya di AWS, database server yang di-setup secara automated akan meng-generate connection string yang host-nya bisa berganti-ganti tiap start-up, dan tidak hanya itu saja, bisa saja username, password dan lainnya juga tidak statis.</p>
+<p>Dengan ini akan cukup merepotkan jika kita harus cari terlebih dahulu value konfigurasi tersebut untuk kemudian dituliskan ke file secara manual.</p>
+<h4 id="&#x25C9;-tidak-terpusat">&#x25C9; Tidak terpusat</h4>
+<p>Dalam pengembangan aplikasi, banyak konfigurasi yang nilai-nya akan didapat lewat jalan lain, seperti <em>environment variables</em> atau <em>command arguments</em>. Menyimpan konfigurasi file itu sudah cukup bagus, cuman untuk <em>case</em> dimana terdapat banyak sekali services, agak merepotkan pengelolahannya.</p>
+<p>Ketika ada perubahan konfigurasi, semua services harus direstart.</p>
+<h4 id="&#x25C9;-statis-tidak-dinamis">&#x25C9; Statis (tidak dinamis)</h4>
+<p>Konfigurasi umumnya dibaca hanya jika diperlukan. Penulisan konfigurasi dalam file membuat proses pembacaan file harus dilakukan di awal, haru kemudian kita bisa ambil nilai konfigurasi dari data yang sudah ada di memori.</p>
+<p>Hal tersebut memiliki beberapa konsekuensi, untuk aplikasi yang di-manage secara automated, sangat mungkin adanya perubahan nilai konfigurasi. Dari sini berarti pembacaan konfigurasi file tidak boleh hanya dilakukan di awal saja. Tapi juga tidak boleh dilakukan di setiap waktu, karena membaca file itu ada <em>cost</em>-nya dari prespektif I/O.</p>
+<h4 id="&#x25C9;-solusi">&#x25C9; Solusi</h4>
+<p>Kita akan membahas solusi dari beberapa masalah di atas (tidak semuanya) pada chapter terpisah, yaitu <a href="C-best-practice-configuration-env-var.html">C.11. Best Practice Configuration Menggunakan Environment Variable</a></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.22-simple-configuration" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.22...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2267,12 @@
 
             
                 
+                <a href="B-cookie.html" class="navigation navigation-prev " aria-label="Previous page: B.21. HTTP Cookie">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="B-server-handler-http-request-cancellation.html" class="navigation navigation-next " aria-label="Next page: B.23. Server Handler HTTP Request Cancellation">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2283,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"next":{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]},"previous":{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-simple-configuration.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

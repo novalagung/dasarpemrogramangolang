@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Instalasi Golang (Stable &amp; Unstable) - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-setup-go-project-dengan-go-modules.html">
     
+    
+    <link rel="prev" href="1-berkenalan-dengan-golang.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -283,7 +285,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.2" data-path="2-instalasi-golang.html">
+        <li class="chapter active" data-level="3.1.2" data-path="2-instalasi-golang.html">
             
                 <a href="2-instalasi-golang.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.2. Instalasi Golang (Stable &amp; Unstable)</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,87 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
+                                <h1 id="a2-instalasi-golang-stable--unstable">A.2. Instalasi Golang (Stable &amp; Unstable)</h1>
+<p>Hal pertama yang perlu dilakukan sebelum bisa menggunakan Go adalah meng-<em>install</em>-nya terlebih dahulu. Panduan instalasi sebenarnya sudah disediakan di situs resmi Go <a href="http://golang.org/doc/install#install" target="_blank">http://golang.org/doc/install#install</a>.</p>
+<p>Di sini penulis mencoba meringkas petunjuk instalasi pada <em>link</em> di atas, agar lebih mudah untuk diikuti terutama untuk pembaca yang baru belajar.</p>
+<blockquote>
+<p>Go yang digunakan adalah versi <strong>1.22</strong>, direkomendasikan menggunakan versi tersebut.</p>
+</blockquote>
+<p>URL untuk mengunduh <em>installer</em> Go: <a href="https://golang.org/dl/" target="_blank">https://golang.org/dl/</a>. Silakan langsung unduh dari <em>link</em> tersebut lalu lakukan proses instalasi, atau bisa mengikuti petunjuk pada chapter ini.</p>
+<h2 id="a21-instalasi-go-stable">A.2.1. Instalasi Go <em>Stable</em></h2>
+<h4 id="&#x25C9;-instalasi-go-di-windows">&#x25C9; Instalasi Go di Windows</h4>
+<ol>
+<li><p>Download terlebih dahulu <em>installer</em>-nya di <a href="https://golang.org/dl/" target="_blank">https://golang.org/dl/</a>. Pilih <em>installer</em> untuk sistem operasi Windows sesuai jenis bit yang digunakan.</p>
+</li>
+<li><p>Setelah ter-<em>download</em>, jalankan <em>installer</em>, klik <em>next</em> hingga proses instalasi selesai. <em>By default</em> jika anda tidak merubah path pada saat instalasi, Go akan ter-<em>install</em> di <code>C:\go</code>. <em>Path</em> tersebut secara otomatis akan didaftarkan dalam <code>PATH</code> <em>environment variable</em>.</p>
+</li>
+<li><p>Buka <em>Command Prompt</em> / <em>CMD</em>, eksekusi perintah berikut untuk mengecek versi Go.</p>
+<pre><code class="lang-bash">go version
+</code></pre>
+</li>
+<li><p>Jika output adalah sama dengan versi Go yang ter-<em>install</em>, menandakan proses instalasi berhasil.</p>
+</li>
 </ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<blockquote>
+<p>Sering terjadi, command <code>go version</code> tidak bisa dijalankan meskipun instalasi sukses. Solusinya bisa dengan restart CMD (tutup CMD, kemudian buka lagi). Setelah itu coba jalankan ulang command di atas.</p>
+</blockquote>
+<h4 id="&#x25C9;-instalasi-go-di-macos">&#x25C9; Instalasi Go di MacOS</h4>
+<p>Cara termudah instalasi Go di MacOS adalah menggunakan <a href="http://brew.sh/" target="_blank">Homebrew</a>.</p>
+<ol>
+<li><p><em>Install</em> terlebih dahulu Homebrew (jika belum ada), caranya jalankan perintah berikut di <strong>terminal</strong>.</p>
+<pre><code class="lang-bash">$ /bin/bash -c <span class="hljs-string">&quot;<span class="hljs-variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span>
+</code></pre>
+</li>
+<li><p><em>Install</em> Go menggunakan command <code>brew</code>.</p>
+<pre><code class="lang-bash">$ brew install go
+</code></pre>
+</li>
+<li><p>Tambahkan path binary Go ke <code>PATH</code> <em>environment variable</em>.</p>
+<pre><code class="lang-bash">$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;export PATH=<span class="hljs-variable">$PATH</span>:/usr/local/go/bin&quot;</span> &gt;&gt; ~/.bash_profile
+$ <span class="hljs-built_in">source</span> ~/.bash_profile
+</code></pre>
+</li>
+<li><p>Jalankan perintah berikut mengecek versi Go.</p>
+<pre><code class="lang-bash">go version
+</code></pre>
+</li>
+<li><p>Jika output adalah sama dengan versi Go yang ter-<em>install</em>, menandakan proses instalasi berhasil.</p>
+</li>
+</ol>
+<h4 id="&#x25C9;-instalasi-go-di-linux">&#x25C9; Instalasi Go di Linux</h4>
+<ol>
+<li><p>Unduh arsip <em>installer</em> dari <a href="https://golang.org/dl/" target="_blank">https://golang.org/dl/</a>, pilih installer untuk Linux yang sesuai dengan jenis bit komputer anda. Proses download bisa dilakukan lewat CLI, menggunakan <code>wget</code> atau <code>curl</code>.</p>
+<pre><code class="lang-bash">$ wget https://storage.googleapis.com/golang/go1...
+</code></pre>
+</li>
+<li><p>Buka terminal, <em>extract</em> arsip tersebut ke <code>/usr/local</code>.</p>
+<pre><code class="lang-bash">$ tar -C /usr/<span class="hljs-built_in">local</span> -xzf go1...
+</code></pre>
+</li>
+<li><p>Tambahkan path binary Go ke <code>PATH</code> <em>environment variable</em>.</p>
+<pre><code class="lang-bash">$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;export PATH=<span class="hljs-variable">$PATH</span>:/usr/local/go/bin&quot;</span> &gt;&gt; ~/.bashrc
+$ <span class="hljs-built_in">source</span> ~/.bashrc
+</code></pre>
+</li>
+<li><p>Selanjutnya, eksekusi perintah berikut untuk mengetes apakah Go sudah terinstal dengan benar.</p>
+<pre><code class="lang-bash">go version
+</code></pre>
+</li>
+<li><p>Jika output adalah sama dengan versi Go yang ter-<em>install</em>, menandakan proses instalasi berhasil.</p>
+</li>
+</ol>
+<h2 id="a22-variabel-goroot">A.2.2. Variabel <code>GOROOT</code></h2>
+<p><em>By default</em>, setelah proses instalasi Go selesai, secara otomatis akan muncul <em>environment variable</em> <code>GOROOT</code>. Isi dari variabel ini adalah lokasi di mana Go ter-<em>install</em>.</p>
+<p>Sebagai contoh di Windows, ketika Go di-<em>install</em> di <code>C:\go</code>, maka path tersebut akan menjadi isi dari <code>GOROOT</code>.</p>
+<p>Silakan gunakan command <code>go env</code> untuk melihat informasi konfigurasi <em>environment</em> yang ada.</p>
+<h2 id="a23-instalasi-go-unstabledevelopment">A.2.3. Instalasi Go <em>Unstable</em>/<em>Development</em></h2>
+<p>Jika pembaca tertarik untuk mencoba versi development Go, ingin mencoba fitur yang belum dirilis secara official, ada beberapa cara:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Instalasi dengan <em>build from source</em> <a href="https://go.dev/doc/install/source" target="_blank">https://go.dev/doc/install/source</a></li>
+<li>Gunakan command <code>go install</code>, contohnya seperti <code>go install golang.org/dl/go1.18beta1@latest</code>. Untuk melihat versi unstable yang bisa di-install silakan merujuk ke <a href="https://go.dev/dl/#unstable" target="_blank">https://go.dev/dl/#unstable</a></li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2166,12 @@
 
             
                 
+                <a href="1-berkenalan-dengan-golang.html" class="navigation navigation-prev " aria-label="Previous page: A.1. Belajar Golang">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-setup-go-project-dengan-go-modules.html" class="navigation navigation-next " aria-label="Next page: A.3. Setup Go Modules">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2182,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.2. Instalasi Golang (Stable & Unstable)","level":"3.1.2","depth":2,"next":{"title":"A.3. Setup Go Modules","level":"3.1.3","depth":2,"path":"A-setup-go-project-dengan-go-modules.md","ref":"A-setup-go-project-dengan-go-modules.md","articles":[]},"previous":{"title":"A.1. Belajar Golang","level":"3.1.1","depth":2,"path":"1-berkenalan-dengan-golang.md","ref":"1-berkenalan-dengan-golang.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"2-instalasi-golang.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Template: Actions &amp; Variables - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="B-template-functions.html">
     
+    
+    <link rel="prev" href="B-template-render-partial-html.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1206,7 +1208,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.6" data-path="B-template-actions-variables.html">
+        <li class="chapter active" data-level="4.1.6" data-path="B-template-actions-variables.html">
             
                 <a href="B-template-actions-variables.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">B.6. Template: Actions &amp; Variables</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,193 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="b6-template-actions--variables">B.6. Template: Actions &amp; Variables</h1>
+<p><a href="https://golang.org/pkg/text/template/#hdr-Actions" target="_blank"><strong>Actions</strong></a> merupakan <em>predefined</em> keyword yang disediakan oleh Go. Actions biasa dimanfaatkan dalam pembuatan template. </p>
+<p>Sebenarnya pada dua chapter sebelumnya, secara tidak sadar kita telah menggunakan beberapa jenis actions, di antaranya:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Penggunaan <strong>pipeline output</strong>. Nilai yang diapit tanda <code>{{ }}</code>, yang nantinya akan dimunculkan di layar sebagai output, contohnya: <code>{{&quot;hello world&quot;}}</code>.</li>
+<li>Include template lain menggunakan keyword <code>template</code>, contohnya: <code>{{template &quot;name&quot;}}</code>.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Pada chapter ini, kita akan belajar lebih banyak lagi tentang actions lain, juga cara pembuatan dan pemanfaatan variabel pada template view.</p>
+<h2 id="b61-persiapan">B.6.1. Persiapan</h2>
+<p>Pertama-tama, siapkan sebuah file bernama <code>main.go</code>, lalu isi dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
+
+<span class="hljs-keyword">type</span> Info <span class="hljs-keyword">struct</span> {
+    Affiliation <span class="hljs-keyword">string</span>
+    Address     <span class="hljs-keyword">string</span>
+}
+
+<span class="hljs-keyword">type</span> Person <span class="hljs-keyword">struct</span> {
+    Name    <span class="hljs-keyword">string</span>
+    Gender  <span class="hljs-keyword">string</span>
+    Hobbies []<span class="hljs-keyword">string</span>
+    Info    Info
+}
+</code></pre>
+<p>Pada kode di atas, dua buah struct disiapkan, <code>Info</code> dan <code>Person</code> (yang mana struct <code>Info</code> di-embed ke dalam struct <code>Person</code>). Kedua struct tersebut nantinya akan digunakan untuk pembuatan objek untuk kemudian disisipkan ke dalam view.</p>
+<p>Selanjutnya, siapkan fungsi <code>main()</code>, dengan di dalamnya berisikan 1 buah route handler <code>/</code>, dan juga kode untuk menjalankan server pada port <code>9000</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        <span class="hljs-keyword">var</span> person = Person{
+            Name:    <span class="hljs-string">&quot;Bruce Wayne&quot;</span>,
+            Gender:  <span class="hljs-string">&quot;male&quot;</span>,
+            Hobbies: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;Reading Books&quot;</span>, <span class="hljs-string">&quot;Traveling&quot;</span>, <span class="hljs-string">&quot;Buying things&quot;</span>},
+            Info:    Info{<span class="hljs-string">&quot;Wayne Enterprises&quot;</span>, <span class="hljs-string">&quot;Gotham City&quot;</span>},
+        }
+
+        <span class="hljs-keyword">var</span> tmpl = template.Must(template.ParseFiles(<span class="hljs-string">&quot;view.html&quot;</span>))
+        <span class="hljs-keyword">if</span> err := tmpl.Execute(w, person); err != <span class="hljs-literal">nil</span> {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+    })
+
+    fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+}
+</code></pre>
+<p>Pada route handler <code>/</code> di atas, variabel objek <code>person</code> dibuat, kemudian disisipkan sebagai data pada view <code>view.html</code>.</p>
+<p>Perlu diketahui, ketika data yang disisipkan ke view bertipe <code>map</code>, maka <code>key</code> (yang nantinya akan menjadi nama variabel) boleh dituliskan dalam huruf kecil. Sedangkan jika berupa variabel objek <code>struct</code>, maka property harus dituliskan public (huruf pertama kapital).</p>
+<blockquote>
+<p>Data yang disisipkan ke view, jika tipe nya adalah struct, maka hanya properties ber-modifier public (ditandai dengan huruf kapital di awal nama property) yang bisa diakses dari view.</p>
+</blockquote>
+<p>OK, bagian back end sudah selesai, sekarang saatnya lanjut ke bagian depan. Buat file view baru bernama <code>view.html</code>, isi dengan kode berikut.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Learning html/template Actions<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>Selanjutnya silakan ikuti step-step berikut.</p>
+<h2 id="b62-pipeline-output--komentar">B.6.2. Pipeline Output &amp; Komentar</h2>
+<p>Actions pertama yang akan kita coba terapkan adalah pipeline output, menampilkan output ke layar. Caranya cukup mudah, dengan menuliskan apa yang ingin ditampilkan di layar dengan diapit tanda <code>{{ }}</code> (bisa berupa variabel yang dilempar dari back end, bisa juga literal string).</p>
+<p>Tulis kode berikut di dalam tag <code>&lt;table&gt;&lt;/table&gt;</code> pada <code>view.html</code>.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    {{/* example how to use actions */}}
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>{{&quot;Name&quot;}}<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>: {{.Name}}<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+</code></pre>
+<p>Test hasilnya pada browser.</p>
+<p><img src="images/B_template_actions_variables_1_pipeline.png" alt="Dasar Pemrograman Golang - Pipeline Output"></p>
+<p>Untuk menampilkan tipe data lain selain string, caranya masih sama, langsung dituliskan dalam <code>{{ }}</code>. Untuk menampilkan nilai variabel, caranya juga masih sama, hanya saja perlu ditambahkan tanda titik <code>.</code> pada penulisannya (tanda titik <code>.</code> adalah penanda bahwa variabel tersebut adalah variabel terluar; bukan merupakan elemen array, item map, atau property struct).</p>
+<p>Sedangkan untuk komentar, gunakan tanda <code>{{/* */}}</code>. Komentar tidak akan dimunculkan dalam output.</p>
+<h2 id="b63-membuat--menampilkan-isi-variabel">B.6.3. Membuat &amp; Menampilkan Isi Variabel</h2>
+<p>Cara membuat variabel dalam template adalah dengan mendeklarasikannya menggunakan operator <code>:=</code>, dengan ketentuan nama variabel harus diawali dengan tanda dollar <code>$</code>.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Gender<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    {{$gender := .Gender}}
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;text-transform: capitalize;&quot;</span>&gt;</span>: 
+        {{$gender}}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+</code></pre>
+<p>Jika ingin menampilkan isi variabel, tuliskan sebagai pipeline.</p>
+<p><img src="images/B_template_actions_variables_2_variable.png" alt="Dasar Pemrograman Golang - Variabel"></p>
+<h2 id="b64-perulangan">B.6.4. Perulangan</h2>
+<p>Actions <code>range</code> digunakan untuk melakukan perulangan pada template view. Keyword ini bisa diterapkan pada tipe data <code>map</code> atau array. Cara penggunaannya sedikit berbeda dibanding penggunaan range pada Go. Silakan perhatikan contoh berikut.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Hobbies<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>: 
+        {{range $index, $elem := .Hobbies}}
+            {{$elem}},
+        {{end}}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+</code></pre>
+<p>Penulisannya cukup unik, keyword <code>range</code> dituliskan terlebih dahulu, diikuti variabel penampung index dan elemen. Jika yang dibutuhkan hanya elemen saja, maka gunakan <code>{{range $elem := .Hobbies}}</code>. Semua kode setelah baris deklarasi hingga penutup <code>{{end}}</code>, akan diulang sesuai jumlah elemen/item-nya.</p>
+<p><img src="images/B_template_actions_variables_3_loop.png" alt="Dasar Pemrograman Golang - Perulangan"></p>
+<h2 id="b65-pengaksesan-property-variabel-objek">B.6.5. Pengaksesan Property Variabel Objek</h2>
+<p>Cara mengakses property sebuah variabel objek bisa dilakukan lewat notasi titik <code>.</code>, dengan ketentuan property tersebut bermodifier public.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Affiliation<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>: {{.Info.Affiliation}}<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+</code></pre>
+<p><img src="images/B_template_actions_variables_4_property.png" alt="Dasar Pemrograman Golang - Mengakses property"></p>
+<p>Sedangkan untuk pengaksesan method, caranya juga sama, hanya saja tidak perlu dituliskan tanda kurung method-nya. Buat sebuah method pada struct <code>Info</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> (t Info) GetAffiliationDetailInfo() <span class="hljs-keyword">string</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;have 31 divisions&quot;</span>
+}
+</code></pre>
+<p>Lalu akses method tersebut pada template view.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Affiliation<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>: {{.Info.Affiliation}} ({{.Info.GetAffiliationDetailInfo}})<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+</code></pre>
+<p><img src="images/B_template_actions_variables_5_method.png" alt="Dasar Pemrograman Golang - Mengakses property"></p>
+<p>Lalu bagaimana cara pengaksesan method yang membutuhkan parameter, jika tanda kurungnya tidak boleh dituliskan? Jawabannya akan kita temukan pada chapter selanjutnya.</p>
+<h2 id="b66-penggunaan-keyword-with-untuk-mengganti-scope-variabel-pada-suatu-blok">B.6.6. Penggunaan Keyword <code>with</code> Untuk Mengganti Scope Variabel Pada Suatu Blok</h2>
+<p>Default-nya, <strong>current scope</strong> di template view adalah data yang dilempar back end. Scope current objek bisa diganti dengan menggunakan keyword <code>with</code>, sehingga nantinya untuk mengakses sub-property variabel objek (seperti <code>.Info.Affiliation</code>), bisa tidak dilakukan dari objek terluar.</p>
+<blockquote>
+<p>Current scope yg dimaksud di sini adalah seperti object <code>this</code> ibarat bahasa pemrograman lain.</p>
+</blockquote>
+<p>Sebagai contoh property <code>Info</code> yang merupakan variabel objek. Kita bisa menentukan scope suatu block adalah mengikuti variabel objek tersebut.</p>
+<pre><code class="lang-html">{{with .Info}}
+<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Address<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>: {{.Address}}<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+{{end}}
+</code></pre>
+<p>Pada contoh di atas, sebuah blok ditentukan scope-nya adalah <code>Info</code>. Maka di dalam blok kode tersebut, untuk mengakses sub property-nya (<code>Address</code>, <code>Affiliation</code>, dan <code>GetAffiliationDetailInfo</code>), tidak perlu dituliskan dari objek terluar, cukup langsung nama property-nya. Sebagai contoh <code>.Address</code> di atas merujuk ke variabel <code>.Info</code>.</p>
+<p><img src="images/B_template_actions_variables_6_with.png" alt="Dasar Pemrograman Golang - Scope"></p>
+<h2 id="b67-seleksi-kondisi">B.6.7. Seleksi Kondisi</h2>
+<p>Seleksi kondisi juga bisa dilakukan pada template view. Keyword actions yang digunakan adalah <code>if</code> dan <code>eq</code> (equal atau sama dengan).</p>
+<pre><code class="lang-html">{{if eq .Name &quot;Bruce Wayne&quot;}}
+<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">colspan</span>=<span class="hljs-string">&quot;2&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;font-weight: bold;&quot;</span>&gt;</span>
+        I&apos;m the Batman!
+    <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+{{end}}
+</code></pre>
+<p><img src="images/B_template_actions_variables_7_if.png" alt="Dasar Pemrograman Golang - Seleksi kondisi"></p>
+<p>Untuk seleksi kondisi dengan jumlah kondisi lebih dari satu, bisa gunakan <code>else if</code>.</p>
+<pre><code class="lang-html">{{if pipeline}}
+    a
+{{else if pipeline}}
+    b
+{{else}}
+    c
+{{end}}
+</code></pre>
+<p>Untuk seleksi kondisi yang kondisinya adalah bersumber dari variabel bertipe <code>bool</code>, maka langsung saja tulis tanpa menggunakan <code>eq</code>. Jika kondisi yang diinginkan adalah kebalikan dari nilai variabel, maka gunakan <code>ne</code>. Contohnya bisa dilihat pada kode berikut.</p>
+<pre><code class="lang-html">{{if .IsTrue}}
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+{{end}}
+
+{{isTrue := true}}
+
+{{if isTrue}}
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+{{end}}
+
+{{if eq isTrue}}
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+{{end}}
+
+{{if ne isTrue}}
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>not true (false)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+{{end}}
+</code></pre>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.6-template-actions-variables" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.6...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2272,12 @@
 
             
                 
+                <a href="B-template-render-partial-html.html" class="navigation navigation-prev " aria-label="Previous page: B.5. Template: Render Partial HTML Template">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="B-template-functions.html" class="navigation navigation-next " aria-label="Next page: B.7. Template: Functions">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2288,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"next":{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},"previous":{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-template-actions-variables.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

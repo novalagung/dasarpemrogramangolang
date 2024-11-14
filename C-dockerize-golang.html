@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Dockerize Aplikasi Golang - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-golang-redis.html">
     
+    
+    <link rel="prev" href="C-golang-sso-saml-sp.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1908,7 +1910,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.35" data-path="C-dockerize-golang.html">
+        <li class="chapter active" data-level="5.1.35" data-path="C-dockerize-golang.html">
             
                 <a href="C-dockerize-golang.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.35. Dockerize Aplikasi Golang</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,214 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c35-dockerize-aplikasi-golang">C.35. Dockerize Aplikasi Golang</h1>
+<p>Pada chapter ini kita akan praktek men-<em>dockerize</em> aplikasi Go, membungkus aplikasi hello world sebagai docker image untuk kemudian di jalankan sebagai container.</p>
+<p>Kita tidak akan membahas docker secara detail ya, hanya pengenalannya saja. Untuk pembaca yang tertarik belajar docker secara komprehensif mulai dari awal, hingga masuk ke docker compose kemudian kubernetes <em>from zero to hero</em>, bisa <em>enroll</em> course Udemy <a href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/" target="_blank">Praktis Belajar Docker dan Kubernetes untuk Pemula</a> berikut.</p>
+<p><a href="https://www.udemy.com/course/praktis-belajar-docker-dan-kubernetes-untuk-pemula/" target="_blank">
+    <img src="https://dasarpemrogramangolang.novalagung.com/images/banner.png" style="border: none;">
+</a></p>
+<h2 id="c351-prerequisities">C.35.1. Prerequisities</h2>
+<p>Pastikan Docker Engine ter-<em>install</em> untuk pengguna Windows atau MacOS. Untuk pengguna Linux/Unix, install saja Docker Engine. Silakan merujuk ke laman panduan instalasi <a href="https://docs.docker.com/get-docker/" target="_blank">https://docs.docker.com/get-docker/</a> jika belum meng-<em>install</em> Docker-nya.</p>
+<h2 id="c352-istilah-dalam-docker">C.35.2. Istilah Dalam Docker</h2>
+<h4 id="&#x25C9;-container">&#x25C9; Container</h4>
+<p>Container adalah sebuah environment ter-isolasi, merupakan bentuk virtualisasi yang lebih kecil dan ringan dibanding VM (Virtual Machine). Virtualisasi pada container disebut dengan <em>Containerization</em>.</p>
+<h4 id="&#x25C9;-docker-container">&#x25C9; Docker Container</h4>
+<p>Docker container adalah sebuah container yang di-manage oleh Docker Engine.</p>
+<h4 id="&#x25C9;-docker-engine">&#x25C9; Docker Engine</h4>
+<p>Docker engine merupakan <em>daemon</em> yang bertugas untuk manajemen container-container.</p>
+<h4 id="&#x25C9;-docker-image">&#x25C9; Docker Image</h4>
+<p>Docker Image adalah sebuah file yang di-<em>generate</em> oleh docker, yang file tersebut nantinya digunakan untuk basis pembuatan dan eksekusi container.</p>
+<h4 id="&#x25C9;-containerize-dan-dockerize">&#x25C9; Containerize dan Dockerize</h4>
+<p>Containerize merupakan istilah terhadap aplikasi yang di-<em>build</em> ke bentuk Image. Sedangkan Dockerize merupakan istilah untuk containerize menggunakan Docker. Perlu diketahui bahwa penyedia container tidak hanya Docker saja, ada banyak engine container lainnya yang bisa dipergunakan.</p>
+<h2 id="c353-pembuatan-aplikasi-hello-world">C.35.3. Pembuatan Aplikasi Hello World</h2>
+<p>Sebelum masuk ke aspek docker, mari kita siapkan dulu aplikasi web sederhana yang nantinya akan di-<em>build</em> ke bentuk Image. O iya, jangan lupa inisialisasi project-nya ya menggunakan perintah <code>go mod init hello-world</code>.</p>
+<p>Siapkan folder project baru dengan isi file <code>main.go</code>. Tulis kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Dalam fungsi main, tambahkan statement untuk ambil informasi port dari <em>env var</em> <code>PORT</code>, dan informasi id instance dari <em>env var</em> <code>INSTANCE_ID</code>. Kedua variabel ini akan dipergunakan dalam web server yang akan kita buat.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li><em>env var</em> <code>PORT</code> digunakan sebagai port web server.</li>
+<li><em>env var</em> <code>INSTANCE_ID</code> untuk <em>instance identifier</em>, hanya sebagai info saja dan variabel ini opsional.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<pre><code class="lang-go">port := os.Getenv(<span class="hljs-string">&quot;PORT&quot;</span>)
+<span class="hljs-keyword">if</span> port == <span class="hljs-string">&quot;&quot;</span> {
+    log.Fatal(<span class="hljs-string">&quot;PORT env is required&quot;</span>)
+}
+
+instanceID := os.Getenv(<span class="hljs-string">&quot;INSTANCE_ID&quot;</span>)
+</code></pre>
+<p>Selanjutnya siapkan satu buah <em>multiplexor</em> dengan isi satu buah route <code>GET /</code>, yang <em>handler</em>-nya mengembalikan sebuah pesan teks <code>Hello world</code>. Jika <em>env var</em> <code>INSTANCE_ID</code> di set, maka akan ditampilkan isinya sebagai bagian dari respon handler ini.</p>
+<pre><code class="lang-go">mux := http.NewServeMux()
+mux.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">if</span> r.Method != <span class="hljs-string">&quot;GET&quot;</span> {
+        http.Error(w, <span class="hljs-string">&quot;http method not allowed&quot;</span>, http.StatusBadRequest)
+        <span class="hljs-keyword">return</span>
+    }
+
+    text := <span class="hljs-string">&quot;Hello world&quot;</span>
+    <span class="hljs-keyword">if</span> instanceID != <span class="hljs-string">&quot;&quot;</span> {
+        text = text + <span class="hljs-string">&quot;. From &quot;</span> + instanceID
+    }
+
+    w.Write([]<span class="hljs-keyword">byte</span>(text))
+})
+</code></pre>
+<p>Lanjut siapkan objek <code>http.Server</code>-nya, gunakan objek <code>mux</code> yang sudah dibuat sebagai basis handler web server, kemudian start web server-nya.</p>
+<pre><code class="lang-go">server := <span class="hljs-built_in">new</span>(http.Server)
+server.Handler = mux
+server.Addr = <span class="hljs-string">&quot;0.0.0.0:&quot;</span> + port
+
+log.Println(<span class="hljs-string">&quot;server starting at&quot;</span>, server.Addr)
+err := server.ListenAndServe()
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+</code></pre>
+<h2 id="c354-testing-aplikasi-hello-world">C.35.4. Testing Aplikasi Hello World</h2>
+<p>Kita akan coba test aplikasi hello world yang baru dibuat. Untuk Windows gunakan command berikut.</p>
+<pre><code class="lang-bat"><span class="hljs-built_in">set</span> PORT=<span class="hljs-number">8080</span>
+<span class="hljs-built_in">set</span> INSTANCE_ID=&quot;my first instance&quot;
+go run main.go
+</code></pre>
+<p>Untuk sistem operasi non-Windows, gunakan:</p>
+<pre><code class="lang-sh"><span class="hljs-built_in">export</span> PORT=8080
+<span class="hljs-built_in">export</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span>
+go run main.go
+</code></pre>
+<p><img src="images/C_dockerize_golang_1_start_hello_world.png" alt="Dasar Pemrograman Golang - Hello world"></p>
+<p>Ok bisa dilihat aplikasi berjalan sesuai harapan. Selanjutnya kita akan <em>dockerize</em> aplikasi hello world ini.</p>
+<h2 id="c355-pembuatan-dockerfile">C.35.5. Pembuatan Dockerfile</h2>
+<p>Aplikasi hello world yang sudah dibuat akan kita <em>build</em> ke bentuk Docker Image untuk kemudian di-<em>run</em> sebagai container. Nah untuk pembuatan Image, salah satu syaratnya adalah mempersiapkan <code>Dockerfile</code>.</p>
+<p>Jadi sekarang buat file baru bernama <code>Dockerfile</code>, lalu isi dengan kode berikut.</p>
+<pre><code class="lang-dockerfile"><span class="hljs-keyword">FROM</span> golang:alpine
+
+<span class="hljs-keyword">RUN</span> <span class="bash">apk update &amp;&amp; apk add --no-cache git
+</span>
+<span class="hljs-keyword">WORKDIR</span> <span class="bash">/app
+</span>
+<span class="hljs-keyword">COPY</span> <span class="bash">. .
+</span>
+<span class="hljs-keyword">RUN</span> <span class="bash">go mod tidy
+</span>
+<span class="hljs-keyword">RUN</span> <span class="bash">go build -o binary
+</span>
+<span class="hljs-keyword">ENTRYPOINT</span> <span class="bash">[<span class="hljs-string">&quot;/app/binary&quot;</span>]
+</span></code></pre>
+<p>Berikut adalah penjelasan per baris dari kode di atas.</p>
+<h4 id="1-statement-from-golangalpine">1. Statement <code>FROM golang:alpine</code></h4>
+<p>Keyword <code>FROM</code> ini digunakan untuk inisialisasi <em>build stage</em> dan juga menentukan basis Image yang digunakan. Informasi <code>golang:alpine</code> di sini adalah basis image yang dimaksud, yaitu image bernama <code>golang</code> dengan tag bernama <code>alpine</code> yang tersedia di laman officila Docker Hub Golang <a href="https://hub.docker.com/_/golang" target="_blank">https://hub.docker.com/_/golang</a>.</p>
+<p>Dalam Image <code>golang:alpine</code> sudah tersedia beberapa utilitas untuk keperluan <em>build</em> aplikasi Golang. Image <code>golang:alpine</code> basisnya adalah Alpine OS.</p>
+<h4 id="2-statement-run-apk-update--apk-add---no-cache-git">2. Statement <code>RUN apk update &amp;&amp; apk add --no-cache git</code></h4>
+<p>Keyword <code>RUN</code> digunakan untuk menjalankan shell comamnd. Argument setelahnya, yaitu <code>apk update &amp;&amp; apk add --no-cache git</code> akan dijalankan di Image <code>golang:alpine</code> yang sudah di-set sebelumnya. Command tersebut merupakan command Alpine OS yang kurang lebih gunanya adalah berikut:</p>
+<ul>
+<li>Command <code>apk update</code> digunakan untuk meng-<em>update</em> <em>index packages</em> pada OS.</li>
+<li>Command <code>apk add --no-cache git</code> digunakan untuk meng-<em>install</em> Git. Kebetulan pada basis image <code>golang:alpine</code> <em>by default</em> Git adalah tidak tersedia. Jadi harus di-<em>install</em> terlebih dahulu. Git ini nantinya digunakan sewaktu <code>go get</code> dependensi lewat command <code>go mod tidy</code>. Meskipun pada contoh aplikasi hello world tidak menggunakan dependensi eksternal, <em>install</em> saja tidak apa.</li>
+</ul>
+<h4 id="3-statement-workdir-app">3. Statement <code>WORKDIR /app</code></h4>
+<p>Digunakan untuk menentukan <em>working directory</em> yang pada konteks ini adalah <code>/app</code>. Statement ini menjadikan semua statement <code>RUN</code> di bawahnya akan dieksekusi pada <em>working directory</em>.</p>
+<h4 id="4-statement-copy--">4. Statement <code>COPY . .</code></h4>
+<p>Digunakan untuk meng-<em>copy</em> file pada argument pertama yaitu <code>.</code> yang merepresentasikan direktori yang aktif pada host atau komputer kita (yang isinya file <code>main.go</code>, <code>go.mod</code>, dan <code>Dockerfile</code>), untuk kemudian di-<em>paste</em> ke dalam Image ke <em>working directory</em> yaitu <code>/app</code>. </p>
+<p>Dengan ini isi <code>/app</code> adalah sama persis seperti isi folder project hello world.</p>
+<h4 id="5-statement-run-go-mod-tidy">5. Statement <code>RUN go mod tidy</code></h4>
+<p>Digunakan untuk validasi dependensi, dan meng-automatisasi proses <em>download</em> jika dependensi yang ditemukan belum ter-<em>download</em>. Command ini akan mengeksekusi <code>go get</code> jika butuh untuk unduh dependensi, makanya kita perlu install Git.</p>
+<h4 id="6-statement-run-go-build--o-binary">6. Statement <code>RUN go build -o binary</code></h4>
+<p>Command <code>go build</code> digunakan untuk build <em>binary</em> atau <em>executable</em> dari kode program Go. Dengan ini <em>source code</em> dalam <em>working directory</em> akan di-<em>build</em> ke <em>executable</em> dengan nama <code>binary</code>.</p>
+<h4 id="7-statement-entrypoint-appbinary">7. Statement <code>ENTRYPOINT [&quot;/app/binary&quot;]</code></h4>
+<p>Statement ini digunakan untuk menentukan entrypoint container sewaktu dijalankan. Jadi khusus statement <code>ENTRYPOINT</code> ini pada contoh di atas adalah yang efeknya baru kelihatan ketika Image di-<em>run</em> ke container. Sewaktu proses <em>build</em> aplikasi ke Image maka efeknya belum terlihat.</p>
+<p>Dengan statement tersebut nantinya sewaktu container jalan, maka executable <code>binary</code> yang merupakan aplikasi hello world kita, itu dijalankan di container sebagai entrypoint.</p>
+<p>Ok, file <code>Dockerfile</code> sudah siap, mari kita lanjut ke proses <em>build</em> dan <em>start container</em>.</p>
+<h2 id="c356-build-image-dan-create-container">C.35.6. <em>Build Image</em> dan <em>Create Container</em></h2>
+<h4 id="&#x25C9;-build-image">&#x25C9; Build Image</h4>
+<p>Pertama masuk ke direktori folder project, lalu jalankan <em>command</em> <code>docker build</code> berikut.</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">cd</span> folder-project
+docker build -t my-image-hello-world .
+</code></pre>
+<p><em>Command</em> di atas akan melakukan proses <em>build</em> Image pada file yang ada di dalam <code>.</code> yang merupakan isi folder project. Project akan di-<em>build</em> ke sebuah Image dengan nama adalah <code>my-image-hello-world</code>. Flag <code>-t</code> digunakan untuk menentukan nama Image.</p>
+<p>Kurang lebih outputnya seperti gambar berikut. O iya gunakan <em>command</em> <code>docker images</code> untuk menampilkan list semua image yang ada di lokal.</p>
+<p><img src="images/C_dockerize_golang_2_build_image.png" alt="Dasar Pemrograman Golang - Build Image"></p>
+<h4 id="&#x25C9;-create-container">&#x25C9; Create Container</h4>
+<p>Image sudah siap, sekarang mari kita buat container baru menggunakan basis image <code>my-image-hello-world</code>. <em>Command</em>-nya kurang lebih berikut:</p>
+<pre><code class="lang-bash">docker container create --name my-container-hello-world <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
+</code></pre>
+<p>Command di atas akan menjalankan sebuah proses yang isinya kurang lebih berikut:</p>
+<ol>
+<li>Buat container baru dengan nama <code>my-container-hello-world</code>.</li>
+<li>Flag <code>--name</code> digunakan untuk menentukan nama container.</li>
+<li>Sewaktu pembuatan container, <em>env var</em> <code>PORT</code> di-set dengan nilai adalah <code>8080</code>.</li>
+<li><em>env var</em> <code>INSTANCE_ID</code> juga di set di-set, nilai adalah teks <code>my first instance</code>.</li>
+<li>Flag <code>-e</code> digunakan untuk menge-<em>set</em> <em>env var</em>. Flag ini bisa dituliskan banyak kali sesuai kebutuhan.</li>
+<li>Kemudian port <code>8080</code> yang ada di luar network docker (yaitu di host/laptop/komputer kita) di map ke port <code>8080</code> yang ada di dalam container.</li>
+<li>Flag <code>-p</code> digunakan untuk mapping port antara host dan container. Bagian ini biasa disebut dengan <em>expose port</em>.</li>
+<li>Proses pembuatan container dilakukan dengan Image <code>my-image-hello-world</code> digunakan sebagai basis image.</li>
+</ol>
+<p>Semoga cukup jelas penjabaran di atas. Setelah container berhasil dibuat, cek menggunakan <em>command</em> <code>docker container ls -a</code> untuk menampilkan list semua container baik yang sedang running maupun tidak.</p>
+<p><img src="images/C_dockerize_golang_3_create_container.png" alt="Dasar Pemrograman Golang - Create Container"></p>
+<h4 id="&#x25C9;-start-container">&#x25C9; Start Container</h4>
+<p>Ok, sekarang container juga sudah dibuat, lanjut untuk <em>start</em> container tersebut, caranya menggunakan command <code>docker container start</code>. Jika sudah, coba cek di browser aplikasi web hello world, harusnya sudah bisa diakses.</p>
+<pre><code class="lang-bash">docker container start my-container-hello-world
+docker container ls
+</code></pre>
+<p><img src="images/C_dockerize_golang_4_start_container.png" alt="Dasar Pemrograman Golang - Start Container"></p>
+<p>Bisa dilihat, sekarang aplikasi web hello world sudah bisa diakses dari host/komputer yang aplikasi tersebut running dalam container docker.</p>
+<p>Jika mengalami error saat start container, bisa jadi karena port <code>8080</code> sudak dialokasikan untuk proses lain. Solusi untuk kasus ini adalah <em>kill</em> saja proses yang menggunakan port tersebut, atau <em>rebuild image</em> dan <em>create container</em> ulang tapi menggunakan port lainnya, selain <code>8080</code>.</p>
+<p>O iya, pada image di atas juga bisa dilihat penggunaan <em>command</em> <code>docker container ls</code> untuk memunculkan list container yang sedand <em>running</em> atau aktif. Untuk menampilkan semua container (aktif maupun non-aktif), cukup dengan menambahkan flag <code>-a</code> atau <code>--all</code>.</p>
+<h4 id="&#x25C9;-stop-container">&#x25C9; Stop Container</h4>
+<p>Untuk stop container bisa dengan <em>command</em> <code>docker container stop &lt;nama-container-atau-container-id&gt;</code>.</p>
+<pre><code class="lang-bash">docker container stop my-container-hello-world
+docker container ls
+</code></pre>
+<h4 id="&#x25C9;-hapus-container">&#x25C9; Hapus Container</h4>
+<p>Untuk hapus container bisa dengan <em>command</em> <code>docker container rm &lt;nama-container-atau-container-id&gt;</code>.</p>
+<pre><code class="lang-bash">docker container rm my-container-hello-world
+docker container ls
+</code></pre>
+<h4 id="&#x25C9;-hapus-image">&#x25C9; Hapus Image</h4>
+<p>Untuk hapus image bisa dengan <em>command</em> <code>docker image rm &lt;nama-image-atau-image-id&gt;</code>. O iya, untuk penghapusan image, harus dipastikan terlebih dahulu tidak ada container yang running menggunakan basis image yang ingin dihapus.</p>
+<pre><code class="lang-bash">docker image rm my-image-hello-world
+docker images
+</code></pre>
+<h2 id="c357-run-container">C.35.7. Run Container</h2>
+<p>Untuk run container sebenarnya ada dua cara ya, yang pertama seperti contoh di atas dengan membuat container nya terlebih dahulu menggunakan <em>command</em> <code>docker container create</code> kemudian di start menggunakan <em>command</em> <code>docker container start</code>.</p>
+<p>Atau bisa juga menggunakan <em>command</em> <code>docker run</code>. <em>Command</em> ini akan membuat container baru kemudian otomatis menjalankannya. Tapi saya sampaikan bahwa lewat cara ini tidak ada pengecekan apakah container sudah dibuat atau tidak sebelumnya, pasti akan dibuat container baru.</p>
+<p>Mungkin perbandingannya seperti ini:</p>
+<h4 id="&#x25C9;-jalankan-container-lewat-create-lalu-start">&#x25C9; Jalankan container lewat <code>create</code> lalu <code>start</code></h4>
+<pre><code class="lang-bash">docker container create --name my-container-hello-world <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
+docker container start my-container-hello-world
+</code></pre>
+<h4 id="&#x25C9;-jalankan-container-lewat-run">&#x25C9; Jalankan container lewat <code>run</code></h4>
+<pre><code class="lang-bash">docker container run --name my-container-hello-world <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
+</code></pre>
+<p>Bisa dilihat bukan bedanya, hanya sedikit.</p>
+<p>O iya, khusus untuk <em>command</em> <code>docker run</code> biasanya dijalankan dengan tambahan beberapa flag agar lebih mudah kontrol-nya, yaitu ditambahkan flag <code>--rm</code> dan <code>-it</code>.</p>
+<pre><code class="lang-bash">docker container run --name my-container-hello-world --rm -it <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
+</code></pre>
+<h4 id="&#x25C9;-flag---rm">&#x25C9; Flag <code>--rm</code></h4>
+<p>Flag ini digunakan untuk meng-automatisasi proses penghapusan container sewaktu container tersebut di stop. Jadi kita tidak perlu delete manual pakai <code>docker container rm</code>. Hal ini sangat membantu karena <em>command</em> <code>docker run</code> akan membuat container baru setiap dijalankan. Tapi sebenarnya pada contoh sebelumnya kita tidak perlu khawatir akan dibuat container baru karena sudah ada flag <code>--name</code>. Flag tersebut digunakan untuk menentukan nama container, yang mana nama container harus unik. Jadi kalau ada duplikasi pasti langsung error. Nah dari sini berarti kalau pembaca tidak pakai <code>--name</code> sangat dianjurkan paka <code>--rm</code> dalam penerapan <code>docker run</code>.</p>
+<h4 id="&#x25C9;-flag--it">&#x25C9; Flag <code>-it</code></h4>
+<p>Flag ini merupakan flag gabungan antara <code>-i</code> yang digunakan untuk meng-enable <em>interactive mode</em> dan <code>-t</code> untuk <em>enable</em> <code>TTY</code>. Dengan ini kita bisa masuk ke mode interaktif yang mana jika kita terminate atau kill command menggunakan <code>CTRL + C</code> atau <code>CMD + C</code> (untuk mac), maka otomatis container akan di stop.</p>
+<p>Nah dengan menggabungkan flag <code>--rm</code> dan flag <code>-it</code> kita bisa dengan mudah stop kemudian hapus container.</p>
+<p>Selain itu ada juga flag yang mungkin penting yaitu <code>-d</code> atau dettach. Flag ini bisa digabung dengan <code>-it</code>. Dettach adalah mode di mana ketika command <code>docker run</code> dijalankan, command akan langsung selesai. Dari sini untuk stop container berarti harus menggunakan command <code>docker stop</code>. Contoh:</p>
+<pre><code class="lang-bash">docker container run --name my-container-hello-world --rm -itd <span class="hljs-_">-e</span> PORT=8080 <span class="hljs-_">-e</span> INSTANCE_ID=<span class="hljs-string">&quot;my first instance&quot;</span> -p 8080:8080 my-image-hello-world
+docker container stop my-container-hello-world
+</code></pre>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.35-dockerize-golang" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2293,12 @@
 
             
                 
+                <a href="C-golang-sso-saml-sp.html" class="navigation navigation-prev " aria-label="Previous page: C.34. SSO SAML (Service Provider)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-golang-redis.html" class="navigation navigation-next " aria-label="Next page: C.36. Redis">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2309,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.35. Dockerize Aplikasi Golang","level":"5.1.35","depth":2,"next":{"title":"C.36. Redis","level":"5.1.36","depth":2,"path":"C-golang-redis.md","ref":"C-golang-redis.md","articles":[]},"previous":{"title":"C.34. SSO SAML (Service Provider)","level":"5.1.34","depth":2,"path":"C-golang-sso-saml-sp.md","ref":"C-golang-sso-saml-sp.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-dockerize-golang.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang SQL - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-mongodb.html">
     
+    
+    <link rel="prev" href="A-client-http-request-simple.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -985,7 +987,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.56" data-path="A-sql.html">
+        <li class="chapter active" data-level="3.1.56" data-path="A-sql.html">
             
                 <a href="A-sql.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.56. SQL</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,273 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="a56-sql">A.56. SQL</h1>
+<p>Go menyediakan package <code>database/sql</code> berisikan generic interface untuk keperluan interaksi dengan database sql. Package ini mewajibkan pengguna untuk juga menggunakan <strong>driver</strong> database engine yang dipilih.</p>
+<p>Ada cukup banyak sql driver yang tersedia untuk Go, detailnya bisa diakses di <a href="https://go.dev/wiki/SQLDrivers" target="_blank">https://go.dev/wiki/SQLDrivers</a>. Beberapa di antaranya:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>MySQL / MariaDB</li>
+<li>Oracle</li>
+<li>MS SQL Server</li>
+<li>Postgres</li>
+<li>dan lainnya</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Driver-driver tersebut merupakan project open source yang diinisiasi oleh komunitas di Github. Kita yang juga seorang developer juga bisa ikut berkontribusi di sana.</p>
+<p>Pada chapter ini kita akan belajar bagaimana membuat Go bisa berkomunikasi dengan database MySQL menggunakan driver <a href="https://github.com/go-sql-driver/mysql" target="_blank">Go MySQL Driver</a>.</p>
+<h2 id="a561-instalasi-driver">A.56.1. Instalasi Driver</h2>
+<p>Unduh driver mysql menggunakan <code>go get</code>.</p>
+<pre><code>cd &lt;folder-project&gt;
+go get github.com/go-sql-driver/mysql
+</code></pre><p><img src="images/A_sql_1_go_get_driver.png" alt="Dasar Pemrograman Golang - Download mysql driver"></p>
+<h2 id="a562-setup-database">A.56.2. Setup Database</h2>
+<p>Sebelumnya mulai, pastikan sudah ada <a href="https://dev.mysql.com/downloads/mysql/" target="_blank">mysql server</a> yang terinstal dan jalan di lokal environment pembaca.</p>
+<p>Jika database server sudah siap, buat database baru bernama <code>db_belajar_golang</code>, dan tabel baru bernama <code>tb_student</code>.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> <span class="hljs-string">`tb_student`</span> (
+  <span class="hljs-string">`id`</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">5</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  <span class="hljs-string">`name`</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  <span class="hljs-string">`age`</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  <span class="hljs-string">`grade`</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+) <span class="hljs-keyword">ENGINE</span>=<span class="hljs-keyword">InnoDB</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">CHARSET</span>=latin1;
+
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> <span class="hljs-string">`tb_student`</span> (<span class="hljs-string">`id`</span>, <span class="hljs-string">`name`</span>, <span class="hljs-string">`age`</span>, <span class="hljs-string">`grade`</span>) <span class="hljs-keyword">VALUES</span>
+(<span class="hljs-string">&apos;B001&apos;</span>, <span class="hljs-string">&apos;Jason Bourne&apos;</span>, <span class="hljs-number">29</span>, <span class="hljs-number">1</span>),
+(<span class="hljs-string">&apos;B002&apos;</span>, <span class="hljs-string">&apos;James Bond&apos;</span>, <span class="hljs-number">27</span>, <span class="hljs-number">1</span>),
+(<span class="hljs-string">&apos;E001&apos;</span>, <span class="hljs-string">&apos;Ethan Hunt&apos;</span>, <span class="hljs-number">27</span>, <span class="hljs-number">2</span>),
+(<span class="hljs-string">&apos;W001&apos;</span>, <span class="hljs-string">&apos;John Wick&apos;</span>, <span class="hljs-number">28</span>, <span class="hljs-number">2</span>);
+
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-string">`tb_student`</span> <span class="hljs-keyword">ADD</span> PRIMARY <span class="hljs-keyword">KEY</span> (<span class="hljs-string">`id`</span>);
+</code></pre>
+<h2 id="a563-membaca-data-dari-mysql-server">A.56.3. Membaca Data Dari MySQL Server</h2>
+<p>Import package yang dibutuhkan, lalu disiapkan struct dengan skema yang sama seperti pada tabel <code>tb_student</code> di database. Nantinya struct ini digunakan sebagai tipe data penampung hasil query.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;database/sql&quot;</span>
+<span class="hljs-keyword">import</span> _ <span class="hljs-string">&quot;github.com/go-sql-driver/mysql&quot;</span>
+
+<span class="hljs-keyword">type</span> student <span class="hljs-keyword">struct</span> {
+    id    <span class="hljs-keyword">string</span>
+    name  <span class="hljs-keyword">string</span>
+    age   <span class="hljs-keyword">int</span>
+    grade <span class="hljs-keyword">int</span>
+}
+</code></pre>
+<p>Driver database yang digunakan perlu di-import menggunakan tanda <code>_</code>, karena meskipun dibutuhkan oleh package <code>database/sql</code>, kita tidak langsung berinteraksi dengan driver tersebut.</p>
+<p>Selanjutnya buat fungsi untuk koneksi ke database.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> connect() (*sql.DB, error) {
+    db, err := sql.Open(<span class="hljs-string">&quot;mysql&quot;</span>, <span class="hljs-string">&quot;root:@tcp(127.0.0.1:3306)/db_belajar_golang&quot;</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+    }
+
+    <span class="hljs-keyword">return</span> db, <span class="hljs-literal">nil</span>
+}
+</code></pre>
+<p>Fungsi <code>sql.Open()</code> digunakan untuk memulai koneksi dengan database. Fungsi tersebut memiliki 2 parameter mandatory yang harus diisi, yaitu nama driver dan <strong>connection string</strong>.</p>
+<p>Skema connection string untuk driver mysql yang kita gunakan cukup unik, <code>root@tcp(127.0.0.1:3306)/db_belajar_golang</code>. Di bawah ini merupakan skema connection string yang bisa digunakan pada driver Go MySQL Driver. Jika anda menggunakan driver mysql lain, skema koneksinya bisa saja berbeda tergantung driver yang digunakan.</p>
+<pre><code>user:password@tcp(host:port)/dbname
+user@tcp(host:port)/dbname
+</code></pre><p>Di bawah ini adalah penjelasan mengenai connection string yang digunakan pada fungsi <code>connect()</code>.</p>
+<pre><code>root@tcp(127.0.0.1:3306)/db_belajar_golang
+// user     =&gt; root
+// password =&gt;
+// host     =&gt; 127.0.0.1 atau localhost
+// port     =&gt; 3306
+// dbname   =&gt; db_belajar_golang
+</code></pre><p>Setelah fungsi untuk konektivitas dengan database sudah dibuat, saatnya untuk mempraktekan proses pembacaan data dari server database. Siapkan fungsi <code>sqlQuery()</code> dengan isi adalah kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> sqlQuery() {
+    db, err := connect()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+    <span class="hljs-keyword">defer</span> db.Close()
+
+    <span class="hljs-keyword">var</span> age = <span class="hljs-number">27</span>
+    rows, err := db.Query(<span class="hljs-string">&quot;select id, name, grade from tb_student where age = ?&quot;</span>, age)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+    <span class="hljs-keyword">defer</span> rows.Close()
+
+    <span class="hljs-keyword">var</span> result []student
+
+    <span class="hljs-keyword">for</span> rows.Next() {
+        <span class="hljs-keyword">var</span> each = student{}
+        <span class="hljs-keyword">var</span> err = rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade)
+
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            fmt.Println(err.Error())
+            <span class="hljs-keyword">return</span>
+        }
+
+        result = <span class="hljs-built_in">append</span>(result, each)
+    }
+
+    <span class="hljs-keyword">if</span> err = rows.Err(); err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-keyword">for</span> _, each := <span class="hljs-keyword">range</span> result {
+        fmt.Println(each.name)
+    }
+}
+</code></pre>
+<p>Setiap kali terbuat koneksi baru, jangan lupa untuk selalu <strong>close</strong> instance koneksinya. Bisa menggunakan keyword <code>defer</code> seperti pada kode di atas, <code>defer db.Close()</code>.</p>
+<p>Fungsi <code>db.Query()</code> digunakan untuk eksekusi sql query. Fungsi tersebut memiliki parameter ke-2 berbentuk variadic, jadi boleh tidak diisi.</p>
+<p>Pada kode di atas bisa dilihat bahwa nilai salah satu clause <code>where</code> adalah tanda tanya (<code>?</code>). Tanda tersebut kemudian akan di-replace oleh nilai pada argument parameter setelahnya (nilai variabel <code>age</code>). Teknik penulisan query sejenis ini sangat dianjurkan, untuk mencegah optensi serangan <a href="https://en.wikipedia.org/wiki/SQL_injection" target="_blank">sql injection</a>.</p>
+<p>Fungsi tersebut menghasilkan instance bertipe <code>sql.*Rows</code>, yang juga perlu di <strong>close</strong> ketika sudah tidak digunakan (<code>defer rows.Close()</code>).</p>
+<p>Selanjutnya, sebuah array dengan tipe elemen struct <code>student</code> disiapkan dengan nama <code>result</code>. Nantinya hasil query akan ditampung ke variabel tersebut.</p>
+<p>Kemudian dilakukan perulangan dengan acuan kondisi adalah <code>rows.Next()</code>. Perulangan dengan cara ini dilakukan sebanyak jumlah total record yang ada, berurutan dari record pertama hingga akhir, satu per satu.</p>
+<p>Method <code>Scan()</code> milik <code>sql.Rows</code> berfungsi untuk mengambil nilai record yang sedang diiterasi, untuk disimpan pada variabel pointer. Variabel yang digunakan untuk menyimpan field-field record dituliskan berurutan sebagai parameter variadic, sesuai dengan field yang di select pada query. Silakan lihat perbandingan di bawah ini unuk lebih jelasnya.</p>
+<pre><code>// query
+select id, name, grade ...
+
+// scan
+rows.Scan(&amp;each.id, &amp;each.name, &amp;each.grade ...
+</code></pre><p>Data record yang didapat kemudian di-append ke slice <code>result</code>, lewat statement <code>result = append(result, each)</code>.</p>
+<p>OK, sekarang tinggal panggil fungsi <code>sqlQuery()</code> di <code>main</code>, lalu jalankan program.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    sqlQuery()
+}
+</code></pre>
+<p>Output program:</p>
+<p><img src="images/A_sql_2_sql_query.png" alt="Dasar Pemrograman Golang - Membaca data dari database server"></p>
+<h2 id="a564-membaca-1-record-data-menggunakan-method-queryrow">A.56.4. Membaca 1 Record Data Menggunakan Method <code>QueryRow()</code></h2>
+<p>Untuk query yang menghasilkan 1 baris record saja, bisa gunakan method <code>QueryRow()</code>. Penggunaannya membuat kode menjadi lebih ringkas. Chain dengan method <code>Scan()</code> untuk mendapatkan value yang dicari sesuai query.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> sqlQueryRow() {
+    <span class="hljs-keyword">var</span> db, err = connect()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+    <span class="hljs-keyword">defer</span> db.Close()
+
+    <span class="hljs-keyword">var</span> result = student{}
+    <span class="hljs-keyword">var</span> id = <span class="hljs-string">&quot;E001&quot;</span>
+    err = db.
+        QueryRow(<span class="hljs-string">&quot;select name, grade from tb_student where id = ?&quot;</span>, id).
+        Scan(&amp;result.name, &amp;result.grade)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+
+    fmt.Printf(<span class="hljs-string">&quot;name: %s\ngrade: %d\n&quot;</span>, result.name, result.grade)
+}
+
+<span class="hljs-keyword">func</span> main() {
+    sqlQueryRow()
+}
+</code></pre>
+<p>Di kode di atas bisa dilihat statement chain method ditulis multi-baris. Hal seperti ini diperbolehkan dengan catatan tanda titik untuk pengaksesan method berikutnya harus selalu di tuliskan di akhir baris.</p>
+<pre><code class="lang-go">err = db.
+    QueryRow(<span class="hljs-string">&quot;select name, grade from tb_student where id = ?&quot;</span>, id).
+    Scan(&amp;result.name, &amp;result.grade)
+</code></pre>
+<p>Sekarang jalankan program. Outputnya akan muncul data record sesuai id.</p>
+<p><img src="images/A_sql_3_sql_query_row.png" alt="Dasar Pemrograman Golang - Penggunaan `QueryRow()`"></p>
+<h2 id="a565-eksekusi-query-menggunakan-prepare">A.56.5. Eksekusi Query Menggunakan <code>Prepare()</code></h2>
+<p>Teknik <strong>prepared statement</strong> adalah teknik penulisan query di awal dengan kelebihan bisa di re-use atau digunakan banyak kali untuk eksekusi yang berbeda-beda.</p>
+<p>Metode ini bisa digabung dengan <code>Query()</code> maupun <code>QueryRow()</code>. Berikut merupakan contoh penerapannya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> sqlPrepare() {
+    db, err := connect()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+    <span class="hljs-keyword">defer</span> db.Close()
+
+    stmt, err := db.Prepare(<span class="hljs-string">&quot;select name, grade from tb_student where id = ?&quot;</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-keyword">var</span> result1 = student{}
+    stmt.QueryRow(<span class="hljs-string">&quot;E001&quot;</span>).Scan(&amp;result1.name, &amp;result1.grade)
+    fmt.Printf(<span class="hljs-string">&quot;name: %s\ngrade: %d\n&quot;</span>, result1.name, result1.grade)
+
+    <span class="hljs-keyword">var</span> result2 = student{}
+    stmt.QueryRow(<span class="hljs-string">&quot;W001&quot;</span>).Scan(&amp;result2.name, &amp;result2.grade)
+    fmt.Printf(<span class="hljs-string">&quot;name: %s\ngrade: %d\n&quot;</span>, result2.name, result2.grade)
+
+    <span class="hljs-keyword">var</span> result3 = student{}
+    stmt.QueryRow(<span class="hljs-string">&quot;B001&quot;</span>).Scan(&amp;result3.name, &amp;result3.grade)
+    fmt.Printf(<span class="hljs-string">&quot;name: %s\ngrade: %d\n&quot;</span>, result3.name, result3.grade)
+}
+
+<span class="hljs-keyword">func</span> main() {
+    sqlPrepare()
+}
+</code></pre>
+<p>Method <code>Prepare()</code> digunakan untuk deklarasi query, yang mengembalikan objek bertipe <code>sql.*Stmt</code>. Dari objek tersebut, dipanggil method <code>QueryRow()</code> beberapa kali dengan isi value untuk <code>id</code> berbeda-beda untuk tiap pemanggilannya.</p>
+<p><img src="images/A_sql_4_prepared_statement.png" alt="Dasar Pemrograman Golang - Prepared statement"></p>
+<h2 id="a566-insert-update--delete-data-menggunakan-exec">A.56.6. Insert, Update, &amp; Delete Data Menggunakan <code>Exec()</code></h2>
+<p>Untuk operasi <strong>insert</strong>, <strong>update</strong>, dan <strong>delete</strong>; dianjurkan untuk tidak menggunakan fungsi <code>sql.Query()</code> ataupun <code>sql.QueryRow()</code> untuk eksekusinya. Gunakan fungsi <code>Exec()</code>, contoh penerapannya bisa dilihat di bawah ini:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> sqlExec() {
+    db, err := connect()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+    <span class="hljs-keyword">defer</span> db.Close()
+
+    _, err = db.Exec(<span class="hljs-string">&quot;insert into tb_student values (?, ?, ?, ?)&quot;</span>, <span class="hljs-string">&quot;G001&quot;</span>, <span class="hljs-string">&quot;Galahad&quot;</span>, <span class="hljs-number">29</span>, <span class="hljs-number">2</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+    fmt.Println(<span class="hljs-string">&quot;insert success!&quot;</span>)
+
+    _, err = db.Exec(<span class="hljs-string">&quot;update tb_student set age = ? where id = ?&quot;</span>, <span class="hljs-number">28</span>, <span class="hljs-string">&quot;G001&quot;</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+    fmt.Println(<span class="hljs-string">&quot;update success!&quot;</span>)
+
+    _, err = db.Exec(<span class="hljs-string">&quot;delete from tb_student where id = ?&quot;</span>, <span class="hljs-string">&quot;G001&quot;</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+    fmt.Println(<span class="hljs-string">&quot;delete success!&quot;</span>)
+}
+
+<span class="hljs-keyword">func</span> main() {
+    sqlExec()
+}
+</code></pre>
+<p>Teknik prepared statement juga bisa digunakan pada metode ini. Berikut adalah perbandingan eksekusi <code>Exec()</code> menggunakan <code>Prepare()</code> dan cara biasa.</p>
+<pre><code class="lang-go"><span class="hljs-comment">// menggunakan metode prepared statement</span>
+stmt, err := db.Prepare(<span class="hljs-string">&quot;insert into tb_student values (?, ?, ?, ?)&quot;</span>)
+stmt.Exec(<span class="hljs-string">&quot;G001&quot;</span>, <span class="hljs-string">&quot;Galahad&quot;</span>, <span class="hljs-number">29</span>, <span class="hljs-number">2</span>)
+
+<span class="hljs-comment">// menggunakan metode biasa</span>
+_, err := db.Exec(<span class="hljs-string">&quot;insert into tb_student values (?, ?, ?, ?)&quot;</span>, <span class="hljs-string">&quot;G001&quot;</span>, <span class="hljs-string">&quot;Galahad&quot;</span>, <span class="hljs-number">29</span>, <span class="hljs-number">2</span>)
+</code></pre>
+<h2 id="a567-koneksi-dengan-engine-database-lain">A.56.7. Koneksi Dengan Engine Database Lain</h2>
+<p>Karena package <code>database/sql</code> merupakan interface generic, maka cara untuk koneksi ke engine database lain (semisal Oracle, Postgres, SQL Server) adalah sama dengan cara koneksi ke MySQL. Cukup dengan meng-import driver yang digunakan, lalu mengganti nama driver pada saat pembuatan koneksi baru.</p>
+<pre><code class="lang-go">sql.Open(driverName, connectionString)
+</code></pre>
+<p>Sebagai contoh saya menggunakan driver <a href="https://github.com/lib/pq" target="_blank">pq</a> untuk koneksi ke server Postgres, maka connection string-nya:</p>
+<pre><code class="lang-go">sql.Open(<span class="hljs-string">&quot;postgres&quot;</span>, <span class="hljs-string">&quot;user=postgres password=secret dbname=test sslmode=disable&quot;</span>)
+</code></pre>
+<p>Selengkapya mengenai driver yang tersedia di Go silakan lihat di <a href="https://go.dev/wiki/SQLDrivers" target="_blank">https://go.dev/wiki/SQLDrivers</a>.</p>
+<hr>
+<ul>
+<li><a href="https://github.com/go-sql-driver/mysql" target="_blank">Go MySQL Driver</a>, by Julien Schmidt, MPL-2.0 license</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.56-sql" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.56...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2352,12 @@
 
             
                 
+                <a href="A-client-http-request-simple.html" class="navigation navigation-prev " aria-label="Previous page: A.55. Simple Client HTTP Request">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-mongodb.html" class="navigation navigation-next " aria-label="Next page: A.57. NoSQL MongoDB">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2368,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.56. SQL","level":"3.1.56","depth":2,"next":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"path":"A-mongodb.md","ref":"A-mongodb.md","articles":[]},"previous":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"path":"A-client-http-request-simple.md","ref":"A-client-http-request-simple.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-sql.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

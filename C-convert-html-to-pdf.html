@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Convert HTML to PDF (go-wkhtmltopdf) - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-scraping-parsing-html.html">
     
+    
+    <link rel="prev" href="C-write-pdf-file.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1726,7 +1728,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.21" data-path="C-convert-html-to-pdf.html">
+        <li class="chapter active" data-level="5.1.21" data-path="C-convert-html-to-pdf.html">
             
                 <a href="C-convert-html-to-pdf.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.21. Convert HTML to PDF (go-wkhtmltopdf)</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,150 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c21-convert-html-to-pdf-go-wkhtmltopdf">C.21. Convert HTML to PDF (go-wkhtmltopdf)</h1>
+<p>Library gofpdf hanya bisa digunakan untuk pembuatan PDF. Biasanya dalam sebuah aplikasi, report berupa pdf diunduh dengan sumber data adalah halaman web report itu sendiri. Nah, pada chapter ini kita akan belajar cara konversi file HTML ke bentuk PDF menggunakan library golang <a href="https://github.com/wkhtmltopdf/wkhtmltopdf" target="_blank">wkhtmltopdf</a>.</p>
+<blockquote>
+<p>Sebenarnya di jaman ini, export HTML to PDF sudah bisa dilakukan di layer front end menggunakan cukup javascript saja. Apalagi jika menggunakan framework terkenal seperti Kendo UI, report yang dimunculkan menggunakan KendoGrid bisa dengan mudah di export ke excel maupun pdf.<br><br>Namun pada chapter ini akan tetap kita bahas cara tradisional ini, konversi HTML ke PDF pada back end (golang). Semoga berguna.</p>
+</blockquote>
+<h2 id="c211-konversi-file-html-ke-pdf">C.21.1. Konversi File HTML ke PDF</h2>
+<p>Buat file html bernama <code>input.html</code>, isi dengan apa saja, kalau bisa ada gambarnya juga. Contohnya seperti berikut.</p>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Testing<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Proin tempor ut ipsum et feugiat. Phasellus porttitor, 
+            felis et gravida aliquam, 
+            eros orci dignissim magna, at tristique elit massa at magna. 
+            Etiam et dignissim mi. Phasellus laoreet nulla non aliquam imperdiet. 
+            Aenean varius turpis at orci posuere, ut bibendum lorem porta. 
+            Maecenas ullamcorper posuere ante quis ultricies. Aliquam erat volutpat. 
+            Vestibulum ante ipsum primis in faucibus orci luctus et 
+            ultrices posuere cubilia Curae; 
+            Pellentesque eu tellus ante. Vivamus varius nisi non nulla imperdiet, 
+            vitae pellentesque nibh varius. Fusce diam magna, iaculis eget felis id, 
+            accumsan convallis elit. 
+            Phasellus in magna placerat, aliquet ante sed, luctus massa. 
+            Sed fringilla bibendum feugiat. Suspendisse tempus, purus sit amet 
+            accumsan consectetur, ipsum odio commodo nisi, 
+            vel dignissim massa mi ac turpis. Ut fringilla leo ut risus facilisis, 
+            nec malesuada nunc ornare. Nulla a dictum augue.
+        <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+        <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://i.stack.imgur.com/440u9.png&quot;</span>&gt;</span>
+
+        <span class="hljs-comment">&lt;!-- other code here --&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>File html di atas akan kita konversi menjadi sebuah file baru bertipe PDF. Konversi dilakukan menggunakan library wkhtmltopdf. Library ini sebenarnya adalah aplikasi CLI yang dibuat menggunakan bahasa <strong>C++</strong>. Untuk bisa menggunakannya kita harus mengunduh lalu meng-install-nya terlebih dahulu.</p>
+<p>Silakan unduh installer wkhtmltopdf di <a href="https://wkhtmltopdf.org/downloads.html" target="_blank">https://wkhtmltopdf.org/downloads.html</a>, pilih sesuai dengan sistem operasi yang digunakan.</p>
+<p>karena wkhtmltopdf merupakan sebuah aplikasi CLI, maka penggunaannya bisa lewat dua cara.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Cara ke-1: Menggunakan <code>exec.Command()</code> untuk mengeksekusi binary. Path file html target disisipkan sebagai argumen command. Silakan merujuk ke referensi pada chapter <a href="A-exec.html">A.49. Exec</a> untuk mempelajari cara penggunaan exec.</li>
+<li>Cara ke-2: Menggunakan golang wrapper <a href="github.com/SebastiaanKlippert/go-wkhtmltopdf">go-wkhtmltopdf</a>. Cara ini adalah yang kita pilih.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Secara teknis, go-wkhtmltopdf melakukan hal yang sama dengan cara pertama, yaitu mengeksekusi binary wkhtmltopdf menggunakan <code>exec.Command()</code>.</p>
+<p>Mari langsung kita praktekan, buat folder project baru. Siapkan file main. Isi dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;github.com/SebastiaanKlippert/go-wkhtmltopdf&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    pdfg, err := wkhtmltopdf.NewPDFGenerator()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err)
+    }
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Pembuatan objek PDF dilakukan lewat <code>wkhtmltopdf.NewPDFGenerator()</code>. Fungsi tersebut mengembalikan dua buah objek, objek dokumen dan error (jika ada).</p>
+<p>Satu objek dokumen merepresentasikan 1 buah file PDF.</p>
+<p>Kemudian tambahkan kode untuk membaca file <code>input.html</code>. Gunakan <code>os.Open</code>, agar file tidak langsung dibaca, melainkan dijadikan sebagai <code>io.Reader</code>. Masukan objek reader ke fungsi <code>wkhtmltopdf.NewPageReader()</code>, lalu sisipkan kembaliannya sebagai page baru di objek PDF.</p>
+<p>Kurang lebih kode-nya seperti berikut.</p>
+<pre><code class="lang-go">f, err := os.Open(<span class="hljs-string">&quot;./input.html&quot;</span>)
+<span class="hljs-keyword">if</span> f != <span class="hljs-literal">nil</span> {
+    <span class="hljs-keyword">defer</span> f.Close()
+}
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+
+pdfg.AddPage(wkhtmltopdf.NewPageReader(f))
+
+pdfg.Orientation.Set(wkhtmltopdf.OrientationPortrait)
+pdfg.Dpi.Set(<span class="hljs-number">300</span>)
+</code></pre>
+<p>Method <code>.AddPage()</code> milik objek PDF, digunakan untuk menambahkan halaman baru. Halaman baru sendiri dibuat lewat <code>wkhtmltopdf.NewPageReader()</code>. Jika ternyata konten pada halaman terlalu panjang untuk dijadikan 1 buah page, maka akan secara otomatis dibuatkan page selanjutnya menyesuaikan konten.</p>
+<p>Statement <code>pdfg.Orientation.Set()</code> digunakan untuk menentukan orientasi dokumen, apakah portrait atau landscape. Statement <code>pdfg.Dpi.Set()</code> digunakan untuk menge-set DPI dokumen.</p>
+<p>Gunakan API yang tersedia milik go-wkhtmltopdf sesuai kebutuhan. Silakan merujuk ke <a href="https://godoc.org/github.com/SebastiaanKlippert/go-wkhtmltopdf" target="_blank">https://godoc.org/github.com/SebastiaanKlippert/go-wkhtmltopdf</a> untuk melihat API apa saja yang tersedia.</p>
+<p>Untuk menyimpan objek dokumen menjadi file fisik PDF, ada beberapa step yang harus dilakukan. Pertama, buat dokumen dalam bentuk buffer menggunakan method <code>.Create()</code>.</p>
+<pre><code class="lang-go">err = pdfg.Create()
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+</code></pre>
+<p>Setelah itu, outputkan buffer tersebut sebagai file fisik menggunakan <code>.WriteFile()</code>. Sisipkan path destinasi file sebagai parameter method tersebut.</p>
+<pre><code class="lang-go">err = pdfg.WriteFile(<span class="hljs-string">&quot;./output.pdf&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+
+log.Println(<span class="hljs-string">&quot;Done&quot;</span>)
+</code></pre>
+<p>Test aplikasi yang sudah kita buat, lihat hasil generated PDF-nya.</p>
+<p><img src="images/C_convert_html_to_pdf_1_convert_html_to_pdf.png" alt="Dasar Pemrograman Golang - HTML to PDF"></p>
+<p>Bisa dilihat, dalam satu PDF dua page muncul, hal ini karena memang isi <code>input.html</code> terlalu panjang untuk dijadikan sebagai satu page.</p>
+<p>Cara yang kita telah pelajari ini cocok digunakan pada file html yang isinya sudah pasti pada saat file tersebut di-load.</p>
+<h2 id="c212-konversi-html-dari-url-menjadi-pdf">C.21.2. Konversi HTML dari URL Menjadi PDF</h2>
+<p>Bagaimana untuk HTML yang sumber nya bukan dari file fisik, melainkan dari URL? tetap bisa dilakukan. Caranya dengan mendaftarkan url sebagai objek page lewat <code>wkhtmltopdf.NewPage()</code>, lalu memasukannya ke dalam dokumen sebagai page. Contoh penerapannya bisa dilihat pada kode di bawah ini.</p>
+<pre><code class="lang-go">pdfg, err := wkhtmltopdf.NewPDFGenerator()
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+
+pdfg.Orientation.Set(wkhtmltopdf.OrientationLandscape)
+
+page := wkhtmltopdf.NewPage(<span class="hljs-string">&quot;http://localhost:9000&quot;</span>)
+page.FooterRight.Set(<span class="hljs-string">&quot;[page]&quot;</span>)
+page.FooterFontSize.Set(<span class="hljs-number">10</span>)
+pdfg.AddPage(page)
+
+err = pdfg.Create()
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+
+err = pdfg.WriteFile(<span class="hljs-string">&quot;./output.pdf&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+
+log.Println(<span class="hljs-string">&quot;Done&quot;</span>)
+</code></pre>
+<p>Cara ini cocok digunakan untuk konversi data HTML yang isinya muncul pada saat page load. Untuk konten-konten yang munculnya asynchronous, seperti di event <code>documen.onload</code> ada AJAX lalu setelahnya konten baru ditulis, tidak bisa menggunakan cara ini. Solusinya bisa menggunakan teknik export ke PDF dari sisi front end.</p>
+<hr>
+<ul>
+<li><a href="https://github.com/jung-kurt/gofpdf" target="_blank">gofpdf</a>, by Kurt Jung, MIT license</li>
+<li><a href="https://github.com/wkhtmltopdf/wkhtmltopdf" target="_blank">wkhtmltopdf</a>, by Ashish Kulkarni, LGPL-3.0 license</li>
+<li><a href="https://github.com/SebastiaanKlippert/go-wkhtmltopdf" target="_blank">go-wkhtmltopdf</a>, by Sebastiaan Klippert, MIT license</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.21-convert-html-to-pdf" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.21...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2229,12 @@
 
             
                 
+                <a href="C-write-pdf-file.html" class="navigation navigation-prev " aria-label="Previous page: C.20. Write PDF File (gofpdf)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-scraping-parsing-html.html" class="navigation navigation-next " aria-label="Next page: C.22. Scraping &amp; Parsing HTML (goquery)">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2245,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.21. Convert HTML to PDF (go-wkhtmltopdf)","level":"5.1.21","depth":2,"next":{"title":"C.22. Scraping & Parsing HTML (goquery)","level":"5.1.22","depth":2,"path":"C-scraping-parsing-html.md","ref":"C-scraping-parsing-html.md","articles":[]},"previous":{"title":"C.20. Write PDF File (gofpdf)","level":"5.1.20","depth":2,"path":"C-write-pdf-file.md","ref":"C-write-pdf-file.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-convert-html-to-pdf.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

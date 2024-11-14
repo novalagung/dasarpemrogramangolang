@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Secure Cookie (Gorilla Securecookie) - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-session.html">
     
+    
+    <link rel="prev" href="C-best-practice-configuration-env-var.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1609,7 +1611,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.12" data-path="C-securecookie.html">
+        <li class="chapter active" data-level="5.1.12" data-path="C-securecookie.html">
             
                 <a href="C-securecookie.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.12. Secure Cookie (Gorilla Securecookie)</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,135 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="c12-secure-cookie-gorilla-securecookie">C.12. Secure Cookie (Gorilla Securecookie)</h1>
+<p>Pada chapter <a href="B-cookie.html">B.21. HTTP Cookie</a>, kita telah mempelajari tentang cookie dan implementasinya di golang.</p>
+<p>Cookie memiliki beberapa atribut, di antaranya adalah <code>secure</code>. Dengan mengaktifkan atribut ini, informasi cookie menjadi lebih aman karena di-enkripsi, namun kapabilitas ini hanya akan aktif pada kondisi aplikasi SSL/TLS enabled.</p>
+<blockquote>
+<p>TL;DR; Jika atribut <code>secure</code> di-isi <code>true</code>, namun web server TIDAK menggunakan SSL/TLS, maka cookie disimpan seperti biasa tanpa di-enkripsi.</p>
+</blockquote>
+<p>Lalu bagaimana cara untuk membuat cookie aman pada aplikasi yang meng-enable SSL/TLS maupun yang tidak? caranya adalah dengan menambahkan step enkripsi data sebelum disimpan dalam cookie (dan men-decrypt data tersebut saat membaca).</p>
+<p>Gorilla toolkit menyediakan library bernama <a href="https://github.com/gorilla/securecookie" target="_blank">securecookie</a>, berguna untuk mempermudah enkripsi informasi cookie, dengan penerapan yang mudah. Pada chapter ini kita akan mempelajari penggunaannya.</p>
+<h2 id="c121-create--read-secure-cookie">C.12.1. Create &amp; Read Secure Cookie</h2>
+<p>Penggunaan securecookie cukup mudah, buat objek secure cookie lewat <code>securecookie.New()</code> lalu gunakan objek tersebut untuk operasi encode-decode data cookie. Pemanggilan fungsi <code>.New()</code> memerlukan 2 buah argument.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Hash key, diperlukan untuk otentikasi data cookie menggunakan algoritma kriptografi HMAC.</li>
+<li>Block key, adalah opsional, diperlukan untuk enkripsi data cookie. Default algoritma enkripsi yang digunakan adalah AES.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>OK, langsung saja kita praktekan. Buat folder project seperti biasa lalu isi <code>main.go</code> dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;github.com/gorilla/securecookie&quot;</span>
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    gubrak <span class="hljs-string">&quot;github.com/novalagung/gubrak/v2&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
+
+<span class="hljs-keyword">var</span> sc = securecookie.New([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;very-secret&quot;</span>), []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;a-lot-secret-yay&quot;</span>))
+</code></pre>
+<p>Variabel <code>sc</code> adalah objek secure cookie. Objek ini kita gunakan untuk encode data yang akan disimpan dalam cookie, dan juga untuk decode data.</p>
+<p>Buat fungsi <code>setCookie()</code>, bertugas untuk mempermudah pembuatan dan penyimpanan cookie.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> setCookie(c echo.Context, name <span class="hljs-keyword">string</span>, data M) error {
+    encoded, err := sc.Encode(name, data)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+
+    cookie := &amp;http.Cookie{
+        Name:     name,
+        Value:    encoded,
+        Path:     <span class="hljs-string">&quot;/&quot;</span>,
+        Secure:   <span class="hljs-literal">false</span>,
+        HttpOnly: <span class="hljs-literal">true</span>,
+        Expires:  time.Now().Add(<span class="hljs-number">1</span> * time.Hour),
+    }
+    http.SetCookie(c.Response(), cookie)
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+}
+</code></pre>
+<p>Method <code>sc.Encode()</code> digunakan untuk encoding data dengan identifier adalah isi variabel <code>name</code>. Variabel <code>encoded</code> menampung data setelah di-encode, lalu variabel ini dimasukan ke dalam objek cookie.</p>
+<p>Cara menyimpan cookie masih sama, menggunakan <code>http.SetCookie</code>.</p>
+<p>Selanjutnya buat fungsi <code>getCookie()</code>, untuk mempermudah proses pembacaan cookie yang tersimpan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> getCookie(c echo.Context, name <span class="hljs-keyword">string</span>) (M, error) {
+    cookie, err := c.Request().Cookie(name)
+    <span class="hljs-keyword">if</span> err == <span class="hljs-literal">nil</span> {
+
+        data := M{}
+        <span class="hljs-keyword">if</span> err = sc.Decode(name, cookie.Value, &amp;data); err == <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">return</span> data, <span class="hljs-literal">nil</span>
+        }
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+}
+</code></pre>
+<p>Setelah cookie diambil menggunakan <code>c.Request().Cookie()</code>, data di dalamnya perlu di-decode agar bisa terbaca. Method <code>sc.Decode()</code> digunakan untuk decoding data.</p>
+<p>OK, sekarang buat fungsi <code>main()</code>, lalu isi dengan kode di bawah ini.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">const</span> CookieName = <span class="hljs-string">&quot;data&quot;</span>
+
+e := echo.New()
+
+e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
+    data, err := getCookie(c, CookieName)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &amp;&amp; err != http.ErrNoCookie &amp;&amp; err != securecookie.ErrMacInvalid {
+        <span class="hljs-keyword">return</span> err
+    }
+
+    <span class="hljs-keyword">if</span> data == <span class="hljs-literal">nil</span> {
+        data = M{<span class="hljs-string">&quot;Message&quot;</span>: <span class="hljs-string">&quot;Hello&quot;</span>, <span class="hljs-string">&quot;ID&quot;</span>: gubrak.RandomString(<span class="hljs-number">32</span>)}
+
+        err = setCookie(c, CookieName, data)
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">return</span> err
+        }
+    }
+
+    <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, data)
+})
+
+e.Logger.Fatal(e.Start(<span class="hljs-string">&quot;:9000&quot;</span>))
+</code></pre>
+<p>Konstanta <code>CookieName</code> disiapkan, kita gunakan sebagai identifier cookie. Dan sebuah rute juga disiapkan dengan tugas menampilkan data cookie jika sudah ada, dan membuat cookie baru jika belum ada. </p>
+<p>Dalam handler rute, terdapat beberapa proses terjadi. Pertama, objek cookie dengan identifier <code>CookieName</code> diambil, jika muncul error, dan jenisnya adalah selain error karena cookie tidak ada, dan error-nya selain <em>invalid cookie</em>, maka kembalikan objek error tersebut.</p>
+<blockquote>
+<p><code>http.ErrNoCookie</code> adalah variabel penanda error karena cookie kosong, sedangkan <code>securecookie.ErrMacInvalid</code> adalah representasi dari invalid cookie.</p>
+</blockquote>
+<p>Lalu, kita cek data cookie yang dikembalikan, jika kosong (bisa karena cookie belum dibuat ataupun sudah ada tetapi datanya kosong) maka buat data baru untuk disimpan dalam cookie. Data tersebut bertipe <code>map</code>, salah satu elemen map tersebut ada yg value-nya adalah random.</p>
+<blockquote>
+<p>Pada kode di atas, generate random string dilakukan dengan memanfaatkan 3rd party library <a href="https://github.com/novalagung/gubrak" target="_blank">Gubrak v2</a>.</p>
+</blockquote>
+<p>Pengaksesan rute akan memunculkan data yang sama. Karena pembuatan cookie hanya dilakukan ketika datanya kosong atau cookie nya belum dibuat.</p>
+<p>Jalankan aplikasi untuk mengetes hasilnya. Lakukan refresh beberapa kali, data yang muncul pasti sama.</p>
+<p><img src="images/C_securecookie_1_securecookie.png" alt="Dasar Pemrograman Golang - Secure cookie test"></p>
+<p>Lihat pada response header url <code>index</code>, data pada cookie terlihat sudah dalam kondisi encoded dan encrypted.</p>
+<p><img src="images/C_securecookie_2_cookie_header.png" alt="Dasar Pemrograman Golang - Cookie header"></p>
+<h2 id="c122-delete-secure-cookie">C.12.2. Delete Secure Cookie</h2>
+<p>Securecookie perannya hanya pada bagian encode-decode data cookie, sedangkan proses simpan baca cookie masih sama seperti penerapan cookie biasa. Maka cara menghapus cookie pun masih sama, yaitu dengan meng-expired-kan cookie yang sudah disimpan.</p>
+<pre><code class="lang-go">cookie := &amp;http.Cookie{}
+cookie.Name = name
+cookie.Path = <span class="hljs-string">&quot;/&quot;</span>
+cookie.MaxAge = <span class="hljs-number">-1</span>
+cookie.Expires = time.Unix(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>)
+http.SetCookie(c.Response(), cookie)
+</code></pre>
+<hr>
+<ul>
+<li><a href="https://github.com/labstack/echo" target="_blank">Echo</a>, by Vishal Rana (Lab Stack), MIT license</li>
+<li><a href="https://github.com/gorilla/securecookie" target="_blank">Gorilla Securecookie</a>, by Gorilla web toolkit team, BSD-3-Clause license</li>
+<li><a href="https://github.com/novalagung/gubrak" target="_blank">Gubrak v2</a>, by Noval Agung, MIT license</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.12-securecookie" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.12...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2214,12 @@
 
             
                 
+                <a href="C-best-practice-configuration-env-var.html" class="navigation navigation-prev " aria-label="Previous page: C.11. Best Practice Configuration: Environment Variable">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-session.html" class="navigation navigation-next " aria-label="Next page: C.13. Session (Gorilla Session)">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2230,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.12. Secure Cookie (Gorilla Securecookie)","level":"5.1.12","depth":2,"next":{"title":"C.13. Session (Gorilla Session)","level":"5.1.13","depth":2,"path":"C-session.md","ref":"C-session.md","articles":[]},"previous":{"title":"C.11. Best Practice Configuration: Environment Variable","level":"5.1.11","depth":2,"path":"C-best-practice-configuration-env-var.md","ref":"C-best-practice-configuration-env-var.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-securecookie.md","mtime":"2024-11-14T19:27:53.076Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

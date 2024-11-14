@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang CLI Flag Parser (Kingpin) - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-advanced-configuration-viper.html">
     
+    
+    <link rel="prev" href="C-advanced-middleware-and-logging.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1570,7 +1572,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.9" data-path="C-flag-parser.html">
+        <li class="chapter active" data-level="5.1.9" data-path="C-flag-parser.html">
             
                 <a href="C-flag-parser.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.9. CLI Flag Parser (Kingpin)</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,276 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c9-cli-flag-parser-kingpin-v2">C.9. CLI Flag Parser (Kingpin v2)</h1>
+<p>Tidak jarang, sebuah aplikasi dalam eksekusinya membutuhkan argumen untuk disisipkan, entah itu mandatory atau tidak. Contohnya seperti berikut.</p>
+<pre><code class="lang-bash">$ ./main --port=3000
+</code></pre>
+<p>Pada chapter ini kita akan belajar cara parsing argumen eksekusi aplikasi. Parsing sebenarnya bisa dilakukan dengan cukup memainkan property <code>os.Args</code>, akan tetapi pada pembelajaran kali ini kita akan menggunakan 3rd party library <a href="https://github.com/alecthomas/kingpin" target="_blank">github.com/alecthomas/kingpin</a> untuk mempermudah pelaksanaannya.</p>
+<h2 id="c91-parsing-argument">C.9.1. Parsing Argument</h2>
+<p>Kita akan buat aplikasi yang bisa menerima bentuk argument seperti berikut.</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># $ ./main ArgAppName &lt;ArgPort&gt;</span>
+$ ./main <span class="hljs-string">&quot;My Application&quot;</span> 4000
+</code></pre>
+<p>Argument <code>ArgAppName</code> mandatory, harus diisi, sedangkan argument <code>ArgPort</code> adalah opsional (ada nilai default-nya).</p>
+<p>OK, mari kita praktekan. Buat folder project baru dengan isi satu buah main file. Siapkan dua buah property untuk menampung <code>appName</code> dan <code>port</code>, dan satu buah fungsi <code>main()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    <span class="hljs-string">&quot;gopkg.in/alecthomas/kingpin.v2&quot;</span>
+)
+
+<span class="hljs-keyword">var</span> (
+    argAppName = kingpin.Arg(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Application name&quot;</span>).Required().String()
+    argPort    = kingpin.Arg(<span class="hljs-string">&quot;port&quot;</span>, <span class="hljs-string">&quot;Web server port&quot;</span>).Default(<span class="hljs-string">&quot;9000&quot;</span>).Int()
+)
+
+<span class="hljs-keyword">func</span> main() {
+    kingpin.Parse()
+
+    <span class="hljs-comment">// more code here ...</span>
+}
+</code></pre>
+<p>Statement <code>kingpin.Arg()</code> digunakan untuk menyiapkan objek penampung argument. Tulis nama argument sebagai parameter pertama, dan deskripsi argument sebagai parameter kedua. 2 Informasi tersebut nantinya akan muncul ketika flag <code>--help</code> digunakan.</p>
+<p>Untuk aplikasi yang memerlukan banyak argument, deklarasi variabel penampungnya harus dituliskan berurutan. Seperti contoh di atas <code>argAppName</code> merupakan argument pertama, dan <code>argPort</code> adalah argument kedua.</p>
+<p>Chain statement <code>kingpin.Arg()</code> dengan beberapa method yang tersedia sesuai dengan kebutuhan. Berikut adalah penjelasan dari 4 method yang digunakan di atas.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Method <code>.Required()</code> membuat argument yang ditulis menjadi mandatory. Jika tidak disisipkan maka muncul error.</li>
+<li>Method <code>.String()</code> menandakan bahwa argument ditampung dalam tipe <code>string</code>.</li>
+<li>Method <code>.Default()</code> digunakan untuk menge-set default value dari argument. Method ini adalah kebalikan dari <code>.Required()</code>. Jika default value di-set maka argument boleh untuk tidak diisi. Objek penampung akan berisi default value.</li>
+<li>Method <code>.Int()</code> menandakan bahwa argument ditampung dalam tipe <code>int</code>.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Perlu diketahui, dalam pendefinisian argument, penulisan statement-nya harus diakhiri dengan pemanggilan method <code>.String()</code>, <code>.Int()</code>, <code>.Bool()</code>, atau method tipe lainnya yang di-support oleh kingpin. Lebih jelasnya silakan cek <a href="https://godoc.org/github.com/alecthomas/kingpin#ArgClause" target="_blank">laman dokumentasi</a>.</p>
+<p>Mari kita selesaikan aplikasi, silakan tulis kode berikut dalam fungsi <code>main()</code>.</p>
+<pre><code class="lang-go">appName := *argAppName
+port := fmt.Sprintf(<span class="hljs-string">&quot;:%d&quot;</span>, *argPort)
+
+fmt.Printf(<span class="hljs-string">&quot;Starting %s at %s&quot;</span>, appName, port)
+
+e := echo.New()
+e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) (err error) {
+  <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, <span class="hljs-literal">true</span>)
+})
+e.Logger.Fatal(e.Start(port))
+</code></pre>
+<p>Objek argument kingpin pasti bertipe pointer, maka <em>dereference</em> objek tersebut untuk mengambil nilai aslinya.</p>
+<p>Jalankan aplikasi, cek hasilnya.</p>
+<p><img src="images/C_flag_parser_1_arg.png" alt="Dasar Pemrograman Golang - Argument output"></p>
+<p>Bisa dilihat dari gambar di atas ketika flag <code>--help</code> dipanggil list semua argument muncul.</p>
+<h2 id="c92-penggunaan-kingpin-application-instance">C.9.2. Penggunaan Kingpin Application Instance</h2>
+<p>Dari yang sudah kita praktekan di atas, fungsi-fungsi diakses langsung dari package <code>kingpin</code>.</p>
+<pre><code class="lang-go">kingpin.Arg(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Application name&quot;</span>).Required().String()
+kingpin.Arg(<span class="hljs-string">&quot;port&quot;</span>, <span class="hljs-string">&quot;Web server port&quot;</span>).Default(<span class="hljs-string">&quot;9000&quot;</span>).Int()
+
+kingpin.Parse()
+</code></pre>
+<p>Kingpin menyediakan fasilitas untuk membuat <em>-what-so-called-</em> objek kingpin application. Lewat objek ini, semua fungsi yang biasa digunakan (seperti <code>.Arg()</code> atau <code>.Parse()</code>) bisa diakses sebagai method.</p>
+<p>Kelebihan menggunakan kingpin application, kita bisa buat custom handler untuk antisipasi error. Pada aplikasi yg sudah dibuat di atas, jika argument yang <em>required</em> tidak disisipkan dalam eksekusi binary, maka aplikasi langsung exit dan error muncul. Error sejenis ini bisa kita override jika menggunakan kingpin application.</p>
+<p>Berikut adalah contoh implementasinya.</p>
+<pre><code class="lang-go">app        = kingpin.New(<span class="hljs-string">&quot;App&quot;</span>, <span class="hljs-string">&quot;Simple app&quot;</span>)
+argAppName = app.Arg(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Application name&quot;</span>).Required().String()
+argPort    = app.Arg(<span class="hljs-string">&quot;port&quot;</span>, <span class="hljs-string">&quot;Web server port&quot;</span>).Default(<span class="hljs-string">&quot;9000&quot;</span>).Int()
+
+command, err := app.Parse(os.Args[<span class="hljs-number">1</span>:])
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+  <span class="hljs-comment">// handler error here ...</span>
+}
+</code></pre>
+<p>Statement <code>kingpin.Arg()</code> diganti dengan <code>app.Arg()</code>. Juga, <code>kingpin.Parse()</code> diganti dengan <code>app.Parse()</code>, dengan pemanggilannya harus disisipkan <code>os.Args[1:]</code>.</p>
+<p>Manfaatkan objek <code>err</code> kembalian <code>app.Parse()</code> untuk membuat custom error handling. Atau bisa tetap gunakan default custom error handling milik kingpin, caranya dengan membungkus statement <code>app.Parse()</code> ke dalam <code>kingpin.MustParse()</code>.</p>
+<pre><code class="lang-go">kingpin.MustParse(app.Parse(os.Args[<span class="hljs-number">1</span>:]))
+</code></pre>
+<h2 id="c93-parsing-flag">C.9.3. Parsing Flag</h2>
+<p>Flag adalah argument yang lebih terstruktur. Golang sebenarnya sudah menyediakan package <code>flag</code>, isinya API untuk parsing flag.</p>
+<ul>
+<li><p>Contoh argument:</p>
+<pre><code class="lang-bash">$ ./executable <span class="hljs-string">&quot;My application&quot;</span> 4000
+</code></pre>
+</li>
+<li><p>Contoh flag:</p>
+<pre><code class="lang-bash">$ ./executable --name=<span class="hljs-string">&quot;My application&quot;</span> --port=4000
+$ ./executable --name <span class="hljs-string">&quot;My application&quot;</span> --port 4000
+$ ./executable --name <span class="hljs-string">&quot;My application&quot;</span> -p 4000
+</code></pre>
+</li>
+</ul>
+<p>Kita tetap menggunakan kingpin pada bagian ini. Pembuatan flag di kingpin tidak sulit, cukup gunakan <code>.Flag()</code> (tidak menggunakan <code>.Arg()</code>). Contohnya seperti berikut.</p>
+<pre><code class="lang-go">app         = kingpin.New(<span class="hljs-string">&quot;App&quot;</span>, <span class="hljs-string">&quot;Simple app&quot;</span>)
+flagAppName = app.Flag(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Application name&quot;</span>).Required().String()
+flagPort    = app.Flag(<span class="hljs-string">&quot;port&quot;</span>, <span class="hljs-string">&quot;Web server port&quot;</span>).Short(<span class="hljs-string">&apos;p&apos;</span>).Default(<span class="hljs-string">&quot;9000&quot;</span>).Int()
+
+kingpin.MustParse(app.Parse(os.Args[<span class="hljs-number">1</span>:]))
+</code></pre>
+<p>Method <code>.Short()</code> digunakan untuk mendefinisikan short flag. Pada kode di atas, flag port bisa ditulis dalam bentuk <code>--port=value</code> ataupun <code>-p=value</code>.</p>
+<p>Penggunaan flag <code>--help</code> akan memunculkan keterangan mendetail tiap-tiap flag.</p>
+<blockquote>
+<p>Flag bisa dikombinasikan dengan argument.</p>
+</blockquote>
+<p><img src="images/C_flag_parser_2_flag.png" alt="Dasar Pemrograman Golang - Flag"></p>
+<h2 id="c94-parsing-command">C.9.4. Parsing Command</h2>
+<p>Command adalah bentuk yang lebih advance dari argument. Banyak command bisa dibuat, pendefinisian flag ataupun argument bisa dilakukan lebih spesifik, untuk masing-masing command.</p>
+<p>Di bagian ini kita akan buat sebuah aplikasi untuk simulasi manajemen user. Tiga buah command dipersiapkan dengan skema sebagai berikut.</p>
+<ul>
+<li>Command <code>add</code><ul>
+<li>Flag <code>--override</code></li>
+<li>Argument <code>user</code></li>
+</ul>
+</li>
+<li>Command <code>update</code><ul>
+<li>Argument <code>old user</code></li>
+<li>Argument <code>new user</code></li>
+</ul>
+</li>
+<li>Command <code>delete</code><ul>
+<li>Flag <code>--force</code></li>
+<li>Argument <code>user</code></li>
+</ul>
+</li>
+</ul>
+<p>Mari kita praktekan, buat satu folder project baru. Buat satu file main, isi dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+
+    <span class="hljs-string">&quot;gopkg.in/alecthomas/kingpin.v2&quot;</span>
+)
+
+<span class="hljs-keyword">var</span> app = kingpin.New(<span class="hljs-string">&quot;App&quot;</span>, <span class="hljs-string">&quot;Simple app&quot;</span>)
+</code></pre>
+<p>Method <code>.Command()</code> digunakan untuk membuat command. Pembuatan argument dan flag masing-masing command bisa dilakukan seperti biasanya, dengan mengakses method <code>.Arg()</code> atau <code>.Flag()</code>, hanya saja pengaksesannya lewat objek command masing-masing. Contoh:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> commandSomething = app.Command(<span class="hljs-string">&quot;something&quot;</span>, <span class="hljs-string">&quot;do something&quot;</span>)
+<span class="hljs-keyword">var</span> commandSomethingArgX = commandSomething.Flag(<span class="hljs-string">&quot;x&quot;</span>, <span class="hljs-string">&quot;arg x&quot;</span>).String()
+<span class="hljs-keyword">var</span> commandSomethingFlagY = commandSomething.Flag(<span class="hljs-string">&quot;y&quot;</span>, <span class="hljs-string">&quot;flag y&quot;</span>).String()
+</code></pre>
+<p>OK, sekarang buat 3 command sesuai skema yang sudah disepakati di atas.</p>
+<ul>
+<li><p>Command add, beserta flag dan argument-nya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> commandAdd = app.Command(<span class="hljs-string">&quot;add&quot;</span>, <span class="hljs-string">&quot;add new user&quot;</span>)
+<span class="hljs-keyword">var</span> commandAddFlagOverride = commandAdd.Flag(<span class="hljs-string">&quot;override&quot;</span>, <span class="hljs-string">&quot;override existing user&quot;</span>).
+   Short(<span class="hljs-string">&apos;o&apos;</span>).Bool()
+<span class="hljs-keyword">var</span> commandAddArgUser = commandAdd.Arg(<span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;username&quot;</span>).Required().String()
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>Command update, beserta argument-nya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> commandUpdate = app.Command(<span class="hljs-string">&quot;update&quot;</span>, <span class="hljs-string">&quot;update user&quot;</span>)
+<span class="hljs-keyword">var</span> commandUpdateArgOldUser = commandUpdate.Arg(<span class="hljs-string">&quot;old&quot;</span>, <span class="hljs-string">&quot;old username&quot;</span>).Required().
+  String()
+<span class="hljs-keyword">var</span> commandUpdateArgNewUser = commandUpdate.Arg(<span class="hljs-string">&quot;new&quot;</span>, <span class="hljs-string">&quot;new username&quot;</span>).Required().
+  String()
+</code></pre>
+</li>
+<li><p>Command delete, beserta flag dan argument-nya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> commandDelete          = app.Command(<span class="hljs-string">&quot;delete&quot;</span>, <span class="hljs-string">&quot;delete user&quot;</span>)
+<span class="hljs-keyword">var</span> commandDeleteFlagForce = commandDelete.Flag(<span class="hljs-string">&quot;force&quot;</span>, <span class="hljs-string">&quot;force deletion&quot;</span>).
+  Short(<span class="hljs-string">&apos;f&apos;</span>).Bool()
+<span class="hljs-keyword">var</span> commandDeleteArgUser   = commandDelete.Arg(<span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;username&quot;</span>).Required().
+  String()
+</code></pre>
+</li>
+</ul>
+<p>Buat fungsi main, lalu di dalamnya siapkan action untuk masing-masing command. Gunakan method <code>.Action()</code> dengan parameter adalah fungsi ber-skema <code>func(*kingpin.ParseContext)error</code> untuk menambahkan action.</p>
+<p>Di akhir, tulis statement untuk parsing.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    commandAdd.Action(<span class="hljs-keyword">func</span>(ctx *kingpin.ParseContext) error {
+         <span class="hljs-comment">// more code here ...</span>
+    })
+
+    commandUpdate.Action(<span class="hljs-keyword">func</span>(ctx *kingpin.ParseContext) error {
+         <span class="hljs-comment">// more code here ...</span>
+    })
+
+    commandDelete.Action(<span class="hljs-keyword">func</span>(ctx *kingpin.ParseContext) error {
+         <span class="hljs-comment">// more code here ...</span>
+    })
+
+    kingpin.MustParse(app.Parse(os.Args[<span class="hljs-number">1</span>:]))
+}
+</code></pre>
+<p>Berikut adalah isi masing-masing action dari ketiga command di atas.</p>
+<ul>
+<li><p>Action command <code>add</code>:</p>
+<pre><code class="lang-go">commandAdd.Action(<span class="hljs-keyword">func</span>(ctx *kingpin.ParseContext) error {
+   user := *commandAddArgUser
+   override := *commandAddFlagOverride
+   fmt.Printf(<span class="hljs-string">&quot;adding user %s, override %t \n&quot;</span>, user, override)
+
+   <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+})
+</code></pre>
+</li>
+<li><p>Action command <code>update</code>:</p>
+<pre><code class="lang-go">commandUpdate.Action(<span class="hljs-keyword">func</span>(ctx *kingpin.ParseContext) error {
+   oldUser := *commandUpdateArgOldUser
+   newUser := *commandUpdateArgNewUser
+   fmt.Printf(<span class="hljs-string">&quot;updating user from %s %s \n&quot;</span>, oldUser, newUser)
+
+   <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+})
+</code></pre>
+</li>
+<li><p>Action command <code>delete</code>:</p>
+<pre><code class="lang-go">commandDelete.Action(<span class="hljs-keyword">func</span>(ctx *kingpin.ParseContext) error {
+   user := *commandDeleteArgUser
+   force := *commandDeleteFlagForce
+   fmt.Printf(<span class="hljs-string">&quot;deleting user %s, force %t \n&quot;</span>, user, force)
+
+   <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+})
+</code></pre>
+</li>
+</ul>
+<p>Jalankan aplikasi untuk mengetes hasilnya.</p>
+<p>Tambahkan flag <code>--help</code> pada pemanggilan command untuk menampilkan help command terpilih.</p>
+<p><img src="images/C_flag_parser_3_command_help.png" alt="Dasar Pemrograman Golang - Command help"></p>
+<p>Atau gunakan <code>--help-long</code> dalam eksekusi binary, untuk menampilkan help yang mendetail (argument dan flag tiap command juga dimunculkan).</p>
+<p><img src="images/C_flag_parser_4_command_help_full.png" alt="Dasar Pemrograman Golang - Command help full"></p>
+<h2 id="c95-command-action-tanpa-menggunakan-action">C.9.5. Command Action Tanpa Menggunakan <code>.Action()</code></h2>
+<p>Nilai balik statement <code>kingpin.MustParse()</code>, <code>kingpin.Parse()</code>, dan nilai balik pertama <code>app.Parse()</code> adalah sama, yaitu informasi command yang ditulis pada saat pemanggilan binary.</p>
+<p>Dari informasi command tersebut, bisa kita kembangkan untuk membuat handler masing-masing command. Dengan ini tak perlu menggunakan method <code>.Action()</code> untuk menulis handler command. Contoh prakteknya seperti berikut.</p>
+<pre><code class="lang-go">commandInString := kingpin.MustParse(app.Parse(os.Args[<span class="hljs-number">1</span>:]))
+<span class="hljs-keyword">switch</span> commandInString {
+
+<span class="hljs-keyword">case</span> commandAdd.FullCommand(): <span class="hljs-comment">// add user</span>
+    user := *commandAddArgUser
+    override := *commandAddFlagOverride
+    fmt.Printf(<span class="hljs-string">&quot;adding user %s, override %t \n&quot;</span>, user, override)
+
+<span class="hljs-keyword">case</span> commandUpdate.FullCommand(): <span class="hljs-comment">// update user</span>
+    oldUser := *commandUpdateArgOldUser
+    newUser := *commandUpdateArgNewUser
+    fmt.Printf(<span class="hljs-string">&quot;updating user from %s %s \n&quot;</span>, oldUser, newUser)
+
+<span class="hljs-keyword">case</span> commandDelete.FullCommand(): <span class="hljs-comment">// delete user</span>
+    user := *commandDeleteArgUser
+    force := *commandDeleteFlagForce
+    fmt.Printf(<span class="hljs-string">&quot;deleting user %s, force %t \n&quot;</span>, user, force)
+
+}
+</code></pre>
+<h2 id="c96-advanced-command-line-application">C.9.6. Advanced Command Line Application</h2>
+<p>Pembahasan di atas fokus tentang bagaiamana cara parsing argument, flag, dan command yang disisipkan sewaktu eksekusi aplikasi. Aplikasi yang dieksekusi sendiri bisa berupa command-line-based ataupun web-based.</p>
+<p>Jika pembaca ingin membuat aplikasi command line, penggunaan kingpin cukup membantu dalam proses pengembangan, tapi akan lebih mudah lagi jika menggunakan 3rd party library <a href="https://github.com/spf13/cobra" target="_blank">Cobra</a>.</p>
+<p>Cobra merupakan library yang dirancang khusus untuk development aplikasi berbasis command line. Library ini dibuat oleh author yang juga membuat kingpin.</p>
+<hr>
+<ul>
+<li><a href="https://github.com/alecthomas/kingpin" target="_blank">Kingpin</a>, by Alec Thomas, MIT license</li>
+<li><a href="https://github.com/alecthomas/cobra" target="_blank">Cobra</a>, by Alec Thomas, MIT license</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.9-flag-parser" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.9...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2355,12 @@
 
             
                 
+                <a href="C-advanced-middleware-and-logging.html" class="navigation navigation-prev " aria-label="Previous page: C.8. Advanced Middleware &amp; Logging (Logrus, Echo Logger)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-advanced-configuration-viper.html" class="navigation navigation-next " aria-label="Next page: C.10. Advanced Configuration: Viper">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2371,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.9. CLI Flag Parser (Kingpin)","level":"5.1.9","depth":2,"next":{"title":"C.10. Advanced Configuration: Viper","level":"5.1.10","depth":2,"path":"C-advanced-configuration-viper.md","ref":"C-advanced-configuration-viper.md","articles":[]},"previous":{"title":"C.8. Advanced Middleware & Logging (Logrus, Echo Logger)","level":"5.1.8","depth":2,"path":"C-advanced-middleware-and-logging.md","ref":"C-advanced-middleware-and-logging.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-flag-parser.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

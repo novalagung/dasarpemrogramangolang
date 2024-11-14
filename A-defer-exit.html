@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Defer &amp; Exit - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-error-panic-recover.html">
     
+    
+    <link rel="prev" href="A-channel-timeout.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -725,7 +727,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.36" data-path="A-defer-exit.html">
+        <li class="chapter active" data-level="3.1.36" data-path="A-defer-exit.html">
             
                 <a href="A-defer-exit.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.36. Defer &amp; Exit</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,104 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a36-defer--exit">A.36. Defer &amp; Exit</h1>
+<p><strong>Defer</strong> digunakan untuk mengakhirkan eksekusi sebuah statement tepat sebelum blok fungsi selesai. Sedangkan <strong>Exit</strong> digunakan untuk menghentikan program secara paksa (ingat, menghentikan program, tidak seperti <code>return</code> yang hanya menghentikan blok kode).</p>
+<h2 id="a361-penerapan-keyword-defer">A.36.1. Penerapan keyword <code>defer</code></h2>
+<p>Seperti yang sudah dijelaskan singkat di atas, bahwa defer digunakan untuk mengakhirkan eksekusi baris kode <strong>dalam skope blok fungsi</strong>. Ketika eksekusi blok sudah hampir selesai, statement yang di-defer dijalankan.</p>
+<p>Defer bisa ditempatkan di mana saja, awal maupun akhir blok. Tetapi tidak mempengaruhi kapan waktu dieksekusinya, akan selalu dieksekusi di akhir.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">defer</span> fmt.Println(<span class="hljs-string">&quot;halo&quot;</span>)
+    fmt.Println(<span class="hljs-string">&quot;selamat datang&quot;</span>)
+}
+</code></pre>
+<p>Output program:</p>
+<p><img src="images/A_defer_exit_1_defer.png" alt="Dasar Pemrograman Golang - Penerapan `defer`"></p>
+<p>Keyword <code>defer</code> di atas akan mengakhirkan ekseusi <code>fmt.Println(&quot;halo&quot;)</code>, efeknya pesan <code>&quot;halo&quot;</code> akan muncul setelah <code>&quot;selamat datang&quot;</code>.</p>
+<p>Statement yang di-defer akan tetap muncul meskipun blok kode diberhentikan ditengah jalan menggunakan <code>return</code>. Contohnya seperti pada kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    orderSomeFood(<span class="hljs-string">&quot;pizza&quot;</span>)
+    orderSomeFood(<span class="hljs-string">&quot;burger&quot;</span>)
+}
+
+<span class="hljs-keyword">func</span> orderSomeFood(menu <span class="hljs-keyword">string</span>) {
+    <span class="hljs-keyword">defer</span> fmt.Println(<span class="hljs-string">&quot;Terimakasih, silakan tunggu&quot;</span>)
+    <span class="hljs-keyword">if</span> menu == <span class="hljs-string">&quot;pizza&quot;</span> {
+        fmt.Print(<span class="hljs-string">&quot;Pilihan tepat!&quot;</span>, <span class="hljs-string">&quot; &quot;</span>)
+        fmt.Print(<span class="hljs-string">&quot;Pizza ditempat kami paling enak!&quot;</span>, <span class="hljs-string">&quot;\n&quot;</span>)
+        <span class="hljs-keyword">return</span>
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;Pesanan anda:&quot;</span>, menu)
+}
+</code></pre>
+<p>Output program:</p>
+<p><img src="images/A_defer_exit_2_defer_return.png" alt="Dasar Pemrograman Golang - Penerapan `defer` dengan `return`"></p>
+<p>Info tambahan, ketika ada banyak statement yang di-defer, maka seluruhnya akan dieksekusi di akhir secara berurutan.</p>
+<h2 id="a362-kombinasi-defer-dan-iife">A.36.2. Kombinasi <code>defer</code> dan IIFE</h2>
+<p>Penulis ingatkan lagi bahwa eksekusi defer adalah di akhir blok fungsi, bukan blok lainnya seperti blok seleksi kondisi.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    number := <span class="hljs-number">3</span>
+
+    <span class="hljs-keyword">if</span> number == <span class="hljs-number">3</span> {
+        fmt.Println(<span class="hljs-string">&quot;halo 1&quot;</span>)
+        <span class="hljs-keyword">defer</span> fmt.Println(<span class="hljs-string">&quot;halo 3&quot;</span>)
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;halo 2&quot;</span>)
+}
+</code></pre>
+<p>Output program:</p>
+<pre><code>halo 1
+halo 2
+halo 3
+</code></pre><p>Pada contoh di atas <code>halo 3</code> akan tetap di print setelah <code>halo 2</code> meskipun statement defer dipergunakan dalam blok seleksi kondisi <code>if</code>. Hal ini karena defer eksekusinya terjadi pada akhir blok fungsi (dalam contoh di atas <code>main()</code>), bukan pada akhir blok <code>if</code>.</p>
+<p>Agar <code>halo 3</code> bisa dimunculkan di akhir blok <code>if</code>, maka harus dibungkus dengan IIFE. Contoh:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    number := <span class="hljs-number">3</span>
+
+    <span class="hljs-keyword">if</span> number == <span class="hljs-number">3</span> {
+        fmt.Println(<span class="hljs-string">&quot;halo 1&quot;</span>)
+        <span class="hljs-keyword">func</span>() {
+            <span class="hljs-keyword">defer</span> fmt.Println(<span class="hljs-string">&quot;halo 3&quot;</span>)
+        }()
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;halo 2&quot;</span>)
+}
+</code></pre>
+<p>Output program:</p>
+<pre><code>halo 1
+halo 3
+halo 2
+</code></pre><p>Bisa dilihat <code>halo 3</code> muncul sebelum <code>halo 2</code>, karena dalam blok seleksi kondisi <code>if</code> eksekusi defer terjadi dalam blok fungsi anonymous (IIFE).</p>
+<h2 id="a363-penerapan-fungsi-osexit">A.36.3. Penerapan Fungsi <code>os.Exit()</code></h2>
+<p>Exit digunakan untuk menghentikan program secara paksa pada saat itu juga. Semua statement setelah exit tidak akan dieksekusi, termasuk juga defer.</p>
+<p>Fungsi <code>os.Exit()</code> berada dalam package <code>os</code>. Fungsi ini memiliki sebuah parameter bertipe numerik yang wajib diisi. Angka yang dimasukkan akan muncul sebagai <strong>exit status</strong> ketika program berhenti.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;os&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">defer</span> fmt.Println(<span class="hljs-string">&quot;halo&quot;</span>)
+    os.Exit(<span class="hljs-number">1</span>)
+    fmt.Println(<span class="hljs-string">&quot;selamat datang&quot;</span>)
+}
+</code></pre>
+<p>Meskipun <code>defer fmt.Println(&quot;halo&quot;)</code> ditempatkan sebelum <code>os.Exit()</code>, statement tersebut tidak akan dieksekusi, karena di-tengah fungsi program dihentikan secara paksa.</p>
+<p><img src="images/A_defer_exit_3_exit.png" alt="Dasar Pemrograman Golang - Penerapan `exit`"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.36-defer-exit" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.36...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2183,12 @@
 
             
                 
+                <a href="A-channel-timeout.html" class="navigation navigation-prev " aria-label="Previous page: A.35. Channel - Timeout">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-error-panic-recover.html" class="navigation navigation-next " aria-label="Next page: A.37. Error, Panic, &amp; Recover">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2199,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.36. Defer & Exit","level":"3.1.36","depth":2,"next":{"title":"A.37. Error, Panic, & Recover","level":"3.1.37","depth":2,"path":"A-error-panic-recover.md","ref":"A-error-panic-recover.md","articles":[]},"previous":{"title":"A.35. Channel - Timeout","level":"3.1.35","depth":2,"path":"A-channel-timeout.md","ref":"A-channel-timeout.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-defer-exit.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

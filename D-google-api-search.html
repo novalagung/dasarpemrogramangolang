@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Google API Search Dengan Timeout - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="D-golang-web-socket-chatting-app.html">
     
+    
+    <link rel="prev" href="D-insert-1mil-csv-record-into-db-in-a-minute.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1999,7 +2001,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="D-google-api-search.html">
+        <li class="chapter active" data-level="6.1.2" data-path="D-google-api-search.html">
             
                 <a href="D-google-api-search.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">D.2. Google API Search Dengan Timeout</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,277 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="d2-google-api-search-dengan-timeout">D.2. Google API Search Dengan Timeout</h1>
+<p>Pada chapter ini kita akan mencoba studi kasus yaitu membuat web service API untuk <em>wrap</em> pencarian ke Google Search API.</p>
+<p>Proses pembelajaran dilakukan dengan praktek membuat sebuah aplikasi web service kecil, yang tugasnya melakukan pencarian data. Nantinya akan dibuat juga middleware <code>MiddlewareUtility</code>, tugasnya menyisipkan informasi origin dispatcher request, ke dalam context request, sebelum akhirnya sampai pada handler endpoint yg sedang diakses.</p>
+<h2 id="d21-context-value">D.2.1. Context Value</h2>
+<p>Ok, langsung saja, siapkan folder project baru dengan struktur seperti berikut.</p>
+<pre><code class="lang-bash">mkdir chapter<span class="hljs-_">-d</span>2
+<span class="hljs-built_in">cd</span> chapter<span class="hljs-_">-d</span>2
+go mod init chapter<span class="hljs-_">-d</span>2
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-comment"># then prepare underneath structures</span>
+tree .
+.
+&#x251C;&#x2500;&#x2500; main.go
+&#x2514;&#x2500;&#x2500; middleware.go
+
+0 directories, 2 files
+</code></pre>
+<p>Pada file <code>middleware.go</code> isi dengan <code>CustomMux</code> yang pada pembahasan-pembahasan sebelumnya sudah pernah kita gunakan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
+
+<span class="hljs-keyword">type</span> CustomMux <span class="hljs-keyword">struct</span> {
+    http.ServeMux
+    middlewares []<span class="hljs-keyword">func</span>(next http.Handler) http.Handler
+}
+
+<span class="hljs-keyword">func</span> (c *CustomMux) RegisterMiddleware(next <span class="hljs-keyword">func</span>(next http.Handler) http.Handler) {
+    c.middlewares = <span class="hljs-built_in">append</span>(c.middlewares, next)
+}
+
+<span class="hljs-keyword">func</span> (c *CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">var</span> current http.Handler = &amp;c.ServeMux
+
+    <span class="hljs-keyword">for</span> _, next := <span class="hljs-keyword">range</span> c.middlewares {
+        current = next(current)
+    }
+
+    current.ServeHTTP(w, r)
+}
+</code></pre>
+<p>Lalu pada file <code>main.go</code>, buat satu buah endpoint <code>/api/search</code>, dengan isi handler menampilkan data <code>from</code> yang diambil dari request context. Data <code>from</code> ini di set ke dalam request context oleh middleware <code>MiddlewareUtility</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;context&quot;</span>
+    <span class="hljs-string">&quot;io&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;errors&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
+
+<span class="hljs-keyword">func</span> main() {
+    mux := <span class="hljs-built_in">new</span>(CustomMux)
+    mux.RegisterMiddleware(MiddlewareUtility)
+
+    mux.HandleFunc(<span class="hljs-string">&quot;/api/search&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        from := r.Context().Value(<span class="hljs-string">&quot;from&quot;</span>).(<span class="hljs-keyword">string</span>)
+        w.Write([]<span class="hljs-keyword">byte</span>(from))
+    })
+
+    server := <span class="hljs-built_in">new</span>(http.Server)
+    server.Handler = mux
+    server.Addr = <span class="hljs-string">&quot;:80&quot;</span>
+
+    fmt.Println(<span class="hljs-string">&quot;Starting server at&quot;</span>, server.Addr)
+    server.ListenAndServe()
+}
+</code></pre>
+<p>Cara mengakses context request adalah lewat method <code>.Context()</code> milik objek request. Lalu chain dengan method <code>Value()</code> untuk mengambil data sesuai dengan key yang disisipkan pada parameter.</p>
+<p>Untuk sekarang, tugas dari endpoint <code>/api/search</code> hanya menampilkan data tersebut, tidak lebih.</p>
+<p>Selanjutnya siapkan middleware <code>MiddlewareUtility</code>. Di dalamnya, ada pengecekan header <code>Referer</code>, jika ada maka dijadikan value data <code>from</code> (yang kemudian disimpan pada context); sedangkan jika tidak ada maka value-nya berasal dari property <code>.Host</code> milik objek request.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> MiddlewareUtility(next http.Handler) http.Handler {
+    <span class="hljs-keyword">return</span> http.HandlerFunc(<span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        ctx := r.Context()
+        <span class="hljs-keyword">if</span> ctx == <span class="hljs-literal">nil</span> {
+            ctx = context.Background()
+        }
+
+        from := r.Header.Get(<span class="hljs-string">&quot;Referer&quot;</span>)
+        <span class="hljs-keyword">if</span> from == <span class="hljs-string">&quot;&quot;</span> {
+            from = r.Host
+        }
+
+        ctx = context.WithValue(ctx, <span class="hljs-string">&quot;from&quot;</span>, from)
+
+        requestWithContext := r.WithContext(ctx)
+        next.ServeHTTP(w, requestWithContext)
+    })
+}
+</code></pre>
+<p>Objek request context bisa didapat lewat pengaksesan method <code>.Context()</code> milik <code>*http.Request</code>. Objek ini bertipe <code>context.Context</code> dengan zero type adalah <code>nil</code>.</p>
+<p>Pada kode di atas, jika context adalah <code>nil</code>, maka di-inisialisasi dengan context baru lewat <code>context.Background()</code>.</p>
+<p>Objek <code>ctx</code> yang merupakan <code>context.Context</code> di sini kita tempeli data <code>from</code>. Cara melakukannya dengan memanggil statement <code>context.WithValue()</code> dengan disisipi 3 buah parameter.</p>
+<ol>
+<li>Parameter ke-1, isinya adalah objek context.</li>
+<li>Parameter ke-2, isinya key dari data yang akan disimpan.</li>
+<li>Parameter ke-3, adalah value data yang akan disimpan.</li>
+</ol>
+<p>Fungsi <code>.WithValue()</code> di atas mengembalikan objek context, isinya adalah objek context yang disisipkan di parameter pertama pemanggilan fungsi, tapi sudah disisipi data dengan key dari parameter ke-2 dan value dari parameter ke-3. Jadi tampung saja objek context kembalian statement ini ke objek yang sama, yaitu <code>ctx</code>.</p>
+<p>Ok, sekarang objek <code>ctx</code> sudah dimodifikasi. Objek ini perlu untuk ditempelkan lagi ke objek request. Caranya dengan mengakses method <code>.WithContext()</code> milik objek request, lalu gunakan nilai baliknya pada <code>next.ServeHTTP()</code>.</p>
+<p>Jalankan aplikasi, hasilnya kurang lebih seperti gambar berikut.</p>
+<p><img src="images/D_google_api_search_1_context_example.png" alt="Dasar Pemrograman Golang - Context example"></p>
+<p>O iya, penulis tidak menggunakan <code>http://localhost</code> untuk mengakses aplikasi, melainkan menggunakan <code>http://mysampletestapp.com</code>, dengan catatan domain ini sudah saya arahkan ke 127.0.0.1.</p>
+<p><img src="images/D_google_api_search_2_etc_hosts.png" alt="Dasar Pemrograman Golang - Etc Host"></p>
+<p>Ok, untuk sekarang sepertinya cukup jelas mengenai penggunaan context pada objek http request. Tinggal kembangkan saja sesuai kebutuhan, seperti contohnya: context untuk menyimpan data session, yang diambil dari database sessuai dengan session id nya.</p>
+<h2 id="d22-context-timeout--cancellation">D.2.2. Context Timeout &amp; Cancellation</h2>
+<p>Melanjutkan program yang sudah dibuat, nantinya pada endpoint <code>/api/search</code> akan dilakukan sebuah pencarian ke Google sesuai dengan keyword yang diinginkan. Pencarian dilakukan dengan memanfaatkan <a href="https://developers.google.com/custom-search/json-api/v1/overview" target="_blank">Custom Search JSON API</a> milik Google.</p>
+<p>Sekarang ubah isi handler endpoint tersebut menjadi seperti berikut.</p>
+<pre><code class="lang-go">mux.HandleFunc(<span class="hljs-string">&quot;/api/search&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+    ctx := r.Context()
+
+    keyword := r.URL.Query().Get(<span class="hljs-string">&quot;keyword&quot;</span>)
+    chanRes := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> []<span class="hljs-keyword">byte</span>)
+    chanErr := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> error)
+
+    <span class="hljs-keyword">go</span> doSearch(ctx, keyword, chanRes, chanErr)
+
+    <span class="hljs-keyword">select</span> {
+    <span class="hljs-keyword">case</span> res := &lt;-chanRes:
+        w.Header().Set(<span class="hljs-string">&quot;Content-type&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>)
+        w.Write(res)
+    <span class="hljs-keyword">case</span> err := &lt;-chanErr:
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
+})
+</code></pre>
+<p>Proses pencarian dilakukan secara <em>asynchronous</em> lewat fungsi <code>doSearch()</code> yang nantinya akan kita buat. Pemanggilannya menggunakan keyword <code>go</code> dan disisipkan beberapa parameter yang dua di antaranya bertipe channel.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Channel <code>chanRes</code>, digunakan jika proses pencarian sukses. Data hasil pencarian dilempar ke main routine lewat channel ini, untuk kemudian diteruskan sebagai response endpoint</li>
+<li>Channel <code>chanErr</code>, digunakan untuk pass objek error, jika memang terjadi error.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Ok, lanjut, siapkan dua buah konstanta baru.</p>
+<ul>
+<li><p>Konstanta <code>SEARCH_MAX_DURATION</code>, digunakan untuk menge-set max response time. Jika melebihi, maka request langsung di-cancel.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> SEARCH_MAX_DURATION = <span class="hljs-number">4</span> * time.Second
+</code></pre>
+</li>
+<li><p>Konstanta <code>GOOGLE_SEARCH_API_KEY</code>, ini merupakan API key yang diperlukan dalam penggunaan Custom Search API. Silakan merujuk ke laman <a href="https://console.cloud.google.com/apis/dashboard" target="_blank">Google Cloud Platform</a> untuk mendapatkan API key.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> GOOGLE_SEARCH_API_KEY = <span class="hljs-string">&quot;ASSVnHfjD_ltXXXXSyB6WWWWWWWWveMFgE&quot;</span>
+</code></pre>
+</li>
+</ul>
+<p>Sekarang kita mulai masuk ke bagian pembuatan fungsi pencarian <code>doSearch()</code>. Silakan tulis kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> doSearch(
+    ctx context.Context,
+    keyword <span class="hljs-keyword">string</span>,
+    chanRes <span class="hljs-keyword">chan</span> []<span class="hljs-keyword">byte</span>,
+    chanErr <span class="hljs-keyword">chan</span> error,
+) {
+    innerChanRes := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> []<span class="hljs-keyword">byte</span>)
+    innerChanErr := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> error)
+
+    url := <span class="hljs-string">&quot;https://www.googleapis.com/customsearch/v1&quot;</span>
+    url = fmt.Sprintf(<span class="hljs-string">&quot;%s?key=%s&quot;</span>, url, GOOGLE_SEARCH_API_KEY)
+    url = fmt.Sprintf(<span class="hljs-string">&quot;%s&amp;cx=017576662512468239146:omuauf_lfve&quot;</span>, url)
+    url = fmt.Sprintf(<span class="hljs-string">&quot;%s&amp;callback=hndlr&quot;</span>, url)
+    url = fmt.Sprintf(<span class="hljs-string">&quot;%s&amp;q=%s&quot;</span>, url, keyword)
+
+    from := ctx.Value(<span class="hljs-string">&quot;from&quot;</span>).(<span class="hljs-keyword">string</span>)
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Di dalam fungsi tersebut, <code>url</code> pencarian dibentuk, data API key dan keyword pencarian disisipkan. Selain itu disiapkan pula <code>innerChanRes</code> dan <code>innerChanErr</code> yang kegunaannya mirip seperti objek channel yang disisipkan pada pemanggilan fungsi, hanya saja dua channel baru ini digunakan hanya dalam fungsi ini saja.</p>
+<p>Lanjut tulis kode berikut.</p>
+<pre><code class="lang-go">ctx, cancel := context.WithTimeout(ctx, SEARCH_MAX_DURATION)
+<span class="hljs-keyword">defer</span> cancel()
+
+req, err := http.NewRequest(<span class="hljs-string">&quot;GET&quot;</span>, url, <span class="hljs-literal">nil</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    innerChanErr &lt;- err
+    <span class="hljs-keyword">return</span>
+}
+
+req = req.WithContext(ctx)
+req.Header.Set(<span class="hljs-string">&quot;Referer&quot;</span>, from)
+
+transport := <span class="hljs-built_in">new</span>(http.Transport)
+client := <span class="hljs-built_in">new</span>(http.Client)
+client.Transport = transport
+</code></pre>
+<p>Objek <code>ctx</code> yang di-pass dari luar, dibungkus lagi menggunakan <code>context.WithTimeout()</code>. Fungsi ini mengembalikan objek context yang sudah ditambahi data deadline. Tepat setelah statement ini dieksekusi, dalam durasi <code>SEARCH_MAX_DURATION</code> context akan di-cancel.</p>
+<blockquote>
+<p>Pengesetan deadline context bisa dilakukan lewat <code>context.WithTimeout()</code>, atau bisa juga lewat <code>context.WithDeadline()</code>. Perbedaannya pada fungsi <code>.WithDeadline()</code> parameter yang disisipkan bertipe <code>time.Time</code>.</p>
+</blockquote>
+<p>Disiapkan juga objek <code>req</code> yang merupakan objek request. Objek ini dibungkus menggunakan <code>req.WithContext()</code> dengan isi parameter objek <code>ctx</code>, menjadikan objek context yang sudah kita buat tertempel pada request ini. Kegunaannya nanti akan dibahas.</p>
+<p>Selain itu, data <code>from</code> yang didapat dari request context disisipkan sebagai request header pada objek <code>req</code>.</p>
+<p>Disiapkan juga objek <code>transport</code> yang bertipe <code>*http.Transport</code> dan objek <code>client</code> yang bertipe <code>*http.Client</code>.</p>
+<p>Setelah ini, tulis kode untuk dispatch request yang sudah dibuat lalu handle response nya. Jalankan proses-nya sebagai goroutine.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+    resp, err := client.Do(req)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        innerChanErr &lt;- err
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-keyword">if</span> resp != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">defer</span> resp.Body.Close()
+        resData, err := io.ReadAll(resp.Body)
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            innerChanErr &lt;- err
+            <span class="hljs-keyword">return</span>
+        }
+        innerChanRes &lt;- resData
+    } <span class="hljs-keyword">else</span> {
+        innerChanErr &lt;- errors.New(<span class="hljs-string">&quot;No response&quot;</span>)
+    }
+}()
+</code></pre>
+<p>Request di-trigger lewat statement <code>client.Do(req)</code>. Jika menghasilkan error, maka kirim informasi errornya ke channel <code>innerChanErr</code>. Cek juga objek response hasil request tersebut, jika kosong maka lempar sebuah error ke channel yang sama.</p>
+<p>Baca response body, jika tidak ada masalah, lempar result-nya ke channel <code>innerChanRes</code>.</p>
+<p>Selanjutnya, kita lakukan pengecekan menggunakan teknik <code>select case</code> untuk mengetahui channel mana yang menerima data.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">select</span> {
+<span class="hljs-keyword">case</span> res := &lt;-innerChanRes:
+    chanRes &lt;- res
+    <span class="hljs-keyword">return</span>
+<span class="hljs-keyword">case</span> err := &lt;-innerChanErr:
+    transport.CancelRequest(req)
+    chanErr &lt;- err
+    <span class="hljs-keyword">return</span>
+<span class="hljs-keyword">case</span> &lt;-ctx.Done():
+    transport.CancelRequest(req)
+    chanErr &lt;- errors.New(<span class="hljs-string">&quot;Search proccess exceed timeout&quot;</span>)
+    <span class="hljs-keyword">return</span>
+}
+</code></pre>
+<p>Silakan perhatikan kode di atas, kita akan bahas 2 <code>case</code> pertama.</p>
+<ul>
+<li>Jika channel <code>innerChanRes</code> mendapati kiriman data, maka langsung diteruskan ke channel <code>chanRes</code>.</li>
+<li>Jika channel <code>innerChanErr</code> mendapati kiriman data, maka langsung diteruskan ke channel <code>chanErr</code>. Tak lupa cancel request lewat method <code>transport.CancelRequest(req)</code>, ini diperlukan karena request gagal.</li>
+</ul>
+<p>Untuk case terakhir <code>case &lt;-ctx.Done()</code>, penjelasannya agak sedikit panjang. Objek context, memiliki method <code>ctx.Done()</code> yang mengembalikan channel. Channel ini akan melewatkan data jika deadline timeout context-nya terpenuhi. Dan jika itu terjadi, pada kode di atas langsung dikembalikan sebuah error ke channel <code>chanErr</code> dengan isi error <code>Search proccess exceed timeout</code>; tak lupa request-nya juga di-cancel.</p>
+<p>Request perlu di-cancel karena jika waktu sudah mencapai deadline context (yaitu <code>SEARCH_MAX_DURATION</code>), pada saat tersebut bisa saja request belum selesai, maka dari itu request perlu di-cancel.</p>
+<p>Jika di-summary, maka yang dilakukan oleh fungsi <code>doSearch</code> kurang lebih sebagai berikut sebagai berikut.</p>
+<ul>
+<li>Jika request pencarian tak lebih dari <code>SEARCH_MAX_DURATION</code>:<ul>
+<li>Jika hasilnya sukses, maka kembalikan response body lewat channel <code>chanRes</code>.</li>
+<li>Jika hasilnya gagal, maka kembalikan error-nya lewat channel <code>chanErr</code>.</li>
+</ul>
+</li>
+<li>Jika request pencarian lebih dari <code>SEARCH_MAX_DURATION</code>, maka dianggap <em>timeout</em>, langsung lempar error timeout ke channel <code>chanErr</code>.</li>
+</ul>
+<p>Jalankan, lihat hasilnya.</p>
+<p><img src="images/D_google_api_search_3_result_ok.png" alt="Dasar Pemrograman Golang - Request response OK"></p>
+<p>Informasi tambahan: best practice mengenai cancelation context adalah untuk selalu menambahkan <code>defer cancel()</code> setelah (cancelation) context dibuat. Lebih detailnya silakan baca <a href="https://blog.golang.org/context" target="_blank">https://blog.golang.org/context</a>.</p>
+<h2 id="d23-google-search-api-restrictions-referer">D.2.3. Google Search API Restrictions Referer</h2>
+<p>Di bagian awal chapter ini, kita belajar mengenai context value. Kenapa penulis memilih menggunakan context untuk menyisipkan data referer, kenapa tidak contoh yg lebih umum seperti session dan lainnya? sebenarnya ada alasannya.</p>
+<p>Silakan coba akses kedua url berikut.</p>
+<ul>
+<li><a href="http://mysampletestapp.com/api/search?keyword=golang" target="_blank">http://mysampletestapp.com/api/search?keyword=golang</a></li>
+<li><a href="http://localhost/api/search?keyword=golang" target="_blank">http://localhost/api/search?keyword=golang</a></li>
+</ul>
+<p>Harusnya yang dikembalikan sama, tapi kenyataannya pengaksesan lewat url <code>localhost</code> menghasilkan error.</p>
+<p><img src="images/D_google_api_search_4_result_fail.png" alt="Dasar Pemrograman Golang - Request response fail"></p>
+<p>Error message:</p>
+<pre style="font-size: .85em; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">The referrer localhost does not match the referrer restrictions configured on your API key. Please use the API Console to update your key restrictions.</pre>
+
+<p>Error di atas muncul karena, host <code>localhost</code> belum didaftarkan pada API console. Berbeda dengan <code>mysampletestapp.com</code> yang sudah didaftarkan, host ini berhak mengakses menggunakan API key yang kita gunakan.</p>
+<p><img src="images/D_google_api_search_5_api_hostname.png" alt="Dasar Pemrograman Golang - Api configuration"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-D.2-google-api-search/2-request-cancellation" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2356,12 @@
 
             
                 
+                <a href="D-insert-1mil-csv-record-into-db-in-a-minute.html" class="navigation navigation-prev " aria-label="Previous page: D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="D-golang-web-socket-chatting-app.html" class="navigation navigation-next " aria-label="Next page: D.3. Web Socket: Chatting App">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2372,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"next":{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]},"previous":{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"D-google-api-search.md","mtime":"2024-11-14T19:27:53.076Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

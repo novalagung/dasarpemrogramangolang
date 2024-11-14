@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang AJAX JSON Payload - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="B-ajax-json-response.html">
     
+    
+    <link rel="prev" href="B-form-upload-file.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1310,7 +1312,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.14" data-path="B-ajax-json-payload.html">
+        <li class="chapter active" data-level="4.1.14" data-path="B-ajax-json-payload.html">
             
                 <a href="B-ajax-json-payload.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">B.14. AJAX JSON Payload</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,175 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="b14-ajax-json-payload">B.14. AJAX JSON Payload</h1>
+<p>Sebelumnya kita telah mempelajari cara submit data dari front-end ke back-end dengan menggunakan payload <strong>Form Data</strong>. Kali ini kita akan belajar tentang cara request menggunakan payload <strong>JSON</strong>.</p>
+<blockquote>
+<p><strong>Form Data</strong> merupakan tipe payload default HTTP request via tag <code>&lt;form /&gt;</code></p>
+</blockquote>
+<p>Pada chapter ini, kita tidak akan menggunakan tag <code>&lt;form /&gt;</code> untuk submit data, melainkan dengan memanfaatkan teknik AJAX (Asynchronous JavaScript And XML) dengan payload JSON.</p>
+<p>Sebenarnya <a href="http://stackoverflow.com/a/23152367/1467988" target="_blank">perbedaan</a> antara kedua jenis request tersebut ada di dua hal, yaitu isi header <code>Content-Type</code> dan struktur informasi dikirimkan. Request lewat <code>&lt;form /&gt;</code> secara default memiliki content type <code>application/x-www-form-urlencoded</code>, efeknya data dikirimkan dalam bentuk query string (key-value) seperti <code>id=n001&amp;nama=bruce</code>.</p>
+<blockquote>
+<p>Pengiriman data via tag <code>&lt;form /&gt;</code> sebenarnya bisa menggunakan content-type selain <code>application/x-www-form-urlencoded</code>, yaitu <code>multipart/form-data</code>.</p>
+</blockquote>
+<p>Untuk payload JSON, <code>Content-Type</code> yang digunakan adalah <code>application/json</code>. Dengannya, data disisipkan di dalam <code>Body</code> request dalam bentuk <strong>JSON</strong> string.</p>
+<h2 id="b141-struktur-folder-proyek">B.14.1. Struktur Folder Proyek</h2>
+<p>OK, mari praktek. Pertama siapkan proyek dengan struktur seperti gambar berikut.</p>
+<p><img src="images/B_ajax_json_payload_1_structure.png" alt="Dasar Pemrograman Golang - Struktur proyek"></p>
+<blockquote>
+<p>Silakan unduh file JS jQuery dari situs official-nya.</p>
+</blockquote>
+<h2 id="b142-front-end---html">B.14.2. Front End - HTML</h2>
+<p>Layout dari view perlu disiapkan terlebih dahulu, tulis kode berikut pada file <code>view.html</code>.</p>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>JSON Payload<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;static/jquery-1.12.0.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+            $(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+                <span class="hljs-comment">// javascript code here</span>
+            });
+        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;message&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;user-form&quot;</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;post&quot;</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/save&quot;</span>&gt;</span>
+            <span class="hljs-comment">&lt;!-- html code here --&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>Selanjutnya, pada tag <code>&lt;form /&gt;</code> tambahkan tabel sederhana dengan isi didalamnya adalah inputan form. Ada tiga buah inputan yang perlu dibuat yaitu: <em>Name</em>, <em>Age</em>, dan <em>Gender</em>. Selain itu, sebuah button untuk keperluan submit form juga perlu disiapkan.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">noborder</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Name :<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">required</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;Type name here&quot;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Age :<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">required</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;age&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;Set age&quot;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Gender :<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gender&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 100%;&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>Select one<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;male&quot;</span>&gt;</span>Male<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;female&quot;</span>&gt;</span>Female<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">colspan</span>=<span class="hljs-string">&quot;2&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;text-align: right;&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>Save<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+</code></pre>
+<h2 id="b143-front-end---html">B.14.3. Front End - HTML</h2>
+<p>Sekarang kita masuk ke bagian paling menyenangkan/menyebalkan (tergantung taste), yaitu javascript. Siapkan sebuah event <code>submit</code> pada <code>#user-form</code>. Default handler untuk event submit milik <code>&lt;form /&gt;</code> di-override, diganti dengan AJAX request.</p>
+<pre><code class="lang-js">$(<span class="hljs-string">&quot;#user-form&quot;</span>).on(<span class="hljs-string">&quot;submit&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+    e.preventDefault();
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+    <span class="hljs-keyword">var</span> $self = $(<span class="hljs-keyword">this</span>);
+    <span class="hljs-keyword">var</span> payload = <span class="hljs-built_in">JSON</span>.stringify({
+        name: $(<span class="hljs-string">&apos;[name=&quot;name&quot;]&apos;</span>).val(),
+        age: <span class="hljs-built_in">parseInt</span>($(<span class="hljs-string">&apos;[name=&quot;age&quot;]&apos;</span>).val(), <span class="hljs-number">10</span>),
+        gender: $(<span class="hljs-string">&apos;[name=&quot;gender&quot;]&apos;</span>).val()
+    });
+
+    $.ajax({
+        url: $self.attr(<span class="hljs-string">&quot;action&quot;</span>),
+        type: $self.attr(<span class="hljs-string">&quot;method&quot;</span>),
+        data: payload,
+        contentType: <span class="hljs-string">&apos;application/json&apos;</span>,
+    }).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+        $(<span class="hljs-string">&quot;.message&quot;</span>).text(res);
+    }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) </span>{
+        alert(<span class="hljs-string">&quot;ERROR: &quot;</span> + a.responseText);
+    });
+});
+</code></pre>
+<p>Value semua inputan dalam form diambil, kemudian dimasukkan ke sebuah objek lalu di stringify, agar berubah menjadi JSON string untuk kemudian di jadikan sebagai payload request. Bisa dilihat pada kode AJAX di atas, <code>contentType</code> nilainya adalah <code>application/json</code>. </p>
+<p>Respon dari AJAX di atas nantinya dimunculkan pada <code>&lt;p class=&quot;message&quot;&gt;&lt;/p&gt;</code>.</p>
+<h2 id="b144-back-end">B.14.4. Back End</h2>
+<p>3 buah rute perlu disiapkan, yang pertama adalah untuk menampilkan <code>view.html</code>, untuk keperluan submit data, dan registrasi asset.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;encoding/json&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, handleIndex)
+    http.HandleFunc(<span class="hljs-string">&quot;/save&quot;</span>, handleSave)
+
+    http.Handle(<span class="hljs-string">&quot;/static/&quot;</span>, 
+        http.StripPrefix(<span class="hljs-string">&quot;/static/&quot;</span>, 
+            http.FileServer(http.Dir(<span class="hljs-string">&quot;assets&quot;</span>))))
+
+    fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+}
+</code></pre>
+<p>Handler <code>handleIndex</code> berisikan kode untuk parsing <code>view.html</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> handleIndex(w http.ResponseWriter, r *http.Request) {
+    tmpl := template.Must(template.ParseFiles(<span class="hljs-string">&quot;view.html&quot;</span>))
+    <span class="hljs-keyword">if</span> err := tmpl.Execute(w, <span class="hljs-literal">nil</span>); err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
+}
+</code></pre>
+<p>Sedangkan <code>handleSave</code> akan memproses request yang di-submit dari front-end.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> handleSave(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">if</span> r.Method == <span class="hljs-string">&quot;POST&quot;</span> {
+        decoder := json.NewDecoder(r.Body)
+        payload := <span class="hljs-keyword">struct</span> {
+            Name   <span class="hljs-keyword">string</span> <span class="hljs-string">`json:&quot;name&quot;`</span>
+            Age    <span class="hljs-keyword">int</span>    <span class="hljs-string">`json:&quot;age&quot;`</span>
+            Gender <span class="hljs-keyword">string</span> <span class="hljs-string">`json:&quot;gender&quot;`</span>
+        }{}
+        <span class="hljs-keyword">if</span> err := decoder.Decode(&amp;payload); err != <span class="hljs-literal">nil</span> {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+            <span class="hljs-keyword">return</span>
+        }
+
+        message := fmt.Sprintf(
+            <span class="hljs-string">&quot;hello, my name is %s. I&apos;m %d year old %s&quot;</span>, 
+            payload.Name, 
+            payload.Age, 
+            payload.Gender,
+        )
+        w.Write([]<span class="hljs-keyword">byte</span>(message))
+        <span class="hljs-keyword">return</span>
+    }
+
+    http.Error(w, <span class="hljs-string">&quot;Only accept POST request&quot;</span>, http.StatusBadRequest)
+}
+</code></pre>
+<p>Isi payload didapatkan dengan cara men-decode body request (<code>r.Body</code>). Proses decoding tidak dilakukan menggunakan <code>json.Unmarshal()</code> melainkan lewat JSON decoder dengan alasan <a href="http://stackoverflow.com/a/21198571/1467988" target="_blank">efisiensinya lebih baik</a>.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li><code>json.Decoder</code> cocok digunakan untuk decode data JSON yang sumber datanya adalah stream <code>io.Reader</code>, contohnya seperti <code>r.Body</code>.</li>
+<li><code>json.Unmarshal()</code> cocok untuk proses decoding yang sumber datanya sudah tersimpan di variabel (bukan stream).</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<h2 id="b145-testing">B.14.5. Testing</h2>
+<p>Jalankan program yang telah dibuat, test hasilnya di browser.</p>
+<p><img src="images/B_ajax_json_payload_2_test.png" alt="Dasar Pemrograman Golang - Hasil tes"></p>
+<p>Gunakan fasilitas Developer Tools pada Chrome untuk menginspeksi aktifitas AJAX-nya.</p>
+<p><img src="images/B_ajax_json_payload_3_inspect.png" alt="Dasar Pemrograman Golang - Request"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.14-ajax-json-payload" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.14...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2254,12 @@
 
             
                 
+                <a href="B-form-upload-file.html" class="navigation navigation-prev " aria-label="Previous page: B.13. Form Upload File">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="B-ajax-json-response.html" class="navigation navigation-next " aria-label="Next page: B.15. AJAX JSON Response">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2270,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"next":{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},"previous":{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"path":"B-form-upload-file.md","ref":"B-form-upload-file.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-ajax-json-payload.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

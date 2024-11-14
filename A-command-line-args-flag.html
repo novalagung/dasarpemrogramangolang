@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Arguments &amp; Flag - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-exec.html">
     
+    
+    <link rel="prev" href="A-hash-sha1.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -881,7 +883,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.48" data-path="A-command-line-args-flag.html">
+        <li class="chapter active" data-level="3.1.48" data-path="A-command-line-args-flag.html">
             
                 <a href="A-command-line-args-flag.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.48. Arguments &amp; Flag</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,133 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a48-arguments--flag">A.48. Arguments &amp; Flag</h1>
+<p><strong>Arguments</strong> adalah data argument opsional yang disisipkan ketika eksekusi program. Sedangkan <strong>flag</strong> merupakan ekstensi dari argument. Dengan flag, penulisan argument menjadi lebih rapi dan terstruktur.</p>
+<p>Pada chapter ini kita akan belajar tentang penerapan arguments dan flag.</p>
+<h2 id="a481-penggunaan-arguments">A.48.1. Penggunaan Arguments</h2>
+<p>Data arguments bisa didapat lewat variabel <code>os.Args</code> (package <code>os</code> perlu di-import terlebih dahulu). Data tersebut tersimpan dalam bentuk array. Setiap data argument yang disisipkan saat pemanggilan program, datanya dipecah menggunakan karakter spasi lalu di-map ke bentuk array. Contoh penerapan:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;os&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> argsRaw = os.Args
+    fmt.Printf(<span class="hljs-string">&quot;-&gt; %#v\n&quot;</span>, argsRaw)
+    <span class="hljs-comment">// -&gt; []string{&quot;.../bab45&quot;, &quot;banana&quot;, &quot;potato&quot;, &quot;ice cream&quot;}</span>
+
+    <span class="hljs-keyword">var</span> args = argsRaw[<span class="hljs-number">1</span>:]
+    fmt.Printf(<span class="hljs-string">&quot;-&gt; %#v\n&quot;</span>, args)
+    <span class="hljs-comment">// -&gt; []string{&quot;banana&quot;, &quot;potatao&quot;, &quot;ice cream&quot;}</span>
+}
+</code></pre>
+<p>Argument disisipkan saat eksekusi program. Sebagai contoh, kita ingin menyisipkan 3 buah argumen berikut: <code>banana</code>, <code>potato</code>, dan <code>ice cream</code>. Maka penulisan saat pemanggilan program-nya seperti ini:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li><p>Menggunakan <code>go run</code></p>
+<pre><code> go run bab45.go banana potato &quot;ice cream&quot;
+</code></pre></li>
+<li><p>Menggunakan <code>go build</code></p>
+<pre><code> go build bab45.go
+ $ ./bab45 banana potato &quot;ice cream&quot;
+</code></pre></li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Output program:</p>
+<p><img src="images/A_cli_flag_arg_1_argument.png" alt="Dasar Pemrograman Golang - Pemanfaatan arguments"></p>
+<p>Bisa dilihat pada kode di atas, bahwa untuk data argumen yang ada karakter spasi-nya (<code> </code>) harus dituliskan dengan diapit tanda petik (<code>&quot;</code>) agar tidak dideteksi sebagai 2 argumen.</p>
+<p>Variabel <code>os.Args</code> mengembalikan tak hanya arguments saja, tapi juga path file executable (jika eksekusi-nya menggunakan <code>go run</code> maka path akan merujuk ke folder temporary). Maka disini penting untuk hanya mengambil element index ke 1 hingga seterusnya saja via statement <code>os.Args[1:]</code>.</p>
+<h2 id="a482-penggunaan-flag">A.48.2. Penggunaan Flag</h2>
+<p>Flag memiliki kegunaan yang sama seperti arguments, yaitu untuk <em>parameterize</em> eksekusi program, dengan penulisan dalam bentuk key-value. Berikut merupakan contoh penerapannya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;flag&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> name = flag.String(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;anonymous&quot;</span>, <span class="hljs-string">&quot;type your name&quot;</span>)
+    <span class="hljs-keyword">var</span> age = flag.Int64(<span class="hljs-string">&quot;age&quot;</span>, <span class="hljs-number">25</span>, <span class="hljs-string">&quot;type your age&quot;</span>)
+
+    flag.Parse()
+    fmt.Printf(<span class="hljs-string">&quot;name\t: %s\n&quot;</span>, *name)
+    fmt.Printf(<span class="hljs-string">&quot;age\t: %d\n&quot;</span>, *age)
+}
+</code></pre>
+<p>Cara penulisan arguments menggunakan flag:</p>
+<pre><code>go run bab45.go -name=&quot;john wick&quot; -age=28
+</code></pre><p>Tiap argument harus ditentukan key, tipe data, dan nilai default-nya. Contohnya seperti pada <code>flag.String()</code> di atas. Agar lebih mudah dipahami, mari kita bahas kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> dataName = flag.String(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;anonymous&quot;</span>, <span class="hljs-string">&quot;type your name&quot;</span>)
+fmt.Println(*dataName)
+</code></pre>
+<p>Kode tersebut maksudnya adalah, disiapkan flag bertipe <code>string</code>, dengan key adalah <code>name</code>, dengan nilai default <code>&quot;anonymous&quot;</code>, dan keterangan <code>&quot;type your name&quot;</code>. Nilai flag nya sendiri akan disimpan ke dalam variabel <code>dataName</code>.</p>
+<p>Nilai balik fungsi <code>flag.String()</code> adalah string pointer, jadi perlu di-<em>dereference</em> terlebih dahulu untuk mengakses nilai aslinya (<code>*dataName</code>).</p>
+<p><img src="images/A_cli_flag_arg_2_flag.png" alt="Dasar Pemrograman Golang - Contoh penggunaan flag"></p>
+<p>Flag yang nilainya tidak di set, secara otomatis akan mengembalikan nilai default.</p>
+<p>Tabel berikut merupakan macam-macam fungsi flag yang tersedia untuk tiap jenis tipe data.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Nama Fungsi</th>
+<th style="text-align:left">Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>flag.Bool(name, defaultValue, usage)</code></td>
+<td style="text-align:left"><code>*bool</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>flag.Duration(name, defaultValue, usage)</code></td>
+<td style="text-align:left"><code>*time.Duration</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>flag.Float64(name, defaultValue, usage)</code></td>
+<td style="text-align:left"><code>*float64</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>flag.Int(name, defaultValue, usage)</code></td>
+<td style="text-align:left"><code>*int</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>flag.Int64(name, defaultValue, usage)</code></td>
+<td style="text-align:left"><code>*int64</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>flag.String(name, defaultValue, usage)</code></td>
+<td style="text-align:left"><code>*string</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>flag.Uint(name, defaultValue, usage)</code></td>
+<td style="text-align:left"><code>*uint</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>flag.Uint64(name, defaultValue, usage)</code></td>
+<td style="text-align:left"><code>*uint64</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="a483-deklarasi-flag-dengan-cara-passing-reference-variabel-penampung-data">A.48.3. Deklarasi Flag Dengan Cara Passing Reference Variabel Penampung Data</h2>
+<p>Sebenarnya ada 2 cara deklarasi flag yang bisa digunakan, dan cara di atas merupakan cara pertama.</p>
+<p>Cara kedua mirip dengan cara pertama, perbedannya adalah kalau di cara pertama nilai pointer flag dikembalikan lalu ditampung variabel. Sedangkan pada cara kedua, nilainya diambil lewat parameter pointer.</p>
+<p>Agar lebih jelas perhatikan contoh berikut:</p>
+<pre><code class="lang-go"><span class="hljs-comment">// cara ke-1</span>
+<span class="hljs-keyword">var</span> data1 = flag.String(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;anonymous&quot;</span>, <span class="hljs-string">&quot;type your name&quot;</span>)
+fmt.Println(*data1)
+
+<span class="hljs-comment">// cara ke-2</span>
+<span class="hljs-keyword">var</span> data2 <span class="hljs-keyword">string</span>
+flag.StringVar(&amp;data2, <span class="hljs-string">&quot;gender&quot;</span>, <span class="hljs-string">&quot;male&quot;</span>, <span class="hljs-string">&quot;type your gender&quot;</span>)
+fmt.Println(data2)
+</code></pre>
+<p>Tinggal tambahkan akhiran <code>Var</code> pada pemanggilan nama fungsi flag yang digunakan (contoh <code>flag.IntVar()</code>, <code>flag.BoolVar()</code>, dll), lalu disisipkan referensi variabel penampung flag sebagai parameter pertama.</p>
+<p>Kegunaan dari parameter terakhir method-method flag adalah untuk memunculkan hints atau petunjuk arguments apa saja yang bisa dipakai, ketika argument <code>--help</code> ditambahkan saat eksekusi program.</p>
+<p><img src="images/A_cli_flag_arg_3_flag_info.png" alt="Dasar Pemrograman Golang - Contoh penggunaan flag"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.48-cli-arguments-flag" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.48...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2212,12 @@
 
             
                 
+                <a href="A-hash-sha1.html" class="navigation navigation-prev " aria-label="Previous page: A.47. Hash Sha1">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-exec.html" class="navigation navigation-next " aria-label="Next page: A.49. Exec">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2228,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.48. Arguments & Flag","level":"3.1.48","depth":2,"next":{"title":"A.49. Exec","level":"3.1.49","depth":2,"path":"A-exec.md","ref":"A-exec.md","articles":[]},"previous":{"title":"A.47. Hash Sha1","level":"3.1.47","depth":2,"path":"A-hash-sha1.md","ref":"A-hash-sha1.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-command-line-args-flag.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

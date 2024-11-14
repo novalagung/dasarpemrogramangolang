@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Any / interface{} / Interface Kosong - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-reflect.html">
     
+    
+    <link rel="prev" href="A-interface.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -621,7 +623,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.28" data-path="A-interface-kosong.html">
+        <li class="chapter active" data-level="3.1.28" data-path="A-interface-kosong.html">
             
                 <a href="A-interface-kosong.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.28. Any / interface{} / Interface Kosong</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,123 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a28-any--interface--interface-kosong">A.28. Any / interface{} / Interface Kosong</h1>
+<p>Interface kosong atau <em>empty interface</em> yang dinotasikan dengan <code>interface{}</code> atau <code>any</code>, merupakan tipe data yang sangat spesial karena variabel bertipe ini bisa menampung segala jenis data, baik itu numerik, string, bahkan array, pointer, apapun.</p>
+<blockquote>
+<p>Dalam konsep pemrograman umum, konsep variabel yang bisa menampung banyak jenis tipe data disebut dengan <strong>dynamic typing</strong>.</p>
+</blockquote>
+<h2 id="a281-penggunaan-any--interface">A.28.1. Penggunaan <code>any</code> / <code>interface{}</code></h2>
+<p><code>any</code> atau <code>interface{}</code> merupakan tipe data, sehingga cara penggunaannya sama seperti tipe data pada umumnya, perbedaannya pada variabel bertipe ini nilainya bisa diisi dengan apapun. Contoh:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> secret <span class="hljs-keyword">interface</span>{}
+
+    secret = <span class="hljs-string">&quot;ethan hunt&quot;</span>
+    fmt.Println(secret)
+
+    secret = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;manggo&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>}
+    fmt.Println(secret)
+
+    secret = <span class="hljs-number">12.4</span>
+    fmt.Println(secret)
+}
+</code></pre>
+<p>Keyword <code>interface</code> seperti yang kita tau, digunakan untuk pembuatan interface. Tetapi ketika ditambahkan kurung kurawal (<code>{}</code>) di belakang-nya (menjadi <code>interface{}</code>), maka kegunaannya akan berubah, yaitu sebagai tipe data.</p>
+<p><img src="images/A_interface_kosong_1_empty_interface.png" alt="Dasar Pemrograman Golang - Segala jenis data bisa ditampung `interface{}`"></p>
+<p>Agar tidak bingung, coba perhatikan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> data <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
+
+data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}{
+    <span class="hljs-string">&quot;name&quot;</span>:      <span class="hljs-string">&quot;ethan hunt&quot;</span>,
+    <span class="hljs-string">&quot;grade&quot;</span>:     <span class="hljs-number">2</span>,
+    <span class="hljs-string">&quot;breakfast&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;manggo&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>},
+}
+</code></pre>
+<p>Pada kode di atas, disiapkan variabel <code>data</code> dengan tipe <code>map[string]interface{}</code>, yaitu sebuah koleksi dengan key bertipe <code>string</code> dan nilai bertipe interface kosong <code>interface{}</code>.</p>
+<p>Kemudian variabel tersebut di-inisialisasi, ditambahkan lagi kurung kurawal setelah keyword deklarasi untuk kebutuhan pengisian data, <code>map[string]interface{}{ /* data */ }</code>.</p>
+<p>Dari situ terlihat bahwa <code>interface{}</code> bukanlah sebuah objek, melainkan tipe data.</p>
+<h2 id="a282-type-alias-any">A.28.2. Type Alias <code>Any</code></h2>
+<p>Tipe <code>any</code> merupakan alias dari <code>interface{}</code>, keduanya adalah sama.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> data <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]any
+
+data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]any{
+    <span class="hljs-string">&quot;name&quot;</span>:      <span class="hljs-string">&quot;ethan hunt&quot;</span>,
+    <span class="hljs-string">&quot;grade&quot;</span>:     <span class="hljs-number">2</span>,
+    <span class="hljs-string">&quot;breakfast&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;manggo&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>},
+}
+</code></pre>
+<h2 id="a283-casting-variabel-any--interface-kosong">A.28.3. Casting Variabel Any / Interface Kosong</h2>
+<p>Variabel bertipe <code>interface{}</code> bisa ditampilkan ke layar sebagai <code>string</code> dengan memanfaatkan fungsi print, seperti <code>fmt.Println()</code>. Tapi perlu diketahui bahwa nilai yang dimunculkan tersebut bukanlah nilai asli, melainkan bentuk text dari nilai aslinya.</p>
+<p>Hal ini penting diketahui, karena untuk melakukan operasi yang membutuhkan nilai asli pada variabel yang bertipe <code>interface{}</code>, diperlukan casting ke tipe aslinya. Contoh seperti pada kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;strings&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> secret <span class="hljs-keyword">interface</span>{}
+
+    secret = <span class="hljs-number">2</span>
+    <span class="hljs-keyword">var</span> number = secret.(<span class="hljs-keyword">int</span>) * <span class="hljs-number">10</span>
+    fmt.Println(secret, <span class="hljs-string">&quot;multiplied by 10 is :&quot;</span>, number)
+
+    secret = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;manggo&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>}
+    <span class="hljs-keyword">var</span> gruits = strings.Join(secret.([]<span class="hljs-keyword">string</span>), <span class="hljs-string">&quot;, &quot;</span>)
+    fmt.Println(gruits, <span class="hljs-string">&quot;is my favorite fruits&quot;</span>)
+}
+</code></pre>
+<p>Pertama, variabel <code>secret</code> menampung nilai bertipe numerik. Ada kebutuhan untuk mengalikan nilai yang ditampung variabel tersebut dengan angka <code>10</code>. Maka perlu dilakukan casting ke tipe aslinya, yaitu <code>int</code>, setelahnya barulah nilai bisa dioperasikan, yaitu <code>secret.(int) * 10</code>.</p>
+<p>Pada contoh kedua, <code>secret</code> berisikan array string. Kita memerlukan string tersebut untuk digabungkan dengan pemisah tanda koma. Maka perlu di-casting ke <code>[]string</code> terlebih dahulu sebelum bisa digunakan di <code>strings.Join()</code>, contohnya pada <code>strings.Join(secret.([]string), &quot;, &quot;)</code>.</p>
+<p><img src="images/A_interface_kosong_2_interface_casting.png" alt="Dasar Pemrograman Golang - Casting pada variabel bertipe `interface{}`"></p>
+<p>Teknik casting pada <code>any</code> disebut dengan <strong>type assertions</strong>.</p>
+<h2 id="a284-casting-variabel-interface-kosong-ke-objek-pointer">A.28.4. Casting Variabel Interface Kosong Ke Objek Pointer</h2>
+<p>Variabel <code>interface{}</code> bisa menyimpan data apa saja, termasuk data objek, pointer, ataupun gabungan keduanya. Di bawah ini merupakan contoh penerapan interface untuk menampung data objek pointer.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> person <span class="hljs-keyword">struct</span> {
+    name <span class="hljs-keyword">string</span>
+    age  <span class="hljs-keyword">int</span>
+}
+
+<span class="hljs-keyword">var</span> secret <span class="hljs-keyword">interface</span>{} = &amp;person{name: <span class="hljs-string">&quot;wick&quot;</span>, age: <span class="hljs-number">27</span>}
+<span class="hljs-keyword">var</span> name = secret.(*person).name
+fmt.Println(name)
+</code></pre>
+<p>Variabel <code>secret</code> dideklarasikan bertipe <code>interface{}</code> menampung referensi objek cetakan struct <code>person</code>. Cara casting dari <code>interface{}</code> ke struct pointer adalah dengan menuliskan nama struct-nya dan ditambahkan tanda asterisk (<code>*</code>) di awal, contohnya seperti <code>secret.(*person)</code>. Setelah itu barulah nilai asli bisa diakses.</p>
+<p><img src="images/A_interface_kosong_3_interface_pointer.png" alt="Dasar Pemrograman Golang - Casting `interface{}` ke variabel objek"></p>
+<h2 id="a285-kombinasi-slice-map-dan-interface">A.28.5. Kombinasi Slice, <code>map</code>, dan <code>interface{}</code></h2>
+<p>Tipe <code>[]map[string]interface{}</code> adalah salah satu tipe yang paling sering digunakan untuk menyimpan sekumpulan data berbasis <em>key-value</em>. Tipe tersebut merupakan alternatif dari slice struct.</p>
+<p>Pada contoh berikut, variabel <code>person</code> dideklarasikan berisi data slice <code>map</code> berisikan 2 item dengan key adalah <code>name</code> dan <code>age</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> person = []<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}{
+    {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>: <span class="hljs-number">23</span>},
+    {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Ethan&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>: <span class="hljs-number">23</span>},
+    {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Bourne&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>: <span class="hljs-number">22</span>},
+}
+
+<span class="hljs-keyword">for</span> _, each := <span class="hljs-keyword">range</span> person {
+    fmt.Println(each[<span class="hljs-string">&quot;name&quot;</span>], <span class="hljs-string">&quot;age is&quot;</span>, each[<span class="hljs-string">&quot;age&quot;</span>])
+}
+</code></pre>
+<p>Dengan memanfaatkan slice dan <code>interface{}</code>, kita bisa membuat data array yang isinya adalah bisa apa saja. Silakan perhatikan contoh berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = []<span class="hljs-keyword">interface</span>{}{
+    <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;strawberry&quot;</span>, <span class="hljs-string">&quot;total&quot;</span>: <span class="hljs-number">10</span>},
+    []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;manggo&quot;</span>, <span class="hljs-string">&quot;pineapple&quot;</span>, <span class="hljs-string">&quot;papaya&quot;</span>},
+    <span class="hljs-string">&quot;orange&quot;</span>,
+}
+
+<span class="hljs-keyword">for</span> _, each := <span class="hljs-keyword">range</span> fruits {
+    fmt.Println(each)
+}
+</code></pre>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.28-interface-kosong" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.28...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2202,12 @@
 
             
                 
+                <a href="A-interface.html" class="navigation navigation-prev " aria-label="Previous page: A.27. Interface">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-reflect.html" class="navigation navigation-next " aria-label="Next page: A.29. Reflect">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2218,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.28. Any / interface{} / Interface Kosong","level":"3.1.28","depth":2,"next":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"previous":{"title":"A.27. Interface","level":"3.1.27","depth":2,"path":"A-interface.md","ref":"A-interface.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-interface-kosong.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Reflect - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-goroutine.html">
     
+    
+    <link rel="prev" href="A-interface-kosong.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -634,7 +636,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.29" data-path="A-reflect.html">
+        <li class="chapter active" data-level="3.1.29" data-path="A-reflect.html">
             
                 <a href="A-reflect.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.29. Reflect</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,130 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="a29-reflect">A.29. Reflect</h1>
+<p>Reflection adalah teknik untuk inspeksi variabel, mengambil informasi dari suatu variabel untuk dilihat metadatanya atau untuk keperluan manipulasi. Cakupan informasi yang bisa didapatkan lewat reflection sangat luas, seperti melihat struktur variabel, tipe, nilai pointer, dan banyak lagi.</p>
+<p>Go menyediakan package <code>reflect</code>, berisikan banyak sekali fungsi untuk keperluan reflection. Pada chapter ini, kita akan belajar tentang dasar penggunaan package tersebut.</p>
+<p>Dari banyak fungsi yang tersedia di dalam package tersebut, ada 2 fungsi yang paling penting untuk diketahui, yaitu <code>reflect.ValueOf()</code> dan <code>reflect.TypeOf()</code>.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Fungsi <code>reflect.ValueOf()</code> akan mengembalikan objek dalam tipe <code>reflect.Value</code>, yang berisikan informasi yang berhubungan dengan nilai/data variabel yang diinspeksi.</li>
+<li>Sedangkan <code>reflect.TypeOf()</code> mengembalikan objek dalam tipe <code>reflect.Type</code>. Objek tersebut berisikan informasi yang berhubungan dengan tipe data variabel yang diinspeksi.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<h2 id="a291-mencari-tipe-data--value-menggunakan-reflect">A.29.1. Mencari Tipe Data &amp; Value Menggunakan Reflect</h2>
+<p>Dengan reflection, tipe data dan nilai variabel dapat diketahui dengan mudah. Contoh penerapannya bisa dilihat pada kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;reflect&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> number = <span class="hljs-number">23</span>
+    <span class="hljs-keyword">var</span> reflectValue = reflect.ValueOf(number)
+
+    fmt.Println(<span class="hljs-string">&quot;tipe  variabel :&quot;</span>, reflectValue.Type())
+
+    <span class="hljs-keyword">if</span> reflectValue.Kind() == reflect.Int {
+        fmt.Println(<span class="hljs-string">&quot;nilai variabel :&quot;</span>, reflectValue.Int())
+    }
+}
+</code></pre>
+<p><img src="images/A_reflect_0_reflect.png" alt="Dasar Pemrograman Golang - Pemanfaatan reflect"></p>
+<p>Fungsi <code>reflect.valueOf()</code> memiliki parameter yang bisa menampung segala jenis tipe data. Fungsi tersebut mengembalikan objek dalam tipe <code>reflect.Value</code>, yang berisikan informasi mengenai variabel yang bersangkutan.</p>
+<p>Objek <code>reflect.Value</code> memiliki beberapa method, salah satunya <code>Type()</code>. Method ini mengembalikan tipe data variabel yang bersangkutan dalam bentuk <code>string</code>.</p>
+<p>Statement <code>reflectValue.Int()</code> menghasilkan nilai <code>int</code> dari variabel <code>number</code>. Untuk menampilkan nilai variabel reflect, harus dipastikan dulu tipe datanya. Ketika tipe data adalah <code>int</code>, maka bisa menggunakan method <code>Int()</code>. Ada banyak lagi method milik struct <code>reflect.Value</code> yang bisa digunakan untuk pengambilan nilai dalam bentuk tertentu, contohnya: <code>reflectValue.String()</code> digunakan untuk mengambil nilai <code>string</code>, <code>reflectValue.Float64()</code> untuk nilai <code>float64</code>, dan lainnya.</p>
+<p>Perlu diketahui, fungsi yang digunakan harus sesuai dengan tipe data nilai yang ditampung variabel. Jika fungsi yang digunakan berbeda dengan tipe data variabelnya, maka dipastikan muncul error. Contohnya seperti pada variabel yang nilainya bertipe <code>float64</code>, penggunaan method <code>String()</code> di situ pasti menghasilkan error.</p>
+<p>Diperlukan adanya pengecekan tipe data pada nilai yang disimpan, agar penggunaan method untuk pengambilan nilai bisa tepat. Salah satunya bisa dengan cara yang dicontohkan di atas, yaitu dengan mengecek dahulu apa jenis tipe datanya menggunakan method <code>Kind()</code>, setelah itu diambil nilainya dengan method yang sesuai.</p>
+<p>List konstanta tipe data dan method yang bisa digunakan dalam <em>reflection</em> di Go bisa dilihat di <a href="https://pkg.go.dev/reflect#Kind" target="_blank">https://pkg.go.dev/reflect#Kind</a></p>
+<h2 id="pengaksesan-nilai-dalam-bentuk-interface">Pengaksesan Nilai Dalam Bentuk <code>interface{}</code></h2>
+<p>Jika nilai hanya diperlukan untuk ditampilkan ke output, bisa menggunakan <code>.Interface()</code>. Lewat method tersebut segala jenis nilai bisa diakses dengan mudah.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> number = <span class="hljs-number">23</span>
+<span class="hljs-keyword">var</span> reflectValue = reflect.ValueOf(number)
+
+fmt.Println(<span class="hljs-string">&quot;tipe  variabel :&quot;</span>, reflectValue.Type())
+fmt.Println(<span class="hljs-string">&quot;nilai variabel :&quot;</span>, reflectValue.Interface())
+</code></pre>
+<p>Fungsi <code>Interface()</code> mengembalikan nilai interface kosong atau <code>interface{}</code> atau <code>any</code>. Nilai aslinya sendiri bisa diakses dengan meng-casting interface kosong tersebut menggunakan teknik <em>type assertion</em>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> nilai = reflectValue.Interface().(<span class="hljs-keyword">int</span>)
+</code></pre>
+<h2 id="a292-pengaksesan-informasi-property-variabel-objek">A.29.2. Pengaksesan Informasi Property Variabel Objek</h2>
+<p>Reflect API bisa digunakan untuk melihat metadata suatu property variabel objek cetakan struct, dengan catatan property-property tersebut bermodifier public. Contohnya bisa dilihat pada kode berikut.</p>
+<p>Siapkan sebuah struct bernama <code>student</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> student <span class="hljs-keyword">struct</span> {
+    Name  <span class="hljs-keyword">string</span>
+    Grade <span class="hljs-keyword">int</span>
+}
+</code></pre>
+<p>Buat method baru untuk struct tersebut, dengan nama method <code>getPropertyInfo()</code>. Method ini berisikan kode untuk mengambil dan menampilkan informasi tiap property milik struct <code>student</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> (s *student) getPropertyInfo() {
+    <span class="hljs-keyword">var</span> reflectValue = reflect.ValueOf(s)
+
+    <span class="hljs-keyword">if</span> reflectValue.Kind() == reflect.Ptr {
+        reflectValue = reflectValue.Elem()
+    }
+
+    <span class="hljs-keyword">var</span> reflectType = reflectValue.Type()
+
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; reflectValue.NumField(); i++ {
+        fmt.Println(<span class="hljs-string">&quot;nama      :&quot;</span>, reflectType.Field(i).Name)
+        fmt.Println(<span class="hljs-string">&quot;tipe data :&quot;</span>, reflectType.Field(i).Type)
+        fmt.Println(<span class="hljs-string">&quot;nilai     :&quot;</span>, reflectValue.Field(i).Interface())
+        fmt.Println(<span class="hljs-string">&quot;&quot;</span>)
+    }
+}
+</code></pre>
+<p>Terakhir, lakukan uji coba method <code>getPropertyInfo()</code> di fungsi <code>main()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> s1 = &amp;student{Name: <span class="hljs-string">&quot;wick&quot;</span>, Grade: <span class="hljs-number">2</span>}
+    s1.getPropertyInfo()
+}
+</code></pre>
+<p><img src="images/A_reflect_1_accessing_properties.png" alt="Dasar Pemrograman Golang - Pengaksesan property menggunakan reflect"></p>
+<p>Di dalam method <code>getPropertyInfo()</code> terjadi beberapa hal. Pertama objek <code>reflect.Value</code> dari variabel <code>s</code> diambil. Setelah itu dilakukan pengecekan apakah variabel objek tersebut merupakan pointer atau tidak (bisa dilihat dari <code>if reflectValue.Kind() == reflect.Ptr</code>, jika bernilai <code>true</code> maka variabel adalah pointer). jika ternyata variabel memang berisi pointer, maka perlu diambil data objek reflect aslinya via method <code>Elem()</code>.</p>
+<p>Masih di dalam method <code>getPropertyInfo()</code>, dilakukan perulangan sebanyak jumlah property yang ada pada struct <code>student</code>. Method <code>NumField()</code> mengembalikan jumlah property publik yang ada dalam struct.</p>
+<p>Di tiap perulangan, informasi tiap property struct diambil berurutan dengan lewat method <code>Field()</code>. Method ini ada pada tipe <code>reflect.Value</code> dan <code>reflect.Type</code>.</p>
+<ul>
+<li><code>reflectType.Field(i).Name</code> mengembalikan nama property</li>
+<li><code>reflectType.Field(i).Type</code> mengembalikan tipe data property</li>
+<li><code>reflectValue.Field(i).Interface()</code> mengembalikan nilai property dalam bentuk <code>interface{}</code></li>
+</ul>
+<p>Pengambilan informasi property, selain menggunakan indeks, bisa diambil berdasarkan nama field dengan menggunakan method <code>FieldByName()</code>.</p>
+<h2 id="a293-pengaksesan-informasi-method-variabel-objek">A.29.3. Pengaksesan Informasi Method Variabel Objek</h2>
+<p>Informasi mengenai method juga bisa diakses lewat reflect, syaratnya masih sama seperti pada pengaksesan proprerty, yaitu harus bermodifier public.</p>
+<p>Pada contoh di bawah ini informasi method <code>SetName()</code> akan diambil lewat reflection. Siapkan method baru di struct <code>student</code>, dengan nama <code>SetName()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> (s *student) SetName(name <span class="hljs-keyword">string</span>) {
+    s.Name = name
+}
+</code></pre>
+<p>Buat contoh penerapannya di fungsi <code>main()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> s1 = &amp;student{Name: <span class="hljs-string">&quot;john wick&quot;</span>, Grade: <span class="hljs-number">2</span>}
+    fmt.Println(<span class="hljs-string">&quot;nama :&quot;</span>, s1.Name)
+
+    <span class="hljs-keyword">var</span> reflectValue = reflect.ValueOf(s1)
+    <span class="hljs-keyword">var</span> method = reflectValue.MethodByName(<span class="hljs-string">&quot;SetName&quot;</span>)
+    method.Call([]reflect.Value{
+        reflect.ValueOf(<span class="hljs-string">&quot;wick&quot;</span>),
+    })
+
+    fmt.Println(<span class="hljs-string">&quot;nama :&quot;</span>, s1.Name)
+}
+</code></pre>
+<p><img src="images/A_reflect_2_accessing_method_information.png" alt="Dasar Pemrograman Golang - Eksekusi method lewat reflection"></p>
+<p>Pada kode di atas, disiapkan variabel <code>s1</code> yang merupakan instance struct <code>student</code>. Variabel tersebut memiliki property <code>Name</code> yang nilainya ditentukan di awal, yaitu string <code>&quot;john wick&quot;</code>.</p>
+<p>Setelah itu, data <em>reflection</em> nilai objek tersebut diambil, <em>reflection</em> method <code>SetName</code> juga diambil. Pengambilan <em>reflection</em> method dilakukan menggunakan <code>MethodByName</code> dengan argument adalah nama method yang diinginkan, atau bisa juga lewat indeks method-nya (menggunakan <code>Method(i)</code>).</p>
+<p>Setelah <em>reflection</em> method yang dicari sudah didapatkan, <code>Call()</code> dipanggil untuk eksekusi method.</p>
+<p>Jika eksekusi method diikuti pengisian parameter, maka parameternya harus ditulis dalam bentuk array <code>[]reflect.Value</code> berurutan sesuai urutan deklarasi parameter-nya. Dan nilai yang dimasukkan ke array tersebut harus dalam bentuk <code>reflect.Value</code> (gunakan <code>reflect.ValueOf()</code> untuk pengambilannya).</p>
+<pre><code class="lang-go">[]reflect.Value{
+    reflect.ValueOf(<span class="hljs-string">&quot;wick&quot;</span>),
+}
+</code></pre>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.29-reflect" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.29...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2209,12 @@
 
             
                 
+                <a href="A-interface-kosong.html" class="navigation navigation-prev " aria-label="Previous page: A.28. Any / interface{} / Interface Kosong">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-goroutine.html" class="navigation navigation-next " aria-label="Next page: A.30. Goroutine">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2225,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"next":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"path":"A-goroutine.md","ref":"A-goroutine.md","articles":[]},"previous":{"title":"A.28. Any / interface{} / Interface Kosong","level":"3.1.28","depth":2,"path":"A-interface-kosong.md","ref":"A-interface-kosong.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-reflect.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

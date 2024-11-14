@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang AWS S3 - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
     
+    <link rel="prev" href="C-singleflight.html">
     
 
 
@@ -106,7 +106,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1947,7 +1947,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.38" data-path="C-golang-aws-s3.html">
+        <li class="chapter active" data-level="5.1.38" data-path="C-golang-aws-s3.html">
             
                 <a href="C-golang-aws-s3.html">
             
@@ -2060,7 +2060,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.38. AWS S3</a>
     </h1>
 </div>
 
@@ -2072,43 +2072,360 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c38-amazon-s3-simple-storage-service">C.38. Amazon S3 (Simple Storage Service)</h1>
+<p>Pada bab ini kita akan belajar untuk membuat koneksi ke Amazon S3 menggunakan Golang. Mulai dari cara membuat bucket di S3, melihat semua daftar bucket di S3, melihat semua object/file yang ada di dalam sebuah bucket S3, serta mengupload dan mendownload file dari S3 bucket.</p>
+<p>Kita mulai bahasan ini dengan mengenal apa itu Amazon S3 dan beberapa istilah yang berkaitan.</p>
+<h2 id="c381-apa-itu-amazon-simple-storage-service-s3">C.38.1 Apa itu Amazon Simple Storage Service (S3)?</h2>
+<p>Pada dasarnya Simple Storage Service (S3) adalah layanan penyimpanan file/object yang dimiliki oleh Amazon Web Service (AWS). Dengan menggunakan Amazon S3, kita bisa menyimpan dan melindungi object untuk berbagai kebutuhan sistem kita. Ringkasnya, kita bisa menganalogikan Amazon S3 sebagai harddisk/storage online yang bisa kita akses selama kita terhubung dengan internet.</p>
+<blockquote>
+<p>AWS menyediakan layanan <a href="https://aws.amazon.com/free/" target="_blank">Free Tier</a>, dengan kita bisa memanfaatkan service S3 secara gratis selama 12 bulan.</p>
+</blockquote>
+<h2 id="c392-beberapa-istilah-terkait-amazon-s3">C.39.2 Beberapa istilah terkait Amazon S3</h2>
+<p>Beberapa istilah yang biasa kita temukan saat kita bekerja dengan Amazon S3 antara lain:</p>
+<h4 id="&#x25C9;-bucket">&#x25C9; Bucket</h4>
+<p>Bucket adalah wadah untuk object bisa disimpan ke dalam Amazon S3. Kita bisa menganalogikan bucket seperti directory yang ada di harddisk kita, dimana kita bisa membuat folder/path dan menyimpan file di dalamnya. Seperti contoh, misal kita membuat bucket <code>adamstudio-bucket</code> di region <code>ap-southeast-1</code> dan mengupload file <code>adamstudio.jpg</code>, maka kita bisa mengakses file tersebut dengan URL <code>https://adamstudio-bucket.s3.ap-southeast-1.amazonaws.com/adamstudio.jpg</code> (dengan authorisasi tertentu pastinya).</p>
+<h4 id="&#x25C9;-object">&#x25C9; Object</h4>
+<p>Object secara singkat bisa kita artikan sebagai file, meskipun pada dasarnya berbeda, karena object juga menyimpan metadata file dan data-data lainnya.  </p>
+<blockquote>
+<p>Untuk mempelajari lebih lanjut mengenai definisi dan beberapa istilah lain terkait Amazon S3, silakan cek <a href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/Welcome.html" target="_blank">https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/Welcome.html</a></p>
+</blockquote>
+<h2 id="c393-authentication-dan-authorization-bucket-s3">C.39.3 <em>Authentication</em> dan <em>authorization</em> bucket S3</h2>
+<p>AWS S3 menyediakan beberapa jenis metode otentikasi untuk pengaksesan konten S3 via aplikasi, salah satunya menggunakan access keys (<code>aws_access_key_id</code> dan <code>aws_secret_access_key</code>).</p>
+<p>Pada chapter ini kita akan menerapkan metode otentikasi tersebut, dengan asumsi <em>bucket policy</em> yang digunakan adalah <em>defalt</em>, dimana semua konten dalam bucket bisa diakses dan dimodifikasi.</p>
+<blockquote>
+<p>Lebih lanjut mengenai <em>bucket policy</em> bisa mengunjungi link berikut: <a href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/about-object-ownership.html" target="_blank">https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/about-object-ownership.html</a></p>
+<p>Disini penulis asumsikan kita sudah memiliki akses berupa <code>aws_access_key_id</code> dan <code>aws_secret_access_key</code> untuk digunakan di aplikasi kita dalam membuat koneksi ke bucket S3.</p>
+</blockquote>
+<h2 id="c393-koneksi-ke-s3">C.39.3 Koneksi ke S3</h2>
+<p><em>And here we go...</em></p>
+<p>Ok, seperti biasa buat proyek baru, kemudian buat 1 file bernama <code>main.go</code>. Definisikan package dan import beberapa dependensi yang dibutuhkan. Disini kita akan menggunaakan <a href="https://github.com/aws/aws-sdk-go" target="_blank">official SDK dari AWS untuk Golang</a>.</p>
+<blockquote>
+<p>Untuk dokumentasi detailnya bisa dibaca disini: <a href="https://aws.amazon.com/id/sdk-for-go/" target="_blank">https://aws.amazon.com/id/sdk-for-go/</a></p>
+</blockquote>
+<p>Definisikan konstanta untuk menampung nilai access key, dan juga region bucket.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;context&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+    <span class="hljs-string">&quot;path/filepath&quot;</span>
+
+    <span class="hljs-string">&quot;github.com/aws/aws-sdk-go/aws&quot;</span>
+    <span class="hljs-string">&quot;github.com/aws/aws-sdk-go/aws/credentials&quot;</span>
+    <span class="hljs-string">&quot;github.com/aws/aws-sdk-go/aws/session&quot;</span>
+    <span class="hljs-string">&quot;github.com/aws/aws-sdk-go/service/s3&quot;</span>
+    <span class="hljs-string">&quot;github.com/aws/aws-sdk-go/service/s3/s3manager&quot;</span>
+)
+
+<span class="hljs-keyword">const</span> (
+    AWS_ACCESS_KEY_ID     <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;AKIA**********&quot;</span>
+    AWS_SECRET_ACCESS_KEY <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;LReO***********&quot;</span>
+    AWS_REGION            <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;ap-southeast-1&quot;</span>
+)
+</code></pre>
+<blockquote>
+<p>Jangan lupa untuk <code>go get -u github.com/aws/aws-sdk-go</code> dependensi aws-sdk-go</p>
+</blockquote>
+<p>Selanjutnya, kita siapkan fungsi untuk mendapatkaan objek <code>*session.Session</code> dari AWS. Object ini berisi informasi session pengaksesan <em>resource</em> AWS, yang pada konteks ini adalah AWS S3.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> newSession() (*session.Session, error) {
+    sess, err := session.NewSession(&amp;aws.Config{
+        Region:      aws.String(AWS_REGION),
+        Credentials: credentials.NewStaticCredentials(
+            AWS_ACCESS_KEY_ID,
+            AWS_SECRET_ACCESS_KEY,
+            <span class="hljs-string">&quot;&quot;</span>,
+        ),
+    })
+
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+    }
+
+    <span class="hljs-keyword">return</span> sess, <span class="hljs-literal">nil</span>
+}
+</code></pre>
+<p>Panggil fungsi <code>newSession()</code> di atas, lalu bungkus menggunakan fungsi <code>s3.New()</code> untuk mendapatkan object session <code>*s3.S3</code>, yang pada kode berikut direpresentasikan oleh variabel <code>s3Client</code>. Lewat object tersebut nantinya operasi pengaksesan dan manipulasi konten S3 dilakukan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    sess, err := newSession()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(<span class="hljs-string">&quot;Failed to create AWS session:&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    s3Client := s3.New(sess)
+    fmt.Println(<span class="hljs-string">&quot;S3 session &amp; client initialized&quot;</span>)
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<h2 id="c394-membuat-bucket-baru-ke-s3">C.39.4 Membuat bucket baru ke S3</h2>
+<p>Gunakan method <code>CreateBucket()</code> milik object <code>client</code> untuk membuat bucket baru, siapkan statement dalam fungsi bernama <code>createBucket()</code>. Tulis nama bucket pada parameter pemanggilan fungsi dengan skema penulisan bisa dilihat di bawah ini:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> createBucket(client *s3.S3, bucketName <span class="hljs-keyword">string</span>) error {
+    _, err := client.CreateBucket(&amp;s3.CreateBucketInput{
+        Bucket: aws.String(bucketName),
+    })
+
+    <span class="hljs-keyword">return</span> err
+}
+</code></pre>
+<p>Navigasi ke fungsi <code>main()</code>, panggil fungsi <code>createBucket()</code> di atas. Pada contoh berikut, bucket name yang dipilih adalah <code>bucketName</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+
+    bucketName := <span class="hljs-string">&quot;adamstudio-new-bucket&quot;</span>
+
+    <span class="hljs-comment">// =============== create bucket ===============</span>
+    err = createBucket(s3Client, bucketName)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Printf(<span class="hljs-string">&quot;Couldn&apos;t create new bucket: %v&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;New bucket successfully created&quot;</span>)
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Jalankan program dan lihat hasilnya.</p>
+<p><img src="images/C_aws_s3_1.png" alt="Dasar Pemrograman Golang - S3 test"></p>
+<h2 id="c395-melihat-semua-daftar-bucket-di-s3">C.39.5 Melihat semua daftar bucket di S3</h2>
+<p>Sekarang siapkan fungsi baru untuk menampilkan daftar bucket. Gunakan method <code>ListBuckets()</code>. Pada contoh berikut method dipanggil dengan parameter <code>nil</code> karena kita tidak menggunakan filter.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> listBuckets(client *s3.S3) (*s3.ListBucketsOutput, error) {
+    res, err := client.ListBuckets(<span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+    }
+
+    <span class="hljs-keyword">return</span> res, <span class="hljs-literal">nil</span>
+}
+</code></pre>
+<p>Modifikasi fungsi <code>main()</code>, kemudian tambahkan baris kode berikut untuk memanggil fungsi <code>listBuckets()</code> di atas. Lewat nilai balik fungsi tersebut, akses property <code>.Buckets</code> untuk mendapatkan list buckets.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-comment">// =============== list all buckets ===============</span>
+    buckets, err := listBuckets(s3Client)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Printf(<span class="hljs-string">&quot;Couldn&apos;t list buckets: %v&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-keyword">for</span> _, bucket := <span class="hljs-keyword">range</span> buckets.Buckets {
+        fmt.Printf(<span class="hljs-string">&quot;Found bucket: %s, created at: %s\n&quot;</span>, *bucket.Name, *bucket.CreationDate)
+    }
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Jalankan program dan lihat hasilnya.</p>
+<p><img src="images/C_aws_s3_2.png" alt="Dasar Pemrograman Golang - S3 test"></p>
+<h2 id="c396-mengupload-object-ke-dalam-s3-bucket">C.39.6 Mengupload object ke dalam S3 bucket</h2>
+<p>Operasi upload file bisa dilakukan via beberapa cara, salah satunya menggunakan method <code>Upload()</code> milik object uploader (yarn bertipe <code>*s3manager.Uploader</code>) yang dalam pemanggilannya, file yang ingin di-upload disisipkan sebagai argument pemanggilan method.</p>
+<p>Pada contoh berikut, variabel <code>file</code> merepresentasikan file yang akan di upload. Variabel ini disisipkan pada pemanggilan method <code>Upload()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> uploadFile(uploader *s3manager.Uploader, filePath <span class="hljs-keyword">string</span>, bucketName <span class="hljs-keyword">string</span>, fileName <span class="hljs-keyword">string</span>) error {
+    file, err := os.Open(filePath)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+
+    <span class="hljs-keyword">defer</span> file.Close()
+
+    _, err = uploader.Upload(&amp;s3manager.UploadInput{
+        Bucket: aws.String(bucketName),
+        Key:    aws.String(fileName),
+        Body:   file,
+    })
+
+    <span class="hljs-keyword">return</span> err
+}
+</code></pre>
+<p>Selanjutnya di fungsi <code>main()</code>, siapkan object uploader, caranya mudah yaitu dengan membungkus object session menggunakan fungsi <code>s3manager.NewUploader()</code>.</p>
+<blockquote>
+<p>Pastikan untuk tidak meng-import dependensi <code>github.com/aws/aws-sdk-go/service/s3/s3manager</code></p>
+</blockquote>
+<p>Tak lupa siapkan juga sample file yang akan digunakan untuk testing (untuk di upload ke bucket). Pada contoh ini penulis menggunakan file <code>./upload/adamstudio.jpg</code>.</p>
+<p>Modifikasi lagi fungsi <code>main</code>, tambahkan statement-statement di atas dan panggil fungsi <code>uploadFile()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-comment">// =============== upload file ===============</span>
+    uploader := s3manager.NewUploader(sess)
+
+    fileName := <span class="hljs-string">&quot;adamstudio.jpg&quot;</span>
+    filePath := filepath.Join(<span class="hljs-string">&quot;upload&quot;</span>, fileName)
+
+    err = uploadFile(uploader, filePath, bucketName, fileName)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Printf(<span class="hljs-string">&quot;Failed to upload file: %v&quot;</span>, err)
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;Successfully uploaded file!&quot;</span>)
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Jalankan program dan lihat hasilnya.</p>
+<p><img src="images/C_aws_s3_3.png" alt="Dasar Pemrograman Golang - S3 test"></p>
+<h2 id="c397-menampilkan-daftar-objects-dalam-bucket">C.39.7 Menampilkan daftar objects dalam bucket</h2>
+<p>Gunakan method <code>ListObjectsV2()</code> untuk menampilkan isi bucket.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> listObjects(client *s3.S3, bucketName <span class="hljs-keyword">string</span>) (*s3.ListObjectsV2Output, error) {
+    res, err := client.ListObjectsV2(&amp;s3.ListObjectsV2Input{
+        Bucket: aws.String(bucketName),
+    })
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+    }
+
+    <span class="hljs-keyword">return</span> res, <span class="hljs-literal">nil</span>
+}
+</code></pre>
+<p>Panggil fungsi <code>listObjects()</code> yang telah dibuat di atas. Lewat nilai balik fungsi tersebut, akses property <code>.Contents</code> untuk mendapatkan list objects. </p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-comment">// =============== list objects ===============</span>
+    <span class="hljs-comment">// bucketName := &quot;adamstudio-new-bucket&quot;</span>
+    objects, err := listObjects(s3Client, bucketName)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Printf(<span class="hljs-string">&quot;Couldn&apos;t list objects: %v&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-keyword">for</span> _, object := <span class="hljs-keyword">range</span> objects.Contents {
+        fmt.Printf(<span class="hljs-string">&quot;Found object: %s, size: %d\n&quot;</span>, *object.Key, *object.Size)
+    }
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Jalankan program dan lihat hasilnya.</p>
+<p><img src="images/C_aws_s3_5.png" alt="Dasar Pemrograman Golang - S3 test"></p>
+<h2 id="c398-men-download-object-dari-s3-bucket">C.39.8 Men-download object dari S3 bucket</h2>
+<p>Untuk proses download, kita harus mempersiapkan satu file object terlebih dahulu untuk menampung konten hasil operasi download.</p>
+<p>Pada contoh berikut, object <code>file</code> adalah file yang akan menampung operasi download. Object tersebut disisipkan sebagai argument pemanggilan fungsi <code>Download()</code> milik object downloader bertipe <code>*s3manager.Downloader</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> downloadFile(downloader *s3manager.Downloader, bucketName <span class="hljs-keyword">string</span>, key <span class="hljs-keyword">string</span>, downloadPath <span class="hljs-keyword">string</span>) error {
+    file, err := os.Create(downloadPath)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+
+    <span class="hljs-keyword">defer</span> file.Close()
+
+    _, err = downloader.Download(
+        file,
+        &amp;s3.GetObjectInput{
+            Bucket: aws.String(bucketName),
+            Key:    aws.String(key),
+        },
+    )
+
+    <span class="hljs-keyword">return</span> err
+}
+</code></pre>
+<p>Buat object downloader menggunakan fungsi <code>s3manager.NewDownloader()</code>, siapkan juga variabel untuk path file, lalu panggil method <code>downloadFile()</code>.</p>
+<blockquote>
+<p>Pastikan untuk meng-import dependensi <code>github.com/aws/aws-sdk-go/service/s3/s3manager</code></p>
+</blockquote>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-comment">// =============== download file ===============</span>
+    downloader := s3manager.NewDownloader(sess)
+    fileName := <span class="hljs-string">&quot;adamstudio.jpg&quot;</span>
+    bucketName := <span class="hljs-string">&quot;adamstudio-new-bucket&quot;</span>
+    downloadPath := filepath.Join(<span class="hljs-string">&quot;download&quot;</span>, fileName)
+    err = downloadFile(downloader, bucketName, fileName, downloadPath)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Printf(<span class="hljs-string">&quot;Couldn&apos;t download file: %v&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;Successfully downloaded file&quot;</span>)
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Jalankan program dan lihat hasilnya.</p>
+<p><img src="images/C_aws_s3_4.png" alt="Dasar Pemrograman Golang - S3 test"></p>
+<h2 id="c399-menghapus-object-dari-s3-bucket">C.39.9 Menghapus object dari S3 bucket</h2>
+<p>Operasi delete object bisa dilakukan menggunakan method <code>DeleteObject()</code> milik object s3 client:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> deleteFile(client *s3.S3, bucketName <span class="hljs-keyword">string</span>, fileName <span class="hljs-keyword">string</span>) error {
+    _, err := client.DeleteObject(&amp;s3.DeleteObjectInput{
+        Bucket: aws.String(bucketName),
+        Key:    aws.String(fileName),
+    })
+
+    <span class="hljs-keyword">return</span> err
+}
+</code></pre>
+<p>Panggil fungsi di atas pada <code>main()</code>, lalu sisipkan variabel file yang ingin di-delete.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-comment">// =============== delete file ===============</span>
+    fileName := <span class="hljs-string">&quot;adamstudio.jpg&quot;</span>
+    bucketName := <span class="hljs-string">&quot;adamstudio-new-bucket&quot;</span>
+    err = deleteFile(s3Client, bucketName, fileName)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Printf(<span class="hljs-string">&quot;Couldn&apos;t delete file: %v&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;Successfully delete file&quot;</span>)
+}
+</code></pre>
+<p>Jalankan program dan lihat hasilnya.</p>
+<p><img src="images/C_aws_s3_6.png" alt="Dasar Pemrograman Golang - S3 test"></p>
+<h2 id="c3910-presign-url">C.39.10 Presign URL</h2>
+<p>Presign URL adalah salah satu metode untuk sharing object bisa diakses oleh publik (lewat internet). Dengan presign url, kita bisa menentukan durasi berapa lama object bisa diakses oleh public.</p>
+<p>Cara penerapannya cukup mudah, pertama akses <em>instance</em> object menggunakan method <code>GetObjectRequest()</code>. Pada argument pemanggilan method, isi <code>Key</code> dengan nama object. Lalu gunakan nilai balik pertama statement untuk mengakses method <code>Presign()</code> sekaligus tentukan durasinya.</p>
+<p>Pada kode berikut, method <code>Presign()</code> mengembalikan URL object yang valid selama <code>15 menit</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> presignUrl(client *s3.S3, bucketName <span class="hljs-keyword">string</span>, fileName <span class="hljs-keyword">string</span>) (<span class="hljs-keyword">string</span>, error) {
+    req, _ := client.GetObjectRequest(&amp;s3.GetObjectInput{
+        Bucket: aws.String(bucketName),
+        Key:    aws.String(fileName),
+    })
+
+    urlStr, err := req.Presign(<span class="hljs-number">15</span> * time.Minute)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>, err
+    }
+
+    <span class="hljs-keyword">return</span> urlStr, <span class="hljs-literal">nil</span>
+}
+</code></pre>
+<p>Panggil method tersebut di fungsi <code>main()</code> lalu coba akses URL nya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-comment">// =============== presign url ===============</span>
+    fileName := <span class="hljs-string">&quot;adamstudio.jpg&quot;</span>
+    bucketName := <span class="hljs-string">&quot;adamstudio-new-bucket&quot;</span>
+    urlStr, err := presignUrl(s3Client, bucketName, fileName)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Printf(<span class="hljs-string">&quot;Couldn&apos;t presign url: %v&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;Presign url:&quot;</span>, urlStr)
+}
+</code></pre>
+<p>Hasilnya:</p>
+<p><img src="images/C_aws_s3_7.png" alt="Dasar Pemrograman Golang - S3 test"></p>
+<p><img src="images/C_aws_s3_8.png" alt="Dasar Pemrograman Golang - S3 test"></p>
+<hr>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li><a href="https://github.com/aws/aws-sdk-go" target="_blank">aws-sdk-go</a>, by AWS, Apache 2.0 License</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.38-aws-s3" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.38...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,10 +2437,10 @@
 
             
                 
-                
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
-                    <i class="fa fa-angle-right"></i>
+                <a href="C-singleflight.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: C.37. Singleflight">
+                    <i class="fa fa-angle-left"></i>
                 </a>
+                
                 
             
         
@@ -2132,7 +2449,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.38. AWS S3","level":"5.1.38","depth":2,"next":{"title":"D. Studi Kasus","level":"6.1","depth":1,"ref":"","articles":[{"title":"D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover","level":"6.1.1","depth":2,"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]},{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},{"title":"D.3. Web Socket: Chatting App","level":"6.1.3","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]}]},"previous":{"title":"C.37. Singleflight","level":"5.1.37","depth":2,"path":"C-singleflight.md","ref":"C-singleflight.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-aws-s3.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

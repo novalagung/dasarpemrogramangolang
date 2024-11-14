@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Web Server - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-url-parsing.html">
     
+    
+    <link rel="prev" href="A-file.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -920,7 +922,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.51" data-path="A-web-server.html">
+        <li class="chapter active" data-level="3.1.51" data-path="A-web-server.html">
             
                 <a href="A-web-server.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.51. Web Server</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,101 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a51-web-server">A.51. Web Server</h1>
+<p>Go menyediakan package <code>net/http</code>, berisi berbagai macam fitur untuk keperluan pembuatan aplikasi berbasis web. Termasuk di dalamnya mencakup web server, routing, templating, dan lainnya.</p>
+<p>Go memiliki web server sendiri, tersedia dalam package Go yang bisa kita import dengan mudah. Jadi berbeda dibanding beberapa bahasa lain yang servernya terpisah yang perlu diinstal sendiri (seperti PHP yang memerlukan Apache, .NET yang memerlukan IIS).</p>
+<p>Pada chapter ini kita akan belajar cara pembuatan aplikasi web sederhana dan pemanfaatan template untuk mendesain view.</p>
+<h2 id="a511-membuat-aplikasi-web-sederhana">A.51.1. Membuat Aplikasi Web Sederhana</h2>
+<p>Package <code>net/http</code> memiliki banyak sekali fungsi yang bisa dimanfaatkan. Di bagian ini kita akan mempelajari beberapa fungsi penting seperti <em>routing</em> dan <em>start server</em>.</p>
+<p>Program di bawah ini merupakan contoh sederhana untuk memunculkan text di web ketika url tertentu diakses.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
+
+<span class="hljs-keyword">func</span> index(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintln(w, <span class="hljs-string">&quot;apa kabar!&quot;</span>)
+}
+
+<span class="hljs-keyword">func</span> main() {
+    http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintln(w, <span class="hljs-string">&quot;halo!&quot;</span>)
+    })
+
+    http.HandleFunc(<span class="hljs-string">&quot;/index&quot;</span>, index)
+
+    fmt.Println(<span class="hljs-string">&quot;starting web server at http://localhost:8080/&quot;</span>)
+    http.ListenAndServe(<span class="hljs-string">&quot;:8080&quot;</span>, <span class="hljs-literal">nil</span>)
+}
+</code></pre>
+<p>Jalankan program tersebut.</p>
+<p><img src="images/A_web_server_1_start_server.png" alt="Dasar Pemrograman Golang - Eksekusi program"></p>
+<p>Jika muncul dialog <strong>Do you want the application &#x201C;bab48&#x201D; to accept incoming network connections?</strong> atau sejenis, pilih allow. Setelah itu, buka url <a href="http://localhost/" target="_blank">http://localhost/</a> dan <a href="http://localhost/index" target="_blank">http://localhost/index</a> di browser.</p>
+<p><img src="images/A_web_server_2_web_server.png" alt="Dasar Pemrograman Golang - Contoh penerapan net/http"></p>
+<p>Fungsi <code>http.HandleFunc()</code> digunakan untuk routing aplikasi web. Maksud dari routing adalah penentuan aksi ketika url tertentu diakses oleh user.</p>
+<p>Pada kode di atas 2 rute didaftarkan, yaitu <code>/</code> dan <code>/index</code>. Aksi dari rute <code>/</code> adalah menampilkan text <code>&quot;halo&quot;</code> di halaman website. Sedangkan <code>/index</code> menampilkan text <code>&quot;apa kabar!&quot;</code>.</p>
+<p>Fungsi <code>http.HandleFunc()</code> memiliki 2 buah parameter yang harus diisi. Parameter pertama adalah rute yang diinginkan. Parameter kedua adalah <em>callback</em> atau aksi ketika rute tersebut diakses. Callback tersebut bertipe fungsi <code>func(w http.ResponseWriter, r *http.Request)</code>.</p>
+<p>Pada pendaftaran rute <code>/index</code>, callback-nya adalah fungsi <code>index()</code>, hal seperti ini diperbolehkan asalkan tipe dari fungsi tersebut sesuai.</p>
+<p>Fungsi <code>http.listenAndServe()</code> digunakan untuk menghidupkan server sekaligus menjalankan aplikasi menggunakan server tersebut. Di Go, 1 web aplikasi adalah 1 buah server berbeda.</p>
+<p>Pada contoh di atas, server dijalankan pada port <code>8080</code>.</p>
+<p>Perlu diingat, setiap ada perubahan pada file <code>.go</code>, <code>go run</code> harus dipanggil lagi.</p>
+<p>Untuk menghentikan web server, tekan <strong>CTRL+C</strong> pada terminal atau CMD, di mana pengeksekusian aplikasi berlangsung.</p>
+<h2 id="a512-penggunaan-template-web">A.51.2. Penggunaan Template Web</h2>
+<p>Template engine memberikan kemudahan dalam mendesain tampilan view aplikasi website. Dan kabar baiknya Go menyediakan engine template sendiri, dengan banyak fitur yang tersedia di dalamnya.</p>
+<p>Di sini kita akan belajar contoh sederhana penggunaan template untuk menampilkan data. Pertama siapkan dahulu template-nya. Buat file <code>template.html</code> lalu isi dengan kode berikut.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Go learn net/http<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hello {{.Name}} !<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{.Message}}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>Kode <code>{{.Name}}</code> artinya memunculkan isi data property <code>Name</code> yang dikirim dari router. Kode tersebut nantinya di-replace dengan isi variabel <code>Name</code>.</p>
+<p>Selanjutnya ubah isi file <code>.go</code> dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        <span class="hljs-keyword">var</span> data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>{
+            <span class="hljs-string">&quot;Name&quot;</span>:    <span class="hljs-string">&quot;john wick&quot;</span>,
+            <span class="hljs-string">&quot;Message&quot;</span>: <span class="hljs-string">&quot;have a nice day&quot;</span>,
+        }
+
+        <span class="hljs-keyword">var</span> t, err = template.ParseFiles(<span class="hljs-string">&quot;template.html&quot;</span>)
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            fmt.Println(err.Error())
+            <span class="hljs-keyword">return</span>
+        }
+
+        t.Execute(w, data)
+    })
+
+    fmt.Println(<span class="hljs-string">&quot;starting web server at http://localhost:8080/&quot;</span>)
+    http.ListenAndServe(<span class="hljs-string">&quot;:8080&quot;</span>, <span class="hljs-literal">nil</span>)
+}
+</code></pre>
+<p>Jalankan, lalu buka <a href="http://localhost:8080" target="_blank">http://localhost:8080</a>, maka data <code>Nama</code> dan <code>Message</code> akan muncul di view.</p>
+<p><img src="images/A_web_server_3_template.png" alt="Dasar Pemrograman Golang - Penggunaan template"></p>
+<p>Fungsi <code>template.ParseFiles()</code> digunakan untuk parsing template, mengembalikan 2 data yaitu instance template-nya dan error (jika ada). Pemanggilan method <code>Execute()</code> akan membuat hasil parsing template ditampilkan ke layar web browser.</p>
+<p>Pada kode di atas, variabel <code>data</code> disisipkan sebagai parameter ke-2 method <code>Execute()</code>. Isi dari variabel tersebut bisa diakses di-view dengan menggunakan notasi <code>{{.NAMA_PROPERTY}}</code> (nama variabel sendiri tidak perlu dituliskan, langsung nama property di dalamnya).</p>
+<p>Pada contoh di atas, statement di view <code>{{.Name}}</code> akan menampilkan isi dari <code>data.Name</code>.</p>
+<h2 id="a513-advanced-web-programming">A.51.3. Advanced Web Programming</h2>
+<p>Sampai chapter ini yang kita pelajari adalah yang sifatnya fundamental atau dasar di pemrograman Go. Nantinya di chapter <a href="B-golang-web-hello-world.html">B.1. Golang Web App: Hello World</a> hingga seterusnya akan lebih banyak membahas mengenai pemrograman web. Jadi untuk sekarang sabar dulu ya. Mari kita selesaikan pembelajaran fundamental secara runtun, sebelum masuk ke bagian pengembangan web.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.51-web-server" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.51...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2180,12 @@
 
             
                 
+                <a href="A-file.html" class="navigation navigation-prev " aria-label="Previous page: A.50. File">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-url-parsing.html" class="navigation navigation-next " aria-label="Next page: A.52. URL Parsing">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2196,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.51. Web Server","level":"3.1.51","depth":2,"next":{"title":"A.52. URL Parsing","level":"3.1.52","depth":2,"path":"A-url-parsing.md","ref":"A-url-parsing.md","articles":[]},"previous":{"title":"A.50. File","level":"3.1.50","depth":2,"path":"A-file.md","ref":"A-file.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-web-server.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

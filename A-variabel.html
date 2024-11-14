@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Variabel - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-tipe-data.html">
     
+    
+    <link rel="prev" href="A-komentar.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -374,7 +376,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.9" data-path="A-variabel.html">
+        <li class="chapter active" data-level="3.1.9" data-path="A-variabel.html">
             
                 <a href="A-variabel.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.9. Variabel</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,125 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a9-variabel">A.9. Variabel</h1>
+<p>Go mengadopsi dua jenis penulisan variabel, yaitu yang dituliskan tipe data-nya dan yang tidak. Kedua cara tersebut valid dan tujuannya sama yaitu untuk deklarasi variabel, pembedanya hanya pada cara penulisannya saja.</p>
+<p>Pada chapter ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel.</p>
+<h2 id="a91-deklarasi-variabel-beserta-tipe-data">A.9.1. Deklarasi Variabel Beserta Tipe Data</h2>
+<p>Go memiliki aturan cukup ketat dalam hal penulisan variabel. Ketika deklarasi, tipe data yg digunakan harus dituliskan juga. Istilah dari metode deklarasi variabel ini adalah <strong>manifest typing</strong>.</p>
+<p>Berikut adalah contoh cara pembuatan variabel yang tipe datanya harus ditulis. Silakan tulis pada project baru atau pada project yang sudah ada, bebas. Pastikan pada setiap pembuatan project baru untuk tidak lupa menginisialisasi project menggunakan command <code>go mod init &lt;nama-project&gt;</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> firstName <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;john&quot;</span>
+
+    <span class="hljs-keyword">var</span> lastName <span class="hljs-keyword">string</span>
+    lastName = <span class="hljs-string">&quot;wick&quot;</span>
+
+    fmt.Printf(<span class="hljs-string">&quot;halo %s %s!\n&quot;</span>, firstName, lastName)
+}
+</code></pre>
+<p>Keyword <code>var</code> di atas digunakan untuk deklarasi variabel, contohnya bisa dilihat pada <code>firstName</code> dan <code>lastName</code>.</p>
+<p>Nilai variabel <code>firstName</code> diisi langsung ketika deklarasi, berbeda dibanding <code>lastName</code> yang nilainya diisi setelah baris kode deklarasi, hal seperti ini diperbolehkan di Go.</p>
+<p><img src="images/A_variabel_1_variabel.png" alt="Dasar Pemrograman Golang - Menampilkan isi variabel"></p>
+<h2 id="a92-deklarasi-variabel-menggunakan-keyword-var">A.9.2. Deklarasi Variabel Menggunakan Keyword <code>var</code></h2>
+<p>Pada kode di atas bisa dilihat bagaimana sebuah variabel dideklarasikan dan diisi nilainya. Keyword <code>var</code> digunakan untuk membuat variabel baru.</p>
+<p>Skema penggunaan keyword var:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> &lt;nama-variabel&gt; &lt;tipe-data&gt;
+<span class="hljs-keyword">var</span> &lt;nama-variabel&gt; &lt;tipe-data&gt; = &lt;nilai&gt;
+</code></pre>
+<p>Contoh:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> lastName <span class="hljs-keyword">string</span>
+<span class="hljs-keyword">var</span> firstName <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;john&quot;</span>
+</code></pre>
+<p>Nilai variabel bisa di-isi langsung pada saat deklarasi variabel.</p>
+<h4 id="&#x25C9;-penggunaan-fungsi-fmtprintf">&#x25C9; Penggunaan Fungsi <code>fmt.Printf()</code></h4>
+<p>Fungsi ini digunakan untuk menampilkan output dalam bentuk tertentu. Kegunaannya sama seperti fungsi <code>fmt.Println()</code>, hanya saja struktur outputnya didefinisikan di awal.</p>
+<p>Perhatikan bagian <code>&quot;halo %s %s!\n&quot;</code>, karakter <code>%s</code> di situ akan diganti dengan data <code>string</code> yang berada di parameter ke-2, ke-3, dan seterusnya.</p>
+<p>Contoh lain, ketiga baris kode berikut ini akan menghasilkan output yang sama, meskipun cara penulisannya berbeda.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;halo john wick!\n&quot;</span>)
+fmt.Printf(<span class="hljs-string">&quot;halo %s %s!\n&quot;</span>, firstName, lastName)
+fmt.Println(<span class="hljs-string">&quot;halo&quot;</span>, firstName, lastName + <span class="hljs-string">&quot;!&quot;</span>)
+</code></pre>
+<p>Tanda plus (<code>+</code>) jika digunakan untuk penghubung 2 data string fungsinya adalah untuk operasi penggabungan string atau <em>string concatenation</em>.</p>
+<p>Fungsi <code>fmt.Printf()</code> tidak menghasilkan baris baru di akhir text, oleh karena itu digunakanlah literal <em>newline</em> yaitu <code>\n</code>, untuk memunculkan baris baru di akhir. Hal ini sangat berbeda jika dibandingkan dengan fungsi <code>fmt.Println()</code> yang secara otomatis menghasilkan new line (baris baru) di akhir.</p>
+<h2 id="a93-deklarasi-variabel-tanpa-tipe-data">A.9.3. Deklarasi Variabel Tanpa Tipe Data</h2>
+<p>Selain <em>manifest typing</em>, Go juga mengadopsi konsep <strong>type inference</strong>, yaitu metode deklarasi variabel yang tipe data-nya diketahui secara otomatis dari data/nilai variabel. Cara ini kontradiktif jika dibandingkan dengan cara pertama. Dengan metode jenis ini, keyword <code>var</code> dan tipe data tidak perlu ditulis.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> firstName <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;john&quot;</span>
+lastName := <span class="hljs-string">&quot;wick&quot;</span>
+
+fmt.Printf(<span class="hljs-string">&quot;halo %s %s!\n&quot;</span>, firstName, lastName)
+</code></pre>
+<p>Variabel <code>lastName</code> dideklarasikan dengan menggunakan metode type inference. Penandanya tipe data tidak dituliskan pada saat deklarasi. Pada penggunaan metode ini, operand <code>=</code> harus diganti dengan <code>:=</code> dan keyword <code>var</code> dihilangkan.</p>
+<p>Tipe data <code>lastName</code> secara otomatis akan ditentukan menyesuaikan value atau nilai-nya. Jika nilainya adalah berupa <code>string</code> maka tipe data variabel adalah <code>string</code>. Pada contoh di atas, nilainya adalah string <code>&quot;wick&quot;</code>.</p>
+<p>Diperbolehkan untuk tetap menggunakan keyword <code>var</code> pada saat deklarasi meskipun tanpa menuliskan tipe data, dengan ketentuan tidak menggunakan tanda <code>:=</code>, melainkan tetap menggunakan <code>=</code>.</p>
+<pre><code class="lang-go"><span class="hljs-comment">// menggunakan var, tanpa tipe data, menggunakan perantara &quot;=&quot;</span>
+<span class="hljs-keyword">var</span> firstName = <span class="hljs-string">&quot;john&quot;</span>
+
+<span class="hljs-comment">// tanpa var, tanpa tipe data, menggunakan perantara &quot;:=&quot;</span>
+lastName := <span class="hljs-string">&quot;wick&quot;</span>
+</code></pre>
+<p>Kedua deklarasi di atas maksudnya sama. Silakan pilih sesuai preferensi.</p>
+<p>Tanda <code>:=</code> hanya digunakan sekali di awal pada saat deklarasi. Untuk assignment nilai selanjutnya harus menggunakan tanda <code>=</code>, contoh:</p>
+<pre><code class="lang-go">lastName := <span class="hljs-string">&quot;wick&quot;</span>
+lastName = <span class="hljs-string">&quot;ethan&quot;</span>
+lastName = <span class="hljs-string">&quot;bourne&quot;</span>
+</code></pre>
+<blockquote>
+<p>Deklarasi menggunakan <code>:=</code> hanya bisa dilakukan di dalam blok fungsi, misalnya dalam blok fungsi <code>main()</code></p>
+</blockquote>
+<h2 id="a94-deklarasi-multi-variabel">A.9.4. Deklarasi Multi Variabel</h2>
+<p>Go mendukung metode deklarasi banyak variabel secara bersamaan, caranya dengan menuliskan variabel-variabel-nya dengan pembatas tanda koma (<code>,</code>). Untuk pengisian nilainya-pun diperbolehkan secara bersamaan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> first, second, third <span class="hljs-keyword">string</span>
+first, second, third = <span class="hljs-string">&quot;satu&quot;</span>, <span class="hljs-string">&quot;dua&quot;</span>, <span class="hljs-string">&quot;tiga&quot;</span>
+</code></pre>
+<p>Pengisian nilai juga bisa dilakukan bersamaan pada saat deklarasi. Caranya dengan menuliskan nilai masing-masing variabel berurutan sesuai variabelnya dengan pembatas koma (<code>,</code>).</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> fourth, fifth, sixth <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;empat&quot;</span>, <span class="hljs-string">&quot;lima&quot;</span>, <span class="hljs-string">&quot;enam&quot;</span>
+</code></pre>
+<p>Kalau ingin lebih ringkas:</p>
+<pre><code class="lang-go">seventh, eight, ninth := <span class="hljs-string">&quot;tujuh&quot;</span>, <span class="hljs-string">&quot;delapan&quot;</span>, <span class="hljs-string">&quot;sembilan&quot;</span>
+</code></pre>
+<p>Dengan menggunakan teknik type inference, deklarasi multi variabel bisa dilakukan untuk variabel-variabel yang tipe data satu sama lainnya berbeda.</p>
+<pre><code class="lang-go">one, isFriday, twoPointTwo, say := <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">2.2</span>, <span class="hljs-string">&quot;hello&quot;</span>
+</code></pre>
+<h2 id="a95-variabel-underscore-">A.9.5. Variabel Underscore <code>_</code></h2>
+<p>Go memiliki aturan unik yang jarang dimiliki bahasa lain, yaitu tidak boleh ada satupun variabel yang menganggur. Artinya, semua variabel yang dideklarasikan harus digunakan. Jika ada variabel yang tidak digunakan tapi dideklarasikan, error akan muncul pada saat kompilasi dan program tidak akan bisa di-run.</p>
+<p><img src="images/A_variabel_2_unused_variabel.png" alt="Dasar Pemrograman Golang - Variabel pengangguran"></p>
+<p><em>Underscore</em> (<code>_</code>) adalah <em>reserved variable</em> yang bisa dimanfaatkan untuk menampung nilai yang tidak dipakai. Bisa dibilang variabel ini merupakan keranjang sampah.</p>
+<pre><code class="lang-go">_ = <span class="hljs-string">&quot;belajar Golang&quot;</span>
+_ = <span class="hljs-string">&quot;Golang itu mudah&quot;</span>
+name, _ := <span class="hljs-string">&quot;john&quot;</span>, <span class="hljs-string">&quot;wick&quot;</span>
+</code></pre>
+<p>Pada contoh di atas, variabel <code>name</code> akan berisikan text <code>john</code>, sedang nilai <code>wick</code> ditampung oleh variabel underscore, menandakan bahwa nilai tersebut tidak akan digunakan.</p>
+<p>Variabel underscore adalah <em>predefined</em>, jadi tidak perlu menggunakan <code>:=</code> untuk pengisian nilai, cukup dengan <code>=</code> saja. Namun khusus untuk pengisian nilai multi variabel yang dilakukan dengan metode type inference, boleh di dalamnya terdapat variabel underscore.</p>
+<p>Biasanya variabel underscore sering dimanfaatkan untuk menampung nilai balik fungsi yang tidak digunakan.</p>
+<p>Perlu diketahui, bahwa isi variabel underscore tidak dapat ditampilkan. Data yang sudah masuk variabel tersebut akan hilang. Ibarat variabel underscore ini seperti blackhole, objek apapun yang masuk ke dalamnya, akan terjebak selamanya di-dalam singularity dan tidak akan bisa keluar &#x1F601;</p>
+<h2 id="a96-deklarasi-variabel-menggunakan-keyword-new">A.9.6. Deklarasi Variabel Menggunakan Keyword <code>new</code></h2>
+<p>Fungsi <code>new()</code> digunakan untuk membuat variabel <strong>pointer</strong> dengan tipe data tertentu. Nilai data default-nya akan menyesuaikan tipe datanya.</p>
+<pre><code class="lang-go">name := <span class="hljs-built_in">new</span>(<span class="hljs-keyword">string</span>)
+
+fmt.Println(name)   <span class="hljs-comment">// 0x20818a220</span>
+fmt.Println(*name)  <span class="hljs-comment">// &quot;&quot;</span>
+</code></pre>
+<p>Variabel <code>name</code> menampung data bertipe <strong>pointer string</strong>. Jika ditampilkan yang muncul bukanlah nilainya melainkan alamat memori nilai tersebut (dalam bentuk notasi heksadesimal). Untuk menampilkan nilai aslinya, variabel tersebut perlu di-<strong>dereference</strong> terlebih dahulu, caranya dengan menuliskan tanda asterisk (<code>*</code>) sebelum nama variabel.</p>
+<p>Mungkin untuk sekarang banyak yang akan bingung tentang apa itu pointer, namun tak apa, karena nantinya pada chapter <a href="A-pointer.html">A.23. Pointer</a> akan dikupas habis topik tersebut.</p>
+<h2 id="a97-deklarasi-variabel-menggunakan-keyword-make">A.9.7. Deklarasi Variabel Menggunakan Keyword <code>make</code></h2>
+<p>Fungsi <code>make()</code> ini hanya bisa digunakan untuk pembuatan beberapa jenis variabel saja, yaitu:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>channel</li>
+<li>slice</li>
+<li>map</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Nantinya kita akan bahas lebih detail ketika sudah masuk ke pembahasan masing-masing poin tersebut.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.9-variabel" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.9...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2204,12 @@
 
             
                 
+                <a href="A-komentar.html" class="navigation navigation-prev " aria-label="Previous page: A.8. Komentar">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-tipe-data.html" class="navigation navigation-next " aria-label="Next page: A.10. Tipe Data">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2220,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.9. Variabel","level":"3.1.9","depth":2,"next":{"title":"A.10. Tipe Data","level":"3.1.10","depth":2,"path":"A-tipe-data.md","ref":"A-tipe-data.md","articles":[]},"previous":{"title":"A.8. Komentar","level":"3.1.8","depth":2,"path":"A-komentar.md","ref":"A-komentar.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-variabel.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

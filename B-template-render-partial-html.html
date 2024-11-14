@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Template: Render Partial HTML Template - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="B-template-actions-variables.html">
     
+    
+    <link rel="prev" href="B-template-render-html.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1193,7 +1195,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.5" data-path="B-template-render-partial-html.html">
+        <li class="chapter active" data-level="4.1.5" data-path="B-template-render-partial-html.html">
             
                 <a href="B-template-render-partial-html.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">B.5. Template: Render Partial HTML Template</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,197 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="b5-template-render-partial-html-template">B.5. Template: Render Partial HTML Template</h1>
+<p>Satu buah halaman yang berisikan html bisa saja terbentuk dari lebih dari satu proses parsing template html (parsial). Pada chapter ini kita akan belajar bagaimana membuat, mem-parsing, dan me-render semua template file.</p>
+<p>Ada beberapa metode yang bisa digunakan, 2 di antaranya:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Menggunakan fungsi <code>template.ParseGlob()</code>.</li>
+<li>Menggunakan fungsi <code>template.ParseFiles()</code>.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<h2 id="b51-struktur-aplikasi">B.5.1. Struktur Aplikasi</h2>
+<p>Mari belajar sambil praktek seperti biasa. Buat project baru, siapkan file dan folder dengan susunan seperti dengan gambar berikut.</p>
+<p><img src="images/B_template_render_partial_html_1_structure.png" alt="Dasar Pemrograman Golang - Structure"></p>
+<h2 id="b52-back-end">B.5.2. Back End</h2>
+<p>Buka <code>main.go</code>, isi dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;net/http&quot;</span>
+    <span class="hljs-string">&quot;html/template&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> tmpl, err = template.ParseGlob(<span class="hljs-string">&quot;views/*&quot;</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-built_in">panic</span>(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+}
+</code></pre>
+<p>Tipe <code>M</code> merupakan alias dari <code>map[string]interface{}</code>, disiapkan untuk mempersingkat penulisan tipe map tersebut. Pada pembahasan-pembahasan selanjutnya kita akan banyak menggunakan tipe ini.</p>
+<p>Pada kode di atas, di dalam fungsi <code>main()</code>, fungsi <code>template.ParseGlob()</code> dipanggil, dengan parameter adalah pattern path <code>&quot;views/*&quot;</code>. Fungsi ini digunakan untuk memparsing semua file yang match dengan <em>pattern</em>/pola yang ditentukan. Fungsi ini mengembalikan 2 objek yaitu <code>*template.Template</code> &amp; <code>error</code>.</p>
+<blockquote>
+<p>Pattern path pada fungsi <code>template.ParseGlob()</code> nantinya akan di proses oleh <code>filepath.Glob()</code></p>
+</blockquote>
+<p>Proses parsing semua file html dalam folder <code>views</code> dilakukan di awal, agar ketika suatu endpoint diakses nantinya tidak terjadi proses parsing melainkan hanya proses rendering saja.</p>
+<blockquote>
+<p>Parsing semua file menggunakan <code>template.ParseGlob()</code> yang dilakukan di luar handler, tidak direkomendasikan dalam fase development. Karena akan mempersulit testing html. Lebih detailnya akan dibahas di bagian bawah.</p>
+</blockquote>
+<p>Selanjutnya, masih di dalam fungsi <code>main()</code>, siapkan 2 buah rute.</p>
+<pre><code class="lang-go">http.HandleFunc(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">var</span> data = M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Batman&quot;</span>}
+    err = tmpl.ExecuteTemplate(w, <span class="hljs-string">&quot;index&quot;</span>, data)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
+})
+
+http.HandleFunc(<span class="hljs-string">&quot;/about&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">var</span> data = M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Batman&quot;</span>}
+    err = tmpl.ExecuteTemplate(w, <span class="hljs-string">&quot;about&quot;</span>, data)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
+})
+
+fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+</code></pre>
+<p>Kedua rute tersebut sama, pembedanya adalah template yang di-render. Rute <code>/index</code> me-render template bernama <code>index</code>, dan rute <code>/about</code> me-render template bernama <code>about</code>.</p>
+<p>Karena semua file html sudah diparsing di awal, maka untuk render template tertentu cukup dengan memanggil method <code>ExecuteTemplate()</code>, dengan menyisipkan 3 parameter berikut:</p>
+<ol>
+<li>Parameter ke-1, objek <code>http.ResponseWriter</code></li>
+<li>Parameter ke-2, nama template</li>
+<li>Parameter ke-3, data</li>
+</ol>
+<blockquote>
+<p>Nama template bukanlah nama file. Setelah masuk ke bagian front-end, akan diketahui apa yang dimaksud dengan nama template.</p>
+</blockquote>
+<h2 id="b53-front-end">B.5.3. Front End</h2>
+<h2 id="b531-template-indexhtml">B.5.3.1. Template <code>index.html</code></h2>
+<p>OK, sekarang waktunya untuk mulai menyiapkan template view. Ada 4 buah template yang harus kita siapkan satu per satu. </p>
+<p>Buka file <code>index.html</code>, lalu tulis kode berikut.</p>
+<pre><code class="lang-html">{{define &quot;index&quot;}}
+<span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        {{template &quot;_header&quot;}}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        {{template &quot;_message&quot;}}
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Page: Index<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Welcome {{.name}}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+{{end}}
+</code></pre>
+<p>Pada kode di atas terlihat bahwa ada beberapa kode yang ditulis dengan notasinya <code>{{ }}</code>. Berikut adalah penjelasannya.</p>
+<ul>
+<li>Statement <code>{{define &quot;index&quot;}}</code>, digunakan untuk mendefinisikan nama template. Semua blok kode setelah statement tersebut (batasnya adalah hingga statement <code>{{end}}</code>) adalah milik template dengan nama <code>index</code>. keyword <code>define</code> digunakan dalam penentuan nama template.</li>
+<li>Statement <code>{{template &quot;_header&quot;}}</code> artinya adalah template bernama <code>_header</code> di-include ke bagian itu. keyword <code>template</code> digunakan untuk include template lain.</li>
+<li>Statement <code>{{template &quot;_message&quot;}}</code>, sama seperti sebelumnya, template bernama <code>_message</code> akan di-include.</li>
+<li>Statement <code>{{.name}}</code> akan memunculkan data, <code>name</code>, yang data ini sudah disisipkan oleh back end pada saat rendering.</li>
+<li>Statement <code>{{end}}</code> adalah penanda batas akhir pendefinisian template.</li>
+</ul>
+<h2 id="b532-template-abouthtml">B.5.3.2. Template <code>about.html</code></h2>
+<p>Template ke-2, <code>about.html</code> diisi dengan dengan kode yang sama seperti pada <code>index.html</code>, hanya berbeda di bagian nama template dan beberapa text.</p>
+<pre><code class="lang-html">{{define &quot;about&quot;}}
+<span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        {{template &quot;_header&quot;}}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        {{template &quot;_message&quot;}}
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Page: About<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Welcome {{.name}}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+{{end}}
+</code></pre>
+<h2 id="b533-template-headerhtml">B.5.3.3. Template <code>_header.html</code></h2>
+<p>Buka file <code>_header.html</code>, definisikan template bernama <code>_header</code> dengan isi adalah judul halaman.</p>
+<pre><code class="lang-html">{{define &quot;_header&quot;}}
+<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Learn Golang Template<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+{{end}}
+</code></pre>
+<blockquote>
+<p>Nama file bisa ditulis dengan diawali karakter underscore atau <code>_</code>. Pada chapter ini, nama file yang diawali <code>_</code> kita asumsikan sebagai template parsial, template yang nantinya di-include-kan ke template utama.</p>
+</blockquote>
+<h2 id="b534-template-messagehtml">B.5.3.4. Template <code>_message.html</code></h2>
+<p>Definisikan juga template <code>_message</code> pada file <code>_message.html</code> dengan isi sebuah text.</p>
+<pre><code class="lang-html">{{define &quot;_message&quot;}}
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Welcome<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+{{end}}
+</code></pre>
+<h2 id="b55-run--test">B.5.5. Run &amp; Test</h2>
+<p>Jalankan aplikasi, test via browser.</p>
+<p><img src="images/B_template_render_partial_html_2_routes.png" alt="Dasar Pemrograman Golang - Rute `/about` &amp; `/index`"></p>
+<p>Bisa dilihat pada gambar di atas, ketika rute <code>/index</code> dan <code>/about</code> di akses, konten yang keluar adalah berbeda, sesuai dengan template yang di-render di masing-masing rute.</p>
+<h2 id="b56-parsing-banyak-file-html-menggunakan-templateparsefiles">B.5.6. Parsing Banyak File HTML Menggunakan <code>template.ParseFiles()</code></h2>
+<p>Metode parsing menggunakan <code>template.ParseGlob()</code> memiliki kekurangan yaitu sangat tergantung terhadap pattern path yang digunakan. Jika dalam suatu proyek terdapat sangat banyak file html dan folder, sedangkan hanya beberapa yang digunakan, pemilihan pattern path yang kurang tepat akan menjadikan file lain ikut ter-parsing sia-sia.</p>
+<p>Dan juga, karena statement <code>template.ParseGlob()</code> dieksekusi diluar handler, maka ketika ada perubahan pada salah satu view, lalu halaman di refresh, output yang dihasilkan akan tetap sama. Solusi dari masalah ini adalah dengan memanggil <code>template.ParseGlob()</code> di tiap handler rute-rute yang diregistrasikan.</p>
+<blockquote>
+<p>Best practices yang bisa diterapkan, ketika environment adalah production, maka tempatkan <code>template.ParseGlob()</code> di luar (sebelum) handler. Sedangkan pada environment development, taruh <code>template.ParseGlob()</code> di dalam masing-masing handler. Gunakan seleksi kondisi untuk mengakomodir skenario ini.</p>
+</blockquote>
+<p>Alternatif metode lain yang bisa digunakan, yang lebih efisien, adalah dengan memanfaatkan fungsi <code>template.ParseFiles()</code>. Fungsi ini selain bisa digunakan untuk parsing satu buah file saja (seperti yang sudah dicontohkan pada chapter sebelumnya), bisa digunakan untuk parsing banyak file.</p>
+<p>Mari kita praktekan. Ubah handler rute <code>/index</code> dan <code>/about</code>. Gunakan <code>template.ParseFiles()</code> dengan isi parameter (variadic) adalah path dari file-file html yang akan dipergunakan di masing-masing rute. Lalu hapus statement <code>template.ParseGlob()</code></p>
+<ul>
+<li><p>Rute <code>/index</code> dan handlernya.</p>
+<pre><code class="lang-go"> http.HandleFunc(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+     <span class="hljs-keyword">var</span> data = M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Batman&quot;</span>}
+     <span class="hljs-keyword">var</span> tmpl = template.Must(template.ParseFiles(
+         <span class="hljs-string">&quot;views/index.html&quot;</span>,
+         <span class="hljs-string">&quot;views/_header.html&quot;</span>,
+         <span class="hljs-string">&quot;views/_message.html&quot;</span>,
+     ))
+
+     <span class="hljs-keyword">var</span> err = tmpl.ExecuteTemplate(w, <span class="hljs-string">&quot;index&quot;</span>, data)
+     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+         http.Error(w, err.Error(), http.StatusInternalServerError)
+     }
+ })
+</code></pre>
+</li>
+<li><p>Rute <code>/about</code> dan handlernya.</p>
+<pre><code class="lang-go"> http.HandleFunc(<span class="hljs-string">&quot;/about&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+     <span class="hljs-keyword">var</span> data = M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Batman&quot;</span>}
+     <span class="hljs-keyword">var</span> tmpl = template.Must(template.ParseFiles(
+         <span class="hljs-string">&quot;views/about.html&quot;</span>,
+         <span class="hljs-string">&quot;views/_header.html&quot;</span>,
+         <span class="hljs-string">&quot;views/_message.html&quot;</span>,
+     ))
+
+     <span class="hljs-keyword">var</span> err = tmpl.ExecuteTemplate(w, <span class="hljs-string">&quot;about&quot;</span>, data)
+     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+         http.Error(w, err.Error(), http.StatusInternalServerError)
+     }
+ })
+</code></pre>
+</li>
+<li><p>Tak lupa <strong>hapus</strong> statement <code>template.ParseGlob()</code>.</p>
+<pre><code class="lang-go"> <span class="hljs-keyword">var</span> tmpl, err = template.ParseGlob(<span class="hljs-string">&quot;views/*&quot;</span>)
+ <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+     <span class="hljs-built_in">panic</span>(err.Error())
+     <span class="hljs-keyword">return</span>
+ }
+</code></pre>
+</li>
+</ul>
+<p>Rute <code>/index</code> memakai view <code>_header.html</code>, <code>_message.html</code>, dan <code>index.html</code>; sedangkan rute <code>/about</code> tidak memakai <code>index.html</code>, melainkan menggunakan <code>about.html</code>.</p>
+<p>Wrap fungsi <code>template.ParseFiles()</code> dalam <code>template.Must()</code>. Fungsi ini berguna untuk deteksi error pada saat membuat instance <code>*template.Template</code> baru atau ketika sedang mengolahnya. Ketika ada error, <code>panic</code> dimunculkan.</p>
+<p>Jalankan aplikasi untuk test hasilnya.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.5-template-render-partial-html" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.5...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2276,12 @@
 
             
                 
+                <a href="B-template-render-html.html" class="navigation navigation-prev " aria-label="Previous page: B.4. Template: Render HTML Template">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="B-template-actions-variables.html" class="navigation navigation-next " aria-label="Next page: B.6. Template: Actions &amp; Variables">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2292,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"next":{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"path":"B-template-actions-variables.md","ref":"B-template-actions-variables.md","articles":[]},"previous":{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"path":"B-template-render-html.md","ref":"B-template-render-html.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-template-render-partial-html.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

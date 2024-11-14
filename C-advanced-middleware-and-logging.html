@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Advanced Middleware &amp; Logging (Logrus, Echo Logger) - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-flag-parser.html">
     
+    
+    <link rel="prev" href="C-echo-template-rendering.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1557,7 +1559,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.8" data-path="C-advanced-middleware-and-logging.html">
+        <li class="chapter active" data-level="5.1.8" data-path="C-advanced-middleware-and-logging.html">
             
                 <a href="C-advanced-middleware-and-logging.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.8. Advanced Middleware &amp; Logging (Logrus, Echo Logger)</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,228 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c8-advanced-middleware--logging-logrus-echo-logger">C.8. Advanced Middleware &amp; Logging (Logrus, Echo Logger)</h1>
+<p>Middleware adalah sebuah blok kode yang dipanggil sebelum ataupun sesudah http request di-proses. Middleware biasanya dibuat per-fungsi-nya, contohnya: middleware autentikasi, middleware untuk logging, middleware untuk gzip compression, dan lainnya.</p>
+<p>Pada chapter ini kita akan belajar cara membuat dan me-manage middleware.</p>
+<h2 id="c81-custom-middleware">C.8.1. Custom Middleware</h2>
+<p>Pembuatan middleware pada echo sangat mudah, cukup gunakan method <code>.Use()</code> milik objek echo untuk registrasi middleware. Method ini bisa dipanggil berkali-kali, dan eksekusi middleware-nya sendiri adalah berurutan sesuai dengan urutan registrasi.</p>
+<p>OK, langsung saja, buat folder project baru dengan isi sebauh file <code>main.go</code> seperti biasanya. Lalu tulis kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    e := echo.New()
+
+    <span class="hljs-comment">// middleware here</span>
+
+    e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) (err error) {
+        fmt.Println(<span class="hljs-string">&quot;threeeeee!&quot;</span>)
+
+        <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, <span class="hljs-literal">true</span>)
+    })
+
+    e.Logger.Fatal(e.Start(<span class="hljs-string">&quot;:9000&quot;</span>))
+}
+</code></pre>
+<p>Kode di atas merupakan aplikasi web kecil, berisi satu buah rute <code>/index</code> yang ketika di akses akan print log <code>&quot;threeeeee!&quot;</code> ke console.</p>
+<p>Selanjutnya, buat dua middleware, <code>middlewareOne</code> dan <code>middlewareTwo</code>. Isinya juga menampilkan log.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> middlewareOne(next echo.HandlerFunc) echo.HandlerFunc {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">func</span>(c echo.Context) error {
+        fmt.Println(<span class="hljs-string">&quot;from middleware one&quot;</span>)
+        <span class="hljs-keyword">return</span> next(c)
+    }
+}
+
+<span class="hljs-keyword">func</span> middlewareTwo(next echo.HandlerFunc) echo.HandlerFunc {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">func</span>(c echo.Context) error {
+        fmt.Println(<span class="hljs-string">&quot;from middleware two&quot;</span>)
+        <span class="hljs-keyword">return</span> next(c)
+    }
+}
+</code></pre>
+<p>Registrasikan kedua middleware di atas. Kode di bawah ini adalah contoh cara registrasinya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    e := echo.New()
+
+    e.Use(middlewareOne)
+    e.Use(middlewareTwo)
+
+    <span class="hljs-comment">// ...</span>
+</code></pre>
+<p>Jalankan aplikasi, lihat hasilnya.</p>
+<p><img src="images/C_advanced_middleware_and_logging_1_middleware_log.png" alt="Dasar Pemrograman Golang - Middleware logging"></p>
+<h2 id="c82-integrasi-middleware-ber-skema-non-echo-middleware">C.8.2. Integrasi Middleware ber-skema Non-Echo-Middleware</h2>
+<p>Di echo, fungsi middleware harus memiliki skema <code>func(echo.HandlerFunc)echo.HandlerFunc</code>. Untuk 3rd party middleware, tetap bisa dikombinasikan dengan echo, namun membutuhkan sedikit penyesuaian tentunya. </p>
+<p>Echo menyediakan solusi mudah untuk membantu integrasi 3rd party middleware, yaitu dengan menggunakan fungsi <code>echo.WrapMiddleware()</code> untuk mengkonversi middleware menjadi echo-compatible-middleware, dengan syarat skema harus dalam bentuk <code>func(http.Handler)http.Handler</code>.</p>
+<p>Silakan praktekan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> middlewareSomething(next http.Handler) http.Handler {
+    <span class="hljs-keyword">return</span> http.HandlerFunc(<span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        fmt.Println(<span class="hljs-string">&quot;from middleware something&quot;</span>)
+        next.ServeHTTP(w, r)
+    })
+}
+
+<span class="hljs-keyword">func</span> main() {
+    e := echo.New()
+
+    e.Use(echo.WrapMiddleware(middlewareSomething))
+
+    <span class="hljs-comment">// ...</span>
+</code></pre>
+<p>Bisa dilihat, fungsi <code>middlewareSomething</code> tidak menggunakan skema middleware milik echo, namun tetap bisa digunakan dalam <code>.Use()</code> dengan cara dibungkus fungsi <code>echo.WrapMiddleware()</code>.</p>
+<h2 id="c83-echo-middleware-logger">C.8.3. Echo Middleware: Logger</h2>
+<p>Seperti yang sudah penulis jelaskan pada awal chapter B, bahwa echo merupakan framework besar, di dalamnya terdapat banyak dependency dan library, salah satunya adalah logging middleware.</p>
+<p>Cara menggunakan logging middleware (ataupun middleware lainnya milik echo) adalah dengan meng-import package <code>github.com/labstack/echo/middleware</code>, lalu panggil nama middleware nya. Lebih detailnya silakan baca dokumentasi echo mengenai middleware di <a href="https://echo.labstack.com/middleware" target="_blank">https://echo.labstack.com/middleware</a>.</p>
+<p>Berikut merupakan contoh penggunaan echo logging middleware.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    <span class="hljs-string">&quot;github.com/labstack/echo/middleware&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    e := echo.New()
+
+    e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+        Format: <span class="hljs-string">&quot;method=${method}, uri=${uri}, status=${status}\n&quot;</span>,
+    }))
+
+    e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) (err error) {
+        <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, <span class="hljs-literal">true</span>)
+    })
+
+    e.Logger.Fatal(e.Start(<span class="hljs-string">&quot;:9000&quot;</span>))
+}
+</code></pre>
+<p>Cara menggunakan echo logging middleware adalah dengan membuat objek logging baru lewat statement <code>middleware.Logger()</code>, lalu membungkusnya dengan <code>e.Use()</code>. Atau bisa juga menggunakan <code>middleware.LoggerWithConfig()</code> jika logger yang dibuat memerlukan beberapa konfigurasi (tulis konfigurasinya sebagai property objek cetakan <code>middleware.LoggerConfig</code>, lalu tempatkan sebagai parameter method pemanggilan <code>.LoggerWithConfig()</code>).</p>
+<p>Jalankan aplikasi, lalu lihat hasilnya.</p>
+<p><img src="images/C_advanced_middleware_and_logging_2_middleware_logging.png" alt="Dasar Pemrograman Golang - Echo logging middleware"></p>
+<hr>
+<p>Berikut merupakan list middleware yang disediakan oleh echo, atau cek <a href="https://echo.labstack.com/middleware" target="_blank">https://echo.labstack.com/middleware</a> untuk lebih detailnya.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Basic Auth</li>
+<li>Body Dump</li>
+<li>Body Limit</li>
+<li>CORS</li>
+<li>CSRF</li>
+<li>Casbin Auth</li>
+<li>Gzip</li>
+<li>JWT</li>
+<li>Key Auth</li>
+<li>Logger</li>
+<li>Method Override</li>
+<li>Proxy</li>
+<li>Recover</li>
+<li>Redirect</li>
+<li>Request ID</li>
+<li>Rewrite</li>
+<li>Secure</li>
+<li>Session</li>
+<li>Static</li>
+<li>Trailing Slash</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<h2 id="c84-3rd-party-logging-middleware-logrus">C.8.4. 3rd Party Logging Middleware: Logrus</h2>
+<p>Selain dengan membuat middleware sendiri, ataupun menggunakan echo middleware, kita juga bisa menggunakan 3rd party middleware lain. Tinggal sesuaikan sedikit agar sesuai dengan skema fungsi middleware milik echo untuk bisa digunakan.</p>
+<p>Next, kita akan coba untuk meng-implementasi salah satu golang library terkenal untuk keperluan logging, yaitu <a href="https://github.com/sirupsen/logrus" target="_blank">logrus</a>.</p>
+<p>Buat file baru, import packages yang diperlukan, lalu buat fungsi <code>makeLogEntry()</code>, fungsi ini menerima satu parameter bertipe <code>echo.Context</code> dan mengembalikan objek logrus <code>*log.Entry</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    log <span class="hljs-string">&quot;github.com/sirupsen/logrus&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> makeLogEntry(c echo.Context) *log.Entry {
+    <span class="hljs-keyword">if</span> c == <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> log.WithFields(log.Fields{
+            <span class="hljs-string">&quot;at&quot;</span>: time.Now().Format(<span class="hljs-string">&quot;2006-01-02 15:04:05&quot;</span>),
+        })
+    }
+
+    <span class="hljs-keyword">return</span> log.WithFields(log.Fields{
+        <span class="hljs-string">&quot;at&quot;</span>:     time.Now().Format(<span class="hljs-string">&quot;2006-01-02 15:04:05&quot;</span>),
+        <span class="hljs-string">&quot;method&quot;</span>: c.Request().Method,
+        <span class="hljs-string">&quot;uri&quot;</span>:    c.Request().URL.String(),
+        <span class="hljs-string">&quot;ip&quot;</span>:     c.Request().RemoteAddr,
+    })
+}
+</code></pre>
+<p>Fungsi <code>makeLogEntry()</code> bertugas membuat basis log objek yang akan ditampilkan. Informasi standar seperti waktu, dibentuk di dalam fungsi ini. Khusus untuk log yang berhubungan dengan http request, maka informasi yang lebih detail dimunculkan (http method, url, dan IP).</p>
+<p>Selanjutnya, buat fungsi <code>middlewareLogging()</code> dan <code>errorHandler()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> middlewareLogging(next echo.HandlerFunc) echo.HandlerFunc {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">func</span>(c echo.Context) error {
+        makeLogEntry(c).Info(<span class="hljs-string">&quot;incoming request&quot;</span>)
+        <span class="hljs-keyword">return</span> next(c)
+    }
+}
+
+<span class="hljs-keyword">func</span> errorHandler(err error, c echo.Context) {
+    report, ok := err.(*echo.HTTPError)
+    <span class="hljs-keyword">if</span> ok {
+        report.Message = fmt.Sprintf(<span class="hljs-string">&quot;http error %d - %v&quot;</span>, report.Code, report.Message)
+    } <span class="hljs-keyword">else</span> {
+        report = echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+    }
+
+    makeLogEntry(c).Error(report.Message)
+    c.HTML(report.Code, report.Message.(<span class="hljs-keyword">string</span>))
+}
+</code></pre>
+<p>Fungsi <code>middlewareLogging()</code> bertugas untuk menampilkan log setiap ada http request masuk. Dari objek <code>*log.Entry</code> -yang-dicetak-lewat-fungsi-<code>makeLogEntry()</code>-, panggil method <code>Info()</code> untuk menampilkan pesan log dengan level adalah INFO.</p>
+<p>Sedang fungsi <code>errorHandler</code> akan digunakan untuk meng-override default http error handler milik echo. Dalam fungsi ini log dengan level ERROR dimunculkan lewat pemanggilan method <code>Error()</code> milik <code>*log.Entry</code>.</p>
+<p>Buat fungsi <code>main()</code>, implementasikan semua fungsi tersebut, siapkan yang harus disiapkan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    e := echo.New()
+
+    e.Use(middlewareLogging)
+    e.HTTPErrorHandler = errorHandler
+
+    e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
+        <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, <span class="hljs-literal">true</span>)
+    })
+
+    lock := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> error)
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(lock <span class="hljs-keyword">chan</span> error) { lock &lt;- e.Start(<span class="hljs-string">&quot;:9000&quot;</span>) }(lock)
+
+    time.Sleep(<span class="hljs-number">1</span> * time.Millisecond)
+    makeLogEntry(<span class="hljs-literal">nil</span>).Warning(<span class="hljs-string">&quot;application started without ssl/tls enabled&quot;</span>)
+
+    err := &lt;-lock
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        makeLogEntry(<span class="hljs-literal">nil</span>).Panic(<span class="hljs-string">&quot;failed to start application&quot;</span>)
+    }
+}
+</code></pre>
+<p>Fungsi <code>main()</code> di atas berisikan beberapa kode yang jarang kita gunakan, pada saat men-start web server. </p>
+<p>Web server di start dalam sebuah goroutine. Karena method <code>.Start()</code> milik echo adalah blocking, kita manfaatkan nilai baliknya untuk di kirim ke channel <code>lock</code>.</p>
+<p>Selanjutnya dengan delay waktu 1 milidetik, log dengan level WARNING dimunculkan. Ini hanya simulasi saja, karena memang aplikasi tidak di start menggunakan ssl/tls. Dengan memberi delay 1 milidetik, maka log WARNING bisa muncul setelah log default dari echo muncul.</p>
+<p>Nah pada bagian penerimaan channel, jika nilai baliknya tidak <code>nil</code> maka pasti terjadi error pada saat start web server, dan pada saat itu juga munculkan log dengan level PANIC.</p>
+<p>OK, sekarang jalankan lalu test aplikasi.</p>
+<p><img src="images/C_advanced_middleware_and_logging_3_middleware_logrus.png" alt="Dasar Pemrograman Golang - Logrus preview"></p>
+<p>Satu kata, <em>cantik</em>.</p>
+<hr>
+<ul>
+<li><a href="https://github.com/labstack/echo" target="_blank">Echo</a>, by Vishal Rana (Lab Stack), MIT license</li>
+<li><a href="https://github.com/sirupsen/logrus" target="_blank">Logrus</a>, by Simon Eskildsen, MIT license</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.8-advanced-middleware-and-logging" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.8...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2307,12 @@
 
             
                 
+                <a href="C-echo-template-rendering.html" class="navigation navigation-prev " aria-label="Previous page: C.7. Template Rendering in Echo">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-flag-parser.html" class="navigation navigation-next " aria-label="Next page: C.9. CLI Flag Parser (Kingpin)">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2323,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.8. Advanced Middleware & Logging (Logrus, Echo Logger)","level":"5.1.8","depth":2,"next":{"title":"C.9. CLI Flag Parser (Kingpin)","level":"5.1.9","depth":2,"path":"C-flag-parser.md","ref":"C-flag-parser.md","articles":[]},"previous":{"title":"C.7. Template Rendering in Echo","level":"5.1.7","depth":2,"path":"C-echo-template-rendering.md","ref":"C-echo-template-rendering.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-advanced-middleware-and-logging.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

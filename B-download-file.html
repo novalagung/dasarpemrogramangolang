@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Download File - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="B-http-basic-auth.html">
     
+    
+    <link rel="prev" href="B-ajax-multi-upload.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1349,7 +1351,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.17" data-path="B-download-file.html">
+        <li class="chapter active" data-level="4.1.17" data-path="B-download-file.html">
             
                 <a href="B-download-file.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">B.17. Download File</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,191 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="b17-download-file">B.17. Download File</h1>
+<p>Sebelumnya kita telah belajar cara untuk handle upload file, kali ini kita akan belajar bagaimana cara membuat HTTP handler yang menghasilkan response berbentuk download file.</p>
+<p>Sebenarnya download file bisa dengan mudah di-implementasikan menggunakan teknik routing static file, lalu langsung mengakses url assets di browser. Namun outcome dari teknik ini sangat tergantung default konfigurasi browser. Tiap browser memiliki <em>behaviour</em> berbeda, ada yang akan merespon dengan membuka file di tab, ada juga yang merespon dengan men-download file tersebut.</p>
+<p>Dengan penerapan teknik yang dibahas pada chapter ini, file bisa dipastikan di-download oleh browser sewaktu diakses.</p>
+<h2 id="b171-struktur-folder-proyek">B.17.1. Struktur Folder Proyek</h2>
+<p>OK, pertama siapkan terlebih dahulu proyek dengan struktur seperti gambar berikut.</p>
+<p><img src="images/B_download_file_1_structure.png" alt="Dasar Pemrograman Golang - Project structure"></p>
+<p>File yang berada di folder <code>files</code> adalah dummy file. Silakan gunakan file apapun dengan jumlah berapapun untuk keperluan praktek ini.</p>
+<h2 id="b172-front-end">B.17.2. Front End</h2>
+<p>Kali ini di bagian front end kita tidak menggunakan jQuery, cukup javascript saja tanpa library. </p>
+<p>Pertama siapkan dahulu template nya, isi file <code>view.html</code> dengan kode berikut.</p>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Download file<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+            <span class="hljs-comment">// javascript code goes here</span>
+        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;list-files&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>Tag <code>&lt;ul /&gt;</code> nantinya diisi dengan data list file yang ada dalam folder <code>files</code>. Data list file sendiri nantinya didapat dari API call ke back end. Di sini sebuah AJAX diperlukan untuk pengambilan data.</p>
+<p>Selanjutnya, siapkan sebuah fungsi dengan nama <code>Yo</code> atau bisa lainnya, fungsi ini berisikan closure <code>renderData()</code>, <code>getAllListFiles()</code>, dan method <code>init()</code>. Buat instance object baru dari <code>Yo</code>, lalu akses method <code>init()</code>, tempatkan dalam event <code>window.onload</code>.</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Yo</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">var</span> $ul = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;list-files&quot;</span>);
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+    <span class="hljs-keyword">var</span> renderData = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+        <span class="hljs-comment">// do stuff</span>
+    };
+
+    <span class="hljs-keyword">var</span> getAllListFiles = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-comment">// do stuff</span>
+    };
+
+    self.init = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        getAllListFiles();
+    };
+};
+
+<span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">new</span> Yo().init();
+};
+</code></pre>
+<p>Closure <code>renderData()</code> bertugas untuk melakukan rendering data JSON ke HTML. Berikut adalah isi dari fungsi ini.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> renderData = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+    res.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">each</span>) </span>{
+        <span class="hljs-keyword">var</span> $li = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;li&quot;</span>);
+        <span class="hljs-keyword">var</span> $a = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;a&quot;</span>);
+
+        $li.innerText = <span class="hljs-string">&quot;download &quot;</span>;
+        $li.appendChild($a);
+        $ul.appendChild($li);
+
+        $a.href = <span class="hljs-string">&quot;/download?path=&quot;</span> + <span class="hljs-built_in">encodeURI</span>(each.path);
+        $a.innerText = each.filename;
+        $a.target = <span class="hljs-string">&quot;_blank&quot;</span>;
+    });
+};
+</code></pre>
+<p>Sedangkan closure <code>getAllListFiles()</code>, memiliki tugas untuk request ke back end, mengambil data list semua file. Request dilakukan dalam bentuk AJAX, nilai baliknya adalah data JSON. Setelah data sudah didapatkan, fungsi <code>renderData()</code> dipanggil.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> getAllListFiles = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
+    xhr.open(<span class="hljs-string">&quot;GET&quot;</span>, <span class="hljs-string">&quot;/list-files&quot;</span>);
+    xhr.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">if</span> (xhr.readyState == <span class="hljs-number">4</span> &amp;&amp; xhr.status == <span class="hljs-number">200</span>) {
+            <span class="hljs-keyword">var</span> json = <span class="hljs-built_in">JSON</span>.parse(xhr.responseText);
+            renderData(json);
+        }
+    };
+    xhr.send();
+};
+</code></pre>
+<h2 id="b173-back-end">B.17.3. Back End</h2>
+<p>Pindah ke bagian back end. Siapkan beberapa hal pada <code>main.go</code>, import package, siapkan fungsi main, dan buat beberapa rute.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;path/filepath&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;io&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;encoding/json&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;os&quot;</span>
+
+<span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
+
+<span class="hljs-keyword">func</span> main() {
+    http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, handleIndex)
+    http.HandleFunc(<span class="hljs-string">&quot;/list-files&quot;</span>, handleListFiles)
+    http.HandleFunc(<span class="hljs-string">&quot;/download&quot;</span>, handleDownload)
+
+    fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+}
+</code></pre>
+<p>Buat handler untuk rute <code>/</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> handleIndex(w http.ResponseWriter, r *http.Request) {
+    tmpl := template.Must(template.ParseFiles(<span class="hljs-string">&quot;view.html&quot;</span>))
+    <span class="hljs-keyword">if</span> err := tmpl.Execute(w, <span class="hljs-literal">nil</span>); err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
+}
+</code></pre>
+<p>Lalu siapkan juga route handler <code>/list-files</code>. Isi dari handler ini adalah membaca semua file yang ada pada folder <code>files</code> untuk kemudian dikembalikan sebagai output berupa JSON. Endpoint ini akan diakses oleh AJAX dari front end.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> handleListFiles(w http.ResponseWriter, r *http.Request) {
+    files := []M{}
+    basePath, _ := os.Getwd()
+    filesLocation := filepath.Join(basePath, <span class="hljs-string">&quot;files&quot;</span>)
+
+    err := filepath.Walk(filesLocation, <span class="hljs-keyword">func</span>(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error) error {
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">return</span> err
+        }
+
+        <span class="hljs-keyword">if</span> info.IsDir() {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+        }
+
+        files = <span class="hljs-built_in">append</span>(files, M{<span class="hljs-string">&quot;filename&quot;</span>: info.Name(), <span class="hljs-string">&quot;path&quot;</span>: path})
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+    })
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        <span class="hljs-keyword">return</span>
+    }
+
+    res, err := json.Marshal(files)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        <span class="hljs-keyword">return</span>
+    }
+
+    w.Header().Set(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>)
+    w.Write(res)
+}
+</code></pre>
+<p>Fungsi <code>os.Getwd()</code> mengembalikan informasi absolute path di mana aplikasi di-eksekusi. Path tersebut kemudian di gabung dengan folder bernama <code>files</code> lewat fungsi <code>filepath.Join</code>. </p>
+<blockquote>
+<p>Fungsi <code>filepath.Join</code> akan menggabungkan item-item dengan path separator sesuai dengan sistem operasi di mana program dijalankan. <code>\</code> untuk Windows dan <code>/</code> untuk Linux/Unix.</p>
+</blockquote>
+<p>Fungsi <code>filepath.Walk</code> berguna untuk operasi list isi folder, apa yang ada di dalamnya (baik itu file maupun folder) akan diiterasi. Dengan memanfaatkan callback parameter kedua fungsi ini (yang bertipe <code>filepath.WalkFunc</code>), kita bisa mengambil informasi tiap item satu-per satu.</p>
+<p>Selanjutnya siapkan handler untuk <code>/download</code>. Implementasi teknik download pada dasarnya sama pada semua bahasa pemrograman, yaitu dengan memainkan isi dari header <strong>Content-Disposition</strong> pada HTTP response.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> handleDownload(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">if</span> err := r.ParseForm(); err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        <span class="hljs-keyword">return</span>
+    }
+
+    path := r.FormValue(<span class="hljs-string">&quot;path&quot;</span>)
+    f, err := os.Open(path)
+    <span class="hljs-keyword">if</span> f != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">defer</span> f.Close()
+    }
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        <span class="hljs-keyword">return</span>
+    }
+
+    contentDisposition := fmt.Sprintf(<span class="hljs-string">&quot;attachment; filename=%s&quot;</span>, f.Name())
+    w.Header().Set(<span class="hljs-string">&quot;Content-Disposition&quot;</span>, contentDisposition)
+
+    <span class="hljs-keyword">if</span> _, err := io.Copy(w, f); err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        <span class="hljs-keyword">return</span>
+    }
+}
+</code></pre>
+<p><strong>Content-Disposition</strong> adalah salah satu ekstensi MIME protocol, berguna untuk menginformasikan browser bagaimana mereka harus berinteraksi dengan output API endpoint.</p>
+<p>Ada banyak jenis value content-disposition, salah satunya adalah <code>attachment</code>. Pada kode di atas, header <code>Content-Disposition: attachment; filename=filename.json</code> menghasilkan output response berupa attachment atau file, yang kemudian akan di-download oleh browser.</p>
+<p>Objek file yang direpresentasikan variabel <code>f</code>, isinya di-copy ke objek response lewat statement <code>io.Copy(w, f)</code>.</p>
+<h2 id="b174-testing">B.17.4. Testing</h2>
+<p>Jalankan program, akses rute <code>/</code>. List semua file dalam folder <code>files</code> muncul di sana. Klik salah satu file untuk men-download-nya.</p>
+<p><img src="images/B_download_file_2_download.png" alt="Dasar Pemrograman Golang - Download file"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.17-download-file" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.17...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2270,12 @@
 
             
                 
+                <a href="B-ajax-multi-upload.html" class="navigation navigation-prev " aria-label="Previous page: B.16. AJAX Multiple File Upload">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="B-http-basic-auth.html" class="navigation navigation-next " aria-label="Next page: B.18. HTTP Basic Auth">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2286,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.17. Download File","level":"4.1.17","depth":2,"next":{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},"previous":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-download-file.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

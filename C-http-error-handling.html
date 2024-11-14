@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang HTTP Error Handling (Validator v9, Echo) - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-echo-template-rendering.html">
     
+    
+    <link rel="prev" href="C-http-request-payload-validation.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1531,7 +1533,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.6" data-path="C-http-error-handling.html">
+        <li class="chapter active" data-level="5.1.6" data-path="C-http-error-handling.html">
             
                 <a href="C-http-error-handling.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.6. HTTP Error Handling (Validator v9, Echo)</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,92 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c6-http-error-handling-validator-v9-echo">C.6. HTTP Error Handling (Validator v9, Echo)</h1>
+<p>Pada chapter ini kita akan belajar cara membuat custom error handler yang lebih readable, sangat cocok untuk web service. Bahan dasar yang kita manfaatkan adalah source code pada chapter sebelum ini, lalu dimodifikasi. Jadi silakan salin project pada chapter sebelumnya sebagai project folder baru.</p>
+<h2 id="c61-error-handler">C.6.1. Error Handler</h2>
+<p>Cara meng-custom default error handler milik echo, adalah dengan meng-override property <code>e.HTTPErrorHandler</code>. Langsung saja override property tersebut dengan callback berisi parameter objek error dan context. Gunakan callback tersebut untuk bisa menampilkan error yg lebih detail.</p>
+<pre><code class="lang-go">e.HTTPErrorHandler = <span class="hljs-keyword">func</span>(err error, c echo.Context) {
+    report, ok := err.(*echo.HTTPError)
+    <span class="hljs-keyword">if</span> !ok {
+        report = echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+    }
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+    c.Logger().Error(report)
+    c.JSON(report.Code, report)
+}
+</code></pre>
+<p>Pada kode di atas, objek <code>report</code> menampung objek error setelah di casting ke tipe <code>echo.HTTPError</code>. Error tipe ini adalah error-error yang berhubungan dengan http, yang di-handle oleh echo. Untuk error yang bukan dari echo, tipe nya adalah <code>error</code> biasa. Pada kode di atas kita standarkan, semua jenis error harus berbentuk <code>echo.HTTPError</code>.</p>
+<p>Selanjutnya objek error tersebut kita tampilkan ke console dan juga ke browser dalam bentuk JSON.</p>
+<p>OK, jalankan aplikasi, lalu test hasilnya.</p>
+<p><img src="images/C_http_error_handling_1_simple_error_handler.png" alt="Dasar Pemrograman Golang - API Test"></p>
+<p><img src="images/C_http_error_handling_2_cli_error.png" alt="Dasar Pemrograman Golang - Console Log"></p>
+<h2 id="c62-human-readable-error">C.6.2. Human-Readable Error</h2>
+<p>Error yang dikembalikan sudah bisa lebih detail dibanding sebelumnya, tapi masih kurang, karena masih susah untuk dipahami. Lakukan modifikasi pada callback custom error handler menjadi seperti pada kode berikut.</p>
+<pre><code class="lang-go">e.HTTPErrorHandler = <span class="hljs-keyword">func</span>(err error, c echo.Context) {
+    report, ok := err.(*echo.HTTPError)
+    <span class="hljs-keyword">if</span> !ok {
+        report = echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+    }
+
+    <span class="hljs-keyword">if</span> castedObject, ok := err.(validator.ValidationErrors); ok {
+        <span class="hljs-keyword">for</span> _, err := <span class="hljs-keyword">range</span> castedObject {
+            <span class="hljs-keyword">switch</span> err.Tag() {
+            <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;required&quot;</span>:
+                report.Message = fmt.Sprintf(<span class="hljs-string">&quot;%s is required&quot;</span>, 
+                    err.Field())
+            <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;email&quot;</span>:
+                report.Message = fmt.Sprintf(<span class="hljs-string">&quot;%s is not valid email&quot;</span>, 
+                    err.Field())
+            <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;gte&quot;</span>:
+                report.Message = fmt.Sprintf(<span class="hljs-string">&quot;%s value must be greater than %s&quot;</span>,
+                    err.Field(), err.Param())
+            <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;lte&quot;</span>:
+                report.Message = fmt.Sprintf(<span class="hljs-string">&quot;%s value must be lower than %s&quot;</span>,
+                    err.Field(), err.Param())
+            }
+
+            <span class="hljs-keyword">break</span>
+        }
+    }
+
+    c.Logger().Error(report)
+    c.JSON(report.Code, report)
+}
+</code></pre>
+<p>Error yang dikembalikan oleh <em>validator.v9</em> bertipe <code>validator.ValidationErrors</code>. Pada kode di atas bisa kita lihat ada pengecekan apakah error tersebut adalah dari library <em>validator.v9</em> atau bukan; jika memang iya, maka <code>report.Message</code> diubah isinya dengan kata-kata yang lebih mudah dipahami.</p>
+<p>Tipe <code>validator.ValidationErrors</code> sendiri sebenarnya merupakan slice <code>[]validator.FieldError</code>. Objek tersebut di-loop, lalu diambil-lah elemen pertama sebagai nilai bailk error.</p>
+<p>OK, jalankan ulang aplikasi, lalu test.</p>
+<p><img src="images/C_http_error_handling_3_advance_handler.png" alt="Dasar Pemrograman Golang - Console Log"></p>
+<h1 id="c63-custom-error-page">C.6.3. Custom Error Page</h1>
+<p>Untuk aplikasi non-web-service, akan lebih baik jika setiap terjadi error dimunculkan error page, atau halaman khusus yang menampilkan informasi error.</p>
+<p>Di echo sangatlah mudah untuk membuat halaman custom error. Contoh implementasinya seperti kode di bawah ini.</p>
+<pre><code class="lang-go">e.HTTPErrorHandler = <span class="hljs-keyword">func</span>(err error, c echo.Context) {
+    report, ok := err.(*echo.HTTPError)
+    <span class="hljs-keyword">if</span> !ok {
+        report = echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+    }
+
+    errPage := fmt.Sprintf(<span class="hljs-string">&quot;%d.html&quot;</span>, report.Code)
+    <span class="hljs-keyword">if</span> err := c.File(errPage); err != <span class="hljs-literal">nil</span> {
+        c.HTML(report.Code, <span class="hljs-string">&quot;Errrrooooorrrrr&quot;</span>)
+    }
+}
+</code></pre>
+<p>Setiap kali error terjadi, maka halaman dengan nama adalah <code>&lt;error-code&gt;.html</code> dicari untuk kemudian ditampilkan. Misalkan errornya adalah 500 Internal Server Error, maka halaman <code>500.html</code> muncul; error 404 Page Not Found, maka halaman <code>404.html</code> muncul.</p>
+<p>Silakan ubah kode <code>fmt.Sprintf(&quot;%d.html&quot;, report.Code)</code> sesuai format nama halaman error yang digunakan.</p>
+<hr>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li><a href="https://github.com/labstack/echo" target="_blank">Echo</a>, by Vishal Rana (Lab Stack), MIT license</li>
+<li><a href="https://github.com/go-playground/validator/tree/v9" target="_blank">Validator v9</a>, by Dean Karn (Go Playground), MIT license</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.6-http-error-handling" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.6...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2171,12 @@
 
             
                 
+                <a href="C-http-request-payload-validation.html" class="navigation navigation-prev " aria-label="Previous page: C.5. HTTP Request Payload Validation (Validator v9, Echo)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-echo-template-rendering.html" class="navigation navigation-next " aria-label="Next page: C.7. Template Rendering in Echo">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2187,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.6. HTTP Error Handling (Validator v9, Echo)","level":"5.1.6","depth":2,"next":{"title":"C.7. Template Rendering in Echo","level":"5.1.7","depth":2,"path":"C-echo-template-rendering.md","ref":"C-echo-template-rendering.md","articles":[]},"previous":{"title":"C.5. HTTP Request Payload Validation (Validator v9, Echo)","level":"5.1.5","depth":2,"path":"C-http-request-payload-validation.md","ref":"C-http-request-payload-validation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-http-error-handling.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang File - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-web-server.html">
     
+    
+    <link rel="prev" href="A-exec.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -907,7 +909,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.50" data-path="A-file.html">
+        <li class="chapter active" data-level="3.1.50" data-path="A-file.html">
             
                 <a href="A-file.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.50. File</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,138 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a50-file">A.50. File</h1>
+<p>Pada chapter ini kita akan belajar beberapa teknik operasi file yang paling dasar.</p>
+<h2 id="a501-membuat-file-baru">A.50.1. Membuat File Baru</h2>
+<p>Pembuatan file di Go sangat mudah, dilakukan dengan memanfaatkan fungsi <code>os.Create()</code> disertai path file sebagai argument pemanggilan fungsi. Jika ternyata file yang akan dibuat sudah ada duluan, maka operasi <code>os.Create()</code> akan menimpa file yang sudah ada dengan file baru. Untuk menghindari penimpaan file, gunakan fungsi <code>os.IsNotExist()</code> untuk mendeteksi apakah file yang ingin dibuat sudah ada atau belum.</p>
+<p>Contoh program operasi pembuatan file:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;os&quot;</span>
+
+<span class="hljs-keyword">var</span> path = <span class="hljs-string">&quot;/Users/novalagung/Documents/temp/test.txt&quot;</span>
+
+<span class="hljs-keyword">func</span> isError(err error) <span class="hljs-keyword">bool</span> {
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+    }
+
+    <span class="hljs-keyword">return</span> (err != <span class="hljs-literal">nil</span>)
+}
+
+<span class="hljs-keyword">func</span> createFile() {
+    <span class="hljs-comment">// deteksi apakah file sudah ada</span>
+    <span class="hljs-keyword">var</span> _, err = os.Stat(path)
+
+    <span class="hljs-comment">// buat file baru jika belum ada</span>
+    <span class="hljs-keyword">if</span> os.IsNotExist(err) {
+        <span class="hljs-keyword">var</span> file, err = os.Create(path)
+        <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
+        <span class="hljs-keyword">defer</span> file.Close()
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;==&gt; file berhasil dibuat&quot;</span>, path)
+}
+
+<span class="hljs-keyword">func</span> main() {
+    createFile()
+}
+</code></pre>
+<p>Fungsi <code>os.Stat()</code> mengembalikan 2 data, yaitu informasi tetang path yang dicari, dan error (jika ada). Masukkan error kembalian fungsi tersebut sebagai argument pemanggilan fungsi <code>os.IsNotExist()</code>, untuk mengetahui apakah file yang akan dibuat sudah ada. Jika rupanya file belum ada ada, maka fungsi tersebut akan mengembalikan nilai <code>true</code>.</p>
+<p>Fungsi <code>os.Create()</code> ini mengembalikan objek bertipe <code>*os.File</code>. File yang baru dibuat, statusnya adalah otomatis <strong>open</strong>. Setelah operasi file selesai, file harus di-<strong>close</strong> menggunakan method <code>file.Close()</code>.</p>
+<p>Membiarkan file terbuka ketika sudah tak lagi digunakan adalah tidak baik, karena ada efek ke memory dan akses ke file itu sendiri, file menjadi terkunci/locked, membuatnya tidak bisa diakses oleh proses lain selama status file statusnya masih <strong>open</strong> dan belum di-close.</p>
+<p><img src="images/A_file_1_create.png" alt="Dasar Pemrograman Golang - Membuat file baru"></p>
+<h2 id="a502-mengedit-isi-file">A.50.2. Mengedit Isi File</h2>
+<p>Untuk mengedit file, yang pertama perlu dilakukan adalah membuka file dengan level akses <strong>write</strong>. Setelah mendapatkan objek file-nya, gunakan method <code>WriteString()</code> untuk penulisan data. Di akhir, panggil method <code>Sync()</code> untuk menyimpan perubahan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> writeFile() {
+    <span class="hljs-comment">// buka file dengan level akses READ &amp; WRITE</span>
+    <span class="hljs-keyword">var</span> file, err = os.OpenFile(path, os.O_RDWR, <span class="hljs-number">0644</span>)
+    <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
+    <span class="hljs-keyword">defer</span> file.Close()
+
+    <span class="hljs-comment">// tulis data ke file</span>
+    _, err = file.WriteString(<span class="hljs-string">&quot;halo\n&quot;</span>)
+    <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
+    _, err = file.WriteString(<span class="hljs-string">&quot;mari belajar golang\n&quot;</span>)
+    <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
+
+    <span class="hljs-comment">// simpan perubahan</span>
+    err = file.Sync()
+    <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
+
+    fmt.Println(<span class="hljs-string">&quot;==&gt; file berhasil di isi&quot;</span>)
+}
+
+<span class="hljs-keyword">func</span> main() {
+    writeFile()
+}
+</code></pre>
+<p>Pada program di atas, file dibuka dengan level akses <strong>read</strong> dan <strong>write</strong> dengan kode permission <strong>0664</strong>. Setelah itu, beberapa string diisikan ke dalam file tersebut menggunakan <code>WriteString()</code>. Di akhir, semua perubahan terhadap file menjadi tersimpan dengan adanya pemanggilan method <code>Sync()</code>.</p>
+<p><img src="images/A_file_2_write.png" alt="Dasar Pemrograman Golang - Mengedit file"></p>
+<h2 id="a503-membaca-isi-file">A.50.3. Membaca Isi File</h2>
+<p>File yang ingin dibaca harus dibuka terlebih dahulu menggunakan fungsi <code>os.OpenFile()</code> dengan level akses minimal adalah <strong>read</strong>. Dari object file kembalian fungsi tersebut, gunakan method <code>Read()</code> dengan disertai argument berupa variabel yang akan menampung data hasil operasi baca.</p>
+<pre><code class="lang-go"><span class="hljs-comment">// tambahkan di bagian import package io</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;io&quot;</span>
+
+<span class="hljs-keyword">func</span> readFile() {
+    <span class="hljs-comment">// buka file</span>
+    <span class="hljs-keyword">var</span> file, err = os.OpenFile(path, os.O_RDONLY, <span class="hljs-number">0644</span>)
+    <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
+    <span class="hljs-keyword">defer</span> file.Close()
+
+    <span class="hljs-comment">// baca file</span>
+    <span class="hljs-keyword">var</span> text = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">byte</span>, <span class="hljs-number">1024</span>)
+    <span class="hljs-keyword">for</span> {
+        n, err := file.Read(text)
+        <span class="hljs-keyword">if</span> err != io.EOF {
+            <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">break</span> }
+        }
+        <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> {
+            <span class="hljs-keyword">break</span>
+        }
+    }
+    <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
+
+    fmt.Println(<span class="hljs-string">&quot;==&gt; file berhasil dibaca&quot;</span>)
+    fmt.Println(<span class="hljs-keyword">string</span>(text))
+}
+
+<span class="hljs-keyword">func</span> main() {
+    readFile()
+}
+</code></pre>
+<p>Fungsi <code>os.OpenFile()</code> dalam pemanggilannya memerlukan beberapa argument parameter untuk di-isi:</p>
+<ol>
+<li>Parameter pertama adalah path file yang akan dibuka.</li>
+<li>Parameter kedua adalah level akses. <code>os.O_RDONLY</code> maksudnya adalah <strong>read only</strong>.</li>
+<li>Parameter ketiga adalah permission file-nya.</li>
+</ol>
+<p>Variabel <code>text</code> disiapkan bertipe slice <code>[]byte</code> dengan alokasi elemen <code>1024</code>. Variabel tersebut bertugas menampung data hasil statement <code>file.Read()</code>. Proses pembacaan file dilakukan terus menerus, berurutan dari baris pertama hingga akhir.</p>
+<p>Error yang muncul ketika eksekusi <code>file.Read()</code> akan di-filter, ketika error adalah selain <code>io.EOF</code> maka proses baca file akan berlanjut. Error <code>io.EOF</code> sendiri menandakan bahwa file yang sedang dibaca adalah baris terakhir isi atau <strong>end of file</strong>.</p>
+<p><img src="images/A_file_3_read.png" alt="Dasar Pemrograman Golang - Membaca isi file"></p>
+<h2 id="a504-menghapus-file">A.50.4. Menghapus File</h2>
+<p>Operasi menghapus file dilakukan via fungsi <code>os.Remove()</code>. Panggil fungsi tersebut, kemudian isi path dari file yang ingin dihapus sebagai argument fungsi.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> deleteFile() {
+    <span class="hljs-keyword">var</span> err = os.Remove(path)
+    <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
+
+    fmt.Println(<span class="hljs-string">&quot;==&gt; file berhasil di delete&quot;</span>)
+}
+
+<span class="hljs-keyword">func</span> main() {
+    deleteFile()
+}
+</code></pre>
+<p><img src="images/A_file_4_delete.png" alt="Dasar Pemrograman Golang - Menghapus file"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.50-file" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.50...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2217,12 @@
 
             
                 
+                <a href="A-exec.html" class="navigation navigation-prev " aria-label="Previous page: A.49. Exec">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-web-server.html" class="navigation navigation-next " aria-label="Next page: A.51. Web Server">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2233,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.50. File","level":"3.1.50","depth":2,"next":{"title":"A.51. Web Server","level":"3.1.51","depth":2,"path":"A-web-server.md","ref":"A-web-server.md","articles":[]},"previous":{"title":"A.49. Exec","level":"3.1.49","depth":2,"path":"A-exec.md","ref":"A-exec.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-file.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

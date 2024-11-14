@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Slice - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-map.html">
     
+    
+    <link rel="prev" href="A-array.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -465,7 +467,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.16" data-path="A-slice.html">
+        <li class="chapter active" data-level="3.1.16" data-path="A-slice.html">
             
                 <a href="A-slice.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.16. Slice</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,262 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a16-slice">A.16. Slice</h1>
+<p><strong>Slice</strong> adalah <em>reference</em> elemen array. Slice bisa dibuat, atau bisa juga dihasilkan dari manipulasi sebuah array ataupun slice lainnya. Karena slice merupakan data <em>reference</em>, menjadikan perubahan data di tiap elemen slice akan berdampak pada slice lain yang memiliki alamat memori yang sama.</p>
+<h2 id="a161-inisialisasi-slice">A.16.1. Inisialisasi Slice</h2>
+<p>Cara pembuatan slice mirip seperti pembuatan array, bedanya tidak perlu mendefinisikan jumlah elemen ketika awal deklarasi. Pengaksesan nilai elemen-nya juga sama. Contoh pembuatan slice:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
+fmt.Println(fruits[<span class="hljs-number">0</span>]) <span class="hljs-comment">// &quot;apple&quot;</span>
+</code></pre>
+<p>Salah satu perbedaan slice dan array bisa diketahui pada saat deklarasi variabel-nya, jika jumlah elemen tidak dituliskan, maka variabel tersebut adalah slice.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> fruitsA = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>}      <span class="hljs-comment">// slice</span>
+<span class="hljs-keyword">var</span> fruitsB = [<span class="hljs-number">2</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}    <span class="hljs-comment">// array</span>
+<span class="hljs-keyword">var</span> fruitsC = [...]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;papaya&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>}  <span class="hljs-comment">// array</span>
+</code></pre>
+<h2 id="a162-hubungan-slice-dengan-array--operasi-slice">A.16.2. Hubungan Slice Dengan Array &amp; Operasi Slice</h2>
+<p>Kalau perbedannya hanya di penentuan alokasi pada saat inisialisasi, kenapa tidak menggunakan satu istilah saja? atau adakah perbedaan lainnya?</p>
+<p>Sebenarnya slice dan array tidak bisa dibedakan karena merupakan sebuah kesatuan. Array adalah kumpulan nilai atau elemen, sedang slice adalah referensi tiap elemen tersebut.</p>
+<p>Slice bisa dibentuk dari array yang sudah didefinisikan, caranya dengan memanfaatkan teknik <strong>2 index</strong> untuk mengambil elemen-nya. Contoh bisa dilihat pada kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
+<span class="hljs-keyword">var</span> newFruits = fruits[<span class="hljs-number">0</span>:<span class="hljs-number">2</span>]
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+fmt.Println(newFruits) <span class="hljs-comment">// [&quot;apple&quot;, &quot;grape&quot;]</span>
+</code></pre>
+<p>Kode <code>fruits[0:2]</code>  maksudnya adalah pengaksesan elemen dalam slice <code>fruits</code> yang <strong>dimulai dari indeks ke-0, hingga elemen sebelum indeks ke-2</strong>. Elemen yang memenuhi kriteria tersebut akan didapat, untuk kemudian disimpan pada variabel lain sebagai slice baru. Pada contoh di atas, <code>newFruits</code> adalah slice baru yang tercetak dari slice <code>fruits</code>, dengan isi 2 elemen, yaitu <code>&quot;apple&quot;</code> dan <code>&quot;grape&quot;</code>.</p>
+<p><img src="images/A_slice_1_array_index.png" alt="Dasar Pemrograman Golang - Memanfaatkan sebuah slice untuk membentuk slice baru"></p>
+<p>Ketika mengakses elemen array menggunakan satu buah indeks (seperti <code>data[2]</code>), nilai yang didapat merupakan hasil <strong>copy</strong> dari referensi aslinya. Berbeda dengan pengaksesan elemen menggunakan 2 indeks (seperti <code>data[0:2]</code>), nilai yang didapat adalah <em>reference</em> elemen atau slice.</p>
+<blockquote>
+<p>Sampai sini tidak apa jika pembaca masih bingung. Sebentar lagi kita akan bahas lebih detail lagi tentang penerapan slice dan <em>reference</em></p>
+</blockquote>
+<p>Tabel berikut berisi contoh macam-macam operasi slice (atau <em>slicing</em>) menggunakan teknik 2 indeks yang bisa dilakukan di Go.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Kode</th>
+<th style="text-align:left">Output</th>
+<th style="text-align:left">Penjelasan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>fruits[0:2]</code></td>
+<td style="text-align:left"><code>[apple, grape]</code></td>
+<td style="text-align:left">semua elemen mulai indeks ke-0, hingga sebelum indeks ke-2</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>fruits[0:4]</code></td>
+<td style="text-align:left"><code>[apple,&#xA0;grape,&#xA0;banana,&#xA0;melon]</code></td>
+<td style="text-align:left">semua elemen mulai indeks ke-0, hingga sebelum indeks ke-4</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>fruits[0:0]</code></td>
+<td style="text-align:left"><code>[]</code></td>
+<td style="text-align:left">menghasilkan slice kosong, karena tidak ada elemen sebelum indeks ke-0</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>fruits[4:4]</code></td>
+<td style="text-align:left"><code>[]</code></td>
+<td style="text-align:left">menghasilkan slice kosong, karena tidak ada elemen yang dimulai dari indeks ke-4</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>fruits[4:0]</code></td>
+<td style="text-align:left"><code>[]</code></td>
+<td style="text-align:left">error, pada penulisan <code>fruits[a:b]</code> nilai <code>a</code> harus lebih kecil atau sama dengan <code>b</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>fruits[:]</code></td>
+<td style="text-align:left"><code>[apple, grape, banana, melon]</code></td>
+<td style="text-align:left">semua elemen</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>fruits[2:]</code></td>
+<td style="text-align:left"><code>[banana, melon]</code></td>
+<td style="text-align:left">semua elemen mulai indeks ke-2</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>fruits[:2]</code></td>
+<td style="text-align:left"><code>[apple, grape]</code></td>
+<td style="text-align:left">semua elemen hingga sebelum indeks ke-2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="a163-slice-merupakan-tipe-data-reference">A.16.3. Slice Merupakan Tipe Data Reference</h2>
+<p>Slice merupakan tipe data <em>reference</em> atau referensi. Artinya jika ada slice baru yang terbentuk dari slice lama, maka data elemen slice yang baru akan memiliki alamat memori yang sama dengan elemen slice lama. Setiap perubahan yang terjadi di elemen slice baru, akan berdampak juga pada elemen slice lama yang memiliki referensi yang sama.</p>
+<p>Program berikut merupakan pembuktian tentang teori yang baru kita bahas. Kita akan mencoba mengubah data elemen slice baru, yang terbentuk dari slice lama.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
+
+<span class="hljs-keyword">var</span> aFruits = fruits[<span class="hljs-number">0</span>:<span class="hljs-number">3</span>]
+<span class="hljs-keyword">var</span> bFruits = fruits[<span class="hljs-number">1</span>:<span class="hljs-number">4</span>]
+
+<span class="hljs-keyword">var</span> aaFruits = aFruits[<span class="hljs-number">1</span>:<span class="hljs-number">2</span>]
+<span class="hljs-keyword">var</span> baFruits = bFruits[<span class="hljs-number">0</span>:<span class="hljs-number">1</span>]
+
+fmt.Println(fruits)   <span class="hljs-comment">// [apple grape banana melon]</span>
+fmt.Println(aFruits)  <span class="hljs-comment">// [apple grape banana]</span>
+fmt.Println(bFruits)  <span class="hljs-comment">// [grape banana melon]</span>
+fmt.Println(aaFruits) <span class="hljs-comment">// [grape]</span>
+fmt.Println(baFruits) <span class="hljs-comment">// [grape]</span>
+
+<span class="hljs-comment">// Buah &quot;grape&quot; diubah menjadi &quot;pinnaple&quot;</span>
+baFruits[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;pinnaple&quot;</span>
+
+fmt.Println(fruits)   <span class="hljs-comment">// [apple pinnaple banana melon]</span>
+fmt.Println(aFruits)  <span class="hljs-comment">// [apple pinnaple banana]</span>
+fmt.Println(bFruits)  <span class="hljs-comment">// [pinnaple banana melon]</span>
+fmt.Println(aaFruits) <span class="hljs-comment">// [pinnaple]</span>
+fmt.Println(baFruits) <span class="hljs-comment">// [pinnaple]</span>
+</code></pre>
+<p>Sekilas bisa kita lihat bahwa setelah slice yang isi datanya adalah <code>grape</code> di-ubah menjadi <code>pinnaple</code>, semua slice pada 4 variabel lainnya juga ikut berubah.</p>
+<p>Variabel <code>aFruits</code>, <code>bFruits</code> merupakan slice baru yang terbentuk dari variabel <code>fruits</code>. Dengan menggunakan dua slice baru tersebut, diciptakan lagi slice lainnya, yaitu <code>aaFruits</code>, dan <code>baFruits</code>. Kelima slice tersebut ditampilkan nilainya.</p>
+<p>Selanjutnya, nilai dari <code>baFruits[0]</code> diubah, dan 5 slice tadi ditampilkan lagi. Hasilnya akan ada banyak slice yang elemennya ikut berubah. Yaitu elemen-elemen yang referensi-nya sama dengan referensi elemen <code>baFruits[0]</code>.</p>
+<p><img src="images/A_slice_2_slice_reference.png" alt="Dasar Pemrograman Golang - Perubahan data elemen slice berpengaruh pada slice lain"></p>
+<p>Bisa dilihat pada output di atas, elemen yang sebelumnya bernilai <code>&quot;grape&quot;</code> pada variabel <code>fruits</code>, <code>aFruits</code>, <code>bFruits</code>, <code>aaFruits</code>, dan <code>baFruits</code>; Seluruhnya berubah menjadi <code>&quot;pinnaple&quot;</code>, karena memiliki referensi yang sama.</p>
+<hr>
+<p>Pembahasan mengenai dasar slice sepertinya sudah cukup, selanjutnya kita akan membahas tentang beberapa <em>built in function</em> bawaan Go, yang bisa dimanfaatkan untuk keperluan operasi slice.</p>
+<h2 id="a164-fungsi-len">A.16.4. Fungsi <code>len()</code></h2>
+<p>Fungsi <code>len()</code> digunakan untuk menghitung jumlah elemen slice yang ada. Sebagai contoh jika sebuah variabel adalah slice dengan data 4 buah, maka fungsi ini pada variabel tersebut akan mengembalikan angka <strong>4</strong>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
+fmt.Println(<span class="hljs-built_in">len</span>(fruits)) <span class="hljs-comment">// 4</span>
+</code></pre>
+<h2 id="a165-fungsi-cap">A.16.5. Fungsi <code>cap()</code></h2>
+<p>Fungsi <code>cap()</code> digunakan untuk menghitung lebar atau kapasitas maksimum slice. Nilai kembalian fungsi ini untuk slice yang baru dibuat pasti sama dengan <code>len</code>, tapi bisa berubah seiring operasi slice yang dilakukan. Agar lebih jelas, silakan pelajari kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
+fmt.Println(<span class="hljs-built_in">len</span>(fruits))  <span class="hljs-comment">// len: 4</span>
+fmt.Println(<span class="hljs-built_in">cap</span>(fruits))  <span class="hljs-comment">// cap: 4</span>
+
+<span class="hljs-keyword">var</span> aFruits = fruits[<span class="hljs-number">0</span>:<span class="hljs-number">3</span>]
+fmt.Println(<span class="hljs-built_in">len</span>(aFruits)) <span class="hljs-comment">// len: 3</span>
+fmt.Println(<span class="hljs-built_in">cap</span>(aFruits)) <span class="hljs-comment">// cap: 4</span>
+
+<span class="hljs-keyword">var</span> bFruits = fruits[<span class="hljs-number">1</span>:<span class="hljs-number">4</span>]
+fmt.Println(<span class="hljs-built_in">len</span>(bFruits)) <span class="hljs-comment">// len: 3</span>
+fmt.Println(<span class="hljs-built_in">cap</span>(bFruits)) <span class="hljs-comment">// cap: 3</span>
+</code></pre>
+<p>Variabel <code>fruits</code> disiapkan di awal dengan jumlah elemen 4, fungsi <code>len(fruits)</code> dan <code>cap(fruits)</code> pasti hasinya 4.</p>
+<p>Variabel <code>aFruits</code> dan <code>bFruits</code> merupakan slice baru berisikan 3 buah elemen milik slice <code>fruits</code>. Variabel <code>aFruits</code> mengambil elemen index 0, 1, 2; sedangkan <code>bFruits</code> 1, 2, 3.</p>
+<p>Fungsi <code>len()</code> menghasilkan angka 3, karena jumlah elemen kedua slice ini adalah 3. Tetapi <code>cap(aFruits)</code> menghasilkan angka yang berbeda, yaitu 4 untuk <code>aFruits</code> dan 3 untuk <code>bFruits</code>. kenapa? jawabannya bisa dilihat pada tabel berikut.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Kode</th>
+<th style="text-align:left">Output</th>
+<th style="text-align:center"><code>len()</code></th>
+<th style="text-align:center"><code>cap()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>fruits[0:4]</code></td>
+<td style="text-align:left">[<strong><code>buah</code> <code>buah</code> <code>buah</code> <code>buah</code></strong>]</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>aFruits[0:3]</code></td>
+<td style="text-align:left">[<strong><code>buah</code> <code>buah</code> <code>buah</code></strong> <code>----</code>]</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bFruits[1:4]</code></td>
+<td style="text-align:left"><code>----</code> [<strong><code>buah</code> <code>buah</code> <code>buah</code></strong>]</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+</tr>
+</tbody>
+</table>
+<p>Kita analogikan slicing 2 index menggunakan <strong>x</strong> dan <strong>y</strong>.</p>
+<pre><code class="lang-go">fruits[x:y]
+</code></pre>
+<p><strong>Slicing</strong> yang dimulai dari indeks <strong>0</strong> hingga <strong>y</strong> akan mengembalikan elemen-elemen mulai indeks <strong>0</strong> hingga sebelum indeks <strong>y</strong>, dengan lebar kapasitas adalah sama dengan slice aslinya.</p>
+<p>Sedangkan slicing yang dimulai dari indeks <strong>x</strong>, yang mana nilai <strong>x</strong> adalah lebih dari <strong>0</strong>, membuat elemen ke-<strong>x</strong> slice yang diambil menjadi elemen ke-0 slice baru. Hal inilah yang membuat kapasitas slice berubah.</p>
+<h2 id="a166-fungsi-append">A.16.6. Fungsi <code>append()</code></h2>
+<p>Fungsi <code>append()</code> digunakan untuk menambahkan elemen pada slice. Elemen baru tersebut diposisikan setelah indeks paling akhir. Nilai balik fungsi ini adalah slice yang sudah ditambahkan nilai barunya. Contoh penggunaannya bisa dilihat di kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>}
+<span class="hljs-keyword">var</span> cFruits = <span class="hljs-built_in">append</span>(fruits, <span class="hljs-string">&quot;papaya&quot;</span>)
+
+fmt.Println(fruits)  <span class="hljs-comment">// [&quot;apple&quot;, &quot;grape&quot;, &quot;banana&quot;]</span>
+fmt.Println(cFruits) <span class="hljs-comment">// [&quot;apple&quot;, &quot;grape&quot;, &quot;banana&quot;, &quot;papaya&quot;]</span>
+</code></pre>
+<p>Ada 3 hal yang perlu diketahui dalam penggunaan fungsi ini.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Ketika jumlah elemen dan lebar kapasitas adalah sama (<code>len(fruits) == cap(fruits)</code>), maka elemen baru hasil <code>append()</code> merupakan referensi baru.</li>
+<li>Ketika jumlah elemen lebih kecil dibanding kapasitas (<code>len(fruits) &lt; cap(fruits)</code>), elemen baru tersebut ditempatkan ke dalam cakupan kapasitas, menjadikan semua elemen slice lain yang referensi-nya sama akan berubah nilainya.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Agar lebih jelas silakan perhatikan contoh berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>}
+<span class="hljs-keyword">var</span> bFruits = fruits[<span class="hljs-number">0</span>:<span class="hljs-number">2</span>]
+
+fmt.Println(<span class="hljs-built_in">cap</span>(bFruits)) <span class="hljs-comment">// 3</span>
+fmt.Println(<span class="hljs-built_in">len</span>(bFruits)) <span class="hljs-comment">// 2</span>
+
+fmt.Println(fruits)  <span class="hljs-comment">// [&quot;apple&quot;, &quot;grape&quot;, &quot;banana&quot;]</span>
+fmt.Println(bFruits) <span class="hljs-comment">// [&quot;apple&quot;, &quot;grape&quot;]</span>
+
+<span class="hljs-keyword">var</span> cFruits = <span class="hljs-built_in">append</span>(bFruits, <span class="hljs-string">&quot;papaya&quot;</span>)
+
+fmt.Println(fruits)  <span class="hljs-comment">// [&quot;apple&quot;, &quot;grape&quot;, &quot;papaya&quot;]</span>
+fmt.Println(bFruits) <span class="hljs-comment">// [&quot;apple&quot;, &quot;grape&quot;]</span>
+fmt.Println(cFruits) <span class="hljs-comment">// [&quot;apple&quot;, &quot;grape&quot;, &quot;papaya&quot;]</span>
+</code></pre>
+<p>Pada contoh di atas bisa dilihat, elemen indeks ke-2 slice <code>fruits</code> nilainya berubah setelah ada penggunaan keyword <code>append()</code> pada <code>bFruits</code>. Slice <code>bFruits</code> kapasitasnya adalah <strong>3</strong> sedang jumlah datanya hanya <strong>2</strong>. Karena <code>len(bFruits) &lt; cap(bFruits)</code>, maka elemen baru yang dihasilkan, terdeteksi sebagai perubahan nilai pada referensi yang lama (referensi elemen indeks ke-2 slice <code>fruits</code>), membuat elemen yang referensinya sama, nilainya berubah.</p>
+<h2 id="a167-fungsi-copy">A.16.7. Fungsi <code>copy()</code></h2>
+<p>Fungsi <code>copy()</code> digunakan untuk men-copy elements slice pada <code>src</code> (parameter ke-2), ke <code>dst</code> (parameter pertama).</p>
+<pre><code class="lang-go"><span class="hljs-built_in">copy</span>(dst, src)
+</code></pre>
+<p>Jumlah element yang di-copy dari <code>src</code> adalah sejumlah lebar slice <code>dst</code> (atau <code>len(dst)</code>). Jika jumlah slice pada <code>src</code> lebih kecil dari <code>dst</code>, maka akan ter-copy semua. Lebih jelasnya silakan perhatikan contoh berikut.</p>
+<pre><code class="lang-go">dst := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>, <span class="hljs-number">3</span>)
+src := []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;watermelon&quot;</span>, <span class="hljs-string">&quot;pinnaple&quot;</span>, <span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;orange&quot;</span>}
+n := <span class="hljs-built_in">copy</span>(dst, src)
+
+fmt.Println(dst) <span class="hljs-comment">// watermelon pinnaple apple</span>
+fmt.Println(src) <span class="hljs-comment">// watermelon pinnaple apple orange</span>
+fmt.Println(n)   <span class="hljs-comment">// 3</span>
+</code></pre>
+<p>Pada kode di atas variabel slice <code>dst</code> dipersiapkan dengan lebar adalah 3 elements. Slice <code>src</code> yang isinya 4 elements, di-copy ke <code>dst</code>. Menjadikan isi slice <code>dst</code> sekarang adalah 3 buah elements yang sama dengan 3 buah elements <code>src</code>, hasil dari operasi <code>copy()</code>.</p>
+<p>Yang ter-copy hanya 3 buah (meski <code>src</code> memiliki 4 elements) hal ini karena <code>copy()</code> hanya meng-copy elements sebanyak <code>len(dst)</code>.</p>
+<blockquote>
+<p>Fungsi <code>copy()</code> mengembalikan informasi angka, representasi dari jumlah element yang berhasil di-copy.</p>
+</blockquote>
+<p>Pada contoh kedua berikut, <code>dst</code> merupakan slice yang sudah ada isinya, 3 buah elements. Variabel <code>src</code> yang juga merupakan slice dengan isi dua elements, di-copy ke <code>dst</code>. Karena operasi <code>copy()</code> akan meng-copy sejumlah <code>len(dst)</code>, maka semua elements <code>src</code> akan ter-copy <strong>karena jumlahnya di bawah atau sama dengan lebar</strong> <code>dst</code>.</p>
+<pre><code class="lang-go">dst := []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;potato&quot;</span>, <span class="hljs-string">&quot;potato&quot;</span>, <span class="hljs-string">&quot;potato&quot;</span>}
+src := []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;watermelon&quot;</span>, <span class="hljs-string">&quot;pinnaple&quot;</span>}
+n := <span class="hljs-built_in">copy</span>(dst, src)
+
+fmt.Println(dst) <span class="hljs-comment">// watermelon pinnaple potato</span>
+fmt.Println(src) <span class="hljs-comment">// watermelon pinnaple</span>
+fmt.Println(n)   <span class="hljs-comment">// 2</span>
+</code></pre>
+<p>Jika dilihat pada kode di atas, isi <code>dst</code> masih tetap 3 elements, tapi dua elements pertama adalah sama dengan <code>src</code>. Element terakhir <code>dst</code> isinya tidak berubah, tetap <code>potato</code>, hal ini karena proses copy hanya memutasi element ke-1 dan ke-2 milik <code>dst</code>, karena memang pada <code>src</code> hanya dua itu elements-nya.</p>
+<h2 id="a168-pengaksesan-elemen-slice-dengan-3-indeks">A.16.8. Pengaksesan Elemen Slice Dengan 3 Indeks</h2>
+<p><strong>3 index</strong> adalah teknik slicing untuk pengaksesan elemen yang sekaligus menentukan kapasitasnya. Cara penggunaannya yaitu dengan menyisipkan angka kapasitas di belakang, seperti <code>fruits[0:1:1]</code>. Angka kapasitas yang diisikan tidak boleh melebihi kapasitas slice yang akan di slicing.</p>
+<p>Berikut merupakan contoh penerapannya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>}
+<span class="hljs-keyword">var</span> aFruits = fruits[<span class="hljs-number">0</span>:<span class="hljs-number">2</span>]
+<span class="hljs-keyword">var</span> bFruits = fruits[<span class="hljs-number">0</span>:<span class="hljs-number">2</span>:<span class="hljs-number">2</span>]
+
+fmt.Println(fruits)      <span class="hljs-comment">// [&quot;apple&quot;, &quot;grape&quot;, &quot;banana&quot;]</span>
+fmt.Println(<span class="hljs-built_in">len</span>(fruits)) <span class="hljs-comment">// len: 3</span>
+fmt.Println(<span class="hljs-built_in">cap</span>(fruits)) <span class="hljs-comment">// cap: 3</span>
+
+fmt.Println(aFruits)      <span class="hljs-comment">// [&quot;apple&quot;, &quot;grape&quot;]</span>
+fmt.Println(<span class="hljs-built_in">len</span>(aFruits)) <span class="hljs-comment">// len: 2</span>
+fmt.Println(<span class="hljs-built_in">cap</span>(aFruits)) <span class="hljs-comment">// cap: 3</span>
+
+fmt.Println(bFruits)      <span class="hljs-comment">// [&quot;apple&quot;, &quot;grape&quot;]</span>
+fmt.Println(<span class="hljs-built_in">len</span>(bFruits)) <span class="hljs-comment">// len: 2</span>
+fmt.Println(<span class="hljs-built_in">cap</span>(bFruits)) <span class="hljs-comment">// cap: 2</span>
+</code></pre>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.16-slice" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.16...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2341,12 @@
 
             
                 
+                <a href="A-array.html" class="navigation navigation-prev " aria-label="Previous page: A.15. Array">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-map.html" class="navigation navigation-next " aria-label="Next page: A.17. Map">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2357,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.16. Slice","level":"3.1.16","depth":2,"next":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"previous":{"title":"A.15. Array","level":"3.1.15","depth":2,"path":"A-array.md","ref":"A-array.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-slice.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

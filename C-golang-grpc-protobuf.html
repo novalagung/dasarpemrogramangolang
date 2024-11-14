@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang gRPC + Protobuf - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-golang-jwt.html">
     
+    
+    <link rel="prev" href="C-golang-protobuf-implementation.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1856,7 +1858,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.31" data-path="C-golang-grpc-protobuf.html">
+        <li class="chapter active" data-level="5.1.31" data-path="C-golang-grpc-protobuf.html">
             
                 <a href="C-golang-grpc-protobuf.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.31. gRPC + Protobuf</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,439 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c31-grpc--protobuf">C.31. gRPC + Protobuf</h1>
+<p>Pada chapter ini kita akan belajar tentang penerapan <strong>gRPC</strong> dan <strong>protobuf</strong> pada bahasa Go.</p>
+<p>Kita akan buat satu buah folder project besar, di dalamnya terdapat 3 buah aplikasi. Dua di antaranya merupakan aplikasi server, lebih tepatnya rpc server, dan yang satu lagi aplikasi client. Aplikasi client akan berkomunikasi dengan kedua aplikasi server.</p>
+<p>Bisa dibilang ini adalah contoh super sederhana (dan asal-asalan) tentang penerapan <a href="https://en.wikipedia.org/wiki/Microservices" target="_blank">microservices architecture</a>.</p>
+<blockquote>
+<p>BEWARE: Tutorial ini sangat panjang! Dan jangan ber-ekspektasi terlalu tinggi, karena target pembaca adalah orang yang baru belajar Go, gRPC, dan protobuf.</p>
+</blockquote>
+<h2 id="c311-definisi">C.31.1. Definisi</h2>
+<p>gRPC adalah salah satu RPC framework, dibuat oleh Google. gRPC menggunakan protokol RPC untuk transport dan protobuf di bagian antarmuka-nya.</p>
+<blockquote>
+<p>Remote Procedure Call (RPC) adalah sebuah metode yang memungkinkan kita untuk mengakses sebuah prosedur yang berada di komputer lain. Untuk dapat melakukan ini sebuah server harus menyediakan layanan remote procedure.</p>
+</blockquote>
+<h2 id="c312-prerequisites">C.31.2 Prerequisites</h2>
+<p>Sekedar informasi bahwa sebelum mulai mengikuti pembelajaran pada chapter ini, <strong>WAJIB HUKUMNYA</strong> untuk mengikuti pembahasan pada chapter sebelumnya <a href="C-golang-protobuf-implementation.html">C.30. Protobuf</a> terlebih dahulu.</p>
+<h2 id="c313-struktur-aplikasi">C.31.3. Struktur Aplikasi</h2>
+<p>Siapkan satu project baru dengan struktur sebagai berikut.</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># Install protobuf go runtime</span>
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+mkdir chapter-c30
+<span class="hljs-built_in">cd</span> chapter-c30
+go mod init chapter-c30
+
+go get -u google.golang.org/grpc@v1.26.0
+
+<span class="hljs-comment"># then prepare underneath structures</span>
+tree .
+.
+&#x251C;&#x2500;&#x2500; go.mod
+&#x251C;&#x2500;&#x2500; common
+&#x2502;   &#x251C;&#x2500;&#x2500; config
+&#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; config.go
+&#x2502;   &#x2514;&#x2500;&#x2500; model
+&#x2502;       &#x251C;&#x2500;&#x2500; garage.proto
+&#x2502;       &#x251C;&#x2500;&#x2500; user.proto
+&#x2502;
+&#x251C;&#x2500;&#x2500; client
+&#x2502;   &#x2514;&#x2500;&#x2500; main.go
+&#x2502;
+&#x2514;&#x2500;&#x2500; services
+    &#x251C;&#x2500;&#x2500; service-garage
+    &#x2502;   &#x2514;&#x2500;&#x2500; main.go
+    &#x2514;&#x2500;&#x2500; service-user
+        &#x2514;&#x2500;&#x2500; main.go
+
+7 directories, 7 files
+</code></pre>
+<p>Salah satu pembeda yang paling terlihat dibanding chapter sebelumnya adalah di sini kita go get package <code>google.golang.org/grpc</code>. Package ini diperlukan oleh generator untuk bisa memahami dan men-<em>generate</em> spesifikasi <code>service</code>. Lebih jelasnya akan kita bahas sambil praktek.</p>
+<p>Lanjut. Di bawah ini merupakan penjelasan per bagian dari struktur project di atas.</p>
+<h4 id="&#x25C9;-folder-common">&#x25C9; Folder <code>common</code></h4>
+<p>Folder <code>common</code>, berisikan 2 buah sub folder, <code>config</code> dan <code>model</code>.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Folder <code>config</code> berisikan informasi shared atau global, yang digunakan aplikasi client maupun server.</li>
+<li>Folder <code>model</code> berisikan file <code>.proto</code>. Silakan salin file <code>garage.proto</code> dan <code>user.proto</code> pada chapter sebelumnya ke folder tersebut.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<h4 id="&#x25C9;-folder-client">&#x25C9; Folder <code>client</code></h4>
+<p>Isinya adalah satu buah file main, yang nantinya di jalankan sebagai aplikasi client. Aplikasi client ini akan berkomunikasi dengan 2 buah aplikasi server.</p>
+<h4 id="&#x25C9;-folder-services">&#x25C9; Folder <code>services</code></h4>
+<p>Satu buah file proto untuk satu aplikasi rpc server (service). Karena ada dua file proto, berarti jelasnya ada dua aplikasi rpc server, <code>service-user</code> dan <code>service-garage</code>. Folder <code>services</code> ini menampung kedua aplikasi service tersebut.</p>
+<p>File <code>garage.proto</code> dan <code>user.proto</code> tidak dijadikan satu dalam respektif folder <code>service-garage</code> dan <code>service-user</code>, karena kedua file ini juga digunakan pada aplikasi client, itulah kenapa file ini dipisah ke dalam folder <code>common/model</code>.</p>
+<h2 id="c314-file-konfigurasi-pada-folder-commonconfig">C.31.4. File Konfigurasi pada folder <code>common/config</code></h2>
+<p>Siapkan file bernama <code>config.go</code> dalam <code>common/config</code>. Di dalam file config ini didefinisikan dua buah konstanta yaitu port untuk service user dan garage. Nantinya aplikasi server di start menggunakan port ini.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> config
+
+<span class="hljs-keyword">const</span> (
+    ServiceGaragePort = <span class="hljs-string">&quot;:7000&quot;</span>
+    ServiceUserPort   = <span class="hljs-string">&quot;:9000&quot;</span>
+)
+</code></pre>
+<h2 id="c315-proto-model-pada-folder-commonmodel">C.31.5. Proto Model pada folder <code>common/model</code></h2>
+<p>Setelah kedua file <code>user.proto</code> dan <code>garage.proto</code> pada chapter sebelumnya disalin, kita perlu menambahkan pendefinisian service pada masing-masing file proto.</p>
+<p>Keyword <code>service</code> digunakan untuk membuat service. Service ini nantinya juga ikut di konversi ke bentuk Go (menjadi interface), lewat command <code>protoc</code>. Di aplikasi rpc server, nantinya harus dibuat implementasi dari interface tersebut.</p>
+<p>OK, sekarang tambahkan kode berikut ke file proto.</p>
+<h4 id="&#x25C9;-service-users">&#x25C9; Service <code>Users</code></h4>
+<p>Buka file <code>user.proto</code>, tambahkan kode berikut di akhir baris.</p>
+<pre><code class="lang-protobuf"><span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;google/protobuf/empty.proto&quot;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">service</span> <span class="hljs-title">Users</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">rpc</span> Register(User) <span class="hljs-keyword">returns</span> (google.protobuf.Empty) {}
+    <span class="hljs-keyword">rpc</span> List(google.protobuf.Empty) <span class="hljs-keyword">returns</span> (UserList) {}
+}
+</span></code></pre>
+<p>Sebuah service bernama <code>Users</code> didefinisikan, dengan isi dua buah method.</p>
+<ul>
+<li><code>Register()</code>, menerima parameter bertipe model <code>User</code>, dan mengembalikan <code>google.protobuf.Empty</code>.</li>
+<li><code>List()</code>, menerima parameter bertipe <code>google.protobuf.Empty</code>, dan mengembalikan tipe <code>UserList</code>.</li>
+</ul>
+<p>Silakan dilihat bagaimana cara untuk membuat service pada kode atas.</p>
+<p>Pada method <code>Register()</code> sebenarnya kita tidak butuh nilai balik. Tapi karena requirements dari protobuf mewajibkan semua rpc method harus memiliki nilai balik, maka kita gunakan model <code>Empty</code> milik google protobuf.</p>
+<p>Cara penggunaan model <code>Empty</code> adalah dengan meng-import file proto-nya terlebih dahulu, <code>google/protobuf/empty.proto</code>, lalu menggunakan <code>google.protobuf.Empty</code> sebagai model.</p>
+<p>Juga, pada method <code>List()</code>, sebenarnya argument tidak dibutuhkan, tapi karena protobuf mewajibkan pendefinisian rpc method untuk memiliki satu buah argument dan satu buah return type, maka mau tidak mau harus ada argument.</p>
+<p>Setelah di-compile, dua buah interface terbuat dengan skema nama <code>&lt;interfacename&gt;Server</code> dan <code>&lt;interfacename&gt;Client</code>. Karena nama service adalah <code>Users</code>, maka terbuatlah <code>UsersServer</code> dan <code>UsersClient</code>.</p>
+<ul>
+<li><p>Interface <code>UsersServer</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> UsersServer <span class="hljs-keyword">interface</span> {
+   Register(context.Context, *User) (*emptypb.Empty, error)
+   List(context.Context, *emptypb.Empty) (*UserList, error)
+}
+</code></pre>
+<p>Interface ini nantinya harus diimplementasikan di aplikasi rpc server.</p>
+</li>
+<li><p>Interface <code>UsersClient</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> UsersClient <span class="hljs-keyword">interface</span> {
+   Register(ctx context.Context, in *User, opts ...grpc.CallOption) (*emptypb.Empty, error)
+   List(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*UserList, error)
+}
+</code></pre>
+<p>Interface ini nantinya harus diimplementasikan di aplikasi rpc client.</p>
+</li>
+</ul>
+<h4 id="&#x25C9;-service-garages">&#x25C9; Service <code>Garages</code></h4>
+<p>Pada file <code>garage.proto</code>, definisikan service <code>Garages</code> dengan isi dua buah method, <code>Add()</code> dan <code>List()</code>.</p>
+<pre><code class="lang-protobuf"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;google/protobuf/empty.proto&quot;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">service</span> <span class="hljs-title">Garages</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">rpc</span> List(string) <span class="hljs-keyword">returns</span> (GarageList) {}
+    <span class="hljs-keyword">rpc</span> Add(string, Garage) <span class="hljs-keyword">returns</span> (google.protobuf.Empty) {}
+}
+</span></code></pre>
+<p>Perlu diketahui bahwa protobuf mewajibkan pada rpc method untuk tidak menggunakan tipe primitif sebagai tipe argument maupun tipe nilai balik. Tipe <code>string</code> pada <code>rpc List(string)</code> akan menghasilkan error saat di-compile. Dan juga protobuf mewajibkan method untuk hanya menerima satu buah parameter, maka jelasnya <code>rpc Add(string, Garage)</code> juga invalid.</p>
+<p>Lalu bagaimana solusinya? Buat model baru lagi, property nya sesuaikan dengan parameter yang dibutuhkan di masing-masing rpc method.</p>
+<pre><code class="lang-protobuf"><span class="hljs-class"><span class="hljs-keyword">message</span> <span class="hljs-title">GarageUserId</span> </span>{
+    <span class="hljs-built_in">string</span> user_id = <span class="hljs-number">1</span>;
+}
+
+<span class="hljs-class"><span class="hljs-keyword">message</span> <span class="hljs-title">GarageAndUserId</span> </span>{
+    <span class="hljs-built_in">string</span> user_id = <span class="hljs-number">1</span>;
+    Garage garage = <span class="hljs-number">2</span>;
+}
+
+<span class="hljs-class"><span class="hljs-keyword">service</span> <span class="hljs-title">Garages</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">rpc</span> List(GarageUserId) <span class="hljs-keyword">returns</span> (GarageList) {}
+    <span class="hljs-keyword">rpc</span> Add(GarageAndUserId) <span class="hljs-keyword">returns</span> (google.protobuf.Empty) {}
+}
+</span></code></pre>
+<p>Sama seperti service <code>Users</code>, service <code>Garages</code> juga akan di-compile menjadi interface.</p>
+<ul>
+<li><p>Interface <code>GaragesServer</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> GaragesServer <span class="hljs-keyword">interface</span> {
+   Add(context.Context, *GarageAndUserId) (*emptypb.Empty, error)
+   List(context.Context, *GarageUserId) (*GarageList, error)
+}
+</code></pre>
+</li>
+<li><p>Interface <code>GaragesClient</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> GaragesClient <span class="hljs-keyword">interface</span> {
+   Add(ctx context.Context, in *GarageAndUserId, opts ...grpc.CallOption) (*emptypb.Empty, error)
+   List(ctx context.Context, in *GarageUserId, opts ...grpc.CallOption) (*GarageList, error)
+}
+</code></pre>
+</li>
+</ul>
+<h2 id="c316-kompilasi-file-proto-dengan-enable-plugin-grpc">C.31.6. Kompilasi File <code>.proto</code> Dengan Enable Plugin <code>grpc</code></h2>
+<p>Sebelum itu kita harus install protobuf compiler plugin untuk grpc terlebih dahulu.</p>
+<pre><code class="lang-bash">go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+</code></pre>
+<p>Gunakan command berikut untuk generate file <code>.go</code> dari file <code>.proto</code> yang sudah kita buat:</p>
+<pre><code class="lang-bash">protoc --go_out . --go-grpc_out . common/model/*.proto
+</code></pre>
+<p>Perhatikan baik-baik command di atas, Pada flag <code>--go-grpc_out</code> di situ kita menggunakan plugin grpc yang sebelumnya kita install (berbeda dibanding pada chapter sebelumnya yang hanya menggunakan <code>--go_out</code> <code>.</code>).</p>
+<p>Plugin <code>grpc</code> ini dipergunakan untuk men-<em>generate</em> <strong>service bindings behaviour</strong> yang ada pada gRPC. Seperti yang kita telah praktekan bahwa di atas kita menuliskan definisi <code>service</code>. Dengan menambahkan flag <code>--go-grpc_out</code> maka definisi <code>service</code> tersebut akan bisa dipahami oleh generator untuk kemudian di-<em>transform</em> menjadi definisi interface beserta isi method-nya.</p>
+<h2 id="c317-aplikasi-server-service-user">C.31.7. Aplikasi Server <code>service-user</code></h2>
+<p>Buka file <code>services/service-user/main.go</code>, import package yang dibutuhkan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;context&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net&quot;</span>
+
+    <span class="hljs-string">&quot;chapter-c30/common/config&quot;</span>
+    <span class="hljs-string">&quot;chapter-c30/common/model&quot;</span>
+
+    <span class="hljs-string">&quot;google.golang.org/protobuf/types/known/emptypb&quot;</span>
+    <span class="hljs-string">&quot;google.golang.org/grpc&quot;</span>
+)
+</code></pre>
+<p>Lalu buat satu buah objek bernama <code>localStorage</code> bertipe <code>*model.UserList</code>. Objek ini nantinya menampung data user yang ditambahkan dari aplikasi client (via rpc) lewat method <code>Register()</code>. Dan data objek ini juga dikembalikan ke client ketika <code>List()</code> diakses.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> localStorage *model.UserList
+
+<span class="hljs-keyword">func</span> init() {
+    localStorage = <span class="hljs-built_in">new</span>(model.UserList)
+    localStorage.List = <span class="hljs-built_in">make</span>([]*model.User, <span class="hljs-number">0</span>)
+}
+</code></pre>
+<p>Buat struct baru <code>UsersServer</code>. Struct ini akan menjadi implementasi dari generated interface <code>model.UsersServer</code>. Siapkan method-method-nya sesuai spesifikasi interface.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> UsersServer <span class="hljs-keyword">struct</span> {
+      <span class="hljs-comment">// Wajib menyertakan embed struct unimplemented dari hasil generate protobuf jika tidak maka akan error</span>
+      model.UnimplementedUsersServer
+}
+
+<span class="hljs-keyword">func</span> (UsersServer) Register(_ context.Context, param *model.User) (*emptypb.Empty, error) {
+    user := param
+
+    localStorage.List = <span class="hljs-built_in">append</span>(localStorage.List, user)
+
+    log.Println(<span class="hljs-string">&quot;Registering user&quot;</span>, user.String())
+
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">new</span>(emptypb.Empty), <span class="hljs-literal">nil</span>
+}
+
+<span class="hljs-keyword">func</span> (UsersServer) List(context.Context, *emptypb.Empty) (*model.UserList, error) {
+    <span class="hljs-keyword">return</span> localStorage, <span class="hljs-literal">nil</span>
+}
+</code></pre>
+<p>Buat fungsi <code>main()</code>, buat objek grpc server dan objek implementasi <code>UsersServer</code>, lalu registrasikan kedua objek tersebut ke model menggunakan statement <code>model.RegisterUsersServer()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    srv := grpc.NewServer()
+    <span class="hljs-keyword">var</span> userSrv UsersServer
+    model.RegisterUsersServer(srv, userSrv)
+
+    log.Println(<span class="hljs-string">&quot;Starting RPC server at&quot;</span>, config.ServiceUserPort)
+  <span class="hljs-comment">// more code here ...</span>
+}
+</code></pre>
+<p>Pembuatan objek grpc server dilakukan lewat <code>grpc.NewServer()</code>. Package <a href="https://google.golang.org/grpc" target="_blank">google.golang.org/grpc</a> perlu di <code>go get</code> dan di-import.</p>
+<blockquote>
+<p>Fungsi <code>RegisterUsersServer()</code> otomatis digenerate oleh protoc, karena service <code>Users</code> didefinisikan. Contoh lainnya misal service <code>SomeServiceTest</code> disiapkan, maka fungsi <code>RegisterSomeServiceTestServer()</code> dibuat.</p>
+</blockquote>
+<p>Selanjutnya, siapkan objek listener yang listen ke port <code>config.ServiceUserPort</code>, lalu gunakan listener tersebut sebagai argument method <code>.Serve()</code> milik objek rpc server.</p>
+<pre><code class="lang-go"><span class="hljs-comment">// ...</span>
+
+l, err := net.Listen(<span class="hljs-string">&quot;tcp&quot;</span>, config.ServiceUserPort)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatalf(<span class="hljs-string">&quot;could not listen to %s: %v&quot;</span>, config.ServiceUserPort, err)
+}
+
+log.Fatal(srv.Serve(l))
+</code></pre>
+<h2 id="c318-aplikasi-server-service-garage">C.31.8. Aplikasi Server <code>service-garage</code></h2>
+<p>Buat file <code>services/service-garage/main.go</code>, import package yang sama seperti pada <code>service-user</code>. Lalu buat objek <code>localStorage</code> dari struct <code>*model.GarageListByUser</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> localStorage *model.GarageListByUser
+
+<span class="hljs-keyword">func</span> init() {
+    localStorage = <span class="hljs-built_in">new</span>(model.GarageListByUser)
+    localStorage.List = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*model.GarageList)
+}
+
+<span class="hljs-keyword">type</span> GaragesServer <span class="hljs-keyword">struct</span> {
+    model.UnimplementedGaragesServer
+}
+</code></pre>
+<p>Tugas <code>localStorage</code> kurang lebih sama seperti pada <code>service-user</code>, hanya saja pada aplikasi ini data garage disimpan per user dalam map.</p>
+<p>Selanjutnya buat implementasi interface <code>model.GaragesServer</code>, lalu siapkan method-method-nya.</p>
+<ul>
+<li><p>Method <code>Add()</code></p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> (GaragesServer) Add(_ context.Context, param *model.GarageAndUserId) (*empty.Empty, error) {
+   userId := param.UserId
+   garage := param.Garage
+
+   <span class="hljs-keyword">if</span> _, ok := localStorage.List[userId]; !ok {
+       localStorage.List[userId] = <span class="hljs-built_in">new</span>(model.GarageList)
+       localStorage.List[userId].List = <span class="hljs-built_in">make</span>([]*model.Garage, <span class="hljs-number">0</span>)
+   }
+   localStorage.List[userId].List = <span class="hljs-built_in">append</span>(localStorage.List[userId].List, garage)
+
+   log.Println(<span class="hljs-string">&quot;Adding garage&quot;</span>, garage.String(), <span class="hljs-string">&quot;for user&quot;</span>, userId)
+
+   <span class="hljs-keyword">return</span> <span class="hljs-built_in">new</span>(empty.Empty), <span class="hljs-literal">nil</span>
+}
+</code></pre>
+</li>
+<li><p>Method <code>List()</code></p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> (GaragesServer) List(_ context.Context, param *model.GarageUserId) (*model.GarageList, error) {
+   userId := param.UserId
+
+   <span class="hljs-keyword">return</span> localStorage.List[userId], <span class="hljs-literal">nil</span>
+}
+</code></pre>
+</li>
+</ul>
+<p>Start rpc server, gunakan <code>config.ServiceGaragePort</code> sebagai port aplikasi.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    srv := grpc.NewServer()
+    <span class="hljs-keyword">var</span> garageSrv GaragesServer
+    model.RegisterGaragesServer(srv, garageSrv)
+
+    log.Println(<span class="hljs-string">&quot;Starting RPC server at&quot;</span>, config.ServiceGaragePort)
+
+    l, err := net.Listen(<span class="hljs-string">&quot;tcp&quot;</span>, config.ServiceGaragePort)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatalf(<span class="hljs-string">&quot;could not listen to %s: %v&quot;</span>, config.ServiceGaragePort, err)
+    }
+
+    log.Fatal(srv.Serve(l))
+}
+</code></pre>
+<h2 id="c319-aplikasi-client--testing">C.31.9. Aplikasi Client &amp; Testing</h2>
+<p>Buat file <code>client/main.go</code>, import package yang sama seperti pada <code>service-user</code> maupun <code>service-garage</code>. Lalu siapkan dua buah method yang mengembalikan rpc client yang terhubung ke dua service yang sudah kita buat.</p>
+<ul>
+<li><p>RPC client garage:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> serviceGarage() model.GaragesClient {
+  port := config.ServiceGaragePort
+  conn, err := grpc.Dial(port, grpc.WithTransportCredentials(insecure.NewCredentials()))
+  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+      log.Fatal(<span class="hljs-string">&quot;could not connect to&quot;</span>, port, err)
+  }
+
+  <span class="hljs-keyword">return</span> model.NewGaragesClient(conn)
+}
+</code></pre>
+</li>
+<li><p>RPC client user:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> serviceUser() model.UsersClient {
+  port := config.ServiceUserPort
+  conn, err := grpc.Dial(port, grpc.WithTransportCredentials(insecure.NewCredentials()))
+  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+      log.Fatal(<span class="hljs-string">&quot;could not connect to&quot;</span>, port, err)
+  }
+
+  <span class="hljs-keyword">return</span> model.NewUsersClient(conn)
+}
+</code></pre>
+</li>
+</ul>
+<p>Buat fungsi <code>main()</code>, isi dengan pembuatan object dari generated-struct yang ada di package <code>model</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+  user1 := model.User{
+        Id:       <span class="hljs-string">&quot;n001&quot;</span>,
+        Name:     <span class="hljs-string">&quot;Noval Agung&quot;</span>,
+        Password: <span class="hljs-string">&quot;kw8d hl12/3m,a&quot;</span>,
+        Gender:   model.UserGender(model.UserGender_value[<span class="hljs-string">&quot;MALE&quot;</span>]),
+    }
+
+    garage1 := model.Garage{
+        Id:   <span class="hljs-string">&quot;q001&quot;</span>,
+        Name: <span class="hljs-string">&quot;Quel&apos;thalas&quot;</span>,
+        Coordinate: &amp;model.GarageCoordinate{
+            Latitude:  <span class="hljs-number">45.123123123</span>,
+            Longitude: <span class="hljs-number">54.1231313123</span>,
+        },
+    }
+
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<h4 id="&#x25C9;-test-rpc-client-user">&#x25C9; Test rpc client user</h4>
+<p>Selanjutnya akses fungsi <code>serviceUser()</code> untuk memperoleh objek rpc client user. Dari situ eksekusi method <code>.Register()</code>.</p>
+<pre><code class="lang-go">user := serviceUser()
+
+fmt.Printf(<span class="hljs-string">&quot;\n %s&gt; user test\n&quot;</span>, strings.Repeat(<span class="hljs-string">&quot;=&quot;</span>, <span class="hljs-number">10</span>))
+
+<span class="hljs-comment">// register user1</span>
+user.Register(context.Background(), &amp;user1)
+
+<span class="hljs-comment">// register user2</span>
+user.Register(context.Background(), &amp;user2)
+</code></pre>
+<p>Jalankan aplikasi <code>service-user</code>, <code>service-garage</code>, dan client, lalu lihat hasilnya.</p>
+<p><img src="images/C_golang_grpc_protobuf_1_grpc_test1.png" alt="Dasar Pemrograman Golang - gRPC Test 1"></p>
+<p>Bisa dilihat, pemanggilan method <code>Add()</code> pada aplikasi rpc server <code>service-user</code> sukses.</p>
+<p>Sekarang coba panggil method <code>.List()</code>. Jalankan ulang aplikasi client untuk melihat hasilnya. O iya, aplikasi <code>service-user</code> juga di-restart, agar datanya tidak menumpuk.</p>
+<pre><code class="lang-go"><span class="hljs-comment">// show all registered users</span>
+res1, err := user.List(context.Background(), <span class="hljs-built_in">new</span>(emptypb.Empty))
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+res1String, _ := json.Marshal(res1.List)
+log.Println(<span class="hljs-keyword">string</span>(res1String))
+</code></pre>
+<p>Bisa dilihat pada gambar berikut, pemanggilan method <code>.List()</code> juga sukses. Dua buah data yang sebelumnya didaftarkan muncul.</p>
+<p><img src="images/C_golang_grpc_protobuf_2_grpc_test2.png" alt="Dasar Pemrograman Golang - gRPC Test 2"></p>
+<h4 id="&#x25C9;-test-rpc-client-garage">&#x25C9; Test rpc client garage</h4>
+<p>Tambahkan beberapa statement untuk memanggil method yang ada di <code>service-garage</code>.</p>
+<ul>
+<li><p>Menambahkan garage untuk user <code>user1</code>:</p>
+<pre><code class="lang-go">garage := serviceGarage()
+
+fmt.Printf(<span class="hljs-string">&quot;\n %s&gt; garage test A\n&quot;</span>, strings.Repeat(<span class="hljs-string">&quot;=&quot;</span>, <span class="hljs-number">10</span>))
+
+<span class="hljs-comment">// add garage1 to user1</span>
+garage.Add(context.Background(), &amp;model.GarageAndUserId{
+   UserId: user1.Id,
+   Garage: &amp;garage1,
+})
+
+<span class="hljs-comment">// add garage2 to user1</span>
+garage.Add(context.Background(), &amp;model.GarageAndUserId{
+   UserId: user1.Id,
+   Garage: &amp;garage2,
+})
+</code></pre>
+</li>
+<li><p>Menampilkan list semua garage milik <code>user1</code>:</p>
+<pre><code class="lang-go"><span class="hljs-comment">// show all garages of user1</span>
+res2, err := garage.List(context.Background(), &amp;model.GarageUserId{UserId: user1.Id})
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+   log.Fatal(err.Error())
+}
+res2String, _ := json.Marshal(res2.List)
+log.Println(<span class="hljs-keyword">string</span>(res2String))
+</code></pre>
+</li>
+<li><p>Menambahkan garage untuk user <code>user2</code>:</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;\n %s&gt; garage test B\n&quot;</span>, strings.Repeat(<span class="hljs-string">&quot;=&quot;</span>, <span class="hljs-number">10</span>))
+
+<span class="hljs-comment">// add garage3 to user2</span>
+garage.Add(context.Background(), &amp;model.GarageAndUserId{
+   UserId: user2.Id,
+   Garage: &amp;garage3,
+})
+</code></pre>
+</li>
+<li><p>Menampilkan list semua garage milik <code>user2</code>:</p>
+<pre><code class="lang-go"><span class="hljs-comment">// show all garages of user2</span>
+res3, err := garage.List(context.Background(), &amp;model.GarageUserId{UserId: user2.Id})
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+   log.Fatal(err.Error())
+}
+res3String, _ := json.Marshal(res3.List)
+log.Println(<span class="hljs-keyword">string</span>(res3String))
+</code></pre>
+</li>
+</ul>
+<p>Jalankan ulang services dan aplikasi client, lihat hasilnya.</p>
+<p><img src="images/C_golang_grpc_protobuf_3_grpc_test3.png" alt="Dasar Pemrograman Golang - gRPC Test 3"></p>
+<hr>
+<p>OK, jika anda membaca sampai baris ini, berarti anda telah berhasil sabar dalam mempelajari gRPC dalam pembahasan yang sangat panjang ini &#x1F389;</p>
+<hr>
+<ul>
+<li><a href="https://github.com/golang/protobuf" target="_blank">Protobuf</a>, by Google, BSD-3-Clause License</li>
+<li><a href="https://github.com/grpc/grpc" target="_blank">gRPC</a>, by Google, Apache-2.0 License</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.31-golang-grpc-protobuf" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.31...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2518,12 @@
 
             
                 
+                <a href="C-golang-protobuf-implementation.html" class="navigation navigation-prev " aria-label="Previous page: C.30. Protobuf">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-golang-jwt.html" class="navigation navigation-next " aria-label="Next page: C.32. JSON Web Token (JWT)">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2534,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"next":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.32","depth":2,"path":"C-golang-jwt.md","ref":"C-golang-jwt.md","articles":[]},"previous":{"title":"C.30. Protobuf","level":"5.1.30","depth":2,"path":"C-golang-protobuf-implementation.md","ref":"C-golang-protobuf-implementation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-grpc-protobuf.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

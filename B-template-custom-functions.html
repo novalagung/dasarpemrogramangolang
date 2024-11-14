@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Template: Custom Functions - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="B-render-specific-html-template.html">
     
+    
+    <link rel="prev" href="B-template-functions.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1232,7 +1234,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.8" data-path="B-template-custom-functions.html">
+        <li class="chapter active" data-level="4.1.8" data-path="B-template-custom-functions.html">
             
                 <a href="B-template-custom-functions.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">B.8. Template: Custom Functions</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,96 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
+                                <h1 id="b8-template-custom-functions">B.8. Template: Custom Functions</h1>
+<p>Pada chapter sebelumnya kita telah berkenalan dengan beberapa <em>predefined</em> function yang disediakan oleh Go. Kali ini kita akan belajar tentang fungsi custom, bagaimana cara pembuatan dan penggunaannya dalam template.</p>
+<h2 id="b81-front-end">B.8.1. Front End</h2>
+<p>Pertama, siapkan project baru. Buat file template <code>view.html</code>, lalu isi dengan kode berikut.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Learning html/template Functions<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        {{unescape &quot;<span class="hljs-comment">&lt;!-- this is comment --&gt;</span>&quot;}}
+        {{unescape &quot;<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>&quot;}}
+            {{avg 8 9 8 6 7 8 8}}
+        {{&quot;<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>&quot; | unescape}}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>Ada 2 hal yang perlu diperhatikan dari kode di atas. Terdapat dua buah fungsi yang dipanggil beberapa kali.</p>
+<ol>
+<li>Fungsi <code>unescape()</code>, digunakan untuk menampilkan string tanpa di-escape</li>
+<li>Fungsi <code>avg()</code>, digunakan untuk mencari rata-rata dari angka-angka yang disisipkan sebagai parameter</li>
 </ol>
+<p>Kedua fungsi tersebut adalah fungsi kustom yang akan kita buat.</p>
+<p>Di contoh terdapat 1 baris statement yang penulisannya agak unik, yaitu <code>{{&quot;&lt;/h2&gt;&quot; | unescape}}</code>. Statement tersebut maknanya adalah string <code>&quot;&lt;/h2&gt;&quot;</code> digunakan sebagai parameter dalam pemanggilan fungsi <code>unescape</code>. Tanda pipe atau <code>|</code> adalah penanda bahwa parameter dituliskan terlebih dahulu sebelum nama fungsi-nya.</p>
+<h2 id="b82-back-end">B.8.2. Back End</h2>
+<p>View sudah siap, sekarang saatnya pindah ke bagian back end. Isi <code>main.go</code>, tentukan package sebagai <code>main</code> dan import package lain yang diperlukan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
+</code></pre>
+<p>Selanjutnya beberapa fungsi akan dibuat, lalu disimpan dalam <code>template.FuncMap</code>. Pembuatan fungsi dituliskan dalam bentuk key-value atau hash map. Nama fungsi sebagai key, dan body fungsi sebagai value.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> funcMap = template.FuncMap{
+    <span class="hljs-string">&quot;unescape&quot;</span>: <span class="hljs-keyword">func</span>(s <span class="hljs-keyword">string</span>) template.HTML {
+        <span class="hljs-keyword">return</span> template.HTML(s)
+    },
+    <span class="hljs-string">&quot;avg&quot;</span>: <span class="hljs-keyword">func</span>(n ...<span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span> {
+        <span class="hljs-keyword">var</span> total = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">for</span> _, each := <span class="hljs-keyword">range</span> n {
+            total += each
+        }
+        <span class="hljs-keyword">return</span> total / <span class="hljs-built_in">len</span>(n)
+    },
+}
+</code></pre>
+<blockquote>
+<p>Tipe <code>template.FuncMap</code> sebenarnya merupakan alias dari <code>map[string]interface{}</code></p>
+</blockquote>
+<p>Dalam <code>funcMap</code> di atas, dua buah fungsi disiapkan, <code>unescape()</code> dan <code>avg()</code>. Nantinya fungsi ini kita gunakan di view.</p>
+<p>Setelah itu, siapkan fungsi <code>main()</code> dengan isi route handler untuk <code>/</code>. Di dalam handler ini, <code>view.html</code> diparsing, kemudian fungsi yang telah dibuat di atas disisipkan ke dalam view.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        <span class="hljs-keyword">var</span> tmpl = template.Must(template.New(<span class="hljs-string">&quot;view.html&quot;</span>).
+                Funcs(funcMap).
+                ParseFiles(<span class="hljs-string">&quot;view.html&quot;</span>))
+        <span class="hljs-keyword">if</span> err := tmpl.Execute(w, <span class="hljs-literal">nil</span>); err != <span class="hljs-literal">nil</span> {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+    })
+
+    fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+}
+</code></pre>
+<p>Berikut merupakan penjelasan step-by-step mengenai kode panjang untuk parsing dan rendering template di atas.</p>
+<ol>
+<li>Sebuah template disipakan dengan nama <code>view.html</code>. Pembuatan instance template dilakukan melalui fungsi <code>template.New()</code>.</li>
+<li>Fungsi custom yang telah kita buat, diregistrasikan agar dikenali oleh template tersebut. Bisa dilihat pada pemanggilan method <code>Funcs()</code>.</li>
+<li>Setelah itu, lewat method <code>ParseFiles()</code>, view <code>view.html</code> di-parsing. Akan dicari dalam file tersebut apakah ada template yang didefinisikan dengan nama <code>view.html</code>. Karena di dalam template view tidak ada deklarasi template sama sekali (<code>{{template &quot;namatemplate&quot;}}</code>), maka akan dicari view yang namanya adalah <code>view.html</code>. Keseluruhan isi <code>view.html</code> akan dianggap sebagai sebuah template dengan nama template adalah nama file itu sendiri.</li>
+</ol>
+<h2 id="b83-testing">B.8.3. Testing</h2>
+<p>Tes hasilnya lewat browser.</p>
+<p><img src="images/B_template_custom_functions_1_func.png" alt="Dasar Pemrograman Golang - Custom Function"></p>
+<h2 id="b84-perbadaan-fungsi-templateparsefiles--method-parsefiles-milik-templatetemplate">B.8.4. Perbadaan Fungsi <code>template.ParseFiles()</code> &amp; Method <code>ParseFiles()</code> Milik <code>*template.Template</code></h2>
+<p>Pada kode di atas, pemanggilan <code>template.New()</code> menghasilkan objek bertipe <code>*template.Template</code>. </p>
+<p>Pada chapter <a href="B-template-render-partial-html.html">B.5. Template: Render Partial HTML Template</a> kita telah belajar mengenai fungsi <code>template.ParseFiles()</code> yang fungsi tersebut juga mengembalikan objek bertipe <code>*template.Template</code>.</p>
+<p>Di contoh di chapter ini, method <code>ParseFiles()</code> yang dipanggil bukanlah fungsi <code>template.ParseFiles()</code> yang kita telah pelajari sebelumnya. Meskipun namanya sama, kedua fungsi/method ini berbeda.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Fungsi <code>template.ParseFiles()</code>, adalah milik package <code>template</code>. Fungsi ini digunakan untuk mem-parsing semua view yang disisipkan sebagai parameter.</li>
+<li>Method <code>ParseFiles()</code>, milik <code>*template.Template</code>, digunakan untuk memparsing semua view yang disisipkan sebagai parameter, lalu diambil hanya bagian yang nama template-nya adalah sama dengan nama template yang sudah di-alokasikan menggunakan <code>template.New()</code>. Jika template yang dicari tidak ada, maka akan mencari yang nama file-nya sama dengan nama template yang sudah ter-alokasi.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Chapter selanjutnya akan membahas lebih detail mengenai penggunaan method <code>ParseFiles()</code>.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.8-template-custom-functions" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.8...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2175,12 @@
 
             
                 
+                <a href="B-template-functions.html" class="navigation navigation-prev " aria-label="Previous page: B.7. Template: Functions">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="B-render-specific-html-template.html" class="navigation navigation-next " aria-label="Next page: B.9. Template: Render Specific HTML Template">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2191,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.8. Template: Custom Functions","level":"4.1.8","depth":2,"next":{"title":"B.9. Template: Render Specific HTML Template","level":"4.1.9","depth":2,"path":"B-render-specific-html-template.md","ref":"B-render-specific-html-template.md","articles":[]},"previous":{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-template-custom-functions.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

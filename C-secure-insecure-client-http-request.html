@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Secure &amp; Insecure Client HTTP Request - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-golang-ftp.html">
     
+    
+    <link rel="prev" href="C-client-http-request-advanced.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1804,7 +1806,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.27" data-path="C-secure-insecure-client-http-request.html">
+        <li class="chapter active" data-level="5.1.27" data-path="C-secure-insecure-client-http-request.html">
             
                 <a href="C-secure-insecure-client-http-request.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.27. Secure &amp; Insecure Client HTTP Request</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,149 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="c27-secure--insecure-client-http-request">C.27. Secure &amp; Insecure Client HTTP Request</h1>
+<p>Pada chapter ini topik yang dibahas adalah cara melakukan http request ke SSL/TLS-enabled web server, menggunakan dua teknik:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Insecure request</li>
+<li>Secure request menggunakan file certificate</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<h2 id="c271-handshake">C.27.1. Handshake</h2>
+<p>Sebelum masuk ke inti pembahasan, kita perlu mempelajari terlebih dahulu tentang pembeda antara secure request dan http request biasa.</p>
+<p>Dalam secure request, sebelum data benar-benar diterima oleh server, terjadi proses negosiasi antara client (yg men-dispatch request) dan server (tujuan request), proses ini biasa disebut dengan handshake.</p>
+<p>Proses negosiasi tersebut dipecah menjadi 5 fase.</p>
+<ol>
+<li><p>Fase <strong>Client Hello</strong>. Pada fase ini handshake dimulai dengan client mengirimkan pesan yang kita sebut dengan <strong>client hello</strong> ke se server. Pesan tersebut berisikan semua informasi milik client yang diperlukan oleh server untuk bisa terhubung dengan client via SSL. Informasi yang dimaksud di antaranya adalah versi SSL/TLS dan konfigurasi cipher. Cipher suite sendiri adalah seperangkat algoritma, digunakan untuk membantu pengamanan koneksi yang menerapkan TLS/SSL.</p>
+</li>
+<li><p>Fase <strong>Server Hello</strong>. Setelah diterima, server merespon dengan pesan yang mirip, yaitu <strong>server hello</strong>, isinya juga informasi yang kurang lebih sejenis. Informasi ini diperlukan oleh client untuk bisa terhubung balik dengan server.</p>
+</li>
+<li><p>Fase <strong>Otentikasi dan Pre-Master Secret</strong>. Setelah kontak antara client dan server terjadi, server mengenalkan dirinya ke client lewat file certificate. Anggap saja certificate tersebut sebagai KTP (Kartu Tanda Penduduk). Client selanjutnya melakukan pengecekan, apakah KTP tersebut valid dan dipercaya, atau tidak. Jika memang terpercaya, client selanjutnya membuat data yang disebut dengan <strong>pre-master secret</strong>, meng-enkripsi-nya menggunakan public key, lalu mengirimnya ke server sebagai response.</p>
+</li>
+<li><p>Fase <strong>Decryption dan Master Secret</strong>. Data encrypted pre-master secret yang dikirim oleh client diterima oleh server. Data tersebut kemudian di-decrypt menggunakan private key. Selanjutnya server dan client melakukan beberapa hal untuk men-generate <strong>master secret</strong> lewat cipher yang sudah disepakati.</p>
+</li>
+<li><p>Fase <strong>Encryption with Session Key</strong>. Server dan client melakukan pertukaran pesan untuk menginfokan bahwa data yang dikirim dalam request tersebut dan request-request selanjutnya akan di-enkripsi.</p>
+</li>
+</ol>
+<p>Sekarang kita tau, bahwa agar komunikasi antara client dan server bisa terjalin, pada sisi client harus ada file certificate, dan pada sisi server harus private key &amp; certificate.</p>
+<p>OK, saya rasa bagian teori sudah cukup, mari kita lanjut ke bagian praktek.</p>
+<h2 id="c272-persiapan">C.27.2. Persiapan</h2>
+<p>Salin project pada chapter sebelumnya, <a href="C-client-http-request-advanced.html">C.26. Advanced Client HTTP Request</a> sebagai folder project baru.</p>
+<h2 id="c273-konfigurasi-ssltls-pada-web-server">C.27.3. Konfigurasi SSL/TLS pada Web Server</h2>
+<p>Pada chapter <a href="A-client-http-request-simple.html">A.55. Simple Client HTTP Request</a> kita telah belajar implementasi client http request, penerapannya dengan 2 buah aplikasi terpisah, satu aplikasi web server dan satu lagi adalah aplikasi consumer.</p>
+<p>Kita perlu menambahkan sedikit modifikasi pada aplikasi web server (yang sudah di salin), mengaktifkan SSL/TLS-nya dengan cara mengubah bagian <code>.ListenAndServe()</code> menjadi <code>.ListenAndServeTLS()</code>, dengan disisipkan dua parameter berisi path certificate dan private key.</p>
+<pre><code class="lang-go">err := server.ListenAndServeTLS(<span class="hljs-string">&quot;server.crt&quot;</span>, <span class="hljs-string">&quot;server.key&quot;</span>)
+</code></pre>
+<p>Silakan generate certificate dan private key baru, caranya sama seperti pada chapter <a href="C-https-tls.html">C.24. HTTPS/TLS Web Server</a>.</p>
+<blockquote>
+<p>Konfigurasi SSL/TLS lewat <code>server.ListenAndServeTLS(&quot;server.crt&quot;, &quot;server.key&quot;)</code> merupakan cara yang paling mudah dengan konfigurasi adalah paling minimal.</p>
+</blockquote>
+<h2 id="c274-insecure-request">C.27.4. Insecure Request</h2>
+<p>Dari yang sudah dijelaskan di atas, agar komunikasi antara client dan server bisa ter-enkripsi, di sisi client atau consumer harus ada yang namanya file certificate.</p>
+<p>Jika client tidak menyertakan certificate dalam request-nya, maka pasti terjadi error (pada saat handshake). Contohnya bisa dilihat pada screenshot berikut.</p>
+<p><img src="images/C_secure_insecure_client_http_request_1_http_request_to_ssl_enabled_web_server.png" alt="Dasar Pemrograman Golang - SSL request error"></p>
+<p>Akan tetapi, jika memang client tidak memilik certificate dan komunikasi ingin tetap dilakukan, masih bisa (dengan catatan server meng-allow kapabilitas ini), caranya yaitu menggunakan teknik <em>insecure request</em>. </p>
+<blockquote>
+<p>Dalam insecure request, komunikasi terjalin tanpa ada proses enkripsi data. </p>
+</blockquote>
+<p>Cara membuat insecure request sangat mudah, cukup aktifkan atribut insecure pada request. Misal menggunakan <strong>curl</strong>, maka cukup tambahkan flag <code>--insecure</code> pada command.</p>
+<pre><code class="lang-bash">curl -X POST https://localhost/data \
+    --insecure \
+     -H <span class="hljs-string">&apos;Content-Type: application/json&apos;</span> \
+     <span class="hljs-_">-d</span> <span class="hljs-string">&apos;{&quot;Name&quot;: &quot;Noval Agung&quot;}&apos;</span>
+</code></pre>
+<p>Penerapan inscure request dalam golang juga tidak terlalu sulit. Pada object <code>http.Client</code>, isi property <code>.Transport</code> dengan objek baru buatan struct <code>http.Transport</code> yang di dalamnya berisi konfigurasi insecure request.</p>
+<pre><code class="lang-go">client := <span class="hljs-built_in">new</span>(http.Client)
+client.Transport = &amp;http.Transport{
+    TLSClientConfig: &amp;tls.Config{InsecureSkipVerify: <span class="hljs-literal">true</span>},
+}
+</code></pre>
+<p>Ubah kode pada aplikasi client (yang sudah disalin) seperti di atas. Jangan lupa juga untuk mengganti protokol base url destinasi, dari <code>http</code> ke <code>https</code>. </p>
+<pre><code class="lang-go">baseURL := <span class="hljs-string">&quot;https://localhost:9000&quot;</span>
+</code></pre>
+<p>Jalankan ulang aplikasi server yang sudah ssl-enabled dan aplikasi client yang sudah dikonfigurasi untuk insecure request, lalu test hasilnya.</p>
+<p><img src="images/C_secure_insecure_client_http_request_2_insecure_client_request.png" alt="Dasar Pemrograman Golang - Insecure Request"></p>
+<h2 id="c275-secure-request">C.27.5. Secure Request</h2>
+<p>Secure request adalah bentuk request yang datanya ter-enkripsi, bisa dibilang kebalikan dari insecure request. Request jenis ini pada sisi client atau consumer membutuhkan konfigurasi di mana file certificate diperlukan.</p>
+<p>Secure request bisa dilakukan dengan mudah di golang. Mari langsung saja kita praktekan. Pertama, pada file consumer, tambahkan package <code>crypto/x509</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">import</span> (
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-string">&quot;crypto/x509&quot;</span>
+)
+</code></pre>
+<blockquote>
+<p>X.509 adalah standar format public key certificates.</p>
+</blockquote>
+<p>Lalu buat objek baru bertipe <code>x509.CertPool</code> lewat <code>x509.NewCertPool()</code>. Objek ini nantinya menampung list certificate yang digunakan.</p>
+<p>Buat objek menggunakan struct <code>tls.Config</code>, dengan isi property <code>RootCAs</code> adalah objek list certificate yang sudah dibuat.</p>
+<p>Isi <code>client.Transport</code> dengan konfigurasi secure request. Hapus saja konfigurasi insecure request sebelumnya. </p>
+<p>Kurang lebih kode-nya seperti berikut.</p>
+<pre><code class="lang-go">certFile, err := os.ReadFile(<span class="hljs-string">&quot;server.crt&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+}
+
+caCertPool := x509.NewCertPool()
+caCertPool.AppendCertsFromPEM(certFile)
+
+tlsConfig := &amp;tls.Config{ RootCAs: caCertPool }
+tlsConfig.BuildNameToCertificate()
+
+client := <span class="hljs-built_in">new</span>(http.Client)
+client.Transport = &amp;http.Transport{
+    TLSClientConfig: tlsConfig,
+}
+</code></pre>
+<p>Bisa dilihat pada kode di atas, file <code>server.crt</code> dibaca isinya, lalu dimasukan ke <code>caCertPool</code>. Objek <code>caCertPool</code> ini bisa menampung banyak certificate, jika memang dibutuhkan banyak.</p>
+<p>OK, silakan langsung run aplikasi untuk testing.</p>
+<p><img src="images/C_secure_insecure_client_http_request_3_secure_client_request.png" alt="Dasar Pemrograman Golang - Secure Request"></p>
+<h2 id="c276-konfigurasi-ssltls-lanjutan">C.27.6. Konfigurasi SSL/TLS Lanjutan</h2>
+<p>Di atas kita sudah belajar cara setting SSL/TLS pada web server, dengan konfigurasi minimal menggunakan <code>server.ListenAndServeTLS(&quot;server.crt&quot;, &quot;server.key&quot;)</code>.</p>
+<p>Konfigurasi yang lebih complex bisa kita lakukan menggunakan <code>tls.Config</code>. Buat objek menggunakan struct tersebut lalu manfaatkan property struct-nya untuk menciptakan konfigurasi yang sesuai dengan kebutuhan. Contoh kurang lebih seperti kode di bawah ini.</p>
+<pre><code class="lang-go">certPair1, err := tls.LoadX509KeyPair(<span class="hljs-string">&quot;server.crt&quot;</span>, <span class="hljs-string">&quot;server.key&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatalln(<span class="hljs-string">&quot;Failed to start web server&quot;</span>, err)
+}
+
+tlsConfig := <span class="hljs-built_in">new</span>(tls.Config)
+tlsConfig.NextProtos = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;http/1.1&quot;</span>}
+tlsConfig.MinVersion = tls.VersionTLS12
+tlsConfig.PreferServerCipherSuites = <span class="hljs-literal">true</span>
+
+tlsConfig.Certificates = []tls.Certificate{
+    certPair1, <span class="hljs-comment">/** add other certificates here **/</span>
+}
+tlsConfig.BuildNameToCertificate()
+
+tlsConfig.ClientAuth = tls.VerifyClientCertIfGiven
+tlsConfig.CurvePreferences = []tls.CurveID{
+    tls.CurveP521,
+    tls.CurveP384,
+    tls.CurveP256,
+}
+tlsConfig.CipherSuites = []<span class="hljs-keyword">uint16</span>{
+    tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+    tls.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+}
+</code></pre>
+<p>Tampung saja objek cetakan <code>server.TLSConfig</code> di atas ke dalam <code>server.TLSConfig</code>. Jika file certificate dan private key sudah ditambahkan dalam <code>tlsConfig</code>, maka dalam pemanggilan <code>server.ListenAndServeTLS()</code> kosongkan saja parameter-nya.</p>
+<pre><code class="lang-go">server := <span class="hljs-built_in">new</span>(http.Server)
+server.Handler = mux
+server.Addr = <span class="hljs-string">&quot;:9000&quot;</span>
+server.TLSConfig = tlsConfig
+
+err := server.ListenAndServeTLS(<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatalln(<span class="hljs-string">&quot;Failed to start web server&quot;</span>, err)
+}
+</code></pre>
+<p>Tujuan mengapa penulis tambahkan sub chapter <strong>Konfigurasi SSL/TLS Lanjutan</strong> ini adalah agar pembaca tau bahwa konfigurasi SSL/TLS yang compleks bisa dilakukan dengan mudah dalam aplikasi web golang. Mengenai pembahasan tiap-tiap property silakan pelajari sendiri.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.27-secure-insecure-client-http-request" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.27...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2228,12 @@
 
             
                 
+                <a href="C-client-http-request-advanced.html" class="navigation navigation-prev " aria-label="Previous page: C.26. Advanced Client HTTP Request">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-golang-ftp.html" class="navigation navigation-next " aria-label="Next page: C.28. FTP">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2244,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.27. Secure & Insecure Client HTTP Request","level":"5.1.27","depth":2,"next":{"title":"C.28. FTP","level":"5.1.28","depth":2,"path":"C-golang-ftp.md","ref":"C-golang-ftp.md","articles":[]},"previous":{"title":"C.26. Advanced Client HTTP Request","level":"5.1.26","depth":2,"path":"C-client-http-request-advanced.md","ref":"C-client-http-request-advanced.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-secure-insecure-client-http-request.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Redis - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-singleflight.html">
     
+    
+    <link rel="prev" href="C-dockerize-golang.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1921,7 +1923,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.36" data-path="C-golang-redis.html">
+        <li class="chapter active" data-level="5.1.36" data-path="C-golang-redis.html">
             
                 <a href="C-golang-redis.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.36. Redis</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,138 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c36-redis">C.36. Redis</h1>
+<p>Pada bab ini kita akan belajar cara menggunakan Redis, dari cara koneksi Redis, cara menyimpan data dan cara mengambil data. Untuk command selengkapnya bisa dilihat di <a href="https://redis.io/commands" target="_blank">https://redis.io/commands</a>.</p>
+<h2 id="c361-apa-itu-redis">C.36.1 Apa itu Redis?</h2>
+<p>Redis, singkatan dari <em>Remote Dictionary Server</em>, adalah penyimpanan data nilai utama di dalam memori yang super cepat. Umumnya Redis dimanfaatkan sebagai database, cache, manajemen session, <em>message broker</em>, <em>queue</em>, dan jenis kebutuhan lainnya yg relevan dengan operasi real-time dan temporary data.</p>
+<p>Salah satu library Redis untuk Go yang populer ketika artikel ini dibuat adalah <a href="https://github.com/go-redis/redis" target="_blank">go-redis/redis</a>, dan pada chapter ini kita akan mempelajarinya.</p>
+<h2 id="c362-koneksi-ke-redis">C.36.2 Koneksi ke Redis</h2>
+<p>Sebelum kita mulai, pastikan Redis server sudah ter-install dan sudah berjalan di sistem operasi dengan baik. Lebih jelasnya perihal instalasi redis bisa merujuk ke <a href="https://redis.io/topics/quickstart" target="_blank">https://redis.io/topics/quickstart</a>.</p>
+<p>Ok, buat proyek baru, lalu buat file baru dengan nama <code>main.go</code>. Definisikan package dan import dependensi.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;context&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+
+    <span class="hljs-string">&quot;github.com/go-redis/redis/v8&quot;</span>
+)
+</code></pre>
+<blockquote>
+<p>Jangan lupa untuk <code>go get -u github.com/go-redis/redis/v8</code> dependensi go-redis</p>
+</blockquote>
+<p>Selanjutnya siapkan fungsi <code>newRedisClient()</code> untuk membuat objek Redis client yang nantinya digunakan dalam operasi.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> newRedisClient(host <span class="hljs-keyword">string</span>, password <span class="hljs-keyword">string</span>) *redis.Client {
+    client := redis.NewClient(&amp;redis.Options{
+        Addr:     host,
+        Password: password,
+        DB:       <span class="hljs-number">0</span>,
+    })
+    <span class="hljs-keyword">return</span> client
+}
+</code></pre>
+<p>Sekarang siapkan fungsi <code>main()</code> dengan isi kode untuk inisialisasi objek redis client. Di sini saya menggunakan <code>localhost:6379</code> sebagai host tujuan koneksi redis, karena redis server saya install di lokal.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> redisHost = <span class="hljs-string">&quot;localhost:6379&quot;</span>
+    <span class="hljs-keyword">var</span> redisPassword = <span class="hljs-string">&quot;&quot;</span>
+
+    rdb := newRedisClient(redisHost, redisPassword)
+    fmt.Println(<span class="hljs-string">&quot;redis client initialized&quot;</span>)
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<h2 id="c363-menyimpan-data-ke-redis-dengan-perintah-set">C.36.3 Menyimpan data ke Redis dengan perintah <code>SET</code></h2>
+<p>Sekarang kita akan belajar cara menyimpan data menggunakan salah satu command Redis, yaitu <code>SET</code>.</p>
+<blockquote>
+<p>Perlu diketahui bahwa command untuk menyimpan data di redis tidak hanya <code>SET</code>, ada juga lainnya seperti <code>SETTEX</code>, <code>HMSET</code>, <code>SETBIT</code>, <code>LSET</code>, RSET, <code>HSETNX</code>, masing-masing perintah memiliki kegunaan sendiri. Selengkapnya bisa merujuk ke <a href="https://redis.io/commands" target="_blank">https://redis.io/commands</a>.</p>
+</blockquote>
+<p>Salah satu benefit yang didapat dengan menggunakan <code>go-redis</code> library, adalah sudah disediakan wrapper untuk command-command redis, termasuk command <code>SET</code>.</p>
+<p>Ok, sekarang tambahkan kode berikut:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> () {
+    <span class="hljs-comment">// ...</span>
+
+    key := <span class="hljs-string">&quot;key-1&quot;</span>
+    data := <span class="hljs-string">&quot;Hello Redis&quot;</span>
+    ttl := time.Duration(<span class="hljs-number">3</span>) * time.Second
+
+    <span class="hljs-comment">// store data using SET command</span>
+    op1 := rdb.Set(context.Background(), key, data, ttl)
+    <span class="hljs-keyword">if</span> err := op1.Err(); err != <span class="hljs-literal">nil</span> {
+        fmt.Printf(<span class="hljs-string">&quot;unable to SET data. error: %v&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+    log.Println(<span class="hljs-string">&quot;set operation success&quot;</span>)
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Pada kode di atas disiapkan variabel <code>key</code> yang difungsikan sebagai identifier untuk data yang kita simpan. Data yang disimpan adalah string <code>Hello Redis</code>. Data akan di-retain di redis server selama 3 detik (lihat variabel <code>ttl</code>).</p>
+<p>Variabel objek <code>rdb</code> adalah redis client yang kita buat sebelumnya via fungsi <code>newRedisClient()</code>. Lewat variabel ini kita panggil method <code>.Set()</code> untuk menyimpan data menggunakan command redis <code>SET</code>.</p>
+<h2 id="c364-mengambil-data-dar-redis-dengan-perintah-get">C.36.4 Mengambil data dar Redis dengan perintah <code>GET</code></h2>
+<p>Command redis untuk pengambilan data adalah <code>GET</code>. Menggunakan go-redis library, kita cukup memanfaatkan method <code>.Get</code> dari objek redis client untuk pengambilan data.</p>
+<p>Tambahkan kode berikut pada main.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-comment">// get data</span>
+    op2 := rdb.Get(context.Background(), key)
+    <span class="hljs-keyword">if</span> err := op2.Err(); err != <span class="hljs-literal">nil</span> {
+        fmt.Printf(<span class="hljs-string">&quot;unable to GET data. error: %v&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+    res, err := op2.Result()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Printf(<span class="hljs-string">&quot;unable to GET data. error: %v&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+    log.Println(<span class="hljs-string">&quot;get operation success. result:&quot;</span>, res)
+}
+</code></pre>
+<p>Method <code>.Get()</code> mengembalikan objek bertipe <code>*redis.StringCmd</code>. Cara penggunaan method ini cukup pass variabel konteks dan identifier key.</p>
+<p>Dari objek bertipe <code>*redis.StringCmd</code> tersebut kita bisa ambil minimal 2 hal:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>informasi error, menggunakan method <code>.Err()</code></li>
+<li>data yang tersimpan sesuai key, menggunakan method <code>.Result()</code></li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<h2 id="c365-test">C.36.5 Test</h2>
+<p>Jalankan program, lihat hasilnya.</p>
+<p><img src="images/C_redis_1.png" alt="Dasar Pemrograman Golang - Redis test"></p>
+<p>Sampai sini bisa disimpulkan operasi <code>SET</code> dan <code>GET</code> adalah sukses.</p>
+<h2 id="c366-redis-expiration-time-ttl">C.36.6 Redis expiration time (<code>TTL</code>)</h2>
+<p>Mari kita sedikit modifikasi kode yang ada. Tambahkan <code>time.Sleep</code> untuk menghentikan eksekusi kode selama 4 detik.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// ...</span>
+    log.Println(<span class="hljs-string">&quot;set operation success&quot;</span>)
+
+    time.Sleep(time.Duration(<span class="hljs-number">4</span>) * time.Second) <span class="hljs-comment">// &lt;----- add this code</span>
+
+    <span class="hljs-comment">// get data</span>
+    op2 := rdb.Get(context.Background(), key)
+    <span class="hljs-keyword">if</span> err := op2.Err(); err != <span class="hljs-literal">nil</span> {
+        fmt.Printf(<span class="hljs-string">&quot;unable to GET data. error: %v&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Jalankan program dan lihat hasilnya.</p>
+<p><img src="images/C_redis_2.png" alt="Dasar Pemrograman Golang - Redis test"></p>
+<p>Error, ini karena data yang disimpan hanya di retain sesuai <code>ttl</code> yaitu 3 detik, dan pada kode di atas kita mencoba ambil datanya setelah detik ke 4. Jadi data tersebut expired.</p>
+<hr>
+<ul>
+<li><a href="https://github.com/redis/go-redis" target="_blank">go-redis</a>, by Redis, BSD-2-Clause License</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.36-redis" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.36...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2217,12 @@
 
             
                 
+                <a href="C-dockerize-golang.html" class="navigation navigation-prev " aria-label="Previous page: C.35. Dockerize Aplikasi Golang">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-singleflight.html" class="navigation navigation-next " aria-label="Next page: C.37. Singleflight">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2233,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.36. Redis","level":"5.1.36","depth":2,"next":{"title":"C.37. Singleflight","level":"5.1.37","depth":2,"path":"C-singleflight.md","ref":"C-singleflight.md","articles":[]},"previous":{"title":"C.35. Dockerize Aplikasi Golang","level":"5.1.35","depth":2,"path":"C-dockerize-golang.md","ref":"C-dockerize-golang.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-redis.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

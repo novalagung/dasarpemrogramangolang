@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang NoSQL MongoDB - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-unit-test.html">
     
+    
+    <link rel="prev" href="A-sql.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -998,7 +1000,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.57" data-path="A-mongodb.html">
+        <li class="chapter active" data-level="3.1.57" data-path="A-mongodb.html">
             
                 <a href="A-mongodb.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.57. NoSQL MongoDB</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,272 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
+                                <h1 id="a57-nosql-mongodb">A.57. NoSQL MongoDB</h1>
+<p>Go tidak menyediakan interface generic untuk NoSQL, jadi implementasi driver tiap brand NoSQL di Go biasanya berbeda satu dengan lainnya.</p>
+<p>Pada chapter ini kita akan belajar cara berkomunikasi dengan NoSQL MongoDB server menggunakan official driver untuk go, yaitu <a href="https://github.com/mongodb/mongo-go-driver" target="_blank">mongo-go-driver</a>.</p>
+<h2 id="a571-persiapan">A.57.1. Persiapan</h2>
+<p>Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.</p>
+<ol>
+<li><p>Instal mongo-go-driver menggunakan <code>go get</code>.</p>
+<pre><code>cd &lt;folder-project&gt;
+go get go.mongodb.org/mongo-driver/mongo
+</code></pre></li>
+<li><p>Pastikan sudah terinstal MongoDB di komputer anda, dan jangan lupa untuk menjalankan daemon-nya. Jika belum, <a href="ihttps://www.mongodb.org/downloads" target="_blank">download</a> dan install terlebih dahulu.</p>
+</li>
+<li><p>Instal juga MongoDB GUI untuk mempermudah browsing data. Bisa menggunakan <a href="http://3t.io/mongochef/" target="_blank">MongoChef</a>, <a href="http://robomongo.org/" target="_blank">Robomongo</a>, atau lainnya.</p>
+</li>
 </ol>
+<h2 id="a572-insert-data">A.57.2. Insert Data</h2>
+<p>Cara insert data ke mongodb via Go tidak terlalu sulit. Kita akan mempelajarinya dengan cara praktek langsung. Pertama-tama silakan import package yang dibutuhkan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;context&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+
+    <span class="hljs-string">&quot;go.mongodb.org/mongo-driver/mongo&quot;</span>
+    <span class="hljs-string">&quot;go.mongodb.org/mongo-driver/mongo/options&quot;</span>
+    <span class="hljs-string">&quot;go.mongodb.org/mongo-driver/bson&quot;</span>
+)
+</code></pre>
+<p>Siapkan satu object context dan struct <code>student</code>. Rencananya satu buah document kita buat sebagai satu buah objek <code>student</code>.</p>
+<p>Perlu diketahui bahwa pada chapter ini tidak dijelaskan tentang apa itu context. Silakan merujuk ke <a href="D-google-api-search.html">D.2. Google API Search Dengan Timeout</a> untuk mempelajarinya. Menggunakan satu context background untuk semua operasi sangat tidak dianjurkan, tapi pada chapter ini kita terapkan demikian agar tidak menambah kebingungan pembaca yang masih proses belajar. Context sendiri fungsinya sangat banyak, untuk kasus sejenis biasanya digunakan untuk handle operation timeout atau lainnya. </p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> ctx = context.Background()
+
+<span class="hljs-keyword">type</span> student <span class="hljs-keyword">struct</span> {
+    Name  <span class="hljs-keyword">string</span> <span class="hljs-string">`bson:&quot;name&quot;`</span>
+    Grade <span class="hljs-keyword">int</span>    <span class="hljs-string">`bson:&quot;Grade&quot;`</span>
+}
+</code></pre>
+<p>Tag <code>bson</code> pada property struct digunakan sebagai penentu nama field ketika data disimpan ke dalam collection. Jika sebuah property tidak memiliki tag bson, secara default nama field adalah sama dengan nama property hanya saja lowercase. Untuk customize nama field, gunakan tag <code>bson</code>.</p>
+<p>Pada contoh di atas, property <code>Name</code> ditentukan nama field mongo-nya sebagai <code>name</code>, dan <code>Grade</code> sebagai <code>Grade</code>.</p>
+<p>Selanjutnya siapkan fungsi untuk membuat satu buah mongo connection. Dari objek connection diambil object database, kemudian dijadikan sebagai nilai balik fungsi.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> connect() (*mongo.Database, error) {
+    clientOptions := options.Client()
+    clientOptions.ApplyURI(<span class="hljs-string">&quot;mongodb://localhost:27017&quot;</span>)
+    client, err := mongo.NewClient(clientOptions)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+    }
+
+    err = client.Connect(ctx)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+    }
+
+    <span class="hljs-keyword">return</span> client.Database(<span class="hljs-string">&quot;belajar_golang&quot;</span>), <span class="hljs-literal">nil</span>
+}
+</code></pre>
+<p>Fungsi <code>mongo.NewClient()</code> digunakan untuk meng-inisialisasi koneksi database dari client ke server. Fungsi tersebut memerlukan parameter bertipe <code>*options.ClientOptions</code>. Pada client options mongo connection string perlu di set (lewat method <code>.ApplyURI()</code>).</p>
+<blockquote>
+<p>Silakan sesuaikan connection string dengan mongo db server yang dipergunakan. Lebih jelasnya silakan merujuk ke <a href="https://docs.mongodb.com/manual/reference/connection-string/" target="_blank">MongoDB Documentation: Connection String URI Format</a>.</p>
+</blockquote>
+<p>Dari object client, panggil method <code>.Connect()</code> untuk inisialisasi koneksi ke db server. Setelah itu panggil method <code>.Database()</code> untuk set database yang aktif.</p>
+<p>Lanjut buat fungsi yang di dalamnya berisikan kode untuk insert data ke mongodb, lalu panggil fungsi tersebut di <code>main()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> insert() {
+    db, err := connect()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err.Error())
+    }
+
+    _, err = db.Collection(<span class="hljs-string">&quot;student&quot;</span>).InsertOne(ctx, student{<span class="hljs-string">&quot;Wick&quot;</span>, <span class="hljs-number">2</span>})
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err.Error())
+    }
+
+    _, err = db.Collection(<span class="hljs-string">&quot;student&quot;</span>).InsertOne(ctx, student{<span class="hljs-string">&quot;Ethan&quot;</span>, <span class="hljs-number">2</span>})
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err.Error())
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;Insert success!&quot;</span>)
+}
+
+<span class="hljs-keyword">func</span> main() {
+    insert()
+}
+</code></pre>
+<p>Fungsi <code>connect()</code> mengembalikan objek bertipe <code>*mongo.Database</code>. Dari objek tersebut akses method <code>.Collection()</code> lalu chain dengan method lainnya untuk melakukan operasi database, kurang lebih skema statement-nya sama seperti operasi mongodb.</p>
+<p>Sebagai contoh, pada kode di atas <code>.InsertOne()</code> digunakan untuk insert satu data ke database. Perbandingannya kurang lebih seperti berikut:</p>
+<pre><code class="lang-js"><span class="hljs-comment">// mongodb</span>
+db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).insertOne({ name: <span class="hljs-string">&quot;Wick&quot;</span>, Grade: <span class="hljs-number">2</span> })
+
+<span class="hljs-comment">// mongo-go-driver</span>
+db.Collection(<span class="hljs-string">&quot;student&quot;</span>).InsertOne(ctx, student{ name: <span class="hljs-string">&quot;Wick&quot;</span>, Grade: <span class="hljs-number">2</span>})
+</code></pre>
+<p>Perlu diketahui, bahwa di mongo-go-driver setiap operasi biasanya membutuhkan objek context untuk disisipkan sebagai parameter pertama. Pada contoh di atas kita gunakan variabel <code>ctx</code> yang sudah dideklarasikan sebelumnya.</p>
+<p><img src="images/A_mongodb_1_insert.png" alt="Dasar Pemrograman Golang - Insert mongo"></p>
+<h2 id="a573-membaca-data">A.57.3. Membaca Data</h2>
+<p>Method <code>.Find()</code> digunakan untuk membaca atau mencari data. Method ini mengembalikan objek cursor, objek ini harus digunakan dalam perulangan untuk mengambil data yang ditemukan.</p>
+<p>Dalam pencarian, sisipkan query atau filter sebagai parameter ke-dua method <code>.Find()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> find() {
+    db, err := connect()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err.Error())
+    }
+
+    csr, err := db.Collection(<span class="hljs-string">&quot;student&quot;</span>).Find(ctx, bson.M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>})
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err.Error())
+    }
+    <span class="hljs-keyword">defer</span> csr.Close(ctx)
+
+    result := <span class="hljs-built_in">make</span>([]student, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">for</span> csr.Next(ctx) {
+        <span class="hljs-keyword">var</span> row student
+        err := csr.Decode(&amp;row)
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            log.Fatal(err.Error())
+        }
+
+        result = <span class="hljs-built_in">append</span>(result, row)
+    }
+
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(result) &gt; <span class="hljs-number">0</span> {
+        fmt.Println(<span class="hljs-string">&quot;Name  :&quot;</span>, result[<span class="hljs-number">0</span>].Name)
+        fmt.Println(<span class="hljs-string">&quot;Grade :&quot;</span>, result[<span class="hljs-number">0</span>].Grade)
+    }
+}
+
+<span class="hljs-keyword">func</span> main() {
+    find()
+}
+</code></pre>
+<p>Query selector ditulis dalam tipe <code>bson.M</code>. Tipe ini sebenarnya adalah alias dari <code>map[string]interface{}</code>.</p>
+<p>Cara untuk mendapatkan semua rows hasil pencarian kursor adalah dengan mengiterasi method <code>.Next()</code> dengan di dalamnya method <code>.Decode()</code> dipanggil untuk retrieve datanya. Setelah itu data yang sudah terampil di-append ke slice.</p>
+<p>Selain method <code>.Find()</code> ada juga <code>.FindOne()</code>, silakan cek dokumentasi lebih jelasnya.</p>
+<p><img src="images/A_mongodb_2_find.png" alt="Dasar Pemrograman Golang - Pencarian data"></p>
+<p>Berikut adalah skema perbandingan contoh operasi get data menggunakan mongo query vs mongo-go-driver:</p>
+<pre><code class="lang-js"><span class="hljs-comment">// mongodb</span>
+db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).find({<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>})
+
+<span class="hljs-comment">// mongo-go-driver</span>
+db.Collection(<span class="hljs-string">&quot;student&quot;</span>).Find(ctx, bson.M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>})
+</code></pre>
+<h2 id="a574-update-data">A.57.4. Update Data</h2>
+<p>Method <code>.Update()</code> digunakan untuk update data (jika update hanya diinginkan untuk berlaku pada 1 dokumen saja, maka gunakan <code>.UpdateOne()</code>). Method <code>.Update()</code> memerlukan 3 buah parameter dalam pemanggilannya.</p>
+<ol>
+<li>Parameter pertama, objek context</li>
+<li>Parameter kedua adalah query kondisi yang mengacu ke data mana yang ingin di update</li>
+<li>Parameter ketiga adalah perubahan datanya.</li>
+</ol>
+<p>Di bawah ini adalah contok implementasi method <code>Update()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> update() {
+    db, err := connect()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err.Error())
+    }
+
+    <span class="hljs-keyword">var</span> selector = bson.M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>}
+    <span class="hljs-keyword">var</span> changes = student{<span class="hljs-string">&quot;John Wick&quot;</span>, <span class="hljs-number">2</span>}
+    _, err = db.Collection(<span class="hljs-string">&quot;student&quot;</span>).UpdateOne(ctx, selector, bson.M{<span class="hljs-string">&quot;$set&quot;</span>: changes})
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err.Error())
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;Update success!&quot;</span>)
+}
+
+<span class="hljs-keyword">func</span> main() {
+    update()
+}
+</code></pre>
+<p>Jalankan kode di atas, lalu cek lewat Mongo GUI apakah data berubah.</p>
+<p><img src="images/A_mongodb_3_update.png" alt="Dasar Pemrograman Golang - Update data"></p>
+<p>Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.</p>
+<pre><code class="lang-js"><span class="hljs-comment">// mongodb</span>
+db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).update({<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>}, { <span class="hljs-string">&quot;$set&quot;</span>: {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>, <span class="hljs-string">&quot;Grade&quot;</span>: <span class="hljs-number">2</span>} })
+
+<span class="hljs-comment">// mongo-go-driver</span>
+db.Collection(<span class="hljs-string">&quot;student&quot;</span>).UpdateOne(ctx, bson.M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>}, bson.M{<span class="hljs-string">&quot;$set&quot;</span>: student{<span class="hljs-string">&quot;John Wick&quot;</span>, <span class="hljs-number">2</span>}})
+</code></pre>
+<p>Selain method <code>.UpdateOne()</code> ada juga method <code>.UpdateMany()</code>, kegunaan masing-masing bisa dilihat dari nama fungsinya.</p>
+<h2 id="a575-menghapus-data">A.57.5. Menghapus Data</h2>
+<p>Untuk menghapus data gunakan method <code>.DeleteOne()</code> atau <code>.DeleteMany()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> remove() {
+    db, err := connect()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err.Error())
+    }
+
+    <span class="hljs-keyword">var</span> selector = bson.M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John Wick&quot;</span>}
+    _, err = db.Collection(<span class="hljs-string">&quot;student&quot;</span>).DeleteOne(ctx, selector)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err.Error())
+    }
+
+    fmt.Println(<span class="hljs-string">&quot;Remove success!&quot;</span>)
+}
+
+<span class="hljs-keyword">func</span> main() {
+    remove()
+}
+</code></pre>
+<p>Hasil dari kode di atas, 2 data yang sebelumnya sudah di-insert kini tinggal satu saja.</p>
+<p><img src="images/A_mongodb_4_remove.png" alt="Dasar Pemrograman Golang - Menghapus data"></p>
+<p>Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.</p>
+<pre><code class="lang-js"><span class="hljs-comment">// mongodb</span>
+db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).delete({<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John Wick&quot;</span>})
+
+<span class="hljs-comment">// mongo-go-driver</span>
+db.Collection(<span class="hljs-string">&quot;student&quot;</span>).DeleteMany(ctx, bson.M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John Wick&quot;</span>})
+</code></pre>
+<h2 id="a576-aggregate-data">A.57.6. Aggregate Data</h2>
+<p>Agregasi data menggunakan driver ini juga cukup mudah, caranya tinggal gunakan method <code>.Aggregate()</code> dan sisipkan pipeline query sebagai argument ke-2 pemanggilan method. Eksekusi method tersebut mengembalikan objek cursor. Selebihnya capture result dengan cara yang sama seperti capture cursor operasi <code>.Find()</code>.</p>
+<p>Pipeline sendiri bisa dituliskan langsung dalam <code>[]bson.M</code>, atau bisa tulis dalam bentuk string dan unmarshal ke <code>[]bson.M</code>.</p>
+<pre><code class="lang-go">pipeline := <span class="hljs-built_in">make</span>([]bson.M, <span class="hljs-number">0</span>)
+err = bson.UnmarshalExtJSON([]<span class="hljs-keyword">byte</span>(strings.TrimSpace(<span class="hljs-string">`
+    [
+        { &quot;$group&quot;: {
+            &quot;_id&quot;: null,
+            &quot;Total&quot;: { &quot;$sum&quot;: 1 }
+        } },
+        { &quot;$project&quot;: {
+            &quot;Total&quot;: 1,
+            &quot;_id&quot;: 0
+        } }
+    ]
+`</span>)), <span class="hljs-literal">true</span>, &amp;pipeline)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+</code></pre>
+<p>Pada kode lanjutan berikut, method <code>.Aggregate()</code> dipanggil dan disisipkan pipeline-nya.</p>
+<pre><code class="lang-go">csr, err := db.Collection(<span class="hljs-string">&quot;student&quot;</span>).Aggregate(ctx, pipeline)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+<span class="hljs-keyword">defer</span> csr.Close(ctx)
+
+result := <span class="hljs-built_in">make</span>([]bson.M, <span class="hljs-number">0</span>)
+<span class="hljs-keyword">for</span> csr.Next(ctx) {
+    <span class="hljs-keyword">var</span> row bson.M
+    err := csr.Decode(&amp;row)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err.Error())
+    }
+
+    result = <span class="hljs-built_in">append</span>(result, row)
+}
+
+<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(result) &gt; <span class="hljs-number">0</span> {
+    fmt.Println(<span class="hljs-string">&quot;Total :&quot;</span>, result[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;Total&quot;</span>])
+}
+</code></pre>
+<hr>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li><a href="https://github.com/mongodb/mongo-go-driver" target="_blank">Mongo Go Driver</a>, by MongoDB Team, Apache-2.0 license</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.57-mongodb" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.57...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2351,12 @@
 
             
                 
+                <a href="A-sql.html" class="navigation navigation-prev " aria-label="Previous page: A.56. SQL">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-unit-test.html" class="navigation navigation-next " aria-label="Next page: A.58. Unit Test">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2367,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"next":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"path":"A-unit-test.md","ref":"A-unit-test.md","articles":[]},"previous":{"title":"A.56. SQL","level":"3.1.56","depth":2,"path":"A-sql.md","ref":"A-sql.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-mongodb.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

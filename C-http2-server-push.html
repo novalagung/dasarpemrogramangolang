@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang HTTP/2 &amp; HTTP/2 Server Push - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-client-http-request-advanced.html">
     
+    
+    <link rel="prev" href="C-https-tls.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1778,7 +1780,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.25" data-path="C-http2-server-push.html">
+        <li class="chapter active" data-level="5.1.25" data-path="C-http2-server-push.html">
             
                 <a href="C-http2-server-push.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.25. HTTP/2 &amp; HTTP/2 Server Push</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,141 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="c25-http2-dan-http2-server-push">C.25. HTTP/2 dan HTTP/2 Server Push</h1>
+<p>HTTP/2 adalah versi terbaru protokol HTTP, dikembangkan dari protokol <a href="https://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00" target="_blank">SPDY</a> yang diinisiasi oleh Google.</p>
+<p>Protokol ini sekarang sudah kompatibel dengan banyak browser di antaranya: Chrome, Opera, Firefox 9, IE 11, Safari, Silk, dan Edge.</p>
+<p>Kelebihan HTTP/2 dibanding HTTP 1.1 (protokol yang umumnya digunakan) sebagian besar adalah pada performa dan sekuriti. Berikut merupakan beberapa point yang menjadi kelebihan dari protokol baru ini.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Backward compatible dengan HTTP 1.1</li>
+<li>Kompresi data pada HTTP Headers</li>
+<li>Multiplexing banyak request (dalam satu koneksi TCP)</li>
+<li>HTTP/2 Server Push</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Pada chapter ini kita akan belajar cara menerapkan HTTP/2 dan salah satu fitur milik protokol ini yaitu HTTP/2 Server Push.</p>
+<blockquote>
+<p>Mengenai multiplexing banyak request tidak akan kita bahas pada buku ini, silakan coba pelajari sendiri jika tertarik, menggunakan library cmux.</p>
+</blockquote>
+<h2 id="c251-http2-di-golang">C.25.1. HTTP/2 di Golang</h2>
+<p>Golang memiliki dukungan sangat baik terhadap HTTP/2. Dengan cukup meng-enable fasilitas TLS/HTTPS maka aplikasi golang secara otomatis menggunakan HTTP/2.</p>
+<p>Untuk memastikan mari kita langsung praktekkan, coba duplikat project pada chapter sebelumnya (<strong>A.23. HTTPS/TLS Web Server</strong>) sebagai project baru, jalankan aplikasinya lalu cek di browser chrome. Gunakan chrome extension <a href="https://chrome.google.com/webstore/detail/http2-and-spdy-indicator/mpbpobfflnpcgagjijhmgnchggcjblin?hl=en" target="_blank">HTTP/2 and SPDY indicator</a> untuk menge-test apakah HTTP/2 sudah enabled.</p>
+<p><img src="images/C_http2_server_push_1_spdy_checker.png" alt="Dasar Pemrograman Golang - SPDY checker"></p>
+<p>Perlu diketahui untuk golang versi sebelum <strong>1.6</strong> ke bawah, secara default HTTP/2 tidak akan di-enable. Perlu memanggil fungsi <code>http2.ConfigureServer()</code> secara eksplist untuk meng-enable HTTP/2. Fungsi tersebut tersedia dalam package <code>golang.org/x/net/http2</code>. Lebih jelasnya silakan baca <a href="https://godoc.org/golang.org/x/net/http2" target="_blank">laman dokumentasi</a>.</p>
+<h2 id="c252-http2-server-push">C.25.2. HTTP/2 Server Push</h2>
+<p>HTTP/2 Server Push adalah salah satu fitur pada HTTP/2, berguna untuk mempercepat response dari request, dengan cara data yang akan di-response dikirim terlebih dahulu oleh server.</p>
+<p>Fitur server push ini cocok digunakan untuk push data assets, seperti: css, gambar, js, dan file assets lainnya.</p>
+<p>Lalu apakah server push ini bisa dimanfaatkan untuk push data JSON, XML, atau sejenisnya? Sebenarnya bisa, hanya saja ini akan menyalahi tujuan dari penciptaan server push sendiri dan hasilnya tidak akan optimal, karena sebenernya server push tidak murni bidirectional, masih perlu adanya request ke server untuk mendapatkan data yg sudah di push oleh server itu sendiri.</p>
+<blockquote>
+<p>HTTP/2 server push bukanlah pengganti dari websocket. Gunakan websocket untuk melakukan komunikasi bidirectional antara server dan client.</p>
+</blockquote>
+<p>Untuk mengecek suport-tidak-nya server push, lakukan casting pada objek <code>http.ResponseWriter</code> milik handler ke interface <code>http.Pusher</code>, lalu manfaatkan method <code>Push()</code> milik interface ini untuk push data dari server.</p>
+<blockquote>
+<p>Fasilitas server push ini hanya bisa digunakan pada golang versi 1.8 ke-atas.</p>
+</blockquote>
+<h2 id="c253-praktek">C.25.3. Praktek</h2>
+<p>Mari kita praktekan. Buat project baru, buat file <code>main.go</code>, isi dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    http.Handle(<span class="hljs-string">&quot;/static/&quot;</span>, 
+        http.StripPrefix(<span class="hljs-string">&quot;/static/&quot;</span>, 
+            http.FileServer(http.Dir(<span class="hljs-string">&quot;.&quot;</span>))))
+
+    log.Println(<span class="hljs-string">&quot;Server started at :9000&quot;</span>)
+    err := http.ListenAndServeTLS(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-string">&quot;server.crt&quot;</span>, <span class="hljs-string">&quot;server.key&quot;</span>, <span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-built_in">panic</span>(err)
+    }
+}
+</code></pre>
+<p>Dalam folder proyek baru di atas, siapkan juga beberapa file lain:</p>
+<ul>
+<li>File <code>app.js</code></li>
+<li>File <code>app.css</code></li>
+<li>File <code>server.crt</code>, salin dari proyek sebelumnya</li>
+<li>File <code>server.key</code>, salin dari proyek sebelumnya</li>
+</ul>
+<p>Selanjutnya siapkan string html, nantinya akan dijadikan sebagai output rute <code>/</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">const</span> indexHTML = <span class="hljs-string">`
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+        &lt;head&gt;
+            &lt;title&gt;Hello World&lt;/title&gt;
+            &lt;script src=&quot;/static/app.js&quot;&gt;&lt;/script&gt;
+            &lt;link rel=&quot;stylesheet&quot; href=&quot;/static/app.css&quot;&quot;&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+        Hello, gopher!&lt;br&gt;
+        &lt;img src=&quot;https://blog.golang.org/go-brand/logos.jpg&quot; height=&quot;100&quot;&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;
+`</span>
+</code></pre>
+<p>Siapkan rute <code>/</code>, render string html tadi sebagai output dari endpoint ini.</p>
+<pre><code class="lang-go">http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">if</span> r.URL.Path != <span class="hljs-string">&quot;/&quot;</span> {
+        http.NotFound(w, r)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-keyword">if</span> pusher, ok := w.(http.Pusher); ok {
+        <span class="hljs-keyword">if</span> err := pusher.Push(<span class="hljs-string">&quot;/static/app.js&quot;</span>, <span class="hljs-literal">nil</span>); err != <span class="hljs-literal">nil</span> {
+            log.Printf(<span class="hljs-string">&quot;Failed to push: %v&quot;</span>, err)
+        }
+
+        <span class="hljs-keyword">if</span> err := pusher.Push(<span class="hljs-string">&quot;/static/app.css&quot;</span>, <span class="hljs-literal">nil</span>); err != <span class="hljs-literal">nil</span> {
+            log.Printf(<span class="hljs-string">&quot;Failed to push: %v&quot;</span>, err)
+        }
+    }
+
+    fmt.Fprintf(w, indexHTML)
+})
+</code></pre>
+<p>Pada handler di atas bisa kita lihat bahwa selain me-render string html, rute ini juga memiliki tugas lain yaitu push assets.</p>
+<p>Cara untuk mendeteksi apakah server push di-support, adalah dengan meng-casting objek <code>http.ResponseWriter</code> ke tipe <code>http.Pusher</code>. Proses casting tersebut mengembalikan dua buah data.</p>
+<ol>
+<li>Data objek yang sudah di casting.</li>
+<li>Variabel bertipe <code>bool</code> penanda aplikasi kita mendukung mendukung server push atau tidak.</li>
+</ol>
+<p>Jika nilai variabel <code>ok</code> adalah <code>true</code>, maka server push di-support.</p>
+<p>Method <code>Push()</code> milik <code>http.Pusher</code> digunakan untuk untuk push data. Endpoint yang disisipkan sebagai argumen, datanya akan di push ke front end oleh server, dalam contoh di atas adalah <code>/static/app.js</code> dan <code>/static/app.css</code>.</p>
+<p>Server push ini adalah per endpoint atau rute. Jika ada rute lain, maka dua assets di atas tidak akan di push, kecuali method <code>Push()</code> dipanggil lagi dalam rute lain tersebut.</p>
+<blockquote>
+<p>Daripada memanggil method push satu-per-satu pada banyak handler, lebih baik jadikan sebagai middleware terpisah.</p>
+</blockquote>
+<p>Kegunaan dari fungsi <code>fmt.Fprintf()</code> adalah untuk render html, sama seperti <code>w.Write()</code>.</p>
+<p>OK, jalankan aplikasi lalu test.</p>
+<h2 id="c254-testing">C.25.4. Testing</h2>
+<p>Perbedaan antara aplikasi yang menerapkan HTTP/2 dan tidak, atau yang menerapkan server push atau tidak; adalah tidak terasa bedanya jika hanya di-test lewat lokal saja. </p>
+<p>Untuk mengecek HTTP/2 diterapkan atau tidak, kita bisa gunakan Chrome extension <strong>HTTP/2 and SPDY indicator</strong>. </p>
+<p>Untuk mengecek server push pada tiap request sebenernya bisa hanya cukup menggunakan chrome dev tools, namun fitur ini hanya tersedia pada <a href="https://www.google.com/chrome/browser/canary.html" target="_blank">Chrome Canary</a>. Download browser tersebut lalu install, gunakan untuk testing aplikasi kita.</p>
+<p>Pada saat mengakses <code>https://localhost:9000</code> pastikan developer tools sudah aktif (klik kanan, inspect element), lalu buka tab <strong>Network</strong>.</p>
+<p><img src="images/C_http2_server_push_2_spdy_indicator.png" alt="Dasar Pemrograman Golang - SPDY indicator"></p>
+<p>Untuk endpoint yang menggunakan server push, pada kolom <strong>Protocol</strong> nilainya adalah <strong>spdy</strong>. Pada screenshot di atas terlihat bahwa assets <code>app.js</code> dan <code>app.css</code> dikirim lewat server push.</p>
+<blockquote>
+<p>Jika kolom Protocol tidak muncul, klik kanan pada kolom, lalu centang <strong>Protocol</strong>.</p>
+</blockquote>
+<p>Berikut merupakan variasi nilai pada kolom protocol.</p>
+<ul>
+<li><strong>http/1.1</strong>, protokol yang kita gunakan mulai tahun 1999.</li>
+<li><strong>spdy</strong>, versi pertama spesifikasi HTTP/2 dari google, mengawali terciptanya HTTP/2.</li>
+<li><strong>h2</strong>, kependekan dari &quot;HTTP 2&quot;.</li>
+<li><strong>h2c</strong>, kependekan dari &quot;HTTP 2 Cleartext&quot;. HTTP/2 lewat kanal yang tidak ter-enkripsi.</li>
+</ul>
+<p>Selain dari kolom protocol, penanda server push bisa dilihat juga lewat grafik <strong>Waterfall</strong>. Garis warna ungu muda pada grafik tersebut adalah start time. Untuk endpoint yang di push maka bar chart akan muncul sebelum garis ungu atau start time.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.25-http2-server-push" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.25...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2220,12 @@
 
             
                 
+                <a href="C-https-tls.html" class="navigation navigation-prev " aria-label="Previous page: C.24. HTTPS/TLS Web Server">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-client-http-request-advanced.html" class="navigation navigation-next " aria-label="Next page: C.26. Advanced Client HTTP Request">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2236,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.25. HTTP/2 & HTTP/2 Server Push","level":"5.1.25","depth":2,"next":{"title":"C.26. Advanced Client HTTP Request","level":"5.1.26","depth":2,"path":"C-client-http-request-advanced.md","ref":"C-client-http-request-advanced.md","articles":[]},"previous":{"title":"C.24. HTTPS/TLS Web Server","level":"5.1.24","depth":2,"path":"C-https-tls.md","ref":"C-https-tls.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-http2-server-push.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

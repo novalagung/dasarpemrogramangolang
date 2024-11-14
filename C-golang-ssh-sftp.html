@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang SSH &amp; SFTP - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-golang-protobuf-implementation.html">
     
+    
+    <link rel="prev" href="C-golang-ftp.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1830,7 +1832,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.29" data-path="C-golang-ssh-sftp.html">
+        <li class="chapter active" data-level="5.1.29" data-path="C-golang-ssh-sftp.html">
             
                 <a href="C-golang-ssh-sftp.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.29. SSH &amp; SFTP</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,214 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c29-ssh--sftp">C.29. SSH &amp; SFTP</h1>
+<p>Pada chapter ini kita akan belajar cara untuk me-remote server lewat protokol SSH (Secure Shell).</p>
+<blockquote>
+<p>Protokol SSH digunakan untuk melakukan remote login secara aman/secure ke server tujuan. Komunikasi yang terjadi lewat SSH di-encrypt sehingga aman.</p>
+</blockquote>
+<p>Go menyediakan package <a href="https://godoc.org/golang.org/x/crypto/ssh" target="_blank">golang.org/x/crypto/ssh</a>, berisi cukup banyak API untuk keperluan operasi yang berhubungan dengan protokol SSH.</p>
+<h2 id="c291-otentikasi-ssh">C.29.1. Otentikasi SSH</h2>
+<p>Buat folder project baru, isinya file <code>main.go</code>, di dalamnya tulis kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;golang.org/x/crypto/ssh&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">const</span> SSH_ADDRESS = <span class="hljs-string">&quot;0.0.0.0:22&quot;</span>
+    <span class="hljs-keyword">const</span> SSH_USERNAME = <span class="hljs-string">&quot;user&quot;</span>
+    <span class="hljs-keyword">const</span> SSH_PASSWORD = <span class="hljs-string">&quot;password&quot;</span>
+
+    sshConfig := &amp;ssh.ClientConfig{
+        User:            SSH_USERNAME,
+        HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+        Auth: []ssh.AuthMethod{
+            ssh.Password(SSH_PASSWORD),
+        },
+    }
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Variabel <code>sshConfig</code> di atas adalah objek pointer cetakan struct <code>ssh.ClientConfig</code>. Objek bertipe ini nantinya digunakan untuk otentikasi SSH.</p>
+<p>Pada kode di atas, tiga buah konstanta dengan prefix <code>SSH_*</code> disiapkan. Credentials username dan password disisipkan sebagai property objek <code>sshConfig</code>. Bisa dilihat pada property <code>Auth</code>, isinya adalah slice <code>ssh.AuthMethod</code> dengan satu buah element yaitu <code>ssh.Password()</code>. Konfigurasi seperti ini dipakai jika <strong>otentikasi menggunakan username dan password</strong>.</p>
+<p>Jika otentikasi dilakukan menggunakan <strong>identity file</strong>, maka gunakan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">const</span> SSH_ADDRESS = <span class="hljs-string">&quot;192.168.0.24:22&quot;</span>
+<span class="hljs-keyword">const</span> SSH_USERNAME = <span class="hljs-string">&quot;user&quot;</span>
+<span class="hljs-keyword">const</span> SSH_KEY = <span class="hljs-string">&quot;path/to/file/identity.pem&quot;</span>
+
+sshConfig := &amp;ssh.ClientConfig{
+    User:            SSH_USERNAME,
+    HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+    Auth: []ssh.AuthMethod{
+        PublicKeyFile(SSH_KEY),
+    },
+}
+
+<span class="hljs-keyword">func</span> PublicKeyFile(file <span class="hljs-keyword">string</span>) ssh.AuthMethod {
+    buffer, err := os.ReadFile(file)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+    }
+
+    key, err := ssh.ParsePrivateKey(buffer)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+    }
+
+    <span class="hljs-keyword">return</span> ssh.PublicKeys(key)
+}
+</code></pre>
+<p>Silakan pilih jenis otentikasi sesuai dengan yang di dukung oleh remote server.</p>
+<p>Selanjutnya, dalam fungsi <code>main()</code>, buat koneksi baru ke server tujuan menggunakan <code>ssh.Dial()</code>. Statement ini mengembalikan objek <code>*ssh.Client</code>, pemanggilannya sendiri membutuhkan 3 parameter.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Isi argument pertama isi dengan <code>&quot;tcp&quot;</code>, hal ini dikarenakan protokol tersebut digunakan dalam SSH. </li>
+<li>Argument ke-2 diisi dengan alamat tujuan server.</li>
+<li>Argument ke-3 diisi dengan objek <code>sshConfig</code>.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<pre><code class="lang-go"><span class="hljs-comment">// ...</span>
+
+client, err := ssh.Dial(<span class="hljs-string">&quot;tcp&quot;</span>, SSH_ADDRESS, sshConfig)
+<span class="hljs-keyword">if</span> client != <span class="hljs-literal">nil</span> {
+    <span class="hljs-keyword">defer</span> client.Close()
+}
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(<span class="hljs-string">&quot;Failed to dial. &quot;</span> + err.Error())
+}
+</code></pre>
+<h2 id="c292-session--run-command">C.29.2. Session &amp; Run Command</h2>
+<p>Dari objek <code>client</code>, buat session baru, caranya dengan mengakses method <code>.NewSession()</code>.</p>
+<pre><code class="lang-go">session, err := client.NewSession()
+<span class="hljs-keyword">if</span> session != <span class="hljs-literal">nil</span> {
+    <span class="hljs-keyword">defer</span> session.Close()
+}
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(<span class="hljs-string">&quot;Failed to create session. &quot;</span> + err.Error())
+}
+</code></pre>
+<p>Pada session, set tiga koneksi standar IO: stdin, stdout, dan stderr; ke standard IO sistem operasi.</p>
+<pre><code class="lang-go">session.Stdin = os.Stdin
+session.Stdout = os.Stdout
+session.Stderr = os.Stderr
+</code></pre>
+<p>OK, semua persiapan sudah cukup. Sekarang coba jalankan salah satu command seperti <code>ls</code>.</p>
+<pre><code class="lang-go">err = session.Run(<span class="hljs-string">&quot;ls -l ~/&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(<span class="hljs-string">&quot;Command execution error. &quot;</span> + err.Error())
+}
+</code></pre>
+<p>Jalankan aplikasi untuk mengetes hasilnya.</p>
+<p><img src="images/C_golang_ssh_sftp_1_ls_testing.png" alt="Dasar Pemrograman Golang - ssh ls"></p>
+<h2 id="c293-penggunaan-sessionstdinpipe-untuk-run-multiple-command">C.29.3. Penggunaan <code>session.StdinPipe()</code> untuk Run Multiple Command</h2>
+<p>Ada beberapa cara yang bisa digunakan untuk menjalankan banyak command via SSH, cara paling mudah adalah dengan menggabung commands dengan operator <code>&amp;&amp;</code>. </p>
+<p>Alternatif metode lainnya, bisa dengan memanfaatkan <code>StdinPipe</code> milik session. Cukup tulis command yang diinginkan ke objek stdin pipe tersebut.</p>
+<blockquote>
+<p>Method <code>.StdinPipe()</code> mengembalikan objek stdin pipe yang tipenya adalah <code>io.WriteCloser</code>. Tipe ini merupakan gabungan dari <code>io.Writer</code>, <code>io.Reader</code>, dan <code>io.Closer</code>.</p>
+</blockquote>
+<p>Mari kita praktekan, salin kode sebelumnya ke file baru, hapus semua baris kode setelah statement pembuatan session. </p>
+<p>Siapkan variabel untuk menampung objek default stdin pipe milik session.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> stdout, stderr bytes.Buffer
+session.Stdout = &amp;stdout
+session.Stderr = &amp;stderr
+
+stdin, err := session.StdinPipe()
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(<span class="hljs-string">&quot;Error getting stdin pipe. &quot;</span> + err.Error())
+}
+</code></pre>
+<p>Jalankan command prompt di remote host, menggunakan perintah <code>.Start()</code>. Pilih unix shell yang diinginkan dengan menuliskannya sebagai argument pemanggilan method <code>.Start()</code>. Pada tutorial ini kita menggunakan unix shell <code>bash</code>.</p>
+<pre><code class="lang-go">err = session.Start(<span class="hljs-string">&quot;/bin/bash&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(<span class="hljs-string">&quot;Error starting bash. &quot;</span> + err.Error())
+}
+</code></pre>
+<p>Method <code>.Start()</code> dan <code>.Run()</code> memiliki kesamaan dan perbedaan. Salah satu kesamaannya adalah kedua method tersebut digunakan untuk menjalankan perintah shell, yang eksekusinya akan selesai ketika perintah yang dijalankan selesai, contoh: <code>.Start(&quot;ls -l ~/&quot;)</code> dan <code>.Run(&quot;ls -l ~/&quot;)</code>, kedua statement tersebut menghasilkan proses dan output yang sama.</p>
+<p>Sedangkan perbedaannya, method <code>.Start()</code> bisa digunakan untuk memilih command line interpreter atau shell (pada contoh ini <code>bash</code>), lalu memanfaatkannya untuk eksekusi banyak shell command dengan cara dilewatkan ke stdin pipe. </p>
+<blockquote>
+<p>Pemanggilan method <code>.Start()</code> dan <code>.Run()</code> hanya bisa dilakukan sekali untuk tiap session.</p>
+</blockquote>
+<p>Selanjutnya, siapkan commands dalam slice, untuk mempermudah eksekusinya. Lakukan perulangan pada slice tersebut, lalu tulis command ke dalam objek stdin pipe. Pastikan command terakhir yang dieksekusi adalah <code>exit</code> untuk mengakhiri shell.</p>
+<pre><code class="lang-go">commands := []<span class="hljs-keyword">string</span>{
+    <span class="hljs-string">&quot;cd /where/is/the/path&quot;</span>,
+    <span class="hljs-string">&quot;cd src/myproject&quot;</span>,
+    <span class="hljs-string">&quot;ls&quot;</span>,
+    <span class="hljs-string">&quot;exit&quot;</span>,
+}
+<span class="hljs-keyword">for</span> _, cmd := <span class="hljs-keyword">range</span> commands {
+    <span class="hljs-keyword">if</span> _, err = fmt.Fprintln(stdin, cmd); err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err)
+    }
+}
+</code></pre>
+<p>Statement <code>fmt.Fprintln()</code> digunakan untuk menuliskan sesuatu ke objek <code>io.Writer</code>. Objek stdin pipe kita sisipkan sebagai parameter pertama, lalu shell command sebagai parameter setelahnya.</p>
+<p>Selain <code>fmt.Fprintln()</code>, ada juga <code>fmt.Fprint()</code> dan <code>fmt.Fprintf()</code>.</p>
+<blockquote>
+<p>Statement yang paling sering kita gunakan, yaitu <code>fmt.Print()</code>, isinya sebenarnya memanggil <code>fmt.Fprint()</code>, dengan parameter pertama <code>io.Writer</code> diisi dengan <code>os.Stdout</code>.</p>
+</blockquote>
+<p>Gunakan method <code>.Wait()</code> milik session untuk menunggu banyak command yang dieksekusi selesai terlebih dahulu. Kemudian tangkap output stdout dan stderr nya lalu tampilkan.</p>
+<pre><code class="lang-go">err = session.Wait()
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+
+outputErr := stderr.String()
+fmt.Println(<span class="hljs-string">&quot;============== ERROR&quot;</span>)
+fmt.Println(strings.TrimSpace(outputErr))
+
+outputString := stdout.String()
+fmt.Println(<span class="hljs-string">&quot;============== OUTPUT&quot;</span>)
+fmt.Println(strings.TrimSpace(outputString))
+</code></pre>
+<p>Jalankan aplikasi untuk melihat hasilnya.</p>
+<p><img src="images/C_golang_ssh_sftp_2_multiple_command.png" alt="Dasar Pemrograman Golang - Multiple commands"></p>
+<p>Output dalam banyak command muncul setelah semua command berhasil dieksekusi. Statement <code>session.Wait()</code> adalah blocking.</p>
+<p>Jika ingin eksekusi command dan pengambilan outpunya tidak blocking, manfaatkan <code>.StdoutPipe()</code>, <code>.StderrPipe()</code>, dan goroutine untuk pengambilan output hasil eksekusi command.</p>
+<h2 id="c294-transfer-file-via-sftp">C.29.4. Transfer File via SFTP</h2>
+<p>Transfer file antara client dan server bisa dilakukan lewat protokol SSH, dengan memanfaatkan SFTP (SSH File Transfer Protocol). Penerapannya sebenarnya bisa dilakukan cukup menggunakan API yang disediakan oleh package golang.org/x/crypto/ssh, namun pada bagian ini kita akan menggunakan 3rd party library lain untuk mempermudah penerapannya. Library tersebut adalah <a href="https://github.com/pkg/sftp" target="_blank">github.com/pkg/sftp</a>.</p>
+<p>Mari kita praktekan, salin kode sebelumnya ke file baru, hapus semua baris kode setelah statement pembuatan client. Kemudian, go get package tersebut, lalu import.</p>
+<p>Buat objek sftp client, objek ini merupakan superset dari objek ssh client.</p>
+<pre><code class="lang-go">sftpClient, err := sftp.NewClient(client)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(<span class="hljs-string">&quot;Failed create client sftp client. &quot;</span> + err.Error())
+}
+</code></pre>
+<p>Kita akan menggunakan sample file di lokal untuk di transfer ke server. Mekanisme-nya sama seperti pada transfer file via ftp, yaitu dengan menyiapkan file kosong di sisi server, lalu meng-copy isi file di lokal ke file di server tersebut.</p>
+<p>OK, siapkan file tujuan transfer terlebih dahulu.</p>
+<pre><code class="lang-go">fDestination, err := sftpClient.Create(<span class="hljs-string">&quot;/data/nginx/files/test-file.txt&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(<span class="hljs-string">&quot;Failed to create destination file. &quot;</span> + err.Error())
+}
+</code></pre>
+<p>Lalu baca file di lokal, gunakan <code>io.Copy</code> untuk mengcopy isi file.</p>
+<pre><code class="lang-go">fSource, err := os.Open(<span class="hljs-string">&quot;/Users/novalagung/Desktop/test-file.txt&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(<span class="hljs-string">&quot;Failed to read source file. &quot;</span> + err.Error())
+}
+
+_, err = io.Copy(fDestination, fSource)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(<span class="hljs-string">&quot;Failed copy source file into destination file. &quot;</span> + err.Error())
+}
+
+log.Println(<span class="hljs-string">&quot;File copied.&quot;</span>)
+</code></pre>
+<p>Jalankan aplikasi untuk melihat hasilnya.</p>
+<p><img src="images/C_golang_ssh_sftp_3_sftp.png" alt="Dasar Pemrograman Golang - SFTP"></p>
+<hr>
+<ul>
+<li><a href="github.com/pkg/sftp">sftp</a>, by pkg team, BSD-2-Clause License</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.29-golang-ssh-sftp" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.29...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2293,12 @@
 
             
                 
+                <a href="C-golang-ftp.html" class="navigation navigation-prev " aria-label="Previous page: C.28. FTP">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-golang-protobuf-implementation.html" class="navigation navigation-next " aria-label="Next page: C.30. Protobuf">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2309,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.29. SSH & SFTP","level":"5.1.29","depth":2,"next":{"title":"C.30. Protobuf","level":"5.1.30","depth":2,"path":"C-golang-protobuf-implementation.md","ref":"C-golang-protobuf-implementation.md","articles":[]},"previous":{"title":"C.28. FTP","level":"5.1.28","depth":2,"path":"C-golang-ftp.md","ref":"C-golang-ftp.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-ssh-sftp.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

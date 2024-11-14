@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang CSRF - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-secure-middleware.html">
     
+    
+    <link rel="prev" href="C-cors-preflight-request.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1648,7 +1650,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.15" data-path="C-csrf.html">
+        <li class="chapter active" data-level="5.1.15" data-path="C-csrf.html">
             
                 <a href="C-csrf.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.15. CSRF</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,187 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c15-csrf">C.15. CSRF</h1>
+<p>Pada chapter ini kita akan belajar tentang serangan Cross-Site Request Forgery (CSRF) dan cara mengantisipasinya.</p>
+<h2 id="c151-teori">C.15.1. Teori</h2>
+<p>Cross-Site Request Forgery atau CSRF adalah salah satu teknik hacking yang dilakukan dengan cara mengeksekusi perintah yang seharusnya tidak diizinkan, tetapi output yang dihasilkan sesuai dengan yang seharusnya. Contoh serangan jenis ini: mencoba untuk login lewat media selain web browser, seperti menggunakan CURL, menembak langsung endpoint login. Masih banyak contoh lainnya yang lebih ekstrim.</p>
+<p>Ada beberapa cara untuk mencegah serangan ini, salah satunya adalah dengan memanfaatkan csrf token. Di setiap halaman yang ada form nya, csrf token di-generate. Pada saat submit form, csrf disisipkan di request, lalu di sisi back end dilakukan pengecekan apakah csrf yang dikirim valid atau tidak.</p>
+<p>Csrf token sendiri merupakan sebuah random string yang di-generate setiap kali halaman form muncul. Biasanya di tiap POST request, token tersebut disisipkan sebagai header, atau form data, atau query string.</p>
+<p>Lebih detailnya silakan merujuk ke <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank">https://en.wikipedia.org/wiki/Cross-site_request_forgery</a>.</p>
+<h2 id="c152-praktek-back-end">C.15.2. Praktek: Back End</h2>
+<p>Di golang, pencegahan CSRF bisa dilakukan dengan membuat middleware untuk pengecekan setiap request POST yang masuk. Cukup mudah sebenarnya, namun agar lebih mudah lagi kita akan gunakan salah satu middleware milik echo framework untuk belajar.</p>
+<p>Di setiap halaman, jika di dalam html nya terdapat form, maka harus disisipkan token csrf. Token tersebut di-generate oleh middleware.</p>
+<p>Di tiap POST request hasil dari form submit, token tersebut harus ikut dikirimkan. Proses validasi token sendiri di-handle oleh middleware.</p>
+<p>Mari kita praktekkan, siapkan project baru. Buat file <code>main.go</code>, isi dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    <span class="hljs-string">&quot;github.com/labstack/echo/middleware&quot;</span>
+    <span class="hljs-string">&quot;html/template&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
+
+<span class="hljs-keyword">func</span> main() {
+    tmpl := template.Must(template.ParseGlob(<span class="hljs-string">&quot;./*.html&quot;</span>))
+
+    e := echo.New()
+
+    <span class="hljs-comment">// ...</span>
+
+    e.Logger.Fatal(e.Start(<span class="hljs-string">&quot;:9000&quot;</span>))
+}
+</code></pre>
+<p>Nantinya akan ada endpoint <code>/index</code>, isinya menampilkan html form. Objek <code>tmpl</code> kita gunakan untuk rendering form tersebut. API echo renderer tidak digunakan dalam chapter ini.</p>
+<p>Siapkan routing untuk <code>/index</code>, dan registrasikan middleware CSRF.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">const</span> CSRFTokenHeader = <span class="hljs-string">&quot;X-CSRF-Token&quot;</span>
+<span class="hljs-keyword">const</span> CSRFKey = <span class="hljs-string">&quot;csrf&quot;</span>
+
+e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
+    TokenLookup: <span class="hljs-string">&quot;header:&quot;</span> + CSRFTokenHeader,
+    ContextKey:  CSRFKey,
+}))
+
+e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
+    data := <span class="hljs-built_in">make</span>(M)
+    data[CSRFKey] = c.Get(CSRFKey)
+    <span class="hljs-keyword">return</span> tmpl.Execute(c.Response(), data)
+})
+</code></pre>
+<p>Objek middleware CSRF dibuat lewat statement <code>middleware.CSRF()</code>, konfigurasi default digunakan. Atau bisa juga dibuat dengan disertakan konfigurasi custom, lewat <code>middleware.CSRFWithConfig()</code> seperti pada kode di atas.</p>
+<p>Property <code>ContextKey</code> digunakan untuk mengakses token csrf yang tersimpan di <code>echo.Context</code>, pembuatan token sendiri terjadi pada saat ada http request GET masuk.</p>
+<p>Property tersebut kita isi dengan konstanta <code>CSRFKey</code>, maka dalam pengambilan token cukup panggil <code>c.Get(CSRFKey)</code>. Token kemudian disisipkan sebagai data pada saat rendering <code>view.html</code>.</p>
+<p>Property <code>TokenLookup</code> adalah acuan di bagian mana informasi csrf disisipkan dalam objek request, apakah dari header, query string, atau form data. Ini penting karena dibutuhkan oleh middleware yang bersangkutan untuk memvalidasi token tersebut. Bisa dilihat, kita memilih <code>header:X-CSRF-Token</code>, artinya csrf token dalam request akan disisipkan dalam header dengan key adalah <code>X-CSRF-Token</code>.</p>
+<blockquote>
+<p>Isi value <code>TokenLookup</code> dengan <code>&quot;form:&lt;name&gt;&quot;</code> jika token disispkan dalam form data request, dan <code>&quot;query:&lt;name&gt;&quot;</code> jika token disisipkan dalam query string.</p>
+</blockquote>
+<p>Selanjutnya siapkan satu endpoint lagi, yaitu <code>/sayhello</code>, endpoint ini nantinya menjadi tujuan request yang di-dispatch dari event submit form.</p>
+<pre><code class="lang-go">e.POST(<span class="hljs-string">&quot;/sayhello&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
+    data := <span class="hljs-built_in">make</span>(M)
+    <span class="hljs-keyword">if</span> err := c.Bind(&amp;data); err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+
+    message := fmt.Sprintf(<span class="hljs-string">&quot;hello %s&quot;</span>, data[<span class="hljs-string">&quot;name&quot;</span>])
+    <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, message)
+})
+</code></pre>
+<p>Pada handler endpoint <code>/sayhello</code> tidak ada pengecekan token csrf, karena sudah ditangani secara implisit oleh middleware.</p>
+<h2 id="c153-front-end">C.15.3. Front End</h2>
+<p>Buat <code>view.html</code>, lalu isi kode berikut.</p>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;form&quot;</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/sayhello&quot;</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;POST&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;Type your name here&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Gender<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gender&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>Select one<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;male&quot;</span>&gt;</span>Male<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;female&quot;</span>&gt;</span>Female<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;hidden&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;csrf&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ .csrf }}&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>Submit<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://code.jquery.com/jquery-3.3.1.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="actionscript">
+        <span class="hljs-comment">// JS code here ...</span>
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>Bisa dilihat, sebuah form disiapkan dengan isi 2 inputan dan satu buah tombol submit.</p>
+<p>Sebenarnya ada tiga inputan, namun yang satu adalah hidden. Inputan tersebut berisi nilai <code>csrf</code> yang disisipkan dari back end.</p>
+<p>Pada saat tombol submit di-klik, token tersebut harus disisipkan dalam AJAX request yang mengarah ke <code>/sayhello</code>.</p>
+<p>Sekarang buat script JS-nya. Siapkan sebuah event listener <code>submit</code> untuk element <code>form</code>, isinya adalah AJAX. Ambil informasi inputan nama dan gender, jadikan sebagai payload AJAX tersebut.</p>
+<pre><code class="lang-js">$(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    $(<span class="hljs-string">&apos;form&apos;</span>).on(<span class="hljs-string">&apos;submit&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+        e.preventDefault()
+
+        <span class="hljs-keyword">var</span> self = $(<span class="hljs-keyword">this</span>)
+
+        <span class="hljs-keyword">var</span> formData = {
+            name: self.find(<span class="hljs-string">&apos;[name=&quot;name&quot;]&apos;</span>).val(),
+            gender: self.find(<span class="hljs-string">&apos;[name=&quot;gender&quot;]&apos;</span>).val(),
+        }
+
+        <span class="hljs-keyword">var</span> url = self.attr(<span class="hljs-string">&apos;action&apos;</span>)
+        <span class="hljs-keyword">var</span> method = self.attr(<span class="hljs-string">&apos;method&apos;</span>)
+        <span class="hljs-keyword">var</span> payload = <span class="hljs-built_in">JSON</span>.stringify(formData)
+
+        $.ajax({
+            url: url,
+            type: method,
+            contentType: <span class="hljs-string">&apos;application/json&apos;</span>,
+            data: payload,
+            beforeSend: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req</span>) </span>{
+                <span class="hljs-keyword">var</span> csrfToken = self.find(<span class="hljs-string">&apos;[name=csrf]&apos;</span>).val()
+                req.setRequestHeader(<span class="hljs-string">&quot;X-CSRF-Token&quot;</span>, csrfToken)
+            },
+        }).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+            alert(res)
+        }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+            alert(<span class="hljs-string">&apos;ERROR: &apos;</span> + err.responseText)
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;err&apos;</span>, err)
+        })
+    })
+})
+</code></pre>
+<p>Tambahkan header <code>X-CSRF-Token</code> di AJAX request seperti pada kode di atas, isinya diambil dari inputan hidden <code>csrf</code>. Nama header sendiri menggunakan <code>X-CSRF-Token</code>.</p>
+<p>Karena di konfigurasi middleware csrf di back end <code>TokenLookup</code> adalah <code>header:X-CSRF-Token</code>, maka header dengan nama <code>X-CSRF-Token</code> dipilih.</p>
+<h2 id="c154-testing">C.15.4. Testing</h2>
+<p>Sekarang jalankan aplikasi lalu akses <code>/index</code> untuk mengetes hasilnya. Silakan melakukan skenario testing berikut.</p>
+<ol>
+<li>Buka laman <code>/index</code>, form akan muncul.</li>
+<li>Pada saat rendering output <code>/index</code>, disisipkan juga token csrf yang di-generate oleh middleware pada saat endpoint ini diakses.</li>
+<li>OK, sekarang laman form sudah muncul.</li>
+<li>Isi inputan form.</li>
+<li>Klik tombol submit.</li>
+<li>Di event submit tersebut, sebuah AJAX dipersiapkan dengan tujuan adalah <code>/sayhello</code>.</li>
+<li>Di dalam AJAX ini, token csrf yang sebelumnya disisipkan, diambil lalu ditempelkan ke AJAX.</li>
+<li>AJAX di-dispatch ke <code>/sayhello</code>.</li>
+<li>Sebelum benar-benar diterima oleh handler endpoint, middleware secara otomatis melakukan pengecekan atas token csrf yang disisipkan.</li>
+<li>Jika pengecekan sukses, maka request diteruskan ke tujuan.</li>
+<li>Jika tidak suses, error message dikembalikan.</li>
+<li>Pengecekan adalah sukses, alert message muncul.</li>
+</ol>
+<p>Hasilnya:</p>
+<p><img src="images/C_csrf_1_csrf.png" alt="Dasar Pemrograman Golang - CSRF test result"></p>
+<p>Coba tembak langsung endpoint nya lewat CURL.</p>
+<pre><code class="lang-bash">$ curl -X POST http://localhost:9000/sayhello \
+     -H <span class="hljs-string">&apos;Content-Type: application/json&apos;</span> \
+     <span class="hljs-_">-d</span> <span class="hljs-string">&apos;{&quot;name&quot;:&quot;noval&quot;,&quot;gender&quot;:&quot;male&quot;}&apos;</span>
+</code></pre>
+<p><img src="images/C_csrf_2_csrf_curl.png" alt="Dasar Pemrograman Golang - CSRF test curl"></p>
+<p>Hasilnya error, karena token csrf tidak di-sisipkan. </p>
+<p>Lewat teknik pencegahan ini, bukan berarti serangan CSRF tidak bisa dilakukan, si hacker masih bisa menembak endpoint secara paksa lewat CURL, hanya saja membutuhkan usaha ekstra jika ingin sukses.</p>
+<hr>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li><a href="https://github.com/labstack/echo" target="_blank">Echo</a>, by Vishal Rana (Lab Stack), MIT license</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.15-csrf" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.15...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2266,12 @@
 
             
                 
+                <a href="C-cors-preflight-request.html" class="navigation navigation-prev " aria-label="Previous page: C.14. CORS &amp; Preflight Request">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-secure-middleware.html" class="navigation navigation-next " aria-label="Next page: C.16. Secure Middleware">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2282,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.15. CSRF","level":"5.1.15","depth":2,"next":{"title":"C.16. Secure Middleware","level":"5.1.16","depth":2,"path":"C-secure-middleware.md","ref":"C-secure-middleware.md","articles":[]},"previous":{"title":"C.14. CORS & Preflight Request","level":"5.1.14","depth":2,"path":"C-cors-preflight-request.md","ref":"C-cors-preflight-request.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-csrf.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

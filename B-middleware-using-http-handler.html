@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Middleware http.Handler - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="B-custom-mux-multiplexer.html">
     
+    
+    <link rel="prev" href="B-http-basic-auth.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1375,7 +1377,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.19" data-path="B-middleware-using-http-handler.html">
+        <li class="chapter active" data-level="4.1.19" data-path="B-middleware-using-http-handler.html">
             
                 <a href="B-middleware-using-http-handler.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">B.19. Middleware http.Handler</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,150 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="b19-middleware-httphandler">B.19. Middleware <code>http.Handler</code></h1>
+<p>Pada chapter ini, topik yang dibahas adalah penerapan interface <code>http.Handler</code> untuk implementasi custom middleware. Kita gunakan sample proyek pada chapter sebelumnya <a href="B-http-basic-auth.html">B.18. HTTP Basic Auth</a> sebagai dasar bahan pembahasan chapter ini.</p>
+<blockquote>
+<p>Apa itu middleware? </p>
+<p>Istilah middleware berbeda-beda di tiap bahasa/framework. Di NodeJS dan Rails ada istilah middleware. Pada pemrograman Java Enterprise, istilah filters digunakan. Pada C# middleware disebut dengan delegate handlers. Definisi sederhana middleware adalah sebuah blok kode yang dipanggil sebelum ataupun sesudah http request di proses.</p>
+</blockquote>
+<p>Pada chapter sebelumnya, terdapat beberapa proses yang dijalankan dalam handler rute <code>/student</code>, yaitu pengecekan otentikasi dan pengecekan HTTP method. Misalnya terdapat rute lagi, maka dua validasi tersebut juga harus dipanggil lagi dalam handlernya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> ActionStudent(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">if</span> !Auth(w, r) {
+        <span class="hljs-keyword">return</span>
+    }
+    <span class="hljs-keyword">if</span> !AllowOnlyGET(w, r) {
+        <span class="hljs-keyword">return</span>
+    }
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Jika ada banyak rute, apa yang harus kita lakukan? salah satu solusi adalah dengan memanggil fungsi <code>Auth()</code> dan <code>AllowOnlyGet()</code> di setiap handler rute yang ada. Namun jelasnya ini bukan best practice karena mengharuskan penulisan kode yang berulang-ulang. Selain itu, bisa jadi ada jenis validasi lainnya yang harus diterapkan, misalnya misalnya pengecekan csrf, authorization, dan lainnya. Maka perlu ada desain penataan kode yang lebih efisien tanpa harus menuliskan validasi yang banyak tersebut berulang-ulang. </p>
+<p>Solusi yang pas adalah dengan membuat middleware baru untuk keperluan validasi.</p>
+<h2 id="b191-interface-httphandler">B.19.1. Interface <code>http.Handler</code></h2>
+<p>Interface <code>http.Handler</code> merupakan tipe data paling populer di Go untuk keperluan manajemen middleware. Struct yang mengimplementasikan interface ini diwajibkan untuk memilik method dengan skema <code>ServeHTTP(ResponseWriter, *Request)</code>.</p>
+<blockquote>
+<p>Di Go, objek utama untuk keperluan routing web server adalah <code>mux</code> (kependekan dari multiplexer), dan <code>mux</code> ini mengimplementasikan interface <code>http.Handler</code>.</p>
+</blockquote>
+<p>Kita akan buat beberapa middleware baru dengan memanfaatkan interface <code>http.Handler</code> untuk keperluan pengecekan otentikasi dan pengecekan HTTP method.</p>
+<h2 id="b192-persiapan">B.19.2. Persiapan</h2>
+<p>OK, mari masuk ke bagian <em>coding</em>. Pertama duplikat folder project sebelumnya sebagai folder proyek baru. Lalu pada <code>main.go</code>, ubah isi fungsi <code>ActionStudent()</code> dan <code>main()</code>.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li><p>Fungsi<code>ActionStudent()</code></p>
+<pre><code class="lang-go"> <span class="hljs-keyword">func</span> ActionStudent(w http.ResponseWriter, r *http.Request) {
+     <span class="hljs-keyword">if</span> id := r.URL.Query().Get(<span class="hljs-string">&quot;id&quot;</span>); id != <span class="hljs-string">&quot;&quot;</span> {
+         OutputJSON(w, SelectStudent(id))
+         <span class="hljs-keyword">return</span>
+     }
+
+     OutputJSON(w, GetStudents())
+ }
+</code></pre>
+</li>
+<li><p>Fungsi <code>main()</code></p>
+<pre><code class="lang-go"> <span class="hljs-keyword">func</span> main() {
+     mux := http.DefaultServeMux
+
+     mux.HandleFunc(<span class="hljs-string">&quot;/student&quot;</span>, ActionStudent)
+
+     <span class="hljs-keyword">var</span> handler http.Handler = mux
+     handler = MiddlewareAuth(handler)
+     handler = MiddlewareAllowOnlyGet(handler)
+
+     server := <span class="hljs-built_in">new</span>(http.Server)
+     server.Addr = <span class="hljs-string">&quot;:9000&quot;</span>
+     server.Handler = handler
+
+     fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+     server.ListenAndServe()
+ }
+</code></pre>
+</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Perubahan pada kode <code>ActionStudent()</code> adalah penghapusan kode untuk pengecekan basic auth dan HTTP method. Selain itu, di fungsi <code>main()</code> juga terdapat cukup banyak perubahan, yang detailnya akan dijelaskan sebentar lagi.</p>
+<h2 id="b193-mux--multiplexer">B.19.3. Mux / Multiplexer</h2>
+<p>Di Go, mux (kependekan dari multiplexer) adalah router. Semua routing pasti dilakukan lewat objek mux.</p>
+<p>Apa benar? Routing <code>http.HandleFunc()</code> sepertinya tidak menggunakan mux? Begini, sebenarnya routing tersebut juga menggunakan mux. Go memiliki default objek mux yaitu <code>http.DefaultServeMux</code>. Routing yang langsung dilakukan dari fungsi <code>HandleFunc()</code> milik package <code>net/http</code> sebenarnya mengarah ke method default mux <code>http.DefaultServeMux.HandleFunc()</code>.</p>
+<p>Agar lebih jelas perbedaannya, silakan perhatikan dua kode berikut.</p>
+<pre><code class="lang-go">http.HandleFunc(<span class="hljs-string">&quot;/student&quot;</span>, ActionStudent)
+
+<span class="hljs-comment">// vs</span>
+
+mux := http.DefaultServeMux
+mux.HandleFunc(<span class="hljs-string">&quot;/student&quot;</span>, ActionStudent)
+</code></pre>
+<p>Dua kode di atas melakukan prosees yang ekuivalen.</p>
+<p>Mux sendiri adalah bentuk nyata struct yang mengimplementasikan interface <code>http.Handler</code>. Di kode setelah routing, bisa dilihat objek <code>mux</code> ditampung ke variabel baru bertipe <code>http.Handler</code>. Seperti ini adalah valid karena memang struct multiplexer memenuhi kriteria interface <code>http.Handler</code>, yaitu memiliki method <code>ServeHTTP()</code>. </p>
+<blockquote>
+<p>Untuk lebih jelasnya silakan baca dokumentasi package net/http di <a href="https://golang.org/pkg/net/http/#Handle" target="_blank">https://golang.org/pkg/net/http/#Handle</a></p>
+</blockquote>
+<p>Lalu dari objek <code>handler</code> tersebut, ke-dua middleware dipanggil dengan argument parameter diisi objek <code>handler</code> itu sendiri, dan nilai baliknya ditampung pada objek yang sama.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> handler http.Handler = mux
+handler = MiddlewareAuth(handler)
+handler = MiddlewareAllowOnlyGet(handler)
+</code></pre>
+<p>Fungsi <code>MiddlewareAuth()</code> dan <code>MiddlewareAllowOnlyGet()</code> adalah middleware yang akan kita buat sebentar lagi. Cara registrasi middleware yang paling populer adalah dengan memanggilnya secara sekuensial atau berurutan, seperti pada kode di atas.</p>
+<ul>
+<li><code>MiddlewareAuth()</code> bertugas melakukan pengencekan credentials, basic auth.</li>
+<li><code>MiddlewareAllowOnlyGet()</code> bertugas melakukan pengecekan method.</li>
+</ul>
+<blockquote>
+<p>Silakan lihat source code beberapa library middleware yang sudah terkenal seperti gorilla, gin-contrib, echo middleware, dan lainnya; Semua metode implementasi middleware-nya adalah sama, atau minimal mirip. Point plus nya, beberapa di antara library tersebut mudah diintegrasikan dan <em>compatible</em> satu sama lain.</p>
+</blockquote>
+<p>Kedua middleware yang akan kita buat tersebut mengembalikan fungsi bertipe <code>http.Handler</code>. Eksekusi middleware sendiri terjadi pada saat ada http request masuk.</p>
+<p>Setelah semua middleware diregistrasi. Masukan objek <code>handler</code> ke property <code>.Handler</code> milik server.</p>
+<pre><code class="lang-go">server := <span class="hljs-built_in">new</span>(http.Server)
+server.Addr = <span class="hljs-string">&quot;:9000&quot;</span>
+server.Handler = handler
+</code></pre>
+<h2 id="b193-pembuatan-middleware">B.19.3. Pembuatan Middleware</h2>
+<p>Di dalam <code>middleware.go</code> ubah fungsi <code>Auth()</code> (hasil salinan project pada chapter sebelumnya) menjadi fungsi <code>MiddlewareAuth()</code>. Parameternya objek bertipe <code>http.Handler</code>, dan nilai baliknya juga sama.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> MiddlewareAuth(next http.Handler) http.Handler {
+    <span class="hljs-keyword">return</span> http.HandlerFunc(<span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        username, password, ok := r.BasicAuth()
+        <span class="hljs-keyword">if</span> !ok {
+            w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">`something went wrong`</span>))
+            <span class="hljs-keyword">return</span>
+        }
+
+        isValid := (username == USERNAME) &amp;&amp; (password == PASSWORD)
+        <span class="hljs-keyword">if</span> !isValid {
+            w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">`wrong username/password`</span>))
+            <span class="hljs-keyword">return</span>
+        }
+
+        next.ServeHTTP(w, r)
+    })
+}
+</code></pre>
+<p>Idealnya fungsi middleware harus mengembalikan struct yang implements <code>http.Handler</code>. Beruntungnya, Go sudah menyiapkan fungsi ajaib untuk mempersingkat pembuatan struct yang implement <code>http.Handler</code>, yaitu fungsi <code>http.HandlerFunc()</code>. Cukup bungkus callback <code>func(http.ResponseWriter,*http.Request)</code> sebagai tipe <code>http.HandlerFunc()</code> maka semuanya beres.</p>
+<p>Isi dari <code>MiddlewareAuth()</code> sendiri adalah pengecekan basic auth (sama seperti pada chapter sebelumnya).</p>
+<p>Tak lupa, ubah juga <code>AllowOnlyGet()</code> menjadi <code>MiddlewareAllowOnlyGet()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> MiddlewareAllowOnlyGet(next http.Handler) http.Handler {
+    <span class="hljs-keyword">return</span> http.HandlerFunc(<span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        <span class="hljs-keyword">if</span> r.Method != <span class="hljs-string">&quot;GET&quot;</span> {
+            w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;Only GET is allowed&quot;</span>))
+            <span class="hljs-keyword">return</span>
+        }
+
+        next.ServeHTTP(w, r)
+    })
+}
+</code></pre>
+<h2 id="b194-testing">B.19.4. Testing</h2>
+<p>Jalankan aplikasi.</p>
+<p><img src="images/B_http_basic_auth_2_run_server.png" alt="Dasar Pemrograman Golang - Run the server"></p>
+<p>Lalu test menggunakan <code>curl</code>, hasilnya adalah sama dengan pada chapter sebelumnya.</p>
+<p><img src="images/B_http_basic_auth_3_test_api.png" alt="Dasar Pemrograman Golang - Consume API"></p>
+<p>Dibanding metode pada chapter sebelumnya, dengan teknik ini kita lebih mudah mengontrol lalu lintas routing aplikasi, karena semua rute pasti melewati layer middleware terlebih dahulu sebelum sampai ke handler tujuan. Cukup maksimalkan saja penerapan middleware tanpa perlu menambahkan validasi di masing-masing handler.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.19-middleware-using-http-handler" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.19...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2229,12 @@
 
             
                 
+                <a href="B-http-basic-auth.html" class="navigation navigation-prev " aria-label="Previous page: B.18. HTTP Basic Auth">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="B-custom-mux-multiplexer.html" class="navigation navigation-next " aria-label="Next page: B.20. Custom Multiplexer">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2245,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"next":{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"path":"B-custom-mux-multiplexer.md","ref":"B-custom-mux-multiplexer.md","articles":[]},"previous":{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-middleware-using-http-handler.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

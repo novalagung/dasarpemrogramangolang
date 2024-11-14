@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang HTTPS/TLS Web Server - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-http2-server-push.html">
     
+    
+    <link rel="prev" href="C-xml-parser.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1765,7 +1767,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.24" data-path="C-https-tls.html">
+        <li class="chapter active" data-level="5.1.24" data-path="C-https-tls.html">
             
                 <a href="C-https-tls.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.24. HTTPS/TLS Web Server</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,100 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="c24-httpstls-web-server">C.24. HTTPS/TLS Web Server</h1>
+<p>Pada bagian ini kita akan belajar cara meng-enable fasilitas SSL/TLS pada web server.</p>
+<h2 id="c241-definisi">C.24.1. Definisi</h2>
+<h4 id="&#x25C9;-ssl">&#x25C9; SSL</h4>
+<p><strong>SSL, Secure Sockets Layer</strong>, adalah standar untuk pengamanan komunikasi lewat internet. Data atau informasi yang sedang dikomunikasikan dari sebuah system ke system lain akan di-proteksi, dengan cara adalah mengacak informasi tersebut menggunakan algoritma enkripsi.</p>
+<h4 id="&#x25C9;-ssl-certificates">&#x25C9; SSL Certificates</h4>
+<p><strong>SSL Certificate</strong>, adalah sebuah file berisikan informasi mengenai website, yang nantinya dibutuhkan untuk enkripsi data. SSL Certificate berisi <strong>Public Key</strong>. Public key digunakan untuk meng-enkripsi data yang akan di transfer.</p>
+<p>Certificate ditandatangi secara digital oleh <strong>Certificate Authorities (CA)</strong>. Digital Signature atau tanda tangan digital merupakan sebuah kode unik yang di-generate dengan teknologi cryptography <strong>(Public Key Infrastructure)</strong>.</p>
+<p>Certificate Authorities sendiri merupakan entitas atau institusi legal yang mengeluarkan dan mem-verifikasi sertifikat digital.</p>
+<p>Ketika seorang pengguna internet surfing, mengakses sebuah website yang website tersebut menerapkan SSL, informasi yang dikirim akan di encrypt dengan aman (menggunakan public key) dan hanya bisa di-decrypt menggunakan <strong>Private Key</strong>.</p>
+<p>Private Key, atau Secret Key, adalah file terpisah yang diperlukan pada proses dekripsi data yang di-encrypt menggunakan public key.</p>
+<p>Berikut merupakan penjelasan dalam bentuk gambar yang diambil dari <a href="https://coinjolt.com/what-is-a-public-and-private-key/" target="_blank">coinjolt.com</a>.</p>
+<p><img src="images/C_https_tls_1_diagram.png" alt="Dasar Pemrograman Golang - Anatomy"></p>
+<p>Kedua file certificate dan file private key harus disimpan dengan sangat super aman di server.</p>
+<h4 id="&#x25C9;-tls">&#x25C9; TLS</h4>
+<p><strong>TLS, Transport Layer Security</strong>, adalah versi yang lebih update dari SSL.</p>
+<h4 id="&#x25C9;-https">&#x25C9; HTTPS</h4>
+<p><strong>HTTPS, Hyper Text Transfer Protocol Secure</strong>, adalah ekstensi dari HTTP yang berguna untuk pengamanan komunikasi lewat internet. Data atau informasi yang dikomunikasikan di-enkripsi menggunakan <strong>TLS</strong>.</p>
+<h2 id="c242-generate-private-key--public-key-menggunakan-openssl">C.24.2. Generate Private Key &amp; Public Key Menggunakan <code>openssl</code></h2>
+<p>Untuk menerapkan TLS pada web server aplikasi golang, private key dan public key perlu kita siapkan terlebih dahulu. </p>
+<p>Gunakan <code>openssl</code> untuk generate private key.</p>
+<pre><code class="lang-bash">$ openssl genrsa -out server.key 2048
+$ openssl ecparam -genkey -name secp384r1 -out server.key
+</code></pre>
+<p>Dua command di atas menghasilkan <code>server.key</code> yang merupakan private key. Setelah itu, generate <em>self-signed</em> certificate (yang berisikan public key) dari private key yang telah dibuat.</p>
+<pre><code class="lang-bash">$ openssl req -new -x509 -sha256 -key server.key -out server.crt -days 3650
+</code></pre>
+<p>Command untuk generate certificate di atas akan memunculkan form. Informasi seperti alamat, email, host diminta untuk di-isi, pastikan isi dengan benar, terutama di bagian <strong>&quot;Common Name&quot;</strong> dan <strong>Email Address</strong>. </p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Pada bagian common name isi dengan <strong>localhost</strong>.</li>
+<li>Untuk email isi dengan alamat email yang valid.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Tampilannya kurang lebih seperti pada screenshot berikut.</p>
+<p><img src="images/C_https_tls_2_public_and_private_key.png" alt="Dasar Pemrograman Golang - Generate private key and certificate"></p>
+<blockquote>
+<p>Selain <code>.crt</code> dan <code>.key</code>, ada ekstensi lain lagi seperti <code>.pem</code>. Format <code>.pem</code> ini merupakan jenis encoding yang sangat sering digunakan pada file kriptografi sejenis <code>.key</code> dan <code>.crt</code>. File <code>.crt</code> dan <code>.key</code> bisa di konversi ke <code>.pem</code>, dan juga sebaliknya.</p>
+</blockquote>
+<h2 id="c243-project-structure">C.24.3. Project Structure</h2>
+<p>Buat sebuah project folder, copy 2 file yang telah ter-generate ke dalamnya. Lalu siapkan file <code>main.go</code>.</p>
+<p><img src="images/C_https_tls_3_structure.png" alt="Dasar Pemrograman Golang - Folder Structure"></p>
+<h2 id="c244-web-servers">C.24.4. Web Servers</h2>
+<p>Pada <code>main.go</code>, siapkan sebuah fungsi <code>StartNonTLSServer()</code>, berisikan mux dengan satu buah routing, untuk redirect request dari protokol <code>http</code> ke <code>https</code>. Nantinya semua request yang mengarah ke <code>http://localhost</code> di-redirect ke <code>https://localhost</code>. Start mux ini pada port <code>:80</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> StartNonTLSServer() {
+    mux := <span class="hljs-built_in">new</span>(http.ServeMux)
+    mux.Handle(<span class="hljs-string">&quot;/&quot;</span>, http.HandlerFunc(<span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        log.Println(<span class="hljs-string">&quot;Redirecting to https://localhost/&quot;</span>)
+        http.Redirect(w, r, <span class="hljs-string">&quot;https://localhost/&quot;</span>, http.StatusTemporaryRedirect)
+    }))
+
+    http.ListenAndServe(<span class="hljs-string">&quot;:80&quot;</span>, mux)
+}
+</code></pre>
+<p>Lalu pada fungsi <code>main()</code>, buat mux baru lagi, dengan isi satu buah routing, menampilkan text &quot;Hello World!&quot;. Start mux menggunakan <code>http.ListenAndServeTLS()</code> pada port <code>:443</code>, tak lupa sisipkan path dari file private key dan public key sebagai argumen fungsi.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">go</span> StartNonTLSServer()
+
+    mux := <span class="hljs-built_in">new</span>(http.ServeMux)
+    mux.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;Hello World!&quot;</span>))
+    })
+
+    log.Println(<span class="hljs-string">&quot;Server started at :443&quot;</span>)
+    err := http.ListenAndServeTLS(<span class="hljs-string">&quot;:443&quot;</span>, <span class="hljs-string">&quot;server.crt&quot;</span>, <span class="hljs-string">&quot;server.key&quot;</span>, mux)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-built_in">panic</span>(err)
+    }
+}
+</code></pre>
+<p>Tak lupa fungsi <code>StartNonTLSServer()</code> juga dipanggil dalam <code>main()</code>. Jadi pada satu program terdapat 2 buah web server dijalankan.</p>
+<p>OK, jalankan aplikasi.</p>
+<blockquote>
+<p>Jika error <code>panic: listen tcp :443: bind: permission denied</code> muncul, coba jalankan aplikasi menggunakan <strong>sudo</strong>, contoh: <code>sudo go run main.go</code></p>
+</blockquote>
+<h2 id="c245-testing">C.24.5. Testing</h2>
+<p>Test aplikasi menggunakan <code>curl</code>. Untuk request ke protokol <code>https</code> coba tambahkan flag <code>--insecure</code> untuk men-disable verifikasi certificate.</p>
+<p><img src="images/C_https_tls_4_curl_example.png" alt="Dasar Pemrograman Golang - curl example"></p>
+<p>Coba test juga menggunakan browser, jika menggunakan chrome maka akan muncul warning <code>NET::ERR_CERT_AUTHORITY_INVALID</code> Klik <strong>Advanced &#x2192; Proceed to localhost (unsafe)</strong>.</p>
+<p><img src="images/C_https_tls_5_browser_example.png" alt="Dasar Pemrograman Golang - browser example"></p>
+<p>Warning <code>NET::ERR_CERT_AUTHORITY_INVALID</code> muncul ketika mengakses sebuah website menggunakan protokol <code>https</code> yang mana website ini mengaplikasikan <strong>self-signed certificate</strong>, bukan menggunakan certificate yang sudah diverifikasi oleh CA.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.24-https-tls" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.24...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2179,12 @@
 
             
                 
+                <a href="C-xml-parser.html" class="navigation navigation-prev " aria-label="Previous page: C.23. Parse &amp; Generate XML (etree)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-http2-server-push.html" class="navigation navigation-next " aria-label="Next page: C.25. HTTP/2 &amp; HTTP/2 Server Push">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2195,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.24. HTTPS/TLS Web Server","level":"5.1.24","depth":2,"next":{"title":"C.25. HTTP/2 & HTTP/2 Server Push","level":"5.1.25","depth":2,"path":"C-http2-server-push.md","ref":"C-http2-server-push.md","articles":[]},"previous":{"title":"C.23. Parse & Generate XML (etree)","level":"5.1.23","depth":2,"path":"C-xml-parser.md","ref":"C-xml-parser.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-https-tls.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

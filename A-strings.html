@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Fungsi String - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-regex.html">
     
+    
+    <link rel="prev" href="A-data-type-conversion.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -829,7 +831,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.44" data-path="A-strings.html">
+        <li class="chapter active" data-level="3.1.44" data-path="A-strings.html">
             
                 <a href="A-strings.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.44. Fungsi String</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,115 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a44-fungsi-string">A.44. Fungsi String</h1>
+<p>Go menyediakan package <code>strings</code>, isinya banyak fungsi untuk keperluan pengolahan data string. Chapter ini berisi pembahasan mengenai penggunaan fungsi yang ada di dalam package tersebut.</p>
+<h2 id="a441-fungsi-stringscontains">A.44.1. Fungsi <code>strings.Contains()</code></h2>
+<p>Dipakai untuk deteksi apakah string (parameter kedua) merupakan bagian dari string lain (parameter pertama). Nilai kembaliannya berupa <code>bool</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;strings&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> isExists = strings.Contains(<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-string">&quot;wick&quot;</span>)
+    fmt.Println(isExists)
+}
+</code></pre>
+<p>Variabel <code>isExists</code> akan bernilai <code>true</code>, karena string <code>&quot;wick&quot;</code> merupakan bagian dari <code>&quot;john wick&quot;</code>.</p>
+<h2 id="a442-fungsi-stringshasprefix">A.44.2. Fungsi <code>strings.HasPrefix()</code></h2>
+<p>Digunakan untuk deteksi apakah sebuah string (parameter pertama) diawali string tertentu (parameter kedua).</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> isPrefix1 = strings.HasPrefix(<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-string">&quot;jo&quot;</span>)
+fmt.Println(isPrefix1) <span class="hljs-comment">// true</span>
+
+<span class="hljs-keyword">var</span> isPrefix2 = strings.HasPrefix(<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-string">&quot;wi&quot;</span>)
+fmt.Println(isPrefix2) <span class="hljs-comment">// false</span>
+</code></pre>
+<h2 id="a443-fungsi-stringshassuffix">A.44.3. Fungsi <code>strings.HasSuffix()</code></h2>
+<p>Digunakan untuk deteksi apakah sebuah string (parameter pertama) diakhiri string tertentu (parameter kedua).</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> isSuffix1 = strings.HasSuffix(<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-string">&quot;ic&quot;</span>)
+fmt.Println(isSuffix1) <span class="hljs-comment">// false</span>
+
+<span class="hljs-keyword">var</span> isSuffix2 = strings.HasSuffix(<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-string">&quot;ck&quot;</span>)
+fmt.Println(isSuffix2) <span class="hljs-comment">// true</span>
+</code></pre>
+<h2 id="a444-fungsi-stringscount">A.44.4. Fungsi <code>strings.Count()</code></h2>
+<p>Memiliki kegunaan untuk menghitung jumlah karakter tertentu (parameter kedua) dari sebuah string (parameter pertama). Nilai kembalian fungsi ini adalah jumlah karakternya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> howMany = strings.Count(<span class="hljs-string">&quot;ethan hunt&quot;</span>, <span class="hljs-string">&quot;t&quot;</span>)
+fmt.Println(howMany) <span class="hljs-comment">// 2</span>
+</code></pre>
+<p>Nilai yang dikembalikan <code>2</code>, karena pada string <code>&quot;ethan hunt&quot;</code> terdapat dua buah karakter <code>&quot;t&quot;</code>.</p>
+<h2 id="a445-fungsi-stringsindex">A.44.5. Fungsi <code>strings.Index()</code></h2>
+<p>Digunakan untuk mencari posisi indeks sebuah string (parameter kedua) dalam string (parameter pertama).</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> index1 = strings.Index(<span class="hljs-string">&quot;ethan hunt&quot;</span>, <span class="hljs-string">&quot;ha&quot;</span>)
+fmt.Println(index1) <span class="hljs-comment">// 2</span>
+</code></pre>
+<p>String <code>&quot;ha&quot;</code> berada pada posisi ke <code>2</code> dalam string <code>&quot;ethan hunt&quot;</code> (indeks dimulai dari 0). Jika diketemukan dua substring, maka yang diambil adalah yang pertama, contoh:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> index2 = strings.Index(<span class="hljs-string">&quot;ethan hunt&quot;</span>, <span class="hljs-string">&quot;n&quot;</span>)
+fmt.Println(index2) <span class="hljs-comment">// 4</span>
+</code></pre>
+<p>String <code>&quot;n&quot;</code> berada pada indeks <code>4</code> dan <code>8</code>. Yang dikembalikan adalah yang paling kiri (paling kecil), yaitu <code>4</code>.</p>
+<h2 id="a446-fungsi-stringsreplace">A.44.6. Fungsi <code>strings.Replace()</code></h2>
+<p>Fungsi ini digunakan untuk replace atau mengganti bagian dari string dengan string tertentu. Jumlah substring yang di-replace bisa ditentukan, apakah hanya 1 string pertama, 2 string, atau seluruhnya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;banana&quot;</span>
+<span class="hljs-keyword">var</span> find = <span class="hljs-string">&quot;a&quot;</span>
+<span class="hljs-keyword">var</span> replaceWith = <span class="hljs-string">&quot;o&quot;</span>
+
+<span class="hljs-keyword">var</span> newText1 = strings.Replace(text, find, replaceWith, <span class="hljs-number">1</span>)
+fmt.Println(newText1) <span class="hljs-comment">// &quot;bonana&quot;</span>
+
+<span class="hljs-keyword">var</span> newText2 = strings.Replace(text, find, replaceWith, <span class="hljs-number">2</span>)
+fmt.Println(newText2) <span class="hljs-comment">// &quot;bonona&quot;</span>
+
+<span class="hljs-keyword">var</span> newText3 = strings.Replace(text, find, replaceWith, <span class="hljs-number">-1</span>)
+fmt.Println(newText3) <span class="hljs-comment">// &quot;bonono&quot;</span>
+</code></pre>
+<p>Penjelasan:</p>
+<ol>
+<li>Pada contoh di atas, substring <code>&quot;a&quot;</code> pada string <code>&quot;banana&quot;</code> akan di-replace dengan string <code>&quot;o&quot;</code>.</li>
+<li>Pada <code>newText1</code>, hanya 1 huruf <code>o</code> saja yang tereplace karena maksimal substring yang ingin di-replace ditentukan 1.</li>
+<li>Angka <code>-1</code> akan menjadikan proses replace berlaku pada semua substring. Contoh bisa dilihat pada <code>newText3</code>.</li>
+</ol>
+<h2 id="a447-fungsi-stringsrepeat">A.44.7. Fungsi <code>strings.Repeat()</code></h2>
+<p>Digunakan untuk mengulang string (parameter pertama) sebanyak data yang ditentukan (parameter kedua).</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> str = strings.Repeat(<span class="hljs-string">&quot;na&quot;</span>, <span class="hljs-number">4</span>)
+fmt.Println(str) <span class="hljs-comment">// &quot;nananana&quot;</span>
+</code></pre>
+<p>Pada contoh di atas, string <code>&quot;na&quot;</code> diulang sebanyak 4 kali. Hasilnya adalah: <code>&quot;nananana&quot;</code></p>
+<h2 id="a448-fungsi-stringssplit">A.44.8. Fungsi <code>strings.Split()</code></h2>
+<p>Digunakan untuk memisah string (parameter pertama) dengan tanda pemisah bisa ditentukan sendiri (parameter kedua). Hasilnya berupa slice string.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> string1 = strings.Split(<span class="hljs-string">&quot;the dark knight&quot;</span>, <span class="hljs-string">&quot; &quot;</span>)
+fmt.Println(string1) <span class="hljs-comment">// output: [&quot;the&quot;, &quot;dark&quot;, &quot;knight&quot;]</span>
+
+<span class="hljs-keyword">var</span> string2 = strings.Split(<span class="hljs-string">&quot;batman&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)
+fmt.Println(string2) <span class="hljs-comment">// output: [&quot;b&quot;, &quot;a&quot;, &quot;t&quot;, &quot;m&quot;, &quot;a&quot;, &quot;n&quot;]</span>
+</code></pre>
+<p>String <code>&quot;the dark knight&quot;</code> dipisah oleh karakter spasi <code>&quot; &quot;</code>, hasilnya kemudian ditampung oleh <code>string1</code>.</p>
+<p>Untuk memisah string menjadi slice tiap 1 string, gunakan pemisah string kosong <code>&quot;&quot;</code>. Bisa dilihat contohnya pada variabel <code>string2</code>.</p>
+<h2 id="a449-fungsi-stringsjoin">A.44.9. Fungsi <code>strings.Join()</code></h2>
+<p>Memiliki kegunaan berkebalikan dengan <code>strings.Split()</code>. Digunakan untuk menggabungkan slice string (parameter pertama) menjadi sebuah string dengan pemisah tertentu (parameter kedua.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> data = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;papaya&quot;</span>, <span class="hljs-string">&quot;tomato&quot;</span>}
+<span class="hljs-keyword">var</span> str = strings.Join(data, <span class="hljs-string">&quot;-&quot;</span>)
+fmt.Println(str) <span class="hljs-comment">// &quot;banana-papaya-tomato&quot;</span>
+</code></pre>
+<p>Slice <code>data</code> digabungkan menjadi satu dengan pemisah tanda <em>dash</em> (<code>-</code>).</p>
+<h2 id="a4410-fungsi-stringstolower">A.44.10. Fungsi <code>strings.ToLower()</code></h2>
+<p>Mengubah huruf-huruf string menjadi huruf kecil.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> str = strings.ToLower(<span class="hljs-string">&quot;aLAy&quot;</span>)
+fmt.Println(str) <span class="hljs-comment">// &quot;alay&quot;</span>
+</code></pre>
+<h2 id="a4411-fungsi-stringstoupper">A.44.11. Fungsi <code>strings.ToUpper()</code></h2>
+<p>Mengubah huruf-huruf string menjadi huruf besar.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> str = strings.ToUpper(<span class="hljs-string">&quot;eat!&quot;</span>)
+fmt.Println(str) <span class="hljs-comment">// &quot;EAT!&quot;</span>
+</code></pre>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.44-fungsi-string" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.44...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2194,12 @@
 
             
                 
+                <a href="A-data-type-conversion.html" class="navigation navigation-prev " aria-label="Previous page: A.43. Konversi Antar Tipe Data">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-regex.html" class="navigation navigation-next " aria-label="Next page: A.45. Regexp">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2210,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.44. Fungsi String","level":"3.1.44","depth":2,"next":{"title":"A.45. Regexp","level":"3.1.45","depth":2,"path":"A-regex.md","ref":"A-regex.md","articles":[]},"previous":{"title":"A.43. Konversi Antar Tipe Data","level":"3.1.43","depth":2,"path":"A-data-type-conversion.md","ref":"A-data-type-conversion.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-strings.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

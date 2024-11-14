@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Template Rendering in Echo - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-advanced-middleware-and-logging.html">
     
+    
+    <link rel="prev" href="C-http-error-handling.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1544,7 +1546,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.7" data-path="C-echo-template-rendering.html">
+        <li class="chapter active" data-level="5.1.7" data-path="C-echo-template-rendering.html">
             
                 <a href="C-echo-template-rendering.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.7. Template Rendering in Echo</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,118 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c7-template-rendering-in-echo">C.7. Template Rendering in Echo</h1>
+<p>Pada chapter ini kita akan belajar cara render template html pada aplikasi yang routingnya menggunakan echo.</p>
+<p>Pada dasarnya proses parsing dan rendering template tidak di-handle oleh echo sendiri, melainkan oleh API dari package <code>html/template</code>. Jadi bisa dibilang cara render template di echo adalah sama seperti pada aplikasi yang murni menggunakan golang biasa, seperti yang sudah dibahas pada chapter <a href="B-template-render-html.html">Template: Render HTML Template</a>, <a href="B-template-render-partial-html.html">Template: Render Partial HTML Template</a>, <a href="B-render-specific-html.html">Template: Render Specific HTML Template</a>, dan <a href="B-render-html-string.html">Template: Render HTML String</a>.</p>
+<p>Echo menyediakan satu fasilitas yang bisa kita manfaatkan untuk standarisasi rendering template. Cara penggunaannya, dengan meng-override default <code>.Renderer</code> property milik echo menggunakan objek cetakan struct, yang mana pada struct tersebut harus ada method bernama <code>.Render()</code> dengan skema sesuai dengan kebutuhan echo. Nah, di dalam method <code>.Render()</code> inilah kode untuk parsing dan rendering template ditulis.</p>
+<h2 id="c71-praktek">C.7.1. Praktek</h2>
+<p>Agar lebih mudah dipahami, mari langsung kita praktekan. Siapkan sebuah project, import package yang dibutuhkan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    <span class="hljs-string">&quot;html/template&quot;</span>
+    <span class="hljs-string">&quot;io&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
+</code></pre>
+<p>Buat sebuah struct bernama <code>Renderer</code>, struct ini mempunyai 3 buah property dan 2 buah method.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> Renderer <span class="hljs-keyword">struct</span> {
+    template *template.Template
+    debug    <span class="hljs-keyword">bool</span>
+    location <span class="hljs-keyword">string</span>
+}
+</code></pre>
+<p>Berikut adalah tugas dan penjelasan mengenai ketiga property di atas.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Property <code>.template</code> bertanggung jawab untuk parsing dan rendering template. </li>
+<li>Property <code>.location</code> mengarah ke path folder di mana file template berada.</li>
+<li>Property <code>.debug</code> menampung nilai bertipe <code>bool</code>.<ul>
+<li>Jika <code>false</code>, maka parsing template hanya dilakukan sekali saja pada saat aplikasi di start. Mode ini sangat cocok untuk diaktifkan pada stage production.</li>
+<li>Sedangkan jika nilai adalah <code>true</code>, maka parsing template dilakukan tiap pengaksesan rute. Mode ini cocok diaktifkan untuk stage development, karena perubahan kode pada file html sering pada stage ini.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+</li>
+</ul>
+<p>Selanjutnya buat fungsi <code>NewRenderer()</code> untuk mempermudah inisialisasi objek renderer.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> NewRenderer(location <span class="hljs-keyword">string</span>, debug <span class="hljs-keyword">bool</span>) *Renderer {
+    tpl := <span class="hljs-built_in">new</span>(Renderer)
+    tpl.location = location
+    tpl.debug = debug
+
+    tpl.ReloadTemplates()
+
+    <span class="hljs-keyword">return</span> tpl
+}
+</code></pre>
+<p>Siapkan dua buah method untuk struct renderer, yaitu <code>.ReloadTemplates()</code> dan <code>.Render()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> (t *Renderer) ReloadTemplates() {
+    t.template = template.Must(template.ParseGlob(t.location))
+}
+
+<span class="hljs-keyword">func</span> (t *Renderer) Render(
+    w io.Writer, 
+    name <span class="hljs-keyword">string</span>, 
+    data <span class="hljs-keyword">interface</span>{}, 
+    c echo.Context,
+) error {
+    <span class="hljs-keyword">if</span> t.debug {
+        t.ReloadTemplates()
+    }
+
+    <span class="hljs-keyword">return</span> t.template.ExecuteTemplate(w, name, data)
+}
+</code></pre>
+<p>Method <code>.ReloadTemplates()</code> bertugas untuk parsing template. Method ini wajib dipanggil pada saat inisialisasi objek renderer. Jika <code>.debug == true</code>, maka method ini harus dipanggil setiap kali rute diakses (jika tidak, maka perubahan pada view tidak akan muncul).</p>
+<p>Method <code>.Render()</code> berguna untuk render template yang sudah diparsing sebagai output. Method ini harus dibuat dalam skema berikut.</p>
+<pre><code class="lang-go"><span class="hljs-comment">// skema method Render()</span>
+<span class="hljs-keyword">func</span> (io.Writer, <span class="hljs-keyword">string</span>, <span class="hljs-keyword">interface</span>{}, echo.Context) error
+</code></pre>
+<p>Selanjutnya, buat echo router, override property renderer nya, dan siapkan sebuah rute.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    e := echo.New()
+
+    e.Renderer = NewRenderer(<span class="hljs-string">&quot;./*.html&quot;</span>, <span class="hljs-literal">true</span>)
+
+    e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
+        data := M{<span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;Hello World!&quot;</span>}
+        <span class="hljs-keyword">return</span> c.Render(http.StatusOK, <span class="hljs-string">&quot;index.html&quot;</span>, data)
+    })
+
+    e.Logger.Fatal(e.Start(<span class="hljs-string">&quot;:9000&quot;</span>))
+}
+</code></pre>
+<p>Saat pemanggilan <code>NewRenderer()</code> sisipkan path folder tempat file template html berada. Gunakan <code>./*.html</code> agar mengarah ke <strong>semua file html pada current folder</strong>.</p>
+<p>Buat file <code>index.html</code> dengan isi kode di bawah ini.</p>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        Message from index: {{.message}}!
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>Pada rute <code>/index</code>, sebuah variabel bernama <code>data</code> disiapkan, bertipe <code>map</code> dengan isi satu buah item. Data tersebut disisipkan pada saat view di-render, membuatnya bisa diakses dari dalam template html.</p>
+<p>Syntax <code>{{.message}}</code> artinya menampilkan isi property yang namanya adalah <code>message</code> dari current context (yaitu objek data yang disisipkan). Lebih jelasnya silakan baca kembali chapter <a href="B-template-actions-variables.html">B. Template Actions &amp; Variables</a>.</p>
+<p>Jalankan aplikasi untuk melihat hasilnya.</p>
+<p><img src="images/C_echo_template_rendering_1_preview.png" alt="Dasar Pemrograman Golang - Preview"></p>
+<h2 id="c72-render-parsial-dan-spesifik-template">C.7.2. Render Parsial dan Spesifik Template</h2>
+<p>Proses parsing dan rendering tidak di-handle oleh echo, melainkan menggunakan API dari <code>html/template</code>. Echo hanya menyediakan tempat untuk mempermudah pemanggilan fungsi rendernya. Nah dari sini berarti untuk render parsial, render spesifik template, maupun operasi template lainnya dilakukan seperti biasa, menggunakan <code>html/template</code>.</p>
+<hr>
+<ul>
+<li><a href="https://github.com/labstack/echo" target="_blank">Echo</a>, by Vishal Rana (Lab Stack), MIT license</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.7-echo-template-rendering" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.7...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2197,12 @@
 
             
                 
+                <a href="C-http-error-handling.html" class="navigation navigation-prev " aria-label="Previous page: C.6. HTTP Error Handling (Validator v9, Echo)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-advanced-middleware-and-logging.html" class="navigation navigation-next " aria-label="Next page: C.8. Advanced Middleware &amp; Logging (Logrus, Echo Logger)">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2213,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.7. Template Rendering in Echo","level":"5.1.7","depth":2,"next":{"title":"C.8. Advanced Middleware & Logging (Logrus, Echo Logger)","level":"5.1.8","depth":2,"path":"C-advanced-middleware-and-logging.md","ref":"C-advanced-middleware-and-logging.md","articles":[]},"previous":{"title":"C.6. HTTP Error Handling (Validator v9, Echo)","level":"5.1.6","depth":2,"path":"C-http-error-handling.md","ref":"C-http-error-handling.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-echo-template-rendering.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

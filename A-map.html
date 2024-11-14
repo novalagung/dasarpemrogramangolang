@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Map - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-fungsi.html">
     
+    
+    <link rel="prev" href="A-slice.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -478,7 +480,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.17" data-path="A-map.html">
+        <li class="chapter active" data-level="3.1.17" data-path="A-map.html">
             
                 <a href="A-map.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.17. Map</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,131 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a17-map">A.17. Map</h1>
+<p><strong>Map</strong> adalah tipe data asosiatif yang ada di Go yang berbentuk <em>key-value pair</em>. Data/value yang disimpan di map selalu disertai dengan key. Key sendiri harus unik, karena digunakan sebagai penanda (atau identifier) untuk pengaksesan value yang disimpan di map.</p>
+<p>Kalau dilihat, <code>map</code> mirip seperti slice, hanya saja identifier yang digunakan untuk pengaksesan bukanlah index numerik, melainkan bisa dalam tipe data apapun sesuai dengan yang diinginkan.</p>
+<h2 id="a171-penggunaan-map">A.17.1. Penggunaan Map</h2>
+<p>Cara pengaplikasian map cukup mudah, dengan menuliskan keyword <code>map</code> diikuti tipe data key dan value-nya. Silakan perhatikan contoh di bawah ini agar lebih jelas.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> chicken <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>
+chicken = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>{}
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+chicken[<span class="hljs-string">&quot;januari&quot;</span>] = <span class="hljs-number">50</span>
+chicken[<span class="hljs-string">&quot;februari&quot;</span>] = <span class="hljs-number">40</span>
+
+fmt.Println(<span class="hljs-string">&quot;januari&quot;</span>, chicken[<span class="hljs-string">&quot;januari&quot;</span>]) <span class="hljs-comment">// januari 50</span>
+fmt.Println(<span class="hljs-string">&quot;mei&quot;</span>,     chicken[<span class="hljs-string">&quot;mei&quot;</span>])     <span class="hljs-comment">// mei 0</span>
+</code></pre>
+<p>Variabel <code>chicken</code> dideklarasikan bertipe data map, dengan key ditentukan tipenya adalah <code>string</code> dan tipe value-nya <code>int</code>. Dari kode tersebut bisa dilihat bagaimana cara penerapan keyword <code>map</code> untuk pembuatan variabel.</p>
+<p>Kode <code>map[string]int</code> merepresentasikan tipe data <code>map</code> dengan key bertipe <code>string</code> dan value bertipe <code>int</code>.</p>
+<p>Zero value atau nilai default variabel <code>map</code> adalah <code>nil</code>. Dari sini maka penting untuk menginisialisasi nilai awal map agar tidak <code>nil</code>. Jika dibiarkan <code>nil</code>, ketika map digunakan untuk menampung data pasti memunculkan error.</p>
+<p>Cara untuk inisialisasi map dengan menambahkan kurung kurawal buka tutup di akhir penulisan map, contoh: <code>map[string]int{}</code>.</p>
+<p>Cara menambahkan item pada map adalah dengan menuliskan variabel-nya, kemudian diikuti dengan <code>key</code> pada kurung siku variabel (mirip seperti cara pengaksesan elemen slice), lalu operator <code>=</code>, kemudian nilai/data yang ingin disimpan. Contohnya seperti <code>chicken[&quot;februari&quot;] = 40</code>. Sedangkan cara mengakses item map dengan cukup dengan menuliskan nama variabel diikuti kurung siku dan <code>key</code>.</p>
+<p>Pengisian data pada map bersifat <strong>overwrite</strong>, artinya variabel sudah memiliki item dengan key yang sama, maka value item yang lama (dengan key sama) akan ditimpa dengan value baru.</p>
+<p><img src="images/A_map_1_map_set_get.png" alt="Dasar Pemrograman Golang - Pengaksesan data map"></p>
+<p>Pengaksesan item menggunakan key yang belum tersimpan di map, menghasilkan data berupa nilai default sesuai tipe data value. Contohnya kode <code>chicken[&quot;mei&quot;]</code> menghasilkan nilai 0 (nilai default tipe <code>int</code>), hal ini karena variabel map <code>chicken</code> tidak memiliki item dengan key <code>&quot;mei&quot;</code>.</p>
+<h2 id="a172-inisialisasi-nilai-map">A.17.2. Inisialisasi Nilai Map</h2>
+<p>Zero value dari map adalah <code>nil</code>. Disarankan untuk menginisialisasi secara explisit nilai awalnya agar tidak <code>nil</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> data <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>
+data[<span class="hljs-string">&quot;one&quot;</span>] = <span class="hljs-number">1</span>
+<span class="hljs-comment">// akan muncul error!</span>
+
+data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>{}
+data[<span class="hljs-string">&quot;one&quot;</span>] = <span class="hljs-number">1</span>
+<span class="hljs-comment">// tidak ada error</span>
+</code></pre>
+<p>Nilai variabel bertipe map bisa didefinisikan di awal, caranya dengan menambahkan kurung kurawal setelah tipe data, kemudian menuliskan key dan value di dalam kurung kurawal tersebut. Cara ini sekilas mirip dengan definisi nilai array/slice namun dalam bentuk key-value.</p>
+<pre><code class="lang-go"><span class="hljs-comment">// cara horizontal</span>
+<span class="hljs-keyword">var</span> chicken1 = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>{<span class="hljs-string">&quot;januari&quot;</span>: <span class="hljs-number">50</span>, <span class="hljs-string">&quot;februari&quot;</span>: <span class="hljs-number">40</span>}
+
+<span class="hljs-comment">// cara vertical</span>
+<span class="hljs-keyword">var</span> chicken2 = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>{
+    <span class="hljs-string">&quot;januari&quot;</span>:  <span class="hljs-number">50</span>,
+    <span class="hljs-string">&quot;februari&quot;</span>: <span class="hljs-number">40</span>,
+}
+</code></pre>
+<p>Key dan value dituliskan dengan pembatas tanda titik dua (<code>:</code>). Sedangkan tiap itemnya dituliskan dengan pembatas tanda koma (<code>,</code>). Khusus deklarasi dengan gaya vertikal, tanda koma perlu dituliskan setelah item terakhir.</p>
+<p>Variabel <code>map</code> bisa di-inisialisasi dengan tanpa nilai awal, caranya menggunakan tanda kurung kurawal, contoh: <code>map[string]int{}</code>. Atau bisa juga dengan menggunakan keyword <code>make</code> dan <code>new</code>. Contohnya bisa dilihat pada kode berikut. Ketiga cara di bawah ini intinya adalah sama.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> chicken3 = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>{}
+<span class="hljs-keyword">var</span> chicken4 = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>)
+<span class="hljs-keyword">var</span> chicken5 = *<span class="hljs-built_in">new</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>)
+</code></pre>
+<p>Khusus inisialisasi data menggunakan keyword <code>new</code>, yang dihasilkan adalah data pointer. Untuk mengambil nilai aslinya bisa dengan menggunakan tanda asterisk (<code>*</code>). Topik pointer nantinya dibahas lebih detail pada chapter <a href="A-pointer.html">A.23. Pointer</a>.</p>
+<h2 id="a173-iterasi-item-map-menggunakan-for---range">A.17.3. Iterasi Item Map Menggunakan <code>for</code> - <code>range</code></h2>
+<p>Item variabel <code>map</code> bisa di iterasi menggunakan <code>for</code> - <code>range</code>. Cara penerapannya masih sama seperti pada slice, dengan perbedaan pada map data yang dikembalikan di tiap perulangan adalah key dan value (bukan indeks dan elemen). Contohnya bisa dilihat pada kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> chicken = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>{
+    <span class="hljs-string">&quot;januari&quot;</span>:  <span class="hljs-number">50</span>,
+    <span class="hljs-string">&quot;februari&quot;</span>: <span class="hljs-number">40</span>,
+    <span class="hljs-string">&quot;maret&quot;</span>:    <span class="hljs-number">34</span>,
+    <span class="hljs-string">&quot;april&quot;</span>:    <span class="hljs-number">67</span>,
+}
+
+<span class="hljs-keyword">for</span> key, val := <span class="hljs-keyword">range</span> chicken {
+    fmt.Println(key, <span class="hljs-string">&quot;  \t:&quot;</span>, val)
+}
+</code></pre>
+<p><img src="images/A_map_2_map_for_range.png" alt="Dasar Pemrograman Golang - Perulangan Map"></p>
+<h2 id="a174-menghapus-item-map">A.17.4. Menghapus Item Map</h2>
+<p>Fungsi <code>delete()</code> digunakan untuk menghapus item dengan key tertentu pada variabel map. Cara penggunaannya, dengan memasukan objek map dan key item yang ingin dihapus sebagai argument pemanggilan fungsi <code>delete()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> chicken = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>{<span class="hljs-string">&quot;januari&quot;</span>: <span class="hljs-number">50</span>, <span class="hljs-string">&quot;februari&quot;</span>: <span class="hljs-number">40</span>}
+
+fmt.Println(<span class="hljs-built_in">len</span>(chicken)) <span class="hljs-comment">// 2</span>
+fmt.Println(chicken)
+
+<span class="hljs-built_in">delete</span>(chicken, <span class="hljs-string">&quot;januari&quot;</span>)
+
+fmt.Println(<span class="hljs-built_in">len</span>(chicken)) <span class="hljs-comment">// 1</span>
+fmt.Println(chicken)
+</code></pre>
+<p>Operasi di atas membuat item dengan key <code>&quot;januari&quot;</code> dalam variabel map <code>chicken</code> dihapus.</p>
+<p><img src="images/A_map_3_map_delete_item.png" alt="Dasar Pemrograman Golang - Hapus item Map"></p>
+<p>Penggunaan fungsi <code>len()</code> pada map mengembalikan informasi jumlah item.</p>
+<h2 id="a175-deteksi-keberadaan-item-dengan-key-tertentu">A.17.5. Deteksi Keberadaan Item Dengan Key Tertentu</h2>
+<p>Ada cara untuk mengetahui apakah dalam variabel map terdapat item dengan key tertentu atau tidak, yaitu dengan memanfaatkan 2 variabel sebagai penampung nilai kembalian pengaksesan item. Return value ke-2 sifatnya opsional, boleh ditulis boleh juga tidak. Isinya nilai <code>bool</code>, jika berisi <code>true</code> menandakan bahwa item yang dicari ada di map, jika <code>false</code> maka tidak ada.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> chicken = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>{<span class="hljs-string">&quot;januari&quot;</span>: <span class="hljs-number">50</span>, <span class="hljs-string">&quot;februari&quot;</span>: <span class="hljs-number">40</span>}
+<span class="hljs-keyword">var</span> value, isExist = chicken[<span class="hljs-string">&quot;mei&quot;</span>]
+
+<span class="hljs-keyword">if</span> isExist {
+    fmt.Println(value)
+} <span class="hljs-keyword">else</span> {
+    fmt.Println(<span class="hljs-string">&quot;item is not exists&quot;</span>)
+}
+</code></pre>
+<h2 id="a176-kombinasi-slice--map">A.17.6. Kombinasi Slice &amp; Map</h2>
+<p>Slice dan <code>map</code> bisa dikombinasikan, dan pada praktiknya cukup sering digunakan, contohnya untuk keperluan penyimpanan data array yang berisikan informasi siswa, dan banyak lainnya.</p>
+<p>Cara penerapannya cukup mudah, contohnya <code>[]map[string]int</code>, tipe tersebut artinya adalah sebuah slice yang tipe setiap elemen-nya adalah <code>map[string]int</code>. Agar lebih jelas, silakan praktekan contoh berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> chickens = []<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>{
+    <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;chicken blue&quot;</span>,   <span class="hljs-string">&quot;gender&quot;</span>: <span class="hljs-string">&quot;male&quot;</span>},
+    <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;chicken red&quot;</span>,    <span class="hljs-string">&quot;gender&quot;</span>: <span class="hljs-string">&quot;male&quot;</span>},
+    <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;chicken yellow&quot;</span>, <span class="hljs-string">&quot;gender&quot;</span>: <span class="hljs-string">&quot;female&quot;</span>},
+}
+
+<span class="hljs-keyword">for</span> _, chicken := <span class="hljs-keyword">range</span> chickens {
+    fmt.Println(chicken[<span class="hljs-string">&quot;gender&quot;</span>], chicken[<span class="hljs-string">&quot;name&quot;</span>])
+}
+</code></pre>
+<p>Variabel <code>chickens</code> di atas berisikan 3 buah item bertipe <code>map[string]string</code>. Ketiga item tersebut dideklarasikan memiliki 2 key yang sama, yaitu <code>name</code> dan <code>gender</code>.</p>
+<p>Penulisan tipe data tiap item adalah opsional. Boleh ditulis atau tidak. Contoh alternatif penulisan:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> chickens = []<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>{
+    {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;chicken blue&quot;</span>,   <span class="hljs-string">&quot;gender&quot;</span>: <span class="hljs-string">&quot;male&quot;</span>},
+    {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;chicken red&quot;</span>,    <span class="hljs-string">&quot;gender&quot;</span>: <span class="hljs-string">&quot;male&quot;</span>},
+    {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;chicken yellow&quot;</span>, <span class="hljs-string">&quot;gender&quot;</span>: <span class="hljs-string">&quot;female&quot;</span>},
+}
+</code></pre>
+<p>Dalam <code>[]map[string]string</code>, tiap elemen bisa saja memiliki key yang berbeda-beda, contohnya seperti kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> data = []<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>{
+    {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;chicken blue&quot;</span>, <span class="hljs-string">&quot;gender&quot;</span>: <span class="hljs-string">&quot;male&quot;</span>, <span class="hljs-string">&quot;color&quot;</span>: <span class="hljs-string">&quot;brown&quot;</span>},
+    {<span class="hljs-string">&quot;address&quot;</span>: <span class="hljs-string">&quot;mangga street&quot;</span>, <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-string">&quot;k001&quot;</span>},
+    {<span class="hljs-string">&quot;community&quot;</span>: <span class="hljs-string">&quot;chicken lovers&quot;</span>},
+}
+</code></pre>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.17-map" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.17...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2210,12 @@
 
             
                 
+                <a href="A-slice.html" class="navigation navigation-prev " aria-label="Previous page: A.16. Slice">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-fungsi.html" class="navigation navigation-next " aria-label="Next page: A.18. Fungsi">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2226,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.17. Map","level":"3.1.17","depth":2,"next":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"path":"A-fungsi.md","ref":"A-fungsi.md","articles":[]},"previous":{"title":"A.16. Slice","level":"3.1.16","depth":2,"path":"A-slice.md","ref":"A-slice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-map.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

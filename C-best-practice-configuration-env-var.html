@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Best Practice Configuration: Environment Variable - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-securecookie.html">
     
+    
+    <link rel="prev" href="C-advanced-configuration-viper.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1596,7 +1598,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.11" data-path="C-best-practice-configuration-env-var.html">
+        <li class="chapter active" data-level="5.1.11" data-path="C-best-practice-configuration-env-var.html">
             
                 <a href="C-best-practice-configuration-env-var.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.11. Best Practice Configuration: Environment Variable</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,122 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="c11-best-practice-configuration-menggunakan-environment-variable">C.11. Best Practice Configuration Menggunakan Environment Variable</h1>
+<p>Pada bagian ini kita akan mempelajari penerapan konfigurasi pada <em>environment variable</em>.</p>
+<h2 id="c111-definisi">C.11.1. Definisi</h2>
+<p><em>Environment variable</em> merupakan variabel yang berada di lapisan <em>runtime</em> sistem operasi. Karena <em>env var</em> atau <em>environment variable</em> merupakan variabel seperti pada umumnya, maka kita bisa melakukan operasi seperti mengubah nilainya atau mengambil nilainya.</p>
+<p>Salah satu <em>env var</em> yang mungkin sering pembaca temui adalah <code>PATH</code>. <code>PATH</code> sendiri merupakan variabel yang digunakan oleh sistem operasi untuk men-<em>specify</em> direktori tempat di mana <em>binary</em> atau <em>executable</em> berada.</p>
+<p>Default-nya, sistem operasi pasti mempunyai beberapa <em>env var</em> yang sudah ada tanpa kita set, salah satunya seperti <code>PATH</code> tadi, juga lainnya. Variabel-variabel tersebut digunakan oleh sistem operasi untuk keperluan mereka. Tapi karena variabel juga bisa diakses oleh kita (selaku developer), maka kita pun juga bisa mempergunakannya untuk kebutuhan tertentu.</p>
+<p>Selain <em>reserved env var</em>, kita bisa juga membuat variabel baru yang hanya digunakan untuk keperluan program secara spesifik.</p>
+<h2 id="c112-penggunaan-env-var-sebagai-media-untuk-definisi-konfigurasi-program">C.11.2. Penggunaan <em>env var</em> Sebagai Media Untuk Definisi Konfigurasi Program</h2>
+<p>Pada chapter <a href="B-simple-configuration.html">B.22. Simple Configuration</a> dan juga <a href="C-advanced-configuration-viper.html">C.10. Advanced Configuration: Viper</a>, kita telah belajar cara pendefinisian konfigurasi dengan memanfaatkan file seperti JSON maupun YAML.</p>
+<p>Pada chapter kali ini kita akan mendefinisikan konfigurasi yang sama tapi tidak di file, melainkan di <em>environment variable</em>.</p>
+<p>Definisi konfigurasi di env var banyak manfaatnya, salah satunya:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Di support secara <em>native</em> oleh <strong>semua sistem operasi</strong>.</li>
+<li>Sudah sangat umum diterapkan di banyak aplikasi dan platform.</li>
+<li><em>Straightforward</em> dan tidak tergantung ke file tertentu.</li>
+<li>Sharing konfigurasi dengan aplikasi/service lain menjadi lebih mudah.</li>
+<li>Mudah untuk di maintain, tidak perlu repot buka file kemudian edit lalu simpan ulang.</li>
+<li>... dan banyak lagi lainnya.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Jadi bisa dibilang penulisan konfigurasi di env var merupakan <em>best practice</em> untuk banyak jenis kasus, terutama pada <em>microservice</em>, pada aplikasi/service yang <em>distributable</em>, maupun pada aplikasi monolith yang manajemenya ter-automatisasi.</p>
+<p>Memang kalau dari sisi readability sangat kalah kalau dibandingkan dengan JSON atau YAML, tapi saya sampaikan bahwa meski effort koding bakal lebih banyak, akan ada sangat banyak manfaat yang bisa didapat dengan menuliskan konfigurasi di <em>env var</em>, terutama pada bagian <strong>devops</strong>.</p>
+<h2 id="c113-praktek">C.11.3. Praktek</h2>
+<p>Mari kita praktekan, buat 1 folder project baru, kemudian <code>main.go</code>, lalu isi file tersebut dengan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;net/http&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+    <span class="hljs-string">&quot;strconv&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    e := echo.New()
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Pada bagian main, tepat di bawah <em>statement</em> pembuatan objek <code>echo</code>, ambil nilai konfigurasi nama aplikasi dari <em>env var</em>. Caranya kurang lebih seperti berikut.</p>
+<pre><code class="lang-go">confAppName := os.Getenv(<span class="hljs-string">&quot;APP_NAME&quot;</span>)
+<span class="hljs-keyword">if</span> confAppName == <span class="hljs-string">&quot;&quot;</span> {
+    e.Logger.Fatal(<span class="hljs-string">&quot;APP_NAME config is required&quot;</span>)
+}
+</code></pre>
+<p>Jadi <code>APP_NAME</code> di situ merupakan nama <em>env var</em>-nya. Umumnya env var tidak dituliskan dalam bentuk <code>camelCase</code>, tapi dalam bentuk <code>UPPERCASE</code> dengan separator kata adalah underscore. Untuk <em>value</em>-nya nanti tinggal kita siapkan saja sebelum proses eksekusi program.</p>
+<blockquote>
+<p><code>man bash</code>:<br>name A word consisting only of alphanumeric characters and underscores, and beginning with an alphabetic character or an underscore. Also referred to as an identifier.</p>
+</blockquote>
+<p>Statement <code>os.Getenv</code> digunakan untuk pengambilan <em>env var</em>. Pada contoh di atas, terdapat pengecekan jika nilai <code>APP_NAME</code> adalah kosong, maka munculkan fatal error.</p>
+<p>Kemudian tambahkan lagi statement pengambilan nilai <em>env var</em> <code>SERVER_PORT</code>.</p>
+<pre><code class="lang-go">confServerPort := os.Getenv(<span class="hljs-string">&quot;SERVER_PORT&quot;</span>)
+<span class="hljs-keyword">if</span> confServerPort == <span class="hljs-string">&quot;&quot;</span> {
+    e.Logger.Fatal(<span class="hljs-string">&quot;SERVER_PORT config is required&quot;</span>)
+}
+</code></pre>
+<p>Setelah itu, tambahkan routing untuk untuk <code>GET /index</code> lalu definisi objek server yang nantinya digunakan untuk keperluan <em>start</em> webserver. Nilai <code>server.Addr</code> diambil dari <em>env var</em> <code>SERVER_PORT</code>.</p>
+<pre><code class="lang-go">e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) (err error) {
+    <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, <span class="hljs-literal">true</span>)
+})
+
+server := <span class="hljs-built_in">new</span>(http.Server)
+server.Addr = <span class="hljs-string">&quot;:&quot;</span> + confServerPort
+</code></pre>
+<p>Kemudian tambahkan setting untuk <em>timeout</em> webserver, tapi hanya ketika memang timeout didefinisikan konfigurasinya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">if</span> confServerReadTimeout := os.Getenv(<span class="hljs-string">&quot;SERVER_READ_TIMEOUT_IN_MINUTE&quot;</span>); confServerReadTimeout != <span class="hljs-string">&quot;&quot;</span> {
+    duration, _ := strconv.Atoi(confServerReadTimeout)
+    server.ReadTimeout = time.Duration(duration) * time.Minute
+}
+
+<span class="hljs-keyword">if</span> confServerWriteTimeout := os.Getenv(<span class="hljs-string">&quot;SERVER_WRITE_TIMEOUT_IN_MINUTE&quot;</span>); confServerWriteTimeout != <span class="hljs-string">&quot;&quot;</span> {
+    duration, _ := strconv.Atoi(confServerWriteTimeout)
+    server.WriteTimeout = time.Duration(duration) * time.Minute
+}
+</code></pre>
+<p>Bisa dilihat di atas, jika <em>env var</em> <code>SERVER_READ_TIMEOUT_IN_MINUTE</code> ada nilainya, maka diambil kemudian di konversi ke bentuk <code>time.Duration</code> untuk dipergunakan pada <code>server.ReadTimeout</code>. Nilai balik dari <code>os.Getenv()</code> pasti berupa <code>string</code>, oleh karena itu jika konfigurasi dibutuhkan dalam bentuk lain, tambahkan saja statement untuk konversi datanya.</p>
+<p>Memang penerapan konfigurasi pada <em>env var</em> ini membutuhkan sedikit effort lebih, hehe.</p>
+<p>Terakhir, tambahkan statement untuk start webserver.</p>
+<pre><code class="lang-go">e.Logger.Print(<span class="hljs-string">&quot;Starting&quot;</span>, confAppName)
+e.Logger.Fatal(e.StartServer(server))
+</code></pre>
+<h2 id="c114-eksekusi-program">C.11.4. Eksekusi Program</h2>
+<p>Program sudah siap, betul, tetapi konfigurasi nya belum. Nah salah satu kelebihan dari kontrol konfigurasi lewat <em>env var</em> adalah kita bisa definisikan sewaktu eksekusi program (sebelum statement <code>go run</code>).</p>
+<p>Ada satu hal yang penting untuk diketahui. Cara set <em>env var</em> untuk Windows dibanding sistem operasi lainnya adalah berbeda. Untuk non-Windows, gunakan <code>export</code>.</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">export</span> APP_NAME=SimpleApp
+<span class="hljs-built_in">export</span> SERVER_PORT=9000
+<span class="hljs-built_in">export</span> SERVER_READ_TIMEOUT_IN_MINUTE=2
+<span class="hljs-built_in">export</span> SERVER_WRITE_TIMEOUT_IN_MINUTE=2
+go run main.go
+</code></pre>
+<p>Untuk Windows, gunakan <code>set</code>.</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">set</span> APP_NAME=SimpleApp
+<span class="hljs-built_in">set</span> SERVER_PORT=9000
+<span class="hljs-built_in">set</span> SERVER_READ_TIMEOUT_IN_MINUTE=2
+<span class="hljs-built_in">set</span> SERVER_WRITE_TIMEOUT_IN_MINUTE=2
+go run main.go
+</code></pre>
+<p>Agak sedikit report memang untuk bagian ini, tapi mungkin bisa diperingkas dengan membuat file <code>.sh</code> untuk non-Windows, dan file <code>.bat</code> untuk Windows. Jadi nanti bisa tinggal eksekusi sh/bat-nya saja. Atau pembaca bisa tulis saja dalam <code>Makefile</code>. Untuk windows bisa kok eksekusi command <code>make</code> caranya dengan install <a href="https://chocolatey.org/packages/make" target="_blank">make</a> lewat <a href="https://chocolatey.org/" target="_blank">Chocolatey</a>.</p>
+<p>Berikut adalah penampakan contoh run program lewat bat-file di Windows.</p>
+<p><img src="images/C_best_practice_configuration_env_var_1_run.png" alt="Dasar Pemrograman Golang - Run program"></p>
+<h2 id="c115-penutup">C.11.5. Penutup</h2>
+<p>Memang saya setuju jika lebih butuh <em>effort</em> baik dari sisi programming maupun dari sisi eksekusi program-nya. Tapi <em>trust me</em>, pada production yang notabene <em>deployment</em> di-automatisasi (entah itu container based, pakai orchestrator, maupun tidak), pasti lebih mudah.</p>
+<p>Mungkin dari sini pembaca bisa lanjut ke chapter <a href="C-dockerize-golang.html">C.35. Dockerize Aplikasi Golang</a> untuk melihat praktek nyata penerapan konfigurasi via <em>env var</em>.</p>
+<hr>
+<ul>
+<li><a href="https://github.com/labstack/echo" target="_blank">Echo</a>, by Vishal Rana (Lab Stack), MIT license</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.11-best-practice-configuration-env-var" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.11...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2201,12 @@
 
             
                 
+                <a href="C-advanced-configuration-viper.html" class="navigation navigation-prev " aria-label="Previous page: C.10. Advanced Configuration: Viper">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-securecookie.html" class="navigation navigation-next " aria-label="Next page: C.12. Secure Cookie (Gorilla Securecookie)">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2217,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.11. Best Practice Configuration: Environment Variable","level":"5.1.11","depth":2,"next":{"title":"C.12. Secure Cookie (Gorilla Securecookie)","level":"5.1.12","depth":2,"path":"C-securecookie.md","ref":"C-securecookie.md","articles":[]},"previous":{"title":"C.10. Advanced Configuration: Viper","level":"5.1.10","depth":2,"path":"C-advanced-configuration-viper.md","ref":"C-advanced-configuration-viper.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-best-practice-configuration-env-var.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

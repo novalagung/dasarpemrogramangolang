@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Timer, Ticker, &amp; Scheduler - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-time-duration.html">
     
+    
+    <link rel="prev" href="A-time-parsing-format.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -790,7 +792,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.41" data-path="A-timer-ticker-scheduler.html">
+        <li class="chapter active" data-level="3.1.41" data-path="A-timer-ticker-scheduler.html">
             
                 <a href="A-timer-ticker-scheduler.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.41. Timer, Ticker, &amp; Scheduler</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,153 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a41-timer-ticker--scheduler">A.41. Timer, Ticker, &amp; Scheduler</h1>
+<p>Ada beberapa fungsi dalam package <code>time</code> yang bisa dimanfaatkan untuk operasi penundaan eksekusi, countdown timer, dan pengaturan jadwal eksekusi sebuah proses.</p>
+<h2 id="a411-fungsi-timesleep">A.41.1. Fungsi <code>time.Sleep()</code></h2>
+<p>Fungsi ini digunakan untuk menghentikan program sejenak. <code>time.Sleep()</code> bersifat <strong>blocking</strong>, statement di bawahnya tidak akan dieksekusi sampai pemberhentian usai. Contoh sederhana penerapan bisa dilihat pada kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;time&quot;</span>
+
+<span class="hljs-keyword">func</span> main () {
+    fmt.Println(<span class="hljs-string">&quot;start&quot;</span>)
+    time.Sleep(time.Second * <span class="hljs-number">4</span>)
+    fmt.Println(<span class="hljs-string">&quot;after 4 seconds&quot;</span>)
+}
+</code></pre>
+<p>Hasilnya, tulisan <code>&quot;start&quot;</code> muncul, lalu 4 detik kemudian tulisan <code>&quot;after 4 seconds&quot;</code> muncul.</p>
+<h2 id="a412-scheduler-menggunakan-timesleep">A.41.2. Scheduler Menggunakan <code>time.Sleep()</code></h2>
+<p>Selain untuk blocking proses, fungsi <code>time.Sleep()</code> ini bisa dimanfaatkan untuk membuat scheduler sederhana, contohnya seperti berikut, scheduler untuk menampilkan pesan halo setiap 1 detik.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> <span class="hljs-literal">true</span> {
+    fmt.Println(<span class="hljs-string">&quot;Hello !!&quot;</span>)
+    time.Sleep(<span class="hljs-number">1</span> * time.Second)
+}
+</code></pre>
+<h2 id="a413-fungsi-timenewtimer">A.41.3. Fungsi <code>time.NewTimer()</code></h2>
+<p>Fungsi ini sedikit berbeda dengan <code>time.Sleep()</code>. Fungsi <code>time.NewTimer()</code> mengembalikan objek bertipe <code>*time.Timer</code> yang memiliki property <code>C</code> yang bertipe channel.</p>
+<p>Cara kerja fungsi ini: setelah jeda waktu yang ditentukan sebuah data akan dikirimkan lewat channel <code>C</code>. Penggunaan fungsi ini harus diikuti dengan statement untuk penerimaan data dari channel <code>C</code>.</p>
+<p>Untuk lebih jelasnya silakan perhatikan kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> timer = time.NewTimer(<span class="hljs-number">4</span> * time.Second)
+fmt.Println(<span class="hljs-string">&quot;start&quot;</span>)
+&lt;-timer.C
+fmt.Println(<span class="hljs-string">&quot;finish&quot;</span>)
+</code></pre>
+<p>Statement <code>var timer = time.NewTimer(4 * time.Second)</code> mengindikasikan bahwa nantinya akan ada data yang dikirimkan ke channel <code>timer.C</code> setelah 4 detik berlalu. Baris kode <code>&lt;-timer.C</code> menandakan penerimaan data dari channel <code>timer.C</code>. Karena penerimaan channel sendiri sifatnya adalah blocking, maka statement <code>fmt.Println(&quot;finish&quot;)</code> baru akan dieksekusi setelah <strong>4 detik</strong>.</p>
+<p>Hasil program di atas adalah tulisan <code>&quot;start&quot;</code> muncul, lalu setelah 4 detik tulisan <code>&quot;finish&quot;</code> muncul.</p>
+<h2 id="a414-fungsi-timeafterfunc">A.41.4. Fungsi <code>time.AfterFunc()</code></h2>
+<p>Fungsi <code>time.AfterFunc()</code> memiliki 2 parameter. Parameter pertama adalah durasi timer, dan parameter kedua adalah <em>callback</em> nya. Callback tersebut akan dieksekusi jika waktu sudah memenuhi durasi timer.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> ch = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>)
+
+time.AfterFunc(<span class="hljs-number">4</span>*time.Second, <span class="hljs-keyword">func</span>() {
+    fmt.Println(<span class="hljs-string">&quot;expired&quot;</span>)
+    ch &lt;- <span class="hljs-literal">true</span>
+})
+
+fmt.Println(<span class="hljs-string">&quot;start&quot;</span>)
+&lt;-ch
+fmt.Println(<span class="hljs-string">&quot;finish&quot;</span>)
+</code></pre>
+<p>Hasil dari kode di atas, tulisan <code>&quot;start&quot;</code> muncul kemudian setelah 4 detik berlalu, tulisan <code>&quot;expired&quot;</code> muncul.</p>
+<p>Di dalam callback terdapat proses transfer data lewat channel, menjadikan tulisan <code>&quot;finish&quot;</code> akan muncul tepat setelah tulisan <code>&quot;expired&quot;</code> muncul.</p>
+<p>Beberapa hal yang perlu diketahui ketika menggunakan fungsi ini:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Jika tidak ada serah terima data lewat channel, maka eksekusi <code>time.AfterFunc()</code> adalah asynchronous (tidak blocking).</li>
+<li>Jika ada serah terima data lewat channel, maka fungsi akan tetap berjalan asynchronous hingga baris kode di mana penerimaan data channel dilakukan. Proses blocking nya berada pada baris kode penerimaan channel.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<h2 id="a415-fungsi-timeafter">A.41.5. Fungsi <code>time.After()</code></h2>
+<p>Kegunaan fungsi ini mirip seperti <code>time.Sleep()</code>. Perbedaannya adalah, fungsi <code>timer.After()</code> akan mengembalikan data channel, sehingga perlu menggunakan tanda <code>&lt;-</code> dalam penerapannya.</p>
+<pre><code class="lang-go">&lt;-time.After(<span class="hljs-number">4</span> * time.Second)
+fmt.Println(<span class="hljs-string">&quot;expired&quot;</span>)
+</code></pre>
+<p>Tulisan <code>&quot;expired&quot;</code> akan muncul setelah 4 detik.</p>
+<h2 id="a416-scheduler-menggunakan-ticker">A.41.6. Scheduler Menggunakan Ticker</h2>
+<p>Selain fungsi-fungsi untuk keperluan timer, Go juga menyediakan fungsi scheduler (yang di sini kita sebut sebagai ticker).</p>
+<p>Cara penggunaan ticker cukup mudah, buat objek ticker baru menggunakan <code>time.NewTicker()</code> isi argument dengan durasi yang diinginkan. Dari objek tersebut kita bisa akses properti <code>.C</code> yang merupakan channel. Setiap durasi yang sudah ditentukan, objek ticker akan mengirimkan informasi date-time via channel tersebut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>)
+    ticker := time.NewTicker(time.Second)
+
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        time.Sleep(<span class="hljs-number">10</span> * time.Second) <span class="hljs-comment">// wait for 10 seconds</span>
+        done &lt;- <span class="hljs-literal">true</span>
+    }()
+
+    <span class="hljs-keyword">for</span> {
+        <span class="hljs-keyword">select</span> {
+        <span class="hljs-keyword">case</span> &lt;-done:
+            ticker.Stop()
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-keyword">case</span> t := &lt;-ticker.C:
+            fmt.Println(<span class="hljs-string">&quot;Hello !!&quot;</span>, t)
+        }
+    }
+}
+</code></pre>
+<p>Pada contoh di atas bisa dilihat, selain ticker disiapkan juga variabel channel <code>done</code>. Variabel ini kita gunakan untuk mengontrol kapan ticker harus di stop.</p>
+<p>Cara kerja program di atas: teknik <code>for</code> - <code>select</code> pada channel digunakan untuk mengecek penerimaan data dari channel <code>done</code> dan <code>ticker.C</code>. By default, channel <code>ticker.C</code> akan menerima kiriman data setiap <code>X</code> duration yang mana pada kode di atas adalah 1 detik (lihat argumen inisialisasi objek ticker).</p>
+<p>Data yang dikirimkan via channel <code>ticker.C</code> adalah data date-time kapan event itu terjadi. Pada kode di atas, setiap ada kiriman data via channel tersebut kita tampilkan.</p>
+<p>Sebelum blok kode perulangan <code>for</code>, bisa kita lihat ada goroutine baru di-dispatch, isinya adalah mengirim data ke channel <code>done</code> setelah 10 detik. Data tersebut nantinya akan diterima oleh blok kode <code>for</code> - <code>select</code>, dan ketika itu terjadi, method <code>.Stop()</code> milik objek ticker dipanggil untuk menonaktifkan scheduler pada ticker tersebut.</p>
+<p>Jadi, selama 10 detik, di setiap detiknya akan muncul pesan halo.</p>
+<h2 id="a417-kombinasi-timer--goroutine">A.41.7. Kombinasi Timer &amp; Goroutine</h2>
+<p>Berikut merupakan contoh penerapan timer dan goroutine. Program di bawah ini adalah program tanya-jawab sederhana. Sebuah pertanyaan muncul dan user harus menginputkan jawaban dalam waktu tidak lebih dari 5 detik. Jika 5 detik berlalu dan belum ada jawaban, maka akan muncul pesan <em>time out</em>.</p>
+<p>OK langsung saja, mari kita buat programnya, pertama, import package yang diperlukan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;os&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;time&quot;</span>
+</code></pre>
+<p>Buat fungsi <code>timer()</code>, nantinya fungsi ini dieksekusi sebagai goroutine. Di dalam fungsi <code>timer()</code> terdapat blok kode jika waktu sudah mencapai <code>timeout</code>, maka sebuah data dikirimkan lewat channel <code>ch</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> timer(timeout <span class="hljs-keyword">int</span>, ch <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-keyword">bool</span>) {
+    time.AfterFunc(time.Duration(timeout)*time.Second, <span class="hljs-keyword">func</span>() {
+        ch &lt;- <span class="hljs-literal">true</span>
+    })
+}
+</code></pre>
+<p>Siapkan juga fungsi <code>watcher()</code>. Fungsi ini juga akan dieksekusi sebagai goroutine. Tugasnya cukup sederhana, yaitu menerima data dari channel <code>ch</code> (jika ada penerimaan data, berarti sudah masuk waktu timeout), lalu menampilkan pesan bahwa waktu telah habis.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> watcher(timeout <span class="hljs-keyword">int</span>, ch &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>) {
+    &lt;-ch
+    fmt.Println(<span class="hljs-string">&quot;\ntime out! no answer more than&quot;</span>, timeout, <span class="hljs-string">&quot;seconds&quot;</span>)
+    os.Exit(<span class="hljs-number">0</span>)
+}
+</code></pre>
+<p>Terakhir, buat implementasi di fungsi <code>main()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> timeout = <span class="hljs-number">5</span>
+    <span class="hljs-keyword">var</span> ch = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>)
+
+    <span class="hljs-keyword">go</span> timer(timeout, ch)
+    <span class="hljs-keyword">go</span> watcher(timeout, ch)
+
+    <span class="hljs-keyword">var</span> input <span class="hljs-keyword">string</span>
+    fmt.Print(<span class="hljs-string">&quot;what is 725/25 ? &quot;</span>)
+    fmt.Scan(&amp;input)
+
+    <span class="hljs-keyword">if</span> input == <span class="hljs-string">&quot;29&quot;</span> {
+        fmt.Println(<span class="hljs-string">&quot;the answer is right!&quot;</span>)
+    } <span class="hljs-keyword">else</span> {
+        fmt.Println(<span class="hljs-string">&quot;the answer is wrong!&quot;</span>)
+    }
+}
+</code></pre>
+<p>Ketika user tidak menginputkan apa-apa dalam kurun waktu 5 detik, pesan timeout muncul lalu program berhenti.</p>
+<p><img src="images/A_timer_ticker_scheduler_1_timer.png" alt="Dasar Pemrograman Golang - Penerapan timer dalam goroutine"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.41-timer-ticker-scheduler" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.41...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2232,12 @@
 
             
                 
+                <a href="A-time-parsing-format.html" class="navigation navigation-prev " aria-label="Previous page: A.40. Time, Parsing Time, &amp; Format Time">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-time-duration.html" class="navigation navigation-next " aria-label="Next page: A.42. Time Duration">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2248,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"next":{"title":"A.42. Time Duration","level":"3.1.42","depth":2,"path":"A-time-duration.md","ref":"A-time-duration.md","articles":[]},"previous":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"path":"A-time-parsing-format.md","ref":"A-time-parsing-format.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-timer-ticker-scheduler.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

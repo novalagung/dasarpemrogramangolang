@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Scraping &amp; Parsing HTML (goquery) - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-xml-parser.html">
     
+    
+    <link rel="prev" href="C-convert-html-to-pdf.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1739,7 +1741,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.22" data-path="C-scraping-parsing-html.html">
+        <li class="chapter active" data-level="5.1.22" data-path="C-scraping-parsing-html.html">
             
                 <a href="C-scraping-parsing-html.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.22. Scraping &amp; Parsing HTML (goquery)</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,155 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c22-scraping--parsing-html-goquery">C.22. Scraping &amp; Parsing HTML (goquery)</h1>
+<p>Golang mempunyai package <code>net/html</code>, isinya digunakan untuk keperluan parsing HTML.</p>
+<p>Pada chapter ini kita akan belajar parsing HTML dengan cara yang lebih mudah, tidak memanfaatkan package <code>net/html</code>, melainkan menggunakan <a href="https://github.com/PuerkitoBio/goquery" target="_blank">goquery</a>. Library ini penggunannya mirip dengan jQuery.</p>
+<p>Sebelum dimulai, unduh terlebih dahulu package-nya menggunakan <code>go get</code>.</p>
+<pre><code class="lang-bash">go get -u github.com/PuerkitoBio/goquery
+</code></pre>
+<blockquote>
+<p>Untuk proses scraping konten html-nya sendiri dilakukan cukup dengan menggunakan fungsi <code>.Get()</code> milik package <code>net/http</code>.</p>
+</blockquote>
+<h2 id="c221-skenario-praktek">C.22.1. Skenario Praktek</h2>
+<p>Kita akan praktekan penerapan goquery untuk mengambil beberapa data dari website <a href="https://novalagung.com" target="_blank">https://novalagung.com</a>; pada website tersebut, di halaman landing, ada beberapa blok artikel muncul. Informasi di setiap artikel akan diambil, ditampung dalam satu objek slice, kemudian ditampilkan sebagai JSON string.</p>
+<p><img src="images/C_scraping_parsing_html_1_novalagung.png" alt="Dasar Pemrograman Golang - Images"></p>
+<h2 id="c222-praktek-scraping-dan-parsing-html">C.22.2. Praktek Scraping dan Parsing HTML</h2>
+<p>Siapkan folder project baru. Pada file main siapkan sebuah struct dengan nama <code>Article</code>, isinya 3 merupakan representasi dari metadata tiap artikel, yaitu <code>Title</code>, <code>URL</code>, dan <code>Category</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;encoding/json&quot;</span>
+    <span class="hljs-string">&quot;github.com/PuerkitoBio/goquery&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> Article <span class="hljs-keyword">struct</span> {
+    Title    <span class="hljs-keyword">string</span>
+    URL      <span class="hljs-keyword">string</span>
+    Category <span class="hljs-keyword">string</span>
+}
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// code here ...</span>
+}
+</code></pre>
+<p>Dalam fungsi <code>main()</code>, dispatch sebuah client GET request ke url <a href="https://novalagung.com" target="_blank">https://novalagung.com</a> untuk scraping html-nya.</p>
+<pre><code class="lang-go">res, err := http.Get(<span class="hljs-string">&quot;https://novalagung.com&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+<span class="hljs-keyword">defer</span> res.Body.Close()
+
+<span class="hljs-keyword">if</span> res.StatusCode != <span class="hljs-number">200</span> {
+    log.Fatalf(<span class="hljs-string">&quot;status code error: %d %s&quot;</span>, res.StatusCode, res.Status)
+}
+</code></pre>
+<p>Akses property <code>.Body</code> dari objek response (yang tipenya adalah reader), masukan sebagai parameter di pemanggilan <code>goquery.NewDocumentFromReader()</code>.</p>
+<pre><code class="lang-go">doc, err := goquery.NewDocumentFromReader(res.Body)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+</code></pre>
+<p>Statement di atas mengembalikan salah satunya objek <code>goquery.Document</code>, yang ditampung dalam <code>doc</code>. Kalau dianalogikan dalam jQuery, objek <code>doc</code> adalah instance objek hasil <code>$(selector)</code>.</p>
+<p>Dari objek <code>goquery.Document</code>, gunakan API yang tersedia untuk melakukan operasi sesuai kebutuhan. Kita akan ambil semua element artikel sesuai dengan skema html yang ada pada website target.</p>
+<p><img src="images/C_scraping_parsing_html_2_structure.png" alt="Dasar Pemrograman Golang - Website structure"></p>
+<p>OK mari langsung kita praktekan, ambil objek <code>.post-feed</code> kemudian ambil child elements-nya.</p>
+<pre><code class="lang-go">rows := <span class="hljs-built_in">make</span>([]Article, <span class="hljs-number">0</span>)
+
+doc.Find(<span class="hljs-string">&quot;.post-feed&quot;</span>).Children().Each(<span class="hljs-keyword">func</span>(i <span class="hljs-keyword">int</span>, sel *goquery.Selection) {
+    row := <span class="hljs-built_in">new</span>(Article)
+    row.Title = sel.Find(<span class="hljs-string">&quot;.post-card-title&quot;</span>).Text()
+    row.URL, _ = sel.Find(<span class="hljs-string">&quot;.post-card-content-link&quot;</span>).Attr(<span class="hljs-string">&quot;href&quot;</span>)
+    row.Category = sel.Find(<span class="hljs-string">&quot;.post-card-tags&quot;</span>).Text()
+    rows = <span class="hljs-built_in">append</span>(rows, *row)
+})
+
+bts, err := json.MarshalIndent(rows, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;  &quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+
+log.Println(<span class="hljs-keyword">string</span>(bts))
+</code></pre>
+<p>Gunakan <code>.Find()</code> untuk mencari elemen, isi parameter dengan selector pencarian. Gunakan <code>.Each()</code> untuk me-loop semua elemen yang didapat. </p>
+<p>Pada contoh di atas, setelah element <code>.post-feed</code> didapatkan, child elements diakses menggunakan <code>.Children()</code>.</p>
+<p>Method <code>.Text()</code> digunakan untuk mengambil text dalam elemen. Sedangkan untuk mengambil value atribut elemen, gunakan <code>.Attr()</code>.</p>
+<p>Di dalam perulangan, 3 informasi di-ekstrak dari masing-masing elemen artiekl, lalu ditampung ke objek <code>row</code>, kemudian di-append ke dalam slice.</p>
+<p>Di akhir objek slice dikonversi ke bentuk JSON string, lalu ditampilkan.</p>
+<p>Jalankan aplikasi, lihat hasilnya.</p>
+<p><img src="images/C_scraping_parsing_html_3_output.png" alt="Dasar Pemrograman Golang - Output"></p>
+<h2 id="c223-modifikasi-html">C.22.3. Modifikasi HTML</h2>
+<p>API yang tersedia dalam goquery tidak hanya untuk keperluan ekstraksi informasi, tapi bisa juga untuk modifikasi/manipulasi HTML, dan operasi lainnya.</p>
+<p>Mari kita langsung praktekan saja. Buat file main baru, siapkan string html. Kali ini sumber data bukan berasal dari website asli, melainkan dari string html.</p>
+<pre><code class="lang-html">package main
+
+import (
+    &quot;github.com/PuerkitoBio/goquery&quot;
+    &quot;github.com/yosssi/gohtml&quot;
+    &quot;log&quot;
+    &quot;strings&quot;
+)
+
+const sampleHTML = `<span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Sample HTML<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Header<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">footer</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;footer-1&quot;</span>&gt;</span>Footer One<span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">footer</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;footer-2&quot;</span>&gt;</span>Footer Two<span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">footer</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;footer-3&quot;</span>&gt;</span>Footer Three<span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+`
+</code></pre>
+<p>HTML string di atas dijadikan ke bentuk <code>goquery.Document</code> lewat fungsi <code>goquery.NewDocumentFromReader()</code>. Karena parameter yang dibutuhkan bertipe reader, maka konversi string html ke tipe reader lewat <code>strings.NewReader()</code>.</p>
+<pre><code class="lang-go">doc, err := goquery.NewDocumentFromReader(strings.NewReader(sampleHTML))
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+</code></pre>
+<p>Selanjutnya, lakukan beberapa modifikasi.</p>
+<pre><code class="lang-go">doc.Find(<span class="hljs-string">&quot;h1&quot;</span>).AfterHtml(<span class="hljs-string">&quot;&lt;p&gt;Lorem Ipsum Dolor Sit Amet Gedhang Goreng&lt;/p&gt;&quot;</span>)
+doc.Find(<span class="hljs-string">&quot;p&quot;</span>).AppendHtml(<span class="hljs-string">&quot; &lt;b&gt;Tournesol&lt;/b&gt;&quot;</span>)
+doc.Find(<span class="hljs-string">&quot;h1&quot;</span>).SetAttr(<span class="hljs-string">&quot;class&quot;</span>, <span class="hljs-string">&quot;header&quot;</span>)
+doc.Find(<span class="hljs-string">&quot;footer&quot;</span>).First().Remove()
+doc.Find(<span class="hljs-string">&quot;body &gt; *:nth-child(4)&quot;</span>).Remove()
+</code></pre>
+<p>Berikut penjelasan beberapa API yang digunakan pada kode di atas.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Method <code>.AfterHtml()</code>, digunakan untuk menambahkan elemen baru, posisinya ditempatkan setelah elemen objek pemanggilan method.</li>
+<li>Method <code>.AppendHtml()</code>, digunakan untuk menambahkan child elemen baru.</li>
+<li>Method <code>.SetAttr()</code>, digunakan untuk menambahkan/mengubah atribut elemen.</li>
+<li>Method <code>.First()</code>, digunakan untuk mengakses elemen pertama. Pada kode di atas <code>doc.Find(&quot;footer&quot;)</code> mengembalikan semua footer yang ada, sesuai selector. Pengaksesan method <code>.First()</code> menjadikan hanya elemen footer pertama yang diambil.</li>
+<li>Method <code>.Remove()</code>, digunakan untuk menghapus current element.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Ambil bentuk string html dari objek <code>doc</code> yang sudah banyak dimodifikasi. Jangan gunakan <code>doc.Html()</code> karena yang dikembalikan adalah <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML" target="_blank">inner html</a>. Gunakan <code>goquery.OuterHtml(doc.Selection)</code> agar yang dikembalikan <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/outerHTML" target="_blank">outer html</a>-nya.</p>
+<pre><code class="lang-go">modifiedHTML, err := goquery.OuterHtml(doc.Selection)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+
+log.Println(gohtml.Format(modifiedHTML))
+</code></pre>
+<p>Pada kode di atas kita menggunakan satu lagi library, <a href="https://github.com/yosssi/gohtml" target="_blank">gohtml</a>. Fungsi <code>.Format()</code> dalam library tersebut digunakan untuk code beautification.</p>
+<p>Jalankan aplikasi, lihat hasilnya.</p>
+<p><img src="images/C_scraping_parsing_html_4_beautified_html.png" alt="Dasar Pemrograman Golang - Beautified HTML"></p>
+<hr>
+<ul>
+<li><a href="https://github.com/PuerkitoBio/goquery" target="_blank">goquery</a>, by Martin Angers, BSD-3-Clause license</li>
+<li><a href="https://github.com/yosssi/gohtml" target="_blank">gohtml</a>, by Keiji Yoshida, MIT license</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.22-scraping-parsing-html" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.22...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2234,12 @@
 
             
                 
+                <a href="C-convert-html-to-pdf.html" class="navigation navigation-prev " aria-label="Previous page: C.21. Convert HTML to PDF (go-wkhtmltopdf)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-xml-parser.html" class="navigation navigation-next " aria-label="Next page: C.23. Parse &amp; Generate XML (etree)">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2250,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.22. Scraping & Parsing HTML (goquery)","level":"5.1.22","depth":2,"next":{"title":"C.23. Parse & Generate XML (etree)","level":"5.1.23","depth":2,"path":"C-xml-parser.md","ref":"C-xml-parser.md","articles":[]},"previous":{"title":"C.21. Convert HTML to PDF (go-wkhtmltopdf)","level":"5.1.21","depth":2,"path":"C-convert-html-to-pdf.md","ref":"C-convert-html-to-pdf.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-scraping-parsing-html.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

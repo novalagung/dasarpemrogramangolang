@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Layout Format String - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-random.html">
     
+    
+    <link rel="prev" href="A-error-panic-recover.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -751,7 +753,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.38" data-path="A-string-format.html">
+        <li class="chapter active" data-level="3.1.38" data-path="A-string-format.html">
             
                 <a href="A-string-format.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.38. Layout Format String</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,190 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a38-layout-format-string">A.38. Layout Format String</h1>
+<p>Pada pembahasan-pembahasan sebelumnya kita telah banyak memanfaatkan layout format string, contohnya seperti <code>%s</code>, <code>%d</code>, <code>%.2f</code>, dan lainnya. Layout format string tersebut digunakan untuk keperluan formatting string untuk dimunculkan ke layar ataupun untuk disimpan ke variabel.</p>
+<p>Layout format string digunakan dalam konversi data ke bentuk string. Contohnya seperti <code>%.3f</code> yang untuk konversi nilai <code>double</code> ke <code>string</code> dengan 3 digit desimal.</p>
+<h2 id="a381-persiapan">A.38.1. Persiapan</h2>
+<p>Pada chapter ini kita akan mempelajari satu per satu layout format string yang tersedia di Golang. Kode berikut adalah sample data yang akan kita digunakan sebagai contoh.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> student <span class="hljs-keyword">struct</span> {
+    name        <span class="hljs-keyword">string</span>
+    height      <span class="hljs-keyword">float64</span>
+    age         <span class="hljs-keyword">int32</span>
+    isGraduated <span class="hljs-keyword">bool</span>
+    hobbies     []<span class="hljs-keyword">string</span>
+}
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<span class="hljs-keyword">var</span> data = student{
+    name:        <span class="hljs-string">&quot;wick&quot;</span>,
+    height:      <span class="hljs-number">182.5</span>,
+    age:         <span class="hljs-number">26</span>,
+    isGraduated: <span class="hljs-literal">false</span>,
+    hobbies:     []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;eating&quot;</span>, <span class="hljs-string">&quot;sleeping&quot;</span>},
+}
+</code></pre>
+<h2 id="a382-layout-format-b">A.38.2. Layout Format <code>%b</code></h2>
+<p>Digunakan untuk memformat data numerik, menjadi bentuk string numerik berbasis 2 (biner).</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%b\n&quot;</span>, data.age)
+<span class="hljs-comment">// 11010</span>
+</code></pre>
+<h2 id="a383-layout-format-c">A.38.3. Layout Format <code>%c</code></h2>
+<p>Digunakan untuk memformat data numerik yang merupakan kode unicode, menjadi bentuk string karakter unicode-nya.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%c\n&quot;</span>, <span class="hljs-number">1400</span>)
+<span class="hljs-comment">// &#x578;</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%c\n&quot;</span>, <span class="hljs-number">1235</span>)
+<span class="hljs-comment">// &#x4D3;</span>
+</code></pre>
+<h2 id="a384-layout-format-d">A.38.4. Layout Format <code>%d</code></h2>
+<p>Digunakan untuk memformat data numerik, menjadi bentuk string numerik berbasis 10 (basis bilangan yang kita gunakan).</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%d\n&quot;</span>, data.age)
+<span class="hljs-comment">// 26</span>
+</code></pre>
+<h2 id="a385-layout-format-e-atau-e">A.38.5. Layout Format <code>%e</code> atau <code>%E</code></h2>
+<p>Digunakan untuk memformat data numerik desimal ke dalam bentuk notasi numerik standar <a href="https://en.wikipedia.org/wiki/Scientific_notation" target="_blank">Scientific notation</a>.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%e\n&quot;</span>, data.height)
+<span class="hljs-comment">// 1.825000e+02</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%E\n&quot;</span>, data.height)
+<span class="hljs-comment">// 1.825000E+02</span>
+</code></pre>
+<p><strong>1.825000E+02</strong> maksudnya adalah <strong>1.825 x 10^2</strong>, dan hasil operasi tersebut adalah sesuai dengan data asli = <strong>182.5</strong>.</p>
+<p>Perbedaan antara <code>%e</code> dan <code>%E</code> hanya pada bagian huruf besar kecil karakter <code>e</code> pada hasil.</p>
+<h2 id="a386-layout-format-f-atau-f">A.38.6. Layout Format <code>%f</code> atau <code>%F</code></h2>
+<p><code>%F</code> adalah alias dari <code>%f</code>. Keduanya memiliki fungsi yang sama.</p>
+<p>Berfungsi untuk memformat data numerik desimal, dengan lebar desimal bisa ditentukan. Secara default lebar digit desimal adalah 6 digit.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%f\n&quot;</span>, data.height)
+<span class="hljs-comment">// 182.500000</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%.9f\n&quot;</span>, data.height)
+<span class="hljs-comment">// 182.500000000</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%.2f\n&quot;</span>, data.height)
+<span class="hljs-comment">// 182.50</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%.f\n&quot;</span>, data.height)
+<span class="hljs-comment">// 182</span>
+</code></pre>
+<h2 id="a387-layout-format-g-atau-g">A.38.7. Layout Format <code>%g</code> atau <code>%G</code></h2>
+<p><code>%G</code> adalah alias dari <code>%g</code>. Keduanya memiliki fungsi yang sama.</p>
+<p>Berfungsi untuk memformat data numerik desimal, dengan lebar desimal bisa ditentukan. Lebar kapasitasnya sangat besar, pas digunakan untuk data yang jumlah digit desimalnya cukup banyak.</p>
+<p>Bisa dilihat pada kode berikut perbandingan antara <code>%e</code>, <code>%f</code>, dan <code>%g</code>.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%e\n&quot;</span>, <span class="hljs-number">0.123123123123</span>)
+<span class="hljs-comment">// 1.231231e-01</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%f\n&quot;</span>, <span class="hljs-number">0.123123123123</span>)
+<span class="hljs-comment">// 0.123123</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%g\n&quot;</span>, <span class="hljs-number">0.123123123123</span>)
+<span class="hljs-comment">// 0.123123123123</span>
+</code></pre>
+<p>Perbedaan lainnya adalah pada <code>%g</code>, lebar digit desimal adalah sesuai dengan datanya, tidak bisa dicustom seperti pada <code>%f</code>.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%g\n&quot;</span>, <span class="hljs-number">0.12</span>)
+<span class="hljs-comment">// 0.12</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%.5g\n&quot;</span>, <span class="hljs-number">0.12</span>)
+<span class="hljs-comment">// 0.12</span>
+</code></pre>
+<h2 id="a388-layout-format-o">A.38.8. Layout Format <code>%o</code></h2>
+<p>Digunakan untuk memformat data numerik, menjadi bentuk string numerik berbasis 8 (oktal).</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%o\n&quot;</span>, data.age)
+<span class="hljs-comment">// 32</span>
+</code></pre>
+<h2 id="a389-layout-format-p">A.38.9. Layout Format <code>%p</code></h2>
+<p>Digunakan untuk memformat data pointer, mengembalikan alamat pointer referensi variabel-nya.</p>
+<p>Alamat pointer dituliskan dalam bentuk numerik berbasis 16 dengan prefix <code>0x</code>.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%p\n&quot;</span>, &amp;data.name)
+<span class="hljs-comment">// 0x2081be0c0</span>
+</code></pre>
+<h2 id="a3810-layout-format-q">A.38.10. Layout Format <code>%q</code></h2>
+<p>Digunakan untuk <strong>escape</strong> string. Meskipun string yang dipakai menggunakan literal <code>\</code> akan tetap di-escape.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%q\n&quot;</span>, <span class="hljs-string">`&quot; name \ height &quot;`</span>)
+<span class="hljs-comment">// &quot;\&quot; name \\ height \&quot;&quot;</span>
+</code></pre>
+<h2 id="a3811-layout-format-s">A.38.11. Layout Format <code>%s</code></h2>
+<p>Digunakan untuk memformat data string.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%s\n&quot;</span>, data.name)
+<span class="hljs-comment">// wick</span>
+</code></pre>
+<h2 id="a3812-layout-format-t">A.38.12. Layout Format <code>%t</code></h2>
+<p>Digunakan untuk memformat data boolean, menampilkan nilai <code>bool</code>-nya.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%t\n&quot;</span>, data.isGraduated)
+<span class="hljs-comment">// false</span>
+</code></pre>
+<h2 id="a3813-layout-format-t">A.38.13. Layout Format <code>%T</code></h2>
+<p>Berfungsi untuk mengambil tipe variabel yang akan diformat.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, data.name)
+<span class="hljs-comment">// string</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, data.height)
+<span class="hljs-comment">// float64</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, data.age)
+<span class="hljs-comment">// int32</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, data.isGraduated)
+<span class="hljs-comment">// bool</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, data.hobbies)
+<span class="hljs-comment">// []string</span>
+</code></pre>
+<h2 id="a3814-layout-format-v">A.38.14. Layout Format <code>%v</code></h2>
+<p>Digunakan untuk memformat data apa saja (termasuk data bertipe <code>interface{}</code>). Hasil kembaliannya adalah string nilai data aslinya.</p>
+<p>Jika data adalah objek cetakan <code>struct</code>, maka akan ditampilkan semua secara property berurutan.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%v\n&quot;</span>, data)
+<span class="hljs-comment">// {wick 182.5 26 false [eating sleeping]}</span>
+</code></pre>
+<h2 id="a3815-layout-format-v">A.38.15. Layout Format <code>%+v</code></h2>
+<p>Digunakan untuk memformat struct, mengembalikan nama tiap property dan nilainya berurutan sesuai dengan struktur struct.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%+v\n&quot;</span>, data)
+<span class="hljs-comment">// {name:wick height:182.5 age:26 isGraduated:false hobbies:[eating sleeping]}</span>
+</code></pre>
+<h2 id="a3816-layout-format-v">A.38.16. Layout Format <code>%#v</code></h2>
+<p>Digunakan untuk memformat struct, mengembalikan nama dan nilai tiap property sesuai dengan struktur struct dan juga bagaimana objek tersebut dideklarasikan.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%#v\n&quot;</span>, data)
+<span class="hljs-comment">// main.student{name:&quot;wick&quot;, height:182.5, age:26, isGraduated:false, hobbies:[]string{&quot;eating&quot;, &quot;sleeping&quot;}}</span>
+</code></pre>
+<p>Ketika menampilkan objek yang deklarasinya adalah menggunakan teknik <em>anonymous struct</em>, maka akan muncul juga struktur anonymous struct nya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> data = <span class="hljs-keyword">struct</span> {
+    name   <span class="hljs-keyword">string</span>
+    height <span class="hljs-keyword">float64</span>
+}{
+    name:   <span class="hljs-string">&quot;wick&quot;</span>,
+    height: <span class="hljs-number">182.5</span>,
+}
+
+fmt.Printf(<span class="hljs-string">&quot;%#v\n&quot;</span>, data)
+<span class="hljs-comment">// struct { name string; height float64 }{name:&quot;wick&quot;, height:182.5}</span>
+</code></pre>
+<p>Format ini juga bisa digunakan untuk menampilkan tipe data lain, dan akan dimunculkan strukturnya juga.</p>
+<h2 id="a3817-layout-format-x-atau-x">A.38.17. Layout Format <code>%x</code> atau <code>%X</code></h2>
+<p>Digunakan untuk memformat data numerik, menjadi bentuk string numerik berbasis 16 (heksadesimal).</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%x\n&quot;</span>, data.age)
+<span class="hljs-comment">// 1a</span>
+</code></pre>
+<p>Jika digunakan pada tipe data string, maka akan mengembalikan kode heksadesimal tiap karakter.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> d = data.name
+
+fmt.Printf(<span class="hljs-string">&quot;%x%x%x%x\n&quot;</span>, d[<span class="hljs-number">0</span>], d[<span class="hljs-number">1</span>], d[<span class="hljs-number">2</span>], d[<span class="hljs-number">3</span>])
+<span class="hljs-comment">// 7769636b</span>
+
+fmt.Printf(<span class="hljs-string">&quot;%x\n&quot;</span>, d)
+<span class="hljs-comment">// 7769636b</span>
+</code></pre>
+<p><code>%x</code> dan <code>%X</code> memiliki fungsi yang sama. Perbedaannya adalah <code>%X</code> akan mengembalikan string dalam bentuk <em>uppercase</em> atau huruf kapital.</p>
+<h2 id="a3818-layout-format-">A.38.18. Layout Format <code>%%</code></h2>
+<p>Cara untuk menulis karakter <code>%</code> pada string format.</p>
+<pre><code class="lang-go">fmt.Printf(<span class="hljs-string">&quot;%%\n&quot;</span>)
+<span class="hljs-comment">// %</span>
+</code></pre>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.38-layout-format-string" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.38...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2269,12 @@
 
             
                 
+                <a href="A-error-panic-recover.html" class="navigation navigation-prev " aria-label="Previous page: A.37. Error, Panic, &amp; Recover">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-random.html" class="navigation navigation-next " aria-label="Next page: A.39. Random">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2285,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.38. Layout Format String","level":"3.1.38","depth":2,"next":{"title":"A.39. Random","level":"3.1.39","depth":2,"path":"A-random.md","ref":"A-random.md","articles":[]},"previous":{"title":"A.37. Error, Panic, & Recover","level":"3.1.37","depth":2,"path":"A-error-panic-recover.md","ref":"A-error-panic-recover.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-string-format.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

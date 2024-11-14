@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang JSON Web Token (JWT) - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-golang-ldap-authentication.html">
     
+    
+    <link rel="prev" href="C-golang-grpc-protobuf.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1869,7 +1871,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.32" data-path="C-golang-jwt.html">
+        <li class="chapter active" data-level="5.1.32" data-path="C-golang-jwt.html">
             
                 <a href="C-golang-jwt.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.32. JSON Web Token (JWT)</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,323 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c32-json-web-token-jwt">C.32. JSON Web Token (JWT)</h1>
+<p>Pada chapter ini kita akan belajar tentang JSON Web Token (JWT) dan cara penerapannya di bahasa Go.</p>
+<h2 id="c321-definisi">C.32.1. Definisi</h2>
+<p>JWT merupakan salah satu standar JSON (<a href="https://tools.ietf.org/html/rfc7519" target="_blank">RFC 7519</a>) untuk keperluan akses token. Token dibentuk dari kombinasi beberapa informasi yang di-encode dan di-enkripsi. Informasi yang dimaksud adalah header, payload, dan signature.</p>
+<p>Contoh JWT:</p>
+<pre style="font-size: .85em; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</pre>
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<p>Skema JWT:</p>
+<p><img src="images/C_golang_jwt_1_jwt_scheme.png" alt="Dasar Pemrograman Golang - JWT scheme"></p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li><strong>Header</strong>, isinya adalah jenis algoritma yang digunakan untuk generate signature.</li>
+<li><strong>Payload</strong>, isinya adalah data penting untuk keperluan otentikasi, seperti <em>grant</em>, <em>group</em>, kapan login terjadi, dan atau lainnya. Data ini dalam konteks JWT biasa disebut dengan <strong>CLAIMS</strong>.</li>
+<li><strong>Signature</strong>, isinya adalah hasil dari enkripsi data menggunakan algoritma kriptografi. Data yang dimaksud adalah gabungan dari (encoded) header, (encoded) payload, dan secret key.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Umumnya pada aplikasi yang menerapkan teknik otorisasi menggunakan token, token di-generate di back end secara acak (menggunakan algoritma tertentu) lalu disimpan di database bersamaan dengan data user. Token tersebut bisa jadi tidak ada isinya, hanya random string, atau mungkin saja ada isinya.</p>
+<p>Nantinya di setiap http call, token yang disertakan pada request header dicocokan dengan token yang ada di database, dilanjutkan dengan pengecekan grant/group/sejenisnya, untuk menentukan apakah request tersebut adalah verified request yang memang berhak mengakses endpoint.</p>
+<p>Pada aplikasi yang menerapkan JWT, yang terjadi sedikit berbeda. Token adalah hasil dari proses kombinasi, encoding, dan enkripsi terhadap beberapa informasi. Nantinya pada sebuah http call, pengecekan token tidak dilakukan dengan membandingkan token yang ada di request vs token yang tersimpan di database, karena memang token pada JWT tidak disimpan di database. Pengecekan token dilakukan dengan cara mengecek hasil decode dan decrypt token yang ditautkan dalam request.</p>
+<blockquote>
+<p>Ada kalanya token JWT perlu juga untuk disimpan di back-end, misalnya untuk keperluan auto-invalidate session pada multiple login, atau kasus lainnya.</p>
+</blockquote>
+<p>Mungkin sekilas terlihat mengerikan, terlihat sangat gampang sekali untuk di-retas, buktinya adalah data otorisasi bisa dengan mudah diambil dari token JWT. Dan penulis sampaikan, bahwa ini adalah presepsi yang salah.</p>
+<p>Informasi yang ada dalam token, selain di-encode, juga di-enkripsi. Dalam enkripsi diperlukan private key atau secret key, dan hanya pengembang yang tau. Jadi pastikan simpan baik-baik key tersebut.</p>
+<p>Selama peretas tidak tau secret key yang digunakan, hasil decoding dan dekripsi data <strong>PASTI TIDAK VALID</strong>.</p>
+<h2 id="c322-persiapan-praktek">C.32.2. Persiapan Praktek</h2>
+<p>Kita akan buat sebuah aplikasi RESTful web service sederhana, isinya dua buah endpoint <code>/index</code> dan <code>/login</code>. Berikut merupakan spesifikasi aplikasinya:</p>
+<ul>
+<li>Pengaksesan <code>/index</code> memerlukan token JWT.</li>
+<li>Token didapat dari proses otentikasi ke endpoint <code>/login</code> dengan menyisipkan username dan password.</li>
+<li>Pada aplikasi yang sudah kita buat, sudah ada data list user yang tersimpan di database (sebenarnya bukan di-database, tapi di file json).</li>
+</ul>
+<p>Ok, sekarang siapkan folder project baru.</p>
+<pre><code class="lang-bash">mkdir chapter-c32
+<span class="hljs-built_in">cd</span> chapter-c32
+go mod init chapter-c32
+
+<span class="hljs-comment"># then prepare underneath structures</span>
+
+tree .
+.
+&#x251C;&#x2500;&#x2500; go.mod
+&#x251C;&#x2500;&#x2500; main.go
+&#x251C;&#x2500;&#x2500; middleware.go
+&#x2514;&#x2500;&#x2500; users.json
+</code></pre>
+<h4 id="&#x25C9;-file-middlewarego">&#x25C9; File <code>middleware.go</code></h4>
+<p>Lanjut isi file <code>middleware.go</code> dengan kode middleware yang sudah biasa kita gunakan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
+
+<span class="hljs-keyword">type</span> CustomMux <span class="hljs-keyword">struct</span> {
+    http.ServeMux
+    middlewares []<span class="hljs-keyword">func</span>(next http.Handler) http.Handler
+}
+
+<span class="hljs-keyword">func</span> (c *CustomMux) RegisterMiddleware(next <span class="hljs-keyword">func</span>(next http.Handler) http.Handler) {
+    c.middlewares = <span class="hljs-built_in">append</span>(c.middlewares, next)
+}
+
+<span class="hljs-keyword">func</span> (c *CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">var</span> current http.Handler = &amp;c.ServeMux
+
+    <span class="hljs-keyword">for</span> _, next := <span class="hljs-keyword">range</span> c.middlewares {
+        current = next(current)
+    }
+
+    current.ServeHTTP(w, r)
+}
+</code></pre>
+<h4 id="&#x25C9;-file-usersjson">&#x25C9; File <code>users.json</code></h4>
+<p>Juga isi file <code>users.json</code> yang merupakan database aplikasi. Silakan tambahkan data JSON berikut.</p>
+<pre><code class="lang-json">[{
+    <span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-string">&quot;noval&quot;</span>,
+    <span class="hljs-string">&quot;password&quot;</span>: <span class="hljs-string">&quot;kaliparejaya123&quot;</span>,
+    <span class="hljs-string">&quot;email&quot;</span>: <span class="hljs-string">&quot;terpalmurah@gmail.com&quot;</span>,
+    <span class="hljs-string">&quot;group&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+}, {
+    <span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-string">&quot;farhan&quot;</span>,
+    <span class="hljs-string">&quot;password&quot;</span>: <span class="hljs-string">&quot;masokpakeko&quot;</span>,
+    <span class="hljs-string">&quot;email&quot;</span>: <span class="hljs-string">&quot;cikrakbaja@gmail.com&quot;</span>,
+    <span class="hljs-string">&quot;group&quot;</span>: <span class="hljs-string">&quot;publisher&quot;</span>
+}]
+</code></pre>
+<h4 id="&#x25C9;-file-maingo">&#x25C9; File <code>main.go</code></h4>
+<p>Sekarang kita fokus ke file <code>main.go</code>. Import packages yang diperlukan. Salah satu dari packages tersebut adalah <a href="https://github.com/golang-jwt/jwt" target="_blank">golang-jwt/jwt</a>, yang digunakan untuk keperluan JWT.</p>
+<pre><code class="lang-bash">go get -u github.com/golang-jwt/jwt/v4@v4.2.0
+go get -u github.com/novalagung/gubrak/v2
+</code></pre>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;context&quot;</span>
+    <span class="hljs-string">&quot;encoding/json&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+    <span class="hljs-string">&quot;path/filepath&quot;</span>
+    <span class="hljs-string">&quot;strings&quot;</span>
+
+    jwt <span class="hljs-string">&quot;github.com/golang-jwt/jwt/v4&quot;</span>
+    gubrak <span class="hljs-string">&quot;github.com/novalagung/gubrak/v2&quot;</span>
+)
+</code></pre>
+<p>Masih di file yang sama, siapkan 4 buah konstanta yaitu: nama aplikasi, durasi login, metode enkripsi token, dan secret key.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
+
+<span class="hljs-keyword">var</span> APPLICATION_NAME = <span class="hljs-string">&quot;My Simple JWT App&quot;</span>
+<span class="hljs-keyword">var</span> LOGIN_EXPIRATION_DURATION = time.Duration(<span class="hljs-number">1</span>) * time.Hour
+<span class="hljs-keyword">var</span> JWT_SIGNING_METHOD = jwt.SigningMethodHS256
+<span class="hljs-keyword">var</span> JWT_SIGNATURE_KEY = []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;the secret of kalimdor&quot;</span>)
+</code></pre>
+<p>Kemudian buat fungsi <code>main()</code>, siapkan didalmnya sebuah <code>mux</code> baru, dan daftarkan middleware <code>MiddlewareJWTAuthorization</code> dan dua buah rute <code>/index</code> dan <code>/login</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    mux := <span class="hljs-built_in">new</span>(CustomMux)
+    mux.RegisterMiddleware(MiddlewareJWTAuthorization)
+
+    mux.HandleFunc(<span class="hljs-string">&quot;/login&quot;</span>, HandlerLogin)
+    mux.HandleFunc(<span class="hljs-string">&quot;/index&quot;</span>, HandlerIndex)
+
+    server := <span class="hljs-built_in">new</span>(http.Server)
+    server.Handler = mux
+    server.Addr = <span class="hljs-string">&quot;:8080&quot;</span>
+
+    fmt.Println(<span class="hljs-string">&quot;Starting server at&quot;</span>, server.Addr)
+    server.ListenAndServe()
+}
+</code></pre>
+<p>Middleware <code>MiddlewareJWTAuthorization</code> nantinya akan kita buat, tugasnya memvalidasi setiap request yang masuk, dengan cara mengecek token JWT yang disertakan. Middleware ini hanya berguna pada request ke selain endpoint <code>/login</code>, karena pada endpoint tersebut proses otentikasi terjadi.</p>
+<h2 id="c323-otentikasi--generate-token">C.32.3. Otentikasi &amp; Generate Token</h2>
+<p>Siapkan handler <code>HandlerLogin</code>. Tulis kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> HandlerLogin(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">if</span> r.Method != <span class="hljs-string">&quot;POST&quot;</span> {
+        http.Error(w, <span class="hljs-string">&quot;Unsupported http method&quot;</span>, http.StatusBadRequest)
+        <span class="hljs-keyword">return</span>
+    }
+
+    username, password, ok := r.BasicAuth()
+    <span class="hljs-keyword">if</span> !ok {
+        http.Error(w, <span class="hljs-string">&quot;Invalid username or password&quot;</span>, http.StatusBadRequest)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Handler ini bertugas untuk meng-otentikasi client/consumer. Data username dan password dikirimkan ke endpoint dalam bentuk <a href="B-http-basic-auth.html">B.18. HTTP Basic Auth</a>. Data tersebut kemudian disisipkan dalam pemanggilan fungsi otentikasi <code>authenticateUser()</code>, yang nantinya juga akan kita buat.</p>
+<pre><code class="lang-go">ok, userInfo := authenticateUser(username, password)
+<span class="hljs-keyword">if</span> !ok {
+    http.Error(w, <span class="hljs-string">&quot;Invalid username or password&quot;</span>, http.StatusBadRequest)
+    <span class="hljs-keyword">return</span>
+}
+</code></pre>
+<p>Fungsi <code>authenticateUser()</code> memiliki dua nilai balik yang ditampung oleh variabel berikut:</p>
+<ul>
+<li>Variabel <code>ok</code>, penanda sukses tidaknya otentikasi.</li>
+<li>Variabel <code>userInfo</code>, isinya informasi user yang sedang login, datanya didapat dari <code>data.json</code> (tetapi tanpa password).</li>
+</ul>
+<p>Selanjutnya kita akan buat objek claims. Objek ini harus memenuhi persyaratan interface <code>jwt.Claims</code>. Objek claims bisa dibuat dari tipe <code>map</code> dengan cara membungkusnya dalam fungsi <code>jwt.MapClaims()</code>; atau dengan meng-embed interface <code>jwt.StandardClaims</code> pada struct baru, dan cara inilah yang akan kita pakai.</p>
+<p>Seperti yang sudah kita bahas di awal, bahwa claims isinya adalah data-data untuk keperluan otentikasi. Dalam prakteknya, claims merupakan sebuah objek yang memilik banyak property atau fields. Nah, objek claims <strong>harus</strong> memiliki fields yang termasuk di dalam list <a href="https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields" target="_blank">JWT Standard Fields</a>. Dengan meng-embed interface <code>jwt.StandardClaims</code>, maka fields pada struct dianggap sudah terwakili.</p>
+<p>Pada aplikasi yang sedang kita kembangkan, claims selain menampung standard fields, juga menampung beberapa informasi lain, oleh karena itu kita perlu buat <code>struct</code> baru yang meng-embed <code>jwt.StandardClaims</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> MyClaims <span class="hljs-keyword">struct</span> {
+    jwt.StandardClaims
+    Username <span class="hljs-keyword">string</span> <span class="hljs-string">`json:&quot;Username&quot;`</span>
+    Email    <span class="hljs-keyword">string</span> <span class="hljs-string">`json:&quot;Email&quot;`</span>
+    Group    <span class="hljs-keyword">string</span> <span class="hljs-string">`json:&quot;Group&quot;`</span>
+}
+</code></pre>
+<p>Ok, struct <code>MyClaims</code> sudah siap, sekarang buat objek baru dari struct tersebut.</p>
+<pre><code class="lang-go">claims := MyClaims{
+    StandardClaims: jwt.StandardClaims{
+        Issuer:    APPLICATION_NAME,
+        ExpiresAt: time.Now().Add(LOGIN_EXPIRATION_DURATION).Unix(),
+    },
+    Username: userInfo[<span class="hljs-string">&quot;username&quot;</span>].(<span class="hljs-keyword">string</span>),
+    Email:    userInfo[<span class="hljs-string">&quot;email&quot;</span>].(<span class="hljs-keyword">string</span>),
+    Group:    userInfo[<span class="hljs-string">&quot;group&quot;</span>].(<span class="hljs-keyword">string</span>),
+}
+</code></pre>
+<p>Ada beberapa standard claims, pada contoh di atas hanya dua yang di-isi nilainya, <code>Issuer</code> dan <code>ExpiresAt</code>, selebihnya kita kosongi. Lalu 3 fields tambahan yang kita buat (username, email, dan group) di-isi menggunakan data yang didapat dari <code>userInfo</code>.</p>
+<ul>
+<li><code>Issuer</code> (code <code>iss</code>), adalah penerbit JWT, dalam konteks ini adalah <code>APPLICATION_NAME</code>.</li>
+<li><code>ExpiresAt</code> (code <code>exp</code>), adalah kapan token JWT dianggap expired.</li>
+</ul>
+<p>Ok, objek claims sudah siap, sekarang buat token baru. Pembuatannya dilakukan menggunakan fungsi <code>jwt.NewWithClaims()</code> yang menghasilkan nilai balik bertipe <code>jwt.Token</code>. Parameter pertama adalah metode enkripsi yang digunakan, yaitu <code>JWT_SIGNING_METHOD</code>, dan parameter kedua adalah <code>claims</code>.</p>
+<pre><code class="lang-go">token := jwt.NewWithClaims(
+    JWT_SIGNING_METHOD,
+    claims,
+)
+</code></pre>
+<p>Kemudian tanda-tangani token tersebut menggunakan secret key yang sudah didefinisikan di <code>JWT_SIGNATURE_KEY</code>, caranya dengan memanggil method <code>SignedString()</code> milik objek <code>jwt.Token</code>. Pemanggilan method ini mengembalikan data token string yang kemudian dijadikan nilai balik handler. Token string inilah yang dibutuhkan client/consumer untuk bisa mengakses endpoints yang ada.</p>
+<pre><code class="lang-go">signedToken, err := token.SignedString(JWT_SIGNATURE_KEY)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    http.Error(w, err.Error(), http.StatusBadRequest)
+    <span class="hljs-keyword">return</span>
+}
+
+tokenString, _ := json.Marshal(M{ <span class="hljs-string">&quot;token&quot;</span>: signedToken })
+w.Write([]<span class="hljs-keyword">byte</span>(tokenString))
+</code></pre>
+<p>Bagian otentikasi dan generate token sebenarnya cukup sampai di sini. Tapi sebenarnya ada yang kurang, yaitu fungsi <code>authenticateUser()</code>. Silakan buat fungsi tersebut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> authenticateUser(username, password <span class="hljs-keyword">string</span>) (<span class="hljs-keyword">bool</span>, M) {
+    basePath, _ := os.Getwd()
+    dbPath := filepath.Join(basePath, <span class="hljs-string">&quot;users.json&quot;</span>)
+    buf, _ := os.ReadFile(dbPath)
+
+    data := <span class="hljs-built_in">make</span>([]M, <span class="hljs-number">0</span>)
+    err := json.Unmarshal(buf, &amp;data)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>, <span class="hljs-literal">nil</span>
+    }
+
+    res := gubrak.From(data).Find(<span class="hljs-keyword">func</span>(each M) <span class="hljs-keyword">bool</span> {
+        <span class="hljs-keyword">return</span> each[<span class="hljs-string">&quot;username&quot;</span>] == username &amp;&amp; each[<span class="hljs-string">&quot;password&quot;</span>] == password
+    }).Result()
+
+    <span class="hljs-keyword">if</span> res != <span class="hljs-literal">nil</span> {
+        resM := res.(M)
+        <span class="hljs-built_in">delete</span>(resM, <span class="hljs-string">&quot;password&quot;</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>, resM
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>, <span class="hljs-literal">nil</span>
+}
+</code></pre>
+<p>Isi fungsi <code>authenticateUser()</code> cukup jelas, sesuai namanya, yaitu melakukan pencocokan username dan password dengan data yang ada di dalam file <code>users.json</code>.</p>
+<h2 id="c324-jwt-authorization-middleware">C.32.4. JWT Authorization Middleware</h2>
+<p>Sekarang kita perlu menyiapkan <code>MiddlewareJWTAuthorization</code>, yang tugasnya adalah mengecek setiap request yang masuk ke endpoint selain <code>/login</code>, apakah ada akses token yang dibawa atau tidak. Dan jika ada, akan diverifikasi valid tidaknya token tersebut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> MiddlewareJWTAuthorization(next http.Handler) http.Handler {
+    <span class="hljs-keyword">return</span> http.HandlerFunc(<span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+
+        <span class="hljs-keyword">if</span> r.URL.Path == <span class="hljs-string">&quot;/login&quot;</span> {
+            next.ServeHTTP(w, r)
+            <span class="hljs-keyword">return</span>
+        }
+
+        authorizationHeader := r.Header.Get(<span class="hljs-string">&quot;Authorization&quot;</span>)
+        <span class="hljs-keyword">if</span> !strings.Contains(authorizationHeader, <span class="hljs-string">&quot;Bearer&quot;</span>) {
+            http.Error(w, <span class="hljs-string">&quot;Invalid token&quot;</span>, http.StatusBadRequest)
+            <span class="hljs-keyword">return</span>
+        }
+
+        tokenString := strings.Replace(authorizationHeader, <span class="hljs-string">&quot;Bearer &quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-number">-1</span>)
+
+        <span class="hljs-comment">// ...</span>
+    })
+}
+</code></pre>
+<p>Kita gunakan skema header <code>Authorization: Bearer &lt;token&gt;</code>, sesuai spesifikasi <a href="https://tools.ietf.org/html/rfc6750" target="_blank">RFC 6750</a> untuk keperluan penempatan dan pengambilan token.</p>
+<p>Token di-extract dari header, kemudian diparsing dan di-validasi menggunakan fungsi <code>jwt.Parse()</code>.</p>
+<pre><code class="lang-go">token, err := jwt.Parse(tokenString, <span class="hljs-keyword">func</span>(token *jwt.Token) (<span class="hljs-keyword">interface</span>{}, error) {
+    <span class="hljs-keyword">if</span> method, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, fmt.Errorf(<span class="hljs-string">&quot;Signing method invalid&quot;</span>)
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> method != JWT_SIGNING_METHOD {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, fmt.Errorf(<span class="hljs-string">&quot;Signing method invalid&quot;</span>)
+    }
+
+    <span class="hljs-keyword">return</span> JWT_SIGNATURE_KEY, <span class="hljs-literal">nil</span>
+})
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    http.Error(w, err.Error(), http.StatusBadRequest)
+    <span class="hljs-keyword">return</span>
+}
+</code></pre>
+<p>Parameter ke-2 fungsi <code>jwt.Parse()</code> berisikan callback untuk pengecekan valid tidak-nya signing method, jika valid maka secret key dikembalikan. Fungsi <code>jwt.Parse()</code> ini sendiri mengembalikan objek token.</p>
+<p>Dari objek token, informasi claims diambil, lalu dilakukan pengecekan valid-tidaknya claims tersebut.</p>
+<pre><code class="lang-go">claims, ok := token.Claims.(jwt.MapClaims)
+<span class="hljs-keyword">if</span> !ok || !token.Valid {
+    http.Error(w, err.Error(), http.StatusBadRequest)
+    <span class="hljs-keyword">return</span>
+}
+</code></pre>
+<p>O iya, mungkin ada pertanyaan kenapa objek claims yang dihasilkan <code>jwt.Parse()</code> tipenya bukan <code>MyClaims</code>. Hal ini karena setelah objek claims dimasukan dalam proses pembentukan token, lewat fungsi <code>jwt.NewWithClaims()</code>, objek akan di-encode ke tipe <code>jwt.MapClaims</code>.</p>
+<p>Data claims yang didapat disisipkan ke dalam context, agar nantinya di endpoint, informasi <code>userInfo</code> bisa diambil dengan mudah dari context request.</p>
+<pre><code class="lang-go">ctx := context.WithValue(context.Background(), <span class="hljs-string">&quot;userInfo&quot;</span>, claims)
+r = r.WithContext(ctx)
+
+next.ServeHTTP(w, r)
+</code></pre>
+<h4 id="&#x25C9;-handler-index">&#x25C9; Handler Index</h4>
+<p>Terakhir, kita perlu menyiapkan handler untuk rute <code>/index</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> HandlerIndex(w http.ResponseWriter, r *http.Request) {
+    userInfo := r.Context().Value(<span class="hljs-string">&quot;userInfo&quot;</span>).(jwt.MapClaims)
+    message := fmt.Sprintf(<span class="hljs-string">&quot;hello %s (%s)&quot;</span>, userInfo[<span class="hljs-string">&quot;Username&quot;</span>], userInfo[<span class="hljs-string">&quot;Group&quot;</span>])
+    w.Write([]<span class="hljs-keyword">byte</span>(message))
+}
+</code></pre>
+<p>Informasi <code>userInfo</code> diambil dari context, lalu ditampilkan sebagai response endpoint.</p>
+<h2 id="c325-testing">C.32.5. Testing</h2>
+<p>Jalankan aplikasi, lalu test menggunakan curl.</p>
+<h4 id="&#x25C9;-otentikasi">&#x25C9; Otentikasi</h4>
+<pre><code class="lang-bash">curl -X POST --user noval:kaliparejaya123 http://localhost:8080/login
+</code></pre>
+<p>Output program:</p>
+<p><img src="images/C_golang_jwt_2_jwt_authentication.png" alt="Dasar Pemrograman Golang - JWT Authentication"></p>
+<h4 id="&#x25C9;-mengakses-endpoint">&#x25C9; Mengakses Endpoint</h4>
+<p>Test endpoint <code>/index</code>. Sisipkan token yang dikembalikan pada saat otentikasi, sebagai value header otorisasi dengan skema <code>Authorization: Bearer &lt;token&gt;</code>.</p>
+<pre><code class="lang-bash">curl -X GET \
+    --header <span class="hljs-string">&quot;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Mzg2NTI0NzksImlzcyI6Ik15IFNpbXBsZSBKV1QgQXBwIiwiVXNlcm5hbWUiOiJub3ZhbCIsIkVtYWlsIjoidGVycGFsbXVyYWhAZ21haWwuY29tIiwiR3JvdXAiOiJhZG1pbiJ9.JREJgUAYs2R5zuquqyX8tk23QlajVVe19susm6JsZq8&quot;</span> \
+    http://localhost:8080/index
+</code></pre>
+<p>Output program:</p>
+<p><img src="images/C_golang_jwt_3_jwt_authorization.png" alt="Dasar Pemrograman Golang - JWT Authorization"></p>
+<p>Semua berjalan sesuai harapan. Agar lebih meyakinkan, coba lakukan beberapa test dengan skenario yg salah, seperti:</p>
+<p><img src="images/C_golang_jwt_4_invalid_jwt_token.png" alt="Dasar Pemrograman Golang - JWT Error"></p>
+<hr>
+<ul>
+<li><a href="https://github.com/golang-jwt/jwt" target="_blank">JWT Go</a>, by Dave Grijalva, MIT License</li>
+<li><a href="https://github.com/novalagung/gubrak" target="_blank">Gubrak v2</a>, by Noval Agung, MIT License</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.32-golang-jwt" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.32...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2402,12 @@
 
             
                 
+                <a href="C-golang-grpc-protobuf.html" class="navigation navigation-prev " aria-label="Previous page: C.31. gRPC + Protobuf">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-golang-ldap-authentication.html" class="navigation navigation-next " aria-label="Next page: C.33. LDAP Authentication">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2418,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.32","depth":2,"next":{"title":"C.33. LDAP Authentication","level":"5.1.33","depth":2,"path":"C-golang-ldap-authentication.md","ref":"C-golang-ldap-authentication.md","articles":[]},"previous":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"path":"C-golang-grpc-protobuf.md","ref":"C-golang-grpc-protobuf.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-jwt.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

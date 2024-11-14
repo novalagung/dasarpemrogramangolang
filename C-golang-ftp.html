@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang FTP - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-golang-ssh-sftp.html">
     
+    
+    <link rel="prev" href="C-secure-insecure-client-http-request.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1817,7 +1819,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.28" data-path="C-golang-ftp.html">
+        <li class="chapter active" data-level="5.1.28" data-path="C-golang-ftp.html">
             
                 <a href="C-golang-ftp.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.28. FTP</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,236 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="c28-ftp">C.28. FTP</h1>
+<p>Pada chapter ini kita akan belajar cara melakukan pertukaran data lewat FTP (File Transfer Protocol) menggunakan Golang. </p>
+<blockquote>
+<p>Definisi mengenai FTP sendiri adalah sebuah protokol network standar yang digunakan untuk pertukaran atau transfer data antar client dan server.</p>
+</blockquote>
+<p>Sebelum memulai, ada satu hal penting yang perlu dipersiapkan, yaitu sebuah server dengan FTP server ter-install. Jika tidak ada, bisa menggunakan library <a href="https://github.com/goftp/ftpd" target="_blank">ftpd</a> untuk set up ftp server di local (untuk keperluan belajar).</p>
+<p>Dalam server tersebut, siapkan beberapa file dan folder dengan struktur sebagai berikut.</p>
+<p><img src="images/C_golang_ftp_1_ftp_folder_structure.png" alt="Dasar Pemrograman Golang - FTP folder structure"></p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>File <code>test1.txt</code>, isi dengan apapun.</li>
+<li>File <code>test2.txt</code>, isi dengan apapun.</li>
+<li>File <code>somefolder/test3.txt</code>, isi dengan apapun.</li>
+<li>File <code>movie.mp4</code>, gunakan file seadanya.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Library FTP client yang kita gunakan adalah <a href="https://github.com/jlaffaye/ftp" target="_blank">github.com/jlaffaye/ftp</a>.</p>
+<h2 id="c281-koneksi-ke-server">C.28.1. Koneksi ke Server</h2>
+<p>Buat satu buah folder project baru dengan isi <code>main.go</code>. Di dalam file main akan kita isi dengan beberapa operasi FTP seperti upload, download, akses ke direktori dan lainnya.</p>
+<p>OK, langsung saja, silakan tulis kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;github.com/jlaffaye/ftp&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">const</span> FTP_ADDR = <span class="hljs-string">&quot;0.0.0.0:2121&quot;</span>
+    <span class="hljs-keyword">const</span> FTP_USERNAME = <span class="hljs-string">&quot;admin&quot;</span>
+    <span class="hljs-keyword">const</span> FTP_PASSWORD = <span class="hljs-string">&quot;123456&quot;</span>
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Tiga buah konstanta dengan prefix <code>FTP_</code> disiapkan, isinya adalah credentials FTP untuk bisa melakukan koneksi FTP ke server.</p>
+<p>Di dalam <code>main()</code>, tambahkan kode untuk terhubung dengan server.</p>
+<pre><code class="lang-go">connt, err := ftp.Dial(FTP_ADDR)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+
+err = conn.Login(FTP_USERNAME, FTP_PASSWORD)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+</code></pre>
+<p>Cara konek ke server melalui FTP dipecah menjadi dua tahap. Pertama adalah menggunakan <code>ftp.Dial()</code> dengan argumen adalah alamat server (beserta port). Statement tersebut mengembalikan objek bertipe <code>*ftp.ServerConn</code> yang ditampung oleh variabel <code>conn</code>.</p>
+<p>Tahap kedua, lewat objek <code>conn</code>, panggil method <code>.Login()</code> dengan disisipi argumen username dan password FTP.</p>
+<h2 id="c282-menampilkan-semua-file-menggunakan-list">C.28.2. Menampilkan Semua File Menggunakan <code>.List()</code></h2>
+<p>Lewat tipe <code>*ftp.ServerConn</code>, semua method untuk operasi FTP bisa diakses. Salah satu dari method tersebut adalah <code>.List()</code>, gunanya untuk listing semua file yang ada di server. Operasi ini sama dengan <code>ls</code>.</p>
+<pre><code class="lang-go">fmt.Println(<span class="hljs-string">&quot;======= PATH ./&quot;</span>)
+
+entries, err := conn.List(<span class="hljs-string">&quot;.&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+<span class="hljs-keyword">for</span> _, entry := <span class="hljs-keyword">range</span> entries {
+    fmt.Println(<span class="hljs-string">&quot; -&gt;&quot;</span>, entry.Name, getStringEntryType(entry.Type))
+}
+</code></pre>
+<p>Method <code>.List()</code> di atas dipanggil dengan argumen adalah string <code>&quot;.&quot;</code>, berarti semua aset dalam <code>&quot;.&quot;</code> atau <strong>current path</strong> dimunculkan.</p>
+<p>Method tersebut mengembalikan slice yang tiap elemen-nya adalah representasi tiap file. Pada kode di atas, semua file dimunculkan ke console, nama dan tipe-nya.</p>
+<p>Property <code>.Type</code> milik <code>entry</code> tipenya adalah <code>ftp.EntryType</code>, yang sebenarnya <code>int</code>. Fungsi <code>getStringEntryType()</code> kita buat untuk menampilkan keterangan dalam string sesuai dengan tipe.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> getStringEntryType(t ftp.EntryType) <span class="hljs-keyword">string</span> {
+    <span class="hljs-keyword">switch</span> t {
+    <span class="hljs-keyword">case</span> ftp.EntryTypeFile:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;(file)&quot;</span>
+    <span class="hljs-keyword">case</span> ftp.EntryTypeFolder:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;(folder)&quot;</span>
+    <span class="hljs-keyword">case</span> ftp.EntryTypeLink:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;(link)&quot;</span>
+    <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>
+    }
+}
+</code></pre>
+<p>Jalankan aplikasi lihat hasilnya.</p>
+<p><img src="images/C_golang_ftp_2_list_assets.png" alt="Dasar Pemrograman Golang - List files"></p>
+<p>Jika dibandingkan dengan file yang ada di server, ada satu yang tidak muncul, yaitu <code>somefolder/test3.txt</code>. Hal ini dikarenakan file yang di-list adalah yang ada pada <code>&quot;.&quot;</code> atau <strong>current path</strong>. File <code>test3.txt</code> berada di dalam sub folder <code>somefolder</code>.</p>
+<h2 id="c283-pindah-ke-folder-tertentu-menggunakan-changedir">C.28.3. Pindah Ke Folder Tertentu Menggunakan <code>.ChangeDir()</code></h2>
+<p>Selanjutnya, kita akan coba masuk ke folder <code>somefolder</code>, lalu menampilkan isinya. Gunakan method <code>.ChangeDir()</code>, sisipkan path folder tujuan sebagai argument.</p>
+<pre><code class="lang-go">fmt.Println(<span class="hljs-string">&quot;======= PATH ./somefolder&quot;</span>)
+
+err = conn.ChangeDir(<span class="hljs-string">&quot;./somefolder&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+</code></pre>
+<p>Setelah itu, list semua file. Tetap gunakan <code>&quot;.&quot;</code> sebagai argument pemanggilan method <code>.List()</code> untuk listing current path. Karena kita sudah masuk ke folder <code>./somefolder</code>, maka path tersebut-lah yang menjadi current path.</p>
+<pre><code class="lang-go">entries, err = conn.List(<span class="hljs-string">&quot;.&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+<span class="hljs-keyword">for</span> _, entry := <span class="hljs-keyword">range</span> entries {
+    fmt.Println(<span class="hljs-string">&quot; -&gt;&quot;</span>, entry.Name, getStringEntryType(entry.Type))
+}
+</code></pre>
+<p>Jalankan aplikasi, lihat lagi hasilnya.</p>
+<p><img src="images/C_golang_ftp_3_list_assets_subfolder.png" alt="Dasar Pemrograman Golang - List files"></p>
+<h2 id="c284-pindah-ke-parent-folder-menggunakan-changedirtoparent">C.28.4. Pindah Ke Parent Folder Menggunakan <code>.ChangeDirToParent()</code></h2>
+<p>Gunakan method <code>.ChangeDirToParent()</code> untuk mengubah aktif path ke parent path. Tambahkan kode berikut, agar current path <code>./somefolder</code> kembali menjadi <code>.</code>.</p>
+<pre><code class="lang-go">err = conn.ChangeDirToParent()
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+</code></pre>
+<h2 id="c285-mengambil-file-menggunakan-retr-lalu-membaca-isinya">C.28.5. Mengambil File Menggunakan <code>.Retr()</code> Lalu Membaca Isinya</h2>
+<p>Cara mengambil file adalah dengan method <code>.Retr()</code>. Tulis saja path file yang ingin diambil sebagai argumen. Nilai baliknya adalah objek bertipe <code>*ftp.Response</code> dan error (jika ada).</p>
+<pre><code class="lang-go">fmt.Println(<span class="hljs-string">&quot;======= SHOW CONTENT OF FILES&quot;</span>)
+
+fileTest1Path := <span class="hljs-string">&quot;test1.txt&quot;</span>
+fileTest1, err := conn.Retr(fileTest1Path)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+
+test1ContentInBytes, err := io.ReadAll(fileTest1)
+fileTest1.Close()
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+
+fmt.Println(<span class="hljs-string">&quot; -&gt;&quot;</span>, fileTest1Path, <span class="hljs-string">&quot;-&gt;&quot;</span>, <span class="hljs-keyword">string</span>(test1ContentInBytes))
+</code></pre>
+<p>Baca isi objek response tersebut menggunakan method <code>.Read()</code> miliknya, atau bisa juga menggunakan <code>io.ReadAll()</code> lebih praktisnya (nilai baliknya bertipe <code>[]byte</code> maka cast ke tipe <code>string</code> terlebih dahulu untuk menampilkan isinya).</p>
+<blockquote>
+<p>Jangan lupa untuk import package <code>io</code>.</p>
+</blockquote>
+<p>Di kode di atas file <code>test1.txt</code> dibaca. Lakukan operasi yang sama pada file <code>somefolder/test3.txt</code>.</p>
+<pre><code class="lang-go">fileTest2Path := <span class="hljs-string">&quot;somefolder/test3.txt&quot;</span>
+fileTest2, err := conn.Retr(fileTest2Path)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+
+test2ContentInBytes, err := io.ReadAll(fileTest2)
+fileTest2.Close()
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+
+fmt.Println(<span class="hljs-string">&quot; -&gt;&quot;</span>, fileTest2Path, <span class="hljs-string">&quot;-&gt;&quot;</span>, <span class="hljs-keyword">string</span>(test2ContentInBytes))
+</code></pre>
+<blockquote>
+<p>Jangan lupa juga untuk meng-close objek bertipe <code>*ftp.Response</code>, setelah dibaca isinya.</p>
+</blockquote>
+<p>Jalankan aplikasi, cek hasilnya.</p>
+<p><img src="images/C_golang_ftp_4_read_file.png" alt="Dasar Pemrograman Golang - List files"></p>
+<p>Bisa dilihat, isi file yang dibaca adalah aslinya.</p>
+<h2 id="c286-download-file">C.28.6. Download File</h2>
+<p>Proses download secara teknis adalah memindahkan <strong>isi file</strong> dari remote server ke local server. Di local, dibuatkan sebuah file yang nantinya akan menampung isi file dari remote server yang di-transfer. Sebarapa cepat proses download berlangsung sangat tergantung kepada besar file yang isinya sedang di transfer (dan beberapa faktor lainnya).</p>
+<p>Di golang, penerapan download lewat FTP kurang lebih adalah sama. perlu dibuat terlebih dahulu file di local untuk menampung isi file yang diambil dari remote server.</p>
+<p>OK, mari kita praktekan. File <code>movie.mp4</code> yang berada di server akan kita unduh ke local.</p>
+<pre><code class="lang-go">fmt.Println(<span class="hljs-string">&quot;======= DOWNLOAD FILE TO LOCAL&quot;</span>)
+
+fileMoviePath := <span class="hljs-string">&quot;movie.mp4&quot;</span>
+fileMovie, err := conn.Retr(fileMoviePath)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+
+destinationMoviePath := <span class="hljs-string">&quot;/Users/novalagung/Desktop/downloaded-movie.mp4&quot;</span>
+f, err := os.Create(destinationMoviePath)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+
+_, err = io.Copy(f, fileMovie)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+fileMovie.Close()
+f.Close()
+
+fmt.Println(<span class="hljs-string">&quot;File downloaded to&quot;</span>, destinationMoviePath)
+</code></pre>
+<p>Pertama ambil file tujuan menggunakan <code>.Retr()</code>. Lalu buat file di local. Pada contoh di atas nama file di local adalah berbeda dengan nama file asli, <code>downloaded-movie.mp4</code>. Buat file tersebut menggunakan <code>os.Create()</code>.</p>
+<p>Setelah itu, copy isi file yang sudah diambil dari server, ke <code>downloaded-movie.mp4</code> menggunakan <code>io.Copy()</code>. Setelah proses transfer selesai, jangan lupa untuk close file dari remote dan juga file di local.</p>
+<blockquote>
+<p>Operasi di atas membutuhkan dua package lain, yaitu <code>io</code> dan <code>os</code>, maka import kedua package tersebut.</p>
+</blockquote>
+<p>Jalankan aplikasi, coba cek md5 sum dari kedua file, harusnya sama.</p>
+<p><img src="images/C_golang_ftp_5_download_file.png" alt="Dasar Pemrograman Golang - Download file"></p>
+<p>Coba buka <code>downloaded-movie.mp4</code>, jika proses transfer sukses maka pasti bisa dibuka.</p>
+<p><img src="images/C_golang_ftp_6_movie_preview.png" alt="Dasar Pemrograman Golang - Preview movie"></p>
+<h2 id="c287-upload-file">C.28.7. Upload File</h2>
+<p>Upload file adalah kebalikan dari download file. File dari lokal di transfer ke server. Mari langsung kita praktekan.</p>
+<p>Pertama buka file tujuan menggunakan <code>os.Open()</code>. Lalu panggil method <code>.Store()</code> milik <code>conn</code>, sisipkan path file tujuan remote server sebagai parameter pertama, lalu objek file di local sebagai parameter kedua.</p>
+<pre><code class="lang-go">fmt.Println(<span class="hljs-string">&quot;======= UPLOAD FILE TO FTP SERVER&quot;</span>)
+
+sourceFile := <span class="hljs-string">&quot;/Users/novalagung/Desktop/Go-Logo_Aqua.png&quot;</span>
+f, err = os.Open(sourceFile)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+
+destinationFile := <span class="hljs-string">&quot;./somefolder/logo.png&quot;</span>
+err = conn.Stor(destinationFile, f)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+f.Close()
+
+fmt.Println(<span class="hljs-string">&quot;File&quot;</span>, sourceFile, <span class="hljs-string">&quot;uploaded to&quot;</span>, destinationFile)
+</code></pre>
+<p>File <code>Go-Logo_Aqua.png</code> di upload ke server pada path <code>./somefolder/logo.png</code>. Coba list untuk mengecek apakah file sudah terupload.</p>
+<pre><code class="lang-go">entries, err = conn.List(<span class="hljs-string">&quot;./somefolder&quot;</span>)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err.Error())
+}
+
+<span class="hljs-keyword">for</span> _, entry := <span class="hljs-keyword">range</span> entries {
+    fmt.Println(<span class="hljs-string">&quot; -&gt;&quot;</span>, entry.Name, getStringEntryType(entry.Type))
+}
+</code></pre>
+<p>Jalankan aplikasi, cek hasilnya. Untuk memvalidasi bahwa file di client dan di server sama, bandingkan md5 sum kedua file.</p>
+<p><img src="images/C_golang_ftp_7_upload_file.png" alt="Dasar Pemrograman Golang - Upload file"></p>
+<hr>
+<ul>
+<li><a href="https://github.com/goftp/ftpd" target="_blank">ftpd</a>, by Lunny Xiao</li>
+<li><a href="https://github.com/jlaffaye/ftp" target="_blank">ftp</a>, by Julien Laffaye, ISC license</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.28-golang-ftp" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.28...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2315,12 @@
 
             
                 
+                <a href="C-secure-insecure-client-http-request.html" class="navigation navigation-prev " aria-label="Previous page: C.27. Secure &amp; Insecure Client HTTP Request">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-golang-ssh-sftp.html" class="navigation navigation-next " aria-label="Next page: C.29. SSH &amp; SFTP">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2331,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.28. FTP","level":"5.1.28","depth":2,"next":{"title":"C.29. SSH & SFTP","level":"5.1.29","depth":2,"path":"C-golang-ssh-sftp.md","ref":"C-golang-ssh-sftp.md","articles":[]},"previous":{"title":"C.27. Secure & Insecure Client HTTP Request","level":"5.1.27","depth":2,"path":"C-secure-insecure-client-http-request.md","ref":"C-secure-insecure-client-http-request.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-golang-ftp.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

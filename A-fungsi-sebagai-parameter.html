@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Fungsi Sebagai parameter - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-pointer.html">
     
+    
+    <link rel="prev" href="A-fungsi-closure.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -543,7 +545,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.22" data-path="A-fungsi-sebagai-parameter.html">
+        <li class="chapter active" data-level="3.1.22" data-path="A-fungsi-sebagai-parameter.html">
             
                 <a href="A-fungsi-sebagai-parameter.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.22. Fungsi Sebagai parameter</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,86 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a22-fungsi-sebagai-parameter">A.22. Fungsi Sebagai parameter</h1>
+<p>Pada chapter sebelumnya kita telah belajar tentang fungsi yang mengembalikan nilai balik berupa fungsi. Kali ini topiknya tidak kalah unik, yaitu tentang fungsi yang memiliki parameter sebuah fungsi.</p>
+<p>Di Go, fungsi bisa dijadikan sebagai tipe data variabel, maka sangat memungkinkan untuk menjadikannya sebagai parameter.</p>
+<h2 id="a221-penerapan-fungsi-sebagai-parameter">A.22.1. Penerapan Fungsi Sebagai Parameter</h2>
+<p>Cara membuat parameter fungsi adalah dengan langsung menuliskan skema fungsi nya sebagai tipe data. Contohnya bisa dilihat pada kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;strings&quot;</span>
+
+<span class="hljs-keyword">func</span> filter(data []<span class="hljs-keyword">string</span>, callback <span class="hljs-keyword">func</span>(<span class="hljs-keyword">string</span>) <span class="hljs-keyword">bool</span>) []<span class="hljs-keyword">string</span> {
+    <span class="hljs-keyword">var</span> result []<span class="hljs-keyword">string</span>
+    <span class="hljs-keyword">for</span> _, each := <span class="hljs-keyword">range</span> data {
+        <span class="hljs-keyword">if</span> filtered := callback(each); filtered {
+            result = <span class="hljs-built_in">append</span>(result, each)
+        }
+    }
+    <span class="hljs-keyword">return</span> result
+}
+</code></pre>
+<p>Parameter <code>callback</code> merupakan sebuah closure yang dideklarasikan bertipe <code>func(string) bool</code>. Closure tersebut dipanggil di tiap perulangan dalam fungsi <code>filter()</code>.</p>
+<p>Fungsi <code>filter()</code> sendiri kita buat untuk filtering data array (yang datanya didapat dari parameter pertama), dengan kondisi filter bisa ditentukan sendiri. Di bawah ini adalah contoh pemanfaatan fungsi tersebut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> data = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;wick&quot;</span>, <span class="hljs-string">&quot;jason&quot;</span>, <span class="hljs-string">&quot;ethan&quot;</span>}
+    <span class="hljs-keyword">var</span> dataContainsO = filter(data, <span class="hljs-keyword">func</span>(each <span class="hljs-keyword">string</span>) <span class="hljs-keyword">bool</span> {
+        <span class="hljs-keyword">return</span> strings.Contains(each, <span class="hljs-string">&quot;o&quot;</span>)
+    })
+    <span class="hljs-keyword">var</span> dataLenght5 = filter(data, <span class="hljs-keyword">func</span>(each <span class="hljs-keyword">string</span>) <span class="hljs-keyword">bool</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(each) == <span class="hljs-number">5</span>
+    })
+
+    fmt.Println(<span class="hljs-string">&quot;data asli \t\t:&quot;</span>, data)
+    <span class="hljs-comment">// data asli : [wick jason ethan]</span>
+
+    fmt.Println(<span class="hljs-string">&quot;filter ada huruf \&quot;o\&quot;\t:&quot;</span>, dataContainsO)
+    <span class="hljs-comment">// filter ada huruf &quot;o&quot; : [jason]</span>
+
+    fmt.Println(<span class="hljs-string">&quot;filter jumlah huruf \&quot;5\&quot;\t:&quot;</span>, dataLenght5)
+    <span class="hljs-comment">// filter jumlah huruf &quot;5&quot; : [jason ethan]</span>
+}
+</code></pre>
+<p>Ada cukup banyak hal yang terjadi di dalam tiap pemanggilan fungsi <code>filter()</code> di atas. Berikut adalah penjelasannya:</p>
+<ol>
+<li>Data array (yang didapat dari parameter pertama) akan di-looping.</li>
+<li>Di tiap perulangannya, closure <code>callback</code> dipanggil, dengan disisipkan data tiap elemen perulangan sebagai parameter.</li>
+<li>Closure <code>callback</code> berisikan kondisi filtering, dengan hasil bertipe <code>bool</code> yang kemudian dijadikan nilai balik dikembalikan.</li>
+<li>Di dalam fungsi <code>filter()</code> sendiri, ada proses seleksi kondisi (yang nilainya didapat dari hasil eksekusi closure <code>callback</code>). Ketika kondisinya bernilai <code>true</code>, maka data elemen yang sedang diulang dinyatakan lolos proses filtering.</li>
+<li>Data yang lolos ditampung variabel <code>result</code>. Variabel tersebut dijadikan sebagai nilai balik fungsi <code>filter()</code>.</li>
+</ol>
+<p><img src="images/A_fungsi_sebagai_parameter_1_filtering.png" alt="Dasar Pemrograman Golang - Filtering data"></p>
+<p>Pada <code>dataContainsO</code>, parameter kedua fungsi <code>filter()</code> berisikan statement untuk deteksi apakah terdapat substring <code>&quot;o&quot;</code> di dalam nilai variabel <code>each</code> (yang merupakan data tiap elemen), jika iya, maka kondisi filter bernilai <code>true</code>, dan sebaliknya.</p>
+<p>Pada contoh ke-2 (<code>dataLength5</code>), closure <code>callback</code> berisikan statement untuk deteksi jumlah karakter tiap elemen. Jika ada elemen yang jumlah karakternya adalah 5, berarti elemen tersebut lolos filter.</p>
+<p>Memang butuh usaha ekstra untuk memahami pemanfaatan closure sebagai parameter fungsi. Tapi setelah paham, penerapan teknik ini pada kondisi yang tepat akan sangat berguna.</p>
+<h2 id="a222-alias-skema-closure">A.22.2. Alias Skema Closure</h2>
+<p>Kita sudah mempelajari bahwa closure bisa dimanfaatkan sebagai tipe parameter, contohnya seperti pada fungsi <code>filter()</code>. Di fungsi tersebut kebetulan skema tipe parameter closure-nya tidak terlalu panjang, hanya ada satu buah parameter dan satu buah nilai balik.</p>
+<p>Untuk fungsi yang skema-nya cukup panjang, akan lebih baik jika menggunakan alias dalam pendefinisiannya, apalagi ketika ada parameter fungsi lain yang juga menggunakan skema yang sama, maka kita tidak perlu menuliskan skema panjang fungsi tersebut berulang-ulang.</p>
+<p>Membuat alias fungsi berarti menjadikan skema fungsi tersebut menjadi tipe data baru. Caranya dengan menggunakan keyword <code>type</code>. Contoh:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> FilterCallback <span class="hljs-keyword">func</span>(<span class="hljs-keyword">string</span>) <span class="hljs-keyword">bool</span>
+
+<span class="hljs-keyword">func</span> filter(data []<span class="hljs-keyword">string</span>, callback FilterCallback) []<span class="hljs-keyword">string</span> {
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Skema <code>func(string) bool</code> diubah menjadi tipe dengan nama <code>FilterCallback</code>. Tipe tersebut kemudian digunakan sebagai tipe data parameter <code>callback</code>.</p>
+<h2 id="a223-penjelasan-tambahan">A.22.3. Penjelasan tambahan</h2>
+<p>Di bawah ini merupakan penjelasan tambahan mengenai fungsi <code>strings.Contains()</code>.</p>
+<h4 id="&#x25C9;-penggunaan-fungsi-stringcontains">&#x25C9; Penggunaan Fungsi <code>string.Contains()</code></h4>
+<p>Inti dari fungsi ini adalah untuk deteksi apakah sebuah substring adalah bagian dari string, jika iya maka akan bernilai <code>true</code>, dan sebaliknya. Contoh penggunaannya:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> result = strings.Contains(<span class="hljs-string">&quot;Golang&quot;</span>, <span class="hljs-string">&quot;ang&quot;</span>)
+<span class="hljs-comment">// true</span>
+</code></pre>
+<p>Variabel <code>result</code> bernilai <code>true</code> karena string <code>&quot;ang&quot;</code> merupakan bagian dari string <code>&quot;Golang&quot;</code>.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.22-fungsi-sebagai-parameter" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.22...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2165,12 @@
 
             
                 
+                <a href="A-fungsi-closure.html" class="navigation navigation-prev " aria-label="Previous page: A.21. Fungsi Closure">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-pointer.html" class="navigation navigation-next " aria-label="Next page: A.23. Pointer">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2181,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.22. Fungsi Sebagai parameter","level":"3.1.22","depth":2,"next":{"title":"A.23. Pointer","level":"3.1.23","depth":2,"path":"A-pointer.md","ref":"A-pointer.md","articles":[]},"previous":{"title":"A.21. Fungsi Closure","level":"3.1.21","depth":2,"path":"A-fungsi-closure.md","ref":"A-fungsi-closure.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-fungsi-sebagai-parameter.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

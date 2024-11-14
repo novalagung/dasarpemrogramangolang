@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Regexp - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="A-encoding-base64.html">
     
+    
+    <link rel="prev" href="A-strings.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -842,7 +844,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.45" data-path="A-regex.html">
+        <li class="chapter active" data-level="3.1.45" data-path="A-regex.html">
             
                 <a href="A-regex.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">A.45. Regexp</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,130 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="a45-regexp">A.45. Regexp</h1>
+<p>Regexp atau regex atau <strong>regular expression</strong> adalah suatu teknik yang digunakan untuk pencocokan string yang memiliki pola tertentu. Regex biasa dimanfaatkan untuk pencarian dan pengubahan data string.</p>
+<p>Go mengadopsi spesifikasi regex <strong>RE2</strong>. Lebih detailnya mengenai RE2 bisa langsung cek dokumentasinya di <a href="https://github.com/google/re2/wiki/Syntax" target="_blank">https://github.com/google/re2/wiki/Syntax</a>.</p>
+<p>Pada chapter ini kita akan belajar mengenai pengaplikasian regex dengan memanfaatkan fungsi-fungsi dalam package <code>regexp</code>.</p>
+<h2 id="a451-penerapan-regexp">A.45.1. Penerapan Regexp</h2>
+<p>Fungsi <code>regexp.Compile()</code> digunakan untuk mengkompilasi ekspresi regex. Fungsi tersebut mengembalikan objek bertipe <code>*regexp.Regexp</code>.</p>
+<p>Berikut merupakan contoh penerapan regex untuk pencarian karakter.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
-<ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
-</ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;regexp&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;banana burger soup&quot;</span>
+    <span class="hljs-keyword">var</span> regex, err = regexp.Compile(<span class="hljs-string">`[a-z]+`</span>)
+
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+    }
+
+    <span class="hljs-keyword">var</span> res1 = regex.FindAllString(text, <span class="hljs-number">2</span>)
+    fmt.Printf(<span class="hljs-string">&quot;%#v \n&quot;</span>, res1)
+    <span class="hljs-comment">// []string{&quot;banana&quot;, &quot;burger&quot;}</span>
+
+    <span class="hljs-keyword">var</span> res2 = regex.FindAllString(text, <span class="hljs-number">-1</span>)
+    fmt.Printf(<span class="hljs-string">&quot;%#v \n&quot;</span>, res2)
+    <span class="hljs-comment">// []string{&quot;banana&quot;, &quot;burger&quot;, &quot;soup&quot;}</span>
+}
+</code></pre>
+<p>Ekspresi <code>[a-z]+</code> maknanya adalah semua string yang merupakan alphabet yang hurufnya kecil. Ekspresi tersebut di-compile oleh <code>regexp.Compile()</code> lalu disimpan ke variabel objek <code>regex</code> bertipe <code>*regexp.Regexp</code>.</p>
+<p>Struct <code>regexp.Regexp</code> memiliki banyak method, salah satunya adalah <code>FindAllString()</code>, berfungsi untuk mencari semua string yang sesuai dengan ekspresi regex, dengan kembalian berupa slice string.</p>
+<p>Jumlah hasil pencarian dari <code>regex.FindAllString()</code> bisa ditentukan. Contohnya pada <code>res1</code>, ditentukan maksimal <code>2</code> data saja pada nilai kembalian. Jika batas di set <code>-1</code>, maka semua hasil yang cocok dikembalikan oleh fungsi tersebut.</p>
+<p>Ada cukup banyak method struct <code>*regexp.Regexp</code> yang bisa kita manfaatkan untuk keperluan pengelolaan string. Berikut merupakan pembahasan tiap method-nya.</p>
+<h2 id="a452-method-matchstring">A.45.2. Method <code>MatchString()</code></h2>
+<p>Method ini digunakan untuk mendeteksi apakah string memenuhi sebuah pola regexp.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;banana burger soup&quot;</span>
+<span class="hljs-keyword">var</span> regex, _ = regexp.Compile(<span class="hljs-string">`[a-z]+`</span>)
+
+<span class="hljs-keyword">var</span> isMatch = regex.MatchString(text)
+fmt.Println(isMatch)
+<span class="hljs-comment">// true</span>
+</code></pre>
+<p>Pada contoh di atas <code>isMatch</code> bernilai <code>true</code> karena string <code>&quot;banana burger soup&quot;</code> memenuhi pola regex <code>[a-z]+</code>.</p>
+<h2 id="a453-method-findstring">A.45.3. Method <code>FindString()</code></h2>
+<p>Digunakan untuk mencari string yang memenuhi kriteria regexp yang telah ditentukan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;banana burger soup&quot;</span>
+<span class="hljs-keyword">var</span> regex, _ = regexp.Compile(<span class="hljs-string">`[a-z]+`</span>)
+
+<span class="hljs-keyword">var</span> str = regex.FindString(text)
+fmt.Println(str)
+<span class="hljs-comment">// &quot;banana&quot;</span>
+</code></pre>
+<p>Fungsi ini hanya mengembalikan 1 buah hasil saja. Jika ada banyak substring yang sesuai dengan ekspresi regexp, akan dikembalikan yang pertama saja.</p>
+<h2 id="a454-method-findstringindex">A.45.4. Method <code>FindStringIndex()</code></h2>
+<p>Digunakan untuk mencari index string kembalian hasil dari operasi regexp.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;banana burger soup&quot;</span>
+<span class="hljs-keyword">var</span> regex, _ = regexp.Compile(<span class="hljs-string">`[a-z]+`</span>)
+
+<span class="hljs-keyword">var</span> idx = regex.FindStringIndex(text)
+fmt.Println(idx)
+<span class="hljs-comment">// [0, 6]</span>
+
+<span class="hljs-keyword">var</span> str = text[<span class="hljs-number">0</span>:<span class="hljs-number">6</span>]
+fmt.Println(str)
+<span class="hljs-comment">// &quot;banana&quot;</span>
+</code></pre>
+<p>Method ini sama dengan <code>FindString()</code> hanya saja yang dikembalikan indeks-nya.</p>
+<h2 id="a455-method-findallstring">A.45.5. Method <code>FindAllString()</code></h2>
+<p>Digunakan untuk mencari banyak string yang memenuhi kriteria regexp yang telah ditentukan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;banana burger soup&quot;</span>
+<span class="hljs-keyword">var</span> regex, _ = regexp.Compile(<span class="hljs-string">`[a-z]+`</span>)
+
+<span class="hljs-keyword">var</span> str1 = regex.FindAllString(text, <span class="hljs-number">-1</span>)
+fmt.Println(str1)
+<span class="hljs-comment">// [&quot;banana&quot;, &quot;burger&quot;, &quot;soup&quot;]</span>
+
+<span class="hljs-keyword">var</span> str2 = regex.FindAllString(text, <span class="hljs-number">1</span>)
+fmt.Println(str2)
+<span class="hljs-comment">// [&quot;banana&quot;]</span>
+</code></pre>
+<p>Jumlah data yang dikembalikan bisa ditentukan. Jika diisi dengan <code>-1</code>, maka akan mengembalikan semua data.</p>
+<h2 id="a456-method-replaceallstring">A.45.6. Method <code>ReplaceAllString()</code></h2>
+<p>Berguna untuk me-replace semua string yang memenuhi kriteri regexp, dengan string lain.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;banana burger soup&quot;</span>
+<span class="hljs-keyword">var</span> regex, _ = regexp.Compile(<span class="hljs-string">`[a-z]+`</span>)
+
+<span class="hljs-keyword">var</span> str = regex.ReplaceAllString(text, <span class="hljs-string">&quot;potato&quot;</span>)
+fmt.Println(str)
+<span class="hljs-comment">// &quot;potato potato potato&quot;</span>
+</code></pre>
+<h2 id="a457-method-replaceallstringfunc">A.45.7. Method <code>ReplaceAllStringFunc()</code></h2>
+<p>Digunakan untuk me-replace semua string yang memenuhi kriteri regexp, dengan kondisi yang bisa ditentukan untuk setiap substring yang akan di replace.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;banana burger soup&quot;</span>
+<span class="hljs-keyword">var</span> regex, _ = regexp.Compile(<span class="hljs-string">`[a-z]+`</span>)
+
+<span class="hljs-keyword">var</span> str = regex.ReplaceAllStringFunc(text, <span class="hljs-keyword">func</span>(each <span class="hljs-keyword">string</span>) <span class="hljs-keyword">string</span> {
+    <span class="hljs-keyword">if</span> each == <span class="hljs-string">&quot;burger&quot;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;potato&quot;</span>
+    }
+    <span class="hljs-keyword">return</span> each
+})
+fmt.Println(str)
+<span class="hljs-comment">// &quot;banana potato soup&quot;</span>
+</code></pre>
+<p>Pada contoh di atas, jika ada substring yang <em>match</em> dengan kata <code>&quot;burger&quot;</code>, maka akan diganti dengan <code>&quot;potato&quot;</code>.</p>
+<h2 id="a458-method-split">A.45.8. Method <code>Split()</code></h2>
+<p>Digunakan untuk memisah string dengan pemisah adalah substring yang memenuhi kriteria regexp yang telah ditentukan.</p>
+<p>Jumlah karakter yang akan di split bisa ditentukan dengan mengisi parameter kedua fungsi <code>regex.Split()</code>. Jika di-isi <code>-1</code> maka semua karakter yang memenuhi kriteria regex akan menjadi <em>separator</em> dalam operasi pemisahan/split. Contoh lain, jika di-isi <code>2</code>, maka hanya 2 karakter pertama yang memenuhi kriteria regex akan menjadi <em>separator</em> dalam split tersebut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;banana burger soup&quot;</span>
+<span class="hljs-keyword">var</span> regex, _ = regexp.Compile(<span class="hljs-string">`[a-b]+`</span>) <span class="hljs-comment">// split dengan separator adalah karakter &quot;a&quot; dan/atau &quot;b&quot;</span>
+
+<span class="hljs-keyword">var</span> str = regex.Split(text, <span class="hljs-number">-1</span>)
+fmt.Printf(<span class="hljs-string">&quot;%#v \n&quot;</span>, str)
+<span class="hljs-comment">// []string{&quot;&quot;, &quot;n&quot;, &quot;n&quot;, &quot; &quot;, &quot;urger soup&quot;}</span>
+</code></pre>
+<p>Pada contoh di atas, ekspresi regexp <code>[a-b]+</code> digunakan sebagai kriteria split. Maka karakter <code>a</code> dan/atau <code>b</code> akan menjadi separator.</p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.45-regexp" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.45...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2209,12 @@
 
             
                 
+                <a href="A-strings.html" class="navigation navigation-prev " aria-label="Previous page: A.44. Fungsi String">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="A-encoding-base64.html" class="navigation navigation-next " aria-label="Next page: A.46. Encode - Decode Base64">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2225,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.45. Regexp","level":"3.1.45","depth":2,"next":{"title":"A.46. Encode - Decode Base64","level":"3.1.46","depth":2,"path":"A-encoding-base64.md","ref":"A-encoding-base64.md","articles":[]},"previous":{"title":"A.44. Fungsi String","level":"3.1.44","depth":2,"path":"A-strings.md","ref":"A-strings.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"A-regex.md","mtime":"2024-11-14T19:27:53.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

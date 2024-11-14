@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Advanced Client HTTP Request - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-secure-insecure-client-http-request.html">
     
+    
+    <link rel="prev" href="C-http2-server-push.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1791,7 +1793,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.26" data-path="C-client-http-request-advanced.html">
+        <li class="chapter active" data-level="5.1.26" data-path="C-client-http-request-advanced.html">
             
                 <a href="C-client-http-request-advanced.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.26. Advanced Client HTTP Request</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,164 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c26-advanced-client-http-request">C.26. Advanced Client HTTP Request</h1>
+<p>Pada chapter ini kita akan belajar tentang topik yang sedikit berbeda dibanding chapter sebelumnya, yaitu cara untuk melakukan http request ke sebuah web server.</p>
+<p>Dua aplikasi akan dibuat, server dan client. Server merupakan aplikasi web server kecil, memiliki  satu endpoint. Lalu dari client http request di-trigger, dengan tujuan adalah server.</p>
+<h2 id="c261-aplikasi-server">C.26.1. Aplikasi Server</h2>
+<p>Buat project baru seperti biasa, lalu buat <code>server.go</code>. Import package yang dibutuhkan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;encoding/json&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
+</code></pre>
+<p>Pada fungsi <code>main()</code>, siapkan mux dengan isi satu buah handler, jalankan pada port <code>:9000</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    mux := <span class="hljs-built_in">new</span>(http.ServeMux)
+    mux.HandleFunc(<span class="hljs-string">&quot;/data&quot;</span>, ActionData)
+
+    server := <span class="hljs-built_in">new</span>(http.Server)
+    server.Handler = mux
+    server.Addr = <span class="hljs-string">&quot;:9000&quot;</span>
+
+    log.Println(<span class="hljs-string">&quot;Starting server at&quot;</span>, server.Addr)
+    err := server.ListenAndServe()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatalln(<span class="hljs-string">&quot;Failed to start web server&quot;</span>, err)
+    }
+}
+</code></pre>
+<p>Buat fungsi <code>ActionData()</code> yang merupakan handler dari rute <code>/data</code>. Handler ini hanya menerima method <code>POST</code>, dan mewajibkan consumer endpoint untuk menyisipkan payload dalam request-nya, dengan isi adalah JSON.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> ActionData(w http.ResponseWriter, r *http.Request) {
+    log.Println(<span class="hljs-string">&quot;Incoming request with method&quot;</span>, r.Method)
+
+    <span class="hljs-keyword">if</span> r.Method != <span class="hljs-string">&quot;POST&quot;</span> {
+        http.Error(w, <span class="hljs-string">&quot;Method not allowed&quot;</span>, http.StatusBadRequest)
+        <span class="hljs-keyword">return</span>
+    }
+
+    payload := <span class="hljs-built_in">make</span>(M)
+    err := json.NewDecoder(r.Body).Decode(&amp;payload)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-keyword">if</span> _, ok := payload[<span class="hljs-string">&quot;Name&quot;</span>]; !ok {
+        http.Error(w, <span class="hljs-string">&quot;Payload `Name` is required&quot;</span>, http.StatusBadRequest)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Isi dari <code>r.Body</code> kita decode ke objek <code>payload</code> yang bertipe <code>map[string]interface{}</code>. Setelah proses decoding selesai, terdapat pengecekan ada tidaknya property <code>Name</code> dalam payload. Jika tidak ada maka dianggap bad request.</p>
+<p>Setelah itu, buat objek <code>data</code> dengan 2 property, yang salah satunya berisi kombinasi string dari payload <code>.Name</code>.</p>
+<pre><code class="lang-go">data := M{
+    <span class="hljs-string">&quot;Message&quot;</span>: fmt.Sprintf(<span class="hljs-string">&quot;Hello %s&quot;</span>, payload[<span class="hljs-string">&quot;Name&quot;</span>]),
+    <span class="hljs-string">&quot;Status&quot;</span>:  <span class="hljs-literal">true</span>,
+}
+
+w.Header().Set(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>)
+err = json.NewEncoder(w).Encode(data)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+}
+</code></pre>
+<p>Cara render output JSON biasanya kita lakukan menggunakan statement <code>w.Write()</code> dengan isi adalah <code>[]byte</code> milik JSON. Ada cara lain, yaitu menggunakan json encoder. Penerapannya bisa dilihat pada kode di atas.</p>
+<p>Aplikasi server sudah siap. Selanjutnya kita masuk ke bagian pembuatan aplikasi client.</p>
+<h2 id="c262-aplikasi-client">C.26.2. Aplikasi Client</h2>
+<p>Tugas dari aplikasi client: melakukan http request ke aplikasi server, pada endpoint <code>/data</code> sesuai dengan spesifikasi yang sudah dijelaskan di atas (ber-method POST, dan memiliki JSON payload).</p>
+<p>Buat file baru, <code>client.go</code>, import package yang diperlukan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;bytes&quot;</span>
+    <span class="hljs-string">&quot;encoding/json&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
+</code></pre>
+<p>Buat fungsi <code>doRequest()</code>. Fungsi ini kita gunakan men-trigger http request.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> doRequest(url, method <span class="hljs-keyword">string</span>, data <span class="hljs-keyword">interface</span>{}) (<span class="hljs-keyword">interface</span>{}, error) {
+    <span class="hljs-keyword">var</span> payload *bytes.Buffer = <span class="hljs-literal">nil</span>
+
+    <span class="hljs-keyword">if</span> data != <span class="hljs-literal">nil</span> {
+        payload = <span class="hljs-built_in">new</span>(bytes.Buffer)
+        err := json.NewEncoder(payload).Encode(data)
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+        }
+    }
+
+    request, err := http.NewRequest(method, url, payload)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+    }
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Fungsi tersebut menerima 3 buah parameter.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Parameter <code>url</code>, adalah alamat tujuan request.</li>
+<li>Parameter <code>method</code>, bisa GET, POST, PUT, ataupun method valid lainnya sesuai spesifikasi <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html" target="_blank">RFC 2616</a>.</li>
+<li>Parameter <code>data</code>, isinya boleh kosong. Jika ada isinya, data tersebut di-encode ke bentuk JSON untuk selanjutnya disisipkan pada body request.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Buat objek request lewat <code>http.NewRequest()</code>. Sisipkan ke-3 parameter tersebut.</p>
+<p>Selanjutnya buat objek client. Dari client ini request di-trigger, menghasilkan objek response.</p>
+<pre><code class="lang-go">client := <span class="hljs-built_in">new</span>(http.Client)
+
+response, err := client.Do(request)
+<span class="hljs-keyword">if</span> response != <span class="hljs-literal">nil</span> {
+    <span class="hljs-keyword">defer</span> response.Body.Close()
+}
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+}
+
+responseBody := <span class="hljs-built_in">make</span>(M)
+err = json.NewDecoder(response.Body).Decode(&amp;responseBody)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+}
+
+<span class="hljs-keyword">return</span> responseBody, <span class="hljs-literal">nil</span>
+</code></pre>
+<p>Decode response tersebut ke tipe <code>M</code>, lalu tampilkan hasilnya.</p>
+<p>Buat fungsi <code>main()</code>. Panggil fungsi <code>doRequest()</code> yang sudah dibuat. Untuk payload silakan isi sesuka hati, asalkan ada item dengan key <code>Name</code>. Lalu tampilkan response body hasil pemanggilan fungsi <code>doRequest()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+    baseURL := <span class="hljs-string">&quot;http://localhost:9000&quot;</span>
+    method := <span class="hljs-string">&quot;POST&quot;</span>
+    data := M{<span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;Noval Agung&quot;</span>}
+
+    responseBody, err := doRequest(baseURL+<span class="hljs-string">&quot;/data&quot;</span>, method, data)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Println(<span class="hljs-string">&quot;ERROR&quot;</span>, err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+
+    log.Printf(<span class="hljs-string">&quot;%#v \n&quot;</span>, responseBody)
+}
+</code></pre>
+<h2 id="c263-testing">C.26.3. Testing</h2>
+<p>Jalankan aplikasi server, buka prompt terminal/CMD baru, lalu jalankan aplikasi client.</p>
+<p><img src="images/C_client_http_request_advanced_1_test_client_request.png" alt="Dasar Pemrograman Golang - Testing"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.26-client-http-request" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.26...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2243,12 @@
 
             
                 
+                <a href="C-http2-server-push.html" class="navigation navigation-prev " aria-label="Previous page: C.25. HTTP/2 &amp; HTTP/2 Server Push">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-secure-insecure-client-http-request.html" class="navigation navigation-next " aria-label="Next page: C.27. Secure &amp; Insecure Client HTTP Request">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2259,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.26. Advanced Client HTTP Request","level":"5.1.26","depth":2,"next":{"title":"C.27. Secure & Insecure Client HTTP Request","level":"5.1.27","depth":2,"path":"C-secure-insecure-client-http-request.md","ref":"C-secure-insecure-client-http-request.md","articles":[]},"previous":{"title":"C.25. HTTP/2 & HTTP/2 Server Push","level":"5.1.25","depth":2,"path":"C-http2-server-push.md","ref":"C-http2-server-push.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-client-http-request-advanced.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

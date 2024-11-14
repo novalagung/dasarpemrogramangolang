@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang CORS &amp; Preflight Request - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-csrf.html">
     
+    
+    <link rel="prev" href="C-session.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1635,7 +1637,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.14" data-path="C-cors-preflight-request.html">
+        <li class="chapter active" data-level="5.1.14" data-path="C-cors-preflight-request.html">
             
                 <a href="C-cors-preflight-request.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.14. CORS &amp; Preflight Request</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,269 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="c14-cors--preflight-request">C.14. CORS &amp; Preflight Request</h1>
+<p>Pada chapter ini kita akan belajar tentang Cross-Origin Resource Sharing (CORS) dan Preflight Request.</p>
+<h2 id="c141-teori--penerapan">C.14.1. Teori &amp; Penerapan</h2>
+<p>CORS adalah mekanisme untuk memberi tahu browser, apakah sebuah request yang di-dispatch dari aplikasi web domain lain atau origin lain, ke aplikasi web kita itu diperbolehkan atau tidak. Jika aplikasi kita tidak mengijinkan maka akan muncul error, dan request pasti digagalkan oleh browser.</p>
+<p>CORS hanya berlaku pada request-request yang dilakukan lewat browser, dari javascript; dan tujuan request-nya berbeda domain/origin. Jadi request yang dilakukan dari curl maupun dari back end, tidak terkena dampak aturan CORS.</p>
+<blockquote>
+<p>Request jenis ini biasa disebut dengan istilah cross-origin HTTP request.</p>
+</blockquote>
+<p>Konfigurasi CORS dilakukan di <strong>response header</strong> aplikasi web. Penerapannya di semua bahasa pemrograman yang web-based adalah sama, yaitu dengan memanipulasi response header-nya. Berikut merupakan list header yang bisa digunakan untuk konfigurasi CORS.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Access-Control-Allow-Origin</li>
+<li>Access-Control-Allow-Methods</li>
+<li>Access-Control-Allow-Headers</li>
+<li>Access-Control-Allow-Credentials</li>
+<li>Access-Control-Max-Age</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Konfigurasi CORS berada di sisi server, di aplikasi web tujuan request. </p>
+<p>Permisalan: aplikasi kita di local mengambil data dari google.com, maka konfigurasi CORS berada di google.com; Jika kita terkena error CORS maka tak ada lagi yang bisa dilakukan, karena CORS aplikasi tujuan dikontrol oleh orang-orang yang ada di google.com.</p>
+<p>Agar lebih mudah untuk dipahami bagaimana penerapannya, mari langsung kita praktekan seperti biasanya.</p>
+<h2 id="c142-aplikasi-dengan-konfigurasi-cors-sederhana">C.14.2. Aplikasi dengan konfigurasi CORS sederhana</h2>
+<p>Buat project baru, lalu isi fungsi <code>main()</code> dengan kode berikut. Aplikasi sederhana ini akan kita jalankan pada domain atau origin <code>http://localhost:3000/</code>, lalu akan kita coba akses dari domain berbeda.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    http.HandleFunc(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        w.Header().Set(<span class="hljs-string">&quot;Access-Control-Allow-Origin&quot;</span>, <span class="hljs-string">&quot;https://www.google.com&quot;</span>)
+        w.Header().Set(<span class="hljs-string">&quot;Access-Control-Allow-Methods&quot;</span>, <span class="hljs-string">&quot;OPTIONS, GET, POST, PUT&quot;</span>)
+        w.Header().Set(<span class="hljs-string">&quot;Access-Control-Allow-Headers&quot;</span>, <span class="hljs-string">&quot;Content-Type, X-CSRF-Token&quot;</span>)
+
+        <span class="hljs-keyword">if</span> r.Method == <span class="hljs-string">&quot;OPTIONS&quot;</span> {
+            w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;allowed&quot;</span>))
+            <span class="hljs-keyword">return</span>
+        }
+
+        w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;hello&quot;</span>))
+    })
+
+    log.Println(<span class="hljs-string">&quot;Starting app at :9000&quot;</span>)
+    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+}
+</code></pre>
+<p>Seperti yang sudah dijelaskan, bahwa konfigurasi CORS berada di header response. Pada kode di atas 3 buah property header untuk keperluan CORS digunakan.</p>
+<p>Header <code>Access-Control-Allow-Origin</code> digunakan untuk menentukan domain mana saja yang diperbolehkan mengakses aplikasi ini. Kita bisa set value-nya dengan banyak origin, hal ini diperbolehkan dalam <a href="https://www.w3.org/TR/cors/#access-control-allow-origin-response-header" target="_blank">spesifikasi CORS</a> namun sayangnya banyak browser yang tidak support.</p>
+<pre><code class="lang-http"><span class="hljs-attribute">Access-Control-Allow-Origin</span>: https://www.google.com
+</code></pre>
+<p>Kode di atas artinya request yang di-dispatch dari <a href="https://www.google.com" target="_blank">https://www.google.com</a> diijinkan untuk masuk; Penulis memilih domain google karena testing akan dilakukan dari sana, dengan tujuan destinasi request adalah <code>http://localhost:3000/</code>.</p>
+<p>Simulasi pada chapter ini adalah <strong>aplikasi web localhost:3000 diakses dari google.com</strong> (eksekusi request sendiri kita lakukan dari browser dengan memanfaatkan developer tools milik chrome). BUKAN google.com diakses dari aplikasi web localhost:3000, jangan sampai dipahami terbalik.</p>
+<p>Kembali ke pembahasan source code. Dua header CORS lainnya digunakan untuk konfigurasi yang lebih mendetail.</p>
+<pre><code class="lang-http"><span class="hljs-attribute">Access-Control-Allow-Methods</span>: OPTIONS, GET, POST, PUT
+<span class="hljs-attribute">Access-Control-Allow-Headers</span>: Content-Type, X-CSRF-Token
+</code></pre>
+<p>Header <code>Access-Control-Allow-Methods</code> menentukan HTTP Method mana saja yang diperbolehkan masuk (penulisannya dengan pembatas koma). </p>
+<blockquote>
+<p>Dianjurkan untuk selalu memasukan method <code>OPTIONS</code> karena method ini dibutuhkan oleh preflight request.</p>
+</blockquote>
+<p>Header <code>Access-Control-Allow-Headers</code> menentukan key header mana saja yang diperbolehkan di-dalam request.</p>
+<p>Jika request tidak memenuhi salah satu saja dari ke-tiga rules di atas, maka request bisa dipastikan gagal. Contoh:</p>
+<ul>
+<li>Request dari <a href="https://novalagung.com" target="_blank">https://novalagung.com</a> ke <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>, hasilnya pasti gagal, karena origin novalagung.com tidak diijinkan untuk mengakses <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>.</li>
+<li>Request dari <a href="https://www.google.com" target="_blank">https://www.google.com</a> ke <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> dengan method adalah <code>DELETE</code>, hasilnya pasti gagal. Method <code>DELETE</code> adalah tidak di-ijinkan. hanya empat method <code>OPTIONS</code>, <code>GET</code>, <code>POST</code>, <code>PUT</code> yang diijinkan.</li>
+<li>Request dari <a href="https://www.google.com" target="_blank">https://www.google.com</a> ke <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> dengan method GET, degan header <code>Authorization: Basic xxx</code> dan <code>X-CSRF-Token: xxxx</code>, hasilnya adalah gagal. Karena salah satu dari kedua header tersebut tidak diijinkan (header <code>Authorization</code>).</li>
+<li>Request dari <a href="https://www.google.com" target="_blank">https://www.google.com</a> ke <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> dengan method <code>GET</code> dan memiliki header <code>Content-Type</code> adalah diijinkan masuk, karena memenuhi semua aturan yang kita definiskan.</li>
+</ul>
+<p>Khusus untuk beberapa header seperti <code>Accept</code>, <code>Origin</code>, <code>Referer</code>, dan <code>User-Agent</code> tidak terkena efek CORS, karena header-header tersebut secara otomatis di-set di setiap request.</p>
+<h2 id="c143-testing-cors">C.14.3. Testing CORS</h2>
+<h4 id="&#x25C9;-persiapan">&#x25C9; Persiapan</h4>
+<p>Ada beberapa hal yang perlu dipersiapkan. Pertama, pastikan punya google chrome. Lalu install extension <a href="https://chrome.google.com/webstore/detail/jquery-injector/ekkjohcjbjcjjifokpingdbdlfekjcgi?hl=en" target="_blank">jQuery Injector</a>. Buka <a href="https://www.google.com" target="_blank">https://www.google.com</a> lalu inject jQuery. Dengan melakukan inject jQuery secara paksa maka dari situs google kita bisa menggunakan jQuery.</p>
+<p>Buka chrome developer tools, klik tab console. Lalu jalankan perintah jQuery AJAX berikut.</p>
+<pre><code class="lang-js">$.ajax({
+    url: <span class="hljs-string">&quot;http://localhost:9000/index&quot;</span>,
+})
+</code></pre>
+<p>Silakan lihat gambar berikut untuk memperjelas.</p>
+<p><img src="images/C_cors_preflight_request_1_cors_from_google_to_localhost.png" alt="Dasar Pemrograman Golang - CORS google to localhost"></p>
+<p>Bisa dilihat, tidak ada error, karena memang request dari google diijinkan. Silakan coba-coba melakukan request AJAX lainnya dengan method POST, DELETE, atau lainnya; atau ditambah dengan menyisipkan header tertentu dalam ajax request.</p>
+<h4 id="&#x25C9;-akses-httplocalhost9000-dari-origin-yang-tidak-didaftarkan-di-cors">&#x25C9; Akses <a href="http://localhost:9000" target="_blank">http://localhost:9000</a> dari Origin yang Tidak Didaftarkan di CORS</h4>
+<p>Selanjutnya coba buka tab baru, buka <a href="https://novalagung.com" target="_blank">https://novalagung.com</a>, lalu jalankan script yang sama.</p>
+<p><img src="images/C_cors_preflight_request_2_cors_from_novalagung_to_localhost.png" alt="Dasar Pemrograman Golang - CORS novalagung to localhost"></p>
+<pre style="font-size: .85em; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">Failed to load http://localhost:9000/index: The &apos;Access-Control-Allow-Origin&apos; header has a value &apos;https://www.google.com&apos; that is not equal to the supplied origin. Origin &apos;https://novalagung.com&apos; is therefore not allowed access.</pre>
+
+<p>Dari screenshot dan error log di atas, bisa dilihat bahwa request gagal. Hal ini dikarenakan origin <a href="https://novalagung.com" target="_blank">https://novalagung.com</a> tidak diijinkan untuk mengakses <a href="http://localhost:9000" target="_blank">http://localhost:9000</a>.</p>
+<h4 id="&#x25C9;-cors-multiple-origin">&#x25C9; CORS Multiple Origin</h4>
+<p>Sekarang coba tambahkan situs <a href="https://novalagung.com" target="_blank">https://novalagung.com</a> ke CORS header.</p>
+<pre><code class="lang-go">http.HandleFunc(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set(<span class="hljs-string">&quot;Access-Control-Allow-Origin&quot;</span>, 
+        <span class="hljs-string">&quot;https://www.google.com, https://novalagung.com&quot;</span>)
+
+    <span class="hljs-comment">// ...</span>
+</code></pre>
+<p>Jalankan ulang aplikasi, lalu dispatch lagi AJAX dari situs tersebut.</p>
+<p><img src="images/C_cors_preflight_request_3_cors_multiple_domain.png" alt="Dasar Pemrograman Golang - CORS multiple domain"></p>
+<p>Masih tetap error, tapi berbeda dengan error sebelumnya.</p>
+<pre style="font-size: .85em; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">Failed to load http://localhost:9000/index: The &apos;Access-Control-Allow-Origin&apos; header contains multiple values &apos;https://www.google.com, https://novalagung.com&apos;, but only one is allowed. Origin &apos;https://novalagung.com&apos; is therefore not allowed access.</pre>
+
+<p>Sebenarnya sudah kita singgung juga di atas, bahwa di spesifikasi adalah diperbolehkan isi header <code>Access-Control-Allow-Origin</code> lebih dari satu website. Namun, kebanyakan browser tidak mendukung bagian ini. Oleh karena itu error di atas muncul. Konfigurasi ini termasuk tidak valid, hasilnya kedua website tersebut tidak punya ijin masuk.</p>
+<h4 id="&#x25C9;-allow-all">&#x25C9; Allow All</h4>
+<p>Gunakan tanda asteriks (<code>*</code>) sebagai nilai ketiga CORS header untuk memberi ijin ke semua.</p>
+<pre><code class="lang-go"><span class="hljs-comment">// semua origin mendapat ijin akses</span>
+w.Header().Set(<span class="hljs-string">&quot;Access-Control-Allow-Origin&quot;</span>, <span class="hljs-string">&quot;*&quot;</span>)
+
+<span class="hljs-comment">// semua method diperbolehkan masuk</span>
+w.Header().Set(<span class="hljs-string">&quot;Access-Control-Allow-Methods&quot;</span>, <span class="hljs-string">&quot;*&quot;</span>)
+
+<span class="hljs-comment">// semua header diperbolehkan untuk disisipkan</span>
+w.Header().Set(<span class="hljs-string">&quot;Access-Control-Allow-Headers&quot;</span>, <span class="hljs-string">&quot;*&quot;</span>)
+</code></pre>
+<h2 id="c144-preflight-request">C.14.4. Preflight Request</h2>
+<h4 id="&#x25C9;-teori">&#x25C9; Teori</h4>
+<p>Dalam konteks CORS, request dikategorikan menjadi 2 yaitu, <strong>Simple Request</strong> dan <strong>Preflighted Request</strong>. Beberapa contoh request yang sudah kita pelajari di atas termasuk simple request.</p>
+<p>Sedangkan mengenai preflighted request sendiri, mungkin pembaca secara tidak langsung juga pernah menerapkannya, terutama ketika bekerja di bagian front-end yang mengonsumsi data dari RESTful API yang server nya terpisah antara layer front end dan back end.</p>
+<p>Ketika melakukan cross origin request dengan payload adalah JSON, atau request jenis lainnya, biasanya di developer tools -&gt; network log muncul 2 kali request, request pertama method-nya <code>OPTIONS</code> dan request ke-2 adalah actual request.</p>
+<p>Request ber-method <code>OPTIONS</code> tersebut disebut dengan <strong>Preflight Request</strong>. Request ini akan otomatis muncul ketika http request yang kita dispatch memenuhi kriteria preflighted request. </p>
+<p>Tujuan dari preflight request adalah untuk mengecek apakah destinasi url mendukung CORS. Tiga buah informasi dikirimkan <code>Access-Control-Request-Method</code>, <code>Access-Control-Request-Headers</code>, dan <code>Origin</code>, dengan method adalah <code>OPTIONS</code>.</p>
+<p>Berikut merupakan kriteria preflighted request.</p>
+<ul>
+<li>Method yang digunakan adalah salah satu dari method berikut:<ul>
+<li><code>PUT</code></li>
+<li><code>DELETE</code></li>
+<li><code>CONNECT</code></li>
+<li><code>OPTIONS</code></li>
+<li><code>TRACE</code></li>
+<li><code>PATCH</code></li>
+</ul>
+</li>
+<li>Terdapat header SELAIN yang otomatis di-set dalam http request. Contoh header untuk kriteria ini adalah <code>Authorization</code>, <code>X-CSRF-Token</code>, atau lainnya.</li>
+<li>Isi header <code>Content-Type</code> adalah SELAIN satu dari 3 berikut.<ul>
+<li>application/x-www-form-urlencoded</li>
+<li>multipart/form-data</li>
+<li>text/plain</li>
+</ul>
+</li>
+<li>Ada event yang ter-registrasi dalam objek <code>XMLHttpRequestUpload</code> yang digunakan dalam request.</li>
+<li>Menggunakan objek <code>ReadableStream</code> dalam request.</li>
+</ul>
+<blockquote>
+<p>Lebih detailnya mengenai simple dan preflighted request silakan baca <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS</a>.</p>
+</blockquote>
+<p>Pada kode yang kita tulis, terdapat pengecekan method <code>OPTIONS</code>. Pengecekan ini digunakan untuk mencegah eksekusi statement selanjutnya. Hal ini dikarenakan preflight request tidak membutuhkan kembalian data, tugas si dia hanya mengecek apakah cross origin request didukung atau tidak. Jadi pada handler, ketika method nya adalah <code>OPTIONS</code>, langsung saja intercept proses utamanya.</p>
+<blockquote>
+<p>Header <code>Access-Control-Max-Age</code> diisi dengan data waktu, digunakan untuk menentukan sebearapa lama informasi preflight request di-cache. Jika diisi dengan <code>-1</code> maka cache di-non-aktifkan.</p>
+</blockquote>
+<pre><code class="lang-go">http.HandleFunc(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-keyword">if</span> r.Method == <span class="hljs-string">&quot;OPTIONS&quot;</span> {
+        w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;allowed&quot;</span>))
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-comment">// ...</span>
+})
+</code></pre>
+<h4 id="&#x25C9;-praktek">&#x25C9; Praktek</h4>
+<p>Langsung saja buka google.com lalu lakukan AJAX request yang memenuhi alah satu kriteria preflighted request, misalnya, gunakan header <code>Content-Type: application/json</code>.</p>
+<p><img src="images/C_cors_preflight_request_4_preflight_allowed.png" alt="Dasar Pemrograman Golang - Preflight Request Preview"></p>
+<p>Bisa dilihat pada screenshot, dua request muncul, yang pertama adalah preflight yang kedua adalah actual request.</p>
+<h2 id="c145-cors-handling-menggunakan-golang-cors-library-dan-echo">C.14.5. CORS Handling Menggunakan Golang CORS Library dan Echo</h2>
+<p>Pada bagian ini kita akan mengkombinasikan library CORS golang buatan Olivier Poitrey, dan Echo, untuk membuat back end yang mendukung cross origin request.</p>
+<p>Pertama <code>go get</code> dulu library-nya.</p>
+<pre><code class="lang-bash">go get https://github.com/rs/cors
+</code></pre>
+<p>Buat file baru, import library yang diperlukan lalu buat fungsi main.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    <span class="hljs-string">&quot;github.com/rs/cors&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    e := echo.New()
+
+    <span class="hljs-comment">// ...</span>
+
+    e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
+        <span class="hljs-keyword">return</span> c.String(http.StatusOK, <span class="hljs-string">&quot;hello&quot;</span>)
+    })
+
+    e.Logger.Fatal(e.Start(<span class="hljs-string">&quot;:9000&quot;</span>))
+}
+</code></pre>
+<p>Siapkan objek <code>corsMiddleware</code>, cetak dari fungsi <code>cors.New()</code> . Pada parameter konfigurasi, isi spesifikasi CORS sesuai kebutuhan.</p>
+<p>Gaya konfigurasi library ini menarik, mudah sekali untuk dipahami.</p>
+<pre><code class="lang-go">corsMiddleware := cors.New(cors.Options{
+    AllowedOrigins: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;https://novalagung.com&quot;</span>, <span class="hljs-string">&quot;https://www.google.com&quot;</span>},
+    AllowedMethods: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;OPTIONS&quot;</span>, <span class="hljs-string">&quot;GET&quot;</span>, <span class="hljs-string">&quot;POST&quot;</span>, <span class="hljs-string">&quot;PUT&quot;</span>},
+    AllowedHeaders: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;X-CSRF-Token&quot;</span>},
+    Debug:          <span class="hljs-literal">true</span>,
+})
+e.Use(echo.WrapMiddleware(corsMiddleware.Handler))
+</code></pre>
+<p>Pada kode di atas, kita meng-allow dua buah origin. Sebelumnya sudah kita bahas bahwa kebanyakan browser tidak mendukung ini. Dengan menggunakan CORS library, hal itu bisa teratasi. </p>
+<blockquote>
+<p>Sebenarnya mekanisme yang diterapkan oleh CORS library adalah meng-allow semua origin, lalu kemudian mem-filter sesuai dengan spesifikasi yang kita buat, lalu memodifikasi response header <code>Access-Control-Allow-Origin</code>-nya.</p>
+</blockquote>
+<p>Jalankan aplikasi, coba test dari dua domain, <a href="https://novalagung.com" target="_blank">https://novalagung.com</a> dan <a href="https://www.google.com" target="_blank">https://www.google.com</a>.</p>
+<p><img src="images/C_cors_preflight_request_5_multi_domain.png" alt="Dasar Pemrograman Golang - CORS multi domain"></p>
+<p>Berikut adalah list konfigurasi yang bisa dimanfaatkan dari library ini.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AllowedOrigins</td>
+<td>list origin/domain yang diperbolehkan mengakses, gunakan <code>*</code> untuk allow all</td>
+</tr>
+<tr>
+<td>AllowOriginFunc</td>
+<td>callback untuk validasi origin. cocok digunakan untuk menge-set CORS header origin dengan ijin rumit</td>
+</tr>
+<tr>
+<td>AllowedMethods</td>
+<td>list HTTP method yang diperbolehkan untuk pengaksesan</td>
+</tr>
+<tr>
+<td>AllowedHeaders</td>
+<td>list header yang diperbolehkan untuk pengaksesan</td>
+</tr>
+<tr>
+<td>ExposedHeaders</td>
+<td>menentukan header mana saja yang di-expose ke consumer</td>
+</tr>
+<tr>
+<td>AllowCredentials</td>
+<td>enable/disable credentials</td>
+</tr>
+<tr>
+<td>MaxAge</td>
+<td>durasi cache preflight request</td>
+</tr>
+<tr>
+<td>OptionsPassthrough</td>
+<td>digunakan untuk menginstruksikan handler selanjutnya untuk memproses OPTIONS method</td>
+</tr>
+<tr>
+<td>Debug</td>
+<td>aktifkan properti ini pada stage development, agar banyak informasi log tambahan bisa muncul</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<ul>
+<li><a href="https://github.com/rs/cors" target="_blank">CORS</a>, by Olivier Poitrey, MIT license</li>
+<li><a href="https://github.com/labstack/echo" target="_blank">Echo</a>, by Vishal Rana (Lab Stack), MIT license</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.14-cors-preflight-request" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.14...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2348,12 @@
 
             
                 
+                <a href="C-session.html" class="navigation navigation-prev " aria-label="Previous page: C.13. Session (Gorilla Session)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-csrf.html" class="navigation navigation-next " aria-label="Next page: C.15. CSRF">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2364,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.14. CORS & Preflight Request","level":"5.1.14","depth":2,"next":{"title":"C.15. CSRF","level":"5.1.15","depth":2,"path":"C-csrf.md","ref":"C-csrf.md","articles":[]},"previous":{"title":"C.13. Session (Gorilla Session)","level":"5.1.13","depth":2,"path":"C-session.md","ref":"C-session.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-cors-preflight-request.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang AJAX Multiple File Upload - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="B-download-file.html">
     
+    
+    <link rel="prev" href="B-ajax-json-response.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1336,7 +1338,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.16" data-path="B-ajax-multi-upload.html">
+        <li class="chapter active" data-level="4.1.16" data-path="B-ajax-multi-upload.html">
             
                 <a href="B-ajax-multi-upload.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">B.16. AJAX Multiple File Upload</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,171 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
+                                <h1 id="b16-ajax-multiple-file-upload">B.16. AJAX Multiple File Upload</h1>
+<p>Pada chapter ini, kita akan belajar 3 hal sekaligus yang mencakup poin-poin berikut: </p>
+<ol>
+<li>Cara untuk upload file via AJAX</li>
+<li>Cara untuk handle upload banyak file sekaligus</li>
+<li>Cara handle upload file yang lebih hemat memori</li>
 </ol>
+<p>Sebelumnya, pada chapter <a href="B-form-upload-file.html">B.13. Form Upload File</a>, pemrosesan file upload dilakukan lewat <strong>ParseMultipartForm</strong>, sedangkan pada chapter ini metode yang dipakai berbeda, yaitu <strong>MultipartReader</strong>. </p>
+<p>Kelebihan dari <code>MultipartReader</code> adalah, file yang di upload <strong>tidak</strong> di simpan pada file temporary di lokal terlebih dahulu (tidak seperti <code>ParseMultipartForm</code>), melainkan data file bisa diambil langsung dari stream <code>io.Reader</code>.</p>
+<p>Cara penerapan <code>MultipartReader</code> ini membutuhkan front-end untuk melakukan upload file secara asynchronous menggunakan objek <a href="https://developer.mozilla.org/en/docs/Web/API/FormData" target="_blank">FormData</a>. Semua file yang akan di-upload diambil konten dan metadatanya menggunakan javascript untuk dimasukkan ke objek <code>FormData</code>. Setelahnya, object tersebut dijadikan sebagai payload AJAX request.</p>
+<h2 id="b161-struktur-folder-proyek">B.16.1. Struktur Folder Proyek</h2>
+<p>Mari praktekkan, pertama siapkan proyek dengan struktur seperti gambar di bawah ini.</p>
+<p><img src="images/B_ajax_multi_upload_1_structure.png" alt="Dasar Pemrograman Golang - Folder Structure"></p>
+<blockquote>
+<p>Silakan unduh file js jQuery dari situs official jQuery.</p>
+</blockquote>
+<h2 id="b162-front-end">B.16.2. Front End</h2>
+<p>Buka <code>view.html</code>, siapkan template dasar view. Dalam file ini terdapat satu buah inputan upload file yang mendukung multi-upload, dan satu buah tombol submit.</p>
+<p>Untuk mengaktifkan kapabilitas multi upload, cukup tambahkan atribut <code>multiple</code> pada input file.</p>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Multiple Upload<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;static/jquery-3.3.1.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+            $(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+                <span class="hljs-comment">// javascript code goes here</span>
+            });
+        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;user-form&quot;</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;post&quot;</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/upload&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">required</span> <span class="hljs-attr">multiple</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;upload-file&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;file&quot;</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;btn-upload&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>Upload!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>Override event <code>submit</code> pada form <code>#user-form</code>, handler event ini berisikan proses mulai pembentukan objek <code>FormData</code> dari file-file yang telah di upload, hingga eksekusi AJAX.</p>
+<pre><code class="lang-js">$(<span class="hljs-string">&quot;#user-form&quot;</span>).on(<span class="hljs-string">&quot;submit&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+    e.preventDefault();
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+    <span class="hljs-keyword">var</span> $self = $(<span class="hljs-keyword">this</span>);
+    <span class="hljs-keyword">var</span> files = $(<span class="hljs-string">&quot;#upload-file&quot;</span>)[<span class="hljs-number">0</span>].files;
+    <span class="hljs-keyword">var</span> formData = <span class="hljs-keyword">new</span> FormData();
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; files.length; i++) {
+        formData.append(<span class="hljs-string">&quot;files&quot;</span>, files[i]);
+    }
+
+    $.ajax({
+        url: $self.attr(<span class="hljs-string">&quot;action&quot;</span>),
+        type: $self.attr(<span class="hljs-string">&quot;method&quot;</span>),
+        data: formData,
+        processData: <span class="hljs-literal">false</span>,
+        contentType: <span class="hljs-literal">false</span>,
+    }).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+        alert(res);
+        $(<span class="hljs-string">&quot;#user-form&quot;</span>).trigger(<span class="hljs-string">&quot;reset&quot;</span>);
+    }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) </span>{
+        alert(<span class="hljs-string">&quot;ERROR: &quot;</span> + a.responseText);
+    });
+});
+</code></pre>
+<p>Objek inputan files (yang didapat dari <code>$(&quot;#upload-file&quot;)[0]</code>) memiliki property <code>.files</code> yang isinya merupakan array dari semua file yang dipilih oleh user ketika upload. File-file tersebut diiterasi, setiap datanya dimasukkan ke dalam objek <code>FormData</code> yang telah dibuat.</p>
+<p>Operasi AJAX request dilakukan lewat <code>jQuery.ajax</code>. Berikut adalah penjelasan mengenai konfigurasi <code>processData</code> dan <code>contentType</code> dalam AJAX yang sudah dibuat. </p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Konfigurasi <code>contentType</code> perlu di set ke <code>false</code> agar header Content-Type yang dikirim bisa menyesuaikan data yang disisipkan. </li>
+<li>Konfigurasi <code>processData</code> juga perlu di set ke <code>false</code>, agar data yang akan di kirim tidak otomatis dikonversi ke query string atau json string (tergantung <code>contentType</code>). Pada konteks ini kita memerlukan payload tetap dalam tipe <code>FormData</code>.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<h2 id="b163-back-end">B.16.3. Back-End</h2>
+<p>Ada 2 route handler yang harus dipersiapkan di back-end. Pertama adalah rute <code>/</code> untuk keperluan memunculkan form upload, dan rute <code>/upload</code> untuk pemrosesan upload dari AJAX request.</p>
+<p>Buka file <code>main.go</code>, import package yang diperlukan, lalu deklarasikan dua rute yang telah disebut di atas, beserta satu buah rute baru untuk <em>serving</em> static assets.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;path/filepath&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;io&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;os&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, handleIndex)
+    http.HandleFunc(<span class="hljs-string">&quot;/upload&quot;</span>, handleUpload)
+    http.Handle(<span class="hljs-string">&quot;/static/&quot;</span>, 
+        http.StripPrefix(<span class="hljs-string">&quot;/static/&quot;</span>, 
+            http.FileServer(http.Dir(<span class="hljs-string">&quot;assets&quot;</span>))))
+
+    fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+}
+</code></pre>
+<p>Buat handler rute <code>/</code>, parsing template view <code>view.html</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> handleIndex(w http.ResponseWriter, r *http.Request) {
+    tmpl := template.Must(template.ParseFiles(<span class="hljs-string">&quot;view.html&quot;</span>))
+    <span class="hljs-keyword">if</span> err := tmpl.Execute(w, <span class="hljs-literal">nil</span>); err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
+}
+</code></pre>
+<p>Sebelumnya, pada chapter <a href="B-form-upload-file.html">B.13. Form Upload File</a>, metode yang digunakan untuk handle file upload adalah <code>ParseMultipartForm</code>. Cara kerjanya, file di proses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.</p>
+<p>Metode tersebut kurang tepat guna jika digunakan untuk memproses file yang ukurannya besar (file size melebihi <code>maxMemory</code>) atau jumlah file-nya sangat banyak (memakan waktu, karena isi dari masing-masing file akan ditampung pada file <em>temporary</em> sebelum benar-benar di-copy ke file tujuan).</p>
+<p>Solusi dari dua masalah yang telah disebutkan adalah menggunakan <code>MultipartReader</code> untuk handling file upload. Lewat metode ini, file destinasi isidi-copy lagsung dari stream <code>io.Reader</code> tanpa butuh file temporary untuk perantara.</p>
+<p>Kembali ke bagian perkodingan, siapkan fungsi <code>handleUpload</code>, isinya kode berikut.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> handleUpload(w http.ResponseWriter, r *http.Request) {
+    <span class="hljs-keyword">if</span> r.Method != <span class="hljs-string">&quot;POST&quot;</span> {
+        http.Error(w, <span class="hljs-string">&quot;Only accept POST request&quot;</span>, http.StatusBadRequest)
+        <span class="hljs-keyword">return</span>
+    }
+
+    basePath, _ := os.Getwd()
+    reader, err := r.MultipartReader()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Bisa dilihat, method <code>.MultipartReader()</code> dipanggil dari objek request milik handler. Operasi tersebut menghasilkan dua nilai balik, <code>*multipart.Reader</code> dan <code>error</code> (jika ada).</p>
+<p>Selanjutnya, lakukan perulangan terhadap objek <code>reader</code>. Setiap file yang di-upload di proses di masing-masing perulangan. Setelah looping berakhir, idealnya semua file sudah terproses dengan benar.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> {
+    part, err := reader.NextPart()
+    <span class="hljs-keyword">if</span> err == io.EOF {
+        <span class="hljs-keyword">break</span>
+    }
+
+    fileLocation := filepath.Join(basePath, <span class="hljs-string">&quot;files&quot;</span>, part.FileName())
+    dst, err := os.Create(fileLocation)
+    <span class="hljs-keyword">if</span> dst != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">defer</span> dst.Close()
+    }
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-keyword">if</span> _, err := io.Copy(dst, part); err != <span class="hljs-literal">nil</span> {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        <span class="hljs-keyword">return</span>
+    }
+}
+
+w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">`all files uploaded`</span>))
+</code></pre>
+<p>Method <code>.NextPart()</code> mengembalikan 2 informasi, yaitu objek stream <code>io.Reader</code> (dari file yg di upload), dan <code>error</code>. </p>
+<p>File destinasi disiapkan kemudian diisi dengan data dari stream file, menggunakan <code>io.Copy()</code>.</p>
+<p>Jika <code>reader.NextPart()</code> mengembalikan error <code>io.EOF</code>, maka bisa disimpulkan semua file telah di proses, kemudian perulangan dihentikan.</p>
+<p>OK, semua persiapan sudah cukup, selanjutnya masuk fase testing.</p>
+<h2 id="b164-testing">B.16.4. Testing</h2>
+<p>Buka browser, test program yang telah dibuat. Coba lakukan pengujian dengan beberapa buah file.</p>
+<p><img src="images/B_ajax_multi_upload_2_upload_files.png" alt="Dasar Pemrograman Golang - Upload files"></p>
+<p>Cek apakah file sudah terupload.</p>
+<p><img src="images/B_ajax_multi_upload_3_uploaded_files.png" alt="Dasar Pemrograman Golang - Uploaded files"></p>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-B.16-ajax-multi-upload" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-B.16...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2250,12 @@
 
             
                 
+                <a href="B-ajax-json-response.html" class="navigation navigation-prev " aria-label="Previous page: B.15. AJAX JSON Response">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="B-download-file.html" class="navigation navigation-next " aria-label="Next page: B.17. Download File">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2266,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"next":{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},"previous":{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"B-ajax-multi-upload.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

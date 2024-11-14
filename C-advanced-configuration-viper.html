@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Golang Advanced Configuration: Viper - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-best-practice-configuration-env-var.html">
     
+    
+    <link rel="prev" href="C-flag-parser.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1583,7 +1585,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.10" data-path="C-advanced-configuration-viper.html">
+        <li class="chapter active" data-level="5.1.10" data-path="C-advanced-configuration-viper.html">
             
                 <a href="C-advanced-configuration-viper.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.10. Advanced Configuration: Viper</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,175 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
+                                <h1 id="c10-advanced-configuration-menggunakan-viper">C.10. Advanced Configuration Menggunakan Viper</h1>
+<p>Pada chapter ini kita akan belajar cara mudah manajemen konfigurasi file JSON menggunakan <a href="http://github.com/spf13/viper" target="_blank">Viper</a> library. Inti dari chapter ini sebenarnya adalah sama dengan yang sudah dibahas pada <a href="B-simple-configuration.html">B.22. Simple Configuration</a>, hanya saja di sini proses parsing di-handle oleh 3rd party dengan tidak menggunakan struct untuk pengaksesannya.</p>
+<p>Kekurangan dari teknik menyimpan konfigurasi dalam object struct adalah, pada saat ada kebutuhan untuk menambah atau merubah isi konfigurasi file, maka mengharuskan developer juga mengubah skema struct penampung. Pada bagian ini, pengaksesan property konfigurasi dilakukan lewat notasi string konfigurasinya.</p>
+<h2 id="c101-json-configuration">C.10.1. JSON Configuration</h2>
+<p>Mari langsung kita praktekan. Buat project baru seperti biasa, buat file konfigurasi <code>app.config.json</code>, isi dengan data berikut.</p>
+<pre><code class="lang-json">{
+    <span class="hljs-string">&quot;appName&quot;</span>: <span class="hljs-string">&quot;SimpleApp&quot;</span>,
 
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+    <span class="hljs-string">&quot;server&quot;</span>: {
+        <span class="hljs-string">&quot;port&quot;</span>: <span class="hljs-number">9000</span>
+    }
+}
+</code></pre>
+<p>Property <code>appName</code> berisi nama aplikasi, sedangkan <code>server.port</code> representasi dari port web server.</p>
+<p>Selanjutnya buat <code>main.go</code>, lakukan parsing pada file konfigurasi.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    <span class="hljs-string">&quot;github.com/spf13/viper&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    e := echo.New()
+
+    viper.SetConfigType(<span class="hljs-string">&quot;json&quot;</span>)
+    viper.AddConfigPath(<span class="hljs-string">&quot;.&quot;</span>)
+    viper.SetConfigName(<span class="hljs-string">&quot;app.config&quot;</span>)
+
+    err := viper.ReadInConfig()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        e.Logger.Fatal(err)
+    }
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Kode di atas adalah contoh penggunaan dasar viper, untuk parsing file konfigurasi bertipe <code>JSON</code>. Fungsi <code>viper.SetConfigType()</code> digunakan untuk set jenis file konfigurasi. </p>
+<p>Berikut merupakan list format yang didukung oleh viper.</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>json</li>
+<li>toml</li>
+<li>yaml</li>
+<li>yml</li>
+<li>properties</li>
+<li>props</li>
+<li>prop</li>
+<li>env</li>
+<li>dotenv</li>
+<li>tfvars</li>
+<li>ini</li>
+<li>hcl</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Fungsi <code>.AddConfigPath()</code> digunakan untuk mendaftarkan path folder di mana file-file konfigurasi berada. Fungsi ini bisa dipanggil beberapa kali, jika memang ada banyak file konfigurasi tersimpan dalam path berbeda.</p>
+<p>Statement <code>.SetConfigName()</code> dieksekusi dengan parameter berisi nama file konfigurasi secara eksplisit tanpa ekstensi. Misalkan nama file adalah <code>app.config.json</code>, maka parameter cukup ditulis <code>app.config</code>.</p>
+<p>Fungsi <code>.ReadInConfig()</code> digunakan untuk memproses file-file konfigurasi sesuai dengan path dan nama yang sudah ditentukan.</p>
+<p>OK, kembali ke bagian tulis-menulis kode. Tambahkan beberapa kode untuk print nama aplikasi, sebuah rute, dan start web server.</p>
+<pre><code class="lang-go">e.GET(<span class="hljs-string">&quot;/index&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) (err error) {
+    <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, <span class="hljs-literal">true</span>)
+})
+
+e.Logger.Print(<span class="hljs-string">&quot;Starting&quot;</span>, viper.GetString(<span class="hljs-string">&quot;appName&quot;</span>))
+e.Logger.Fatal(e.Start(<span class="hljs-string">&quot;:&quot;</span> + viper.GetString(<span class="hljs-string">&quot;server.port&quot;</span>)))
+</code></pre>
+<p>Cara pengaksesan konfigurasi bisa dilihat pada kode di atas. Statement <code>viper.GetString(&quot;appName&quot;)</code> mengembalikan string <code>&quot;SimpleApp&quot;</code>, sesuai dengan isi pada file konfigurasi. </p>
+<p>Selain <code>.GetString()</code>, masih banyak lagi fungsi lain yang bisa digunakan, sesuaikan dengan tipe data property yang akan diambil.</p>
+<table>
+<thead>
+<tr>
+<th>Fungsi</th>
+<th>Return type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Get(string)</td>
+<td>interface{}</td>
+</tr>
+<tr>
+<td>GetBool(string)</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>GetDuration(string)</td>
+<td>time.Duration</td>
+</tr>
+<tr>
+<td>GetFloat64(string)</td>
+<td>float64</td>
+</tr>
+<tr>
+<td>GetInt(string)</td>
+<td>int</td>
+</tr>
+<tr>
+<td>GetInt32(string)</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>GetInt64(string)</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>GetSizeInBytes(string)</td>
+<td>uint</td>
+</tr>
+<tr>
+<td>GetString(string)</td>
+<td>string</td>
+</tr>
+<tr>
+<td>GetStringMap(string)</td>
+<td>map[string]interface{}</td>
+</tr>
+<tr>
+<td>GetStringMapString(string)</td>
+<td>map[string]string</td>
+</tr>
+<tr>
+<td>GetStringMapStringSlice(string)</td>
+<td>map[string][]string</td>
+</tr>
+<tr>
+<td>GetStringSlice(string)</td>
+<td>[]string</td>
+</tr>
+<tr>
+<td>GetTime(string)</td>
+<td>time.Time</td>
+</tr>
+</tbody>
+</table>
+<p>Pengaksesan property nested seperti <code>server.port</code> juga mudah, tinggal tulis saja skema property yang ingin diambil nilainya dengan separator tanda titik (<code>.</code>).</p>
+<p>Jalankan aplikasi untuk test hasilnya.</p>
+<p><img src="images/C_advanced_configuration_viper_1_app.png" alt="Dasar Pemrograman Golang - Sample output"></p>
+<h2 id="c102-yaml-configuration">C.10.2. YAML Configuration</h2>
+<p>Cara penerapan viper pada file konfigurasi bertipe <code>.yaml</code> kurang lebih sama seperti pada file <code>.json</code>. Cukup ubah config type nya dan semua akan beres dengan sendirinya.</p>
+<p>Mari kita langsung praktekan saja. Buat file konfigurasi baru <code>app.config.yaml</code> dengan isi berikut.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">appName:</span> SimpleApp
+<span class="hljs-attr">server:</span>
+<span class="hljs-attr">  port:</span> <span class="hljs-number">9000</span>
+</code></pre>
+<p>Pada bagian kode golang, cukup ubah argumen pemanggilan fungsi set config type.</p>
+<pre><code class="lang-go">viper.SetConfigType(<span class="hljs-string">&quot;yaml&quot;</span>)
+</code></pre>
+<p>Jalankan aplikasi, dan hasilnya sama seperti sebelumnya.</p>
+<h2 id="c103-watcher-configuration">C.10.3. Watcher Configuration</h2>
+<p>Viper memiliki banyak fitur, satu di antaranya adalah mengaktifkan watcher pada file konfigurasi. Dengan adanya watcher, maka kita bisa membuat callback yang akan dipanggil setiap kali ada perubahan konfigurasi.</p>
+<pre><code class="lang-go">viper.WatchConfig()
+viper.OnConfigChange(<span class="hljs-keyword">func</span>(e fsnotify.Event) {
+    fmt.Println(<span class="hljs-string">&quot;Config file changed:&quot;</span>, e.Name)
+})
+</code></pre>
+<p>Penggunaan fasilitas watcher memerlukan tambahan 3rd party library <a href="https://github.com/fsnotify/fsnotify" target="_blank">fsnotify</a>, jadi jangan lupa juga untuk meng-<em>import</em>-nya.</p>
+<hr>
+<ul>
+<li><a href="https://github.com/labstack/echo" target="_blank">Echo</a>, by Vishal Rana (Lab Stack), MIT license</li>
+<li><a href="https://github.com/fsnotify/fsnotify" target="_blank">fsnotify</a>, by fsnotify team, BSD-3-Clause license</li>
+<li><a href="https://github.com/spf13/viper" target="_blank">Viper</a>, by Steve Francia, MIT license</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.10-advanced-configuration-viper" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.10...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2254,12 @@
 
             
                 
+                <a href="C-flag-parser.html" class="navigation navigation-prev " aria-label="Previous page: C.9. CLI Flag Parser (Kingpin)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-best-practice-configuration-env-var.html" class="navigation navigation-next " aria-label="Next page: C.11. Best Practice Configuration: Environment Variable">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2270,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.10. Advanced Configuration: Viper","level":"5.1.10","depth":2,"next":{"title":"C.11. Best Practice Configuration: Environment Variable","level":"5.1.11","depth":2,"path":"C-best-practice-configuration-env-var.md","ref":"C-best-practice-configuration-env-var.md","articles":[]},"previous":{"title":"C.9. CLI Flag Parser (Kingpin)","level":"5.1.9","depth":2,"path":"C-flag-parser.md","ref":"C-flag-parser.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-advanced-configuration-viper.md","mtime":"2024-11-14T19:27:53.072Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Dasar Pemrograman Golang - Dasar Pemrograman Golang</title>
+        <title>Session (Gorilla Session) - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,8 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CHANGELOG.html">
+    <link rel="next" href="C-cors-preflight-request.html">
     
+    
+    <link rel="prev" href="C-securecookie.html">
     
 
 
@@ -106,7 +108,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -1622,7 +1624,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.13" data-path="C-session.html">
+        <li class="chapter active" data-level="5.1.13" data-path="C-session.html">
             
                 <a href="C-session.html">
             
@@ -2060,7 +2062,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">Dasar Pemrograman Golang</a>
+        <a href=".">C.13. Session (Gorilla Session)</a>
     </h1>
 </div>
 
@@ -2072,43 +2074,267 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dasar-pemrograman-golang">Dasar Pemrograman Golang</h1>
-<p><a href="https://golang.org/" target="_blank">Golang</a>, atau Go adalah bahasa pemrograman yang lahir di tahun 2009. Golang memiliki banyak kelebihan, terbukti dengan banyaknya perusahaan besar yang <a href="https://github.com/golang/go/wiki/GoUsers" target="_blank">menggunakan bahasa ini</a> dalam pengembangan produk-produk mereka, hingga level production tentunya.</p>
-<p>Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.</p>
-<p>Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.</p>
-<ol type="A">
-    <li>
-        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-    </li>
-    <li>
-        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-    </li>
-    <li>
-        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-    </li>
-    <li>
-        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-    </li>
-</ol>
-
-<p>Versi e-book: <strong>v4.0.20240830</strong>, dan versi Go <strong>1.22</strong>.</p>
-<h2 id="download-file-e-book-pdf-epub-mobi">Download File E-book (pdf, epub, mobi)</h2>
-<p>Versi ebook bisa di-download dalam bentuk file via link berikut:</p>
+                                <h1 id="c13-session-gorilla-session">C.13. Session (Gorilla Session)</h1>
+<p>Session adalah sebuah konsep penyimpanan data yang shared antar http request. Session umumnya menggunakan cookie untuk menyimpan identifier (kita sebut sebagai <strong>SessionID</strong>). Informasi SessionID tersebut ber-asosiasi dengan data (kita sebut sebagai <strong>SessionData</strong>) yang disimpan di sisi back end dalam media tertentu.</p>
+<p>Di back end, SessionData disimpan dalam media database, atau memory, atau fasilitas penyimpanan lainnya. Bisa saja sebenarnya jika SessionData juga disimpan dalam cookie, dengan memanfaatkan secure cookie maka SessionData tersebut ter-enkripsi dan aman dari peretas. Memang aman, tapi jelasnya lebih aman kalau disimpan di sisi server.</p>
+<p>Pada chapter ini kita akan mempelajari penerapan session di golang menggunakan beberapa jenis media penyimpanan, yaitu mongo db, postgres sql db, dan secure cookie.</p>
+<h2 id="c131-manage-session-menggunakan-gorilla-sessions">C.13.1. Manage Session Menggunakan Gorilla Sessions</h2>
+<p><a href="https://github.com/gorilla/sessions" target="_blank">Gorilla Sessions</a> adalah library untuk manajemen session di golang. </p>
+<p>Gorilla menyediakan interface <code>sessions.Store</code>, lewat interface ini kita bisa mengakses 3 buah method penting untuk manage session. Store sendiri adalah representasi dari media penyimpanan di back end, bisa berupa database, memory, atau lainnya. Objek store dibuat oleh library lain yang merupakan implementasi dari interface store itu sendiri.</p>
+<p>Kembali ke pembahasan mengenai store, 3 buah method yang dimaksud adalah berikut:</p>
 <ul>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.pdf?v=v4.0.20240830" target="_blank">PDF</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.epub?v=v4.0.20240830" target="_blank">Epub</a></li>
-<li><a href="https://github.com/novalagung/dasarpemrogramangolang/raw/ebooks/dasarpemrogramangolang.mobi?v=v4.0.20240830" target="_blank">Mobi</a></li>
+<li>Method <code>.Get(r *http.Request, name string) (*Session, error)</code>, mengembalikan objek session. Jika session yang dengan <code>name</code> yang dicari tidak ada, maka objek session baru dikembalikan.</li>
+<li>Method <code>.New(r *http.Request, name string) (*Session, error)</code>, mengembalikan objek session baru.</li>
+<li>Method <code>.Save(r *http.Request, w http.ResponseWriter, s *Session) error</code>, digunakan untuk menyimpan session baru.</li>
 </ul>
-<p>Untuk mendapatkan konten buku yang paling update, silakan baca langsung versi web secara online atau download ulang e-book versi terbaru.</p>
-<h2 id="source-code-praktik">Source Code Praktik</h2>
-<p>Source code contoh-contoh program bisa diunduh di <a href="https://github.com/novalagung/dasarpemrogramangolang-example" target="_blank">github.com/novalagung/dasarpemrogramangolang-example</a>. Dianjurkan untuk tidak copy-paste dari source code dalam proses belajar, usahakan untuk menulis sendiri kode program agar cepat terbiasa dengan bahasa Go.</p>
-<h2 id="kontribusi">Kontribusi</h2>
-<p>Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di <a href="https://github.com/novalagung/dasarpemrogramangolang" target="_blank">github.com/novalagung/dasarpemrogramangolang</a>. Silakan lihat juga <a href="https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html" target="_blank">laman kontributor</a> untuk lebih detailnya mengenai kontribusi ke project ini.</p>
-<h2 id="lisensi-dan-status-fossa">Lisensi dan Status FOSSA</h2>
-<p>Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu <strong>Dasar Pemrograman Golang</strong> atau <strong>novalagung</strong>) dan tidak mengubah lisensi aslinya (yaitu <strong>CC BY-SA 4.0</strong>). Lebih detailnya silakan cek halaman <a href="https://dasarpemrogramangolang.novalagung.com/LICENSE.html" target="_blank">lisensi dan distribusi konten</a>.</p>
-<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang?ref=badge_large" target="_blank"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnovalagung%2Fdasarpemrogramangolang.svg?type=large" alt="Dasar Pemrograman Golang - FOSSA Status"></a></p>
-<h2 id="author">Author</h2>
-<p>Website/ebook ini dibuat oleh <strong>Noval Agung Prayogo</strong>. Untuk pertanyaan, kritik, dan saran, silakan drop email ke <a href="mailto:hello@novalagung.com" target="_blank">hello@novalagung.com</a>.</p>
+<p>Dari ketiga method di-atas saya rasa cukup jelas sekilas bagaimana cara mengakses, membuat, dan menyimpan session.</p>
+<blockquote>
+<p>Kita akan fokus membahas API milik interface <code>sessions.Store</code> dahulu, mengenai pembuatan store sendiri ada di pembahasan setelahnya.</p>
+</blockquote>
+<p>Lalu bagaimana dengan operasi hapus/delete? Seperti yang sudah dijelaskan sebelumnya, informasi session dipisah menjadi dua, pertama adalah SessionID yang disimpan di cookie, dan kedua adalah SessionData yang disimpan di back end. Cara untuk menghapus session adalah cukup dengan meng-expired-kan cookie yang menyimpan SessionID.</p>
+<p>Cookie merupakan salah satu header pada http request, operasi yang berhubungan dengan cookie pasti membutuhkan objek <code>http.Request</code> dan <code>http.ResponseWriter</code>. Jika menggunakan echo, kedua objek tersebut bisa diakses lewat objek http context <code>echo.Context</code>.</p>
+<h2 id="c132-membuat-objek-session-baru">C.13.2. Membuat Objek Session Baru</h2>
+<p>Berikut adalah contoh cara membuat session lewat store.</p>
+<pre><code class="lang-go">e.GET(<span class="hljs-string">&quot;/set&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
+    session, _ := store.Get(c.Request(), SESSION_ID)
+    session.Values[<span class="hljs-string">&quot;message1&quot;</span>] = <span class="hljs-string">&quot;hello&quot;</span>
+    session.Values[<span class="hljs-string">&quot;message2&quot;</span>] = <span class="hljs-string">&quot;world&quot;</span>
+    session.Save(c.Request(), c.Response())
+
+    <span class="hljs-keyword">return</span> c.Redirect(http.StatusTemporaryRedirect, <span class="hljs-string">&quot;/get&quot;</span>)
+})
+</code></pre>
+<p>Statement <code>store.Get()</code> mengembalikan dua objek dengan tipe <code>session.Session</code> dan <code>error</code>. Pemanggilan method ini memerlukan dua buah parameter untuk disisipkan, yaitu objek http request, dan nama/key SessionID yang disiapkan di konstanta <code>SESSION_ID</code>. Method <code>.Get()</code> ini akan selalu mengembalikan objek session, ada ataupun tidak ada session yang dicari, objek session tetap dikembalikan.</p>
+<blockquote>
+<p>Pembuatan objek session baru bisa dilakukan lewat <code>store.New()</code> maupun <code>store.Get()</code>.</p>
+</blockquote>
+<p>Dari objek session, akses property mutable <code>.Values</code> untuk mengambil ataupun mengisi data session. Objek ini bertipe <code>map[interface{}]interface{}</code>, berarti SessionData yang akan disimpan juga harus memiliki identifier.</p>
+<p>Pada contoh di atas, dua buah data bertipe string disimpan, dengan identifier data yang juga string.</p>
+<ul>
+<li>SessionData <code>&quot;hello&quot;</code> disimpan dengan identifier adalah <code>message1</code>.</li>
+<li>SessionData <code>&quot;world&quot;</code> disimpan dengan identifier adalah <code>message2</code>.</li>
+</ul>
+<p>Cara menyimpan session adalah dengan memanggil method <code>.Save()</code> milik objek session, dengan parameter adalah http request dan response.</p>
+<h2 id="c133-mengakses-sessiondata">C.13.3. Mengakses SessionData</h2>
+<p>SessionData diakses dari objek session, berikut merupakan contoh caranya.</p>
+<pre><code class="lang-go">e.GET(<span class="hljs-string">&quot;/get&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
+    session, _ := store.Get(c.Request(), SESSION_ID)
+
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(session.Values) == <span class="hljs-number">0</span> {
+        <span class="hljs-keyword">return</span> c.String(http.StatusOK, <span class="hljs-string">&quot;empty result&quot;</span>)
+    }
+
+    <span class="hljs-keyword">return</span> c.String(http.StatusOK, fmt.Sprintf(
+        <span class="hljs-string">&quot;%s %s&quot;</span>,
+        session.Values[<span class="hljs-string">&quot;message1&quot;</span>],
+        session.Values[<span class="hljs-string">&quot;message2&quot;</span>],
+    ))
+})
+</code></pre>
+<p>Seperti yang sudah dibahas di atas, objek <code>session</code> kembalian <code>store.Get()</code> TIDAK akan pernah berisi <code>nil</code>. Ada atau tidak, objek session selalu dikembalikan. </p>
+<p>Dari objek session dilakukan pengecekan ada tidaknya SessionData, caranya dengan cara menghitung isi property <code>.Values</code> yang tipenya <code>map</code>. Jika isinya kosong maka session belum ada (atau mungkin ada hanya saja expired, atau bisa saja ada tapi invalid).</p>
+<p>Pada kode di atas, jika SessionData kosong maka string <code>empty result</code> ditampilkan ke layar. Sedangkan jika ada, maka kedua SessionData (message1 dan message2) diambil lalu ditampilkan.</p>
+<h2 id="c134-menghapus-session">C.13.4. Menghapus Session</h2>
+<p>Cara menghapus session adalah dengan meng-expired-kan max age cookie-nya. Property max age bisa diakses lewat <code>session.Options.MaxAge</code>.</p>
+<pre><code class="lang-go">e.GET(<span class="hljs-string">&quot;/delete&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
+    session, _ := store.Get(c.Request(), SESSION_ID)
+    session.Options.MaxAge = <span class="hljs-number">-1</span>
+    session.Save(c.Request(), c.Response())
+
+    <span class="hljs-keyword">return</span> c.Redirect(http.StatusTemporaryRedirect, <span class="hljs-string">&quot;/get&quot;</span>)
+})
+</code></pre>
+<p>Isi dengan <code>-1</code> agar expired, lalu simpan ulang kembali session-nya.</p>
+<h2 id="c135-session-store-dan-context-clear-handler">C.13.5. Session Store dan Context Clear Handler</h2>
+<p>Session Store adalah representasi dari media tempat di mana data asli session disimpan. Gorilla menyediakan <code>CookieStore</code>, penyimpanan data asli pada store ini adalah juga di dalam cookie, namun di-encode dan di-enkripsi menggunakan <a href="https://github.com/gorilla/securecookie" target="_blank">Securecookie</a>.</p>
+<p>Selain CookieStore, ada banyak store lain yang bisa kita gunakan. Komunitas begitu baik telah menyediakan berbagai macam store berikut.</p>
+<ul>
+<li><a href="https://github.com/starJammer/gorilla-sessions-arangodb" target="_blank">github.com/starJammer/gorilla-sessions-arangodb</a> - ArangoDB</li>
+<li><a href="https://github.com/yosssi/boltstore" target="_blank">github.com/yosssi/boltstore</a> - Bolt</li>
+<li><a href="https://github.com/srinathgs/couchbasestore" target="_blank">github.com/srinathgs/couchbasestore</a> - Couchbase</li>
+<li><a href="https://github.com/denizeren/dynamostore" target="_blank">github.com/denizeren/dynamostore</a> - Dynamodb on AWS</li>
+<li><a href="https://github.com/savaki/dynastore" target="_blank">github.com/savaki/dynastore</a> - DynamoDB on AWS (Official AWS library)</li>
+<li><a href="https://github.com/bradleypeabody/gorilla-sessions-memcache" target="_blank">github.com/bradleypeabody/gorilla-sessions-memcache</a> - Memcache</li>
+<li><a href="https://github.com/dsoprea/go-appengine-sessioncascade" target="_blank">github.com/dsoprea/go-appengine-sessioncascade</a> - Memcache/Datastore/Context in AppEngine</li>
+<li><a href="https://github.com/kidstuff/mongostore" target="_blank">github.com/kidstuff/mongostore</a> - MongoDB</li>
+<li><a href="https://github.com/srinathgs/mysqlstore" target="_blank">github.com/srinathgs/mysqlstore</a> - MySQL</li>
+<li><a href="https://github.com/EnumApps/clustersqlstore" target="_blank">github.com/EnumApps/clustersqlstore</a> - MySQL Cluster</li>
+<li><a href="https://github.com/antonlindstrom/pgstore" target="_blank">github.com/antonlindstrom/pgstore</a> - PostgreSQL</li>
+<li><a href="https://github.com/boj/redistore" target="_blank">github.com/boj/redistore</a> - Redis</li>
+<li><a href="https://github.com/boj/rethinkstore" target="_blank">github.com/boj/rethinkstore</a> - RethinkDB</li>
+<li><a href="https://github.com/boj/riakstore" target="_blank">github.com/boj/riakstore</a> - Riak</li>
+<li><a href="https://github.com/michaeljs1990/sqlitestore" target="_blank">github.com/michaeljs1990/sqlitestore</a> - SQLite</li>
+<li><a href="https://github.com/wader/gormstore" target="_blank">github.com/wader/gormstore</a> - GORM (MySQL, PostgreSQL, SQLite)</li>
+<li><a href="https://github.com/gernest/qlstore" target="_blank">github.com/gernest/qlstore</a> - ql</li>
+<li><a href="https://github.com/quasoft/memstore" target="_blank">github.com/quasoft/memstore</a> - In-memory implementation for use in unit tests</li>
+<li><a href="https://github.com/lafriks/xormstore" target="_blank">github.com/lafriks/xormstore</a> - XORM (MySQL, PostgreSQL, SQLite, Microsoft SQL Server, TiDB)</li>
+</ul>
+<p>Objek store dibuat sekali di awal (atau bisa saja berkali-kali di tiap handler, tergantung kebutuhan). Pada pembuatan objek store, umumya ada beberapa konfigurasi yang perlu disiapkan dan dua buah keys: authentication key dan encryption key.</p>
+<p>Dari objek store tersebut, dalam handler, kita bisa mengakses objek session dengan menyisipkan context http request. Silakan lihat kode berikut untuk lebih jelasnya. Store direpresentasikan oleh variabel objek <code>store</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;github.com/gorilla/context&quot;</span>
+    <span class="hljs-string">&quot;github.com/gorilla/sessions&quot;</span>
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">const</span> SESSION_ID = <span class="hljs-string">&quot;id&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    store := newMongoStore()
+
+    e := echo.New()
+
+    e.Use(echo.WrapMiddleware(context.ClearHandler))
+
+    e.GET(<span class="hljs-string">&quot;/set&quot;</span>, <span class="hljs-keyword">func</span>(c echo.Context) error {
+        session, _ := store.Get(c.Request(), SESSION_ID)
+        session.Values[<span class="hljs-string">&quot;message1&quot;</span>] = <span class="hljs-string">&quot;hello&quot;</span>
+        session.Values[<span class="hljs-string">&quot;message2&quot;</span>] = <span class="hljs-string">&quot;world&quot;</span>
+        session.Save(c.Request(), c.Response())
+
+        <span class="hljs-keyword">return</span> c.Redirect(http.StatusTemporaryRedirect, <span class="hljs-string">&quot;/get&quot;</span>)
+    })
+
+    <span class="hljs-comment">// ...</span>
+</code></pre>
+<p>Sesuai dengan README Gorilla Session, library ini jika digabung dengan library lain selain gorilla mux, akan berpotensi menyebabkan memory leak. Untuk mengcover isu ini maka middleware <code>context.ClearHandler</code> perlu diregistrasikan. Middleware tersebut berada dalam library <a href="https://github.com/gorilla/context" target="_blank">Gorilla Context</a>.</p>
+<h2 id="c136-mongo-db-store">C.13.6. Mongo DB Store</h2>
+<p>Kita akan mempelajari pembuatan session store dengan media adalah mongo db. Sebelum kita mulai, ada dua library yang perlu di <code>go get</code>.</p>
+<ul>
+<li><a href="https://gopkg.in/mgo.v2" target="_blank">gopkg.in/mgo.v2</a></li>
+<li><a href="https://github.com/kidstuff/mongostore" target="_blank">github.com/kidstuff/mongostore</a></li>
+</ul>
+<p>Library pertama, <code>mgo.v2</code> merupakan driver mongo db untuk golang. Koneksi dari golang ke mongodb akan kita buat lewat API library ini.</p>
+<p>Library kedua, merupakan implementasi dari interface <code>sessions.Store</code> untuk mongo db.</p>
+<p>Silakan kombinasikan semua koding yang sudah kita tulis di atas agar menjadi satu aplikasi. Lalu buat fungsi <code>newMongoStore()</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;github.com/gorilla/context&quot;</span>
+    <span class="hljs-string">&quot;github.com/kidstuff/mongostore&quot;</span>
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    <span class="hljs-string">&quot;gopkg.in/mgo.v2&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+)
+
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">func</span> newMongoStore() *mongostore.MongoStore {
+    mgoSession, err := mgo.Dial(<span class="hljs-string">&quot;localhost:27123&quot;</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Println(<span class="hljs-string">&quot;ERROR&quot;</span>, err)
+        os.Exit(<span class="hljs-number">0</span>)
+    }
+
+    dbCollection := mgoSession.DB(<span class="hljs-string">&quot;learnwebgolang&quot;</span>).C(<span class="hljs-string">&quot;session&quot;</span>)
+    maxAge := <span class="hljs-number">86400</span> * <span class="hljs-number">7</span>
+    ensureTTL := <span class="hljs-literal">true</span>
+    authKey := []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;my-auth-key-very-secret&quot;</span>)
+    encryptionKey := []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;my-encryption-key-very-secret123&quot;</span>)
+
+    store := mongostore.NewMongoStore(
+        dbCollection,
+        maxAge,
+        ensureTTL,
+        authKey,
+        encryptionKey,
+    )
+    <span class="hljs-keyword">return</span> store
+}
+</code></pre>
+<p>Statement <code>mgo.Dial()</code> digunakan untuk terhubung dengan mongo db server. Method dial mengembalikan dua objek, salah satunya adalah mgo session.</p>
+<blockquote>
+<p>Pada saat pembuatan buku ini, penulis menggunakan mongo db server yang up pada port <code>27123</code>, silakan menyesuaikan connection string dengan credentials mongo db yang digunakan.</p>
+</blockquote>
+<p>Dari mgo session akses database lewat method <code>.DB()</code>, lalu akses collection yang ingin digunakan sebagai media penyimpanan data asli session lewat method <code>.C()</code>.</p>
+<p>Statement <code>mongostore.NewMongoStore()</code> digunakan untuk membuat mongo db store. Ada beberapa parameter yang diperlukan: objek collection mongo di atas, dan dua lagi lainnya adalah authentication key dan encryption key.</p>
+<p>Jika pembaca merasa bingung, silakan langsung buka <a href="https://github.com/novalagung/dasarpemrogramangolang-example/" target="_blank">source code untuk chapter ini di Github</a>, mungkin membantu.</p>
+<h2 id="c137-postgres-sql-store">C.13.7. Postgres SQL Store</h2>
+<p>Pembuatan postgres store caranya kurang lebih sama dengan mongo store. Library yang dipakai adalah <a href="https://github.com/antonlindstrom/pgstore" target="_blank">github.com/antonlindstrom/pgstore</a>.</p>
+<p>Gunakan <code>pgstore.NewPGStore()</code> untuk membuat store. Isi parameter pertama dengan connection string postgres server, lalu authentication key dan encryption key.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;github.com/antonlindstrom/pgstore&quot;</span>
+    <span class="hljs-string">&quot;github.com/gorilla/context&quot;</span>
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+)
+
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">func</span> newPostgresStore() *pgstore.PGStore {
+    url := <span class="hljs-string">&quot;postgres://novalagung:@127.0.0.1:5432/novalagung?sslmode=disable&quot;</span>
+    authKey := []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;my-auth-key-very-secret&quot;</span>)
+    encryptionKey := []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;my-encryption-key-very-secret123&quot;</span>)
+
+    store, err := pgstore.NewPGStore(url, authKey, encryptionKey)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Println(<span class="hljs-string">&quot;ERROR&quot;</span>, err)
+        os.Exit(<span class="hljs-number">0</span>)
+    }
+
+    <span class="hljs-keyword">return</span> store
+}
+</code></pre>
+<h2 id="c138-secure-cookie-store">C.13.8. Secure Cookie Store</h2>
+<p>Penggunaan cookie store kurang penulis anjurkan, meski sebenarnya cukup aman. Implementasi store jenis ini adalah yang paling mudah, karena tidak butuh database server atau media lainnya; dan juga karena API untuk cookie store sudah tersedia dalam gorilla sessions secara default.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;github.com/gorilla/context&quot;</span>
+    <span class="hljs-string">&quot;github.com/gorilla/sessions&quot;</span>
+    <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">func</span> newCookieStore() *sessions.CookieStore {
+    authKey := []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;my-auth-key-very-secret&quot;</span>)
+    encryptionKey := []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;my-encryption-key-very-secret123&quot;</span>)
+
+    store := sessions.NewCookieStore(authKey, encryptionKey)
+    store.Options.Path = <span class="hljs-string">&quot;/&quot;</span>
+    store.Options.MaxAge = <span class="hljs-number">86400</span> * <span class="hljs-number">7</span>
+    store.Options.HttpOnly = <span class="hljs-literal">true</span>
+
+    <span class="hljs-keyword">return</span> store
+}
+</code></pre>
+<p>Tentukan path dan default max age cookie lewat <code>store.Options</code>.</p>
+<h2 id="c139-test-aplikasi">C.13.9. Test Aplikasi</h2>
+<p>Silakan gabung semua kode yang sudah kita pelajari (kecuali bagian store), lalu pilih salah satu implementasi store di atas. Jalankan aplikasi untuk testing.</p>
+<p>Tujuan dari kode yang kita tulis kurang lebih sebagai berikut.</p>
+<ol>
+<li>Ketika <code>/get</code> diakses untuk pertama kali, <code>empty result</code> muncul, tidak ada data session yang disimpan sebelumnya.</li>
+<li>Rute <code>/set</code> diakses, lalu sebuah session disimpan, dari rute ini pengguna di-redirect ke <code>/get</code>, sebuah pesan muncul yang sumber datanya tak lain adalah dari session.</li>
+<li>Rute <code>/delete</code> diakses, session dihapus, lalu di-redirect lagi ke <code>/get</code>, pesan <code>empty result</code> muncul kembali karena session sudah tidak ada (dihapus).</li>
+</ol>
+<p><img src="images/C_session_1_test.png" alt="Dasar Pemrograman Golang - Session Test"></p>
+<hr>
+<ul>
+<li><a href="https://github.com/labstack/echo" target="_blank">Echo</a>, by Vishal Rana (Lab Stack), MIT license</li>
+<li><a href="https://github.com/gorilla/sessions" target="_blank">Gorilla Sessions</a>, by Gorilla web toolkit team, BSD-3-Clause license</li>
+<li><a href="https://github.com/gorilla/context" target="_blank">Gorilla Context</a>, by Gorilla web toolkit team, BSD-3-Clause license</li>
+<li><a href="https://github.com/gorilla/securecookie" target="_blank">Gorilla Securecookie</a>, by Gorilla web toolkit team, BSD-3-Clause license</li>
+<li><a href="https://github.com/antonlindstrom/pgstore" target="_blank">PG Store</a>, by Anton Lindstr&#xF6;m, MIT License</li>
+<li><a href="https://github.com/kidstuff/mongostore" target="_blank">Mongo Store</a>, by Nguy&#x1EC5;n V&#x103;n Cao Nguy&#xEA;n, BSD-3-Clause License</li>
+<li><a href="https://labix.org/mgo" target="_blank">Mgo v2, Golang Mongo Driver</a>, by Gustavo Niemeyer, Simplified BSD License</li>
+</ul>
+<hr>
+<div class="source-code-link">
+    <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.13-session" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.13...</a>
+</div>
+
+<hr>
+<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
 
                                 
                                 </section>
@@ -2120,8 +2346,12 @@
 
             
                 
+                <a href="C-securecookie.html" class="navigation navigation-prev " aria-label="Previous page: C.12. Secure Cookie (Gorilla Securecookie)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CHANGELOG.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Version Changelogs &amp; Updates">
+                
+                <a href="C-cors-preflight-request.html" class="navigation navigation-next " aria-label="Next page: C.14. CORS &amp; Preflight Request">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2132,7 +2362,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"next":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"path":"CHANGELOG.md","ref":"CHANGELOG.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2024-11-14T19:28:44.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.13. Session (Gorilla Session)","level":"5.1.13","depth":2,"next":{"title":"C.14. CORS & Preflight Request","level":"5.1.14","depth":2,"path":"C-cors-preflight-request.md","ref":"C-cors-preflight-request.md","articles":[]},"previous":{"title":"C.12. Secure Cookie (Gorilla Securecookie)","level":"5.1.12","depth":2,"path":"C-securecookie.md","ref":"C-securecookie.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"C-session.md","mtime":"2024-11-14T19:27:53.076Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-14T19:28:45.406Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
