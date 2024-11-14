@@ -147,7 +147,7 @@ func webbookPostAdjustment() {
 		htmlString = strings.ReplaceAll(htmlString, imagesAltToFind, imagesAltReplacement)
 
 		// ==== disqus lazy load
-		disqusJSBuf, err := os.ReadFile("./gitbook-plugin-disqus.js")
+		disqusJSBuf, err := os.ReadFile("./script-gitbook-plugin-disqus.js")
 		if err != nil {
 			fmt.Println("error", err)
 		}

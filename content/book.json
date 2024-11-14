@@ -1,1 +1,38 @@
-etc/book.json
+{
+    "plugins": [
+        "-search",
+        "-lunr",
+        "docsearch-v3",
+        "disqus",
+        "meta",
+        "sitemap"
+    ],
+    "styles": {
+        "website": "style-custom.css"
+    },
+    "pluginsConfig": {
+        "disqus": {
+            "shortName": "dasarpemrogramangolang"
+        },
+        "meta": {
+            "data": [{
+                "name": "google-site-verification",
+                "content": "UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"
+            }, {
+                "name": "og:image",
+                "content": "https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"
+            }, {
+                "name": "twitter:image",
+                "content": "https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"
+            }]
+        },
+        "sitemap": {
+            "hostname": "https://dasarpemrogramangolang.novalagung.com/"
+        },
+        "docsearch": {
+            "appId": "ZV0MXP90GF",
+            "apiKey": "f7431c709385fe300da4c2ef2093c43c",
+            "indexName": "dasarpemrogramangolang-novalagung"
+        }
+    }
+}

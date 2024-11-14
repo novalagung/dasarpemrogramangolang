@@ -20,21 +20,14 @@ jobs:
     - name: 'Generating distributable files'
       run: |
         rm -f README.md
-        rm -f content/book.json
-        rm -f content/style-custom.css
         mv content/* .
-        mv etc/cover_small.jpg .
-        mv etc/cover_square.png .
-        mv etc/cover.jpg .
-        mv etc/style-custom.css .
+        mv book.json book.json.tmp
         mv etc/main.go .
-        mv etc/robots.txt .
-        mv etc/gitbook-plugin-disqus.js .
         npm install -g gitbook-cli
         gitbook install
         cd ~/.gitbook/versions/3.2.3 && npm i npm@5
         cd ${{ github.workspace }}
-        mv etc/book.json .
+        mv book.json.tmp book.json
         gitbook install
         go run main.go -mode=webbook -adjustment=pre
         gitbook build
@@ -74,12 +67,8 @@ jobs:
     - name: 'Generating distributable files'
       run: |
         rm -f README.md
-        rm -f content/book.json
-        rm -f content/style-custom.css
         mv content/* .
-        mv etc/cover_small.jpg .
-        mv etc/cover_square.png .
-        mv etc/cover.jpg .
+        rm -rf book.json
         mv etc/main.go .
         go run main.go -mode=ebook -adjustment=pre
         gitbook install
