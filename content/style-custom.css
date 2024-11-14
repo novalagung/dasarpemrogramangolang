@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 /* base font */
-body .book.font-family-1 {
+body .book.font-family-1, .book-summary {
     font-family: Inter, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
 }
 
