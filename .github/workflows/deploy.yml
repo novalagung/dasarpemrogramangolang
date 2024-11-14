@@ -20,6 +20,8 @@ jobs:
     - name: 'Generating distributable files'
       run: |
         rm -f README.md
+        rm -f content/book.json
+        rm -f content/custom.css
         mv content/* .
         mv etc/cover_small.jpg .
         mv etc/cover_square.png .
@@ -72,6 +74,8 @@ jobs:
     - name: 'Generating distributable files'
       run: |
         rm -f README.md
+        rm -f content/book.json
+        rm -f content/custom.css
         mv content/* .
         mv etc/cover_small.jpg .
         mv etc/cover_square.png .

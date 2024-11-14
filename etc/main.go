@@ -180,13 +180,6 @@ func webbookPostAdjustment() {
 		</div>` + buttonToFind
 		htmlString = strings.ReplaceAll(htmlString, buttonToFind, buttonReplacement)
 
-		// ==== inject adjustment css
-		adjustmentCSSBuf, _ := os.ReadFile("./custom.css")
-		os.WriteFile("./_book/gitbook/custom.css", adjustmentCSSBuf, 0644)
-		adjustmentCSSToFind := `</head>`
-		adjustmentCSSReplacement := `<link rel="stylesheet" href="gitbook/custom.css?v=` + getVersion() + `">` + adjustmentCSSToFind
-		htmlString = strings.ReplaceAll(htmlString, adjustmentCSSToFind, adjustmentCSSReplacement)
-
 		// ==== inject github stars js script
 		buttonScriptToFind := `</head>`
 		buttonScriptReplacement := `<script async defer src="https://buttons.github.io/buttons.js"></script>` + buttonScriptToFind

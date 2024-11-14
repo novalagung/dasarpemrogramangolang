@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 /* base font */
-body {
-    font-family: Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+body .book.font-family-1 {
+    font-family: Inter, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
 }
 
 /* unmark to disable search bar, replace it with the book title instead */
@@ -25,6 +26,15 @@ body {
     z-index: 1;
     position: absolute;
 } */
+
+.dropdown.font-settings {
+    display: none;
+}
+
+.page-inner {
+    max-width: fit-content;
+    padding: 20px 100px 40px 100px;
+}
 
 /* disable word wrap at left sidebar */
 .book-summary ul.summary li a, .book-summary ul.summary li span {
@@ -87,12 +97,12 @@ body {
 
 /* make the sidebar wider, and adjust the content to match it */
 .book-summary {
-    left: -500px;
-    width: 500px;
+    left: -470px;
+    width: 470px;
 }
 @media (min-width: 600px) {
     .book.with-summary .book-body {
-        left: 500px;
+        left: 470px;
     }
 }
 
@@ -161,7 +171,7 @@ ins.adsbygoogle {
     position: fixed;
     bottom: 0;
     right: 17px;
-    left: 500px;
+    left: 470px;
     z-index: 1000;
 }
 
