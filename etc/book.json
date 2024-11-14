@@ -8,7 +8,7 @@
         "sitemap"
     ],
     "styles": {
-        "website": "custom.css"
+        "website": "style-custom.css"
     },
     "pluginsConfig": {
         "disqus": {

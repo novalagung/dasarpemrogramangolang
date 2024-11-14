@@ -163,7 +163,6 @@ func webbookPostAdjustment() {
 			"gitbook/gitbook-plugin-highlight/website.css",
 			"gitbook/gitbook-plugin-search/search.css",
 			"gitbook/gitbook-plugin-fontsettings/website.css",
-			// `/custom.css?v=` + getVersion() + `"`,
 		}
 		for _, cssFileNameToFind := range cssToLoad {
 			cssFileNameReplacement := fmt.Sprintf(`%s" media="print" onload="this.media='all'`, cssFileNameToFind)

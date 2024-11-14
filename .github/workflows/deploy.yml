@@ -21,12 +21,12 @@ jobs:
       run: |
         rm -f README.md
         rm -f content/book.json
-        rm -f content/custom.css
+        rm -f content/style-custom.css
         mv content/* .
         mv etc/cover_small.jpg .
         mv etc/cover_square.png .
         mv etc/cover.jpg .
-        mv etc/custom.css .
+        mv etc/style-custom.css .
         mv etc/main.go .
         mv etc/robots.txt .
         mv etc/gitbook-plugin-disqus.js .
@@ -75,7 +75,7 @@ jobs:
       run: |
         rm -f README.md
         rm -f content/book.json
-        rm -f content/custom.css
+        rm -f content/style-custom.css
         mv content/* .
         mv etc/cover_small.jpg .
         mv etc/cover_square.png .
