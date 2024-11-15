@@ -170,20 +170,13 @@ func webbookPostAdjustment() {
 
 		// ==== inject github stars button
 		buttonToFind := `</body>`
-		buttonReplacement := `<div style="position: fixed; top: 10px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);">
+		buttonReplacement := `<div style="position: fixed; top: 5px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);">
 			<a class="github-button" href="https://github.com/sponsors/novalagung" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @novalagung on GitHub">Sponsor</a>&nbsp;
 			<a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;
 			<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a>
 			<script async defer src="https://buttons.github.io/buttons.js"></script>
 		</div>` + buttonToFind
 		htmlString = strings.ReplaceAll(htmlString, buttonToFind, buttonReplacement)
-
-		// ==== inject adjustment css
-		adjustmentCSSBuf, _ := os.ReadFile("./style-custom.css")
-		os.WriteFile("./_book/gitbook/style-custom.css", adjustmentCSSBuf, 0644)
-		adjustmentCSSToFind := `</head>`
-		adjustmentCSSReplacement := `<link rel="stylesheet" href="gitbook/style-custom.css?v=` + getVersion() + `">` + adjustmentCSSToFind
-		htmlString = strings.ReplaceAll(htmlString, adjustmentCSSToFind, adjustmentCSSReplacement)
 
 		// ==== inject github stars js script
 		buttonScriptToFind := `</head>`

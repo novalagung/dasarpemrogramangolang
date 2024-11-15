@@ -32,21 +32,8 @@ body .book.font-family-1, .book-summary {
 }
 
 .page-inner {
-    max-width: fit-content;
+    max-width: none;
     padding: 20px 100px 40px 100px;
-}
-
-/* disable word wrap at left sidebar */
-.book-summary ul.summary li a, .book-summary ul.summary li span {
-    text-overflow: initial;
-    white-space: normal;
-    line-height: 1.4em;
-    padding: 9px 15px;
-}
-
-/* sidebar background */
-.book-summary {
-    background-color: #ffffff;
 }
 
 /* sidebar ads animation */
@@ -81,18 +68,64 @@ body .book.font-family-1, .book-summary {
     background: hsla(0,0%,53%,.1);
 }
 
-/* sidebar active link */
-.book-summary li.active>a:before {
-    content: " ";
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background-color: #008cff;
+/* sidebar background */
+.book-summary {
+    background-color: #ffffff;
 }
-.book-summary li.active>a {
+
+/* sidebar items */
+.book-summary ul.summary li a, .book-summary ul.summary li span {
+    text-overflow: initial;
+    white-space: normal;
+    line-height: 1.4em;
+    padding: 9px 10px 9px 6px;
+}
+.book-summary ul.summary li.chapter {
+    position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.book-summary ul.summary > li.chapter:before {
+    position: absolute;
+    content: " ";
+    background-color: #F4F4F5;
+    width: 2px;
+    left: 27px;
+    top: 39px;
+    bottom: 0px;
+}
+.book-summary ul.summary li.chapter span {
+    font-weight: 600;
+}
+.book-summary ul.summary li.chapter a {
+    text-indent: -41px;
+    padding-left: 51px;
+}
+.book-summary ul.summary li.chapter a:hover, .book-summary ul.summary li.chapter.active a {
+    background-color: #F4F4F5;
     font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+}
+.book-summary ul.summary li span:before {
+    content: "📄";
+    margin-right: 2px;
+    font-size: 1.2em;
+}
+.book-summary ul.summary li.divider {
+    margin: 18px 0 7px;
+}
+
+/* docsearch */
+#book-doc-search-input {
+    padding: 5px;
+}
+#book-doc-search-input .DocSearch-Button {
+    border-radius: 6px;
+    background-color: #F4F4F5;
+}
+#book-doc-search-input .DocSearch-Button:hover {
+    box-shadow: inset 0 0 0 2px #008cff;
 }
 
 /* make the sidebar wider, and adjust the content to match it */
@@ -106,11 +139,31 @@ body .book.font-family-1, .book-summary {
     }
 }
 
+.book-header {
+    border-bottom: 1px solid #ededed;
+    height: 59px;
+    padding: 5px 8px 0px;
+}
+
 /* hide the header because each post already has it's h1 */
 /* also hide the unused navigation buttons (except font settings) */
 .book-header > h1,
 .book-header > .pull-right:not(.font-settings) {
     display: none;
+}
+
+/* content */
+.markdown-section h1 {
+    font-weight: 400;
+    margin-bottom: 0.4em;
+}
+.markdown-section hr,
+.ebook-wrapper hr {
+    height: 1px !important;
+    background-color: #e7e9ee !important;
+}
+.markdown-section blockquote {
+    font-style: italic;
 }
 
 /* hide the "published by gitbook" footer */
@@ -218,10 +271,4 @@ ins.adsbygoogle {
         height: auto;
         margin-top: -100px;
     }
-}
-
-.markdown-section hr,
-.ebook-wrapper hr {
-    height: 1px !important;
-    background-color: #e7e9ee !important;
 }

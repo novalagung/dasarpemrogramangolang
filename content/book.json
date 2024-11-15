@@ -7,6 +7,15 @@
         "meta",
         "sitemap"
     ],
+    "styles": {
+        "website": "style-website-v3.css"
+    },
+    "pdf": {
+        "margin": {
+            "left": 10,
+            "right": 10
+        }
+    },
     "pluginsConfig": {
         "disqus": {
             "shortName": "dasarpemrogramangolang"
