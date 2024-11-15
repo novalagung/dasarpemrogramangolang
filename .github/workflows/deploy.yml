@@ -24,10 +24,10 @@ jobs:
         mv etc/cover_small.jpg .
         mv etc/cover_square.png .
         mv etc/cover.jpg .
-        mv etc/custom.css .
+        mv etc/style-custom.css .
         mv etc/main.go .
         mv etc/robots.txt .
-        mv etc/gitbook-plugin-disqus.js .
+        mv etc/script-gitbook-plugin-disqus.js .
         npm install -g gitbook-cli
         gitbook install
         cd ~/.gitbook/versions/3.2.3 && npm i npm@5
