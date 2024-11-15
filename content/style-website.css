@@ -32,7 +32,7 @@ body .book.font-family-1, .book-summary {
 }
 
 .page-inner {
-    max-width: fit-content;
+    max-width: none;
     padding: 20px 100px 40px 100px;
 }
 
