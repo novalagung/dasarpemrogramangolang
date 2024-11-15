@@ -1,4 +1,4 @@
-# A.2. Instalasi Golang (Stable & Unstable)
+# A.2. Instalasi Golang
 
 Hal pertama yang perlu dilakukan sebelum bisa menggunakan Go adalah meng-*install*-nya terlebih dahulu. Panduan instalasi sebenarnya sudah disediakan di situs resmi Go [http://golang.org/doc/install#install](http://golang.org/doc/install#install).
 

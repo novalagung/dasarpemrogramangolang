@@ -21,13 +21,8 @@ jobs:
       run: |
         rm -f README.md
         mv content/* .
-        mv etc/cover_small.jpg .
-        mv etc/cover_square.png .
-        mv etc/cover.jpg .
-        mv etc/style-custom.css .
+        mv book.json etc/
         mv etc/main.go .
-        mv etc/robots.txt .
-        mv etc/script-gitbook-plugin-disqus.js .
         npm install -g gitbook-cli
         gitbook install
         cd ~/.gitbook/versions/3.2.3 && npm i npm@5
@@ -73,12 +68,12 @@ jobs:
       run: |
         rm -f README.md
         mv content/* .
-        mv etc/cover_small.jpg .
-        mv etc/cover_square.png .
-        mv etc/cover.jpg .
         mv etc/main.go .
-        go run main.go -mode=ebook -adjustment=pre
+        rm -f book.json
         gitbook install
+        cd ~/.gitbook/versions/3.2.3 && npm i npm@5
+        cd ${{ github.workspace }}
+        go run main.go -mode=ebook -adjustment=pre
         mkdir _book/
     - name: 'Generating ebook in pdf'
       run: gitbook pdf ./ ./_book/dasarpemrogramangolang.pdf
