@@ -1,5 +1,11 @@
 # Version Changelogs & Updates
 
+## 📝 Release v4.0.20241115 (2024-11-15)
+
+#### ◉ General update
+
+- UI updates
+
 ## 📝 Release v4.0.20240830 (2024-08-30)
 
 #### ◉ Chapter update
