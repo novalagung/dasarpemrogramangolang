@@ -15,7 +15,7 @@ Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
     go get go.mongodb.org/mongo-driver/mongo
     ```
 
- 2. Pastikan sudah terinstal MongoDB di komputer anda, dan jangan lupa untuk menjalankan daemon-nya. Jika belum, [download](ihttps://www.mongodb.org/downloads) dan install terlebih dahulu.
+ 2. Pastikan sudah terinstal MongoDB di komputer anda, dan jangan lupa untuk menjalankan daemon-nya. Jika belum, [download](https://www.mongodb.org/downloads) dan install terlebih dahulu.
 
  3. Instal juga MongoDB GUI untuk mempermudah browsing data. Bisa menggunakan [MongoChef](http://3t.io/mongochef/), [Robomongo](http://robomongo.org/), atau lainnya.
 
