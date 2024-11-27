@@ -139,11 +139,31 @@ body .book.font-family-1, .book-summary {
     }
 }
 
+.book-header {
+    border-bottom: 1px solid #ededed;
+    height: 59px;
+    padding: 5px 8px 0px;
+}
+
 /* hide the header because each post already has it's h1 */
 /* also hide the unused navigation buttons (except font settings) */
 .book-header > h1,
 .book-header > .pull-right:not(.font-settings) {
     display: none;
+}
+
+/* content */
+.markdown-section h1 {
+    font-weight: 400;
+    margin-bottom: 0.4em;
+}
+.markdown-section hr,
+.ebook-wrapper hr {
+    height: 1px !important;
+    background-color: #e7e9ee !important;
+}
+.markdown-section blockquote {
+    font-style: italic;
 }
 
 /* hide the "published by gitbook" footer */
@@ -251,16 +271,4 @@ ins.adsbygoogle {
         height: auto;
         margin-top: -100px;
     }
-}
-
-/* content */
-.markdown-section h1 {
-    font-size: 3em;
-    font-weight: 400;
-    margin-bottom: 0.4em;
-}
-.markdown-section hr,
-.ebook-wrapper hr {
-    height: 1px !important;
-    background-color: #e7e9ee !important;
 }
