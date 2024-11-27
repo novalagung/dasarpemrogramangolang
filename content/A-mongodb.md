@@ -8,16 +8,16 @@ Pada chapter ini kita akan belajar cara berkomunikasi dengan NoSQL MongoDB serve
 
 Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
 
-1.  Instal mongo-go-driver menggunakan `go get`.
+ 1. Instal mongo-go-driver menggunakan `go get`.
 
     ```
-    cd <folder-project>
+	cd <folder-project>
     go get go.mongodb.org/mongo-driver/mongo
     ```
 
-2.  Pastikan sudah terinstal MongoDB di komputer anda, dan jangan lupa untuk menjalankan daemon-nya. Jika belum, [download](https://www.mongodb.org/downloads) dan install terlebih dahulu.
+ 2. Pastikan sudah terinstal MongoDB di komputer anda, dan jangan lupa untuk menjalankan daemon-nya. Jika belum, [download](ihttps://www.mongodb.org/downloads) dan install terlebih dahulu.
 
-3.  Instal juga MongoDB GUI untuk mempermudah browsing data. Bisa menggunakan [MongoChef](http://3t.io/mongochef/), [Robomongo](http://robomongo.org/), atau lainnya.
+ 3. Instal juga MongoDB GUI untuk mempermudah browsing data. Bisa menggunakan [MongoChef](http://3t.io/mongochef/), [Robomongo](http://robomongo.org/), atau lainnya.
 
 ## A.57.2. Insert Data
 
@@ -40,7 +40,7 @@ import (
 
 Siapkan satu object context dan struct `student`. Rencananya satu buah document kita buat sebagai satu buah objek `student`.
 
-Perlu diketahui bahwa pada chapter ini tidak dijelaskan tentang apa itu context. Silakan merujuk ke [D.2. Google API Search Dengan Timeout](/D-google-api-search.html) untuk mempelajarinya. Menggunakan satu context background untuk semua operasi sangat tidak dianjurkan, tapi pada chapter ini kita terapkan demikian agar tidak menambah kebingungan pembaca yang masih proses belajar. Context sendiri fungsinya sangat banyak, untuk kasus sejenis biasanya digunakan untuk handle operation timeout atau lainnya.
+Perlu diketahui bahwa pada chapter ini tidak dijelaskan tentang apa itu context. Silakan merujuk ke [D.2. Google API Search Dengan Timeout](/D-google-api-search.html) untuk mempelajarinya. Menggunakan satu context background untuk semua operasi sangat tidak dianjurkan, tapi pada chapter ini kita terapkan demikian agar tidak menambah kebingungan pembaca yang masih proses belajar. Context sendiri fungsinya sangat banyak, untuk kasus sejenis biasanya digunakan untuk handle operation timeout atau lainnya. 
 
 ```go
 var ctx = context.Background()
@@ -187,9 +187,9 @@ db.Collection("student").Find(ctx, bson.M{"name": "Wick"})
 
 Method `.Update()` digunakan untuk update data (jika update hanya diinginkan untuk berlaku pada 1 dokumen saja, maka gunakan `.UpdateOne()`). Method `.Update()` memerlukan 3 buah parameter dalam pemanggilannya.
 
-1.  Parameter pertama, objek context
-2.  Parameter kedua adalah query kondisi yang mengacu ke data mana yang ingin di update
-3.  Parameter ketiga adalah perubahan datanya.
+ 1. Parameter pertama, objek context
+ 2. Parameter kedua adalah query kondisi yang mengacu ke data mana yang ingin di update
+ 3. Parameter ketiga adalah perubahan datanya.
 
 Di bawah ini adalah contok implementasi method `Update()`.
 
