@@ -45,6 +45,7 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 1. [Faizar Septiawan](https://github.com/icarrr)
 1. [Fajar Islami](https://github.com/Fajar-Islami)
 1. [Febrian](https://github.com/febri4n)
+1. [Felix Andersen](https://github.com/andfxx27)
 1. [Ganjar Gingin Tahyudin](https://github.com/zarszz)
 1. [Gusman Widodo](https://github.com/gusmanwidodo)
 1. [Hafiz Kurnia Aji](https://github.com/hafizkurniaaji)
