@@ -6,12 +6,12 @@ require([
     var disqusConfig = null;
 
     function prepareDisqusPollDOM() {
-        if ($("#disqus_poll").children().length > 0) {
+        if ($(".disqus_poll").children().length > 0) {
             return;
         }
 
-        $("#disqus_poll").remove()
-        $(".book-body .page-inner").append(`<div id="disqus_poll" class="disqus_poll" data-disqus-poll-id="391630233761218"></div>`);
+        $(".disqus_poll").remove()
+        $(".book-body .page-inner").append(`<div class="disqus_poll" data-disqus-poll-id="391630233761218"></div>`);
     }
 
     function prepareDisqusThreadDOM() {
