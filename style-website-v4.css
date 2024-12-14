@@ -190,6 +190,10 @@ ins.adsbygoogle {
 }
 
 /* disquss block */
+#disqus_poll {
+    margin: 40px auto 5px;
+    max-width: 800px;
+}
 #disqus_thread {
     margin: 40px auto 5px;
     max-width: 800px;
