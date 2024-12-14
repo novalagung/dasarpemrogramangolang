@@ -65,6 +65,7 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 1. [Muhammad Zulfan Wahyudin](https://github.com/mzulfanw)
 1. [Mulia Nasution](https://github.com/mul14)
 1. [nekonako](https://github.com/nekonako)
+1. [nisacodelifings](https://github.com/nisacodelifings)
 1. [Nuevo Querto](https://github.com/NuevoQuerto)
 1. [Rico](https://github.com/goldsky)
 1. [Rizky Zhang](https://github.com/rizkyzhang)

@@ -47,7 +47,7 @@ O iya, sebenarnya selain Go Modules, setup project di Go juga bisa menggunakan `
 
 Namun metode inisialisasi project via GOPATH sudah outdate dan kurang dianjurkan untuk project-project yang dikembangkan menggunakan Go versi terbaru (1.14 ke atas).
 
-Jadi setelah chapter ini, penulis boleh langsung lompat ke pembahasan di chapter [A.5. Instalasi Editor](/A-instalasi-editor.html).
+Jadi setelah chapter ini, pembaca boleh langsung lompat ke pembahasan di chapter [A.5. Instalasi Editor](/A-instalasi-editor.html).
 
 ---
 
