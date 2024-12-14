@@ -5,19 +5,26 @@ require([
     var useIdentifier = false;
     var disqusConfig = null;
 
-    function prepareDisqusThreadDOM() {
-        var id = "disqus_thread";
-        if ($("#" + id).children().length > 0) {
+    function prepareDisqusPollDOM() {
+        if ($(".disqus_poll").children().length > 0) {
             return;
         }
 
-        $("#" + id).remove()
+        $(".disqus_poll").remove()
+        $(".book-body .page-inner").append(`<div class="disqus_poll" data-disqus-poll-id="391630233761218"></div>`);
+    }
 
-        var $disqusDiv = $("<div>", { "id": id });
-        $(".book-body .page-inner").append($disqusDiv);
+    function prepareDisqusThreadDOM() {
+        if ($("#disqus_thread").children().length > 0) {
+            return;
+        }
+
+        $("#disqus_thread").remove()
+        $(".book-body .page-inner").append(`<div id="disqus_thread"></div>`);
     }
 
     function resetDisqus() {
+        prepareDisqusPollDOM()
         prepareDisqusThreadDOM()
         if (typeof DISQUS !== "undefined") {
             DISQUS.reset({
@@ -76,6 +83,17 @@ require([
             dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
+
+        (function() {
+            if (document.getElementById('disqus_polls_script')) {
+                // polls.js script already loaded, don't load a second time
+                return;
+            }
+            var d = document, s = d.createElement('script');
+            s.id = 'disqus_polls_script';
+            s.src = 'https://dasarpemrogramangolang.disqus.com/polls.js';
+            (d.head || d.body).appendChild(s);
+        })()
 
         resetDisqus();
     }

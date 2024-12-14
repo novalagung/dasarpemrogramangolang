@@ -183,6 +183,11 @@ func webbookPostAdjustment() {
 		buttonScriptReplacement := `<script async defer src="https://buttons.github.io/buttons.js"></script>` + buttonScriptToFind
 		htmlString = strings.ReplaceAll(htmlString, buttonScriptToFind, buttonScriptReplacement)
 
+		// ==== prevent loading cached disqus.js
+		disqusScriptToFind := `<script src="gitbook/gitbook-plugin-disqus/plugin.js"></script>`
+		disqusScriptReplacement := `<script src="gitbook/gitbook-plugin-disqus/plugin.js?` + getVersion() + `"></script>`
+		htmlString = strings.ReplaceAll(htmlString, disqusScriptToFind, disqusScriptReplacement)
+
 		// ==== inject ga4
 		ga4propertyToFind := `</head>`
 		ga4propertyReplacement := `<script async src="https://www.googletagmanager.com/gtag/js?id=` + ga4tagId + `"></script>
