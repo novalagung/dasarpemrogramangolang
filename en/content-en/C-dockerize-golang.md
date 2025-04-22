@@ -156,7 +156,7 @@ Dalam Image `golang:alpine` sudah tersedia beberapa utilitas untuk keperluan *bu
 
 #### 2. Statement `RUN apk update && apk add --no-cache git`
 
-Keyword `RUN` digunakan untuk menjalankan shell comamnd. Argument setelahnya, yaitu `apk update && apk add --no-cache git` akan dijalankan di Image `golang:alpine` yang sudah di-set sebelumnya. Command tersebut merupakan command Alpine OS yang kurang lebih gunanya adalah berikut:
+Keyword `RUN` digunakan untuk menjalankan shell command. Argument setelahnya, yaitu `apk update && apk add --no-cache git` akan dijalankan di Image `golang:alpine` yang sudah di-set sebelumnya. Command tersebut merupakan command Alpine OS yang kurang lebih gunanya adalah berikut:
 
 * Command `apk update` digunakan untuk meng-*update* *index packages* pada OS.
 * Command `apk add --no-cache git` digunakan untuk meng-*install* Git. Kebetulan pada basis image `golang:alpine` *by default* Git adalah tidak tersedia. Jadi harus di-*install* terlebih dahulu. Git ini nantinya digunakan sewaktu `go get` dependensi lewat command `go mod tidy`. Meskipun pada contoh aplikasi hello world tidak menggunakan dependensi eksternal, *install* saja tidak apa.
