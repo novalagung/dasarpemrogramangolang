@@ -70,6 +70,7 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 1. [Rico](https://github.com/goldsky)
 1. [Rizky Zhang](https://github.com/rizkyzhang)
 1. [Ryan Febriansyah](https://github.com/sodrooome)
+1. [Ryuuusuke](https://github.com/Ryuuusuke)
 1. [Sal Prima](https://github.com/salprima)
 1. [Seno](https://github.com/seno-ark)
 1. [Shabrina](https://github.com/renaissains)
