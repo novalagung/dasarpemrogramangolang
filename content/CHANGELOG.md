@@ -1,5 +1,14 @@
 # Version Changelogs & Updates
 
+## 📝 Release v4.0.20250422 (2025-04-22)
+
+#### ◉ Chapter update
+
+- [A.35. Channel - Timeout](/A-channel-timeout.html)
+    - Peningkatan konten & perbaikan typo
+- [C.35. Dockerize Aplikasi Golang](/C-dockerize-golang.html)
+    - Peningkatan konten & perbaikan typo
+
 ## 📝 Release v4.0.20241115 (2024-11-15)
 
 #### ◉ General update
