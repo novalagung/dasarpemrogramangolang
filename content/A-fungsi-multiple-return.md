@@ -1,6 +1,6 @@
 # A.19. Fungsi Multiple Return
 
-Di Go, suatu fungsi bisa saja mengembalikan nilai belik lebih dari 1 buah. Teknik ini bisa menjadi alternatif selain menggunakan tipe data kolektif seperti `map`, slice, atau `struct` sebagai nilai balik. Pada chapter ini kita akan belajar penerapannya.
+Di Go, suatu fungsi bisa saja mengembalikan nilai balik lebih dari 1 buah. Teknik ini bisa menjadi alternatif selain menggunakan tipe data kolektif seperti `map`, slice, atau `struct` sebagai nilai balik. Pada chapter ini kita akan belajar penerapannya.
 
 ## A.19.1. Penerapan Fungsi Multiple Return
 
