@@ -19,7 +19,7 @@ Pada chapter ini kita akan belajar cara menerapkan HTTP/2 dan salah satu fitur m
 
 Golang memiliki dukungan sangat baik terhadap HTTP/2. Dengan cukup meng-enable fasilitas TLS/HTTPS maka aplikasi golang secara otomatis menggunakan HTTP/2.
 
-Untuk memastikan mari kita langsung praktekkan, coba duplikat project pada chapter sebelumnya (**A.23. HTTPS/TLS Web Server**) sebagai project baru, jalankan aplikasinya lalu cek di browser chrome. Gunakan chrome extension [HTTP/2 and SPDY indicator](https://chrome.google.com/webstore/detail/http2-and-spdy-indicator/mpbpobfflnpcgagjijhmgnchggcjblin?hl=en) untuk menge-test apakah HTTP/2 sudah enabled.
+Untuk memastikan mari kita langsung praktekkan, coba duplikat project pada chapter sebelumnya (**C.24. HTTPS/TLS Web Server**) sebagai project baru, jalankan aplikasinya lalu cek di browser chrome. Gunakan chrome extension [HTTP/2 and SPDY indicator](https://chrome.google.com/webstore/detail/http2-and-spdy-indicator/mpbpobfflnpcgagjijhmgnchggcjblin?hl=en) untuk menge-test apakah HTTP/2 sudah enabled.
 
 ![SPDY checker](images/C_http2_server_push_1_spdy_checker.png)
 
