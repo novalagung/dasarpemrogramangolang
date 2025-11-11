@@ -32,7 +32,6 @@ func main() {
     var tmpl, err = template.ParseGlob("views/*")
     if err != nil {
         panic(err.Error())
-        return
     }
 }
 ```
