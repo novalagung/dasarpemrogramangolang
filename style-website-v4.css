@@ -128,14 +128,14 @@ body .book.font-family-1, .book-summary {
     box-shadow: inset 0 0 0 2px #008cff;
 }
 
-/* make the sidebar wider, and adjust the content to match it */
-.book-summary {
-    left: -470px;
-    width: 470px;
-}
 @media (min-width: 600px) {
     .book.with-summary .book-body {
         left: 470px;
+    }
+    /* make the sidebar wider, and adjust the content to match it */
+    .book-summary {
+        left: -470px;
+        width: 470px;
     }
 }
 
