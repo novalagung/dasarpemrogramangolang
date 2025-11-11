@@ -66,7 +66,7 @@ Salah satu benefit yang didapat dengan menggunakan `go-redis` library, adalah su
 Ok, sekarang tambahkan kode berikut:
 
 ```go
-func () {
+func main() {
     // ...
 
     key := "key-1"
