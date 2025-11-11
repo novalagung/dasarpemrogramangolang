@@ -170,7 +170,7 @@ func webbookPostAdjustment() {
 
 		// ==== inject github stars button
 		buttonToFind := `</body>`
-		buttonReplacement := `<div style="position: fixed; top: 5px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);">
+		buttonReplacement := `<div style="margin-left: 50px; margin-right: 20px; position: fixed; top: 5px; right: 30px; padding: 10px; background-color: rgba(255, 255, 255, 0.7);">
 			<a class="github-button" href="https://github.com/sponsors/novalagung" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @novalagung on GitHub">Sponsor</a>&nbsp;
 			<a class="github-button" href="https://github.com/novalagung/dasarpemrogramangolang" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star novalagung/dasarpemrogramangolang on GitHub">Star</a>&nbsp;
 			<a class="github-button" href="https://github.com/novalagung" data-size="large" aria-label="Follow @novalagung on GitHub">Follow @novalagung</a>
