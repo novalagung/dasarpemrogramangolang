@@ -1,5 +1,33 @@
 # Version Changelogs & Updates
 
+## 📝 Release v4.0.20251111 (2025-11-11)
+
+#### ◉ Chapter update
+
+- [A.31. Channel](/A-channel.html)
+    - Perbaikan inkonsistensi gambar dan contoh
+- [A.19. Fungsi Multiple Return](/A-fungsi-multiple-return.html)
+    - Perbaikan typo
+- [B.5. Template: Render Partial HTML Template](/B-template-render-partial-html.html)
+    - Refactoring kode
+- [C.36. Redis](/C-golang-redis.html)
+    - Perbaikan syntax error
+- [C.25. HTTP/2 dan HTTP/2 Server Push](/C-http2-server-push.html)
+    - Perbaikan link chapter relevan
+
+#### ◉ General update
+
+- Sidebar improvement untuk mobile app view
+
+## 📝 Release v4.0.20250422 (2025-04-22)
+
+#### ◉ Chapter update
+
+- [A.35. Channel - Timeout](/A-channel-timeout.html)
+    - Peningkatan konten & perbaikan typo
+- [C.35. Dockerize Aplikasi Golang](/C-dockerize-golang.html)
+    - Peningkatan konten & perbaikan typo
+
 ## 📝 Release v4.0.20250422 (2025-04-22)
 
 #### ◉ Chapter update
