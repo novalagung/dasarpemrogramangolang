@@ -30,9 +30,9 @@ func main() {
         messages <- data
     }
 
-    go sayHelloTo("john wick")
-    go sayHelloTo("ethan hunt")
-    go sayHelloTo("jason bourne")
+    go sayHelloTo("wick")
+    go sayHelloTo("hunt")
+    go sayHelloTo("bourne")
 
     var message1 = <-messages
     fmt.Println(message1)
@@ -65,9 +65,9 @@ Fungsi `sayHelloTo` dieksekusi tiga kali sebagai goroutine berbeda. Menjadikan t
 > Sekali lagi perlu diingat bahwa eksekusi goroutine adalah *asynchronous*, sedangkan serah-terima data antar channel adalah *synchronous*.
 
 ```go
-go sayHelloTo("john wick")
-go sayHelloTo("ethan hunt")
-go sayHelloTo("jason bourne")
+go sayHelloTo("wick")
+go sayHelloTo("hunt")
+go sayHelloTo("bourne")
 ```
 
 Dari ketiga fungsi tersebut, goroutine yang selesai paling awal akan mengirim data lebih dulu, datanya kemudian diterima variabel `message1`. Tanda `<-` jika dituliskan di sebelah kiri channel, menandakan proses penerimaan data dari channel yang di kanan, untuk disimpan ke variabel yang di kiri.

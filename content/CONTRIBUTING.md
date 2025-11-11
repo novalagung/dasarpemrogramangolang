@@ -53,6 +53,7 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 1. [I Gede Tirtanata](https://github.com/gedenata)
 1. [Ibnul Mutaki](https://github.com/cacing69)
 1. [Imam Ahmad Fahrezi](https://github.com/imamcenter)
+1. [Isnandar Fajar Pangestu](https://github.com/isnandar1471)
 1. [Ivan Aulia Rahman](https://github.com/ivanauliaa)
 1. [Jono](https://github.com/josterand)
 1. [Kiswono Prayogo](https://github.com/kokizzu)
