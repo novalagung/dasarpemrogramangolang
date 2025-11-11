@@ -2089,9 +2089,9 @@
         messages &lt;- data
     }
 
-    <span class="hljs-keyword">go</span> sayHelloTo(<span class="hljs-string">&quot;john wick&quot;</span>)
-    <span class="hljs-keyword">go</span> sayHelloTo(<span class="hljs-string">&quot;ethan hunt&quot;</span>)
-    <span class="hljs-keyword">go</span> sayHelloTo(<span class="hljs-string">&quot;jason bourne&quot;</span>)
+    <span class="hljs-keyword">go</span> sayHelloTo(<span class="hljs-string">&quot;wick&quot;</span>)
+    <span class="hljs-keyword">go</span> sayHelloTo(<span class="hljs-string">&quot;hunt&quot;</span>)
+    <span class="hljs-keyword">go</span> sayHelloTo(<span class="hljs-string">&quot;bourne&quot;</span>)
 
     <span class="hljs-keyword">var</span> message1 = &lt;-messages
     fmt.Println(message1)
@@ -2116,9 +2116,9 @@
 <blockquote>
 <p>Sekali lagi perlu diingat bahwa eksekusi goroutine adalah <em>asynchronous</em>, sedangkan serah-terima data antar channel adalah <em>synchronous</em>.</p>
 </blockquote>
-<pre><code class="lang-go"><span class="hljs-keyword">go</span> sayHelloTo(<span class="hljs-string">&quot;john wick&quot;</span>)
-<span class="hljs-keyword">go</span> sayHelloTo(<span class="hljs-string">&quot;ethan hunt&quot;</span>)
-<span class="hljs-keyword">go</span> sayHelloTo(<span class="hljs-string">&quot;jason bourne&quot;</span>)
+<pre><code class="lang-go"><span class="hljs-keyword">go</span> sayHelloTo(<span class="hljs-string">&quot;wick&quot;</span>)
+<span class="hljs-keyword">go</span> sayHelloTo(<span class="hljs-string">&quot;hunt&quot;</span>)
+<span class="hljs-keyword">go</span> sayHelloTo(<span class="hljs-string">&quot;bourne&quot;</span>)
 </code></pre>
 <p>Dari ketiga fungsi tersebut, goroutine yang selesai paling awal akan mengirim data lebih dulu, datanya kemudian diterima variabel <code>message1</code>. Tanda <code>&lt;-</code> jika dituliskan di sebelah kiri channel, menandakan proses penerimaan data dari channel yang di kanan, untuk disimpan ke variabel yang di kiri.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> message1 = &lt;-messages
@@ -2217,7 +2217,7 @@ fmt.Println(message)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.31. Channel","level":"3.1.31","depth":2,"next":{"title":"A.32. Buffered Channel","level":"3.1.32","depth":2,"path":"A-buffered-channel.md","ref":"A-buffered-channel.md","articles":[]},"previous":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"path":"A-goroutine.md","ref":"A-goroutine.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-channel.md","mtime":"2025-11-11T10:54:27.753Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-11-11T10:55:28.276Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.31. Channel","level":"3.1.31","depth":2,"next":{"title":"A.32. Buffered Channel","level":"3.1.32","depth":2,"path":"A-buffered-channel.md","ref":"A-buffered-channel.md","articles":[]},"previous":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"path":"A-goroutine.md","ref":"A-goroutine.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-channel.md","mtime":"2025-11-11T11:01:51.372Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-11-11T11:02:41.904Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2239,7 +2239,7 @@ fmt.Println(message)
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2025.11.11.105548"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2025.11.11.110302"></script>
         
     
         
