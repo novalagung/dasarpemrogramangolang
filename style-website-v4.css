@@ -28,7 +28,7 @@ body .book.font-family-1, .book-summary {
 } */
 
 .dropdown.font-settings {
-    display: none;
+    display: inline-block;
 }
 
 .page-inner {
