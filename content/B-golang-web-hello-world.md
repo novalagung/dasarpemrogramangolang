@@ -17,7 +17,7 @@ import "net/http"
 
 Setelah itu, siapkan dua buah fungsi, masing-masing memiliki skema parameter yang sama:
 
- - Parameter ke-1 bertipe `http.ResponseWrite`
+ - Parameter ke-1 bertipe `http.ResponseWriter`
  - Parameter ke-2 bertipe `*http.Request`
 
 Fungsi dengan struktur di atas diperlukan oleh `http.HandleFunc` sebagai handler untuk keperluan penanganan request ke rute yang ditentukan. Berikut adalah dua fungsi yang dimaksud:
@@ -36,7 +36,7 @@ func handlerHello(w http.ResponseWriter, r *http.Request) {
 
 Method `Write()` milik parameter pertama (yang bertipe `http.ResponseWrite`), digunakan untuk meng-output-kan data ke HTTP response. Argumen method adalah data yang ingin dijadikan output, dituliskan dalam bentuk `[]byte`. 
 
-Pada contoh ini, data yang akan kita tampilkan bertipe string, maka perlu dilakukan casting dari `string` ke `[]byte`. Praktiknya bisa dilihat seperta pada kode di atas, di bagian `w.Write([]byte(message))`.
+Pada contoh ini, data yang akan kita tampilkan bertipe string, maka perlu dilakukan casting dari `string` ke `[]byte`. Praktiknya bisa dilihat seperti pada kode di atas, di bagian `w.Write([]byte(message))`.
 
 Selanjutnya, siapkan fungsi `main()` dengan isi di dalamnya adalah beberapa rute (atau *route*), dengan aksi adalah kedua fungsi yang sudah disiapkan di atas. Tak lupa siapkan juga kode untuk start web server.
 
@@ -57,7 +57,7 @@ func main() {
 
 Fungsi `http.HandleFunc()` digunakan untuk keperluan routing. Parameter pertama adalah rute dan parameter ke-2 adalah handler-nya.
 
-Fungsi `http.ListenAndServe()` digunakan membuat sekaligus start server baru, dengan parameter pertama adalah alamat web server yang diiginkan (bisa diisi host, host & port, atau port saja). Parameter kedua merupakan object mux atau multiplexer. 
+Fungsi `http.ListenAndServe()` digunakan membuat sekaligus start server baru, dengan parameter pertama adalah alamat web server yang diinginkan (bisa diisi host, host & port, atau port saja). Parameter kedua merupakan object mux atau multiplexer. 
 
 > Dalam chapter ini kita menggunakan *default* mux yang sudah disediakan oleh Go, jadi untuk parameter ke-2 cukup isi dengan `nil`.
 
@@ -81,7 +81,7 @@ Pada kode di atas, tiga buah rute didaftarkan:
  - Rute `/index` dengan aksi adalah sama dengan `/`, yaitu fungsi `handlerIndex()`
  - Rute `/hello` dengan aksi fungsi `handlerHello()`
 
-Ketika rute-rute di atas diakses lewat browser, outpunya adalah isi-handler rute yang bersangkutan. Kebetulan pada chapter ini, ketiga rute tersebut outputnya adalah sama, yaitu berupa string.
+Ketika rute-rute di atas diakses lewat browser, outputnya adalah isi-handler rute yang bersangkutan. Kebetulan pada chapter ini, ketiga rute tersebut outputnya adalah sama, yaitu berupa string.
 
 > Pada contoh di atas, ketika rute yang tidak terdaftar diakses, maka secara otomatis handler rute `/` yang dipanggil.
 
