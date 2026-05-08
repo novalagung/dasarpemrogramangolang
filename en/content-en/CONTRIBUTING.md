@@ -88,4 +88,5 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 1. [Yofriadi Yahya](https://github.com/yofriadi)
 1. [Zulfikar Ali Muzakir](https://github.com/zulfikarmuzakir)
 1. [Rofid](https://github.com/alimurrofid)
+1. [M. Gusti Maulana Z](https://github.com/mgustimz)
 1. ... anda :-) 
