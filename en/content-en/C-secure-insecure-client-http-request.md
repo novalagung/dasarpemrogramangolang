@@ -68,6 +68,8 @@ curl -X POST https://localhost/data \
 
 Penerapan inscure request dalam golang juga tidak terlalu sulit. Pada object `http.Client`, isi property `.Transport` dengan objek baru buatan struct `http.Transport` yang di dalamnya berisi konfigurasi insecure request.
 
+> Konfigurasi `InsecureSkipVerify: true` hanya aman untuk kebutuhan belajar, debugging lokal, atau koneksi ke server yang memang sedang diuji. Jangan gunakan konfigurasi ini pada aplikasi production karena verifikasi sertifikat TLS akan dilewati.
+
 ```go
 client := new(http.Client)
 client.Transport = &http.Transport{
