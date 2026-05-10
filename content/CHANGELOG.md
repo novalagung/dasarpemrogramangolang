@@ -1,5 +1,36 @@
 # Version Changelogs & Updates
 
+## 📝 Release v4.1.20260510 (2026-05-10)
+
+#### ◉ Chapter update
+
+- Perbaikan narasi, typo, dan kejelasan penjelasan di banyak chapter A, B, dan C
+- [A.16. Slice](/A-slice.html)
+  - Penataan ulang urutan pembahasan agar `make` muncul setelah konsep inti slice
+- [A.17. Map](/A-map.html)
+  - Klarifikasi penggunaan `make` dan `new` pada map
+- [A.6. Go Command](/A-go-command.html)
+  - Penjelasan `go get` diperbarui agar sesuai perilaku Go modern, termasuk dampak saat dijalankan di luar module
+- [A.47. Hash SHA1](/A-hash-sha1.html)
+  - Koreksi konsep hash vs enkripsi dan penambahan catatan keamanan untuk penggunaan production
+- [A.54. Web Service API Server](/A-web-service-api.html)
+  - Perbaikan penjelasan request method, response code, dan contoh cURL
+- [A.65. Go Generics](/A-golang-generics.html)
+  - Penjelasan `comparable` dan generic type constraint dibuat lebih mudah dipahami
+- [C.25. HTTP/2 dan HTTP/2 Server Push](/C-http2-server-push.html)
+  - Penyesuaian narasi agar selaras dengan kondisi browser modern yang sudah tidak mendukung server push
+- [C.32. JSON Web Token (JWT)](/C-golang-jwt.html)
+  - Koreksi konsep signing vs encryption dan sinkronisasi ke `RegisteredClaims`
+- Pembaruan dependency, safety note, dan referensi pada chapter pilihan lain seperti session, redis, excel, send mail, secure cookie, secure middleware, dan SSO/SAML
+
+#### ◉ General update
+
+- Penambahan GitHub Actions workflow untuk membuat release otomatis saat tag `v*` dipush
+- Sinkronisasi submodule `examples` ke revisi terbaru
+- Pembaruan README dan SUMMARY untuk mencerminkan jumlah chapter terbaru
+- Perbaikan kecil pada tampilan website, termasuk font-settings dropdown dan sidebar/mobile view
+- Penambahan nama kontributor baru pada halaman kontribusi
+
 ## 📝 Release v4.0.20251111 (2025-11-11)
 
 #### ◉ Chapter update
