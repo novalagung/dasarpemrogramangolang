@@ -66,7 +66,7 @@ func main() {
 
 Tes dan lihat hasilnya.
 
-![Rute <code>/data</code> mengembalikan data json](images/B_routing_http_handlefunc_1_routing.png)
+![Rute <code>/data</code> mengembalikan data](images/B_routing_http_handlefunc_1_routing.png)
 
 Handler bisa berupa fungsi, closure, ataupun anonymous function, intinya bebas, yang terpenting adalah skema fungsi-nya harus sesuai dengan `func (http.ResponseWriter, *http.Request)`.
 
