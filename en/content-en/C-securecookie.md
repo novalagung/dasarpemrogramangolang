@@ -37,6 +37,8 @@ var sc = securecookie.New([]byte("very-secret"), []byte("a-lot-secret-yay"))
 
 Variabel `sc` adalah objek secure cookie. Objek ini kita gunakan untuk encode data yang akan disimpan dalam cookie, dan juga untuk decode data.
 
+> Key di atas hanya untuk contoh. Pada aplikasi production, gunakan key yang kuat, panjangnya sesuai rekomendasi library, dan simpan di environment variable atau secret manager.
+
 Buat fungsi `setCookie()`, bertugas untuk mempermudah pembuatan dan penyimpanan cookie.
 
 ```go
