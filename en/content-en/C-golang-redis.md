@@ -23,11 +23,11 @@ import (
     "log"
     "time"
 
-    "github.com/go-redis/redis/v8"
+    "github.com/redis/go-redis/v9"
 )
 ```
 
-> Jangan lupa untuk `go get -u github.com/go-redis/redis/v8` dependensi go-redis
+> Jangan lupa untuk `go get -u github.com/redis/go-redis/v9` dependensi go-redis
 
 Selanjutnya siapkan fungsi `newRedisClient()` untuk membuat objek Redis client yang nantinya digunakan dalam operasi.
 
