@@ -92,7 +92,7 @@ Tes hasilnya lewat browser.
 
 ![Custom Function](images/B_template_custom_functions_1_func.png)
 
-## B.8.4. Perbadaan Fungsi `template.ParseFiles()` & Method `ParseFiles()` Milik `*template.Template`
+## B.8.4. Perbedaan Fungsi `template.ParseFiles()` & Method `ParseFiles()` Milik `*template.Template`
 
 Pada kode di atas, pemanggilan `template.New()` menghasilkan objek bertipe `*template.Template`.
 
