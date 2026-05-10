@@ -127,7 +127,7 @@ Output program di atas sama dengan program sebelumnya.
 
 Parameter `what` pada fungsi `printMessage()` bertipe channel `string`, bisa dilihat dari kode `chan string` pada cara deklarasinya. Operasi serah-terima data akan bisa dilakukan pada variabel tersebut, dan akan berdampak juga pada variabel `messages` di fungsi `main()`.
 
-Passing data bertipe channel lewat parameter sifatnya **pass by reference**, yang di transferkan adalah pointer datanya, bukan nilai datanya.
+Passing channel sebagai parameter menyalin nilai channel-nya. Nilai tersebut tetap mereferensikan underlying channel yang sama, sehingga operasi send, receive, dan close lewat parameter akan memengaruhi channel yang sama dengan variabel asal.
 
 ![Parameter channel](images/A_channel_3_channel_param.png)
 
