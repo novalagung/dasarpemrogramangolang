@@ -2,7 +2,7 @@
 
 Pada pembahasan-pembahasan sebelumnya kita telah banyak memanfaatkan layout format string, contohnya seperti `%s`, `%d`, `%.2f`, dan lainnya. Layout format string tersebut digunakan untuk keperluan formatting string untuk dimunculkan ke layar ataupun untuk disimpan ke variabel.
 
-Layout format string digunakan dalam konversi data ke bentuk string. Contohnya seperti `%.3f` yang untuk konversi nilai `double` ke `string` dengan 3 digit desimal.
+Layout format string digunakan dalam konversi data ke bentuk string. Contohnya seperti `%.3f` yang untuk konversi nilai `float64` ke `string` dengan 3 digit desimal.
 
 ## A.38.1. Persiapan
 
