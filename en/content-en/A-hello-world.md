@@ -32,7 +32,7 @@ Pembuatan file program bisa dilakukan lewat CLI atau browser, atau juga lewat ed
 
 ![File program](images/A_hello_world_3_new_file_on_editor.png)
 
-## A.7.4. Program Pertama: Hello Word
+## A.7.4. Program Pertama: Hello World
 
 Setelah project folder dan file program sudah siap, saatnya untuk *coding*.
 
