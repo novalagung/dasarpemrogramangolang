@@ -2068,23 +2068,24 @@
                                 
                                 <h1 id="version-changelogs--updates">Version Changelogs &amp; Updates</h1>
 <h2 id="&#x1F4DD;-release-v4120260510-2026-05-10">&#x1F4DD; Release v4.1.20260510 (2026-05-10)</h2>
-<h4 id="&#x25C9;-chapter-update">&#x25C9; Chapter update</h4>
+<h4 id="&#x25C9;-perbaikan-konsep--konten">&#x25C9; Perbaikan konsep &amp; konten</h4>
 <ul>
-<li>Perbaikan narasi, typo, dan kejelasan penjelasan di banyak chapter A, B, dan C</li>
 <li><a href="A-slice.html">A.16. Slice</a><ul>
-<li>Penataan ulang urutan pembahasan agar <code>make</code> muncul setelah konsep inti slice</li>
+<li>Pemindahan section <code>make</code> dari chapter array ke slice agar sesuai konsep</li>
+<li>Penjelasan reference type dan operasi slice diperbaiki (termasuk typo &quot;pinnaple&quot; &#x2192; &quot;pineapple&quot;)</li>
 </ul>
 </li>
 <li><a href="A-map.html">A.17. Map</a><ul>
 <li>Klarifikasi penggunaan <code>make</code> dan <code>new</code> pada map</li>
 </ul>
 </li>
-<li><a href="A-go-command.html">A.6. Go Command</a><ul>
-<li>Penjelasan <code>go get</code> diperbarui agar sesuai perilaku Go modern, termasuk dampak saat dijalankan di luar module</li>
+<li><a href="A-channel.html">A.31. Channel</a><ul>
+<li>Koreksi penjelasan &quot;pass by reference&quot; &#x2192; channel adalah reference type yang di-copy by value</li>
 </ul>
 </li>
 <li><a href="A-hash-sha1.html">A.47. Hash SHA1</a><ul>
-<li>Koreksi konsep hash vs enkripsi dan penambahan catatan keamanan untuk penggunaan production</li>
+<li>Koreksi konsep hash (&quot;enkripsi satu arah&quot; &#x2192; &quot;fungsi satu arah&quot;)</li>
+<li>Penambahan catatan keamanan untuk penggunaan production (SHA1 tidak lagi aman, gunakan SHA256/SHA3)</li>
 </ul>
 </li>
 <li><a href="A-web-service-api.html">A.54. Web Service API Server</a><ul>
@@ -2092,26 +2093,80 @@
 </ul>
 </li>
 <li><a href="A-golang-generics.html">A.65. Go Generics</a><ul>
-<li>Penjelasan <code>comparable</code> dan generic type constraint dibuat lebih mudah dipahami</li>
+<li>Koreksi penjelasan <code>comparable</code> (bukan untuk &quot;semua tipe data&quot;, melainkan tipe yang mendukung <code>==</code>/<code>!=</code>)</li>
+<li>Rekomendasi penggunaan <code>any</code> untuk semua tipe data</li>
+</ul>
+</li>
+<li><a href="B-server-handler-http-request-cancellation.html">B.23. Server Handler HTTP Request Cancellation</a><ul>
+<li>Perbaikan section number (B.32 &#x2192; B.23), duplikat import dihapus</li>
 </ul>
 </li>
 <li><a href="C-http2-server-push.html">C.25. HTTP/2 dan HTTP/2 Server Push</a><ul>
-<li>Penyesuaian narasi agar selaras dengan kondisi browser modern yang sudah tidak mendukung server push</li>
+<li>Penyesuaian narasi untuk browser modern yang sudah tidak mendukung server push</li>
+<li>Catatan historis dan rekomendasi preload/103 Early Hints sebagai alternatif</li>
 </ul>
 </li>
 <li><a href="C-golang-jwt.html">C.32. JSON Web Token (JWT)</a><ul>
-<li>Koreksi konsep signing vs encryption dan sinkronisasi ke <code>RegisteredClaims</code></li>
+<li>Koreksi konsep signing vs encryption (JWT di-sign, bukan di-enkripsi)</li>
+<li>Migrasi dari <code>jwt.StandardClaims</code> (deprecated) ke <code>jwt.RegisteredClaims</code></li>
 </ul>
 </li>
-<li>Pembaruan dependency, safety note, dan referensi pada chapter pilihan lain seperti session, redis, excel, send mail, secure cookie, secure middleware, dan SSO/SAML</li>
+</ul>
+<h4 id="&#x25C9;-perbaikan-bug-pada-kode">&#x25C9; Perbaikan bug pada kode</h4>
+<ul>
+<li>Perbaikan variabel name mismatch pada kode FTP (<code>connt</code> &#x2192; <code>conn</code>) agar bisa dikompilasi</li>
+<li>Perbaikan typo <code>pckage</code> &#x2192; <code>package</code> pada kode SSO/SAML</li>
+<li>Perbaikan <code>go get</code> URL pada chapter CORS (menghapus <code>https://</code> prefix)</li>
+<li>Perbaikan error handling pada AWS S3 presign URL (dari <code>req, _</code> menjadi <code>req, err</code> dengan pengecekan)</li>
+<li>Perbaikan missing <code>return</code> setelah <code>http.Error</code> pada WebSocket handler (D.3)</li>
+<li>Perbaikan <code>http.Error</code> ganda pada singleflight handler (C.37)</li>
+</ul>
+<h4 id="&#x25C9;-pembaruan-dependency--safety-notes">&#x25C9; Pembaruan dependency &amp; safety notes</h4>
+<ul>
+<li><a href="C-golang-redis.html">Redis</a>: update import path <code>go-redis/redis/v8</code> &#x2192; <code>redis/go-redis/v9</code></li>
+<li><a href="C-read-write-excel-xlsx-file.html">Excel</a>: update import path <code>360EntSecGroup-Skylar/excelize</code> &#x2192; <code>xuri/excelize/v2</code></li>
+<li><a href="C-session.html">Session MongoDB</a>: penggantian <code>gopkg.in/mgo.v2</code> &#x2192; <code>github.com/globalsign/mgo</code> dengan catatan deprecation</li>
+<li><a href="C-golang-grpc-protobuf.html">gRPC</a>: penambahan catatan versi gRPC yang lebih baru</li>
+<li><a href="C-flag-parser.html">Cobra/Kingpin</a>: koreksi referensi author Cobra (spf13) dan Kingpin (alecthomas)</li>
+<li><a href="C-http-request-payload-validation.html">Validator</a>: update referensi v9 &#x2192; v10</li>
+<li>Penambahan catatan keamanan pada chapter secure cookie, session, secure middleware, send email, dan insecure TLS request</li>
+</ul>
+<h4 id="&#x25C9;-perbaikan-typo--narasi-di-banyak-chapter">&#x25C9; Perbaikan typo &amp; narasi di banyak chapter</h4>
+<ul>
+<li><a href="1-berkenalan-dengan-golang.html">A.1. Berkenalan Dengan Golang</a></li>
+<li><a href="A-hello-world.html">A.7. Hello World</a> (typo &quot;Hello Word&quot; &#x2192; &quot;Hello World&quot;)</li>
+<li><a href="A-komentar.html">A.8. Komentar</a> (typo double &quot;untuk untuk&quot;)</li>
+<li><a href="A-konstanta.html">A.11. Konstanta</a> (tipe data <code>float</code> &#x2192; <code>float64</code>)</li>
+<li><a href="A-fungsi-closure.html">A.21. Fungsi Closure</a> (typo &quot;diantaranya&quot; &#x2192; &quot;di antaranya&quot;, variable name fix)</li>
+<li><a href="A-method.html">A.25. Method</a> (section number fix, &quot;array&quot; &#x2192; &quot;slice&quot;)</li>
+<li><a href="A-channel-range-close.html">A.34. Channel Range Close</a> (penjelasan close channel)</li>
+<li><a href="A-channel-timeout.html">A.35. Channel Timeout</a> (typo function name <code>retreiveData</code> &#x2192; <code>retrieveData</code>)</li>
+<li><a href="A-defer-exit.html">A.36. Defer &amp; Exit</a> (typo &quot;ekseusi&quot; &#x2192; &quot;eksekusi&quot;)</li>
+<li><a href="A-error-panic-recover.html">A.37. Error, Panic, &amp; Recover</a> (typo &quot;occured&quot; &#x2192; &quot;occurred&quot;)</li>
+<li><a href="A-json.html">A.53. JSON</a> (typo &quot;konverstri&quot; &#x2192; &quot;konversi&quot;)</li>
+<li><a href="A-client-http-request-simple.html">A.55. Client HTTP Request</a> (typo, penjelasan response body)</li>
+<li><a href="A-go-vendoring.html">A.61. Go Vendoring</a> (section number duplikat diperbaiki)</li>
+<li><a href="A-go-command.html">A.6. Go Command</a> (penjelasan <code>go get</code> untuk Go modern)</li>
+<li><a href="B-golang-web-hello-world.html">B.1. Golang Web Hello World</a> (typo <code>ResponseWrite</code>, <code>seperta</code> &#x2192; <code>seperti</code>, dll)</li>
+<li><a href="B-routing-http-handlefunc.html">B.2. Routing</a> (caption gambar diperbaiki)</li>
+<li><a href="B-routing-static-assets.html">B.3. Routing Static Assets</a> (typo &quot;didefiniskan&quot; &#x2192; &quot;didefinisikan&quot;)</li>
+<li><a href="B-template-custom-functions.html">B.8. Template Custom Functions</a> (typo &quot;Perbadaan&quot; &#x2192; &quot;Perbedaan&quot;)</li>
+<li><a href="B-middleware-using-http-handler.html">B.19. Middleware</a> (typo &quot;pengencekan&quot; &#x2192; &quot;pengecekan&quot;)</li>
+<li><a href="B-template-render-partial-html.html">B.5. Render Partial HTML</a> (section number fix)</li>
+<li><a href="B-ajax-json-response.html">B.15. AJAX JSON Response</a> (koreksi <code>io.Reader</code> &#x2192; <code>io.Writer</code>)</li>
+<li><a href="C-secure-middleware.html">C.16. Secure Middleware</a> (section number fix)</li>
+<li><a href="C-golang-ftp.html">C.28. FTP</a> (variable name fix)</li>
+<li><a href="D-golang-web-socket-chatting-app.html">D.3. WebSocket Chatting App</a> (missing return ditambahkan)</li>
 </ul>
 <h4 id="&#x25C9;-general-update">&#x25C9; General update</h4>
 <ul>
-<li>Penambahan GitHub Actions workflow untuk membuat release otomatis saat tag <code>v*</code> dipush</li>
+<li>Penambahan GitHub Actions workflow (<code>release.yml</code>) untuk membuat release otomatis saat push tag <code>v*</code></li>
+<li>Penambahan fitur darkmode pada stylesheet website</li>
+<li>Perbaikan tampilan font-settings dropdown (sekarang selalu terlihat)</li>
+<li>Pembaruan README (jumlah chapter 120 &#x2192; 160+, versi e-book v4.0.20241115 &#x2192; v4.0.20251111)</li>
+<li>Penambahan kontributor baru: Rofid (alimurrofid) dan M. Gusti Maulana Z (mgustimz)</li>
 <li>Sinkronisasi submodule <code>examples</code> ke revisi terbaru</li>
-<li>Pembaruan README dan SUMMARY untuk mencerminkan jumlah chapter terbaru</li>
-<li>Perbaikan kecil pada tampilan website, termasuk font-settings dropdown dan sidebar/mobile view</li>
-<li>Penambahan nama kontributor baru pada halaman kontribusi</li>
+<li>Penghapusan duplikasi entry changelog v4.0.20250422</li>
 </ul>
 <h2 id="&#x1F4DD;-release-v4020251111-2025-11-11">&#x1F4DD; Release v4.0.20251111 (2025-11-11)</h2>
 <h4 id="&#x25C9;-chapter-update">&#x25C9; Chapter update</h4>
@@ -2140,18 +2195,6 @@
 <h4 id="&#x25C9;-general-update">&#x25C9; General update</h4>
 <ul>
 <li>Sidebar improvement untuk mobile app view</li>
-</ul>
-<h2 id="&#x1F4DD;-release-v4020250422-2025-04-22">&#x1F4DD; Release v4.0.20250422 (2025-04-22)</h2>
-<h4 id="&#x25C9;-chapter-update">&#x25C9; Chapter update</h4>
-<ul>
-<li><a href="A-channel-timeout.html">A.35. Channel - Timeout</a><ul>
-<li>Peningkatan konten &amp; perbaikan typo</li>
-</ul>
-</li>
-<li><a href="C-dockerize-golang.html">C.35. Dockerize Aplikasi Golang</a><ul>
-<li>Peningkatan konten &amp; perbaikan typo</li>
-</ul>
-</li>
 </ul>
 <h2 id="&#x1F4DD;-release-v4020250422-2025-04-22">&#x1F4DD; Release v4.0.20250422 (2025-04-22)</h2>
 <h4 id="&#x25C9;-chapter-update">&#x25C9; Chapter update</h4>
@@ -2243,7 +2286,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"next":{"title":"Download Ebook","level":"1.3","depth":1,"path":"download-ebook.md","ref":"download-ebook.md","articles":[]},"previous":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"CHANGELOG.md","mtime":"2026-05-10T16:34:36.020Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:35:34.105Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"next":{"title":"Download Ebook","level":"1.3","depth":1,"path":"download-ebook.md","ref":"download-ebook.md","articles":[]},"previous":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"CHANGELOG.md","mtime":"2026-05-10T16:44:32.621Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:45:34.194Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2265,7 +2308,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163554"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.164554"></script>
         
     
         
