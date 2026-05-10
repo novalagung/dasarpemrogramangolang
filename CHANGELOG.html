@@ -2067,6 +2067,52 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="version-changelogs--updates">Version Changelogs &amp; Updates</h1>
+<h2 id="&#x1F4DD;-release-v4120260510-2026-05-10">&#x1F4DD; Release v4.1.20260510 (2026-05-10)</h2>
+<h4 id="&#x25C9;-chapter-update">&#x25C9; Chapter update</h4>
+<ul>
+<li>Perbaikan narasi, typo, dan kejelasan penjelasan di banyak chapter A, B, dan C</li>
+<li><a href="A-slice.html">A.16. Slice</a><ul>
+<li>Penataan ulang urutan pembahasan agar <code>make</code> muncul setelah konsep inti slice</li>
+</ul>
+</li>
+<li><a href="A-map.html">A.17. Map</a><ul>
+<li>Klarifikasi penggunaan <code>make</code> dan <code>new</code> pada map</li>
+</ul>
+</li>
+<li><a href="A-go-command.html">A.6. Go Command</a><ul>
+<li>Penjelasan <code>go get</code> diperbarui agar sesuai perilaku Go modern, termasuk dampak saat dijalankan di luar module</li>
+</ul>
+</li>
+<li><a href="A-hash-sha1.html">A.47. Hash SHA1</a><ul>
+<li>Koreksi konsep hash vs enkripsi dan penambahan catatan keamanan untuk penggunaan production</li>
+</ul>
+</li>
+<li><a href="A-web-service-api.html">A.54. Web Service API Server</a><ul>
+<li>Perbaikan penjelasan request method, response code, dan contoh cURL</li>
+</ul>
+</li>
+<li><a href="A-golang-generics.html">A.65. Go Generics</a><ul>
+<li>Penjelasan <code>comparable</code> dan generic type constraint dibuat lebih mudah dipahami</li>
+</ul>
+</li>
+<li><a href="C-http2-server-push.html">C.25. HTTP/2 dan HTTP/2 Server Push</a><ul>
+<li>Penyesuaian narasi agar selaras dengan kondisi browser modern yang sudah tidak mendukung server push</li>
+</ul>
+</li>
+<li><a href="C-golang-jwt.html">C.32. JSON Web Token (JWT)</a><ul>
+<li>Koreksi konsep signing vs encryption dan sinkronisasi ke <code>RegisteredClaims</code></li>
+</ul>
+</li>
+<li>Pembaruan dependency, safety note, dan referensi pada chapter pilihan lain seperti session, redis, excel, send mail, secure cookie, secure middleware, dan SSO/SAML</li>
+</ul>
+<h4 id="&#x25C9;-general-update">&#x25C9; General update</h4>
+<ul>
+<li>Penambahan GitHub Actions workflow untuk membuat release otomatis saat tag <code>v*</code> dipush</li>
+<li>Sinkronisasi submodule <code>examples</code> ke revisi terbaru</li>
+<li>Pembaruan README dan SUMMARY untuk mencerminkan jumlah chapter terbaru</li>
+<li>Perbaikan kecil pada tampilan website, termasuk font-settings dropdown dan sidebar/mobile view</li>
+<li>Penambahan nama kontributor baru pada halaman kontribusi</li>
+</ul>
 <h2 id="&#x1F4DD;-release-v4020251111-2025-11-11">&#x1F4DD; Release v4.0.20251111 (2025-11-11)</h2>
 <h4 id="&#x25C9;-chapter-update">&#x25C9; Chapter update</h4>
 <ul>
@@ -2197,7 +2243,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"next":{"title":"Download Ebook","level":"1.3","depth":1,"path":"download-ebook.md","ref":"download-ebook.md","articles":[]},"previous":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"CHANGELOG.md","mtime":"2026-05-10T16:30:36.474Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:31:32.077Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Version Changelogs & Updates","level":"1.2","depth":1,"next":{"title":"Download Ebook","level":"1.3","depth":1,"path":"download-ebook.md","ref":"download-ebook.md","articles":[]},"previous":{"title":"Dasar Pemrograman Golang","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"CHANGELOG.md","mtime":"2026-05-10T16:34:36.020Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:35:34.105Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2219,7 +2265,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163151"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163554"></script>
         
     
         
