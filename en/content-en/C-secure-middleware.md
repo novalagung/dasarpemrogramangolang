@@ -10,7 +10,7 @@ Selain 3 topik tersebut masih terdapat banyak lagi. Beruntungnya ada library [se
 
 Secure library merupakan middleware, penggunaannya sama seperti middleware pada umumnya.
 
-## C.15.2. Praktek
+## C.16.2. Praktek
 
 Mari langsung kita praktekan. Buat folder project baru. Di file main tulis kode berikut. Sebuah aplikasi dibuat, isinya satu buah rute `/index` yang bisa diakses dari mana saja.
 
