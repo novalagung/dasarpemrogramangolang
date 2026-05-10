@@ -542,7 +542,7 @@
                 <a href="A-fungsi-sebagai-parameter.html">
             
                     
-                    A.22. Fungsi Sebagai parameter
+                    A.22. Fungsi Sebagai Parameter
             
                 </a>
             
@@ -2186,7 +2186,7 @@
 <span class="hljs-keyword">const</span> totalFile = <span class="hljs-number">3000</span>
 <span class="hljs-keyword">const</span> contentLength = <span class="hljs-number">5000</span>
 
-<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.59-pipeline-temp&quot;</span>)
+<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.62-concurrency-pipeline&quot;</span>)
 </code></pre>
 <p>Kemudian siapkan fungsi <code>main()</code> yang isinya statement pemanggilan fungsi <code>generate()</code>, dan beberapa hal lainnya untuk keperluan <em>benchmark</em> performa dari sisi <em>execution time</em>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
@@ -2236,7 +2236,7 @@
 <p>O iya untuk logging pembuatan file saya tampilkan setiap 100 file di-generate, agar tidak mengganggu performa, karena printing output ke <code>stdout</code> atau CMD/terminal itu cukup <em>costly</em>.</p>
 <p>Oke, generator sudah siap, jalankan.</p>
 <p><img src="images/A_concurrency_pipeline_1_generate_dummy_files.png" alt="Dasar Pemrograman Golang - Generate dummy files"></p>
-<p>Bisa dilihat sebanyak 3000 dummy file di-generate pada folder temporary os, di sub folder <code>chapter-A.59-pipeline-temp</code>.</p>
+<p>Bisa dilihat sebanyak 3000 dummy file di-generate pada folder temporary os, di sub folder <code>chapter-A.62-concurrency-pipeline</code>.</p>
 <h2 id="a624-program-2-baca-semua-files-cari-md5-hash-nya-lalu-gunakan-hash-untuk-rename-file">A.62.4. Program 2: Baca Semua Files, Cari MD5 Hash-nya, Lalu Gunakan Hash Untuk Rename File</h2>
 <p>Sesuai judul sub bagian, kita akan buat satu file program lagi, yang isinya adalah melakukan operasi baca terhadap semua dummy file yang sudah di-generate, untuk kemudian dicari <em>hash</em>-nya lalu menggunakan nilai hash tersebut sebagai nama untuk file-file baru yang akan dibuat.</p>
 <p>Pada bagian ini kita belum masuk ke aspek konkurensi-nya ya. Sabar dulu. Saya akan coba sampaikan dengan penjabaran yang bisa diterima oleh banyak pembaca (termasuk yang masih awam banget).</p>
@@ -2252,7 +2252,7 @@
     <span class="hljs-string">&quot;time&quot;</span>
 )
 
-<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.59-pipeline-temp&quot;</span>)
+<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.62-concurrency-pipeline&quot;</span>)
 </code></pre>
 <p>Lanjut siapkan fungsi <code>main()</code> dengan isi memanggil fungsi <code>proceed()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
@@ -2271,12 +2271,12 @@
     counterRenamed := <span class="hljs-number">0</span>
     err := filepath.Walk(tempPath, <span class="hljs-keyword">func</span>(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error) error {
 
-        <span class="hljs-comment">// if there is an error, return immediatelly</span>
+        <span class="hljs-comment">// if there is an error, return immediately</span>
         <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
             <span class="hljs-keyword">return</span> err
         }
 
-        <span class="hljs-comment">// if it is a sub directory, return immediatelly</span>
+        <span class="hljs-comment">// if it is a sub directory, return immediately</span>
         <span class="hljs-keyword">if</span> info.IsDir() {
             <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
         }
@@ -2311,9 +2311,9 @@
 </code></pre>
 <p>Cukup panjang isi fungsi ini, tetapi isinya cukup <em>straight forward</em> kok.</p>
 <ul>
-<li>Pertama kita siapkan <code>counterTotal</code> sebagai counter jumlah file yang ditemukan dalam <code>$TEMP/chapter-A.59-pipeline-temp</code>. Idealnya jumlahnya adalah sama dengan isi variabel <code>totalFile</code> pada program pertama, kecuali ada error.</li>
+<li>Pertama kita siapkan <code>counterTotal</code> sebagai counter jumlah file yang ditemukan dalam <code>$TEMP/chapter-A.62-concurrency-pipeline</code>. Idealnya jumlahnya adalah sama dengan isi variabel <code>totalFile</code> pada program pertama, kecuali ada error.</li>
 <li>Kedua, kita siapkan <code>counterRenamed</code> sebagai counter jumlah file yang berhasil di-rename. Untuk ini juga idealnya sama dengan nilai pada <code>counterTotal</code>, kecuali ada error</li>
-<li>Kita gunakan <code>filepath.Walk</code> untuk melakukan pembacaan semua file yang ada dalam folder <code>$TEMP/chapter-A.59-pipeline-temp</code>.</li>
+<li>Kita gunakan <code>filepath.Walk</code> untuk melakukan pembacaan semua file yang ada dalam folder <code>$TEMP/chapter-A.62-concurrency-pipeline</code>.</li>
 <li>File akan dibaca secara sekuensial, di tiap pembacaan jika ada error dan ditemukan sebuah direktori, maka kita ignore kemudian lanjut pembacaan file selanjutnya.</li>
 <li>File dibaca menggunakan <code>os.ReadFile()</code>, kemudian lewat fungsi <code>md5.Sum()</code> kita cari md5 hash sum dari konten file.</li>
 <li>Setelahnya, kita rename file dengan nama <code>file-&lt;md5hash&gt;.txt</code>.</li>
@@ -2329,7 +2329,7 @@
 <li>Proses perhitungan md5 hash sum</li>
 <li>Proses rename file</li>
 </ul>
-<p>Kenapa kita pecah, karena ketiga proses tersebut bisa dijalankan bersama secara konkuren, dalam artian misalnya ketika <code>file1</code> sudah selesai dibaca, perhitungan md5sum-nya bisa dijalankan secara bersama dengan pembacaan <code>file2</code>. Begitu juga untuk proses rename-nya, misalnya, proses rename <code>file24</code> bisa dijalnkan secara konkuren bersamaan dengan proses hitung md5sum <code>file22</code> dan bersamaan dengan proses baca <code>file28</code>.</p>
+<p>Kenapa kita pecah, karena ketiga proses tersebut bisa dijalankan bersama secara konkuren, dalam artian misalnya ketika <code>file1</code> sudah selesai dibaca, perhitungan md5sum-nya bisa dijalankan secara bersama dengan pembacaan <code>file2</code>. Begitu juga untuk proses rename-nya, misalnya, proses rename <code>file24</code> bisa dijalankan secara konkuren bersamaan dengan proses hitung md5sum <code>file22</code> dan bersamaan dengan proses baca <code>file28</code>.</p>
 <h4 id="&#x25C9;-basis-kode-program">&#x25C9; Basis Kode Program</h4>
 <p>Mungkin agar lebih terlihat perbandingannya nanti di akhir, kita siapkan file terpisah saja untuk program ini. Siapkan file baru bernama <code>3-find-md5-sum-of-file-then-rename-it-concurrently.go</code>.</p>
 <p>Isi file tersebut dengan kode berikut.</p>
@@ -2345,7 +2345,7 @@
     <span class="hljs-string">&quot;time&quot;</span>
 )
 
-<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.59-pipeline-temp&quot;</span>)
+<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.62-concurrency-pipeline&quot;</span>)
 
 <span class="hljs-keyword">type</span> FileInfo <span class="hljs-keyword">struct</span> {
     FilePath  <span class="hljs-keyword">string</span> <span class="hljs-comment">// file location</span>
@@ -2374,12 +2374,12 @@
     <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
         err := filepath.Walk(tempPath, <span class="hljs-keyword">func</span>(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error) error {
 
-            <span class="hljs-comment">// if there is an error, return immediatelly</span>
+            <span class="hljs-comment">// if there is an error, return immediately</span>
             <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
                 <span class="hljs-keyword">return</span> err
             }
 
-            <span class="hljs-comment">// if it is a sub directory, return immediatelly</span>
+            <span class="hljs-comment">// if it is a sub directory, return immediately</span>
             <span class="hljs-keyword">if</span> info.IsDir() {
                 <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
             }
@@ -2583,7 +2583,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"next":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"path":"A-simplified-fan-in-fan-out-pipeline.md","ref":"A-simplified-fan-in-fan-out-pipeline.md","articles":[]},"previous":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-concurrency-pipeline.md","mtime":"2026-05-08T14:15:04.136Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-08T14:16:01.275Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"next":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"path":"A-simplified-fan-in-fan-out-pipeline.md","ref":"A-simplified-fan-in-fan-out-pipeline.md","articles":[]},"previous":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-concurrency-pipeline.md","mtime":"2026-05-10T16:30:36.466Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:31:32.077Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2605,7 +2605,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.08.141621"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163151"></script>
         
     
         

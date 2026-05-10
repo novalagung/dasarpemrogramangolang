@@ -542,7 +542,7 @@
                 <a href="A-fungsi-sebagai-parameter.html">
             
                     
-                    A.22. Fungsi Sebagai parameter
+                    A.22. Fungsi Sebagai Parameter
             
                 </a>
             
@@ -2156,8 +2156,8 @@ Hello
 <p>Jalankan aplikasi. Lihat di console, error muncul.</p>
 <p><img src="images/C_send_email_1_gmail_error.png" alt="Dasar Pemrograman Golang - Error gmail SMTP"></p>
 <p>Error di atas hanya muncul pada pengiriman email menggunakan akun google mail. Untuk alasan keamanan, google men-disable akun gmail untuk digunakan mengirim email lewat kode program.</p>
-<p>Aktifkan fasilitas <strong>less secure apps</strong> untuk meng-enable-nya. Login ke gmail masing-masing, kemudian buka link <a href="https://myaccount.google.com/lesssecureapps" target="_blank">https://myaccount.google.com/lesssecureapps</a>, lalu klik tombol toggle agar menjadi <strong>OFF</strong>.</p>
-<p><img src="images/C_send_email_2_less_secure.png" alt="Dasar Pemrograman Golang - Google Less Secure Apps"></p>
+<p>Aktifkan <strong>2-Step Verification</strong> pada akun gmail, lalu buat <strong>App Password</strong> khusus untuk digunakan dari kode program melalui halaman <a href="https://myaccount.google.com/apppasswords" target="_blank">https://myaccount.google.com/apppasswords</a>. Gunakan App Password tersebut sebagai pengganti <code>CONFIG_AUTH_PASSWORD</code>.</p>
+<p><img src="images/C_send_email_2_less_secure.png" alt="Dasar Pemrograman Golang - Google App Passwords"></p>
 <p>Jalankan ulang aplikasi, email terkirim. Lihat di inbox email tujuan pengiriman untuk mengecek hasilnya.</p>
 <p><img src="images/C_send_email_3_email_received.png" alt="Dasar Pemrograman Golang - Email received"></p>
 <h2 id="c182-kirim-email-menggunakan-gomail-v2">C.18.2. Kirim Email Menggunakan Gomail v2</h2>
@@ -2252,7 +2252,7 @@ Hello
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.18. Send Mail (net/smtp, Gomail v2)","level":"5.1.18","depth":2,"next":{"title":"C.19. Read & Write Excel XLSX File (Excelize)","level":"5.1.19","depth":2,"path":"C-read-write-excel-xlsx-file.md","ref":"C-read-write-excel-xlsx-file.md","articles":[]},"previous":{"title":"C.17. HTTP Gzip Compression (gziphandler)","level":"5.1.17","depth":2,"path":"C-http-gzip-compression.md","ref":"C-http-gzip-compression.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"C-send-email.md","mtime":"2026-05-08T14:15:04.143Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-08T14:16:01.275Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.18. Send Mail (net/smtp, Gomail v2)","level":"5.1.18","depth":2,"next":{"title":"C.19. Read & Write Excel XLSX File (Excelize)","level":"5.1.19","depth":2,"path":"C-read-write-excel-xlsx-file.md","ref":"C-read-write-excel-xlsx-file.md","articles":[]},"previous":{"title":"C.17. HTTP Gzip Compression (gziphandler)","level":"5.1.17","depth":2,"path":"C-http-gzip-compression.md","ref":"C-http-gzip-compression.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"C-send-email.md","mtime":"2026-05-10T16:30:36.473Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:31:32.077Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2274,7 +2274,7 @@ Hello
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.08.141621"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163151"></script>
         
     
         

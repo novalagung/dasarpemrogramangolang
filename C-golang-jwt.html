@@ -542,7 +542,7 @@
                 <a href="A-fungsi-sebagai-parameter.html">
             
                     
-                    A.22. Fungsi Sebagai parameter
+                    A.22. Fungsi Sebagai Parameter
             
                 </a>
             
@@ -2069,7 +2069,7 @@
                                 <h1 id="c32-json-web-token-jwt">C.32. JSON Web Token (JWT)</h1>
 <p>Pada chapter ini kita akan belajar tentang JSON Web Token (JWT) dan cara penerapannya di bahasa Go.</p>
 <h2 id="c321-definisi">C.32.1. Definisi</h2>
-<p>JWT merupakan salah satu standar JSON (<a href="https://tools.ietf.org/html/rfc7519" target="_blank">RFC 7519</a>) untuk keperluan akses token. Token dibentuk dari kombinasi beberapa informasi yang di-encode dan di-enkripsi. Informasi yang dimaksud adalah header, payload, dan signature.</p>
+<p>JWT merupakan salah satu standar JSON (<a href="https://tools.ietf.org/html/rfc7519" target="_blank">RFC 7519</a>) untuk keperluan akses token. Token umumnya dibentuk dari kombinasi beberapa informasi yang di-encode dan ditandatangani secara kriptografis. Informasi yang dimaksud adalah header, payload, dan signature.</p>
 <p>Contoh JWT:</p>
 <pre style="font-size: .85em; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</pre>
 
@@ -2078,17 +2078,17 @@
 <ul>
 <li><strong>Header</strong>, isinya adalah jenis algoritma yang digunakan untuk generate signature.</li>
 <li><strong>Payload</strong>, isinya adalah data penting untuk keperluan otentikasi, seperti <em>grant</em>, <em>group</em>, kapan login terjadi, dan atau lainnya. Data ini dalam konteks JWT biasa disebut dengan <strong>CLAIMS</strong>.</li>
-<li><strong>Signature</strong>, isinya adalah hasil dari enkripsi data menggunakan algoritma kriptografi. Data yang dimaksud adalah gabungan dari (encoded) header, (encoded) payload, dan secret key.</li>
+<li><strong>Signature</strong>, isinya adalah hasil tanda tangan kriptografis terhadap gabungan dari (encoded) header, (encoded) payload, dan secret key/private key.</li>
 </ul>
 <p>Umumnya pada aplikasi yang menerapkan teknik otorisasi menggunakan token, token di-generate di back end secara acak (menggunakan algoritma tertentu) lalu disimpan di database bersamaan dengan data user. Token tersebut bisa jadi tidak ada isinya, hanya random string, atau mungkin saja ada isinya.</p>
 <p>Nantinya di setiap http call, token yang disertakan pada request header dicocokan dengan token yang ada di database, dilanjutkan dengan pengecekan grant/group/sejenisnya, untuk menentukan apakah request tersebut adalah verified request yang memang berhak mengakses endpoint.</p>
-<p>Pada aplikasi yang menerapkan JWT, yang terjadi sedikit berbeda. Token adalah hasil dari proses kombinasi, encoding, dan enkripsi terhadap beberapa informasi. Nantinya pada sebuah http call, pengecekan token tidak dilakukan dengan membandingkan token yang ada di request vs token yang tersimpan di database, karena memang token pada JWT tidak disimpan di database. Pengecekan token dilakukan dengan cara mengecek hasil decode dan decrypt token yang ditautkan dalam request.</p>
+<p>Pada aplikasi yang menerapkan JWT, yang terjadi sedikit berbeda. Token adalah hasil dari proses kombinasi, encoding, dan signing terhadap beberapa informasi. Nantinya pada sebuah http call, pengecekan token tidak dilakukan dengan membandingkan token yang ada di request vs token yang tersimpan di database, karena memang token pada JWT tidak disimpan di database. Pengecekan token dilakukan dengan cara memvalidasi signature token dan membaca claims yang ditautkan dalam request.</p>
 <blockquote>
 <p>Ada kalanya token JWT perlu juga untuk disimpan di back-end, misalnya untuk keperluan auto-invalidate session pada multiple login, atau kasus lainnya.</p>
 </blockquote>
 <p>Mungkin sekilas terlihat mengerikan, terlihat sangat gampang sekali untuk di-retas, buktinya adalah data otorisasi bisa dengan mudah diambil dari token JWT. Dan penulis sampaikan, bahwa ini adalah presepsi yang salah.</p>
-<p>Informasi yang ada dalam token, selain di-encode, juga di-enkripsi. Dalam enkripsi diperlukan private key atau secret key, dan hanya pengembang yang tau. Jadi pastikan simpan baik-baik key tersebut.</p>
-<p>Selama peretas tidak tau secret key yang digunakan, hasil decoding dan dekripsi data <strong>PASTI TIDAK VALID</strong>.</p>
+<p>Informasi yang ada dalam token JWT standar tidak dienkripsi, melainkan hanya di-encode. Karena itu payload JWT bisa dibaca oleh siapa pun yang memiliki token. Yang membuat token valid adalah signature-nya, dan proses signing ini membutuhkan private key atau secret key yang hanya pengembang/server tau. Jadi pastikan simpan baik-baik key tersebut.</p>
+<p>Selama peretas tidak tau secret key yang digunakan, token yang dibuat atau dimodifikasi sendiri tidak akan memiliki signature yang valid.</p>
 <h2 id="c322-persiapan-praktek">C.32.2. Persiapan Praktek</h2>
 <p>Kita akan buat sebuah aplikasi RESTful web service sederhana, isinya dua buah endpoint <code>/index</code> dan <code>/login</code>. Berikut merupakan spesifikasi aplikasinya:</p>
 <ul>
@@ -2164,12 +2164,13 @@ go get -u github.com/novalagung/gubrak/v2
     <span class="hljs-string">&quot;os&quot;</span>
     <span class="hljs-string">&quot;path/filepath&quot;</span>
     <span class="hljs-string">&quot;strings&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
 
     jwt <span class="hljs-string">&quot;github.com/golang-jwt/jwt/v4&quot;</span>
     gubrak <span class="hljs-string">&quot;github.com/novalagung/gubrak/v2&quot;</span>
 )
 </code></pre>
-<p>Masih di file yang sama, siapkan 4 buah konstanta yaitu: nama aplikasi, durasi login, metode enkripsi token, dan secret key.</p>
+<p>Masih di file yang sama, siapkan 4 buah konstanta yaitu: nama aplikasi, durasi login, metode signing token, dan secret key.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
 
 <span class="hljs-keyword">var</span> APPLICATION_NAME = <span class="hljs-string">&quot;My Simple JWT App&quot;</span>
@@ -2177,6 +2178,9 @@ go get -u github.com/novalagung/gubrak/v2
 <span class="hljs-keyword">var</span> JWT_SIGNING_METHOD = jwt.SigningMethodHS256
 <span class="hljs-keyword">var</span> JWT_SIGNATURE_KEY = []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;the secret of kalimdor&quot;</span>)
 </code></pre>
+<blockquote>
+<p>Secret key di atas hanya untuk contoh. Pada aplikasi production, gunakan key yang kuat dan simpan di environment variable atau secret manager.</p>
+</blockquote>
 <p>Kemudian buat fungsi <code>main()</code>, siapkan didalmnya sebuah <code>mux</code> baru, dan daftarkan middleware <code>MiddlewareJWTAuthorization</code> dan dua buah rute <code>/index</code> dan <code>/login</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     mux := <span class="hljs-built_in">new</span>(CustomMux)
@@ -2221,13 +2225,13 @@ go get -u github.com/novalagung/gubrak/v2
 <p>Fungsi <code>authenticateUser()</code> memiliki dua nilai balik yang ditampung oleh variabel berikut:</p>
 <ul>
 <li>Variabel <code>ok</code>, penanda sukses tidaknya otentikasi.</li>
-<li>Variabel <code>userInfo</code>, isinya informasi user yang sedang login, datanya didapat dari <code>data.json</code> (tetapi tanpa password).</li>
+<li>Variabel <code>userInfo</code>, isinya informasi user yang sedang login, datanya didapat dari <code>users.json</code> (tetapi tanpa password).</li>
 </ul>
-<p>Selanjutnya kita akan buat objek claims. Objek ini harus memenuhi persyaratan interface <code>jwt.Claims</code>. Objek claims bisa dibuat dari tipe <code>map</code> dengan cara membungkusnya dalam fungsi <code>jwt.MapClaims()</code>; atau dengan meng-embed interface <code>jwt.StandardClaims</code> pada struct baru, dan cara inilah yang akan kita pakai.</p>
-<p>Seperti yang sudah kita bahas di awal, bahwa claims isinya adalah data-data untuk keperluan otentikasi. Dalam prakteknya, claims merupakan sebuah objek yang memilik banyak property atau fields. Nah, objek claims <strong>harus</strong> memiliki fields yang termasuk di dalam list <a href="https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields" target="_blank">JWT Standard Fields</a>. Dengan meng-embed interface <code>jwt.StandardClaims</code>, maka fields pada struct dianggap sudah terwakili.</p>
-<p>Pada aplikasi yang sedang kita kembangkan, claims selain menampung standard fields, juga menampung beberapa informasi lain, oleh karena itu kita perlu buat <code>struct</code> baru yang meng-embed <code>jwt.StandardClaims</code>.</p>
+<p>Selanjutnya kita akan buat objek claims. Objek ini harus memenuhi persyaratan interface <code>jwt.Claims</code>. Objek claims bisa dibuat dari tipe <code>map</code> dengan memakai <code>jwt.MapClaims</code>; atau dengan meng-embed <code>jwt.RegisteredClaims</code> pada struct baru, dan cara inilah yang akan kita pakai.</p>
+<p>Seperti yang sudah kita bahas di awal, bahwa claims isinya adalah data-data untuk keperluan otentikasi. Dalam prakteknya, claims merupakan sebuah objek yang memilik banyak property atau fields. Nah, objek claims <strong>harus</strong> memiliki fields yang termasuk di dalam list <a href="https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields" target="_blank">JWT Standard Fields</a>. Dengan meng-embed <code>jwt.RegisteredClaims</code>, maka fields standar tersebut sudah terwakili.</p>
+<p>Pada aplikasi yang sedang kita kembangkan, claims selain menampung standard fields, juga menampung beberapa informasi lain, oleh karena itu kita perlu buat <code>struct</code> baru yang meng-embed <code>jwt.RegisteredClaims</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> MyClaims <span class="hljs-keyword">struct</span> {
-    jwt.StandardClaims
+    jwt.RegisteredClaims
     Username <span class="hljs-keyword">string</span> <span class="hljs-string">`json:&quot;Username&quot;`</span>
     Email    <span class="hljs-keyword">string</span> <span class="hljs-string">`json:&quot;Email&quot;`</span>
     Group    <span class="hljs-keyword">string</span> <span class="hljs-string">`json:&quot;Group&quot;`</span>
@@ -2235,9 +2239,9 @@ go get -u github.com/novalagung/gubrak/v2
 </code></pre>
 <p>Ok, struct <code>MyClaims</code> sudah siap, sekarang buat objek baru dari struct tersebut.</p>
 <pre><code class="lang-go">claims := MyClaims{
-    StandardClaims: jwt.StandardClaims{
+    RegisteredClaims: jwt.RegisteredClaims{
         Issuer:    APPLICATION_NAME,
-        ExpiresAt: time.Now().Add(LOGIN_EXPIRATION_DURATION).Unix(),
+        ExpiresAt: jwt.NewNumericDate(time.Now().Add(LOGIN_EXPIRATION_DURATION)),
     },
     Username: userInfo[<span class="hljs-string">&quot;username&quot;</span>].(<span class="hljs-keyword">string</span>),
     Email:    userInfo[<span class="hljs-string">&quot;email&quot;</span>].(<span class="hljs-keyword">string</span>),
@@ -2249,7 +2253,7 @@ go get -u github.com/novalagung/gubrak/v2
 <li><code>Issuer</code> (code <code>iss</code>), adalah penerbit JWT, dalam konteks ini adalah <code>APPLICATION_NAME</code>.</li>
 <li><code>ExpiresAt</code> (code <code>exp</code>), adalah kapan token JWT dianggap expired.</li>
 </ul>
-<p>Ok, objek claims sudah siap, sekarang buat token baru. Pembuatannya dilakukan menggunakan fungsi <code>jwt.NewWithClaims()</code> yang menghasilkan nilai balik bertipe <code>jwt.Token</code>. Parameter pertama adalah metode enkripsi yang digunakan, yaitu <code>JWT_SIGNING_METHOD</code>, dan parameter kedua adalah <code>claims</code>.</p>
+<p>Ok, objek claims sudah siap, sekarang buat token baru. Pembuatannya dilakukan menggunakan fungsi <code>jwt.NewWithClaims()</code> yang menghasilkan nilai balik bertipe <code>jwt.Token</code>. Parameter pertama adalah metode signing yang digunakan, yaitu <code>JWT_SIGNING_METHOD</code>, dan parameter kedua adalah <code>claims</code>.</p>
 <pre><code class="lang-go">token := jwt.NewWithClaims(
     JWT_SIGNING_METHOD,
     claims,
@@ -2339,7 +2343,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(tokenString))
 </code></pre>
 <p>O iya, mungkin ada pertanyaan kenapa objek claims yang dihasilkan <code>jwt.Parse()</code> tipenya bukan <code>MyClaims</code>. Hal ini karena setelah objek claims dimasukan dalam proses pembentukan token, lewat fungsi <code>jwt.NewWithClaims()</code>, objek akan di-encode ke tipe <code>jwt.MapClaims</code>.</p>
 <p>Data claims yang didapat disisipkan ke dalam context, agar nantinya di endpoint, informasi <code>userInfo</code> bisa diambil dengan mudah dari context request.</p>
-<pre><code class="lang-go">ctx := context.WithValue(context.Background(), <span class="hljs-string">&quot;userInfo&quot;</span>, claims)
+<pre><code class="lang-go">ctx := context.WithValue(r.Context(), <span class="hljs-string">&quot;userInfo&quot;</span>, claims)
 r = r.WithContext(ctx)
 
 next.ServeHTTP(w, r)
@@ -2410,7 +2414,7 @@ next.ServeHTTP(w, r)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.32","depth":2,"next":{"title":"C.33. LDAP Authentication","level":"5.1.33","depth":2,"path":"C-golang-ldap-authentication.md","ref":"C-golang-ldap-authentication.md","articles":[]},"previous":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"path":"C-golang-grpc-protobuf.md","ref":"C-golang-grpc-protobuf.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"C-golang-jwt.md","mtime":"2026-05-08T14:15:04.142Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-08T14:16:01.275Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.32. JSON Web Token (JWT)","level":"5.1.32","depth":2,"next":{"title":"C.33. LDAP Authentication","level":"5.1.33","depth":2,"path":"C-golang-ldap-authentication.md","ref":"C-golang-ldap-authentication.md","articles":[]},"previous":{"title":"C.31. gRPC + Protobuf","level":"5.1.31","depth":2,"path":"C-golang-grpc-protobuf.md","ref":"C-golang-grpc-protobuf.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"C-golang-jwt.md","mtime":"2026-05-10T16:30:36.472Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:31:32.077Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2432,7 +2436,7 @@ next.ServeHTTP(w, r)
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.08.141621"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163151"></script>
         
     
         

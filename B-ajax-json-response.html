@@ -542,7 +542,7 @@
                 <a href="A-fungsi-sebagai-parameter.html">
             
                     
-                    A.22. Fungsi Sebagai parameter
+                    A.22. Fungsi Sebagai Parameter
             
                 </a>
             
@@ -2116,8 +2116,8 @@
 <p><img src="images/B_ajax_json_response_1_test.png" alt="Dasar Pemrograman Golang - Testing web server"></p>
 <h2 id="b153-json-response-menggunakan-jsonencoder">B.15.3. JSON Response menggunakan JSON.Encoder</h2>
 <p>Pada chapter sebelumnya telah disinggung bahwa lebih baik menggunakan <code>json.Decoder</code> jika ingin men-decode data yang sumbernya ada di stream <code>io.Reader</code></p>
-<p>Selain <code>json.Decoder</code>, ada juga <code>json.Encoder</code> yang penggunaannya adalah untuk meng-encode data menjadi JSON dengan output langsung disimpan ke stream <code>io.Reader</code>. </p>
-<p>Tipe <code>http.ResponseWriter</code> adalah meng-embed <code>io.Reader</code>, maka tipe tersebut bisa kita gunakan pada proses encoding menggunakan <code>json.Encoder</code>. Contoh penerapannya bisa dilihat berikut ini.</p>
+<p>Selain <code>json.Decoder</code>, ada juga <code>json.Encoder</code> yang penggunaannya adalah untuk meng-encode data menjadi JSON dengan output langsung dikirim ke stream <code>io.Writer</code>. </p>
+<p>Tipe <code>http.ResponseWriter</code> adalah meng-embed <code>io.Writer</code>, maka tipe tersebut bisa kita gunakan pada proses encoding menggunakan <code>json.Encoder</code>. Contoh penerapannya bisa dilihat berikut ini.</p>
 <pre><code class="lang-go">w.Header().Set(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>)
 
 err := json.NewEncoder(w).Encode(data)
@@ -2162,7 +2162,7 @@ err := json.NewEncoder(w).Encode(data)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"next":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},"previous":{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"path":"B-ajax-json-payload.md","ref":"B-ajax-json-payload.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-ajax-json-response.md","mtime":"2026-05-08T14:15:04.139Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-08T14:16:01.275Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"next":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},"previous":{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"path":"B-ajax-json-payload.md","ref":"B-ajax-json-payload.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-ajax-json-response.md","mtime":"2026-05-10T16:30:36.469Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:31:32.077Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2184,7 +2184,7 @@ err := json.NewEncoder(w).Encode(data)
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.08.141621"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163151"></script>
         
     
         

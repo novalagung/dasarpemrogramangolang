@@ -542,7 +542,7 @@
                 <a href="A-fungsi-sebagai-parameter.html">
             
                     
-                    A.22. Fungsi Sebagai parameter
+                    A.22. Fungsi Sebagai Parameter
             
                 </a>
             
@@ -2067,7 +2067,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="c25-http2-dan-http2-server-push">C.25. HTTP/2 dan HTTP/2 Server Push</h1>
-<p>HTTP/2 adalah versi terbaru protokol HTTP, dikembangkan dari protokol <a href="https://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00" target="_blank">SPDY</a> yang diinisiasi oleh Google.</p>
+<p>HTTP/2 adalah versi protokol HTTP yang dikembangkan dari protokol <a href="https://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00" target="_blank">SPDY</a> yang diinisiasi oleh Google.</p>
 <p>Protokol ini sekarang sudah kompatibel dengan banyak browser di antaranya: Chrome, Opera, Firefox 9, IE 11, Safari, Silk, dan Edge.</p>
 <p>Kelebihan HTTP/2 dibanding HTTP 1.1 (protokol yang umumnya digunakan) sebagian besar adalah pada performa dan sekuriti. Berikut merupakan beberapa point yang menjadi kelebihan dari protokol baru ini.</p>
 <ul>
@@ -2078,21 +2078,22 @@
 </ul>
 <p>Pada chapter ini kita akan belajar cara menerapkan HTTP/2 dan salah satu fitur milik protokol ini yaitu HTTP/2 Server Push.</p>
 <blockquote>
+<p>Catatan: materi HTTP/2 Server Push pada chapter ini bersifat historis. Browser berbasis Chromium, termasuk Chrome, sudah menghapus dukungan HTTP/2 Server Push. Untuk optimasi modern, pertimbangkan preload atau HTTP <code>103 Early Hints</code>.</p>
 <p>Mengenai multiplexing banyak request tidak akan kita bahas pada buku ini, silakan coba pelajari sendiri jika tertarik, menggunakan library cmux.</p>
 </blockquote>
 <h2 id="c251-http2-di-golang">C.25.1. HTTP/2 di Golang</h2>
 <p>Golang memiliki dukungan sangat baik terhadap HTTP/2. Dengan cukup meng-enable fasilitas TLS/HTTPS maka aplikasi golang secara otomatis menggunakan HTTP/2.</p>
-<p>Untuk memastikan mari kita langsung praktekkan, coba duplikat project pada chapter sebelumnya (<strong>C.24. HTTPS/TLS Web Server</strong>) sebagai project baru, jalankan aplikasinya lalu cek di browser chrome. Gunakan chrome extension <a href="https://chrome.google.com/webstore/detail/http2-and-spdy-indicator/mpbpobfflnpcgagjijhmgnchggcjblin?hl=en" target="_blank">HTTP/2 and SPDY indicator</a> untuk menge-test apakah HTTP/2 sudah enabled.</p>
+<p>Untuk memastikan mari kita langsung praktekkan, coba duplikat project pada chapter sebelumnya (<strong>C.24. HTTPS/TLS Web Server</strong>) sebagai project baru, jalankan aplikasinya lalu cek di browser Chrome. Gunakan chrome extension <a href="https://chrome.google.com/webstore/detail/http2-and-spdy-indicator/mpbpobfflnpcgagjijhmgnchggcjblin?hl=en" target="_blank">HTTP/2 and SPDY indicator</a> untuk menge-test apakah HTTP/2 sudah enabled.</p>
 <p><img src="images/C_http2_server_push_1_spdy_checker.png" alt="Dasar Pemrograman Golang - SPDY checker"></p>
 <p>Perlu diketahui untuk golang versi sebelum <strong>1.6</strong> ke bawah, secara default HTTP/2 tidak akan di-enable. Perlu memanggil fungsi <code>http2.ConfigureServer()</code> secara eksplist untuk meng-enable HTTP/2. Fungsi tersebut tersedia dalam package <code>golang.org/x/net/http2</code>. Lebih jelasnya silakan baca <a href="https://godoc.org/golang.org/x/net/http2" target="_blank">laman dokumentasi</a>.</p>
 <h2 id="c252-http2-server-push">C.25.2. HTTP/2 Server Push</h2>
 <p>HTTP/2 Server Push adalah salah satu fitur pada HTTP/2, berguna untuk mempercepat response dari request, dengan cara data yang akan di-response dikirim terlebih dahulu oleh server.</p>
-<p>Fitur server push ini cocok digunakan untuk push data assets, seperti: css, gambar, js, dan file assets lainnya.</p>
+<p>Fitur server push ini dulu umum ditujukan untuk push data assets, seperti: css, gambar, js, dan file assets lainnya. Pada aplikasi modern, dukungan browser perlu dicek terlebih dahulu karena fitur ini tidak lagi tersedia di banyak browser populer.</p>
 <p>Lalu apakah server push ini bisa dimanfaatkan untuk push data JSON, XML, atau sejenisnya? Sebenarnya bisa, hanya saja ini akan menyalahi tujuan dari penciptaan server push sendiri dan hasilnya tidak akan optimal, karena sebenernya server push tidak murni bidirectional, masih perlu adanya request ke server untuk mendapatkan data yg sudah di push oleh server itu sendiri.</p>
 <blockquote>
 <p>HTTP/2 server push bukanlah pengganti dari websocket. Gunakan websocket untuk melakukan komunikasi bidirectional antara server dan client.</p>
 </blockquote>
-<p>Untuk mengecek suport-tidak-nya server push, lakukan casting pada objek <code>http.ResponseWriter</code> milik handler ke interface <code>http.Pusher</code>, lalu manfaatkan method <code>Push()</code> milik interface ini untuk push data dari server.</p>
+<p>Untuk mengecek apakah server push didukung, lakukan casting pada objek <code>http.ResponseWriter</code> milik handler ke interface <code>http.Pusher</code>, lalu manfaatkan method <code>Push()</code> milik interface ini untuk push data dari server.</p>
 <blockquote>
 <p>Fasilitas server push ini hanya bisa digunakan pada golang versi 1.8 ke-atas.</p>
 </blockquote>
@@ -2178,10 +2179,10 @@
 <h2 id="c254-testing">C.25.4. Testing</h2>
 <p>Perbedaan antara aplikasi yang menerapkan HTTP/2 dan tidak, atau yang menerapkan server push atau tidak; adalah tidak terasa bedanya jika hanya di-test lewat lokal saja. </p>
 <p>Untuk mengecek HTTP/2 diterapkan atau tidak, kita bisa gunakan Chrome extension <strong>HTTP/2 and SPDY indicator</strong>. </p>
-<p>Untuk mengecek server push pada tiap request sebenernya bisa hanya cukup menggunakan chrome dev tools, namun fitur ini hanya tersedia pada <a href="https://www.google.com/chrome/browser/canary.html" target="_blank">Chrome Canary</a>. Download browser tersebut lalu install, gunakan untuk testing aplikasi kita.</p>
+<p>Untuk mengecek server push pada tiap request di browser modern, fitur ini kemungkinan sudah tidak tersedia. Jika ingin mempelajari perilaku server push, gunakan browser/tool yang masih mendukungnya, atau jadikan bagian ini sebagai referensi historis.</p>
 <p>Pada saat mengakses <code>https://localhost:9000</code> pastikan developer tools sudah aktif (klik kanan, inspect element), lalu buka tab <strong>Network</strong>.</p>
 <p><img src="images/C_http2_server_push_2_spdy_indicator.png" alt="Dasar Pemrograman Golang - SPDY indicator"></p>
-<p>Untuk endpoint yang menggunakan server push, pada kolom <strong>Protocol</strong> nilainya adalah <strong>spdy</strong>. Pada screenshot di atas terlihat bahwa assets <code>app.js</code> dan <code>app.css</code> dikirim lewat server push.</p>
+<p>Pada browser lama yang masih mendukung server push, asset yang dikirim lewat server push bisa terlihat pada tab network/devtools. Pada browser modern, hasilnya bisa berbeda atau tidak muncul karena fitur server push sudah tidak didukung.</p>
 <blockquote>
 <p>Jika kolom Protocol tidak muncul, klik kanan pada kolom, lalu centang <strong>Protocol</strong>.</p>
 </blockquote>
@@ -2228,7 +2229,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.25. HTTP/2 & HTTP/2 Server Push","level":"5.1.25","depth":2,"next":{"title":"C.26. Advanced Client HTTP Request","level":"5.1.26","depth":2,"path":"C-client-http-request-advanced.md","ref":"C-client-http-request-advanced.md","articles":[]},"previous":{"title":"C.24. HTTPS/TLS Web Server","level":"5.1.24","depth":2,"path":"C-https-tls.md","ref":"C-https-tls.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"C-http2-server-push.md","mtime":"2026-05-08T14:15:04.143Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-08T14:16:01.275Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.25. HTTP/2 & HTTP/2 Server Push","level":"5.1.25","depth":2,"next":{"title":"C.26. Advanced Client HTTP Request","level":"5.1.26","depth":2,"path":"C-client-http-request-advanced.md","ref":"C-client-http-request-advanced.md","articles":[]},"previous":{"title":"C.24. HTTPS/TLS Web Server","level":"5.1.24","depth":2,"path":"C-https-tls.md","ref":"C-https-tls.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"C-http2-server-push.md","mtime":"2026-05-10T16:30:36.473Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:31:32.077Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2250,7 +2251,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.08.141621"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163151"></script>
         
     
         

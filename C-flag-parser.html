@@ -542,7 +542,7 @@
                 <a href="A-fungsi-sebagai-parameter.html">
             
                     
-                    A.22. Fungsi Sebagai parameter
+                    A.22. Fungsi Sebagai Parameter
             
                 </a>
             
@@ -2322,11 +2322,11 @@ kingpin.MustParse(app.Parse(os.Args[<span class="hljs-number">1</span>:]))
 <h2 id="c96-advanced-command-line-application">C.9.6. Advanced Command Line Application</h2>
 <p>Pembahasan di atas fokus tentang bagaiamana cara parsing argument, flag, dan command yang disisipkan sewaktu eksekusi aplikasi. Aplikasi yang dieksekusi sendiri bisa berupa command-line-based ataupun web-based.</p>
 <p>Jika pembaca ingin membuat aplikasi command line, penggunaan kingpin cukup membantu dalam proses pengembangan, tapi akan lebih mudah lagi jika menggunakan 3rd party library <a href="https://github.com/spf13/cobra" target="_blank">Cobra</a>.</p>
-<p>Cobra merupakan library yang dirancang khusus untuk development aplikasi berbasis command line. Library ini dibuat oleh author yang juga membuat kingpin.</p>
+<p>Cobra merupakan library yang dirancang khusus untuk development aplikasi berbasis command line. Library ini dibuat oleh Steve Francia (spf13), sedangkan Kingpin dibuat oleh Alec Thomas.</p>
 <hr>
 <ul>
 <li><a href="https://github.com/alecthomas/kingpin" target="_blank">Kingpin</a>, by Alec Thomas, MIT license</li>
-<li><a href="https://github.com/alecthomas/cobra" target="_blank">Cobra</a>, by Alec Thomas, MIT license</li>
+<li><a href="https://github.com/spf13/cobra" target="_blank">Cobra</a>, by Steve Francia (spf13), MIT license</li>
 </ul>
 <hr>
 <div class="source-code-link">
@@ -2363,7 +2363,7 @@ kingpin.MustParse(app.Parse(os.Args[<span class="hljs-number">1</span>:]))
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.9. CLI Flag Parser (Kingpin)","level":"5.1.9","depth":2,"next":{"title":"C.10. Advanced Configuration: Viper","level":"5.1.10","depth":2,"path":"C-advanced-configuration-viper.md","ref":"C-advanced-configuration-viper.md","articles":[]},"previous":{"title":"C.8. Advanced Middleware & Logging (Logrus, Echo Logger)","level":"5.1.8","depth":2,"path":"C-advanced-middleware-and-logging.md","ref":"C-advanced-middleware-and-logging.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"C-flag-parser.md","mtime":"2026-05-08T14:15:04.141Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-08T14:16:01.275Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.9. CLI Flag Parser (Kingpin)","level":"5.1.9","depth":2,"next":{"title":"C.10. Advanced Configuration: Viper","level":"5.1.10","depth":2,"path":"C-advanced-configuration-viper.md","ref":"C-advanced-configuration-viper.md","articles":[]},"previous":{"title":"C.8. Advanced Middleware & Logging (Logrus, Echo Logger)","level":"5.1.8","depth":2,"path":"C-advanced-middleware-and-logging.md","ref":"C-advanced-middleware-and-logging.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"C-flag-parser.md","mtime":"2026-05-10T16:30:36.471Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:31:32.077Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2385,7 +2385,7 @@ kingpin.MustParse(app.Parse(os.Args[<span class="hljs-number">1</span>:]))
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.08.141621"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163151"></script>
         
     
         

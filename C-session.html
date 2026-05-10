@@ -542,7 +542,7 @@
                 <a href="A-fungsi-sebagai-parameter.html">
             
                     
-                    A.22. Fungsi Sebagai parameter
+                    A.22. Fungsi Sebagai Parameter
             
                 </a>
             
@@ -2197,10 +2197,10 @@
 <h2 id="c136-mongo-db-store">C.13.6. Mongo DB Store</h2>
 <p>Kita akan mempelajari pembuatan session store dengan media adalah mongo db. Sebelum kita mulai, ada dua library yang perlu di <code>go get</code>.</p>
 <ul>
-<li><a href="https://gopkg.in/mgo.v2" target="_blank">gopkg.in/mgo.v2</a></li>
+<li><a href="https://github.com/globalsign/mgo" target="_blank">github.com/globalsign/mgo</a> (perhatian: driver mgo sudah tidak di-maintenance aktif, untuk project baru disarankan menggunakan <a href="https://github.com/mongodb/mongo-go-driver" target="_blank">MongoDB official Go driver</a>)</li>
 <li><a href="https://github.com/kidstuff/mongostore" target="_blank">github.com/kidstuff/mongostore</a></li>
 </ul>
-<p>Library pertama, <code>mgo.v2</code> merupakan driver mongo db untuk golang. Koneksi dari golang ke mongodb akan kita buat lewat API library ini.</p>
+<p>Library pertama, <code>github.com/globalsign/mgo</code> merupakan fork driver mgo untuk golang. Koneksi dari golang ke mongodb akan kita buat lewat API library ini.</p>
 <p>Library kedua, merupakan implementasi dari interface <code>sessions.Store</code> untuk mongo db.</p>
 <p>Silakan kombinasikan semua koding yang sudah kita tulis di atas agar menjadi satu aplikasi. Lalu buat fungsi <code>newMongoStore()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">import</span> (
@@ -2208,7 +2208,7 @@
     <span class="hljs-string">&quot;github.com/gorilla/context&quot;</span>
     <span class="hljs-string">&quot;github.com/kidstuff/mongostore&quot;</span>
     <span class="hljs-string">&quot;github.com/labstack/echo&quot;</span>
-    <span class="hljs-string">&quot;gopkg.in/mgo.v2&quot;</span>
+    <span class="hljs-string">&quot;github.com/globalsign/mgo&quot;</span>
     <span class="hljs-string">&quot;log&quot;</span>
     <span class="hljs-string">&quot;net/http&quot;</span>
     <span class="hljs-string">&quot;os&quot;</span>
@@ -2245,10 +2245,16 @@
 </blockquote>
 <p>Dari mgo session akses database lewat method <code>.DB()</code>, lalu akses collection yang ingin digunakan sebagai media penyimpanan data asli session lewat method <code>.C()</code>.</p>
 <p>Statement <code>mongostore.NewMongoStore()</code> digunakan untuk membuat mongo db store. Ada beberapa parameter yang diperlukan: objek collection mongo di atas, dan dua lagi lainnya adalah authentication key dan encryption key.</p>
+<blockquote>
+<p><code>authKey</code> dan <code>encryptionKey</code> pada contoh ini hanya untuk belajar. Pada aplikasi production, gunakan key yang kuat, panjangnya sesuai rekomendasi library, dan simpan di environment variable atau secret manager.</p>
+</blockquote>
 <p>Jika pembaca merasa bingung, silakan langsung buka <a href="https://github.com/novalagung/dasarpemrogramangolang-example/" target="_blank">source code untuk chapter ini di Github</a>, mungkin membantu.</p>
 <h2 id="c137-postgres-sql-store">C.13.7. Postgres SQL Store</h2>
 <p>Pembuatan postgres store caranya kurang lebih sama dengan mongo store. Library yang dipakai adalah <a href="https://github.com/antonlindstrom/pgstore" target="_blank">github.com/antonlindstrom/pgstore</a>.</p>
 <p>Gunakan <code>pgstore.NewPGStore()</code> untuk membuat store. Isi parameter pertama dengan connection string postgres server, lalu authentication key dan encryption key.</p>
+<blockquote>
+<p><code>authKey</code> dan <code>encryptionKey</code> pada contoh ini hanya untuk belajar. Pada aplikasi production, gunakan key yang kuat, panjangnya sesuai rekomendasi library, dan simpan di environment variable atau secret manager.</p>
+</blockquote>
 <pre><code class="lang-go"><span class="hljs-keyword">import</span> (
     <span class="hljs-string">&quot;fmt&quot;</span>
     <span class="hljs-string">&quot;github.com/antonlindstrom/pgstore&quot;</span>
@@ -2277,6 +2283,9 @@
 </code></pre>
 <h2 id="c138-secure-cookie-store">C.13.8. Secure Cookie Store</h2>
 <p>Penggunaan cookie store kurang penulis anjurkan, meski sebenarnya cukup aman. Implementasi store jenis ini adalah yang paling mudah, karena tidak butuh database server atau media lainnya; dan juga karena API untuk cookie store sudah tersedia dalam gorilla sessions secara default.</p>
+<blockquote>
+<p><code>authKey</code> dan <code>encryptionKey</code> pada contoh ini hanya untuk belajar. Pada aplikasi production, gunakan key yang kuat, panjangnya sesuai rekomendasi library, dan simpan di environment variable atau secret manager.</p>
+</blockquote>
 <pre><code class="lang-go"><span class="hljs-keyword">import</span> (
     <span class="hljs-string">&quot;fmt&quot;</span>
     <span class="hljs-string">&quot;github.com/gorilla/context&quot;</span>
@@ -2354,7 +2363,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.13. Session (Gorilla Session)","level":"5.1.13","depth":2,"next":{"title":"C.14. CORS & Preflight Request","level":"5.1.14","depth":2,"path":"C-cors-preflight-request.md","ref":"C-cors-preflight-request.md","articles":[]},"previous":{"title":"C.12. Secure Cookie (Gorilla Securecookie)","level":"5.1.12","depth":2,"path":"C-securecookie.md","ref":"C-securecookie.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"C-session.md","mtime":"2026-05-08T14:15:04.143Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-08T14:16:01.275Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C.13. Session (Gorilla Session)","level":"5.1.13","depth":2,"next":{"title":"C.14. CORS & Preflight Request","level":"5.1.14","depth":2,"path":"C-cors-preflight-request.md","ref":"C-cors-preflight-request.md","articles":[]},"previous":{"title":"C.12. Secure Cookie (Gorilla Securecookie)","level":"5.1.12","depth":2,"path":"C-securecookie.md","ref":"C-securecookie.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"C-session.md","mtime":"2026-05-10T16:30:36.473Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:31:32.077Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2376,7 +2385,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.08.141621"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163151"></script>
         
     
         

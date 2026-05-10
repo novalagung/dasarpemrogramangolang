@@ -542,7 +542,7 @@
                 <a href="A-fungsi-sebagai-parameter.html">
             
                     
-                    A.22. Fungsi Sebagai parameter
+                    A.22. Fungsi Sebagai Parameter
             
                 </a>
             
@@ -2089,7 +2089,7 @@ fmt.Println(<span class="hljs-string">&quot;mei&quot;</span>,     chicken[<span 
 <p><img src="images/A_map_1_map_set_get.png" alt="Dasar Pemrograman Golang - Pengaksesan data map"></p>
 <p>Pengaksesan item menggunakan key yang belum tersimpan di map, menghasilkan data berupa nilai default sesuai tipe data value. Contohnya kode <code>chicken[&quot;mei&quot;]</code> menghasilkan nilai 0 (nilai default tipe <code>int</code>), hal ini karena variabel map <code>chicken</code> tidak memiliki item dengan key <code>&quot;mei&quot;</code>.</p>
 <h2 id="a172-inisialisasi-nilai-map">A.17.2. Inisialisasi Nilai Map</h2>
-<p>Zero value dari map adalah <code>nil</code>. Disarankan untuk menginisialisasi secara explisit nilai awalnya agar tidak <code>nil</code>.</p>
+<p>Zero value dari map adalah <code>nil</code>. Disarankan untuk menginisialisasi secara eksplisit nilai awalnya agar tidak <code>nil</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> data <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>
 data[<span class="hljs-string">&quot;one&quot;</span>] = <span class="hljs-number">1</span>
 <span class="hljs-comment">// akan muncul error!</span>
@@ -2109,12 +2109,11 @@ data[<span class="hljs-string">&quot;one&quot;</span>] = <span class="hljs-numbe
 }
 </code></pre>
 <p>Key dan value dituliskan dengan pembatas tanda titik dua (<code>:</code>). Sedangkan tiap itemnya dituliskan dengan pembatas tanda koma (<code>,</code>). Khusus deklarasi dengan gaya vertikal, tanda koma perlu dituliskan setelah item terakhir.</p>
-<p>Variabel <code>map</code> bisa di-inisialisasi dengan tanpa nilai awal, caranya menggunakan tanda kurung kurawal, contoh: <code>map[string]int{}</code>. Atau bisa juga dengan menggunakan keyword <code>make</code> dan <code>new</code>. Contohnya bisa dilihat pada kode berikut. Ketiga cara di bawah ini intinya adalah sama.</p>
+<p>Variabel <code>map</code> bisa di-inisialisasi dengan tanpa nilai awal, caranya menggunakan tanda kurung kurawal, contoh: <code>map[string]int{}</code>. Atau bisa juga dengan menggunakan keyword <code>make</code>. Contohnya bisa dilihat pada kode berikut. Kedua cara di bawah ini intinya adalah sama.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> chicken3 = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>{}
 <span class="hljs-keyword">var</span> chicken4 = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>)
-<span class="hljs-keyword">var</span> chicken5 = *<span class="hljs-built_in">new</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>)
 </code></pre>
-<p>Khusus inisialisasi data menggunakan keyword <code>new</code>, yang dihasilkan adalah data pointer. Untuk mengambil nilai aslinya bisa dengan menggunakan tanda asterisk (<code>*</code>). Topik pointer nantinya dibahas lebih detail pada chapter <a href="A-pointer.html">A.23. Pointer</a>.</p>
+<p>Map juga bisa dibuat menggunakan <code>new</code>, tetapi itu bukan cara inisialisasi yang umum. Hasil dereference-nya adalah nil map, contohnya <code>var chicken5 = *new(map[string]int)</code>. Nil map bisa dibaca, tetapi tidak bisa langsung diisi item baru sebelum diinisialisasi. Topik pointer nantinya dibahas lebih detail pada chapter <a href="A-pointer.html">A.23. Pointer</a>.</p>
 <h2 id="a173-iterasi-item-map-menggunakan-for---range">A.17.3. Iterasi Item Map Menggunakan <code>for</code> - <code>range</code></h2>
 <p>Item variabel <code>map</code> bisa di iterasi menggunakan <code>for</code> - <code>range</code>. Cara penerapannya masih sama seperti pada slice, dengan perbedaan pada map data yang dikembalikan di tiap perulangan adalah key dan value (bukan indeks dan elemen). Contohnya bisa dilihat pada kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> chicken = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>{
@@ -2218,7 +2217,7 @@ fmt.Println(chicken)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.17. Map","level":"3.1.17","depth":2,"next":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"path":"A-fungsi.md","ref":"A-fungsi.md","articles":[]},"previous":{"title":"A.16. Slice","level":"3.1.16","depth":2,"path":"A-slice.md","ref":"A-slice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-map.md","mtime":"2026-05-08T14:15:04.137Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-08T14:16:01.275Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.17. Map","level":"3.1.17","depth":2,"next":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"path":"A-fungsi.md","ref":"A-fungsi.md","articles":[]},"previous":{"title":"A.16. Slice","level":"3.1.16","depth":2,"path":"A-slice.md","ref":"A-slice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-map.md","mtime":"2026-05-10T16:30:36.467Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:31:32.077Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2240,7 +2239,7 @@ fmt.Println(chicken)
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.08.141621"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163151"></script>
         
     
         

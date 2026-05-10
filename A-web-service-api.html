@@ -542,7 +542,7 @@
                 <a href="A-fungsi-sebagai-parameter.html">
             
                     
-                    A.22. Fungsi Sebagai parameter
+                    A.22. Fungsi Sebagai Parameter
             
                 </a>
             
@@ -2067,7 +2067,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a54-web-service-api-server">A.54. Web Service API Server</h1>
-<p>Pada chapter ini kita akan mencoba mengkombinasikan hasl pembelajaran di 2 chapter sebelumnya (yaitu web programming dan JSON), untuk membuat sebuah web service API yang memilikki endpoint dengan reponse data mengadopsi format JSON.</p>
+<p>Pada chapter ini kita akan mencoba mengkombinasikan hasl pembelajaran di 2 chapter sebelumnya (yaitu web programming dan JSON), untuk membuat sebuah web service API yang memiliki endpoint dengan response data mengadopsi format JSON.</p>
 <blockquote>
 <p>Web Service API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML atau format lainnya.</p>
 </blockquote>
@@ -2093,7 +2093,7 @@
 }
 </code></pre>
 <p>Struct <code>student</code> di atas digunakan sebagai tipe elemen slice sample data, ditampung variabel <code>data</code>.</p>
-<p>Selanjutnya buat fungsi <code>users()</code> untuk handle endpoint <code>/users</code>. Di dalam fungsi tersebut ada proses deteksi jenis request lewat property <code>r.Method()</code>, untuk mencari tahu apakah jenis request adalah <strong>POST</strong> atau <strong>GET</strong> atau lainnya.</p>
+<p>Selanjutnya buat fungsi <code>users()</code> untuk handle endpoint <code>/users</code>. Di dalam fungsi tersebut ada proses deteksi jenis request lewat property <code>r.Method</code>, untuk mencari tahu apakah jenis request adalah <strong>GET</strong> atau <strong>POST</strong> atau lainnya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> users(w http.ResponseWriter, r *http.Request) {
     w.Header().Set(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>)
 
@@ -2113,7 +2113,7 @@
 }
 </code></pre>
 <p>Jika request adalah GET (mengambil data), maka data yang di-encode ke JSON dijadikan sebagai response.</p>
-<p>Statement <code>w.Header().Set(&quot;Content-Type&quot;, &quot;application/json&quot;)</code> digunakan untuk menentukan tipe response, yaitu sebagai JSON. Sedangkan <code>r.Write()</code> digunakan untuk mendaftarkan data sebagai response.</p>
+<p>Statement <code>w.Header().Set(&quot;Content-Type&quot;, &quot;application/json&quot;)</code> digunakan untuk menentukan tipe response, yaitu sebagai JSON. Sedangkan <code>w.Write()</code> digunakan untuk mendaftarkan data sebagai response.</p>
 <p>Selebihnya, jika request tidak valid, response di set sebagai error menggunakan fungsi <code>http.Error()</code>.</p>
 <p>Siapkan juga handler untuk endpoint <code>/user</code>. Perbedaan endpoint ini dengan <code>/users</code> di atas adalah:</p>
 <ul>
@@ -2123,7 +2123,7 @@
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> user(w http.ResponseWriter, r *http.Request) {
     w.Header().Set(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>)
 
-    <span class="hljs-keyword">if</span> r.Method == <span class="hljs-string">&quot;GET&quot;</span> {
+    <span class="hljs-keyword">if</span> r.Method == <span class="hljs-string">&quot;POST&quot;</span> {
         <span class="hljs-keyword">var</span> id = r.FormValue(<span class="hljs-string">&quot;id&quot;</span>)
         <span class="hljs-keyword">var</span> result []<span class="hljs-keyword">byte</span>
         <span class="hljs-keyword">var</span> err error
@@ -2150,7 +2150,7 @@
 }
 </code></pre>
 <p>Method <code>r.FormValue()</code> digunakan untuk mengambil data form yang dikirim dari client, pada konteks ini data yang dimaksud adalah <code>ID</code>.</p>
-<p>Dengan menggunakan <code>ID</code> tersebut dicarilah data yang relevan. Jika ada, maka dikembalikan sebagai response. Jika tidak ada maka error <strong>400, Bad Request</strong> dikembalikan dengan pesan <strong>User Not Found</strong>.</p>
+<p>Dengan menggunakan <code>ID</code> tersebut dicarilah data yang relevan. Jika ada, maka dikembalikan sebagai response. Jika tidak ada maka error <strong>404, Not Found</strong> dikembalikan dengan pesan <strong>User Not Found</strong>.</p>
 <p>Terakhir, implementasikan kedua handler di atas.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     http.HandleFunc(<span class="hljs-string">&quot;/users&quot;</span>, users)
@@ -2175,9 +2175,9 @@
 <h2 id="a543-test-web-service-api-via-curl">A.54.3. Test Web Service API via <code>cURL</code></h2>
 <p>Testing bisa juga dilakukan via cURL. Pastikan untuk menginstall cURL terlebih dahulu agar bisa menggunakan command berikut.</p>
 <pre><code>curl -X GET http://localhost:8080/users
-curl -X GET http://localhost:8080/user?id=B002
+curl -X POST -d &quot;id=B002&quot; http://localhost:8080/user
 </code></pre><p><img src="images/A_web_service_4.png" alt="Dasar Pemrograman Golang - cURL test"></p>
-<p>Data user ID pada endpoint <code>/user</code> ditulis dalam format query parameters, yaitu <code>?id=B002</code>.</p>
+<p>Data user ID pada endpoint <code>/user</code> dikirim sebagai form data menggunakan flag <code>-d</code>.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2213,7 +2213,7 @@ curl -X GET http://localhost:8080/user?id=B002
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.54. Web Service API Server","level":"3.1.54","depth":2,"next":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"path":"A-client-http-request-simple.md","ref":"A-client-http-request-simple.md","articles":[]},"previous":{"title":"A.53. JSON Data","level":"3.1.53","depth":2,"path":"A-json.md","ref":"A-json.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-web-service-api.md","mtime":"2026-05-08T14:15:04.139Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-08T14:16:01.275Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.54. Web Service API Server","level":"3.1.54","depth":2,"next":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"path":"A-client-http-request-simple.md","ref":"A-client-http-request-simple.md","articles":[]},"previous":{"title":"A.53. JSON Data","level":"3.1.53","depth":2,"path":"A-json.md","ref":"A-json.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-web-service-api.md","mtime":"2026-05-10T16:30:36.469Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:31:32.077Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2235,7 +2235,7 @@ curl -X GET http://localhost:8080/user?id=B002
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.08.141621"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163151"></script>
         
     
         

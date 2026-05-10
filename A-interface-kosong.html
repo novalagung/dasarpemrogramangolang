@@ -542,7 +542,7 @@
                 <a href="A-fungsi-sebagai-parameter.html">
             
                     
-                    A.22. Fungsi Sebagai parameter
+                    A.22. Fungsi Sebagai Parameter
             
                 </a>
             
@@ -2083,7 +2083,7 @@
     secret = <span class="hljs-string">&quot;ethan hunt&quot;</span>
     fmt.Println(secret)
 
-    secret = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;manggo&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>}
+    secret = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;mango&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>}
     fmt.Println(secret)
 
     secret = <span class="hljs-number">12.4</span>
@@ -2098,7 +2098,7 @@
 data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}{
     <span class="hljs-string">&quot;name&quot;</span>:      <span class="hljs-string">&quot;ethan hunt&quot;</span>,
     <span class="hljs-string">&quot;grade&quot;</span>:     <span class="hljs-number">2</span>,
-    <span class="hljs-string">&quot;breakfast&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;manggo&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>},
+    <span class="hljs-string">&quot;breakfast&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;mango&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>},
 }
 </code></pre>
 <p>Pada kode di atas, disiapkan variabel <code>data</code> dengan tipe <code>map[string]interface{}</code>, yaitu sebuah koleksi dengan key bertipe <code>string</code> dan nilai bertipe interface kosong <code>interface{}</code>.</p>
@@ -2111,7 +2111,7 @@ data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</
 data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]any{
     <span class="hljs-string">&quot;name&quot;</span>:      <span class="hljs-string">&quot;ethan hunt&quot;</span>,
     <span class="hljs-string">&quot;grade&quot;</span>:     <span class="hljs-number">2</span>,
-    <span class="hljs-string">&quot;breakfast&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;manggo&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>},
+    <span class="hljs-string">&quot;breakfast&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;mango&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>},
 }
 </code></pre>
 <h2 id="a283-casting-variabel-any--interface-kosong">A.28.3. Casting Variabel Any / Interface Kosong</h2>
@@ -2129,13 +2129,13 @@ data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</
     <span class="hljs-keyword">var</span> number = secret.(<span class="hljs-keyword">int</span>) * <span class="hljs-number">10</span>
     fmt.Println(secret, <span class="hljs-string">&quot;multiplied by 10 is :&quot;</span>, number)
 
-    secret = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;manggo&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>}
-    <span class="hljs-keyword">var</span> gruits = strings.Join(secret.([]<span class="hljs-keyword">string</span>), <span class="hljs-string">&quot;, &quot;</span>)
-    fmt.Println(gruits, <span class="hljs-string">&quot;is my favorite fruits&quot;</span>)
+    secret = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;mango&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>}
+    <span class="hljs-keyword">var</span> fruits = strings.Join(secret.([]<span class="hljs-keyword">string</span>), <span class="hljs-string">&quot;, &quot;</span>)
+    fmt.Println(fruits, <span class="hljs-string">&quot;is my favorite fruits&quot;</span>)
 }
 </code></pre>
 <p>Pertama, variabel <code>secret</code> menampung nilai bertipe numerik. Ada kebutuhan untuk mengalikan nilai yang ditampung variabel tersebut dengan angka <code>10</code>. Maka perlu dilakukan casting ke tipe aslinya, yaitu <code>int</code>, setelahnya barulah nilai bisa dioperasikan, yaitu <code>secret.(int) * 10</code>.</p>
-<p>Pada contoh kedua, <code>secret</code> berisikan array string. Kita memerlukan string tersebut untuk digabungkan dengan pemisah tanda koma. Maka perlu di-casting ke <code>[]string</code> terlebih dahulu sebelum bisa digunakan di <code>strings.Join()</code>, contohnya pada <code>strings.Join(secret.([]string), &quot;, &quot;)</code>.</p>
+<p>Pada contoh kedua, <code>secret</code> berisikan slice string. Kita memerlukan string tersebut untuk digabungkan dengan pemisah tanda koma. Maka perlu di-casting ke <code>[]string</code> terlebih dahulu sebelum bisa digunakan di <code>strings.Join()</code>, contohnya pada <code>strings.Join(secret.([]string), &quot;, &quot;)</code>.</p>
 <p><img src="images/A_interface_kosong_2_interface_casting.png" alt="Dasar Pemrograman Golang - Casting pada variabel bertipe `interface{}`"></p>
 <p>Teknik casting pada <code>any</code> disebut dengan <strong>type assertions</strong>.</p>
 <h2 id="a284-casting-variabel-interface-kosong-ke-objek-pointer">A.28.4. Casting Variabel Interface Kosong Ke Objek Pointer</h2>
@@ -2167,7 +2167,7 @@ fmt.Println(name)
 <p>Dengan memanfaatkan slice dan <code>interface{}</code>, kita bisa membuat data array yang isinya adalah bisa apa saja. Silakan perhatikan contoh berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = []<span class="hljs-keyword">interface</span>{}{
     <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;strawberry&quot;</span>, <span class="hljs-string">&quot;total&quot;</span>: <span class="hljs-number">10</span>},
-    []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;manggo&quot;</span>, <span class="hljs-string">&quot;pineapple&quot;</span>, <span class="hljs-string">&quot;papaya&quot;</span>},
+    []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;mango&quot;</span>, <span class="hljs-string">&quot;pineapple&quot;</span>, <span class="hljs-string">&quot;papaya&quot;</span>},
     <span class="hljs-string">&quot;orange&quot;</span>,
 }
 
@@ -2210,7 +2210,7 @@ fmt.Println(name)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.28. Any / interface{} / Interface Kosong","level":"3.1.28","depth":2,"next":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"previous":{"title":"A.27. Interface","level":"3.1.27","depth":2,"path":"A-interface.md","ref":"A-interface.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-interface-kosong.md","mtime":"2026-05-08T14:15:04.137Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-08T14:16:01.275Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.28. Any / interface{} / Interface Kosong","level":"3.1.28","depth":2,"next":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"previous":{"title":"A.27. Interface","level":"3.1.27","depth":2,"path":"A-interface.md","ref":"A-interface.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-interface-kosong.md","mtime":"2026-05-10T16:30:36.467Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:31:32.077Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2232,7 +2232,7 @@ fmt.Println(name)
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.08.141621"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.163151"></script>
         
     
         
