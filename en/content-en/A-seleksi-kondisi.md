@@ -165,7 +165,7 @@ default:
 }
 ```
 
-Di contoh, setelah pengecekan `case (point < 8) && (point > 3)` selesai, dilanjut ke pengecekan `case point < 5`, karena ada `fallthrough` di situ. Dan kondisi `case < 5` tersebut dianggap `true` meskipun secara logika harusnya tidak terpenuhi.
+Di contoh, setelah pengecekan `case (point < 8) && (point > 3)` selesai, dilanjut ke pengecekan `case point < 5`, karena ada `fallthrough` di situ. Dan kondisi `case point < 5` tersebut dianggap `true` meskipun secara logika harusnya tidak terpenuhi.
 
 ![Penggunaan <code>fallthrough</code> dalam <code>switch</code>](images/A_seleksi_kondisi_2_fallthrough.png)
 
