@@ -74,7 +74,9 @@ go build -o program.exe
 
 ## A.6.5. Command `go get`
 
-*Command* `go get` digunakan untuk men-download package atau *dependency*. Sebagai contoh, penulis ingin men-download package Kafka driver untuk Go pada project `project-pertama`, maka command-nya kurang lebih seperti berikut:
+*Command* `go get` digunakan untuk menambahkan atau mengubah package/dependency pada go.mod, sekaligus mendownload package dari internet ke module cache lokal. Di luar module, go get masih bisa dijalankan, tetapi tidak akan meng-update go.mod karena tidak ada main module.
+
+Contoh penggunaannya, misalnya untuk menambahkan package Kafka Go driver ke project `project-pertama`, command-nya kurang lebih seperti berikut:
 
 ```bash
 cd project-pertama
@@ -83,15 +85,15 @@ go get github.com/segmentio/kafka-go
 
 ![Download package menggunakan <code>go get</code>](images/A_go_command_6_go_get.png)
 
-Pada contoh di atas, bisa dilihat bahwa URL `github.com/segmentio/kafka-go` merupakan URL package kafka-go. Package yang sudah terunduh tersimpan dalam temporary folder yang ter-link dengan project folder di mana *command* `go get` dieksekusi, menjadikan project tersebut bisa meng-*import* package yang telah di-download.
+Pada contoh di atas, bisa dilihat bahwa URL `github.com/segmentio/kafka-go` merupakan URL package kafka-go. Package tersebut akan dicatat pada `go.mod` dan diunduh ke module cache, menjadikan project tersebut bisa meng-*import* package yang telah ditambahkan.
 
-Untuk mengunduh package/dependency versi terbaru, gunakan flag `-u` pada command `go get`, contohnya:
+Untuk meng-update package/dependency ke versi terbaru yang kompatibel, gunakan flag `-u` pada command `go get`, contohnya:
 
 ```
 go get -u github.com/segmentio/kafka-go
 ```
 
-Command `go get` **harus dijalankan dalam folder project**. Jika dijalankan di-luar path project maka dependency yang ter-unduh akan ter-link dengan GOPATH, bukan dengan project.
+Command `go get` **harus dijalankan dalam folder project/module**. Pada Go versi modern, `go get` digunakan untuk mengubah dependency pada `go.mod`; jika dijalankan di luar module, command ini akan error.
 
 ## A.6.6. Command `go mod download`
 
