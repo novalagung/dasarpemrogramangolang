@@ -182,20 +182,6 @@ for i, _ := range fruits { }
 for i := range fruits { }
 ```
 
-## A.15.9. Alokasi Elemen Array Menggunakan Keyword `make`
-
-Deklarasi sekaligus alokasi kapasitas array juga bisa dilakukan lewat keyword `make`.
-
-```go
-var fruits = make([]string, 2)
-fruits[0] = "apple"
-fruits[1] = "manggo"
-
-fmt.Println(fruits)  // [apple manggo]
-```
-
-Parameter pertama keyword `make` diisi dengan tipe data elemen array yang diinginkan, parameter kedua adalah jumlah elemennya. Pada kode di atas, variabel `fruits` tercetak sebagai array string dengan kapasitas alokasi 2 slot.
-
 ---
 
 <div class="source-code-link">
