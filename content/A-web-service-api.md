@@ -1,6 +1,6 @@
 # A.54. Web Service API Server
 
-Pada chapter ini kita akan mencoba mengkombinasikan hasl pembelajaran di 2 chapter sebelumnya (yaitu web programming dan JSON), untuk membuat sebuah web service API yang memilikki endpoint dengan reponse data mengadopsi format JSON.
+Pada chapter ini kita akan mencoba mengkombinasikan hasl pembelajaran di 2 chapter sebelumnya (yaitu web programming dan JSON), untuk membuat sebuah web service API yang memiliki endpoint dengan response data mengadopsi format JSON.
 
 > Web Service API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML atau format lainnya.
 
@@ -31,7 +31,7 @@ var data = []student{
 
 Struct `student` di atas digunakan sebagai tipe elemen slice sample data, ditampung variabel `data`.
 
-Selanjutnya buat fungsi `users()` untuk handle endpoint `/users`. Di dalam fungsi tersebut ada proses deteksi jenis request lewat property `r.Method()`, untuk mencari tahu apakah jenis request adalah **POST** atau **GET** atau lainnya.
+Selanjutnya buat fungsi `users()` untuk handle endpoint `/users`. Di dalam fungsi tersebut ada proses deteksi jenis request lewat property `r.Method`, untuk mencari tahu apakah jenis request adalah **GET** atau **POST** atau lainnya.
 
 ```go
 func users(w http.ResponseWriter, r *http.Request) {
@@ -55,7 +55,7 @@ func users(w http.ResponseWriter, r *http.Request) {
 
 Jika request adalah GET (mengambil data), maka data yang di-encode ke JSON dijadikan sebagai response.
 
-Statement `w.Header().Set("Content-Type", "application/json")` digunakan untuk menentukan tipe response, yaitu sebagai JSON. Sedangkan `r.Write()` digunakan untuk mendaftarkan data sebagai response.
+Statement `w.Header().Set("Content-Type", "application/json")` digunakan untuk menentukan tipe response, yaitu sebagai JSON. Sedangkan `w.Write()` digunakan untuk mendaftarkan data sebagai response.
 
 Selebihnya, jika request tidak valid, response di set sebagai error menggunakan fungsi `http.Error()`.
 
@@ -68,7 +68,7 @@ Siapkan juga handler untuk endpoint `/user`. Perbedaan endpoint ini dengan `/use
 func user(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
 
-    if r.Method == "GET" {
+    if r.Method == "POST" {
         var id = r.FormValue("id")
         var result []byte
         var err error
@@ -97,7 +97,7 @@ func user(w http.ResponseWriter, r *http.Request) {
 
 Method `r.FormValue()` digunakan untuk mengambil data form yang dikirim dari client, pada konteks ini data yang dimaksud adalah `ID`.
 
-Dengan menggunakan `ID` tersebut dicarilah data yang relevan. Jika ada, maka dikembalikan sebagai response. Jika tidak ada maka error **400, Bad Request** dikembalikan dengan pesan **User Not Found**.
+Dengan menggunakan `ID` tersebut dicarilah data yang relevan. Jika ada, maka dikembalikan sebagai response. Jika tidak ada maka error **404, Not Found** dikembalikan dengan pesan **User Not Found**.
 
 Terakhir, implementasikan kedua handler di atas.
 
@@ -133,12 +133,12 @@ Testing bisa juga dilakukan via cURL. Pastikan untuk menginstall cURL terlebih d
 
 ```
 curl -X GET http://localhost:8080/users
-curl -X GET http://localhost:8080/user?id=B002
+curl -X POST -d "id=B002" http://localhost:8080/user
 ```
 
 ![cURL test](images/A_web_service_4.png)
 
-Data user ID pada endpoint `/user` ditulis dalam format query parameters, yaitu `?id=B002`.
+Data user ID pada endpoint `/user` dikirim sebagai form data menggunakan flag `-d`.
 
 ---
 

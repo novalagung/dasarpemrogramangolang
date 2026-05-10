@@ -153,7 +153,7 @@ Definisikan juga template `_message` pada file `_message.html` dengan isi sebuah
 {{end}}
 ```
 
-## B.5.5. Run & Test
+## B.5.4. Run & Test
 
 Jalankan aplikasi, test via browser.
 
@@ -161,7 +161,7 @@ Jalankan aplikasi, test via browser.
 
 Bisa dilihat pada gambar di atas, ketika rute `/index` dan `/about` di akses, konten yang keluar adalah berbeda, sesuai dengan template yang di-render di masing-masing rute.
 
-## B.5.6. Parsing Banyak File HTML Menggunakan `template.ParseFiles()`
+## B.5.5. Parsing Banyak File HTML Menggunakan `template.ParseFiles()`
 
 Metode parsing menggunakan `template.ParseGlob()` memiliki kekurangan yaitu sangat tergantung terhadap pattern path yang digunakan. Jika dalam suatu proyek terdapat sangat banyak file html dan folder, sedangkan hanya beberapa yang digunakan, pemilihan pattern path yang kurang tepat akan menjadikan file lain ikut ter-parsing sia-sia.
 

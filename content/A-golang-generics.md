@@ -154,9 +154,9 @@ Di case ini (dan banyak case lainnya), tipe data yang sudah kompatibel tidak per
 
 ## A.65.5. Keyword `comparable`
 
-Sekarang kita akan belajar kegunaan satu keyword penting lainnya, yaitu `comparable`. Keyword ini merepresentasikan semua tipe data yang kompatibel.
+Sekarang kita akan belajar kegunaan satu keyword penting lainnya, yaitu `comparable`. Keyword ini merepresentasikan semua tipe data yang nilainya bisa dibandingkan menggunakan operator `==` dan `!=`.
 
-Pada kode di atas kita menggunakan `V int | float32 | float64` untuk mendefinisikan tipe yang kompatibel dengan tipe `int`, `float32`, dan `float64`. Jika ingin membuat tipe `V` kompatibel dengan banyak tipe lainnya, tambahkan saja tipe2 yang diinginkan. Atau, jika ingin kompatibel dengan **semua tipe data** maka gunakan `comparable`, penulisannya menjadi `V comparable`.
+Pada kode di atas kita menggunakan `V int | float32 | float64` untuk mendefinisikan tipe yang kompatibel dengan tipe `int`, `float32`, dan `float64`. Jika ingin membuat tipe `V` kompatibel dengan banyak tipe lainnya, tambahkan saja tipe2 yang diinginkan. Untuk tipe yang harus bisa dipakai sebagai key map atau dibandingkan dengan `==`, gunakan `comparable`, penulisannya menjadi `V comparable`.
 
 Ok, mari kita coba terapkan. Kita tidak akan menerapkan `comparable` pada contoh di atas karena fungsi `Sum()` kita desain untuk komputasi nilai numerik. Jika `comparable` diterapkan disitu jadinya kurang pas. Oleh karena itu kita siapkan 2 fungsi baru yang mirip berikut sebagai bahan praktek selanjutnya.
 
@@ -192,11 +192,11 @@ Dua fungsi di atas mirip, tapi memiliki beberapa perbedaan yaitu:
 1. Penulisan `SumNumbers1()` adalah non-generic, sedangkan `SumNumbers2()` adalah generic.
 2. Pada `SumNumbers1()`, kita menggunakan kombinasi dua tipe data untuk membentuk `map`, yaitu `string` sebagai map key dan `int64` sebagai map value.
 3. Pada `SumNumbers2()`, kita breakdown pendefinisian tipe data map menjadi lebih mendetail:
-    - Tipe map key adalah `K` yang tipe datanya kompatibel dengan semua tipe data.
+    - Tipe map key adalah `K` yang tipe datanya kompatibel dengan semua tipe yang comparable.
     - Tipe map value adalah `V` yang tipe datanya kompatibel dengan `int64` dan `float64`.
     - Yang sebelumnya `map[string]int64` kini menjadi `map[K]V`.
 
-Karena `SumNumbers2()` menggunakan generic, maka fungsi ini mendukung sangat banyak tipe data karena menggunakan kombinasi dari tipe `K` yang kompatibel dengan semua tipe; dan tipe `V` yang kompatibel dengan `int64` dan `float64`.
+Karena `SumNumbers2()` menggunakan generic, maka fungsi ini mendukung banyak tipe data karena menggunakan kombinasi dari tipe `K` yang kompatibel dengan semua tipe comparable; dan tipe `V` yang kompatibel dengan `int64` dan `float64`.
 
 - `map[string]int64`
 - `map[interface{}]int64`
@@ -226,7 +226,7 @@ func SumNumbers3[K comparable, V Number](m map[K]V) V {
 }
 ```
 
-Cara pendefinisian generic *type constraint* adalah seperti pendefinisan tipe data kustom menggunakan keyword `type`, bedanya adalah di sini `interface{}` dipergunakan sebagai tipe, yang di dalamnya di-embed 2 tipe yang diinginkan untuk menjadi *comparable type*, yaitu `int64` dan `float64`. Hasilnya, tipe `Number` bisa dimanfaatkan dalam penerapan generic sebagai tipe data yang kompatibel.
+Cara pendefinisian generic type ini mirip seperti pendefinisian tipe data kustom menggunakan keyword `type`, bedanya di sini `interface{}` dipergunakan sebagai tipe, yang di dalamnya di-embed 2 tipe yang diinginkan sebagai batasan tipe, yaitu `int64` dan `float64`. Hasilnya, tipe `Number` bisa dimanfaatkan dalam penerapan generic sebagai tipe data yang kompatibel.
 
 > Perlu diketahui, tipe yang didefinisikan menggunakan *type constraint* ini hanya bisa dimanfaatkan pada generic. Tipe jenis ini tidak bisa digunakan di luar scope kode generic. Sebagai contoh, coba deklarasikan `var s Number` dalam fungsi `main()`, hasilnya akan muncul syntax error.
 

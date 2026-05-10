@@ -4,7 +4,7 @@
 
 Go menyediakan package `encoding/json` yang berisikan banyak fungsi untuk kebutuhan operasi json.
 
-Pada chapter ini, kita akan belajar cara untuk konverstri string yang ditulis dalam format json menjadi objek Go, dan sebaliknya.
+Pada chapter ini, kita akan belajar cara untuk konversi string yang ditulis dalam format json menjadi objek Go, dan sebaliknya.
 
 ## A.53.1. Decode JSON Ke Variabel Objek Struct
 

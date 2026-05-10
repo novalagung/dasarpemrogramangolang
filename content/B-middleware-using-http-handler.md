@@ -107,7 +107,7 @@ handler = MiddlewareAllowOnlyGet(handler)
 
 Fungsi `MiddlewareAuth()` dan `MiddlewareAllowOnlyGet()` adalah middleware yang akan kita buat sebentar lagi. Cara registrasi middleware yang paling populer adalah dengan memanggilnya secara sekuensial atau berurutan, seperti pada kode di atas.
 
- - `MiddlewareAuth()` bertugas melakukan pengencekan credentials, basic auth.
+ - `MiddlewareAuth()` bertugas melakukan pengecekan credentials, basic auth.
  - `MiddlewareAllowOnlyGet()` bertugas melakukan pengecekan method.
 
 > Silakan lihat source code beberapa library middleware yang sudah terkenal seperti gorilla, gin-contrib, echo middleware, dan lainnya; Semua metode implementasi middleware-nya adalah sama, atau minimal mirip. Point plus nya, beberapa di antara library tersebut mudah diintegrasikan dan *compatible* satu sama lain.
@@ -122,7 +122,7 @@ server.Addr = ":9000"
 server.Handler = handler
 ```
 
-## B.19.3. Pembuatan Middleware
+## B.19.4. Pembuatan Middleware
 
 Di dalam `middleware.go` ubah fungsi `Auth()` (hasil salinan project pada chapter sebelumnya) menjadi fungsi `MiddlewareAuth()`. Parameternya objek bertipe `http.Handler`, dan nilai baliknya juga sama.
 

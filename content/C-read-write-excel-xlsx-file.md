@@ -2,12 +2,12 @@
 
 Dalam pengembangan aplikasi web, di bagian reporting, tidak jarang kita akan berususan dengan file excel. Biasanya di tiap report diharuskan ada fasilitas untuk unduh data ke bentuk excel ataupun pdf.
 
-Pada chapter ini kita akan belajar tentang pengolahan file excel menggunakan [excelize](https://github.com/360EntSecGroup-Skylar/excelize).
+Pada chapter ini kita akan belajar tentang pengolahan file excel menggunakan [excelize](https://github.com/xuri/excelize).
 
 Dokumentasi lengkap mengenai excelize bisa dilihat di https://xuri.me/excelize/en. Silakan `go get` untuk mengunduh library ini.
 
 ```bash
-go get github.com/360EntSecGroup-Skylar/excelize
+go get github.com/xuri/excelize/v2
 ```
 
 ## C.19.1. Membuat File Excel `.xlsx`

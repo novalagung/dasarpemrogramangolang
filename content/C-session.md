@@ -164,10 +164,10 @@ Sesuai dengan README Gorilla Session, library ini jika digabung dengan library l
 
 Kita akan mempelajari pembuatan session store dengan media adalah mongo db. Sebelum kita mulai, ada dua library yang perlu di `go get`.
 
- - [gopkg.in/mgo.v2](https://gopkg.in/mgo.v2)
+ - [github.com/globalsign/mgo](https://github.com/globalsign/mgo) (perhatian: driver mgo sudah tidak di-maintenance aktif, untuk project baru disarankan menggunakan [MongoDB official Go driver](https://github.com/mongodb/mongo-go-driver))
  - [github.com/kidstuff/mongostore](https://github.com/kidstuff/mongostore)
 
-Library pertama, `mgo.v2` merupakan driver mongo db untuk golang. Koneksi dari golang ke mongodb akan kita buat lewat API library ini.
+Library pertama, `github.com/globalsign/mgo` merupakan fork driver mgo untuk golang. Koneksi dari golang ke mongodb akan kita buat lewat API library ini.
 
 Library kedua, merupakan implementasi dari interface `sessions.Store` untuk mongo db.
 
@@ -179,7 +179,7 @@ import (
     "github.com/gorilla/context"
     "github.com/kidstuff/mongostore"
     "github.com/labstack/echo"
-    "gopkg.in/mgo.v2"
+    "github.com/globalsign/mgo"
     "log"
     "net/http"
     "os"
@@ -219,6 +219,8 @@ Dari mgo session akses database lewat method `.DB()`, lalu akses collection yang
 
 Statement `mongostore.NewMongoStore()` digunakan untuk membuat mongo db store. Ada beberapa parameter yang diperlukan: objek collection mongo di atas, dan dua lagi lainnya adalah authentication key dan encryption key.
 
+> `authKey` dan `encryptionKey` pada contoh ini hanya untuk belajar. Pada aplikasi production, gunakan key yang kuat, panjangnya sesuai rekomendasi library, dan simpan di environment variable atau secret manager.
+
 Jika pembaca merasa bingung, silakan langsung buka [source code untuk chapter ini di Github](https://github.com/novalagung/dasarpemrogramangolang-example/), mungkin membantu.
 
 ## C.13.7. Postgres SQL Store
@@ -226,6 +228,8 @@ Jika pembaca merasa bingung, silakan langsung buka [source code untuk chapter in
 Pembuatan postgres store caranya kurang lebih sama dengan mongo store. Library yang dipakai adalah [github.com/antonlindstrom/pgstore](https://github.com/antonlindstrom/pgstore).
 
 Gunakan `pgstore.NewPGStore()` untuk membuat store. Isi parameter pertama dengan connection string postgres server, lalu authentication key dan encryption key.
+
+> `authKey` dan `encryptionKey` pada contoh ini hanya untuk belajar. Pada aplikasi production, gunakan key yang kuat, panjangnya sesuai rekomendasi library, dan simpan di environment variable atau secret manager.
 
 ```go
 import (
@@ -258,6 +262,8 @@ func newPostgresStore() *pgstore.PGStore {
 ## C.13.8. Secure Cookie Store
 
 Penggunaan cookie store kurang penulis anjurkan, meski sebenarnya cukup aman. Implementasi store jenis ini adalah yang paling mudah, karena tidak butuh database server atau media lainnya; dan juga karena API untuk cookie store sudah tersedia dalam gorilla sessions secara default.
+
+> `authKey` dan `encryptionKey` pada contoh ini hanya untuk belajar. Pada aplikasi production, gunakan key yang kuat, panjangnya sesuai rekomendasi library, dan simpan di environment variable atau secret manager.
 
 ```go
 import (

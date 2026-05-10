@@ -35,7 +35,7 @@ func main() {
     var dataContainsO = filter(data, func(each string) bool {
         return strings.Contains(each, "o")
     })
-    var dataLenght5 = filter(data, func(each string) bool {
+    var dataLength5 = filter(data, func(each string) bool {
         return len(each) == 5
     })
 
@@ -45,7 +45,7 @@ func main() {
     fmt.Println("filter ada huruf \"o\"\t:", dataContainsO)
     // filter ada huruf "o" : [jason]
 
-    fmt.Println("filter jumlah huruf \"5\"\t:", dataLenght5)
+    fmt.Println("filter jumlah huruf \"5\"\t:", dataLength5)
     // filter jumlah huruf "5" : [jason ethan]
 }
 ```
@@ -88,7 +88,7 @@ Skema `func(string) bool` diubah menjadi tipe dengan nama `FilterCallback`. Tipe
 
 Di bawah ini merupakan penjelasan tambahan mengenai fungsi `strings.Contains()`.
 
-#### ◉ Penggunaan Fungsi `string.Contains()`
+#### ◉ Penggunaan Fungsi `strings.Contains()`
 
 Inti dari fungsi ini adalah untuk deteksi apakah sebuah substring adalah bagian dari string, jika iya maka akan bernilai `true`, dan sebaliknya. Contoh penggunaannya:
 

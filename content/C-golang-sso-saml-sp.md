@@ -217,7 +217,7 @@ func newSamlMiddleware() (*samlsp.Middleware, error) {
 Buat objek saml middleware, lalu jadikan sebagai handler dari endpoint `/saml/`. Endpoint ini merupakan reserved endpoint untuk SAML pada aplikasi SP kita.
 
 ```go
-pckage main
+package main
 
 import (
     "github.com/crewjam/saml/samlsp"

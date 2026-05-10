@@ -64,9 +64,9 @@ OK, semua sudah selesai, jalankan program lalu test API-nya.
 
 Pada chapter sebelumnya telah disinggung bahwa lebih baik menggunakan `json.Decoder` jika ingin men-decode data yang sumbernya ada di stream `io.Reader`
 
-Selain `json.Decoder`, ada juga `json.Encoder` yang penggunaannya adalah untuk meng-encode data menjadi JSON dengan output langsung disimpan ke stream `io.Reader`. 
+Selain `json.Decoder`, ada juga `json.Encoder` yang penggunaannya adalah untuk meng-encode data menjadi JSON dengan output langsung dikirim ke stream `io.Writer`. 
 
-Tipe `http.ResponseWriter` adalah meng-embed `io.Reader`, maka tipe tersebut bisa kita gunakan pada proses encoding menggunakan `json.Encoder`. Contoh penerapannya bisa dilihat berikut ini.
+Tipe `http.ResponseWriter` adalah meng-embed `io.Writer`, maka tipe tersebut bisa kita gunakan pada proses encoding menggunakan `json.Encoder`. Contoh penerapannya bisa dilihat berikut ini.
 
 ```go
 w.Header().Set("Content-Type", "application/json")

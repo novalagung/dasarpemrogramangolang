@@ -10,7 +10,7 @@ Pastikan anda sudah mempraktekkan apa-apa yang ada pada chapter sebelumnya ([A.5
 
 Package `net/http`, selain berisikan tools untuk keperluan pembuatan web, juga berisikan fungsi-fungsi untuk melakukan http request. Salah satunya adalah `http.NewRequest()` yang akan kita bahas di sini. Untuk menggunakannya pastikan import package-nya terlebih dahulu.
 
-Kemudian siapkan struct `student` yang nantinya akan dipakai sebagai tipe data reponse dari web API. Struk tersebut skema nya sama dengan yang ada pada chapter ([A.54. Web Service API Server](/A-web-service-api.html)).
+Kemudian siapkan struct `student` yang nantinya akan dipakai sebagai tipe data response dari web API. Struct tersebut skema nya sama dengan yang ada pada chapter ([A.54. Web Service API Server](/A-web-service-api.html)).
 
 ```go
 package main
@@ -70,7 +70,7 @@ Cara eksekusi request sendiri adalah dengan memanggil method `Do()` pada variabe
 
 Method tersebut mengembalikan instance bertipe `http.Response` yang di contoh ditampung oleh variabel `response`. Dari data response tersebut kita bisa mengakses informasi yang berhubungan dengan HTTP response, termasuk response body.
 
-Data response body tersedia via property `Body` dalam tipe `[]byte`. Gunakan JSON Decoder untuk mengkonversinya menjadi bentuk JSON. Contohnya bisa dilihat di kode di atas, `json.NewDecoder(response.Body).Decode(&data)`.
+Data response body tersedia via property `Body` dengan tipe `io.ReadCloser`. Gunakan JSON Decoder untuk membaca stream response tersebut dan mengkonversinya menjadi bentuk JSON. Contohnya bisa dilihat di kode di atas, `json.NewDecoder(response.Body).Decode(&data)`.
 
 Perlu diketahui, data response perlu di-**close** setelah tidak dipakai. Caranya dengan memanggil method `Close()` milik property `Body` yang dalam penerapannya umumnya di-defer. Contohnya: `defer response.Body.Close()`.
 

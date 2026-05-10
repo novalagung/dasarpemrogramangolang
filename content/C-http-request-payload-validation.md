@@ -104,7 +104,7 @@ Nah, pada chapter selanjutnya kita akan belajar cara membuat custom error handle
 ---
 
  - [Echo](https://github.com/labstack/echo), by Vishal Rana (Lab Stack), MIT license
- - [Validator v9](https://github.com/go-playground/validator/tree/v9), by Dean Karn (Go Playground), MIT license
+ - [Validator v10](https://github.com/go-playground/validator/tree/v10), by Dean Karn (Go Playground), MIT license
 
 ---
 

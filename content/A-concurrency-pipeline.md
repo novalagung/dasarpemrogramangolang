@@ -84,7 +84,7 @@ import (
 const totalFile = 3000
 const contentLength = 5000
 
-var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.59-pipeline-temp")
+var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.62-concurrency-pipeline")
 ```
 
 Kemudian siapkan fungsi `main()` yang isinya statement pemanggilan fungsi `generate()`, dan beberapa hal lainnya untuk keperluan *benchmark* performa dari sisi *execution time*.
@@ -147,7 +147,7 @@ Oke, generator sudah siap, jalankan.
 
 ![Generate dummy files](images/A_concurrency_pipeline_1_generate_dummy_files.png)
 
-Bisa dilihat sebanyak 3000 dummy file di-generate pada folder temporary os, di sub folder `chapter-A.59-pipeline-temp`.
+Bisa dilihat sebanyak 3000 dummy file di-generate pada folder temporary os, di sub folder `chapter-A.62-concurrency-pipeline`.
 
 ## A.62.4. Program 2: Baca Semua Files, Cari MD5 Hash-nya, Lalu Gunakan Hash Untuk Rename File
 
@@ -169,7 +169,7 @@ import (
     "time"
 )
 
-var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.59-pipeline-temp")
+var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.62-concurrency-pipeline")
 ```
 
 Lanjut siapkan fungsi `main()` dengan isi memanggil fungsi `proceed()`.
@@ -194,12 +194,12 @@ func proceed() {
     counterRenamed := 0
     err := filepath.Walk(tempPath, func(path string, info os.FileInfo, err error) error {
 
-        // if there is an error, return immediatelly
+        // if there is an error, return immediately
         if err != nil {
             return err
         }
 
-        // if it is a sub directory, return immediatelly
+        // if it is a sub directory, return immediately
         if info.IsDir() {
             return nil
         }
@@ -235,9 +235,9 @@ func proceed() {
 
 Cukup panjang isi fungsi ini, tetapi isinya cukup *straight forward* kok.
 
-* Pertama kita siapkan `counterTotal` sebagai counter jumlah file yang ditemukan dalam `$TEMP/chapter-A.59-pipeline-temp`. Idealnya jumlahnya adalah sama dengan isi variabel `totalFile` pada program pertama, kecuali ada error.
+* Pertama kita siapkan `counterTotal` sebagai counter jumlah file yang ditemukan dalam `$TEMP/chapter-A.62-concurrency-pipeline`. Idealnya jumlahnya adalah sama dengan isi variabel `totalFile` pada program pertama, kecuali ada error.
 * Kedua, kita siapkan `counterRenamed` sebagai counter jumlah file yang berhasil di-rename. Untuk ini juga idealnya sama dengan nilai pada `counterTotal`, kecuali ada error
-* Kita gunakan `filepath.Walk` untuk melakukan pembacaan semua file yang ada dalam folder `$TEMP/chapter-A.59-pipeline-temp`.
+* Kita gunakan `filepath.Walk` untuk melakukan pembacaan semua file yang ada dalam folder `$TEMP/chapter-A.62-concurrency-pipeline`.
 * File akan dibaca secara sekuensial, di tiap pembacaan jika ada error dan ditemukan sebuah direktori, maka kita ignore kemudian lanjut pembacaan file selanjutnya.
 * File dibaca menggunakan `os.ReadFile()`, kemudian lewat fungsi `md5.Sum()` kita cari md5 hash sum dari konten file.
 * Setelahnya, kita rename file dengan nama `file-<md5hash>.txt`.
@@ -258,7 +258,7 @@ Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kal
 * Proses perhitungan md5 hash sum
 * Proses rename file
 
-Kenapa kita pecah, karena ketiga proses tersebut bisa dijalankan bersama secara konkuren, dalam artian misalnya ketika `file1` sudah selesai dibaca, perhitungan md5sum-nya bisa dijalankan secara bersama dengan pembacaan `file2`. Begitu juga untuk proses rename-nya, misalnya, proses rename `file24` bisa dijalnkan secara konkuren bersamaan dengan proses hitung md5sum `file22` dan bersamaan dengan proses baca `file28`.
+Kenapa kita pecah, karena ketiga proses tersebut bisa dijalankan bersama secara konkuren, dalam artian misalnya ketika `file1` sudah selesai dibaca, perhitungan md5sum-nya bisa dijalankan secara bersama dengan pembacaan `file2`. Begitu juga untuk proses rename-nya, misalnya, proses rename `file24` bisa dijalankan secara konkuren bersamaan dengan proses hitung md5sum `file22` dan bersamaan dengan proses baca `file28`.
 
 #### ◉ Basis Kode Program
 
@@ -279,7 +279,7 @@ import (
     "time"
 )
 
-var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.59-pipeline-temp")
+var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.62-concurrency-pipeline")
 
 type FileInfo struct {
     FilePath  string // file location
@@ -316,12 +316,12 @@ func readFiles() <-chan FileInfo {
     go func() {
         err := filepath.Walk(tempPath, func(path string, info os.FileInfo, err error) error {
 
-            // if there is an error, return immediatelly
+            // if there is an error, return immediately
             if err != nil {
                 return err
             }
 
-            // if it is a sub directory, return immediatelly
+            // if it is a sub directory, return immediately
             if info.IsDir() {
                 return nil
             }

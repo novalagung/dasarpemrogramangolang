@@ -259,7 +259,7 @@ Jalankan aplikasi untuk melihat hasilnya.
 
 ---
 
- - [sftp](github.com/pkg/sftp), by pkg team, BSD-2-Clause License
+ - [sftp](https://github.com/pkg/sftp), by pkg team, BSD-2-Clause License
 
 ---
 

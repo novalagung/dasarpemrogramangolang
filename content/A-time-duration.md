@@ -97,7 +97,7 @@ Kita bisa mengalikan angka literal dengan konstanta `time.Duration` untuk mencip
 ```go
 12 * time.Minute 			// 12 menit
 65 * time.Hour 				// 65 jam
-150000 * time.Milisecond 	// 150k milidetik atau 150 detik
+150000 * time.Millisecond 	// 150k milidetik atau 150 detik
 45 * time.Microsecond 		// 45 microdetik
 233 * time.Nanosecond 		// 233 nano detik
 ```

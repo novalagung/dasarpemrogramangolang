@@ -4,7 +4,7 @@ Pada chapter ini kita akan belajar tentang JSON Web Token (JWT) dan cara penerap
 
 ## C.32.1. Definisi
 
-JWT merupakan salah satu standar JSON ([RFC 7519](https://tools.ietf.org/html/rfc7519)) untuk keperluan akses token. Token dibentuk dari kombinasi beberapa informasi yang di-encode dan di-enkripsi. Informasi yang dimaksud adalah header, payload, dan signature.
+JWT merupakan salah satu standar JSON ([RFC 7519](https://tools.ietf.org/html/rfc7519)) untuk keperluan akses token. Token umumnya dibentuk dari kombinasi beberapa informasi yang di-encode dan ditandatangani secara kriptografis. Informasi yang dimaksud adalah header, payload, dan signature.
 
 Contoh JWT:
 
@@ -16,21 +16,21 @@ Skema JWT:
 
  - **Header**, isinya adalah jenis algoritma yang digunakan untuk generate signature.
  - **Payload**, isinya adalah data penting untuk keperluan otentikasi, seperti *grant*, *group*, kapan login terjadi, dan atau lainnya. Data ini dalam konteks JWT biasa disebut dengan **CLAIMS**.
- - **Signature**, isinya adalah hasil dari enkripsi data menggunakan algoritma kriptografi. Data yang dimaksud adalah gabungan dari (encoded) header, (encoded) payload, dan secret key.
+ - **Signature**, isinya adalah hasil tanda tangan kriptografis terhadap gabungan dari (encoded) header, (encoded) payload, dan secret key/private key.
 
 Umumnya pada aplikasi yang menerapkan teknik otorisasi menggunakan token, token di-generate di back end secara acak (menggunakan algoritma tertentu) lalu disimpan di database bersamaan dengan data user. Token tersebut bisa jadi tidak ada isinya, hanya random string, atau mungkin saja ada isinya.
 
 Nantinya di setiap http call, token yang disertakan pada request header dicocokan dengan token yang ada di database, dilanjutkan dengan pengecekan grant/group/sejenisnya, untuk menentukan apakah request tersebut adalah verified request yang memang berhak mengakses endpoint.
 
-Pada aplikasi yang menerapkan JWT, yang terjadi sedikit berbeda. Token adalah hasil dari proses kombinasi, encoding, dan enkripsi terhadap beberapa informasi. Nantinya pada sebuah http call, pengecekan token tidak dilakukan dengan membandingkan token yang ada di request vs token yang tersimpan di database, karena memang token pada JWT tidak disimpan di database. Pengecekan token dilakukan dengan cara mengecek hasil decode dan decrypt token yang ditautkan dalam request.
+Pada aplikasi yang menerapkan JWT, yang terjadi sedikit berbeda. Token adalah hasil dari proses kombinasi, encoding, dan signing terhadap beberapa informasi. Nantinya pada sebuah http call, pengecekan token tidak dilakukan dengan membandingkan token yang ada di request vs token yang tersimpan di database, karena memang token pada JWT tidak disimpan di database. Pengecekan token dilakukan dengan cara memvalidasi signature token dan membaca claims yang ditautkan dalam request.
 
 > Ada kalanya token JWT perlu juga untuk disimpan di back-end, misalnya untuk keperluan auto-invalidate session pada multiple login, atau kasus lainnya.
 
 Mungkin sekilas terlihat mengerikan, terlihat sangat gampang sekali untuk di-retas, buktinya adalah data otorisasi bisa dengan mudah diambil dari token JWT. Dan penulis sampaikan, bahwa ini adalah presepsi yang salah.
 
-Informasi yang ada dalam token, selain di-encode, juga di-enkripsi. Dalam enkripsi diperlukan private key atau secret key, dan hanya pengembang yang tau. Jadi pastikan simpan baik-baik key tersebut.
+Informasi yang ada dalam token JWT standar tidak dienkripsi, melainkan hanya di-encode. Karena itu payload JWT bisa dibaca oleh siapa pun yang memiliki token. Yang membuat token valid adalah signature-nya, dan proses signing ini membutuhkan private key atau secret key yang hanya pengembang/server tau. Jadi pastikan simpan baik-baik key tersebut.
 
-Selama peretas tidak tau secret key yang digunakan, hasil decoding dan dekripsi data **PASTI TIDAK VALID**.
+Selama peretas tidak tau secret key yang digunakan, token yang dibuat atau dimodifikasi sendiri tidak akan memiliki signature yang valid.
 
 ## C.32.2. Persiapan Praktek
 
@@ -124,13 +124,14 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	jwt "github.com/golang-jwt/jwt/v4"
 	gubrak "github.com/novalagung/gubrak/v2"
 )
 ```
 
-Masih di file yang sama, siapkan 4 buah konstanta yaitu: nama aplikasi, durasi login, metode enkripsi token, dan secret key.
+Masih di file yang sama, siapkan 4 buah konstanta yaitu: nama aplikasi, durasi login, metode signing token, dan secret key.
 
 ```go
 type M map[string]interface{}
@@ -140,6 +141,8 @@ var LOGIN_EXPIRATION_DURATION = time.Duration(1) * time.Hour
 var JWT_SIGNING_METHOD = jwt.SigningMethodHS256
 var JWT_SIGNATURE_KEY = []byte("the secret of kalimdor")
 ```
+
+> Secret key di atas hanya untuk contoh. Pada aplikasi production, gunakan key yang kuat dan simpan di environment variable atau secret manager.
 
 Kemudian buat fungsi `main()`, siapkan didalmnya sebuah `mux` baru, dan daftarkan middleware `MiddlewareJWTAuthorization` dan dua buah rute `/index` dan `/login`.
 
@@ -195,18 +198,18 @@ if !ok {
 
 Fungsi `authenticateUser()` memiliki dua nilai balik yang ditampung oleh variabel berikut:
 
- - Variabel `ok`, penanda sukses tidaknya otentikasi.
- - Variabel `userInfo`, isinya informasi user yang sedang login, datanya didapat dari `data.json` (tetapi tanpa password).
+- Variabel `ok`, penanda sukses tidaknya otentikasi.
+- Variabel `userInfo`, isinya informasi user yang sedang login, datanya didapat dari `users.json` (tetapi tanpa password).
 
-Selanjutnya kita akan buat objek claims. Objek ini harus memenuhi persyaratan interface `jwt.Claims`. Objek claims bisa dibuat dari tipe `map` dengan cara membungkusnya dalam fungsi `jwt.MapClaims()`; atau dengan meng-embed interface `jwt.StandardClaims` pada struct baru, dan cara inilah yang akan kita pakai.
+Selanjutnya kita akan buat objek claims. Objek ini harus memenuhi persyaratan interface `jwt.Claims`. Objek claims bisa dibuat dari tipe `map` dengan memakai `jwt.MapClaims`; atau dengan meng-embed `jwt.RegisteredClaims` pada struct baru, dan cara inilah yang akan kita pakai.
 
-Seperti yang sudah kita bahas di awal, bahwa claims isinya adalah data-data untuk keperluan otentikasi. Dalam prakteknya, claims merupakan sebuah objek yang memilik banyak property atau fields. Nah, objek claims **harus** memiliki fields yang termasuk di dalam list [JWT Standard Fields](https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields). Dengan meng-embed interface `jwt.StandardClaims`, maka fields pada struct dianggap sudah terwakili.
+Seperti yang sudah kita bahas di awal, bahwa claims isinya adalah data-data untuk keperluan otentikasi. Dalam prakteknya, claims merupakan sebuah objek yang memilik banyak property atau fields. Nah, objek claims **harus** memiliki fields yang termasuk di dalam list [JWT Standard Fields](https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields). Dengan meng-embed `jwt.RegisteredClaims`, maka fields standar tersebut sudah terwakili.
 
-Pada aplikasi yang sedang kita kembangkan, claims selain menampung standard fields, juga menampung beberapa informasi lain, oleh karena itu kita perlu buat `struct` baru yang meng-embed `jwt.StandardClaims`.
+Pada aplikasi yang sedang kita kembangkan, claims selain menampung standard fields, juga menampung beberapa informasi lain, oleh karena itu kita perlu buat `struct` baru yang meng-embed `jwt.RegisteredClaims`.
 
 ```go
 type MyClaims struct {
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 	Username string `json:"Username"`
 	Email    string `json:"Email"`
 	Group    string `json:"Group"`
@@ -217,9 +220,9 @@ Ok, struct `MyClaims` sudah siap, sekarang buat objek baru dari struct tersebut.
 
 ```go
 claims := MyClaims{
-	StandardClaims: jwt.StandardClaims{
+	RegisteredClaims: jwt.RegisteredClaims{
 		Issuer:    APPLICATION_NAME,
-		ExpiresAt: time.Now().Add(LOGIN_EXPIRATION_DURATION).Unix(),
+		ExpiresAt: jwt.NewNumericDate(time.Now().Add(LOGIN_EXPIRATION_DURATION)),
 	},
 	Username: userInfo["username"].(string),
 	Email:    userInfo["email"].(string),
@@ -232,7 +235,7 @@ Ada beberapa standard claims, pada contoh di atas hanya dua yang di-isi nilainya
  - `Issuer` (code `iss`), adalah penerbit JWT, dalam konteks ini adalah `APPLICATION_NAME`.
  - `ExpiresAt` (code `exp`), adalah kapan token JWT dianggap expired.
 
-Ok, objek claims sudah siap, sekarang buat token baru. Pembuatannya dilakukan menggunakan fungsi `jwt.NewWithClaims()` yang menghasilkan nilai balik bertipe `jwt.Token`. Parameter pertama adalah metode enkripsi yang digunakan, yaitu `JWT_SIGNING_METHOD`, dan parameter kedua adalah `claims`.
+Ok, objek claims sudah siap, sekarang buat token baru. Pembuatannya dilakukan menggunakan fungsi `jwt.NewWithClaims()` yang menghasilkan nilai balik bertipe `jwt.Token`. Parameter pertama adalah metode signing yang digunakan, yaitu `JWT_SIGNING_METHOD`, dan parameter kedua adalah `claims`.
 
 ```go
 token := jwt.NewWithClaims(
@@ -347,7 +350,7 @@ O iya, mungkin ada pertanyaan kenapa objek claims yang dihasilkan `jwt.Parse()` 
 Data claims yang didapat disisipkan ke dalam context, agar nantinya di endpoint, informasi `userInfo` bisa diambil dengan mudah dari context request.
 
 ```go
-ctx := context.WithValue(context.Background(), "userInfo", claims)
+ctx := context.WithValue(r.Context(), "userInfo", claims)
 r = r.WithContext(ctx)
 
 next.ServeHTTP(w, r)

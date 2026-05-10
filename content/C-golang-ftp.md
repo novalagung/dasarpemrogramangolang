@@ -46,7 +46,7 @@ Tiga buah konstanta dengan prefix `FTP_` disiapkan, isinya adalah credentials FT
 Di dalam `main()`, tambahkan kode untuk terhubung dengan server.
 
 ```go
-connt, err := ftp.Dial(FTP_ADDR)
+conn, err := ftp.Dial(FTP_ADDR)
 if err != nil {
     log.Fatal(err.Error())
 }

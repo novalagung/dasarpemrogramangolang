@@ -143,7 +143,7 @@ Untuk menggunakan recover, fungsi/closure/IIFE di mana `recover()` berada harus 
 ```go
 func catch() {
     if r := recover(); r != nil {
-        fmt.Println("Error occured", r)
+        fmt.Println("Error occurred", r)
     } else {
         fmt.Println("Application running perfectly")
     }
@@ -177,7 +177,7 @@ Contoh penerapan recover pada IIFE:
 func main() {
     defer func() {
         if r := recover(); r != nil {
-            fmt.Println("Panic occured", r)
+            fmt.Println("Panic occurred", r)
         } else {
             fmt.Println("Application running perfectly")
         }
@@ -202,7 +202,7 @@ func main() {
             // recover untuk IIFE dalam perulangan
 			defer func() {
 				if r := recover(); r != nil {
-					fmt.Println("Panic occured on looping", each, "| message:", r)
+					fmt.Println("Panic occurred on looping", each, "| message:", r)
 				} else {
 					fmt.Println("Application running perfectly")
 				}

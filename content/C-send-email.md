@@ -108,9 +108,9 @@ Jalankan aplikasi. Lihat di console, error muncul.
 
 Error di atas hanya muncul pada pengiriman email menggunakan akun google mail. Untuk alasan keamanan, google men-disable akun gmail untuk digunakan mengirim email lewat kode program.
 
-Aktifkan fasilitas **less secure apps** untuk meng-enable-nya. Login ke gmail masing-masing, kemudian buka link https://myaccount.google.com/lesssecureapps, lalu klik tombol toggle agar menjadi **OFF**.
+Aktifkan **2-Step Verification** pada akun gmail, lalu buat **App Password** khusus untuk digunakan dari kode program melalui halaman https://myaccount.google.com/apppasswords. Gunakan App Password tersebut sebagai pengganti `CONFIG_AUTH_PASSWORD`.
 
-![Google Less Secure Apps](images/C_send_email_2_less_secure.png)
+![Google App Passwords](images/C_send_email_2_less_secure.png)
 
 Jalankan ulang aplikasi, email terkirim. Lihat di inbox email tujuan pengiriman untuk mengecek hasilnya.
 

@@ -1,6 +1,6 @@
 # C.25. HTTP/2 dan HTTP/2 Server Push
 
-HTTP/2 adalah versi terbaru protokol HTTP, dikembangkan dari protokol [SPDY](https://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00) yang diinisiasi oleh Google.
+HTTP/2 adalah versi protokol HTTP yang dikembangkan dari protokol [SPDY](https://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00) yang diinisiasi oleh Google.
 
 Protokol ini sekarang sudah kompatibel dengan banyak browser di antaranya: Chrome, Opera, Firefox 9, IE 11, Safari, Silk, dan Edge.
 
@@ -13,13 +13,15 @@ Kelebihan HTTP/2 dibanding HTTP 1.1 (protokol yang umumnya digunakan) sebagian b
 
 Pada chapter ini kita akan belajar cara menerapkan HTTP/2 dan salah satu fitur milik protokol ini yaitu HTTP/2 Server Push.
 
+> Catatan: materi HTTP/2 Server Push pada chapter ini bersifat historis. Browser berbasis Chromium, termasuk Chrome, sudah menghapus dukungan HTTP/2 Server Push. Untuk optimasi modern, pertimbangkan preload atau HTTP `103 Early Hints`.
+
 > Mengenai multiplexing banyak request tidak akan kita bahas pada buku ini, silakan coba pelajari sendiri jika tertarik, menggunakan library cmux.
 
 ## C.25.1. HTTP/2 di Golang
 
 Golang memiliki dukungan sangat baik terhadap HTTP/2. Dengan cukup meng-enable fasilitas TLS/HTTPS maka aplikasi golang secara otomatis menggunakan HTTP/2.
 
-Untuk memastikan mari kita langsung praktekkan, coba duplikat project pada chapter sebelumnya (**C.24. HTTPS/TLS Web Server**) sebagai project baru, jalankan aplikasinya lalu cek di browser chrome. Gunakan chrome extension [HTTP/2 and SPDY indicator](https://chrome.google.com/webstore/detail/http2-and-spdy-indicator/mpbpobfflnpcgagjijhmgnchggcjblin?hl=en) untuk menge-test apakah HTTP/2 sudah enabled.
+Untuk memastikan mari kita langsung praktekkan, coba duplikat project pada chapter sebelumnya (**C.24. HTTPS/TLS Web Server**) sebagai project baru, jalankan aplikasinya lalu cek di browser Chrome. Gunakan chrome extension [HTTP/2 and SPDY indicator](https://chrome.google.com/webstore/detail/http2-and-spdy-indicator/mpbpobfflnpcgagjijhmgnchggcjblin?hl=en) untuk menge-test apakah HTTP/2 sudah enabled.
 
 ![SPDY checker](images/C_http2_server_push_1_spdy_checker.png)
 
@@ -29,13 +31,13 @@ Perlu diketahui untuk golang versi sebelum **1.6** ke bawah, secara default HTTP
 
 HTTP/2 Server Push adalah salah satu fitur pada HTTP/2, berguna untuk mempercepat response dari request, dengan cara data yang akan di-response dikirim terlebih dahulu oleh server.
 
-Fitur server push ini cocok digunakan untuk push data assets, seperti: css, gambar, js, dan file assets lainnya.
+Fitur server push ini dulu umum ditujukan untuk push data assets, seperti: css, gambar, js, dan file assets lainnya. Pada aplikasi modern, dukungan browser perlu dicek terlebih dahulu karena fitur ini tidak lagi tersedia di banyak browser populer.
 
 Lalu apakah server push ini bisa dimanfaatkan untuk push data JSON, XML, atau sejenisnya? Sebenarnya bisa, hanya saja ini akan menyalahi tujuan dari penciptaan server push sendiri dan hasilnya tidak akan optimal, karena sebenernya server push tidak murni bidirectional, masih perlu adanya request ke server untuk mendapatkan data yg sudah di push oleh server itu sendiri.
 
 > HTTP/2 server push bukanlah pengganti dari websocket. Gunakan websocket untuk melakukan komunikasi bidirectional antara server dan client.
 
-Untuk mengecek suport-tidak-nya server push, lakukan casting pada objek `http.ResponseWriter` milik handler ke interface `http.Pusher`, lalu manfaatkan method `Push()` milik interface ini untuk push data dari server.
+Untuk mengecek apakah server push didukung, lakukan casting pada objek `http.ResponseWriter` milik handler ke interface `http.Pusher`, lalu manfaatkan method `Push()` milik interface ini untuk push data dari server.
 
 > Fasilitas server push ini hanya bisa digunakan pada golang versi 1.8 ke-atas.
 
@@ -139,14 +141,14 @@ Perbedaan antara aplikasi yang menerapkan HTTP/2 dan tidak, atau yang menerapkan
 
 Untuk mengecek HTTP/2 diterapkan atau tidak, kita bisa gunakan Chrome extension **HTTP/2 and SPDY indicator**. 
 
-Untuk mengecek server push pada tiap request sebenernya bisa hanya cukup menggunakan chrome dev tools, namun fitur ini hanya tersedia pada [Chrome Canary](https://www.google.com/chrome/browser/canary.html). Download browser tersebut lalu install, gunakan untuk testing aplikasi kita.
+Untuk mengecek server push pada tiap request di browser modern, fitur ini kemungkinan sudah tidak tersedia. Jika ingin mempelajari perilaku server push, gunakan browser/tool yang masih mendukungnya, atau jadikan bagian ini sebagai referensi historis.
 
 Pada saat mengakses `https://localhost:9000` pastikan developer tools sudah aktif (klik kanan, inspect element), lalu buka tab **Network**.
 
 ![SPDY indicator](images/C_http2_server_push_2_spdy_indicator.png)
 
 
-Untuk endpoint yang menggunakan server push, pada kolom **Protocol** nilainya adalah **spdy**. Pada screenshot di atas terlihat bahwa assets `app.js` dan `app.css` dikirim lewat server push.
+Pada browser lama yang masih mendukung server push, asset yang dikirim lewat server push bisa terlihat pada tab network/devtools. Pada browser modern, hasilnya bisa berbeda atau tidak muncul karena fitur server push sudah tidak didukung.
 
 > Jika kolom Protocol tidak muncul, klik kanan pada kolom, lalu centang **Protocol**.
 

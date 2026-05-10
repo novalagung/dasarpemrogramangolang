@@ -240,7 +240,7 @@ func main() {
 }
 ```
 
-Pada kode di-atas, package `fmt` di tentukan aliasnya adalah `f`, untuk mengakses `Println()` cukup dengan `f.Println()`.
+Pada kode di atas, package `fmt` di tentukan aliasnya adalah `f`, untuk mengakses `Println()` cukup dengan `f.Println()`.
 
 ## A.26.7. Mengakses Property Dalam File Yang Package-nya Sama
 

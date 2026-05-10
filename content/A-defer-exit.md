@@ -23,7 +23,7 @@ Output program:
 
 ![Penerapan `defer`](images/A_defer_exit_1_defer.png)
 
-Keyword `defer` di atas akan mengakhirkan ekseusi `fmt.Println("halo")`, efeknya pesan `"halo"` akan muncul setelah `"selamat datang"`.
+Keyword `defer` di atas akan mengakhirkan eksekusi `fmt.Println("halo")`, efeknya pesan `"halo"` akan muncul setelah `"selamat datang"`.
 
 Statement yang di-defer akan tetap muncul meskipun blok kode diberhentikan ditengah jalan menggunakan `return`. Contohnya seperti pada kode berikut.
 

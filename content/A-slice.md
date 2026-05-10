@@ -19,7 +19,24 @@ var fruitsB = [2]string{"banana", "melon"}    // array
 var fruitsC = [...]string{"papaya", "grape"}  // array
 ```
 
-## A.16.2. Hubungan Slice Dengan Array & Operasi Slice
+## A.16.2. Alokasi Slice Menggunakan Keyword `make`
+
+Deklarasi sekaligus alokasi kapasitas slice bisa dilakukan lewat keyword `make`. Contohnya:
+
+```go
+var fruits = make([]string, 2)
+fruits[0] = "apple"
+fruits[1] = "mango"
+
+fmt.Println(fruits)  // [apple mango]
+```
+
+Parameter pertama keyword `make` diisi dengan tipe data elemen slice yang diinginkan, parameter kedua adalah jumlah elemennya. Pada kode di atas, variabel `fruits` tercetak sebagai slice string dengan panjang 2 elemen.
+
+> Perlu diperhatikan statement `make([]string, 2)` menghasilkan slice, bukan array.
+> Lalu apa itu slice? Silakan lanjut pembasahan di bawah ini.
+
+## A.16.3. Hubungan Slice Dengan Array & Operasi Slice
 
 Kalau perbedannya hanya di penentuan alokasi pada saat inisialisasi, kenapa tidak menggunakan satu istilah saja? atau adakah perbedaan lainnya?
 
@@ -59,7 +76,7 @@ var fruits = []string{"apple", "grape", "banana", "melon"}
 | `fruits[2:]` | `[banana, melon]` | semua elemen mulai indeks ke-2 |
 | `fruits[:2]` | `[apple, grape]` | semua elemen hingga sebelum indeks ke-2 |
 
-## A.16.3. Slice Merupakan Tipe Data Reference
+## A.16.4. Slice Merupakan Tipe Data Reference
 
 Slice merupakan tipe data *reference* atau referensi. Artinya jika ada slice baru yang terbentuk dari slice lama, maka data elemen slice yang baru akan memiliki alamat memori yang sama dengan elemen slice lama. Setiap perubahan yang terjadi di elemen slice baru, akan berdampak juga pada elemen slice lama yang memiliki referensi yang sama.
 
@@ -80,17 +97,17 @@ fmt.Println(bFruits)  // [grape banana melon]
 fmt.Println(aaFruits) // [grape]
 fmt.Println(baFruits) // [grape]
 
-// Buah "grape" diubah menjadi "pinnaple"
-baFruits[0] = "pinnaple"
+// Buah "grape" diubah menjadi "pineapple"
+baFruits[0] = "pineapple"
 
-fmt.Println(fruits)   // [apple pinnaple banana melon]
-fmt.Println(aFruits)  // [apple pinnaple banana]
-fmt.Println(bFruits)  // [pinnaple banana melon]
-fmt.Println(aaFruits) // [pinnaple]
-fmt.Println(baFruits) // [pinnaple]
+fmt.Println(fruits)   // [apple pineapple banana melon]
+fmt.Println(aFruits)  // [apple pineapple banana]
+fmt.Println(bFruits)  // [pineapple banana melon]
+fmt.Println(aaFruits) // [pineapple]
+fmt.Println(baFruits) // [pineapple]
 ```
 
-Sekilas bisa kita lihat bahwa setelah slice yang isi datanya adalah `grape` di-ubah menjadi `pinnaple`, semua slice pada 4 variabel lainnya juga ikut berubah.
+Sekilas bisa kita lihat bahwa setelah slice yang isi datanya adalah `grape` di-ubah menjadi `pineapple`, semua slice pada 4 variabel lainnya juga ikut berubah.
 
 Variabel `aFruits`, `bFruits` merupakan slice baru yang terbentuk dari variabel `fruits`. Dengan menggunakan dua slice baru tersebut, diciptakan lagi slice lainnya, yaitu `aaFruits`, dan `baFruits`. Kelima slice tersebut ditampilkan nilainya.
 
@@ -98,13 +115,13 @@ Selanjutnya, nilai dari `baFruits[0]` diubah, dan 5 slice tadi ditampilkan lagi.
 
 ![Perubahan data elemen slice berpengaruh pada slice lain](images/A_slice_2_slice_reference.png)
 
-Bisa dilihat pada output di atas, elemen yang sebelumnya bernilai `"grape"` pada variabel `fruits`, `aFruits`, `bFruits`, `aaFruits`, dan `baFruits`; Seluruhnya berubah menjadi `"pinnaple"`, karena memiliki referensi yang sama.
+Bisa dilihat pada output di atas, elemen yang sebelumnya bernilai `"grape"` pada variabel `fruits`, `aFruits`, `bFruits`, `aaFruits`, dan `baFruits`; Seluruhnya berubah menjadi `"pineapple"`, karena memiliki referensi yang sama.
 
 ---
 
 Pembahasan mengenai dasar slice sepertinya sudah cukup, selanjutnya kita akan membahas tentang beberapa *built in function* bawaan Go, yang bisa dimanfaatkan untuk keperluan operasi slice.
 
-## A.16.4. Fungsi `len()`
+## A.16.5. Fungsi `len()`
 
 Fungsi `len()` digunakan untuk menghitung jumlah elemen slice yang ada. Sebagai contoh jika sebuah variabel adalah slice dengan data 4 buah, maka fungsi ini pada variabel tersebut akan mengembalikan angka **4**.
 
@@ -113,7 +130,7 @@ var fruits = []string{"apple", "grape", "banana", "melon"}
 fmt.Println(len(fruits)) // 4
 ```
 
-## A.16.5. Fungsi `cap()`
+## A.16.6. Fungsi `cap()`
 
 Fungsi `cap()` digunakan untuk menghitung lebar atau kapasitas maksimum slice. Nilai kembalian fungsi ini untuk slice yang baru dibuat pasti sama dengan `len`, tapi bisa berubah seiring operasi slice yang dilakukan. Agar lebih jelas, silakan pelajari kode berikut.
 
@@ -153,7 +170,7 @@ fruits[x:y]
 
 Sedangkan slicing yang dimulai dari indeks **x**, yang mana nilai **x** adalah lebih dari **0**, membuat elemen ke-**x** slice yang diambil menjadi elemen ke-0 slice baru. Hal inilah yang membuat kapasitas slice berubah.
 
-## A.16.6. Fungsi `append()`
+## A.16.7. Fungsi `append()`
 
 Fungsi `append()` digunakan untuk menambahkan elemen pada slice. Elemen baru tersebut diposisikan setelah indeks paling akhir. Nilai balik fungsi ini adalah slice yang sudah ditambahkan nilai barunya. Contoh penggunaannya bisa dilihat di kode berikut.
 
@@ -191,7 +208,7 @@ fmt.Println(cFruits) // ["apple", "grape", "papaya"]
 
 Pada contoh di atas bisa dilihat, elemen indeks ke-2 slice `fruits` nilainya berubah setelah ada penggunaan keyword `append()` pada `bFruits`. Slice `bFruits` kapasitasnya adalah **3** sedang jumlah datanya hanya **2**. Karena `len(bFruits) < cap(bFruits)`, maka elemen baru yang dihasilkan, terdeteksi sebagai perubahan nilai pada referensi yang lama (referensi elemen indeks ke-2 slice `fruits`), membuat elemen yang referensinya sama, nilainya berubah.
 
-## A.16.7. Fungsi `copy()`
+## A.16.8. Fungsi `copy()`
 
 Fungsi `copy()` digunakan untuk men-copy elements slice pada `src` (parameter ke-2), ke `dst` (parameter pertama).
 
@@ -203,11 +220,11 @@ Jumlah element yang di-copy dari `src` adalah sejumlah lebar slice `dst` (atau `
 
 ```go
 dst := make([]string, 3)
-src := []string{"watermelon", "pinnaple", "apple", "orange"}
+src := []string{"watermelon", "pineapple", "apple", "orange"}
 n := copy(dst, src)
 
-fmt.Println(dst) // watermelon pinnaple apple
-fmt.Println(src) // watermelon pinnaple apple orange
+fmt.Println(dst) // watermelon pineapple apple
+fmt.Println(src) // watermelon pineapple apple orange
 fmt.Println(n)   // 3
 ```
 
@@ -221,17 +238,17 @@ Pada contoh kedua berikut, `dst` merupakan slice yang sudah ada isinya, 3 buah e
 
 ```go
 dst := []string{"potato", "potato", "potato"}
-src := []string{"watermelon", "pinnaple"}
+src := []string{"watermelon", "pineapple"}
 n := copy(dst, src)
 
-fmt.Println(dst) // watermelon pinnaple potato
-fmt.Println(src) // watermelon pinnaple
+fmt.Println(dst) // watermelon pineapple potato
+fmt.Println(src) // watermelon pineapple
 fmt.Println(n)   // 2
 ```
 
 Jika dilihat pada kode di atas, isi `dst` masih tetap 3 elements, tapi dua elements pertama adalah sama dengan `src`. Element terakhir `dst` isinya tidak berubah, tetap `potato`, hal ini karena proses copy hanya memutasi element ke-1 dan ke-2 milik `dst`, karena memang pada `src` hanya dua itu elements-nya.
 
-## A.16.8. Pengaksesan Elemen Slice Dengan 3 Indeks
+## A.16.9. Pengaksesan Elemen Slice Dengan 3 Indeks
 
 **3 index** adalah teknik slicing untuk pengaksesan elemen yang sekaligus menentukan kapasitasnya. Cara penggunaannya yaitu dengan menyisipkan angka kapasitas di belakang, seperti `fruits[0:1:1]`. Angka kapasitas yang diisikan tidak boleh melebihi kapasitas slice yang akan di slicing.
 
