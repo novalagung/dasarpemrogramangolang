@@ -6,13 +6,13 @@ Berbeda dengan handler di back end-nya, by default request yang sudah di-cancel 
 
 > Chapter ini fokus terhadap cancellation pada client http request di sisi back-end. Untuk topik cancellation pada proses konkuren silakan pembahasannya ada di chapter [A.64. Concurrency Pattern: Context Cancellation Pipeline](/A-pipeline-context-cancellation.html).
 
-## B.32.1. Praktek
+## B.23.1. Praktek
 
 Dari objek `*http.Request` informasi objek context bisa diakses lewat method `.Context()`, dan dari context tersebut kita bisa mendeteksi apakah sebuah request di-cancel atau tidak oleh client.
 
 > Pada chapter ini kita tidak membahas secara rinci apa itu context karena sudah ada pembahasan terpisah mengenai topik tersebut di chapter [A.64. Concurrency Pattern: Context Cancellation Pipeline](/A-pipeline-context-cancellation.html).
 
-Object context memiliki method `.Done()` yang nilai baliknya berupa channel. Dari channel tersebut kita bisa deteksi apakah request di-cancel atau tidak oleh client, jika ada data yang diterima via channel tersebut dan error yang didapat ada keterangan `"cancelled"` maka bisa diasumsikan request tersebut dibatalkan oleh client.
+Object context memiliki method `.Done()` yang nilai baliknya berupa channel. Dari channel tersebut kita bisa deteksi apakah request di-cancel atau tidak oleh client, jika ada data yang diterima via channel tersebut dan error yang didapat ada keterangan `"canceled"` maka bisa diasumsikan request tersebut dibatalkan oleh client.
 
 Mari kita praktekan langsung. Silakan mulai dengan menulis kode berikut.
 
@@ -22,9 +22,7 @@ package main
 import (
     "log"
     "net/http"
-    "strings"
     "time"
-    "log"
 )
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
@@ -62,7 +60,7 @@ case <-r.Context().Done():
         if strings.Contains(strings.ToLower(err.Error()), "canceled") {
             log.Println("request canceled")
         } else {
-            log.Println("unknown error occured.", err.Error())
+            log.Println("unknown error occurred.", err.Error())
         }
     }
 case <-done:
