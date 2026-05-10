@@ -6,7 +6,7 @@ Pada chapter ini akan dikupas tuntas tentang macam-macam cara deklarasi variabel
 
 ## A.9.1. Deklarasi Variabel Beserta Tipe Data
 
-Go memiliki aturan cukup ketat dalam hal penulisan variabel. Ketika deklarasi, tipe data yg digunakan harus dituliskan juga. Istilah dari metode deklarasi variabel ini adalah **manifest typing**.
+Go memiliki aturan cukup ketat dalam hal penulisan variabel. Ketika deklarasi, tipe data yang digunakan harus dituliskan juga. Istilah dari metode deklarasi variabel ini adalah **manifest typing**.
 
 Berikut adalah contoh cara pembuatan variabel yang tipe datanya harus ditulis. Silakan tulis pada project baru atau pada project yang sudah ada, bebas. Pastikan pada setiap pembuatan project baru untuk tidak lupa menginisialisasi project menggunakan command `go mod init <nama-project>`.
 
@@ -124,7 +124,7 @@ var fourth, fifth, sixth string = "empat", "lima", "enam"
 Kalau ingin lebih ringkas:
 
 ```go
-seventh, eight, ninth := "tujuh", "delapan", "sembilan"
+seventh, eighth, ninth := "tujuh", "delapan", "sembilan"
 ```
 
 Dengan menggunakan teknik type inference, deklarasi multi variabel bisa dilakukan untuk variabel-variabel yang tipe data satu sama lainnya berbeda.
