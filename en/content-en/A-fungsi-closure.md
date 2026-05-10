@@ -111,7 +111,7 @@ var newNumbers = func(min int) []int {
 }(3)
 ```
 
-Di contoh sederhana di atas, IIFE menghasilkan nilai balik yang ditampung variabel `newNumber`. Perlu diperhatikan bahwa yang ditampung adalah **nilai kembaliannya** bukan body fungsi atau **closure**-nya.
+Di contoh sederhana di atas, IIFE menghasilkan nilai balik yang ditampung variabel `newNumbers`. Perlu diperhatikan bahwa yang ditampung adalah **nilai kembaliannya** bukan body fungsi atau **closure**-nya.
 
 > Closure bisa juga dengan gaya manifest typing, caranya dengan menuliskan skema closure-nya sebagai tipe data. Contoh:<br /><code>var closure (func (string, int, []string) int)</code><br /><code>closure = func (a string, b int, c []string) int {</code><br /><code>&nbsp;&nbsp;&nbsp;&nbsp;// ..</code><br /><code>}</code>
 ## A.21.3. Closure Sebagai Nilai Kembalian
