@@ -4,7 +4,7 @@
 
 Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari sekian banyak referensi yang bisa dijadikan bahan belajar pemrograman Go. Topik-topik yang disediakan sangat bervariasi mulai dari hal yang basic (dari 0), hingga chapter yang sifatnya advance.
 
-Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.
+Ada total sekitar <b>160+ chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.
 
 <ol type="A">
     <li>
@@ -21,7 +21,7 @@ Ada total sekitar <b>120 chapter</b> yang dibahas dalam website/ebook ini. Kumpu
     </li>
 </ol>
 
-Versi e-book: **v4.0.20241115**, dan versi Go **1.22**.
+Versi e-book: **v4.0.20251111**, dan versi Go **1.22**.
 
 ## Download File E-book (pdf, epub, mobi)
 
