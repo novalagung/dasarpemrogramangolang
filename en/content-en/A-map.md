@@ -37,7 +37,7 @@ Pengaksesan item menggunakan key yang belum tersimpan di map, menghasilkan data 
 
 ## A.17.2. Inisialisasi Nilai Map
 
-Zero value dari map adalah `nil`. Disarankan untuk menginisialisasi secara explisit nilai awalnya agar tidak `nil`.
+Zero value dari map adalah `nil`. Disarankan untuk menginisialisasi secara eksplisit nilai awalnya agar tidak `nil`.
 
 ```go
 var data map[string]int
@@ -64,15 +64,14 @@ var chicken2 = map[string]int{
 
 Key dan value dituliskan dengan pembatas tanda titik dua (`:`). Sedangkan tiap itemnya dituliskan dengan pembatas tanda koma (`,`). Khusus deklarasi dengan gaya vertikal, tanda koma perlu dituliskan setelah item terakhir.
 
-Variabel `map` bisa di-inisialisasi dengan tanpa nilai awal, caranya menggunakan tanda kurung kurawal, contoh: `map[string]int{}`. Atau bisa juga dengan menggunakan keyword `make` dan `new`. Contohnya bisa dilihat pada kode berikut. Ketiga cara di bawah ini intinya adalah sama.
+Variabel `map` bisa di-inisialisasi dengan tanpa nilai awal, caranya menggunakan tanda kurung kurawal, contoh: `map[string]int{}`. Atau bisa juga dengan menggunakan keyword `make`. Contohnya bisa dilihat pada kode berikut. Kedua cara di bawah ini intinya adalah sama.
 
 ```go
 var chicken3 = map[string]int{}
 var chicken4 = make(map[string]int)
-var chicken5 = *new(map[string]int)
 ```
 
-Khusus inisialisasi data menggunakan keyword `new`, yang dihasilkan adalah data pointer. Untuk mengambil nilai aslinya bisa dengan menggunakan tanda asterisk (`*`). Topik pointer nantinya dibahas lebih detail pada chapter [A.23. Pointer](/A-pointer.html).
+Map juga bisa dibuat menggunakan `new`, tetapi itu bukan cara inisialisasi yang umum. Hasil dereference-nya adalah nil map, contohnya `var chicken5 = *new(map[string]int)`. Nil map bisa dibaca, tetapi tidak bisa langsung diisi item baru sebelum diinisialisasi. Topik pointer nantinya dibahas lebih detail pada chapter [A.23. Pointer](/A-pointer.html).
 
 ## A.17.3. Iterasi Item Map Menggunakan `for` - `range`
 
