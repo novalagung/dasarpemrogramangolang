@@ -5,7 +5,7 @@ Proses penerimaan/*retrieving* data dari banyak channel bisa lebih mudah dilakuk
 Cara kerjanya:
 
 - Transaksi data via channel men-trigger perulangan `for` - `range`. Perulangan akan berlangsung seiring terjadinya pengiriman data ke channel yang di-iterasi.
-- Perulangan tersebut hanya akan berhenti jika channel di-**close** atau di non-aktifkan via fungsi `close()`. Channel yang sudah di-close tidak bisa digunakan lagi baik untuk menerima data ataupun untuk mengirim data.
+- Perulangan tersebut hanya akan berhenti jika channel di-**close** atau di non-aktifkan via fungsi `close()`. Channel yang sudah di-close tidak bisa digunakan lagi untuk mengirim data. Untuk menerima data, channel yang sudah di-close masih bisa dibaca hingga data buffered habis; setelah itu penerimaan menghasilkan zero value dan status `ok == false`.
 
 ## A.34.1. Penerapan `for` - `range` - `close`
 
