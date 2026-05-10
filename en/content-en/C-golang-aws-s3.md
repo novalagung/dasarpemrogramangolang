@@ -391,10 +391,13 @@ Pada kode berikut, method `Presign()` mengembalikan URL object yang valid selama
 
 ```go
 func presignUrl(client *s3.S3, bucketName string, fileName string) (string, error) {
-    req, _ := client.GetObjectRequest(&s3.GetObjectInput{
+    req, err := client.GetObjectRequest(&s3.GetObjectInput{
         Bucket: aws.String(bucketName),
         Key:    aws.String(fileName),
     })
+    if err != nil {
+        return "", err
+    }
 
     urlStr, err := req.Presign(15 * time.Minute)
     if err != nil {
