@@ -30,7 +30,7 @@ mkdir chapter-c30
 cd chapter-c30
 go mod init chapter-c30
 
-go get -u google.golang.org/grpc@v1.26.0
+go get -u google.golang.org/grpc@v1.26.0 # versi yang lebih baru mungkin sudah tersedia, silakan cek release terbaru di https://github.com/grpc/grpc-go
 
 # then prepare underneath structures
 tree .
