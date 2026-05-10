@@ -1,8 +1,10 @@
 # A.47. Hash SHA1
 
-Hash adalah algoritma enkripsi satu arah untuk mengubah text menjadi deretan karakter acak. Jumlah karakter hasil hash selalu sama. Hash termasuk *one-way encryption*, hasil dari hash tidak bisa dikembalikan ke text asli.
+Hash adalah algoritma satu arah untuk mengubah text menjadi deretan karakter acak dengan panjang tertentu. Hash bukan enkripsi, karena hasil hash tidak bisa di-decrypt untuk dikembalikan ke text asli.
 
-SHA1 atau **Secure Hash Algorithm 1** merupakan salah satu algoritma hashing yang sering digunakan untuk enkripsi data. Hasil dari sha1 adalah data dengan lebar **20 byte** atau **160 bit**, biasa ditampilkan dalam bentuk bilangan heksadesimal 40 digit.
+SHA1 atau **Secure Hash Algorithm 1** merupakan salah satu algoritma hashing. Hasil dari sha1 adalah data dengan lebar **20 byte** atau **160 bit**, biasa ditampilkan dalam bentuk bilangan heksadesimal 40 digit.
+
+> SHA1 tidak direkomendasikan untuk kebutuhan keamanan modern seperti penyimpanan password atau tanda tangan digital. Untuk password gunakan algoritma khusus password hashing seperti bcrypt, scrypt, Argon2id, atau PBKDF2.
 
 Pada chapter ini kita akan belajar tentang pemanfaatan sha1 dan teknik salting dalam hash.
 
@@ -41,9 +43,11 @@ Untuk mengambil bentuk heksadesimal string dari data yang sudah di-hash, bisa me
 
 Salt dalam konteks kriptografi adalah data acak yang digabungkan pada data asli sebelum proses hash dilakukan.
 
-Hash merupakan enkripsi satu arah dengan lebar data yang sudah pasti, sangat mungkin sekali kalau hasil hash untuk beberapa data adalah sama. Di sinilah kegunaan **salt**, teknik ini berguna untuk mencegah serangan menggunakan metode pencocokan data-data yang hasil hash-nya adalah sama *(dictionary attack)*.
+Hash menghasilkan data dengan lebar yang sudah pasti, sangat mungkin sekali kalau hasil hash untuk beberapa data adalah sama. Di sinilah kegunaan **salt**, teknik ini berguna untuk mengurangi efektivitas serangan menggunakan tabel hash siap pakai atau pencocokan kata umum *(dictionary attack)*.
 
 Langsung saja kita praktekkan. Pertama import package yang dibutuhkan. Lalu buat fungsi untuk hash menggunakan salt dari waktu sekarang.
+
+> Contoh ini hanya untuk memahami konsep salt. Untuk kebutuhan password production, jangan gunakan SHA1 dan jangan gunakan timestamp sebagai salt. Gunakan salt acak dari `crypto/rand` dan algoritma password hashing.
 
 ```go
 package main
@@ -63,7 +67,7 @@ func doHashUsingSalt(text string) (string, string) {
 }
 ```
 
-Salt yang digunakan adalah hasil dari ekspresi `time.Now().UnixNano()`. Hasilnya akan selalu unik setiap detiknya, karena scope terendah waktu pada fungsi tersebut adalah *nano second* atau nano detik.
+Salt yang digunakan adalah hasil dari ekspresi `time.Now().UnixNano()`. Angkanya berubah sangat cepat karena resolusi waktunya sampai *nanosecond*, sehingga cocok untuk contoh sederhana, tetapi tetap bukan sumber salt yang ideal untuk production.
 
 Selanjutnya test fungsi yang telah dibuat beberapa kali.
 
@@ -88,11 +92,11 @@ func main() {
 }
 ```
 
-Hasil ekripsi fungsi `doHashUsingSalt()` akan selalu beda, karena salt yang digunakan adalah waktu.
+Hasil hash fungsi `doHashUsingSalt()` akan selalu beda, karena salt yang digunakan adalah waktu.
 
 ![Hashing dengan salt](images/A_hash_2_hash_salt_sha1.png)
 
-Metode ini sering dipakai untuk enkripsi password user. Salt dan data hasil hash harus disimpan pada database, karena digunakan dalam pencocokan password setiap user melakukan login.
+Konsep salt sering dipakai pada penyimpanan password user. Salt dan data hasil hash harus disimpan pada database, karena digunakan dalam pencocokan password setiap user melakukan login. Namun untuk implementasi nyata, gunakan algoritma password hashing seperti bcrypt, scrypt, Argon2id, atau PBKDF2.
 
 ---
 
