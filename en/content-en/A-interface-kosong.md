@@ -19,7 +19,7 @@ func main() {
     secret = "ethan hunt"
     fmt.Println(secret)
 
-    secret = []string{"apple", "manggo", "banana"}
+    secret = []string{"apple", "mango", "banana"}
     fmt.Println(secret)
 
     secret = 12.4
@@ -39,7 +39,7 @@ var data map[string]interface{}
 data = map[string]interface{}{
     "name":      "ethan hunt",
     "grade":     2,
-    "breakfast": []string{"apple", "manggo", "banana"},
+    "breakfast": []string{"apple", "mango", "banana"},
 }
 ```
 
@@ -59,7 +59,7 @@ var data map[string]any
 data = map[string]any{
     "name":      "ethan hunt",
     "grade":     2,
-    "breakfast": []string{"apple", "manggo", "banana"},
+    "breakfast": []string{"apple", "mango", "banana"},
 }
 ```
 
@@ -82,15 +82,15 @@ func main() {
     var number = secret.(int) * 10
     fmt.Println(secret, "multiplied by 10 is :", number)
 
-    secret = []string{"apple", "manggo", "banana"}
-    var gruits = strings.Join(secret.([]string), ", ")
-    fmt.Println(gruits, "is my favorite fruits")
+    secret = []string{"apple", "mango", "banana"}
+    var fruits = strings.Join(secret.([]string), ", ")
+    fmt.Println(fruits, "is my favorite fruits")
 }
 ```
 
 Pertama, variabel `secret` menampung nilai bertipe numerik. Ada kebutuhan untuk mengalikan nilai yang ditampung variabel tersebut dengan angka `10`. Maka perlu dilakukan casting ke tipe aslinya, yaitu `int`, setelahnya barulah nilai bisa dioperasikan, yaitu `secret.(int) * 10`.
 
-Pada contoh kedua, `secret` berisikan array string. Kita memerlukan string tersebut untuk digabungkan dengan pemisah tanda koma. Maka perlu di-casting ke `[]string` terlebih dahulu sebelum bisa digunakan di `strings.Join()`, contohnya pada `strings.Join(secret.([]string), ", ")`.
+Pada contoh kedua, `secret` berisikan slice string. Kita memerlukan string tersebut untuk digabungkan dengan pemisah tanda koma. Maka perlu di-casting ke `[]string` terlebih dahulu sebelum bisa digunakan di `strings.Join()`, contohnya pada `strings.Join(secret.([]string), ", ")`.
 
 ![Casting pada variabel bertipe <code>interface{}</code>](images/A_interface_kosong_2_interface_casting.png)
 
@@ -138,7 +138,7 @@ Dengan memanfaatkan slice dan `interface{}`, kita bisa membuat data array yang i
 ```go
 var fruits = []interface{}{
     map[string]interface{}{"name": "strawberry", "total": 10},
-    []string{"manggo", "pineapple", "papaya"},
+    []string{"mango", "pineapple", "papaya"},
     "orange",
 }
 
