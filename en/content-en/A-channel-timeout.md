@@ -29,7 +29,7 @@ func sendData(ch chan<- int) {
 Selanjutnya, disiapkan perulangan tanpa henti, yang di setiap perulangan ada seleksi kondisi channel menggunakan `select`.
 
 ```go
-func retreiveData(ch <-chan int) {
+func retrieveData(ch <-chan int) {
     loop:
     for {
         select {
@@ -57,7 +57,7 @@ func main() {
     var messages = make(chan int)
 
     go sendData(messages)
-    retreiveData(messages)
+    retrieveData(messages)
 }
 ```
 
