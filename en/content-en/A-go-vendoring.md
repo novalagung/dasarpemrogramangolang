@@ -53,7 +53,7 @@ go run -mod=vendor main.go
 go build -mod=vendor -o executable
 ```
 
-## A.61.3. Manfaat Vendoring
+## A.61.4. Manfaat Vendoring
 
 Manfaat vendoring adalah pada sisi kompatibilitas & kestabilan 3rd party, selain itu kita tidak perlu repot mendownload dependency karena semuanya sudah ada di lokal.
 
