@@ -34,7 +34,7 @@ func handlerHello(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Method `Write()` milik parameter pertama (yang bertipe `http.ResponseWrite`), digunakan untuk meng-output-kan data ke HTTP response. Argumen method adalah data yang ingin dijadikan output, dituliskan dalam bentuk `[]byte`.
+Method `Write()` milik parameter pertama (yang bertipe `http.ResponseWriter`), digunakan untuk meng-output-kan data ke HTTP response. Argumen method adalah data yang ingin dijadikan output, dituliskan dalam bentuk `[]byte`.
 
 Pada contoh ini, data yang akan kita tampilkan bertipe string, maka perlu dilakukan casting dari `string` ke `[]byte`. Praktiknya bisa dilihat seperti pada kode di atas, di bagian `w.Write([]byte(message))`.
 
@@ -103,9 +103,9 @@ func handlerIndex(w http.ResponseWriter, r *http.Request) {
 
 Output dari rute dituliskan di dalam handler menggunakan method `Write()` milik objek `ResponseWriter` (parameter pertama). Output bisa berupa apapun, untuk output text tinggal lakukan casting dari tipe `string` ke `[]byte`, aturan ini juga berlaku untuk banyak jenis output lainnya seperti HTML, XML, JSON, dan lainnya (dengan catatan response header `Content-Type`-nya juga perlu disesuaikan).
 
-Pada contoh program yang telah kita buat, handler `Index()` memunculkan text `"Welcome"`, dan handler `Hello()` memunculkan text `"Hello world!"`.
+Pada contoh program yang telah kita buat, handler `handlerIndex()` memunculkan text `"Welcome"`, dan handler `handlerHello()` memunculkan text `"Hello world!"`.
 
-Sebuah handler bisa dipergunakan pada banyak rute, bisa dilihat pada di atas handler `Index()` digunakan pada rute `/` dan `/index`.
+Sebuah handler bisa dipergunakan pada banyak rute, bisa dilihat pada di atas handler `handlerIndex()` digunakan pada rute `/` dan `/index`.
 
 #### ◉ Penggunaan `http.ListenAndServe()`
 
