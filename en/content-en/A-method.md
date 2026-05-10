@@ -134,16 +134,16 @@ Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah di
 
 #### ◉ Penggunaan Fungsi `strings.Split()`
 
-Pada chapter ini ada fungsi baru yang kita gunakan saat praktek, yaitu `strings.Split()`. Fungsi ini berguna untuk memisahkan string menggunakan pemisah yang kita tentukan sendiri. Hasilnya berupa array berisikan kumpulan substring.
+Pada chapter ini ada fungsi baru yang kita gunakan saat praktek, yaitu `strings.Split()`. Fungsi ini berguna untuk memisahkan string menggunakan pemisah yang kita tentukan sendiri. Hasilnya berupa slice berisikan kumpulan substring.
 
 ```go
 strings.Split("ethan hunt", " ")
 // ["ethan", "hunt"]
 ```
 
-Pada contoh di atas, string `"ethan hunt"` dipisah menggunakan separator spasi `" "`, hasilnya adalah array berisikan 2 elemen, `"ethan"` dan `"hunt"`.
+Pada contoh di atas, string `"ethan hunt"` dipisah menggunakan separator spasi `" "`, hasilnya adalah slice berisikan 2 elemen, `"ethan"` dan `"hunt"`.
 
-## A.25.3. Apakah `fmt.Println()` & `strings.Split()` Juga Merupakan Method?
+## A.25.4. Apakah `fmt.Println()` & `strings.Split()` Juga Merupakan Method?
 
 Setelah tahu apa itu method dan bagaimana penggunaannya, mungkin akan muncul di benak kita bahwa kode seperti `fmt.Println()`, `strings.Split()` dan lainnya-yang-berada-pada-package-lain adalah merupakan method. Jawabannya,**bukan!**. `fmt` di situ bukanlah variabel objek, dan `Println()` bukan merupakan method.
 
