@@ -38,7 +38,7 @@
   - [A.19. Fungsi Multiple Return](A-fungsi-multiple-return.md)
   - [A.20. Fungsi Variadic](A-fungsi-variadic.md)
   - [A.21. Fungsi Closure](A-fungsi-closure.md)
-  - [A.22. Fungsi Sebagai parameter](A-fungsi-sebagai-parameter.md)
+  - [A.22. Fungsi Sebagai Parameter](A-fungsi-sebagai-parameter.md)
   - [A.23. Pointer](A-pointer.md)
   - [A.24. Struct](A-struct.md)
   - [A.25. Method](A-method.md)
