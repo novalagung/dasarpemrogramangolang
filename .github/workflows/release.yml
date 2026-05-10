@@ -1,0 +1,21 @@
+name: 'release on tag push'
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  job_release:
+    name: 'create release'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: 'Create GitHub Release'
+      uses: softprops/action-gh-release@v2
+      with:
+        generate_release_notes: true
