@@ -15,23 +15,23 @@ import "fmt"
 
 func main() {
     var getMinMax = func(n []int) (int, int) {
-        var min, max int
+        var minNum, maxNum int
         for i, e := range n {
             switch {
             case i == 0:
-                max, min = e, e
-            case e > max:
-                max = e
-            case e < min:
-                min = e
+                maxNum, minNum = e, e
+            case e > maxNum:
+                maxNum = e
+            case e < minNum:
+                minNum = e
             }
         }
-        return min, max
+        return minNum, maxNum
     }
 
     var numbers = []int{2, 3, 4, 3, 4, 2, 3}
-    var min, max = getMinMax(numbers)
-    fmt.Printf("data : %v\nmin  : %v\nmax  : %v\n", numbers, min, max)
+    var minNum, maxNum = getMinMax(numbers)
+    fmt.Printf("data : %v\nmin  : %v\nmax  : %v\n", numbers, minNum, maxNum)
 }
 ```
 
@@ -46,7 +46,7 @@ var getMinMax = func(n []int) (int, int) {
 Cara pemanggilan closure adalah dengan memperlakukan variabel closure seperti fungsi, dituliskan seperti pemanggilan fungsi.
 
 ```go
-var min, max = getMinMax(numbers)
+var minNum, maxNum = getMinMax(numbers)
 ```
 
 Output program:
@@ -62,7 +62,7 @@ Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah di
 Template `%v` digunakan untuk menampilkan data tanpa melihat tipe datanya. Jadi bisa digunakan untuk menampilkan data array, int, float, bool, dan lainnya. Bisa dilihat di contoh statement, data bertipe array dan numerik ditampilkan menggunakan `%v`.
 
 ```go
-fmt.Printf("data : %v\nmin  : %v\nmax  : %v\n", numbers, min, max)
+fmt.Printf("data : %v\nmin  : %v\nmax  : %v\n", numbers, minNum, maxNum)
 ```
 
 Template `%v` ini biasa dimanfaatkan untuk menampilkan sebuah data yang tipe nya bisa dinamis atau belum diketahui. Biasa digunakan untuk keperluan debugging, misalnya untuk menampilkan data bertipe `any` atau `interface{}`.
@@ -83,10 +83,10 @@ import "fmt"
 func main() {
     var numbers = []int{2, 3, 0, 4, 3, 2, 0, 4, 2, 0, 3}
 
-    var newNumbers = func(min int) []int {
+    var newNumbers = func(minNum int) []int {
         var r []int
         for _, e := range numbers {
-            if e < min {
+            if e < minNum {
                 continue
             }
             r = append(r, e)
@@ -106,7 +106,7 @@ Output program:
 Ciri khas dari penulisan IIFE adalah adanya tanda kurung parameter yang ditulis di akhir deklarasi closure. Jika IIFE memiliki parameter, maka argument-nya juga ditulis. Contoh:
 
 ```go
-var newNumbers = func(min int) []int {
+var newNumbers = func(minNum int) []int {
     // ...
 }(3)
 ```
@@ -124,10 +124,10 @@ package main
 
 import "fmt"
 
-func findMax(numbers []int, max int) (int, func() []int) {
+func findMax(numbers []int, maxNum int) (int, func() []int) {
     var res []int
     for _, e := range numbers {
-        if e <= max {
+        if e <= maxNum {
             res = append(res, e)
         }
     }
@@ -156,13 +156,13 @@ Berikut merupakan contoh implementasi fungsi tersebut:
 
 ```go
 func main() {
-    var max = 3
+    var maxNum = 3
     var numbers = []int{2, 3, 0, 4, 3, 2, 0, 4, 2, 0, 3}
-    var howMany, getNumbers = findMax(numbers, max)
+    var howMany, getNumbers = findMax(numbers, maxNum)
     var theNumbers = getNumbers()
 
     fmt.Println("numbers\t:", numbers)
-    fmt.Printf("find \t: %d\n\n", max)
+    fmt.Printf("find \t: %d\n\n", maxNum)
 
     fmt.Println("found \t:", howMany)    // 9
     fmt.Println("value \t:", theNumbers) // [2 3 0 3 2 0 2 0 3]
