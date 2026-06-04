@@ -76,8 +76,8 @@ func main() {
     fmt.Println("random number:", randomValue)
 }
 
-func randomWithRange(min, max int) int {
-    var value = randomizer.Int()%(max-min+1) + min
+func randomWithRange(minNum, maxNum int) int {
+    var value = randomizer.Int()%(maxNum-minNum+1) + minNum
     return value
 }
 ```
@@ -89,7 +89,7 @@ Fungsi `randomWithRange()` didesain untuk *generate* angka acak sesuai dengan ra
 Cara menentukan tipe data nilai balik fungsi adalah dengan menuliskan tipe data yang diinginkan setelah kurung parameter. Bisa dilihat pada kode di atas, bahwa `int` merupakan tipe data nilai balik fungsi `randomWithRange()`.
 
 ```go
-func randomWithRange(min, max int) int
+func randomWithRange(minNum, maxNum int) int
 ```
 
 Sedangkan cara untuk mengembalikan nilai itu sendiri adalah dengan menggunakan keyword `return` diikuti data yang dikembalikan. Pada contoh di atas, `return value` artinya nilai variabel `value` dijadikan nilai kembalian fungsi.
@@ -138,8 +138,8 @@ Khusus untuk fungsi yang tipe data parameternya sama, bisa ditulis dengan gaya y
 func nameOfFunc(paramA type, paramB type, paramC type) returnType
 func nameOfFunc(paramA, paramB, paramC type) returnType
 
-func randomWithRange(min int, max int) int
-func randomWithRange(min, max int) int
+func randomWithRange(minNum int, maxNum int) int
+func randomWithRange(minNum, maxNum int) int
 ```
 
 ## A.18.6. Penggunaan Keyword `return` Untuk Menghentikan Proses Dalam Fungsi
