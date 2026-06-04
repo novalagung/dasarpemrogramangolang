@@ -2129,15 +2129,15 @@
     fmt.Println(<span class="hljs-string">&quot;random number:&quot;</span>, randomValue)
 }
 
-<span class="hljs-keyword">func</span> randomWithRange(min, max <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span> {
-    <span class="hljs-keyword">var</span> value = randomizer.Int()%(max-min+<span class="hljs-number">1</span>) + min
+<span class="hljs-keyword">func</span> randomWithRange(minNum, maxNum <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span> {
+    <span class="hljs-keyword">var</span> value = randomizer.Int()%(maxNum-minNum+<span class="hljs-number">1</span>) + minNum
     <span class="hljs-keyword">return</span> value
 }
 </code></pre>
 <p>Fungsi <code>randomWithRange()</code> didesain untuk <em>generate</em> angka acak sesuai dengan range yang ditentukan lewat parameter, yang kemudian angka tersebut dijadikan nilai balik fungsi.</p>
 <p><img src="images/A_fungsi_2_function_return_type.png" alt="Dasar Pemrograman Golang - Fungsi dengan nilai balik"></p>
 <p>Cara menentukan tipe data nilai balik fungsi adalah dengan menuliskan tipe data yang diinginkan setelah kurung parameter. Bisa dilihat pada kode di atas, bahwa <code>int</code> merupakan tipe data nilai balik fungsi <code>randomWithRange()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> randomWithRange(min, max <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> randomWithRange(minNum, maxNum <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span>
 </code></pre>
 <p>Sedangkan cara untuk mengembalikan nilai itu sendiri adalah dengan menggunakan keyword <code>return</code> diikuti data yang dikembalikan. Pada contoh di atas, <code>return value</code> artinya nilai variabel <code>value</code> dijadikan nilai kembalian fungsi.</p>
 <p>Eksekusi keyword <code>return</code> akan menjadikan proses dalam blok fungsi berhenti pada saat itu juga. Semua statement setelah keyword tersebut tidak akan dieksekusi.</p>
@@ -2170,8 +2170,8 @@
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> nameOfFunc(paramA <span class="hljs-keyword">type</span>, paramB <span class="hljs-keyword">type</span>, paramC <span class="hljs-keyword">type</span>) returnType
 <span class="hljs-keyword">func</span> nameOfFunc(paramA, paramB, paramC <span class="hljs-keyword">type</span>) returnType
 
-<span class="hljs-keyword">func</span> randomWithRange(min <span class="hljs-keyword">int</span>, max <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span>
-<span class="hljs-keyword">func</span> randomWithRange(min, max <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span>
+<span class="hljs-keyword">func</span> randomWithRange(minNum <span class="hljs-keyword">int</span>, maxNum <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span>
+<span class="hljs-keyword">func</span> randomWithRange(minNum, maxNum <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span>
 </code></pre>
 <h2 id="a186-penggunaan-keyword-return-untuk-menghentikan-proses-dalam-fungsi">A.18.6. Penggunaan Keyword <code>return</code> Untuk Menghentikan Proses Dalam Fungsi</h2>
 <p>Selain sebagai penanda nilai balik, keyword <code>return</code> juga bisa dimanfaatkan untuk menghentikan proses dalam blok fungsi di mana ia ditulis. Contohnya bisa dilihat pada kode berikut.</p>
@@ -2233,7 +2233,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"next":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"previous":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-fungsi.md","mtime":"2026-05-10T16:44:32.614Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-05-10T16:45:34.194Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"next":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"previous":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-fungsi.md","mtime":"2026-06-04T09:08:02.844Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:08:58.773Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2255,7 +2255,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.05.10.164554"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.090918"></script>
         
     
         
