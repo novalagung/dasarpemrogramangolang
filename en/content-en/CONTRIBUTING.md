@@ -38,6 +38,7 @@ Berikut merupakan *hall of fame* kontributor yang sudah berbaik hati menyisihkan
 1. [Arian Saputra](https://github.com/Rhyanz46)
 1. [Arsy Opraza Akma](https://github.com/arasopraza)
 1. [bae-vcore](https://github.com/bae-vcore)
+1. [Bagas](https://github.com/bagasdisini)
 1. [Burhanudin Yahya](https://github.com/burhanudinyahya)
 1. [Dipta Harimbawa](https://github.com/diptarimba)
 1. [Dwi Hujianto](https://github.com/dwihujianto)
