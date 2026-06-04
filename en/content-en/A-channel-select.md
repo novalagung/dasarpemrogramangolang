@@ -29,13 +29,13 @@ func getAverage(numbers []int, ch chan float64) {
 }
 
 func getMax(numbers []int, ch chan int) {
-    var max = numbers[0]
+    var maxNum = numbers[0]
     for _, e := range numbers {
-        if max < e {
-            max = e
+        if maxNum < e {
+            maxNum = e
         }
     }
-    ch <- max
+    ch <- maxNum
 }
 ```
 
@@ -60,8 +60,8 @@ func main() {
         select {
         case avg := <-ch1:
             fmt.Printf("Avg \t: %.2f \n", avg)
-        case max := <-ch2:
-            fmt.Printf("Max \t: %d \n", max)
+        case maxNum := <-ch2:
+            fmt.Printf("Max \t: %d \n", maxNum)
         }
     }
 }
@@ -70,7 +70,7 @@ func main() {
 Pada kode di atas, pengiriman data pada channel `ch1` dan `ch2` dikontrol menggunakan `select`. Terdapat 2 buah `case` kondisi penerimaan data dari kedua channel tersebut.
 
  - Kondisi `case avg := <-ch1` akan terpenuhi ketika ada penerimaan data dari channel `ch1`, yang kemudian akan ditampung oleh variabel `avg`.
- - Kondisi `case max := <-ch2` akan terpenuhi ketika ada penerimaan data dari channel `ch2`, yang kemudian akan ditampung oleh variabel `max`.
+ - Kondisi `case maxNum := <-ch2` akan terpenuhi ketika ada penerimaan data dari channel `ch2`, yang kemudian akan ditampung oleh variabel `maxNum`.
 
 Karena ada 2 buah channel, maka perlu disiapkan perulangan 2 kali sebelum penggunaan keyword `select`.
 
