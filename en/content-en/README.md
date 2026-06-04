@@ -41,6 +41,16 @@ Source code contoh-contoh program bisa diunduh di [github.com/novalagung/dasarpe
 
 Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Silakan lihat juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html) untuk lebih detailnya mengenai kontribusi ke project ini.
 
+<div align="center">
+    <a href="https://www.star-history.com/?repos=novalagung%2Fdasarpemrogramangolang&type=date&legend=bottom-right">
+        <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=novalagung/dasarpemrogramangolang&type=date&theme=dark&legend=bottom-right" />
+            <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=novalagung/dasarpemrogramangolang&type=date&legend=bottom-right" />
+            <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=novalagung/dasarpemrogramangolang&type=date&legend=bottom-right" />
+        </picture>
+    </a>
+</div>
+
 ## Lisensi dan Status FOSSA
 
 Website/ebook tutorial Dasar Pemrograman Go gratis untuk disebarluaskan secara bebas, baik untuk komersil maupun tidak, dengan catatan harus disertakan credit sumber aslinya (yaitu **Dasar Pemrograman Golang** atau **novalagung**) dan tidak mengubah lisensi aslinya (yaitu **CC BY-SA 4.0**). Lebih detailnya silakan cek halaman [lisensi dan distribusi konten](https://dasarpemrogramangolang.novalagung.com/LICENSE.html).
