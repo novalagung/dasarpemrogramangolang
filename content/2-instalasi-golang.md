@@ -24,7 +24,7 @@ URL untuk mengunduh *installer* Go: https://golang.org/dl/. Silakan langsung und
 
  4. Jika output adalah sama dengan versi Go yang ter-*install*, menandakan proses instalasi berhasil.
 
-> Sering terjadi, command `go version` tidak bisa dijalankan meskipun instalasi sukses. Solusinya bisa dengan restart CMD (tutup CMD, kemudian buka lagi). Setelah itu coba jalankan ulang command di atas.
+> Pada beberapa kasus, command `go version` tidak dikenali meskipun instalasi sukses. Solusinya adalah dengan restart CMD (tutup CMD, kemudian buka lagi). Setelah itu coba jalankan ulang command di atas.
 
 #### ◉ Instalasi Go di MacOS
 
@@ -42,14 +42,14 @@ Cara termudah instalasi Go di MacOS adalah menggunakan [Homebrew](http://brew.sh
     $ brew install go
     ```
 
- 3. Tambahkan path binary Go ke `PATH` *environment variable*.
+ 3. Umumnya Homebrew otomatis menambahkan binary Go ke `PATH`. Jika belum, tambahkan secara manual ke `PATH` *environment variable* (sesuaikan path dengan output `brew --prefix go`).
 
     ```bash
     $ echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bash_profile
     $ source ~/.bash_profile
     ```
 
- 4. Jalankan perintah berikut mengecek versi Go.
+ 4. Jalankan perintah berikut untuk mengecek versi Go.
 
     ```bash
     go version

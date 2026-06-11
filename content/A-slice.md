@@ -19,9 +19,9 @@ var fruitsB = [2]string{"banana", "melon"}    // array
 var fruitsC = [...]string{"papaya", "grape"}  // array
 ```
 
-## A.16.2. Alokasi Slice Menggunakan Keyword `make`
+## A.16.2. Alokasi Slice Menggunakan Fungsi Builtin `make()`
 
-Deklarasi sekaligus alokasi kapasitas slice bisa dilakukan lewat keyword `make`. Contohnya:
+Deklarasi sekaligus alokasi kapasitas slice bisa dilakukan lewat fungsi *builtin* `make()`. Contohnya:
 
 ```go
 var fruits = make([]string, 2)
@@ -31,10 +31,10 @@ fruits[1] = "mango"
 fmt.Println(fruits)  // [apple mango]
 ```
 
-Parameter pertama keyword `make` diisi dengan tipe data elemen slice yang diinginkan, parameter kedua adalah jumlah elemennya. Pada kode di atas, variabel `fruits` tercetak sebagai slice string dengan panjang 2 elemen.
+Parameter pertama fungsi `make()` diisi dengan tipe data elemen slice yang diinginkan, parameter kedua adalah jumlah elemennya. Pada kode di atas, variabel `fruits` tercetak sebagai slice string dengan panjang 2 elemen.
 
 > Perlu diperhatikan statement `make([]string, 2)` menghasilkan slice, bukan array.
-> Lalu apa itu slice? Silakan lanjut pembasahan di bawah ini.
+> Lalu apa itu slice? Silakan lanjut pembahasan di bawah ini.
 
 ## A.16.3. Hubungan Slice Dengan Array & Operasi Slice
 
@@ -69,8 +69,8 @@ var fruits = []string{"apple", "grape", "banana", "melon"}
 | :--------- | :--------------------- | :---------- |
 | `fruits[0:2]` | `[apple, grape]` | semua elemen mulai indeks ke-0, hingga sebelum indeks ke-2 |
 | `fruits[0:4]` | <code>[apple,&nbsp;grape,&nbsp;banana,&nbsp;melon]</code> | semua elemen mulai indeks ke-0, hingga sebelum indeks ke-4 |
-| `fruits[0:0]` | `[]` | menghasilkan slice kosong, karena tidak ada elemen sebelum indeks ke-0 |
-| `fruits[4:4]` | `[]` | menghasilkan slice kosong, karena tidak ada elemen yang dimulai dari indeks ke-4 |
+| `fruits[0:0]` | `[]` | menghasilkan slice kosong, karena indeks awal dan akhir sama |
+| `fruits[4:4]` | `[]` | menghasilkan slice kosong, karena indeks awal dan akhir sama (4 adalah indeks tepat setelah elemen terakhir) |
 | `fruits[4:0]` | `[]` | error, pada penulisan `fruits[a:b]` nilai `a` harus lebih kecil atau sama dengan `b` |
 | `fruits[:]` | `[apple, grape, banana, melon]` | semua elemen |
 | `fruits[2:]` | `[banana, melon]` | semua elemen mulai indeks ke-2 |
@@ -271,6 +271,51 @@ fmt.Println(bFruits)      // ["apple", "grape"]
 fmt.Println(len(bFruits)) // len: 2
 fmt.Println(cap(bFruits)) // cap: 2
 ```
+
+## A.16.10. Package `slices` (Go 1.21+)
+
+Go 1.21 memperkenalkan package baru [`slices`](https://pkg.go.dev/slices) yang menyediakan fungsi-fungsi generik untuk operasi slice. Berikut beberapa fungsi yang umum digunakan.
+
+```go
+package main
+
+import (
+    "fmt"
+    "slices"
+)
+
+func main() {
+    var fruits = []string{"apple", "grape", "banana", "melon", "grape"}
+
+    // cek apakah elemen ada dalam slice
+    fmt.Println(slices.Contains(fruits, "banana"))  // true
+    fmt.Println(slices.Contains(fruits, "papaya"))  // false
+
+    // cari indeks pertama kemunculan elemen
+    fmt.Println(slices.Index(fruits, "grape"))  // 1
+
+    // urutkan elemen slice (ascending, in-place)
+    slices.Sort(fruits)
+    fmt.Println("sorted  :", fruits)
+
+    // balik urutan elemen (in-place)
+    slices.Reverse(fruits)
+    fmt.Println("reversed:", fruits)
+
+    // hapus elemen duplikat yang berurutan
+    slices.Sort(fruits)
+    fruits = slices.Compact(fruits)
+    fmt.Println("compact :", fruits)
+}
+```
+
+Penjelasan fungsi-fungsi yang digunakan:
+
+- `slices.Contains(s, v)` → mengembalikan `true` jika elemen `v` ada di dalam slice `s`.
+- `slices.Index(s, v)` → mengembalikan indeks pertama kemunculan `v`, atau `-1` jika tidak ditemukan.
+- `slices.Sort(s)` → mengurutkan elemen slice secara *ascending* (in-place, slice asli berubah).
+- `slices.Reverse(s)` → membalik urutan elemen slice (in-place).
+- `slices.Compact(s)` → menghapus elemen duplikat yang letaknya berurutan; agar semua duplikat terhapus, urutkan slice terlebih dahulu.
 
 ---
 

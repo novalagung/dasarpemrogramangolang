@@ -71,7 +71,7 @@ func (s student) getNameAt(i int) string { }
 
 ## A.25.2. Method Pointer
 
-Method pointer adalah method yang dimana variabel objek pemilik method tersebut adalah berbentuk pointer.
+Method pointer adalah method di mana variabel objek pemilik method tersebut berbentuk pointer.
 
 Kelebihan method jenis ini adalah ketika kita melakukan manipulasi nilai pada property lain yang masih satu struct, nilai pada property tersebut bisa diubah di-level reference-nya. Lebih jelasnya perhatikan kode berikut.
 
@@ -130,11 +130,11 @@ s2.sayHello()
 
 ## A.25.3. Penjelasan tambahan
 
-Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktikkan:
 
 #### ◉ Penggunaan Fungsi `strings.Split()`
 
-Pada chapter ini ada fungsi baru yang kita gunakan saat praktek, yaitu `strings.Split()`. Fungsi ini berguna untuk memisahkan string menggunakan pemisah yang kita tentukan sendiri. Hasilnya berupa slice berisikan kumpulan substring.
+Pada chapter ini ada fungsi baru yang kita gunakan saat praktik, yaitu `strings.Split()`. Fungsi ini berguna untuk memisahkan string menggunakan pemisah yang kita tentukan sendiri. Hasilnya berupa slice berisikan kumpulan substring.
 
 ```go
 strings.Split("ethan hunt", " ")
@@ -145,14 +145,14 @@ Pada contoh di atas, string `"ethan hunt"` dipisah menggunakan separator spasi `
 
 ## A.25.4. Apakah `fmt.Println()` & `strings.Split()` Juga Merupakan Method?
 
-Setelah tahu apa itu method dan bagaimana penggunaannya, mungkin akan muncul di benak kita bahwa kode seperti `fmt.Println()`, `strings.Split()` dan lainnya-yang-berada-pada-package-lain adalah merupakan method. Jawabannya,**bukan!**. `fmt` di situ bukanlah variabel objek, dan `Println()` bukan merupakan method.
+Setelah tahu apa itu method dan bagaimana penggunaannya, mungkin akan muncul di benak kita bahwa kode seperti `fmt.Println()`, `strings.Split()` dan lainnya-yang-berada-pada-package-lain adalah merupakan method. Jawabannya, **bukan!**. `fmt` di situ bukanlah variabel objek, dan `Println()` bukan merupakan method.
 
 `fmt` adalah nama **package** yang di-import (bisa dilihat pada kode `import "fmt"`). Sedangkan `Println()` adalah **nama fungsi**. Untuk mengakses fungsi yang berada pada package lain, harus dituliskan juga nama package-nya, contoh:
 
 - Statement `fmt.Println()` berarti pengaksesan fungsi `Println()` yang berada di package `fmt`
 - Statement `strings.Split()` berarti pengaksesan fungsi `Split()` yang berada di package `strings`
 
-Lebih detailnya dibahas pada chapter selanjutnya.
+Lebih jelasnya dibahas pada chapter selanjutnya.
 
 ---
 

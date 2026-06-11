@@ -221,7 +221,7 @@ fmt.Printf("%#v\n", data)
 Ketika menampilkan objek yang deklarasinya adalah menggunakan teknik *anonymous struct*, maka akan muncul juga struktur anonymous struct nya.
 
 ```go
-var data = struct {
+var people = struct {
     name   string
     height float64
 }{
@@ -229,7 +229,7 @@ var data = struct {
     height: 182.5,
 }
 
-fmt.Printf("%#v\n", data)
+fmt.Printf("%#v\n", people)
 // struct { name string; height float64 }{name:"wick", height:182.5}
 ```
 

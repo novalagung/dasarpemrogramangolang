@@ -1,6 +1,6 @@
 # A.13. Seleksi Kondisi
 
-Seleksi kondisi digunakan untuk mengontrol alur eksekusi flow program. Analoginya mirip seperti fungsi rambu lalu lintas di jalan raya. Kapan kendaraan diperbolehkan melaju dan kapan harus berhenti diatur oleh rambu tersebut. Seleksi kondisi pada program juga kurang lebih sama, kapan sebuah blok kode dieksekusi dikontrol.
+Seleksi kondisi digunakan untuk mengontrol alur eksekusi program. Analoginya mirip seperti rambu lalu lintas di jalan raya. Kapan kendaraan diperbolehkan melaju dan kapan harus berhenti diatur oleh rambu tersebut. Seleksi kondisi pada program juga kurang lebih sama, kapan sebuah blok kode dieksekusi diatur oleh kondisi.
 
 Yang dijadikan acuan oleh seleksi kondisi adalah nilai bertipe `bool`, bisa berasal dari variabel, ataupun hasil operasi perbandingan. Nilai tersebut menentukan blok kode mana yang akan dieksekusi.
 
@@ -30,7 +30,7 @@ Dari ke-empat kondisi di atas, yang terpenuhi adalah `if point > 5`, karena nila
 
 ![Seleksi kondisi `if` - `else`](images/A_seleksi_kondisi_1_if_else.png)
 
-Penulisan if else Go diawali dengan keyword `if` kemudian diikuti nilai seleksi kondisi dan blok kode ketika kondisi terpenuhi. Ketika kondisinya tidak terpenuhi akan blok kode `else` dipanggil (jika blok kode `else` tersebut ada). Ketika ada banyak kondisi, gunakan `else if`.
+Penulisan if-else di Go diawali dengan keyword `if` kemudian diikuti ekspresi kondisi dan blok kode yang dieksekusi ketika kondisi terpenuhi. Ketika kondisinya tidak terpenuhi, maka blok kode `else` yang dipanggil (jika blok `else` tersebut ada). Untuk menangani banyak kondisi, gunakan `else if`.
 
 ## A.13.2. Variabel Temporary Pada `if` - `else`
 

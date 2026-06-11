@@ -170,7 +170,7 @@ func main() {
 }
 ```
 
-Bisa dilihat di kode di atas, lewat interface `hitung`, method `luas()`, `keliling()`, dan `volume()` bisa di akses.
+Bisa dilihat di kode di atas, lewat interface `hitung`, method `luas()`, `keliling()`, dan `volume()` bisa diakses.
 
 Pada chapter [A.23. Pointer](/A-pointer.html) dijelaskan bahwa method pointer bisa diakses lewat variabel objek biasa dan variabel objek pointer. Variabel objek yang dicetak menggunakan struct yang memiliki method pointer, jika ditampung ke dalam variabel interface, harus diambil referensi-nya terlebih dahulu. Contohnya bisa dilihat pada kode di atas `var bangunRuang hitung = &kubus{4}`.
 

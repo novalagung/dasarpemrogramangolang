@@ -6,28 +6,28 @@ Tipe `time.Duration` ini merepresentasikan durasi, contohnya seperti 1 menit, 2 
 
 Tipe ini sangat berguna untuk banyak hal, salah satunya untuk *benchmarking* ataupun operasi-operasi lainnya yang membutuhkan informasi durasi waktu.
 
-## A.42.1. Praktek 
+## A.42.1. Praktik
 
-Mari kita bahas sambil praktek. Silakan tulis kode berikut lalu jalankan.
+Mari kita bahas sambil praktik. Silakan tulis kode berikut lalu jalankan.
 
 ```go
 package main
 
 import (
-	"fmt"
-	"time"
+    "fmt"
+    "time"
 )
 
 func main() {
-	start := time.Now()
-	
-	time.Sleep(5 * time.Second)
-	
-	duration := time.Since(start)
-	
-	fmt.Println("time elapsed in seconds:", duration.Seconds())
-	fmt.Println("time elapsed in minutes:", duration.Minutes())
-	fmt.Println("time elapsed in hours:", duration.Hours())
+    start := time.Now()
+
+    time.Sleep(5 * time.Second)
+
+    duration := time.Since(start)
+
+    fmt.Println("time elapsed in seconds:", duration.Seconds())
+    fmt.Println("time elapsed in minutes:", duration.Minutes())
+    fmt.Println("time elapsed in hours:", duration.Hours())
 }
 ```
 
@@ -56,7 +56,7 @@ Sekarang jalankan program yang sudah dibuat.
 
 Bisa dilihat, hasilnya adalah semua statement di bawah `time.Sleep()` dieksekusi setelah 5 detik berlalu. Ini merupakan contoh penggunaan tipe data durasi pada fungsi `time.Sleep()`.
 
-## A.42.2. Hitung Durasi Menggunakan `time.Since()`.
+## A.42.2. Hitung Durasi Menggunakan `time.Since()`
 
 Pada kode di atas, variabel `duration` berisi durasi atau lama waktu antara kapan variabel `start` di-inisialisasi hingga kapan variabel `duration` ini statement-nya dieksekusi.
 
@@ -72,7 +72,7 @@ Pada contoh di atas, kita mengambil nilai durasi waktu dalam tiga bentuk, yaitu 
 
 ## A.42.4. Kalkulasi Durasi Antara 2 Objek Waktu
 
-Di atas kita sudah membahas cara hitung durasi menggunakan `time.Since()` antara sebuah objek waktu vs kapan statement di-eksekusi. Pada bagian ini, masih mirip, perbedannya adalah hitung durasi dilakukan pada 2 objek waktu.
+Di atas kita sudah membahas cara hitung durasi menggunakan `time.Since()` antara sebuah objek waktu vs kapan statement di-eksekusi. Pada bagian ini, masih mirip, perbedaannya adalah hitung durasi dilakukan pada 2 objek waktu.
 
 Silakan perhatikan contoh berikut. Kode berikut esensinya adalah sama dengan kode di atas.
 
@@ -95,16 +95,16 @@ Method `.Sub()` milik objek `time.Time` digunakan untuk mencari selisih waktu. P
 Kita bisa mengalikan angka literal dengan konstanta `time.Duration` untuk menciptakan variabel/objek bertipe durasi. Contohnya seperti yang sudah kita terapkan sebelumnya, yaitu `5 * time.Second` yang menghasilkan data durasi 5 detik. Contoh lainnya:
 
 ```go
-12 * time.Minute 			// 12 menit
-65 * time.Hour 				// 65 jam
-150000 * time.Millisecond 	// 150k milidetik atau 150 detik
-45 * time.Microsecond 		// 45 microdetik
-233 * time.Nanosecond 		// 233 nano detik
+12 * time.Minute           // 12 menit
+65 * time.Hour             // 65 jam
+150000 * time.Millisecond  // 150k milidetik atau 150 detik
+45 * time.Microsecond      // 45 microdetik
+233 * time.Nanosecond      // 233 nano detik
 ```
 
 Mengulas kembali pembahasan dasar di awal-awal chapter, operasi aritmatika di golang hanya bisa dilakukan ketika data adalah 1 tipe. Selebihnya harus ada casting atau konversi tipe data agar bisa dioperasikan.
 
-Tipe `time.Duration` diciptakan menggunakan tipe `ìnt64`. Jadi jika ingin mengalikan `time.Duration` dengan suatu angka, maka pastikan tipe-nya juga sama yaitu `time.Duration`. Jika angka tersebut tidak ditampung dalam variabel terlebih dahulu (contohnya seperti di atas) maka bisa langsung kalikan saja. Jika ditampung ke variabel terlebih dahulu, maka pastikan tipe variabelnya adalah `time.Duration`. Contoh:
+Tipe `time.Duration` diciptakan menggunakan tipe `int64`. Jadi jika ingin mengalikan `time.Duration` dengan suatu angka, maka pastikan tipe-nya juga sama yaitu `time.Duration`. Jika angka tersebut tidak ditampung dalam variabel terlebih dahulu (contohnya seperti di atas) maka bisa langsung kalikan saja. Jika ditampung ke variabel terlebih dahulu, maka pastikan tipe variabelnya adalah `time.Duration`. Contoh:
 
 ```go
 var n time.Duration = 5

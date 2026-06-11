@@ -2,7 +2,7 @@
 
 Pada chapter sebelumnya telah dibahas bagaimana cara membuat Web Service API yang response data-nya berbentuk JSON. Pada chapter ini kita akan belajar mengenai cara untuk mengkonsumsi data tersebut.
 
-Pastikan anda sudah mempraktekkan apa-apa yang ada pada chapter sebelumnya ([A.54. Web Service API Server](/A-web-service-api.html)), karena web service yang telah dibuat di situ juga dipergunakan pada chapter ini.
+Pastikan anda sudah mempraktikkan apa-apa yang ada pada chapter sebelumnya ([A.54. Web Service API Server](/A-web-service-api.html)), karena web service yang telah dibuat di situ juga dipergunakan pada chapter ini.
 
 ![Jalankan web server](images/A_web_service_1_server.png)
 
@@ -32,27 +32,27 @@ Setelah itu buat fungsi `fetchUsers()`. Fungsi ini bertugas melakukan request ke
 
 ```go
 func fetchUsers() ([]student, error) {
-	var err error
-	var client = &http.Client{}
-	var data []student
+    var err error
+    var client = &http.Client{}
+    var data []student
 
-	request, err := http.NewRequest("GET", baseURL+"/users", nil)
-	if err != nil {
-		return nil, err
-	}
+    request, err := http.NewRequest("GET", baseURL+"/users", nil)
+    if err != nil {
+        return nil, err
+    }
 
-	response, err := client.Do(request)
-	if err != nil {
-		return nil, err
-	}
-	defer response.Body.Close()
+    response, err := client.Do(request)
+    if err != nil {
+        return nil, err
+    }
+    defer response.Body.Close()
 
-	err = json.NewDecoder(response.Body).Decode(&data)
-	if err != nil {
-		return nil, err
-	}
+    err = json.NewDecoder(response.Body).Decode(&data)
+    if err != nil {
+        return nil, err
+    }
 
-	return data,nil
+    return data, nil
 }
 ```
 
@@ -64,11 +64,11 @@ Fungsi `http.NewRequest()` digunakan untuk membuat request baru. Fungsi tersebut
 2. Parameter kedua, adalah URL tujuan request
 3. Parameter ketiga, form data request (jika ada)
 
-Fungsi tersebut menghasilkan instance bertipe `http.Request` yang nantinya digunakan saat eksekusi request.
+Fungsi tersebut menghasilkan instance bertipe `*http.Request` yang nantinya digunakan saat eksekusi request.
 
 Cara eksekusi request sendiri adalah dengan memanggil method `Do()` pada variabel `client` yang sudah dibuat. Fungsi `Do()` dipanggil dengan disisipkan argument fungsi yaitu object `request`. Penulisannya: `client.Do(request)`.
 
-Method tersebut mengembalikan instance bertipe `http.Response` yang di contoh ditampung oleh variabel `response`. Dari data response tersebut kita bisa mengakses informasi yang berhubungan dengan HTTP response, termasuk response body.
+Method tersebut mengembalikan instance bertipe `*http.Response` yang di contoh ditampung oleh variabel `response`. Dari data response tersebut kita bisa mengakses informasi yang berhubungan dengan HTTP response, termasuk response body.
 
 Data response body tersedia via property `Body` dengan tipe `io.ReadCloser`. Gunakan JSON Decoder untuk membaca stream response tersebut dan mengkonversinya menjadi bentuk JSON. Contohnya bisa dilihat di kode di atas, `json.NewDecoder(response.Body).Decode(&data)`.
 
@@ -78,15 +78,15 @@ Selanjutnya, eksekusi fungsi `fetchUsers()` dalam fungsi `main()`.
 
 ```go
 func main() {
-	var users, err = fetchUsers()
-	if err != nil {
-		fmt.Println("Error!", err.Error())
-		return
-	}
+    var users, err = fetchUsers()
+    if err != nil {
+        fmt.Println("Error!", err.Error())
+        return
+    }
 
-	for _, each := range users {
-		fmt.Printf("ID: %s\t Name: %s\t Grade: %d\n", each.ID, each.Name, each.Grade)
-	}
+    for _, each := range users {
+        fmt.Printf("ID: %s\t Name: %s\t Grade: %d\n", each.ID, each.Name, each.Grade)
+    }
 }
 ```
 
@@ -107,44 +107,44 @@ Kemudian buat fungsi baru, isinya request ke [http://localhost:8080/user](http:/
 
 ```go
 func fetchUser(ID string) (student, error) {
-	var err error
-	var client = &http.Client{}
-	var data student
+    var err error
+    var client = &http.Client{}
+    var data student
 
-	var param = url.Values{}
-	param.Set("id", ID)
-	var payload = bytes.NewBufferString(param.Encode())
+    var param = url.Values{}
+    param.Set("id", ID)
+    var payload = bytes.NewBufferString(param.Encode())
 
-	request, err := http.NewRequest("POST", baseURL+"/user", payload)
-	if err != nil {
-		return data, err
-	}
-	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+    request, err := http.NewRequest("POST", baseURL+"/user", payload)
+    if err != nil {
+        return data, err
+    }
+    request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
-	response, err := client.Do(request)
-	if err != nil {
-		return data, err
-	}
-	defer response.Body.Close()
+    response, err := client.Do(request)
+    if err != nil {
+        return data, err
+    }
+    defer response.Body.Close()
 
-	err = json.NewDecoder(response.Body).Decode(&data)
-	if err != nil {
-		return data, err
-	}
+    err = json.NewDecoder(response.Body).Decode(&data)
+    if err != nil {
+        return data, err
+    }
 
-	return data, nil
+    return data, nil
 }
 ```
 
 Isi fungsi `fetchUser()` memiliki beberapa kemiripan dengan fungsi `fetchUsers()` sebelumnya.
 
-Statement `url.Values{}` akan menghasilkan objek yang nantinya digunakan sebagai form data request. Pada objek tersebut perlu di set data apa saja yang ingin dikirimkan menggunakan fungsi `Set()` seperti pada `param.Set("id", ID)`.
+Statement `url.Values{}` akan menghasilkan objek yang nantinya digunakan sebagai form data request. Pada objek tersebut perlu diset data apa saja yang ingin dikirimkan menggunakan fungsi `Set()` seperti pada `param.Set("id", ID)`.
 
 Statement `bytes.NewBufferString(param.Encode())` melakukan proses encoding pada data param untuk kemudian diubah menjadi bentuk `bytes.Buffer`. Nantinya data buffer tersebut disisipkan pada parameter ketiga pemanggilan fungsi `http.NewRequest()`.
 
 Karena data yang akan dikirim adalah *encoded*, maka pada header perlu dituliskan juga tipe encoding-nya. Kode `request.Header.Set("Content-Type", "application/x-www-form-urlencoded")` menandai bahwa HTTP request berisi body yang ter-encode sesuai spesifikasi `application/x-www-form-urlencoded`.
 
-> Pada konteks HTML, HTTP Request yang di trigger dari tag `<form></form>` secara default tipe konten-nya sudah di set `application/x-www-form-urlencoded`. Lebih detailnya bisa merujuk ke spesifikasi HTML form [http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1](http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1)
+> Pada konteks HTML, HTTP Request yang di-*trigger* dari tag `<form></form>` secara default tipe konten-nya sudah diset `application/x-www-form-urlencoded`. Lebih jelasnya bisa merujuk ke spesifikasi HTML form [http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1](http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1)
 
 Response dari endpoint `/user` bukanlah slice, tetapi berupa objek. Maka pada saat decode perlu pastikan tipe variabel penampung hasil decode data response adalah `student` (bukan `[]student`).
 
@@ -152,13 +152,13 @@ Lanjut ke perkodingan, terakhir, implementasikan `fetchUser()` pada fungsi `main
 
 ```go
 func main() {
-	var user1, err = fetchUser("E001")
-	if err != nil {
-		fmt.Println("Error!", err.Error())
-		return
-	}
+    var user1, err = fetchUser("E001")
+    if err != nil {
+        fmt.Println("Error!", err.Error())
+        return
+    }
 
-	fmt.Printf("ID: %s\t Name: %s\t Grade: %d\n", user1.ID, user1.Name, user1.Grade)
+    fmt.Printf("ID: %s\t Name: %s\t Grade: %d\n", user1.ID, user1.Name, user1.Grade)
 }
 ```
 

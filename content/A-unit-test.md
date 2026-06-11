@@ -6,7 +6,7 @@ Pada chapter ini kita akan belajar mengenai testing, benchmark, dan juga testing
 
 ## A.58.1. Persiapan
 
-Langsung saja kita praktek. Pertama siapkan terlebih dahulu sebuah struct `Kubus`. Variabel object hasil struct ini nantinya kita gunakan sebagai bahan testing.
+Langsung saja kita praktik. Pertama siapkan terlebih dahulu sebuah struct `Kubus`. Variabel object hasil struct ini nantinya kita gunakan sebagai bahan testing.
 
 ```go
 package main
@@ -30,11 +30,11 @@ func (k Kubus) Keliling() float64 {
 }
 ```
 
-Simpan kode di atas dengan nama `bab55.go`.
+Simpan kode di atas dengan nama `main.go`.
 
 ## A.58.2. File Testing
 
-Di Go, file untuk keperluan testing dipisah dengan file utama. Nama file testing harus berakhiran `_test.go`, dan harus ditempatkan di package yang sama seperti source code yang akan di-test. Pada chapter ini, file utama adalah `bab55.go`, maka file testing harus bernama `bab55_test.go`.
+Di Go, file untuk keperluan testing dipisah dengan file utama. Nama file testing harus berakhiran `_test.go`, dan harus ditempatkan di package yang sama seperti source code yang akan di-test. Pada chapter ini, file utama adalah `main.go`, maka file testing harus bernama `main_test.go`.
 
 Unit test di Go dituliskan dalam bentuk fungsi, yang memiliki parameter yang bertipe `*testing.T`, dengan nama fungsi harus diawali kata **Test** (pastikan sudah meng-import package `testing` sebelumnya). Lewat parameter tersebut, kita bisa mengakses method-method untuk keperluan testing.
 
@@ -81,7 +81,7 @@ Method `t.Logf()` digunakan untuk memunculkan log. Method ini equivalen dengan `
 
 Method `Errorf()` digunakan untuk memunculkan log dengan diikuti keterangan bahwa terjadi **fail** pada saat testing.
 
-Cara eksekusi testing adalah menggunakan command `go test`. Karena struct yang diuji berada dalam file `bab55.go`, maka pada saat eksekusi test menggunakan `go test`, nama file `bab55_test.go` dan `bab55.go` perlu dituliskan sebagai argument.
+Cara eksekusi testing adalah menggunakan command `go test`. Jalankan command tersebut pada folder project untuk mengeksekusi semua test yang ada.
 
 Argument `-v` atau verbose digunakan menampilkan semua output log pada saat pengujian.
 
@@ -114,12 +114,12 @@ Table berikut berisikan method standar testing yang bisa digunakan di Go.
 | `Failed()` | Menampilkan laporan fail |
 | `Error()` | `Log()` diikuti dengan `Fail()` |
 | `Errorf()` | `Logf()` diikuti dengan `Fail()` |
-| `Fatal()` | `Log()` diikuti dengan `failNow()` |
-| `Fatalf()` | `Logf()` diikuti dengan `failNow()` |
+| `Fatal()` | `Log()` diikuti dengan `FailNow()` |
+| `Fatalf()` | `Logf()` diikuti dengan `FailNow()` |
 | `Skip()` | `Log()` diikuti dengan `SkipNow()` |
 | `Skipf()` | `Logf()` diikuti dengan `SkipNow()` |
 | `SkipNow()` | Menghentikan proses testing fungsi, dilanjutkan ke testing fungsi setelahnya |
-| `Skiped()` | Menampilkan laporan skip |
+| `Skipped()` | Menampilkan laporan skip |
 | `Parallel()` | Menge-set bahwa eksekusi testing adalah parallel |
 
 ## A.58.4. Benchmark
@@ -164,21 +164,48 @@ import "github.com/stretchr/testify/assert"
 ...
 
 func TestHitungVolume(t *testing.T) {
-    assert.Equal(t, kubus.Volume(), volumeSeharusnya, "perhitungan volume salah")
+    assert.Equal(t, volumeSeharusnya, kubus.Volume(), "perhitungan volume salah")
 }
 
 func TestHitungLuas(t *testing.T) {
-    assert.Equal(t, kubus.Luas(), luasSeharusnya, "perhitungan luas salah")
+    assert.Equal(t, luasSeharusnya, kubus.Luas(), "perhitungan luas salah")
 }
 
 func TestHitungKeliling(t *testing.T) {
-    assert.Equal(t, kubus.Keliling(), kelilingSeharusnya, "perhitungan keliling salah")
+    assert.Equal(t, kelilingSeharusnya, kubus.Keliling(), "perhitungan keliling salah")
 }
 ```
 
-Fungsi `assert.Equal()` digunakan untuk uji perbandingan. Parameter ke-2 dibandingkan nilainya dengan parameter ke-3. Jika tidak sama, maka pesan parameter ke-3 akan dimunculkan.
+Fungsi `assert.Equal()` digunakan untuk uji perbandingan. Parameter ke-2 dibandingkan nilainya dengan parameter ke-3. Jika tidak sama, maka pesan parameter ke-4 akan dimunculkan.
 
 ![Testing menggunakan testify](images/A_unit_test_4_testify.png)
+
+## A.58.6. Benchmark Menggunakan b.Loop() (Go 1.24+)
+
+Sejak Go 1.24, tersedia method `b.Loop()` sebagai cara baru penulisan benchmark loop. Method ini lebih dianjurkan dibanding pola `for i := 0; i < b.N; i++` karena:
+
+1. Setup sebelum loop hanya dieksekusi sekali per `-count`, tidak berulang setiap iterasi benchmark.
+2. Compiler tidak mengoptimasi loop body secara agresif, sehingga hasil benchmark lebih akurat.
+
+```go
+func BenchmarkHitungLuas(b *testing.B) {
+    for b.Loop() {
+        kubus.Luas()
+    }
+}
+```
+
+Dibandingkan dengan pola lama:
+
+```go
+func BenchmarkHitungLuas(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        kubus.Luas()
+    }
+}
+```
+
+Untuk benchmark baru, gunakan `b.Loop()`. Pola `b.N` masih valid dan tidak dihapus.
 
 ---
 

@@ -2,7 +2,7 @@
 
 Regexp atau regex atau **regular expression** adalah suatu teknik yang digunakan untuk pencocokan string yang memiliki pola tertentu. Regex biasa dimanfaatkan untuk pencarian dan pengubahan data string.
 
-Go mengadopsi spesifikasi regex **RE2**. Lebih detailnya mengenai RE2 bisa langsung cek dokumentasinya di [https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax).
+Go mengadopsi spesifikasi regex **RE2**. Lebih jelasnya mengenai RE2 bisa langsung cek dokumentasinya di [https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax).
 
 Pada chapter ini kita akan belajar mengenai pengaplikasian regex dengan memanfaatkan fungsi-fungsi dalam package `regexp`.
 
@@ -40,7 +40,7 @@ Ekspresi `[a-z]+` maknanya adalah semua string yang merupakan alphabet yang huru
 
 Struct `regexp.Regexp` memiliki banyak method, salah satunya adalah `FindAllString()`, berfungsi untuk mencari semua string yang sesuai dengan ekspresi regex, dengan kembalian berupa slice string.
 
-Jumlah hasil pencarian dari `regex.FindAllString()` bisa ditentukan. Contohnya pada `res1`, ditentukan maksimal `2` data saja pada nilai kembalian. Jika batas di set `-1`, maka semua hasil yang cocok dikembalikan oleh fungsi tersebut.
+Jumlah hasil pencarian dari `regex.FindAllString()` bisa ditentukan. Contohnya pada `res1`, ditentukan maksimal `2` data saja pada nilai kembalian. Jika batas diset `-1`, maka semua hasil yang cocok dikembalikan oleh fungsi tersebut.
 
 Ada cukup banyak method struct `*regexp.Regexp` yang bisa kita manfaatkan untuk keperluan pengelolaan string. Berikut merupakan pembahasan tiap method-nya.
 
@@ -103,18 +103,18 @@ var regex, _ = regexp.Compile(`[a-z]+`)
 
 var str1 = regex.FindAllString(text, -1)
 fmt.Println(str1)
-// ["banana", "burger", "soup"]
+// [banana burger soup]
 
 var str2 = regex.FindAllString(text, 1)
 fmt.Println(str2)
-// ["banana"]
+// [banana]
 ```
 
 Jumlah data yang dikembalikan bisa ditentukan. Jika diisi dengan `-1`, maka akan mengembalikan semua data.
 
 ## A.45.6. Method `ReplaceAllString()`
 
-Berguna untuk me-replace semua string yang memenuhi kriteri regexp, dengan string lain.
+Berguna untuk me-replace semua string yang memenuhi kriteria regexp, dengan string lain.
 
 ```go
 var text = "banana burger soup"
@@ -127,7 +127,7 @@ fmt.Println(str)
 
 ## A.45.7. Method `ReplaceAllStringFunc()`
 
-Digunakan untuk me-replace semua string yang memenuhi kriteri regexp, dengan kondisi yang bisa ditentukan untuk setiap substring yang akan di replace.
+Digunakan untuk me-replace semua string yang memenuhi kriteria regexp, dengan kondisi yang bisa ditentukan untuk setiap substring yang akan di replace.
 
 ```go
 var text = "banana burger soup"

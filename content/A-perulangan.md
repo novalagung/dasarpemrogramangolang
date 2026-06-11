@@ -2,11 +2,11 @@
 
 Perulangan adalah proses mengulang-ulang eksekusi blok kode tanpa henti, selama kondisi yang dijadikan acuan terpenuhi. Biasanya disiapkan variabel untuk iterasi atau variabel penanda kapan perulangan akan diberhentikan.
 
-Di Go keyword perulangan hanya **for** saja, tetapi meski demikian, kemampuannya merupakan gabungan `for`, `foreach`, dan `while` ibarat bahasa pemrograman lain.
+Di Go keyword perulangan hanya **for** saja, namun kemampuannya merupakan gabungan dari `for`, `foreach`, dan `while` seperti pada bahasa pemrograman lain.
 
 ## A.14.1. Perulangan Menggunakan Keyword `for`
 
-Ada beberapa cara standar menggunakan `for`. Cara pertama dengan memasukkan variabel counter perulangan beserta kondisinya setelah keyword. Perhatikan dan praktekan kode berikut.
+Ada beberapa cara standar menggunakan `for`. Cara pertama dengan memasukkan variabel counter perulangan beserta kondisinya setelah keyword. Perhatikan dan praktikkan kode berikut.
 
 ```go
 for i := 0; i < 5; i++ {
@@ -83,6 +83,7 @@ for range kvs {
 }
 
 // selain itu, bisa juga dengan cukup menentukan nilai numerik perulangan
+// (fitur ini tersedia sejak Go 1.22)
 for i := range 5 {
     fmt.Print(i) // 01234
 }
@@ -96,7 +97,7 @@ Berikut merupakan contoh penerapan `continue` dan `break`. Kedua keyword tersebu
 
 ```go
 for i := 1; i <= 10; i++ {
-    if i % 2 == 1 {
+    if i%2 == 1 {
         continue
     }
 
@@ -158,6 +159,119 @@ Tepat sebelum keyword `for` terluar, terdapat baris kode `outerLoop:`. Maksud da
 Pada `for` bagian dalam, terdapat seleksi kondisi untuk pengecekan nilai `i`. Ketika nilai tersebut sama dengan `3`, maka `break` dipanggil dengan target adalah perulangan yang dilabeli `outerLoop`, perulangan tersebut akan dihentikan.
 
 ![Penerapan label dalam perulangan](images/A_perulangan_4_for_label.png)
+
+## A.14.8. Fungsi Iterator & `yield` (Go 1.23+)
+
+**Fungsi iterator** adalah fungsi yang didesain untuk digunakan bersama `for` - `range`, memungkinkan pembuatan perulangan kustom yang menghasilkan nilai satu per satu. Sebelum Go 1.23, `for` - `range` hanya bisa digunakan pada tipe bawaan seperti slice, array, map, string, dan channel. Sejak Go 1.23, `for` - `range` bisa digunakan langsung pada fungsi yang memenuhi skema iterator tertentu.
+
+#### ◉ Apa itu `yield`?
+
+`yield` bukanlah keyword bawaan Go, melainkan nama parameter fungsi yang wajib ada dalam skema iterator. Fungsi bertipe `yield` inilah yang dipanggil oleh iterator untuk "menghasilkan" nilai ke blok `for` - `range` di setiap iterasinya.
+
+Cara kerjanya:
+
+- Iterator memanggil `yield(nilai)` untuk meneruskan nilai ke blok `for`.
+- Jika `yield` mengembalikan `true`, iterasi dilanjutkan ke putaran berikutnya.
+- Jika `yield` mengembalikan `false` (misalnya karena ada `break` di dalam loop), iterasi dihentikan dan iterator harus segera `return`.
+
+#### ◉ Tiga Skema Fungsi Iterator
+
+Go mendukung tiga skema fungsi iterator tergantung jumlah nilai yang dihasilkan per iterasi.
+
+**Skema 1: `func(yield func() bool)`**
+
+Tidak menghasilkan nilai per iterasi, hanya menandakan bahwa satu putaran terjadi. Cocok untuk mengulangi suatu proses sebanyak N kali tanpa perlu nilai iterasi.
+
+```go
+func repeat(n int) func(yield func() bool) {
+    return func(yield func() bool) {
+        for i := 0; i < n; i++ {
+            if !yield() {
+                return
+            }
+        }
+    }
+}
+```
+
+Cara penggunaan:
+
+```go
+count := 0
+for range repeat(5) {
+    count++
+    fmt.Println("iterasi ke", count)
+}
+```
+
+**Skema 2: `func(yield func(V) bool)`**
+
+Menghasilkan satu nilai per iterasi. Ini adalah skema yang paling umum digunakan, setara dengan `for _, v := range slice`.
+
+```go
+func counter(n int) func(yield func(int) bool) {
+    return func(yield func(int) bool) {
+        for i := 1; i <= n; i++ {
+            if !yield(i) {
+                return
+            }
+        }
+    }
+}
+```
+
+Cara penggunaan:
+
+```go
+for v := range counter(5) {
+    fmt.Println(v) // 1, 2, 3, 4, 5
+}
+```
+
+**Skema 3: `func(yield func(K, V) bool)`**
+
+Menghasilkan dua nilai per iterasi (pasangan key-value). Setara dengan `for k, v := range map`.
+
+```go
+func enumerate(items []string) func(yield func(int, string) bool) {
+    return func(yield func(int, string) bool) {
+        for i, v := range items {
+            if !yield(i, v) {
+                return
+            }
+        }
+    }
+}
+```
+
+Cara penggunaan:
+
+```go
+fruits := []string{"apple", "mango", "banana"}
+for i, v := range enumerate(fruits) {
+    fmt.Println(i, v)
+}
+// output:
+// 0 apple
+// 1 mango
+// 2 banana
+```
+
+#### ◉ Menghentikan Iterasi dengan `break`
+
+Ketika `break` digunakan di dalam `for` - `range` pada iterator, fungsi `yield` mengembalikan `false`. Iterator wajib mengecek nilai kembalian `yield` dan langsung `return` jika hasilnya `false`, agar goroutine tidak bocor.
+
+```go
+for v := range counter(10) {
+    if v == 3 {
+        break
+    }
+    fmt.Println(v)
+}
+// output: 1 2 3
+```
+
+> Go 1.23 juga memperkenalkan package [`iter`](https://pkg.go.dev/iter) yang menyediakan tipe standar untuk iterator: `iter.Seq[V]` (satu nilai) dan `iter.Seq2[K, V]` (dua nilai). Keduanya mempermudah penulisan tipe fungsi iterator tanpa harus menuliskan skema panjang secara manual.
 
 ---
 

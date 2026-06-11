@@ -47,23 +47,25 @@ func main() {
 
 ```
 
-Pada kode di atas, parameter kedua fungsi `make()` adalah representasi jumlah buffer. Perlu diperhatikan bahwa nilai buffered channel dimulai dari `0`. Ketika nilainya adalah **3** berarti jumlah buffer maksimal ada **4**.
+Pada kode di atas, parameter kedua fungsi `make()` adalah representasi jumlah buffer. Kapasitas buffered channel ditentukan oleh nilai tersebut, `make(chan int, 3)` berarti maksimal 3 data bisa dikirim tanpa blocking.
 
-Terdapat juga IIFE goroutine yang isinya proses penerimaan data dari channel `messages`, untuk kemudian datanya ditampilkan. Setelah goroutine tersebut dieksekusi, perulangan dijalankan dengan di-masing-masing perulangan dilakukan pengiriman data. Total ada 5 data dikirim lewat channel `messages` secara sekuensial.
+Terdapat juga IIFE goroutine yang isinya proses penerimaan data dari channel `messages`, untuk kemudian datanya ditampilkan. Setelah goroutine tersebut dieksekusi, perulangan dijalankan dan pada setiap iterasi dilakukan pengiriman data. Total ada 5 data dikirim lewat channel `messages` secara sekuensial.
 
 ![Implementasi buffered channel](images/A_buffered_channel_2_buffered_channel.png)
 
-Terlihat di output, proses pengiriman data indeks ke-4 adalah diikuti dengan proses penerimaan data yang proses transfernya sendiri dilakukan *syncrhonous* atau blocking.
+Terlihat di output, proses pengiriman data dengan nilai `i` = 3 dan 4 diikuti dengan proses penerimaan data yang transfernya bersifat *synchronous* atau blocking.
 
-Pengiriman data indeks ke 0, 1, 2 dan 3 akan berjalan secara asynchronous, hal ini karena channel ditentukan nilai buffer-nya sebanyak 3 (ingat, jika nilai buffer adalah 3, maka 4 data yang akan di-buffer). Pengiriman selanjutnya (indeks 5) hanya akan terjadi jika ada salah satu data dari ke-empat data yang sebelumnya telah dikirimkan sudah diterima (dengan serah terima data yang bersifat blocking). Setelahnya, pengiriman data kembali dilakukan secara asynchronous (karena sudah ada slot buffer ada yang kosong).
+Pengiriman data indeks ke 0, 1, dan 2 akan berjalan secara asynchronous, hal ini karena channel ditentukan nilai buffer-nya sebanyak 3 (ingat, jika nilai buffer adalah 3, maka maksimal 3 data yang bisa di-buffer tanpa blocking). Pengiriman selanjutnya (indeks 3 dan 4) hanya akan terjadi jika ada salah satu data yang sebelumnya telah dikirimkan sudah diterima (dengan serah terima data yang bersifat blocking), sehingga ada slot buffer yang kosong.
 
-Karena pengiriman dan penerimaan data via buffered channel terjadi tidak selalu synchronous (tergantung jumlah buffer-nya), maka ada kemungkinan dimana eksekusi program selesai namun tidak semua data diterima via channel `messages`. Karena alasan ini pada bagian akhir ditambahkan statement `time.Sleep(1 * time.Second)` agar ada jeda 1 detik sebelum program selesai.
+Karena pengiriman dan penerimaan data via buffered channel tidak selalu synchronous (tergantung jumlah buffer-nya), maka ada kemungkinan eksekusi program selesai namun tidak semua data diterima via channel `messages`. Karena alasan ini pada bagian akhir ditambahkan statement `time.Sleep(1 * time.Second)` agar ada jeda 1 detik sebelum program selesai.
+
+> `time.Sleep()` di sini hanya sebagai cara mudah untuk contoh awal. Pendekatan ini tidak *reliable* di kode produksi karena tidak ada jaminan durasi sleep selalu cukup. Cara yang tepat adalah menggunakan `sync.WaitGroup` atau menutup channel dan meng-iterasinya dengan `for range` (dibahas di chapter [A.34. Channel Range & Close](/A-channel-range-close.html) dan [A.59. WaitGroup](/A-waitgroup.html)).
 
 #### ◉ Fungsi `time.Sleep()`
 
 Fungsi ini digunakan untuk menambahkan delay sebelum statement berikutnya dieksekusi. Durasi delay ditentukan oleh parameter, misal `1 * time.Second` maka durasi delay adalah 1 detik.
 
-Lebih detailnya mengenai fungsi `time.Sleep()` dan `time.Second` dibahas pada chapter terpisah, yaitu [Time Duration](/A-time-duration.html).
+Lebih jelasnya mengenai fungsi `time.Sleep()` dan `time.Second` dibahas pada chapter terpisah, yaitu [Time Duration](/A-time-duration.html).
 
 ---
 

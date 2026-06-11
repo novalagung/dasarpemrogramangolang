@@ -6,7 +6,7 @@ Kalau dilihat, `map` mirip seperti slice, hanya saja identifier yang digunakan u
 
 ## A.17.1. Penggunaan Map
 
-Cara pengaplikasian map cukup mudah, dengan menuliskan keyword `map` diikuti tipe data key dan value-nya. Silakan perhatikan contoh di bawah ini agar lebih jelas.
+Cara pengaplikasian map cukup mudah, dengan menuliskan *keyword* `map` diikuti tipe data key dan value-nya. Silakan perhatikan contoh di bawah ini agar lebih jelas.
 
 ```go
 var chicken map[string]int
@@ -16,10 +16,10 @@ chicken["januari"] = 50
 chicken["februari"] = 40
 
 fmt.Println("januari", chicken["januari"]) // januari 50
-fmt.Println("mei",     chicken["mei"])     // mei 0
+fmt.Println("mei", chicken["mei"])         // mei 0
 ```
 
-Variabel `chicken` dideklarasikan bertipe data map, dengan key ditentukan tipenya adalah `string` dan tipe value-nya `int`. Dari kode tersebut bisa dilihat bagaimana cara penerapan keyword `map` untuk pembuatan variabel.
+Variabel `chicken` dideklarasikan bertipe data map, dengan key ditentukan tipenya adalah `string` dan tipe value-nya `int`. Dari kode tersebut bisa dilihat bagaimana cara penerapan *keyword* `map` untuk pembuatan variabel.
 
 Kode `map[string]int` merepresentasikan tipe data `map` dengan key bertipe `string` dan value bertipe `int`.
 
@@ -29,7 +29,7 @@ Cara untuk inisialisasi map dengan menambahkan kurung kurawal buka tutup di akhi
 
 Cara menambahkan item pada map adalah dengan menuliskan variabel-nya, kemudian diikuti dengan `key` pada kurung siku variabel (mirip seperti cara pengaksesan elemen slice), lalu operator `=`, kemudian nilai/data yang ingin disimpan. Contohnya seperti `chicken["februari"] = 40`. Sedangkan cara mengakses item map dengan cukup dengan menuliskan nama variabel diikuti kurung siku dan `key`.
 
-Pengisian data pada map bersifat **overwrite**, artinya variabel sudah memiliki item dengan key yang sama, maka value item yang lama (dengan key sama) akan ditimpa dengan value baru.
+Pengisian data pada map bersifat **overwrite**, artinya jika variabel sudah memiliki item dengan key yang sama, maka value item yang lama (dengan key sama) akan ditimpa dengan value baru.
 
 ![Pengaksesan data map](images/A_map_1_map_set_get.png)
 
@@ -64,7 +64,7 @@ var chicken2 = map[string]int{
 
 Key dan value dituliskan dengan pembatas tanda titik dua (`:`). Sedangkan tiap itemnya dituliskan dengan pembatas tanda koma (`,`). Khusus deklarasi dengan gaya vertikal, tanda koma perlu dituliskan setelah item terakhir.
 
-Variabel `map` bisa di-inisialisasi dengan tanpa nilai awal, caranya menggunakan tanda kurung kurawal, contoh: `map[string]int{}`. Atau bisa juga dengan menggunakan keyword `make`. Contohnya bisa dilihat pada kode berikut. Kedua cara di bawah ini intinya adalah sama.
+Variabel `map` bisa di-inisialisasi dengan tanpa nilai awal, caranya menggunakan tanda kurung kurawal, contoh: `map[string]int{}`. Atau bisa juga dengan menggunakan fungsi *builtin* `make()`. Contohnya bisa dilihat pada kode berikut. Kedua cara di bawah ini intinya adalah sama.
 
 ```go
 var chicken3 = map[string]int{}
@@ -133,13 +133,13 @@ if isExist {
 
 Slice dan `map` bisa dikombinasikan, dan pada praktiknya cukup sering digunakan, contohnya untuk keperluan penyimpanan data array yang berisikan informasi siswa, dan banyak lainnya.
 
-Cara penerapannya cukup mudah, contohnya `[]map[string]int`, tipe tersebut artinya adalah sebuah slice yang tipe setiap elemen-nya adalah `map[string]int`. Agar lebih jelas, silakan praktekan contoh berikut.
+Cara penerapannya cukup mudah, contohnya `[]map[string]int`, tipe tersebut artinya adalah sebuah slice yang tipe setiap elemen-nya adalah `map[string]int`. Agar lebih jelas, silakan praktikkan contoh berikut.
 
 ```go
 var chickens = []map[string]string{
-	map[string]string{"name": "chicken blue",   "gender": "male"},
-	map[string]string{"name": "chicken red",    "gender": "male"},
-	map[string]string{"name": "chicken yellow", "gender": "female"},
+    map[string]string{"name": "chicken blue", "gender": "male"},
+    map[string]string{"name": "chicken red", "gender": "male"},
+    map[string]string{"name": "chicken yellow", "gender": "female"},
 }
 
 for _, chicken := range chickens {
@@ -168,6 +168,90 @@ var data = []map[string]string{
 	{"community": "chicken lovers"},
 }
 ```
+
+## A.17.7. Package `maps` (Go 1.21+)
+
+Go 1.21 memperkenalkan package baru [`maps`](https://pkg.go.dev/maps) yang menyediakan fungsi-fungsi generik untuk operasi map. Berikut beberapa fungsi yang umum digunakan.
+
+```go
+package main
+
+import (
+    "fmt"
+    "maps"
+)
+
+func main() {
+    var chicken = map[string]int{
+        "januari":  50,
+        "februari": 40,
+        "maret":    34,
+    }
+
+    // clone map (salinan dangkal)
+    var chickenClone = maps.Clone(chicken)
+    fmt.Println("clone  :", chickenClone)
+
+    // cek apakah dua map sama persis
+    fmt.Println("equal  :", maps.Equal(chicken, chickenClone))
+
+    // hapus semua item yang nilainya di bawah 45
+    maps.DeleteFunc(chicken, func(k string, v int) bool {
+        return v < 45
+    })
+    fmt.Println("setelah DeleteFunc:", chicken)
+
+    // salin semua item dari satu map ke map lain
+    var extra = map[string]int{"april": 70}
+    maps.Copy(chicken, extra)
+    fmt.Println("setelah Copy:", chicken)
+}
+```
+
+Penjelasan fungsi-fungsi yang digunakan:
+
+- `maps.Clone(m)` → membuat salinan dangkal (*shallow copy*) dari map `m`. Perubahan pada map hasil clone tidak memengaruhi map aslinya.
+- `maps.Equal(m1, m2)` → mengembalikan `true` jika kedua map memiliki pasangan key-value yang identik.
+- `maps.DeleteFunc(m, fn)` → menghapus semua item dari map `m` yang memenuhi kondisi fungsi `fn`. Fungsi `fn` menerima key dan value, mengembalikan `bool`.
+- `maps.Copy(dst, src)` → menyalin semua item dari map `src` ke map `dst`. Jika key sudah ada di `dst`, nilainya ditimpa.
+
+Sejak Go 1.23, package `maps` juga menyediakan `maps.Keys()` dan `maps.Values()` untuk mengambil semua key atau semua value dari map dalam bentuk *iterator* (bertipe `iter.Seq`). Keduanya bisa digunakan langsung dengan `for` - `range` (fitur range-over-func, lihat [A.14.8](#a148-range-over-func-go-123)).
+
+```go
+for k := range maps.Keys(chicken) {
+    fmt.Println(k)
+}
+
+for v := range maps.Values(chicken) {
+    fmt.Println(v)
+}
+```
+
+## A.17.8. Fungsi Built-in `clear()` (Go 1.21+)
+
+Sejak Go 1.21, tersedia fungsi built-in `clear()` yang bisa digunakan untuk menghapus semua item dari map sekaligus.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var chicken = map[string]int{
+        "januari":  50,
+        "februari": 40,
+        "maret":    34,
+    }
+
+    fmt.Println("sebelum clear:", len(chicken), chicken)
+
+    clear(chicken)
+
+    fmt.Println("sesudah clear:", len(chicken), chicken)
+}
+```
+
+Berbeda dengan fungsi `delete()` yang hanya menghapus satu item berdasarkan key tertentu, `clear()` menghapus seluruh isi map sekaligus. Setelah `clear()` dipanggil, `len(chicken)` akan bernilai `0` dan map kembali ke kondisi kosong (namun tetap terinisialisasi, bukan `nil`).
 
 ---
 

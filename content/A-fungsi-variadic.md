@@ -58,7 +58,7 @@ for _, number := range numbers {
 
 ## A.20.2. Penjelasan tambahan
 
-Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktikkan:
 
 #### ◉ Penggunaan Fungsi `fmt.Sprintf()`
 
@@ -70,7 +70,7 @@ Selain `fmt.Sprintf()`, ada juga `fmt.Sprint()` dan `fmt.Sprintln()`.
 
 Sebelumnya sudah dibahas bahwa `float64` merupakan tipe data. Tipe data jika ditulis sebagai fungsi (penandanya ada tanda kurungnya) menandakan bahwa digunakan untuk keperluan **casting**. Casting sendiri adalah teknik untuk konversi tipe sebuah data ke tipe lain. Sebagian besar tipe data dasar yang telah dipelajari pada chapter [A.9. Variabel](/A-variabel.html) bisa di-casting.
 
-Cara penerapan casting: panggil saja tipe data yang diingunkan seperti pemanggilan fungsi, lalu masukan data yang ingin dikonversi sebagai argument pemanggilan fungsi tersebut.
+Cara penerapan casting: panggil saja tipe data yang diinginkan seperti pemanggilan fungsi, lalu masukkan data yang ingin dikonversi sebagai argument pemanggilan fungsi tersebut.
 
 Pada contoh di atas, variabel `total` yang tipenya adalah `int`, dikonversi menjadi `float64`, begitu juga `len(numbers)` yang menghasilkan `int` dikonversi ke `float64`.
 
@@ -123,7 +123,7 @@ func yourHobbies(name string, hobbies ...string) {
 
 Nilai parameter pertama fungsi `yourHobbies()` akan ditampung oleh `name`, sedangkan nilai parameter kedua dan seterusnya akan ditampung oleh `hobbies` sebagai slice.
 
-Cara pemanggilannya masih sama seperi pada fungsi biasa, contoh:
+Cara pemanggilannya masih sama seperti pada fungsi biasa, contoh:
 
 ```go
 func main() {

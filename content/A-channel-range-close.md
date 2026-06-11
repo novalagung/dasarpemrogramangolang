@@ -1,11 +1,11 @@
 # A.34. Channel - Range dan Close
 
-Proses penerimaan/*retrieving* data dari banyak channel bisa lebih mudah dilakukan dengan memanfaatkan kombinasi keyword `for` - `range`. Penerapannnya cukup mudah, yaitu dengan menuliskan keyword `for` - `range` pada variabel channel.
+Proses penerimaan/*retrieving* data dari banyak channel bisa lebih mudah dilakukan dengan memanfaatkan kombinasi keyword `for` - `range`. Penerapannya cukup mudah, yaitu dengan menuliskan keyword `for` - `range` pada variabel channel.
 
 Cara kerjanya:
 
 - Transaksi data via channel men-trigger perulangan `for` - `range`. Perulangan akan berlangsung seiring terjadinya pengiriman data ke channel yang di-iterasi.
-- Perulangan tersebut hanya akan berhenti jika channel di-**close** atau di non-aktifkan via fungsi `close()`. Channel yang sudah di-close tidak bisa digunakan lagi untuk mengirim data. Untuk menerima data, channel yang sudah di-close masih bisa dibaca hingga data buffered habis; setelah itu penerimaan menghasilkan zero value dan status `ok == false`.
+- Perulangan tersebut hanya akan berhenti jika channel di-**close** atau dinonaktifkan via fungsi `close()`. Channel yang sudah di-close tidak bisa digunakan lagi untuk mengirim data. Untuk menerima data, channel yang sudah di-close masih bisa dibaca hingga data buffered habis; setelah itu penerimaan menghasilkan zero value dan status `ok == false`.
 
 ## A.34.1. Penerapan `for` - `range` - `close`
 
@@ -44,13 +44,13 @@ func main() {
 }
 ```
 
-Setelah 20 data yang dikirim sukses diterima, channel `ch` di-non-aktifkan dengan adanya statement `close(ch)`. Statement tersebut menghentikan perulangan channel dalam `printMessage()`.
+Setelah 20 data yang dikirim sukses diterima, channel `ch` dinonaktifkan dengan adanya statement `close(ch)`. Statement tersebut menghentikan perulangan channel dalam `printMessage()`.
 
 ![Penerapan for-range-close pada channel](images/A_channel_range_close_1_for_range_close.png)
 
 ## A.34.2. Penjelasan tambahan
 
-Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktikkan:
 
 #### ◉ Channel Direction
 

@@ -17,12 +17,12 @@ import "runtime"
 import "time"
 
 func sendData(ch chan<- int) {
-	randomizer := rand.New(rand.NewSource(time.Now().Unix()))
+    randomizer := rand.New(rand.NewSource(time.Now().Unix()))
 
-	for i := 0; true; i++ {
-		ch <- i
-		time.Sleep(time.Duration(randomizer.Int()%10+1) * time.Second)
-	}
+    for i := 0; true; i++ {
+        ch <- i
+        time.Sleep(time.Duration(randomizer.Int()%10+1) * time.Second)
+    }
 }
 ```
 
@@ -30,7 +30,7 @@ Selanjutnya, disiapkan perulangan tanpa henti, yang di setiap perulangan ada sel
 
 ```go
 func retrieveData(ch <-chan int) {
-    loop:
+loop:
     for {
         select {
         case data := <-ch:
@@ -45,19 +45,19 @@ func retrieveData(ch <-chan int) {
 
 Ada 2 blok kondisi pada `select` tersebut.
 
-- Kondisi `case data := <-ch:`, akan terpenuhi ketika ada serah terima data pada channel `messages` nanti.
+- Kondisi `case data := <-ch:`, akan terpenuhi ketika ada serah terima data pada channel `ch`.
 - Kondisi `case <-time.After(time.Second * 5):`, akan terpenuhi ketika tidak ada aktivitas penerimaan data dari channel dalam durasi 5 detik. Blok inilah yang kita sebut sebagai blok timeout.
 
 Terakhir, kedua fungsi tersebut dipanggil di `main()`.
 
 ```go
 func main() {
-	runtime.GOMAXPROCS(2)
+    runtime.GOMAXPROCS(2)
 
-	var messages = make(chan int)
+    var ch = make(chan int)
 
-	go sendData(messages)
-	retrieveData(messages)
+    go sendData(ch)
+    retrieveData(ch)
 }
 ```
 

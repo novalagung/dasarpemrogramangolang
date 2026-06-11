@@ -20,7 +20,7 @@ Ada dua hal penting yang perlu diketahui mengenai pointer:
 - Variabel biasa bisa diambil nilai pointernya, caranya dengan menambahkan tanda **ampersand** (`&`) tepat sebelum nama variabel. Metode ini disebut dengan **referencing**.
 - Dan sebaliknya, nilai asli variabel pointer juga bisa diambil, dengan cara menambahkan tanda **asterisk** (`*`) tepat sebelum nama variabel. Metode ini disebut dengan **dereferencing**.
 
-OK, langsung saja kita praktekan.
+OK, langsung saja kita praktikkan.
 
 ```go
 var numberA int = 4
@@ -43,7 +43,7 @@ Nilai asli sebuah variabel pointer bisa didapatkan dengan cara di-dereference te
 
 ## A.23.2. Efek Perubahan Nilai Pointer
 
-Ketika salah satu variabel pointer di ubah nilainya, sedang ada variabel lain yang memiliki referensi memori yang sama, maka nilai variabel lain tersebut juga akan berubah.
+Ketika salah satu variabel pointer diubah nilainya, sedang ada variabel lain yang memiliki referensi memori yang sama, maka nilai variabel lain tersebut juga akan berubah.
 
 ```go
 var numberA int = 4
@@ -64,7 +64,7 @@ fmt.Println("numberB (value)   :", *numberB)
 fmt.Println("numberB (address) :", numberB)
 ```
 
-Variabel `numberA` dan `numberB` memiliki referensi memori yang sama. Perubahan pada salah satu nilai variabel tersebut akan memberikan efek pada variabel lainnya. Pada contoh di atas, `numberA` nilainya di ubah menjadi `5`. membuat nilai asli variabel `numberB` ikut berubah menjadi `5`.
+Variabel `numberA` dan `numberB` memiliki referensi memori yang sama. Perubahan pada salah satu nilai variabel tersebut akan memberikan efek pada variabel lainnya. Pada contoh di atas, `numberA` nilainya diubah menjadi `5`, membuat nilai asli variabel `numberB` ikut berubah menjadi `5`.
 
 ![Variabel pointer diubah nilainya](images/A_pointer_2_pointer_change.png)
 

@@ -41,7 +41,7 @@ func main() {
 }
 ```
 
-Pada kode di atas, Fungsi `runtime.GOMAXPROCS(n)` digunakan untuk menentukan jumlah core yang diaktifkan untuk eksekusi program.
+Pada kode di atas, fungsi `runtime.GOMAXPROCS(n)` digunakan untuk menentukan jumlah core yang diaktifkan untuk eksekusi program.
 
 Pembuatan goroutine baru ditandai dengan keyword `go`. Contohnya pada statement `go print(5, "halo")`, di situ fungsi `print()` dieksekusi sebagai goroutine baru.
 
@@ -57,13 +57,15 @@ Pada gambar di atas, program dieksekusi 2 kali. Hasil eksekusi pertama berbeda d
 
 ## A.30.2. Penjelasan tambahan
 
-Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktikkan:
 
 #### ◉ Penggunaan Fungsi `runtime.GOMAXPROCS()`
 
 Fungsi ini digunakan untuk menentukan jumlah core atau processor yang digunakan dalam eksekusi program.
 
 Jumlah yang diinputkan secara otomatis akan disesuaikan dengan jumlah asli *logical processor* yang ada. Jika jumlahnya lebih, maka dianggap menggunakan sejumlah prosesor yang ada.
+
+> Sejak Go 1.5, nilai `GOMAXPROCS` sudah otomatis diatur sama dengan jumlah CPU yang tersedia. Pemanggilan `runtime.GOMAXPROCS()` secara eksplisit seperti di atas umumnya tidak diperlukan di kode produksi. Di chapter ini digunakan agar contoh bisa menunjukkan eksekusi goroutine yang benar-benar paralel.
 
 #### ◉ Penggunaan Fungsi `fmt.Scanln()`
 
@@ -87,6 +89,8 @@ fmt.Println(s3) // law
 ```
 
 Bisa dilihat pada kode di atas, untuk menampung inputan text `trafalgar d law`, dibutuhkan 3 buah variabel. Juga perlu diperhatikan bahwa yang disisipkan sebagai parameter pada pemanggilan fungsi `fmt.Scanln()` adalah referensi variabel, bukan nilai aslinya.
+
+> Penggunaan `fmt.Scanln()` di atas hanya untuk kesederhanaan contoh pertama goroutine. Untuk sinkronisasi goroutine di kode nyata, gunakan `sync.WaitGroup` yang dibahas pada chapter [A.59. WaitGroup](/A-waitgroup.html).
 
 ---
 

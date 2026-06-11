@@ -17,7 +17,7 @@ Operator aritmatika adalah operator yang digunakan untuk operasi yang sifatnya p
 Contoh penggunaan:
 
 ```go
-var value = (((2 + 6) % 3) * 4 - 2) / 3
+var value = (((2+6)%3)*4 - 2) / 3
 ```
 
 ## A.12.2. Operator Perbandingan
@@ -38,7 +38,7 @@ Tabel di bawah ini berisikan operator perbandingan yang bisa digunakan di Go.
 Contoh penggunaan:
 
 ```go
-var value = (((2 + 6) % 3) * 4 - 2) / 3
+var value = (((2+6)%3)*4 - 2) / 3
 var isEqual = (value == 2)
 
 fmt.Printf("nilai %d (%t) \n", value, isEqual)
@@ -89,6 +89,32 @@ Berikut penjelasan statemen operator logika pada kode di atas.
  - `leftReverse` bernilai `true`, karena **negasi** (atau lawan dari) `false` adalah `true`.
 
 Template `\t` digunakan untuk menambahkan indent tabulasi. Biasa dimanfaatkan untuk merapikan tampilan output pada console.
+
+## A.12.4. Fungsi Built-in `min()` dan `max()` (Go 1.21+)
+
+Sejak Go 1.21, tersedia dua fungsi built-in baru yaitu `min()` dan `max()` untuk mencari nilai minimum dan maksimum dari dua atau lebih nilai. Keduanya bekerja pada tipe data yang bisa dibandingkan, seperti `int`, `float64`, dan `string`.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println(min(3, 7, 1, 5))  // 1
+    fmt.Println(max(3, 7, 1, 5))  // 7
+
+    var a, b = 10, 20
+    fmt.Println(min(a, b))  // 10
+    fmt.Println(max(a, b))  // 20
+
+    fmt.Println(min("banana", "apple", "cherry"))  // apple
+    fmt.Println(max("banana", "apple", "cherry"))  // cherry
+}
+```
+
+Fungsi `min()` mengembalikan nilai terkecil, dan `max()` mengembalikan nilai terbesar dari semua argumen yang diberikan. Minimal dibutuhkan satu argumen, dan tipe data semua argumen harus sama.
+
+Sebelum adanya fungsi bawaan ini, operasi min/max biasanya dilakukan secara manual menggunakan seleksi kondisi. Kini cukup satu baris saja.
 
 ---
 

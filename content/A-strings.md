@@ -127,7 +127,7 @@ Untuk memisah string menjadi slice tiap 1 string, gunakan pemisah string kosong 
 
 ## A.44.9. Fungsi `strings.Join()`
 
-Memiliki kegunaan berkebalikan dengan `strings.Split()`. Digunakan untuk menggabungkan slice string (parameter pertama) menjadi sebuah string dengan pemisah tertentu (parameter kedua.
+Memiliki kegunaan berkebalikan dengan `strings.Split()`. Digunakan untuk menggabungkan slice string (parameter pertama) menjadi sebuah string dengan pemisah tertentu (parameter kedua).
 
 ```go
 var data = []string{"banana", "papaya", "tomato"}
@@ -154,6 +154,57 @@ Mengubah huruf-huruf string menjadi huruf besar.
 var str = strings.ToUpper("eat!")
 fmt.Println(str) // "EAT!"
 ```
+
+## A.44.12. Fungsi `strings.ReplaceAll()` (Go 1.12+)
+
+Tersedia sejak Go 1.12, fungsi `strings.ReplaceAll()` merupakan alternatif yang lebih singkat dari `strings.Replace(..., -1)`. Keduanya menghasilkan output yang sama, namun `strings.ReplaceAll()` tidak memerlukan parameter jumlah penggantian.
+
+```go
+var text = "banana"
+var find = "a"
+var replaceWith = "o"
+
+var result = strings.ReplaceAll(text, find, replaceWith)
+fmt.Println(result) // "bonono"
+```
+
+`strings.ReplaceAll(text, find, replaceWith)` ekuivalen dengan `strings.Replace(text, find, replaceWith, -1)`.
+
+## A.44.13. Fungsi `strings.Cut()` (Go 1.18+)
+
+Sejak Go 1.18, tersedia fungsi `strings.Cut()` untuk memotong string menjadi dua bagian berdasarkan pemisah tertentu. Fungsi ini mengembalikan tiga nilai: bagian sebelum pemisah, bagian setelah pemisah, dan `bool` yang menandakan apakah pemisah ditemukan atau tidak.
+
+```go
+before, after, found := strings.Cut("user:password", ":")
+fmt.Println(before) // user
+fmt.Println(after)  // password
+fmt.Println(found)  // true
+
+before2, after2, found2 := strings.Cut("nocohere", ":")
+fmt.Println(before2) // nocohere
+fmt.Println(after2)  // (string kosong)
+fmt.Println(found2)  // false
+```
+
+`strings.Cut()` berguna untuk parsing string yang memiliki format `key:value` atau sejenisnya, dan lebih ekspresif dibanding kombinasi `strings.Index()` + slicing manual.
+
+## A.44.14. Fungsi `strings.CutPrefix()` dan `strings.CutSuffix()` (Go 1.20+)
+
+Sejak Go 1.20, tersedia dua fungsi baru untuk memotong prefix dan suffix dari sebuah string.
+
+`strings.CutPrefix(s, prefix)` mengembalikan string setelah prefix dipotong dan `bool` apakah prefix ditemukan. `strings.CutSuffix(s, suffix)` bekerja dengan cara yang sama namun untuk suffix.
+
+```go
+after, found := strings.CutPrefix("foobar", "foo")
+fmt.Println(after) // bar
+fmt.Println(found) // true
+
+before, found2 := strings.CutSuffix("foobar", "bar")
+fmt.Println(before) // foo
+fmt.Println(found2) // true
+```
+
+Berbeda dengan `strings.TrimPrefix()` dan `strings.TrimSuffix()`, fungsi `Cut*` juga memberi tahu apakah prefix/suffix benar-benar ditemukan lewat nilai `bool`-nya.
 
 ---
 

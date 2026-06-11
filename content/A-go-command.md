@@ -4,7 +4,7 @@ Pengembangan aplikasi Go pastinya tak akan jauh dari hal-hal yang berbau CLI ata
 
 Go menyediakan command `go`, dan pada chapter ini kita akan mempelajari beberapa di antaranya.
 
-> Pada pembelajaran chapter ini, pembaca tidak harus menghafal dan mempraktekan semuanya, cukup ikuti saja pembelajaran agar mulai familiar. Perihal prakteknya sendiri akan dimulai pada chapter selanjutnya, yaitu [A.7. Program Pertama: Hello World](/A-hello-world.html).
+> Pada pembelajaran chapter ini, pembaca tidak harus menghafal dan mempraktikkan semuanya, cukup ikuti saja pembelajaran agar mulai familiar. Perihal praktiknya sendiri akan dimulai pada chapter selanjutnya, yaitu [A.7. Program Pertama: Hello World](/A-hello-world.html).
 
 ## A.6.1. Command `go mod init`
 
@@ -105,7 +105,7 @@ Command `go get` **harus dijalankan dalam folder project/module**. Pada Go versi
 
 ## A.6.8. Command `go mod vendor`
 
-Command ini digunakan untuk vendoring. Lebih detailnya akan dibahas di akhir serial chapter A, pada chapter [A.61. Go Vendoring](/A-go-vendoring.html).
+Command ini digunakan untuk vendoring. Lebih jelasnya akan dibahas di akhir serial chapter A, pada chapter [A.61. Go Vendoring](/A-go-vendoring.html).
 
 ---
 

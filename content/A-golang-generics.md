@@ -6,11 +6,11 @@ Pada chapter ini kita akan belajar tentang penerapan Generics di Go.
 
 Generic Programming adalah salah satu metode dalam penulisan kode program, di mana tipe data dalam kode didefinisikan menggunakan suatu tipe yang tipe pastinya ditulis belakangan saat kode tersebut di-call atau dieksekusi. Konsep generic ini cukup umum diterapkan terutama pada bahasa pemrograman yang mengadopsi static typing.
 
-Di Go, kita punya tipe `any` atau `interface{}` yang biasa difungsikan sebagai penampung data yang tidak pasti tipe datanya. Generic berbeda dibanding `any`. Tipe `any` dalam prakteknya membungkus data asli atau *underlying value*-nya, dengan pengaksesan data asli tersebut dilakukan via metode *type assertion*, contohnya `data.(int)`.
+Di Go, kita punya tipe `any` atau `interface{}` yang biasa difungsikan sebagai penampung data yang tidak pasti tipe datanya. Generic berbeda dibanding `any`. Tipe `any` dalam praktiknya membungkus data asli atau *underlying value*-nya, dengan pengaksesan data asli tersebut dilakukan via metode *type assertion*, contohnya `data.(int)`.
 
 Berbeda dibanding `any`, pada Generic kita perlu mendefinisikan cakupan tipe data yang kompatibel untuk digunakan saat pemanggilan kode.
 
-Ok, mari kita lanjut ke praktek saja agar tidak makin bingung.
+Ok, mari kita lanjut ke praktik saja agar tidak makin bingung.
 
 ## A.65.2. Penerapan Generic pada Fungsi
 
@@ -91,7 +91,7 @@ func Sum[V int](numbers []V) V {
 
 func main() {
 	total1 := Sum([]int{1, 2, 3, 4, 5})
-	fmt.Println("total: ", total1)
+	fmt.Println("total:", total1)
 }
 ```
 
@@ -158,32 +158,32 @@ Sekarang kita akan belajar kegunaan satu keyword penting lainnya, yaitu `compara
 
 Pada kode di atas kita menggunakan `V int | float32 | float64` untuk mendefinisikan tipe yang kompatibel dengan tipe `int`, `float32`, dan `float64`. Jika ingin membuat tipe `V` kompatibel dengan banyak tipe lainnya, tambahkan saja tipe2 yang diinginkan. Untuk tipe yang harus bisa dipakai sebagai key map atau dibandingkan dengan `==`, gunakan `comparable`, penulisannya menjadi `V comparable`.
 
-Ok, mari kita coba terapkan. Kita tidak akan menerapkan `comparable` pada contoh di atas karena fungsi `Sum()` kita desain untuk komputasi nilai numerik. Jika `comparable` diterapkan disitu jadinya kurang pas. Oleh karena itu kita siapkan 2 fungsi baru yang mirip berikut sebagai bahan praktek selanjutnya.
+Ok, mari kita coba terapkan. Kita tidak akan menerapkan `comparable` pada contoh di atas karena fungsi `Sum()` kita desain untuk komputasi nilai numerik. Jika `comparable` diterapkan disitu jadinya kurang pas. Oleh karena itu kita siapkan 2 fungsi baru yang mirip berikut sebagai bahan praktik selanjutnya.
 
 ```go
 func SumNumbers1(m map[string]int64) int64 {
-    var s int64
-    for _, v := range m {
-        s += v
-    }
-    return s
+	var s int64
+	for _, v := range m {
+		s += v
+	}
+	return s
 }
 
 func SumNumbers2[K comparable, V int64 | float64](m map[K]V) V {
-    var s V
-    for _, v := range m {
-        s += v
-    }
-    return s
+	var s V
+	for _, v := range m {
+		s += v
+	}
+	return s
 }
 
 func main() {
-    ints := map[string]int64{ "first": 34, "second": 12 }
-    floats := map[string]float64{ "first": 35.98, "second": 26.99 }
+	ints := map[string]int64{"first": 34, "second": 12}
+	floats := map[string]float64{"first": 35.98, "second": 26.99}
 
-    fmt.Printf("Generic Sums with Constraint: %v and %v\n",
-        SumNumbers2(ints),
-        SumNumbers2(floats))
+	fmt.Printf("Generic Sums with Constraint: %v and %v\n",
+		SumNumbers2(ints),
+		SumNumbers2(floats))
 }
 ```
 
@@ -210,7 +210,7 @@ Jalankan kode, lihat hasilnya.
 
 ## A.65.6. Generic *Type Constraint*
 
-Selanjutnya buat fungsi `SumNumbers3()` yang isinya kurang adalah lebih sama. Kali ini kita tidak menggunakan `V int64 | float64`, melainkan menggunakan tipe `Number` yang merupakan tipe data baru yang akan kita buat juga (generic *type constraint*).
+Selanjutnya buat fungsi `SumNumbers3()` yang isinya kurang lebih sama. Kali ini kita tidak menggunakan `V int64 | float64`, melainkan menggunakan tipe `Number` yang merupakan tipe data baru yang akan kita buat juga (generic *type constraint*).
 
 ```go
 type Number interface {
@@ -239,7 +239,7 @@ Generic juga bisa diterapkan pada struct, contohnya:
 ```go
 type UserModel[T int | float64] struct {
 	Name string
-    Scores []T
+	Scores []T
 }
 
 func (m *UserModel[int]) SetScoresA(scores []int) {
@@ -254,12 +254,12 @@ func main() {
 	var m1 UserModel[int]
 	m1.Name = "Noval"
 	m1.Scores = []int{1, 2, 3}
-    fmt.Println("scores:", m1.Scores)
+	fmt.Println("scores:", m1.Scores)
 
-	var m2 UserModel[float64] 
+	var m2 UserModel[float64]
 	m2.Name = "Noval"
 	m2.SetScoresB([]float64{10, 11})
-    fmt.Println("scores:", m2.Scores)
+	fmt.Println("scores:", m2.Scores)
 }
 ```
 
@@ -272,6 +272,40 @@ Cukup tuliskan notasi generic pada deklarasi struct. Kemudian siapkan variabel o
 Sampai artikel ini ditulis, generic tidak bisa diterapkan pada method (meski bisa diterapkan pada fungsi)
 
 > Penulis akan update konten chapter ini jika ada update pada spesifikasi generic API.
+
+## A.65.9. Generic Type Alias (Go 1.24+)
+
+Sejak Go 1.24, Go mendukung sepenuhnya **generic type alias**, yaitu alias tipe yang bisa menggunakan type parameter. Sebelumnya, alias tipe hanya bisa dibuat untuk tipe konkret.
+
+```go
+type Pair[T any] struct {
+    First, Second T
+}
+
+// alias konkret: Pair[string]
+type StringPair = Pair[string]
+
+// alias generic: parameter baru
+type NumberPair[T int | float64] = Pair[T]
+```
+
+Dengan generic type alias, kita bisa membuat alias untuk generic type dengan parameter tertentu maupun memperkenalkan parameter baru.
+
+```go
+func main() {
+    var sp StringPair
+    sp.First = "halo"
+    sp.Second = "dunia"
+    fmt.Println(sp.First, sp.Second)
+
+    var np NumberPair[int]
+    np.First = 1
+    np.Second = 2
+    fmt.Println(np.First, np.Second)
+}
+```
+
+Generic type alias berguna untuk menyederhanakan nama tipe panjang atau menyediakan shorthand untuk kombinasi tipe yang sering dipakai.
 
 ---
 

@@ -27,15 +27,15 @@ Cara penggunaan package ini sangat mudah, cukup import `math/rand`, lalu tentuka
 package main
 
 import (
-	"fmt"
-	"math/rand"
+    "fmt"
+    "math/rand"
 )
 
 func main() {
-	randomizer := rand.New(rand.NewSource(10))
-	fmt.Println("random ke-1:", randomizer.Int()) // 5221277731205826435
-	fmt.Println("random ke-2:", randomizer.Int()) // 3852159813000522384
-	fmt.Println("random ke-3:", randomizer.Int()) // 8532807521486154107
+    randomizer := rand.New(rand.NewSource(10))
+    fmt.Println("random ke-1:", randomizer.Int()) // 5221277731205826435
+    fmt.Println("random ke-2:", randomizer.Int()) // 3852159813000522384
+    fmt.Println("random ke-3:", randomizer.Int()) // 8532807521486154107
 }
 ```
 
@@ -53,7 +53,7 @@ Jika perlu jalankan program di atas beberapa kali, hasilnya selalu sama untuk an
 
 ## A.39.3. Unique Seed
 
-Lalu bagaimana cara agar angka yang dihasilkan selalu berbeda setiap kali dipanggil? Apakah harus set ulang seed-nya? Jangan, karena kalau seed di-set ulang maka urutan deret random akan berubah. Seed hanya perlu di set sekali di awal. Lalu apa solusi yang benar?
+Lalu bagaimana cara agar angka yang dihasilkan selalu berbeda setiap kali dipanggil? Apakah harus set ulang seed-nya? Jangan, karena kalau seed di-set ulang maka urutan deret random akan berubah. Seed hanya perlu diset sekali di awal. Lalu apa solusi yang benar?
 
 Jadi begini, setiap kali `randomizer.Int()` dipanggil, hasilnya itu selalu berbeda, tapi sangat bisa diprediksi jika kita tau seed-nya. Ada cara agar angka random yang dihasilkan tidak berulang-ulang seperti yang ada di contoh, caranya yaitu dengan menggunakan angka unik sebagai seed, contohnya seperti angka [unix nano](https://en.wikipedia.org/wiki/GNU_nano) yang didapat dari informasi waktu sekarang.
 
@@ -68,7 +68,7 @@ fmt.Println("random ke-3:", randomizer.Int())
 
 ![Random Golang with unix nano seed](images/A_random_2.png)
 
-Bisa dilihat, setiap program dieksekusi angka random nya selalu berbeda, hal ini karena seed yang digunakan pasti berbeda di setiap eksekusi program. Disitu seed yang digunakan adalah data numerik unix nano dari informasi waktu sekarang.
+Bisa dilihat, setiap program dieksekusi angka random nya selalu berbeda, hal ini karena seed yang digunakan pasti berbeda disetiap eksekusi program. Disitu seed yang digunakan adalah data numerik unix nano dari informasi waktu sekarang.
 
 ## A.39.4. Random Tipe Data Numerik Lainnya
 
@@ -85,7 +85,7 @@ fmt.Println("random float32:", randomizer.Float32())
 fmt.Println("random uint:", randomizer.Uint32())
 ```
 
-lebih detailnya silakan merujuk ke https://golang.org/pkg/math/rand/
+Lebih jelasnya silakan merujuk ke https://pkg.go.dev/math/rand
 
 ## A.39.5. Angka Random Index Tertentu
 
@@ -93,26 +93,79 @@ Gunakan `randomizer.Intn(n)` untuk mendapatkan angka random dengan batas `0` hin
 
 ## A.39.6. Random Tipe Data String
 
-Untuk menghasilkan data random string, ada banyak cara yang bisa diterapkan, salah satunya adalah dengan memafaatkan alfabet dan hasil random numerik.
+Untuk menghasilkan data random string, ada banyak cara yang bisa diterapkan, salah satunya adalah dengan memanfaatkan alfabet dan hasil random numerik.
 
 ```go
 var randomizer = rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
 var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 func randomString(length int) string {
-	b := make([]rune, length)
-	for i := range b {
-		b[i] = letters[randomizer.Intn(len(letters))]
-	}
-	return string(b)
+    b := make([]rune, length)
+    for i := range b {
+        b[i] = letters[randomizer.Intn(len(letters))]
+    }
+    return string(b)
 }
 
 func main() {
-	fmt.Println("random string 5 karakter:", randomString(5))
+    fmt.Println("random string 5 karakter:", randomString(5))
 }
 ```
 
 Dengan fungsi di atas kita bisa dengan mudah meng-generate string random dengan panjang karakter yang sudah ditentukan, misal `randomString(10)` akan menghasilkan random string 10 karakter.
+
+## A.39.7. Global Random tanpa Seed Manual (Go 1.20+)
+
+Sejak Go 1.20, fungsi-fungsi top-level di package `math/rand` (seperti `rand.Int()`, `rand.Intn()`, dan lainnya) sudah di-seed secara otomatis menggunakan nilai acak. Ini berarti untuk kebutuhan random sederhana yang tidak memerlukan reproduksibilitas, tidak perlu lagi membuat objek randomizer secara manual.
+
+```go
+package main
+
+import (
+    "fmt"
+    "math/rand"
+)
+
+func main() {
+    fmt.Println("random ke-1:", rand.Int())
+    fmt.Println("random ke-2:", rand.Int())
+    fmt.Println("random ke-3:", rand.Int())
+}
+```
+
+Perlu diketahui juga bahwa fungsi `rand.Seed()` sudah deprecated sejak Go 1.20 dan sebaiknya tidak lagi digunakan. Sebagai gantinya, gunakan `rand.New(rand.NewSource(seed))` untuk random yang bisa direproduksi (seperti yang sudah kita pelajari di atas), atau cukup gunakan fungsi global tanpa perlu set seed untuk random biasa.
+
+## A.39.8. Package `math/rand/v2` (Go 1.22+)
+
+Sejak Go 1.22, Go menyediakan package `math/rand/v2` sebagai versi terbaru dari package random. Package ini memiliki API yang lebih bersih dan menggunakan algoritma yang lebih baik.
+
+Beberapa perbedaan utama dari `math/rand/v2` dibanding versi sebelumnya:
+
+- Method `Intn(n)` berubah nama menjadi `IntN(n)` (huruf N kapital)
+- Tidak ada lagi fungsi `Seed()` di level global; semua global function selalu menggunakan seed otomatis
+- Untuk random yang bisa direproduksi, gunakan `rand.New(rand.NewPCG(seed1, seed2))`
+
+```go
+package main
+
+import (
+    "fmt"
+    "math/rand/v2"
+)
+
+func main() {
+    // global random, auto-seeded
+    fmt.Println("random int:", rand.Int())
+    fmt.Println("random N:", rand.IntN(100))
+
+    // reproducible random dengan seed tetap
+    r := rand.New(rand.NewPCG(42, 0))
+    fmt.Println("reproducible ke-1:", r.Int64())
+    fmt.Println("reproducible ke-2:", r.Int64())
+}
+```
+
+`rand.NewPCG(seed1, seed2)` menerima dua nilai `uint64` sebagai seed. Kombinasi kedua seed tersebut menentukan urutan angka random yang dihasilkan.
 
 ---
 

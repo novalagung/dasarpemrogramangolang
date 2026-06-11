@@ -8,11 +8,11 @@ Vendoring di Go memberikan kita kapabilitas untuk mengunduh semua dependency ata
 
 Dengan adanya folder tersebut, maka Go tidak akan *lookup* 3rd party ke cache folder ataupun ke GOPATH, melainkan langsung mengambil dari yang ada dalam folder `vendor`. Jadi kalau dependency sudah ada di dalam `vendor`, maka kita tidak perlu download lagi dari internet menggunakan command `go mod download` ataupun `go mod tidy`.
 
-Ok lanjut ke praktek ya.
+Ok lanjut ke praktik ya.
 
-## A.61.2. Praktek Vendoring
+## A.61.2. Praktik Vendoring
 
-Kita akan coba praktekan untuk vendoring sebuah 3rd party bernama [gubrak](https://github.com/novalagung/gubrak/v2).
+Kita akan coba praktikkan untuk vendoring sebuah 3rd party bernama [gubrak](https://github.com/novalagung/gubrak/v2).
 
 Buat folder project baru dengan nama `belajar-vendor` dengan isi satu file `main.go`. Lalu go get library gubrak.
 
@@ -30,6 +30,7 @@ package main
 
 import (
 	"fmt"
+
 	gubrak "github.com/novalagung/gubrak/v2"
 )
 
@@ -44,7 +45,7 @@ Setelah itu jalankan command `go mod vendor` untuk vendoring *3rd party library*
 
 Bisa dilihat, sekarang library gubrak *source code*-nya disimpan dalam folder `vendor`. Nah ini juga akan berlaku untuk semua *library* lainnya yg digunakan jika ada.
 
-## A.61.3 Build dan Run Project yang Menerapkan Vendoring
+## A.61.3. Build dan Run Project yang Menerapkan Vendoring
 
 Cara agar Go lookup ke folder `vendor` saat build adalah dengan menambahkan flag `-mod=vendor` sewaktu build atau run project.
 
@@ -58,6 +59,22 @@ go build -mod=vendor -o executable
 Manfaat vendoring adalah pada sisi kompatibilitas & kestabilan 3rd party, selain itu kita tidak perlu repot mendownload dependency karena semuanya sudah ada di lokal.
 
 Konsekuensi penerapan vendoring adalah size project menjadi cukup besar. Untuk penggunaan vendor apakah wajib? menurut saya tidak. Sesuaikan kebutuhan saja.
+
+## A.61.5. Flag -mod=vendor Otomatis (Go 1.14+)
+
+Sejak Go 1.14, jika project memiliki folder `vendor` dan file `go.mod` mencantumkan versi `go 1.14` atau lebih tinggi, maka flag `-mod=vendor` **sudah aktif secara otomatis**. Kita tidak perlu menambahkannya secara eksplisit saat menjalankan `go run` atau `go build`.
+
+```bash
+# Go 1.14+: flag -mod=vendor tidak perlu ditulis, sudah otomatis aktif
+go run main.go
+go build -o executable
+```
+
+Jika ingin mengabaikan folder `vendor` dan menggunakan module cache, gunakan flag `-mod=mod` secara eksplisit:
+
+```bash
+go run -mod=mod main.go
+```
 
 ---
 

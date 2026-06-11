@@ -21,7 +21,7 @@ Ada total sekitar <b>160+ chapter</b> yang dibahas dalam website/ebook ini. Kump
 	</li>
 </ol>
 
-Versi e-book: **v4.0.20251111**, dan versi Go **1.22**.
+Versi e-book: **v4.0.20251111**, dan versi Go **1.26.4**.
 
 ## Download File E-book (pdf, epub, mobi)
 

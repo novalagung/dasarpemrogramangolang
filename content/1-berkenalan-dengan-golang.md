@@ -2,7 +2,7 @@
 
 **[Golang](https://golang.org/)** (atau biasa disebut dengan **Go**) adalah bahasa pemrograman yang dikembangkan di **Google** oleh **[Robert Griesemer](https://github.com/griesemer)**, **[Rob Pike](https://en.wikipedia.org/wiki/Rob_Pike)**, dan **[Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson)** pada tahun 2007 dan mulai diperkenalkan ke publik tahun 2009.
 
-Penciptaan bahasa Go didasari bahasa **C** dan **C++**, oleh karena itu gaya sintaksnya mirip.
+Desain bahasa Go banyak terinspirasi dari bahasa **C**, sehingga gaya sintaksnya terasa mirip dengan C/C++.
 
 #### Kelebihan Go
 
@@ -12,7 +12,7 @@ Go memiliki kelebihan dibanding bahasa lainnya, beberapa di antaranya:
 * Mendukung pemrosesan data dengan banyak prosesor dalam waktu yang bersamaan *(parallel processing)*
 * Memiliki *garbage collector*
 * Proses kompilasi sangat cepat
-* Bukan bahasa pemrograman yang hirarkial dan bukan *strict* OOP, memberikan kebebasan ke developer perihal bagaimana cara penulisan kode.
+* Bukan bahasa pemrograman yang hierarkis dan bukan *strict* OOP, memberikan kebebasan ke developer perihal bagaimana cara penulisan kode.
 * Dependensi dan *tooling* yang disediakan terbilang lengkap.
 * Dukungan komunitas sangat bagus. Banyak tools yang tersedia secara gratis dan *open source* yang bisa langsung dimanfaatkan.
 

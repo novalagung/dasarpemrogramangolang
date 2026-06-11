@@ -24,7 +24,7 @@ type User struct {
 }
 ```
 
-Struct `User` ini nantinya digunakan untuk membuat variabel baru penampung hasil decode json string. Proses decode sendiri dilakukan lewat fungsi `json.Unmarshal()`, dalam penggunaannya data json string dimasukan sebagai argument pemanggilan fungsi.
+Struct `User` ini nantinya digunakan untuk membuat variabel baru penampung hasil decode json string. Proses decode sendiri dilakukan lewat fungsi `json.Unmarshal()`, dalam penggunaannya data json string dimasukkan sebagai argument pemanggilan fungsi.
 
 Contoh praktiknya bisa dilihat di bawah ini.
 
@@ -85,7 +85,7 @@ fmt.Println("age  :", decodedData["Age"])
 
 ## A.53.3. Decode Array JSON Ke Array Objek
 
-Operasi decode data dari array json ke slice/array objek caranya juga sama. Langsung praktek saja agar lebih jelas. Siapkan sebuah variabel baru untuk menampung hasil decode dengan tipe slice struct, lalu gunakan pada fungsi `json.Unmarshal()`.
+Operasi decode data dari array json ke slice/array objek caranya juga sama. Langsung praktik saja agar lebih jelas. Siapkan sebuah variabel baru untuk menampung hasil decode dengan tipe slice struct, lalu gunakan pada fungsi `json.Unmarshal()`.
 
 ```go
 var jsonString = `[
@@ -114,7 +114,7 @@ Fungsi `json.Marshal()` digunakan untuk encoding data ke json string. Sumber dat
 Pada contoh berikut, data slice struct dikonversi ke dalam bentuk json string. Hasil konversi adalah data bertipe `[]byte`, maka pastikan untuk meng-casting terlebih dahulu ke tipe `string` agar bisa ditampilkan bentuk json string-nya.
 
 ```go
-var object = []User{{"john wick", 27}, {"ethan hunt", 32}}
+var object = []User{{FullName: "john wick", Age: 27}, {FullName: "ethan hunt", Age: 32}}
 var jsonData, err = json.Marshal(object)
 if err != nil {
     fmt.Println(err.Error())
@@ -128,6 +128,46 @@ fmt.Println(jsonString)
 Output program:
 
 ![Encode data ke JSON](images/A_json_2_encode.png)
+
+## A.53.5. Tag omitzero (Go 1.24+)
+
+Sejak Go 1.24, tersedia opsi tag baru bernama `omitzero` untuk field struct. Opsi ini digunakan saat marshaling: field yang nilainya adalah *zero value* akan dihilangkan dari output JSON.
+
+Perbedaan utama antara `omitzero` dan `omitempty`:
+
+- `omitempty`: menghilangkan field yang nilainya kosong (nil, 0, `""`, false, slice/map kosong).
+- `omitzero`: menghilangkan field yang bernilai zero value sesuai tipenya. Jika tipe tersebut memiliki method `IsZero() bool`, method itu yang digunakan sebagai penentu.
+
+```go
+package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "time"
+)
+
+type Event struct {
+    Name      string    `json:"name"`
+    StartDate time.Time `json:"start_date,omitzero"`
+    Score     int       `json:"score,omitzero"`
+}
+
+func main() {
+    event := Event{Name: "Go Conference"}
+
+    jsonData, err := json.Marshal(event)
+    if err != nil {
+        fmt.Println(err.Error())
+        return
+    }
+
+    fmt.Println(string(jsonData))
+    // {"name":"Go Conference"}
+}
+```
+
+Pada contoh di atas, field `StartDate` dan `Score` tidak muncul di output JSON karena keduanya bernilai zero value (`time.Time{}` dan `0`). Jika menggunakan `omitempty`, `StartDate` tetap akan muncul karena `time.Time{}` tidak dianggap "empty" oleh `omitempty`. Ini menjadi salah satu alasan utama kenapa `omitzero` dihadirkan.
 
 ---
 

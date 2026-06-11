@@ -6,15 +6,15 @@ Pada chapter ini kita akan belajar tentang penerapannya di Go.
 
 ## A.18.1. Penerapan Fungsi
 
-Mungkin pembaca sadar, bahwa sebenarnya kita sudah mengimplementasikan fungsi pada banyak praktek sebelumnya, yaitu fungsi `main()`. Fungsi `main()` sendiri merupakan fungsi utama pada program Go, yang akan dieksekusi ketika program dijalankan.
+Mungkin pembaca sadar, bahwa sebenarnya kita sudah mengimplementasikan fungsi pada banyak praktik sebelumnya, yaitu fungsi `main()`. Fungsi `main()` sendiri merupakan fungsi utama pada program Go, yang akan dieksekusi ketika program dijalankan.
 
 Selain fungsi `main()`, kita juga bisa membuat fungsi lainnya. Dan caranya cukup mudah, yaitu dengan menuliskan keyword `func` kemudian diikuti nama fungsi, lalu kurung `()` (yang bisa diisi parameter), dan diakhiri dengan kurung kurawal untuk membungkus blok kode.
 
-Parameter merupakan variabel yang menempel di fungsi yang nilainya ditentukan saat pemanggilan fungsi tersebut. Parameter sifatnya opsional, suatu fungsi bisa tidak memiliki parameter, atau bisa saja memeliki satu atau banyak parameter (tergantung kebutuhan).
+Parameter merupakan variabel yang menempel di fungsi yang nilainya ditentukan saat pemanggilan fungsi tersebut. Parameter sifatnya opsional, suatu fungsi bisa tidak memiliki parameter, atau bisa saja memiliki satu atau banyak parameter (tergantung kebutuhan).
 
 > Data yang digunakan sebagai value parameter saat pemanggilan fungsi biasa disebut dengan argument parameter (atau argument).
 
-Agar lebih jelas, silakan lihat dan praktekan kode contoh implementasi fungsi berikut ini:
+Agar lebih jelas, silakan lihat dan praktikkan kode contoh implementasi fungsi berikut ini:
 
 ```go
 package main
@@ -56,29 +56,29 @@ Program berikut merupakan contoh penerapan fungsi yang memiliki return value.
 package main
 
 import (
-	"fmt"
-	"math/rand"
-	"time"
+    "fmt"
+    "math/rand"
+    "time"
 )
 
 var randomizer = rand.New(rand.NewSource(time.Now().Unix()))
 
 func main() {
-	var randomValue int
+    var randomValue int
 
-	randomValue = randomWithRange(2, 10)
-	fmt.Println("random number:", randomValue)
+    randomValue = randomWithRange(2, 10)
+    fmt.Println("random number:", randomValue)
 
-	randomValue = randomWithRange(2, 10)
-	fmt.Println("random number:", randomValue)
+    randomValue = randomWithRange(2, 10)
+    fmt.Println("random number:", randomValue)
 
-	randomValue = randomWithRange(2, 10)
-	fmt.Println("random number:", randomValue)
+    randomValue = randomWithRange(2, 10)
+    fmt.Println("random number:", randomValue)
 }
 
 func randomWithRange(minNum, maxNum int) int {
-	var value = randomizer.Int()%(maxNum-minNum+1) + minNum
-	return value
+    var value = randomizer.Int()%(maxNum-minNum+1) + minNum
+    return value
 }
 ```
 
@@ -108,9 +108,11 @@ var randomizer = rand.New(rand.NewSource(time.Now().Unix()))
 
 > Dalam penggunaan fungsi `rand.NewSource()`, argument bisa diisi dengan nilai apapun, salah satunya adalah `time.Now().Unix()`.
 >
-> Lebih detailnya mengenai random dan apa peran seed dibahas pada chapter [A.39. Random](A-random.html).
+> Lebih jelasnya mengenai random dan apa peran seed dibahas pada chapter [A.39. Random](A-random.html).
 
-Fungsi `rand.New()` berada dalam package `math/rand`. Package tersebut harus di-import terlebih dahulu sebelum bisa menggunakan fungsi-fungsi yang ada didalamnya. Package `time` juga perlu di-import karena di contoh ini fungsi `(time.Now().Unix())` digunakan.
+Fungsi `rand.New()` berada dalam package `math/rand`. Package tersebut harus di-import terlebih dahulu sebelum bisa menggunakan fungsi-fungsi yang ada di dalamnya. Package `time` juga perlu di-import karena di contoh ini fungsi `time.Now().Unix()` digunakan.
+
+> Sejak Go 1.20, fungsi-fungsi global `math/rand` seperti `rand.Intn()` dan `rand.Float64()` sudah di-*seed* secara otomatis. Untuk keperluan random sederhana, tidak perlu lagi membuat randomizer manual dengan `rand.New(rand.NewSource(...))`. Penggunaan randomizer manual masih disarankan jika butuh hasil random yang *reproducible* (hasil sama untuk seed yang sama). Lebih jelasnya dibahas di chapter [A.39. Random](/A-random.html).
 
 ## A.18.4. Import Banyak Package
 
@@ -159,7 +161,7 @@ func main() {
 
 func divideNumber(m, n int) {
     if n == 0 {
-        fmt.Printf("invalid divider. %d cannot divided by %d\n", m, n)
+        fmt.Printf("invalid divider. %d cannot be divided by %d\n", m, n)
         return
     }
 

@@ -1,16 +1,16 @@
 # A.59. WaitGroup
 
-Sebelumnya kita telah belajar banyak mengenai channel, yang dimana fungsi utama-nya adalah untuk sharing/kirim data antar goroutine. Selain untuk komunikasi data, channel secara tidak langsung bisa dimanfaatkan untuk kontrol goroutine.
+Sebelumnya kita telah belajar banyak mengenai channel, di mana fungsi utama-nya adalah untuk sharing/kirim data antar goroutine. Selain untuk komunikasi data, channel secara tidak langsung bisa dimanfaatkan untuk kontrol goroutine.
 
-Go menyediakan package `sync`, berisi cukup banyak API untuk manajemen operasi multiprocessing (goroutine), salah satunya di antaranya adalah yang kita bahas pada chapter ini, yaitu `sync.WaitGroup`.
+Go menyediakan package `sync`, berisi cukup banyak API untuk manajemen operasi multiprocessing (goroutine), salah satunya adalah yang kita bahas pada chapter ini, yaitu `sync.WaitGroup`.
 
-Kegunaan `sync.WaitGroup` adalah untuk sinkronisasi goroutine. Berbeda dengan channel, `sync.WaitGroup` memang dirancang khusus untuk pengelolahan goroutine, dengan penggunaan relatif lebih mudah dan efektif dibanding channel.
+Kegunaan `sync.WaitGroup` adalah untuk sinkronisasi goroutine. Berbeda dengan channel, `sync.WaitGroup` memang dirancang khusus untuk pengelolaan goroutine, dengan penggunaan relatif lebih mudah dan efektif dibanding channel.
 
 > Sebenarnya kurang pas jika membandingkan `sync.WaitGroup` dan channel, karena fungsi utama dari keduanya adalah berbeda. Channel untuk keperluan sharing data antar goroutine, sedangkan `sync.WaitGroup` untuk sinkronisasi goroutine.
 
 ## A.59.1. Penerapan `sync.WaitGroup`
 
-`sync.WaitGroup` digunakan untuk menunggu goroutine. Cara pengaplikasiannya sangat mudah, tinggal masukan jumlah goroutine yang dieksekusi, sebagai parameter method `Add()` pada object cetakan `sync.WaitGroup`, kemudian di akhir setiap goroutine pastikan untuk memanggil method `Done()`. Lalu gunakan method `Wait()` untuk menunggu eksekusi semua goroutine selesai.
+`sync.WaitGroup` digunakan untuk menunggu goroutine. Cara pengaplikasiannya sangat mudah, tinggal masukkan jumlah goroutine yang dieksekusi, sebagai parameter method `Add()` pada object cetakan `sync.WaitGroup`, kemudian di akhir setiap goroutine pastikan untuk memanggil method `Done()`. Lalu gunakan method `Wait()` untuk menunggu eksekusi semua goroutine selesai.
 
 Agar lebih jelas, silakan coba kode berikut.
 
@@ -42,11 +42,11 @@ func main() {
 }
 ```
 
-Kode di atas merupakan contoh penerapan `sync.WaitGroup` untuk pengelolahan goroutine. Fungsi `doPrint()` akan dijalankan sebagai goroutine, dengan tugas menampilkan isi variabel `message`.
+Kode di atas merupakan contoh penerapan `sync.WaitGroup` untuk pengelolaan goroutine. Fungsi `doPrint()` akan dijalankan sebagai goroutine, dengan tugas menampilkan isi variabel `message`.
 
 Variabel `wg` dibuat dengan tipe data `sync.WaitGroup`. Variabel ini digunakan sebagai kontrol dan sinkronisasi goroutines yang dijalankan.
 
-Di tiap perulangan statement `wg.Add(1)` dipanggil. Kode tersebut akan memberikan informasi kepada `wg` bahwa jumlah goroutine yang sedang di proses ditambah 1 (karena dipanggil 5 kali, maka `wg` akan sadar bahwa terdapat 5 buah goroutine sedang berjalan).
+Di tiap perulangan statement `wg.Add(1)` dipanggil. Kode tersebut akan memberikan informasi kepada `wg` bahwa jumlah goroutine yang sedang diproses ditambah 1 (karena dipanggil 5 kali, maka `wg` akan sadar bahwa terdapat 5 buah goroutine sedang berjalan).
 
 Di baris selanjutnya, fungsi `doPrint()` dieksekusi sebagai goroutine. Di dalam fungsi tersebut, sebuah method bernama `Done()` dipanggil. Method ini digunakan untuk memberikan informasi kepada `wg` bahwa goroutine di mana method itu dipanggil sudah selesai. Sejumlah 5 buah goroutine dijalankan, maka method tersebut harus dipanggil 5 kali.
 

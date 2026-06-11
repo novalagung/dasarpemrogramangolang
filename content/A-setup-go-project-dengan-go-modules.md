@@ -8,13 +8,13 @@ Go modules merupakan tools untuk manajemen dependensi resmi milik Go. Modules di
 
 Modules penggunaannya adalah via CLI. Jika pembaca sudah sukses meng-*install* Go, maka otomatis bisa menggunakan operasi CLI Go Modules.
 
-> Di Go, istilah modules (atau module) maknanya adalah sama dengan project. Jadi gak perlu bingung
+> Di Go, istilah modules (atau module) maknanya sama dengan project. Jadi tidak perlu bingung.
 
 ## A.3.2. Inisialisasi Project Menggunakan Go Modules
 
 Command `go mod init` digunakan untuk menginisialisasi project baru.
 
-Mari langsung praktekan saja. Buat folder baru, bisa via CLI atau lewat browser/finder.
+Mari langsung praktikkan saja. Buat folder baru, bisa via CLI atau lewat browser/finder.
 
 ```bash
 mkdir project-pertama
@@ -35,7 +35,7 @@ go mod init project-pertama
 
 Di sini kita tentukan nama project adalah sama dengan nama folder, ini merupakan *best practice* di Go.
 
-> Nama project dan nama module merupakan artinya adalah sama. Ingat, module adalah sama dengan project
+> Nama project dan nama module pada dasarnya merujuk hal yang sama. Ingat, di Go istilah module sama dengan project.
 
 Eksekusi perintah `go mod init` menghasilkan satu buah file baru bernama `go.mod`. File ini digunakan oleh Go toolchain untuk menandai bahwa folder di mana file tersebut berada adalah folder project. Jadi pastikan untuk tidak menghapus file tersebut.
 

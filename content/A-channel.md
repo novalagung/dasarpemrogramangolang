@@ -10,15 +10,17 @@ Pengiriman dan penerimaan data pada channel bersifat **blocking** atau **synchro
 
 ## A.31.1. Penerapan Channel
 
-Channel berbentuk variabel, dibuat dengan menggunakan kombinasi keyword `make` dan `chan`.
+Channel berbentuk variabel, dibuat dengan menggunakan kombinasi fungsi *builtin* `make()` dan *keyword* `chan`.
 
 Program berikut adalah contoh implementasi channel. 3 buah goroutine dieksekusi, di masing-masing goroutine terdapat proses pengiriman data lewat channel. Kesemua data tersebut nantinya diterima oleh di goroutine utama yaitu proses yang dijalankan di dalam blok fungsi `main()`.
 
 ```go
 package main
 
-import "fmt"
-import "runtime"
+import (
+    "fmt"
+    "runtime"
+)
 
 func main() {
     runtime.GOMAXPROCS(2)
@@ -131,19 +133,39 @@ Passing channel sebagai parameter menyalin nilai channel-nya. Nilai tersebut tet
 
 ![Parameter channel](images/A_channel_3_channel_param.png)
 
-## A.32.3. Penjelasan tambahan
+## A.31.3. Penjelasan tambahan
 
-Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktikkan:
 
 #### ◉ Iterasi Data Slice/Array Langsung Pada Saat Inisialisasi
 
-Data slice yang baru di inisialisasi bisa langsung di-iterasi, caranya mudah dengan menuliskannya langsung setelah keyword `range`.
+Data slice yang baru diinisialisasi bisa langsung di-iterasi, caranya mudah dengan menuliskannya langsung setelah keyword `range`.
 
 ```go
 for _, each := range []string{"wick", "hunt", "bourne"} {
-    // ...
+    fmt.Println(each)
 }
 ```
+
+#### ◉ Argument Parameter Goroutine
+
+Perhatikan kode berikut yang digunakan di contoh A.31.2:
+
+```go
+for _, each := range []string{"wick", "hunt", "bourne"} {
+    go func(who string) {
+        // gunakan who, bukan each
+    }(each)
+}
+```
+
+Kenapa `each` tidak langsung dipakai di dalam goroutine, melainkan diteruskan lewat argumen `who`?
+
+Goroutine berjalan secara asynchronous, artinya eksekusinya bisa terjadi kapan saja, tidak selalu langsung saat `go func(...)` dipanggil. Masalahnya, variabel `each` pada `for` - `range` di versi Go sebelum 1.22 hanya punya satu alokasi memori yang dipakai ulang di setiap iterasi. Jadi kalau goroutine baru benar-benar berjalan saat loop sudah selesai, nilai `each` yang terbaca bisa saja sudah berubah ke nilai iterasi terakhir.
+
+Dengan meneruskan `each` sebagai argumen, tiap goroutine mendapatkan salinan nilainya sendiri sejak awal, tidak peduli kapan goroutine tersebut akhirnya dieksekusi.
+
+Sejak Go 1.22, setiap iterasi `for` - `range` sudah mendapat variabel yang benar-benar terpisah, sehingga masalah ini tidak terjadi lagi dan pola ini tidak lagi wajib. Tapi karena banyak kode yang masih ditulis untuk Go versi lama, pola ini tetap sering ditemukan.
 
 #### ◉ Eksekusi Goroutine Pada IIFE
 

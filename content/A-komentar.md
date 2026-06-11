@@ -1,12 +1,12 @@
 # A.8. Komentar
 
-Komentar biasa dimanfaatkan untuk menyisipkan catatan pada kode program, atau untuk menulis penjelasan/deskripsi mengenai suatu blok kode, atau bisa juga digunakan untuk me-*remark* kode (men-non-aktifkan kode yg tidak digunakan). Komentar selalu diabaikan ketika kompilasi maupun eksekusi program.
+Komentar biasa dimanfaatkan untuk menyisipkan catatan pada kode program, atau untuk menulis penjelasan/deskripsi mengenai suatu blok kode, atau bisa juga digunakan untuk me-*remark* kode (menonaktifkan kode yang tidak digunakan). Komentar selalu diabaikan ketika kompilasi maupun eksekusi program.
 
 Ada 2 jenis komentar di Go, *inline* & *multiline*. Pada pembahasan ini akan dijelaskan tentang penerapan dan perbedaan kedua jenis komentar tersebut.
 
 ## A.8.1. Komentar *Inline*
 
-Penulisan komentar jenis ini di awali dengan tanda **double slash** (`//`) lalu diikuti pesan komentarnya. Komentar inline hanya berlaku untuk satu baris pesan saja. Jika pesan komentar lebih dari satu baris, maka tanda `//` harus ditulis lagi di baris selanjutnya.
+Penulisan komentar jenis ini diawali dengan tanda **double slash** (`//`) lalu diikuti pesan komentarnya. Komentar inline hanya berlaku untuk satu baris pesan saja. Jika pesan komentar lebih dari satu baris, maka tanda `//` harus ditulis lagi di baris selanjutnya.
 
 ```go
 package main
@@ -22,11 +22,11 @@ func main() {
 }
 ```
 
-Mari kita praktekan kode di atas. Siapkan file program baru dalam project folder (bisa buat project baru atau gunakan project yang sudah ada). Kemudian isi file dengan kode di atas, lalu jalankan.
+Mari kita praktikkan kode di atas. Siapkan file program baru dalam project folder (bisa buat project baru atau gunakan project yang sudah ada). Kemudian isi file dengan kode di atas, lalu jalankan.
 
 ![Contoh komentar inline](images/A_komentar_1_inline_comment.png)
 
-Hasilnya hanya tulisan **hello world** saja yang muncul di layar, karena semua yang di awali tanda double slash `//` diabaikan oleh compiler.
+Hasilnya hanya tulisan **hello world** saja yang muncul di layar, karena semua yang diawali tanda double slash `//` diabaikan oleh compiler.
 
 ## A.8.2. Komentar *Multiline*
 

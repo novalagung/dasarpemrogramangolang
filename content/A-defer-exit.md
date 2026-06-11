@@ -35,13 +35,13 @@ func main() {
 
 func orderSomeFood(menu string) {
     defer fmt.Println("Terimakasih, silakan tunggu")
-	if menu == "pizza" {
+    if menu == "pizza" {
         fmt.Print("Pilihan tepat!", " ")
-		fmt.Print("Pizza ditempat kami paling enak!", "\n")
-		return
-	}
+        fmt.Print("Pizza ditempat kami paling enak!", "\n")
+        return
+    }
 
-	fmt.Println("Pesanan anda:", menu)
+    fmt.Println("Pesanan anda:", menu)
 }
 ```
 
@@ -49,7 +49,7 @@ Output program:
 
 ![Penerapan `defer` dengan `return`](images/A_defer_exit_2_defer_return.png)
 
-Info tambahan, ketika ada banyak statement yang di-defer, maka seluruhnya akan dieksekusi di akhir secara berurutan.
+Info tambahan, ketika ada banyak statement yang di-defer, maka seluruhnya akan dieksekusi di akhir secara terbalik berurutan dengan ketentuan statement yang terakhir di-defer dieksekusi lebih dahulu (LIFO: *last in, first out*).
 
 ## A.36.2. Kombinasi `defer` dan IIFE
 
@@ -76,7 +76,7 @@ halo 2
 halo 3
 ```
 
-Pada contoh di atas `halo 3` akan tetap di print setelah `halo 2` meskipun statement defer dipergunakan dalam blok seleksi kondisi `if`. Hal ini karena defer eksekusinya terjadi pada akhir blok fungsi (dalam contoh di atas `main()`), bukan pada akhir blok `if`.
+Pada contoh di atas `halo 3` akan tetap diprint setelah `halo 2` meskipun statement defer dipergunakan dalam blok seleksi kondisi `if`. Hal ini karena defer eksekusinya terjadi pada akhir blok fungsi (dalam contoh di atas `main()`), bukan pada akhir blok `if`.
 
 Agar `halo 3` bisa dimunculkan di akhir blok `if`, maka harus dibungkus dengan IIFE. Contoh:
 
@@ -127,6 +127,44 @@ func main() {
 Meskipun `defer fmt.Println("halo")` ditempatkan sebelum `os.Exit()`, statement tersebut tidak akan dieksekusi, karena di-tengah fungsi program dihentikan secara paksa.
 
 ![Penerapan `exit`](images/A_defer_exit_3_exit.png)
+
+## A.36.4. Penerapan `defer` di Dalam Loop
+
+Perlu diperhatikan bahwa `defer` di dalam `for` loop tidak dieksekusi di setiap akhir iterasi, melainkan di akhir fungsi. Ini bisa menyebabkan *resource leak* jika tidak ditangani dengan benar.
+
+Contoh yang bermasalah:
+
+```go
+func processFiles(paths []string) {
+    for _, path := range paths {
+        f, err := os.Open(path)
+        if err != nil {
+            continue
+        }
+        defer f.Close() // salah: f.Close() baru dipanggil saat processFiles() selesai
+        // proses file...
+    }
+}
+```
+
+Semua file dibuka dan `f.Close()` baru dipanggil setelah perulangan selesai, bukan di setiap akhir iterasi. Ini berarti semua file tetap terbuka selama proses berlangsung, yang bisa menyebabkan file descriptor habis.
+
+Solusinya adalah membungkus logika tiap iterasi dalam fungsi terpisah atau IIFE:
+
+```go
+func processFiles(paths []string) {
+    for _, path := range paths {
+        func() {
+            f, err := os.Open(path)
+            if err != nil {
+                return
+            }
+            defer f.Close() // benar: dipanggil di akhir IIFE ini
+            // proses file...
+        }()
+    }
+}
+```
 
 ---
 

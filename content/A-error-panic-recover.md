@@ -48,7 +48,7 @@ Selanjutnya variabel tersebut dikonversi ke tipe numerik menggunakan `strconv.At
 
 Data pertama (`number`) berisi hasil konversi. Dan data kedua `err`, berisi informasi errornya (jika memang terjadi error ketika proses konversi).
 
-Setelah itu dilakukan pengecekkan, ketika tidak ada error, `number` ditampilkan. Dan jika ada error, `input` ditampilkan beserta pesan errornya.
+Setelah itu dilakukan pengecekan, ketika tidak ada error, `number` ditampilkan. Dan jika ada error, `input` ditampilkan beserta pesan errornya.
 
 Pesan error bisa didapat dari method `Error()` milik tipe `error`.
 
@@ -111,7 +111,7 @@ Panic digunakan untuk menampilkan *stack trace* error sekaligus menghentikan flo
 
 Panic menampilkan pesan error di console, sama seperti `fmt.Println()`. Informasi error yang ditampilkan adalah stack trace error, isinya sangat detail dan heboh.
 
-Kembali ke praktek, pada program yang telah kita buat tadi, ubah `fmt.Println()` yang berada di dalam blok kondisi `else` pada fungsi main menjadi `panic()`, lalu tambahkan `fmt.Println()` setelahnya.
+Kembali ke praktik, pada program yang telah kita buat tadi, ubah `fmt.Println()` yang berada di dalam blok kondisi `else` pada fungsi main menjadi `panic()`, lalu tambahkan `fmt.Println()` setelahnya.
 
 ```go
 func main() {
@@ -136,7 +136,7 @@ Jalankan program lalu langsung tekan enter, maka panic error muncul dan baris ko
 
 Recover berguna untuk meng-handle panic error. Pada saat panic error muncul, recover men-take-over goroutine yang sedang panic dan efek sampingnya pesan panic tidak muncul dan eksekusi program adalah tidak error.
 
-Ok, mari kita modifikasi sedikit fungsi di-atas untuk mempraktekkan bagaimana cara penggunaan recover. Tambahkan fungsi `catch()`, dalam fungsi ini terdapat statement `recover()` yang dia akan mengembalikan pesan panic error yang seharusnya muncul.
+Ok, mari kita modifikasi sedikit fungsi di-atas untuk mempraktikkan bagaimana cara penggunaan recover. Tambahkan fungsi `catch()`, dalam fungsi ini terdapat statement `recover()` yang dia akan mengembalikan pesan panic error yang seharusnya muncul.
 
 Untuk menggunakan recover, fungsi/closure/IIFE di mana `recover()` berada harus dieksekusi dengan cara di-defer.
 
@@ -150,18 +150,18 @@ func catch() {
 }
 
 func main() {
-	defer catch()
+    defer catch()
 
-	var name string
-	fmt.Print("Type your name: ")
-	fmt.Scanln(&name)
+    var name string
+    fmt.Print("Type your name: ")
+    fmt.Scanln(&name)
 
-	if valid, err := validate(name); valid {
-		fmt.Println("halo", name)
-	} else {
-		panic(err.Error())
-		fmt.Println("end")
-	}
+    if valid, err := validate(name); valid {
+        fmt.Println("halo", name)
+    } else {
+        panic(err.Error())
+        fmt.Println("end")
+    }
 }
 ```
 
@@ -183,7 +183,7 @@ func main() {
         }
     }()
 
-    panic("some error happen")
+    panic("an error happened")
 }
 ```
 
@@ -197,25 +197,51 @@ func main() {
 
     for _, each := range data {
 
-		func() {
-            
+        func() {
             // recover untuk IIFE dalam perulangan
-			defer func() {
-				if r := recover(); r != nil {
-					fmt.Println("Panic occurred on looping", each, "| message:", r)
-				} else {
-					fmt.Println("Application running perfectly")
-				}
-			}()
+            defer func() {
+                if r := recover(); r != nil {
+                    fmt.Println("Panic occurred on looping", each, "| message:", r)
+                } else {
+                    fmt.Println("Application running perfectly")
+                }
+            }()
 
-			panic("some error happen")
+            panic("an error happened")
         }()
-        
-	}
+
+    }
 }
 ```
 
-Bisa dilihat di dalam perulangan terdapat sebuah IIFE untuk recover panic dan juga ada kode untuk men-trigger panic error secara paksa. Ketika panic error terjadi, maka idealnya perulangan terhenti, tetapi pada contoh di atas tidak, dikarenakan operasi dalam perulangan sudah di bungkus dalam IIFE dan seperti yang kita tau sifat panic error adalah menghentikan proses secara paksa dalam scope blok fungsi.
+Bisa dilihat di dalam perulangan terdapat sebuah IIFE untuk recover panic dan juga ada kode untuk men-trigger panic error secara paksa. Ketika panic error terjadi, maka idealnya perulangan terhenti, tetapi pada contoh di atas tidak, dikarenakan operasi dalam perulangan sudah dibungkus dalam IIFE dan seperti yang kita tau sifat panic error adalah menghentikan proses secara paksa dalam scope blok fungsi.
+
+## A.37.6. Fungsi `errors.Join` (Go 1.20+)
+
+Sejak Go 1.20, tersedia fungsi `errors.Join()` untuk menggabungkan beberapa error menjadi satu. Fungsi ini berguna ketika ada beberapa operasi yang masing-masing bisa menghasilkan error dan semuanya ingin dikumpulkan sekaligus.
+
+```go
+package main
+
+import (
+    "errors"
+    "fmt"
+)
+
+func main() {
+    err1 := errors.New("database connection failed")
+    err2 := errors.New("cache unavailable")
+
+    combined := errors.Join(err1, err2)
+    fmt.Println(combined)
+    // output ↓
+    //
+    // database connection failed
+    // cache unavailable
+}
+```
+
+`errors.Join()` menggabungkan beberapa error menjadi satu dengan pemisah newline. Jika semua argumen bernilai `nil`, fungsi ini mengembalikan `nil`.
 
 ---
 

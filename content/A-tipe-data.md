@@ -21,13 +21,13 @@ Kedua tipe data di atas kemudian dibagi lagi menjadi beberapa jenis, dengan pemb
 | `uint16` | 0 ↔ 65535 |
 | `uint32` | 0 ↔ 4294967295 |
 | `uint64` | 0 ↔ 18446744073709551615 |
-| `uint` | sama dengan `uint32` atau `uint64` (tergantung nilai) |
+| `uint` | sama dengan `uint32` atau `uint64` (tergantung arsitektur CPU) |
 | `byte` | sama dengan `uint8` |
 | `int8` | -128 ↔ 127 |
 | `int16` | -32768 ↔ 32767 |
 | `int32` | -2147483648 ↔ 2147483647 |
 | `int64` | -9223372036854775808 ↔ 9223372036854775807 |
-| `int` | sama dengan `int32` atau `int64` (tergantung nilai) |
+| `int` | sama dengan `int32` atau `int64` (tergantung arsitektur CPU) |
 | `rune` | sama dengan `int32` |
 
 Dianjurkan untuk tidak sembarangan dalam menentukan tipe data variabel, sebisa mungkin tipe yang dipilih harus disesuaikan dengan nilainya, karena efeknya adalah ke alokasi memori variabel. Pemilihan tipe data yang tepat akan membuat pemakaian memori lebih optimal, tidak berlebihan.
@@ -40,7 +40,7 @@ fmt.Printf("bilangan positif: %d\n", positiveNumber)
 fmt.Printf("bilangan negatif: %d\n", negativeNumber)
 ```
 
-Variabel `positiveNumber` bertipe `uint8` dengan nilai awal `89`. Sedangkan variabel `negativeNumber` dideklarasikan dengan nilai awal `-1243423644`. Compiler secara cerdas akan menentukan tipe data variabel tersebut sebagai `int32` (karena angka tersebut masuk ke cakupan tipe data `int32`).
+Variabel `positiveNumber` bertipe `uint8` dengan nilai awal `89`. Sedangkan variabel `negativeNumber` dideklarasikan dengan nilai awal `-1243423644`. Karena tipe data tidak ditentukan secara eksplisit, compiler akan menggunakan tipe default untuk konstanta bilangan bulat, yaitu `int`.
 
 String format `%d` pada `fmt.Printf()` digunakan untuk memformat data numerik non-desimal.
 
@@ -55,7 +55,7 @@ fmt.Printf("bilangan desimal: %f\n", decimalNumber)
 fmt.Printf("bilangan desimal: %.3f\n", decimalNumber)
 ```
 
-Pada kode di atas, variabel `decimalNumber` akan memiliki tipe data `float32`, karena nilainya berada di cakupan tipe data tersebut.
+Pada kode di atas, variabel `decimalNumber` akan memiliki tipe data `float64`, karena tipe default untuk konstanta bilangan desimal di Go adalah `float64`.
 
 ![Tipe data numerik desimal](images/A_tipe_data_1_decimal_data_type.png)
 

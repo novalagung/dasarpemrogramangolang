@@ -1,16 +1,16 @@
 # A.63. Concurrency Pattern: Simplified Fan-out Fan-in Pipeline
 
-Pada chapter sebelumnya, yaitu chapter [A.62. Concurrency Pattern: Pipeline](/A-concurrency-pipeline.html), kita telah mempelajari tentang pipeline pattern, yang mana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-*handle* jenis kasus sekarangkain proses yang berjalan secara konkuren.
+Pada chapter sebelumnya, yaitu chapter [A.62. Concurrency Pattern: Pipeline](/A-concurrency-pipeline.html), kita telah mempelajari tentang pipeline pattern, yang mana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-*handle* jenis kasus serangkaian proses yang berjalan secara konkuren.
 
-> Penulis sangat anjurkan untuk mencoba mempelajari praktek chapter sebelumnya terlebih dahulu jika belum. Karena chapter kali ini ada hubungannya dengan chapter tersebut.
+> Penulis sangat anjurkan untuk mencoba mempelajari praktik chapter sebelumnya terlebih dahulu jika belum. Karena chapter kali ini ada hubungannya dengan chapter tersebut.
 
 Pada chapter ini kita akan mempelajari concurrency pattern juga, lanjutan dari sebelumnya. Pada versi ini kalau dilihat dari perspektif coding penerapannya akan lebih ringkas. Tapi apakah lebih mudah dan lebih *performant* dibanding penerapan pipeline sebelumnya? Jawabannya sangat tergantung dengan kasus yang dihadapi, tergantung spesifikasi hardware-nya juga, dan mungkin juga tergantung dengan taste dari si engineer pembuat program.
 
 Kalau dilihat lebih dalam, perbedaannya sebenarnya hanya pada bagian Fan-out Fan-in nya saja. Di metode ini (hampir) semua pipeline isinya adalah gabungan dari Fan-out dan juga Fan-in. Jadi kita tidak perlu report *merge*. Selain itu, di sini kita bisa dengan mudah mengatur jumlah worker sesuai kebutuhan.
 
-Ok, agar lebih jelas mari kita mulai praktek.
+Ok, agar lebih jelas mari kita mulai praktik.
 
-## A.63.1. Skenario Praktek
+## A.63.1. Skenario Praktik
 
 Kita akan modifikasi file program `1-dummy-file-generator.go` yang pada chapter sebelumnya sudah dibuat ([A.62. Concurrency Pattern: Pipeline](/A-concurrency-pipeline.html)). Kita rubah mekanisme generate dummy files-nya dari sekuensial ke konkuren.
 
@@ -37,7 +37,7 @@ import (
 const totalFile = 3000
 const contentLength = 5000
 
-var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.60-worker-pool")
+var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.63-simplified-fan-in-fan-out-pipeline")
 ```
 
 #### ◉ Fungsi `main()`
@@ -76,12 +76,12 @@ func randomString(length int) string {
 ```go
 func generateFiles() {
     os.RemoveAll(tempPath)
-    os.MkdirAll(tempPath, os.ModePerm)
+    os.MkdirAll(tempPath, 0755)
 
     for i := 0; i < totalFile; i++ {
         filename := filepath.Join(tempPath, fmt.Sprintf("file-%d.txt", i))
         content := randomString(contentLength)
-        err := os.WriteFile(filename, []byte(content), os.ModePerm)
+        err := os.WriteFile(filename, []byte(content), 0644)
         if err != nil {
             log.Println("Error writing file", filename)
         }
@@ -123,7 +123,7 @@ import (
 const totalFile = 3000
 const contentLength = 5000
 
-var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.60-worker-pool")
+var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.63-simplified-fan-in-fan-out-pipeline")
 ```
 
 #### ◉ Definisi struct `FileInfo`
@@ -178,7 +178,7 @@ func randomString(length int) string {
 ```go
 func generateFiles() {
     os.RemoveAll(tempPath)
-    os.MkdirAll(tempPath, os.ModePerm)
+    os.MkdirAll(tempPath, 0755)
 
     // pipeline 1: job distribution
     chanFileIndex := generateFileIndexes()
@@ -211,7 +211,7 @@ Secara garis besar, isi fungsi generate files ini ada 3:
 
 Fungsi `generateFileIndexes()` nantinya akan mengembalikan channel `chanFileIndex` yang fungsi dari channel ini adalah untuk media komunikasi antara proses dalam fungsi `generateFileIndexes()` (yaitu distribusi jobs) dengan proses dalam fungsi selanjutnya yaitu `createFiles()`.
 
-Fungsi `createFiles()` di sini merupakan fungsi **Fan-out Fan-in** karena menerima parameter channel pipeline sebelumnya, kemudian min-dispatch goroutine worker dan melacak output dari masing-masing worker ke channel output. Bisa dibilang fungsi `createFiles()` merupakan gabungan dari fungsi Fan-out dan Fan-in (proses merge channel output dari Fan-out juga ada di dalam fungsi tersebut).
+Fungsi `createFiles()` di sini merupakan fungsi **Fan-out Fan-in** karena menerima parameter channel pipeline sebelumnya, kemudian men-dispatch goroutine worker dan melacak output dari masing-masing worker ke channel output. Bisa dibilang fungsi `createFiles()` merupakan gabungan dari fungsi Fan-out dan Fan-in (proses merge channel output dari Fan-out juga ada di dalam fungsi tersebut).
 
 Fungsi `createFiles()` menghasilkan channel yang isinya merupakan result dari operasi tiap-tiap jobs. Dari data yang dilewatkan via channel tersebut akan ketahuan misal ada error atau tidak saat pembuatan files. Channel tersebut kemudian di-loop lalu ditampilkan tiap-tiap result-nya.
 
@@ -239,7 +239,7 @@ func generateFileIndexes() <-chan FileInfo {
 
 Setelah dipastikan semua job terkirim, kita close channel output `chanOut` tersebut.
 
-#### ◉ Fungsi `dispatchWorkers()`
+#### ◉ Fungsi `createFiles()`
 
 Bagian ini merupakan yang paling butuh *effort* untuk dipahami. Jadi fungsi `createFiles()` seperti yang sudah saja jelaskan secara singkat di atas, fungsi ini merupakan fungsi gabungan Fan-out (menerima channel output dari pipeline sebelumnya) dan juga Fan-in (menjalankan beberapa worker untuk memproses channel output dari pipeline sebelumnya, lalu output masing-masing worker yang juga merupakan channel - langsung di merge jadi satu channel saja).
 
@@ -267,7 +267,7 @@ func createFiles(chanIn <-chan FileInfo, numberOfWorkers int) <-chan FileInfo {
                     // do the jobs
                     filePath := filepath.Join(tempPath, job.FileName)
                     content := randomString(contentLength)
-                    err := os.WriteFile(filePath, []byte(content), os.ModePerm)
+                    err := os.WriteFile(filePath, []byte(content), 0644)
 
                     log.Println("worker", workerIndex, "working on", job.FileName, "file generation")
 
@@ -307,7 +307,7 @@ Penjelasan:
 6. Jika perulangan terhadap `chanIn` sudah selesai (ditandai dengan channel-nya closed), maka kita tandai juga worker sebagai complete via statement `wg.Done()`
 7. Dispatch goroutine baru lagi untuk menunggu semua worker selesai. Jika iya, maka kita close channel `chanOut`.
 
-Semoga cukup jelas ya. Kelebihan metode ini ini salah satunya adalah kita bisa dengan mudah menentukan jumlah workernya.
+Semoga cukup jelas ya. Kelebihan metode ini salah satunya adalah kita bisa dengan mudah menentukan jumlah workernya.
 
 > Untuk pembaca yang bingung, mungkin fungsi ini bisa dipecah menjadi satu fungsi Fan-out dan satu fungsi Fan-in seperti chapter sebelumnya.
 

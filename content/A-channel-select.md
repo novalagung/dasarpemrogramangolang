@@ -1,6 +1,6 @@
 # A.33. Channel - Select
 
-Channel membuat manajemen goroutine menjadi sangat mudah di Go. Namun perlu di-ingat, fungsi utama channel adalah bukan untuk kontrol eksekusi goroutine, melainkan untuk sharing data atau komunikasi goroutine.
+Channel membuat manajemen goroutine menjadi sangat mudah di Go. Namun perlu diingat, fungsi utama channel adalah bukan untuk kontrol eksekusi goroutine, melainkan untuk sharing data atau komunikasi goroutine.
 
 > Pada chapter [A.59. sync.WaitGroup](/A-waitgroup.html) akan dibahas secara komprehensif tentang cara yang lebih optimal untuk kontrol eksekusi goroutine.
 
@@ -12,7 +12,7 @@ Cara penggunaan `select` untuk kontrol channel sama seperti penggunaan `switch` 
 
 Program berikut merupakan contoh sederhana penerapan keyword `select`. Di sini disiapkan 2 buah goroutine, satu untuk menghitung rata-rata dari data array numerik, dan satu lagi untuk pencarian nilai tertinggi. Hasil operasi di masing-masing goroutine dikirimkan ke fungsi `main()` via channel (ada dua channel). Di fungsi `main()` sendiri, data tersebut diterima dengan memanfaatkan keyword `select`.
 
-Ok, langsung saja kita praktek. Pertama, siapkan 2 fungsi yang sudah dibahas di atas. Fungsi pertama digunakan untuk mencari rata-rata, dan fungsi kedua untuk penentuan nilai tertinggi dari sebuah slice.
+Ok, langsung saja kita praktik. Pertama, siapkan 2 fungsi yang sudah dibahas di atas. Fungsi pertama digunakan untuk mencari rata-rata, dan fungsi kedua untuk penentuan nilai tertinggi dari sebuah slice.
 
 ```go
 package main
@@ -32,7 +32,7 @@ func getMax(numbers []int, ch chan int) {
     var maxNum = numbers[0]
     for _, e := range numbers {
         if maxNum < e {
-			maxNum = e
+            maxNum = e
         }
     }
     ch <- maxNum

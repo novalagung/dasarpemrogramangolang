@@ -26,7 +26,7 @@ Hasilnya, tulisan `"start"` muncul, lalu 4 detik kemudian tulisan `"after 4 seco
 Selain untuk blocking proses, fungsi `time.Sleep()` ini bisa dimanfaatkan untuk membuat scheduler sederhana, contohnya seperti berikut, scheduler untuk menampilkan pesan halo setiap 1 detik.
 
 ```go
-for true {
+for {
     fmt.Println("Hello !!")
     time.Sleep(1 * time.Second)
 }
@@ -79,7 +79,7 @@ Beberapa hal yang perlu diketahui ketika menggunakan fungsi ini:
 
 ## A.41.5. Fungsi `time.After()`
 
-Kegunaan fungsi ini mirip seperti `time.Sleep()`. Perbedaannya adalah, fungsi `timer.After()` akan mengembalikan data channel, sehingga perlu menggunakan tanda `<-` dalam penerapannya.
+Kegunaan fungsi ini mirip seperti `time.Sleep()`. Perbedaannya adalah, fungsi `time.After()` akan mengembalikan data channel, sehingga perlu menggunakan tanda `<-` dalam penerapannya.
 
 ```go
 <-time.After(4 * time.Second)
@@ -98,28 +98,28 @@ Cara penggunaan ticker cukup mudah, buat objek ticker baru menggunakan `time.New
 package main
 
 import (
-	"fmt"
-	"time"
+    "fmt"
+    "time"
 )
 
 func main() {
-	done := make(chan bool)
-	ticker := time.NewTicker(time.Second)
+    done := make(chan bool)
+    ticker := time.NewTicker(time.Second)
 
-	go func() {
-		time.Sleep(10 * time.Second) // wait for 10 seconds
-		done <- true
-	}()
+    go func() {
+        time.Sleep(10 * time.Second) // wait for 10 seconds
+        done <- true
+    }()
 
-	for {
-		select {
-		case <-done:
-			ticker.Stop()
-			return
-		case t := <-ticker.C:
-			fmt.Println("Hello !!", t)
-		}
-	}
+    for {
+        select {
+        case <-done:
+            ticker.Stop()
+            return
+        case t := <-ticker.C:
+            fmt.Println("Hello !!", t)
+        }
+    }
 }
 
 ```
@@ -193,6 +193,35 @@ func main() {
 Ketika user tidak menginputkan apa-apa dalam kurun waktu 5 detik, pesan timeout muncul lalu program berhenti.
 
 ![Penerapan timer dalam goroutine](images/A_timer_ticker_scheduler_1_timer.png)
+
+## A.41.8. Perubahan Perilaku Timer di Go 1.23+
+
+Sejak Go 1.23, ada perubahan perilaku penting pada channel yang dikembalikan oleh `time.After()`, `time.NewTimer()`, dan `time.NewTicker()`.
+
+Sebelum Go 1.23, penggunaan `time.After()` dalam loop dapat menyebabkan *memory leak* karena timer yang dibuat tidak dapat di-garbage collect sebelum waktu jatuh tempo, meskipun hasil channel-nya tidak pernah dibaca. Contoh kode yang berpotensi menyebabkan leak di versi Go lama:
+
+```go
+for {
+    select {
+    case <-time.After(5 * time.Second):
+        fmt.Println("timeout")
+    case data := <-someChannel:
+        fmt.Println("received:", data)
+    }
+}
+```
+
+Pada kode di atas, setiap iterasi loop membuat timer baru via `time.After()`. Di Go versi lama, timer-timer yang belum jatuh tempo tidak bisa di-GC sehingga memori terus bertambah.
+
+Sejak Go 1.23, perilaku ini diperbaiki: timer yang dikembalikan `time.After()` dapat di-garbage collect jika channel-nya tidak lagi dapat dijangkau, sehingga memory leak tersebut tidak lagi terjadi.
+
+Untuk versi Go di bawah 1.23, solusi yang disarankan adalah menggunakan `time.NewTimer()` secara eksplisit dan memanggil `.Stop()` setelah selesai:
+
+```go
+timer := time.NewTimer(5 * time.Second)
+defer timer.Stop()
+<-timer.C
+```
 
 ---
 
