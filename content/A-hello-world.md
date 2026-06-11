@@ -67,7 +67,7 @@ Berikut merupakan pembahasan untuk tiap baris kode yang sudah ditulis di atas.
 
 ## A.7.5. Penggunaan Keyword `package`
 
-Setiap file program harus memiliki **package**. Setiap project harus ada minimal satu file dengan nama *package* `main`. File yang ber-*package* `main`, akan dieksekusi pertama kali ketika program di jalankan.
+Setiap file program harus memiliki **package**. Setiap project harus ada minimal satu file dengan nama *package* `main`. File yang ber-*package* `main`, akan dieksekusi pertama kali ketika program dijalankan.
 
 Cara menentukan *package* dengan menggunakan keyword `package`, berikut adalah contoh penulisannya.
 

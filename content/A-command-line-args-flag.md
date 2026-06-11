@@ -21,7 +21,7 @@ func main() {
 
     var args = argsRaw[1:]
     fmt.Printf("-> %#v\n", args)
-    // -> []string{"banana", "potatao", "ice cream"}
+    // -> []string{"banana", "potato", "ice cream"}
 }
 ```
 
@@ -46,7 +46,7 @@ Output program:
 
 Bisa dilihat pada kode di atas, bahwa untuk data argumen yang ada karakter spasi-nya (<code> </code>) harus dituliskan dengan diapit tanda petik (`"`) agar tidak dideteksi sebagai 2 argumen.
 
-Variabel `os.Args` mengembalikan tak hanya arguments saja, tapi juga path file executable (jika eksekusi-nya menggunakan `go run` maka path akan merujuk ke folder temporary). Maka disini penting untuk hanya mengambil element index ke 1 hingga seterusnya saja via statement `os.Args[1:]`.
+Variabel `os.Args` berisi tak hanya arguments saja, tapi juga path file executable pada index ke-0 (jika eksekusi-nya menggunakan `go run` maka path akan merujuk ke folder temporary). Maka di sini penting untuk hanya mengambil elemen index ke-1 dan seterusnya saja via statement `os.Args[1:]`.
 
 ## A.48.2. Penggunaan Flag
 
@@ -87,7 +87,7 @@ Nilai balik fungsi `flag.String()` adalah string pointer, jadi perlu di-*derefer
 
 ![Contoh penggunaan flag](images/A_cli_flag_arg_2_flag.png)
 
-Flag yang nilainya tidak di set, secara otomatis akan mengembalikan nilai default.
+Flag yang nilainya tidak diset, secara otomatis akan mengembalikan nilai default.
 
 Tabel berikut merupakan macam-macam fungsi flag yang tersedia untuk tiap jenis tipe data.
 
@@ -106,7 +106,7 @@ Tabel berikut merupakan macam-macam fungsi flag yang tersedia untuk tiap jenis t
 
 Sebenarnya ada 2 cara deklarasi flag yang bisa digunakan, dan cara di atas merupakan cara pertama.
 
-Cara kedua mirip dengan cara pertama, perbedannya adalah kalau di cara pertama nilai pointer flag dikembalikan lalu ditampung variabel. Sedangkan pada cara kedua, nilainya diambil lewat parameter pointer.
+Cara kedua mirip dengan cara pertama, perbedaannya: pada cara pertama nilai pointer flag dikembalikan lalu ditampung variabel, sedangkan pada cara kedua nilainya di-set lewat parameter pointer.
 
 Agar lebih jelas perhatikan contoh berikut:
 
@@ -118,6 +118,7 @@ fmt.Println(*data1)
 // cara ke-2
 var data2 string
 flag.StringVar(&data2, "gender", "male", "type your gender")
+flag.Parse()
 fmt.Println(data2)
 ```
 
@@ -126,6 +127,42 @@ Tinggal tambahkan akhiran `Var` pada pemanggilan nama fungsi flag yang digunakan
 Kegunaan dari parameter terakhir method-method flag adalah untuk memunculkan hints atau petunjuk arguments apa saja yang bisa dipakai, ketika argument `--help` ditambahkan saat eksekusi program.
 
 ![Contoh penggunaan flag](images/A_cli_flag_arg_3_flag_info.png)
+
+## A.48.4. Fungsi `flag.TextVar()` (Go 1.21+)
+
+Sejak Go 1.21, tersedia fungsi `flag.TextVar()` untuk mendaftarkan flag dengan tipe data kustom yang mengimplementasikan interface `encoding.TextUnmarshaler`. Ini berguna untuk tipe-tipe seperti `time.Time`, `net.IP`, atau tipe buatan sendiri yang bisa diparsing dari teks.
+
+```go
+package main
+
+import (
+    "flag"
+    "fmt"
+    "net"
+)
+
+func main() {
+    var ip net.IP
+    flag.TextVar(&ip, "ip", net.IPv4(127, 0, 0, 1), "IP address")
+
+    flag.Parse()
+    fmt.Println("ip:", ip)
+}
+```
+
+Jalankan dengan:
+
+```
+go run main.go -ip=192.168.1.1
+```
+
+Output:
+
+```
+ip: 192.168.1.1
+```
+
+`flag.TextVar()` memanggil method `UnmarshalText()` dari tipe yang diberikan untuk mengkonversi nilai string dari argument menjadi tipe yang sesuai.
 
 ---
 

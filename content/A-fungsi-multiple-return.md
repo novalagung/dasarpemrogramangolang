@@ -14,7 +14,7 @@ import "math"
 
 func calculate(d float64) (float64, float64) {
     // hitung luas
-    var area = math.Pi * math.Pow(d / 2, 2)
+    var area = math.Pi * math.Pow(d/2, 2)
     // hitung keliling
     var circumference = math.Pi * d
 
@@ -65,7 +65,7 @@ Keunikan lainnya yang jarang ditemui di bahasa lain adalah, di Go variabel yang 
 
 ```go
 func calculate(d float64) (area float64, circumference float64) {
-    area = math.Pi * math.Pow(d / 2, 2)
+    area = math.Pi * math.Pow(d/2, 2)
     circumference = math.Pi * d
 
     return
@@ -92,7 +92,7 @@ Fungsi `math.Pow()` digunakan untuk operasi pangkat nilai. `math.Pow(2, 3)` bera
 
 #### ◉ Penggunaan Konstanta `math.Pi`
 
-`math.Pi` adalah konstanta bawaan `package math` yang merepresentasikan **Pi** atau **22/7**.
+`math.Pi` adalah konstanta bawaan `package math` yang merepresentasikan **Pi** (π ≈ 3.14159).
 
 ---
 

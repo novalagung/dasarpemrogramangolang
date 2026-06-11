@@ -17,11 +17,11 @@ import "os"
 var path = "/Users/novalagung/Documents/temp/test.txt"
 
 func isError(err error) bool {
-	if err != nil {
-		fmt.Println(err.Error())
-	}
+    if err != nil {
+        fmt.Println(err.Error())
+    }
 
-	return (err != nil)
+    return (err != nil)
 }
 
 func createFile() {
@@ -29,11 +29,11 @@ func createFile() {
     var _, err = os.Stat(path)
 
     // buat file baru jika belum ada
-	if os.IsNotExist(err) {
-		var file, err = os.Create(path)
-		if isError(err) { return }
-		defer file.Close()
-	}
+    if os.IsNotExist(err) {
+        var file, err = os.Create(path)
+        if isError(err) { return }
+        defer file.Close()
+    }
 
     fmt.Println("==> file berhasil dibuat", path)
 }
@@ -43,7 +43,7 @@ func main() {
 }
 ```
 
-Fungsi `os.Stat()` mengembalikan 2 data, yaitu informasi tetang path yang dicari, dan error (jika ada). Masukkan error kembalian fungsi tersebut sebagai argument pemanggilan fungsi `os.IsNotExist()`, untuk mengetahui apakah file yang akan dibuat sudah ada. Jika rupanya file belum ada ada, maka fungsi tersebut akan mengembalikan nilai `true`.
+Fungsi `os.Stat()` mengembalikan 2 data, yaitu informasi tetang path yang dicari, dan error (jika ada). Masukkan error kembalian fungsi tersebut sebagai argument pemanggilan fungsi `os.IsNotExist()`, untuk mengetahui apakah file yang akan dibuat sudah ada. Jika rupanya file belum ada, maka fungsi tersebut akan mengembalikan nilai `true`.
 
 Fungsi `os.Create()` ini mengembalikan objek bertipe `*os.File`. File yang baru dibuat, statusnya adalah otomatis **open**. Setelah operasi file selesai, file harus di-**close** menggunakan method `file.Close()`.
 
@@ -59,20 +59,20 @@ Untuk mengedit file, yang pertama perlu dilakukan adalah membuka file dengan lev
 func writeFile() {
     // buka file dengan level akses READ & WRITE
     var file, err = os.OpenFile(path, os.O_RDWR, 0644)
-	if isError(err) { return }
-	defer file.Close()
+    if isError(err) { return }
+    defer file.Close()
 
     // tulis data ke file
     _, err = file.WriteString("halo\n")
-	if isError(err) { return }
-	_, err = file.WriteString("mari belajar golang\n")
-	if isError(err) { return }
+    if isError(err) { return }
+    _, err = file.WriteString("mari belajar golang\n")
+    if isError(err) { return }
 
     // simpan perubahan
     err = file.Sync()
-	if isError(err) { return }
+    if isError(err) { return }
 
-	fmt.Println("==> file berhasil di isi")
+    fmt.Println("==> file berhasil di isi")
 }
 
 func main() {
@@ -80,7 +80,7 @@ func main() {
 }
 ```
 
-Pada program di atas, file dibuka dengan level akses **read** dan **write** dengan kode permission **0664**. Setelah itu, beberapa string diisikan ke dalam file tersebut menggunakan `WriteString()`. Di akhir, semua perubahan terhadap file menjadi tersimpan dengan adanya pemanggilan method `Sync()`.
+Pada program di atas, file dibuka dengan level akses **read** dan **write** dengan kode permission **0644**. Setelah itu, beberapa string diisikan ke dalam file tersebut menggunakan `WriteString()`. Di akhir, semua perubahan terhadap file menjadi tersimpan dengan adanya pemanggilan method `Sync()`.
 
 ![Mengedit file](images/A_file_2_write.png)
 
@@ -95,24 +95,29 @@ import "io"
 func readFile() {
     // buka file
     var file, err = os.OpenFile(path, os.O_RDONLY, 0644)
-	if isError(err) { return }
-	defer file.Close()
+    if isError(err) { return }
+    defer file.Close()
 
     // baca file
     var text = make([]byte, 1024)
-	for {
-		n, err := file.Read(text)
-		if err != io.EOF {
-			if isError(err) { break }
-		}
-		if n == 0 {
-			break
-		}
-	}
-	if isError(err) { return }
+    for {
+        var n int
+        n, err = file.Read(text)
+        if err != nil {
+            if err == io.EOF {
+                err = nil
+                break
+            }
+            if isError(err) { return }
+        }
+        if n == 0 {
+            break
+        }
+    }
+    if isError(err) { return }
 
-	fmt.Println("==> file berhasil dibaca")
-	fmt.Println(string(text))
+    fmt.Println("==> file berhasil dibaca")
+    fmt.Println(string(text))
 }
 
 func main() {
@@ -139,9 +144,9 @@ Operasi menghapus file dilakukan via fungsi `os.Remove()`. Panggil fungsi terseb
 ```go
 func deleteFile() {
     var err = os.Remove(path)
-	if isError(err) { return }
+    if isError(err) { return }
 
-	fmt.Println("==> file berhasil di delete")
+    fmt.Println("==> file berhasil di delete")
 }
 
 func main() {
@@ -150,6 +155,45 @@ func main() {
 ```
 
 ![Menghapus file](images/A_file_4_delete.png)
+
+## A.50.5. Fungsi os.ReadFile() dan os.WriteFile() (Go 1.16+)
+
+Sejak Go 1.16, package `os` menyediakan dua fungsi baru yang menyederhanakan operasi baca dan tulis file: `os.ReadFile()` dan `os.WriteFile()`. Kedua fungsi ini menggantikan `ioutil.ReadFile()` dan `ioutil.WriteFile()` yang sekarang sudah deprecated.
+
+Dengan `os.ReadFile()`, seluruh isi file terbaca sekaligus tanpa perlu membuka file secara manual:
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+)
+
+func main() {
+    // tulis file
+    content := []byte("halo\nmari belajar golang\n")
+    err := os.WriteFile("/Users/novalagung/Documents/temp/test.txt", content, 0644)
+    if err != nil {
+        fmt.Println("error tulis:", err)
+        return
+    }
+    fmt.Println("==> file berhasil ditulis")
+
+    // baca file
+    data, err := os.ReadFile("/Users/novalagung/Documents/temp/test.txt")
+    if err != nil {
+        fmt.Println("error baca:", err)
+        return
+    }
+    fmt.Println("==> file berhasil dibaca")
+    fmt.Print(string(data))
+}
+```
+
+`os.WriteFile()` menerima tiga parameter: path file, data bertipe `[]byte`, dan permission file. Jika file sudah ada, isinya akan ditimpa seluruhnya. `os.ReadFile()` mengembalikan seluruh isi file sebagai `[]byte` dan error.
+
+Pendekatan ini lebih ringkas dibanding menggunakan `os.OpenFile()` secara langsung, cocok untuk file berukuran kecil hingga menengah.
 
 ---
 

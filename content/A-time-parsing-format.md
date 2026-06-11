@@ -13,7 +13,7 @@ Tipe `time.Time` merupakan representasi untuk objek date-time. Ada 2 cara yang b
  1. Menjadikan informasi waktu sekarang sebagai objek `time.Time`, menggunakan `time.Now()`.
  2. Atau, membuat objek baru bertipe `time.Time` dengan informasi ditentukan sendiri, menggunakan `time.Date()`.
 
-Berikut merupakan contoh penggunannya.
+Berikut merupakan contoh penggunaannya.
 
 ```go
 package main
@@ -64,8 +64,8 @@ Selain kedua method di atas, ada banyak lagi yang bisa dimanfaatkan. Tabel berik
 | :------------ | :--------- | :------- |
 | `now.Year()` | `int` | Tahun |
 | `now.YearDay()` | `int` | Hari ke-? di mulai awal tahun |
-| `now.Month()` | `int` | Bulan |
-| `now.Weekday()` | `string` | Nama hari. Bisa menggunakan `now.Weekday().String()` untuk mengambil bentuk string-nya |
+| `now.Month()` | `time.Month` | Bulan |
+| `now.Weekday()` | `time.Weekday` | Nama hari. Bisa menggunakan `now.Weekday().String()` untuk mengambil bentuk string-nya |
 | `now.ISOWeek()` | (`int`, `int`) | Tahun dan minggu ke-? mulai awal tahun |
 | `now.Day()` | `int` | Tanggal |
 | `now.Hour()` | `int` | Jam |
@@ -78,7 +78,7 @@ Selain kedua method di atas, ada banyak lagi yang bisa dimanfaatkan. Tabel berik
 | `now.IsZero()` | `bool` | Deteksi apakah nilai object `now` adalah `01 Januari tahun 1, 00:00:00 UTC`. Jika iya maka bernilai `true` |
 | `now.UTC()` | `time.Time` | Date-time dalam timezone `UTC` |
 | `now.Unix()` | `int64` | Date-time dalam format *unix time* |
-| `now.UnixNano()` | `int64` | Date-time dalam format *unix time*. Infomasi nano detik juga dimasukkan |
+| `now.UnixNano()` | `int64` | Date-time dalam format *unix time*. Informasi nano detik juga dimasukkan |
 | `now.String()` | `string` | Date-time dalam string |
 
 ## A.40.3. Parsing dari `string` ke `time.Time`
@@ -210,6 +210,42 @@ fmt.Println(date)
 Kode di atas menghasilkan error karena format tidak sesuai dengan skema data yang akan diparsing. Layout format yang seharusnya digunakan adalah `06 Jan 15 03:04 MST`.
 
 ![Error parsing time.Time](images/A_time_parsing_format_4_error_parse.png)
+
+## A.40.7. Predefined Layout Format Tambahan (Go 1.20+)
+
+Sejak Go 1.20, tersedia tiga predefined layout format baru yang cukup sering digunakan:
+
+| Predefined Layout Format | Layout Format |
+| :---------------- | :----- |
+| `time.DateTime` | 2006-01-02 15:04:05 |
+| `time.DateOnly` | 2006-01-02 |
+| `time.TimeOnly` | 15:04:05 |
+
+Contoh penggunaannya:
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    now := time.Now()
+
+    fmt.Println(now.Format(time.DateTime))
+    // contoh: 2026-06-11 14:30:00
+
+    fmt.Println(now.Format(time.DateOnly))
+    // contoh: 2026-06-11
+
+    fmt.Println(now.Format(time.TimeOnly))
+    // contoh: 14:30:00
+}
+```
+
+`time.DateTime` ekuivalen dengan layout `"2006-01-02 15:04:05"`, yang merupakan format paling umum digunakan. `time.DateOnly` dan `time.TimeOnly` berguna ketika hanya perlu bagian tanggal atau waktu saja.
 
 ---
 

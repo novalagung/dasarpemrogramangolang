@@ -4,7 +4,7 @@ Konstanta adalah jenis variabel yang nilainya tidak bisa diubah setelah dideklar
 
 ## A.11.1. Penggunaan Konstanta
 
-Data seperti **pi** (22/7), kecepatan cahaya (299.792.458 m/s), adalah contoh data yang tepat untuk dideklarasikan sebagai konstanta (daripada variabel), karena nilainya sudah pasti dan tidak akan berubah.
+Data seperti **pi** (π ≈ 3.14159), kecepatan cahaya (299.792.458 m/s), adalah contoh data yang tepat untuk dideklarasikan sebagai konstanta (daripada variabel), karena nilainya sudah pasti dan tidak akan berubah.
 
 Cara penerapan konstanta sama seperti deklarasi variabel biasa, perbedaannya ada pada keyword yang digunakan, yaitu `const` (bukan `var`).
 
@@ -45,10 +45,10 @@ Sama seperti variabel, konstanta juga dapat dideklarasikan secara bersamaan. Ber
 
 ```go
 const (
-    square          = "kotak"
-    isToday bool    = true
-    numeric uint8   = 1
-    floatNum        = 2.2
+    square         = "kotak"
+    isToday  bool  = true
+    numeric  uint8 = 1
+    floatNum       = 2.2
 )
 ```
 
@@ -85,7 +85,7 @@ const (
 - `sekarang` dideklarasikan dengan metode _manifest typing_ dengan tipe data **string** dan nilainya **"senin"**
 - `isToday2` dideklarasikan dengan metode _type inference_ dengan tipe data **bool** dan nilainya **true**
 
-Berikut contoh deklrasi _multiple_ konstanta dalam satu baris:
+Berikut contoh deklarasi _multiple_ konstanta dalam satu baris:
 
 ```go
 const satu, dua = 1, 2

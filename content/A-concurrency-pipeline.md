@@ -47,15 +47,15 @@ Untuk mempermudah memahami tabel di atas silakan ikuti penjelasan beruntun berik
 
 Pada contoh ini kita asumsikan pipeline A adalah hanya satu goroutine, pipeline B juga satu goroutine, demikian juga pipeline C. Tapi sebenarnya dalam implementasi *real world* bisa saja ada banyak goroutine untuk masing-masing pipeline (banyak goroutine untuk pipeline A, banyak goroutine untuk pipeline B, banyak goroutine untuk pipeline C).
 
-Semoga cukup jelas ya. Tapi jika masih bingung, juga tidak apa. Kita sambil praktek juga, dan bisa saja pembaca mulai benar-benar pahamnya saat praktek.
+Semoga cukup jelas ya. Tapi jika masih bingung, juga tidak apa. Kita sambil praktik juga, dan bisa saja pembaca mulai benar-benar pahamnya saat praktik.
 
-> Penulis sarankan untuk benar-benar memahami setiap bagian praktek ini, karena topik ini merupakan pembahasan yang cukup berat untuk pemula, tapi masih dalam klasifikasi fundamental kalau di Go programming. Bingung tidak apa, nanti bisa di-ulang-ulang, yang penting tidak sekadar *copy-paste*.
+> Penulis sarankan untuk benar-benar memahami setiap bagian praktik ini, karena topik ini merupakan pembahasan yang cukup berat untuk pemula, tapi masih dalam klasifikasi fundamental kalau di Go programming. Bingung tidak apa, nanti bisa di-ulang-ulang, yang penting tidak sekadar *copy-paste*.
 
-## A.62.2. Skenario Praktek
+## A.62.2. Skenario Praktik
 
-Ok, penjabaran teori sepanjang sungai `nil` tidak akan banyak membawa penjelasan yang real kalau tidak diiringi dengan praktek. So, mari kita mulai praktek.
+Ok, penjabaran teori sepanjang sungai `nil` tidak akan banyak membawa penjelasan yang real kalau tidak diiringi dengan praktik. So, mari kita mulai praktik.
 
-Untuk skenario praktek kita tidak menggunakan analogi backup database di atas ya, karena untuk setup environment-nya butuh banyak *effort*. Skenario praktek yang kita pakai adalah mencari [md5 sum](https://en.wikipedia.org/wiki/Md5sum) dari banyak file, kemudian menggunakan hash dari content-nya sebagai nama file. Jadi file yang lama akan di-rename dengan nama baru yaitu hash dari konten file tersebut.
+Untuk skenario praktik kita tidak menggunakan analogi backup database di atas ya, karena untuk setup environment-nya butuh banyak *effort*. Skenario praktik yang kita pakai adalah mencari [md5 sum](https://en.wikipedia.org/wiki/Md5sum) dari banyak file, kemudian menggunakan hash dari content-nya sebagai nama file. Jadi file yang lama akan di-rename dengan nama baru yaitu hash dari konten file tersebut.
 
 Agar skenario ini bisa kita eksekusi, kita perlu siapkan dulu sebuah program untuk *generate dummy files*.
 
@@ -122,12 +122,12 @@ Siapkan fungsi `generateFiles()`-nya, isinya kurang lebih adalah generate banyak
 ```go
 func generateFiles() {
     os.RemoveAll(tempPath)
-    os.MkdirAll(tempPath, os.ModePerm)
+    os.MkdirAll(tempPath, 0755)
 
     for i := 0; i < totalFile; i++ {
         filename := filepath.Join(tempPath, fmt.Sprintf("file-%d.txt", i))
         content := randomString(contentLength)
-        err := os.WriteFile(filename, []byte(content), os.ModePerm)
+        err := os.WriteFile(filename, []byte(content), 0644)
         if err != nil {
             log.Println("Error writing file", filename)
         }
@@ -238,7 +238,7 @@ Cukup panjang isi fungsi ini, tetapi isinya cukup *straight forward* kok.
 * Pertama kita siapkan `counterTotal` sebagai counter jumlah file yang ditemukan dalam `$TEMP/chapter-A.62-concurrency-pipeline`. Idealnya jumlahnya adalah sama dengan isi variabel `totalFile` pada program pertama, kecuali ada error.
 * Kedua, kita siapkan `counterRenamed` sebagai counter jumlah file yang berhasil di-rename. Untuk ini juga idealnya sama dengan nilai pada `counterTotal`, kecuali ada error
 * Kita gunakan `filepath.Walk` untuk melakukan pembacaan semua file yang ada dalam folder `$TEMP/chapter-A.62-concurrency-pipeline`.
-* File akan dibaca secara sekuensial, di tiap pembacaan jika ada error dan ditemukan sebuah direktori, maka kita ignore kemudian lanjut pembacaan file selanjutnya.
+* File akan dibaca secara sekuensial. Jika ada error pembacaan, proses dihentikan; jika entry yang ditemukan adalah direktori, maka di-skip lalu lanjut ke file selanjutnya.
 * File dibaca menggunakan `os.ReadFile()`, kemudian lewat fungsi `md5.Sum()` kita cari md5 hash sum dari konten file.
 * Setelahnya, kita rename file dengan nama `file-<md5hash>.txt`.
 
@@ -408,9 +408,9 @@ func getSum(chanIn <-chan FileInfo) <-chan FileInfo {
 }
 ```
 
-Bisa dilihat, di situ channel inputan `chanIn` di-listen dan setiap ada penerimaan data (via channel tersebut) dilanjut ke proses kalkulasi md5 hash. Hasil hash-nya di tambahkan ke data `FileInfo` kemudian dikirim lagi ke channel `chanOut` yang mana channel ini merupakan nilai balik fungsi `getSum()`.
+Bisa dilihat, di situ channel inputan `chanIn` di-listen dan setiap ada penerimaan data (via channel tersebut) dilanjut ke proses kalkulasi md5 hash. Hasil hash-nya ditambahkan ke data `FileInfo` kemudian dikirim lagi ke channel `chanOut` yang mana channel ini merupakan nilai balik fungsi `getSum()`.
 
-Ketika `chanIn` closed, maka bisa diasumsikan semua data sudah dikirim. Jika memang iya dan data-data tersebut sudah di proses (pencarian md5hash-nya), maka channel `chanOut` juga di-close.
+Ketika `chanIn` closed, maka bisa diasumsikan semua data sudah dikirim. Jika memang iya dan data-data tersebut sudah diproses (pencarian md5hash-nya), maka channel `chanOut` juga di-close.
 
 Next, buat fungsi merger-nya.
 
@@ -524,7 +524,7 @@ Ok, sekarang program sudah siap. Mari kita jalankan untuk melihat hasilnya.
 
 ![Rename file concurrently](images/A_concurrency_pipeline_3_rename_concurrently.png)
 
-Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu `1.17` detik, sedangkan dengan metode pipeline butuh hanya `0.72` detik. Bedanya hampir **40%**! dan ini hanya 3000 file saja, bayangkan kalau jutaan file, mungkin lebih terasa perbandingan performnya.
+Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu `1.17` detik, sedangkan dengan metode pipeline hanya butuh `0.72` detik. Bedanya hampir **40%**! Dan ini hanya 3000 file saja, bayangkan kalau jutaan file, perbedaan performanya akan lebih terasa.
 
 ## A.62.6. Kesimpulan
 
@@ -535,6 +535,51 @@ Untuk banyak kasus, metode pipeline ini sangat tepat guna. Kita bisa dengan muda
 Intinya butuh banyak percobaan dan testing, sesuaikan dengan spesifikasi hardware laptop/komputer/server yang digunakan.
 
 Ok sekian untuk chapter panjang ini.
+
+## A.62.7. filepath.WalkDir sebagai Pengganti filepath.Walk (Go 1.16+)
+
+Sejak Go 1.16, tersedia fungsi `filepath.WalkDir()` sebagai pengganti yang lebih efisien dari `filepath.Walk()`. Perbedaan utamanya:
+
+- `filepath.Walk()` memanggil `os.Lstat()` pada setiap entry untuk mendapatkan `os.FileInfo`, yang berarti satu *syscall* tambahan per file.
+- `filepath.WalkDir()` menggunakan `fs.DirEntry` yang sudah tersedia dari hasil pembacaan direktori, sehingga tidak perlu *syscall* tambahan kecuali memang dibutuhkan.
+
+Untuk chapter pipeline ini, fungsi `readFiles()` bisa ditulis ulang menggunakan `filepath.WalkDir()`:
+
+```go
+func readFiles() <-chan FileInfo {
+    chanOut := make(chan FileInfo)
+
+    go func() {
+        err := filepath.WalkDir(tempPath, func(path string, d fs.DirEntry, err error) error {
+            if err != nil {
+                return err
+            }
+            if d.IsDir() {
+                return nil
+            }
+
+            buf, err := os.ReadFile(path)
+            if err != nil {
+                return err
+            }
+
+            chanOut <- FileInfo{
+                FilePath: path,
+                Content:  buf,
+            }
+            return nil
+        })
+        if err != nil {
+            log.Println("ERROR:", err.Error())
+        }
+        close(chanOut)
+    }()
+
+    return chanOut
+}
+```
+
+Perlu di-import package `io/fs` untuk tipe `fs.DirEntry`. Untuk kasus pembacaan file dalam jumlah banyak seperti pada chapter ini, `filepath.WalkDir()` adalah pilihan yang lebih baik dari sisi performa.
 
 ---
 

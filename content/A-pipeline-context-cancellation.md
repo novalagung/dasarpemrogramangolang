@@ -6,7 +6,7 @@ Di sini kita akan gunakan salah satu API milik Go yang tersedia untuk *cancellat
 
 Context digunakan untuk mendefinisikan tipe *context* yang di dalamnya ada beberapa hal yaitu: informasi *deadlines*, signal *cancellation*, dan data untuk keperluan komunikasi antar API atau antar proses.
 
-## A.64.1. Skenario Praktek
+## A.64.1. Skenario Praktik
 
 Kita akan modifikasi file program `1-generate-dummy-files-concurrently.go` yang pada chapter sebelumnya ([A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](/A-simplified-fan-in-fan-out-pipeline.html)) sudah dibuat. Pada program tersebut akan kita tambahkan mekanisme cancellation ketika ada timeout.
 
@@ -17,7 +17,7 @@ Jadi kurang lebih akan ada dua result:
 
 ## A.64.2. Program Generate Dummy File *Concurrently*
 
-Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi *concurrent* tanpa *cancellation*. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan merujuk ke chapter sebelumnya saja, di sini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
+Ok langsung saja, tulis dulu kode program versi *concurrent* tanpa *cancellation* sebagai titik awal. Bisa langsung copy-paste dari chapter sebelumnya, atau tulis dari awal mengikuti tutorial ini. Untuk penjelasan detail silakan merujuk ke chapter [A.63](/A-simplified-fan-in-fan-out-pipeline.html), di sini kita tulis langsung agar bisa cepat mulai ke bagian *cancellation*.
 
 #### ◉ Import Packages dan Definisi Variabel
 
@@ -37,7 +37,7 @@ import (
 const totalFile = 3000
 const contentLength = 5000
 
-var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.61-pipeline-cancellation-context")
+var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.64-pipeline-cancellation-context")
 ```
 
 #### ◉ Definisi struct `FileInfo`
@@ -74,8 +74,7 @@ func randomString(length int) string {
 
     b := make([]rune, length)
     for i := range b {
-        s := randomizer.Intn(len(letters))
-        b[i] = letters[s]
+        b[i] = letters[randomizer.Intn(len(letters))]
     }
 
     return string(b)
@@ -87,7 +86,7 @@ func randomString(length int) string {
 ```go
 func generateFiles() {
     os.RemoveAll(tempPath)
-    os.MkdirAll(tempPath, os.ModePerm)
+    os.MkdirAll(tempPath, 0755)
 
     // pipeline 1: job distribution
     chanFileIndex := generateFileIndexes()
@@ -146,7 +145,7 @@ func createFiles(chanIn <-chan FileInfo, numberOfWorkers int) <-chan FileInfo {
                 for job := range chanIn {
                     filePath := filepath.Join(tempPath, job.FileName)
                     content := randomString(contentLength)
-                    err := os.WriteFile(filePath, []byte(content), os.ModePerm)
+                    err := os.WriteFile(filePath, []byte(content), 0644)
 
                     log.Println("worker", workerIndex, "working on", job.FileName, "file generation")
 
@@ -248,7 +247,7 @@ Kesamaan dari ketiga fungsi `context.With...` adalah sama-sama menambahkan fasil
 
 Jadi pada contoh yang kita tulis di atas, kurang lebih yang akan dilakukan adalah:
 
-* Kira buat object context baru lewat `context.Background()`.
+* Kita buat object context baru lewat `context.Background()`.
 * Objek context tersebut ditambahkan fasilitas *cancellable* di dalamnya, dan juga auto cancel ketika timeout menggunakan `context.WithTimeout()`, dengan durasi timeout adalah `timeoutDuration`.
 * Fungsi `generateFilesWithContext()` dipanggil dengan disisipkan object context.
 * Callback `context.CancelFunc` dipanggil secara deferred. Ini merupakan idiomatic Go dalam penerapan context. Meskipun context sudah punya timeout atau deadline dan kita tidak perlu meng-*cancel* context secara manual, sangat dianjurkan untuk tetap memanggil callback `cancel()` tersebut secara deferred.
@@ -268,7 +267,7 @@ Pada fungsi `generateFilesWithContext()` sendiri, isinya adalah isi `generateFil
 ```go
 func generateFilesWithContext(ctx context.Context) {
     os.RemoveAll(tempPath)
-    os.MkdirAll(tempPath, os.ModePerm)
+    os.MkdirAll(tempPath, 0755)
 
     done := make(chan int)
 
@@ -319,7 +318,7 @@ Nah jadi lewat seleksi kondisi 2 case di atas, kita bisa dengan mudah mengidenti
 
 Selain beberapa hal yang sudah saya sampaikan, ada *minor changes* lainnya, yaitu pada pemanggilan fungsi `generateFileIndexes()` dan `createFiles()` ditambahkan argument context.
 
-#### ◉ Penambahan context pada fungsi `generateFiles()`
+#### ◉ Penambahan context pada fungsi `generateFileIndexes()`
 
 Kenapa ini perlu? karena **meski eksekusi fungsi `generateFilesWithContext()` otomatis di stop ketika cancelled, proses di dalamnya akan tetap berjalan jika tidak di-*handle* dengan baik *cancellation*-nya.**
 
@@ -335,7 +334,7 @@ func generateFileIndexes(ctx context.Context) <-chan FileInfo {
         for i := 0; i < totalFile; i++ {
             select {
             case <-ctx.Done():
-                break
+                return
             default:
                 chanOut <- FileInfo{
                     Index:    i,
@@ -350,14 +349,14 @@ func generateFileIndexes(ctx context.Context) <-chan FileInfo {
 }
 ```
 
-Dibanding sebelumnya, perbedaannya adalah ada *channel selection*. Jadi di bagian pengiriman jobs, ketika sebelum semua jobs dikirim tapi ada notif untuk cancel maka kita akan skip pengiriman *remainin* jobs secara paksa.
+Dibanding sebelumnya, perbedaannya adalah ada *channel selection*. Jadi di bagian pengiriman jobs, ketika sebelum semua jobs dikirim tapi ada notif untuk cancel maka kita akan skip pengiriman *remaining* jobs secara paksa.
 
-* Jika ada notif cancel paksa, maka case pertama akan terpenuhi, dan perulangan di-`break`.
+* Jika ada notif cancel paksa, maka case pertama akan terpenuhi, dan goroutine di-`return` (berhenti sepenuhnya).
 * Selebihnya, pengiriman jobs akan berlangsung seperti normalnya.
 
 #### ◉ Penambahan context pada fungsi `createFiles()`
 
-Hal yang sama (cancel di level sub prosees) juga perlu diterapkan pada `createFiles()`, karena jika tidak, maka proses pembuatan file akan tetap berjalan sesuai dengan jumlah jobs yang dikirim meskipun sudah di-cancel secara paksa.
+Hal yang sama (cancel di level sub proses) juga perlu diterapkan pada `createFiles()`, karena jika tidak, maka proses pembuatan file akan tetap berjalan sesuai dengan jumlah jobs yang dikirim meskipun sudah di-cancel secara paksa.
 
 Sebenarnya penambahan cancellation pada fungsi `generateFiles()` sudah cukup, karena ketika cancelled maka sisa jobs tidak akan dikirim. Tapi pada contoh ini penulis ingin ketika cancelled, maka tidak hanya pengiriman jobs tapi eksekusi jobs juga di-stop secara paksa (meski mungkin masih ada sebagian jobs yang masih dalam antrian).
 
@@ -380,7 +379,7 @@ func createFiles(ctx context.Context, chanIn <-chan FileInfo, numberOfWorkers in
                     default:
                         filePath := filepath.Join(tempPath, job.FileName)
                         content := randomString(contentLength)
-                        err := os.WriteFile(filePath, []byte(content), os.ModePerm)
+                        err := os.WriteFile(filePath, []byte(content), 0644)
 
                         log.Println("worker", workerIndex, "working on", job.FileName, "file generation")
 

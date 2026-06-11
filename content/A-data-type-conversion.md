@@ -4,7 +4,7 @@ Di beberapa chapter sebelum ini kita telah menerapkan beberapa cara konversi dat
 
 ## A.43.1. Konversi Menggunakan `strconv`
 
-Package `strconv` berisi banyak fungsi yang sangat membantu kita untuk melakukan konversi. Berikut merupakan beberapa fungsi yang dalam package tersebut.
+Package `strconv` berisi banyak fungsi yang sangat membantu kita untuk melakukan konversi. Berikut merupakan beberapa fungsi yang tersedia dalam package tersebut.
 
 #### ◉ Fungsi `strconv.Atoi()`
 
@@ -139,7 +139,7 @@ fmt.Println(str) // true
 
 ## A.43.2. Konversi Data Menggunakan Teknik Casting
 
-Cara penerapannya adalah dengan menggunakan keyword tipe data sebagai nama fungsi, kemudiaan argument pemanggilannya diisi dengan data yang ingin dikonversi tipenya.
+Cara penerapannya adalah dengan menggunakan nama tipe data sebagai fungsi konversi, kemudian argument pemanggilannya diisi dengan data yang ingin dikonversi tipenya.
 
 ```go
 // konversi nilai 24 bertipe int ke float64
@@ -187,9 +187,11 @@ Juga berlaku sebaliknya, data numerik jika di-casting ke bentuk string dideteksi
 var c int64 = int64('h')
 fmt.Println(c) // 104
 
-var d string = string(104)
+var d string = string(rune(104))
 fmt.Println(d) // h
 ```
+
+> Sejak Go 1.15, `go vet` akan memperingatkan penggunaan `string(N)` di mana `N` adalah nilai numerik integer, karena hasilnya adalah karakter unicode (bukan representasi angka dalam string). Gunakan `string(rune(N))` untuk konversi yang eksplisit dan bebas dari peringatan vet.
 
 ## A.43.4. Type Assertions Pada Tipe `any` atau Interface Kosong (`interface{}`)
 
@@ -213,13 +215,13 @@ fmt.Println(data["isMale"].(bool))
 fmt.Println(data["hobbies"].([]string))
 ```
 
-Statement `data["nama"].(string)` maksudnya adalah, nilai `data["nama"]` yang bertipe `interface{}` diambil nilai konkretnya dalam bentuk string `string`.
+Statement `data["nama"].(string)` maksudnya adalah, nilai `data["nama"]` yang bertipe `interface{}` diambil nilai konkretnya dalam bentuk `string`.
 
 Pada kode di atas, tidak akan terjadi panic error, karena semua operasi type assertion adalah dilakukan menggunakan tipe data yang sudah sesuai dengan tipe data nilai aslinya. Seperti `data["nama"]` yang merupakan `string` pasti bisa di-asertasi ke tipe `string`.
 
 Coba lakukan asertasi ke tipe yang tidak sesuai dengan tipe nilai aslinya, seperti `data["nama"].(int)`, hasilnya adalah panic error.
 
-Nah, dari penjelasan di atas, terlihat bahwa kita harus tau terlebih dahulu apa tipe data asli dari data yang tersimpan dalam interface. Jika misal tidak tau, maka bisa gunakan teknik di bawah ini untuk pengecekan sukses tidaknya proses asertasi.
+Nah, dari penjelasan di atas, terlihat bahwa kita harus tahu terlebih dahulu apa tipe data asli dari data yang tersimpan dalam interface. Jika misal tidak tau, maka bisa gunakan teknik di bawah ini untuk pengecekan sukses tidaknya proses asertasi.
 
 Tipe asli data pada variabel `interface{}` bisa diketahui dengan cara meng-casting ke tipe `type`, namun casting ini hanya bisa dilakukan pada `switch`.
 
@@ -237,7 +239,7 @@ for _, val := range data {
     case []string:
         fmt.Println(val.([]string))
     default:
-        fmt.Println(val.(int))
+        fmt.Println("unexpected type")
     }
 }
 ```

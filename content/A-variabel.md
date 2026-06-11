@@ -62,7 +62,7 @@ Contoh lain, ketiga baris kode berikut ini akan menghasilkan output yang sama, m
 ```go
 fmt.Printf("halo john wick!\n")
 fmt.Printf("halo %s %s!\n", firstName, lastName)
-fmt.Println("halo", firstName, lastName + "!")
+fmt.Println("halo", firstName, lastName+"!")
 ```
 
 Tanda plus (`+`) jika digunakan untuk penghubung 2 data string fungsinya adalah untuk operasi penggabungan string atau *string concatenation*.

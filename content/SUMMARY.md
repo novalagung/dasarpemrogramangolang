@@ -63,7 +63,7 @@
   * [A.44. Fungsi String](A-strings.md)
   * [A.45. Regexp](A-regex.md)
   * [A.46. Encode - Decode Base64](A-encoding-base64.md)
-  * [A.47. Hash Sha1](A-hash-sha1.md)
+  * [A.47. Hash SHA1](A-hash-sha1.md)
   * [A.48. Arguments & Flag](A-command-line-args-flag.md)
   * [A.49. Exec](A-exec.md)
   * [A.50. File](A-file.md)

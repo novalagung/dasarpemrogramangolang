@@ -24,13 +24,13 @@ Penulis menerima cukup banyak email dari pembaca mengenai beberapa error di chap
 
 ## A.26.2. Exported Package dan Unexported Package
 
-Pengembangan aplikasi dalam *real development* pasti membutuhkan banyak sekali file program. Tidak mungkin dalam satu buah project semua source code di tulis di hanya 1 package `main` saja, umumnya akan dipisah ke beberapa package berbeda yang masing-masing punya tugas sendiri yang berbeda satu sama lain.
+Pengembangan aplikasi dalam *real development* pasti membutuhkan banyak sekali file program. Tidak mungkin dalam satu buah project semua source code ditulis di hanya 1 package `main` saja, umumnya akan dipisah ke beberapa package berbeda yang masing-masing punya tugas sendiri yang berbeda satu sama lain.
 
 Project folder selain berisikan file-file `.go` juga bisa berisikan sub-folder lainnya. Di Go, setiap folder atau sub-folder adalah satu package, file-file yang ada di dalam sebuah folder package-nya harus sama. Dan package pada file-file tersebut harus berbeda dengan package pada file-file lainnya yang berada pada folder berbeda.
 
 > Sederhananya, 1 folder adalah 1 package.
 
-Dalam sebuah package, biasanya kita menulis sangat banyak komponen, bisa berupa fungsi, struct, variabel, atau lainnya. Komponen-komponen tersebut bisa secara leluasa dipergunakan di kode yang masih berada di dalam package yang sama. Contohnya seperti program yang telah kita praktekan pada chapter sebelum-sebelumnya, dalam package `main` ada banyak yang di-*define*: fungsi, variabel, closure, struct, dan lainnya; semuanya bisa langsung dimanfaatkan.
+Dalam sebuah package, biasanya kita menulis sangat banyak komponen, bisa berupa fungsi, struct, variabel, atau lainnya. Komponen-komponen tersebut bisa secara leluasa dipergunakan di kode yang masih berada di dalam package yang sama. Contohnya seperti program yang telah kita praktikkan pada chapter sebelum-sebelumnya, dalam package `main` ada banyak yang di-*define*: fungsi, variabel, closure, struct, dan lainnya; semuanya bisa langsung dimanfaatkan.
 
 Jika dalam satu program terdapat lebih dari 1 package, atau ada package lain selain `main`, maka komponen dalam package lain tersebut tidak bisa diakses secara bebas dari file yang package-nya `main`, perlu dilihat dulu level akses yang sudah ditentukan apa.
 
@@ -43,7 +43,7 @@ Cara menentukan level akses atau modifier di Go sangat mudah, yaitu dengan menga
 
 ## A.26.3. Penggunaan Package, Import, Dan Hak Akses *Exported* dan *Unexported*
 
-Agar lebih mudah dipahami, maka langsung saja kita praktekan.
+Agar lebih mudah dipahami, maka langsung saja kita praktikkan.
 
 Pertama buat folder proyek baru bernama `belajar-golang-level-akses`, gunakan nama folder tersebut sebagai nama project. Kemudian buat file baru bernama `main.go` di dalamnya, lalu tentukan nama package file tersebut sebagai **main**.
 
@@ -133,7 +133,7 @@ Coba jalankan lagi.
 
 Level akses *exported* (atau public) dan *unexported* (atau private) juga bisa diterapkan di fungsi, struct, method, maupun property variabel. Cara penggunaannya sama seperti pada pembahasan sebelumnya, yaitu dengan menentukan **character case** huruf pertama nama komponen, apakah huruf besar atau kecil.
 
-Ok, lanjut ke praktek berikutnya. Hapus isi file `library.go`, lalu buat struct baru dengan nama `student` di dalamnya.
+Ok, lanjut ke praktik berikutnya. Hapus isi file `library.go`, lalu buat struct baru dengan nama `student` di dalamnya.
 
 ```go
 package library
@@ -240,13 +240,13 @@ func main() {
 }
 ```
 
-Pada kode di atas, package `fmt` di tentukan aliasnya adalah `f`, untuk mengakses `Println()` cukup dengan `f.Println()`.
+Pada kode di atas, package `fmt` ditentukan aliasnya adalah `f`, untuk mengakses `Println()` cukup dengan `f.Println()`.
 
 ## A.26.7. Mengakses Property Dalam File Yang Package-nya Sama
 
-Jika property yang ingin di akses masih dalam satu package tapi file-nya berbeda, cara mengaksesnya bisa langsung dengan memanggil namanya seperti biasa. Hanya saja saat eksekusi, file-file lain yang yang nama package-nya sama tersebut harus ikut disertakan dalam command `go run`.
+Jika property yang ingin diakses masih dalam satu package tapi file-nya berbeda, cara mengaksesnya bisa langsung dengan memanggil namanya seperti biasa. Hanya saja saat eksekusi, file-file lain yang nama package-nya sama tersebut harus ikut disertakan dalam command `go run`.
 
-Langsung saja kita praktekan, buat file baru dalam folder `belajar-golang-level-akses` dengan nama `partial.go`.
+Langsung saja kita praktikkan, buat file baru dalam folder `belajar-golang-level-akses` dengan nama `partial.go`.
 
 ![File `partial.go` disiapkan setara dengan file `main.go`](images/A_properti_public_private_5_structure.png)
 
@@ -290,7 +290,7 @@ Fungsi `sayHello` pada file `partial.go` bisa dikenali meski level aksesnya adal
 
 Selain fungsi `main()`, terdapat juga fungsi spesial yaitu `init()`. Fungsi ini otomatis dipanggil saat pertama kali program dijalankan. Jika fungsi ini ditulis di package-package lain yang di-import di `main`, maka semua fungsi `init()` tersebut dipanggil lebih dulu sebelum fungsi `main()`.
 
-Agar lebih jelas mari praktekan. Buka file `library.go`, hapus isinya lalu isi dengan kode berikut.
+Agar lebih jelas mari kita praktikkan. Buka file `library.go`, hapus isinya lalu isi dengan kode berikut.
 
 ```go
 package library

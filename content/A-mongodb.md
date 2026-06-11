@@ -11,7 +11,7 @@ Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
  1. Instal mongo-go-driver menggunakan `go get`.
 
     ```
-	cd <folder-project>
+    cd <folder-project>
     go get go.mongodb.org/mongo-driver/mongo
     ```
 
@@ -21,20 +21,19 @@ Ada beberapa hal yang perlu disiapkan sebelum mulai masuk ke bagian coding.
 
 ## A.57.2. Insert Data
 
-Cara insert data ke mongodb via Go tidak terlalu sulit. Kita akan mempelajarinya dengan cara praktek langsung. Pertama-tama silakan import package yang dibutuhkan.
+Cara insert data ke mongodb via Go tidak terlalu sulit. Kita akan mempelajarinya dengan cara praktik langsung. Pertama-tama silakan import package yang dibutuhkan.
 
 ```go
 package main
 
 import (
-	"context"
-	"fmt"
-	"log"
-	"time"
+    "context"
+    "fmt"
+    "log"
 
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/bson"
+    "go.mongodb.org/mongo-driver/mongo"
+    "go.mongodb.org/mongo-driver/mongo/options"
+    "go.mongodb.org/mongo-driver/bson"
 )
 ```
 
@@ -46,61 +45,54 @@ Perlu diketahui bahwa pada chapter ini tidak dijelaskan tentang apa itu context.
 var ctx = context.Background()
 
 type student struct {
-	Name  string `bson:"name"`
-	Grade int    `bson:"Grade"`
+    Name  string `bson:"name"`
+    Grade int    `bson:"grade"`
 }
 ```
 
 Tag `bson` pada property struct digunakan sebagai penentu nama field ketika data disimpan ke dalam collection. Jika sebuah property tidak memiliki tag bson, secara default nama field adalah sama dengan nama property hanya saja lowercase. Untuk customize nama field, gunakan tag `bson`.
 
-Pada contoh di atas, property `Name` ditentukan nama field mongo-nya sebagai `name`, dan `Grade` sebagai `Grade`.
+Pada contoh di atas, property `Name` ditentukan nama field mongo-nya sebagai `name`, dan `Grade` sebagai `grade`.
 
 Selanjutnya siapkan fungsi untuk membuat satu buah mongo connection. Dari objek connection diambil object database, kemudian dijadikan sebagai nilai balik fungsi.
 
 ```go
 func connect() (*mongo.Database, error) {
-	clientOptions := options.Client()
-	clientOptions.ApplyURI("mongodb://localhost:27017")
-	client, err := mongo.NewClient(clientOptions)
-	if err != nil {
-		return nil, err
-	}
+    client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        return nil, err
+    }
 
-	err = client.Connect(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	return client.Database("belajar_golang"), nil
+    return client.Database("belajar_golang"), nil
 }
 ```
 
-Fungsi `mongo.NewClient()` digunakan untuk meng-inisialisasi koneksi database dari client ke server. Fungsi tersebut memerlukan parameter bertipe `*options.ClientOptions`. Pada client options mongo connection string perlu di set (lewat method `.ApplyURI()`).
+Fungsi `mongo.Connect()` digunakan untuk membuat koneksi sekaligus menginisialisasi client ke server MongoDB. Fungsi ini memerlukan context sebagai parameter pertama, dan `*options.ClientOptions` sebagai parameter berikutnya. Pada client options, mongo connection string diset lewat method `.ApplyURI()`.
 
 > Silakan sesuaikan connection string dengan mongo db server yang dipergunakan. Lebih jelasnya silakan merujuk ke [MongoDB Documentation: Connection String URI Format](https://docs.mongodb.com/manual/reference/connection-string/).
 
-Dari object client, panggil method `.Connect()` untuk inisialisasi koneksi ke db server. Setelah itu panggil method `.Database()` untuk set database yang aktif.
+Setelah client terbuat, panggil method `.Database()` untuk menentukan database yang aktif.
 
 Lanjut buat fungsi yang di dalamnya berisikan kode untuk insert data ke mongodb, lalu panggil fungsi tersebut di `main()`.
 
 ```go
 func insert() {
-	db, err := connect()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+    db, err := connect()
+    if err != nil {
+        log.Fatal(err.Error())
+    }
 
-	_, err = db.Collection("student").InsertOne(ctx, student{"Wick", 2})
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+    _, err = db.Collection("student").InsertOne(ctx, student{"Wick", 2})
+    if err != nil {
+        log.Fatal(err.Error())
+    }
 
-	_, err = db.Collection("student").InsertOne(ctx, student{"Ethan", 2})
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+    _, err = db.Collection("student").InsertOne(ctx, student{"Ethan", 2})
+    if err != nil {
+        log.Fatal(err.Error())
+    }
 
-	fmt.Println("Insert success!")
+    fmt.Println("Insert success!")
 }
 
 func main() {
@@ -114,10 +106,10 @@ Sebagai contoh, pada kode di atas `.InsertOne()` digunakan untuk insert satu dat
 
 ```js
 // mongodb
-db.getCollection("student").insertOne({ name: "Wick", Grade: 2 })
+db.getCollection("student").insertOne({ name: "Wick", grade: 2 })
 
 // mongo-go-driver
-db.Collection("student").InsertOne(ctx, student{ name: "Wick", Grade: 2})
+db.Collection("student").InsertOne(ctx, student{Name: "Wick", Grade: 2})
 ```
 
 Perlu diketahui, bahwa di mongo-go-driver setiap operasi biasanya membutuhkan objek context untuk disisipkan sebagai parameter pertama. Pada contoh di atas kita gunakan variabel `ctx` yang sudah dideklarasikan sebelumnya.
@@ -132,32 +124,32 @@ Dalam pencarian, sisipkan query atau filter sebagai parameter ke-dua method `.Fi
 
 ```go
 func find() {
-	db, err := connect()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+    db, err := connect()
+    if err != nil {
+        log.Fatal(err.Error())
+    }
 
-	csr, err := db.Collection("student").Find(ctx, bson.M{"name": "Wick"})
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	defer csr.Close(ctx)
+    csr, err := db.Collection("student").Find(ctx, bson.M{"name": "Wick"})
+    if err != nil {
+        log.Fatal(err.Error())
+    }
+    defer csr.Close(ctx)
 
-	result := make([]student, 0)
-	for csr.Next(ctx) {
-		var row student
-		err := csr.Decode(&row)
-		if err != nil {
-			log.Fatal(err.Error())
-		}
+    result := make([]student, 0)
+    for csr.Next(ctx) {
+        var row student
+        err := csr.Decode(&row)
+        if err != nil {
+            log.Fatal(err.Error())
+        }
 
-		result = append(result, row)
-	}
+        result = append(result, row)
+    }
 
-	if len(result) > 0 {
-		fmt.Println("Name  :", result[0].Name)
-		fmt.Println("Grade :", result[0].Grade)
-	}
+    if len(result) > 0 {
+        fmt.Println("Name  :", result[0].Name)
+        fmt.Println("Grade :", result[0].Grade)
+    }
 }
 
 func main() {
@@ -167,7 +159,7 @@ func main() {
 
 Query selector ditulis dalam tipe `bson.M`. Tipe ini sebenarnya adalah alias dari `map[string]interface{}`.
 
-Cara untuk mendapatkan semua rows hasil pencarian kursor adalah dengan mengiterasi method `.Next()` dengan di dalamnya method `.Decode()` dipanggil untuk retrieve datanya. Setelah itu data yang sudah terampil di-append ke slice.
+Cara untuk mendapatkan semua rows hasil pencarian kursor adalah dengan mengiterasi method `.Next()` dengan di dalamnya method `.Decode()` dipanggil untuk retrieve datanya. Setelah itu data yang sudah terambil di-append ke slice.
 
 Selain method `.Find()` ada juga `.FindOne()`, silakan cek dokumentasi lebih jelasnya.
 
@@ -185,29 +177,29 @@ db.Collection("student").Find(ctx, bson.M{"name": "Wick"})
 
 ## A.57.4. Update Data
 
-Method `.Update()` digunakan untuk update data (jika update hanya diinginkan untuk berlaku pada 1 dokumen saja, maka gunakan `.UpdateOne()`). Method `.Update()` memerlukan 3 buah parameter dalam pemanggilannya.
+Method `.UpdateMany()` digunakan untuk update data; jika update hanya diinginkan untuk berlaku pada 1 dokumen saja, gunakan `.UpdateOne()`. Method-method tersebut memerlukan 3 buah parameter dalam pemanggilannya.
 
  1. Parameter pertama, objek context
  2. Parameter kedua adalah query kondisi yang mengacu ke data mana yang ingin di update
  3. Parameter ketiga adalah perubahan datanya.
 
-Di bawah ini adalah contok implementasi method `Update()`.
+Di bawah ini adalah contoh implementasi method `UpdateOne()`.
 
 ```go
 func update() {
-	db, err := connect()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+    db, err := connect()
+    if err != nil {
+        log.Fatal(err.Error())
+    }
 
-	var selector = bson.M{"name": "Wick"}
-	var changes = student{"John Wick", 2}
-	_, err = db.Collection("student").UpdateOne(ctx, selector, bson.M{"$set": changes})
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+    var selector = bson.M{"name": "Wick"}
+    var changes = student{"John Wick", 2}
+    _, err = db.Collection("student").UpdateOne(ctx, selector, bson.M{"$set": changes})
+    if err != nil {
+        log.Fatal(err.Error())
+    }
 
-	fmt.Println("Update success!")
+    fmt.Println("Update success!")
 }
 
 func main() {
@@ -223,7 +215,7 @@ Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.
 
 ```js
 // mongodb
-db.getCollection("student").update({"name": "Wick"}, { "$set": {"name": "Wick", "Grade": 2} })
+db.getCollection("student").updateOne({"name": "Wick"}, { "$set": {"name": "John Wick", "grade": 2} })
 
 // mongo-go-driver
 db.Collection("student").UpdateOne(ctx, bson.M{"name": "Wick"}, bson.M{"$set": student{"John Wick", 2}})
@@ -237,18 +229,18 @@ Untuk menghapus data gunakan method `.DeleteOne()` atau `.DeleteMany()`.
 
 ```go
 func remove() {
-	db, err := connect()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+    db, err := connect()
+    if err != nil {
+        log.Fatal(err.Error())
+    }
 
-	var selector = bson.M{"name": "John Wick"}
-	_, err = db.Collection("student").DeleteOne(ctx, selector)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+    var selector = bson.M{"name": "John Wick"}
+    _, err = db.Collection("student").DeleteOne(ctx, selector)
+    if err != nil {
+        log.Fatal(err.Error())
+    }
 
-	fmt.Println("Remove success!")
+    fmt.Println("Remove success!")
 }
 
 func main() {
@@ -264,10 +256,10 @@ Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.
 
 ```js
 // mongodb
-db.getCollection("student").delete({"name": "John Wick"})
+db.getCollection("student").deleteOne({"name": "John Wick"})
 
 // mongo-go-driver
-db.Collection("student").DeleteMany(ctx, bson.M{"name": "John Wick"})
+db.Collection("student").DeleteOne(ctx, bson.M{"name": "John Wick"})
 ```
 
 ## A.57.6. Aggregate Data
@@ -279,19 +271,19 @@ Pipeline sendiri bisa dituliskan langsung dalam `[]bson.M`, atau bisa tulis dala
 ```go
 pipeline := make([]bson.M, 0)
 err = bson.UnmarshalExtJSON([]byte(strings.TrimSpace(`
-	[
-		{ "$group": {
-			"_id": null,
-			"Total": { "$sum": 1 }
-		} },
-		{ "$project": {
-			"Total": 1,
-			"_id": 0
-		} }
-	]
+    [
+        { "$group": {
+            "_id": null,
+            "Total": { "$sum": 1 }
+        } },
+        { "$project": {
+            "Total": 1,
+            "_id": 0
+        } }
+    ]
 `)), true, &pipeline)
 if err != nil {
-	log.Fatal(err.Error())
+    log.Fatal(err.Error())
 }
 ```
 
@@ -300,23 +292,23 @@ Pada kode lanjutan berikut, method `.Aggregate()` dipanggil dan disisipkan pipel
 ```go
 csr, err := db.Collection("student").Aggregate(ctx, pipeline)
 if err != nil {
-	log.Fatal(err.Error())
+    log.Fatal(err.Error())
 }
 defer csr.Close(ctx)
 
 result := make([]bson.M, 0)
 for csr.Next(ctx) {
-	var row bson.M
-	err := csr.Decode(&row)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+    var row bson.M
+    err := csr.Decode(&row)
+    if err != nil {
+        log.Fatal(err.Error())
+    }
 
-	result = append(result, row)
+    result = append(result, row)
 }
 
 if len(result) > 0 {
-	fmt.Println("Total :", result[0]["Total"])
+    fmt.Println("Total :", result[0]["Total"])
 }
 ```
 

@@ -49,7 +49,7 @@ Kemudian variabel tersebut di-inisialisasi, ditambahkan lagi kurung kurawal sete
 
 Dari situ terlihat bahwa `interface{}` bukanlah sebuah objek, melainkan tipe data.
 
-## A.28.2. Type Alias `Any`
+## A.28.2. Type Alias `any`
 
 Tipe `any` merupakan alias dari `interface{}`, keduanya adalah sama.
 
@@ -146,6 +146,71 @@ for _, each := range fruits {
     fmt.Println(each)
 }
 ```
+
+## A.28.6. Interface `nil` vs Pointer `nil`
+
+Ada kode yang sering sekali membingungkan pemula, yaitu: variabel interface yang menyimpan pointer `nil` **tidak sama** dengan interface `nil` itu sendiri.
+
+```go
+package main
+
+import "fmt"
+
+type MyError struct {
+    msg string
+}
+
+func (e *MyError) Error() string {
+    return e.msg
+}
+
+func getError(fail bool) error {
+    var err *MyError // pointer nil
+    if fail {
+        err = &MyError{"something went wrong"}
+    }
+    return err // mengembalikan interface yang menyimpan (*MyError)(nil)
+}
+
+func main() {
+    err := getError(false)
+    if err != nil {
+        fmt.Println("error:", err) // baris ini TETAP dieksekusi!
+    } else {
+        fmt.Println("no error")
+    }
+}
+```
+
+Pada contoh di atas, `getError(false)` mengembalikan variabel `err` bertipe `*MyError` yang nilainya `nil`. Namun ketika dikembalikan sebagai `error` (interface), interface tersebut **tidak nil** karena interface menyimpan informasi tipe (`*MyError`) meskipun nilainya `nil`. Akibatnya pengecekan `err != nil` bernilai `true`.
+
+Cara yang benar agar fungsi benar-benar mengembalikan interface nil:
+
+```go
+func getError(fail bool) error {
+    if fail {
+        return &MyError{"something went wrong"}
+    }
+    return nil // kembalikan nil langsung, bukan variabel typed nil
+}
+```
+
+#### ◉ Kenapa Bisa Terjadi?
+
+Di balik layar, sebuah nilai interface sebenarnya menyimpan dua hal sekaligus:
+
+| Bagian | Isi |
+|--------|-----|
+| **Tipe** | Tipe konkret dari nilai yang disimpan |
+| **Nilai** | Nilai itu sendiri |
+
+Interface baru dianggap `nil` kalau **kedua bagian** tersebut kosong. Kalau salah satu sudah terisi, interface tidak lagi `nil`.
+
+Nah, ketika kita menulis `return err` di mana `err` bertipe `*MyError` dan nilainya `nil`, Go tetap menyimpan informasi tipenya (`*MyError`) ke dalam interface. Bagian tipe sudah terisi, jadi interface tidak `nil`, meskipun nilainya sendiri memang `nil`.
+
+Sebaliknya, `return nil` langsung mengembalikan interface yang benar-benar kosong, tanpa tipe dan tanpa nilai.
+
+Aturan praktisnya: **kalau fungsi mengembalikan tipe interface, selalu kembalikan `nil` secara langsung, bukan lewat variabel bertipe konkret.**
 
 ---
 

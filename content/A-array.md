@@ -33,7 +33,7 @@ names[3] = "law"
 names[4] = "ez" // baris kode ini menghasilkan error
 ```
 
-Solusi dari masalah di atas adalah dengan menggunakan keyword `append`, yang pembahasannya ada pada chapter selanjutnya, ([A.16. Slice](/A-slice.html)).
+Solusi dari masalah di atas adalah dengan menggunakan fungsi `append()` pada tipe data slice, yang pembahasannya ada pada chapter selanjutnya, ([A.16. Slice](/A-slice.html)).
 
 ## A.15.2. Inisialisasi Nilai Awal Array
 
@@ -60,10 +60,10 @@ Elemen array bisa dituliskan dalam bentuk horizontal (seperti yang sudah diconto
 var fruits [4]string
 
 // cara horizontal
-fruits  = [4]string{"apple", "grape", "banana", "melon"}
+fruits = [4]string{"apple", "grape", "banana", "melon"}
 
 // cara vertikal
-fruits  = [4]string{
+fruits = [4]string{
     "apple",
     "grape",
     "banana",
@@ -146,7 +146,7 @@ Output program di atas, sama persis dengan output program sebelumnya, hanya saja
 
 ## A.15.8. Penggunaan Variabel Underscore `_` Dalam `for` - `range`
 
-Terkadang, dalam penerapan *looping* menggunakan `for` - `range`, ada kebutuhan di mana yang dibutuhkan dari perulangan adlah adalah elemen-nya saja, sedangkan indeks-nya tidak, contoh:
+Terkadang, dalam penerapan *looping* menggunakan `for` - `range`, ada kebutuhan di mana yang dibutuhkan dari perulangan adalah elemen-nya saja, sedangkan indeks-nya tidak, contoh:
 
 ```go
 var fruits = [4]string{"apple", "grape", "banana", "melon"}
@@ -174,7 +174,7 @@ Pada kode di atas, yang sebelumnya adalah variabel `i` diganti dengan `_`, karen
 
 ![For range tanpa indeks](images/A_array_5_for_range_underscore.png)
 
-Bagaiamana jika sebaliknya? Misal, yang dibutuhkan hanya indeks-nya saja, nilainya tidak penting. Maka cukup tulis satu variabel saja setelah keyword `for`, yaitu variabel penampung nilai indeks.
+Bagaimana jika sebaliknya? Misal, yang dibutuhkan hanya indeks-nya saja, nilainya tidak penting. Maka cukup tulis satu variabel saja setelah keyword `for`, yaitu variabel penampung nilai indeks.
 
 ```go
 for i, _ := range fruits { }

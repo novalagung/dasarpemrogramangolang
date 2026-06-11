@@ -4,7 +4,7 @@
 
 ## A.49.1. Penggunaan Exec
 
-Go menyediakan package `exec` isinya banyak sekali API atau fungsi untuk keperluan eksekusi perintah command line.
+Go menyediakan package `os/exec` yang isinya banyak sekali API atau fungsi untuk keperluan eksekusi perintah command line.
 
 Cara eksekusi command adalah menggunakan fungsi `exec.Command()` dengan argument pemanggilan fungsi diisi command CLI yang diinginkan. Contoh:
 
@@ -34,7 +34,7 @@ Untuk mendapatkan outputnya, chain saja langsung dengan method `Output()`. Outpu
 
 ## A.49.2. Rekomendasi Penggunaan Exec
 
-Ada kalanya saat eksekusi command yang sudah jelas-jelas ada (seperti `ls`, `dir`, atau lainnya), error muncul menginformasikan bahwa command tidak ditemukan (command not found). Hal ini biasanya terjadi karena executable dari command-command tersebut tidak ada. Seperti di windows tidak ada `cmd` atau `cmd.exe`, di Linux tidak ditentukan apakah memakai `bash` atau `shell`, dan lainnya
+Ada kalanya saat eksekusi command yang sudah jelas-jelas ada (seperti `ls`, `dir`, atau lainnya), error muncul menginformasikan bahwa command tidak ditemukan (command not found). Hal ini biasanya terjadi karena command tersebut merupakan perintah built-in dari shell, bukan file executable mandiri yang bisa dipanggil langsung oleh `exec.Command()`. Contohnya: `dir` adalah built-in `cmd.exe` di Windows, dan beberapa command di Linux juga merupakan built-in dari `bash` atau `sh`.
 
 Untuk mengatasi masalah ini, tambahkan `bash -c` pada sistem operasi berbasi Linux, MacOS, Unix, atau `cmd /C` untuk OS Windows.
 
@@ -50,7 +50,40 @@ Statement `runtime.GOOS` penggunaannya mengembalikan informasi sistem operasi da
 
 ## A.49.3. Method Exec Lainnya
 
-Selain `.Output()` ada sangat banyak sekali API untuk keperluan komunikasi dengan OS/CLI yang bisa dipergunakan. Lebih detailnya silakan langsung melihat dokumentasi package tersebut di [https://golang.org/pkg/os/exec/](https://golang.org/pkg/os/exec/)
+Selain `.Output()` ada sangat banyak sekali API untuk keperluan komunikasi dengan OS/CLI yang bisa dipergunakan. Lebih jelasnya silakan langsung melihat dokumentasi package tersebut di [https://pkg.go.dev/os/exec](https://pkg.go.dev/os/exec)
+
+## A.49.4. Exec dengan Context dan Timeout (Go 1.20+)
+
+Sejak Go 1.20, struct `exec.Cmd` memiliki dua field baru: `Cancel` dan `WaitDelay`, yang memudahkan pengaturan timeout dan pembatalan command.
+
+Field `Cancel` berisi fungsi yang dipanggil ketika context dibatalkan. Field `WaitDelay` menentukan berapa lama proses diberi waktu tambahan untuk bersih-bersih setelah menerima sinyal berhenti, sebelum di-kill paksa.
+
+Cara yang lebih umum adalah menggunakan `exec.CommandContext()` yang secara otomatis membatalkan command ketika context selesai:
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os/exec"
+    "time"
+)
+
+func main() {
+    ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+    defer cancel()
+
+    cmd := exec.CommandContext(ctx, "sleep", "10")
+    err := cmd.Run()
+    if err != nil {
+        fmt.Println("error:", err)
+        // error: signal: killed (jika timeout tercapai)
+    }
+}
+```
+
+Pada contoh di atas, command `sleep 10` akan di-cancel setelah 3 detik karena context timeout-nya hanya 3 detik.
 
 ---
 

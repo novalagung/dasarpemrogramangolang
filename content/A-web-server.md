@@ -16,6 +16,7 @@ Program di bawah ini merupakan contoh sederhana untuk memunculkan text di web ke
 package main
 
 import "fmt"
+import "log"
 import "net/http"
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -30,7 +31,10 @@ func main() {
     http.HandleFunc("/index", index)
 
     fmt.Println("starting web server at http://localhost:8080/")
-    http.ListenAndServe(":8080", nil)
+    err := http.ListenAndServe(":8080", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -38,21 +42,31 @@ Jalankan program tersebut.
 
 ![Eksekusi program](images/A_web_server_1_start_server.png)
 
-Jika muncul dialog **Do you want the application “bab48” to accept incoming network connections?** atau sejenis, pilih allow. Setelah itu, buka url [http://localhost/](http://localhost/) dan [http://localhost/index](http://localhost/index) di browser.
+Jika muncul dialog **Do you want the application “bab48” to accept incoming network connections?** atau sejenis, pilih allow. Setelah itu, buka url [http://localhost:8080/](http://localhost:8080/) dan [http://localhost:8080/index](http://localhost:8080/index) di browser.
 
 ![Contoh penerapan net/http](images/A_web_server_2_web_server.png)
 
 Fungsi `http.HandleFunc()` digunakan untuk routing aplikasi web. Maksud dari routing adalah penentuan aksi ketika url tertentu diakses oleh user.
 
-Pada kode di atas 2 rute didaftarkan, yaitu `/` dan `/index`. Aksi dari rute `/` adalah menampilkan text `"halo"` di halaman website. Sedangkan `/index` menampilkan text `"apa kabar!"`.
+Pada kode di atas 2 rute didaftarkan, yaitu `/` dan `/index`. Aksi dari rute `/` adalah menampilkan text `"halo!"` di halaman website. Sedangkan `/index` menampilkan text `"apa kabar!"`.
 
 Fungsi `http.HandleFunc()` memiliki 2 buah parameter yang harus diisi. Parameter pertama adalah rute yang diinginkan. Parameter kedua adalah *callback* atau aksi ketika rute tersebut diakses. Callback tersebut bertipe fungsi `func(w http.ResponseWriter, r *http.Request)`.
 
 Pada pendaftaran rute `/index`, callback-nya adalah fungsi `index()`, hal seperti ini diperbolehkan asalkan tipe dari fungsi tersebut sesuai.
 
-Fungsi `http.listenAndServe()` digunakan untuk menghidupkan server sekaligus menjalankan aplikasi menggunakan server tersebut. Di Go, 1 web aplikasi adalah 1 buah server berbeda.
+Fungsi `http.ListenAndServe()` digunakan untuk menghidupkan server sekaligus menjalankan aplikasi menggunakan server tersebut. Di Go, 1 web aplikasi adalah 1 buah server berbeda.
 
 Pada contoh di atas, server dijalankan pada port `8080`.
+
+> Fungsi `http.HandleFunc()` mendaftarkan handler ke `http.DefaultServeMux` yang bersifat global. Untuk keperluan produksi, lebih aman membuat mux baru secara eksplisit agar handler dari package lain tidak ikut terdaftar:
+> ```go
+> mux := http.NewServeMux()
+> mux.HandleFunc("/", handler)
+> err := http.ListenAndServe(":8080", mux)
+> if err != nil {
+>     log.Fatal(err)
+> }
+> ```
 
 Perlu diingat, setiap ada perubahan pada file `.go`, `go run` harus dipanggil lagi.
 
@@ -85,6 +99,7 @@ package main
 
 import "fmt"
 import "html/template"
+import "log"
 import "net/http"
 
 func main() {
@@ -104,11 +119,14 @@ func main() {
     })
 
     fmt.Println("starting web server at http://localhost:8080/")
-    http.ListenAndServe(":8080", nil)
+    err := http.ListenAndServe(":8080", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
-Jalankan, lalu buka [http://localhost:8080](http://localhost:8080), maka data `Nama` dan `Message` akan muncul di view.
+Jalankan, lalu buka [http://localhost:8080](http://localhost:8080), maka data `Name` dan `Message` akan muncul di view.
 
 ![Penggunaan template](images/A_web_server_3_template.png)
 
@@ -118,7 +136,54 @@ Pada kode di atas, variabel `data` disisipkan sebagai parameter ke-2 method `Exe
 
 Pada contoh di atas, statement di view `{{.Name}}` akan menampilkan isi dari `data.Name`.
 
-## A.51.3. Advanced Web Programming
+## A.51.3. Enhanced Routing (Go 1.22+)
+
+Sejak Go 1.22, `net/http.ServeMux` mendukung dua fitur routing tambahan: **method routing** dan **wildcard path**.
+
+**Method routing** memungkinkan pendaftaran handler untuk metode HTTP tertentu. Cukup tambahkan nama metode diikuti spasi di depan path, contohnya `"GET /items"` atau `"POST /items"`.
+
+**Wildcard path** memungkinkan penangkapan segmen URL dinamis menggunakan notasi `{nama}`. Nilainya bisa diambil lewat `r.PathValue("nama")`.
+
+```go
+package main
+
+import (
+    "fmt"
+    "log"
+    "net/http"
+)
+
+func main() {
+    http.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintln(w, "halo dari GET /")
+    })
+
+    http.HandleFunc("GET /user/{id}", func(w http.ResponseWriter, r *http.Request) {
+        id := r.PathValue("id")
+        fmt.Fprintf(w, "user id: %s\n", id)
+    })
+
+    http.HandleFunc("POST /user", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintln(w, "create user")
+    })
+
+    fmt.Println("starting web server at http://localhost:8080/")
+    err := http.ListenAndServe(":8080", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+}
+```
+
+Pada kode di atas:
+
+- `"GET /"`: handler hanya aktif untuk request GET ke path `/`.
+- `"GET /user/{id}"`: `{id}` adalah wildcard, nilainya diambil dengan `r.PathValue("id")`.
+- `"POST /user"`: handler hanya aktif untuk request POST.
+
+Ketika dua pola saling tumpang tindih, Go otomatis memilih pola yang lebih spesifik. Urutan pendaftaran tidak memengaruhi prioritas.
+
+## A.51.4. Advanced Web Programming
 
 Sampai chapter ini yang kita pelajari adalah yang sifatnya fundamental atau dasar di pemrograman Go. Nantinya di chapter [B.1. Golang Web App: Hello World](/B-golang-web-hello-world.html) hingga seterusnya akan lebih banyak membahas mengenai pemrograman web. Jadi untuk sekarang sabar dulu ya. Mari kita selesaikan pembelajaran fundamental secara runtun, sebelum masuk ke bagian pengembangan web.
 

@@ -1,6 +1,6 @@
 # A.21. Fungsi Closure
 
-Definisi **Closure** adalah suatu *anonymous function* (atau fungsi tanpa nama) yang disimpan dalam variabel. Dengan adanya closure, kita bisa mendesain beberapa hal di antaranya: membuat fungsi di dalam fungsi, atau bahkan membuat fungsi yang mengembalikan fungsi. Closure biasa dimanfaatkan untuk membungkus suatu proses yang hanya dijalankan sekali saja atau hanya dipakai pada blok tertentu saja.
+Definisi **Closure** adalah suatu *anonymous function* (atau fungsi tanpa nama) yang disimpan dalam variabel, dan bisa mengakses variabel dari *scope* di mana ia dideklarasikan. Dengan adanya closure, kita bisa mendesain beberapa hal di antaranya: membuat fungsi di dalam fungsi, atau bahkan membuat fungsi yang mengembalikan fungsi. Closure biasa dimanfaatkan untuk membungkus suatu proses yang hanya dijalankan sekali saja atau hanya dipakai pada blok tertentu saja.
 
 ## A.21.1. Closure Disimpan Sebagai Variabel
 
@@ -55,7 +55,7 @@ Output program:
 
 ## A.21.2. Penjelasan tambahan
 
-Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:
+Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktikkan:
 
 #### ◉ Penggunaan Template String `%v`
 
@@ -171,7 +171,7 @@ func main() {
 
 Output program:
 
-![Kombinasi parameter biasa dan variadic](images/A_fungsi_closure_3_combination.png)
+![Closure sebagai nilai kembalian](images/A_fungsi_closure_3_combination.png)
 
 ---
 

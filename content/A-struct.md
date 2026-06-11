@@ -68,7 +68,7 @@ fmt.Println("student 3 :", s3.name)
 
 Pada kode di atas, variabel `s1` menampung objek cetakan `student`. Variabel tersebut kemudian di-set nilai property-nya.
 
-Variabel objek `s2` dideklarasikan dengan metode yang sama dengan `s1`, pembedanya di `s2` nilai propertinya di isi langsung ketika deklarasi. Nilai pertama akan menjadi nilai property pertama (yaitu `name`), dan selanjutnya berurutan.
+Variabel objek `s2` dideklarasikan dengan metode yang sama dengan `s1`, pembedanya di `s2` nilai propertinya diisi langsung ketika deklarasi. Nilai pertama akan menjadi nilai property pertama (yaitu `name`), dan selanjutnya berurutan.
 
 Pada deklarasi `s3`, dilakukan juga pengisian property ketika pencetakan objek. Hanya saja, yang diisi hanya `name` saja. Cara ini cukup efektif jika digunakan untuk membuat objek baru yang nilai property-nya tidak semua harus disiapkan di awal. Keistimewaan lain menggunakan cara ini adalah penentuan nilai property bisa dilakukan dengan tidak berurutan. Contohnya:
 
@@ -86,11 +86,11 @@ var s1 = student{name: "wick", grade: 2}
 
 var s2 *student = &s1
 fmt.Println("student 1, name :", s1.name)
-fmt.Println("student 4, name :", s2.name)
+fmt.Println("student 2, name :", s2.name)
 
 s2.name = "ethan"
 fmt.Println("student 1, name :", s1.name)
-fmt.Println("student 4, name :", s2.name)
+fmt.Println("student 2, name :", s2.name)
 ```
 
 `s2` adalah variabel pointer hasil cetakan struct `student`. `s2` menampung nilai referensi `s1`, menjadikan setiap perubahan pada property variabel tersebut, akan juga berpengaruh pada variabel objek `s1`.
@@ -126,7 +126,7 @@ func main() {
 
     fmt.Println("name  :", s1.name)
     fmt.Println("age   :", s1.age)
-    fmt.Println("age   :", s1.person.age)
+    fmt.Println("person age:", s1.person.age)
     fmt.Println("grade :", s1.grade)
 }
 
@@ -238,7 +238,7 @@ var s2 = struct {
 
 ## A.24.9. Kombinasi Slice & Struct
 
-Slice dan `struct` bisa dikombinasikan seperti pada slice dan `map`, caranya penggunaannya-pun mirip, cukup tambahkan tanda `[]` sebelum tipe data pada saat deklarasi.
+Slice dan `struct` bisa dikombinasikan seperti pada slice dan `map`, penggunaannya pun mirip, cukup tambahkan tanda `[]` sebelum tipe data pada saat deklarasi.
 
 ```go
 type person struct {
@@ -333,7 +333,7 @@ Deklarasi struct bisa dituliskan secara horizontal, caranya bisa dilihat pada ko
 type person struct { name string; age int; hobbies []string }
 ```
 
-Tanda semi-colon (`;`) digunakan sebagai pembatas deklarasi poperty yang dituliskan secara horizontal. Inisialisasi nilai juga bisa dituliskan dengan metode ini. Contohnya:
+Tanda semi-colon (`;`) digunakan sebagai pembatas deklarasi property yang dituliskan secara horizontal. Inisialisasi nilai juga bisa dituliskan dengan metode ini. Contohnya:
 
 ```go
 var p1 = struct { name string; age int } { age: 22, name: "wick" }
@@ -359,8 +359,8 @@ Sebuah tipe data, seperti struct, bisa dibuatkan alias baru, caranya dengan `typ
 
 ```go
 type Person struct {
-	name string
-	age  int
+    name string
+    age  int
 }
 type People = Person
 
@@ -387,12 +387,12 @@ Pembuatan struct baru juga bisa dilakukan lewat teknik type alias. Silakan perha
 
 ```go
 type People1 struct {
-	name string
-	age  int
+    name string
+    age  int
 }
 type People2 = struct {
-	name string
-	age  int
+    name string
+    age  int
 }
 ```
 
