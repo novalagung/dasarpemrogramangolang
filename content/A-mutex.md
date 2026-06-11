@@ -30,7 +30,7 @@ type counter struct {
 	val int
 }
 
-func (c *counter) Add(x int) {
+func (c *counter) Add() {
 	c.val++
 }
 
@@ -59,7 +59,7 @@ func main() {
 
 		go func() {
 			for j := 0; j < 1000; j++ {
-				meter.Add(1)
+				meter.Add()
 			}
 
 			wg.Done()
@@ -107,7 +107,7 @@ type counter struct {
     val int
 }
 
-func (c *counter) Add(x int) {
+func (c *counter) Add() {
     c.mu.Lock()
     c.val++
     c.mu.Unlock()
@@ -136,7 +136,7 @@ type counter struct {
     val int
 }
 
-func (c *counter) Add(x int) {
+func (c *counter) Add() {
     c.Lock()
     c.val++
     c.Unlock()
@@ -148,7 +148,7 @@ Perlu diperhatikan bahwa embedding menyebabkan method `Lock()` dan `Unlock()` ik
 Selain dua cara di atas, mutex bisa juga digunakan tanpa ditempelkan ke struct sama sekali. Contohnya bisa dilihat di bawah ini.
 
 ```go
-func (c *counter) Add(x int) {
+func (c *counter) Add() {
     c.val++
 }
 

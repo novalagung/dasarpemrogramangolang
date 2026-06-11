@@ -234,6 +234,10 @@ func main() {
 
     combined := errors.Join(err1, err2)
     fmt.Println(combined)
+    // output ↓
+    //
+    // database connection failed
+    // cache unavailable
 }
 ```
 

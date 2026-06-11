@@ -144,7 +144,7 @@ Statement `bytes.NewBufferString(param.Encode())` melakukan proses encoding pada
 
 Karena data yang akan dikirim adalah *encoded*, maka pada header perlu dituliskan juga tipe encoding-nya. Kode `request.Header.Set("Content-Type", "application/x-www-form-urlencoded")` menandai bahwa HTTP request berisi body yang ter-encode sesuai spesifikasi `application/x-www-form-urlencoded`.
 
-> Pada konteks HTML, HTTP Request yang ditrigger dari tag `<form></form>` secara default tipe konten-nya sudah diset `application/x-www-form-urlencoded`. Lebih jelasnya bisa merujuk ke spesifikasi HTML form [http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1](http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1)
+> Pada konteks HTML, HTTP Request yang di-*trigger* dari tag `<form></form>` secara default tipe konten-nya sudah diset `application/x-www-form-urlencoded`. Lebih jelasnya bisa merujuk ke spesifikasi HTML form [http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1](http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1)
 
 Response dari endpoint `/user` bukanlah slice, tetapi berupa objek. Maka pada saat decode perlu pastikan tipe variabel penampung hasil decode data response adalah `student` (bukan `[]student`).
 

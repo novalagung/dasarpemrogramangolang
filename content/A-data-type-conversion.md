@@ -191,6 +191,15 @@ var d string = string(rune(104))
 fmt.Println(d) // h
 ```
 
+#### ◉ Tipe Data `rune`
+
+Tipe data `rune` merupakan alias dari `int32` yang digunakan untuk merepresentasikan satu karakter Unicode (*code point*). Perbedaannya dengan `byte` (alias `uint8`) adalah:
+
+- `byte` hanya cukup untuk karakter ASCII (0–127)
+- sedangkan `rune` bisa menampung karakter dari berbagai bahasa maupun simbol Unicode lainnya.
+
+Dalam konteks casting string, `rune` dipakai untuk memberi tahu Go bahwa nilai numerik yang kita berikan adalah kode karakter, bukan angka biasa.
+
 > Sejak Go 1.15, `go vet` akan memperingatkan penggunaan `string(N)` di mana `N` adalah nilai numerik integer, karena hasilnya adalah karakter unicode (bukan representasi angka dalam string). Gunakan `string(rune(N))` untuk konversi yang eksplisit dan bebas dari peringatan vet.
 
 ## A.43.4. Type Assertions Pada Tipe `any` atau Interface Kosong (`interface{}`)
