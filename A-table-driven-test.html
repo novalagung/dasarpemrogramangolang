@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang SSH &amp; SFTP - Dasar Pemrograman Golang</title>
+        <title>Golang Table-Driven Test - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,10 +65,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="C-golang-protobuf-implementation.html">
+    <link rel="next" href="A-waitgroup.html">
     
     
-    <link rel="prev" href="C-golang-ftp.html">
+    <link rel="prev" href="A-unit-test.html">
     
 
 
@@ -1018,7 +1018,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.59" data-path="A-table-driven-test.html">
+        <li class="chapter active" data-level="3.1.59" data-path="A-table-driven-test.html">
             
                 <a href="A-table-driven-test.html">
             
@@ -1837,7 +1837,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.1.29" data-path="C-golang-ssh-sftp.html">
+        <li class="chapter " data-level="5.1.29" data-path="C-golang-ssh-sftp.html">
             
                 <a href="C-golang-ssh-sftp.html">
             
@@ -2067,7 +2067,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">C.29. SSH &amp; SFTP</a>
+        <a href=".">A.59. Table-Driven Test</a>
     </h1>
 </div>
 
@@ -2079,210 +2079,195 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="c29-ssh--sftp">C.29. SSH &amp; SFTP</h1>
-<p>Pada chapter ini kita akan belajar cara untuk me-remote server lewat protokol SSH (Secure Shell).</p>
+                                <h1 id="a59-table-driven-test">A.59. Table-Driven Test</h1>
+<p><em>Table-driven test</em> adalah teknik penulisan test di Go menggunakan <strong>tabel data</strong> (slice of struct) sebagai kumpulan test case. Dengan teknik ini, banyak skenario pengujian bisa ditulis dalam satu fungsi test yang ringkas dan mudah dikembangkan.</p>
 <blockquote>
-<p>Protokol SSH digunakan untuk melakukan remote login secara aman/secure ke server tujuan. Komunikasi yang terjadi lewat SSH di-encrypt sehingga aman.</p>
+<p>Teknik ini juga direkomendasikan secara resmi oleh tim Go. Baca lebih lanjut di <a href="https://go.dev/wiki/TableDrivenTests" target="_blank">https://go.dev/wiki/TableDrivenTests</a>.</p>
 </blockquote>
-<p>Go menyediakan package <a href="https://godoc.org/golang.org/x/crypto/ssh" target="_blank">golang.org/x/crypto/ssh</a>, berisi cukup banyak API untuk keperluan operasi yang berhubungan dengan protokol SSH.</p>
-<h2 id="c291-otentikasi-ssh">C.29.1. Otentikasi SSH</h2>
-<p>Buat folder project baru, isinya file <code>main.go</code>, di dalamnya tulis kode berikut.</p>
+<h2 id="a591-masalah-dengan-test-konvensional">A.59.1. Masalah dengan Test Konvensional</h2>
+<p>Pada chapter sebelumnya (<a href="A-unit-test.html">A.58. Unit Test</a>), kita sudah belajar menulis test seperti ini:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> TestHitungVolume(t *testing.T) {
+    kubus := Kubus{<span class="hljs-number">4</span>}
+    <span class="hljs-keyword">if</span> kubus.Volume() != <span class="hljs-number">64</span> {
+        t.Errorf(<span class="hljs-string">&quot;Volume salah: dapat %f, seharusnya 64&quot;</span>, kubus.Volume())
+    }
+}
+</code></pre>
+<p>Masalahnya, kalau kita ingin mengetes banyak skenario (sisi = 0, sisi desimal, sisi besar, dan lainnya), kita harus menulis banyak fungsi test terpisah. Kode menjadi panjang dan repetitif, padahal logika pengujiannya sama persis.</p>
+<h2 id="a592-solusi-table-driven-test">A.59.2. Solusi: Table-Driven Test</h2>
+<p>Dengan table-driven test, semua test case didefinisikan dalam sebuah slice, lalu diiterasikan satu per satu. Ini menghilangkan duplikasi dan memudahkan penambahan skenario baru cukup dengan menambah satu baris ke tabel.</p>
+<p>Contoh berikut melanjutkan project dari chapter A.58. Struct <code>Kubus</code> dan method-nya sudah ada di <code>main.go</code>:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<span class="hljs-keyword">import</span> (
-    <span class="hljs-string">&quot;golang.org/x/crypto/ssh&quot;</span>
-    <span class="hljs-string">&quot;log&quot;</span>
-    <span class="hljs-string">&quot;os&quot;</span>
-)
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;math&quot;</span>
 
-<span class="hljs-keyword">func</span> main() {
-    <span class="hljs-keyword">const</span> SSH_ADDRESS = <span class="hljs-string">&quot;0.0.0.0:22&quot;</span>
-    <span class="hljs-keyword">const</span> SSH_USERNAME = <span class="hljs-string">&quot;user&quot;</span>
-    <span class="hljs-keyword">const</span> SSH_PASSWORD = <span class="hljs-string">&quot;password&quot;</span>
+<span class="hljs-keyword">type</span> Kubus <span class="hljs-keyword">struct</span> {
+    Sisi <span class="hljs-keyword">float64</span>
+}
 
-    sshConfig := &amp;ssh.ClientConfig{
-        User:            SSH_USERNAME,
-        HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-        Auth: []ssh.AuthMethod{
-            ssh.Password(SSH_PASSWORD),
-        },
+<span class="hljs-keyword">func</span> (k Kubus) Volume() <span class="hljs-keyword">float64</span> {
+    <span class="hljs-keyword">return</span> math.Pow(k.Sisi, <span class="hljs-number">3</span>)
+}
+
+<span class="hljs-keyword">func</span> (k Kubus) Luas() <span class="hljs-keyword">float64</span> {
+    <span class="hljs-keyword">return</span> math.Pow(k.Sisi, <span class="hljs-number">2</span>) * <span class="hljs-number">6</span>
+}
+</code></pre>
+<p>Tambahkan file <code>main_test.go</code> dengan isi berikut:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;testing&quot;</span>
+
+<span class="hljs-keyword">func</span> TestKubus_TableDriven(t *testing.T) {
+    tests := []<span class="hljs-keyword">struct</span> {
+        name           <span class="hljs-keyword">string</span>
+        sisi           <span class="hljs-keyword">float64</span>
+        expectedVolume <span class="hljs-keyword">float64</span>
+        expectedLuas   <span class="hljs-keyword">float64</span>
+    }{
+        {<span class="hljs-string">&quot;sisi 0&quot;</span>,   <span class="hljs-number">0</span>,   <span class="hljs-number">0</span>,      <span class="hljs-number">0</span>},
+        {<span class="hljs-string">&quot;sisi 1&quot;</span>,   <span class="hljs-number">1</span>,   <span class="hljs-number">1</span>,      <span class="hljs-number">6</span>},
+        {<span class="hljs-string">&quot;sisi 4&quot;</span>,   <span class="hljs-number">4</span>,   <span class="hljs-number">64</span>,     <span class="hljs-number">96</span>},
+        {<span class="hljs-string">&quot;sisi 2.5&quot;</span>, <span class="hljs-number">2.5</span>, <span class="hljs-number">15.625</span>, <span class="hljs-number">37.5</span>},
+        {<span class="hljs-string">&quot;sisi 10&quot;</span>,  <span class="hljs-number">10</span>,  <span class="hljs-number">1000</span>,   <span class="hljs-number">600</span>},
     }
 
-    <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">for</span> _, tt := <span class="hljs-keyword">range</span> tests {
+        t.Run(tt.name, <span class="hljs-keyword">func</span>(t *testing.T) {
+            k := Kubus{tt.sisi}
+
+            <span class="hljs-keyword">if</span> k.Volume() != tt.expectedVolume {
+                t.Errorf(<span class="hljs-string">&quot;Volume(%v) = %v, want %v&quot;</span>, tt.sisi, k.Volume(), tt.expectedVolume)
+            }
+
+            <span class="hljs-keyword">if</span> k.Luas() != tt.expectedLuas {
+                t.Errorf(<span class="hljs-string">&quot;Luas(%v) = %v, want %v&quot;</span>, tt.sisi, k.Luas(), tt.expectedLuas)
+            }
+        })
+    }
 }
 </code></pre>
-<p>Variabel <code>sshConfig</code> di atas adalah objek pointer cetakan struct <code>ssh.ClientConfig</code>. Objek bertipe ini nantinya digunakan untuk otentikasi SSH.</p>
-<p>Pada kode di atas, tiga buah konstanta dengan prefix <code>SSH_*</code> disiapkan. Credentials username dan password disisipkan sebagai property objek <code>sshConfig</code>. Bisa dilihat pada property <code>Auth</code>, isinya adalah slice <code>ssh.AuthMethod</code> dengan satu buah element yaitu <code>ssh.Password()</code>. Konfigurasi seperti ini dipakai jika <strong>otentikasi menggunakan username dan password</strong>.</p>
-<p>Jika otentikasi dilakukan menggunakan <strong>identity file</strong>, maka gunakan kode berikut.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">const</span> SSH_ADDRESS = <span class="hljs-string">&quot;192.168.0.24:22&quot;</span>
-<span class="hljs-keyword">const</span> SSH_USERNAME = <span class="hljs-string">&quot;user&quot;</span>
-<span class="hljs-keyword">const</span> SSH_KEY = <span class="hljs-string">&quot;path/to/file/identity.pem&quot;</span>
+<p>Jalankan test:</p>
+<pre><code class="lang-bash">go <span class="hljs-built_in">test</span> -v -run TestKubus_TableDriven
+</code></pre>
+<p>Output ketika semua test case lolos:</p>
+<pre><code>=== RUN   TestKubus_TableDriven
+=== RUN   TestKubus_TableDriven/sisi_0
+=== RUN   TestKubus_TableDriven/sisi_1
+=== RUN   TestKubus_TableDriven/sisi_4
+=== RUN   TestKubus_TableDriven/sisi_2.5
+=== RUN   TestKubus_TableDriven/sisi_10
+--- PASS: TestKubus_TableDriven (0.00s)
+    --- PASS: TestKubus_TableDriven/sisi_0 (0.00s)
+    --- PASS: TestKubus_TableDriven/sisi_1 (0.00s)
+    --- PASS: TestKubus_TableDriven/sisi_4 (0.00s)
+    --- PASS: TestKubus_TableDriven/sisi_2.5 (0.00s)
+    --- PASS: TestKubus_TableDriven/sisi_10 (0.00s)
+PASS
+</code></pre><p>Setiap test case dijalankan sebagai <strong>sub-test</strong> terpisah lewat <code>t.Run()</code>. Fungsi ini menerima dua parameter: nama sub-test (string) dan fungsi test-nya (<code>func(t *testing.T)</code>). Keuntungannya, kalau satu test case gagal, yang lain tetap dijalankan dan hasilnya dilaporkan secara terpisah, sehingga mudah melacak bagian mana yang bermasalah.</p>
+<p>Contoh output ketika satu test case gagal (misalnya expected volume untuk <code>sisi 4</code> diubah ke nilai yang salah):</p>
+<pre><code>=== RUN   TestKubus_TableDriven/sisi_4
+    main_test.go:24: Volume(4) = 64, want 999
+--- FAIL: TestKubus_TableDriven/sisi_4 (0.00s)
+</code></pre><p>Sub-test lain tetap dijalankan dan dilaporkan secara terpisah. Ini kelebihan utama dibanding test konvensional yang langsung berhenti saat ada error pertama.</p>
+<h2 id="a593-contoh-lain-fungsi-dengan-banyak-kondisi">A.59.3. Contoh Lain: Fungsi dengan Banyak Kondisi</h2>
+<p>Table-driven test sangat berguna untuk menguji fungsi yang punya banyak cabang kondisi. Mari praktikkan dengan membuat project baru.</p>
+<p>File <code>main.go</code>:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-sshConfig := &amp;ssh.ClientConfig{
-    User:            SSH_USERNAME,
-    HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-    Auth: []ssh.AuthMethod{
-        PublicKeyFile(SSH_KEY),
-    },
+<span class="hljs-keyword">func</span> KategorikanNilai(nilai <span class="hljs-keyword">int</span>) <span class="hljs-keyword">string</span> {
+    <span class="hljs-keyword">switch</span> {
+    <span class="hljs-keyword">case</span> nilai &gt;= <span class="hljs-number">90</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;A&quot;</span>
+    <span class="hljs-keyword">case</span> nilai &gt;= <span class="hljs-number">80</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;B&quot;</span>
+    <span class="hljs-keyword">case</span> nilai &gt;= <span class="hljs-number">70</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;C&quot;</span>
+    <span class="hljs-keyword">case</span> nilai &gt;= <span class="hljs-number">60</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;D&quot;</span>
+    <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;E&quot;</span>
+    }
 }
+</code></pre>
+<p>File <code>main_test.go</code>:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<span class="hljs-keyword">func</span> PublicKeyFile(file <span class="hljs-keyword">string</span>) ssh.AuthMethod {
-    buffer, err := os.ReadFile(file)
-    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;testing&quot;</span>
+
+<span class="hljs-keyword">func</span> TestKategorikanNilai(t *testing.T) {
+    tests := []<span class="hljs-keyword">struct</span> {
+        name     <span class="hljs-keyword">string</span>
+        nilai    <span class="hljs-keyword">int</span>
+        expected <span class="hljs-keyword">string</span>
+    }{
+        {<span class="hljs-string">&quot;nilai sempurna&quot;</span>, <span class="hljs-number">100</span>, <span class="hljs-string">&quot;A&quot;</span>},
+        {<span class="hljs-string">&quot;nilai A minimum&quot;</span>, <span class="hljs-number">90</span>,  <span class="hljs-string">&quot;A&quot;</span>},
+        {<span class="hljs-string">&quot;nilai A batas&quot;</span>,   <span class="hljs-number">89</span>,  <span class="hljs-string">&quot;B&quot;</span>},
+        {<span class="hljs-string">&quot;nilai B minimum&quot;</span>, <span class="hljs-number">80</span>,  <span class="hljs-string">&quot;B&quot;</span>},
+        {<span class="hljs-string">&quot;nilai B batas&quot;</span>,   <span class="hljs-number">79</span>,  <span class="hljs-string">&quot;C&quot;</span>},
+        {<span class="hljs-string">&quot;nilai C minimum&quot;</span>, <span class="hljs-number">70</span>,  <span class="hljs-string">&quot;C&quot;</span>},
+        {<span class="hljs-string">&quot;nilai C batas&quot;</span>,   <span class="hljs-number">69</span>,  <span class="hljs-string">&quot;D&quot;</span>},
+        {<span class="hljs-string">&quot;nilai D minimum&quot;</span>, <span class="hljs-number">60</span>,  <span class="hljs-string">&quot;D&quot;</span>},
+        {<span class="hljs-string">&quot;nilai D batas&quot;</span>,   <span class="hljs-number">59</span>,  <span class="hljs-string">&quot;E&quot;</span>},
+        {<span class="hljs-string">&quot;nilai nol&quot;</span>,       <span class="hljs-number">0</span>,   <span class="hljs-string">&quot;E&quot;</span>},
     }
 
-    key, err := ssh.ParsePrivateKey(buffer)
-    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+    <span class="hljs-keyword">for</span> _, tt := <span class="hljs-keyword">range</span> tests {
+        t.Run(tt.name, <span class="hljs-keyword">func</span>(t *testing.T) {
+            result := KategorikanNilai(tt.nilai)
+            <span class="hljs-keyword">if</span> result != tt.expected {
+                t.Errorf(<span class="hljs-string">&quot;KategorikanNilai(%d) = %s, want %s&quot;</span>, tt.nilai, result, tt.expected)
+            }
+        })
+    }
+}
+</code></pre>
+<p>Perhatikan betapa mudahnya menambah skenario baru: cukup tambahkan satu baris ke slice <code>tests</code>, tanpa perlu membuat fungsi test baru.</p>
+<h2 id="a594-menjalankan-sub-test-tertentu">A.59.4. Menjalankan Sub-Test Tertentu</h2>
+<p>Flag <code>-run</code> pada <code>go test</code> mendukung <em>pattern matching</em> hingga ke level nama sub-test. Nama sub-test dibentuk dari <code>NamaFungsiTest/nama_sub_test</code>, dengan spasi otomatis diganti <code>_</code>. Pattern yang digunakan adalah regex.</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># jalankan semua sub-test yang mengandung kata &quot;batas&quot;</span>
+go <span class="hljs-built_in">test</span> -v -run TestKategorikanNilai/batas
+
+<span class="hljs-comment"># jalankan sub-test spesifik</span>
+go <span class="hljs-built_in">test</span> -v -run TestKategorikanNilai/nilai_sempurna
+</code></pre>
+<h2 id="a595-parallel-test">A.59.5. Parallel Test</h2>
+<p>Sub-test bisa dijalankan secara paralel dengan memanggil <code>t.Parallel()</code> di awal fungsi sub-test. Ini berguna untuk mempercepat eksekusi test ketika antar test case tidak saling bergantung dan tidak mengakses data yang sama.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;testing&quot;</span>
+
+<span class="hljs-keyword">func</span> TestKategorikanNilai_Parallel(t *testing.T) {
+    tests := []<span class="hljs-keyword">struct</span> {
+        name     <span class="hljs-keyword">string</span>
+        nilai    <span class="hljs-keyword">int</span>
+        expected <span class="hljs-keyword">string</span>
+    }{
+        {<span class="hljs-string">&quot;nilai A&quot;</span>, <span class="hljs-number">95</span>, <span class="hljs-string">&quot;A&quot;</span>},
+        {<span class="hljs-string">&quot;nilai B&quot;</span>, <span class="hljs-number">85</span>, <span class="hljs-string">&quot;B&quot;</span>},
+        {<span class="hljs-string">&quot;nilai C&quot;</span>, <span class="hljs-number">75</span>, <span class="hljs-string">&quot;C&quot;</span>},
     }
 
-    <span class="hljs-keyword">return</span> ssh.PublicKeys(key)
+    <span class="hljs-keyword">for</span> _, tt := <span class="hljs-keyword">range</span> tests {
+        t.Run(tt.name, <span class="hljs-keyword">func</span>(t *testing.T) {
+            t.Parallel()
+            result := KategorikanNilai(tt.nilai)
+            <span class="hljs-keyword">if</span> result != tt.expected {
+                t.Errorf(<span class="hljs-string">&quot;KategorikanNilai(%d) = %s, want %s&quot;</span>, tt.nilai, result, tt.expected)
+            }
+        })
+    }
 }
 </code></pre>
-<p>Silakan pilih jenis otentikasi sesuai dengan yang di dukung oleh remote server.</p>
-<p>Selanjutnya, dalam fungsi <code>main()</code>, buat koneksi baru ke server tujuan menggunakan <code>ssh.Dial()</code>. Statement ini mengembalikan objek <code>*ssh.Client</code>, pemanggilannya sendiri membutuhkan 3 parameter.</p>
-<ul>
-<li>Isi argument pertama isi dengan <code>&quot;tcp&quot;</code>, hal ini dikarenakan protokol tersebut digunakan dalam SSH. </li>
-<li>Argument ke-2 diisi dengan alamat tujuan server.</li>
-<li>Argument ke-3 diisi dengan objek <code>sshConfig</code>.</li>
-</ul>
-<pre><code class="lang-go"><span class="hljs-comment">// ...</span>
-
-client, err := ssh.Dial(<span class="hljs-string">&quot;tcp&quot;</span>, SSH_ADDRESS, sshConfig)
-<span class="hljs-keyword">if</span> client != <span class="hljs-literal">nil</span> {
-    <span class="hljs-keyword">defer</span> client.Close()
-}
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    log.Fatal(<span class="hljs-string">&quot;Failed to dial. &quot;</span> + err.Error())
-}
-</code></pre>
-<h2 id="c292-session--run-command">C.29.2. Session &amp; Run Command</h2>
-<p>Dari objek <code>client</code>, buat session baru, caranya dengan mengakses method <code>.NewSession()</code>.</p>
-<pre><code class="lang-go">session, err := client.NewSession()
-<span class="hljs-keyword">if</span> session != <span class="hljs-literal">nil</span> {
-    <span class="hljs-keyword">defer</span> session.Close()
-}
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    log.Fatal(<span class="hljs-string">&quot;Failed to create session. &quot;</span> + err.Error())
-}
-</code></pre>
-<p>Pada session, set tiga koneksi standar IO: stdin, stdout, dan stderr; ke standard IO sistem operasi.</p>
-<pre><code class="lang-go">session.Stdin = os.Stdin
-session.Stdout = os.Stdout
-session.Stderr = os.Stderr
-</code></pre>
-<p>OK, semua persiapan sudah cukup. Sekarang coba jalankan salah satu command seperti <code>ls</code>.</p>
-<pre><code class="lang-go">err = session.Run(<span class="hljs-string">&quot;ls -l ~/&quot;</span>)
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    log.Fatal(<span class="hljs-string">&quot;Command execution error. &quot;</span> + err.Error())
-}
-</code></pre>
-<p>Jalankan aplikasi untuk mengetes hasilnya.</p>
-<p><img src="images/C_golang_ssh_sftp_1_ls_testing.png" alt="Dasar Pemrograman Golang - ssh ls"></p>
-<h2 id="c293-penggunaan-sessionstdinpipe-untuk-run-multiple-command">C.29.3. Penggunaan <code>session.StdinPipe()</code> untuk Run Multiple Command</h2>
-<p>Ada beberapa cara yang bisa digunakan untuk menjalankan banyak command via SSH, cara paling mudah adalah dengan menggabung commands dengan operator <code>&amp;&amp;</code>. </p>
-<p>Alternatif metode lainnya, bisa dengan memanfaatkan <code>StdinPipe</code> milik session. Cukup tulis command yang diinginkan ke objek stdin pipe tersebut.</p>
 <blockquote>
-<p>Method <code>.StdinPipe()</code> mengembalikan objek stdin pipe yang tipenya adalah <code>io.WriteCloser</code>. Tipe ini merupakan gabungan dari <code>io.Writer</code>, <code>io.Reader</code>, dan <code>io.Closer</code>.</p>
+<p>Hindari penggunaan <code>t.Parallel()</code> jika antar test case berbagi data yang bisa diubah (misalnya variabel global atau koneksi database yang sama), karena bisa menyebabkan <em>race condition</em>.</p>
+<p>Sejak Go 1.22, variabel loop sudah di-scope per iterasi, sehingga tidak perlu lagi menulis <code>tt := tt</code> di dalam loop untuk menghindari masalah pada parallel test.</p>
 </blockquote>
-<p>Mari kita praktekan, salin kode sebelumnya ke file baru, hapus semua baris kode setelah statement pembuatan session. </p>
-<p>Siapkan variabel untuk menampung objek default stdin pipe milik session.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">var</span> stdout, stderr bytes.Buffer
-session.Stdout = &amp;stdout
-session.Stderr = &amp;stderr
-
-stdin, err := session.StdinPipe()
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    log.Fatal(<span class="hljs-string">&quot;Error getting stdin pipe. &quot;</span> + err.Error())
-}
-</code></pre>
-<p>Jalankan command prompt di remote host, menggunakan perintah <code>.Start()</code>. Pilih unix shell yang diinginkan dengan menuliskannya sebagai argument pemanggilan method <code>.Start()</code>. Pada tutorial ini kita menggunakan unix shell <code>bash</code>.</p>
-<pre><code class="lang-go">err = session.Start(<span class="hljs-string">&quot;/bin/bash&quot;</span>)
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    log.Fatal(<span class="hljs-string">&quot;Error starting bash. &quot;</span> + err.Error())
-}
-</code></pre>
-<p>Method <code>.Start()</code> dan <code>.Run()</code> memiliki kesamaan dan perbedaan. Salah satu kesamaannya adalah kedua method tersebut digunakan untuk menjalankan perintah shell, yang eksekusinya akan selesai ketika perintah yang dijalankan selesai, contoh: <code>.Start(&quot;ls -l ~/&quot;)</code> dan <code>.Run(&quot;ls -l ~/&quot;)</code>, kedua statement tersebut menghasilkan proses dan output yang sama.</p>
-<p>Sedangkan perbedaannya, method <code>.Start()</code> bisa digunakan untuk memilih command line interpreter atau shell (pada contoh ini <code>bash</code>), lalu memanfaatkannya untuk eksekusi banyak shell command dengan cara dilewatkan ke stdin pipe. </p>
-<blockquote>
-<p>Pemanggilan method <code>.Start()</code> dan <code>.Run()</code> hanya bisa dilakukan sekali untuk tiap session.</p>
-</blockquote>
-<p>Selanjutnya, siapkan commands dalam slice, untuk mempermudah eksekusinya. Lakukan perulangan pada slice tersebut, lalu tulis command ke dalam objek stdin pipe. Pastikan command terakhir yang dieksekusi adalah <code>exit</code> untuk mengakhiri shell.</p>
-<pre><code class="lang-go">commands := []<span class="hljs-keyword">string</span>{
-    <span class="hljs-string">&quot;cd /where/is/the/path&quot;</span>,
-    <span class="hljs-string">&quot;cd src/myproject&quot;</span>,
-    <span class="hljs-string">&quot;ls&quot;</span>,
-    <span class="hljs-string">&quot;exit&quot;</span>,
-}
-<span class="hljs-keyword">for</span> _, cmd := <span class="hljs-keyword">range</span> commands {
-    <span class="hljs-keyword">if</span> _, err = fmt.Fprintln(stdin, cmd); err != <span class="hljs-literal">nil</span> {
-        log.Fatal(err)
-    }
-}
-</code></pre>
-<p>Statement <code>fmt.Fprintln()</code> digunakan untuk menuliskan sesuatu ke objek <code>io.Writer</code>. Objek stdin pipe kita sisipkan sebagai parameter pertama, lalu shell command sebagai parameter setelahnya.</p>
-<p>Selain <code>fmt.Fprintln()</code>, ada juga <code>fmt.Fprint()</code> dan <code>fmt.Fprintf()</code>.</p>
-<blockquote>
-<p>Statement yang paling sering kita gunakan, yaitu <code>fmt.Print()</code>, isinya sebenarnya memanggil <code>fmt.Fprint()</code>, dengan parameter pertama <code>io.Writer</code> diisi dengan <code>os.Stdout</code>.</p>
-</blockquote>
-<p>Gunakan method <code>.Wait()</code> milik session untuk menunggu banyak command yang dieksekusi selesai terlebih dahulu. Kemudian tangkap output stdout dan stderr nya lalu tampilkan.</p>
-<pre><code class="lang-go">err = session.Wait()
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    log.Fatal(err)
-}
-
-outputErr := stderr.String()
-fmt.Println(<span class="hljs-string">&quot;============== ERROR&quot;</span>)
-fmt.Println(strings.TrimSpace(outputErr))
-
-outputString := stdout.String()
-fmt.Println(<span class="hljs-string">&quot;============== OUTPUT&quot;</span>)
-fmt.Println(strings.TrimSpace(outputString))
-</code></pre>
-<p>Jalankan aplikasi untuk melihat hasilnya.</p>
-<p><img src="images/C_golang_ssh_sftp_2_multiple_command.png" alt="Dasar Pemrograman Golang - Multiple commands"></p>
-<p>Output dalam banyak command muncul setelah semua command berhasil dieksekusi. Statement <code>session.Wait()</code> adalah blocking.</p>
-<p>Jika ingin eksekusi command dan pengambilan outpunya tidak blocking, manfaatkan <code>.StdoutPipe()</code>, <code>.StderrPipe()</code>, dan goroutine untuk pengambilan output hasil eksekusi command.</p>
-<h2 id="c294-transfer-file-via-sftp">C.29.4. Transfer File via SFTP</h2>
-<p>Transfer file antara client dan server bisa dilakukan lewat protokol SSH, dengan memanfaatkan SFTP (SSH File Transfer Protocol). Penerapannya sebenarnya bisa dilakukan cukup menggunakan API yang disediakan oleh package golang.org/x/crypto/ssh, namun pada bagian ini kita akan menggunakan 3rd party library lain untuk mempermudah penerapannya. Library tersebut adalah <a href="https://github.com/pkg/sftp" target="_blank">github.com/pkg/sftp</a>.</p>
-<p>Mari kita praktekan, salin kode sebelumnya ke file baru, hapus semua baris kode setelah statement pembuatan client. Kemudian, go get package tersebut, lalu import.</p>
-<p>Buat objek sftp client, objek ini merupakan superset dari objek ssh client.</p>
-<pre><code class="lang-go">sftpClient, err := sftp.NewClient(client)
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    log.Fatal(<span class="hljs-string">&quot;Failed create client sftp client. &quot;</span> + err.Error())
-}
-</code></pre>
-<p>Kita akan menggunakan sample file di lokal untuk di transfer ke server. Mekanisme-nya sama seperti pada transfer file via ftp, yaitu dengan menyiapkan file kosong di sisi server, lalu meng-copy isi file di lokal ke file di server tersebut.</p>
-<p>OK, siapkan file tujuan transfer terlebih dahulu.</p>
-<pre><code class="lang-go">fDestination, err := sftpClient.Create(<span class="hljs-string">&quot;/data/nginx/files/test-file.txt&quot;</span>)
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    log.Fatal(<span class="hljs-string">&quot;Failed to create destination file. &quot;</span> + err.Error())
-}
-</code></pre>
-<p>Lalu baca file di lokal, gunakan <code>io.Copy</code> untuk mengcopy isi file.</p>
-<pre><code class="lang-go">fSource, err := os.Open(<span class="hljs-string">&quot;/Users/novalagung/Desktop/test-file.txt&quot;</span>)
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    log.Fatal(<span class="hljs-string">&quot;Failed to read source file. &quot;</span> + err.Error())
-}
-
-_, err = io.Copy(fDestination, fSource)
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    log.Fatal(<span class="hljs-string">&quot;Failed copy source file into destination file. &quot;</span> + err.Error())
-}
-
-log.Println(<span class="hljs-string">&quot;File copied.&quot;</span>)
-</code></pre>
-<p>Jalankan aplikasi untuk melihat hasilnya.</p>
-<p><img src="images/C_golang_ssh_sftp_3_sftp.png" alt="Dasar Pemrograman Golang - SFTP"></p>
-<hr>
-<ul>
-<li><a href="https://github.com/pkg/sftp" target="_blank">sftp</a>, by pkg team, BSD-2-Clause License</li>
-</ul>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-C.29-golang-ssh-sftp" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-C.29...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.59-table-driven-test" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.59...</a>
 </div>
 
 <hr>
@@ -2298,12 +2283,12 @@ log.Println(<span class="hljs-string">&quot;File copied.&quot;</span>)
 
             
                 
-                <a href="C-golang-ftp.html" class="navigation navigation-prev " aria-label="Previous page: C.28. FTP">
+                <a href="A-unit-test.html" class="navigation navigation-prev " aria-label="Previous page: A.58. Unit Test">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="C-golang-protobuf-implementation.html" class="navigation navigation-next " aria-label="Next page: C.30. Protobuf">
+                <a href="A-waitgroup.html" class="navigation navigation-next " aria-label="Next page: A.60. sync.WaitGroup">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2314,7 +2299,7 @@ log.Println(<span class="hljs-string">&quot;File copied.&quot;</span>)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C.29. SSH & SFTP","level":"5.1.29","depth":2,"next":{"title":"C.30. Protobuf","level":"5.1.30","depth":2,"path":"C-golang-protobuf-implementation.md","ref":"C-golang-protobuf-implementation.md","articles":[]},"previous":{"title":"C.28. FTP","level":"5.1.28","depth":2,"path":"C-golang-ftp.md","ref":"C-golang-ftp.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"C-golang-ssh-sftp.md","mtime":"2026-06-11T17:27:46.247Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.59. Table-Driven Test","level":"3.1.59","depth":2,"next":{"title":"A.60. sync.WaitGroup","level":"3.1.60","depth":2,"path":"A-waitgroup.md","ref":"A-waitgroup.md","articles":[]},"previous":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"path":"A-unit-test.md","ref":"A-unit-test.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-table-driven-test.md","mtime":"2026-06-11T17:27:46.241Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

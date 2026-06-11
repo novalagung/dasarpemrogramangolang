@@ -1018,12 +1018,25 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.59" data-path="A-waitgroup.html">
+        <li class="chapter " data-level="3.1.59" data-path="A-table-driven-test.html">
+            
+                <a href="A-table-driven-test.html">
+            
+                    
+                    A.59. Table-Driven Test
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.60" data-path="A-waitgroup.html">
             
                 <a href="A-waitgroup.html">
             
                     
-                    A.59. sync.WaitGroup
+                    A.60. sync.WaitGroup
             
                 </a>
             
@@ -1031,12 +1044,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.60" data-path="A-mutex.html">
+        <li class="chapter " data-level="3.1.61" data-path="A-mutex.html">
             
                 <a href="A-mutex.html">
             
                     
-                    A.60. sync.Mutex
+                    A.61. sync.Mutex
             
                 </a>
             
@@ -1044,12 +1057,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.1.61" data-path="A-go-vendoring.html">
+        <li class="chapter active" data-level="3.1.62" data-path="A-go-vendoring.html">
             
                 <a href="A-go-vendoring.html">
             
                     
-                    A.61. Go Vendoring
+                    A.62. Go Vendoring
             
                 </a>
             
@@ -1057,12 +1070,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.62" data-path="A-concurrency-pipeline.html">
+        <li class="chapter " data-level="3.1.63" data-path="A-concurrency-pipeline.html">
             
                 <a href="A-concurrency-pipeline.html">
             
                     
-                    A.62. Concurrency Pattern: Pipeline
+                    A.63. Concurrency Pattern: Pipeline
             
                 </a>
             
@@ -1070,12 +1083,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.63" data-path="A-simplified-fan-in-fan-out-pipeline.html">
+        <li class="chapter " data-level="3.1.64" data-path="A-simplified-fan-in-fan-out-pipeline.html">
             
                 <a href="A-simplified-fan-in-fan-out-pipeline.html">
             
                     
-                    A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline
+                    A.64. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline
             
                 </a>
             
@@ -1083,12 +1096,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.64" data-path="A-pipeline-context-cancellation.html">
+        <li class="chapter " data-level="3.1.65" data-path="A-pipeline-context-cancellation.html">
             
                 <a href="A-pipeline-context-cancellation.html">
             
                     
-                    A.64. Concurrency Pattern: Context Cancellation Pipeline
+                    A.65. Concurrency Pattern: Context Cancellation Pipeline
             
                 </a>
             
@@ -1096,12 +1109,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.65" data-path="A-golang-generics.html">
+        <li class="chapter " data-level="3.1.66" data-path="A-golang-generics.html">
             
                 <a href="A-golang-generics.html">
             
                     
-                    A.65. Go Generics
+                    A.66. Go Generics
             
                 </a>
             
@@ -2054,7 +2067,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">A.61. Go Vendoring</a>
+        <a href=".">A.62. Go Vendoring</a>
     </h1>
 </div>
 
@@ -2066,13 +2079,13 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="a61-go-vendoring">A.61. Go Vendoring</h1>
+                                <h1 id="a62-go-vendoring">A.62. Go Vendoring</h1>
 <p>Pada bagian ini kita akan belajar cara pemanfaatan vendoring untuk menyimpan copy dependency di lokal dalam folder project.</p>
-<h2 id="a611-penjelasan">A.61.1. Penjelasan</h2>
+<h2 id="a621-penjelasan">A.62.1. Penjelasan</h2>
 <p>Vendoring di Go memberikan kita kapabilitas untuk mengunduh semua dependency atau <em>3rd party</em>, untuk disimpan di lokal dalam folder project, dalam subfolder bernama <code>vendor</code>.</p>
 <p>Dengan adanya folder tersebut, maka Go tidak akan <em>lookup</em> 3rd party ke cache folder ataupun ke GOPATH, melainkan langsung mengambil dari yang ada dalam folder <code>vendor</code>. Jadi kalau dependency sudah ada di dalam <code>vendor</code>, maka kita tidak perlu download lagi dari internet menggunakan command <code>go mod download</code> ataupun <code>go mod tidy</code>.</p>
 <p>Ok lanjut ke praktik ya.</p>
-<h2 id="a612-praktik-vendoring">A.61.2. Praktik Vendoring</h2>
+<h2 id="a622-praktik-vendoring">A.62.2. Praktik Vendoring</h2>
 <p>Kita akan coba praktikkan untuk vendoring sebuah 3rd party bernama <a href="https://github.com/novalagung/gubrak/v2" target="_blank">gubrak</a>.</p>
 <p>Buat folder project baru dengan nama <code>belajar-vendor</code> dengan isi satu file <code>main.go</code>. Lalu go get library gubrak.</p>
 <pre><code class="lang-bash">mkdir belajar-vendor
@@ -2096,14 +2109,14 @@ go get -u github.com/novalagung/gubrak/v2
 <p>Setelah itu jalankan command <code>go mod vendor</code> untuk vendoring <em>3rd party library</em> yang dipergunakan, dalam contoh ini adalah gubrak.</p>
 <p><img src="images/A_go_vendoring_1_vendor.png" alt="Dasar Pemrograman Golang - Vendoring"></p>
 <p>Bisa dilihat, sekarang library gubrak <em>source code</em>-nya disimpan dalam folder <code>vendor</code>. Nah ini juga akan berlaku untuk semua <em>library</em> lainnya yg digunakan jika ada.</p>
-<h2 id="a613-build-dan-run-project-yang-menerapkan-vendoring">A.61.3. Build dan Run Project yang Menerapkan Vendoring</h2>
+<h2 id="a623-build-dan-run-project-yang-menerapkan-vendoring">A.62.3. Build dan Run Project yang Menerapkan Vendoring</h2>
 <p>Cara agar Go lookup ke folder <code>vendor</code> saat build adalah dengan menambahkan flag <code>-mod=vendor</code> sewaktu build atau run project.</p>
 <pre><code>go run -mod=vendor main.go
 go build -mod=vendor -o executable
-</code></pre><h2 id="a614-manfaat-vendoring">A.61.4. Manfaat Vendoring</h2>
+</code></pre><h2 id="a624-manfaat-vendoring">A.62.4. Manfaat Vendoring</h2>
 <p>Manfaat vendoring adalah pada sisi kompatibilitas &amp; kestabilan 3rd party, selain itu kita tidak perlu repot mendownload dependency karena semuanya sudah ada di lokal.</p>
 <p>Konsekuensi penerapan vendoring adalah size project menjadi cukup besar. Untuk penggunaan vendor apakah wajib? menurut saya tidak. Sesuaikan kebutuhan saja.</p>
-<h2 id="a615-flag--modvendor-otomatis-go-114">A.61.5. Flag -mod=vendor Otomatis (Go 1.14+)</h2>
+<h2 id="a625-flag--modvendor-otomatis-go-114">A.62.5. Flag -mod=vendor Otomatis (Go 1.14+)</h2>
 <p>Sejak Go 1.14, jika project memiliki folder <code>vendor</code> dan file <code>go.mod</code> mencantumkan versi <code>go 1.14</code> atau lebih tinggi, maka flag <code>-mod=vendor</code> <strong>sudah aktif secara otomatis</strong>. Kita tidak perlu menambahkannya secara eksplisit saat menjalankan <code>go run</code> atau <code>go build</code>.</p>
 <pre><code class="lang-bash"><span class="hljs-comment"># Go 1.14+: flag -mod=vendor tidak perlu ditulis, sudah otomatis aktif</span>
 go run main.go
@@ -2115,7 +2128,7 @@ go build -o executable
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.61-go-vendoring" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.61...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.62-go-vendoring" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.62...</a>
 </div>
 
 <hr>
@@ -2131,12 +2144,12 @@ go build -o executable
 
             
                 
-                <a href="A-mutex.html" class="navigation navigation-prev " aria-label="Previous page: A.60. sync.Mutex">
+                <a href="A-mutex.html" class="navigation navigation-prev " aria-label="Previous page: A.61. sync.Mutex">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="A-concurrency-pipeline.html" class="navigation navigation-next " aria-label="Next page: A.62. Concurrency Pattern: Pipeline">
+                <a href="A-concurrency-pipeline.html" class="navigation navigation-next " aria-label="Next page: A.63. Concurrency Pattern: Pipeline">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2147,7 +2160,7 @@ go build -o executable
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"next":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"path":"A-concurrency-pipeline.md","ref":"A-concurrency-pipeline.md","articles":[]},"previous":{"title":"A.60. sync.Mutex","level":"3.1.60","depth":2,"path":"A-mutex.md","ref":"A-mutex.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-go-vendoring.md","mtime":"2026-06-11T16:39:17.247Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.62. Go Vendoring","level":"3.1.62","depth":2,"next":{"title":"A.63. Concurrency Pattern: Pipeline","level":"3.1.63","depth":2,"path":"A-concurrency-pipeline.md","ref":"A-concurrency-pipeline.md","articles":[]},"previous":{"title":"A.61. sync.Mutex","level":"3.1.61","depth":2,"path":"A-mutex.md","ref":"A-mutex.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-go-vendoring.md","mtime":"2026-06-11T17:27:46.238Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2169,7 +2182,7 @@ go build -o executable
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.172908"></script>
         
     
         

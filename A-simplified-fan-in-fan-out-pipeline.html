@@ -1018,12 +1018,25 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.59" data-path="A-waitgroup.html">
+        <li class="chapter " data-level="3.1.59" data-path="A-table-driven-test.html">
+            
+                <a href="A-table-driven-test.html">
+            
+                    
+                    A.59. Table-Driven Test
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.60" data-path="A-waitgroup.html">
             
                 <a href="A-waitgroup.html">
             
                     
-                    A.59. sync.WaitGroup
+                    A.60. sync.WaitGroup
             
                 </a>
             
@@ -1031,12 +1044,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.60" data-path="A-mutex.html">
+        <li class="chapter " data-level="3.1.61" data-path="A-mutex.html">
             
                 <a href="A-mutex.html">
             
                     
-                    A.60. sync.Mutex
+                    A.61. sync.Mutex
             
                 </a>
             
@@ -1044,12 +1057,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.61" data-path="A-go-vendoring.html">
+        <li class="chapter " data-level="3.1.62" data-path="A-go-vendoring.html">
             
                 <a href="A-go-vendoring.html">
             
                     
-                    A.61. Go Vendoring
+                    A.62. Go Vendoring
             
                 </a>
             
@@ -1057,12 +1070,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.62" data-path="A-concurrency-pipeline.html">
+        <li class="chapter " data-level="3.1.63" data-path="A-concurrency-pipeline.html">
             
                 <a href="A-concurrency-pipeline.html">
             
                     
-                    A.62. Concurrency Pattern: Pipeline
+                    A.63. Concurrency Pattern: Pipeline
             
                 </a>
             
@@ -1070,12 +1083,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.1.63" data-path="A-simplified-fan-in-fan-out-pipeline.html">
+        <li class="chapter active" data-level="3.1.64" data-path="A-simplified-fan-in-fan-out-pipeline.html">
             
                 <a href="A-simplified-fan-in-fan-out-pipeline.html">
             
                     
-                    A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline
+                    A.64. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline
             
                 </a>
             
@@ -1083,12 +1096,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.64" data-path="A-pipeline-context-cancellation.html">
+        <li class="chapter " data-level="3.1.65" data-path="A-pipeline-context-cancellation.html">
             
                 <a href="A-pipeline-context-cancellation.html">
             
                     
-                    A.64. Concurrency Pattern: Context Cancellation Pipeline
+                    A.65. Concurrency Pattern: Context Cancellation Pipeline
             
                 </a>
             
@@ -1096,12 +1109,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.65" data-path="A-golang-generics.html">
+        <li class="chapter " data-level="3.1.66" data-path="A-golang-generics.html">
             
                 <a href="A-golang-generics.html">
             
                     
-                    A.65. Go Generics
+                    A.66. Go Generics
             
                 </a>
             
@@ -2054,7 +2067,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline</a>
+        <a href=".">A.64. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline</a>
     </h1>
 </div>
 
@@ -2066,17 +2079,17 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="a63-concurrency-pattern-simplified-fan-out-fan-in-pipeline">A.63. Concurrency Pattern: Simplified Fan-out Fan-in Pipeline</h1>
-<p>Pada chapter sebelumnya, yaitu chapter <a href="A-concurrency-pipeline.html">A.62. Concurrency Pattern: Pipeline</a>, kita telah mempelajari tentang pipeline pattern, yang mana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-<em>handle</em> jenis kasus serangkaian proses yang berjalan secara konkuren.</p>
+                                <h1 id="a64-concurrency-pattern-simplified-fan-out-fan-in-pipeline">A.64. Concurrency Pattern: Simplified Fan-out Fan-in Pipeline</h1>
+<p>Pada chapter sebelumnya, yaitu chapter <a href="A-concurrency-pipeline.html">A.63. Concurrency Pattern: Pipeline</a>, kita telah mempelajari tentang pipeline pattern, yang mana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-<em>handle</em> jenis kasus serangkaian proses yang berjalan secara konkuren.</p>
 <blockquote>
 <p>Penulis sangat anjurkan untuk mencoba mempelajari praktik chapter sebelumnya terlebih dahulu jika belum. Karena chapter kali ini ada hubungannya dengan chapter tersebut.</p>
 </blockquote>
 <p>Pada chapter ini kita akan mempelajari concurrency pattern juga, lanjutan dari sebelumnya. Pada versi ini kalau dilihat dari perspektif coding penerapannya akan lebih ringkas. Tapi apakah lebih mudah dan lebih <em>performant</em> dibanding penerapan pipeline sebelumnya? Jawabannya sangat tergantung dengan kasus yang dihadapi, tergantung spesifikasi hardware-nya juga, dan mungkin juga tergantung dengan taste dari si engineer pembuat program.</p>
 <p>Kalau dilihat lebih dalam, perbedaannya sebenarnya hanya pada bagian Fan-out Fan-in nya saja. Di metode ini (hampir) semua pipeline isinya adalah gabungan dari Fan-out dan juga Fan-in. Jadi kita tidak perlu report <em>merge</em>. Selain itu, di sini kita bisa dengan mudah mengatur jumlah worker sesuai kebutuhan.</p>
 <p>Ok, agar lebih jelas mari kita mulai praktik.</p>
-<h2 id="a631-skenario-praktik">A.63.1. Skenario Praktik</h2>
-<p>Kita akan modifikasi file program <code>1-dummy-file-generator.go</code> yang pada chapter sebelumnya sudah dibuat (<a href="A-concurrency-pipeline.html">A.62. Concurrency Pattern: Pipeline</a>). Kita rubah mekanisme generate dummy files-nya dari sekuensial ke konkuren.</p>
-<h2 id="a632-program-generate-dummy-file-sequentially">A.63.2. Program Generate Dummy File <em>Sequentially</em></h2>
+<h2 id="a641-skenario-praktik">A.64.1. Skenario Praktik</h2>
+<p>Kita akan modifikasi file program <code>1-dummy-file-generator.go</code> yang pada chapter sebelumnya sudah dibuat (<a href="A-concurrency-pipeline.html">A.63. Concurrency Pattern: Pipeline</a>). Kita rubah mekanisme generate dummy files-nya dari sekuensial ke konkuren.</p>
+<h2 id="a642-program-generate-dummy-file-sequentially">A.64.2. Program Generate Dummy File <em>Sequentially</em></h2>
 <p>Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi sekuensialnya. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan cek saja di chapter sebelumnya saja, di sini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.</p>
 <p>Siapkan folder project baru, isinya satu buah file <code>1-generate-dummy-files-sequentially.go</code>.</p>
 <h4 id="&#x25C9;-import-packages-dan-definisi-variabel">&#x25C9; Import Packages dan Definisi Variabel</h4>
@@ -2094,7 +2107,7 @@
 <span class="hljs-keyword">const</span> totalFile = <span class="hljs-number">3000</span>
 <span class="hljs-keyword">const</span> contentLength = <span class="hljs-number">5000</span>
 
-<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.63-simplified-fan-in-fan-out-pipeline&quot;</span>)
+<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.64-simplified-fan-in-fan-out-pipeline&quot;</span>)
 </code></pre>
 <h4 id="&#x25C9;-fungsi-main">&#x25C9; Fungsi <code>main()</code></h4>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
@@ -2142,7 +2155,7 @@
 <p>Pada bagian fungsi <code>generateFiles()</code> kali ini sedikit berbeda dibanding sebelumnya. Di sini log <code>file created</code> tidak ditampilkan per seratus data, melainkan setiap file sukses dibuat. Ini memang akan berpengaruh ke performa, tapi diperlukan untuk perbandingan antara file-file yang di-generate secara sekuensial vs file-file yang di-generate secara konkuren.</p>
 <p>Kita lanjut dulu saja. Berikut adalah output jika program di atas di-run.</p>
 <p><img src="images/A_simplified_fan_in_fan_out_pipeline_1_generate_dummy_files_sequentially.png" alt="Dasar Pemrograman Golang - Generate dummy files sequentially"></p>
-<h2 id="a633-program-generate-dummy-file-concurrently">A.63.3. Program Generate Dummy File <em>Concurrently</em></h2>
+<h2 id="a643-program-generate-dummy-file-concurrently">A.64.3. Program Generate Dummy File <em>Concurrently</em></h2>
 <p>Selanjutnya, buat file program <code>2-generate-dummy-files-concurrently.go</code> yang isinya adalah sama yaitu untuk keperluan generate dummy files tapi dilakukan secara konkuren.</p>
 <h4 id="&#x25C9;-import-packages-dan-definisi-variabel">&#x25C9; Import Packages dan Definisi Variabel</h4>
 <p>Import beberapa hal pada file baru ini, lalu definisikan beberapa variabel juga.</p>
@@ -2161,7 +2174,7 @@
 <span class="hljs-keyword">const</span> totalFile = <span class="hljs-number">3000</span>
 <span class="hljs-keyword">const</span> contentLength = <span class="hljs-number">5000</span>
 
-<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.63-simplified-fan-in-fan-out-pipeline&quot;</span>)
+<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.64-simplified-fan-in-fan-out-pipeline&quot;</span>)
 </code></pre>
 <h4 id="&#x25C9;-definisi-struct-fileinfo">&#x25C9; Definisi struct <code>FileInfo</code></h4>
 <p>Kita perlu siapkan struct baru bernama <code>FileInfo</code>, struct ini digunakan sebagai skema payload data ketika dikirimkan via channel dari goroutine jobs ke goroutine worker.</p>
@@ -2323,7 +2336,7 @@
 <blockquote>
 <p>Untuk pembaca yang bingung, mungkin fungsi ini bisa dipecah menjadi satu fungsi Fan-out dan satu fungsi Fan-in seperti chapter sebelumnya.</p>
 </blockquote>
-<h2 id="a634-test-eksekusi-program">A.63.4. Test Eksekusi Program</h2>
+<h2 id="a644-test-eksekusi-program">A.64.4. Test Eksekusi Program</h2>
 <p>Saya akan coba jalankan program pertama dan kedua, lalu mari kita lihat perbedaannya.</p>
 <h4 id="&#x25C9;-program-generate-dummy-file-sequentially">&#x25C9; Program Generate Dummy File <em>Sequentially</em></h4>
 <p><img src="images/A_simplified_fan_in_fan_out_pipeline_2_benchmark.png" alt="Dasar Pemrograman Golang - Generate dummy files sequentially"></p>
@@ -2338,7 +2351,7 @@
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.63-simplified-fan-in-fan-out-pipeline" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.63...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.64-simplified-fan-in-fan-out-pipeline" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.64...</a>
 </div>
 
 <hr>
@@ -2354,12 +2367,12 @@
 
             
                 
-                <a href="A-concurrency-pipeline.html" class="navigation navigation-prev " aria-label="Previous page: A.62. Concurrency Pattern: Pipeline">
+                <a href="A-concurrency-pipeline.html" class="navigation navigation-prev " aria-label="Previous page: A.63. Concurrency Pattern: Pipeline">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="A-pipeline-context-cancellation.html" class="navigation navigation-next " aria-label="Next page: A.64. Concurrency Pattern: Context Cancellation Pipeline">
+                <a href="A-pipeline-context-cancellation.html" class="navigation navigation-next " aria-label="Next page: A.65. Concurrency Pattern: Context Cancellation Pipeline">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2370,7 +2383,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"next":{"title":"A.64. Concurrency Pattern: Context Cancellation Pipeline","level":"3.1.64","depth":2,"path":"A-pipeline-context-cancellation.md","ref":"A-pipeline-context-cancellation.md","articles":[]},"previous":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"path":"A-concurrency-pipeline.md","ref":"A-concurrency-pipeline.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-simplified-fan-in-fan-out-pipeline.md","mtime":"2026-06-11T16:39:17.249Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.64. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.64","depth":2,"next":{"title":"A.65. Concurrency Pattern: Context Cancellation Pipeline","level":"3.1.65","depth":2,"path":"A-pipeline-context-cancellation.md","ref":"A-pipeline-context-cancellation.md","articles":[]},"previous":{"title":"A.63. Concurrency Pattern: Pipeline","level":"3.1.63","depth":2,"path":"A-concurrency-pipeline.md","ref":"A-concurrency-pipeline.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-simplified-fan-in-fan-out-pipeline.md","mtime":"2026-06-11T17:27:46.240Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2392,7 +2405,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.172908"></script>
         
     
         

@@ -68,7 +68,7 @@
     <link rel="next" href="A-mutex.html">
     
     
-    <link rel="prev" href="A-unit-test.html">
+    <link rel="prev" href="A-table-driven-test.html">
     
 
 
@@ -1018,12 +1018,25 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.1.59" data-path="A-waitgroup.html">
+        <li class="chapter " data-level="3.1.59" data-path="A-table-driven-test.html">
+            
+                <a href="A-table-driven-test.html">
+            
+                    
+                    A.59. Table-Driven Test
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.1.60" data-path="A-waitgroup.html">
             
                 <a href="A-waitgroup.html">
             
                     
-                    A.59. sync.WaitGroup
+                    A.60. sync.WaitGroup
             
                 </a>
             
@@ -1031,12 +1044,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.60" data-path="A-mutex.html">
+        <li class="chapter " data-level="3.1.61" data-path="A-mutex.html">
             
                 <a href="A-mutex.html">
             
                     
-                    A.60. sync.Mutex
+                    A.61. sync.Mutex
             
                 </a>
             
@@ -1044,12 +1057,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.61" data-path="A-go-vendoring.html">
+        <li class="chapter " data-level="3.1.62" data-path="A-go-vendoring.html">
             
                 <a href="A-go-vendoring.html">
             
                     
-                    A.61. Go Vendoring
+                    A.62. Go Vendoring
             
                 </a>
             
@@ -1057,12 +1070,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.62" data-path="A-concurrency-pipeline.html">
+        <li class="chapter " data-level="3.1.63" data-path="A-concurrency-pipeline.html">
             
                 <a href="A-concurrency-pipeline.html">
             
                     
-                    A.62. Concurrency Pattern: Pipeline
+                    A.63. Concurrency Pattern: Pipeline
             
                 </a>
             
@@ -1070,12 +1083,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.63" data-path="A-simplified-fan-in-fan-out-pipeline.html">
+        <li class="chapter " data-level="3.1.64" data-path="A-simplified-fan-in-fan-out-pipeline.html">
             
                 <a href="A-simplified-fan-in-fan-out-pipeline.html">
             
                     
-                    A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline
+                    A.64. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline
             
                 </a>
             
@@ -1083,12 +1096,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.64" data-path="A-pipeline-context-cancellation.html">
+        <li class="chapter " data-level="3.1.65" data-path="A-pipeline-context-cancellation.html">
             
                 <a href="A-pipeline-context-cancellation.html">
             
                     
-                    A.64. Concurrency Pattern: Context Cancellation Pipeline
+                    A.65. Concurrency Pattern: Context Cancellation Pipeline
             
                 </a>
             
@@ -1096,12 +1109,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.65" data-path="A-golang-generics.html">
+        <li class="chapter " data-level="3.1.66" data-path="A-golang-generics.html">
             
                 <a href="A-golang-generics.html">
             
                     
-                    A.65. Go Generics
+                    A.66. Go Generics
             
                 </a>
             
@@ -2054,7 +2067,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">A.59. sync.WaitGroup</a>
+        <a href=".">A.60. sync.WaitGroup</a>
     </h1>
 </div>
 
@@ -2066,14 +2079,14 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="a59-waitgroup">A.59. WaitGroup</h1>
+                                <h1 id="a60-waitgroup">A.60. WaitGroup</h1>
 <p>Sebelumnya kita telah belajar banyak mengenai channel, di mana fungsi utama-nya adalah untuk sharing/kirim data antar goroutine. Selain untuk komunikasi data, channel secara tidak langsung bisa dimanfaatkan untuk kontrol goroutine.</p>
 <p>Go menyediakan package <code>sync</code>, berisi cukup banyak API untuk manajemen operasi multiprocessing (goroutine), salah satunya adalah yang kita bahas pada chapter ini, yaitu <code>sync.WaitGroup</code>.</p>
 <p>Kegunaan <code>sync.WaitGroup</code> adalah untuk sinkronisasi goroutine. Berbeda dengan channel, <code>sync.WaitGroup</code> memang dirancang khusus untuk pengelolaan goroutine, dengan penggunaan relatif lebih mudah dan efektif dibanding channel.</p>
 <blockquote>
 <p>Sebenarnya kurang pas jika membandingkan <code>sync.WaitGroup</code> dan channel, karena fungsi utama dari keduanya adalah berbeda. Channel untuk keperluan sharing data antar goroutine, sedangkan <code>sync.WaitGroup</code> untuk sinkronisasi goroutine.</p>
 </blockquote>
-<h2 id="a591-penerapan-syncwaitgroup">A.59.1. Penerapan <code>sync.WaitGroup</code></h2>
+<h2 id="a601-penerapan-syncwaitgroup">A.60.1. Penerapan <code>sync.WaitGroup</code></h2>
 <p><code>sync.WaitGroup</code> digunakan untuk menunggu goroutine. Cara pengaplikasiannya sangat mudah, tinggal masukkan jumlah goroutine yang dieksekusi, sebagai parameter method <code>Add()</code> pada object cetakan <code>sync.WaitGroup</code>, kemudian di akhir setiap goroutine pastikan untuk memanggil method <code>Done()</code>. Lalu gunakan method <code>Wait()</code> untuk menunggu eksekusi semua goroutine selesai.</p>
 <p>Agar lebih jelas, silakan coba kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2112,7 +2125,7 @@
 <blockquote>
 <p><code>sync.WaitGroup</code> merupakan salah satu tipe yang <em>thread safe</em>. Kita tidak perlu khawatir terhadap potensi <em>race condition</em> karena variabel bertipe ini aman untuk digunakan di banyak goroutine secara paralel.</p>
 </blockquote>
-<h2 id="a592-perbedaan-waitgroup-dengan-channel">A.59.2. Perbedaan WaitGroup Dengan Channel</h2>
+<h2 id="a602-perbedaan-waitgroup-dengan-channel">A.60.2. Perbedaan WaitGroup Dengan Channel</h2>
 <p>Bukan sebuah perbandingan yang <em>fair</em>, tapi jika dilihat perbedaan antara channel dan <code>sync.WaitGroup</code> kurang lebih ada di bagian ini:</p>
 <ul>
 <li>Channel tergantung kepada goroutine tertentu dalam penggunaannya, tidak seperti <code>sync.WaitGroup</code> yang dia tidak perlu tahu goroutine mana saja yang dijalankan, cukup tahu jumlah goroutine yang harus selesai</li>
@@ -2124,7 +2137,7 @@
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.59-waitgroup" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.59...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.60-waitgroup" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.60...</a>
 </div>
 
 <hr>
@@ -2140,12 +2153,12 @@
 
             
                 
-                <a href="A-unit-test.html" class="navigation navigation-prev " aria-label="Previous page: A.58. Unit Test">
+                <a href="A-table-driven-test.html" class="navigation navigation-prev " aria-label="Previous page: A.59. Table-Driven Test">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="A-mutex.html" class="navigation navigation-next " aria-label="Next page: A.60. sync.Mutex">
+                <a href="A-mutex.html" class="navigation navigation-next " aria-label="Next page: A.61. sync.Mutex">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2156,7 +2169,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.59. sync.WaitGroup","level":"3.1.59","depth":2,"next":{"title":"A.60. sync.Mutex","level":"3.1.60","depth":2,"path":"A-mutex.md","ref":"A-mutex.md","articles":[]},"previous":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"path":"A-unit-test.md","ref":"A-unit-test.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-waitgroup.md","mtime":"2026-06-11T16:39:17.250Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.60. sync.WaitGroup","level":"3.1.60","depth":2,"next":{"title":"A.61. sync.Mutex","level":"3.1.61","depth":2,"path":"A-mutex.md","ref":"A-mutex.md","articles":[]},"previous":{"title":"A.59. Table-Driven Test","level":"3.1.59","depth":2,"path":"A-table-driven-test.md","ref":"A-table-driven-test.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-waitgroup.md","mtime":"2026-06-11T17:27:46.242Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2178,7 +2191,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.172908"></script>
         
     
         

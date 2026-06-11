@@ -63,6 +63,7 @@
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/A-sql.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/A-mongodb.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/A-unit-test.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/A-table-driven-test.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/A-waitgroup.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/A-mutex.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/A-go-vendoring.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>

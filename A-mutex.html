@@ -1018,12 +1018,25 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.59" data-path="A-waitgroup.html">
+        <li class="chapter " data-level="3.1.59" data-path="A-table-driven-test.html">
+            
+                <a href="A-table-driven-test.html">
+            
+                    
+                    A.59. Table-Driven Test
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.60" data-path="A-waitgroup.html">
             
                 <a href="A-waitgroup.html">
             
                     
-                    A.59. sync.WaitGroup
+                    A.60. sync.WaitGroup
             
                 </a>
             
@@ -1031,12 +1044,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.1.60" data-path="A-mutex.html">
+        <li class="chapter active" data-level="3.1.61" data-path="A-mutex.html">
             
                 <a href="A-mutex.html">
             
                     
-                    A.60. sync.Mutex
+                    A.61. sync.Mutex
             
                 </a>
             
@@ -1044,12 +1057,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.61" data-path="A-go-vendoring.html">
+        <li class="chapter " data-level="3.1.62" data-path="A-go-vendoring.html">
             
                 <a href="A-go-vendoring.html">
             
                     
-                    A.61. Go Vendoring
+                    A.62. Go Vendoring
             
                 </a>
             
@@ -1057,12 +1070,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.62" data-path="A-concurrency-pipeline.html">
+        <li class="chapter " data-level="3.1.63" data-path="A-concurrency-pipeline.html">
             
                 <a href="A-concurrency-pipeline.html">
             
                     
-                    A.62. Concurrency Pattern: Pipeline
+                    A.63. Concurrency Pattern: Pipeline
             
                 </a>
             
@@ -1070,12 +1083,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.63" data-path="A-simplified-fan-in-fan-out-pipeline.html">
+        <li class="chapter " data-level="3.1.64" data-path="A-simplified-fan-in-fan-out-pipeline.html">
             
                 <a href="A-simplified-fan-in-fan-out-pipeline.html">
             
                     
-                    A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline
+                    A.64. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline
             
                 </a>
             
@@ -1083,12 +1096,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.64" data-path="A-pipeline-context-cancellation.html">
+        <li class="chapter " data-level="3.1.65" data-path="A-pipeline-context-cancellation.html">
             
                 <a href="A-pipeline-context-cancellation.html">
             
                     
-                    A.64. Concurrency Pattern: Context Cancellation Pipeline
+                    A.65. Concurrency Pattern: Context Cancellation Pipeline
             
                 </a>
             
@@ -1096,12 +1109,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.65" data-path="A-golang-generics.html">
+        <li class="chapter " data-level="3.1.66" data-path="A-golang-generics.html">
             
                 <a href="A-golang-generics.html">
             
                     
-                    A.65. Go Generics
+                    A.66. Go Generics
             
                 </a>
             
@@ -2054,7 +2067,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">A.60. sync.Mutex</a>
+        <a href=".">A.61. sync.Mutex</a>
     </h1>
 </div>
 
@@ -2066,12 +2079,12 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="a60-mutex">A.60. Mutex</h1>
+                                <h1 id="a61-mutex">A.61. Mutex</h1>
 <p>Sebelum kita membahas mengenai apa itu <strong>mutex</strong>? ada baiknya untuk mempelajari terlebih dahulu apa itu <strong>race condition</strong>, karena kedua konsep ini berhubungan erat satu sama lain.</p>
 <p>Race condition adalah kondisi di mana lebih dari satu goroutine mengakses data yang sama pada waktu yang bersamaan (benar-benar bersamaan). Ketika hal ini terjadi, nilai data tersebut akan menjadi kacau. Dalam <strong>concurrency programming</strong>, situasi seperti ini sering terjadi.</p>
 <p>Mutex melakukan pengubahan level akses sebuah data menjadi eksklusif, menjadikan data tersebut hanya dapat dikonsumsi (read / write) oleh satu buah goroutine saja. Ketika terjadi race condition, maka hanya goroutine yang beruntung saja yang bisa mengakses data tersebut. Goroutine lain (yang waktu running nya kebetulan bersamaan) akan dipaksa untuk menunggu, hingga goroutine yang sedang memanfaatkan data tersebut selesai.</p>
 <p>Go menyediakan <code>sync.Mutex</code> yang bisa dimanfaatkan untuk keperluan <strong>lock</strong> dan <strong>unlock</strong> data. Pada chapter ini kita akan membahas mengenai race condition dan cara mengatasinya menggunakan mutex.</p>
-<h2 id="a601-persiapan">A.60.1. Persiapan</h2>
+<h2 id="a611-persiapan">A.61.1. Persiapan</h2>
 <p>Pertama siapkan struct baru bernama <code>counter</code>, dengan isi satu buah property <code>val</code> bertipe <code>int</code>. Property ini nantinya dikonsumsi dan diolah oleh banyak goroutine.</p>
 <p>Lalu buat beberapa method struct <code>counter</code>.</p>
 <ol>
@@ -2099,7 +2112,7 @@
 }
 </code></pre>
 <p>Kode di atas kita gunakan sebagai template contoh source code yang ada pada chapter ini.</p>
-<h2 id="a602-contoh-race-condition">A.60.2. Contoh Race Condition</h2>
+<h2 id="a612-contoh-race-condition">A.61.2. Contoh Race Condition</h2>
 <p>Program berikut merupakan contoh program yang di dalamnya memungkinkan terjadi race condition atau kondisi goroutine balapan.</p>
 <blockquote>
 <p>Pastikan jumlah core prosesor komputer anda adalah lebih dari satu. Karena contoh pada chapter ini hanya akan berjalan sesuai harapan jika <code>GOMAXPROCS</code> &gt; 1.</p>
@@ -2134,11 +2147,11 @@
 <p><img src="images/A_mutex_1_race_condition.png" alt="Dasar Pemrograman Golang - Contoh race condition"></p>
 <p>Nilai <code>meter.val</code> tidak genap 1000000? kenapa bisa begitu? Padahal seharusnya tidak ada masalah dalam kode yang kita tulis di atas.</p>
 <p>Inilah yang disebut dengan race condition, data yang diakses bersamaan dalam 1 waktu menjadi kacau.</p>
-<h2 id="a603-deteksi-race-condition-menggunakan-go-race-detector">A.60.3. Deteksi Race Condition Menggunakan Go Race Detector</h2>
+<h2 id="a613-deteksi-race-condition-menggunakan-go-race-detector">A.61.3. Deteksi Race Condition Menggunakan Go Race Detector</h2>
 <p>Go menyediakan fitur untuk <a href="http://blog.golang.org/race-detector" target="_blank">deteksi race condition</a>. Cara penggunaannya adalah dengan menambahkan flag <code>-race</code> pada saat eksekusi aplikasi.</p>
 <p><img src="images/A_mutex_2_race_detector.png" alt="Dasar Pemrograman Golang - Race detector"></p>
 <p>Terlihat pada gambar di atas, ada pesan memberitahu terdapat kemungkinan data race pada program yang kita jalankan.</p>
-<h2 id="a604-penerapan-syncmutex">A.60.4. Penerapan <code>sync.Mutex</code></h2>
+<h2 id="a614-penerapan-syncmutex">A.61.4. Penerapan <code>sync.Mutex</code></h2>
 <p>Sekarang kita tahu bahwa program di atas menghasilkan bug, ada kemungkinan data race di dalamnya. Untuk mengatasi masalah ini ada beberapa cara yang bisa digunakan, dan di sini kita akan menggunakan <code>sync.Mutex</code>.</p>
 <p>Cara yang dianjurkan adalah menambahkan <code>sync.Mutex</code> sebagai <strong>named field</strong> di dalam struct. Dengan cara ini, mutex jelas menjadi milik struct, dan penggunaannya eksplisit karena diakses lewat nama field-nya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> counter <span class="hljs-keyword">struct</span> {
@@ -2214,7 +2227,7 @@
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.60-mutex" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.60...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.61-mutex" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.61...</a>
 </div>
 
 <hr>
@@ -2230,12 +2243,12 @@
 
             
                 
-                <a href="A-waitgroup.html" class="navigation navigation-prev " aria-label="Previous page: A.59. sync.WaitGroup">
+                <a href="A-waitgroup.html" class="navigation navigation-prev " aria-label="Previous page: A.60. sync.WaitGroup">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="A-go-vendoring.html" class="navigation navigation-next " aria-label="Next page: A.61. Go Vendoring">
+                <a href="A-go-vendoring.html" class="navigation navigation-next " aria-label="Next page: A.62. Go Vendoring">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2246,7 +2259,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.60. sync.Mutex","level":"3.1.60","depth":2,"next":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"previous":{"title":"A.59. sync.WaitGroup","level":"3.1.59","depth":2,"path":"A-waitgroup.md","ref":"A-waitgroup.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-mutex.md","mtime":"2026-06-11T16:39:17.248Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.61. sync.Mutex","level":"3.1.61","depth":2,"next":{"title":"A.62. Go Vendoring","level":"3.1.62","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"previous":{"title":"A.60. sync.WaitGroup","level":"3.1.60","depth":2,"path":"A-waitgroup.md","ref":"A-waitgroup.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-mutex.md","mtime":"2026-06-11T17:27:46.239Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2268,7 +2281,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.172908"></script>
         
     
         
