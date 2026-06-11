@@ -1,8 +1,8 @@
-# A.61. Go Vendoring
+# A.62. Go Vendoring
 
 Pada bagian ini kita akan belajar cara pemanfaatan vendoring untuk menyimpan copy dependency di lokal dalam folder project.
 
-## A.61.1. Penjelasan
+## A.62.1. Penjelasan
 
 Vendoring di Go memberikan kita kapabilitas untuk mengunduh semua dependency atau *3rd party*, untuk disimpan di lokal dalam folder project, dalam subfolder bernama `vendor`.
 
@@ -10,7 +10,7 @@ Dengan adanya folder tersebut, maka Go tidak akan *lookup* 3rd party ke cache fo
 
 Ok lanjut ke praktik ya.
 
-## A.61.2. Praktik Vendoring
+## A.62.2. Praktik Vendoring
 
 Kita akan coba praktikkan untuk vendoring sebuah 3rd party bernama [gubrak](https://github.com/novalagung/gubrak/v2).
 
@@ -45,7 +45,7 @@ Setelah itu jalankan command `go mod vendor` untuk vendoring *3rd party library*
 
 Bisa dilihat, sekarang library gubrak *source code*-nya disimpan dalam folder `vendor`. Nah ini juga akan berlaku untuk semua *library* lainnya yg digunakan jika ada.
 
-## A.61.3. Build dan Run Project yang Menerapkan Vendoring
+## A.62.3. Build dan Run Project yang Menerapkan Vendoring
 
 Cara agar Go lookup ke folder `vendor` saat build adalah dengan menambahkan flag `-mod=vendor` sewaktu build atau run project.
 
@@ -54,13 +54,13 @@ go run -mod=vendor main.go
 go build -mod=vendor -o executable
 ```
 
-## A.61.4. Manfaat Vendoring
+## A.62.4. Manfaat Vendoring
 
 Manfaat vendoring adalah pada sisi kompatibilitas & kestabilan 3rd party, selain itu kita tidak perlu repot mendownload dependency karena semuanya sudah ada di lokal.
 
 Konsekuensi penerapan vendoring adalah size project menjadi cukup besar. Untuk penggunaan vendor apakah wajib? menurut saya tidak. Sesuaikan kebutuhan saja.
 
-## A.61.5. Flag -mod=vendor Otomatis (Go 1.14+)
+## A.62.5. Flag -mod=vendor Otomatis (Go 1.14+)
 
 Sejak Go 1.14, jika project memiliki folder `vendor` dan file `go.mod` mencantumkan versi `go 1.14` atau lebih tinggi, maka flag `-mod=vendor` **sudah aktif secara otomatis**. Kita tidak perlu menambahkannya secara eksplisit saat menjalankan `go run` atau `go build`.
 
@@ -80,7 +80,7 @@ go run -mod=mod main.go
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.61-go-vendoring">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.61...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.62-go-vendoring">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.62...</a>
 </div>
 
 ---

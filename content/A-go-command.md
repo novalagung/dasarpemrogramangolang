@@ -105,7 +105,7 @@ Command `go get` **harus dijalankan dalam folder project/module**. Pada Go versi
 
 ## A.6.8. Command `go mod vendor`
 
-Command ini digunakan untuk vendoring. Lebih jelasnya akan dibahas di akhir serial chapter A, pada chapter [A.61. Go Vendoring](/A-go-vendoring.html).
+Command ini digunakan untuk vendoring. Lebih jelasnya akan dibahas di akhir serial chapter A, pada chapter [A.62. Go Vendoring](/A-go-vendoring.html).
 
 ---
 
