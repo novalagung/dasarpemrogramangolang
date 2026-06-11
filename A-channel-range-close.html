@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2067,11 +2067,11 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a34-channel---range-dan-close">A.34. Channel - Range dan Close</h1>
-<p>Proses penerimaan/<em>retrieving</em> data dari banyak channel bisa lebih mudah dilakukan dengan memanfaatkan kombinasi keyword <code>for</code> - <code>range</code>. Penerapannnya cukup mudah, yaitu dengan menuliskan keyword <code>for</code> - <code>range</code> pada variabel channel.</p>
+<p>Proses penerimaan/<em>retrieving</em> data dari banyak channel bisa lebih mudah dilakukan dengan memanfaatkan kombinasi keyword <code>for</code> - <code>range</code>. Penerapannya cukup mudah, yaitu dengan menuliskan keyword <code>for</code> - <code>range</code> pada variabel channel.</p>
 <p>Cara kerjanya:</p>
 <ul>
 <li>Transaksi data via channel men-trigger perulangan <code>for</code> - <code>range</code>. Perulangan akan berlangsung seiring terjadinya pengiriman data ke channel yang di-iterasi.</li>
-<li>Perulangan tersebut hanya akan berhenti jika channel di-<strong>close</strong> atau di non-aktifkan via fungsi <code>close()</code>. Channel yang sudah di-close tidak bisa digunakan lagi untuk mengirim data. Untuk menerima data, channel yang sudah di-close masih bisa dibaca hingga data buffered habis; setelah itu penerimaan menghasilkan zero value dan status <code>ok == false</code>.</li>
+<li>Perulangan tersebut hanya akan berhenti jika channel di-<strong>close</strong> atau dinonaktifkan via fungsi <code>close()</code>. Channel yang sudah di-close tidak bisa digunakan lagi untuk mengirim data. Untuk menerima data, channel yang sudah di-close masih bisa dibaca hingga data buffered habis; setelah itu penerimaan menghasilkan zero value dan status <code>ok == false</code>.</li>
 </ul>
 <h2 id="a341-penerapan-for---range---close">A.34.1. Penerapan <code>for</code> - <code>range</code> - <code>close</code></h2>
 <p>Berikut adalah contoh program pengaplikasian <code>for</code>, <code>range</code>, dan <code>close</code> untuk penerimaan data dari channel.</p>
@@ -2099,10 +2099,10 @@
     printMessage(messages)
 }
 </code></pre>
-<p>Setelah 20 data yang dikirim sukses diterima, channel <code>ch</code> di-non-aktifkan dengan adanya statement <code>close(ch)</code>. Statement tersebut menghentikan perulangan channel dalam <code>printMessage()</code>.</p>
+<p>Setelah 20 data yang dikirim sukses diterima, channel <code>ch</code> dinonaktifkan dengan adanya statement <code>close(ch)</code>. Statement tersebut menghentikan perulangan channel dalam <code>printMessage()</code>.</p>
 <p><img src="images/A_channel_range_close_1_for_range_close.png" alt="Dasar Pemrograman Golang - Penerapan for-range-close pada channel"></p>
 <h2 id="a342-penjelasan-tambahan">A.34.2. Penjelasan tambahan</h2>
-<p>Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:</p>
+<p>Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktikkan:</p>
 <h4 id="&#x25C9;-channel-direction">&#x25C9; Channel Direction</h4>
 <p>Go mendesain API channel untuk mendukung level akses channel, apakah hanya sebagai penerima, pengirim, atau penerima sekaligus pengirim. Konsep ini disebut dengan <strong>channel direction</strong>.</p>
 <p>Cara pemberian level akses adalah dengan menambahkan tanda <code>&lt;-</code> sebelum atau setelah keyword <code>chan</code>. Untuk lebih jelasnya bisa dilihat di list berikut.</p>
@@ -2166,7 +2166,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.34. Channel - Range & Close","level":"3.1.34","depth":2,"next":{"title":"A.35. Channel - Timeout","level":"3.1.35","depth":2,"path":"A-channel-timeout.md","ref":"A-channel-timeout.md","articles":[]},"previous":{"title":"A.33. Channel - Select","level":"3.1.33","depth":2,"path":"A-channel-select.md","ref":"A-channel-select.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-channel-range-close.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.34. Channel - Range & Close","level":"3.1.34","depth":2,"next":{"title":"A.35. Channel - Timeout","level":"3.1.35","depth":2,"path":"A-channel-timeout.md","ref":"A-channel-timeout.md","articles":[]},"previous":{"title":"A.33. Channel - Select","level":"3.1.33","depth":2,"path":"A-channel-select.md","ref":"A-channel-select.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-channel-range-close.md","mtime":"2026-06-11T16:39:17.245Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2188,7 +2188,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2151,7 +2151,7 @@ fmt.Println(string2) <span class="hljs-comment">// output: [&quot;b&quot;, &quot
 <p>String <code>&quot;the dark knight&quot;</code> dipisah oleh karakter spasi <code>&quot; &quot;</code>, hasilnya kemudian ditampung oleh <code>string1</code>.</p>
 <p>Untuk memisah string menjadi slice tiap 1 string, gunakan pemisah string kosong <code>&quot;&quot;</code>. Bisa dilihat contohnya pada variabel <code>string2</code>.</p>
 <h2 id="a449-fungsi-stringsjoin">A.44.9. Fungsi <code>strings.Join()</code></h2>
-<p>Memiliki kegunaan berkebalikan dengan <code>strings.Split()</code>. Digunakan untuk menggabungkan slice string (parameter pertama) menjadi sebuah string dengan pemisah tertentu (parameter kedua.</p>
+<p>Memiliki kegunaan berkebalikan dengan <code>strings.Split()</code>. Digunakan untuk menggabungkan slice string (parameter pertama) menjadi sebuah string dengan pemisah tertentu (parameter kedua).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> data = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;papaya&quot;</span>, <span class="hljs-string">&quot;tomato&quot;</span>}
 <span class="hljs-keyword">var</span> str = strings.Join(data, <span class="hljs-string">&quot;-&quot;</span>)
 fmt.Println(str) <span class="hljs-comment">// &quot;banana-papaya-tomato&quot;</span>
@@ -2167,6 +2167,41 @@ fmt.Println(str) <span class="hljs-comment">// &quot;alay&quot;</span>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> str = strings.ToUpper(<span class="hljs-string">&quot;eat!&quot;</span>)
 fmt.Println(str) <span class="hljs-comment">// &quot;EAT!&quot;</span>
 </code></pre>
+<h2 id="a4412-fungsi-stringsreplaceall-go-112">A.44.12. Fungsi <code>strings.ReplaceAll()</code> (Go 1.12+)</h2>
+<p>Tersedia sejak Go 1.12, fungsi <code>strings.ReplaceAll()</code> merupakan alternatif yang lebih singkat dari <code>strings.Replace(..., -1)</code>. Keduanya menghasilkan output yang sama, namun <code>strings.ReplaceAll()</code> tidak memerlukan parameter jumlah penggantian.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;banana&quot;</span>
+<span class="hljs-keyword">var</span> find = <span class="hljs-string">&quot;a&quot;</span>
+<span class="hljs-keyword">var</span> replaceWith = <span class="hljs-string">&quot;o&quot;</span>
+
+<span class="hljs-keyword">var</span> result = strings.ReplaceAll(text, find, replaceWith)
+fmt.Println(result) <span class="hljs-comment">// &quot;bonono&quot;</span>
+</code></pre>
+<p><code>strings.ReplaceAll(text, find, replaceWith)</code> ekuivalen dengan <code>strings.Replace(text, find, replaceWith, -1)</code>.</p>
+<h2 id="a4413-fungsi-stringscut-go-118">A.44.13. Fungsi <code>strings.Cut()</code> (Go 1.18+)</h2>
+<p>Sejak Go 1.18, tersedia fungsi <code>strings.Cut()</code> untuk memotong string menjadi dua bagian berdasarkan pemisah tertentu. Fungsi ini mengembalikan tiga nilai: bagian sebelum pemisah, bagian setelah pemisah, dan <code>bool</code> yang menandakan apakah pemisah ditemukan atau tidak.</p>
+<pre><code class="lang-go">before, after, found := strings.Cut(<span class="hljs-string">&quot;user:password&quot;</span>, <span class="hljs-string">&quot;:&quot;</span>)
+fmt.Println(before) <span class="hljs-comment">// user</span>
+fmt.Println(after)  <span class="hljs-comment">// password</span>
+fmt.Println(found)  <span class="hljs-comment">// true</span>
+
+before2, after2, found2 := strings.Cut(<span class="hljs-string">&quot;nocohere&quot;</span>, <span class="hljs-string">&quot;:&quot;</span>)
+fmt.Println(before2) <span class="hljs-comment">// nocohere</span>
+fmt.Println(after2)  <span class="hljs-comment">// (string kosong)</span>
+fmt.Println(found2)  <span class="hljs-comment">// false</span>
+</code></pre>
+<p><code>strings.Cut()</code> berguna untuk parsing string yang memiliki format <code>key:value</code> atau sejenisnya, dan lebih ekspresif dibanding kombinasi <code>strings.Index()</code> + slicing manual.</p>
+<h2 id="a4414-fungsi-stringscutprefix-dan-stringscutsuffix-go-120">A.44.14. Fungsi <code>strings.CutPrefix()</code> dan <code>strings.CutSuffix()</code> (Go 1.20+)</h2>
+<p>Sejak Go 1.20, tersedia dua fungsi baru untuk memotong prefix dan suffix dari sebuah string.</p>
+<p><code>strings.CutPrefix(s, prefix)</code> mengembalikan string setelah prefix dipotong dan <code>bool</code> apakah prefix ditemukan. <code>strings.CutSuffix(s, suffix)</code> bekerja dengan cara yang sama namun untuk suffix.</p>
+<pre><code class="lang-go">after, found := strings.CutPrefix(<span class="hljs-string">&quot;foobar&quot;</span>, <span class="hljs-string">&quot;foo&quot;</span>)
+fmt.Println(after) <span class="hljs-comment">// bar</span>
+fmt.Println(found) <span class="hljs-comment">// true</span>
+
+before, found2 := strings.CutSuffix(<span class="hljs-string">&quot;foobar&quot;</span>, <span class="hljs-string">&quot;bar&quot;</span>)
+fmt.Println(before) <span class="hljs-comment">// foo</span>
+fmt.Println(found2) <span class="hljs-comment">// true</span>
+</code></pre>
+<p>Berbeda dengan <code>strings.TrimPrefix()</code> dan <code>strings.TrimSuffix()</code>, fungsi <code>Cut*</code> juga memberi tahu apakah prefix/suffix benar-benar ditemukan lewat nilai <code>bool</code>-nya.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2202,7 +2237,7 @@ fmt.Println(str) <span class="hljs-comment">// &quot;EAT!&quot;</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.44. Fungsi String","level":"3.1.44","depth":2,"next":{"title":"A.45. Regexp","level":"3.1.45","depth":2,"path":"A-regex.md","ref":"A-regex.md","articles":[]},"previous":{"title":"A.43. Konversi Antar Tipe Data","level":"3.1.43","depth":2,"path":"A-data-type-conversion.md","ref":"A-data-type-conversion.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-strings.md","mtime":"2026-06-04T09:09:03.642Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.44. Fungsi String","level":"3.1.44","depth":2,"next":{"title":"A.45. Regexp","level":"3.1.45","depth":2,"path":"A-regex.md","ref":"A-regex.md","articles":[]},"previous":{"title":"A.43. Konversi Antar Tipe Data","level":"3.1.43","depth":2,"path":"A-data-type-conversion.md","ref":"A-data-type-conversion.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-strings.md","mtime":"2026-06-11T16:39:17.249Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2224,7 +2259,7 @@ fmt.Println(str) <span class="hljs-comment">// &quot;EAT!&quot;</span>
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

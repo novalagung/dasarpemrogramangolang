@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2068,9 +2068,9 @@
                                 
                                 <h1 id="a14-perulangan">A.14. Perulangan</h1>
 <p>Perulangan adalah proses mengulang-ulang eksekusi blok kode tanpa henti, selama kondisi yang dijadikan acuan terpenuhi. Biasanya disiapkan variabel untuk iterasi atau variabel penanda kapan perulangan akan diberhentikan.</p>
-<p>Di Go keyword perulangan hanya <strong>for</strong> saja, tetapi meski demikian, kemampuannya merupakan gabungan <code>for</code>, <code>foreach</code>, dan <code>while</code> ibarat bahasa pemrograman lain.</p>
+<p>Di Go keyword perulangan hanya <strong>for</strong> saja, namun kemampuannya merupakan gabungan dari <code>for</code>, <code>foreach</code>, dan <code>while</code> seperti pada bahasa pemrograman lain.</p>
 <h2 id="a141-perulangan-menggunakan-keyword-for">A.14.1. Perulangan Menggunakan Keyword <code>for</code></h2>
-<p>Ada beberapa cara standar menggunakan <code>for</code>. Cara pertama dengan memasukkan variabel counter perulangan beserta kondisinya setelah keyword. Perhatikan dan praktekan kode berikut.</p>
+<p>Ada beberapa cara standar menggunakan <code>for</code>. Cara pertama dengan memasukkan variabel counter perulangan beserta kondisinya setelah keyword. Perhatikan dan praktikkan kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++ {
     fmt.Println(<span class="hljs-string">&quot;Angka&quot;</span>, i)
 }
@@ -2129,6 +2129,7 @@
 }
 
 <span class="hljs-comment">// selain itu, bisa juga dengan cukup menentukan nilai numerik perulangan</span>
+<span class="hljs-comment">// (fitur ini tersedia sejak Go 1.22)</span>
 <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> <span class="hljs-number">5</span> {
     fmt.Print(i) <span class="hljs-comment">// 01234</span>
 }
@@ -2137,7 +2138,7 @@
 <p>Keyword <code>break</code> digunakan untuk menghentikan secara paksa sebuah perulangan, sedangkan <code>continue</code> dipakai untuk memaksa maju ke perulangan berikutnya.</p>
 <p>Berikut merupakan contoh penerapan <code>continue</code> dan <code>break</code>. Kedua keyword tersebut dimanfaatkan untuk menampilkan angka genap berurutan yang lebih besar dari 0 dan kurang dari atau sama dengan 8.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">10</span>; i++ {
-    <span class="hljs-keyword">if</span> i % <span class="hljs-number">2</span> == <span class="hljs-number">1</span> {
+    <span class="hljs-keyword">if</span> i%<span class="hljs-number">2</span> == <span class="hljs-number">1</span> {
         <span class="hljs-keyword">continue</span>
     }
 
@@ -2184,6 +2185,89 @@
 <p>Tepat sebelum keyword <code>for</code> terluar, terdapat baris kode <code>outerLoop:</code>. Maksud dari kode tersebut adalah disiapkan sebuah label bernama <code>outerLoop</code> untuk <code>for</code> di bawahnya. Nama label bisa diganti dengan nama lain (dan harus diakhiri dengan tanda titik dua atau <em>colon</em> (<code>:</code>) ).</p>
 <p>Pada <code>for</code> bagian dalam, terdapat seleksi kondisi untuk pengecekan nilai <code>i</code>. Ketika nilai tersebut sama dengan <code>3</code>, maka <code>break</code> dipanggil dengan target adalah perulangan yang dilabeli <code>outerLoop</code>, perulangan tersebut akan dihentikan.</p>
 <p><img src="images/A_perulangan_4_for_label.png" alt="Dasar Pemrograman Golang - Penerapan label dalam perulangan"></p>
+<h2 id="a148-fungsi-iterator--yield-go-123">A.14.8. Fungsi Iterator &amp; <code>yield</code> (Go 1.23+)</h2>
+<p><strong>Fungsi iterator</strong> adalah fungsi yang didesain untuk digunakan bersama <code>for</code> - <code>range</code>, memungkinkan pembuatan perulangan kustom yang menghasilkan nilai satu per satu. Sebelum Go 1.23, <code>for</code> - <code>range</code> hanya bisa digunakan pada tipe bawaan seperti slice, array, map, string, dan channel. Sejak Go 1.23, <code>for</code> - <code>range</code> bisa digunakan langsung pada fungsi yang memenuhi skema iterator tertentu.</p>
+<h4 id="&#x25C9;-apa-itu-yield">&#x25C9; Apa itu <code>yield</code>?</h4>
+<p><code>yield</code> bukanlah keyword bawaan Go, melainkan nama parameter fungsi yang wajib ada dalam skema iterator. Fungsi bertipe <code>yield</code> inilah yang dipanggil oleh iterator untuk &quot;menghasilkan&quot; nilai ke blok <code>for</code> - <code>range</code> di setiap iterasinya.</p>
+<p>Cara kerjanya:</p>
+<ul>
+<li>Iterator memanggil <code>yield(nilai)</code> untuk meneruskan nilai ke blok <code>for</code>.</li>
+<li>Jika <code>yield</code> mengembalikan <code>true</code>, iterasi dilanjutkan ke putaran berikutnya.</li>
+<li>Jika <code>yield</code> mengembalikan <code>false</code> (misalnya karena ada <code>break</code> di dalam loop), iterasi dihentikan dan iterator harus segera <code>return</code>.</li>
+</ul>
+<h4 id="&#x25C9;-tiga-skema-fungsi-iterator">&#x25C9; Tiga Skema Fungsi Iterator</h4>
+<p>Go mendukung tiga skema fungsi iterator tergantung jumlah nilai yang dihasilkan per iterasi.</p>
+<p><strong>Skema 1: <code>func(yield func() bool)</code></strong></p>
+<p>Tidak menghasilkan nilai per iterasi, hanya menandakan bahwa satu putaran terjadi. Cocok untuk mengulangi suatu proses sebanyak N kali tanpa perlu nilai iterasi.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> repeat(n <span class="hljs-keyword">int</span>) <span class="hljs-keyword">func</span>(yield <span class="hljs-keyword">func</span>() <span class="hljs-keyword">bool</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">func</span>(yield <span class="hljs-keyword">func</span>() <span class="hljs-keyword">bool</span>) {
+        <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ {
+            <span class="hljs-keyword">if</span> !yield() {
+                <span class="hljs-keyword">return</span>
+            }
+        }
+    }
+}
+</code></pre>
+<p>Cara penggunaan:</p>
+<pre><code class="lang-go">count := <span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">range</span> repeat(<span class="hljs-number">5</span>) {
+    count++
+    fmt.Println(<span class="hljs-string">&quot;iterasi ke&quot;</span>, count)
+}
+</code></pre>
+<p><strong>Skema 2: <code>func(yield func(V) bool)</code></strong></p>
+<p>Menghasilkan satu nilai per iterasi. Ini adalah skema yang paling umum digunakan, setara dengan <code>for _, v := range slice</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> counter(n <span class="hljs-keyword">int</span>) <span class="hljs-keyword">func</span>(yield <span class="hljs-keyword">func</span>(<span class="hljs-keyword">int</span>) <span class="hljs-keyword">bool</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">func</span>(yield <span class="hljs-keyword">func</span>(<span class="hljs-keyword">int</span>) <span class="hljs-keyword">bool</span>) {
+        <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= n; i++ {
+            <span class="hljs-keyword">if</span> !yield(i) {
+                <span class="hljs-keyword">return</span>
+            }
+        }
+    }
+}
+</code></pre>
+<p>Cara penggunaan:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> v := <span class="hljs-keyword">range</span> counter(<span class="hljs-number">5</span>) {
+    fmt.Println(v) <span class="hljs-comment">// 1, 2, 3, 4, 5</span>
+}
+</code></pre>
+<p><strong>Skema 3: <code>func(yield func(K, V) bool)</code></strong></p>
+<p>Menghasilkan dua nilai per iterasi (pasangan key-value). Setara dengan <code>for k, v := range map</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> enumerate(items []<span class="hljs-keyword">string</span>) <span class="hljs-keyword">func</span>(yield <span class="hljs-keyword">func</span>(<span class="hljs-keyword">int</span>, <span class="hljs-keyword">string</span>) <span class="hljs-keyword">bool</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">func</span>(yield <span class="hljs-keyword">func</span>(<span class="hljs-keyword">int</span>, <span class="hljs-keyword">string</span>) <span class="hljs-keyword">bool</span>) {
+        <span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> items {
+            <span class="hljs-keyword">if</span> !yield(i, v) {
+                <span class="hljs-keyword">return</span>
+            }
+        }
+    }
+}
+</code></pre>
+<p>Cara penggunaan:</p>
+<pre><code class="lang-go">fruits := []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;mango&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>}
+<span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> enumerate(fruits) {
+    fmt.Println(i, v)
+}
+<span class="hljs-comment">// output:</span>
+<span class="hljs-comment">// 0 apple</span>
+<span class="hljs-comment">// 1 mango</span>
+<span class="hljs-comment">// 2 banana</span>
+</code></pre>
+<h4 id="&#x25C9;-menghentikan-iterasi-dengan-break">&#x25C9; Menghentikan Iterasi dengan <code>break</code></h4>
+<p>Ketika <code>break</code> digunakan di dalam <code>for</code> - <code>range</code> pada iterator, fungsi <code>yield</code> mengembalikan <code>false</code>. Iterator wajib mengecek nilai kembalian <code>yield</code> dan langsung <code>return</code> jika hasilnya <code>false</code>, agar goroutine tidak bocor.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> v := <span class="hljs-keyword">range</span> counter(<span class="hljs-number">10</span>) {
+    <span class="hljs-keyword">if</span> v == <span class="hljs-number">3</span> {
+        <span class="hljs-keyword">break</span>
+    }
+    fmt.Println(v)
+}
+<span class="hljs-comment">// output: 1 2 3</span>
+</code></pre>
+<blockquote>
+<p>Go 1.23 juga memperkenalkan package <a href="https://pkg.go.dev/iter" target="_blank"><code>iter</code></a> yang menyediakan tipe standar untuk iterator: <code>iter.Seq[V]</code> (satu nilai) dan <code>iter.Seq2[K, V]</code> (dua nilai). Keduanya mempermudah penulisan tipe fungsi iterator tanpa harus menuliskan skema panjang secara manual.</p>
+</blockquote>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2219,7 +2303,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"next":{"title":"A.15. Array","level":"3.1.15","depth":2,"path":"A-array.md","ref":"A-array.md","articles":[]},"previous":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"path":"A-seleksi-kondisi.md","ref":"A-seleksi-kondisi.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-perulangan.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"next":{"title":"A.15. Array","level":"3.1.15","depth":2,"path":"A-array.md","ref":"A-array.md","articles":[]},"previous":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"path":"A-seleksi-kondisi.md","ref":"A-seleksi-kondisi.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-perulangan.md","mtime":"2026-06-11T16:39:17.248Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2241,7 +2325,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

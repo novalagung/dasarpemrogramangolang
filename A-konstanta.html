@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2069,7 +2069,7 @@
                                 <h1 id="a11-konstanta">A.11. Konstanta</h1>
 <p>Konstanta adalah jenis variabel yang nilainya tidak bisa diubah setelah dideklarasikan. Inisialisasi nilai konstanta hanya dilakukan sekali saja di awal, setelah itu variabel tidak bisa diubah nilainya.</p>
 <h2 id="a111-penggunaan-konstanta">A.11.1. Penggunaan Konstanta</h2>
-<p>Data seperti <strong>pi</strong> (22/7), kecepatan cahaya (299.792.458 m/s), adalah contoh data yang tepat untuk dideklarasikan sebagai konstanta (daripada variabel), karena nilainya sudah pasti dan tidak akan berubah.</p>
+<p>Data seperti <strong>pi</strong> (&#x3C0; &#x2248; 3.14159), kecepatan cahaya (299.792.458 m/s), adalah contoh data yang tepat untuk dideklarasikan sebagai konstanta (daripada variabel), karena nilainya sudah pasti dan tidak akan berubah.</p>
 <p>Cara penerapan konstanta sama seperti deklarasi variabel biasa, perbedaannya ada pada keyword yang digunakan, yaitu <code>const</code> (bukan <code>var</code>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">const</span> firstName <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;john&quot;</span>
 fmt.Print(<span class="hljs-string">&quot;halo &quot;</span>, firstName, <span class="hljs-string">&quot;!\n&quot;</span>)
@@ -2093,10 +2093,10 @@ fmt.Print(<span class="hljs-string">&quot;john&quot;</span>, <span class="hljs-s
 <h2 id="a112-deklarasi-multi-konstanta">A.11.2. Deklarasi Multi Konstanta</h2>
 <p>Sama seperti variabel, konstanta juga dapat dideklarasikan secara bersamaan. Berikut adalah contoh deklarasi konstanta dengan tipe data dan nilai yang berbeda.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">const</span> (
-    square          = <span class="hljs-string">&quot;kotak&quot;</span>
-    isToday <span class="hljs-keyword">bool</span>    = <span class="hljs-literal">true</span>
-    numeric <span class="hljs-keyword">uint8</span>   = <span class="hljs-number">1</span>
-    floatNum        = <span class="hljs-number">2.2</span>
+    square         = <span class="hljs-string">&quot;kotak&quot;</span>
+    isToday  <span class="hljs-keyword">bool</span>  = <span class="hljs-literal">true</span>
+    numeric  <span class="hljs-keyword">uint8</span> = <span class="hljs-number">1</span>
+    floatNum       = <span class="hljs-number">2.2</span>
 )
 </code></pre>
 <ul>
@@ -2130,7 +2130,7 @@ fmt.Print(<span class="hljs-string">&quot;john&quot;</span>, <span class="hljs-s
 <li><code>sekarang</code> dideklarasikan dengan metode <em>manifest typing</em> dengan tipe data <strong>string</strong> dan nilainya <strong>&quot;senin&quot;</strong></li>
 <li><code>isToday2</code> dideklarasikan dengan metode <em>type inference</em> dengan tipe data <strong>bool</strong> dan nilainya <strong>true</strong></li>
 </ul>
-<p>Berikut contoh deklrasi <em>multiple</em> konstanta dalam satu baris:</p>
+<p>Berikut contoh deklarasi <em>multiple</em> konstanta dalam satu baris:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">const</span> satu, dua = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>
 <span class="hljs-keyword">const</span> three, four <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;tiga&quot;</span>, <span class="hljs-string">&quot;empat&quot;</span>
 </code></pre>
@@ -2175,7 +2175,7 @@ fmt.Print(<span class="hljs-string">&quot;john&quot;</span>, <span class="hljs-s
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.11. Konstanta","level":"3.1.11","depth":2,"next":{"title":"A.12. Operator","level":"3.1.12","depth":2,"path":"A-operator.md","ref":"A-operator.md","articles":[]},"previous":{"title":"A.10. Tipe Data","level":"3.1.10","depth":2,"path":"A-tipe-data.md","ref":"A-tipe-data.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-konstanta.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.11. Konstanta","level":"3.1.11","depth":2,"next":{"title":"A.12. Operator","level":"3.1.12","depth":2,"path":"A-operator.md","ref":"A-operator.md","articles":[]},"previous":{"title":"A.10. Tipe Data","level":"3.1.10","depth":2,"path":"A-tipe-data.md","ref":"A-tipe-data.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-konstanta.md","mtime":"2026-06-11T16:39:17.248Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2197,7 +2197,7 @@ fmt.Print(<span class="hljs-string">&quot;john&quot;</span>, <span class="hljs-s
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

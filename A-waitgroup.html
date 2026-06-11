@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2067,14 +2067,14 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a59-waitgroup">A.59. WaitGroup</h1>
-<p>Sebelumnya kita telah belajar banyak mengenai channel, yang dimana fungsi utama-nya adalah untuk sharing/kirim data antar goroutine. Selain untuk komunikasi data, channel secara tidak langsung bisa dimanfaatkan untuk kontrol goroutine.</p>
-<p>Go menyediakan package <code>sync</code>, berisi cukup banyak API untuk manajemen operasi multiprocessing (goroutine), salah satunya di antaranya adalah yang kita bahas pada chapter ini, yaitu <code>sync.WaitGroup</code>.</p>
-<p>Kegunaan <code>sync.WaitGroup</code> adalah untuk sinkronisasi goroutine. Berbeda dengan channel, <code>sync.WaitGroup</code> memang dirancang khusus untuk pengelolahan goroutine, dengan penggunaan relatif lebih mudah dan efektif dibanding channel.</p>
+<p>Sebelumnya kita telah belajar banyak mengenai channel, di mana fungsi utama-nya adalah untuk sharing/kirim data antar goroutine. Selain untuk komunikasi data, channel secara tidak langsung bisa dimanfaatkan untuk kontrol goroutine.</p>
+<p>Go menyediakan package <code>sync</code>, berisi cukup banyak API untuk manajemen operasi multiprocessing (goroutine), salah satunya adalah yang kita bahas pada chapter ini, yaitu <code>sync.WaitGroup</code>.</p>
+<p>Kegunaan <code>sync.WaitGroup</code> adalah untuk sinkronisasi goroutine. Berbeda dengan channel, <code>sync.WaitGroup</code> memang dirancang khusus untuk pengelolaan goroutine, dengan penggunaan relatif lebih mudah dan efektif dibanding channel.</p>
 <blockquote>
 <p>Sebenarnya kurang pas jika membandingkan <code>sync.WaitGroup</code> dan channel, karena fungsi utama dari keduanya adalah berbeda. Channel untuk keperluan sharing data antar goroutine, sedangkan <code>sync.WaitGroup</code> untuk sinkronisasi goroutine.</p>
 </blockquote>
 <h2 id="a591-penerapan-syncwaitgroup">A.59.1. Penerapan <code>sync.WaitGroup</code></h2>
-<p><code>sync.WaitGroup</code> digunakan untuk menunggu goroutine. Cara pengaplikasiannya sangat mudah, tinggal masukan jumlah goroutine yang dieksekusi, sebagai parameter method <code>Add()</code> pada object cetakan <code>sync.WaitGroup</code>, kemudian di akhir setiap goroutine pastikan untuk memanggil method <code>Done()</code>. Lalu gunakan method <code>Wait()</code> untuk menunggu eksekusi semua goroutine selesai.</p>
+<p><code>sync.WaitGroup</code> digunakan untuk menunggu goroutine. Cara pengaplikasiannya sangat mudah, tinggal masukkan jumlah goroutine yang dieksekusi, sebagai parameter method <code>Add()</code> pada object cetakan <code>sync.WaitGroup</code>, kemudian di akhir setiap goroutine pastikan untuk memanggil method <code>Done()</code>. Lalu gunakan method <code>Wait()</code> untuk menunggu eksekusi semua goroutine selesai.</p>
 <p>Agar lebih jelas, silakan coba kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
@@ -2102,9 +2102,9 @@
     wg.Wait()
 }
 </code></pre>
-<p>Kode di atas merupakan contoh penerapan <code>sync.WaitGroup</code> untuk pengelolahan goroutine. Fungsi <code>doPrint()</code> akan dijalankan sebagai goroutine, dengan tugas menampilkan isi variabel <code>message</code>.</p>
+<p>Kode di atas merupakan contoh penerapan <code>sync.WaitGroup</code> untuk pengelolaan goroutine. Fungsi <code>doPrint()</code> akan dijalankan sebagai goroutine, dengan tugas menampilkan isi variabel <code>message</code>.</p>
 <p>Variabel <code>wg</code> dibuat dengan tipe data <code>sync.WaitGroup</code>. Variabel ini digunakan sebagai kontrol dan sinkronisasi goroutines yang dijalankan.</p>
-<p>Di tiap perulangan statement <code>wg.Add(1)</code> dipanggil. Kode tersebut akan memberikan informasi kepada <code>wg</code> bahwa jumlah goroutine yang sedang di proses ditambah 1 (karena dipanggil 5 kali, maka <code>wg</code> akan sadar bahwa terdapat 5 buah goroutine sedang berjalan).</p>
+<p>Di tiap perulangan statement <code>wg.Add(1)</code> dipanggil. Kode tersebut akan memberikan informasi kepada <code>wg</code> bahwa jumlah goroutine yang sedang diproses ditambah 1 (karena dipanggil 5 kali, maka <code>wg</code> akan sadar bahwa terdapat 5 buah goroutine sedang berjalan).</p>
 <p>Di baris selanjutnya, fungsi <code>doPrint()</code> dieksekusi sebagai goroutine. Di dalam fungsi tersebut, sebuah method bernama <code>Done()</code> dipanggil. Method ini digunakan untuk memberikan informasi kepada <code>wg</code> bahwa goroutine di mana method itu dipanggil sudah selesai. Sejumlah 5 buah goroutine dijalankan, maka method tersebut harus dipanggil 5 kali.</p>
 <p>Statement <code>wg.Wait()</code> bersifat blocking, proses eksekusi program tidak akan diteruskan ke baris selanjutnya, sebelum sejumlah 5 goroutine selesai. Jika <code>Add(1)</code> dipanggil 5 kali, maka <code>Done()</code> juga harus dipanggil 5 kali.</p>
 <p>Output program di atas:</p>
@@ -2156,7 +2156,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.59. sync.WaitGroup","level":"3.1.59","depth":2,"next":{"title":"A.60. sync.Mutex","level":"3.1.60","depth":2,"path":"A-mutex.md","ref":"A-mutex.md","articles":[]},"previous":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"path":"A-unit-test.md","ref":"A-unit-test.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-waitgroup.md","mtime":"2026-06-04T09:09:03.643Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.59. sync.WaitGroup","level":"3.1.59","depth":2,"next":{"title":"A.60. sync.Mutex","level":"3.1.60","depth":2,"path":"A-mutex.md","ref":"A-mutex.md","articles":[]},"previous":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"path":"A-unit-test.md","ref":"A-unit-test.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-waitgroup.md","mtime":"2026-06-11T16:39:17.250Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2178,7 +2178,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

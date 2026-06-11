@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2076,6 +2076,7 @@
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;log&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
 
 <span class="hljs-keyword">func</span> index(w http.ResponseWriter, r *http.Request) {
@@ -2090,19 +2091,32 @@
     http.HandleFunc(<span class="hljs-string">&quot;/index&quot;</span>, index)
 
     fmt.Println(<span class="hljs-string">&quot;starting web server at http://localhost:8080/&quot;</span>)
-    http.ListenAndServe(<span class="hljs-string">&quot;:8080&quot;</span>, <span class="hljs-literal">nil</span>)
+    err := http.ListenAndServe(<span class="hljs-string">&quot;:8080&quot;</span>, <span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err)
+    }
 }
 </code></pre>
 <p>Jalankan program tersebut.</p>
 <p><img src="images/A_web_server_1_start_server.png" alt="Dasar Pemrograman Golang - Eksekusi program"></p>
-<p>Jika muncul dialog <strong>Do you want the application &#x201C;bab48&#x201D; to accept incoming network connections?</strong> atau sejenis, pilih allow. Setelah itu, buka url <a href="http://localhost/" target="_blank">http://localhost/</a> dan <a href="http://localhost/index" target="_blank">http://localhost/index</a> di browser.</p>
+<p>Jika muncul dialog <strong>Do you want the application &#x201C;bab48&#x201D; to accept incoming network connections?</strong> atau sejenis, pilih allow. Setelah itu, buka url <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a> dan <a href="http://localhost:8080/index" target="_blank">http://localhost:8080/index</a> di browser.</p>
 <p><img src="images/A_web_server_2_web_server.png" alt="Dasar Pemrograman Golang - Contoh penerapan net/http"></p>
 <p>Fungsi <code>http.HandleFunc()</code> digunakan untuk routing aplikasi web. Maksud dari routing adalah penentuan aksi ketika url tertentu diakses oleh user.</p>
-<p>Pada kode di atas 2 rute didaftarkan, yaitu <code>/</code> dan <code>/index</code>. Aksi dari rute <code>/</code> adalah menampilkan text <code>&quot;halo&quot;</code> di halaman website. Sedangkan <code>/index</code> menampilkan text <code>&quot;apa kabar!&quot;</code>.</p>
+<p>Pada kode di atas 2 rute didaftarkan, yaitu <code>/</code> dan <code>/index</code>. Aksi dari rute <code>/</code> adalah menampilkan text <code>&quot;halo!&quot;</code> di halaman website. Sedangkan <code>/index</code> menampilkan text <code>&quot;apa kabar!&quot;</code>.</p>
 <p>Fungsi <code>http.HandleFunc()</code> memiliki 2 buah parameter yang harus diisi. Parameter pertama adalah rute yang diinginkan. Parameter kedua adalah <em>callback</em> atau aksi ketika rute tersebut diakses. Callback tersebut bertipe fungsi <code>func(w http.ResponseWriter, r *http.Request)</code>.</p>
 <p>Pada pendaftaran rute <code>/index</code>, callback-nya adalah fungsi <code>index()</code>, hal seperti ini diperbolehkan asalkan tipe dari fungsi tersebut sesuai.</p>
-<p>Fungsi <code>http.listenAndServe()</code> digunakan untuk menghidupkan server sekaligus menjalankan aplikasi menggunakan server tersebut. Di Go, 1 web aplikasi adalah 1 buah server berbeda.</p>
+<p>Fungsi <code>http.ListenAndServe()</code> digunakan untuk menghidupkan server sekaligus menjalankan aplikasi menggunakan server tersebut. Di Go, 1 web aplikasi adalah 1 buah server berbeda.</p>
 <p>Pada contoh di atas, server dijalankan pada port <code>8080</code>.</p>
+<blockquote>
+<p>Fungsi <code>http.HandleFunc()</code> mendaftarkan handler ke <code>http.DefaultServeMux</code> yang bersifat global. Untuk keperluan produksi, lebih aman membuat mux baru secara eksplisit agar handler dari package lain tidak ikut terdaftar:</p>
+<pre><code class="lang-go">mux := http.NewServeMux()
+mux.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, handler)
+err := http.ListenAndServe(<span class="hljs-string">&quot;:8080&quot;</span>, mux)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
+</code></pre>
+</blockquote>
 <p>Perlu diingat, setiap ada perubahan pada file <code>.go</code>, <code>go run</code> harus dipanggil lagi.</p>
 <p>Untuk menghentikan web server, tekan <strong>CTRL+C</strong> pada terminal atau CMD, di mana pengeksekusian aplikasi berlangsung.</p>
 <h2 id="a512-penggunaan-template-web">A.51.2. Penggunaan Template Web</h2>
@@ -2124,6 +2138,7 @@
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;log&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
 
 <span class="hljs-keyword">func</span> main() {
@@ -2143,15 +2158,58 @@
     })
 
     fmt.Println(<span class="hljs-string">&quot;starting web server at http://localhost:8080/&quot;</span>)
-    http.ListenAndServe(<span class="hljs-string">&quot;:8080&quot;</span>, <span class="hljs-literal">nil</span>)
+    err := http.ListenAndServe(<span class="hljs-string">&quot;:8080&quot;</span>, <span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err)
+    }
 }
 </code></pre>
-<p>Jalankan, lalu buka <a href="http://localhost:8080" target="_blank">http://localhost:8080</a>, maka data <code>Nama</code> dan <code>Message</code> akan muncul di view.</p>
+<p>Jalankan, lalu buka <a href="http://localhost:8080" target="_blank">http://localhost:8080</a>, maka data <code>Name</code> dan <code>Message</code> akan muncul di view.</p>
 <p><img src="images/A_web_server_3_template.png" alt="Dasar Pemrograman Golang - Penggunaan template"></p>
 <p>Fungsi <code>template.ParseFiles()</code> digunakan untuk parsing template, mengembalikan 2 data yaitu instance template-nya dan error (jika ada). Pemanggilan method <code>Execute()</code> akan membuat hasil parsing template ditampilkan ke layar web browser.</p>
 <p>Pada kode di atas, variabel <code>data</code> disisipkan sebagai parameter ke-2 method <code>Execute()</code>. Isi dari variabel tersebut bisa diakses di-view dengan menggunakan notasi <code>{{.NAMA_PROPERTY}}</code> (nama variabel sendiri tidak perlu dituliskan, langsung nama property di dalamnya).</p>
 <p>Pada contoh di atas, statement di view <code>{{.Name}}</code> akan menampilkan isi dari <code>data.Name</code>.</p>
-<h2 id="a513-advanced-web-programming">A.51.3. Advanced Web Programming</h2>
+<h2 id="a513-enhanced-routing-go-122">A.51.3. Enhanced Routing (Go 1.22+)</h2>
+<p>Sejak Go 1.22, <code>net/http.ServeMux</code> mendukung dua fitur routing tambahan: <strong>method routing</strong> dan <strong>wildcard path</strong>.</p>
+<p><strong>Method routing</strong> memungkinkan pendaftaran handler untuk metode HTTP tertentu. Cukup tambahkan nama metode diikuti spasi di depan path, contohnya <code>&quot;GET /items&quot;</code> atau <code>&quot;POST /items&quot;</code>.</p>
+<p><strong>Wildcard path</strong> memungkinkan penangkapan segmen URL dinamis menggunakan notasi <code>{nama}</code>. Nilainya bisa diambil lewat <code>r.PathValue(&quot;nama&quot;)</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    http.HandleFunc(<span class="hljs-string">&quot;GET /&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintln(w, <span class="hljs-string">&quot;halo dari GET /&quot;</span>)
+    })
+
+    http.HandleFunc(<span class="hljs-string">&quot;GET /user/{id}&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        id := r.PathValue(<span class="hljs-string">&quot;id&quot;</span>)
+        fmt.Fprintf(w, <span class="hljs-string">&quot;user id: %s\n&quot;</span>, id)
+    })
+
+    http.HandleFunc(<span class="hljs-string">&quot;POST /user&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintln(w, <span class="hljs-string">&quot;create user&quot;</span>)
+    })
+
+    fmt.Println(<span class="hljs-string">&quot;starting web server at http://localhost:8080/&quot;</span>)
+    err := http.ListenAndServe(<span class="hljs-string">&quot;:8080&quot;</span>, <span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err)
+    }
+}
+</code></pre>
+<p>Pada kode di atas:</p>
+<ul>
+<li><code>&quot;GET /&quot;</code>: handler hanya aktif untuk request GET ke path <code>/</code>.</li>
+<li><code>&quot;GET /user/{id}&quot;</code>: <code>{id}</code> adalah wildcard, nilainya diambil dengan <code>r.PathValue(&quot;id&quot;)</code>.</li>
+<li><code>&quot;POST /user&quot;</code>: handler hanya aktif untuk request POST.</li>
+</ul>
+<p>Ketika dua pola saling tumpang tindih, Go otomatis memilih pola yang lebih spesifik. Urutan pendaftaran tidak memengaruhi prioritas.</p>
+<h2 id="a514-advanced-web-programming">A.51.4. Advanced Web Programming</h2>
 <p>Sampai chapter ini yang kita pelajari adalah yang sifatnya fundamental atau dasar di pemrograman Go. Nantinya di chapter <a href="B-golang-web-hello-world.html">B.1. Golang Web App: Hello World</a> hingga seterusnya akan lebih banyak membahas mengenai pemrograman web. Jadi untuk sekarang sabar dulu ya. Mari kita selesaikan pembelajaran fundamental secara runtun, sebelum masuk ke bagian pengembangan web.</p>
 <hr>
 <div class="source-code-link">
@@ -2188,7 +2246,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.51. Web Server","level":"3.1.51","depth":2,"next":{"title":"A.52. URL Parsing","level":"3.1.52","depth":2,"path":"A-url-parsing.md","ref":"A-url-parsing.md","articles":[]},"previous":{"title":"A.50. File","level":"3.1.50","depth":2,"path":"A-file.md","ref":"A-file.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-web-server.md","mtime":"2026-06-04T09:09:03.643Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.51. Web Server","level":"3.1.51","depth":2,"next":{"title":"A.52. URL Parsing","level":"3.1.52","depth":2,"path":"A-url-parsing.md","ref":"A-url-parsing.md","articles":[]},"previous":{"title":"A.50. File","level":"3.1.50","depth":2,"path":"A-file.md","ref":"A-file.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-web-server.md","mtime":"2026-06-11T16:39:17.250Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2210,7 +2268,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

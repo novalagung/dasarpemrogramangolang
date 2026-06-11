@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2101,7 +2101,7 @@
 </tbody>
 </table>
 <p>Contoh penggunaan:</p>
-<pre><code class="lang-go"><span class="hljs-keyword">var</span> value = (((<span class="hljs-number">2</span> + <span class="hljs-number">6</span>) % <span class="hljs-number">3</span>) * <span class="hljs-number">4</span> - <span class="hljs-number">2</span>) / <span class="hljs-number">3</span>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> value = (((<span class="hljs-number">2</span>+<span class="hljs-number">6</span>)%<span class="hljs-number">3</span>)*<span class="hljs-number">4</span> - <span class="hljs-number">2</span>) / <span class="hljs-number">3</span>
 </code></pre>
 <h2 id="a122-operator-perbandingan">A.12.2. Operator Perbandingan</h2>
 <p>Operator perbandingan digunakan untuk menentukan kebenaran suatu kondisi. Hasilnya berupa nilai boolean, <code>true</code> atau <code>false</code>.</p>
@@ -2141,7 +2141,7 @@
 </tbody>
 </table>
 <p>Contoh penggunaan:</p>
-<pre><code class="lang-go"><span class="hljs-keyword">var</span> value = (((<span class="hljs-number">2</span> + <span class="hljs-number">6</span>) % <span class="hljs-number">3</span>) * <span class="hljs-number">4</span> - <span class="hljs-number">2</span>) / <span class="hljs-number">3</span>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> value = (((<span class="hljs-number">2</span>+<span class="hljs-number">6</span>)%<span class="hljs-number">3</span>)*<span class="hljs-number">4</span> - <span class="hljs-number">2</span>) / <span class="hljs-number">3</span>
 <span class="hljs-keyword">var</span> isEqual = (value == <span class="hljs-number">2</span>)
 
 fmt.Printf(<span class="hljs-string">&quot;nilai %d (%t) \n&quot;</span>, value, isEqual)
@@ -2196,6 +2196,26 @@ fmt.Printf(<span class="hljs-string">&quot;!left \t\t(%t) \n&quot;</span>, leftR
 <li><code>leftReverse</code> bernilai <code>true</code>, karena <strong>negasi</strong> (atau lawan dari) <code>false</code> adalah <code>true</code>.</li>
 </ul>
 <p>Template <code>\t</code> digunakan untuk menambahkan indent tabulasi. Biasa dimanfaatkan untuk merapikan tampilan output pada console.</p>
+<h2 id="a124-fungsi-built-in-min-dan-max-go-121">A.12.4. Fungsi Built-in <code>min()</code> dan <code>max()</code> (Go 1.21+)</h2>
+<p>Sejak Go 1.21, tersedia dua fungsi built-in baru yaitu <code>min()</code> dan <code>max()</code> untuk mencari nilai minimum dan maksimum dari dua atau lebih nilai. Keduanya bekerja pada tipe data yang bisa dibandingkan, seperti <code>int</code>, <code>float64</code>, dan <code>string</code>.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    fmt.Println(min(<span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>))  <span class="hljs-comment">// 1</span>
+    fmt.Println(max(<span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>))  <span class="hljs-comment">// 7</span>
+
+    <span class="hljs-keyword">var</span> a, b = <span class="hljs-number">10</span>, <span class="hljs-number">20</span>
+    fmt.Println(min(a, b))  <span class="hljs-comment">// 10</span>
+    fmt.Println(max(a, b))  <span class="hljs-comment">// 20</span>
+
+    fmt.Println(min(<span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;cherry&quot;</span>))  <span class="hljs-comment">// apple</span>
+    fmt.Println(max(<span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;cherry&quot;</span>))  <span class="hljs-comment">// cherry</span>
+}
+</code></pre>
+<p>Fungsi <code>min()</code> mengembalikan nilai terkecil, dan <code>max()</code> mengembalikan nilai terbesar dari semua argumen yang diberikan. Minimal dibutuhkan satu argumen, dan tipe data semua argumen harus sama.</p>
+<p>Sebelum adanya fungsi bawaan ini, operasi min/max biasanya dilakukan secara manual menggunakan seleksi kondisi. Kini cukup satu baris saja.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2231,7 +2251,7 @@ fmt.Printf(<span class="hljs-string">&quot;!left \t\t(%t) \n&quot;</span>, leftR
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.12. Operator","level":"3.1.12","depth":2,"next":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"path":"A-seleksi-kondisi.md","ref":"A-seleksi-kondisi.md","articles":[]},"previous":{"title":"A.11. Konstanta","level":"3.1.11","depth":2,"path":"A-konstanta.md","ref":"A-konstanta.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-operator.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.12. Operator","level":"3.1.12","depth":2,"next":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"path":"A-seleksi-kondisi.md","ref":"A-seleksi-kondisi.md","articles":[]},"previous":{"title":"A.11. Konstanta","level":"3.1.11","depth":2,"path":"A-konstanta.md","ref":"A-konstanta.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-operator.md","mtime":"2026-06-11T16:39:17.248Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2253,7 +2273,7 @@ fmt.Printf(<span class="hljs-string">&quot;!left \t\t(%t) \n&quot;</span>, leftR
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

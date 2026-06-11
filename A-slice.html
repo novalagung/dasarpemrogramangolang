@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2078,18 +2078,18 @@ fmt.Println(fruits[<span class="hljs-number">0</span>]) <span class="hljs-commen
 <span class="hljs-keyword">var</span> fruitsB = [<span class="hljs-number">2</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}    <span class="hljs-comment">// array</span>
 <span class="hljs-keyword">var</span> fruitsC = [...]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;papaya&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>}  <span class="hljs-comment">// array</span>
 </code></pre>
-<h2 id="a162-alokasi-slice-menggunakan-keyword-make">A.16.2. Alokasi Slice Menggunakan Keyword <code>make</code></h2>
-<p>Deklarasi sekaligus alokasi kapasitas slice bisa dilakukan lewat keyword <code>make</code>. Contohnya:</p>
+<h2 id="a162-alokasi-slice-menggunakan-fungsi-builtin-make">A.16.2. Alokasi Slice Menggunakan Fungsi Builtin <code>make()</code></h2>
+<p>Deklarasi sekaligus alokasi kapasitas slice bisa dilakukan lewat fungsi <em>builtin</em> <code>make()</code>. Contohnya:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>, <span class="hljs-number">2</span>)
 fruits[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;apple&quot;</span>
 fruits[<span class="hljs-number">1</span>] = <span class="hljs-string">&quot;mango&quot;</span>
 
 fmt.Println(fruits)  <span class="hljs-comment">// [apple mango]</span>
 </code></pre>
-<p>Parameter pertama keyword <code>make</code> diisi dengan tipe data elemen slice yang diinginkan, parameter kedua adalah jumlah elemennya. Pada kode di atas, variabel <code>fruits</code> tercetak sebagai slice string dengan panjang 2 elemen.</p>
+<p>Parameter pertama fungsi <code>make()</code> diisi dengan tipe data elemen slice yang diinginkan, parameter kedua adalah jumlah elemennya. Pada kode di atas, variabel <code>fruits</code> tercetak sebagai slice string dengan panjang 2 elemen.</p>
 <blockquote>
 <p>Perlu diperhatikan statement <code>make([]string, 2)</code> menghasilkan slice, bukan array.
-Lalu apa itu slice? Silakan lanjut pembasahan di bawah ini.</p>
+Lalu apa itu slice? Silakan lanjut pembahasan di bawah ini.</p>
 </blockquote>
 <h2 id="a163-hubungan-slice-dengan-array--operasi-slice">A.16.3. Hubungan Slice Dengan Array &amp; Operasi Slice</h2>
 <p>Kalau perbedannya hanya di penentuan alokasi pada saat inisialisasi, kenapa tidak menggunakan satu istilah saja? atau adakah perbedaan lainnya?</p>
@@ -2131,12 +2131,12 @@ fmt.Println(newFruits) <span class="hljs-comment">// [&quot;apple&quot;, &quot;g
 <tr>
 <td style="text-align:left"><code>fruits[0:0]</code></td>
 <td style="text-align:left"><code>[]</code></td>
-<td style="text-align:left">menghasilkan slice kosong, karena tidak ada elemen sebelum indeks ke-0</td>
+<td style="text-align:left">menghasilkan slice kosong, karena indeks awal dan akhir sama</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>fruits[4:4]</code></td>
 <td style="text-align:left"><code>[]</code></td>
-<td style="text-align:left">menghasilkan slice kosong, karena tidak ada elemen yang dimulai dari indeks ke-4</td>
+<td style="text-align:left">menghasilkan slice kosong, karena indeks awal dan akhir sama (4 adalah indeks tepat setelah elemen terakhir)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>fruits[4:0]</code></td>
@@ -2327,6 +2327,47 @@ fmt.Println(bFruits)      <span class="hljs-comment">// [&quot;apple&quot;, &quo
 fmt.Println(<span class="hljs-built_in">len</span>(bFruits)) <span class="hljs-comment">// len: 2</span>
 fmt.Println(<span class="hljs-built_in">cap</span>(bFruits)) <span class="hljs-comment">// cap: 2</span>
 </code></pre>
+<h2 id="a1610-package-slices-go-121">A.16.10. Package <code>slices</code> (Go 1.21+)</h2>
+<p>Go 1.21 memperkenalkan package baru <a href="https://pkg.go.dev/slices" target="_blank"><code>slices</code></a> yang menyediakan fungsi-fungsi generik untuk operasi slice. Berikut beberapa fungsi yang umum digunakan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;slices&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> fruits = []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>}
+
+    <span class="hljs-comment">// cek apakah elemen ada dalam slice</span>
+    fmt.Println(slices.Contains(fruits, <span class="hljs-string">&quot;banana&quot;</span>))  <span class="hljs-comment">// true</span>
+    fmt.Println(slices.Contains(fruits, <span class="hljs-string">&quot;papaya&quot;</span>))  <span class="hljs-comment">// false</span>
+
+    <span class="hljs-comment">// cari indeks pertama kemunculan elemen</span>
+    fmt.Println(slices.Index(fruits, <span class="hljs-string">&quot;grape&quot;</span>))  <span class="hljs-comment">// 1</span>
+
+    <span class="hljs-comment">// urutkan elemen slice (ascending, in-place)</span>
+    slices.Sort(fruits)
+    fmt.Println(<span class="hljs-string">&quot;sorted  :&quot;</span>, fruits)
+
+    <span class="hljs-comment">// balik urutan elemen (in-place)</span>
+    slices.Reverse(fruits)
+    fmt.Println(<span class="hljs-string">&quot;reversed:&quot;</span>, fruits)
+
+    <span class="hljs-comment">// hapus elemen duplikat yang berurutan</span>
+    slices.Sort(fruits)
+    fruits = slices.Compact(fruits)
+    fmt.Println(<span class="hljs-string">&quot;compact :&quot;</span>, fruits)
+}
+</code></pre>
+<p>Penjelasan fungsi-fungsi yang digunakan:</p>
+<ul>
+<li><code>slices.Contains(s, v)</code> &#x2192; mengembalikan <code>true</code> jika elemen <code>v</code> ada di dalam slice <code>s</code>.</li>
+<li><code>slices.Index(s, v)</code> &#x2192; mengembalikan indeks pertama kemunculan <code>v</code>, atau <code>-1</code> jika tidak ditemukan.</li>
+<li><code>slices.Sort(s)</code> &#x2192; mengurutkan elemen slice secara <em>ascending</em> (in-place, slice asli berubah).</li>
+<li><code>slices.Reverse(s)</code> &#x2192; membalik urutan elemen slice (in-place).</li>
+<li><code>slices.Compact(s)</code> &#x2192; menghapus elemen duplikat yang letaknya berurutan; agar semua duplikat terhapus, urutkan slice terlebih dahulu.</li>
+</ul>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2362,7 +2403,7 @@ fmt.Println(<span class="hljs-built_in">cap</span>(bFruits)) <span class="hljs-c
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.16. Slice","level":"3.1.16","depth":2,"next":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"previous":{"title":"A.15. Array","level":"3.1.15","depth":2,"path":"A-array.md","ref":"A-array.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-slice.md","mtime":"2026-06-04T09:09:03.642Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.16. Slice","level":"3.1.16","depth":2,"next":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"previous":{"title":"A.15. Array","level":"3.1.15","depth":2,"path":"A-array.md","ref":"A-array.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-slice.md","mtime":"2026-06-11T16:39:17.249Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2384,7 +2425,7 @@ fmt.Println(<span class="hljs-built_in">cap</span>(bFruits)) <span class="hljs-c
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

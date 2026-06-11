@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2067,7 +2067,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a54-web-service-api-server">A.54. Web Service API Server</h1>
-<p>Pada chapter ini kita akan mencoba mengkombinasikan hasl pembelajaran di 2 chapter sebelumnya (yaitu web programming dan JSON), untuk membuat sebuah web service API yang memiliki endpoint dengan response data mengadopsi format JSON.</p>
+<p>Pada chapter ini kita akan mencoba mengkombinasikan hasil pembelajaran di 2 chapter sebelumnya (yaitu web programming dan JSON), untuk membuat sebuah web service API yang memiliki endpoint dengan response data mengadopsi format JSON.</p>
 <blockquote>
 <p>Web Service API adalah sebuah web yang menerima request dari client dan menghasilkan response, biasa berupa JSON/XML atau format lainnya.</p>
 </blockquote>
@@ -2114,11 +2114,11 @@
 </code></pre>
 <p>Jika request adalah GET (mengambil data), maka data yang di-encode ke JSON dijadikan sebagai response.</p>
 <p>Statement <code>w.Header().Set(&quot;Content-Type&quot;, &quot;application/json&quot;)</code> digunakan untuk menentukan tipe response, yaitu sebagai JSON. Sedangkan <code>w.Write()</code> digunakan untuk mendaftarkan data sebagai response.</p>
-<p>Selebihnya, jika request tidak valid, response di set sebagai error menggunakan fungsi <code>http.Error()</code>.</p>
+<p>Selebihnya, jika request tidak valid, response diset sebagai error menggunakan fungsi <code>http.Error()</code>.</p>
 <p>Siapkan juga handler untuk endpoint <code>/user</code>. Perbedaan endpoint ini dengan <code>/users</code> di atas adalah:</p>
 <ul>
 <li>Endpoint <code>/users</code> mengembalikan semua sample data yang ada (array).</li>
-<li>Endpoint <code>/user</code> mengembalikan satu buah data saja, diambel dari data sample berdasarkan <code>ID</code>-nya. Pada endpoint ini, client harus mengirimkan juga informasi <code>ID</code> data yang dicari.</li>
+<li>Endpoint <code>/user</code> mengembalikan satu buah data saja, diambil dari data sample berdasarkan <code>ID</code>-nya. Pada endpoint ini, client harus mengirimkan juga informasi <code>ID</code> data yang dicari.</li>
 </ul>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> user(w http.ResponseWriter, r *http.Request) {
     w.Header().Set(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>)
@@ -2150,7 +2150,7 @@
 }
 </code></pre>
 <p>Method <code>r.FormValue()</code> digunakan untuk mengambil data form yang dikirim dari client, pada konteks ini data yang dimaksud adalah <code>ID</code>.</p>
-<p>Dengan menggunakan <code>ID</code> tersebut dicarilah data yang relevan. Jika ada, maka dikembalikan sebagai response. Jika tidak ada maka error <strong>404, Not Found</strong> dikembalikan dengan pesan <strong>User Not Found</strong>.</p>
+<p>Dengan menggunakan <code>ID</code> tersebut dicarilah data yang relevan. Jika ada, maka dikembalikan sebagai response. Jika tidak ada maka error <strong>404, Not Found</strong> dikembalikan dengan pesan <strong>User not found</strong>.</p>
 <p>Terakhir, implementasikan kedua handler di atas.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     http.HandleFunc(<span class="hljs-string">&quot;/users&quot;</span>, users)
@@ -2163,7 +2163,7 @@
 <p>Jalankan program, sekarang web server sudah live dan bisa dikonsumsi datanya.</p>
 <p><img src="images/A_web_service_1_server.png" alt="Dasar Pemrograman Golang - Web API Server dijalankan"></p>
 <h2 id="a542-test-web-service-api-via-postman">A.54.2. Test Web Service API via Postman</h2>
-<p>Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-tes. Di sini saya menggunakan Google Chrome plugin bernama <a href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en" target="_blank">Postman</a> untuk mengetes API yang sudah dibuat.</p>
+<p>Setelah web server sudah berjalan, web service yang telah dibuat perlu untuk di-tes. Di sini saya menggunakan aplikasi <a href="https://www.postman.com/" target="_blank">Postman</a> untuk mengetes API yang sudah dibuat.</p>
 <ul>
 <li><p>Test endpoint <code>/users</code>, apakah data yang dikembalikan sudah benar.</p>
 <p> <img src="images/A_web_service_2_test_api_users.png" alt="Dasar Pemrograman Golang - Test `/users`"></p>
@@ -2213,7 +2213,7 @@ curl -X POST -d &quot;id=B002&quot; http://localhost:8080/user
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.54. Web Service API Server","level":"3.1.54","depth":2,"next":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"path":"A-client-http-request-simple.md","ref":"A-client-http-request-simple.md","articles":[]},"previous":{"title":"A.53. JSON Data","level":"3.1.53","depth":2,"path":"A-json.md","ref":"A-json.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-web-service-api.md","mtime":"2026-06-04T09:09:03.643Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.54. Web Service API Server","level":"3.1.54","depth":2,"next":{"title":"A.55. Simple Client HTTP Request","level":"3.1.55","depth":2,"path":"A-client-http-request-simple.md","ref":"A-client-http-request-simple.md","articles":[]},"previous":{"title":"A.53. JSON Data","level":"3.1.53","depth":2,"path":"A-json.md","ref":"A-json.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-web-service-api.md","mtime":"2026-06-11T16:39:17.250Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2235,7 +2235,7 @@ curl -X POST -d &quot;id=B002&quot; http://localhost:8080/user
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2082,14 +2082,13 @@ go get go.mongodb.org/mongo-driver/mongo
 </li>
 </ol>
 <h2 id="a572-insert-data">A.57.2. Insert Data</h2>
-<p>Cara insert data ke mongodb via Go tidak terlalu sulit. Kita akan mempelajarinya dengan cara praktek langsung. Pertama-tama silakan import package yang dibutuhkan.</p>
+<p>Cara insert data ke mongodb via Go tidak terlalu sulit. Kita akan mempelajarinya dengan cara praktik langsung. Pertama-tama silakan import package yang dibutuhkan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> (
     <span class="hljs-string">&quot;context&quot;</span>
     <span class="hljs-string">&quot;fmt&quot;</span>
     <span class="hljs-string">&quot;log&quot;</span>
-    <span class="hljs-string">&quot;time&quot;</span>
 
     <span class="hljs-string">&quot;go.mongodb.org/mongo-driver/mongo&quot;</span>
     <span class="hljs-string">&quot;go.mongodb.org/mongo-driver/mongo/options&quot;</span>
@@ -2102,21 +2101,14 @@ go get go.mongodb.org/mongo-driver/mongo
 
 <span class="hljs-keyword">type</span> student <span class="hljs-keyword">struct</span> {
     Name  <span class="hljs-keyword">string</span> <span class="hljs-string">`bson:&quot;name&quot;`</span>
-    Grade <span class="hljs-keyword">int</span>    <span class="hljs-string">`bson:&quot;Grade&quot;`</span>
+    Grade <span class="hljs-keyword">int</span>    <span class="hljs-string">`bson:&quot;grade&quot;`</span>
 }
 </code></pre>
 <p>Tag <code>bson</code> pada property struct digunakan sebagai penentu nama field ketika data disimpan ke dalam collection. Jika sebuah property tidak memiliki tag bson, secara default nama field adalah sama dengan nama property hanya saja lowercase. Untuk customize nama field, gunakan tag <code>bson</code>.</p>
-<p>Pada contoh di atas, property <code>Name</code> ditentukan nama field mongo-nya sebagai <code>name</code>, dan <code>Grade</code> sebagai <code>Grade</code>.</p>
+<p>Pada contoh di atas, property <code>Name</code> ditentukan nama field mongo-nya sebagai <code>name</code>, dan <code>Grade</code> sebagai <code>grade</code>.</p>
 <p>Selanjutnya siapkan fungsi untuk membuat satu buah mongo connection. Dari objek connection diambil object database, kemudian dijadikan sebagai nilai balik fungsi.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> connect() (*mongo.Database, error) {
-    clientOptions := options.Client()
-    clientOptions.ApplyURI(<span class="hljs-string">&quot;mongodb://localhost:27017&quot;</span>)
-    client, err := mongo.NewClient(clientOptions)
-    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
-    }
-
-    err = client.Connect(ctx)
+    client, err := mongo.Connect(ctx, options.Client().ApplyURI(<span class="hljs-string">&quot;mongodb://localhost:27017&quot;</span>))
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
     }
@@ -2124,11 +2116,11 @@ go get go.mongodb.org/mongo-driver/mongo
     <span class="hljs-keyword">return</span> client.Database(<span class="hljs-string">&quot;belajar_golang&quot;</span>), <span class="hljs-literal">nil</span>
 }
 </code></pre>
-<p>Fungsi <code>mongo.NewClient()</code> digunakan untuk meng-inisialisasi koneksi database dari client ke server. Fungsi tersebut memerlukan parameter bertipe <code>*options.ClientOptions</code>. Pada client options mongo connection string perlu di set (lewat method <code>.ApplyURI()</code>).</p>
+<p>Fungsi <code>mongo.Connect()</code> digunakan untuk membuat koneksi sekaligus menginisialisasi client ke server MongoDB. Fungsi ini memerlukan context sebagai parameter pertama, dan <code>*options.ClientOptions</code> sebagai parameter berikutnya. Pada client options, mongo connection string diset lewat method <code>.ApplyURI()</code>.</p>
 <blockquote>
 <p>Silakan sesuaikan connection string dengan mongo db server yang dipergunakan. Lebih jelasnya silakan merujuk ke <a href="https://docs.mongodb.com/manual/reference/connection-string/" target="_blank">MongoDB Documentation: Connection String URI Format</a>.</p>
 </blockquote>
-<p>Dari object client, panggil method <code>.Connect()</code> untuk inisialisasi koneksi ke db server. Setelah itu panggil method <code>.Database()</code> untuk set database yang aktif.</p>
+<p>Setelah client terbuat, panggil method <code>.Database()</code> untuk menentukan database yang aktif.</p>
 <p>Lanjut buat fungsi yang di dalamnya berisikan kode untuk insert data ke mongodb, lalu panggil fungsi tersebut di <code>main()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> insert() {
     db, err := connect()
@@ -2156,10 +2148,10 @@ go get go.mongodb.org/mongo-driver/mongo
 <p>Fungsi <code>connect()</code> mengembalikan objek bertipe <code>*mongo.Database</code>. Dari objek tersebut akses method <code>.Collection()</code> lalu chain dengan method lainnya untuk melakukan operasi database, kurang lebih skema statement-nya sama seperti operasi mongodb.</p>
 <p>Sebagai contoh, pada kode di atas <code>.InsertOne()</code> digunakan untuk insert satu data ke database. Perbandingannya kurang lebih seperti berikut:</p>
 <pre><code class="lang-js"><span class="hljs-comment">// mongodb</span>
-db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).insertOne({ name: <span class="hljs-string">&quot;Wick&quot;</span>, Grade: <span class="hljs-number">2</span> })
+db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).insertOne({ name: <span class="hljs-string">&quot;Wick&quot;</span>, grade: <span class="hljs-number">2</span> })
 
 <span class="hljs-comment">// mongo-go-driver</span>
-db.Collection(<span class="hljs-string">&quot;student&quot;</span>).InsertOne(ctx, student{ name: <span class="hljs-string">&quot;Wick&quot;</span>, Grade: <span class="hljs-number">2</span>})
+db.Collection(<span class="hljs-string">&quot;student&quot;</span>).InsertOne(ctx, student{Name: <span class="hljs-string">&quot;Wick&quot;</span>, Grade: <span class="hljs-number">2</span>})
 </code></pre>
 <p>Perlu diketahui, bahwa di mongo-go-driver setiap operasi biasanya membutuhkan objek context untuk disisipkan sebagai parameter pertama. Pada contoh di atas kita gunakan variabel <code>ctx</code> yang sudah dideklarasikan sebelumnya.</p>
 <p><img src="images/A_mongodb_1_insert.png" alt="Dasar Pemrograman Golang - Insert mongo"></p>
@@ -2200,7 +2192,7 @@ db.Collection(<span class="hljs-string">&quot;student&quot;</span>).InsertOne(ct
 }
 </code></pre>
 <p>Query selector ditulis dalam tipe <code>bson.M</code>. Tipe ini sebenarnya adalah alias dari <code>map[string]interface{}</code>.</p>
-<p>Cara untuk mendapatkan semua rows hasil pencarian kursor adalah dengan mengiterasi method <code>.Next()</code> dengan di dalamnya method <code>.Decode()</code> dipanggil untuk retrieve datanya. Setelah itu data yang sudah terampil di-append ke slice.</p>
+<p>Cara untuk mendapatkan semua rows hasil pencarian kursor adalah dengan mengiterasi method <code>.Next()</code> dengan di dalamnya method <code>.Decode()</code> dipanggil untuk retrieve datanya. Setelah itu data yang sudah terambil di-append ke slice.</p>
 <p>Selain method <code>.Find()</code> ada juga <code>.FindOne()</code>, silakan cek dokumentasi lebih jelasnya.</p>
 <p><img src="images/A_mongodb_2_find.png" alt="Dasar Pemrograman Golang - Pencarian data"></p>
 <p>Berikut adalah skema perbandingan contoh operasi get data menggunakan mongo query vs mongo-go-driver:</p>
@@ -2211,13 +2203,13 @@ db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).find({<sp
 db.Collection(<span class="hljs-string">&quot;student&quot;</span>).Find(ctx, bson.M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>})
 </code></pre>
 <h2 id="a574-update-data">A.57.4. Update Data</h2>
-<p>Method <code>.Update()</code> digunakan untuk update data (jika update hanya diinginkan untuk berlaku pada 1 dokumen saja, maka gunakan <code>.UpdateOne()</code>). Method <code>.Update()</code> memerlukan 3 buah parameter dalam pemanggilannya.</p>
+<p>Method <code>.UpdateMany()</code> digunakan untuk update data; jika update hanya diinginkan untuk berlaku pada 1 dokumen saja, gunakan <code>.UpdateOne()</code>. Method-method tersebut memerlukan 3 buah parameter dalam pemanggilannya.</p>
 <ol>
 <li>Parameter pertama, objek context</li>
 <li>Parameter kedua adalah query kondisi yang mengacu ke data mana yang ingin di update</li>
 <li>Parameter ketiga adalah perubahan datanya.</li>
 </ol>
-<p>Di bawah ini adalah contok implementasi method <code>Update()</code>.</p>
+<p>Di bawah ini adalah contoh implementasi method <code>UpdateOne()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> update() {
     db, err := connect()
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
@@ -2242,7 +2234,7 @@ db.Collection(<span class="hljs-string">&quot;student&quot;</span>).Find(ctx, bs
 <p><img src="images/A_mongodb_3_update.png" alt="Dasar Pemrograman Golang - Update data"></p>
 <p>Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.</p>
 <pre><code class="lang-js"><span class="hljs-comment">// mongodb</span>
-db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).update({<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>}, { <span class="hljs-string">&quot;$set&quot;</span>: {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>, <span class="hljs-string">&quot;Grade&quot;</span>: <span class="hljs-number">2</span>} })
+db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).updateOne({<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>}, { <span class="hljs-string">&quot;$set&quot;</span>: {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John Wick&quot;</span>, <span class="hljs-string">&quot;grade&quot;</span>: <span class="hljs-number">2</span>} })
 
 <span class="hljs-comment">// mongo-go-driver</span>
 db.Collection(<span class="hljs-string">&quot;student&quot;</span>).UpdateOne(ctx, bson.M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wick&quot;</span>}, bson.M{<span class="hljs-string">&quot;$set&quot;</span>: student{<span class="hljs-string">&quot;John Wick&quot;</span>, <span class="hljs-number">2</span>}})
@@ -2273,10 +2265,10 @@ db.Collection(<span class="hljs-string">&quot;student&quot;</span>).UpdateOne(ct
 <p><img src="images/A_mongodb_4_remove.png" alt="Dasar Pemrograman Golang - Menghapus data"></p>
 <p>Berikut adalah skema perbandingan query vs mongo-go-driver dari operasi di atas.</p>
 <pre><code class="lang-js"><span class="hljs-comment">// mongodb</span>
-db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).delete({<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John Wick&quot;</span>})
+db.getCollection(<span class="hljs-string">&quot;student&quot;</span>).deleteOne({<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John Wick&quot;</span>})
 
 <span class="hljs-comment">// mongo-go-driver</span>
-db.Collection(<span class="hljs-string">&quot;student&quot;</span>).DeleteMany(ctx, bson.M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John Wick&quot;</span>})
+db.Collection(<span class="hljs-string">&quot;student&quot;</span>).DeleteOne(ctx, bson.M{<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John Wick&quot;</span>})
 </code></pre>
 <h2 id="a576-aggregate-data">A.57.6. Aggregate Data</h2>
 <p>Agregasi data menggunakan driver ini juga cukup mudah, caranya tinggal gunakan method <code>.Aggregate()</code> dan sisipkan pipeline query sebagai argument ke-2 pemanggilan method. Eksekusi method tersebut mengembalikan objek cursor. Selebihnya capture result dengan cara yang sama seperti capture cursor operasi <code>.Find()</code>.</p>
@@ -2359,7 +2351,7 @@ result := <span class="hljs-built_in">make</span>([]bson.M, <span class="hljs-nu
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"next":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"path":"A-unit-test.md","ref":"A-unit-test.md","articles":[]},"previous":{"title":"A.56. SQL","level":"3.1.56","depth":2,"path":"A-sql.md","ref":"A-sql.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-mongodb.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"next":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"path":"A-unit-test.md","ref":"A-unit-test.md","articles":[]},"previous":{"title":"A.56. SQL","level":"3.1.56","depth":2,"path":"A-sql.md","ref":"A-sql.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-mongodb.md","mtime":"2026-06-11T16:39:17.248Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2381,7 +2373,7 @@ result := <span class="hljs-built_in">make</span>([]bson.M, <span class="hljs-nu
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

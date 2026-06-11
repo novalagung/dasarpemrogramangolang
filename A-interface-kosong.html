@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2104,7 +2104,7 @@ data = <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</
 <p>Pada kode di atas, disiapkan variabel <code>data</code> dengan tipe <code>map[string]interface{}</code>, yaitu sebuah koleksi dengan key bertipe <code>string</code> dan nilai bertipe interface kosong <code>interface{}</code>.</p>
 <p>Kemudian variabel tersebut di-inisialisasi, ditambahkan lagi kurung kurawal setelah keyword deklarasi untuk kebutuhan pengisian data, <code>map[string]interface{}{ /* data */ }</code>.</p>
 <p>Dari situ terlihat bahwa <code>interface{}</code> bukanlah sebuah objek, melainkan tipe data.</p>
-<h2 id="a282-type-alias-any">A.28.2. Type Alias <code>Any</code></h2>
+<h2 id="a282-type-alias-any">A.28.2. Type Alias <code>any</code></h2>
 <p>Tipe <code>any</code> merupakan alias dari <code>interface{}</code>, keduanya adalah sama.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> data <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]any
 
@@ -2175,6 +2175,70 @@ fmt.Println(name)
     fmt.Println(each)
 }
 </code></pre>
+<h2 id="a286-interface-nil-vs-pointer-nil">A.28.6. Interface <code>nil</code> vs Pointer <code>nil</code></h2>
+<p>Ada kode yang sering sekali membingungkan pemula, yaitu: variabel interface yang menyimpan pointer <code>nil</code> <strong>tidak sama</strong> dengan interface <code>nil</code> itu sendiri.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">type</span> MyError <span class="hljs-keyword">struct</span> {
+    msg <span class="hljs-keyword">string</span>
+}
+
+<span class="hljs-keyword">func</span> (e *MyError) Error() <span class="hljs-keyword">string</span> {
+    <span class="hljs-keyword">return</span> e.msg
+}
+
+<span class="hljs-keyword">func</span> getError(fail <span class="hljs-keyword">bool</span>) error {
+    <span class="hljs-keyword">var</span> err *MyError <span class="hljs-comment">// pointer nil</span>
+    <span class="hljs-keyword">if</span> fail {
+        err = &amp;MyError{<span class="hljs-string">&quot;something went wrong&quot;</span>}
+    }
+    <span class="hljs-keyword">return</span> err <span class="hljs-comment">// mengembalikan interface yang menyimpan (*MyError)(nil)</span>
+}
+
+<span class="hljs-keyword">func</span> main() {
+    err := getError(<span class="hljs-literal">false</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(<span class="hljs-string">&quot;error:&quot;</span>, err) <span class="hljs-comment">// baris ini TETAP dieksekusi!</span>
+    } <span class="hljs-keyword">else</span> {
+        fmt.Println(<span class="hljs-string">&quot;no error&quot;</span>)
+    }
+}
+</code></pre>
+<p>Pada contoh di atas, <code>getError(false)</code> mengembalikan variabel <code>err</code> bertipe <code>*MyError</code> yang nilainya <code>nil</code>. Namun ketika dikembalikan sebagai <code>error</code> (interface), interface tersebut <strong>tidak nil</strong> karena interface menyimpan informasi tipe (<code>*MyError</code>) meskipun nilainya <code>nil</code>. Akibatnya pengecekan <code>err != nil</code> bernilai <code>true</code>.</p>
+<p>Cara yang benar agar fungsi benar-benar mengembalikan interface nil:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> getError(fail <span class="hljs-keyword">bool</span>) error {
+    <span class="hljs-keyword">if</span> fail {
+        <span class="hljs-keyword">return</span> &amp;MyError{<span class="hljs-string">&quot;something went wrong&quot;</span>}
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span> <span class="hljs-comment">// kembalikan nil langsung, bukan variabel typed nil</span>
+}
+</code></pre>
+<h4 id="&#x25C9;-kenapa-bisa-terjadi">&#x25C9; Kenapa Bisa Terjadi?</h4>
+<p>Di balik layar, sebuah nilai interface sebenarnya menyimpan dua hal sekaligus:</p>
+<table>
+<thead>
+<tr>
+<th>Bagian</th>
+<th>Isi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tipe</strong></td>
+<td>Tipe konkret dari nilai yang disimpan</td>
+</tr>
+<tr>
+<td><strong>Nilai</strong></td>
+<td>Nilai itu sendiri</td>
+</tr>
+</tbody>
+</table>
+<p>Interface baru dianggap <code>nil</code> kalau <strong>kedua bagian</strong> tersebut kosong. Kalau salah satu sudah terisi, interface tidak lagi <code>nil</code>.</p>
+<p>Nah, ketika kita menulis <code>return err</code> di mana <code>err</code> bertipe <code>*MyError</code> dan nilainya <code>nil</code>, Go tetap menyimpan informasi tipenya (<code>*MyError</code>) ke dalam interface. Bagian tipe sudah terisi, jadi interface tidak <code>nil</code>, meskipun nilainya sendiri memang <code>nil</code>.</p>
+<p>Sebaliknya, <code>return nil</code> langsung mengembalikan interface yang benar-benar kosong, tanpa tipe dan tanpa nilai.</p>
+<p>Aturan praktisnya: <strong>kalau fungsi mengembalikan tipe interface, selalu kembalikan <code>nil</code> secara langsung, bukan lewat variabel bertipe konkret.</strong></p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2210,7 +2274,7 @@ fmt.Println(name)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.28. Any / interface{} / Interface Kosong","level":"3.1.28","depth":2,"next":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"previous":{"title":"A.27. Interface","level":"3.1.27","depth":2,"path":"A-interface.md","ref":"A-interface.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-interface-kosong.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.28. Any / interface{} / Interface Kosong","level":"3.1.28","depth":2,"next":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"previous":{"title":"A.27. Interface","level":"3.1.27","depth":2,"path":"A-interface.md","ref":"A-interface.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-interface-kosong.md","mtime":"2026-06-11T16:39:17.247Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2232,7 +2296,7 @@ fmt.Println(name)
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

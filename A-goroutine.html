@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2101,7 +2101,7 @@
     fmt.Scanln(&amp;input)
 }
 </code></pre>
-<p>Pada kode di atas, Fungsi <code>runtime.GOMAXPROCS(n)</code> digunakan untuk menentukan jumlah core yang diaktifkan untuk eksekusi program.</p>
+<p>Pada kode di atas, fungsi <code>runtime.GOMAXPROCS(n)</code> digunakan untuk menentukan jumlah core yang diaktifkan untuk eksekusi program.</p>
 <p>Pembuatan goroutine baru ditandai dengan keyword <code>go</code>. Contohnya pada statement <code>go print(5, &quot;halo&quot;)</code>, di situ fungsi <code>print()</code> dieksekusi sebagai goroutine baru.</p>
 <p>Fungsi <code>fmt.Scanln()</code> mengakibatkan proses jalannya aplikasi berhenti di baris itu (<strong>blocking</strong>) hingga user menekan tombol enter. Hal ini perlu dilakukan karena ada kemungkinan waktu selesainya eksekusi goroutine <code>print()</code> lebih lama dibanding waktu selesainya goroutine utama <code>main()</code>, mengingat bahwa keduanya sama-sama asynchronous. Jika itu terjadi, goroutine yang belum selesai secara paksa dihentikan prosesnya karena goroutine utama sudah selesai dijalankan.</p>
 <p>Output program:</p>
@@ -2109,10 +2109,13 @@
 <p>Bisa dilihat di output, tulisan <code>&quot;halo&quot;</code> dan <code>&quot;apa kabar&quot;</code> bermunculan selang-seling. Ini disebabkan karena statement <code>print(5, &quot;halo&quot;)</code> dijalankan sebagai goroutine, menjadikannya tidak saling tunggu dengan <code>print(5, &quot;apa kabar&quot;)</code>.</p>
 <p>Pada gambar di atas, program dieksekusi 2 kali. Hasil eksekusi pertama berbeda dengan kedua, penyebabnya adalah karena kita menggunakan 2 prosesor. Goroutine mana yang dieksekusi terlebih dahulu tergantung kedua prosesor tersebut.</p>
 <h2 id="a302-penjelasan-tambahan">A.30.2. Penjelasan tambahan</h2>
-<p>Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktekan:</p>
+<p>Berikut merupakan penjelasan tambahan untuk beberapa hal dari kode yang sudah dipraktikkan:</p>
 <h4 id="&#x25C9;-penggunaan-fungsi-runtimegomaxprocs">&#x25C9; Penggunaan Fungsi <code>runtime.GOMAXPROCS()</code></h4>
 <p>Fungsi ini digunakan untuk menentukan jumlah core atau processor yang digunakan dalam eksekusi program.</p>
 <p>Jumlah yang diinputkan secara otomatis akan disesuaikan dengan jumlah asli <em>logical processor</em> yang ada. Jika jumlahnya lebih, maka dianggap menggunakan sejumlah prosesor yang ada.</p>
+<blockquote>
+<p>Sejak Go 1.5, nilai <code>GOMAXPROCS</code> sudah otomatis diatur sama dengan jumlah CPU yang tersedia. Pemanggilan <code>runtime.GOMAXPROCS()</code> secara eksplisit seperti di atas umumnya tidak diperlukan di kode produksi. Di chapter ini digunakan agar contoh bisa menunjukkan eksekusi goroutine yang benar-benar paralel.</p>
+</blockquote>
 <h4 id="&#x25C9;-penggunaan-fungsi-fmtscanln">&#x25C9; Penggunaan Fungsi <code>fmt.Scanln()</code></h4>
 <p>Fungsi ini akan meng-capture semua karakter sebelum user menekan tombol enter, lalu menyimpannya pada variabel.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> Scanln(a ...<span class="hljs-keyword">interface</span>{}) (n <span class="hljs-keyword">int</span>, err error)
@@ -2128,6 +2131,9 @@ fmt.Println(s2) <span class="hljs-comment">// d</span>
 fmt.Println(s3) <span class="hljs-comment">// law</span>
 </code></pre>
 <p>Bisa dilihat pada kode di atas, untuk menampung inputan text <code>trafalgar d law</code>, dibutuhkan 3 buah variabel. Juga perlu diperhatikan bahwa yang disisipkan sebagai parameter pada pemanggilan fungsi <code>fmt.Scanln()</code> adalah referensi variabel, bukan nilai aslinya.</p>
+<blockquote>
+<p>Penggunaan <code>fmt.Scanln()</code> di atas hanya untuk kesederhanaan contoh pertama goroutine. Untuk sinkronisasi goroutine di kode nyata, gunakan <code>sync.WaitGroup</code> yang dibahas pada chapter <a href="A-waitgroup.html">A.59. WaitGroup</a>.</p>
+</blockquote>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2163,7 +2169,7 @@ fmt.Println(s3) <span class="hljs-comment">// law</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"next":{"title":"A.31. Channel","level":"3.1.31","depth":2,"path":"A-channel.md","ref":"A-channel.md","articles":[]},"previous":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-goroutine.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"next":{"title":"A.31. Channel","level":"3.1.31","depth":2,"path":"A-channel.md","ref":"A-channel.md","articles":[]},"previous":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"path":"A-reflect.md","ref":"A-reflect.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-goroutine.md","mtime":"2026-06-11T16:39:17.247Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2185,7 +2191,7 @@ fmt.Println(s3) <span class="hljs-comment">// law</span>
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2089,7 +2089,7 @@ names[<span class="hljs-number">2</span>] = <span class="hljs-string">&quot;wate
 names[<span class="hljs-number">3</span>] = <span class="hljs-string">&quot;law&quot;</span>
 names[<span class="hljs-number">4</span>] = <span class="hljs-string">&quot;ez&quot;</span> <span class="hljs-comment">// baris kode ini menghasilkan error</span>
 </code></pre>
-<p>Solusi dari masalah di atas adalah dengan menggunakan keyword <code>append</code>, yang pembahasannya ada pada chapter selanjutnya, (<a href="A-slice.html">A.16. Slice</a>).</p>
+<p>Solusi dari masalah di atas adalah dengan menggunakan fungsi <code>append()</code> pada tipe data slice, yang pembahasannya ada pada chapter selanjutnya, (<a href="A-slice.html">A.16. Slice</a>).</p>
 <h2 id="a152-inisialisasi-nilai-awal-array">A.15.2. Inisialisasi Nilai Awal Array</h2>
 <p>Pengisian elemen array bisa dilakukan pada saat deklarasi variabel. Caranya dengan menuliskan data elemen dalam kurung kurawal setelah tipe data, dengan pembatas antar elemen adalah tanda koma (<code>,</code>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
@@ -2105,10 +2105,10 @@ fmt.Println(<span class="hljs-string">&quot;Isi semua element \t&quot;</span>, f
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>
 
 <span class="hljs-comment">// cara horizontal</span>
-fruits  = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
+fruits = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
 
 <span class="hljs-comment">// cara vertikal</span>
-fruits  = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>{
+fruits = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>{
     <span class="hljs-string">&quot;apple&quot;</span>,
     <span class="hljs-string">&quot;grape&quot;</span>,
     <span class="hljs-string">&quot;banana&quot;</span>,
@@ -2162,7 +2162,7 @@ fmt.Println(<span class="hljs-string">&quot;numbers2&quot;</span>, numbers2)
 <p>Array <code>fruits</code> diambil elemen-nya secara berurutan. Nilai tiap elemen ditampung variabel oleh <code>fruit</code> (tanpa huruf s), sedangkan indeks nya ditampung variabel <code>i</code>.</p>
 <p>Output program di atas, sama persis dengan output program sebelumnya, hanya saja cara yang diterapkan berbeda.</p>
 <h2 id="a158-penggunaan-variabel-underscore--dalam-for---range">A.15.8. Penggunaan Variabel Underscore <code>_</code> Dalam <code>for</code> - <code>range</code></h2>
-<p>Terkadang, dalam penerapan <em>looping</em> menggunakan <code>for</code> - <code>range</code>, ada kebutuhan di mana yang dibutuhkan dari perulangan adlah adalah elemen-nya saja, sedangkan indeks-nya tidak, contoh:</p>
+<p>Terkadang, dalam penerapan <em>looping</em> menggunakan <code>for</code> - <code>range</code>, ada kebutuhan di mana yang dibutuhkan dari perulangan adalah elemen-nya saja, sedangkan indeks-nya tidak, contoh:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> fruits = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;melon&quot;</span>}
 
 <span class="hljs-keyword">for</span> i, fruit := <span class="hljs-keyword">range</span> fruits {
@@ -2180,7 +2180,7 @@ fmt.Println(<span class="hljs-string">&quot;numbers2&quot;</span>, numbers2)
 </code></pre>
 <p>Pada kode di atas, yang sebelumnya adalah variabel <code>i</code> diganti dengan <code>_</code>, karena kebetulan variabel <code>i</code> tidak digunakan.</p>
 <p><img src="images/A_array_5_for_range_underscore.png" alt="Dasar Pemrograman Golang - For range tanpa indeks"></p>
-<p>Bagaiamana jika sebaliknya? Misal, yang dibutuhkan hanya indeks-nya saja, nilainya tidak penting. Maka cukup tulis satu variabel saja setelah keyword <code>for</code>, yaitu variabel penampung nilai indeks.</p>
+<p>Bagaimana jika sebaliknya? Misal, yang dibutuhkan hanya indeks-nya saja, nilainya tidak penting. Maka cukup tulis satu variabel saja setelah keyword <code>for</code>, yaitu variabel penampung nilai indeks.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">for</span> i, _ := <span class="hljs-keyword">range</span> fruits { }
 <span class="hljs-comment">// atau</span>
 <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> fruits { }
@@ -2220,7 +2220,7 @@ fmt.Println(<span class="hljs-string">&quot;numbers2&quot;</span>, numbers2)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.15. Array","level":"3.1.15","depth":2,"next":{"title":"A.16. Slice","level":"3.1.16","depth":2,"path":"A-slice.md","ref":"A-slice.md","articles":[]},"previous":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"path":"A-perulangan.md","ref":"A-perulangan.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-array.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.15. Array","level":"3.1.15","depth":2,"next":{"title":"A.16. Slice","level":"3.1.16","depth":2,"path":"A-slice.md","ref":"A-slice.md","articles":[]},"previous":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"path":"A-perulangan.md","ref":"A-perulangan.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-array.md","mtime":"2026-06-11T16:39:17.245Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2242,7 +2242,7 @@ fmt.Println(<span class="hljs-string">&quot;numbers2&quot;</span>, numbers2)
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2102,7 +2102,7 @@
 <p>Statement <code>fmt.Scanln(&amp;input)</code> dipergunakan untuk men-capture inputan yang diketik oleh user sebelum dia menekan enter, lalu menyimpannya sebagai string ke variabel <code>input</code>.</p>
 <p>Selanjutnya variabel tersebut dikonversi ke tipe numerik menggunakan <code>strconv.Atoi()</code>. Fungsi tersebut mengembalikan 2 data, ditampung oleh <code>number</code> dan <code>err</code>.</p>
 <p>Data pertama (<code>number</code>) berisi hasil konversi. Dan data kedua <code>err</code>, berisi informasi errornya (jika memang terjadi error ketika proses konversi).</p>
-<p>Setelah itu dilakukan pengecekkan, ketika tidak ada error, <code>number</code> ditampilkan. Dan jika ada error, <code>input</code> ditampilkan beserta pesan errornya.</p>
+<p>Setelah itu dilakukan pengecekan, ketika tidak ada error, <code>number</code> ditampilkan. Dan jika ada error, <code>input</code> ditampilkan beserta pesan errornya.</p>
 <p>Pesan error bisa didapat dari method <code>Error()</code> milik tipe <code>error</code>.</p>
 <p><img src="images/A_error_panic_recover_1_error.png" alt="Dasar Pemrograman Golang - Penerapan error"></p>
 <h2 id="a372-membuat-custom-error">A.37.2. Membuat Custom Error</h2>
@@ -2147,7 +2147,7 @@
 <p>Perlu diingat bahwa <code>main()</code> juga merupakan goroutine, maka behaviour yang sama adalah berlaku.</p>
 </blockquote>
 <p>Panic menampilkan pesan error di console, sama seperti <code>fmt.Println()</code>. Informasi error yang ditampilkan adalah stack trace error, isinya sangat detail dan heboh.</p>
-<p>Kembali ke praktek, pada program yang telah kita buat tadi, ubah <code>fmt.Println()</code> yang berada di dalam blok kondisi <code>else</code> pada fungsi main menjadi <code>panic()</code>, lalu tambahkan <code>fmt.Println()</code> setelahnya.</p>
+<p>Kembali ke praktik, pada program yang telah kita buat tadi, ubah <code>fmt.Println()</code> yang berada di dalam blok kondisi <code>else</code> pada fungsi main menjadi <code>panic()</code>, lalu tambahkan <code>fmt.Println()</code> setelahnya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     <span class="hljs-keyword">var</span> name <span class="hljs-keyword">string</span>
     fmt.Print(<span class="hljs-string">&quot;Type your name: &quot;</span>)
@@ -2165,7 +2165,7 @@
 <p><img src="images/A_error_panic_recover_3_panic.png" alt="Dasar Pemrograman Golang - Menampilkan error menggunakan panic"></p>
 <h2 id="a374-penggunaan-recover">A.37.4. Penggunaan <code>recover</code></h2>
 <p>Recover berguna untuk meng-handle panic error. Pada saat panic error muncul, recover men-take-over goroutine yang sedang panic dan efek sampingnya pesan panic tidak muncul dan eksekusi program adalah tidak error.</p>
-<p>Ok, mari kita modifikasi sedikit fungsi di-atas untuk mempraktekkan bagaimana cara penggunaan recover. Tambahkan fungsi <code>catch()</code>, dalam fungsi ini terdapat statement <code>recover()</code> yang dia akan mengembalikan pesan panic error yang seharusnya muncul.</p>
+<p>Ok, mari kita modifikasi sedikit fungsi di-atas untuk mempraktikkan bagaimana cara penggunaan recover. Tambahkan fungsi <code>catch()</code>, dalam fungsi ini terdapat statement <code>recover()</code> yang dia akan mengembalikan pesan panic error yang seharusnya muncul.</p>
 <p>Untuk menggunakan recover, fungsi/closure/IIFE di mana <code>recover()</code> berada harus dieksekusi dengan cara di-defer.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> catch() {
     <span class="hljs-keyword">if</span> r := <span class="hljs-built_in">recover</span>(); r != <span class="hljs-literal">nil</span> {
@@ -2203,7 +2203,7 @@
         }
     }()
 
-    <span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;some error happen&quot;</span>)
+    <span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;an error happened&quot;</span>)
 }
 </code></pre>
 <p>Dalam real-world development, ada kalanya recover dibutuhkan tidak dalam blok fungsi terluar, tetapi dalam blok fungsi yg lebih spesifik.</p>
@@ -2214,7 +2214,6 @@
     <span class="hljs-keyword">for</span> _, each := <span class="hljs-keyword">range</span> data {
 
         <span class="hljs-keyword">func</span>() {
-
             <span class="hljs-comment">// recover untuk IIFE dalam perulangan</span>
             <span class="hljs-keyword">defer</span> <span class="hljs-keyword">func</span>() {
                 <span class="hljs-keyword">if</span> r := <span class="hljs-built_in">recover</span>(); r != <span class="hljs-literal">nil</span> {
@@ -2224,13 +2223,35 @@
                 }
             }()
 
-            <span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;some error happen&quot;</span>)
+            <span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;an error happened&quot;</span>)
         }()
 
     }
 }
 </code></pre>
-<p>Bisa dilihat di dalam perulangan terdapat sebuah IIFE untuk recover panic dan juga ada kode untuk men-trigger panic error secara paksa. Ketika panic error terjadi, maka idealnya perulangan terhenti, tetapi pada contoh di atas tidak, dikarenakan operasi dalam perulangan sudah di bungkus dalam IIFE dan seperti yang kita tau sifat panic error adalah menghentikan proses secara paksa dalam scope blok fungsi.</p>
+<p>Bisa dilihat di dalam perulangan terdapat sebuah IIFE untuk recover panic dan juga ada kode untuk men-trigger panic error secara paksa. Ketika panic error terjadi, maka idealnya perulangan terhenti, tetapi pada contoh di atas tidak, dikarenakan operasi dalam perulangan sudah dibungkus dalam IIFE dan seperti yang kita tau sifat panic error adalah menghentikan proses secara paksa dalam scope blok fungsi.</p>
+<h2 id="a376-fungsi-errorsjoin-go-120">A.37.6. Fungsi <code>errors.Join</code> (Go 1.20+)</h2>
+<p>Sejak Go 1.20, tersedia fungsi <code>errors.Join()</code> untuk menggabungkan beberapa error menjadi satu. Fungsi ini berguna ketika ada beberapa operasi yang masing-masing bisa menghasilkan error dan semuanya ingin dikumpulkan sekaligus.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;errors&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    err1 := errors.New(<span class="hljs-string">&quot;database connection failed&quot;</span>)
+    err2 := errors.New(<span class="hljs-string">&quot;cache unavailable&quot;</span>)
+
+    combined := errors.Join(err1, err2)
+    fmt.Println(combined)
+    <span class="hljs-comment">// output &#x2193;</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// database connection failed</span>
+    <span class="hljs-comment">// cache unavailable</span>
+}
+</code></pre>
+<p><code>errors.Join()</code> menggabungkan beberapa error menjadi satu dengan pemisah newline. Jika semua argumen bernilai <code>nil</code>, fungsi ini mengembalikan <code>nil</code>.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2266,7 +2287,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.37. Error, Panic, & Recover","level":"3.1.37","depth":2,"next":{"title":"A.38. Layout Format String","level":"3.1.38","depth":2,"path":"A-string-format.md","ref":"A-string-format.md","articles":[]},"previous":{"title":"A.36. Defer & Exit","level":"3.1.36","depth":2,"path":"A-defer-exit.md","ref":"A-defer-exit.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-error-panic-recover.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.37. Error, Panic, & Recover","level":"3.1.37","depth":2,"next":{"title":"A.38. Layout Format String","level":"3.1.38","depth":2,"path":"A-string-format.md","ref":"A-string-format.md","articles":[]},"previous":{"title":"A.36. Defer & Exit","level":"3.1.36","depth":2,"path":"A-defer-exit.md","ref":"A-defer-exit.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-error-panic-recover.md","mtime":"2026-06-11T16:39:17.246Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2288,7 +2309,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

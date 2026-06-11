@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2070,13 +2070,13 @@
 <p>Dalam konteks pemrograman, fungsi adalah sekumpulan blok kode yang dibungkus dengan nama tertentu. Penerapan fungsi yang tepat akan menjadikan kode lebih modular dan juga <em>dry</em> (singkatan dari <em>don&apos;t repeat yourself</em>) yang artinya kita tidak perlu menuliskan banyak kode untuk kegunaan yang sama berulang kali. Cukup deklarasikan sekali saja blok kode sebagai suatu fungsi, lalu panggil sesuai kebutuhan.</p>
 <p>Pada chapter ini kita akan belajar tentang penerapannya di Go.</p>
 <h2 id="a181-penerapan-fungsi">A.18.1. Penerapan Fungsi</h2>
-<p>Mungkin pembaca sadar, bahwa sebenarnya kita sudah mengimplementasikan fungsi pada banyak praktek sebelumnya, yaitu fungsi <code>main()</code>. Fungsi <code>main()</code> sendiri merupakan fungsi utama pada program Go, yang akan dieksekusi ketika program dijalankan.</p>
+<p>Mungkin pembaca sadar, bahwa sebenarnya kita sudah mengimplementasikan fungsi pada banyak praktik sebelumnya, yaitu fungsi <code>main()</code>. Fungsi <code>main()</code> sendiri merupakan fungsi utama pada program Go, yang akan dieksekusi ketika program dijalankan.</p>
 <p>Selain fungsi <code>main()</code>, kita juga bisa membuat fungsi lainnya. Dan caranya cukup mudah, yaitu dengan menuliskan keyword <code>func</code> kemudian diikuti nama fungsi, lalu kurung <code>()</code> (yang bisa diisi parameter), dan diakhiri dengan kurung kurawal untuk membungkus blok kode.</p>
-<p>Parameter merupakan variabel yang menempel di fungsi yang nilainya ditentukan saat pemanggilan fungsi tersebut. Parameter sifatnya opsional, suatu fungsi bisa tidak memiliki parameter, atau bisa saja memeliki satu atau banyak parameter (tergantung kebutuhan).</p>
+<p>Parameter merupakan variabel yang menempel di fungsi yang nilainya ditentukan saat pemanggilan fungsi tersebut. Parameter sifatnya opsional, suatu fungsi bisa tidak memiliki parameter, atau bisa saja memiliki satu atau banyak parameter (tergantung kebutuhan).</p>
 <blockquote>
 <p>Data yang digunakan sebagai value parameter saat pemanggilan fungsi biasa disebut dengan argument parameter (atau argument).</p>
 </blockquote>
-<p>Agar lebih jelas, silakan lihat dan praktekan kode contoh implementasi fungsi berikut ini:</p>
+<p>Agar lebih jelas, silakan lihat dan praktikkan kode contoh implementasi fungsi berikut ini:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2148,9 +2148,12 @@
 </code></pre>
 <blockquote>
 <p>Dalam penggunaan fungsi <code>rand.NewSource()</code>, argument bisa diisi dengan nilai apapun, salah satunya adalah <code>time.Now().Unix()</code>.</p>
-<p>Lebih detailnya mengenai random dan apa peran seed dibahas pada chapter <a href="A-random.html">A.39. Random</a>.</p>
+<p>Lebih jelasnya mengenai random dan apa peran seed dibahas pada chapter <a href="A-random.html">A.39. Random</a>.</p>
 </blockquote>
-<p>Fungsi <code>rand.New()</code> berada dalam package <code>math/rand</code>. Package tersebut harus di-import terlebih dahulu sebelum bisa menggunakan fungsi-fungsi yang ada didalamnya. Package <code>time</code> juga perlu di-import karena di contoh ini fungsi <code>(time.Now().Unix())</code> digunakan.</p>
+<p>Fungsi <code>rand.New()</code> berada dalam package <code>math/rand</code>. Package tersebut harus di-import terlebih dahulu sebelum bisa menggunakan fungsi-fungsi yang ada di dalamnya. Package <code>time</code> juga perlu di-import karena di contoh ini fungsi <code>time.Now().Unix()</code> digunakan.</p>
+<blockquote>
+<p>Sejak Go 1.20, fungsi-fungsi global <code>math/rand</code> seperti <code>rand.Intn()</code> dan <code>rand.Float64()</code> sudah di-<em>seed</em> secara otomatis. Untuk keperluan random sederhana, tidak perlu lagi membuat randomizer manual dengan <code>rand.New(rand.NewSource(...))</code>. Penggunaan randomizer manual masih disarankan jika butuh hasil random yang <em>reproducible</em> (hasil sama untuk seed yang sama). Lebih jelasnya dibahas di chapter <a href="A-random.html">A.39. Random</a>.</p>
+</blockquote>
 <h2 id="a184-import-banyak-package">A.18.4. Import Banyak Package</h2>
 <p>Penulisan keyword <code>import</code> untuk banyak package bisa dilakukan dengan dua cara, dengan menuliskannya di tiap package, atau cukup sekali saja, bebas silakan pilih sesuai selera.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2187,7 +2190,7 @@
 
 <span class="hljs-keyword">func</span> divideNumber(m, n <span class="hljs-keyword">int</span>) {
     <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> {
-        fmt.Printf(<span class="hljs-string">&quot;invalid divider. %d cannot divided by %d\n&quot;</span>, m, n)
+        fmt.Printf(<span class="hljs-string">&quot;invalid divider. %d cannot be divided by %d\n&quot;</span>, m, n)
         <span class="hljs-keyword">return</span>
     }
 
@@ -2233,7 +2236,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"next":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"previous":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-fungsi.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.18. Fungsi","level":"3.1.18","depth":2,"next":{"title":"A.19. Fungsi Multiple Return","level":"3.1.19","depth":2,"path":"A-fungsi-multiple-return.md","ref":"A-fungsi-multiple-return.md","articles":[]},"previous":{"title":"A.17. Map","level":"3.1.17","depth":2,"path":"A-map.md","ref":"A-map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-fungsi.md","mtime":"2026-06-11T16:39:17.247Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2255,7 +2258,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

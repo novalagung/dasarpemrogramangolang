@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2102,7 +2102,7 @@
 </code></pre>
 <p>Output program:</p>
 <p><img src="images/A_defer_exit_2_defer_return.png" alt="Dasar Pemrograman Golang - Penerapan `defer` dengan `return`"></p>
-<p>Info tambahan, ketika ada banyak statement yang di-defer, maka seluruhnya akan dieksekusi di akhir secara berurutan.</p>
+<p>Info tambahan, ketika ada banyak statement yang di-defer, maka seluruhnya akan dieksekusi di akhir secara terbalik berurutan dengan ketentuan statement yang terakhir di-defer dieksekusi lebih dahulu (LIFO: <em>last in, first out</em>).</p>
 <h2 id="a362-kombinasi-defer-dan-iife">A.36.2. Kombinasi <code>defer</code> dan IIFE</h2>
 <p>Penulis ingatkan lagi bahwa eksekusi defer adalah di akhir blok fungsi, bukan blok lainnya seperti blok seleksi kondisi.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
@@ -2120,7 +2120,7 @@
 <pre><code>halo 1
 halo 2
 halo 3
-</code></pre><p>Pada contoh di atas <code>halo 3</code> akan tetap di print setelah <code>halo 2</code> meskipun statement defer dipergunakan dalam blok seleksi kondisi <code>if</code>. Hal ini karena defer eksekusinya terjadi pada akhir blok fungsi (dalam contoh di atas <code>main()</code>), bukan pada akhir blok <code>if</code>.</p>
+</code></pre><p>Pada contoh di atas <code>halo 3</code> akan tetap diprint setelah <code>halo 2</code> meskipun statement defer dipergunakan dalam blok seleksi kondisi <code>if</code>. Hal ini karena defer eksekusinya terjadi pada akhir blok fungsi (dalam contoh di atas <code>main()</code>), bukan pada akhir blok <code>if</code>.</p>
 <p>Agar <code>halo 3</code> bisa dimunculkan di akhir blok <code>if</code>, maka harus dibungkus dengan IIFE. Contoh:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     number := <span class="hljs-number">3</span>
@@ -2156,6 +2156,35 @@ halo 2
 </code></pre>
 <p>Meskipun <code>defer fmt.Println(&quot;halo&quot;)</code> ditempatkan sebelum <code>os.Exit()</code>, statement tersebut tidak akan dieksekusi, karena di-tengah fungsi program dihentikan secara paksa.</p>
 <p><img src="images/A_defer_exit_3_exit.png" alt="Dasar Pemrograman Golang - Penerapan `exit`"></p>
+<h2 id="a364-penerapan-defer-di-dalam-loop">A.36.4. Penerapan <code>defer</code> di Dalam Loop</h2>
+<p>Perlu diperhatikan bahwa <code>defer</code> di dalam <code>for</code> loop tidak dieksekusi di setiap akhir iterasi, melainkan di akhir fungsi. Ini bisa menyebabkan <em>resource leak</em> jika tidak ditangani dengan benar.</p>
+<p>Contoh yang bermasalah:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> processFiles(paths []<span class="hljs-keyword">string</span>) {
+    <span class="hljs-keyword">for</span> _, path := <span class="hljs-keyword">range</span> paths {
+        f, err := os.Open(path)
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">continue</span>
+        }
+        <span class="hljs-keyword">defer</span> f.Close() <span class="hljs-comment">// salah: f.Close() baru dipanggil saat processFiles() selesai</span>
+        <span class="hljs-comment">// proses file...</span>
+    }
+}
+</code></pre>
+<p>Semua file dibuka dan <code>f.Close()</code> baru dipanggil setelah perulangan selesai, bukan di setiap akhir iterasi. Ini berarti semua file tetap terbuka selama proses berlangsung, yang bisa menyebabkan file descriptor habis.</p>
+<p>Solusinya adalah membungkus logika tiap iterasi dalam fungsi terpisah atau IIFE:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> processFiles(paths []<span class="hljs-keyword">string</span>) {
+    <span class="hljs-keyword">for</span> _, path := <span class="hljs-keyword">range</span> paths {
+        <span class="hljs-keyword">func</span>() {
+            f, err := os.Open(path)
+            <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+                <span class="hljs-keyword">return</span>
+            }
+            <span class="hljs-keyword">defer</span> f.Close() <span class="hljs-comment">// benar: dipanggil di akhir IIFE ini</span>
+            <span class="hljs-comment">// proses file...</span>
+        }()
+    }
+}
+</code></pre>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2191,7 +2220,7 @@ halo 2
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.36. Defer & Exit","level":"3.1.36","depth":2,"next":{"title":"A.37. Error, Panic, & Recover","level":"3.1.37","depth":2,"path":"A-error-panic-recover.md","ref":"A-error-panic-recover.md","articles":[]},"previous":{"title":"A.35. Channel - Timeout","level":"3.1.35","depth":2,"path":"A-channel-timeout.md","ref":"A-channel-timeout.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-defer-exit.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.36. Defer & Exit","level":"3.1.36","depth":2,"next":{"title":"A.37. Error, Panic, & Recover","level":"3.1.37","depth":2,"path":"A-error-panic-recover.md","ref":"A-error-panic-recover.md","articles":[]},"previous":{"title":"A.35. Channel - Timeout","level":"3.1.35","depth":2,"path":"A-channel-timeout.md","ref":"A-channel-timeout.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-defer-exit.md","mtime":"2026-06-11T16:39:17.246Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2213,7 +2242,7 @@ halo 2
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

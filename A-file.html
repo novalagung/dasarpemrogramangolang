@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2104,7 +2104,7 @@
     createFile()
 }
 </code></pre>
-<p>Fungsi <code>os.Stat()</code> mengembalikan 2 data, yaitu informasi tetang path yang dicari, dan error (jika ada). Masukkan error kembalian fungsi tersebut sebagai argument pemanggilan fungsi <code>os.IsNotExist()</code>, untuk mengetahui apakah file yang akan dibuat sudah ada. Jika rupanya file belum ada ada, maka fungsi tersebut akan mengembalikan nilai <code>true</code>.</p>
+<p>Fungsi <code>os.Stat()</code> mengembalikan 2 data, yaitu informasi tetang path yang dicari, dan error (jika ada). Masukkan error kembalian fungsi tersebut sebagai argument pemanggilan fungsi <code>os.IsNotExist()</code>, untuk mengetahui apakah file yang akan dibuat sudah ada. Jika rupanya file belum ada, maka fungsi tersebut akan mengembalikan nilai <code>true</code>.</p>
 <p>Fungsi <code>os.Create()</code> ini mengembalikan objek bertipe <code>*os.File</code>. File yang baru dibuat, statusnya adalah otomatis <strong>open</strong>. Setelah operasi file selesai, file harus di-<strong>close</strong> menggunakan method <code>file.Close()</code>.</p>
 <p>Membiarkan file terbuka ketika sudah tak lagi digunakan adalah tidak baik, karena ada efek ke memory dan akses ke file itu sendiri, file menjadi terkunci/locked, membuatnya tidak bisa diakses oleh proses lain selama status file statusnya masih <strong>open</strong> dan belum di-close.</p>
 <p><img src="images/A_file_1_create.png" alt="Dasar Pemrograman Golang - Membuat file baru"></p>
@@ -2133,7 +2133,7 @@
     writeFile()
 }
 </code></pre>
-<p>Pada program di atas, file dibuka dengan level akses <strong>read</strong> dan <strong>write</strong> dengan kode permission <strong>0664</strong>. Setelah itu, beberapa string diisikan ke dalam file tersebut menggunakan <code>WriteString()</code>. Di akhir, semua perubahan terhadap file menjadi tersimpan dengan adanya pemanggilan method <code>Sync()</code>.</p>
+<p>Pada program di atas, file dibuka dengan level akses <strong>read</strong> dan <strong>write</strong> dengan kode permission <strong>0644</strong>. Setelah itu, beberapa string diisikan ke dalam file tersebut menggunakan <code>WriteString()</code>. Di akhir, semua perubahan terhadap file menjadi tersimpan dengan adanya pemanggilan method <code>Sync()</code>.</p>
 <p><img src="images/A_file_2_write.png" alt="Dasar Pemrograman Golang - Mengedit file"></p>
 <h2 id="a503-membaca-isi-file">A.50.3. Membaca Isi File</h2>
 <p>File yang ingin dibaca harus dibuka terlebih dahulu menggunakan fungsi <code>os.OpenFile()</code> dengan level akses minimal adalah <strong>read</strong>. Dari object file kembalian fungsi tersebut, gunakan method <code>Read()</code> dengan disertai argument berupa variabel yang akan menampung data hasil operasi baca.</p>
@@ -2149,9 +2149,14 @@
     <span class="hljs-comment">// baca file</span>
     <span class="hljs-keyword">var</span> text = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">byte</span>, <span class="hljs-number">1024</span>)
     <span class="hljs-keyword">for</span> {
-        n, err := file.Read(text)
-        <span class="hljs-keyword">if</span> err != io.EOF {
-            <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">break</span> }
+        <span class="hljs-keyword">var</span> n <span class="hljs-keyword">int</span>
+        n, err = file.Read(text)
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">if</span> err == io.EOF {
+                err = <span class="hljs-literal">nil</span>
+                <span class="hljs-keyword">break</span>
+            }
+            <span class="hljs-keyword">if</span> isError(err) { <span class="hljs-keyword">return</span> }
         }
         <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> {
             <span class="hljs-keyword">break</span>
@@ -2190,6 +2195,38 @@
 }
 </code></pre>
 <p><img src="images/A_file_4_delete.png" alt="Dasar Pemrograman Golang - Menghapus file"></p>
+<h2 id="a505-fungsi-osreadfile-dan-oswritefile-go-116">A.50.5. Fungsi os.ReadFile() dan os.WriteFile() (Go 1.16+)</h2>
+<p>Sejak Go 1.16, package <code>os</code> menyediakan dua fungsi baru yang menyederhanakan operasi baca dan tulis file: <code>os.ReadFile()</code> dan <code>os.WriteFile()</code>. Kedua fungsi ini menggantikan <code>ioutil.ReadFile()</code> dan <code>ioutil.WriteFile()</code> yang sekarang sudah deprecated.</p>
+<p>Dengan <code>os.ReadFile()</code>, seluruh isi file terbaca sekaligus tanpa perlu membuka file secara manual:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// tulis file</span>
+    content := []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;halo\nmari belajar golang\n&quot;</span>)
+    err := os.WriteFile(<span class="hljs-string">&quot;/Users/novalagung/Documents/temp/test.txt&quot;</span>, content, <span class="hljs-number">0644</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(<span class="hljs-string">&quot;error tulis:&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+    fmt.Println(<span class="hljs-string">&quot;==&gt; file berhasil ditulis&quot;</span>)
+
+    <span class="hljs-comment">// baca file</span>
+    data, err := os.ReadFile(<span class="hljs-string">&quot;/Users/novalagung/Documents/temp/test.txt&quot;</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(<span class="hljs-string">&quot;error baca:&quot;</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+    fmt.Println(<span class="hljs-string">&quot;==&gt; file berhasil dibaca&quot;</span>)
+    fmt.Print(<span class="hljs-keyword">string</span>(data))
+}
+</code></pre>
+<p><code>os.WriteFile()</code> menerima tiga parameter: path file, data bertipe <code>[]byte</code>, dan permission file. Jika file sudah ada, isinya akan ditimpa seluruhnya. <code>os.ReadFile()</code> mengembalikan seluruh isi file sebagai <code>[]byte</code> dan error.</p>
+<p>Pendekatan ini lebih ringkas dibanding menggunakan <code>os.OpenFile()</code> secara langsung, cocok untuk file berukuran kecil hingga menengah.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2225,7 +2262,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.50. File","level":"3.1.50","depth":2,"next":{"title":"A.51. Web Server","level":"3.1.51","depth":2,"path":"A-web-server.md","ref":"A-web-server.md","articles":[]},"previous":{"title":"A.49. Exec","level":"3.1.49","depth":2,"path":"A-exec.md","ref":"A-exec.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-file.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.50. File","level":"3.1.50","depth":2,"next":{"title":"A.51. Web Server","level":"3.1.51","depth":2,"path":"A-web-server.md","ref":"A-web-server.md","articles":[]},"previous":{"title":"A.49. Exec","level":"3.1.49","depth":2,"path":"A-exec.md","ref":"A-exec.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-file.md","mtime":"2026-06-11T16:39:17.246Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2247,7 +2284,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

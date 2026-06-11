@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2156,13 +2156,13 @@
 <li>... dan seterusnya.</li>
 </ol>
 <p>Pada contoh ini kita asumsikan pipeline A adalah hanya satu goroutine, pipeline B juga satu goroutine, demikian juga pipeline C. Tapi sebenarnya dalam implementasi <em>real world</em> bisa saja ada banyak goroutine untuk masing-masing pipeline (banyak goroutine untuk pipeline A, banyak goroutine untuk pipeline B, banyak goroutine untuk pipeline C).</p>
-<p>Semoga cukup jelas ya. Tapi jika masih bingung, juga tidak apa. Kita sambil praktek juga, dan bisa saja pembaca mulai benar-benar pahamnya saat praktek.</p>
+<p>Semoga cukup jelas ya. Tapi jika masih bingung, juga tidak apa. Kita sambil praktik juga, dan bisa saja pembaca mulai benar-benar pahamnya saat praktik.</p>
 <blockquote>
-<p>Penulis sarankan untuk benar-benar memahami setiap bagian praktek ini, karena topik ini merupakan pembahasan yang cukup berat untuk pemula, tapi masih dalam klasifikasi fundamental kalau di Go programming. Bingung tidak apa, nanti bisa di-ulang-ulang, yang penting tidak sekadar <em>copy-paste</em>.</p>
+<p>Penulis sarankan untuk benar-benar memahami setiap bagian praktik ini, karena topik ini merupakan pembahasan yang cukup berat untuk pemula, tapi masih dalam klasifikasi fundamental kalau di Go programming. Bingung tidak apa, nanti bisa di-ulang-ulang, yang penting tidak sekadar <em>copy-paste</em>.</p>
 </blockquote>
-<h2 id="a622-skenario-praktek">A.62.2. Skenario Praktek</h2>
-<p>Ok, penjabaran teori sepanjang sungai <code>nil</code> tidak akan banyak membawa penjelasan yang real kalau tidak diiringi dengan praktek. So, mari kita mulai praktek.</p>
-<p>Untuk skenario praktek kita tidak menggunakan analogi backup database di atas ya, karena untuk setup environment-nya butuh banyak <em>effort</em>. Skenario praktek yang kita pakai adalah mencari <a href="https://en.wikipedia.org/wiki/Md5sum" target="_blank">md5 sum</a> dari banyak file, kemudian menggunakan hash dari content-nya sebagai nama file. Jadi file yang lama akan di-rename dengan nama baru yaitu hash dari konten file tersebut.</p>
+<h2 id="a622-skenario-praktik">A.62.2. Skenario Praktik</h2>
+<p>Ok, penjabaran teori sepanjang sungai <code>nil</code> tidak akan banyak membawa penjelasan yang real kalau tidak diiringi dengan praktik. So, mari kita mulai praktik.</p>
+<p>Untuk skenario praktik kita tidak menggunakan analogi backup database di atas ya, karena untuk setup environment-nya butuh banyak <em>effort</em>. Skenario praktik yang kita pakai adalah mencari <a href="https://en.wikipedia.org/wiki/Md5sum" target="_blank">md5 sum</a> dari banyak file, kemudian menggunakan hash dari content-nya sebagai nama file. Jadi file yang lama akan di-rename dengan nama baru yaitu hash dari konten file tersebut.</p>
 <p>Agar skenario ini bisa kita eksekusi, kita perlu siapkan dulu sebuah program untuk <em>generate dummy files</em>.</p>
 <h2 id="a623-program-1-generate-dummy-file">A.62.3. Program 1: Generate Dummy File</h2>
 <p>Buat project baru dengan nama bebas <span style="text-decoration: line-through">loss gak reweellll</span> beserta satu buah file bernama <code>1-dummy-file-generator.go</code>.</p>
@@ -2215,12 +2215,12 @@
 <p>Siapkan fungsi <code>generateFiles()</code>-nya, isinya kurang lebih adalah generate banyak file sejumlah <code>totalFile</code>. Lalu di tiap-tiap file di-isi dengan <em>random string</em> dengan lebar sepanjang <code>contentLength</code>. Untuk nama file-nya sendiri, formatnya adalah <code>file-&lt;index&gt;.txt</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFiles() {
     os.RemoveAll(tempPath)
-    os.MkdirAll(tempPath, os.ModePerm)
+    os.MkdirAll(tempPath, <span class="hljs-number">0755</span>)
 
     <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; totalFile; i++ {
         filename := filepath.Join(tempPath, fmt.Sprintf(<span class="hljs-string">&quot;file-%d.txt&quot;</span>, i))
         content := randomString(contentLength)
-        err := os.WriteFile(filename, []<span class="hljs-keyword">byte</span>(content), os.ModePerm)
+        err := os.WriteFile(filename, []<span class="hljs-keyword">byte</span>(content), <span class="hljs-number">0644</span>)
         <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
             log.Println(<span class="hljs-string">&quot;Error writing file&quot;</span>, filename)
         }
@@ -2314,7 +2314,7 @@
 <li>Pertama kita siapkan <code>counterTotal</code> sebagai counter jumlah file yang ditemukan dalam <code>$TEMP/chapter-A.62-concurrency-pipeline</code>. Idealnya jumlahnya adalah sama dengan isi variabel <code>totalFile</code> pada program pertama, kecuali ada error.</li>
 <li>Kedua, kita siapkan <code>counterRenamed</code> sebagai counter jumlah file yang berhasil di-rename. Untuk ini juga idealnya sama dengan nilai pada <code>counterTotal</code>, kecuali ada error</li>
 <li>Kita gunakan <code>filepath.Walk</code> untuk melakukan pembacaan semua file yang ada dalam folder <code>$TEMP/chapter-A.62-concurrency-pipeline</code>.</li>
-<li>File akan dibaca secara sekuensial, di tiap pembacaan jika ada error dan ditemukan sebuah direktori, maka kita ignore kemudian lanjut pembacaan file selanjutnya.</li>
+<li>File akan dibaca secara sekuensial. Jika ada error pembacaan, proses dihentikan; jika entry yang ditemukan adalah direktori, maka di-skip lalu lanjut ke file selanjutnya.</li>
 <li>File dibaca menggunakan <code>os.ReadFile()</code>, kemudian lewat fungsi <code>md5.Sum()</code> kita cari md5 hash sum dari konten file.</li>
 <li>Setelahnya, kita rename file dengan nama <code>file-&lt;md5hash&gt;.txt</code>.</li>
 </ul>
@@ -2449,8 +2449,8 @@
     <span class="hljs-keyword">return</span> chanOut
 }
 </code></pre>
-<p>Bisa dilihat, di situ channel inputan <code>chanIn</code> di-listen dan setiap ada penerimaan data (via channel tersebut) dilanjut ke proses kalkulasi md5 hash. Hasil hash-nya di tambahkan ke data <code>FileInfo</code> kemudian dikirim lagi ke channel <code>chanOut</code> yang mana channel ini merupakan nilai balik fungsi <code>getSum()</code>.</p>
-<p>Ketika <code>chanIn</code> closed, maka bisa diasumsikan semua data sudah dikirim. Jika memang iya dan data-data tersebut sudah di proses (pencarian md5hash-nya), maka channel <code>chanOut</code> juga di-close.</p>
+<p>Bisa dilihat, di situ channel inputan <code>chanIn</code> di-listen dan setiap ada penerimaan data (via channel tersebut) dilanjut ke proses kalkulasi md5 hash. Hasil hash-nya ditambahkan ke data <code>FileInfo</code> kemudian dikirim lagi ke channel <code>chanOut</code> yang mana channel ini merupakan nilai balik fungsi <code>getSum()</code>.</p>
+<p>Ketika <code>chanIn</code> closed, maka bisa diasumsikan semua data sudah dikirim. Jika memang iya dan data-data tersebut sudah diproses (pencarian md5hash-nya), maka channel <code>chanOut</code> juga di-close.</p>
 <p>Next, buat fungsi merger-nya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> mergeChanFileInfo(chanInMany ...&lt;-<span class="hljs-keyword">chan</span> FileInfo) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
     wg := <span class="hljs-built_in">new</span>(sync.WaitGroup)
@@ -2542,12 +2542,52 @@
 <p>Kita lakukan perulangan terhadap channel tersebut, lalu hitung jumlah file yang ditemukan vs jumlah file yang berhasil di-rename. Idealnya keduanya nilainya adalah sama, yaitu <code>3000</code>.</p>
 <p>Ok, sekarang program sudah siap. Mari kita jalankan untuk melihat hasilnya.</p>
 <p><img src="images/A_concurrency_pipeline_3_rename_concurrently.png" alt="Dasar Pemrograman Golang - Rename file concurrently"></p>
-<p>Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu <code>1.17</code> detik, sedangkan dengan metode pipeline butuh hanya <code>0.72</code> detik. Bedanya hampir <strong>40%</strong>! dan ini hanya 3000 file saja, bayangkan kalau jutaan file, mungkin lebih terasa perbandingan performnya.</p>
+<p>Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu <code>1.17</code> detik, sedangkan dengan metode pipeline hanya butuh <code>0.72</code> detik. Bedanya hampir <strong>40%</strong>! Dan ini hanya 3000 file saja, bayangkan kalau jutaan file, perbedaan performanya akan lebih terasa.</p>
 <h2 id="a626-kesimpulan">A.62.6. Kesimpulan</h2>
 <p>Pipeline concurrency pattern sangat bagus untuk diterapkan pada case yang proses-nya bisa diklasifikasi menjadi sub-proses kecil-kecil yang secara I/O tidak saling tunggu (tapi secara flow harus berurutan).</p>
 <p>Untuk banyak kasus, metode pipeline ini sangat tepat guna. Kita bisa dengan mudah mengontrol penggunaan resource seperti <strong>CPU</strong> dengan cara menentukan angka ideal jumlah worker untuk masing-masing pipeline, tapi untuk bagian ini butuh <em>test and try</em> juga, karena tidak selalu banyak worker itu menghasilkan proses yang lebih cepat, dan misalpun bisa, perlu dicek juga konsumsi resource-nya berlebihan atau tidak. Bisa jadi karena terlalu banyak worker malah lebih lambat karena ada constraint I/O.</p>
 <p>Intinya butuh banyak percobaan dan testing, sesuaikan dengan spesifikasi hardware laptop/komputer/server yang digunakan.</p>
 <p>Ok sekian untuk chapter panjang ini.</p>
+<h2 id="a627-filepathwalkdir-sebagai-pengganti-filepathwalk-go-116">A.62.7. filepath.WalkDir sebagai Pengganti filepath.Walk (Go 1.16+)</h2>
+<p>Sejak Go 1.16, tersedia fungsi <code>filepath.WalkDir()</code> sebagai pengganti yang lebih efisien dari <code>filepath.Walk()</code>. Perbedaan utamanya:</p>
+<ul>
+<li><code>filepath.Walk()</code> memanggil <code>os.Lstat()</code> pada setiap entry untuk mendapatkan <code>os.FileInfo</code>, yang berarti satu <em>syscall</em> tambahan per file.</li>
+<li><code>filepath.WalkDir()</code> menggunakan <code>fs.DirEntry</code> yang sudah tersedia dari hasil pembacaan direktori, sehingga tidak perlu <em>syscall</em> tambahan kecuali memang dibutuhkan.</li>
+</ul>
+<p>Untuk chapter pipeline ini, fungsi <code>readFiles()</code> bisa ditulis ulang menggunakan <code>filepath.WalkDir()</code>:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> readFiles() &lt;-<span class="hljs-keyword">chan</span> FileInfo {
+    chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
+
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        err := filepath.WalkDir(tempPath, <span class="hljs-keyword">func</span>(path <span class="hljs-keyword">string</span>, d fs.DirEntry, err error) error {
+            <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+                <span class="hljs-keyword">return</span> err
+            }
+            <span class="hljs-keyword">if</span> d.IsDir() {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+            }
+
+            buf, err := os.ReadFile(path)
+            <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+                <span class="hljs-keyword">return</span> err
+            }
+
+            chanOut &lt;- FileInfo{
+                FilePath: path,
+                Content:  buf,
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+        })
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            log.Println(<span class="hljs-string">&quot;ERROR:&quot;</span>, err.Error())
+        }
+        <span class="hljs-built_in">close</span>(chanOut)
+    }()
+
+    <span class="hljs-keyword">return</span> chanOut
+}
+</code></pre>
+<p>Perlu di-import package <code>io/fs</code> untuk tipe <code>fs.DirEntry</code>. Untuk kasus pembacaan file dalam jumlah banyak seperti pada chapter ini, <code>filepath.WalkDir()</code> adalah pilihan yang lebih baik dari sisi performa.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2583,7 +2623,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"next":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"path":"A-simplified-fan-in-fan-out-pipeline.md","ref":"A-simplified-fan-in-fan-out-pipeline.md","articles":[]},"previous":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-concurrency-pipeline.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"next":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"path":"A-simplified-fan-in-fan-out-pipeline.md","ref":"A-simplified-fan-in-fan-out-pipeline.md","articles":[]},"previous":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-concurrency-pipeline.md","mtime":"2026-06-11T16:39:17.246Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2605,7 +2645,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

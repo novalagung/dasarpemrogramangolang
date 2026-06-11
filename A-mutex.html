@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2068,7 +2068,7 @@
                                 
                                 <h1 id="a60-mutex">A.60. Mutex</h1>
 <p>Sebelum kita membahas mengenai apa itu <strong>mutex</strong>? ada baiknya untuk mempelajari terlebih dahulu apa itu <strong>race condition</strong>, karena kedua konsep ini berhubungan erat satu sama lain.</p>
-<p>Race condition adalah kondisi di mana lebih dari satu goroutine, mengakses data yang sama pada waktu yang bersamaan (benar-benar bersamaan). Ketika hal ini terjadi, nilai data tersebut akan menjadi kacau. Dalam <strong>concurrency programming</strong> situasi seperti ini ini sering terjadi.</p>
+<p>Race condition adalah kondisi di mana lebih dari satu goroutine mengakses data yang sama pada waktu yang bersamaan (benar-benar bersamaan). Ketika hal ini terjadi, nilai data tersebut akan menjadi kacau. Dalam <strong>concurrency programming</strong>, situasi seperti ini sering terjadi.</p>
 <p>Mutex melakukan pengubahan level akses sebuah data menjadi eksklusif, menjadikan data tersebut hanya dapat dikonsumsi (read / write) oleh satu buah goroutine saja. Ketika terjadi race condition, maka hanya goroutine yang beruntung saja yang bisa mengakses data tersebut. Goroutine lain (yang waktu running nya kebetulan bersamaan) akan dipaksa untuk menunggu, hingga goroutine yang sedang memanfaatkan data tersebut selesai.</p>
 <p>Go menyediakan <code>sync.Mutex</code> yang bisa dimanfaatkan untuk keperluan <strong>lock</strong> dan <strong>unlock</strong> data. Pada chapter ini kita akan membahas mengenai race condition dan cara mengatasinya menggunakan mutex.</p>
 <h2 id="a601-persiapan">A.60.1. Persiapan</h2>
@@ -2090,11 +2090,11 @@
     val <span class="hljs-keyword">int</span>
 }
 
-<span class="hljs-keyword">func</span> (c *counter) Add(<span class="hljs-keyword">int</span>) {
+<span class="hljs-keyword">func</span> (c *counter) Add() {
     c.val++
 }
 
-<span class="hljs-keyword">func</span> (c *counter) Value() (<span class="hljs-keyword">int</span>) {
+<span class="hljs-keyword">func</span> (c *counter) Value() <span class="hljs-keyword">int</span> {
     <span class="hljs-keyword">return</span> c.val
 }
 </code></pre>
@@ -2115,7 +2115,7 @@
 
         <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
             <span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">1000</span>; j++ {
-                meter.Add(<span class="hljs-number">1</span>)
+                meter.Add()
             }
 
             wg.Done()
@@ -2140,34 +2140,46 @@
 <p>Terlihat pada gambar di atas, ada pesan memberitahu terdapat kemungkinan data race pada program yang kita jalankan.</p>
 <h2 id="a604-penerapan-syncmutex">A.60.4. Penerapan <code>sync.Mutex</code></h2>
 <p>Sekarang kita tahu bahwa program di atas menghasilkan bug, ada kemungkinan data race di dalamnya. Untuk mengatasi masalah ini ada beberapa cara yang bisa digunakan, dan di sini kita akan menggunakan <code>sync.Mutex</code>.</p>
-<p>Ubah kode di atas, embed struct <code>sync.Mutex</code> ke dalam struct <code>counter</code>, agar lewat objek cetakan <code>counter</code> kita bisa melakukan lock dan unlock dengan mudah. Tambahkan method <code>Lock()</code> dan <code>Unlock()</code> di dalam method <code>Add()</code>.</p>
+<p>Cara yang dianjurkan adalah menambahkan <code>sync.Mutex</code> sebagai <strong>named field</strong> di dalam struct. Dengan cara ini, mutex jelas menjadi milik struct, dan penggunaannya eksplisit karena diakses lewat nama field-nya.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> counter <span class="hljs-keyword">struct</span> {
+    mu  sync.Mutex
+    val <span class="hljs-keyword">int</span>
+}
+
+<span class="hljs-keyword">func</span> (c *counter) Add() {
+    c.mu.Lock()
+    c.val++
+    c.mu.Unlock()
+}
+
+<span class="hljs-keyword">func</span> (c *counter) Value() <span class="hljs-keyword">int</span> {
+    <span class="hljs-keyword">return</span> c.val
+}
+</code></pre>
+<p>Method <code>Lock()</code> digunakan untuk menandai bahwa semua operasi pada baris setelah kode tersebut adalah bersifat eksklusif. Hanya ada satu buah goroutine yang bisa melakukannya dalam satu waktu. Jika ada banyak goroutine yang eksekusinya bersamaan, harus antri.</p>
+<p>Method <code>Unlock()</code> akan membuka kembali akses operasi ke property/variabel yang di-lock, proses mutual exclusion terjadi di antara method <code>Lock()</code> dan <code>Unlock()</code>.</p>
+<p>Di contoh di atas, pada saat bagian pengambilan nilai, mutex tidak dipasang, karena kebetulan pengambilan nilai terjadi setelah semua goroutine selesai. Data Race bisa terjadi saat pengubahan maupun pengambilan data, jadi penggunaan mutex harus disesuaikan dengan kasus.</p>
+<p>Coba jalankan program, dan lihat hasilnya.</p>
+<p><img src="images/A_mutex_3_mutex.png" alt="Dasar Pemrograman Golang - Mutex"></p>
+<p>Selain menggunakan named field, <code>sync.Mutex</code> bisa juga di-<em>embed</em> langsung ke dalam struct. Cara ini lebih ringkas karena method <code>Lock()</code> dan <code>Unlock()</code> ter-<em>promote</em> dan bisa dipanggil langsung dari objek.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> counter <span class="hljs-keyword">struct</span> {
     sync.Mutex
     val <span class="hljs-keyword">int</span>
 }
 
-<span class="hljs-keyword">func</span> (c *counter) Add(<span class="hljs-keyword">int</span>) {
+<span class="hljs-keyword">func</span> (c *counter) Add() {
     c.Lock()
     c.val++
     c.Unlock()
 }
-
-<span class="hljs-keyword">func</span> (c *counter) Value() (<span class="hljs-keyword">int</span>) {
-    <span class="hljs-keyword">return</span> c.val
-}
 </code></pre>
-<p>Method <code>Lock()</code> digunakan untuk menandai bahwa semua operasi pada baris setelah kode tersebut adalah bersifat eksklusif. Hanya ada satu buah goroutine yang bisa melakukannya dalam satu waktu. Jika ada banyak goroutine yang eksekusinya bersamaan, harus antri.</p>
-<p>Pada kode di atas terdapat kode untuk increment nilai <code>meter.val</code>. Maka property tersebut hanya bisa diakses oleh satu goroutine saja.</p>
-<p>Method <code>Unlock()</code> akan membuka kembali akses operasi ke property/variabel yang di lock, proses mutual exclusion terjadi di antara method <code>Lock()</code> dan <code>Unlock()</code>.</p>
-<p>Di contoh di atas, pada saat bagian pengambilan nilai, mutex tidak dipasang, karena kebetulan pengambilan nilai terjadi setelah semua goroutine selesai. Data Race bisa terjadi saat pengubahan maupun pengambilan data, jadi penggunaan mutex harus disesuaikan dengan kasus.</p>
-<p>Coba jalankan program, dan lihat hasilnya.</p>
-<p><img src="images/A_mutex_3_mutex.png" alt="Dasar Pemrograman Golang - Mutex"></p>
-<p>Pada contoh di atas, mutex diterapkan dengan cara di-embed ke objek yang memerlukan proses lock-unlock, menjadikan variabel mutex tersebut adalah eksklusif untuk objek tersebut saja. Cara ini merupakan cara yang dianjurkan. Meskipun demikian, mutex tetap bisa digunakan dengan cara tanpa ditempelkan ke objek yang memerlukan lock-unlock. Contohnya bisa dilihat di bawah ini.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> (c *counter) Add(<span class="hljs-keyword">int</span>) {
+<p>Perlu diperhatikan bahwa embedding menyebabkan method <code>Lock()</code> dan <code>Unlock()</code> ikut menjadi bagian dari method set struct <code>counter</code>. Jika struct tersebut di-<em>export</em> (nama diawali huruf kapital), maka method-method tersebut ikut ter-<em>expose</em> ke luar package, yang bisa membingungkan pengguna. Oleh karena itu, untuk struct yang di-<em>export</em>, pendekatan named field lebih disarankan.</p>
+<p>Selain dua cara di atas, mutex bisa juga digunakan tanpa ditempelkan ke struct sama sekali. Contohnya bisa dilihat di bawah ini.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> (c *counter) Add() {
     c.val++
 }
 
-<span class="hljs-keyword">func</span> (c *counter) Value() (<span class="hljs-keyword">int</span>) {
+<span class="hljs-keyword">func</span> (c *counter) Value() <span class="hljs-keyword">int</span> {
     <span class="hljs-keyword">return</span> c.val
 }
 
@@ -2234,7 +2246,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.60. sync.Mutex","level":"3.1.60","depth":2,"next":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"previous":{"title":"A.59. sync.WaitGroup","level":"3.1.59","depth":2,"path":"A-waitgroup.md","ref":"A-waitgroup.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-mutex.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.60. sync.Mutex","level":"3.1.60","depth":2,"next":{"title":"A.61. Go Vendoring","level":"3.1.61","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"previous":{"title":"A.59. sync.WaitGroup","level":"3.1.59","depth":2,"path":"A-waitgroup.md","ref":"A-waitgroup.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-mutex.md","mtime":"2026-06-11T16:39:17.248Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2256,7 +2268,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

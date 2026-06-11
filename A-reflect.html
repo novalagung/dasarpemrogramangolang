@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2093,13 +2093,13 @@
 }
 </code></pre>
 <p><img src="images/A_reflect_0_reflect.png" alt="Dasar Pemrograman Golang - Pemanfaatan reflect"></p>
-<p>Fungsi <code>reflect.valueOf()</code> memiliki parameter yang bisa menampung segala jenis tipe data. Fungsi tersebut mengembalikan objek dalam tipe <code>reflect.Value</code>, yang berisikan informasi mengenai variabel yang bersangkutan.</p>
-<p>Objek <code>reflect.Value</code> memiliki beberapa method, salah satunya <code>Type()</code>. Method ini mengembalikan tipe data variabel yang bersangkutan dalam bentuk <code>string</code>.</p>
+<p>Fungsi <code>reflect.ValueOf()</code> memiliki parameter yang bisa menampung segala jenis tipe data. Fungsi tersebut mengembalikan objek dalam tipe <code>reflect.Value</code>, yang berisikan informasi mengenai variabel yang bersangkutan.</p>
+<p>Objek <code>reflect.Value</code> memiliki beberapa method, salah satunya <code>Type()</code>. Method ini mengembalikan tipe data variabel yang bersangkutan dalam bentuk <code>reflect.Type</code>.</p>
 <p>Statement <code>reflectValue.Int()</code> menghasilkan nilai <code>int</code> dari variabel <code>number</code>. Untuk menampilkan nilai variabel reflect, harus dipastikan dulu tipe datanya. Ketika tipe data adalah <code>int</code>, maka bisa menggunakan method <code>Int()</code>. Ada banyak lagi method milik struct <code>reflect.Value</code> yang bisa digunakan untuk pengambilan nilai dalam bentuk tertentu, contohnya: <code>reflectValue.String()</code> digunakan untuk mengambil nilai <code>string</code>, <code>reflectValue.Float64()</code> untuk nilai <code>float64</code>, dan lainnya.</p>
 <p>Perlu diketahui, fungsi yang digunakan harus sesuai dengan tipe data nilai yang ditampung variabel. Jika fungsi yang digunakan berbeda dengan tipe data variabelnya, maka dipastikan muncul error. Contohnya seperti pada variabel yang nilainya bertipe <code>float64</code>, penggunaan method <code>String()</code> di situ pasti menghasilkan error.</p>
 <p>Diperlukan adanya pengecekan tipe data pada nilai yang disimpan, agar penggunaan method untuk pengambilan nilai bisa tepat. Salah satunya bisa dengan cara yang dicontohkan di atas, yaitu dengan mengecek dahulu apa jenis tipe datanya menggunakan method <code>Kind()</code>, setelah itu diambil nilainya dengan method yang sesuai.</p>
 <p>List konstanta tipe data dan method yang bisa digunakan dalam <em>reflection</em> di Go bisa dilihat di <a href="https://pkg.go.dev/reflect#Kind" target="_blank">https://pkg.go.dev/reflect#Kind</a></p>
-<h2 id="pengaksesan-nilai-dalam-bentuk-interface">Pengaksesan Nilai Dalam Bentuk <code>interface{}</code></h2>
+<h2 id="a292-pengaksesan-nilai-dalam-bentuk-interface">A.29.2. Pengaksesan Nilai Dalam Bentuk <code>interface{}</code></h2>
 <p>Jika nilai hanya diperlukan untuk ditampilkan ke output, bisa menggunakan <code>.Interface()</code>. Lewat method tersebut segala jenis nilai bisa diakses dengan mudah.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> number = <span class="hljs-number">23</span>
 <span class="hljs-keyword">var</span> reflectValue = reflect.ValueOf(number)
@@ -2110,7 +2110,7 @@ fmt.Println(<span class="hljs-string">&quot;nilai variabel :&quot;</span>, refle
 <p>Fungsi <code>Interface()</code> mengembalikan nilai interface kosong atau <code>interface{}</code> atau <code>any</code>. Nilai aslinya sendiri bisa diakses dengan meng-casting interface kosong tersebut menggunakan teknik <em>type assertion</em>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> nilai = reflectValue.Interface().(<span class="hljs-keyword">int</span>)
 </code></pre>
-<h2 id="a292-pengaksesan-informasi-property-variabel-objek">A.29.2. Pengaksesan Informasi Property Variabel Objek</h2>
+<h2 id="a293-pengaksesan-informasi-property-variabel-objek">A.29.3. Pengaksesan Informasi Property Variabel Objek</h2>
 <p>Reflect API bisa digunakan untuk melihat metadata suatu property variabel objek cetakan struct, dengan catatan property-property tersebut bermodifier public. Contohnya bisa dilihat pada kode berikut.</p>
 <p>Siapkan sebuah struct bernama <code>student</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> student <span class="hljs-keyword">struct</span> {
@@ -2143,7 +2143,7 @@ fmt.Println(<span class="hljs-string">&quot;nilai variabel :&quot;</span>, refle
 }
 </code></pre>
 <p><img src="images/A_reflect_1_accessing_properties.png" alt="Dasar Pemrograman Golang - Pengaksesan property menggunakan reflect"></p>
-<p>Di dalam method <code>getPropertyInfo()</code> terjadi beberapa hal. Pertama objek <code>reflect.Value</code> dari variabel <code>s</code> diambil. Setelah itu dilakukan pengecekan apakah variabel objek tersebut merupakan pointer atau tidak (bisa dilihat dari <code>if reflectValue.Kind() == reflect.Ptr</code>, jika bernilai <code>true</code> maka variabel adalah pointer). jika ternyata variabel memang berisi pointer, maka perlu diambil data objek reflect aslinya via method <code>Elem()</code>.</p>
+<p>Di dalam method <code>getPropertyInfo()</code> terjadi beberapa hal. Pertama objek <code>reflect.Value</code> dari variabel <code>s</code> diambil. Setelah itu dilakukan pengecekan apakah variabel objek tersebut merupakan pointer atau tidak (bisa dilihat dari <code>if reflectValue.Kind() == reflect.Ptr</code>, jika bernilai <code>true</code> maka variabel adalah pointer). Jika ternyata variabel memang berisi pointer, maka perlu diambil data objek reflect aslinya via method <code>Elem()</code>.</p>
 <p>Masih di dalam method <code>getPropertyInfo()</code>, dilakukan perulangan sebanyak jumlah property yang ada pada struct <code>student</code>. Method <code>NumField()</code> mengembalikan jumlah property publik yang ada dalam struct.</p>
 <p>Di tiap perulangan, informasi tiap property struct diambil berurutan dengan lewat method <code>Field()</code>. Method ini ada pada tipe <code>reflect.Value</code> dan <code>reflect.Type</code>.</p>
 <ul>
@@ -2152,8 +2152,8 @@ fmt.Println(<span class="hljs-string">&quot;nilai variabel :&quot;</span>, refle
 <li><code>reflectValue.Field(i).Interface()</code> mengembalikan nilai property dalam bentuk <code>interface{}</code></li>
 </ul>
 <p>Pengambilan informasi property, selain menggunakan indeks, bisa diambil berdasarkan nama field dengan menggunakan method <code>FieldByName()</code>.</p>
-<h2 id="a293-pengaksesan-informasi-method-variabel-objek">A.29.3. Pengaksesan Informasi Method Variabel Objek</h2>
-<p>Informasi mengenai method juga bisa diakses lewat reflect, syaratnya masih sama seperti pada pengaksesan proprerty, yaitu harus bermodifier public.</p>
+<h2 id="a294-pengaksesan-informasi-method-variabel-objek">A.29.4. Pengaksesan Informasi Method Variabel Objek</h2>
+<p>Informasi mengenai method juga bisa diakses lewat reflect, syaratnya masih sama seperti pada pengaksesan property, yaitu harus bermodifier public.</p>
 <p>Pada contoh di bawah ini informasi method <code>SetName()</code> akan diambil lewat reflection. Siapkan method baru di struct <code>student</code>, dengan nama <code>SetName()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> (s *student) SetName(name <span class="hljs-keyword">string</span>) {
     s.Name = name
@@ -2217,7 +2217,7 @@ fmt.Println(<span class="hljs-string">&quot;nilai variabel :&quot;</span>, refle
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"next":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"path":"A-goroutine.md","ref":"A-goroutine.md","articles":[]},"previous":{"title":"A.28. Any / interface{} / Interface Kosong","level":"3.1.28","depth":2,"path":"A-interface-kosong.md","ref":"A-interface-kosong.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-reflect.md","mtime":"2026-06-04T09:09:03.642Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.29. Reflect","level":"3.1.29","depth":2,"next":{"title":"A.30. Goroutine","level":"3.1.30","depth":2,"path":"A-goroutine.md","ref":"A-goroutine.md","articles":[]},"previous":{"title":"A.28. Any / interface{} / Interface Kosong","level":"3.1.28","depth":2,"path":"A-interface-kosong.md","ref":"A-interface-kosong.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-reflect.md","mtime":"2026-06-11T16:39:17.249Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2239,7 +2239,7 @@ fmt.Println(<span class="hljs-string">&quot;nilai variabel :&quot;</span>, refle
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

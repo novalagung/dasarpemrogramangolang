@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2084,7 +2084,7 @@
 <p>Hasilnya, tulisan <code>&quot;start&quot;</code> muncul, lalu 4 detik kemudian tulisan <code>&quot;after 4 seconds&quot;</code> muncul.</p>
 <h2 id="a412-scheduler-menggunakan-timesleep">A.41.2. Scheduler Menggunakan <code>time.Sleep()</code></h2>
 <p>Selain untuk blocking proses, fungsi <code>time.Sleep()</code> ini bisa dimanfaatkan untuk membuat scheduler sederhana, contohnya seperti berikut, scheduler untuk menampilkan pesan halo setiap 1 detik.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">for</span> <span class="hljs-literal">true</span> {
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> {
     fmt.Println(<span class="hljs-string">&quot;Hello !!&quot;</span>)
     time.Sleep(<span class="hljs-number">1</span> * time.Second)
 }
@@ -2121,7 +2121,7 @@ fmt.Println(<span class="hljs-string">&quot;finish&quot;</span>)
 <li>Jika ada serah terima data lewat channel, maka fungsi akan tetap berjalan asynchronous hingga baris kode di mana penerimaan data channel dilakukan. Proses blocking nya berada pada baris kode penerimaan channel.</li>
 </ul>
 <h2 id="a415-fungsi-timeafter">A.41.5. Fungsi <code>time.After()</code></h2>
-<p>Kegunaan fungsi ini mirip seperti <code>time.Sleep()</code>. Perbedaannya adalah, fungsi <code>timer.After()</code> akan mengembalikan data channel, sehingga perlu menggunakan tanda <code>&lt;-</code> dalam penerapannya.</p>
+<p>Kegunaan fungsi ini mirip seperti <code>time.Sleep()</code>. Perbedaannya adalah, fungsi <code>time.After()</code> akan mengembalikan data channel, sehingga perlu menggunakan tanda <code>&lt;-</code> dalam penerapannya.</p>
 <pre><code class="lang-go">&lt;-time.After(<span class="hljs-number">4</span> * time.Second)
 fmt.Println(<span class="hljs-string">&quot;expired&quot;</span>)
 </code></pre>
@@ -2205,6 +2205,25 @@ fmt.Println(<span class="hljs-string">&quot;expired&quot;</span>)
 </code></pre>
 <p>Ketika user tidak menginputkan apa-apa dalam kurun waktu 5 detik, pesan timeout muncul lalu program berhenti.</p>
 <p><img src="images/A_timer_ticker_scheduler_1_timer.png" alt="Dasar Pemrograman Golang - Penerapan timer dalam goroutine"></p>
+<h2 id="a418-perubahan-perilaku-timer-di-go-123">A.41.8. Perubahan Perilaku Timer di Go 1.23+</h2>
+<p>Sejak Go 1.23, ada perubahan perilaku penting pada channel yang dikembalikan oleh <code>time.After()</code>, <code>time.NewTimer()</code>, dan <code>time.NewTicker()</code>.</p>
+<p>Sebelum Go 1.23, penggunaan <code>time.After()</code> dalam loop dapat menyebabkan <em>memory leak</em> karena timer yang dibuat tidak dapat di-garbage collect sebelum waktu jatuh tempo, meskipun hasil channel-nya tidak pernah dibaca. Contoh kode yang berpotensi menyebabkan leak di versi Go lama:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> {
+    <span class="hljs-keyword">select</span> {
+    <span class="hljs-keyword">case</span> &lt;-time.After(<span class="hljs-number">5</span> * time.Second):
+        fmt.Println(<span class="hljs-string">&quot;timeout&quot;</span>)
+    <span class="hljs-keyword">case</span> data := &lt;-someChannel:
+        fmt.Println(<span class="hljs-string">&quot;received:&quot;</span>, data)
+    }
+}
+</code></pre>
+<p>Pada kode di atas, setiap iterasi loop membuat timer baru via <code>time.After()</code>. Di Go versi lama, timer-timer yang belum jatuh tempo tidak bisa di-GC sehingga memori terus bertambah.</p>
+<p>Sejak Go 1.23, perilaku ini diperbaiki: timer yang dikembalikan <code>time.After()</code> dapat di-garbage collect jika channel-nya tidak lagi dapat dijangkau, sehingga memory leak tersebut tidak lagi terjadi.</p>
+<p>Untuk versi Go di bawah 1.23, solusi yang disarankan adalah menggunakan <code>time.NewTimer()</code> secara eksplisit dan memanggil <code>.Stop()</code> setelah selesai:</p>
+<pre><code class="lang-go">timer := time.NewTimer(<span class="hljs-number">5</span> * time.Second)
+<span class="hljs-keyword">defer</span> timer.Stop()
+&lt;-timer.C
+</code></pre>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2240,7 +2259,7 @@ fmt.Println(<span class="hljs-string">&quot;expired&quot;</span>)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"next":{"title":"A.42. Time Duration","level":"3.1.42","depth":2,"path":"A-time-duration.md","ref":"A-time-duration.md","articles":[]},"previous":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"path":"A-time-parsing-format.md","ref":"A-time-parsing-format.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-timer-ticker-scheduler.md","mtime":"2026-06-04T09:09:03.643Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"next":{"title":"A.42. Time Duration","level":"3.1.42","depth":2,"path":"A-time-duration.md","ref":"A-time-duration.md","articles":[]},"previous":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"path":"A-time-parsing-format.md","ref":"A-time-parsing-format.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-timer-ticker-scheduler.md","mtime":"2026-06-11T16:39:17.250Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2262,7 +2281,7 @@ fmt.Println(<span class="hljs-string">&quot;expired&quot;</span>)
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2070,7 +2070,7 @@
 <p>Go menyediakan package <code>testing</code> yang isinya banyak sekali API untuk keperluan pembuatan test file.</p>
 <p>Pada chapter ini kita akan belajar mengenai testing, benchmark, dan juga testing menggunakan <em>3rd party</em> <a href="https://github.com/stretchr/testify" target="_blank">testify</a>.</p>
 <h2 id="a581-persiapan">A.58.1. Persiapan</h2>
-<p>Langsung saja kita praktek. Pertama siapkan terlebih dahulu sebuah struct <code>Kubus</code>. Variabel object hasil struct ini nantinya kita gunakan sebagai bahan testing.</p>
+<p>Langsung saja kita praktik. Pertama siapkan terlebih dahulu sebuah struct <code>Kubus</code>. Variabel object hasil struct ini nantinya kita gunakan sebagai bahan testing.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;math&quot;</span>
@@ -2091,9 +2091,9 @@
     <span class="hljs-keyword">return</span> k.Sisi * <span class="hljs-number">12</span>
 }
 </code></pre>
-<p>Simpan kode di atas dengan nama <code>bab55.go</code>.</p>
+<p>Simpan kode di atas dengan nama <code>main.go</code>.</p>
 <h2 id="a582-file-testing">A.58.2. File Testing</h2>
-<p>Di Go, file untuk keperluan testing dipisah dengan file utama. Nama file testing harus berakhiran <code>_test.go</code>, dan harus ditempatkan di package yang sama seperti source code yang akan di-test. Pada chapter ini, file utama adalah <code>bab55.go</code>, maka file testing harus bernama <code>bab55_test.go</code>.</p>
+<p>Di Go, file untuk keperluan testing dipisah dengan file utama. Nama file testing harus berakhiran <code>_test.go</code>, dan harus ditempatkan di package yang sama seperti source code yang akan di-test. Pada chapter ini, file utama adalah <code>main.go</code>, maka file testing harus bernama <code>main_test.go</code>.</p>
 <p>Unit test di Go dituliskan dalam bentuk fungsi, yang memiliki parameter yang bertipe <code>*testing.T</code>, dengan nama fungsi harus diawali kata <strong>Test</strong> (pastikan sudah meng-import package <code>testing</code> sebelumnya). Lewat parameter tersebut, kita bisa mengakses method-method untuk keperluan testing.</p>
 <p>Pada contoh di bawah ini disiapkan 3 buah fungsi test, yang masing-masing digunakan untuk mengecek apakah hasil kalkulasi volume, luas, dan keliling kubus adalah benar.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2133,7 +2133,7 @@
 </code></pre>
 <p>Method <code>t.Logf()</code> digunakan untuk memunculkan log. Method ini equivalen dengan <code>fmt.Printf()</code>.</p>
 <p>Method <code>Errorf()</code> digunakan untuk memunculkan log dengan diikuti keterangan bahwa terjadi <strong>fail</strong> pada saat testing.</p>
-<p>Cara eksekusi testing adalah menggunakan command <code>go test</code>. Karena struct yang diuji berada dalam file <code>bab55.go</code>, maka pada saat eksekusi test menggunakan <code>go test</code>, nama file <code>bab55_test.go</code> dan <code>bab55.go</code> perlu dituliskan sebagai argument.</p>
+<p>Cara eksekusi testing adalah menggunakan command <code>go test</code>. Jalankan command tersebut pada folder project untuk mengeksekusi semua test yang ada.</p>
 <p>Argument <code>-v</code> atau verbose digunakan menampilkan semua output log pada saat pengujian.</p>
 <p>Jalankan aplikasi seperti gambar di bawah ini, terlihat bahwa tidak ada test yang fail.</p>
 <p><img src="images/A_unit_test_1_test.png" alt="Dasar Pemrograman Golang - Testing"></p>
@@ -2184,11 +2184,11 @@
 </tr>
 <tr>
 <td style="text-align:left"><code>Fatal()</code></td>
-<td style="text-align:left"><code>Log()</code> diikuti dengan <code>failNow()</code></td>
+<td style="text-align:left"><code>Log()</code> diikuti dengan <code>FailNow()</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><code>Fatalf()</code></td>
-<td style="text-align:left"><code>Logf()</code> diikuti dengan <code>failNow()</code></td>
+<td style="text-align:left"><code>Logf()</code> diikuti dengan <code>FailNow()</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><code>Skip()</code></td>
@@ -2203,7 +2203,7 @@
 <td style="text-align:left">Menghentikan proses testing fungsi, dilanjutkan ke testing fungsi setelahnya</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>Skiped()</code></td>
+<td style="text-align:left"><code>Skipped()</code></td>
 <td style="text-align:left">Menampilkan laporan skip</td>
 </tr>
 <tr>
@@ -2263,19 +2263,39 @@
 ...
 
 <span class="hljs-keyword">func</span> TestHitungVolume(t *testing.T) {
-    assert.Equal(t, kubus.Volume(), volumeSeharusnya, <span class="hljs-string">&quot;perhitungan volume salah&quot;</span>)
+    assert.Equal(t, volumeSeharusnya, kubus.Volume(), <span class="hljs-string">&quot;perhitungan volume salah&quot;</span>)
 }
 
 <span class="hljs-keyword">func</span> TestHitungLuas(t *testing.T) {
-    assert.Equal(t, kubus.Luas(), luasSeharusnya, <span class="hljs-string">&quot;perhitungan luas salah&quot;</span>)
+    assert.Equal(t, luasSeharusnya, kubus.Luas(), <span class="hljs-string">&quot;perhitungan luas salah&quot;</span>)
 }
 
 <span class="hljs-keyword">func</span> TestHitungKeliling(t *testing.T) {
-    assert.Equal(t, kubus.Keliling(), kelilingSeharusnya, <span class="hljs-string">&quot;perhitungan keliling salah&quot;</span>)
+    assert.Equal(t, kelilingSeharusnya, kubus.Keliling(), <span class="hljs-string">&quot;perhitungan keliling salah&quot;</span>)
 }
 </code></pre>
-<p>Fungsi <code>assert.Equal()</code> digunakan untuk uji perbandingan. Parameter ke-2 dibandingkan nilainya dengan parameter ke-3. Jika tidak sama, maka pesan parameter ke-3 akan dimunculkan.</p>
+<p>Fungsi <code>assert.Equal()</code> digunakan untuk uji perbandingan. Parameter ke-2 dibandingkan nilainya dengan parameter ke-3. Jika tidak sama, maka pesan parameter ke-4 akan dimunculkan.</p>
 <p><img src="images/A_unit_test_4_testify.png" alt="Dasar Pemrograman Golang - Testing menggunakan testify"></p>
+<h2 id="a586-benchmark-menggunakan-bloop-go-124">A.58.6. Benchmark Menggunakan b.Loop() (Go 1.24+)</h2>
+<p>Sejak Go 1.24, tersedia method <code>b.Loop()</code> sebagai cara baru penulisan benchmark loop. Method ini lebih dianjurkan dibanding pola <code>for i := 0; i &lt; b.N; i++</code> karena:</p>
+<ol>
+<li>Setup sebelum loop hanya dieksekusi sekali per <code>-count</code>, tidak berulang setiap iterasi benchmark.</li>
+<li>Compiler tidak mengoptimasi loop body secara agresif, sehingga hasil benchmark lebih akurat.</li>
+</ol>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> BenchmarkHitungLuas(b *testing.B) {
+    <span class="hljs-keyword">for</span> b.Loop() {
+        kubus.Luas()
+    }
+}
+</code></pre>
+<p>Dibandingkan dengan pola lama:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> BenchmarkHitungLuas(b *testing.B) {
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ {
+        kubus.Luas()
+    }
+}
+</code></pre>
+<p>Untuk benchmark baru, gunakan <code>b.Loop()</code>. Pola <code>b.N</code> masih valid dan tidak dihapus.</p>
 <hr>
 <ul>
 <li><a href="https://github.com/stretchr/testify" target="_blank">Testify</a>, by &quot;Stretchr, Inc&quot;</li>
@@ -2315,7 +2335,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"next":{"title":"A.59. sync.WaitGroup","level":"3.1.59","depth":2,"path":"A-waitgroup.md","ref":"A-waitgroup.md","articles":[]},"previous":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"path":"A-mongodb.md","ref":"A-mongodb.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-unit-test.md","mtime":"2026-06-04T09:09:03.643Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.58. Unit Test","level":"3.1.58","depth":2,"next":{"title":"A.59. sync.WaitGroup","level":"3.1.59","depth":2,"path":"A-waitgroup.md","ref":"A-waitgroup.md","articles":[]},"previous":{"title":"A.57. NoSQL MongoDB","level":"3.1.57","depth":2,"path":"A-mongodb.md","ref":"A-mongodb.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-unit-test.md","mtime":"2026-06-11T16:39:17.250Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2337,7 +2357,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

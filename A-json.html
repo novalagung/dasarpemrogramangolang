@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2083,7 +2083,7 @@
     Age      <span class="hljs-keyword">int</span>
 }
 </code></pre>
-<p>Struct <code>User</code> ini nantinya digunakan untuk membuat variabel baru penampung hasil decode json string. Proses decode sendiri dilakukan lewat fungsi <code>json.Unmarshal()</code>, dalam penggunaannya data json string dimasukan sebagai argument pemanggilan fungsi.</p>
+<p>Struct <code>User</code> ini nantinya digunakan untuk membuat variabel baru penampung hasil decode json string. Proses decode sendiri dilakukan lewat fungsi <code>json.Unmarshal()</code>, dalam penggunaannya data json string dimasukkan sebagai argument pemanggilan fungsi.</p>
 <p>Contoh praktiknya bisa dilihat di bawah ini.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     <span class="hljs-keyword">var</span> jsonString = <span class="hljs-string">`{&quot;Name&quot;: &quot;john wick&quot;, &quot;Age&quot;: 27}`</span>
@@ -2127,7 +2127,7 @@ fmt.Println(<span class="hljs-string">&quot;user :&quot;</span>, decodedData[<sp
 fmt.Println(<span class="hljs-string">&quot;age  :&quot;</span>, decodedData[<span class="hljs-string">&quot;Age&quot;</span>])
 </code></pre>
 <h2 id="a533-decode-array-json-ke-array-objek">A.53.3. Decode Array JSON Ke Array Objek</h2>
-<p>Operasi decode data dari array json ke slice/array objek caranya juga sama. Langsung praktek saja agar lebih jelas. Siapkan sebuah variabel baru untuk menampung hasil decode dengan tipe slice struct, lalu gunakan pada fungsi <code>json.Unmarshal()</code>.</p>
+<p>Operasi decode data dari array json ke slice/array objek caranya juga sama. Langsung praktik saja agar lebih jelas. Siapkan sebuah variabel baru untuk menampung hasil decode dengan tipe slice struct, lalu gunakan pada fungsi <code>json.Unmarshal()</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> jsonString = <span class="hljs-string">`[
     {&quot;Name&quot;: &quot;john wick&quot;, &quot;Age&quot;: 27},
     {&quot;Name&quot;: &quot;ethan hunt&quot;, &quot;Age&quot;: 32}
@@ -2148,7 +2148,7 @@ fmt.Println(<span class="hljs-string">&quot;user 2:&quot;</span>, data[<span cla
 <p>Setelah sebelumnya dijelaskan beberapa cara decode data dari json string ke objek, sekarang kita akan belajar cara <strong>encode</strong> data objek di Go ke bentuk json string.</p>
 <p>Fungsi <code>json.Marshal()</code> digunakan untuk encoding data ke json string. Sumber data bisa berupa variabel objek cetakan struct, data bertipe <code>map[string]interface{}</code>, slice, atau lainnya.</p>
 <p>Pada contoh berikut, data slice struct dikonversi ke dalam bentuk json string. Hasil konversi adalah data bertipe <code>[]byte</code>, maka pastikan untuk meng-casting terlebih dahulu ke tipe <code>string</code> agar bisa ditampilkan bentuk json string-nya.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">var</span> object = []User{{<span class="hljs-string">&quot;john wick&quot;</span>, <span class="hljs-number">27</span>}, {<span class="hljs-string">&quot;ethan hunt&quot;</span>, <span class="hljs-number">32</span>}}
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> object = []User{{FullName: <span class="hljs-string">&quot;john wick&quot;</span>, Age: <span class="hljs-number">27</span>}, {FullName: <span class="hljs-string">&quot;ethan hunt&quot;</span>, Age: <span class="hljs-number">32</span>}}
 <span class="hljs-keyword">var</span> jsonData, err = json.Marshal(object)
 <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
     fmt.Println(err.Error())
@@ -2160,6 +2160,41 @@ fmt.Println(jsonString)
 </code></pre>
 <p>Output program:</p>
 <p><img src="images/A_json_2_encode.png" alt="Dasar Pemrograman Golang - Encode data ke JSON"></p>
+<h2 id="a535-tag-omitzero-go-124">A.53.5. Tag omitzero (Go 1.24+)</h2>
+<p>Sejak Go 1.24, tersedia opsi tag baru bernama <code>omitzero</code> untuk field struct. Opsi ini digunakan saat marshaling: field yang nilainya adalah <em>zero value</em> akan dihilangkan dari output JSON.</p>
+<p>Perbedaan utama antara <code>omitzero</code> dan <code>omitempty</code>:</p>
+<ul>
+<li><code>omitempty</code>: menghilangkan field yang nilainya kosong (nil, 0, <code>&quot;&quot;</code>, false, slice/map kosong).</li>
+<li><code>omitzero</code>: menghilangkan field yang bernilai zero value sesuai tipenya. Jika tipe tersebut memiliki method <code>IsZero() bool</code>, method itu yang digunakan sebagai penentu.</li>
+</ul>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;encoding/json&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> Event <span class="hljs-keyword">struct</span> {
+    Name      <span class="hljs-keyword">string</span>    <span class="hljs-string">`json:&quot;name&quot;`</span>
+    StartDate time.Time <span class="hljs-string">`json:&quot;start_date,omitzero&quot;`</span>
+    Score     <span class="hljs-keyword">int</span>       <span class="hljs-string">`json:&quot;score,omitzero&quot;`</span>
+}
+
+<span class="hljs-keyword">func</span> main() {
+    event := Event{Name: <span class="hljs-string">&quot;Go Conference&quot;</span>}
+
+    jsonData, err := json.Marshal(event)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+
+    fmt.Println(<span class="hljs-keyword">string</span>(jsonData))
+    <span class="hljs-comment">// {&quot;name&quot;:&quot;Go Conference&quot;}</span>
+}
+</code></pre>
+<p>Pada contoh di atas, field <code>StartDate</code> dan <code>Score</code> tidak muncul di output JSON karena keduanya bernilai zero value (<code>time.Time{}</code> dan <code>0</code>). Jika menggunakan <code>omitempty</code>, <code>StartDate</code> tetap akan muncul karena <code>time.Time{}</code> tidak dianggap &quot;empty&quot; oleh <code>omitempty</code>. Ini menjadi salah satu alasan utama kenapa <code>omitzero</code> dihadirkan.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2195,7 +2230,7 @@ fmt.Println(jsonString)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.53. JSON Data","level":"3.1.53","depth":2,"next":{"title":"A.54. Web Service API Server","level":"3.1.54","depth":2,"path":"A-web-service-api.md","ref":"A-web-service-api.md","articles":[]},"previous":{"title":"A.52. URL Parsing","level":"3.1.52","depth":2,"path":"A-url-parsing.md","ref":"A-url-parsing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-json.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.53. JSON Data","level":"3.1.53","depth":2,"next":{"title":"A.54. Web Service API Server","level":"3.1.54","depth":2,"path":"A-web-service-api.md","ref":"A-web-service-api.md","articles":[]},"previous":{"title":"A.52. URL Parsing","level":"3.1.52","depth":2,"path":"A-url-parsing.md","ref":"A-url-parsing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-json.md","mtime":"2026-06-11T16:39:17.248Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2217,7 +2252,7 @@ fmt.Println(jsonString)
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2080,7 +2080,7 @@
 <li>Variabel biasa bisa diambil nilai pointernya, caranya dengan menambahkan tanda <strong>ampersand</strong> (<code>&amp;</code>) tepat sebelum nama variabel. Metode ini disebut dengan <strong>referencing</strong>.</li>
 <li>Dan sebaliknya, nilai asli variabel pointer juga bisa diambil, dengan cara menambahkan tanda <strong>asterisk</strong> (<code>*</code>) tepat sebelum nama variabel. Metode ini disebut dengan <strong>dereferencing</strong>.</li>
 </ul>
-<p>OK, langsung saja kita praktekan.</p>
+<p>OK, langsung saja kita praktikkan.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> numberA <span class="hljs-keyword">int</span> = <span class="hljs-number">4</span>
 <span class="hljs-keyword">var</span> numberB *<span class="hljs-keyword">int</span> = &amp;numberA
 
@@ -2095,7 +2095,7 @@ fmt.Println(<span class="hljs-string">&quot;numberB (address) :&quot;</span>, nu
 <p>Variabel pointer jika di-print akan menghasilkan string alamat memori (dalam notasi heksadesimal), contohnya seperti <code>numberB</code> yang diprint menghasilkan <code>0xc20800a220</code>.</p>
 <p>Nilai asli sebuah variabel pointer bisa didapatkan dengan cara di-dereference terlebih dahulu (bisa dilihat pada kode <code>*numberB</code>).</p>
 <h2 id="a232-efek-perubahan-nilai-pointer">A.23.2. Efek Perubahan Nilai Pointer</h2>
-<p>Ketika salah satu variabel pointer di ubah nilainya, sedang ada variabel lain yang memiliki referensi memori yang sama, maka nilai variabel lain tersebut juga akan berubah.</p>
+<p>Ketika salah satu variabel pointer diubah nilainya, sedang ada variabel lain yang memiliki referensi memori yang sama, maka nilai variabel lain tersebut juga akan berubah.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> numberA <span class="hljs-keyword">int</span> = <span class="hljs-number">4</span>
 <span class="hljs-keyword">var</span> numberB *<span class="hljs-keyword">int</span> = &amp;numberA
 
@@ -2113,7 +2113,7 @@ fmt.Println(<span class="hljs-string">&quot;numberA (address) :&quot;</span>, &a
 fmt.Println(<span class="hljs-string">&quot;numberB (value)   :&quot;</span>, *numberB)
 fmt.Println(<span class="hljs-string">&quot;numberB (address) :&quot;</span>, numberB)
 </code></pre>
-<p>Variabel <code>numberA</code> dan <code>numberB</code> memiliki referensi memori yang sama. Perubahan pada salah satu nilai variabel tersebut akan memberikan efek pada variabel lainnya. Pada contoh di atas, <code>numberA</code> nilainya di ubah menjadi <code>5</code>. membuat nilai asli variabel <code>numberB</code> ikut berubah menjadi <code>5</code>.</p>
+<p>Variabel <code>numberA</code> dan <code>numberB</code> memiliki referensi memori yang sama. Perubahan pada salah satu nilai variabel tersebut akan memberikan efek pada variabel lainnya. Pada contoh di atas, <code>numberA</code> nilainya diubah menjadi <code>5</code>, membuat nilai asli variabel <code>numberB</code> ikut berubah menjadi <code>5</code>.</p>
 <p><img src="images/A_pointer_2_pointer_change.png" alt="Dasar Pemrograman Golang - Variabel pointer diubah nilainya"></p>
 <h2 id="a233-parameter-pointer">A.23.3. Parameter Pointer</h2>
 <p>Parameter bisa juga dirancang sebagai pointer. Cara penerapannya kurang lebih sama, dengan cara mendeklarasikan parameter sebagai pointer.</p>
@@ -2172,7 +2172,7 @@ fmt.Println(<span class="hljs-string">&quot;numberB (address) :&quot;</span>, nu
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.23. Pointer","level":"3.1.23","depth":2,"next":{"title":"A.24. Struct","level":"3.1.24","depth":2,"path":"A-struct.md","ref":"A-struct.md","articles":[]},"previous":{"title":"A.22. Fungsi Sebagai Parameter","level":"3.1.22","depth":2,"path":"A-fungsi-sebagai-parameter.md","ref":"A-fungsi-sebagai-parameter.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-pointer.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.23. Pointer","level":"3.1.23","depth":2,"next":{"title":"A.24. Struct","level":"3.1.24","depth":2,"path":"A-struct.md","ref":"A-struct.md","articles":[]},"previous":{"title":"A.22. Fungsi Sebagai Parameter","level":"3.1.22","depth":2,"path":"A-fungsi-sebagai-parameter.md","ref":"A-fungsi-sebagai-parameter.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-pointer.md","mtime":"2026-06-11T16:39:17.249Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2194,7 +2194,7 @@ fmt.Println(<span class="hljs-string">&quot;numberB (address) :&quot;</span>, nu
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

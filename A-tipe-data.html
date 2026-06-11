@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2103,7 +2103,7 @@
 </tr>
 <tr>
 <td style="text-align:center"><code>uint</code></td>
-<td style="text-align:left">sama dengan <code>uint32</code> atau <code>uint64</code> (tergantung nilai)</td>
+<td style="text-align:left">sama dengan <code>uint32</code> atau <code>uint64</code> (tergantung arsitektur CPU)</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>byte</code></td>
@@ -2127,7 +2127,7 @@
 </tr>
 <tr>
 <td style="text-align:center"><code>int</code></td>
-<td style="text-align:left">sama dengan <code>int32</code> atau <code>int64</code> (tergantung nilai)</td>
+<td style="text-align:left">sama dengan <code>int32</code> atau <code>int64</code> (tergantung arsitektur CPU)</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>rune</code></td>
@@ -2142,7 +2142,7 @@
 fmt.Printf(<span class="hljs-string">&quot;bilangan positif: %d\n&quot;</span>, positiveNumber)
 fmt.Printf(<span class="hljs-string">&quot;bilangan negatif: %d\n&quot;</span>, negativeNumber)
 </code></pre>
-<p>Variabel <code>positiveNumber</code> bertipe <code>uint8</code> dengan nilai awal <code>89</code>. Sedangkan variabel <code>negativeNumber</code> dideklarasikan dengan nilai awal <code>-1243423644</code>. Compiler secara cerdas akan menentukan tipe data variabel tersebut sebagai <code>int32</code> (karena angka tersebut masuk ke cakupan tipe data <code>int32</code>).</p>
+<p>Variabel <code>positiveNumber</code> bertipe <code>uint8</code> dengan nilai awal <code>89</code>. Sedangkan variabel <code>negativeNumber</code> dideklarasikan dengan nilai awal <code>-1243423644</code>. Karena tipe data tidak ditentukan secara eksplisit, compiler akan menggunakan tipe default untuk konstanta bilangan bulat, yaitu <code>int</code>.</p>
 <p>String format <code>%d</code> pada <code>fmt.Printf()</code> digunakan untuk memformat data numerik non-desimal.</p>
 <h2 id="a102-tipe-data-numerik-desimal">A.10.2. Tipe Data Numerik Desimal</h2>
 <p>Tipe data numerik desimal yang perlu diketahui ada 2, <code>float32</code> dan <code>float64</code>. Perbedaan kedua tipe data tersebut berada di lebar cakupan nilai desimal yang bisa ditampung. Untuk lebih jelasnya bisa merujuk ke spesifikasi <a href="http://www.h-schmidt.net/FloatConverter/IEEE754.html" target="_blank">IEEE-754 32-bit floating-point numbers</a>.</p>
@@ -2151,7 +2151,7 @@ fmt.Printf(<span class="hljs-string">&quot;bilangan negatif: %d\n&quot;</span>, 
 fmt.Printf(<span class="hljs-string">&quot;bilangan desimal: %f\n&quot;</span>, decimalNumber)
 fmt.Printf(<span class="hljs-string">&quot;bilangan desimal: %.3f\n&quot;</span>, decimalNumber)
 </code></pre>
-<p>Pada kode di atas, variabel <code>decimalNumber</code> akan memiliki tipe data <code>float32</code>, karena nilainya berada di cakupan tipe data tersebut.</p>
+<p>Pada kode di atas, variabel <code>decimalNumber</code> akan memiliki tipe data <code>float64</code>, karena tipe default untuk konstanta bilangan desimal di Go adalah <code>float64</code>.</p>
 <p><img src="images/A_tipe_data_1_decimal_data_type.png" alt="Dasar Pemrograman Golang - Tipe data numerik desimal"></p>
 <p>String format <code>%f</code> digunakan untuk memformat data numerik desimal menjadi string. Digit desimal yang akan dihasilkan adalah <strong>6 digit</strong>. Pada contoh di atas, hasil format variabel <code>decimalNumber</code> adalah <code>2.620000</code>. Jumlah digit yang muncul bisa dikontrol menggunakan <code>%.nf</code>, tinggal ganti <code>n</code> dengan angka yang diinginkan. Contoh: <code>%.3f</code> maka akan menghasilkan 3 digit desimal, <code>%.10f</code> maka akan menghasilkan 10 digit desimal.</p>
 <h2 id="a103-tipe-data-bool-boolean">A.10.3. Tipe Data <code>bool</code> (Boolean)</h2>
@@ -2229,7 +2229,7 @@ fmt.Println(message)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.10. Tipe Data","level":"3.1.10","depth":2,"next":{"title":"A.11. Konstanta","level":"3.1.11","depth":2,"path":"A-konstanta.md","ref":"A-konstanta.md","articles":[]},"previous":{"title":"A.9. Variabel","level":"3.1.9","depth":2,"path":"A-variabel.md","ref":"A-variabel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-tipe-data.md","mtime":"2026-06-04T09:09:03.643Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.10. Tipe Data","level":"3.1.10","depth":2,"next":{"title":"A.11. Konstanta","level":"3.1.11","depth":2,"path":"A-konstanta.md","ref":"A-konstanta.md","articles":[]},"previous":{"title":"A.9. Variabel","level":"3.1.9","depth":2,"path":"A-variabel.md","ref":"A-variabel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-tipe-data.md","mtime":"2026-06-11T16:39:17.250Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2251,7 +2251,7 @@ fmt.Println(message)
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

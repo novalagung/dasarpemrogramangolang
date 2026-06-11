@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2067,7 +2067,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a13-seleksi-kondisi">A.13. Seleksi Kondisi</h1>
-<p>Seleksi kondisi digunakan untuk mengontrol alur eksekusi flow program. Analoginya mirip seperti fungsi rambu lalu lintas di jalan raya. Kapan kendaraan diperbolehkan melaju dan kapan harus berhenti diatur oleh rambu tersebut. Seleksi kondisi pada program juga kurang lebih sama, kapan sebuah blok kode dieksekusi dikontrol.</p>
+<p>Seleksi kondisi digunakan untuk mengontrol alur eksekusi program. Analoginya mirip seperti rambu lalu lintas di jalan raya. Kapan kendaraan diperbolehkan melaju dan kapan harus berhenti diatur oleh rambu tersebut. Seleksi kondisi pada program juga kurang lebih sama, kapan sebuah blok kode dieksekusi diatur oleh kondisi.</p>
 <p>Yang dijadikan acuan oleh seleksi kondisi adalah nilai bertipe <code>bool</code>, bisa berasal dari variabel, ataupun hasil operasi perbandingan. Nilai tersebut menentukan blok kode mana yang akan dieksekusi.</p>
 <p>Go memiliki 2 macam keyword untuk seleksi kondisi, yaitu <strong>if else</strong> dan <strong>switch</strong>. Pada chapter ini kita akan mempelajari keduanya.</p>
 <blockquote>
@@ -2089,7 +2089,7 @@
 </code></pre>
 <p>Dari ke-empat kondisi di atas, yang terpenuhi adalah <code>if point &gt; 5</code>, karena nilai variabel <code>point</code> memang lebih besar dari <code>5</code>. Maka blok kode tepat di bawah kondisi tersebut akan dieksekusi (blok kode ditandai kurung kurawal buka dan tutup), hasilnya text <code>&quot;lulus&quot;</code> muncul sebagai output.</p>
 <p><img src="images/A_seleksi_kondisi_1_if_else.png" alt="Dasar Pemrograman Golang - Seleksi kondisi `if` - `else`"></p>
-<p>Penulisan if else Go diawali dengan keyword <code>if</code> kemudian diikuti nilai seleksi kondisi dan blok kode ketika kondisi terpenuhi. Ketika kondisinya tidak terpenuhi akan blok kode <code>else</code> dipanggil (jika blok kode <code>else</code> tersebut ada). Ketika ada banyak kondisi, gunakan <code>else if</code>.</p>
+<p>Penulisan if-else di Go diawali dengan keyword <code>if</code> kemudian diikuti ekspresi kondisi dan blok kode yang dieksekusi ketika kondisi terpenuhi. Ketika kondisinya tidak terpenuhi, maka blok kode <code>else</code> yang dipanggil (jika blok <code>else</code> tersebut ada). Untuk menangani banyak kondisi, gunakan <code>else if</code>.</p>
 <h2 id="a132-variabel-temporary-pada-if---else">A.13.2. Variabel Temporary Pada <code>if</code> - <code>else</code></h2>
 <p>Variabel temporary adalah variabel yang hanya bisa digunakan pada deretan blok seleksi kondisi di mana ia ditempatkan. Penggunaan variabel ini membawa beberapa manfaat, antara lain:</p>
 <ul>
@@ -2256,7 +2256,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"next":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"path":"A-perulangan.md","ref":"A-perulangan.md","articles":[]},"previous":{"title":"A.12. Operator","level":"3.1.12","depth":2,"path":"A-operator.md","ref":"A-operator.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-seleksi-kondisi.md","mtime":"2026-06-04T09:09:03.642Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.13. Seleksi Kondisi","level":"3.1.13","depth":2,"next":{"title":"A.14. Perulangan","level":"3.1.14","depth":2,"path":"A-perulangan.md","ref":"A-perulangan.md","articles":[]},"previous":{"title":"A.12. Operator","level":"3.1.12","depth":2,"path":"A-operator.md","ref":"A-operator.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-seleksi-kondisi.md","mtime":"2026-06-11T16:39:17.249Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2278,7 +2278,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

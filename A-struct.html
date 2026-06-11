@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2113,7 +2113,7 @@ fmt.Println(<span class="hljs-string">&quot;student 2 :&quot;</span>, s2.name)
 fmt.Println(<span class="hljs-string">&quot;student 3 :&quot;</span>, s3.name)
 </code></pre>
 <p>Pada kode di atas, variabel <code>s1</code> menampung objek cetakan <code>student</code>. Variabel tersebut kemudian di-set nilai property-nya.</p>
-<p>Variabel objek <code>s2</code> dideklarasikan dengan metode yang sama dengan <code>s1</code>, pembedanya di <code>s2</code> nilai propertinya di isi langsung ketika deklarasi. Nilai pertama akan menjadi nilai property pertama (yaitu <code>name</code>), dan selanjutnya berurutan.</p>
+<p>Variabel objek <code>s2</code> dideklarasikan dengan metode yang sama dengan <code>s1</code>, pembedanya di <code>s2</code> nilai propertinya diisi langsung ketika deklarasi. Nilai pertama akan menjadi nilai property pertama (yaitu <code>name</code>), dan selanjutnya berurutan.</p>
 <p>Pada deklarasi <code>s3</code>, dilakukan juga pengisian property ketika pencetakan objek. Hanya saja, yang diisi hanya <code>name</code> saja. Cara ini cukup efektif jika digunakan untuk membuat objek baru yang nilai property-nya tidak semua harus disiapkan di awal. Keistimewaan lain menggunakan cara ini adalah penentuan nilai property bisa dilakukan dengan tidak berurutan. Contohnya:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> s4 = student{name: <span class="hljs-string">&quot;wayne&quot;</span>, grade: <span class="hljs-number">2</span>}
 <span class="hljs-keyword">var</span> s5 = student{grade: <span class="hljs-number">2</span>, name: <span class="hljs-string">&quot;bruce&quot;</span>}
@@ -2124,11 +2124,11 @@ fmt.Println(<span class="hljs-string">&quot;student 3 :&quot;</span>, s3.name)
 
 <span class="hljs-keyword">var</span> s2 *student = &amp;s1
 fmt.Println(<span class="hljs-string">&quot;student 1, name :&quot;</span>, s1.name)
-fmt.Println(<span class="hljs-string">&quot;student 4, name :&quot;</span>, s2.name)
+fmt.Println(<span class="hljs-string">&quot;student 2, name :&quot;</span>, s2.name)
 
 s2.name = <span class="hljs-string">&quot;ethan&quot;</span>
 fmt.Println(<span class="hljs-string">&quot;student 1, name :&quot;</span>, s1.name)
-fmt.Println(<span class="hljs-string">&quot;student 4, name :&quot;</span>, s2.name)
+fmt.Println(<span class="hljs-string">&quot;student 2, name :&quot;</span>, s2.name)
 </code></pre>
 <p><code>s2</code> adalah variabel pointer hasil cetakan struct <code>student</code>. <code>s2</code> menampung nilai referensi <code>s1</code>, menjadikan setiap perubahan pada property variabel tersebut, akan juga berpengaruh pada variabel objek <code>s1</code>.</p>
 <p>Meskipun <code>s2</code> bukan variabel asli, property nya tetap bisa diakses seperti biasa. Inilah keistimewaan property dalam objek pointer, tanpa perlu di-dereferensi nilai asli property tetap bisa diakses. Pengisian nilai pada property tersebut juga bisa langsung menggunakan nilai asli, contohnya seperti <code>s2.name = &quot;ethan&quot;</code>.</p>
@@ -2157,7 +2157,7 @@ fmt.Println(<span class="hljs-string">&quot;student 4, name :&quot;</span>, s2.n
 
     fmt.Println(<span class="hljs-string">&quot;name  :&quot;</span>, s1.name)
     fmt.Println(<span class="hljs-string">&quot;age   :&quot;</span>, s1.age)
-    fmt.Println(<span class="hljs-string">&quot;age   :&quot;</span>, s1.person.age)
+    fmt.Println(<span class="hljs-string">&quot;person age:&quot;</span>, s1.person.age)
     fmt.Println(<span class="hljs-string">&quot;grade :&quot;</span>, s1.grade)
 }
 </code></pre>
@@ -2245,7 +2245,7 @@ fmt.Println(<span class="hljs-string">&quot;grade :&quot;</span>, s1.grade)
 }
 </code></pre>
 <h2 id="a249-kombinasi-slice--struct">A.24.9. Kombinasi Slice &amp; Struct</h2>
-<p>Slice dan <code>struct</code> bisa dikombinasikan seperti pada slice dan <code>map</code>, caranya penggunaannya-pun mirip, cukup tambahkan tanda <code>[]</code> sebelum tipe data pada saat deklarasi.</p>
+<p>Slice dan <code>struct</code> bisa dikombinasikan seperti pada slice dan <code>map</code>, penggunaannya pun mirip, cukup tambahkan tanda <code>[]</code> sebelum tipe data pada saat deklarasi.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> person <span class="hljs-keyword">struct</span> {
     name <span class="hljs-keyword">string</span>
     age  <span class="hljs-keyword">int</span>
@@ -2316,7 +2316,7 @@ student.grade = <span class="hljs-number">2</span>
 <p>Deklarasi struct bisa dituliskan secara horizontal, caranya bisa dilihat pada kode berikut:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> person <span class="hljs-keyword">struct</span> { name <span class="hljs-keyword">string</span>; age <span class="hljs-keyword">int</span>; hobbies []<span class="hljs-keyword">string</span> }
 </code></pre>
-<p>Tanda semi-colon (<code>;</code>) digunakan sebagai pembatas deklarasi poperty yang dituliskan secara horizontal. Inisialisasi nilai juga bisa dituliskan dengan metode ini. Contohnya:</p>
+<p>Tanda semi-colon (<code>;</code>) digunakan sebagai pembatas deklarasi property yang dituliskan secara horizontal. Inisialisasi nilai juga bisa dituliskan dengan metode ini. Contohnya:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> p1 = <span class="hljs-keyword">struct</span> { name <span class="hljs-keyword">string</span>; age <span class="hljs-keyword">int</span> } { age: <span class="hljs-number">22</span>, name: <span class="hljs-string">&quot;wick&quot;</span> }
 <span class="hljs-keyword">var</span> p2 = <span class="hljs-keyword">struct</span> { name <span class="hljs-keyword">string</span>; age <span class="hljs-keyword">int</span> } { <span class="hljs-string">&quot;ethan&quot;</span>, <span class="hljs-number">23</span> }
 </code></pre>
@@ -2400,7 +2400,7 @@ fmt.Println(People(person))
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.24. Struct","level":"3.1.24","depth":2,"next":{"title":"A.25. Method","level":"3.1.25","depth":2,"path":"A-method.md","ref":"A-method.md","articles":[]},"previous":{"title":"A.23. Pointer","level":"3.1.23","depth":2,"path":"A-pointer.md","ref":"A-pointer.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-struct.md","mtime":"2026-06-04T09:09:03.642Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.24. Struct","level":"3.1.24","depth":2,"next":{"title":"A.25. Method","level":"3.1.25","depth":2,"path":"A-method.md","ref":"A-method.md","articles":[]},"previous":{"title":"A.23. Pointer","level":"3.1.23","depth":2,"path":"A-pointer.md","ref":"A-pointer.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-struct.md","mtime":"2026-06-11T16:39:17.250Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2422,7 +2422,7 @@ fmt.Println(People(person))
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

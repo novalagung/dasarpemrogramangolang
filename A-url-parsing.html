@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2075,7 +2075,7 @@
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/url&quot;</span>
 
 <span class="hljs-keyword">func</span> main() {
-    <span class="hljs-keyword">var</span> urlString = <span class="hljs-string">&quot;http://kalipare.com:80/hello?name=john wick&amp;age=27&quot;</span>
+    <span class="hljs-keyword">var</span> urlString = <span class="hljs-string">&quot;http://localhost:8080/hello?name=john wick&amp;age=27&quot;</span>
     <span class="hljs-keyword">var</span> u, e = url.Parse(urlString)
     <span class="hljs-keyword">if</span> e != <span class="hljs-literal">nil</span> {
         fmt.Println(e.Error())
@@ -2085,7 +2085,7 @@
     fmt.Printf(<span class="hljs-string">&quot;url: %s\n&quot;</span>, urlString)
 
     fmt.Printf(<span class="hljs-string">&quot;protocol: %s\n&quot;</span>, u.Scheme) <span class="hljs-comment">// http</span>
-    fmt.Printf(<span class="hljs-string">&quot;host: %s\n&quot;</span>, u.Host)       <span class="hljs-comment">// kalipare.com:80</span>
+    fmt.Printf(<span class="hljs-string">&quot;host: %s\n&quot;</span>, u.Host)       <span class="hljs-comment">// localhost:8080</span>
     fmt.Printf(<span class="hljs-string">&quot;path: %s\n&quot;</span>, u.Path)       <span class="hljs-comment">// /hello</span>
 
     <span class="hljs-keyword">var</span> name = u.Query()[<span class="hljs-string">&quot;name&quot;</span>][<span class="hljs-number">0</span>] <span class="hljs-comment">// john wick</span>
@@ -2093,9 +2093,36 @@
     fmt.Printf(<span class="hljs-string">&quot;name: %s, age: %s\n&quot;</span>, name, age)
 }
 </code></pre>
-<p>Fungsi <code>url.Parse()</code> digunakan untuk parsing string ke bentuk url. Fungsi ini mengembalikan 2 data, variabel objek bertipe <code>url.URL</code> dan error (jika ada). Lewat variabel objek tersebut pengaksesan informasi url akan menjadi lebih mudah, contohnya seperti nama host bisa didapatkan lewat <code>u.Host</code>, protokol lewat <code>u.Scheme</code>, dan lainnya.</p>
+<p>Fungsi <code>url.Parse()</code> digunakan untuk parsing string ke bentuk url. Fungsi ini mengembalikan 2 data, variabel objek bertipe <code>*url.URL</code> dan error (jika ada). Lewat variabel objek tersebut pengaksesan informasi url akan menjadi lebih mudah, contohnya seperti nama host bisa didapatkan lewat <code>u.Host</code>, protokol lewat <code>u.Scheme</code>, dan lainnya.</p>
 <p>Selain itu, query yang ada pada url akan otomatis diparsing juga, menjadi bentuk <code>map[string][]string</code>, dengan key adalah nama elemen query, dan value array string yang berisikan value elemen query.</p>
 <p><img src="images/A_url_parsing_1_parse_url.png" alt="Dasar Pemrograman Golang - Pengaksesan elemen URL"></p>
+<h2 id="a521-fungsi-urljoinpath-go-119">A.52.1. Fungsi url.JoinPath (Go 1.19+)</h2>
+<p>Sejak Go 1.19, tersedia fungsi <code>url.JoinPath()</code> dan method <code>(*url.URL).JoinPath()</code> untuk menggabungkan segmen path URL secara aman. Fungsi ini otomatis melakukan encoding karakter khusus pada setiap segmen path yang diberikan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;net/url&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    base := <span class="hljs-string">&quot;http://localhost:8080/api&quot;</span>
+
+    joined, err := url.JoinPath(base, <span class="hljs-string">&quot;v1&quot;</span>, <span class="hljs-string">&quot;users&quot;</span>, <span class="hljs-string">&quot;john wick&quot;</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err.Error())
+        <span class="hljs-keyword">return</span>
+    }
+    fmt.Println(joined)
+    <span class="hljs-comment">// http://localhost:8080/api/v1/users/john%20wick</span>
+
+    u, _ := url.Parse(base)
+    joined2, _ := u.JoinPath(<span class="hljs-string">&quot;v2&quot;</span>, <span class="hljs-string">&quot;items&quot;</span>)
+    fmt.Println(joined2)
+    <span class="hljs-comment">// http://localhost:8080/api/v2/items</span>
+}
+</code></pre>
+<p>Pada contoh di atas, spasi pada <code>&quot;john wick&quot;</code> otomatis di-encode menjadi <code>%20</code> pada URL hasil penggabungan. Pendekatan ini lebih aman dibanding penggabungan string manual karena encoding dilakukan secara otomatis per segmen.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2131,7 +2158,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.52. URL Parsing","level":"3.1.52","depth":2,"next":{"title":"A.53. JSON Data","level":"3.1.53","depth":2,"path":"A-json.md","ref":"A-json.md","articles":[]},"previous":{"title":"A.51. Web Server","level":"3.1.51","depth":2,"path":"A-web-server.md","ref":"A-web-server.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-url-parsing.md","mtime":"2026-06-04T09:09:03.643Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.52. URL Parsing","level":"3.1.52","depth":2,"next":{"title":"A.53. JSON Data","level":"3.1.53","depth":2,"path":"A-json.md","ref":"A-json.md","articles":[]},"previous":{"title":"A.51. Web Server","level":"3.1.51","depth":2,"path":"A-web-server.md","ref":"A-web-server.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-url-parsing.md","mtime":"2026-06-11T16:39:17.250Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2153,7 +2180,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

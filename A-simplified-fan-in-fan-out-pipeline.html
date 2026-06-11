@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2067,14 +2067,14 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="a63-concurrency-pattern-simplified-fan-out-fan-in-pipeline">A.63. Concurrency Pattern: Simplified Fan-out Fan-in Pipeline</h1>
-<p>Pada chapter sebelumnya, yaitu chapter <a href="A-concurrency-pipeline.html">A.62. Concurrency Pattern: Pipeline</a>, kita telah mempelajari tentang pipeline pattern, yang mana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-<em>handle</em> jenis kasus sekarangkain proses yang berjalan secara konkuren.</p>
+<p>Pada chapter sebelumnya, yaitu chapter <a href="A-concurrency-pipeline.html">A.62. Concurrency Pattern: Pipeline</a>, kita telah mempelajari tentang pipeline pattern, yang mana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-<em>handle</em> jenis kasus serangkaian proses yang berjalan secara konkuren.</p>
 <blockquote>
-<p>Penulis sangat anjurkan untuk mencoba mempelajari praktek chapter sebelumnya terlebih dahulu jika belum. Karena chapter kali ini ada hubungannya dengan chapter tersebut.</p>
+<p>Penulis sangat anjurkan untuk mencoba mempelajari praktik chapter sebelumnya terlebih dahulu jika belum. Karena chapter kali ini ada hubungannya dengan chapter tersebut.</p>
 </blockquote>
 <p>Pada chapter ini kita akan mempelajari concurrency pattern juga, lanjutan dari sebelumnya. Pada versi ini kalau dilihat dari perspektif coding penerapannya akan lebih ringkas. Tapi apakah lebih mudah dan lebih <em>performant</em> dibanding penerapan pipeline sebelumnya? Jawabannya sangat tergantung dengan kasus yang dihadapi, tergantung spesifikasi hardware-nya juga, dan mungkin juga tergantung dengan taste dari si engineer pembuat program.</p>
 <p>Kalau dilihat lebih dalam, perbedaannya sebenarnya hanya pada bagian Fan-out Fan-in nya saja. Di metode ini (hampir) semua pipeline isinya adalah gabungan dari Fan-out dan juga Fan-in. Jadi kita tidak perlu report <em>merge</em>. Selain itu, di sini kita bisa dengan mudah mengatur jumlah worker sesuai kebutuhan.</p>
-<p>Ok, agar lebih jelas mari kita mulai praktek.</p>
-<h2 id="a631-skenario-praktek">A.63.1. Skenario Praktek</h2>
+<p>Ok, agar lebih jelas mari kita mulai praktik.</p>
+<h2 id="a631-skenario-praktik">A.63.1. Skenario Praktik</h2>
 <p>Kita akan modifikasi file program <code>1-dummy-file-generator.go</code> yang pada chapter sebelumnya sudah dibuat (<a href="A-concurrency-pipeline.html">A.62. Concurrency Pattern: Pipeline</a>). Kita rubah mekanisme generate dummy files-nya dari sekuensial ke konkuren.</p>
 <h2 id="a632-program-generate-dummy-file-sequentially">A.63.2. Program Generate Dummy File <em>Sequentially</em></h2>
 <p>Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi sekuensialnya. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan cek saja di chapter sebelumnya saja, di sini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.</p>
@@ -2094,7 +2094,7 @@
 <span class="hljs-keyword">const</span> totalFile = <span class="hljs-number">3000</span>
 <span class="hljs-keyword">const</span> contentLength = <span class="hljs-number">5000</span>
 
-<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.60-worker-pool&quot;</span>)
+<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.63-simplified-fan-in-fan-out-pipeline&quot;</span>)
 </code></pre>
 <h4 id="&#x25C9;-fungsi-main">&#x25C9; Fungsi <code>main()</code></h4>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
@@ -2123,12 +2123,12 @@
 <h4 id="&#x25C9;-fungsi-generatefiles">&#x25C9; Fungsi <code>generateFiles()</code></h4>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFiles() {
     os.RemoveAll(tempPath)
-    os.MkdirAll(tempPath, os.ModePerm)
+    os.MkdirAll(tempPath, <span class="hljs-number">0755</span>)
 
     <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; totalFile; i++ {
         filename := filepath.Join(tempPath, fmt.Sprintf(<span class="hljs-string">&quot;file-%d.txt&quot;</span>, i))
         content := randomString(contentLength)
-        err := os.WriteFile(filename, []<span class="hljs-keyword">byte</span>(content), os.ModePerm)
+        err := os.WriteFile(filename, []<span class="hljs-keyword">byte</span>(content), <span class="hljs-number">0644</span>)
         <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
             log.Println(<span class="hljs-string">&quot;Error writing file&quot;</span>, filename)
         }
@@ -2161,7 +2161,7 @@
 <span class="hljs-keyword">const</span> totalFile = <span class="hljs-number">3000</span>
 <span class="hljs-keyword">const</span> contentLength = <span class="hljs-number">5000</span>
 
-<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.60-worker-pool&quot;</span>)
+<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.63-simplified-fan-in-fan-out-pipeline&quot;</span>)
 </code></pre>
 <h4 id="&#x25C9;-definisi-struct-fileinfo">&#x25C9; Definisi struct <code>FileInfo</code></h4>
 <p>Kita perlu siapkan struct baru bernama <code>FileInfo</code>, struct ini digunakan sebagai skema payload data ketika dikirimkan via channel dari goroutine jobs ke goroutine worker.</p>
@@ -2204,7 +2204,7 @@
 <h4 id="&#x25C9;-fungsi-generatefiles">&#x25C9; Fungsi <code>generateFiles()</code></h4>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFiles() {
     os.RemoveAll(tempPath)
-    os.MkdirAll(tempPath, os.ModePerm)
+    os.MkdirAll(tempPath, <span class="hljs-number">0755</span>)
 
     <span class="hljs-comment">// pipeline 1: job distribution</span>
     chanFileIndex := generateFileIndexes()
@@ -2235,7 +2235,7 @@
 <li>Terakhir, tracking channel dari Fan-in nilai balik fungsi pipeline ke-2.</li>
 </ul>
 <p>Fungsi <code>generateFileIndexes()</code> nantinya akan mengembalikan channel <code>chanFileIndex</code> yang fungsi dari channel ini adalah untuk media komunikasi antara proses dalam fungsi <code>generateFileIndexes()</code> (yaitu distribusi jobs) dengan proses dalam fungsi selanjutnya yaitu <code>createFiles()</code>.</p>
-<p>Fungsi <code>createFiles()</code> di sini merupakan fungsi <strong>Fan-out Fan-in</strong> karena menerima parameter channel pipeline sebelumnya, kemudian min-dispatch goroutine worker dan melacak output dari masing-masing worker ke channel output. Bisa dibilang fungsi <code>createFiles()</code> merupakan gabungan dari fungsi Fan-out dan Fan-in (proses merge channel output dari Fan-out juga ada di dalam fungsi tersebut).</p>
+<p>Fungsi <code>createFiles()</code> di sini merupakan fungsi <strong>Fan-out Fan-in</strong> karena menerima parameter channel pipeline sebelumnya, kemudian men-dispatch goroutine worker dan melacak output dari masing-masing worker ke channel output. Bisa dibilang fungsi <code>createFiles()</code> merupakan gabungan dari fungsi Fan-out dan Fan-in (proses merge channel output dari Fan-out juga ada di dalam fungsi tersebut).</p>
 <p>Fungsi <code>createFiles()</code> menghasilkan channel yang isinya merupakan result dari operasi tiap-tiap jobs. Dari data yang dilewatkan via channel tersebut akan ketahuan misal ada error atau tidak saat pembuatan files. Channel tersebut kemudian di-loop lalu ditampilkan tiap-tiap result-nya.</p>
 <h4 id="&#x25C9;-fungsi-generatefileindexes">&#x25C9; Fungsi <code>generateFileIndexes()</code></h4>
 <p>Fungsi ini merupakan fungsi Fan-out distribusi jobs. Di dalamnya dilakukan perulangan sejumlah <code>totalFile</code>, kemudian data tiap index digunakan untuk pembentukan filename lalu dikirim ke channel outputnya.</p>
@@ -2256,7 +2256,7 @@
 }
 </code></pre>
 <p>Setelah dipastikan semua job terkirim, kita close channel output <code>chanOut</code> tersebut.</p>
-<h4 id="&#x25C9;-fungsi-dispatchworkers">&#x25C9; Fungsi <code>dispatchWorkers()</code></h4>
+<h4 id="&#x25C9;-fungsi-createfiles">&#x25C9; Fungsi <code>createFiles()</code></h4>
 <p>Bagian ini merupakan yang paling butuh <em>effort</em> untuk dipahami. Jadi fungsi <code>createFiles()</code> seperti yang sudah saja jelaskan secara singkat di atas, fungsi ini merupakan fungsi gabungan Fan-out (menerima channel output dari pipeline sebelumnya) dan juga Fan-in (menjalankan beberapa worker untuk memproses channel output dari pipeline sebelumnya, lalu output masing-masing worker yang juga merupakan channel - langsung di merge jadi satu channel saja).</p>
 <p>Mungkin lebih enak silakan tulis dulu fungsinya, kemudian kita bahas satu per satu.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> createFiles(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo, numberOfWorkers <span class="hljs-keyword">int</span>) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
@@ -2280,7 +2280,7 @@
                     <span class="hljs-comment">// do the jobs</span>
                     filePath := filepath.Join(tempPath, job.FileName)
                     content := randomString(contentLength)
-                    err := os.WriteFile(filePath, []<span class="hljs-keyword">byte</span>(content), os.ModePerm)
+                    err := os.WriteFile(filePath, []<span class="hljs-keyword">byte</span>(content), <span class="hljs-number">0644</span>)
 
                     log.Println(<span class="hljs-string">&quot;worker&quot;</span>, workerIndex, <span class="hljs-string">&quot;working on&quot;</span>, job.FileName, <span class="hljs-string">&quot;file generation&quot;</span>)
 
@@ -2319,7 +2319,7 @@
 <li>Jika perulangan terhadap <code>chanIn</code> sudah selesai (ditandai dengan channel-nya closed), maka kita tandai juga worker sebagai complete via statement <code>wg.Done()</code></li>
 <li>Dispatch goroutine baru lagi untuk menunggu semua worker selesai. Jika iya, maka kita close channel <code>chanOut</code>.</li>
 </ol>
-<p>Semoga cukup jelas ya. Kelebihan metode ini ini salah satunya adalah kita bisa dengan mudah menentukan jumlah workernya.</p>
+<p>Semoga cukup jelas ya. Kelebihan metode ini salah satunya adalah kita bisa dengan mudah menentukan jumlah workernya.</p>
 <blockquote>
 <p>Untuk pembaca yang bingung, mungkin fungsi ini bisa dipecah menjadi satu fungsi Fan-out dan satu fungsi Fan-in seperti chapter sebelumnya.</p>
 </blockquote>
@@ -2370,7 +2370,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"next":{"title":"A.64. Concurrency Pattern: Context Cancellation Pipeline","level":"3.1.64","depth":2,"path":"A-pipeline-context-cancellation.md","ref":"A-pipeline-context-cancellation.md","articles":[]},"previous":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"path":"A-concurrency-pipeline.md","ref":"A-concurrency-pipeline.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-simplified-fan-in-fan-out-pipeline.md","mtime":"2026-06-04T09:09:03.642Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.63","depth":2,"next":{"title":"A.64. Concurrency Pattern: Context Cancellation Pipeline","level":"3.1.64","depth":2,"path":"A-pipeline-context-cancellation.md","ref":"A-pipeline-context-cancellation.md","articles":[]},"previous":{"title":"A.62. Concurrency Pattern: Pipeline","level":"3.1.62","depth":2,"path":"A-concurrency-pipeline.md","ref":"A-concurrency-pipeline.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-simplified-fan-in-fan-out-pipeline.md","mtime":"2026-06-11T16:39:17.249Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2392,7 +2392,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2078,7 +2078,7 @@
 <li>Menjadikan informasi waktu sekarang sebagai objek <code>time.Time</code>, menggunakan <code>time.Now()</code>.</li>
 <li>Atau, membuat objek baru bertipe <code>time.Time</code> dengan informasi ditentukan sendiri, menggunakan <code>time.Date()</code>.</li>
 </ol>
-<p>Berikut merupakan contoh penggunannya.</p>
+<p>Berikut merupakan contoh penggunaannya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -2130,12 +2130,12 @@ fmt.Println(<span class="hljs-string">&quot;year:&quot;</span>, now.Year(), <spa
 </tr>
 <tr>
 <td style="text-align:left"><code>now.Month()</code></td>
-<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"><code>time.Month</code></td>
 <td style="text-align:left">Bulan</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>now.Weekday()</code></td>
-<td style="text-align:left"><code>string</code></td>
+<td style="text-align:left"><code>time.Weekday</code></td>
 <td style="text-align:left">Nama hari. Bisa menggunakan <code>now.Weekday().String()</code> untuk mengambil bentuk string-nya</td>
 </tr>
 <tr>
@@ -2201,7 +2201,7 @@ fmt.Println(<span class="hljs-string">&quot;year:&quot;</span>, now.Year(), <spa
 <tr>
 <td style="text-align:left"><code>now.UnixNano()</code></td>
 <td style="text-align:left"><code>int64</code></td>
-<td style="text-align:left">Date-time dalam format <em>unix time</em>. Infomasi nano detik juga dimasukkan</td>
+<td style="text-align:left">Date-time dalam format <em>unix time</em>. Informasi nano detik juga dimasukkan</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>now.String()</code></td>
@@ -2462,6 +2462,52 @@ fmt.Println(date)
 </code></pre>
 <p>Kode di atas menghasilkan error karena format tidak sesuai dengan skema data yang akan diparsing. Layout format yang seharusnya digunakan adalah <code>06 Jan 15 03:04 MST</code>.</p>
 <p><img src="images/A_time_parsing_format_4_error_parse.png" alt="Dasar Pemrograman Golang - Error parsing time.Time"></p>
+<h2 id="a407-predefined-layout-format-tambahan-go-120">A.40.7. Predefined Layout Format Tambahan (Go 1.20+)</h2>
+<p>Sejak Go 1.20, tersedia tiga predefined layout format baru yang cukup sering digunakan:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Predefined Layout Format</th>
+<th style="text-align:left">Layout Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>time.DateTime</code></td>
+<td style="text-align:left">2006-01-02 15:04:05</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.DateOnly</code></td>
+<td style="text-align:left">2006-01-02</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time.TimeOnly</code></td>
+<td style="text-align:left">15:04:05</td>
+</tr>
+</tbody>
+</table>
+<p>Contoh penggunaannya:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    now := time.Now()
+
+    fmt.Println(now.Format(time.DateTime))
+    <span class="hljs-comment">// contoh: 2026-06-11 14:30:00</span>
+
+    fmt.Println(now.Format(time.DateOnly))
+    <span class="hljs-comment">// contoh: 2026-06-11</span>
+
+    fmt.Println(now.Format(time.TimeOnly))
+    <span class="hljs-comment">// contoh: 14:30:00</span>
+}
+</code></pre>
+<p><code>time.DateTime</code> ekuivalen dengan layout <code>&quot;2006-01-02 15:04:05&quot;</code>, yang merupakan format paling umum digunakan. <code>time.DateOnly</code> dan <code>time.TimeOnly</code> berguna ketika hanya perlu bagian tanggal atau waktu saja.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2497,7 +2543,7 @@ fmt.Println(date)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"next":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"path":"A-timer-ticker-scheduler.md","ref":"A-timer-ticker-scheduler.md","articles":[]},"previous":{"title":"A.39. Random","level":"3.1.39","depth":2,"path":"A-random.md","ref":"A-random.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-time-parsing-format.md","mtime":"2026-06-04T09:09:03.642Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"next":{"title":"A.41. Timer, Ticker, & Scheduler","level":"3.1.41","depth":2,"path":"A-timer-ticker-scheduler.md","ref":"A-timer-ticker-scheduler.md","articles":[]},"previous":{"title":"A.39. Random","level":"3.1.39","depth":2,"path":"A-random.md","ref":"A-random.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-time-parsing-format.md","mtime":"2026-06-11T16:39:17.250Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2519,7 +2565,7 @@ fmt.Println(date)
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

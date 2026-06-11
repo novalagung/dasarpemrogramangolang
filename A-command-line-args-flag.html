@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2083,7 +2083,7 @@
 
     <span class="hljs-keyword">var</span> args = argsRaw[<span class="hljs-number">1</span>:]
     fmt.Printf(<span class="hljs-string">&quot;-&gt; %#v\n&quot;</span>, args)
-    <span class="hljs-comment">// -&gt; []string{&quot;banana&quot;, &quot;potatao&quot;, &quot;ice cream&quot;}</span>
+    <span class="hljs-comment">// -&gt; []string{&quot;banana&quot;, &quot;potato&quot;, &quot;ice cream&quot;}</span>
 }
 </code></pre>
 <p>Argument disisipkan saat eksekusi program. Sebagai contoh, kita ingin menyisipkan 3 buah argumen berikut: <code>banana</code>, <code>potato</code>, dan <code>ice cream</code>. Maka penulisan saat pemanggilan program-nya seperti ini:</p>
@@ -2099,7 +2099,7 @@
 <p>Output program:</p>
 <p><img src="images/A_cli_flag_arg_1_argument.png" alt="Dasar Pemrograman Golang - Pemanfaatan arguments"></p>
 <p>Bisa dilihat pada kode di atas, bahwa untuk data argumen yang ada karakter spasi-nya (<code> </code>) harus dituliskan dengan diapit tanda petik (<code>&quot;</code>) agar tidak dideteksi sebagai 2 argumen.</p>
-<p>Variabel <code>os.Args</code> mengembalikan tak hanya arguments saja, tapi juga path file executable (jika eksekusi-nya menggunakan <code>go run</code> maka path akan merujuk ke folder temporary). Maka disini penting untuk hanya mengambil element index ke 1 hingga seterusnya saja via statement <code>os.Args[1:]</code>.</p>
+<p>Variabel <code>os.Args</code> berisi tak hanya arguments saja, tapi juga path file executable pada index ke-0 (jika eksekusi-nya menggunakan <code>go run</code> maka path akan merujuk ke folder temporary). Maka di sini penting untuk hanya mengambil elemen index ke-1 dan seterusnya saja via statement <code>os.Args[1:]</code>.</p>
 <h2 id="a482-penggunaan-flag">A.48.2. Penggunaan Flag</h2>
 <p>Flag memiliki kegunaan yang sama seperti arguments, yaitu untuk <em>parameterize</em> eksekusi program, dengan penulisan dalam bentuk key-value. Berikut merupakan contoh penerapannya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2125,7 +2125,7 @@ fmt.Println(*dataName)
 <p>Kode tersebut maksudnya adalah, disiapkan flag bertipe <code>string</code>, dengan key adalah <code>name</code>, dengan nilai default <code>&quot;anonymous&quot;</code>, dan keterangan <code>&quot;type your name&quot;</code>. Nilai flag nya sendiri akan disimpan ke dalam variabel <code>dataName</code>.</p>
 <p>Nilai balik fungsi <code>flag.String()</code> adalah string pointer, jadi perlu di-<em>dereference</em> terlebih dahulu untuk mengakses nilai aslinya (<code>*dataName</code>).</p>
 <p><img src="images/A_cli_flag_arg_2_flag.png" alt="Dasar Pemrograman Golang - Contoh penggunaan flag"></p>
-<p>Flag yang nilainya tidak di set, secara otomatis akan mengembalikan nilai default.</p>
+<p>Flag yang nilainya tidak diset, secara otomatis akan mengembalikan nilai default.</p>
 <p>Tabel berikut merupakan macam-macam fungsi flag yang tersedia untuk tiap jenis tipe data.</p>
 <table>
 <thead>
@@ -2171,7 +2171,7 @@ fmt.Println(*dataName)
 </table>
 <h2 id="a483-deklarasi-flag-dengan-cara-passing-reference-variabel-penampung-data">A.48.3. Deklarasi Flag Dengan Cara Passing Reference Variabel Penampung Data</h2>
 <p>Sebenarnya ada 2 cara deklarasi flag yang bisa digunakan, dan cara di atas merupakan cara pertama.</p>
-<p>Cara kedua mirip dengan cara pertama, perbedannya adalah kalau di cara pertama nilai pointer flag dikembalikan lalu ditampung variabel. Sedangkan pada cara kedua, nilainya diambil lewat parameter pointer.</p>
+<p>Cara kedua mirip dengan cara pertama, perbedaannya: pada cara pertama nilai pointer flag dikembalikan lalu ditampung variabel, sedangkan pada cara kedua nilainya di-set lewat parameter pointer.</p>
 <p>Agar lebih jelas perhatikan contoh berikut:</p>
 <pre><code class="lang-go"><span class="hljs-comment">// cara ke-1</span>
 <span class="hljs-keyword">var</span> data1 = flag.String(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;anonymous&quot;</span>, <span class="hljs-string">&quot;type your name&quot;</span>)
@@ -2180,11 +2180,35 @@ fmt.Println(*data1)
 <span class="hljs-comment">// cara ke-2</span>
 <span class="hljs-keyword">var</span> data2 <span class="hljs-keyword">string</span>
 flag.StringVar(&amp;data2, <span class="hljs-string">&quot;gender&quot;</span>, <span class="hljs-string">&quot;male&quot;</span>, <span class="hljs-string">&quot;type your gender&quot;</span>)
+flag.Parse()
 fmt.Println(data2)
 </code></pre>
 <p>Tinggal tambahkan akhiran <code>Var</code> pada pemanggilan nama fungsi flag yang digunakan (contoh <code>flag.IntVar()</code>, <code>flag.BoolVar()</code>, dll), lalu disisipkan referensi variabel penampung flag sebagai parameter pertama.</p>
 <p>Kegunaan dari parameter terakhir method-method flag adalah untuk memunculkan hints atau petunjuk arguments apa saja yang bisa dipakai, ketika argument <code>--help</code> ditambahkan saat eksekusi program.</p>
 <p><img src="images/A_cli_flag_arg_3_flag_info.png" alt="Dasar Pemrograman Golang - Contoh penggunaan flag"></p>
+<h2 id="a484-fungsi-flagtextvar-go-121">A.48.4. Fungsi <code>flag.TextVar()</code> (Go 1.21+)</h2>
+<p>Sejak Go 1.21, tersedia fungsi <code>flag.TextVar()</code> untuk mendaftarkan flag dengan tipe data kustom yang mengimplementasikan interface <code>encoding.TextUnmarshaler</code>. Ini berguna untuk tipe-tipe seperti <code>time.Time</code>, <code>net.IP</code>, atau tipe buatan sendiri yang bisa diparsing dari teks.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;flag&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;net&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> ip net.IP
+    flag.TextVar(&amp;ip, <span class="hljs-string">&quot;ip&quot;</span>, net.IPv4(<span class="hljs-number">127</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>), <span class="hljs-string">&quot;IP address&quot;</span>)
+
+    flag.Parse()
+    fmt.Println(<span class="hljs-string">&quot;ip:&quot;</span>, ip)
+}
+</code></pre>
+<p>Jalankan dengan:</p>
+<pre><code>go run main.go -ip=192.168.1.1
+</code></pre><p>Output:</p>
+<pre><code>ip: 192.168.1.1
+</code></pre><p><code>flag.TextVar()</code> memanggil method <code>UnmarshalText()</code> dari tipe yang diberikan untuk mengkonversi nilai string dari argument menjadi tipe yang sesuai.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2204,7 +2228,7 @@ fmt.Println(data2)
 
             
                 
-                <a href="A-hash-sha1.html" class="navigation navigation-prev " aria-label="Previous page: A.47. Hash Sha1">
+                <a href="A-hash-sha1.html" class="navigation navigation-prev " aria-label="Previous page: A.47. Hash SHA1">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -2220,7 +2244,7 @@ fmt.Println(data2)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.48. Arguments & Flag","level":"3.1.48","depth":2,"next":{"title":"A.49. Exec","level":"3.1.49","depth":2,"path":"A-exec.md","ref":"A-exec.md","articles":[]},"previous":{"title":"A.47. Hash Sha1","level":"3.1.47","depth":2,"path":"A-hash-sha1.md","ref":"A-hash-sha1.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-command-line-args-flag.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.48. Arguments & Flag","level":"3.1.48","depth":2,"next":{"title":"A.49. Exec","level":"3.1.49","depth":2,"path":"A-exec.md","ref":"A-exec.md","articles":[]},"previous":{"title":"A.47. Hash SHA1","level":"3.1.47","depth":2,"path":"A-hash-sha1.md","ref":"A-hash-sha1.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-command-line-args-flag.md","mtime":"2026-06-11T16:39:17.245Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2242,7 +2266,7 @@ fmt.Println(data2)
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

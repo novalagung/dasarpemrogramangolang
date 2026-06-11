@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2106,7 +2106,7 @@
 <p>Jika perlu jalankan program di atas beberapa kali, hasilnya selalu sama untuk angka random ke-1, ke-2, dan seterusnya.</p>
 <p><img src="images/A_random_1.png" alt="Dasar Pemrograman Golang - Random Golang"></p>
 <h2 id="a393-unique-seed">A.39.3. Unique Seed</h2>
-<p>Lalu bagaimana cara agar angka yang dihasilkan selalu berbeda setiap kali dipanggil? Apakah harus set ulang seed-nya? Jangan, karena kalau seed di-set ulang maka urutan deret random akan berubah. Seed hanya perlu di set sekali di awal. Lalu apa solusi yang benar?</p>
+<p>Lalu bagaimana cara agar angka yang dihasilkan selalu berbeda setiap kali dipanggil? Apakah harus set ulang seed-nya? Jangan, karena kalau seed di-set ulang maka urutan deret random akan berubah. Seed hanya perlu diset sekali di awal. Lalu apa solusi yang benar?</p>
 <p>Jadi begini, setiap kali <code>randomizer.Int()</code> dipanggil, hasilnya itu selalu berbeda, tapi sangat bisa diprediksi jika kita tau seed-nya. Ada cara agar angka random yang dihasilkan tidak berulang-ulang seperti yang ada di contoh, caranya yaitu dengan menggunakan angka unik sebagai seed, contohnya seperti angka <a href="https://en.wikipedia.org/wiki/GNU_nano" target="_blank">unix nano</a> yang didapat dari informasi waktu sekarang.</p>
 <p>Coba modifikasi program dengan kode berikut, lalu jalankan ulang. Jangan lupa meng-import package <code>time</code> ya.</p>
 <pre><code class="lang-go">randomizer := rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
@@ -2115,7 +2115,7 @@ fmt.Println(<span class="hljs-string">&quot;random ke-2:&quot;</span>, randomize
 fmt.Println(<span class="hljs-string">&quot;random ke-3:&quot;</span>, randomizer.Int())
 </code></pre>
 <p><img src="images/A_random_2.png" alt="Dasar Pemrograman Golang - Random Golang with unix nano seed"></p>
-<p>Bisa dilihat, setiap program dieksekusi angka random nya selalu berbeda, hal ini karena seed yang digunakan pasti berbeda di setiap eksekusi program. Disitu seed yang digunakan adalah data numerik unix nano dari informasi waktu sekarang.</p>
+<p>Bisa dilihat, setiap program dieksekusi angka random nya selalu berbeda, hal ini karena seed yang digunakan pasti berbeda disetiap eksekusi program. Disitu seed yang digunakan adalah data numerik unix nano dari informasi waktu sekarang.</p>
 <h2 id="a394-random-tipe-data-numerik-lainnya">A.39.4. Random Tipe Data Numerik Lainnya</h2>
 <p>Di dalam package <code>math/rand</code>, ada banyak fungsi untuk generate angka random. Method <code>Int()</code> milik object randomizer hanya salah satu dari fungsi yang tersedia di dalam package tersebut, yang gunanya adalah menghasilkan angka random bertipe <code>int</code>.</p>
 <p>Selain itu, ada juga <code>randomizer.Float32()</code> yang menghasilkan angka random bertipe <code>float32</code>. Ada juga <code>randomizer.Uint32()</code> yang menghasilkan angka random bertipe <em>unsigned</em> int, dan lainnya.</p>
@@ -2125,11 +2125,11 @@ fmt.Println(<span class="hljs-string">&quot;random int:&quot;</span>, randomizer
 fmt.Println(<span class="hljs-string">&quot;random float32:&quot;</span>, randomizer.Float32())
 fmt.Println(<span class="hljs-string">&quot;random uint:&quot;</span>, randomizer.Uint32())
 </code></pre>
-<p>lebih detailnya silakan merujuk ke <a href="https://golang.org/pkg/math/rand/" target="_blank">https://golang.org/pkg/math/rand/</a></p>
+<p>Lebih jelasnya silakan merujuk ke <a href="https://pkg.go.dev/math/rand" target="_blank">https://pkg.go.dev/math/rand</a></p>
 <h2 id="a395-angka-random-index-tertentu">A.39.5. Angka Random Index Tertentu</h2>
 <p>Gunakan <code>randomizer.Intn(n)</code> untuk mendapatkan angka random dengan batas <code>0</code> hingga <code>n - 1</code>, contoh: <code>randomizer.Intn(100)</code> akan mengembalikan angka acak dari 0 hingga 99.</p>
 <h2 id="a396-random-tipe-data-string">A.39.6. Random Tipe Data String</h2>
-<p>Untuk menghasilkan data random string, ada banyak cara yang bisa diterapkan, salah satunya adalah dengan memafaatkan alfabet dan hasil random numerik.</p>
+<p>Untuk menghasilkan data random string, ada banyak cara yang bisa diterapkan, salah satunya adalah dengan memanfaatkan alfabet dan hasil random numerik.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> randomizer = rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
 <span class="hljs-keyword">var</span> letters = []<span class="hljs-keyword">rune</span>(<span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>)
 
@@ -2146,6 +2146,49 @@ fmt.Println(<span class="hljs-string">&quot;random uint:&quot;</span>, randomize
 }
 </code></pre>
 <p>Dengan fungsi di atas kita bisa dengan mudah meng-generate string random dengan panjang karakter yang sudah ditentukan, misal <code>randomString(10)</code> akan menghasilkan random string 10 karakter.</p>
+<h2 id="a397-global-random-tanpa-seed-manual-go-120">A.39.7. Global Random tanpa Seed Manual (Go 1.20+)</h2>
+<p>Sejak Go 1.20, fungsi-fungsi top-level di package <code>math/rand</code> (seperti <code>rand.Int()</code>, <code>rand.Intn()</code>, dan lainnya) sudah di-seed secara otomatis menggunakan nilai acak. Ini berarti untuk kebutuhan random sederhana yang tidak memerlukan reproduksibilitas, tidak perlu lagi membuat objek randomizer secara manual.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;math/rand&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    fmt.Println(<span class="hljs-string">&quot;random ke-1:&quot;</span>, rand.Int())
+    fmt.Println(<span class="hljs-string">&quot;random ke-2:&quot;</span>, rand.Int())
+    fmt.Println(<span class="hljs-string">&quot;random ke-3:&quot;</span>, rand.Int())
+}
+</code></pre>
+<p>Perlu diketahui juga bahwa fungsi <code>rand.Seed()</code> sudah deprecated sejak Go 1.20 dan sebaiknya tidak lagi digunakan. Sebagai gantinya, gunakan <code>rand.New(rand.NewSource(seed))</code> untuk random yang bisa direproduksi (seperti yang sudah kita pelajari di atas), atau cukup gunakan fungsi global tanpa perlu set seed untuk random biasa.</p>
+<h2 id="a398-package-mathrandv2-go-122">A.39.8. Package <code>math/rand/v2</code> (Go 1.22+)</h2>
+<p>Sejak Go 1.22, Go menyediakan package <code>math/rand/v2</code> sebagai versi terbaru dari package random. Package ini memiliki API yang lebih bersih dan menggunakan algoritma yang lebih baik.</p>
+<p>Beberapa perbedaan utama dari <code>math/rand/v2</code> dibanding versi sebelumnya:</p>
+<ul>
+<li>Method <code>Intn(n)</code> berubah nama menjadi <code>IntN(n)</code> (huruf N kapital)</li>
+<li>Tidak ada lagi fungsi <code>Seed()</code> di level global; semua global function selalu menggunakan seed otomatis</li>
+<li>Untuk random yang bisa direproduksi, gunakan <code>rand.New(rand.NewPCG(seed1, seed2))</code></li>
+</ul>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;math/rand/v2&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-comment">// global random, auto-seeded</span>
+    fmt.Println(<span class="hljs-string">&quot;random int:&quot;</span>, rand.Int())
+    fmt.Println(<span class="hljs-string">&quot;random N:&quot;</span>, rand.IntN(<span class="hljs-number">100</span>))
+
+    <span class="hljs-comment">// reproducible random dengan seed tetap</span>
+    r := rand.New(rand.NewPCG(<span class="hljs-number">42</span>, <span class="hljs-number">0</span>))
+    fmt.Println(<span class="hljs-string">&quot;reproducible ke-1:&quot;</span>, r.Int64())
+    fmt.Println(<span class="hljs-string">&quot;reproducible ke-2:&quot;</span>, r.Int64())
+}
+</code></pre>
+<p><code>rand.NewPCG(seed1, seed2)</code> menerima dua nilai <code>uint64</code> sebagai seed. Kombinasi kedua seed tersebut menentukan urutan angka random yang dihasilkan.</p>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2181,7 +2224,7 @@ fmt.Println(<span class="hljs-string">&quot;random uint:&quot;</span>, randomize
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.39. Random","level":"3.1.39","depth":2,"next":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"path":"A-time-parsing-format.md","ref":"A-time-parsing-format.md","articles":[]},"previous":{"title":"A.38. Layout Format String","level":"3.1.38","depth":2,"path":"A-string-format.md","ref":"A-string-format.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-random.md","mtime":"2026-06-04T09:09:03.642Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.39. Random","level":"3.1.39","depth":2,"next":{"title":"A.40. Time, Parsing Time, & Format Time","level":"3.1.40","depth":2,"path":"A-time-parsing-format.md","ref":"A-time-parsing-format.md","articles":[]},"previous":{"title":"A.38. Layout Format String","level":"3.1.38","depth":2,"path":"A-string-format.md","ref":"A-string-format.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-random.md","mtime":"2026-06-11T16:39:17.249Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2203,7 +2246,7 @@ fmt.Println(<span class="hljs-string">&quot;random uint:&quot;</span>, randomize
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         

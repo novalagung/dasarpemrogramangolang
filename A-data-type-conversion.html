@@ -867,7 +867,7 @@
                 <a href="A-hash-sha1.html">
             
                     
-                    A.47. Hash Sha1
+                    A.47. Hash SHA1
             
                 </a>
             
@@ -2069,7 +2069,7 @@
                                 <h1 id="a43-konversi-antar-tipe-data">A.43. Konversi Antar Tipe Data</h1>
 <p>Di beberapa chapter sebelum ini kita telah menerapkan beberapa cara konversi data, contohnya seperti konversi <code>string</code> &#x2194; <code>int</code> menggunakan <code>strconv</code>, dan <code>time.Time</code> &#x2194; <code>string</code>. Pada chapter ini kita akan mempelajarinya lebih detail.</p>
 <h2 id="a431-konversi-menggunakan-strconv">A.43.1. Konversi Menggunakan <code>strconv</code></h2>
-<p>Package <code>strconv</code> berisi banyak fungsi yang sangat membantu kita untuk melakukan konversi. Berikut merupakan beberapa fungsi yang dalam package tersebut.</p>
+<p>Package <code>strconv</code> berisi banyak fungsi yang sangat membantu kita untuk melakukan konversi. Berikut merupakan beberapa fungsi yang tersedia dalam package tersebut.</p>
 <h4 id="&#x25C9;-fungsi-strconvatoi">&#x25C9; Fungsi <code>strconv.Atoi()</code></h4>
 <p>Fungsi ini digunakan untuk konversi data dari tipe <code>string</code> ke <code>int</code>. <code>strconv.Atoi()</code> menghasilkan 2 buah nilai kembalian, yaitu hasil konversi dan <code>error</code> (jika konversi sukses, maka <code>error</code> berisi <code>nil</code>).</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
@@ -2188,7 +2188,7 @@ fmt.Println(str) <span class="hljs-comment">// 24.120000</span>
 fmt.Println(str) <span class="hljs-comment">// true</span>
 </code></pre>
 <h2 id="a432-konversi-data-menggunakan-teknik-casting">A.43.2. Konversi Data Menggunakan Teknik Casting</h2>
-<p>Cara penerapannya adalah dengan menggunakan keyword tipe data sebagai nama fungsi, kemudiaan argument pemanggilannya diisi dengan data yang ingin dikonversi tipenya.</p>
+<p>Cara penerapannya adalah dengan menggunakan nama tipe data sebagai fungsi konversi, kemudian argument pemanggilannya diisi dengan data yang ingin dikonversi tipenya.</p>
 <pre><code class="lang-go"><span class="hljs-comment">// konversi nilai 24 bertipe int ke float64</span>
 <span class="hljs-keyword">var</span> a <span class="hljs-keyword">float64</span> = <span class="hljs-keyword">float64</span>(<span class="hljs-number">24</span>)
 fmt.Println(a) <span class="hljs-comment">// 24</span>
@@ -2220,9 +2220,19 @@ fmt.Printf(<span class="hljs-string">&quot;%s \n&quot;</span>, s)
 <pre><code class="lang-go"><span class="hljs-keyword">var</span> c <span class="hljs-keyword">int64</span> = <span class="hljs-keyword">int64</span>(<span class="hljs-string">&apos;h&apos;</span>)
 fmt.Println(c) <span class="hljs-comment">// 104</span>
 
-<span class="hljs-keyword">var</span> d <span class="hljs-keyword">string</span> = <span class="hljs-keyword">string</span>(<span class="hljs-number">104</span>)
+<span class="hljs-keyword">var</span> d <span class="hljs-keyword">string</span> = <span class="hljs-keyword">string</span>(<span class="hljs-keyword">rune</span>(<span class="hljs-number">104</span>))
 fmt.Println(d) <span class="hljs-comment">// h</span>
 </code></pre>
+<h4 id="&#x25C9;-tipe-data-rune">&#x25C9; Tipe Data <code>rune</code></h4>
+<p>Tipe data <code>rune</code> merupakan alias dari <code>int32</code> yang digunakan untuk merepresentasikan satu karakter Unicode (<em>code point</em>). Perbedaannya dengan <code>byte</code> (alias <code>uint8</code>) adalah:</p>
+<ul>
+<li><code>byte</code> hanya cukup untuk karakter ASCII (0&#x2013;127)</li>
+<li>sedangkan <code>rune</code> bisa menampung karakter dari berbagai bahasa maupun simbol Unicode lainnya.</li>
+</ul>
+<p>Dalam konteks casting string, <code>rune</code> dipakai untuk memberi tahu Go bahwa nilai numerik yang kita berikan adalah kode karakter, bukan angka biasa.</p>
+<blockquote>
+<p>Sejak Go 1.15, <code>go vet</code> akan memperingatkan penggunaan <code>string(N)</code> di mana <code>N</code> adalah nilai numerik integer, karena hasilnya adalah karakter unicode (bukan representasi angka dalam string). Gunakan <code>string(rune(N))</code> untuk konversi yang eksplisit dan bebas dari peringatan vet.</p>
+</blockquote>
 <h2 id="a434-type-assertions-pada-tipe-any-atau-interface-kosong-interface">A.43.4. Type Assertions Pada Tipe <code>any</code> atau Interface Kosong (<code>interface{}</code>)</h2>
 <p><strong>Type assertions</strong> merupakan teknik untuk mengambil tipe data konkret dari data yang terbungkus dalam <code>interface{}</code> atau <code>any</code>. Lebih jelasnya silakan cek contoh berikut.</p>
 <p>Variabel <code>data</code> disiapkan bertipe <code>map[string]interface{}</code>, map tersebut berisikan beberapa item dengan tipe data value-nya berbeda satu sama lain, sementara tipe data untuk key-nya sama yaitu <code>string</code>.</p>
@@ -2240,10 +2250,10 @@ fmt.Println(data[<span class="hljs-string">&quot;height&quot;</span>].(<span cla
 fmt.Println(data[<span class="hljs-string">&quot;isMale&quot;</span>].(<span class="hljs-keyword">bool</span>))
 fmt.Println(data[<span class="hljs-string">&quot;hobbies&quot;</span>].([]<span class="hljs-keyword">string</span>))
 </code></pre>
-<p>Statement <code>data[&quot;nama&quot;].(string)</code> maksudnya adalah, nilai <code>data[&quot;nama&quot;]</code> yang bertipe <code>interface{}</code> diambil nilai konkretnya dalam bentuk string <code>string</code>.</p>
+<p>Statement <code>data[&quot;nama&quot;].(string)</code> maksudnya adalah, nilai <code>data[&quot;nama&quot;]</code> yang bertipe <code>interface{}</code> diambil nilai konkretnya dalam bentuk <code>string</code>.</p>
 <p>Pada kode di atas, tidak akan terjadi panic error, karena semua operasi type assertion adalah dilakukan menggunakan tipe data yang sudah sesuai dengan tipe data nilai aslinya. Seperti <code>data[&quot;nama&quot;]</code> yang merupakan <code>string</code> pasti bisa di-asertasi ke tipe <code>string</code>.</p>
 <p>Coba lakukan asertasi ke tipe yang tidak sesuai dengan tipe nilai aslinya, seperti <code>data[&quot;nama&quot;].(int)</code>, hasilnya adalah panic error.</p>
-<p>Nah, dari penjelasan di atas, terlihat bahwa kita harus tau terlebih dahulu apa tipe data asli dari data yang tersimpan dalam interface. Jika misal tidak tau, maka bisa gunakan teknik di bawah ini untuk pengecekan sukses tidaknya proses asertasi.</p>
+<p>Nah, dari penjelasan di atas, terlihat bahwa kita harus tahu terlebih dahulu apa tipe data asli dari data yang tersimpan dalam interface. Jika misal tidak tau, maka bisa gunakan teknik di bawah ini untuk pengecekan sukses tidaknya proses asertasi.</p>
 <p>Tipe asli data pada variabel <code>interface{}</code> bisa diketahui dengan cara meng-casting ke tipe <code>type</code>, namun casting ini hanya bisa dilakukan pada <code>switch</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">for</span> _, val := <span class="hljs-keyword">range</span> data {
     <span class="hljs-keyword">switch</span> val.(<span class="hljs-keyword">type</span>) {
@@ -2258,7 +2268,7 @@ fmt.Println(data[<span class="hljs-string">&quot;hobbies&quot;</span>].([]<span 
     <span class="hljs-keyword">case</span> []<span class="hljs-keyword">string</span>:
         fmt.Println(val.([]<span class="hljs-keyword">string</span>))
     <span class="hljs-keyword">default</span>:
-        fmt.Println(val.(<span class="hljs-keyword">int</span>))
+        fmt.Println(<span class="hljs-string">&quot;unexpected type&quot;</span>)
     }
 }
 </code></pre>
@@ -2298,7 +2308,7 @@ fmt.Println(data[<span class="hljs-string">&quot;hobbies&quot;</span>].([]<span 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.43. Konversi Antar Tipe Data","level":"3.1.43","depth":2,"next":{"title":"A.44. Fungsi String","level":"3.1.44","depth":2,"path":"A-strings.md","ref":"A-strings.md","articles":[]},"previous":{"title":"A.42. Time Duration","level":"3.1.42","depth":2,"path":"A-time-duration.md","ref":"A-time-duration.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-data-type-conversion.md","mtime":"2026-06-04T09:09:03.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-04T09:10:06.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A.43. Konversi Antar Tipe Data","level":"3.1.43","depth":2,"next":{"title":"A.44. Fungsi String","level":"3.1.44","depth":2,"path":"A-strings.md","ref":"A-strings.md","articles":[]},"previous":{"title":"A.42. Time Duration","level":"3.1.42","depth":2,"path":"A-time-duration.md","ref":"A-time-duration.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-data-type-conversion.md","mtime":"2026-06-11T16:39:17.246Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T16:40:18.429Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2320,7 +2330,7 @@ fmt.Println(data[<span class="hljs-string">&quot;hobbies&quot;</span>].([]<span 
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.04.091027"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.164039"></script>
         
     
         
