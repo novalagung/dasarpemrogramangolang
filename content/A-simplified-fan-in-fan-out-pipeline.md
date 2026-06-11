@@ -1,6 +1,6 @@
-# A.63. Concurrency Pattern: Simplified Fan-out Fan-in Pipeline
+# A.64. Concurrency Pattern: Simplified Fan-out Fan-in Pipeline
 
-Pada chapter sebelumnya, yaitu chapter [A.62. Concurrency Pattern: Pipeline](/A-concurrency-pipeline.html), kita telah mempelajari tentang pipeline pattern, yang mana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-*handle* jenis kasus serangkaian proses yang berjalan secara konkuren.
+Pada chapter sebelumnya, yaitu chapter [A.63. Concurrency Pattern: Pipeline](/A-concurrency-pipeline.html), kita telah mempelajari tentang pipeline pattern, yang mana pattern tersebut merupakan rekomendasi dari tim Go dalam meng-*handle* jenis kasus serangkaian proses yang berjalan secara konkuren.
 
 > Penulis sangat anjurkan untuk mencoba mempelajari praktik chapter sebelumnya terlebih dahulu jika belum. Karena chapter kali ini ada hubungannya dengan chapter tersebut.
 
@@ -10,11 +10,11 @@ Kalau dilihat lebih dalam, perbedaannya sebenarnya hanya pada bagian Fan-out Fan
 
 Ok, agar lebih jelas mari kita mulai praktik.
 
-## A.63.1. Skenario Praktik
+## A.64.1. Skenario Praktik
 
-Kita akan modifikasi file program `1-dummy-file-generator.go` yang pada chapter sebelumnya sudah dibuat ([A.62. Concurrency Pattern: Pipeline](/A-concurrency-pipeline.html)). Kita rubah mekanisme generate dummy files-nya dari sekuensial ke konkuren.
+Kita akan modifikasi file program `1-dummy-file-generator.go` yang pada chapter sebelumnya sudah dibuat ([A.63. Concurrency Pattern: Pipeline](/A-concurrency-pipeline.html)). Kita rubah mekanisme generate dummy files-nya dari sekuensial ke konkuren.
 
-## A.63.2. Program Generate Dummy File *Sequentially*
+## A.64.2. Program Generate Dummy File *Sequentially*
 
 Ok langsung saja, pertama yang perlu dipersiapkan adalah tulis dulu kode program versi sekuensialnya. Bisa langsung copy-paste, atau tulis dari awal dengan mengikut tutorial ini secara keseluruhan. Untuk penjelasan detail program versi sekuensial silakan cek saja di chapter sebelumnya saja, di sini kita tulis langsung agar bisa cepat dimulai bagian program konkuren.
 
@@ -37,7 +37,7 @@ import (
 const totalFile = 3000
 const contentLength = 5000
 
-var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.63-simplified-fan-in-fan-out-pipeline")
+var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.64-simplified-fan-in-fan-out-pipeline")
 ```
 
 #### ◉ Fungsi `main()`
@@ -99,7 +99,7 @@ Kita lanjut dulu saja. Berikut adalah output jika program di atas di-run.
 
 ![Generate dummy files sequentially](images/A_simplified_fan_in_fan_out_pipeline_1_generate_dummy_files_sequentially.png)
 
-## A.63.3. Program Generate Dummy File *Concurrently*
+## A.64.3. Program Generate Dummy File *Concurrently*
 
 Selanjutnya, buat file program `2-generate-dummy-files-concurrently.go` yang isinya adalah sama yaitu untuk keperluan generate dummy files tapi dilakukan secara konkuren.
 
@@ -123,7 +123,7 @@ import (
 const totalFile = 3000
 const contentLength = 5000
 
-var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.63-simplified-fan-in-fan-out-pipeline")
+var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.64-simplified-fan-in-fan-out-pipeline")
 ```
 
 #### ◉ Definisi struct `FileInfo`
@@ -311,7 +311,7 @@ Semoga cukup jelas ya. Kelebihan metode ini salah satunya adalah kita bisa denga
 
 > Untuk pembaca yang bingung, mungkin fungsi ini bisa dipecah menjadi satu fungsi Fan-out dan satu fungsi Fan-in seperti chapter sebelumnya.
 
-## A.63.4. Test Eksekusi Program
+## A.64.4. Test Eksekusi Program
 
 Saya akan coba jalankan program pertama dan kedua, lalu mari kita lihat perbedaannya.
 
@@ -335,7 +335,7 @@ Nah dari sini semoga cukup jelas ya bedanya kalau dari sisi performa. Inilah pen
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.63-simplified-fan-in-fan-out-pipeline">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.63...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.64-simplified-fan-in-fan-out-pipeline">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.64...</a>
 </div>
 
 ---

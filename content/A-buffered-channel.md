@@ -59,7 +59,7 @@ Pengiriman data indeks ke 0, 1, dan 2 akan berjalan secara asynchronous, hal ini
 
 Karena pengiriman dan penerimaan data via buffered channel tidak selalu synchronous (tergantung jumlah buffer-nya), maka ada kemungkinan eksekusi program selesai namun tidak semua data diterima via channel `messages`. Karena alasan ini pada bagian akhir ditambahkan statement `time.Sleep(1 * time.Second)` agar ada jeda 1 detik sebelum program selesai.
 
-> `time.Sleep()` di sini hanya sebagai cara mudah untuk contoh awal. Pendekatan ini tidak *reliable* di kode produksi karena tidak ada jaminan durasi sleep selalu cukup. Cara yang tepat adalah menggunakan `sync.WaitGroup` atau menutup channel dan meng-iterasinya dengan `for range` (dibahas di chapter [A.34. Channel Range & Close](/A-channel-range-close.html) dan [A.59. WaitGroup](/A-waitgroup.html)).
+> `time.Sleep()` di sini hanya sebagai cara mudah untuk contoh awal. Pendekatan ini tidak *reliable* di kode produksi karena tidak ada jaminan durasi sleep selalu cukup. Cara yang tepat adalah menggunakan `sync.WaitGroup` atau menutup channel dan meng-iterasinya dengan `for range` (dibahas di chapter [A.34. Channel Range & Close](/A-channel-range-close.html) dan [A.60. WaitGroup](/A-waitgroup.html)).
 
 #### ◉ Fungsi `time.Sleep()`
 

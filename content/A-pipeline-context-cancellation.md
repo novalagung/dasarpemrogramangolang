@@ -1,4 +1,4 @@
-# A.64. Concurrency Pattern: Context Cancellation Pipeline
+# A.65. Concurrency Pattern: Context Cancellation Pipeline
 
 Pada chapter ini kita akan belajar tentang salah satu *concurrency pattern* di Go, yaitu **cancellation**. Cancellation merupakan mekanisme untuk menggagalkan secara paksa proses konkuren yang sedang berjalan, entah itu karena ada timeout, ada error, atau ada faktor lain.
 
@@ -6,18 +6,18 @@ Di sini kita akan gunakan salah satu API milik Go yang tersedia untuk *cancellat
 
 Context digunakan untuk mendefinisikan tipe *context* yang di dalamnya ada beberapa hal yaitu: informasi *deadlines*, signal *cancellation*, dan data untuk keperluan komunikasi antar API atau antar proses.
 
-## A.64.1. Skenario Praktik
+## A.65.1. Skenario Praktik
 
-Kita akan modifikasi file program `1-generate-dummy-files-concurrently.go` yang pada chapter sebelumnya ([A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](/A-simplified-fan-in-fan-out-pipeline.html)) sudah dibuat. Pada program tersebut akan kita tambahkan mekanisme cancellation ketika ada timeout.
+Kita akan modifikasi file program `1-generate-dummy-files-concurrently.go` yang pada chapter sebelumnya ([A.64. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](/A-simplified-fan-in-fan-out-pipeline.html)) sudah dibuat. Pada program tersebut akan kita tambahkan mekanisme cancellation ketika ada timeout.
 
 Jadi kurang lebih akan ada dua result:
 
 - Proses sukses, karena *execution time* di bawah timeout.
 - Proses digagalkan secara paksa ditengah jalan, karena *running time* sudah melebihi batas timeout.
 
-## A.64.2. Program Generate Dummy File *Concurrently*
+## A.65.2. Program Generate Dummy File *Concurrently*
 
-Ok langsung saja, tulis dulu kode program versi *concurrent* tanpa *cancellation* sebagai titik awal. Bisa langsung copy-paste dari chapter sebelumnya, atau tulis dari awal mengikuti tutorial ini. Untuk penjelasan detail silakan merujuk ke chapter [A.63](/A-simplified-fan-in-fan-out-pipeline.html), di sini kita tulis langsung agar bisa cepat mulai ke bagian *cancellation*.
+Ok langsung saja, tulis dulu kode program versi *concurrent* tanpa *cancellation* sebagai titik awal. Bisa langsung copy-paste dari chapter sebelumnya, atau tulis dari awal mengikuti tutorial ini. Untuk penjelasan detail silakan merujuk ke chapter [A.64](/A-simplified-fan-in-fan-out-pipeline.html), di sini kita tulis langsung agar bisa cepat mulai ke bagian *cancellation*.
 
 #### ◉ Import Packages dan Definisi Variabel
 
@@ -37,7 +37,7 @@ import (
 const totalFile = 3000
 const contentLength = 5000
 
-var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.64-pipeline-cancellation-context")
+var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.65-pipeline-cancellation-context")
 ```
 
 #### ◉ Definisi struct `FileInfo`
@@ -174,7 +174,7 @@ Hasil eksekusi program:
 
 ![Concurrent without cancellation](images/A_pipeline_context_cancellation_1_concurrent_without_cancellation.png)
 
-## A.64.3. Program Generate Dummy File *Concurrently* dan Mekanisme *Cancellation*
+## A.65.3. Program Generate Dummy File *Concurrently* dan Mekanisme *Cancellation*
 
 Ok, sekarang kita akan refactor kode tersebut, kita tambahkan mekanisme *cancellation* menggunakan `context.Context` API. Silakan duplikasi file program, lalu ikuti petunjuk berikut.
 
@@ -407,7 +407,7 @@ func createFiles(ctx context.Context, chanIn <-chan FileInfo, numberOfWorkers in
 
 Penambahannya juga sama seperti fungsi-fungsi yang lain, yaitu dengan menambahkan *channel selection*. Ketika ada notifikasi cancel maka perulangan jobs di break. Selebihnya maka harus berjalan seperti normalnya.
 
-## A.64.4. Test Eksekusi Program
+## A.65.4. Test Eksekusi Program
 
 Jalankan program ke-dua, lihat hasilnya. Karena sebelumnya kita sudah set durasi timeout adalah **3 detik**, maka jika proses belum selesai sebelum durasi tersebut akan di-cancel secara paksa.
 
@@ -421,7 +421,7 @@ Silakan coba modifikasi durasinya dengan nilai lebih besar, misalnya **15 detik*
 
 Bisa dilihat, di gambar di atas, jika program selesai sebelum **15 detik** maka aman.
 
-## A.64.5. Cancel Context Secara Paksa (Tanpa Timeout)
+## A.65.5. Cancel Context Secara Paksa (Tanpa Timeout)
 
 Coba lakukan modifikasi sedikit pada bagian pemanggilan generate files, dari:
 
@@ -448,7 +448,7 @@ Perbedannya ada pada penerapan *cancellation*-nya. Pada contoh ini kita tidak me
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.64-pipeline-context-cancellation">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.64...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.65-pipeline-context-cancellation">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.65...</a>
 </div>
 
 ---

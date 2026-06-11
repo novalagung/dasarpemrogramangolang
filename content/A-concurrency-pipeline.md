@@ -1,10 +1,10 @@
-# A.62. Concurrency Pattern: Pipeline
+# A.63. Concurrency Pattern: Pipeline
 
 Kita sudah membahas beberapa kali tentang topik *concurrency* atau konkurensi di Go programming. Pada chapter ini kita akan belajar salah satu best practice konkurensi dalam Go, yaitu teknik *pipeline*, yang merupakan satu di antara banyak *concurrency pattern* yang ada di Go.
 
 Go memiliki beberapa API untuk keperluan konkurensi, dua diantaranya adalah *goroutine* dan *channel*. Dengan memanfaatkan APIs yang ada kita bisa membentuk sebuah *streaming data pipeline* yang benefitnya adalah efisiensi penggunaan I/O dan efisiensi penggunaan banyak CPU.
 
-## A.62.1. Konsep *Pipeline*
+## A.63.1. Konsep *Pipeline*
 
 Definisi *pipeline* yang paling mudah versi penulis adalah **beberapa/banyak proses yang berjalan secara konkuren yang masing-masing proses merupakan bagian dari serangkaian tahapan proses yang berhubungan satu sama lain**.
 
@@ -51,7 +51,7 @@ Semoga cukup jelas ya. Tapi jika masih bingung, juga tidak apa. Kita sambil prak
 
 > Penulis sarankan untuk benar-benar memahami setiap bagian praktik ini, karena topik ini merupakan pembahasan yang cukup berat untuk pemula, tapi masih dalam klasifikasi fundamental kalau di Go programming. Bingung tidak apa, nanti bisa di-ulang-ulang, yang penting tidak sekadar *copy-paste*.
 
-## A.62.2. Skenario Praktik
+## A.63.2. Skenario Praktik
 
 Ok, penjabaran teori sepanjang sungai `nil` tidak akan banyak membawa penjelasan yang real kalau tidak diiringi dengan praktik. So, mari kita mulai praktik.
 
@@ -59,7 +59,7 @@ Untuk skenario praktik kita tidak menggunakan analogi backup database di atas ya
 
 Agar skenario ini bisa kita eksekusi, kita perlu siapkan dulu sebuah program untuk *generate dummy files*.
 
-## A.62.3. Program 1: Generate Dummy File
+## A.63.3. Program 1: Generate Dummy File
 
 Buat project baru dengan nama bebas <span style="text-decoration: line-through">loss gak reweellll</span> beserta satu buah file bernama `1-dummy-file-generator.go`.
 
@@ -84,7 +84,7 @@ import (
 const totalFile = 3000
 const contentLength = 5000
 
-var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.62-concurrency-pipeline")
+var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.63-concurrency-pipeline")
 ```
 
 Kemudian siapkan fungsi `main()` yang isinya statement pemanggilan fungsi `generate()`, dan beberapa hal lainnya untuk keperluan *benchmark* performa dari sisi *execution time*.
@@ -147,9 +147,9 @@ Oke, generator sudah siap, jalankan.
 
 ![Generate dummy files](images/A_concurrency_pipeline_1_generate_dummy_files.png)
 
-Bisa dilihat sebanyak 3000 dummy file di-generate pada folder temporary os, di sub folder `chapter-A.62-concurrency-pipeline`.
+Bisa dilihat sebanyak 3000 dummy file di-generate pada folder temporary os, di sub folder `chapter-A.63-concurrency-pipeline`.
 
-## A.62.4. Program 2: Baca Semua Files, Cari MD5 Hash-nya, Lalu Gunakan Hash Untuk Rename File
+## A.63.4. Program 2: Baca Semua Files, Cari MD5 Hash-nya, Lalu Gunakan Hash Untuk Rename File
 
 Sesuai judul sub bagian, kita akan buat satu file program lagi, yang isinya adalah melakukan operasi baca terhadap semua dummy file yang sudah di-generate, untuk kemudian dicari *hash*-nya lalu menggunakan nilai hash tersebut sebagai nama untuk file-file baru yang akan dibuat.
 
@@ -169,7 +169,7 @@ import (
     "time"
 )
 
-var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.62-concurrency-pipeline")
+var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.63-concurrency-pipeline")
 ```
 
 Lanjut siapkan fungsi `main()` dengan isi memanggil fungsi `proceed()`.
@@ -235,9 +235,9 @@ func proceed() {
 
 Cukup panjang isi fungsi ini, tetapi isinya cukup *straight forward* kok.
 
-* Pertama kita siapkan `counterTotal` sebagai counter jumlah file yang ditemukan dalam `$TEMP/chapter-A.62-concurrency-pipeline`. Idealnya jumlahnya adalah sama dengan isi variabel `totalFile` pada program pertama, kecuali ada error.
+* Pertama kita siapkan `counterTotal` sebagai counter jumlah file yang ditemukan dalam `$TEMP/chapter-A.63-concurrency-pipeline`. Idealnya jumlahnya adalah sama dengan isi variabel `totalFile` pada program pertama, kecuali ada error.
 * Kedua, kita siapkan `counterRenamed` sebagai counter jumlah file yang berhasil di-rename. Untuk ini juga idealnya sama dengan nilai pada `counterTotal`, kecuali ada error
-* Kita gunakan `filepath.Walk` untuk melakukan pembacaan semua file yang ada dalam folder `$TEMP/chapter-A.62-concurrency-pipeline`.
+* Kita gunakan `filepath.Walk` untuk melakukan pembacaan semua file yang ada dalam folder `$TEMP/chapter-A.63-concurrency-pipeline`.
 * File akan dibaca secara sekuensial. Jika ada error pembacaan, proses dihentikan; jika entry yang ditemukan adalah direktori, maka di-skip lalu lanjut ke file selanjutnya.
 * File dibaca menggunakan `os.ReadFile()`, kemudian lewat fungsi `md5.Sum()` kita cari md5 hash sum dari konten file.
 * Setelahnya, kita rename file dengan nama `file-<md5hash>.txt`.
@@ -250,7 +250,7 @@ Selesai dalam waktu **1,17 detik**, lumayan untuk eksekusi proses sekuensial.
 
 Ok, aplikasi sudah siap. Selanjutnya kita akan refactor aplikasi tersebut ke bentuk konkuren menggunakan metode *pipeline*.
 
-## A.62.5. Program 3: Lakukan Proses Secara Concurrent Menggunakan Teknik Pipeline
+## A.63.5. Program 3: Lakukan Proses Secara Concurrent Menggunakan Teknik Pipeline
 
 Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kalau dilihat dari perspektif bisnis logic, tapi metode yang kita terapkan dari sisi engineering berbeda. Di sini kita akan terapkan *pipeline*. Bisnis logic akan dipecah menjadi 3 dan seluruhnya dieksekusi secara konkuren, yaitu:
 
@@ -279,7 +279,7 @@ import (
     "time"
 )
 
-var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.62-concurrency-pipeline")
+var tempPath = filepath.Join(os.Getenv("TEMP"), "chapter-A.63-concurrency-pipeline")
 
 type FileInfo struct {
     FilePath  string // file location
@@ -526,7 +526,7 @@ Ok, sekarang program sudah siap. Mari kita jalankan untuk melihat hasilnya.
 
 Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu `1.17` detik, sedangkan dengan metode pipeline hanya butuh `0.72` detik. Bedanya hampir **40%**! Dan ini hanya 3000 file saja, bayangkan kalau jutaan file, perbedaan performanya akan lebih terasa.
 
-## A.62.6. Kesimpulan
+## A.63.6. Kesimpulan
 
 Pipeline concurrency pattern sangat bagus untuk diterapkan pada case yang proses-nya bisa diklasifikasi menjadi sub-proses kecil-kecil yang secara I/O tidak saling tunggu (tapi secara flow harus berurutan).
 
@@ -536,7 +536,7 @@ Intinya butuh banyak percobaan dan testing, sesuaikan dengan spesifikasi hardwar
 
 Ok sekian untuk chapter panjang ini.
 
-## A.62.7. filepath.WalkDir sebagai Pengganti filepath.Walk (Go 1.16+)
+## A.63.7. filepath.WalkDir sebagai Pengganti filepath.Walk (Go 1.16+)
 
 Sejak Go 1.16, tersedia fungsi `filepath.WalkDir()` sebagai pengganti yang lebih efisien dari `filepath.Walk()`. Perbedaan utamanya:
 
@@ -585,7 +585,7 @@ Perlu di-import package `io/fs` untuk tipe `fs.DirEntry`. Untuk kasus pembacaan 
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.62-concurrency-pipeline">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.62...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.63-concurrency-pipeline">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.63...</a>
 </div>
 
 ---

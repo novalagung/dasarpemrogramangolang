@@ -75,13 +75,14 @@
   * [A.56. SQL](A-sql.md)
   * [A.57. NoSQL MongoDB](A-mongodb.md)
   * [A.58. Unit Test](A-unit-test.md)
-  * [A.59. sync.WaitGroup](A-waitgroup.md)
-  * [A.60. sync.Mutex](A-mutex.md)
-  * [A.61. Go Vendoring](A-go-vendoring.md)
-  * [A.62. Concurrency Pattern: Pipeline](A-concurrency-pipeline.md)
-  * [A.63. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](A-simplified-fan-in-fan-out-pipeline.md)
-  * [A.64. Concurrency Pattern: Context Cancellation Pipeline](A-pipeline-context-cancellation.md)
-  * [A.65. Go Generics](A-golang-generics.md)
+  * [A.59. Table-Driven Test](A-table-driven-test.md)
+  * [A.60. sync.WaitGroup](A-waitgroup.md)
+  * [A.61. sync.Mutex](A-mutex.md)
+  * [A.62. Go Vendoring](A-go-vendoring.md)
+  * [A.63. Concurrency Pattern: Pipeline](A-concurrency-pipeline.md)
+  * [A.64. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline](A-simplified-fan-in-fan-out-pipeline.md)
+  * [A.65. Concurrency Pattern: Context Cancellation Pipeline](A-pipeline-context-cancellation.md)
+  * [A.66. Go Generics](A-golang-generics.md)
 
 <hr>
 

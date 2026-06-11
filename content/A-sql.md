@@ -349,7 +349,7 @@ if grade.Valid {
 
 Field `Valid` bernilai `true` jika kolom berisi data (bukan NULL), dan `false` jika NULL. Field `V` menyimpan nilai aktual ketika `Valid` bernilai `true`.
 
-> Notasi `[T]` adalah bagian dari fitur *generics* di Go, lebih jelasnya mengenai generic dijelaskan pada chapter [A.65. Go Generics](/A-golang-generics.html).
+> Notasi `[T]` adalah bagian dari fitur *generics* di Go, lebih jelasnya mengenai generic dijelaskan pada chapter [A.66. Go Generics](/A-golang-generics.html).
 
 ## A.56.8. Koneksi Dengan Engine Database Lain
 

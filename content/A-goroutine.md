@@ -8,7 +8,7 @@ Goroutine secara konsep mirip seperti *thread*, meskipun sebenarnya berbeda. Seb
 
 Goroutine merupakan salah satu bagian paling penting dalam *concurrent programming* di Go. Salah satu yang membuat goroutine sangat istimewa adalah eksekusi-nya dijalankan di multi core processor. Kita bisa tentukan berapa banyak core yang aktif, makin banyak akan makin cepat.
 
-Mulai chapter **A.30** ini hingga **A.35**, lalu dilanjut **A.59** dan **A.60**, kita akan membahas tentang fitur-fitur yang disediakan Go untuk kebutuhan *concurrent programming*.
+Mulai chapter **A.30** ini hingga **A.35**, lalu dilanjut **A.60** dan **A.61**, kita akan membahas tentang fitur-fitur yang disediakan Go untuk kebutuhan *concurrent programming*.
 
 > Concurrency atau konkurensi berbeda dengan paralel. Paralel adalah eksekusi banyak proses secara bersamaan. Sedangkan konkurensi adalah komposisi dari sebuah proses. Konkurensi merupakan struktur, sedangkan paralel adalah bagaimana eksekusinya berlangsung.
 
@@ -90,7 +90,7 @@ fmt.Println(s3) // law
 
 Bisa dilihat pada kode di atas, untuk menampung inputan text `trafalgar d law`, dibutuhkan 3 buah variabel. Juga perlu diperhatikan bahwa yang disisipkan sebagai parameter pada pemanggilan fungsi `fmt.Scanln()` adalah referensi variabel, bukan nilai aslinya.
 
-> Penggunaan `fmt.Scanln()` di atas hanya untuk kesederhanaan contoh pertama goroutine. Untuk sinkronisasi goroutine di kode nyata, gunakan `sync.WaitGroup` yang dibahas pada chapter [A.59. WaitGroup](/A-waitgroup.html).
+> Penggunaan `fmt.Scanln()` di atas hanya untuk kesederhanaan contoh pertama goroutine. Untuk sinkronisasi goroutine di kode nyata, gunakan `sync.WaitGroup` yang dibahas pada chapter [A.60. WaitGroup](/A-waitgroup.html).
 
 ---
 

@@ -2,7 +2,7 @@
 
 Channel membuat manajemen goroutine menjadi sangat mudah di Go. Namun perlu diingat, fungsi utama channel adalah bukan untuk kontrol eksekusi goroutine, melainkan untuk sharing data atau komunikasi goroutine.
 
-> Pada chapter [A.59. sync.WaitGroup](/A-waitgroup.html) akan dibahas secara komprehensif tentang cara yang lebih optimal untuk kontrol eksekusi goroutine.
+> Pada chapter [A.60. sync.WaitGroup](/A-waitgroup.html) akan dibahas secara komprehensif tentang cara yang lebih optimal untuk kontrol eksekusi goroutine.
 
 Tergantung jenis kasusnya, ada kalanya kita butuh lebih dari satu channel untuk komunikasi data antar goroutine. Penerimaan data pada banyak goroutine penerapannya masih sama, yaitu dengan menambahkan karakter `<-` pada statement. Selain itu, ada juga cara lain yaitu menggunakan keyword `select`. Keyword ini mempermudah kontrol penerimaan data via satu atau lebih dari satu channel.
 

@@ -1,8 +1,8 @@
-# A.65. Go Generics
+# A.66. Go Generics
 
 Pada chapter ini kita akan belajar tentang penerapan Generics di Go.
 
-## A.65.1. Konsep Generic Programming
+## A.66.1. Konsep Generic Programming
 
 Generic Programming adalah salah satu metode dalam penulisan kode program, di mana tipe data dalam kode didefinisikan menggunakan suatu tipe yang tipe pastinya ditulis belakangan saat kode tersebut di-call atau dieksekusi. Konsep generic ini cukup umum diterapkan terutama pada bahasa pemrograman yang mengadopsi static typing.
 
@@ -12,7 +12,7 @@ Berbeda dibanding `any`, pada Generic kita perlu mendefinisikan cakupan tipe dat
 
 Ok, mari kita lanjut ke praktik saja agar tidak makin bingung.
 
-## A.65.2. Penerapan Generic pada Fungsi
+## A.66.2. Penerapan Generic pada Fungsi
 
 Mari kita mulai pembelajaran dengan kode sederhana berikut:
 
@@ -99,7 +99,7 @@ Output program:
 
 ![Golang generic](images/A_generics_1.png)
 
-## A.65.3. Comparable Data Type pada Fungsi Generic
+## A.66.3. Comparable Data Type pada Fungsi Generic
 
 Selanjutnya, modifikasi lagi fungsi `Sum` agar tipe kompatibel `V` di sini bisa kompatibel dengan tipe numerik lainnya seperti `float64`. Caranya sangat mudah, cukup tambahkan tipe data yang diinginkan untuk kompatibel pada statement `V int` menggunakan delimiter pipe (`|`).
 
@@ -132,7 +132,7 @@ fmt.Println("total:", total3)
 
 Jos gandos, hasilnya sesuai harapan. Sampai sini kita sudah paham bagaimana cara pendefinisian tipe kompatibel pada fungsi dan cara pemanfaatannya.
 
-## A.65.4. Tipe Argumen Saat Pemanggilan Fungsi Generic
+## A.66.4. Tipe Argumen Saat Pemanggilan Fungsi Generic
 
 Ada 2 cara pemanggilan fungsi generic, yang pertama seperti contoh di atas.
 
@@ -152,7 +152,7 @@ Sum[float64]([]float64{1.23, 6.33, 12.6})
 
 Di case ini (dan banyak case lainnya), tipe data yang sudah kompatibel tidak perlu dituliskan secara eksplisit karena kompiler secara cerdas bisa mendeteksi tipe yang kompatibel berdasarkan tipe data parameter saat pemanggilan fungsi.
 
-## A.65.5. Keyword `comparable`
+## A.66.5. Keyword `comparable`
 
 Sekarang kita akan belajar kegunaan satu keyword penting lainnya, yaitu `comparable`. Keyword ini merepresentasikan semua tipe data yang nilainya bisa dibandingkan menggunakan operator `==` dan `!=`.
 
@@ -208,7 +208,7 @@ Jalankan kode, lihat hasilnya.
 
 ![Golang generic](images/A_generics_3.png)
 
-## A.65.6. Generic *Type Constraint*
+## A.66.6. Generic *Type Constraint*
 
 Selanjutnya buat fungsi `SumNumbers3()` yang isinya kurang lebih sama. Kali ini kita tidak menggunakan `V int64 | float64`, melainkan menggunakan tipe `Number` yang merupakan tipe data baru yang akan kita buat juga (generic *type constraint*).
 
@@ -232,7 +232,7 @@ Cara pendefinisian generic type ini mirip seperti pendefinisian tipe data kustom
 
 Ok, sekarang ubah pemanggilan fungsi `SumNumbers2()` pada main menjadi `SumNumbers3()` lalu coba jalankan dan lihat hasilnya, pasti outputnya sama, menandakan bahwa kode program berjalan sesuai desain.
 
-## A.65.7. Struct Generic
+## A.66.7. Struct Generic
 
 Generic juga bisa diterapkan pada struct, contohnya:
 
@@ -267,13 +267,13 @@ Cukup tuliskan notasi generic pada deklarasi struct. Kemudian siapkan variabel o
 
 ![Golang generic](images/A_generics_4.png)
 
-## A.65.8. Method Generic
+## A.66.8. Method Generic
 
 Sampai artikel ini ditulis, generic tidak bisa diterapkan pada method (meski bisa diterapkan pada fungsi)
 
 > Penulis akan update konten chapter ini jika ada update pada spesifikasi generic API.
 
-## A.65.9. Generic Type Alias (Go 1.24+)
+## A.66.9. Generic Type Alias (Go 1.24+)
 
 Sejak Go 1.24, Go mendukung sepenuhnya **generic type alias**, yaitu alias tipe yang bisa menggunakan type parameter. Sebelumnya, alias tipe hanya bisa dibuat untuk tipe konkret.
 
@@ -311,7 +311,7 @@ Generic type alias berguna untuk menyederhanakan nama tipe panjang atau menyedia
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.65-generic">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.65...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.66-generic">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.66...</a>
 </div>
 
 ---

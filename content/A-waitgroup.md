@@ -1,4 +1,4 @@
-# A.59. WaitGroup
+# A.60. WaitGroup
 
 Sebelumnya kita telah belajar banyak mengenai channel, di mana fungsi utama-nya adalah untuk sharing/kirim data antar goroutine. Selain untuk komunikasi data, channel secara tidak langsung bisa dimanfaatkan untuk kontrol goroutine.
 
@@ -8,7 +8,7 @@ Kegunaan `sync.WaitGroup` adalah untuk sinkronisasi goroutine. Berbeda dengan ch
 
 > Sebenarnya kurang pas jika membandingkan `sync.WaitGroup` dan channel, karena fungsi utama dari keduanya adalah berbeda. Channel untuk keperluan sharing data antar goroutine, sedangkan `sync.WaitGroup` untuk sinkronisasi goroutine.
 
-## A.59.1. Penerapan `sync.WaitGroup`
+## A.60.1. Penerapan `sync.WaitGroup`
 
 `sync.WaitGroup` digunakan untuk menunggu goroutine. Cara pengaplikasiannya sangat mudah, tinggal masukkan jumlah goroutine yang dieksekusi, sebagai parameter method `Add()` pada object cetakan `sync.WaitGroup`, kemudian di akhir setiap goroutine pastikan untuk memanggil method `Done()`. Lalu gunakan method `Wait()` untuk menunggu eksekusi semua goroutine selesai.
 
@@ -58,7 +58,7 @@ Output program di atas:
 
 > `sync.WaitGroup` merupakan salah satu tipe yang *thread safe*. Kita tidak perlu khawatir terhadap potensi *race condition* karena variabel bertipe ini aman untuk digunakan di banyak goroutine secara paralel.
 
-## A.59.2. Perbedaan WaitGroup Dengan Channel
+## A.60.2. Perbedaan WaitGroup Dengan Channel
 
 Bukan sebuah perbandingan yang *fair*, tapi jika dilihat perbedaan antara channel dan `sync.WaitGroup` kurang lebih ada di bagian ini:
 
@@ -73,7 +73,7 @@ Kombinasi yang tepat antara `sync.WaitGroup` dan channel sangat penting, keduany
 
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.59-waitgroup">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.59...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.60-waitgroup">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.60...</a>
 </div>
 
 ---
