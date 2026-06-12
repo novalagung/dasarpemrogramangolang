@@ -1,10 +1,10 @@
-# B.14. AJAX JSON Payload
+# B.14. HTTP Request JSON Payload
 
 Sebelumnya kita telah mempelajari cara submit data dari front-end ke back-end dengan menggunakan payload **Form Data**. Kali ini kita akan belajar tentang cara request menggunakan payload **JSON**.
 
 > **Form Data** merupakan tipe payload default HTTP request via tag `<form />`
 
-Pada chapter ini, kita tidak akan menggunakan tag `<form />` untuk submit data, melainkan dengan memanfaatkan teknik AJAX (Asynchronous JavaScript And XML) dengan payload JSON.
+Pada chapter ini, kita tidak akan menggunakan tag `<form />` untuk submit data, melainkan dengan memanfaatkan **Fetch API** untuk mengirimkan HTTP request dengan payload JSON.
 
 Sebenarnya [perbedaan](http://stackoverflow.com/a/23152367/1467988) antara kedua jenis request tersebut ada di dua hal, yaitu isi header `Content-Type` dan struktur informasi dikirimkan. Request lewat `<form />` secara default memiliki content type `application/x-www-form-urlencoded`, efeknya data dikirimkan dalam bentuk query string (key-value) seperti `id=n001&nama=bruce`.
 
@@ -14,11 +14,13 @@ Untuk payload JSON, `Content-Type` yang digunakan adalah `application/json`. Den
 
 ## B.14.1. Struktur Folder Proyek
 
-OK, mari praktik. Pertama siapkan proyek dengan struktur seperti gambar berikut.
+OK, mari praktik. Pertama siapkan proyek dengan struktur berikut.
 
-![Struktur proyek](images/B_ajax_json_payload_1_structure.png)
-
-> Silakan unduh file JS jQuery dari situs official-nya.
+```
+chapter-B.14-http-request-json-payload/
+├── main.go
+└── view.html
+```
 
 ## B.14.2. Front End - HTML
 
@@ -29,9 +31,8 @@ Layout dari view perlu disiapkan terlebih dahulu, tulis kode berikut pada file `
 <html>
     <head>
         <title>JSON Payload</title>
-        <script src="static/jquery-3.7.1.min.js"></script>
         <script>
-            $(function () {
+            document.addEventListener("DOMContentLoaded", function () {
                 // javascript code here
             });
         </script>
@@ -81,55 +82,56 @@ Selanjutnya, pada tag `<form />` tambahkan tabel sederhana dengan isi didalamnya
 
 ## B.14.3. Front End - JavaScript
 
-Sekarang kita masuk ke bagian paling menyenangkan/menyebalkan (tergantung taste), yaitu javascript. Siapkan sebuah event `submit` pada `#user-form`. Default handler untuk event submit milik `<form />` di-override, diganti dengan AJAX request.
+Sekarang kita masuk ke bagian JavaScript. Siapkan event listener `submit` pada form `#user-form`. Default behavior submit form di-override menggunakan `e.preventDefault()`, kemudian data dikirim ke server menggunakan Fetch API.
 
 ```js
-$("#user-form").on("submit", function (e) {
+document.getElementById("user-form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    var $self = $(this);
-    var payload = JSON.stringify({
-        name: $('[name="name"]').val(),
-        age: parseInt($('[name="age"]').val(), 10),
-        gender: $('[name="gender"]').val()
+    const form = e.target;
+    const payload = JSON.stringify({
+        name: document.querySelector('[name="name"]').value,
+        age: parseInt(document.querySelector('[name="age"]').value, 10),
+        gender: document.querySelector('[name="gender"]').value,
     });
 
-    $.ajax({
-        url: $self.attr("action"),
-        type: $self.attr("method"),
-        data: payload,
-        contentType: 'application/json',
-    }).then(function (res) {
-        $(".message").text(res);
-    }).catch(function (a) {
-        alert("ERROR: " + a.responseText);
-    });
+    try {
+        const res = await fetch(form.action, {
+            method: form.method,
+            headers: { "Content-Type": "application/json" },
+            body: payload,
+        });
+        const text = await res.text();
+        if (!res.ok) throw new Error(text);
+        document.querySelector(".message").textContent = text;
+    } catch (err) {
+        alert("ERROR: " + err.message);
+    }
 });
 ```
 
-Value semua inputan dalam form diambil, kemudian dimasukkan ke sebuah objek lalu di stringify, agar berubah menjadi JSON string untuk kemudian di jadikan sebagai payload request. Bisa dilihat pada kode AJAX di atas, `contentType` nilainya adalah `application/json`. 
+Value semua inputan dalam form diambil menggunakan `document.querySelector()`, dimasukkan ke sebuah objek, lalu di-stringify menjadi JSON string untuk dijadikan payload request. Header `Content-Type` di-set ke `application/json` agar server tahu format data yang dikirimkan.
 
-Respon dari AJAX di atas nantinya dimunculkan pada `<p class="message"></p>`.
+Fungsi `fetch()` dipanggil dengan `method`, `headers`, dan `body` sesuai konfigurasi form. Karena `fetch()` mengembalikan Promise, keyword `async/await` digunakan untuk menunggu respons secara asinkron. Jika respons HTTP bukan status 2xx (misalnya 4xx atau 5xx), error dilempar dan ditampilkan via `alert()`. Jika request berhasil, teks respons ditampilkan pada `<p class="message"></p>`.
 
 ## B.14.4. Back End
 
-3 buah rute perlu disiapkan, yang pertama adalah untuk menampilkan `view.html`, untuk keperluan submit data, dan registrasi asset.
+2 buah rute perlu disiapkan: satu untuk menampilkan `view.html`, satu lagi untuk memproses data yang di-submit.
 
 ```go
 package main
 
-import "log"
-import "net/http"
-import "html/template"
-import "encoding/json"
+import (
+    "encoding/json"
+    "fmt"
+    "html/template"
+    "log"
+    "net/http"
+)
 
 func main() {
     http.HandleFunc("/", handleIndex)
     http.HandleFunc("/save", handleSave)
-
-    http.Handle("/static/", 
-        http.StripPrefix("/static/", 
-            http.FileServer(http.Dir("assets"))))
 
     log.Println("server started at localhost:9000")
     err := http.ListenAndServe(":9000", nil)
@@ -191,7 +193,7 @@ Jalankan program yang telah dibuat, test hasilnya di browser.
 
 ![Hasil tes](images/B_ajax_json_payload_2_test.png)
 
-Gunakan fasilitas Developer Tools pada Chrome untuk menginspeksi aktifitas AJAX-nya.
+Gunakan fasilitas Developer Tools pada Chrome untuk menginspeksi aktifitas HTTP request-nya.
 
 ![Request](images/B_ajax_json_payload_3_inspect.png)
 

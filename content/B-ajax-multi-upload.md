@@ -1,4 +1,4 @@
-# B.16. AJAX Multiple File Upload
+# B.16. Multiple File Upload
 
 Pada chapter ini, kita akan belajar 3 hal sekaligus yang mencakup poin-poin berikut: 
 

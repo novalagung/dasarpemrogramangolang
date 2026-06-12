@@ -1,4 +1,4 @@
-# B.9. Template: Render Specific HTML Template
+# B.9. Template: Render Named Template
 
 Pada chapter ini kita akan mempelajari cara render template html tertentu untuk dijadikan output pengaksesan endpoint. Sebuah file view bisa berisikan banyak template. Template mana yang ingin di-render bisa ditentukan.
 

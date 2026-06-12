@@ -1,4 +1,4 @@
-# B.13. Form Upload File
+# B.13. Form: File Upload
 
 Pada bagian ini kita akan belajar bagaimana cara meng-handle upload file yang dilakukan via form submit di sisi front-end. Pada beberapa bagian, caranya mirip seperti pada chapter sebelumnya, perbedaannya kali ini handler berisi proses untuk handling file yang di-upload. Proses yang dimaksud adalah memproses payload file dari front-end untuk kemudian disimpan ke path/folder.
 
