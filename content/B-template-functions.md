@@ -19,13 +19,13 @@ import (
 )
 
 type Superhero struct {
-    Name    string
-    Alias   string
-    Friends []string
+	Name    string
+	Alias   string
+	Friends []string
 }
 
 func (s Superhero) SayHello(from string, message string) string {
-    return fmt.Sprintf("%s said: \"%s\"", from, message)
+	return fmt.Sprintf("%s said: \"%s\"", from, message)
 }
 ```
 
@@ -35,18 +35,18 @@ Selanjutnya buat fungsi `main()`, isi dengan handler untuk rute `/`. Secara umum
 
 ```go
 func main() {
-    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        var person = Superhero{
-            Name:    "Bruce Wayne",
-            Alias:   "Batman",
-            Friends: []string{"Superman", "Flash", "Green Lantern"},
-        }
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		var person = Superhero{
+			Name:    "Bruce Wayne",
+			Alias:   "Batman",
+			Friends: []string{"Superman", "Flash", "Green Lantern"},
+		}
 
-        var tmpl = template.Must(template.ParseFiles("view.html"))
-        if err := tmpl.Execute(w, person); err != nil {
-            http.Error(w, err.Error(), http.StatusInternalServerError)
-        }
-    })
+		var tmpl = template.Must(template.ParseFiles("view.html"))
+		if err := tmpl.Execute(w, person); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	})
 
     log.Println("server started at localhost:9000")
     err := http.ListenAndServe(":9000", nil)
@@ -60,11 +60,11 @@ Kemudian isi file `view.html` dengan kode berikut.
 
 ```html
 <html>
-    <head>
-        <title>Learning html/template Functions</title>
-    </head>
-    <body>
-    </body>
+	<head>
+		<title>Learning html/template Functions</title>
+	</head>
+	<body>
+	</body>
 </html>
 ```
 
@@ -78,7 +78,7 @@ Tulis kode berikut dalam `<body></body>` file `view.html`.
 
 ```html
 <p>
-    {{html "<h2>Hello</h2>"}}
+	{{html "<h2>Hello</h2>"}}
 </p>
 ```
 
@@ -103,17 +103,17 @@ Pada chapter sebelumnya telah dibahas bagaimana penggunaan operator `ne` pada ac
 
 ```html
 {{if true}}
-    benar
+	benar
 {{end}}
 ```
 
-> Untuk memeriksa kesamaan nilai boolean secara eksplisit, tetap gunakan `eq` dengan dua argumen: `{{if eq $isTrue true}}`
+> Untuk memeriksa kesamaan nilai boolean secara eksplisit, tetap gunakan `eq` dengan dua argumen: `if eq $isTrue true`
 
 Jika nilai kondisinya merupakan perbandingan, maka nilai yang dibandingkan harus dituliskan, sebagai contoh di bawah ini adalah seleksi kondisi memanfaatkan operator `gt` untuk deteksi apakah nilai di atas 60.
 
 ```html
 {{if gt $value 60}}
-    lulus
+	lulus
 {{end}}
 ```
 
@@ -125,9 +125,9 @@ Praktikan kode berikut, tulis ke dalam file `view.html`.
 
 ```html
 {{if eq .Name "Bruce Wayne"}}
-    <p>I'm the Batman!</p>
+	<p>I'm the Batman!</p>
 {{else if ne .Name "Clark Kent"}}
-    <p>I'm neither Batman or Superman</p>
+	<p>I'm neither Batman or Superman</p>
 {{end}}
 ```
 
@@ -152,7 +152,7 @@ Cara memanggil method yang disisipkan ke view sama dengan cara pemanggilan fungs
 
 ```html
 <p>
-    {{.SayHello "Gotham citizen" "You are our hero!"}}
+	{{.SayHello "Gotham citizen" "You are our hero!"}}
 </p>
 ```
 
@@ -162,7 +162,7 @@ Test hasilnya pada browser.
 
 ## B.7.5. Fungsi String
 
-Go juga menyediakan beberapa fungsi string yang bisa dimanfaatkan, yaitu:
+Go juga menyediakan beberapa fungsi string yang bisa dimanfaatkan, yaitu: 
 
  - `print` (merupakan alias dari `fmt.Sprint`)
  - `printf` (merupakan alias dari `fmt.Sprintf`)
@@ -172,7 +172,7 @@ Cara penggunannya juga masih sama, contoh:
 
 ```html
 <p>
-    {{printf "%s because I'm %s" "You know why?" "Batman!"}}
+	{{printf "%s because I'm %s" "You know why?" "Batman!"}}
 </p>
 ```
 
@@ -206,10 +206,10 @@ Berikut merupakan contoh penerapan fungsi `len` dan `index`.
 
 ```html
 <p>
-    Batman have many friends. {{len .Friends}} of them are:
-    {{index .Friends 0}},
-    {{index .Friends 1}}, and 
-    {{index .Friends 2}}
+	Batman have many friends. {{len .Friends}} of them are:
+	{{index .Friends 0}},
+	{{index .Friends 1}}, and 
+	{{index .Friends 2}}
 </p>
 ```
 
@@ -221,14 +221,14 @@ Output program:
 
 Selain fungsi operator perbandingan, terdapat juga operator logika `or`, `and`, dan `not`. Cara penggunaannya adalah dengan dituliskan setelah actions `if` atau `elseif`, sebagai fungsi dengan parameter adalah nilai yang ingin dibandingkan.
 
-> Fungsi `not` menerima satu argumen dan mengembalikan negasi boolean-nya, contohnya `{{if not $cond1}}`. Berbeda dengan `ne` yang membandingkan dua nilai.
+> Fungsi `not` menerima satu argumen dan mengembalikan negasi boolean-nya, contohnya `if not $cond1`. Berbeda dengan `ne` yang membandingkan dua nilai.
 
 ```html
 {{$cond1 := true}}
 {{$cond2 := false}}
 
 {{if or $cond1 $cond2}}
-    <p>Be like Batman!</p>
+	<p>Be like Batman!</p>
 {{end}}
 ```
 
