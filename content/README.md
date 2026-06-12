@@ -7,18 +7,18 @@ Website/ebook tutorial Dasar Pemrograman Golang ini merupakan salah satu dari se
 Ada total sekitar <b>160+ chapter</b> yang dibahas dalam website/ebook ini. Kumpulan chapter tersebut dibagi menjadi 4 kategori besar yang berurutan dan berkesinambungan satu sama lain.
 
 <ol type="A">
-	<li>
-		<b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
-	</li>
-	<li>
-		<b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
-	</li>
-	<li>
-		<b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
-	</li>
-	<li>
-		<b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
-	</li>
+    <li>
+        <b>Pemrograman Go Dasar</b>. Pada bagian ini topik yang dibahas sangat dasar, cocok untuk orang yang belum pernah tau atau belum menggunakan bahasa Go. Pembahasan dimulai dari instalasi, eksekusi, hello word, dilanjutkan dengan topik seperti pembahasan beberapa keyword Go, pointer, struct, interface, reflect, goroutine, channel, date time, dan lainnya.
+    </li>
+    <li>
+        <b>Pemrograman Web Go Dasar</b>. Pada bagian ini kita akan fokus belajar ilmu dasar yang diperlukan untuk pengembangan aplikasi web menggunakan Go, di antaranya seperti: routing, multiplexer, middleware, cookie, dan lainnya. Pada chapter ini kita tidak menggunakan framework atau library external, hanya menggunakan API internal yang disediakan Go saja.
+    </li>
+    <li>
+        <b>Pemrograman Go Lanjut</b>. Di bagian ini akan mulai dibahas topik yang lebih advance, beberapa di antaranya akan menggunakan library-library Go yang sudah cukup terkenal di komunitas. Topik-topik tersebut antara lain: http, ssl, cors, crsf, mail, pdf, excel, ftp, ssh, web socket, protobuf, gRPC + protobuf, atau topik advance web atau non-web lainnya.
+    </li>
+    <li>
+        <b>Studi Kasus</b>. Di bagian ini akan dibahas mengenai Proof of Concept dari problem solving kasus penerapan aplikasi Go di real project.
+    </li>
 </ol>
 
 Versi e-book: **v4.0.20251111**, dan versi Go **1.26.4**.
@@ -42,13 +42,13 @@ Source code contoh-contoh program bisa diunduh di [github.com/novalagung/dasarpe
 Website/ebook ini merupakan project open source, jadi teruntuk siapapun yang ingin berkontribusi silakan langsung saja cek GitHub kami di [github.com/novalagung/dasarpemrogramangolang](https://github.com/novalagung/dasarpemrogramangolang). Silakan lihat juga [laman kontributor](https://dasarpemrogramangolang.novalagung.com/CONTRIBUTING.html) untuk lebih detailnya mengenai kontribusi ke project ini.
 
 <div align="center">
-	<a href="https://www.star-history.com/?repos=novalagung%2Fdasarpemrogramangolang&type=date&legend=bottom-right">
-		<picture>
-			<source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=novalagung/dasarpemrogramangolang&type=date&theme=dark&legend=bottom-right" />
-			<source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=novalagung/dasarpemrogramangolang&type=date&legend=bottom-right" />
-			<img alt="Star History Chart" src="https://api.star-history.com/chart?repos=novalagung/dasarpemrogramangolang&type=date&legend=bottom-right" />
-		</picture>
-	</a>
+    <a href="https://www.star-history.com/?repos=novalagung%2Fdasarpemrogramangolang&type=date&legend=bottom-right">
+        <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=novalagung/dasarpemrogramangolang&type=date&theme=dark&legend=bottom-right" />
+            <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=novalagung/dasarpemrogramangolang&type=date&legend=bottom-right" />
+            <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=novalagung/dasarpemrogramangolang&type=date&legend=bottom-right" />
+        </picture>
+    </a>
 </div>
 
 ## Lisensi dan Status FOSSA
