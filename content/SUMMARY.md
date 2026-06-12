@@ -163,5 +163,6 @@
 <hr>
 
 * D. Studi Kasus
+  * [D.1. Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel](D-insert-1mil-csv-record-into-db-in-a-minute.md)
   * [D.2. Google API Search Dengan Timeout](D-google-api-search.md)
-  * [D.3. Web Socket: Chatting App](D-golang-web-socket-chatting-app.md)
+  * [D.3. Web Socket Chatting App](D-golang-web-socket-chatting-app.md)
