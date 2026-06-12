@@ -2085,7 +2085,7 @@
 <h2 id="b201-pembuatan-custom-mux">B.20.1. Pembuatan Custom Mux</h2>
 <p>Pada chapter sebelumnya, default mux milik Go digunakan untuk routing dan implementasi middleware. Kali ini default mux tersebut tidak digunakan karena mux baru akan dibuat.</p>
 <p>Sebenarnya, pembuatan mux baru tidaklah cukup, karena mux baru tidak memiliki perbedaan signifikan dibanding default mux. Agar mux baru menjadi lebih berguna, mux baru tersebut perlu meng-embed <code>http.ServeMux</code> dan kita juga perlu mempersiapkan beberapa method.</p>
-<p>OK, mari kita praktekan. Ubah isi fungsi <code>main()</code> menjadi seperti berikut.</p>
+<p>OK, mari kita praktikkan. Ubah isi fungsi <code>main()</code> menjadi seperti berikut.</p>
 <pre><code class="lang-go">mux := <span class="hljs-built_in">new</span>(CustomMux)
 
 mux.HandleFunc(<span class="hljs-string">&quot;/student&quot;</span>, ActionStudent)
@@ -2097,8 +2097,10 @@ server := <span class="hljs-built_in">new</span>(http.Server)
 server.Addr = <span class="hljs-string">&quot;:9000&quot;</span>
 server.Handler = mux
 
-fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
-server.ListenAndServe()
+log.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+<span class="hljs-keyword">if</span> err := server.ListenAndServe(); err != <span class="hljs-literal">nil</span> {
+    log.Fatal(err)
+}
 </code></pre>
 <p>Objek <code>mux</code> dicetak dari struct <code>CustomMux</code> yang mana nantinya struct ini dibuat dengan meng-embed <code>http.ServeMux</code>.</p>
 <p>Registrasi middleware juga perlu diubah, sekarang menggunakan method <code>.RegisterMiddleware()</code> milik <code>CustomMux</code>.</p>
@@ -2174,7 +2176,7 @@ server.ListenAndServe()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"next":{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},"previous":{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"path":"B-middleware-using-http-handler.md","ref":"B-middleware-using-http-handler.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-custom-mux-multiplexer.md","mtime":"2026-06-11T17:27:46.242Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.20. Custom Multiplexer","level":"4.1.20","depth":2,"next":{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},"previous":{"title":"B.19. Middleware http.Handler","level":"4.1.19","depth":2,"path":"B-middleware-using-http-handler.md","ref":"B-middleware-using-http-handler.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-custom-mux-multiplexer.md","mtime":"2026-06-12T08:15:00.661Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:16:01.276Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2196,7 +2198,7 @@ server.ListenAndServe()
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.172908"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.081622"></script>
         
     
         

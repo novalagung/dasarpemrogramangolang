@@ -2081,7 +2081,7 @@
                                 
                                 <h1 id="b3-routing-static-assets">B.3. Routing Static Assets</h1>
 <p>Pada bagian ini kita akan mempelajari cara routing static assets / static contents. Static assets yang dimaksud adalah seperti file statis css, js, gambar, dan lainnya.</p>
-<p>Ok, mari belajar sambil praktek.</p>
+<p>Ok, mari belajar sambil praktik.</p>
 <h2 id="b31-struktur-aplikasi">B.3.1. Struktur Aplikasi</h2>
 <p>Buat project baru, siapkan file dan folder dengan struktur sesuai dengan gambar berikut.</p>
 <p><img src="images/B_routing_static_assets_1_structure.png" alt="Dasar Pemrograman Golang - Structure"></p>
@@ -2090,33 +2090,38 @@
 <p>Berbeda dengan routing menggunakan <code>http.HandleFunc()</code>, routing static assets lebih mudah. Silakan tulis kode berikut dalam <code>main.go</code>, setelahnya kita akan bahas secara mendetail.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
 
 <span class="hljs-keyword">func</span> main() {
     http.Handle(<span class="hljs-string">&quot;/static/&quot;</span>,
         http.StripPrefix(<span class="hljs-string">&quot;/static/&quot;</span>,
             http.FileServer(http.Dir(<span class="hljs-string">&quot;assets&quot;</span>))))
 
-    fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
-    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    log.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    err := http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err)
+    }
 }
 </code></pre>
 <p>Syarat yang dibutuhkan untuk routing static assets masih sama dengan routing handler, yaitu perlu didefinisikan rute beserta handler-nya. Hanya saja pembedanya di sini adalah dalam routing static assets yang digunakan adalah <code>http.Handle()</code>, bukan <code>http.HandleFunc()</code>.</p>
 <ol>
-<li><p>Rute terpilih adalah <code>/static/</code>, maka nantinya semua request yang di awali dengan <code>/static/</code> akan diarahkan ke sini. Registrasi rute menggunakan <code>http.Handle()</code> adalah berbeda dengan routing menggunakan <code>http.HandleFunc()</code>, lebih jelasnya akan ada sedikit penjelasan pada chapter lain.</p>
+<li><p>Rute terpilih adalah <code>/static/</code>, maka nantinya semua request yang diawali dengan <code>/static/</code> akan diarahkan ke sini. Registrasi rute menggunakan <code>http.Handle()</code> adalah berbeda dengan routing menggunakan <code>http.HandleFunc()</code>, lebih jelasnya akan ada sedikit penjelasan pada chapter lain.</p>
 </li>
-<li><p>Sedang untuk handler-nya bisa di-lihat, ada pada parameter ke-2 yang isinya statement <code>http.StripPrefix()</code>. Sebenarnya actual handler nya berada pada <code>http.FileServer()</code>. Fungsi <code>http.StripPrefix()</code> hanya digunakan untuk membungkus actual handler.</p>
+<li><p>Sedangkan handler-nya ada pada parameter ke-2, yaitu statement <code>http.StripPrefix()</code>. Actual handler-nya sendiri berada pada <code>http.FileServer()</code>. Fungsi <code>http.StripPrefix()</code> hanya digunakan untuk membungkus actual handler tersebut.</p>
 </li>
 </ol>
 <p>Fungsi <code>http.FileServer()</code> mengembalikan objek ber-tipe <code>http.Handler</code>. Fungsi ini berguna untuk merespon http request dengan konten yang ada di dalam folder <code>assets</code> sesuai permintaan.</p>
 <p>Jalankan <code>main.go</code>, lalu test hasilnya di browser <code>http://localhost:9000/static/</code>.</p>
 <p><img src="images/B_routing_static_assets_2_preview.png" alt="Dasar Pemrograman Golang - Structure"></p>
 <h2 id="b33-penjelasan">B.3.3. Penjelasan</h2>
-<p>Penjelasan akan lebih mudah dipahami jika disajikan juga contoh praktek, maka sejenak kita coba bahas menggunakan contoh sederhana berikut.</p>
+<p>Penjelasan akan lebih mudah dipahami jika disajikan juga contoh praktik, maka sejenak kita coba bahas menggunakan contoh sederhana berikut.</p>
 <pre><code class="lang-go">http.Handle(<span class="hljs-string">&quot;/&quot;</span>, http.FileServer(http.Dir(<span class="hljs-string">&quot;assets&quot;</span>)))
 </code></pre>
-<p>Jika dilihat pada struktur folder yang sudah di-buat, di dalam folder <code>assets</code> terdapat file bernama <code>site.css</code>. Maka dengan bentuk routing pada contoh sederhana di atas, request ke <code>/site.css</code> akan diarahkan ke path <code>./site.css</code> (relatif dari folder <code>assets</code>). Permisalan contoh lainnya:</p>
+<p>Jika dilihat pada struktur folder yang sudah di-buat, di dalam folder <code>assets</code> terdapat file bernama <code>site.css</code>. Maka dengan bentuk routing pada contoh sederhana di atas, request ke <code>/site.css</code> akan diarahkan ke path <code>./site.css</code> (relatif dari folder <code>assets</code>). Contoh lainnya:</p>
 <ul>
 <li>Request ke <code>/site.css</code> mengarah path <code>./site.css</code> relatif dari folder <code>assets</code></li>
 <li>Request ke <code>/script.js</code> mengarah path <code>./script.js</code> relatif dari folder <code>assets</code></li>
@@ -2124,7 +2129,7 @@
 <li>... dan seterusnya</li>
 </ul>
 <blockquote>
-<p>Fungsi <code>http.Dir()</code> berguna untuk <em>adjustment path parameter</em>. Separator dari path yang di-definisikan otomatis di-konversi ke path separator sesuai sistem operasi.</p>
+<p>Fungsi <code>http.Dir()</code> berguna untuk <em>adjustment path parameter</em>. Separator dari path yang didefinisikan otomatis dikonversi ke path separator sesuai sistem operasi.</p>
 </blockquote>
 <p>Sekarang coba perhatikan kode berikut.</p>
 <pre><code class="lang-go">http.Handle(<span class="hljs-string">&quot;/static&quot;</span>, http.FileServer(http.Dir(<span class="hljs-string">&quot;assets&quot;</span>)))
@@ -2137,7 +2142,7 @@
 <li>... dan seterusnya</li>
 </ul>
 <p>Bisa dilihat bahwa rute yang didaftarkan juga akan digabung dengan path destinasi file yang dicari, dan ini menjadikan path tidak valid. File <code>site.css</code> berada pada path <code>assets/site.css</code>, sedangkan dari routing di atas pencarian file mengarah ke path <code>assets/static/site.css</code>. Di sinilah kegunaan dari fungsi <code>http.StripPrefix()</code>.</p>
-<p>Fungsi <code>http.StripPrefix()</code> berguna untuk menghapus prefix dari endpoint yang diakses. Request ke URL yang di awali dengan <code>/static/</code> akan diambil informasi endpoint-nya tanpa prefix <code>/static/</code>.</p>
+<p>Fungsi <code>http.StripPrefix()</code> berguna untuk menghapus prefix dari endpoint yang diakses. Request ke URL yang diawali dengan <code>/static/</code> akan diambil informasi endpoint-nya tanpa prefix <code>/static/</code>.</p>
 <ul>
 <li>Request ke <code>/static/site.css</code> mengarah ke <code>site.css</code></li>
 <li>Request ke <code>/static/script.js</code> mengarah ke <code>script.js</code></li>
@@ -2180,7 +2185,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.3. Routing Static Assets","level":"4.1.3","depth":2,"next":{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"path":"B-template-render-html.md","ref":"B-template-render-html.md","articles":[]},"previous":{"title":"B.2. Routing http.HandleFunc","level":"4.1.2","depth":2,"path":"B-routing-http-handlefunc.md","ref":"B-routing-http-handlefunc.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-routing-static-assets.md","mtime":"2026-06-11T17:27:46.244Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.3. Routing Static Assets","level":"4.1.3","depth":2,"next":{"title":"B.4. Template: Render HTML Template","level":"4.1.4","depth":2,"path":"B-template-render-html.md","ref":"B-template-render-html.md","articles":[]},"previous":{"title":"B.2. Routing http.HandleFunc","level":"4.1.2","depth":2,"path":"B-routing-http-handlefunc.md","ref":"B-routing-http-handlefunc.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-routing-static-assets.md","mtime":"2026-06-12T08:15:00.662Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:16:01.276Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2202,7 +2207,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.172908"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.081622"></script>
         
     
         

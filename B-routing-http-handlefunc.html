@@ -2096,11 +2096,13 @@
 <li>Parameter ke-1, adalah rute (atau endpoint). Sebagai contoh: <code>/</code>, <code>/index</code>, <code>/about</code>.</li>
 <li>Parameter ke-2, berisikan handler untuk rute bersangkutan. Sebagai contoh handler untuk rute <code>/</code> bertugas untuk menampilkan output berupa html <code>&lt;p&gt;hello&lt;/p&gt;</code>.</li>
 </ol>
-<p>Agar lebih mudah dipahami mari langsung praktek. Siapkan file <code>main.go</code> dengan package adalah <code>main</code>, dan import package <code>net/http</code> di dalamnya.</p>
+<p>Agar lebih mudah dipahami mari langsung praktik. Siapkan file <code>main.go</code> dengan package adalah <code>main</code>, dan import package <code>net/http</code> di dalamnya.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
 </code></pre>
 <p>Buat fungsi <code>main()</code>, di dalamnya siapkan sebuah closure <code>handlerIndex</code>, lalu gunakan closure tersebut sebagai handler dari dua rute baru yang sebentar lagi disiapkan, yaitu rute <code>/</code> dan <code>/index</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
@@ -2125,14 +2127,68 @@
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     <span class="hljs-comment">// ...</span>
 
-    fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
-    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    log.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    err := http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err)
+    }
 }
 </code></pre>
 <h2 id="b22-run--test">B.2.2. Run &amp; Test</h2>
 <p>Tes dan lihat hasilnya.</p>
 <p><img src="images/B_routing_http_handlefunc_1_routing.png" alt="Dasar Pemrograman Golang - Rute `/data` mengembalikan data"></p>
 <p>Handler bisa berupa fungsi, closure, ataupun anonymous function, intinya bebas, yang terpenting adalah skema fungsi-nya harus sesuai dengan <code>func (http.ResponseWriter, *http.Request)</code>.</p>
+<h2 id="b23-enhanced-routing-pattern-go-122">B.2.3. Enhanced Routing Pattern (Go 1.22+)</h2>
+<p>Sejak Go 1.22, pola routing pada <code>http.HandleFunc()</code> mendukung dua fitur baru yang sangat berguna: penentuan HTTP method langsung di pola rute, dan wildcard pada segmen path.</p>
+<h4 id="&#x25C9;-method-based-routing">&#x25C9; Method-Based Routing</h4>
+<p>Sebelumnya, satu handler bisa dipanggil dari method GET, POST, DELETE, maupun method HTTP lainnya tanpa bisa dibedakan langsung di level rute. Sekarang, kita bisa menentukannya langsung di parameter pertama:</p>
+<pre><code class="lang-go">http.HandleFunc(<span class="hljs-string">&quot;GET /articles&quot;</span>, handlerListArticles)
+http.HandleFunc(<span class="hljs-string">&quot;POST /articles&quot;</span>, handlerCreateArticle)
+</code></pre>
+<p>Rute <code>GET /articles</code> hanya akan cocok dengan request GET, sedangkan <code>POST /articles</code> hanya cocok dengan POST. Request dengan method lain akan mendapat response <code>405 Method Not Allowed</code> secara otomatis.</p>
+<h4 id="&#x25C9;-wildcard-path">&#x25C9; Wildcard Path</h4>
+<p>Segmen path bisa dijadikan wildcard menggunakan kurung kurawal <code>{nama}</code>. Nilai wildcard kemudian diambil lewat <code>r.PathValue(&quot;nama&quot;)</code>:</p>
+<pre><code class="lang-go">http.HandleFunc(<span class="hljs-string">&quot;GET /articles/{id}&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+    id := r.PathValue(<span class="hljs-string">&quot;id&quot;</span>)
+    w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;article id: &quot;</span> + id))
+})
+</code></pre>
+<p>Akses rute <code>/articles/42</code>, maka <code>id</code> bernilai <code>&quot;42&quot;</code>.</p>
+<p>Untuk menangkap sisa path (termasuk <code>/</code>), gunakan <code>{nama...}</code>:</p>
+<pre><code class="lang-go">http.HandleFunc(<span class="hljs-string">&quot;/static/{path...}&quot;</span>, handlerStatic)
+</code></pre>
+<p>Berikut contoh lengkap penggunaan kedua fitur ini:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    http.HandleFunc(<span class="hljs-string">&quot;GET /articles&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;list semua artikel&quot;</span>))
+    })
+
+    http.HandleFunc(<span class="hljs-string">&quot;POST /articles&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;buat artikel baru&quot;</span>))
+    })
+
+    http.HandleFunc(<span class="hljs-string">&quot;GET /articles/{id}&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
+        id := r.PathValue(<span class="hljs-string">&quot;id&quot;</span>)
+        w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;article id: &quot;</span> + id))
+    })
+
+    log.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    err := http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err)
+    }
+}
+</code></pre>
+<blockquote>
+<p>Fitur ini hanya tersedia mulai Go 1.22. Pada Go versi sebelumnya, pola routing seperti <code>&quot;GET /articles/{id}&quot;</code> tidak dikenali dan perlu menggunakan library routing pihak ketiga (seperti gorilla/mux atau chi).</p>
+</blockquote>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
@@ -2168,7 +2224,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.2. Routing http.HandleFunc","level":"4.1.2","depth":2,"next":{"title":"B.3. Routing Static Assets","level":"4.1.3","depth":2,"path":"B-routing-static-assets.md","ref":"B-routing-static-assets.md","articles":[]},"previous":{"title":"B.1. Golang Web App: Hello World","level":"4.1.1","depth":2,"path":"B-golang-web-hello-world.md","ref":"B-golang-web-hello-world.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-routing-http-handlefunc.md","mtime":"2026-06-11T17:27:46.243Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.2. Routing http.HandleFunc","level":"4.1.2","depth":2,"next":{"title":"B.3. Routing Static Assets","level":"4.1.3","depth":2,"path":"B-routing-static-assets.md","ref":"B-routing-static-assets.md","articles":[]},"previous":{"title":"B.1. Golang Web App: Hello World","level":"4.1.1","depth":2,"path":"B-golang-web-hello-world.md","ref":"B-golang-web-hello-world.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-routing-http-handlefunc.md","mtime":"2026-06-12T08:15:00.662Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:16:01.276Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2190,7 +2246,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.172908"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.081622"></script>
         
     
         

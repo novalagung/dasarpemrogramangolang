@@ -2080,15 +2080,18 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b7-template-functions">B.7. Template: Functions</h1>
-<p>Go menyediakan beberapa <em>predefiend</em> function yang bisa digunakan langsung dalam file template. Pada chapter ini kita akan membahas beberapa di antaranya beserta cara penggunaannya.</p>
+<p>Go menyediakan beberapa <em>predefined</em> function yang bisa digunakan langsung dalam file template. Pada chapter ini kita akan membahas beberapa di antaranya beserta cara penggunaannya.</p>
 <p>Cara pemanggilan fungsi atau method sebuah objek pada file template sedikit berbeda dibanding dengan yang telah dicontohkan pada chapter sebelumnya.</p>
 <h2 id="b71-persiapan">B.7.1. Persiapan</h2>
 <p>Siapkan folder proyek baru, dengan isi 2 buah file: <code>main.go</code> dan <code>view.html</code>. Di dalam file main siapkan sebuah struct berisikan 3 buah property dan 1 method.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;html/template&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
 
 <span class="hljs-keyword">type</span> Superhero <span class="hljs-keyword">struct</span> {
     Name    <span class="hljs-keyword">string</span>
@@ -2116,8 +2119,11 @@
         }
     })
 
-    fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
-    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    log.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    err := http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err)
+    }
 }
 </code></pre>
 <p>Kemudian isi file <code>view.html</code> dengan kode berikut.</p>
@@ -2131,7 +2137,7 @@
 </code></pre>
 <p>Jalankan program, buka <a href="http://localhost:9000/" target="_blank">http://localhost:9000/</a>, lalu lanjutkan dengan mengikuti petunjuk di bawah ini.</p>
 <h2 id="b72-fungsi-escape-string">B.7.2. Fungsi Escape String</h2>
-<p>Fungsi pertama yang akan kita bahas adalah <code>html</code>. Fungsi ini digunakan untuk meng-escape string. Agar lebih mudah dipahami silakan praktekan kode di bawah ini.</p>
+<p>Fungsi pertama yang akan kita bahas adalah <code>html</code>. Fungsi ini digunakan untuk meng-escape string. Agar lebih mudah dipahami silakan praktikkan kode di bawah ini.</p>
 <p>Tulis kode berikut dalam <code>&lt;body&gt;&lt;/body&gt;</code> file <code>view.html</code>.</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
     {{html &quot;<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Hello<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>&quot;}}
@@ -2148,13 +2154,13 @@
 <li>Fungsi <code>urlquery</code> digunakan untuk meng-escape string url query</li>
 </ul>
 <h2 id="b73-fungsi-operator-perbandingan">B.7.3. Fungsi Operator Perbandingan</h2>
-<p>Pada chapter sebelumnya telah dibahas bagaimana penggunaan operator <code>ne</code> pada actions <code>if</code>. <code>eq</code> dan <code>ne</code> adalah contoh dari fungsi operator perbandingan. Jika digunakan pada seleksi kondisi yang nilai kondisinya bertipe <code>bool</code>, maka cukup dengan menuliskannya seletah operator, contohnya.</p>
-<pre><code class="lang-html">{{if eq true}}
+<p>Pada chapter sebelumnya telah dibahas bagaimana penggunaan operator <code>ne</code> pada actions <code>if</code>. <code>eq</code> dan <code>ne</code> adalah contoh dari fungsi operator perbandingan. Jika nilai kondisinya bertipe <code>bool</code>, cukup tuliskan langsung tanpa <code>eq</code>, contohnya.</p>
+<pre><code class="lang-html">{{if true}}
     benar
 {{end}}
 </code></pre>
 <blockquote>
-<p>Nilai kondisi yang bertipe bool hanya bisa digunakan pada <code>eq</code> dan <code>ne</code> saja</p>
+<p>Untuk memeriksa kesamaan nilai boolean secara eksplisit, tetap gunakan <code>eq</code> dengan dua argumen: <code>if eq $isTrue true</code></p>
 </blockquote>
 <p>Jika nilai kondisinya merupakan perbandingan, maka nilai yang dibandingkan harus dituliskan, sebagai contoh di bawah ini adalah seleksi kondisi memanfaatkan operator <code>gt</code> untuk deteksi apakah nilai di atas 60.</p>
 <pre><code class="lang-html">{{if gt $value 60}}
@@ -2165,7 +2171,7 @@
 <blockquote>
 <p><code>gt</code> merupakan kependekan dari <strong>greater than</strong></p>
 </blockquote>
-<p>Praktekan kode berikut, tulis ke dalam file <code>view.html</code>.</p>
+<p>Praktikan kode berikut, tulis ke dalam file <code>view.html</code>.</p>
 <pre><code class="lang-html">{{if eq .Name &quot;Bruce Wayne&quot;}}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>I&apos;m the Batman!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 {{else if ne .Name &quot;Clark Kent&quot;}}
@@ -2248,7 +2254,7 @@ fmt.Sprintf(<span class="hljs-string">&quot;%s because I&apos;m %s&quot;</span>,
 <p>Kedua statement di atas menghasilkan output yang sama.</p>
 <h2 id="b76-fungsi-len-dan-index">B.7.6. Fungsi <code>len</code> dan <code>index</code></h2>
 <p>Kegunaan dari fungsi <code>len</code> seperti yang sudah diketahui adalah untuk menghitung jumlah elemen. Sedangkan fungsi <code>index</code> digunakan jika elemen tertentu ingin diakses.</p>
-<p>Sebagai contoh, <code>Friends</code> yang merupakan array, diakses elemen indeks ke-1 menggunakan <code>index</code>, maka caranya:</p>
+<p>Sebagai contoh, <code>Friends</code> yang merupakan slice, diakses elemen indeks ke-1 menggunakan <code>index</code>, maka caranya:</p>
 <pre><code class="lang-html">{{index .Friends 1}}
 </code></pre>
 <p>Berikut merupakan contoh penerapan fungsi <code>len</code> dan <code>index</code>.</p>
@@ -2264,7 +2270,7 @@ fmt.Sprintf(<span class="hljs-string">&quot;%s because I&apos;m %s&quot;</span>,
 <h2 id="b77-fungsi-operator-logika">B.7.7. Fungsi Operator Logika</h2>
 <p>Selain fungsi operator perbandingan, terdapat juga operator logika <code>or</code>, <code>and</code>, dan <code>not</code>. Cara penggunaannya adalah dengan dituliskan setelah actions <code>if</code> atau <code>elseif</code>, sebagai fungsi dengan parameter adalah nilai yang ingin dibandingkan.</p>
 <blockquote>
-<p>Fungsi <code>not</code> ekuivalen dengan <code>ne</code></p>
+<p>Fungsi <code>not</code> menerima satu argumen dan mengembalikan negasi boolean-nya, contohnya <code>if not $cond1</code>. Berbeda dengan <code>ne</code> yang membandingkan dua nilai.</p>
 </blockquote>
 <pre><code class="lang-html">{{$cond1 := true}}
 {{$cond2 := false}}
@@ -2283,7 +2289,6 @@ fmt.Sprintf(<span class="hljs-string">&quot;%s because I&apos;m %s&quot;</span>,
 
 <hr>
 <iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
-
                                 
                                 </section>
                             
@@ -2310,7 +2315,7 @@ fmt.Sprintf(<span class="hljs-string">&quot;%s because I&apos;m %s&quot;</span>,
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"next":{"title":"B.8. Template: Custom Functions","level":"4.1.8","depth":2,"path":"B-template-custom-functions.md","ref":"B-template-custom-functions.md","articles":[]},"previous":{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"path":"B-template-actions-variables.md","ref":"B-template-actions-variables.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-template-functions.md","mtime":"2026-06-11T17:27:46.244Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"next":{"title":"B.8. Template: Custom Functions","level":"4.1.8","depth":2,"path":"B-template-custom-functions.md","ref":"B-template-custom-functions.md","articles":[]},"previous":{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"path":"B-template-actions-variables.md","ref":"B-template-actions-variables.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-template-functions.md","mtime":"2026-06-12T08:15:00.662Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:16:01.276Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2332,7 +2337,7 @@ fmt.Sprintf(<span class="hljs-string">&quot;%s because I&apos;m %s&quot;</span>,
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.172908"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.081622"></script>
         
     
         

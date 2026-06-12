@@ -2081,7 +2081,7 @@
                                 
                                 <h1 id="b22-simple-configuration">B.22. Simple Configuration</h1>
 <p>Dalam development, pastinya kita programmer akan berurusan dengan banyak sekali variabel dan konstanta untuk keperluan konfigurasi. Misalnya, variabel berisi informasi port web server, timeout, variabel global, dan lainnya.</p>
-<p>Pada chapter ini, kita akan belajar dasar pengelolahan variabel konfigurasi dengan memanfaatkan file JSON. </p>
+<p>Pada chapter ini, kita akan belajar dasar pengelolaan variabel konfigurasi dengan memanfaatkan file JSON.</p>
 <h2 id="b221-struktur-aplikasi">B.22.1. Struktur Aplikasi</h2>
 <p>Pertama-tama, buat project baru dengan struktur seperti gambar berikut.</p>
 <p><img src="images/B_simple_configuration_1_structure.png" alt="Dasar Pemrograman Golang - Structure"></p>
@@ -2109,7 +2109,7 @@
 <li>Property <code>server.port</code>. Port yang digunakan saat start web server.</li>
 <li>Property <code>server.read_timeout</code>. Dijadikan sebagai timeout read.</li>
 <li>Property <code>server.write_timeout</code>. Dijadikan sebagai timeout write.</li>
-<li>Property <code>log.verbose</code>. Penentu apakah log di print atau tidak.</li>
+<li>Property <code>log.verbose</code>. Penentu apakah log diprint atau tidak.</li>
 </ol>
 <h2 id="b223-pemrosesan-konfigurasi">B.22.3. Pemrosesan Konfigurasi</h2>
 <p>Pada file <code>config.go</code> kita akan siapkan sebuah fungsi yang isinya mengembalikan objek cetakan struct didapat dari konten file <code>config.json</code>.</p>
@@ -2149,20 +2149,17 @@
     basePath, err := os.Getwd()
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         <span class="hljs-built_in">panic</span>(err)
-        <span class="hljs-keyword">return</span>
     }
 
     bts, err := os.ReadFile(filepath.Join(basePath, <span class="hljs-string">&quot;conf&quot;</span>, <span class="hljs-string">&quot;config.json&quot;</span>))
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         <span class="hljs-built_in">panic</span>(err)
-        <span class="hljs-keyword">return</span>
     }
 
     shared = <span class="hljs-built_in">new</span>(_Configuration)
     err = json.Unmarshal(bts, &amp;shared)
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         <span class="hljs-built_in">panic</span>(err)
-        <span class="hljs-keyword">return</span>
     }
 }
 </code></pre>
@@ -2176,7 +2173,7 @@
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> (
-    <span class="hljs-string">&quot;chapter-B.22/conf&quot;</span>
+    <span class="hljs-string">&quot;example/chapter-B.22-simple-configuration/conf&quot;</span>
     <span class="hljs-string">&quot;fmt&quot;</span>
     <span class="hljs-string">&quot;log&quot;</span>
     <span class="hljs-string">&quot;net/http&quot;</span>
@@ -2187,7 +2184,7 @@
     http.ServeMux
 }
 
-<span class="hljs-keyword">func</span> (c CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+<span class="hljs-keyword">func</span> (c *CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-keyword">if</span> conf.Configuration().Log.Verbose {
         log.Println(<span class="hljs-string">&quot;Incoming request from&quot;</span>, r.Host, <span class="hljs-string">&quot;accessing&quot;</span>, r.URL.String())
     }
@@ -2222,14 +2219,14 @@ server.Addr = fmt.Sprintf(<span class="hljs-string">&quot;:%d&quot;</span>, conf
 
 err := server.ListenAndServe()
 <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-    <span class="hljs-built_in">panic</span>(err)
+    log.Fatal(err)
 }
 </code></pre>
 <p>Di atas, ada objek baru dibuat dari struct <code>http.Server</code>, yaitu <code>server</code>. Untuk start server, panggil method <code>ListenAndServe()</code> milik objek tersebut.</p>
 <p>Dengan memanfaatkan struct ini, kita bisa meng-custom beberapa konfigurasi default pada Go web server. Di antaranya seperti <code>ReadTimeout</code> dan <code>WriteTimeout</code>.</p>
 <p>Bisa dilihat di contoh ada 4 buah properti milik <code>server</code> yang diisi nilainya dengan data konfigurasi.</p>
 <ul>
-<li><code>server.Handler</code>. Properti ini wajib di isi dengan custom mux yang dibuat.</li>
+<li><code>server.Handler</code>. Properti ini wajib diisi dengan custom mux yang dibuat.</li>
 <li><code>server.ReadTimeout</code>. Adalah timeout ketika memproses sebuah request. Kita isi dengan nilai dari configurasi.</li>
 <li><code>server.WriteTimeout</code>. Adalah timeout ketika memproses response.</li>
 <li><code>server.Addr</code>. Port yang digunakan web server pada saat start.</li>
@@ -2246,11 +2243,11 @@ err := server.ListenAndServe()
 <p>Contohnya seperti ini, di beberapa kasus, misalnya di AWS, database server yang di-setup secara automated akan meng-generate connection string yang host-nya bisa berganti-ganti tiap start-up, dan tidak hanya itu saja, bisa saja username, password dan lainnya juga tidak statis.</p>
 <p>Dengan ini akan cukup merepotkan jika kita harus cari terlebih dahulu value konfigurasi tersebut untuk kemudian dituliskan ke file secara manual.</p>
 <h4 id="&#x25C9;-tidak-terpusat">&#x25C9; Tidak terpusat</h4>
-<p>Dalam pengembangan aplikasi, banyak konfigurasi yang nilai-nya akan didapat lewat jalan lain, seperti <em>environment variables</em> atau <em>command arguments</em>. Menyimpan konfigurasi file itu sudah cukup bagus, cuman untuk <em>case</em> dimana terdapat banyak sekali services, agak merepotkan pengelolahannya.</p>
+<p>Dalam pengembangan aplikasi, banyak konfigurasi yang nilai-nya akan didapat lewat jalan lain, seperti <em>environment variables</em> atau <em>command arguments</em>. Menyimpan konfigurasi file itu sudah cukup bagus, cuman untuk <em>case</em> dimana terdapat banyak sekali services, agak merepotkan pengelolaannya.</p>
 <p>Ketika ada perubahan konfigurasi, semua services harus direstart.</p>
 <h4 id="&#x25C9;-statis-tidak-dinamis">&#x25C9; Statis (tidak dinamis)</h4>
 <p>Konfigurasi umumnya dibaca hanya jika diperlukan. Penulisan konfigurasi dalam file membuat proses pembacaan file harus dilakukan di awal, haru kemudian kita bisa ambil nilai konfigurasi dari data yang sudah ada di memori.</p>
-<p>Hal tersebut memiliki beberapa konsekuensi, untuk aplikasi yang di-manage secara automated, sangat mungkin adanya perubahan nilai konfigurasi. Dari sini berarti pembacaan konfigurasi file tidak boleh hanya dilakukan di awal saja. Tapi juga tidak boleh dilakukan di setiap waktu, karena membaca file itu ada <em>cost</em>-nya dari prespektif I/O.</p>
+<p>Hal tersebut memiliki beberapa konsekuensi, untuk aplikasi yang di-manage secara automated, sangat mungkin adanya perubahan nilai konfigurasi. Dari sini berarti pembacaan konfigurasi file tidak boleh hanya dilakukan di awal saja. Tapi juga tidak boleh dilakukan disetiap waktu, karena membaca file itu ada <em>cost</em>-nya dari prespektif I/O.</p>
 <h4 id="&#x25C9;-solusi">&#x25C9; Solusi</h4>
 <p>Kita akan membahas solusi dari beberapa masalah di atas (tidak semuanya) pada chapter terpisah, yaitu <a href="C-best-practice-configuration-env-var.html">C.11. Best Practice Configuration Menggunakan Environment Variable</a></p>
 <hr>
@@ -2288,7 +2285,7 @@ err := server.ListenAndServe()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"next":{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]},"previous":{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-simple-configuration.md","mtime":"2026-06-11T17:27:46.244Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"next":{"title":"B.23. Server Handler HTTP Request Cancellation","level":"4.1.23","depth":2,"path":"B-server-handler-http-request-cancellation.md","ref":"B-server-handler-http-request-cancellation.md","articles":[]},"previous":{"title":"B.21. HTTP Cookie","level":"4.1.21","depth":2,"path":"B-cookie.md","ref":"B-cookie.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-simple-configuration.md","mtime":"2026-06-12T08:15:00.662Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:16:01.276Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2310,7 +2307,7 @@ err := server.ListenAndServe()
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.172908"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.081622"></script>
         
     
         

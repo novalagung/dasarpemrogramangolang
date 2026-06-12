@@ -2080,7 +2080,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="b6-template-actions--variables">B.6. Template: Actions &amp; Variables</h1>
-<p><a href="https://golang.org/pkg/text/template/#hdr-Actions" target="_blank"><strong>Actions</strong></a> merupakan <em>predefined</em> keyword yang disediakan oleh Go. Actions biasa dimanfaatkan dalam pembuatan template. </p>
+<p><a href="https://golang.org/pkg/text/template/#hdr-Actions" target="_blank"><strong>Actions</strong></a> merupakan <em>predefined</em> keyword yang disediakan oleh Go. Actions biasa dimanfaatkan dalam pembuatan template.</p>
 <p>Sebenarnya pada dua chapter sebelumnya, secara tidak sadar kita telah menggunakan beberapa jenis actions, di antaranya:</p>
 <ul>
 <li>Penggunaan <strong>pipeline output</strong>. Nilai yang diapit tanda <code>{{ }}</code>, yang nantinya akan dimunculkan di layar sebagai output, contohnya: <code>{{&quot;hello world&quot;}}</code>.</li>
@@ -2091,9 +2091,11 @@
 <p>Pertama-tama, siapkan sebuah file bernama <code>main.go</code>, lalu isi dengan kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;html/template&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
 
 <span class="hljs-keyword">type</span> Info <span class="hljs-keyword">struct</span> {
     Affiliation <span class="hljs-keyword">string</span>
@@ -2107,7 +2109,7 @@
     Info    Info
 }
 </code></pre>
-<p>Pada kode di atas, dua buah struct disiapkan, <code>Info</code> dan <code>Person</code> (yang mana struct <code>Info</code> di-embed ke dalam struct <code>Person</code>). Kedua struct tersebut nantinya akan digunakan untuk pembuatan objek untuk kemudian disisipkan ke dalam view.</p>
+<p>Pada kode di atas, dua buah struct disiapkan, <code>Info</code> dan <code>Person</code> (yang mana struct <code>Person</code> memiliki field bertipe <code>Info</code>). Kedua struct tersebut nantinya akan digunakan untuk pembuatan objek untuk kemudian disisipkan ke dalam view.</p>
 <p>Selanjutnya, siapkan fungsi <code>main()</code>, dengan di dalamnya berisikan 1 buah route handler <code>/</code>, dan juga kode untuk menjalankan server pada port <code>9000</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
     http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(w http.ResponseWriter, r *http.Request) {
@@ -2124,8 +2126,11 @@
         }
     })
 
-    fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
-    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    log.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    err := http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err)
+    }
 }
 </code></pre>
 <p>Pada route handler <code>/</code> di atas, variabel objek <code>person</code> dibuat, kemudian disisipkan sebagai data pada view <code>view.html</code>.</p>
@@ -2207,7 +2212,7 @@
 <h2 id="b66-penggunaan-keyword-with-untuk-mengganti-scope-variabel-pada-suatu-blok">B.6.6. Penggunaan Keyword <code>with</code> Untuk Mengganti Scope Variabel Pada Suatu Blok</h2>
 <p>Default-nya, <strong>current scope</strong> di template view adalah data yang dilempar back end. Scope current objek bisa diganti dengan menggunakan keyword <code>with</code>, sehingga nantinya untuk mengakses sub-property variabel objek (seperti <code>.Info.Affiliation</code>), bisa tidak dilakukan dari objek terluar.</p>
 <blockquote>
-<p>Current scope yg dimaksud di sini adalah seperti object <code>this</code> ibarat bahasa pemrograman lain.</p>
+<p>Current scope yg dimaksud di sini adalah seperti object <code>this</code> pada bahasa pemrograman lain.</p>
 </blockquote>
 <p>Sebagai contoh property <code>Info</code> yang merupakan variabel objek. Kita bisa menentukan scope suatu block adalah mengikuti variabel objek tersebut.</p>
 <pre><code class="lang-html">{{with .Info}}
@@ -2244,17 +2249,17 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 {{end}}
 
-{{isTrue := true}}
+{{$isTrue := true}}
 
-{{if isTrue}}
+{{if $isTrue}}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 {{end}}
 
-{{if eq isTrue}}
+{{if eq $isTrue true}}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 {{end}}
 
-{{if ne isTrue}}
+{{if ne $isTrue true}}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>not true (false)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 {{end}}
 </code></pre>
@@ -2293,7 +2298,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"next":{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},"previous":{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-template-actions-variables.md","mtime":"2026-06-11T17:27:46.244Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.6. Template: Actions & Variables","level":"4.1.6","depth":2,"next":{"title":"B.7. Template: Functions","level":"4.1.7","depth":2,"path":"B-template-functions.md","ref":"B-template-functions.md","articles":[]},"previous":{"title":"B.5. Template: Render Partial HTML Template","level":"4.1.5","depth":2,"path":"B-template-render-partial-html.md","ref":"B-template-render-partial-html.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-template-actions-variables.md","mtime":"2026-06-12T08:15:00.662Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:16:01.276Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2315,7 +2320,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.172908"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.081622"></script>
         
     
         

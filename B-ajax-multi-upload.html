@@ -2087,10 +2087,10 @@
 <li>Cara handle upload file yang lebih hemat memori</li>
 </ol>
 <p>Sebelumnya, pada chapter <a href="B-form-upload-file.html">B.13. Form Upload File</a>, pemrosesan file upload dilakukan lewat <strong>ParseMultipartForm</strong>, sedangkan pada chapter ini metode yang dipakai berbeda, yaitu <strong>MultipartReader</strong>. </p>
-<p>Kelebihan dari <code>MultipartReader</code> adalah, file yang di upload <strong>tidak</strong> di simpan pada file temporary di lokal terlebih dahulu (tidak seperti <code>ParseMultipartForm</code>), melainkan data file bisa diambil langsung dari stream <code>io.Reader</code>.</p>
+<p>Kelebihan dari <code>MultipartReader</code> adalah, file yang di upload <strong>tidak</strong> disimpan pada file temporary di lokal terlebih dahulu (tidak seperti <code>ParseMultipartForm</code>), melainkan data file bisa diambil langsung dari stream <code>io.Reader</code>.</p>
 <p>Cara penerapan <code>MultipartReader</code> ini membutuhkan front-end untuk melakukan upload file secara asynchronous menggunakan objek <a href="https://developer.mozilla.org/en/docs/Web/API/FormData" target="_blank">FormData</a>. Semua file yang akan di-upload diambil konten dan metadatanya menggunakan javascript untuk dimasukkan ke objek <code>FormData</code>. Setelahnya, object tersebut dijadikan sebagai payload AJAX request.</p>
 <h2 id="b161-struktur-folder-proyek">B.16.1. Struktur Folder Proyek</h2>
-<p>Mari praktekkan, pertama siapkan proyek dengan struktur seperti gambar di bawah ini.</p>
+<p>Mari praktikkan, pertama siapkan proyek dengan struktur seperti gambar di bawah ini.</p>
 <p><img src="images/B_ajax_multi_upload_1_structure.png" alt="Dasar Pemrograman Golang - Folder Structure"></p>
 <blockquote>
 <p>Silakan unduh file js jQuery dari situs official jQuery.</p>
@@ -2102,7 +2102,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Multiple Upload<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;static/jquery-3.3.1.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;static/jquery-3.7.1.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
             $(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
                 <span class="hljs-comment">// javascript code goes here</span>
@@ -2145,17 +2145,17 @@
 });
 </code></pre>
 <p>Objek inputan files (yang didapat dari <code>$(&quot;#upload-file&quot;)[0]</code>) memiliki property <code>.files</code> yang isinya merupakan array dari semua file yang dipilih oleh user ketika upload. File-file tersebut diiterasi, setiap datanya dimasukkan ke dalam objek <code>FormData</code> yang telah dibuat.</p>
-<p>Operasi AJAX request dilakukan lewat <code>jQuery.ajax</code>. Berikut adalah penjelasan mengenai konfigurasi <code>processData</code> dan <code>contentType</code> dalam AJAX yang sudah dibuat. </p>
+<p>Operasi AJAX request dilakukan lewat <code>jQuery.ajax</code>. Berikut adalah penjelasan mengenai konfigurasi <code>processData</code> dan <code>contentType</code> dalam AJAX yang sudah dibuat.</p>
 <ul>
-<li>Konfigurasi <code>contentType</code> perlu di set ke <code>false</code> agar header Content-Type yang dikirim bisa menyesuaikan data yang disisipkan. </li>
-<li>Konfigurasi <code>processData</code> juga perlu di set ke <code>false</code>, agar data yang akan di kirim tidak otomatis dikonversi ke query string atau json string (tergantung <code>contentType</code>). Pada konteks ini kita memerlukan payload tetap dalam tipe <code>FormData</code>.</li>
+<li>Konfigurasi <code>contentType</code> perlu diset ke <code>false</code> agar header Content-Type yang dikirim bisa menyesuaikan data yang disisipkan. </li>
+<li>Konfigurasi <code>processData</code> juga perlu diset ke <code>false</code>, agar data yang akan dikirim tidak otomatis dikonversi ke query string atau json string (tergantung <code>contentType</code>). Pada konteks ini kita memerlukan payload tetap dalam tipe <code>FormData</code>.</li>
 </ul>
 <h2 id="b163-back-end">B.16.3. Back-End</h2>
 <p>Ada 2 route handler yang harus dipersiapkan di back-end. Pertama adalah rute <code>/</code> untuk keperluan memunculkan form upload, dan rute <code>/upload</code> untuk pemrosesan upload dari AJAX request.</p>
 <p>Buka file <code>main.go</code>, import package yang diperlukan, lalu deklarasikan dua rute yang telah disebut di atas, beserta satu buah rute baru untuk <em>serving</em> static assets.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;log&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;path/filepath&quot;</span>
@@ -2169,8 +2169,11 @@
         http.StripPrefix(<span class="hljs-string">&quot;/static/&quot;</span>, 
             http.FileServer(http.Dir(<span class="hljs-string">&quot;assets&quot;</span>))))
 
-    fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
-    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    log.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    err := http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err)
+    }
 }
 </code></pre>
 <p>Buat handler rute <code>/</code>, parsing template view <code>view.html</code>.</p>
@@ -2181,9 +2184,9 @@
     }
 }
 </code></pre>
-<p>Sebelumnya, pada chapter <a href="B-form-upload-file.html">B.13. Form Upload File</a>, metode yang digunakan untuk handle file upload adalah <code>ParseMultipartForm</code>. Cara kerjanya, file di proses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.</p>
+<p>Sebelumnya, pada chapter <a href="B-form-upload-file.html">B.13. Form Upload File</a>, metode yang digunakan untuk handle file upload adalah <code>ParseMultipartForm</code>. Cara kerjanya, file diproses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.</p>
 <p>Metode tersebut kurang tepat guna jika digunakan untuk memproses file yang ukurannya besar (file size melebihi <code>maxMemory</code>) atau jumlah file-nya sangat banyak (memakan waktu, karena isi dari masing-masing file akan ditampung pada file <em>temporary</em> sebelum benar-benar di-copy ke file tujuan).</p>
-<p>Solusi dari dua masalah yang telah disebutkan adalah menggunakan <code>MultipartReader</code> untuk handling file upload. Lewat metode ini, file destinasi isidi-copy lagsung dari stream <code>io.Reader</code> tanpa butuh file temporary untuk perantara.</p>
+<p>Solusi dari dua masalah yang telah disebutkan adalah menggunakan <code>MultipartReader</code> untuk handling file upload. Lewat metode ini, file destinasi isi di-copy langsung dari stream <code>io.Reader</code> tanpa butuh file temporary untuk perantara.</p>
 <p>Kembali ke bagian perkodingan, siapkan fungsi <code>handleUpload</code>, isinya kode berikut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> handleUpload(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-keyword">if</span> r.Method != <span class="hljs-string">&quot;POST&quot;</span> {
@@ -2202,7 +2205,7 @@
 }
 </code></pre>
 <p>Bisa dilihat, method <code>.MultipartReader()</code> dipanggil dari objek request milik handler. Operasi tersebut menghasilkan dua nilai balik, <code>*multipart.Reader</code> dan <code>error</code> (jika ada).</p>
-<p>Selanjutnya, lakukan perulangan terhadap objek <code>reader</code>. Setiap file yang di-upload di proses di masing-masing perulangan. Setelah looping berakhir, idealnya semua file sudah terproses dengan benar.</p>
+<p>Selanjutnya, lakukan perulangan terhadap objek <code>reader</code>. Setiap file yang di-upload diproses di masing-masing perulangan. Setelah looping berakhir, idealnya semua file sudah terproses dengan benar.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">for</span> {
     part, err := reader.NextPart()
     <span class="hljs-keyword">if</span> err == io.EOF {
@@ -2211,25 +2214,27 @@
 
     fileLocation := filepath.Join(basePath, <span class="hljs-string">&quot;files&quot;</span>, part.FileName())
     dst, err := os.Create(fileLocation)
-    <span class="hljs-keyword">if</span> dst != <span class="hljs-literal">nil</span> {
-        <span class="hljs-keyword">defer</span> dst.Close()
-    }
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         <span class="hljs-keyword">return</span>
     }
 
     <span class="hljs-keyword">if</span> _, err := io.Copy(dst, part); err != <span class="hljs-literal">nil</span> {
+        dst.Close()
         http.Error(w, err.Error(), http.StatusInternalServerError)
         <span class="hljs-keyword">return</span>
     }
+    dst.Close()
 }
 
 w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">`all files uploaded`</span>))
 </code></pre>
-<p>Method <code>.NextPart()</code> mengembalikan 2 informasi, yaitu objek stream <code>io.Reader</code> (dari file yg di upload), dan <code>error</code>. </p>
+<p>Method <code>.NextPart()</code> mengembalikan 2 informasi, yaitu objek stream <code>io.Reader</code> (dari file yg di upload), dan <code>error</code>.</p>
 <p>File destinasi disiapkan kemudian diisi dengan data dari stream file, menggunakan <code>io.Copy()</code>.</p>
-<p>Jika <code>reader.NextPart()</code> mengembalikan error <code>io.EOF</code>, maka bisa disimpulkan semua file telah di proses, kemudian perulangan dihentikan.</p>
+<blockquote>
+<p>Perlu diperhatikan, <code>dst.Close()</code> dipanggil secara eksplisit (bukan menggunakan <code>defer</code>) karena kode ini berada di dalam perulangan. Penggunaan <code>defer</code> di dalam loop akan menunda eksekusi <code>Close()</code> hingga fungsi selesai, bukan di akhir setiap iterasi. Akibatnya, semua file descriptor tetap terbuka selama proses upload berlangsung. Alternatif lain adalah membungkus isi loop dalam anonymous function: <code>func() { defer dst.Close(); ... }()</code> &#x2014; dengan cara ini <code>defer</code> bekerja di akhir tiap iterasi.</p>
+</blockquote>
+<p>Jika <code>reader.NextPart()</code> mengembalikan error <code>io.EOF</code>, maka bisa disimpulkan semua file telah diproses, kemudian perulangan dihentikan.</p>
 <p>OK, semua persiapan sudah cukup, selanjutnya masuk fase testing.</p>
 <h2 id="b164-testing">B.16.4. Testing</h2>
 <p>Buka browser, test program yang telah dibuat. Coba lakukan pengujian dengan beberapa buah file.</p>
@@ -2271,7 +2276,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">`all 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"next":{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},"previous":{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-ajax-multi-upload.md","mtime":"2026-06-11T17:27:46.242Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"next":{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},"previous":{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-ajax-multi-upload.md","mtime":"2026-06-12T08:15:00.661Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:16:01.276Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2293,7 +2298,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">`all 
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.172908"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.081622"></script>
         
     
         

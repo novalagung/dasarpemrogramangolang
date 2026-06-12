@@ -2100,7 +2100,7 @@
             <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Rename to :<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;alias&quot;</span> /&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
 
-            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submmit&quot;</span>&gt;</span>Submit<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>Submit<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
@@ -2113,6 +2113,7 @@
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;log&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;os&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;io&quot;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;path/filepath&quot;</span>
@@ -2122,8 +2123,11 @@
     http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, routeIndexGet)
     http.HandleFunc(<span class="hljs-string">&quot;/process&quot;</span>, routeSubmitPost)
 
-    fmt.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
-    http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    log.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
+    err := http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err)
+    }
 }
 </code></pre>
 <p>Handler route <code>/</code> isinya proses untuk menampilkan landing page (file <code>view.html</code>). Method yang diperbolehkan mengakses rute ini hanya <code>GET</code>.</p>
@@ -2141,7 +2145,7 @@
     }
 }
 </code></pre>
-<p>Selanjutnya siapkan handler untuk rute <code>/proccess</code>, yaitu fungsi <code>routeSubmitPost</code>. Gunakan statement <code>r.ParseMultipartForm(1024)</code> untuk parsing form data yang dikirim.</p>
+<p>Selanjutnya siapkan handler untuk rute <code>/process</code>, yaitu fungsi <code>routeSubmitPost</code>. Gunakan statement <code>r.ParseMultipartForm(1024)</code> untuk parsing form data yang dikirim.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> routeSubmitPost(w http.ResponseWriter, r *http.Request) {
     <span class="hljs-keyword">if</span> r.Method != <span class="hljs-string">&quot;POST&quot;</span> {
         http.Error(w, <span class="hljs-string">&quot;&quot;</span>, http.StatusBadRequest)
@@ -2158,7 +2162,7 @@
 </code></pre>
 <p>Method <code>ParseMultipartForm()</code> digunakan untuk mem-parsing form data yang ada data file-nya. Argumen <code>1024</code> pada method tersebut adalah <code>maxMemory</code>. Pemanggilan method tersebut membuat file yang terupload disimpan sementara pada memory dengan alokasi sesuai <code>maxMemory</code>. Jika ternyata kapasitas yang sudah dialokasikan tersebut tidak cukup, maka file akan disimpan dalam temporary file.</p>
 <p>Masih dalam fungsi <code>routeSubmitPost()</code>, tambahkan kode untuk mengambil data alias dan file.</p>
-<pre><code class="lang-go">alias := r.FormValue(<span class="hljs-string">&quot;alias&quot;</span>)
+<pre><code class="lang-go">alias := filepath.Base(r.FormValue(<span class="hljs-string">&quot;alias&quot;</span>))
 
 uploadedFile, handler, err := r.FormFile(<span class="hljs-string">&quot;file&quot;</span>)
 <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
@@ -2175,7 +2179,7 @@ dir, err := os.Getwd()
 </code></pre>
 <p>Statement <code>r.FormFile(&quot;file&quot;)</code> digunakan untuk mengambil file yg di upload, dan mengembalikan 3 objek: </p>
 <ul>
-<li>Objek bertipe multipart.File (yang merupakan turunan dari <code>*os.File</code>)</li>
+<li>Objek bertipe <code>multipart.File</code> (yang merupakan interface, memiliki implementasi method yang mirip dengan <code>*os.File</code>)</li>
 <li>Informasi header file (bertipe <code>*multipart.FileHeader</code>)</li>
 <li>Dan <code>error</code> jika ada</li>
 </ul>
@@ -2206,7 +2210,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot
 <ul>
 <li>Parameter pertama merupakan path atau lokasi dari file yang ingin di buka.</li>
 <li>Parameter kedua adalah flag mode, apakah <em>read only</em>, <em>write only</em>, atau keduanya, atau lainnya. <ul>
-<li><code>os.O_WRONLY|os.O_CREATE</code> maknanya, file yang dibuka hanya akan bisa di tulis saja (<em>write only</em> konsantanya adalah <code>os.O_WRONLY</code>), dan file tersebut akan dibuat jika belum ada (konstantanya <code>os.O_CREATE</code>). </li>
+<li><code>os.O_WRONLY|os.O_CREATE</code> maknanya, file yang dibuka hanya akan bisa ditulis saja (<em>write only</em>, konstantanya adalah <code>os.O_WRONLY</code>), dan file tersebut akan dibuat jika belum ada (konstantanya <code>os.O_CREATE</code>). </li>
 </ul>
 </li>
 <li>Sedangkan parameter terakhir adalah permission dari file, yang digunakan dalam pembuatan file itu sendiri.</li>
@@ -2253,7 +2257,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"next":{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"path":"B-ajax-json-payload.md","ref":"B-ajax-json-payload.md","articles":[]},"previous":{"title":"B.12. Form Value","level":"4.1.12","depth":2,"path":"B-form-value.md","ref":"B-form-value.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-form-upload-file.md","mtime":"2026-06-11T17:27:46.243Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T17:28:47.593Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"next":{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"path":"B-ajax-json-payload.md","ref":"B-ajax-json-payload.md","articles":[]},"previous":{"title":"B.12. Form Value","level":"4.1.12","depth":2,"path":"B-form-value.md","ref":"B-form-value.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-form-upload-file.md","mtime":"2026-06-12T08:15:00.661Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:16:01.276Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2275,7 +2279,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.11.172908"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.081622"></script>
         
     
         
