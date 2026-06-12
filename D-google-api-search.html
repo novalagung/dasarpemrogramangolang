@@ -68,6 +68,8 @@
     <link rel="next" href="D-golang-web-socket-chatting-app.html">
     
     
+    <link rel="prev" href="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+    
 
 
     <script async defer src="https://buttons.github.io/buttons.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ74P74K72"></script>
@@ -1190,7 +1192,7 @@
                 <a href="B-template-render-html.html">
             
                     
-                    B.4. Template: Render HTML Template
+                    B.4. Template: Render HTML
             
                 </a>
             
@@ -1203,7 +1205,7 @@
                 <a href="B-template-render-partial-html.html">
             
                     
-                    B.5. Template: Render Partial HTML Template
+                    B.5. Template: Render Partial HTML
             
                 </a>
             
@@ -1294,7 +1296,7 @@
                 <a href="B-form-value.html">
             
                     
-                    B.12. Form Value
+                    B.12. HTTP Form Value
             
                 </a>
             
@@ -1307,7 +1309,7 @@
                 <a href="B-form-upload-file.html">
             
                     
-                    B.13. Form Upload File
+                    B.13. File Upload: ParseMultipartForm
             
                 </a>
             
@@ -1320,7 +1322,7 @@
                 <a href="B-ajax-json-payload.html">
             
                     
-                    B.14. AJAX JSON Payload
+                    B.14. HTTP Request JSON Payload
             
                 </a>
             
@@ -1333,7 +1335,7 @@
                 <a href="B-ajax-json-response.html">
             
                     
-                    B.15. AJAX JSON Response
+                    B.15. HTTP Response: JSON
             
                 </a>
             
@@ -1346,7 +1348,7 @@
                 <a href="B-ajax-multi-upload.html">
             
                     
-                    B.16. AJAX Multiple File Upload
+                    B.16. Multiple File Upload: MultipartReader
             
                 </a>
             
@@ -1437,7 +1439,7 @@
                 <a href="B-httptest-handler-testing.html">
             
                     
-                    B.23. Handler Testing dengan net/http/httptest
+                    B.23. Handler Testing (net/http/httptest)
             
                 </a>
             
@@ -1528,7 +1530,7 @@
                 <a href="B-server-handler-http-request-cancellation.html">
             
                     
-                    B.30. Server Handler HTTP Request Cancellation
+                    B.30. HTTP Request Cancellation
             
                 </a>
             
@@ -2082,7 +2084,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="6.1.1" data-path="D-google-api-search.html">
+        <li class="chapter " data-level="6.1.1" data-path="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+            
+                <a href="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+            
+                    
+                    D.1. Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="6.1.2" data-path="D-google-api-search.html">
             
                 <a href="D-google-api-search.html">
             
@@ -2095,12 +2110,12 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="D-golang-web-socket-chatting-app.html">
+        <li class="chapter " data-level="6.1.3" data-path="D-golang-web-socket-chatting-app.html">
             
                 <a href="D-golang-web-socket-chatting-app.html">
             
                     
-                    D.3. Web Socket: Chatting App
+                    D.3. Web Socket Chatting App
             
                 </a>
             
@@ -2157,7 +2172,7 @@
                                 
                                 <h1 id="d2-google-api-search-dengan-timeout">D.2. Google API Search Dengan Timeout</h1>
 <p>Pada chapter ini kita akan mencoba studi kasus yaitu membuat web service API untuk <em>wrap</em> pencarian ke Google Search API.</p>
-<p>Proses pembelajaran dilakukan dengan praktek membuat sebuah aplikasi web service kecil, yang tugasnya melakukan pencarian data. Nantinya akan dibuat juga middleware <code>MiddlewareUtility</code>, tugasnya menyisipkan informasi origin dispatcher request, ke dalam context request, sebelum akhirnya sampai pada handler endpoint yg sedang diakses.</p>
+<p>Proses pembelajaran dilakukan dengan praktik membuat sebuah aplikasi web service kecil, yang tugasnya melakukan pencarian data. Nantinya akan dibuat juga middleware <code>MiddlewareUtility</code>, tugasnya menyisipkan informasi origin dispatcher request, ke dalam context request, sebelum akhirnya sampai pada handler endpoint yg sedang diakses.</p>
 <h2 id="d21-context-value">D.2.1. Context Value</h2>
 <p>Ok, langsung saja, siapkan folder project baru dengan struktur seperti berikut.</p>
 <pre><code class="lang-bash">mkdir chapter<span class="hljs-_">-d</span>2
@@ -2196,7 +2211,7 @@ tree .
     current.ServeHTTP(w, r)
 }
 </code></pre>
-<p>Lalu pada file <code>main.go</code>, buat satu buah endpoint <code>/api/search</code>, dengan isi handler menampilkan data <code>from</code> yang diambil dari request context. Data <code>from</code> ini di set ke dalam request context oleh middleware <code>MiddlewareUtility</code>.</p>
+<p>Lalu pada file <code>main.go</code>, buat satu buah endpoint <code>/api/search</code>, dengan isi handler menampilkan data <code>from</code> yang diambil dari request context. Data <code>from</code> ini diset ke dalam request context oleh middleware <code>MiddlewareUtility</code>.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> (
@@ -2403,7 +2418,7 @@ client.Transport = transport
 </ul>
 <p>Jalankan, lihat hasilnya.</p>
 <p><img src="images/D_google_api_search_3_result_ok.png" alt="Dasar Pemrograman Golang - Request response OK"></p>
-<p>Informasi tambahan: best practice mengenai cancelation context adalah untuk selalu menambahkan <code>defer cancel()</code> setelah (cancelation) context dibuat. Lebih detailnya silakan baca <a href="https://blog.golang.org/context" target="_blank">https://blog.golang.org/context</a>.</p>
+<p>Informasi tambahan: best practice mengenai cancelation context adalah untuk selalu menambahkan <code>defer cancel()</code> setelah (cancelation) context dibuat. Lebih jelasnya silakan baca <a href="https://blog.golang.org/context" target="_blank">https://blog.golang.org/context</a>.</p>
 <h2 id="d23-google-search-api-restrictions-referer">D.2.3. Google Search API Restrictions Referer</h2>
 <p>Di bagian awal chapter ini, kita belajar mengenai context value. Kenapa penulis memilih menggunakan context untuk menyisipkan data referer, kenapa tidak contoh yg lebih umum seperti session dan lainnya? sebenarnya ada alasannya.</p>
 <p>Silakan coba akses kedua url berikut.</p>
@@ -2437,8 +2452,12 @@ client.Transport = transport
 
             
                 
+                <a href="D-insert-1mil-csv-record-into-db-in-a-minute.html" class="navigation navigation-prev " aria-label="Previous page: D.1. Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="D-golang-web-socket-chatting-app.html" class="navigation navigation-next navigation-unique" aria-label="Next page: D.3. Web Socket: Chatting App">
+                
+                <a href="D-golang-web-socket-chatting-app.html" class="navigation navigation-next " aria-label="Next page: D.3. Web Socket Chatting App">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2449,7 +2468,7 @@ client.Transport = transport
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.1","depth":2,"next":{"title":"D.3. Web Socket: Chatting App","level":"6.1.2","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]},"previous":{"title":"D. Studi Kasus","level":"6.1","depth":1,"ref":"","articles":[{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.1","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},{"title":"D.3. Web Socket: Chatting App","level":"6.1.2","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"D-google-api-search.md","mtime":"2026-06-12T08:31:37.194Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:32:34.550Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"next":{"title":"D.3. Web Socket Chatting App","level":"6.1.3","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]},"previous":{"title":"D.1. Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel","level":"6.1.1","depth":2,"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"D-google-api-search.md","mtime":"2026-06-12T10:41:57.402Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T10:42:52.625Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2471,7 +2490,7 @@ client.Transport = transport
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.083257"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.104315"></script>
         
     
         

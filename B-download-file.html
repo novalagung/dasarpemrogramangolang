@@ -1192,7 +1192,7 @@
                 <a href="B-template-render-html.html">
             
                     
-                    B.4. Template: Render HTML Template
+                    B.4. Template: Render HTML
             
                 </a>
             
@@ -1205,7 +1205,7 @@
                 <a href="B-template-render-partial-html.html">
             
                     
-                    B.5. Template: Render Partial HTML Template
+                    B.5. Template: Render Partial HTML
             
                 </a>
             
@@ -1296,7 +1296,7 @@
                 <a href="B-form-value.html">
             
                     
-                    B.12. Form Value
+                    B.12. HTTP Form Value
             
                 </a>
             
@@ -1309,7 +1309,7 @@
                 <a href="B-form-upload-file.html">
             
                     
-                    B.13. Form Upload File
+                    B.13. File Upload: ParseMultipartForm
             
                 </a>
             
@@ -1322,7 +1322,7 @@
                 <a href="B-ajax-json-payload.html">
             
                     
-                    B.14. AJAX JSON Payload
+                    B.14. HTTP Request JSON Payload
             
                 </a>
             
@@ -1335,7 +1335,7 @@
                 <a href="B-ajax-json-response.html">
             
                     
-                    B.15. AJAX JSON Response
+                    B.15. HTTP Response: JSON
             
                 </a>
             
@@ -1348,7 +1348,7 @@
                 <a href="B-ajax-multi-upload.html">
             
                     
-                    B.16. AJAX Multiple File Upload
+                    B.16. Multiple File Upload: MultipartReader
             
                 </a>
             
@@ -1439,7 +1439,7 @@
                 <a href="B-httptest-handler-testing.html">
             
                     
-                    B.23. Handler Testing dengan net/http/httptest
+                    B.23. Handler Testing (net/http/httptest)
             
                 </a>
             
@@ -1530,7 +1530,7 @@
                 <a href="B-server-handler-http-request-cancellation.html">
             
                     
-                    B.30. Server Handler HTTP Request Cancellation
+                    B.30. HTTP Request Cancellation
             
                 </a>
             
@@ -2084,7 +2084,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="D-google-api-search.html">
+        <li class="chapter " data-level="6.1.1" data-path="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+            
+                <a href="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+            
+                    
+                    D.1. Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="D-google-api-search.html">
             
                 <a href="D-google-api-search.html">
             
@@ -2097,12 +2110,12 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="D-golang-web-socket-chatting-app.html">
+        <li class="chapter " data-level="6.1.3" data-path="D-golang-web-socket-chatting-app.html">
             
                 <a href="D-golang-web-socket-chatting-app.html">
             
                     
-                    D.3. Web Socket: Chatting App
+                    D.3. Web Socket Chatting App
             
                 </a>
             
@@ -2162,11 +2175,14 @@
 <p>Sebenarnya download file bisa dengan mudah di-implementasikan menggunakan teknik routing static file, lalu langsung mengakses url assets di browser. Namun outcome dari teknik ini sangat tergantung default konfigurasi browser. Tiap browser memiliki <em>behaviour</em> berbeda, ada yang akan merespon dengan membuka file di tab, ada juga yang merespon dengan men-download file tersebut.</p>
 <p>Dengan penerapan teknik yang dibahas pada chapter ini, file bisa dipastikan di-download oleh browser sewaktu diakses.</p>
 <h2 id="b171-struktur-folder-proyek">B.17.1. Struktur Folder Proyek</h2>
-<p>OK, pertama siapkan terlebih dahulu proyek dengan struktur seperti gambar berikut.</p>
-<p><img src="images/B_download_file_1_structure.png" alt="Dasar Pemrograman Golang - Project structure"></p>
-<p>File yang berada di folder <code>files</code> adalah dummy file. Silakan gunakan file apapun dengan jumlah berapapun untuk keperluan praktik ini.</p>
+<p>OK, pertama siapkan terlebih dahulu proyek dengan struktur berikut.</p>
+<pre><code>chapter-B.17-download-file/
+&#x251C;&#x2500;&#x2500; files/
+&#x251C;&#x2500;&#x2500; main.go
+&#x2514;&#x2500;&#x2500; view.html
+</code></pre><p>File yang berada di folder <code>files</code> adalah dummy file. Silakan gunakan file apapun dengan jumlah berapapun untuk keperluan praktik ini.</p>
 <h2 id="b172-front-end">B.17.2. Front End</h2>
-<p>Kali ini di bagian front end kita tidak menggunakan jQuery, cukup javascript saja tanpa library. </p>
+<p>Kali ini di bagian front end kita tidak menggunakan library tambahan, cukup JavaScript native. </p>
 <p>Pertama siapkan dahulu template nya, isi file <code>view.html</code> dengan kode berikut.</p>
 <pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
@@ -2181,70 +2197,57 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
-<p>Tag <code>&lt;ul /&gt;</code> nantinya diisi dengan data list file yang ada dalam folder <code>files</code>. Data list file sendiri nantinya didapat dari API call ke back end. Di sini sebuah AJAX diperlukan untuk pengambilan data.</p>
-<p>Selanjutnya, siapkan sebuah fungsi dengan nama <code>Yo</code> atau bisa lainnya, fungsi ini berisikan closure <code>renderData()</code>, <code>getAllListFiles()</code>, dan method <code>init()</code>. Buat instance object baru dari <code>Yo</code>, lalu akses method <code>init()</code>, tempatkan dalam event <code>window.onload</code>.</p>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Yo</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
-    <span class="hljs-keyword">var</span> $ul = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;list-files&quot;</span>);
+<p>Tag <code>&lt;ul /&gt;</code> nantinya diisi dengan data list file yang ada dalam folder <code>files</code>. Data list file didapat dari HTTP request ke back end. Setelah data diterima, fungsi <code>renderData()</code> dipanggil untuk merender hasilnya ke HTML.</p>
+<p>Siapkan event listener <code>DOMContentLoaded</code>, di dalamnya definisikan fungsi <code>renderData()</code> dan lakukan HTTP request ke <code>/list-files</code>.</p>
+<pre><code class="lang-js"><span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">&quot;DOMContentLoaded&quot;</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> ul = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;list-files&quot;</span>);
 
-    <span class="hljs-keyword">var</span> renderData = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">const</span> renderData = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">files</span>) </span>{
         <span class="hljs-comment">// do stuff</span>
     };
 
-    <span class="hljs-keyword">var</span> getAllListFiles = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-        <span class="hljs-comment">// do stuff</span>
-    };
-
-    self.init = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-        getAllListFiles();
-    };
-};
-
-<span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">new</span> Yo().init();
-};
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">&quot;/list-files&quot;</span>);
+        <span class="hljs-keyword">if</span> (!res.ok) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-keyword">await</span> res.text());
+        <span class="hljs-keyword">const</span> files = <span class="hljs-keyword">await</span> res.json();
+        renderData(files);
+    } <span class="hljs-keyword">catch</span> (err) {
+        alert(<span class="hljs-string">&quot;ERROR: &quot;</span> + err.message);
+    }
+});
 </code></pre>
-<p>Closure <code>renderData()</code> bertugas untuk melakukan rendering data JSON ke HTML. Berikut adalah isi dari fungsi ini.</p>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> renderData = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
-    res.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">each</span>) </span>{
-        <span class="hljs-keyword">var</span> $li = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;li&quot;</span>);
-        <span class="hljs-keyword">var</span> $a = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;a&quot;</span>);
+<p>Fungsi <code>renderData()</code> bertugas untuk melakukan rendering data JSON ke HTML. Berikut adalah isinya.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> renderData = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">files</span>) </span>{
+    files.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">each</span>) </span>{
+        <span class="hljs-keyword">const</span> li = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;li&quot;</span>);
+        <span class="hljs-keyword">const</span> a = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;a&quot;</span>);
 
-        $li.innerText = <span class="hljs-string">&quot;download &quot;</span>;
-        $li.appendChild($a);
-        $ul.appendChild($li);
+        li.innerText = <span class="hljs-string">&quot;download &quot;</span>;
+        li.appendChild(a);
+        ul.appendChild(li);
 
-        $a.href = <span class="hljs-string">&quot;/download?path=&quot;</span> + <span class="hljs-built_in">encodeURI</span>(each.path);
-        $a.innerText = each.filename;
-        $a.target = <span class="hljs-string">&quot;_blank&quot;</span>;
+        a.href = <span class="hljs-string">&quot;/download?path=&quot;</span> + <span class="hljs-built_in">encodeURI</span>(each.path);
+        a.innerText = each.filename;
+        a.target = <span class="hljs-string">&quot;_blank&quot;</span>;
     });
 };
 </code></pre>
-<p>Sedangkan closure <code>getAllListFiles()</code>, memiliki tugas untuk request ke back end, mengambil data list semua file. Request dilakukan dalam bentuk AJAX, nilai baliknya adalah data JSON. Setelah data sudah didapatkan, fungsi <code>renderData()</code> dipanggil.</p>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> getAllListFiles = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-    xhr.open(<span class="hljs-string">&quot;GET&quot;</span>, <span class="hljs-string">&quot;/list-files&quot;</span>);
-    xhr.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-        <span class="hljs-keyword">if</span> (xhr.readyState == <span class="hljs-number">4</span> &amp;&amp; xhr.status == <span class="hljs-number">200</span>) {
-            <span class="hljs-keyword">var</span> json = <span class="hljs-built_in">JSON</span>.parse(xhr.responseText);
-            renderData(json);
-        }
-    };
-    xhr.send();
-};
-</code></pre>
+<p>Setiap item file dirender sebagai elemen <code>&lt;li&gt;</code> berisi link <code>&lt;a&gt;</code> yang mengarah ke endpoint <code>/download?path=...</code>. Klik link tersebut akan memicu download file di browser.</p>
+<p>HTTP request ke <code>/list-files</code> dilakukan menggunakan <code>fetch()</code>. Karena <code>fetch()</code> mengembalikan Promise, keyword <code>async/await</code> digunakan untuk menunggu respons. Respons di-parse sebagai JSON menggunakan <code>res.json()</code>, hasilnya diteruskan ke <code>renderData()</code>.</p>
 <h2 id="b173-back-end">B.17.3. Back End</h2>
 <p>Pindah ke bagian back end. Siapkan beberapa hal pada <code>main.go</code>, import package, siapkan fungsi main, dan buat beberapa rute.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;log&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;path/filepath&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;io&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;encoding/json&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;os&quot;</span>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;encoding/json&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;html/template&quot;</span>
+    <span class="hljs-string">&quot;io&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+    <span class="hljs-string">&quot;path/filepath&quot;</span>
+)
 
 <span class="hljs-keyword">type</span> M <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>{}
 
@@ -2268,7 +2271,7 @@
     }
 }
 </code></pre>
-<p>Lalu siapkan juga route handler <code>/list-files</code>. Isi dari handler ini adalah membaca semua file yang ada pada folder <code>files</code> untuk kemudian dikembalikan sebagai output berupa JSON. Endpoint ini akan diakses oleh AJAX dari front end.</p>
+<p>Lalu siapkan juga route handler <code>/list-files</code>. Isi dari handler ini adalah membaca semua file yang ada pada folder <code>files</code> untuk kemudian dikembalikan sebagai output berupa JSON. Endpoint ini akan diakses dari front end.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> handleListFiles(w http.ResponseWriter, r *http.Request) {
     files := []M{}
     basePath, _ := os.Getwd()
@@ -2360,7 +2363,7 @@
 
             
                 
-                <a href="B-ajax-multi-upload.html" class="navigation navigation-prev " aria-label="Previous page: B.16. AJAX Multiple File Upload">
+                <a href="B-ajax-multi-upload.html" class="navigation navigation-prev " aria-label="Previous page: B.16. Multiple File Upload: MultipartReader">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -2376,7 +2379,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.17. Download File","level":"4.1.17","depth":2,"next":{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},"previous":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-download-file.md","mtime":"2026-06-12T08:31:37.190Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:32:34.550Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.17. Download File","level":"4.1.17","depth":2,"next":{"title":"B.18. HTTP Basic Auth","level":"4.1.18","depth":2,"path":"B-http-basic-auth.md","ref":"B-http-basic-auth.md","articles":[]},"previous":{"title":"B.16. Multiple File Upload: MultipartReader","level":"4.1.16","depth":2,"path":"B-ajax-multi-upload.md","ref":"B-ajax-multi-upload.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-download-file.md","mtime":"2026-06-12T10:41:57.397Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T10:42:52.625Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2398,7 +2401,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.083257"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.104315"></script>
         
     
         

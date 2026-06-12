@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang Handler Testing dengan net/http/httptest - Dasar Pemrograman Golang</title>
+        <title>Golang Handler Testing (net/http/httptest) - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -1192,7 +1192,7 @@
                 <a href="B-template-render-html.html">
             
                     
-                    B.4. Template: Render HTML Template
+                    B.4. Template: Render HTML
             
                 </a>
             
@@ -1205,7 +1205,7 @@
                 <a href="B-template-render-partial-html.html">
             
                     
-                    B.5. Template: Render Partial HTML Template
+                    B.5. Template: Render Partial HTML
             
                 </a>
             
@@ -1296,7 +1296,7 @@
                 <a href="B-form-value.html">
             
                     
-                    B.12. Form Value
+                    B.12. HTTP Form Value
             
                 </a>
             
@@ -1309,7 +1309,7 @@
                 <a href="B-form-upload-file.html">
             
                     
-                    B.13. Form Upload File
+                    B.13. File Upload: ParseMultipartForm
             
                 </a>
             
@@ -1322,7 +1322,7 @@
                 <a href="B-ajax-json-payload.html">
             
                     
-                    B.14. AJAX JSON Payload
+                    B.14. HTTP Request JSON Payload
             
                 </a>
             
@@ -1335,7 +1335,7 @@
                 <a href="B-ajax-json-response.html">
             
                     
-                    B.15. AJAX JSON Response
+                    B.15. HTTP Response: JSON
             
                 </a>
             
@@ -1348,7 +1348,7 @@
                 <a href="B-ajax-multi-upload.html">
             
                     
-                    B.16. AJAX Multiple File Upload
+                    B.16. Multiple File Upload: MultipartReader
             
                 </a>
             
@@ -1439,7 +1439,7 @@
                 <a href="B-httptest-handler-testing.html">
             
                     
-                    B.23. Handler Testing dengan net/http/httptest
+                    B.23. Handler Testing (net/http/httptest)
             
                 </a>
             
@@ -1530,7 +1530,7 @@
                 <a href="B-server-handler-http-request-cancellation.html">
             
                     
-                    B.30. Server Handler HTTP Request Cancellation
+                    B.30. HTTP Request Cancellation
             
                 </a>
             
@@ -2084,7 +2084,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="D-google-api-search.html">
+        <li class="chapter " data-level="6.1.1" data-path="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+            
+                <a href="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+            
+                    
+                    D.1. Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="D-google-api-search.html">
             
                 <a href="D-google-api-search.html">
             
@@ -2097,12 +2110,12 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="D-golang-web-socket-chatting-app.html">
+        <li class="chapter " data-level="6.1.3" data-path="D-golang-web-socket-chatting-app.html">
             
                 <a href="D-golang-web-socket-chatting-app.html">
             
                     
-                    D.3. Web Socket: Chatting App
+                    D.3. Web Socket Chatting App
             
                 </a>
             
@@ -2145,7 +2158,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">B.23. Handler Testing dengan net/http/httptest</a>
+        <a href=".">B.23. Handler Testing (net/http/httptest)</a>
     </h1>
 </div>
 
@@ -2157,7 +2170,7 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="b23-handler-testing-dengan-nethttphttptest">B.23. Handler Testing dengan <code>net/http/httptest</code></h1>
+                                <h1 id="b23-handler-testing-nethttphttptest">B.23. Handler Testing (net/http/httptest)</h1>
 <p>Pada chapter-chapter sebelumnya kita telah membuat banyak handler, namun pengujiannya selalu dilakukan secara manual lewat browser atau <code>curl</code>. Go menyediakan package <code>net/http/httptest</code> yang memungkinkan penulisan <em>automated test</em> untuk handler tanpa perlu menjalankan server sungguhan.</p>
 <p>Pendekatan testing ini sering disebut dengan <em>mock testing</em> pada layer HTTP, di mana kita menggantikan komponen infrastruktur (server dan koneksi TCP) dengan objek palsu (<em>mocked object</em>) yang berperilaku sama. Handler tidak perlu tahu apakah ia dipanggil dari server sungguhan atau dari test, karena ia hanya berinteraksi lewat interface <code>http.ResponseWriter</code> dan <code>*http.Request</code>. Package <code>httptest</code> menyediakan implementasi palsu dari kedua komponen tersebut sehingga handler bisa diuji secara terisolasi, cepat, dan tanpa ketergantungan jaringan.</p>
 <h2 id="b231-pengenalan-package-httptest">B.23.1. Pengenalan Package <code>httptest</code></h2>
@@ -2347,7 +2360,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.23. Handler Testing dengan net/http/httptest","level":"4.1.23","depth":2,"next":{"title":"B.24. Graceful Shutdown","level":"4.1.24","depth":2,"path":"B-graceful-shutdown.md","ref":"B-graceful-shutdown.md","articles":[]},"previous":{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"path":"B-simple-configuration.md","ref":"B-simple-configuration.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-httptest-handler-testing.md","mtime":"2026-06-12T08:31:37.190Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:32:34.550Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.23. Handler Testing (net/http/httptest)","level":"4.1.23","depth":2,"next":{"title":"B.24. Graceful Shutdown","level":"4.1.24","depth":2,"path":"B-graceful-shutdown.md","ref":"B-graceful-shutdown.md","articles":[]},"previous":{"title":"B.22. Simple Configuration","level":"4.1.22","depth":2,"path":"B-simple-configuration.md","ref":"B-simple-configuration.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-httptest-handler-testing.md","mtime":"2026-06-12T10:41:57.398Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T10:42:52.625Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2369,7 +2382,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.083257"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.104315"></script>
         
     
         

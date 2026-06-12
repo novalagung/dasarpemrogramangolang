@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang AJAX Multiple File Upload - Dasar Pemrograman Golang</title>
+        <title>Golang Multiple File Upload: MultipartReader - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -1192,7 +1192,7 @@
                 <a href="B-template-render-html.html">
             
                     
-                    B.4. Template: Render HTML Template
+                    B.4. Template: Render HTML
             
                 </a>
             
@@ -1205,7 +1205,7 @@
                 <a href="B-template-render-partial-html.html">
             
                     
-                    B.5. Template: Render Partial HTML Template
+                    B.5. Template: Render Partial HTML
             
                 </a>
             
@@ -1296,7 +1296,7 @@
                 <a href="B-form-value.html">
             
                     
-                    B.12. Form Value
+                    B.12. HTTP Form Value
             
                 </a>
             
@@ -1309,7 +1309,7 @@
                 <a href="B-form-upload-file.html">
             
                     
-                    B.13. Form Upload File
+                    B.13. File Upload: ParseMultipartForm
             
                 </a>
             
@@ -1322,7 +1322,7 @@
                 <a href="B-ajax-json-payload.html">
             
                     
-                    B.14. AJAX JSON Payload
+                    B.14. HTTP Request JSON Payload
             
                 </a>
             
@@ -1335,7 +1335,7 @@
                 <a href="B-ajax-json-response.html">
             
                     
-                    B.15. AJAX JSON Response
+                    B.15. HTTP Response: JSON
             
                 </a>
             
@@ -1348,7 +1348,7 @@
                 <a href="B-ajax-multi-upload.html">
             
                     
-                    B.16. AJAX Multiple File Upload
+                    B.16. Multiple File Upload: MultipartReader
             
                 </a>
             
@@ -1439,7 +1439,7 @@
                 <a href="B-httptest-handler-testing.html">
             
                     
-                    B.23. Handler Testing dengan net/http/httptest
+                    B.23. Handler Testing (net/http/httptest)
             
                 </a>
             
@@ -1530,7 +1530,7 @@
                 <a href="B-server-handler-http-request-cancellation.html">
             
                     
-                    B.30. Server Handler HTTP Request Cancellation
+                    B.30. HTTP Request Cancellation
             
                 </a>
             
@@ -2084,7 +2084,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="D-google-api-search.html">
+        <li class="chapter " data-level="6.1.1" data-path="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+            
+                <a href="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+            
+                    
+                    D.1. Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="D-google-api-search.html">
             
                 <a href="D-google-api-search.html">
             
@@ -2097,12 +2110,12 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="D-golang-web-socket-chatting-app.html">
+        <li class="chapter " data-level="6.1.3" data-path="D-golang-web-socket-chatting-app.html">
             
                 <a href="D-golang-web-socket-chatting-app.html">
             
                     
-                    D.3. Web Socket: Chatting App
+                    D.3. Web Socket Chatting App
             
                 </a>
             
@@ -2145,7 +2158,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">B.16. AJAX Multiple File Upload</a>
+        <a href=".">B.16. Multiple File Upload: MultipartReader</a>
     </h1>
 </div>
 
@@ -2157,32 +2170,31 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="b16-ajax-multiple-file-upload">B.16. AJAX Multiple File Upload</h1>
+                                <h1 id="b16-multiple-file-upload">B.16. Multiple File Upload</h1>
 <p>Pada chapter ini, kita akan belajar 3 hal sekaligus yang mencakup poin-poin berikut: </p>
 <ol>
-<li>Cara untuk upload file via AJAX</li>
+<li>Cara untuk upload file secara asinkron</li>
 <li>Cara untuk handle upload banyak file sekaligus</li>
 <li>Cara handle upload file yang lebih hemat memori</li>
 </ol>
-<p>Sebelumnya, pada chapter <a href="B-form-upload-file.html">B.13. Form Upload File</a>, pemrosesan file upload dilakukan lewat <strong>ParseMultipartForm</strong>, sedangkan pada chapter ini metode yang dipakai berbeda, yaitu <strong>MultipartReader</strong>. </p>
+<p>Sebelumnya, pada chapter <a href="B-form-upload-file.html">B.13. File Upload: ParseMultipartForm</a>, pemrosesan file upload dilakukan lewat <strong>ParseMultipartForm</strong>, sedangkan pada chapter ini metode yang dipakai berbeda, yaitu <strong>MultipartReader</strong>. </p>
 <p>Kelebihan dari <code>MultipartReader</code> adalah, file yang di upload <strong>tidak</strong> disimpan pada file temporary di lokal terlebih dahulu (tidak seperti <code>ParseMultipartForm</code>), melainkan data file bisa diambil langsung dari stream <code>io.Reader</code>.</p>
-<p>Cara penerapan <code>MultipartReader</code> ini membutuhkan front-end untuk melakukan upload file secara asynchronous menggunakan objek <a href="https://developer.mozilla.org/en/docs/Web/API/FormData" target="_blank">FormData</a>. Semua file yang akan di-upload diambil konten dan metadatanya menggunakan javascript untuk dimasukkan ke objek <code>FormData</code>. Setelahnya, object tersebut dijadikan sebagai payload AJAX request.</p>
+<p>Cara penerapan <code>MultipartReader</code> ini membutuhkan front-end untuk melakukan upload file secara asynchronous menggunakan objek <a href="https://developer.mozilla.org/en/docs/Web/API/FormData" target="_blank">FormData</a>. Semua file yang akan di-upload diambil konten dan metadatanya menggunakan JavaScript untuk dimasukkan ke objek <code>FormData</code>. Setelahnya, objek tersebut dijadikan sebagai payload HTTP request.</p>
 <h2 id="b161-struktur-folder-proyek">B.16.1. Struktur Folder Proyek</h2>
-<p>Mari praktikkan, pertama siapkan proyek dengan struktur seperti gambar di bawah ini.</p>
-<p><img src="images/B_ajax_multi_upload_1_structure.png" alt="Dasar Pemrograman Golang - Folder Structure"></p>
-<blockquote>
-<p>Silakan unduh file js jQuery dari situs official jQuery.</p>
-</blockquote>
-<h2 id="b162-front-end">B.16.2. Front End</h2>
+<p>Mari praktikkan, pertama siapkan proyek dengan struktur berikut.</p>
+<pre><code>chapter-B.16-ajax-multi-upload/
+&#x251C;&#x2500;&#x2500; files/
+&#x251C;&#x2500;&#x2500; main.go
+&#x2514;&#x2500;&#x2500; view.html
+</code></pre><h2 id="b162-front-end">B.16.2. Front End</h2>
 <p>Buka <code>view.html</code>, siapkan template dasar view. Dalam file ini terdapat satu buah inputan upload file yang mendukung multi-upload, dan satu buah tombol submit.</p>
 <p>Untuk mengaktifkan kapabilitas multi upload, cukup tambahkan atribut <code>multiple</code> pada input file.</p>
 <pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Multiple Upload<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;static/jquery-3.7.1.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-            $(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">&quot;DOMContentLoaded&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
                 <span class="hljs-comment">// javascript code goes here</span>
             });
         </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -2196,56 +2208,51 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
-<p>Override event <code>submit</code> pada form <code>#user-form</code>, handler event ini berisikan proses mulai pembentukan objek <code>FormData</code> dari file-file yang telah di upload, hingga eksekusi AJAX.</p>
-<pre><code class="lang-js">$(<span class="hljs-string">&quot;#user-form&quot;</span>).on(<span class="hljs-string">&quot;submit&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+<p>Override event <code>submit</code> pada form <code>#user-form</code>, handler event ini berisikan proses mulai pembentukan objek <code>FormData</code> dari file-file yang telah di-upload, hingga pengiriman HTTP request.</p>
+<pre><code class="lang-js"><span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;user-form&quot;</span>).addEventListener(<span class="hljs-string">&quot;submit&quot;</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
     e.preventDefault();
 
-    <span class="hljs-keyword">var</span> $self = $(<span class="hljs-keyword">this</span>);
-    <span class="hljs-keyword">var</span> files = $(<span class="hljs-string">&quot;#upload-file&quot;</span>)[<span class="hljs-number">0</span>].files;
-    <span class="hljs-keyword">var</span> formData = <span class="hljs-keyword">new</span> FormData();
+    <span class="hljs-keyword">const</span> form = e.target;
+    <span class="hljs-keyword">const</span> files = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;upload-file&quot;</span>).files;
+    <span class="hljs-keyword">const</span> formData = <span class="hljs-keyword">new</span> FormData();
 
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; files.length; i++) {
-        formData.append(<span class="hljs-string">&quot;files&quot;</span>, files[i]);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> file <span class="hljs-keyword">of</span> files) {
+        formData.append(<span class="hljs-string">&quot;files&quot;</span>, file);
     }
 
-    $.ajax({
-        url: $self.attr(<span class="hljs-string">&quot;action&quot;</span>),
-        type: $self.attr(<span class="hljs-string">&quot;method&quot;</span>),
-        data: formData,
-        processData: <span class="hljs-literal">false</span>,
-        contentType: <span class="hljs-literal">false</span>,
-    }).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
-        alert(res);
-        $(<span class="hljs-string">&quot;#user-form&quot;</span>).trigger(<span class="hljs-string">&quot;reset&quot;</span>);
-    }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) </span>{
-        alert(<span class="hljs-string">&quot;ERROR: &quot;</span> + a.responseText);
-    });
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(form.action, {
+            method: form.method,
+            body: formData,
+        });
+        <span class="hljs-keyword">const</span> text = <span class="hljs-keyword">await</span> res.text();
+        <span class="hljs-keyword">if</span> (!res.ok) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(text);
+        alert(text);
+        form.reset();
+    } <span class="hljs-keyword">catch</span> (err) {
+        alert(<span class="hljs-string">&quot;ERROR: &quot;</span> + err.message);
+    }
 });
 </code></pre>
-<p>Objek inputan files (yang didapat dari <code>$(&quot;#upload-file&quot;)[0]</code>) memiliki property <code>.files</code> yang isinya merupakan array dari semua file yang dipilih oleh user ketika upload. File-file tersebut diiterasi, setiap datanya dimasukkan ke dalam objek <code>FormData</code> yang telah dibuat.</p>
-<p>Operasi AJAX request dilakukan lewat <code>jQuery.ajax</code>. Berikut adalah penjelasan mengenai konfigurasi <code>processData</code> dan <code>contentType</code> dalam AJAX yang sudah dibuat.</p>
-<ul>
-<li>Konfigurasi <code>contentType</code> perlu diset ke <code>false</code> agar header Content-Type yang dikirim bisa menyesuaikan data yang disisipkan. </li>
-<li>Konfigurasi <code>processData</code> juga perlu diset ke <code>false</code>, agar data yang akan dikirim tidak otomatis dikonversi ke query string atau json string (tergantung <code>contentType</code>). Pada konteks ini kita memerlukan payload tetap dalam tipe <code>FormData</code>.</li>
-</ul>
+<p>Objek input file memiliki properti <code>.files</code> yang berisi daftar semua file yang dipilih user. File-file tersebut diiterasi menggunakan <code>for...of</code>, setiap item dimasukkan ke dalam objek <code>FormData</code> dengan key <code>&quot;files&quot;</code>.</p>
+<p>Fungsi <code>fetch()</code> dipanggil dengan <code>method</code> dan <code>body</code> dari form. Ketika body berupa objek <code>FormData</code>, browser secara otomatis mengatur header <code>Content-Type</code> ke <code>multipart/form-data</code> beserta boundary yang diperlukan, sehingga tidak perlu di-set secara manual. Keyword <code>async/await</code> digunakan untuk menunggu respons secara asinkron.</p>
 <h2 id="b163-back-end">B.16.3. Back-End</h2>
-<p>Ada 2 route handler yang harus dipersiapkan di back-end. Pertama adalah rute <code>/</code> untuk keperluan memunculkan form upload, dan rute <code>/upload</code> untuk pemrosesan upload dari AJAX request.</p>
-<p>Buka file <code>main.go</code>, import package yang diperlukan, lalu deklarasikan dua rute yang telah disebut di atas, beserta satu buah rute baru untuk <em>serving</em> static assets.</p>
+<p>Ada 2 route handler yang harus dipersiapkan di back-end. Pertama adalah rute <code>/</code> untuk keperluan memunculkan form upload, dan rute <code>/upload</code> untuk pemrosesan upload file.</p>
+<p>Buka file <code>main.go</code>, import package yang diperlukan, lalu deklarasikan dua rute tersebut.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;log&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;path/filepath&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;io&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;os&quot;</span>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;html/template&quot;</span>
+    <span class="hljs-string">&quot;io&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+    <span class="hljs-string">&quot;os&quot;</span>
+    <span class="hljs-string">&quot;path/filepath&quot;</span>
+)
 
 <span class="hljs-keyword">func</span> main() {
     http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, handleIndex)
     http.HandleFunc(<span class="hljs-string">&quot;/upload&quot;</span>, handleUpload)
-    http.Handle(<span class="hljs-string">&quot;/static/&quot;</span>, 
-        http.StripPrefix(<span class="hljs-string">&quot;/static/&quot;</span>, 
-            http.FileServer(http.Dir(<span class="hljs-string">&quot;assets&quot;</span>))))
 
     log.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
     err := http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
@@ -2338,7 +2345,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">`all 
 
             
                 
-                <a href="B-ajax-json-response.html" class="navigation navigation-prev " aria-label="Previous page: B.15. AJAX JSON Response">
+                <a href="B-ajax-json-response.html" class="navigation navigation-prev " aria-label="Previous page: B.15. HTTP Response: JSON">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -2354,7 +2361,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">`all 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.16. AJAX Multiple File Upload","level":"4.1.16","depth":2,"next":{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},"previous":{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-ajax-multi-upload.md","mtime":"2026-06-12T08:31:37.190Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:32:34.550Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.16. Multiple File Upload: MultipartReader","level":"4.1.16","depth":2,"next":{"title":"B.17. Download File","level":"4.1.17","depth":2,"path":"B-download-file.md","ref":"B-download-file.md","articles":[]},"previous":{"title":"B.15. HTTP Response: JSON","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-ajax-multi-upload.md","mtime":"2026-06-12T10:41:57.397Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T10:42:52.625Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2376,7 +2383,7 @@ w.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">`all 
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.083257"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.104315"></script>
         
     
         

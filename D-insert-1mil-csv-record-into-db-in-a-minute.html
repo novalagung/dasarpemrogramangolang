@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang Concurrency Pattern: Pipeline - Dasar Pemrograman Golang</title>
+        <title>Golang Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,10 +65,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="A-simplified-fan-in-fan-out-pipeline.html">
+    <link rel="next" href="D-google-api-search.html">
     
-    
-    <link rel="prev" href="A-go-vendoring.html">
     
 
 
@@ -1070,7 +1068,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.1.63" data-path="A-concurrency-pipeline.html">
+        <li class="chapter " data-level="3.1.63" data-path="A-concurrency-pipeline.html">
             
                 <a href="A-concurrency-pipeline.html">
             
@@ -2084,7 +2082,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+        <li class="chapter active" data-level="6.1.1" data-path="D-insert-1mil-csv-record-into-db-in-a-minute.html">
             
                 <a href="D-insert-1mil-csv-record-into-db-in-a-minute.html">
             
@@ -2158,7 +2156,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">A.63. Concurrency Pattern: Pipeline</a>
+        <a href=".">D.1. Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel</a>
     </h1>
 </div>
 
@@ -2170,535 +2168,272 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="a63-concurrency-pattern-pipeline">A.63. Concurrency Pattern: Pipeline</h1>
-<p>Kita sudah membahas beberapa kali tentang topik <em>concurrency</em> atau konkurensi di Go programming. Pada chapter ini kita akan belajar salah satu best practice konkurensi dalam Go, yaitu teknik <em>pipeline</em>, yang merupakan satu di antara banyak <em>concurrency pattern</em> yang ada di Go.</p>
-<p>Go memiliki beberapa API untuk keperluan konkurensi, dua diantaranya adalah <em>goroutine</em> dan <em>channel</em>. Dengan memanfaatkan APIs yang ada kita bisa membentuk sebuah <em>streaming data pipeline</em> yang benefitnya adalah efisiensi penggunaan I/O dan efisiensi penggunaan banyak CPU.</p>
-<h2 id="a631-konsep-pipeline">A.63.1. Konsep <em>Pipeline</em></h2>
-<p>Definisi <em>pipeline</em> yang paling mudah versi penulis adalah <strong>beberapa/banyak proses yang berjalan secara konkuren yang masing-masing proses merupakan bagian dari serangkaian tahapan proses yang berhubungan satu sama lain</strong>.</p>
-<p>Analoginya seperti ini: bayangkan sebuah flow proses untuk auto backup database secara rutin, yang mana database server yang perlu di-backup ada banyak. Untuk backup-nya sendiri kita menggunakan program Go, bukan <em>shell script</em>. Mungkin secara garis besar serangkaian tahapan proses yang akan dijalankan adalah berikut:</p>
-<ol>
-<li>Kita perlu data <em>list</em> dari semua database yang harus di-backup, beserta alamat akses dan kredensial-nya.</li>
-<li>Kita jalankan proses backup, bisa secara sekuensial (setelah <code>db1</code> selesai, lanjut <code>db2</code>, lanjut <code>db3</code>, dst), atau secara paralel (proses backup <code>db1</code>, <code>db2</code>, <code>db3</code>, dan lainnya dijalankan secara bersamaan).</li>
-<li><p>Di masing-masing proses backup database sendiri ada beberapa proses yang dijalankan:</p>
+                                <h1 id="d1-insert-1-juta-rows-csv-ke-database-secara-konkurenparallel">D.1. Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel</h1>
+<p>Pada chapter ini kita akan praktik penerapan salah satu teknik concurrent programming di Go yaitu worker pool, dikombinasikan dengan database connection pool, untuk membaca 1 juta rows data dari sebuah file CSV untuk kemudian di-insert-kan ke MySQL server.</p>
+<p>Pada bagian insert data kita terapkan mekanisme failover, jadi ketika ada operasi insert gagal, maka akan otomatis di-recover dan di-retry. Idealnya di akhir, semua data sejumlah satu juta akan berhasil di-insert.</p>
+<h2 id="d11-penjelasan">D.1.1. Penjelasan</h2>
+<h4 id="&#x25C9;-worker-pool">&#x25C9; Worker Pool</h4>
+<p>Worker pool adalah teknik manajemen goroutine dalam concurrent programming pada Go. Sejumlah worker dijalankan dan masing-masing memiliki tugas yang sama yaitu menyelesaikan sejumlah jobs.</p>
+<p>Dengan metode worker pool ini, penggunaan memory dan performa program bisa lebih optimal dibanding menjalankan satu goroutine per job (yang bisa mencapai 1 juta goroutine sekaligus).</p>
+<h4 id="&#x25C9;-database-connection-pool">&#x25C9; Database Connection Pool</h4>
+<p>Connection pool adalah metode untuk manajemen sejumlah koneksi database agar bisa digunakan secara optimal.</p>
+<p>Connection pool sangat penting dalam kasus operasi data yang berhubungan dengan database di mana concurrent programming diterapkan. Karena beberapa proses berjalan bersamaan, penggunaan 1 koneksi saja akan menghambat proses tersebut. Dengan beberapa koneksi dalam pool, goroutine tidak perlu rebutan satu objek koneksi.</p>
+<p>Go mengelola connection pool secara otomatis lewat package <code>database/sql</code>. Kita cukup atur batas maksimum koneksi via <code>SetMaxOpenConns()</code> dan <code>SetMaxIdleConns()</code>.</p>
+<h4 id="&#x25C9;-failover">&#x25C9; Failover</h4>
+<p>Failover merupakan mekanisme backup ketika sebuah proses gagal. Pada konteks ini, failover mengarah ke proses untuk me-retry operasi insert ketika ada error, hingga insert berhasil.</p>
+<h2 id="d12-persiapan">D.1.2. Persiapan</h2>
+<p>File <a href="https://blog.majestic.com/development/majestic-million-csv-daily/" target="_blank">majestic-million-csv</a> digunakan sebagai bahan dalam praktik. File tersebut gratis dengan lisensi CCA3. Isinya adalah list dari top website berjumlah 1 juta.</p>
+<p>Silakan download file-nya di sini: <a href="http://downloads.majestic.com/majestic_million.csv" target="_blank">http://downloads.majestic.com/majestic_million.csv</a>.</p>
+<p>Setelah itu siapkan MySQL database server, buat database dan tabel <code>domain</code> di dalamnya.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">DATABASE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> <span class="hljs-keyword">test</span>;
+<span class="hljs-keyword">USE</span> <span class="hljs-keyword">test</span>;
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> <span class="hljs-keyword">domain</span> (
+    GlobalRank <span class="hljs-built_in">int</span>,
+    TldRank <span class="hljs-built_in">int</span>,
+    <span class="hljs-keyword">Domain</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>),
+    TLD <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>),
+    RefSubNets <span class="hljs-built_in">int</span>,
+    RefIPs <span class="hljs-built_in">int</span>,
+    IDN_Domain <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>),
+    IDN_TLD <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>),
+    PrevGlobalRank <span class="hljs-built_in">int</span>,
+    PrevTldRank <span class="hljs-built_in">int</span>,
+    PrevRefSubNets <span class="hljs-built_in">int</span>,
+    PrevRefIPs <span class="hljs-built_in">int</span>
+);
+</code></pre>
+<p>Setelah itu buat project baru dengan satu file <code>main.go</code>, dan tempatkan file CSV yang sudah didownload dalam folder yang sama.</p>
+<p>Karena contoh ini menggunakan MySQL, perlu install driver-nya terlebih dahulu.</p>
+<pre><code class="lang-bash">go get -u github.com/go-sql-driver/mysql
+</code></pre>
+<h2 id="d13-praktik">D.1.3. Praktik</h2>
+<h4 id="&#x25C9;-definisi-variabel">&#x25C9; Definisi Variabel</h4>
+<p>Ada beberapa variabel konfigurasi yang perlu dipersiapkan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> (
+    dbConnString   = <span class="hljs-string">&quot;root@/test&quot;</span>
+    dbMaxIdleConns = <span class="hljs-number">4</span>
+    dbMaxConns     = <span class="hljs-number">100</span>
+    totalWorker    = <span class="hljs-number">100</span>
+    csvFile        = <span class="hljs-string">&quot;majestic_million.csv&quot;</span>
+    dataHeaders    = []<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">&quot;GlobalRank&quot;</span>, <span class="hljs-string">&quot;TldRank&quot;</span>, <span class="hljs-string">&quot;Domain&quot;</span>, <span class="hljs-string">&quot;TLD&quot;</span>,
+        <span class="hljs-string">&quot;RefSubNets&quot;</span>, <span class="hljs-string">&quot;RefIPs&quot;</span>, <span class="hljs-string">&quot;IDN_Domain&quot;</span>, <span class="hljs-string">&quot;IDN_TLD&quot;</span>,
+        <span class="hljs-string">&quot;PrevGlobalRank&quot;</span>, <span class="hljs-string">&quot;PrevTldRank&quot;</span>, <span class="hljs-string">&quot;PrevRefSubNets&quot;</span>, <span class="hljs-string">&quot;PrevRefIPs&quot;</span>,
+    }
+)
+</code></pre>
 <ul>
-<li>A. Lakukan operasi <em>dump</em> terhadap database, outputnya berupa banyak file disimpan ke sebuah folder.</li>
-<li>B. File-file hasil dump kemudian di-<em>archive</em> ke bentuk <code>.zip</code> atau <code>.tar.gz</code> (misalnya).</li>
-<li>C. File archive di-kirim ke server backup, sebagai contoh AWS S3.</li>
+<li><code>dbConnString</code> adalah connection string ke MySQL. Sesuaikan dengan konfigurasi lokal.</li>
+<li><code>dbMaxIdleConns</code> adalah jumlah koneksi idle yang diizinkan dalam pool.</li>
+<li><code>dbMaxConns</code> adalah jumlah maksimum koneksi aktif dalam pool.</li>
+<li><code>totalWorker</code> adalah jumlah goroutine worker yang akan berjalan bersamaan.</li>
+<li><code>csvFile</code> adalah nama file CSV yang berada satu folder dengan <code>main.go</code>.</li>
+<li><code>dataHeaders</code> adalah nama kolom tabel, sesuai urutan kolom di CSV (setelah baris header dilewati).</li>
 </ul>
-</li>
-</ol>
-<p>Kalau diperhatikan pada kasus di atas, mungkin akan lebih bagus dari segi performansi kalau proses backup banyak database tersebut dilakukan secara parallel.</p>
-<p>Dan akan lebih bagus lagi, jika di masing-masing proses backup database tersebut, proses A, B, dan C dijalankan secara konkuren. Dengan menjadikan ketiga proses tersebut (A, B, C) sebagai proses konkuren, maka I/O akan lebih efisien. Nantinya antara proses A, B, dan C eksekusinya akan tetap berurutan (karena memang harus berjalan secara urut. Tidak boleh kalau misal B lebih dulu dieksekusi kemudian A); akan tetapi, ketika goroutine yang bertanggung jawab untuk eksekusi proses A selesai, kita bisa lanjut dengan eksekusi proses B (yang memang <em>next stage</em>-nya proses A) plus eksekusi proses A lainnya (database lain) secara paralel. Jadi goroutine yang handle A ini ga sampai menganggur.</p>
-<p>Silakan perhatikan visualisasi berikut. Kolom merupakan representasi dari goroutine yang berjalan secara bersamaan. Tapi karena ketiga goroutine tersebut merupakan serangkaian proses, sehingga eksekusinya harus secara berurut. Sedangkan baris/row representasi dari <em>sequence</em> atau urutan.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">sequence</th>
-<th style="text-align:center">pipeline A</th>
-<th style="text-align:center">pipeline B</th>
-<th style="text-align:center">pipeline C</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">db1</td>
-<td style="text-align:center">-</td>
-<td style="text-align:center">-</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">db2</td>
-<td style="text-align:center">db1</td>
-<td style="text-align:center">-</td>
-</tr>
-<tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">db3</td>
-<td style="text-align:center">db1</td>
-<td style="text-align:center">-</td>
-</tr>
-<tr>
-<td style="text-align:center">4</td>
-<td style="text-align:center">db4</td>
-<td style="text-align:center">db2</td>
-<td style="text-align:center">db1</td>
-</tr>
-<tr>
-<td style="text-align:center">5</td>
-<td style="text-align:center">db5</td>
-<td style="text-align:center">db3</td>
-<td style="text-align:center">db2</td>
-</tr>
-<tr>
-<td style="text-align:center">6</td>
-<td style="text-align:center">db5</td>
-<td style="text-align:center">db4</td>
-<td style="text-align:center">db3</td>
-</tr>
-<tr>
-<td style="text-align:center">7</td>
-<td style="text-align:center">db6</td>
-<td style="text-align:center">db5</td>
-<td style="text-align:center">db4</td>
-</tr>
-<tr>
-<td style="text-align:center">...</td>
-<td style="text-align:center">...</td>
-<td style="text-align:center">...</td>
-<td style="text-align:center">...</td>
-</tr>
-</tbody>
-</table>
-<p>Di Go, umumnya proses yang berupa goroutine yang eksekusinya adalah concurrent tapi secara flow adalah harus berurutan, itu disebut dengan <strong>pipeline</strong>. Jadi untuk sementara anggap saja pipeline A sebuah goroutine untuk proses A, pipeline B adalah goroutine proses B, dst.</p>
-<p>Untuk mempermudah memahami tabel di atas silakan ikuti penjelasan beruntun berikut:</p>
-<ol>
-<li>Sequence 1: pipeline A akan melakukan proses dump dari dari <code>db1</code>. Pada waktu yang sama, pipeline B dan C menganggur.</li>
-<li>Sequence 2: proses dump <code>db1</code> telah selesai, maka lanjut ke <em>next stage</em> yaitu proses archive data dump <code>db1</code> yang dilakukan oleh pipeline B. Dan pada waktu yang sama juga, pipeline A menjalankan proses dump <code>db2</code>. Pipeline C masih menganggur.</li>
-<li>Sequence 3: pipeline A menjalankan proses dump <code>db3</code>. Pada waktu yang sama pipeline B belum menjalankan proses archiving <code>db2</code> yang sudah di-dump karena archiving <code>db1</code> masih belum selesai. Pipeline C masih menganggur.</li>
-<li>Sequence 4: proses archiving <code>db1</code> sudah selesai, maka lanjut ke <em>next stage</em> yaitu kirim archive ke server backup yang prosesnya di-handle oleh pipeline C. Pada saat yang sama, pipeline B mulai menjalankan archiving data dump <code>db2</code> dan pipeline A dumping <code>db4</code>.</li>
-<li>... dan seterusnya.</li>
-</ol>
-<p>Pada contoh ini kita asumsikan pipeline A adalah hanya satu goroutine, pipeline B juga satu goroutine, demikian juga pipeline C. Tapi sebenarnya dalam implementasi <em>real world</em> bisa saja ada banyak goroutine untuk masing-masing pipeline (banyak goroutine untuk pipeline A, banyak goroutine untuk pipeline B, banyak goroutine untuk pipeline C).</p>
-<p>Semoga cukup jelas ya. Tapi jika masih bingung, juga tidak apa. Kita sambil praktik juga, dan bisa saja pembaca mulai benar-benar pahamnya saat praktik.</p>
-<blockquote>
-<p>Penulis sarankan untuk benar-benar memahami setiap bagian praktik ini, karena topik ini merupakan pembahasan yang cukup berat untuk pemula, tapi masih dalam klasifikasi fundamental kalau di Go programming. Bingung tidak apa, nanti bisa di-ulang-ulang, yang penting tidak sekadar <em>copy-paste</em>.</p>
-</blockquote>
-<h2 id="a632-skenario-praktik">A.63.2. Skenario Praktik</h2>
-<p>Ok, penjabaran teori sepanjang sungai <code>nil</code> tidak akan banyak membawa penjelasan yang real kalau tidak diiringi dengan praktik. So, mari kita mulai praktik.</p>
-<p>Untuk skenario praktik kita tidak menggunakan analogi backup database di atas ya, karena untuk setup environment-nya butuh banyak <em>effort</em>. Skenario praktik yang kita pakai adalah mencari <a href="https://en.wikipedia.org/wiki/Md5sum" target="_blank">md5 sum</a> dari banyak file, kemudian menggunakan hash dari content-nya sebagai nama file. Jadi file yang lama akan di-rename dengan nama baru yaitu hash dari konten file tersebut.</p>
-<p>Agar skenario ini bisa kita eksekusi, kita perlu siapkan dulu sebuah program untuk <em>generate dummy files</em>.</p>
-<h2 id="a633-program-1-generate-dummy-file">A.63.3. Program 1: Generate Dummy File</h2>
-<p>Buat project baru dengan nama bebas <span style="text-decoration: line-through">loss gak reweellll</span> beserta satu buah file bernama <code>1-dummy-file-generator.go</code>.</p>
-<p>Dalam file tersebut import dan definisikan beberapa hal, diantaranya:</p>
-<ol>
-<li>Konstanta <code>totalFile</code> yang isinya jumlah file yang ingin di-generate.</li>
-<li>Variabel <code>contentLength</code> yang isinya panjang karakter random yang merupakan isi dari masing-masing <em>generated</em> file.</li>
-<li>Variabel <code>tempPath</code> yang mengarah ke <a href="https://en.wikipedia.org/wiki/Temporary_folder" target="_blank">temporary folder</a>.</li>
-</ol>
-<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+<h4 id="&#x25C9;-fungsi-buka-koneksi-database">&#x25C9; Fungsi Buka Koneksi Database</h4>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> openDbConnection() (*sql.DB, error) {
+    log.Println(<span class="hljs-string">&quot;=&gt; open db connection&quot;</span>)
 
-<span class="hljs-keyword">import</span> (
-    <span class="hljs-string">&quot;fmt&quot;</span>
-    <span class="hljs-string">&quot;log&quot;</span>
-    <span class="hljs-string">&quot;math/rand&quot;</span>
-    <span class="hljs-string">&quot;os&quot;</span>
-    <span class="hljs-string">&quot;path/filepath&quot;</span>
-    <span class="hljs-string">&quot;time&quot;</span>
-)
-
-<span class="hljs-keyword">const</span> totalFile = <span class="hljs-number">3000</span>
-<span class="hljs-keyword">const</span> contentLength = <span class="hljs-number">5000</span>
-
-<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.63-concurrency-pipeline&quot;</span>)
-</code></pre>
-<p>Kemudian siapkan fungsi <code>main()</code> yang isinya statement pemanggilan fungsi <code>generate()</code>, dan beberapa hal lainnya untuk keperluan <em>benchmark</em> performa dari sisi <em>execution time</em>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
-    log.Println(<span class="hljs-string">&quot;start&quot;</span>)
-    start := time.Now()
-
-    generateFiles()
-
-    duration := time.Since(start)
-    log.Println(<span class="hljs-string">&quot;done in&quot;</span>, duration.Seconds(), <span class="hljs-string">&quot;seconds&quot;</span>)
-}
-</code></pre>
-<p>Sekarang siapkan fungsi <code>randomString()</code>-nya:</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> randomString(length <span class="hljs-keyword">int</span>) <span class="hljs-keyword">string</span> {
-    randomizer := rand.New(rand.NewSource(time.Now().Unix()))
-    letters := []<span class="hljs-keyword">rune</span>(<span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>)
-
-    b := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">rune</span>, length)
-    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> b {
-        b[i] = letters[randomizer.Intn(<span class="hljs-built_in">len</span>(letters))]
-    }
-
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">string</span>(b)
-}
-</code></pre>
-<p>Siapkan fungsi <code>generateFiles()</code>-nya, isinya kurang lebih adalah generate banyak file sejumlah <code>totalFile</code>. Lalu di tiap-tiap file di-isi dengan <em>random string</em> dengan lebar sepanjang <code>contentLength</code>. Untuk nama file-nya sendiri, formatnya adalah <code>file-&lt;index&gt;.txt</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> generateFiles() {
-    os.RemoveAll(tempPath)
-    os.MkdirAll(tempPath, <span class="hljs-number">0755</span>)
-
-    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; totalFile; i++ {
-        filename := filepath.Join(tempPath, fmt.Sprintf(<span class="hljs-string">&quot;file-%d.txt&quot;</span>, i))
-        content := randomString(contentLength)
-        err := os.WriteFile(filename, []<span class="hljs-keyword">byte</span>(content), <span class="hljs-number">0644</span>)
-        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-            log.Println(<span class="hljs-string">&quot;Error writing file&quot;</span>, filename)
-        }
-
-        <span class="hljs-keyword">if</span> i%<span class="hljs-number">100</span> == <span class="hljs-number">0</span> &amp;&amp; i &gt; <span class="hljs-number">0</span> {
-            log.Println(i, <span class="hljs-string">&quot;files created&quot;</span>)
-        }
-    }
-
-    log.Printf(<span class="hljs-string">&quot;%d of total files created&quot;</span>, totalFile)
-}
-</code></pre>
-<p>O iya untuk logging pembuatan file saya tampilkan setiap 100 file di-generate, agar tidak mengganggu performa, karena printing output ke <code>stdout</code> atau CMD/terminal itu cukup <em>costly</em>.</p>
-<p>Oke, generator sudah siap, jalankan.</p>
-<p><img src="images/A_concurrency_pipeline_1_generate_dummy_files.png" alt="Dasar Pemrograman Golang - Generate dummy files"></p>
-<p>Bisa dilihat sebanyak 3000 dummy file di-generate pada folder temporary os, di sub folder <code>chapter-A.63-concurrency-pipeline</code>.</p>
-<h2 id="a634-program-2-baca-semua-files-cari-md5-hash-nya-lalu-gunakan-hash-untuk-rename-file">A.63.4. Program 2: Baca Semua Files, Cari MD5 Hash-nya, Lalu Gunakan Hash Untuk Rename File</h2>
-<p>Sesuai judul sub bagian, kita akan buat satu file program lagi, yang isinya adalah melakukan operasi baca terhadap semua dummy file yang sudah di-generate, untuk kemudian dicari <em>hash</em>-nya lalu menggunakan nilai hash tersebut sebagai nama untuk file-file baru yang akan dibuat.</p>
-<p>Pada bagian ini kita belum masuk ke aspek konkurensi-nya ya. Sabar dulu. Saya akan coba sampaikan dengan penjabaran yang bisa diterima oleh banyak pembaca (termasuk yang masih awam banget).</p>
-<p>Siapkan file <code>2-find-md5-sum-of-file-then-rename-it.go</code>, import beberapa <em>packages</em> dan siapkan definisi variabel <code>tempPath</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
-
-<span class="hljs-keyword">import</span> (
-    <span class="hljs-string">&quot;crypto/md5&quot;</span>
-    <span class="hljs-string">&quot;fmt&quot;</span>
-    <span class="hljs-string">&quot;log&quot;</span>
-    <span class="hljs-string">&quot;os&quot;</span>
-    <span class="hljs-string">&quot;path/filepath&quot;</span>
-    <span class="hljs-string">&quot;time&quot;</span>
-)
-
-<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.63-concurrency-pipeline&quot;</span>)
-</code></pre>
-<p>Lanjut siapkan fungsi <code>main()</code> dengan isi memanggil fungsi <code>proceed()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
-    log.Println(<span class="hljs-string">&quot;start&quot;</span>)
-    start := time.Now()
-
-    proceed()
-
-    duration := time.Since(start)
-    log.Println(<span class="hljs-string">&quot;done in&quot;</span>, duration.Seconds(), <span class="hljs-string">&quot;seconds&quot;</span>)
-}
-</code></pre>
-<p>Isi dari fungsi <code>proceed()</code> sendiri adalah bisnis logic dari aplikasi yang akan kita buat, yaitu membaca file, mencari md5 hash, lalu rename file.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> proceed() {
-    counterTotal := <span class="hljs-number">0</span>
-    counterRenamed := <span class="hljs-number">0</span>
-    err := filepath.Walk(tempPath, <span class="hljs-keyword">func</span>(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error) error {
-
-        <span class="hljs-comment">// if there is an error, return immediately</span>
-        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-            <span class="hljs-keyword">return</span> err
-        }
-
-        <span class="hljs-comment">// if it is a sub directory, return immediately</span>
-        <span class="hljs-keyword">if</span> info.IsDir() {
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
-        }
-
-        counterTotal++
-
-        <span class="hljs-comment">// read file</span>
-        buf, err := os.ReadFile(path)
-        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-            <span class="hljs-keyword">return</span> err
-        }
-
-        <span class="hljs-comment">// sum it</span>
-        sum := fmt.Sprintf(<span class="hljs-string">&quot;%x&quot;</span>, md5.Sum(buf))
-
-        <span class="hljs-comment">// rename file</span>
-        destinationPath := filepath.Join(tempPath, fmt.Sprintf(<span class="hljs-string">&quot;file-%s.txt&quot;</span>, sum))
-        err = os.Rename(path, destinationPath)
-        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-            <span class="hljs-keyword">return</span> err
-        }
-
-        counterRenamed++
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
-    })
+    db, err := sql.Open(<span class="hljs-string">&quot;mysql&quot;</span>, dbConnString)
     <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-        log.Println(<span class="hljs-string">&quot;ERROR:&quot;</span>, err.Error())
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
     }
 
-    log.Printf(<span class="hljs-string">&quot;%d/%d files renamed&quot;</span>, counterRenamed, counterTotal)
+    db.SetMaxOpenConns(dbMaxConns)
+    db.SetMaxIdleConns(dbMaxIdleConns)
+
+    <span class="hljs-keyword">return</span> db, <span class="hljs-literal">nil</span>
 }
 </code></pre>
-<p>Cukup panjang isi fungsi ini, tetapi isinya cukup <em>straight forward</em> kok.</p>
+<p><code>sql.Open()</code> tidak langsung membuka koneksi, ia hanya memvalidasi argumen dan mempersiapkan pool. Koneksi aktual baru dibuka saat pertama kali digunakan. <code>SetMaxOpenConns()</code> dan <code>SetMaxIdleConns()</code> mengatur batas pool agar tidak membebani server database.</p>
+<p>Jangan lupa import driver-nya secara blank import agar side effect registrasinya berjalan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">import</span> _ <span class="hljs-string">&quot;github.com/go-sql-driver/mysql&quot;</span>
+</code></pre>
+<h4 id="&#x25C9;-fungsi-baca-csv">&#x25C9; Fungsi Baca CSV</h4>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> openCsvFile() (*csv.Reader, *os.File, error) {
+    log.Println(<span class="hljs-string">&quot;=&gt; open csv file&quot;</span>)
+
+    f, err := os.Open(csvFile)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">if</span> os.IsNotExist(err) {
+            log.Fatal(<span class="hljs-string">&quot;file majestic_million.csv tidak ditemukan. silakan download terlebih dahulu di https://blog.majestic.com/development/majestic-million-csv-daily&quot;</span>)
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, <span class="hljs-literal">nil</span>, err
+    }
+
+    reader := csv.NewReader(f)
+    <span class="hljs-keyword">return</span> reader, f, <span class="hljs-literal">nil</span>
+}
+</code></pre>
+<p>Fungsi ini membuka file CSV dan mengembalikan objek <code>*csv.Reader</code> untuk dibaca baris per baris, plus objek <code>*os.File</code> agar bisa di-close oleh pemanggil. Pengecekan <code>os.IsNotExist()</code> memberikan pesan error yang lebih informatif jika file belum didownload.</p>
+<h4 id="&#x25C9;-fungsi-menjalankan-workers">&#x25C9; Fungsi Menjalankan Workers</h4>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> dispatchWorkers(db *sql.DB, jobs &lt;-<span class="hljs-keyword">chan</span> []<span class="hljs-keyword">interface</span>{}, wg *sync.WaitGroup) {
+    <span class="hljs-keyword">for</span> workerIndex := <span class="hljs-number">0</span>; workerIndex &lt; totalWorker; workerIndex++ {
+        <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(workerIndex <span class="hljs-keyword">int</span>, db *sql.DB, jobs &lt;-<span class="hljs-keyword">chan</span> []<span class="hljs-keyword">interface</span>{}, wg *sync.WaitGroup) {
+            counter := <span class="hljs-number">0</span>
+
+            <span class="hljs-keyword">for</span> job := <span class="hljs-keyword">range</span> jobs {
+                doTheJob(workerIndex, counter, db, job)
+                wg.Done()
+                counter++
+            }
+        }(workerIndex, db, jobs, wg)
+    }
+}
+</code></pre>
+<p>Fungsi ini men-dispatch sejumlah <code>totalWorker</code> goroutine. Setiap goroutine adalah satu worker yang terus memantau channel <code>jobs</code>. Saat ada data masuk, worker mengambil dan memprosesnya lewat <code>doTheJob()</code>. Setelah selesai, <code>wg.Done()</code> dipanggil untuk menandai satu job selesai.</p>
+<p>Perlu diperhatikan bahwa <code>workerIndex</code> dijadikan argumen goroutine, bukan di-capture langsung dari loop. Ini penting agar tiap goroutine mendapat nilai <code>workerIndex</code> yang tepat, bukan nilai terakhir dari perulangan.</p>
+<h4 id="&#x25C9;-fungsi-baca-csv-dan-pengiriman-jobs-ke-worker">&#x25C9; Fungsi Baca CSV dan Pengiriman Jobs ke Worker</h4>
+<p>Proses membaca file CSV bersifat sekuensial, baris demi baris dari atas ke bawah. Ini memang tidak bisa di-konkurensikan, karena <code>csv.Reader</code> membaca stream secara berurutan.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> readCsvFilePerLineThenSendToWorker(csvReader *csv.Reader, jobs <span class="hljs-keyword">chan</span>&lt;- []<span class="hljs-keyword">interface</span>{}, wg *sync.WaitGroup) {
+    isHeader := <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">for</span> {
+        row, err := csvReader.Read()
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">if</span> err == io.EOF {
+                err = <span class="hljs-literal">nil</span>
+            }
+            <span class="hljs-keyword">break</span>
+        }
+
+        <span class="hljs-keyword">if</span> isHeader {
+            isHeader = <span class="hljs-literal">false</span>
+            <span class="hljs-keyword">continue</span>
+        }
+
+        rowOrdered := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">interface</span>{}, <span class="hljs-number">0</span>)
+        <span class="hljs-keyword">for</span> _, each := <span class="hljs-keyword">range</span> row {
+            rowOrdered = <span class="hljs-built_in">append</span>(rowOrdered, each)
+        }
+
+        wg.Add(<span class="hljs-number">1</span>)
+        jobs &lt;- rowOrdered
+    }
+    <span class="hljs-built_in">close</span>(jobs)
+}
+</code></pre>
+<p>Baris pertama CSV adalah header, dilewati dengan flag <code>isHeader</code>. Baris selanjutnya dikonversi ke <code>[]interface{}</code> dan dikirim ke channel <code>jobs</code>. Setiap pengiriman dibarengi <code>wg.Add(1)</code> agar WaitGroup tahu ada satu job baru yang harus ditunggu.</p>
+<p>Setelah semua baris terbaca (loop selesai), channel <code>jobs</code> di-close. Penutupan ini yang menyebabkan semua worker keluar dari <code>for job := range jobs</code> setelah job terakhir selesai diproses.</p>
+<h4 id="&#x25C9;-fungsi-insert-data-ke-database">&#x25C9; Fungsi Insert Data ke Database</h4>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> doTheJob(workerIndex, counter <span class="hljs-keyword">int</span>, db *sql.DB, values []<span class="hljs-keyword">interface</span>{}) {
+    <span class="hljs-keyword">for</span> {
+        <span class="hljs-keyword">var</span> outerError error
+        <span class="hljs-keyword">func</span>(outerError *error) {
+            <span class="hljs-keyword">defer</span> <span class="hljs-keyword">func</span>() {
+                <span class="hljs-keyword">if</span> err := <span class="hljs-built_in">recover</span>(); err != <span class="hljs-literal">nil</span> {
+                    *outerError = fmt.Errorf(<span class="hljs-string">&quot;%v&quot;</span>, err)
+                }
+            }()
+
+            conn, err := db.Conn(context.Background())
+            <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+                *outerError = err
+                <span class="hljs-keyword">return</span>
+            }
+            <span class="hljs-keyword">defer</span> conn.Close()
+
+            query := fmt.Sprintf(<span class="hljs-string">&quot;INSERT INTO domain (%s) VALUES (%s)&quot;</span>,
+                strings.Join(dataHeaders, <span class="hljs-string">&quot;,&quot;</span>),
+                strings.Join(generateQuestionsMark(<span class="hljs-built_in">len</span>(dataHeaders)), <span class="hljs-string">&quot;,&quot;</span>),
+            )
+
+            _, err = conn.ExecContext(context.Background(), query, values...)
+            <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+                *outerError = err
+                <span class="hljs-keyword">return</span>
+            }
+        }(&amp;outerError)
+        <span class="hljs-keyword">if</span> outerError == <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">break</span>
+        }
+        log.Println(<span class="hljs-string">&quot;=&gt; retrying insert, error:&quot;</span>, outerError)
+    }
+
+    <span class="hljs-keyword">if</span> counter%<span class="hljs-number">100</span> == <span class="hljs-number">0</span> {
+        log.Println(<span class="hljs-string">&quot;=&gt; worker&quot;</span>, workerIndex, <span class="hljs-string">&quot;inserted&quot;</span>, counter, <span class="hljs-string">&quot;data&quot;</span>)
+    }
+}
+
+<span class="hljs-keyword">func</span> generateQuestionsMark(n <span class="hljs-keyword">int</span>) []<span class="hljs-keyword">string</span> {
+    s := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ {
+        s = <span class="hljs-built_in">append</span>(s, <span class="hljs-string">&quot;?&quot;</span>)
+    }
+    <span class="hljs-keyword">return</span> s
+}
+</code></pre>
+<p>Beberapa hal penting dalam fungsi ini:</p>
 <ul>
-<li>Pertama kita siapkan <code>counterTotal</code> sebagai counter jumlah file yang ditemukan dalam <code>$TEMP/chapter-A.63-concurrency-pipeline</code>. Idealnya jumlahnya adalah sama dengan isi variabel <code>totalFile</code> pada program pertama, kecuali ada error.</li>
-<li>Kedua, kita siapkan <code>counterRenamed</code> sebagai counter jumlah file yang berhasil di-rename. Untuk ini juga idealnya sama dengan nilai pada <code>counterTotal</code>, kecuali ada error</li>
-<li>Kita gunakan <code>filepath.Walk</code> untuk melakukan pembacaan semua file yang ada dalam folder <code>$TEMP/chapter-A.63-concurrency-pipeline</code>.</li>
-<li>File akan dibaca secara sekuensial. Jika ada error pembacaan, proses dihentikan; jika entry yang ditemukan adalah direktori, maka di-skip lalu lanjut ke file selanjutnya.</li>
-<li>File dibaca menggunakan <code>os.ReadFile()</code>, kemudian lewat fungsi <code>md5.Sum()</code> kita cari md5 hash sum dari konten file.</li>
-<li>Setelahnya, kita rename file dengan nama <code>file-&lt;md5hash&gt;.txt</code>.</li>
+<li>Keseluruhan operasi insert dibungkus dalam IIFE (immediately invoked function expression) di dalam perulangan <code>for</code>. Ini adalah implementasi mekanisme failover: jika insert gagal (<code>outerError != nil</code>), perulangan lanjut dan operasi diulang.</li>
+<li><code>defer func() { recover() }()</code> menangkap panic yang mungkin terjadi dari dalam IIFE dan mengonversinya ke error biasa, agar bisa ditangani oleh mekanisme retry.</li>
+<li><code>db.Conn()</code> mengambil satu koneksi dari pool. Error dari pemanggilan ini perlu dicek, karena jika pool penuh dan semua koneksi sedang dipakai, pemanggilan ini bisa gagal.</li>
+<li><code>defer conn.Close()</code> mengembalikan koneksi ke pool setelah IIFE selesai, baik sukses maupun gagal.</li>
+<li>Query dibentuk secara dinamis menggunakan <code>dataHeaders</code> dan placeholder <code>?</code> sejumlah kolom. Penggunaan placeholder (parameterized query) ini penting untuk menghindari SQL injection.</li>
 </ul>
 <blockquote>
-<p>Sejak Go 1.16, <code>filepath.Walk()</code> memiliki pengganti yang lebih efisien yaitu <code>filepath.WalkDir()</code>. Penjelasan lengkapnya ada di bagian <a href="#">A.63.7. filepath.WalkDir sebagai Pengganti filepath.Walk</a>.</p>
+<p><strong>Catatan:</strong> Mekanisme retry di atas tidak memiliki batas percobaan dan tidak ada jeda antar retry. Jika database tidak dapat diakses dalam waktu lama, goroutine akan terus looping tanpa henti. Untuk kebutuhan produksi, tambahkan batas maksimum retry dan exponential backoff.</p>
 </blockquote>
-<p>Semoga cukup jelas. Kalo iya, jalankan programnya.</p>
-<p><img src="images/A_concurrency_pipeline_2_rename_sequentially.png" alt="Dasar Pemrograman Golang - Generate dummy files"></p>
-<p>Selesai dalam waktu <strong>1,17 detik</strong>, lumayan untuk eksekusi proses sekuensial.</p>
-<p>Ok, aplikasi sudah siap. Selanjutnya kita akan refactor aplikasi tersebut ke bentuk konkuren menggunakan metode <em>pipeline</em>.</p>
-<h2 id="a635-program-3-lakukan-proses-secara-concurrent-menggunakan-teknik-pipeline">A.63.5. Program 3: Lakukan Proses Secara Concurrent Menggunakan Teknik Pipeline</h2>
-<p>Pada bagian ini kita akan re-write ulang program 2, isinya masih sama persis kalau dilihat dari perspektif bisnis logic, tapi metode yang kita terapkan dari sisi engineering berbeda. Di sini kita akan terapkan <em>pipeline</em>. Bisnis logic akan dipecah menjadi 3 dan seluruhnya dieksekusi secara konkuren, yaitu:</p>
-<ul>
-<li>Proses baca file</li>
-<li>Proses perhitungan md5 hash sum</li>
-<li>Proses rename file</li>
-</ul>
-<p>Kenapa kita pecah, karena ketiga proses tersebut bisa dijalankan bersama secara konkuren, dalam artian misalnya ketika <code>file1</code> sudah selesai dibaca, perhitungan md5sum-nya bisa dijalankan secara bersama dengan pembacaan <code>file2</code>. Begitu juga untuk proses rename-nya, misalnya, proses rename <code>file24</code> bisa dijalankan secara konkuren bersamaan dengan proses hitung md5sum <code>file22</code> dan bersamaan dengan proses baca <code>file28</code>.</p>
-<h4 id="&#x25C9;-basis-kode-program">&#x25C9; Basis Kode Program</h4>
-<p>Mungkin agar lebih terlihat perbandingannya nanti di akhir, kita siapkan file terpisah saja untuk program ini. Siapkan file baru bernama <code>3-find-md5-sum-of-file-then-rename-it-concurrently.go</code>.</p>
-<p>Isi file tersebut dengan kode berikut.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
-
-<span class="hljs-keyword">import</span> (
-    <span class="hljs-string">&quot;crypto/md5&quot;</span>
-    <span class="hljs-string">&quot;fmt&quot;</span>
-    <span class="hljs-string">&quot;log&quot;</span>
-    <span class="hljs-string">&quot;os&quot;</span>
-    <span class="hljs-string">&quot;path/filepath&quot;</span>
-    <span class="hljs-string">&quot;sync&quot;</span>
-    <span class="hljs-string">&quot;time&quot;</span>
-)
-
-<span class="hljs-keyword">var</span> tempPath = filepath.Join(os.Getenv(<span class="hljs-string">&quot;TEMP&quot;</span>), <span class="hljs-string">&quot;chapter-A.63-concurrency-pipeline&quot;</span>)
-
-<span class="hljs-keyword">type</span> FileInfo <span class="hljs-keyword">struct</span> {
-    FilePath  <span class="hljs-keyword">string</span> <span class="hljs-comment">// file location</span>
-    Content   []<span class="hljs-keyword">byte</span> <span class="hljs-comment">// file content</span>
-    Sum       <span class="hljs-keyword">string</span> <span class="hljs-comment">// md5 sum of content</span>
-    IsRenamed <span class="hljs-keyword">bool</span>   <span class="hljs-comment">// indicator whether the particular file is renamed already or not</span>
-}
-</code></pre>
-<p>Kurang lebih sama seperti sebelumnya, hanya saja ada beberapa packages lain yg di-import dan ada struct <code>FileInfo</code>. Struct ini digunakan sebagai metadata tiap file. Karena nantinya proses read file, md5sum, dan rename file akan dipecah menjadi 3 goroutine berbeda, maka perlu ada metadata untuk mempermudah tracking file, agar nanti ketika dapat md5 sum nya tidak salah simpan, dan ketika rename tidak salah file.</p>
-<h4 id="&#x25C9;-pipeline-1-baca-file">&#x25C9; Pipeline 1: Baca File</h4>
-<p>Siapkan fungsi main, lalu panggil fungsi <code>readFiles()</code>.</p>
+<h4 id="&#x25C9;-fungsi-main">&#x25C9; Fungsi Main</h4>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
-    log.Println(<span class="hljs-string">&quot;start&quot;</span>)
     start := time.Now()
 
-    <span class="hljs-comment">// pipeline 1: loop all files and read it</span>
-    chanFileContent := readFiles()
+    db, err := openDbConnection()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err.Error())
+    }
 
-    <span class="hljs-comment">// ...</span>
-}
-</code></pre>
-<p>Fungsi <code>readFiles()</code> isinya adalah pembacaan semua file. Fungsi ini mengembalikan variabel <code>channel</code> bernama <code>chanFileContent</code>. Lanjut siapkan fungsi tersebut.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> readFiles() &lt;-<span class="hljs-keyword">chan</span> FileInfo {
-    chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
+    csvReader, csvFile, err := openCsvFile()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(err.Error())
+    }
+    <span class="hljs-keyword">defer</span> csvFile.Close()
 
-    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
-        err := filepath.Walk(tempPath, <span class="hljs-keyword">func</span>(path <span class="hljs-keyword">string</span>, info os.FileInfo, err error) error {
-
-            <span class="hljs-comment">// if there is an error, return immediately</span>
-            <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-                <span class="hljs-keyword">return</span> err
-            }
-
-            <span class="hljs-comment">// if it is a sub directory, return immediately</span>
-            <span class="hljs-keyword">if</span> info.IsDir() {
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
-            }
-
-            buf, err := os.ReadFile(path)
-            <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-                <span class="hljs-keyword">return</span> err
-            }
-
-            chanOut &lt;- FileInfo{
-                FilePath: path,
-                Content:  buf,
-            }
-
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
-        })
-        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-            log.Println(<span class="hljs-string">&quot;ERROR:&quot;</span>, err.Error())
-        }
-
-        <span class="hljs-built_in">close</span>(chanOut)
-    }()
-
-    <span class="hljs-keyword">return</span> chanOut
-}
-</code></pre>
-<p>Bisa dilihat isi fungsi <code>readFiles()</code>. Di fungsi tersebut ada sebuah channel bernama <code>chanOut</code> tipenya channel <code>FileInfo</code>, variabel channel ini dijadikan nilai balik dari fungsi <code>readFiles()</code>.</p>
-<p>Di dalam fungsi <code>readFiles()</code> juga ada proses lain yang berjalan secara <em>asynchronous</em> dan <em>concurrent</em> yaitu goroutine yang isinya pembacaan file. Dalam blok kode baca file, informasi <code>path</code> dan konten file dibungkus dalam objek baru dengan tipe <code>FileInfo</code> kemudian dikirim ke channel <code>chanOut</code>.</p>
-<p>Karena proses utama dalam fungsi <code>readFiles()</code> berada dalam goroutine, maka di <code>main()</code>, ketika statement <code>chanFileContent := readFiles()</code> selesai dieksekusi, bukan berarti proses pembacaan file selesai, malah mungkin baru saja dimulai. Ini karena proses baca file dijalankan dalam goroutine di dalam fungsi <code>readFiles()</code> tersebut.</p>
-<p>Mengenai channel <code>chanOut</code> sendiri, akan di-close ketika dipastikan <strong>semua file sudah dikirim datanya ke channel tersebut</strong> (silakan lihat statement <code>close(chanOut)</code> di akhir goroutine).</p>
-<p>Ok lanjut, karena di sini ada channel yang digunakan sebagai media pengiriman data (<code>FileInfo</code>), maka juga harus ada penerima data channel-nya dong. Yups.</p>
-<h4 id="&#x25C9;-pipeline-2-md5-hash-konten-file">&#x25C9; Pipeline 2: MD5 Hash Konten File</h4>
-<p>Tepat di bawah pipeline 1, tambahkan pemanggilan fungsi <code>getSum()</code> sebanyak 3x, bisa lebih banyak sih sebenarnya, bebas. Kemudian jadikan nilai balik pemanggilan fungsi tersebut sebagai variadic argument pemanggilan fungsi <code>mergeChanFileInfo()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
-    <span class="hljs-comment">// ...</span>
-
-    <span class="hljs-comment">// pipeline 2: calculate md5sum</span>
-    chanFileSum1 := getSum(chanFileContent)
-    chanFileSum2 := getSum(chanFileContent)
-    chanFileSum3 := getSum(chanFileContent)
-    chanFileSum := mergeChanFileInfo(chanFileSum1, chanFileSum2, chanFileSum3)
-
-    <span class="hljs-comment">// ...</span>
-}
-</code></pre>
-<p>Fungsi <code>getSum()</code> isinya adalah perhitungan md5hash untuk konten yang datanya dikirim via channel <code>chanFileContent</code> hasil kembalian statement <code>readFiles()</code>. Fungsi <code>getSum()</code> ini juga mengembalikan channel. Karena kita menjalankan <code>getSum()</code> tiga kali, maka akan ada 3 channel. Nah ketiga channel tersebut nantinya kita merge ke satu channel saja via fungsi <code>mergeChanFileInfo()</code>.</p>
-<p>Fungsi <code>getSum()</code> menerima channel dan akan secara aktif memantau dan membaca data yang dikirim via channel tersebut hingga channel itu sendiri di-close. Fungsi seperti ini biasa disebut dengan <strong>Fan-out function</strong>. Fungsi fan-out digunakan untuk pendistribusian job ke banyak worker. channel <code>chanFileContent</code> di situ merupakan media untuk distribusi job, sedangkan pemanggil fungsi <code>getSum()</code> ini sendiri merepresentasikan satu worker. Jadi bisa dibilang, pada contoh di atas, <strong>kita membuat 3 buah worker untuk melakukan operasi perhitungan sum MD5 terhadap data konten yang dikirim via channel <code>chanFileContent</code></strong>.</p>
-<p>Nah, karena di sini kita punya 3 worker yang jelasnya menghasilkan 3 buah channel baru, kita perlu sebuah mekanisme untuk menggabung channel tersebut, agar nanti mudah untuk dikontrol (<a href="https://en.wikipedia.org/wiki/Single_source_of_truth" target="_blank">SSoT</a>). Di sinilah peran fungsi <code>mergeChanFileInfo()</code>.</p>
-<p>Fungsi <code>mergeChanFileInfo()</code> digunakan untuk <em>multiplexing</em> atau menggabung banyak channel ke satu channel saja, yang mana channel ini juga akan <strong>otomatis di-close ketika channel input (<code>chanFileContent</code>) adalah <em>closed</em></strong>. Fungsi jenis seperti ini biasa disebut dengan <strong>Fan-in function</strong>.</p>
-<p>Jadi TL;DR nya:</p>
-<ul>
-<li>Fungsi Fan-out digunakan untuk pembuatan worker, untuk distribusi job, yang proses distribusinya sendiri akan berhenti ketika channel inputan di-close.</li>
-<li>Fungsi Fan-in digunakan untuk <em>multiplexing</em> atau menggabung banyak worker ke satu channel saja, yang mana channel baru ini juga otomatis di-close ketika channel input adalah closed.</li>
-</ul>
-<p>Sekarang lanjut buat fungsi <code>getSum()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> getSum(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
-    chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
-
-    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
-        <span class="hljs-keyword">for</span> fileInfo := <span class="hljs-keyword">range</span> chanIn {
-            fileInfo.Sum = fmt.Sprintf(<span class="hljs-string">&quot;%x&quot;</span>, md5.Sum(fileInfo.Content))
-            chanOut &lt;- fileInfo
-        }
-        <span class="hljs-built_in">close</span>(chanOut)
-    }()
-
-    <span class="hljs-keyword">return</span> chanOut
-}
-</code></pre>
-<p>Bisa dilihat, di situ channel inputan <code>chanIn</code> di-listen dan setiap ada penerimaan data (via channel tersebut) dilanjut ke proses kalkulasi md5 hash. Hasil hash-nya ditambahkan ke data <code>FileInfo</code> kemudian dikirim lagi ke channel <code>chanOut</code> yang mana channel ini merupakan nilai balik fungsi <code>getSum()</code>.</p>
-<p>Ketika <code>chanIn</code> closed, maka bisa diasumsikan semua data sudah dikirim. Jika memang iya dan data-data tersebut sudah diproses (pencarian md5hash-nya), maka channel <code>chanOut</code> juga di-close.</p>
-<p>Next, buat fungsi merger-nya.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> mergeChanFileInfo(chanInMany ...&lt;-<span class="hljs-keyword">chan</span> FileInfo) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
+    jobs := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> []<span class="hljs-keyword">interface</span>{}, <span class="hljs-number">0</span>)
     wg := <span class="hljs-built_in">new</span>(sync.WaitGroup)
-    chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
 
-    wg.Add(<span class="hljs-built_in">len</span>(chanInMany))
-    <span class="hljs-keyword">for</span> _, eachChan := <span class="hljs-keyword">range</span> chanInMany {
-        <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(eachChan &lt;-<span class="hljs-keyword">chan</span> FileInfo) {
-            <span class="hljs-keyword">for</span> eachChanData := <span class="hljs-keyword">range</span> eachChan {
-                chanOut &lt;- eachChanData
-            }
-            wg.Done()
-        }(eachChan)
-    }
+    <span class="hljs-keyword">go</span> dispatchWorkers(db, jobs, wg)
+    readCsvFilePerLineThenSendToWorker(csvReader, jobs, wg)
 
-    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
-        wg.Wait()
-        <span class="hljs-built_in">close</span>(chanOut)
-    }()
-
-    <span class="hljs-keyword">return</span> chanOut
-}
-</code></pre>
-<p>Fungsi di atas digunakan untuk merging banyak channel ke satu channel. Memang sedikit susah di awal untuk dipahami, tapi nanti lama-kelamaan akan paham. Fungsi ini saya buat sama dengan skema fungsi Fan-in pada <a href="https://blog.golang.org/pipelines" target="_blank">Go Concurrency Patterns: Pipeline</a>.</p>
-<p>Secara garis besar, pada fungsi ini terjadi beberapa proses:</p>
-<ul>
-<li>Dispatch goroutine baru untuk masing-masing channel yang dikirim via variadic argument/parameter fungsi ini.</li>
-<li>Di dalam goroutine tersebut, append data yang diterima oleh masing-masing channel ke satu buah channel baru yaitu <code>chanOut</code>.</li>
-<li>Channel <code>chanOut</code> ini dijadikan sebagai nilai balik fungsi.</li>
-<li>Di situ kita gunakan <code>sync.WaitGroup</code> untuk kontrol goroutine. Kita akan tunggu hingga semua channel input adalah closed, setelah itu barulah kita close channel <code>chanOut</code> ini.</li>
-</ul>
-<h4 id="&#x25C9;-pipeline-3-rename-file">&#x25C9; Pipeline 3: Rename file</h4>
-<p>Tambahkan statement pipeline ketiga, yaitu pemanggilan fungsi Fan-out <code>rename()</code>, lalu panggil fungsi Fan-in <code>mergeChanFileInfo()</code> untuk multiplex channel kembalian fungsi <code>rename()</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
-    <span class="hljs-comment">// ...</span>
-
-    <span class="hljs-comment">// pipeline 3: rename files</span>
-    chanRename1 := rename(chanFileSum)
-    chanRename2 := rename(chanFileSum)
-    chanRename3 := rename(chanFileSum)
-    chanRename4 := rename(chanFileSum)
-    chanRename := mergeChanFileInfo(chanRename1, chanRename2, chanRename3, chanRename4)
-
-    <span class="hljs-comment">// ...</span>
-}
-</code></pre>
-<p>Di atas bisa dilihat ada 4 buah worker untuk rename di-<em>dispatch</em>. Fungsi rename ini sendiri tugasnya adalah me-rename file yang sudah kita baca isinya ke nama baru dengan format <code>file-&lt;md5hash&gt;.txt</code>.</p>
-<p>Tulis definisi fungsi <code>rename()</code>-nya. Secara garis besar semua penulisan fungsi Fan-out pasti mirip, yang beda hanya isi bisnis logic-nya saja. Kalau dalam <code>getSum()</code> isinya statement untuk kalkulasi hash, pada <code>rename()</code> ini isinya ya statements untuk rename file.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> rename(chanIn &lt;-<span class="hljs-keyword">chan</span> FileInfo) &lt;-<span class="hljs-keyword">chan</span> FileInfo {
-    chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
-
-    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
-        <span class="hljs-keyword">for</span> fileInfo := <span class="hljs-keyword">range</span> chanIn {
-            newPath := filepath.Join(tempPath, fmt.Sprintf(<span class="hljs-string">&quot;file-%s.txt&quot;</span>, fileInfo.Sum))
-            err := os.Rename(fileInfo.FilePath, newPath)
-            fileInfo.IsRenamed = err == <span class="hljs-literal">nil</span>
-            chanOut &lt;- fileInfo
-        }
-
-        <span class="hljs-built_in">close</span>(chanOut)
-    }()
-
-    <span class="hljs-keyword">return</span> chanOut
-}
-</code></pre>
-<p>Bisa dilihat di atas kita rename file asli yang informasi path-nya ada di <code>FileInfo.FilePath</code>. Jika proses rename berhasil, maka <code>FileInfo.IsRenamed</code> di-set ke <code>true</code>.</p>
-<p>Setelah semua file berhasil di-rename, maka channel <code>chanOut</code> di-close.</p>
-<h4 id="&#x25C9;-pipeline-4--output">&#x25C9; Pipeline 4 / Output</h4>
-<p>Serangkaian proses yang sudah kita setup punya ketergantungan tinggi satu sama lain, dan eksekusinya harus berurutan meskipun <em>concurrently</em>. Ini secara langsung juga mempermudah kita dalam mengolah output hasil pipeline. Kita cukup fokus ke channel hasil Fan-in yang paling terakhir, yaitu channel <code>chanRename</code>.</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
-    <span class="hljs-comment">// ...</span>
-
-    <span class="hljs-comment">// print output</span>
-    counterRenamed := <span class="hljs-number">0</span>
-    counterTotal := <span class="hljs-number">0</span>
-    <span class="hljs-keyword">for</span> fileInfo := <span class="hljs-keyword">range</span> chanRename {
-        <span class="hljs-keyword">if</span> fileInfo.IsRenamed {
-            counterRenamed++
-        }
-        counterTotal++
-    }
-
-    log.Printf(<span class="hljs-string">&quot;%d/%d files renamed&quot;</span>, counterRenamed, counterTotal)
+    wg.Wait()
 
     duration := time.Since(start)
-    log.Println(<span class="hljs-string">&quot;done in&quot;</span>, duration.Seconds(), <span class="hljs-string">&quot;seconds&quot;</span>)
+    fmt.Println(<span class="hljs-string">&quot;done in&quot;</span>, <span class="hljs-keyword">int</span>(math.Ceil(duration.Seconds())), <span class="hljs-string">&quot;seconds&quot;</span>)
 }
 </code></pre>
-<p>Kita lakukan perulangan terhadap channel tersebut, lalu hitung jumlah file yang ditemukan vs jumlah file yang berhasil di-rename. Idealnya keduanya nilainya adalah sama, yaitu <code>3000</code>.</p>
-<p>Ok, sekarang program sudah siap. Mari kita jalankan untuk melihat hasilnya.</p>
-<p><img src="images/A_concurrency_pipeline_3_rename_concurrently.png" alt="Dasar Pemrograman Golang - Rename file concurrently"></p>
-<p>Bisa dilihat bedanya, untuk rename 3000 file menggunakan cara sekuensial membutuhkan waktu <code>1.17</code> detik, sedangkan dengan metode pipeline hanya butuh <code>0.72</code> detik. Bedanya hampir <strong>40%</strong>! Dan ini hanya 3000 file saja, bayangkan kalau jutaan file, perbedaan performanya akan lebih terasa.</p>
-<h2 id="a636-kesimpulan">A.63.6. Kesimpulan</h2>
-<p>Pipeline concurrency pattern sangat bagus untuk diterapkan pada case yang proses-nya bisa diklasifikasi menjadi sub-proses kecil-kecil yang secara I/O tidak saling tunggu (tapi secara flow harus berurutan).</p>
-<p>Untuk banyak kasus, metode pipeline ini sangat tepat guna. Kita bisa dengan mudah mengontrol penggunaan resource seperti <strong>CPU</strong> dengan cara menentukan angka ideal jumlah worker untuk masing-masing pipeline, tapi untuk bagian ini butuh <em>test and try</em> juga, karena tidak selalu banyak worker itu menghasilkan proses yang lebih cepat, dan misalpun bisa, perlu dicek juga konsumsi resource-nya berlebihan atau tidak. Bisa jadi karena terlalu banyak worker malah lebih lambat karena ada constraint I/O.</p>
-<p>Intinya butuh banyak percobaan dan testing, sesuaikan dengan spesifikasi hardware laptop/komputer/server yang digunakan.</p>
-<p>Ok sekian untuk chapter panjang ini.</p>
-<h2 id="a637-filepathwalkdir-sebagai-pengganti-filepathwalk-go-116">A.63.7. filepath.WalkDir sebagai Pengganti filepath.Walk (Go 1.16+)</h2>
-<p>Sejak Go 1.16, tersedia fungsi <code>filepath.WalkDir()</code> sebagai pengganti yang lebih efisien dari <code>filepath.Walk()</code>. Perbedaan utamanya:</p>
+<p>Alur eksekusinya adalah:</p>
+<ol>
+<li>Buka koneksi database.</li>
+<li>Buka file CSV.</li>
+<li>Buat channel <code>jobs</code> dan WaitGroup.</li>
+<li><code>dispatchWorkers()</code> dijalankan sebagai goroutine agar langsung siap menunggu jobs.</li>
+<li><code>readCsvFilePerLineThenSendToWorker()</code> dijalankan di goroutine utama (blocking): membaca CSV baris demi baris dan mengirim ke <code>jobs</code>.</li>
+<li><code>wg.Wait()</code> menunggu seluruh 1 juta insert selesai sebelum program berhenti.</li>
+</ol>
+<blockquote>
+<p>Channel <code>jobs</code> di sini dibuat tanpa buffer (<code>make(chan []interface{}, 0)</code>). Artinya setiap pengiriman baris CSV akan memblokir sampai ada worker yang mengambilnya. Jika ingin mengurangi kemungkinan reader memblokir terlalu lama, bisa gunakan buffered channel, misalnya <code>make(chan []interface{}, 500)</code>.</p>
+</blockquote>
+<h2 id="d14-eksekusi-program">D.1.4. Eksekusi Program</h2>
+<p>Setelah semua siap, jalankan program-nya.</p>
+<p><img src="images/D_insert_1mil_csv_record_into_db_in_a_minute_1_preview.png" alt="Dasar Pemrograman Golang - Preview"></p>
+<p>Bisa dilihat operasi insert selesai dalam waktu sekitar 1 menit. Pengujian dilakukan pada laptop dengan spesifikasi berikut:</p>
 <ul>
-<li><code>filepath.Walk()</code> memanggil <code>os.Lstat()</code> pada setiap entry untuk mendapatkan <code>os.FileInfo</code>, yang berarti satu <em>syscall</em> tambahan per file.</li>
-<li><code>filepath.WalkDir()</code> menggunakan <code>fs.DirEntry</code> yang sudah tersedia dari hasil pembacaan direktori, sehingga tidak perlu <em>syscall</em> tambahan kecuali memang dibutuhkan.</li>
+<li>Core i7-8750H 2.20GHz (6 core, 12 logical processor)</li>
+<li>RAM 16GB</li>
+<li>SSD</li>
 </ul>
-<p>Untuk chapter pipeline ini, fungsi <code>readFiles()</code> bisa ditulis ulang menggunakan <code>filepath.WalkDir()</code>:</p>
-<pre><code class="lang-go"><span class="hljs-keyword">func</span> readFiles() &lt;-<span class="hljs-keyword">chan</span> FileInfo {
-    chanOut := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> FileInfo)
-
-    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
-        err := filepath.WalkDir(tempPath, <span class="hljs-keyword">func</span>(path <span class="hljs-keyword">string</span>, d fs.DirEntry, err error) error {
-            <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-                <span class="hljs-keyword">return</span> err
-            }
-            <span class="hljs-keyword">if</span> d.IsDir() {
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
-            }
-
-            buf, err := os.ReadFile(path)
-            <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-                <span class="hljs-keyword">return</span> err
-            }
-
-            chanOut &lt;- FileInfo{
-                FilePath: path,
-                Content:  buf,
-            }
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
-        })
-        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
-            log.Println(<span class="hljs-string">&quot;ERROR:&quot;</span>, err.Error())
-        }
-        <span class="hljs-built_in">close</span>(chanOut)
-    }()
-
-    <span class="hljs-keyword">return</span> chanOut
-}
-</code></pre>
-<p>Perlu di-import package <code>io/fs</code> untuk tipe <code>fs.DirEntry</code>. Untuk kasus pembacaan file dalam jumlah banyak seperti pada chapter ini, <code>filepath.WalkDir()</code> adalah pilihan yang lebih baik dari sisi performa.</p>
+<p>Utilisasi CPU hanya 25.8% dan RAM hanya 12MB untuk sisi program Go-nya. CPU usage di Task Manager mencapai 100% karena MySQL server lokal yang bekerja keras melayani 100 koneksi insert secara bersamaan.</p>
+<p>Sebagai perbandingan, operasi insert yang sama secara sekuensial (tanpa worker pool dan tanpa connection pool) memakan waktu hingga <strong>20 menit</strong>. Perbedaan performa ini menunjukkan betapa signifikannya penerapan konkurensi untuk kasus seperti ini.</p>
+<blockquote>
+<p>Praktik pada chapter ini bersifat POC (Proof of Concept). Untuk kebutuhan produksi, pertimbangkan batched insert (insert beberapa baris dalam satu query), mekanisme retry dengan backoff, serta monitoring terhadap jumlah koneksi database yang aktif.</p>
+</blockquote>
+<hr>
+<ul>
+<li><a href="https://github.com/go-sql-driver/mysql" target="_blank">go-sql-driver/mysql</a>, by Go SQL Driver Team, Mozilla Public License 2.0</li>
+</ul>
 <hr>
 <div class="source-code-link">
     <div class="source-code-link-message">Source code praktik chapter ini tersedia di Github</div>
-    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-A.63-concurrency-pipeline" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/.../chapter-A.63...</a>
+    <a href="https://github.com/novalagung/dasarpemrogramangolang-example/tree/master/chapter-D.1-insert-1mil-csv-record-into-db-in-a-minute" target="_blank">https://github.com/novalagung/dasarpemrogramangolang-example/...</a>
 </div>
 
 <hr>
@@ -2714,12 +2449,8 @@
 
             
                 
-                <a href="A-go-vendoring.html" class="navigation navigation-prev " aria-label="Previous page: A.62. Go Vendoring">
-                    <i class="fa fa-angle-left"></i>
-                </a>
                 
-                
-                <a href="A-simplified-fan-in-fan-out-pipeline.html" class="navigation navigation-next " aria-label="Next page: A.64. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline">
+                <a href="D-google-api-search.html" class="navigation navigation-next navigation-unique" aria-label="Next page: D.2. Google API Search Dengan Timeout">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2730,7 +2461,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"A.63. Concurrency Pattern: Pipeline","level":"3.1.63","depth":2,"next":{"title":"A.64. Concurrency Pattern: Simplified Fan-in Fan-out Pipeline","level":"3.1.64","depth":2,"path":"A-simplified-fan-in-fan-out-pipeline.md","ref":"A-simplified-fan-in-fan-out-pipeline.md","articles":[]},"previous":{"title":"A.62. Go Vendoring","level":"3.1.62","depth":2,"path":"A-go-vendoring.md","ref":"A-go-vendoring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"A-concurrency-pipeline.md","mtime":"2026-06-12T10:41:57.393Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T10:42:52.625Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"D.1. Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel","level":"6.1.1","depth":2,"next":{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},"previous":{"title":"D. Studi Kasus","level":"6.1","depth":1,"ref":"","articles":[{"title":"D.1. Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel","level":"6.1.1","depth":2,"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","ref":"D-insert-1mil-csv-record-into-db-in-a-minute.md","articles":[]},{"title":"D.2. Google API Search Dengan Timeout","level":"6.1.2","depth":2,"path":"D-google-api-search.md","ref":"D-google-api-search.md","articles":[]},{"title":"D.3. Web Socket Chatting App","level":"6.1.3","depth":2,"path":"D-golang-web-socket-chatting-app.md","ref":"D-golang-web-socket-chatting-app.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"D-insert-1mil-csv-record-into-db-in-a-minute.md","mtime":"2026-06-12T10:41:57.402Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T10:42:52.625Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

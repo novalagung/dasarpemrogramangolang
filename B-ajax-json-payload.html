@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang AJAX JSON Payload - Dasar Pemrograman Golang</title>
+        <title>Golang HTTP Request JSON Payload - Dasar Pemrograman Golang</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content>
         <meta name="generator" content="GitBook 3.2.3">
@@ -1192,7 +1192,7 @@
                 <a href="B-template-render-html.html">
             
                     
-                    B.4. Template: Render HTML Template
+                    B.4. Template: Render HTML
             
                 </a>
             
@@ -1205,7 +1205,7 @@
                 <a href="B-template-render-partial-html.html">
             
                     
-                    B.5. Template: Render Partial HTML Template
+                    B.5. Template: Render Partial HTML
             
                 </a>
             
@@ -1296,7 +1296,7 @@
                 <a href="B-form-value.html">
             
                     
-                    B.12. Form Value
+                    B.12. HTTP Form Value
             
                 </a>
             
@@ -1309,7 +1309,7 @@
                 <a href="B-form-upload-file.html">
             
                     
-                    B.13. Form Upload File
+                    B.13. File Upload: ParseMultipartForm
             
                 </a>
             
@@ -1322,7 +1322,7 @@
                 <a href="B-ajax-json-payload.html">
             
                     
-                    B.14. AJAX JSON Payload
+                    B.14. HTTP Request JSON Payload
             
                 </a>
             
@@ -1335,7 +1335,7 @@
                 <a href="B-ajax-json-response.html">
             
                     
-                    B.15. AJAX JSON Response
+                    B.15. HTTP Response: JSON
             
                 </a>
             
@@ -1348,7 +1348,7 @@
                 <a href="B-ajax-multi-upload.html">
             
                     
-                    B.16. AJAX Multiple File Upload
+                    B.16. Multiple File Upload: MultipartReader
             
                 </a>
             
@@ -1439,7 +1439,7 @@
                 <a href="B-httptest-handler-testing.html">
             
                     
-                    B.23. Handler Testing dengan net/http/httptest
+                    B.23. Handler Testing (net/http/httptest)
             
                 </a>
             
@@ -1530,7 +1530,7 @@
                 <a href="B-server-handler-http-request-cancellation.html">
             
                     
-                    B.30. Server Handler HTTP Request Cancellation
+                    B.30. HTTP Request Cancellation
             
                 </a>
             
@@ -2084,7 +2084,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="D-google-api-search.html">
+        <li class="chapter " data-level="6.1.1" data-path="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+            
+                <a href="D-insert-1mil-csv-record-into-db-in-a-minute.html">
+            
+                    
+                    D.1. Insert 1 Juta Rows CSV ke Database Secara Konkuren/Parallel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="D-google-api-search.html">
             
                 <a href="D-google-api-search.html">
             
@@ -2097,12 +2110,12 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="D-golang-web-socket-chatting-app.html">
+        <li class="chapter " data-level="6.1.3" data-path="D-golang-web-socket-chatting-app.html">
             
                 <a href="D-golang-web-socket-chatting-app.html">
             
                     
-                    D.3. Web Socket: Chatting App
+                    D.3. Web Socket Chatting App
             
                 </a>
             
@@ -2145,7 +2158,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".">B.14. AJAX JSON Payload</a>
+        <a href=".">B.14. HTTP Request JSON Payload</a>
     </h1>
 </div>
 
@@ -2157,32 +2170,30 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="b14-ajax-json-payload">B.14. AJAX JSON Payload</h1>
+                                <h1 id="b14-http-request-json-payload">B.14. HTTP Request JSON Payload</h1>
 <p>Sebelumnya kita telah mempelajari cara submit data dari front-end ke back-end dengan menggunakan payload <strong>Form Data</strong>. Kali ini kita akan belajar tentang cara request menggunakan payload <strong>JSON</strong>.</p>
 <blockquote>
 <p><strong>Form Data</strong> merupakan tipe payload default HTTP request via tag <code>&lt;form /&gt;</code></p>
 </blockquote>
-<p>Pada chapter ini, kita tidak akan menggunakan tag <code>&lt;form /&gt;</code> untuk submit data, melainkan dengan memanfaatkan teknik AJAX (Asynchronous JavaScript And XML) dengan payload JSON.</p>
+<p>Pada chapter ini, kita tidak akan menggunakan tag <code>&lt;form /&gt;</code> untuk submit data, melainkan dengan memanfaatkan <strong>Fetch API</strong> untuk mengirimkan HTTP request dengan payload JSON.</p>
 <p>Sebenarnya <a href="http://stackoverflow.com/a/23152367/1467988" target="_blank">perbedaan</a> antara kedua jenis request tersebut ada di dua hal, yaitu isi header <code>Content-Type</code> dan struktur informasi dikirimkan. Request lewat <code>&lt;form /&gt;</code> secara default memiliki content type <code>application/x-www-form-urlencoded</code>, efeknya data dikirimkan dalam bentuk query string (key-value) seperti <code>id=n001&amp;nama=bruce</code>.</p>
 <blockquote>
 <p>Pengiriman data via tag <code>&lt;form /&gt;</code> sebenarnya bisa menggunakan content-type selain <code>application/x-www-form-urlencoded</code>, yaitu <code>multipart/form-data</code>.</p>
 </blockquote>
 <p>Untuk payload JSON, <code>Content-Type</code> yang digunakan adalah <code>application/json</code>. Dengannya, data disisipkan di dalam <code>Body</code> request dalam bentuk <strong>JSON</strong> string.</p>
 <h2 id="b141-struktur-folder-proyek">B.14.1. Struktur Folder Proyek</h2>
-<p>OK, mari praktik. Pertama siapkan proyek dengan struktur seperti gambar berikut.</p>
-<p><img src="images/B_ajax_json_payload_1_structure.png" alt="Dasar Pemrograman Golang - Struktur proyek"></p>
-<blockquote>
-<p>Silakan unduh file JS jQuery dari situs official-nya.</p>
-</blockquote>
-<h2 id="b142-front-end---html">B.14.2. Front End - HTML</h2>
+<p>OK, mari praktik. Pertama siapkan proyek dengan struktur berikut.</p>
+<pre><code>chapter-B.14-http-request-json-payload/
+&#x251C;&#x2500;&#x2500; main.go
+&#x2514;&#x2500;&#x2500; view.html
+</code></pre><h2 id="b142-front-end---html">B.14.2. Front End - HTML</h2>
 <p>Layout dari view perlu disiapkan terlebih dahulu, tulis kode berikut pada file <code>view.html</code>.</p>
 <pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>JSON Payload<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;static/jquery-3.7.1.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-            $(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">&quot;DOMContentLoaded&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
                 <span class="hljs-comment">// javascript code here</span>
             });
         </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -2227,47 +2238,48 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
 </code></pre>
 <h2 id="b143-front-end---javascript">B.14.3. Front End - JavaScript</h2>
-<p>Sekarang kita masuk ke bagian paling menyenangkan/menyebalkan (tergantung taste), yaitu javascript. Siapkan sebuah event <code>submit</code> pada <code>#user-form</code>. Default handler untuk event submit milik <code>&lt;form /&gt;</code> di-override, diganti dengan AJAX request.</p>
-<pre><code class="lang-js">$(<span class="hljs-string">&quot;#user-form&quot;</span>).on(<span class="hljs-string">&quot;submit&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+<p>Sekarang kita masuk ke bagian JavaScript. Siapkan event listener <code>submit</code> pada form <code>#user-form</code>. Default behavior submit form di-override menggunakan <code>e.preventDefault()</code>, kemudian data dikirim ke server menggunakan Fetch API.</p>
+<pre><code class="lang-js"><span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;user-form&quot;</span>).addEventListener(<span class="hljs-string">&quot;submit&quot;</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
     e.preventDefault();
 
-    <span class="hljs-keyword">var</span> $self = $(<span class="hljs-keyword">this</span>);
-    <span class="hljs-keyword">var</span> payload = <span class="hljs-built_in">JSON</span>.stringify({
-        name: $(<span class="hljs-string">&apos;[name=&quot;name&quot;]&apos;</span>).val(),
-        age: <span class="hljs-built_in">parseInt</span>($(<span class="hljs-string">&apos;[name=&quot;age&quot;]&apos;</span>).val(), <span class="hljs-number">10</span>),
-        gender: $(<span class="hljs-string">&apos;[name=&quot;gender&quot;]&apos;</span>).val()
+    <span class="hljs-keyword">const</span> form = e.target;
+    <span class="hljs-keyword">const</span> payload = <span class="hljs-built_in">JSON</span>.stringify({
+        name: <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&apos;[name=&quot;name&quot;]&apos;</span>).value,
+        age: <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&apos;[name=&quot;age&quot;]&apos;</span>).value, <span class="hljs-number">10</span>),
+        gender: <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&apos;[name=&quot;gender&quot;]&apos;</span>).value,
     });
 
-    $.ajax({
-        url: $self.attr(<span class="hljs-string">&quot;action&quot;</span>),
-        type: $self.attr(<span class="hljs-string">&quot;method&quot;</span>),
-        data: payload,
-        contentType: <span class="hljs-string">&apos;application/json&apos;</span>,
-    }).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
-        $(<span class="hljs-string">&quot;.message&quot;</span>).text(res);
-    }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) </span>{
-        alert(<span class="hljs-string">&quot;ERROR: &quot;</span> + a.responseText);
-    });
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(form.action, {
+            method: form.method,
+            headers: { <span class="hljs-string">&quot;Content-Type&quot;</span>: <span class="hljs-string">&quot;application/json&quot;</span> },
+            body: payload,
+        });
+        <span class="hljs-keyword">const</span> text = <span class="hljs-keyword">await</span> res.text();
+        <span class="hljs-keyword">if</span> (!res.ok) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(text);
+        <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;.message&quot;</span>).textContent = text;
+    } <span class="hljs-keyword">catch</span> (err) {
+        alert(<span class="hljs-string">&quot;ERROR: &quot;</span> + err.message);
+    }
 });
 </code></pre>
-<p>Value semua inputan dalam form diambil, kemudian dimasukkan ke sebuah objek lalu di stringify, agar berubah menjadi JSON string untuk kemudian di jadikan sebagai payload request. Bisa dilihat pada kode AJAX di atas, <code>contentType</code> nilainya adalah <code>application/json</code>. </p>
-<p>Respon dari AJAX di atas nantinya dimunculkan pada <code>&lt;p class=&quot;message&quot;&gt;&lt;/p&gt;</code>.</p>
+<p>Value semua inputan dalam form diambil menggunakan <code>document.querySelector()</code>, dimasukkan ke sebuah objek, lalu di-stringify menjadi JSON string untuk dijadikan payload request. Header <code>Content-Type</code> di-set ke <code>application/json</code> agar server tahu format data yang dikirimkan.</p>
+<p>Fungsi <code>fetch()</code> dipanggil dengan <code>method</code>, <code>headers</code>, dan <code>body</code> sesuai konfigurasi form. Karena <code>fetch()</code> mengembalikan Promise, keyword <code>async/await</code> digunakan untuk menunggu respons secara asinkron. Jika respons HTTP bukan status 2xx (misalnya 4xx atau 5xx), error dilempar dan ditampilkan via <code>alert()</code>. Jika request berhasil, teks respons ditampilkan pada <code>&lt;p class=&quot;message&quot;&gt;&lt;/p&gt;</code>.</p>
 <h2 id="b144-back-end">B.14.4. Back End</h2>
-<p>3 buah rute perlu disiapkan, yang pertama adalah untuk menampilkan <code>view.html</code>, untuk keperluan submit data, dan registrasi asset.</p>
+<p>2 buah rute perlu disiapkan: satu untuk menampilkan <code>view.html</code>, satu lagi untuk memproses data yang di-submit.</p>
 <pre><code class="lang-go"><span class="hljs-keyword">package</span> main
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;log&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;html/template&quot;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;encoding/json&quot;</span>
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;encoding/json&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;html/template&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
 
 <span class="hljs-keyword">func</span> main() {
     http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, handleIndex)
     http.HandleFunc(<span class="hljs-string">&quot;/save&quot;</span>, handleSave)
-
-    http.Handle(<span class="hljs-string">&quot;/static/&quot;</span>, 
-        http.StripPrefix(<span class="hljs-string">&quot;/static/&quot;</span>, 
-            http.FileServer(http.Dir(<span class="hljs-string">&quot;assets&quot;</span>))))
 
     log.Println(<span class="hljs-string">&quot;server started at localhost:9000&quot;</span>)
     err := http.ListenAndServe(<span class="hljs-string">&quot;:9000&quot;</span>, <span class="hljs-literal">nil</span>)
@@ -2319,7 +2331,7 @@
 <h2 id="b145-testing">B.14.5. Testing</h2>
 <p>Jalankan program yang telah dibuat, test hasilnya di browser.</p>
 <p><img src="images/B_ajax_json_payload_2_test.png" alt="Dasar Pemrograman Golang - Hasil tes"></p>
-<p>Gunakan fasilitas Developer Tools pada Chrome untuk menginspeksi aktifitas AJAX-nya.</p>
+<p>Gunakan fasilitas Developer Tools pada Chrome untuk menginspeksi aktifitas HTTP request-nya.</p>
 <p><img src="images/B_ajax_json_payload_3_inspect.png" alt="Dasar Pemrograman Golang - Request"></p>
 <hr>
 <div class="source-code-link">
@@ -2340,12 +2352,12 @@
 
             
                 
-                <a href="B-form-upload-file.html" class="navigation navigation-prev " aria-label="Previous page: B.13. Form Upload File">
+                <a href="B-form-upload-file.html" class="navigation navigation-prev " aria-label="Previous page: B.13. File Upload: ParseMultipartForm">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="B-ajax-json-response.html" class="navigation navigation-next " aria-label="Next page: B.15. AJAX JSON Response">
+                <a href="B-ajax-json-response.html" class="navigation navigation-next " aria-label="Next page: B.15. HTTP Response: JSON">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2356,7 +2368,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"B.14. AJAX JSON Payload","level":"4.1.14","depth":2,"next":{"title":"B.15. AJAX JSON Response","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},"previous":{"title":"B.13. Form Upload File","level":"4.1.13","depth":2,"path":"B-form-upload-file.md","ref":"B-form-upload-file.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-ajax-json-payload.md","mtime":"2026-06-12T08:31:37.190Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T08:32:34.550Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"B.14. HTTP Request JSON Payload","level":"4.1.14","depth":2,"next":{"title":"B.15. HTTP Response: JSON","level":"4.1.15","depth":2,"path":"B-ajax-json-response.md","ref":"B-ajax-json-response.md","articles":[]},"previous":{"title":"B.13. File Upload: ParseMultipartForm","level":"4.1.13","depth":2,"path":"B-form-upload-file.md","ref":"B-form-upload-file.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-search","-lunr","docsearch-v3","disqus","meta","sitemap"],"pluginsConfig":{"docsearch":{"appId":"ZV0MXP90GF","apiKey":"f7431c709385fe300da4c2ef2093c43c","indexName":"dasarpemrogramangolang-novalagung"},"disqus":{"useIdentifier":false,"shortName":"dasarpemrogramangolang"},"meta":{"name":"","content":"","data":[{"name":"google-site-verification","content":"UZnxS2Dk3fm2_Elms3a__56Q_oQ3sQ1h0SVXXlHSmbE"},{"name":"og:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"},{"name":"twitter:image","content":"https://dasarpemrogramangolang.novalagung.com/images/cover_fb_share.jpg"}]},"docsearch-v3":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://dasarpemrogramangolang.novalagung.com/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":10,"left":10,"top":56,"bottom":56}},"styles":{"website":"style-website-v4.css"}},"file":{"path":"B-ajax-json-payload.md","mtime":"2026-06-12T10:41:57.397Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-12T10:42:52.625Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -2378,7 +2390,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.083257"></script>
+        <script src="gitbook/gitbook-plugin-disqus/plugin.js?3.2026.06.12.104315"></script>
         
     
         
