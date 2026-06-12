@@ -1,4 +1,4 @@
-# B.5. Template: Render Partial HTML Template
+# B.5. Template: Render Partial HTML
 
 Satu buah halaman yang berisikan html bisa saja terbentuk dari lebih dari satu proses parsing template html (parsial). Pada chapter ini kita akan belajar bagaimana membuat, mem-parsing, dan me-render semua template file.
 
