@@ -1,4 +1,4 @@
-# B.4. Template: Render HTML Template
+# B.4. Template: Render HTML
 
 Pada bagian ini kita akan belajar bagaimana cara render file **template** yang berisi **HTML** untuk ditampilkan ke layar browser.
 
