@@ -1,4 +1,4 @@
-# B.23. Handler Testing dengan `net/http/httptest`
+# B.23. Handler Testing (net/http/httptest)
 
 Pada chapter-chapter sebelumnya kita telah membuat banyak handler, namun pengujiannya selalu dilakukan secara manual lewat browser atau `curl`. Go menyediakan package `net/http/httptest` yang memungkinkan penulisan _automated test_ untuk handler tanpa perlu menjalankan server sungguhan.
 
