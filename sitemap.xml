@@ -93,6 +93,13 @@
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-custom-mux-multiplexer.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-cookie.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-simple-configuration.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/B-httptest-handler-testing.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/B-graceful-shutdown.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/B-http-redirect.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/B-custom-error-handler.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/B-request-body-size-limit.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/B-http-timeout-handler.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://dasarpemrogramangolang.novalagung.com/B-http-handler-context-value.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/B-server-handler-http-request-cancellation.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-project-layout-structure.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://dasarpemrogramangolang.novalagung.com/C-golang-web-framework.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
