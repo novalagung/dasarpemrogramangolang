@@ -26,6 +26,8 @@ func sendData(ch chan<- int) {
 }
 ```
 
+> Sejak Go 1.20, fungsi global `math/rand` sudah otomatis di-seed sehingga tidak perlu membuat randomizer terpisah untuk penggunaan umum. Namun dalam konteks goroutine, menggunakan instance `rand.New` lokal per goroutine menghindari lock contention pada global rand.
+
 Selanjutnya, disiapkan perulangan tanpa henti, yang di setiap perulangan ada seleksi kondisi channel menggunakan `select`.
 
 ```go
