@@ -20,24 +20,24 @@ Mari kita praktikkan langsung. Silakan mulai dengan menulis kode berikut.
 package main
 
 import (
-	"context"
-	"errors"
-	"log"
-	"net/http"
-	"time"
+    "context"
+    "errors"
+    "log"
+    "net/http"
+    "time"
 )
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	// do something here
+    // do something here
 }
 
 func main() {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", handleIndex)
-	err := http.ListenAndServe(":9000", mux)
-	if err != nil {
-		log.Fatal(err)
-	}
+    mux := http.NewServeMux()
+    mux.HandleFunc("/", handleIndex)
+    err := http.ListenAndServe(":9000", mux)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 

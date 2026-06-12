@@ -32,12 +32,12 @@ Buat fungsi `main()`, di dalamnya siapkan sebuah closure `handlerIndex`, lalu gu
 
 ```go
 func main() {
-	handlerIndex := func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("hello"))
-	}
+    handlerIndex := func(w http.ResponseWriter, r *http.Request) {
+        w.Write([]byte("hello"))
+    }
 
-	http.HandleFunc("/", handlerIndex)
-	http.HandleFunc("/index", handlerIndex)
+    http.HandleFunc("/", handlerIndex)
+    http.HandleFunc("/index", handlerIndex)
 }
 ```
 
@@ -48,7 +48,7 @@ func main() {
     // ...
 
     http.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
-    	w.Write([]byte("hello again"))
+        w.Write([]byte("hello again"))
     })
 }
 ```

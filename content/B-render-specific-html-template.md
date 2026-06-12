@@ -10,24 +10,24 @@ Siapkan folder project baru, buat file template bernama `view.html`, lalu isi de
 {{define "index"}}
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Learning html/template Functions</title>
-	</head>
-	<body>
-		<h2>Index</h2>
-	</body>
+    <head>
+        <title>Learning html/template Functions</title>
+    </head>
+    <body>
+        <h2>Index</h2>
+    </body>
 </html>
 {{end}}
 
 {{define "test"}}
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Other Template</title>
-	</head>
-	<body>
-		<h2>Test</h2>
-	</body>
+    <head>
+        <title>Other Template</title>
+    </head>
+    <body>
+        <h2>Test</h2>
+    </body>
 </html>
 {{end}}
 ```
@@ -49,25 +49,25 @@ import "log"
 import "html/template"
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		var tmpl = template.Must(template.New("index").ParseFiles("view.html"))
-		if err := tmpl.Execute(w, nil); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-	})
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        var tmpl = template.Must(template.New("index").ParseFiles("view.html"))
+        if err := tmpl.Execute(w, nil); err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+    })
 
-	http.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
-		var tmpl = template.Must(template.New("test").ParseFiles("view.html"))
-		if err := tmpl.Execute(w, nil); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-	})
-	
-	log.Println("server started at localhost:9000")
-	err := http.ListenAndServe(":9000", nil)
-	if err != nil {
-		log.Fatal(err)
-	}
+    http.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
+        var tmpl = template.Must(template.New("test").ParseFiles("view.html"))
+        if err := tmpl.Execute(w, nil); err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+    })
+    
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
