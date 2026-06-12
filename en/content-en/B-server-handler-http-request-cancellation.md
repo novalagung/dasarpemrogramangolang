@@ -1,4 +1,4 @@
-# B.30. Server Handler HTTP Request Cancellation
+# B.30. HTTP Request Cancellation
 
 Dalam konteks web application, kadang kala sebuah HTTP request butuh waktu cukup lama untuk selesai, bisa jadi karena kode yang kurang dioptimasi atau prosesnya memang lama, atau mungkin ada faktor lainnya. Dari sisi client, biasanya ada handler untuk cancel request ketika request melebihi batas timeout yang sudah ditentukan.
 
