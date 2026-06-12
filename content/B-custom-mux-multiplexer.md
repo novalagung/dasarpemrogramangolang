@@ -10,7 +10,7 @@ Pada chapter sebelumnya, default mux milik Go digunakan untuk routing dan implem
 
 Sebenarnya, pembuatan mux baru tidaklah cukup, karena mux baru tidak memiliki perbedaan signifikan dibanding default mux. Agar mux baru menjadi lebih berguna, mux baru tersebut perlu meng-embed `http.ServeMux` dan kita juga perlu mempersiapkan beberapa method.
 
-OK, mari kita praktekan. Ubah isi fungsi `main()` menjadi seperti berikut.
+OK, mari kita praktikkan. Ubah isi fungsi `main()` menjadi seperti berikut.
 
 ```go
 mux := new(CustomMux)
@@ -24,8 +24,10 @@ server := new(http.Server)
 server.Addr = ":9000"
 server.Handler = mux
 
-fmt.Println("server started at localhost:9000")
-server.ListenAndServe()
+log.Println("server started at localhost:9000")
+if err := server.ListenAndServe(); err != nil {
+    log.Fatal(err)
+}
 ```
 
 Objek `mux` dicetak dari struct `CustomMux` yang mana nantinya struct ini dibuat dengan meng-embed `http.ServeMux`.

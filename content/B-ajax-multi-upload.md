@@ -8,13 +8,13 @@ Pada chapter ini, kita akan belajar 3 hal sekaligus yang mencakup poin-poin beri
 
 Sebelumnya, pada chapter [B.13. Form Upload File](/B-form-upload-file.html), pemrosesan file upload dilakukan lewat **ParseMultipartForm**, sedangkan pada chapter ini metode yang dipakai berbeda, yaitu **MultipartReader**. 
 
-Kelebihan dari `MultipartReader` adalah, file yang di upload **tidak** di simpan pada file temporary di lokal terlebih dahulu (tidak seperti `ParseMultipartForm`), melainkan data file bisa diambil langsung dari stream `io.Reader`.
+Kelebihan dari `MultipartReader` adalah, file yang di upload **tidak** disimpan pada file temporary di lokal terlebih dahulu (tidak seperti `ParseMultipartForm`), melainkan data file bisa diambil langsung dari stream `io.Reader`.
 
 Cara penerapan `MultipartReader` ini membutuhkan front-end untuk melakukan upload file secara asynchronous menggunakan objek [FormData](https://developer.mozilla.org/en/docs/Web/API/FormData). Semua file yang akan di-upload diambil konten dan metadatanya menggunakan javascript untuk dimasukkan ke objek `FormData`. Setelahnya, object tersebut dijadikan sebagai payload AJAX request.
 
 ## B.16.1. Struktur Folder Proyek
 
-Mari praktekkan, pertama siapkan proyek dengan struktur seperti gambar di bawah ini.
+Mari praktikkan, pertama siapkan proyek dengan struktur seperti gambar di bawah ini.
 
 ![Folder Structure](images/B_ajax_multi_upload_1_structure.png)
 
@@ -29,22 +29,22 @@ Untuk mengaktifkan kapabilitas multi upload, cukup tambahkan atribut `multiple` 
 ```html
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Multiple Upload</title>
-		<script src="static/jquery-3.3.1.min.js"></script>
-		<script>
-			$(function () {
-				// javascript code goes here
-			});
-		</script>
-	</head>
-	<body>
-		<form id="user-form" method="post" action="/upload">
-			<input required multiple id="upload-file" type="file" />
-			<br />
-			<button id="btn-upload" type="submit">Upload!</button>
-		</form>
-	</body>
+    <head>
+        <title>Multiple Upload</title>
+        <script src="static/jquery-3.7.1.min.js"></script>
+        <script>
+            $(function () {
+                // javascript code goes here
+            });
+        </script>
+    </head>
+    <body>
+        <form id="user-form" method="post" action="/upload">
+            <input required multiple id="upload-file" type="file" />
+            <br />
+            <button id="btn-upload" type="submit">Upload!</button>
+        </form>
+    </body>
 </html>
 ```
 
@@ -52,37 +52,37 @@ Override event `submit` pada form `#user-form`, handler event ini berisikan pros
 
 ```js
 $("#user-form").on("submit", function (e) {
-	e.preventDefault();
+    e.preventDefault();
 
-	var $self = $(this);
-	var files = $("#upload-file")[0].files;
-	var formData = new FormData();
+    var $self = $(this);
+    var files = $("#upload-file")[0].files;
+    var formData = new FormData();
 
-	for (var i = 0; i < files.length; i++) {
-		formData.append("files", files[i]);
-	}
+    for (var i = 0; i < files.length; i++) {
+        formData.append("files", files[i]);
+    }
 
-	$.ajax({
-		url: $self.attr("action"),
-		type: $self.attr("method"),
-		data: formData,
-		processData: false,
-		contentType: false,
-	}).then(function (res) {
-		alert(res);
-		$("#user-form").trigger("reset");
-	}).catch(function (a) {
-		alert("ERROR: " + a.responseText);
-	});
+    $.ajax({
+        url: $self.attr("action"),
+        type: $self.attr("method"),
+        data: formData,
+        processData: false,
+        contentType: false,
+    }).then(function (res) {
+        alert(res);
+        $("#user-form").trigger("reset");
+    }).catch(function (a) {
+        alert("ERROR: " + a.responseText);
+    });
 });
 ```
 
 Objek inputan files (yang didapat dari `$("#upload-file")[0]`) memiliki property `.files` yang isinya merupakan array dari semua file yang dipilih oleh user ketika upload. File-file tersebut diiterasi, setiap datanya dimasukkan ke dalam objek `FormData` yang telah dibuat.
 
-Operasi AJAX request dilakukan lewat `jQuery.ajax`. Berikut adalah penjelasan mengenai konfigurasi `processData` dan `contentType` dalam AJAX yang sudah dibuat. 
+Operasi AJAX request dilakukan lewat `jQuery.ajax`. Berikut adalah penjelasan mengenai konfigurasi `processData` dan `contentType` dalam AJAX yang sudah dibuat.
 
- - Konfigurasi `contentType` perlu di set ke `false` agar header Content-Type yang dikirim bisa menyesuaikan data yang disisipkan. 
- - Konfigurasi `processData` juga perlu di set ke `false`, agar data yang akan di kirim tidak otomatis dikonversi ke query string atau json string (tergantung `contentType`). Pada konteks ini kita memerlukan payload tetap dalam tipe `FormData`.
+ - Konfigurasi `contentType` perlu diset ke `false` agar header Content-Type yang dikirim bisa menyesuaikan data yang disisipkan. 
+ - Konfigurasi `processData` juga perlu diset ke `false`, agar data yang akan dikirim tidak otomatis dikonversi ke query string atau json string (tergantung `contentType`). Pada konteks ini kita memerlukan payload tetap dalam tipe `FormData`.
 
 ## B.16.3. Back-End
 
@@ -93,7 +93,7 @@ Buka file `main.go`, import package yang diperlukan, lalu deklarasikan dua rute 
 ```go
 package main
 
-import "fmt"
+import "log"
 import "net/http"
 import "html/template"
 import "path/filepath"
@@ -101,14 +101,17 @@ import "io"
 import "os"
 
 func main() {
-	http.HandleFunc("/", handleIndex)
-	http.HandleFunc("/upload", handleUpload)
-	http.Handle("/static/", 
-		http.StripPrefix("/static/", 
-			http.FileServer(http.Dir("assets"))))
+    http.HandleFunc("/", handleIndex)
+    http.HandleFunc("/upload", handleUpload)
+    http.Handle("/static/", 
+        http.StripPrefix("/static/", 
+            http.FileServer(http.Dir("assets"))))
 
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -116,74 +119,75 @@ Buat handler rute `/`, parsing template view `view.html`.
 
 ```go
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("view.html"))
-	if err := tmpl.Execute(w, nil); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+    tmpl := template.Must(template.ParseFiles("view.html"))
+    if err := tmpl.Execute(w, nil); err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
 }
 ```
 
-Sebelumnya, pada chapter [B.13. Form Upload File](/B-form-upload-file.html), metode yang digunakan untuk handle file upload adalah `ParseMultipartForm`. Cara kerjanya, file di proses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.
+Sebelumnya, pada chapter [B.13. Form Upload File](/B-form-upload-file.html), metode yang digunakan untuk handle file upload adalah `ParseMultipartForm`. Cara kerjanya, file diproses dalam memori dengan alokasi tertentu, dan jika melebihi alokasi maka akan disimpan pada temporary file.
 
 Metode tersebut kurang tepat guna jika digunakan untuk memproses file yang ukurannya besar (file size melebihi `maxMemory`) atau jumlah file-nya sangat banyak (memakan waktu, karena isi dari masing-masing file akan ditampung pada file *temporary* sebelum benar-benar di-copy ke file tujuan).
 
-Solusi dari dua masalah yang telah disebutkan adalah menggunakan `MultipartReader` untuk handling file upload. Lewat metode ini, file destinasi isidi-copy lagsung dari stream `io.Reader` tanpa butuh file temporary untuk perantara.
+Solusi dari dua masalah yang telah disebutkan adalah menggunakan `MultipartReader` untuk handling file upload. Lewat metode ini, file destinasi isi di-copy langsung dari stream `io.Reader` tanpa butuh file temporary untuk perantara.
 
 Kembali ke bagian perkodingan, siapkan fungsi `handleUpload`, isinya kode berikut.
 
 ```go
 func handleUpload(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, "Only accept POST request", http.StatusBadRequest)
-		return
-	}
+    if r.Method != "POST" {
+        http.Error(w, "Only accept POST request", http.StatusBadRequest)
+        return
+    }
 
-	basePath, _ := os.Getwd()
-	reader, err := r.MultipartReader()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+    basePath, _ := os.Getwd()
+    reader, err := r.MultipartReader()
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
 
-	// ...
+    // ...
 }
 ```
 
 Bisa dilihat, method `.MultipartReader()` dipanggil dari objek request milik handler. Operasi tersebut menghasilkan dua nilai balik, `*multipart.Reader` dan `error` (jika ada).
 
-Selanjutnya, lakukan perulangan terhadap objek `reader`. Setiap file yang di-upload di proses di masing-masing perulangan. Setelah looping berakhir, idealnya semua file sudah terproses dengan benar.
+Selanjutnya, lakukan perulangan terhadap objek `reader`. Setiap file yang di-upload diproses di masing-masing perulangan. Setelah looping berakhir, idealnya semua file sudah terproses dengan benar.
 
 ```go
 for {
-	part, err := reader.NextPart()
-	if err == io.EOF {
-		break
-	}
+    part, err := reader.NextPart()
+    if err == io.EOF {
+        break
+    }
 
-	fileLocation := filepath.Join(basePath, "files", part.FileName())
-	dst, err := os.Create(fileLocation)
-	if dst != nil {
-		defer dst.Close()
-	}
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+    fileLocation := filepath.Join(basePath, "files", part.FileName())
+    dst, err := os.Create(fileLocation)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
 
-	if _, err := io.Copy(dst, part); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+    if _, err := io.Copy(dst, part); err != nil {
+        dst.Close()
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+    dst.Close()
 }
 
 w.Write([]byte(`all files uploaded`))
 ```
 
-Method `.NextPart()` mengembalikan 2 informasi, yaitu objek stream `io.Reader` (dari file yg di upload), dan `error`. 
+Method `.NextPart()` mengembalikan 2 informasi, yaitu objek stream `io.Reader` (dari file yg di upload), dan `error`.
 
 File destinasi disiapkan kemudian diisi dengan data dari stream file, menggunakan `io.Copy()`.
 
-Jika `reader.NextPart()` mengembalikan error `io.EOF`, maka bisa disimpulkan semua file telah di proses, kemudian perulangan dihentikan.
+> Perlu diperhatikan, `dst.Close()` dipanggil secara eksplisit (bukan menggunakan `defer`) karena kode ini berada di dalam perulangan. Penggunaan `defer` di dalam loop akan menunda eksekusi `Close()` hingga fungsi selesai, bukan di akhir setiap iterasi. Akibatnya, semua file descriptor tetap terbuka selama proses upload berlangsung. Alternatif lain adalah membungkus isi loop dalam anonymous function: `func() { defer dst.Close(); ... }()` — dengan cara ini `defer` bekerja di akhir tiap iterasi.
+
+Jika `reader.NextPart()` mengembalikan error `io.EOF`, maka bisa disimpulkan semua file telah diproses, kemudian perulangan dihentikan.
 
 OK, semua persiapan sudah cukup, selanjutnya masuk fase testing.
 

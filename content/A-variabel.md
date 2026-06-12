@@ -180,6 +180,36 @@ Fungsi `make()` ini hanya bisa digunakan untuk pembuatan beberapa jenis variabel
 
 Nantinya kita akan bahas lebih detail ketika sudah masuk ke pembahasan masing-masing poin tersebut.
 
+## A.9.8. Simultaneous Assignment
+
+Go mengevaluasi semua ekspresi di sisi kanan tanda `=` terlebih dahulu, baru kemudian melakukan assignment secara bersamaan. Karena itu, kita bisa menukar nilai dua variabel tanpa variabel sementara:
+
+```go
+x, y := 10, 20
+x, y = y, x
+
+fmt.Println(x, y) // 20 10
+```
+
+Tanpa fitur ini, penukaran nilai harus dilakukan dengan variabel perantara:
+
+```go
+tmp := x
+x = y
+y = tmp
+```
+
+Simultaneous assignment juga berguna saat nilai variabel digunakan di beberapa ekspresi sekaligus:
+
+```go
+i, j := 0, 1
+i, j = i+j, i  // i = 0+1 = 1, j = 0 (nilai i lama)
+
+fmt.Println(i, j) // 1 0
+```
+
+Perhatikan bahwa `j` mendapat nilai `i` yang **lama** (sebelum assignment), bukan nilai `i` yang baru. Semua ekspresi kanan dievaluasi lebih dulu sebelum ada satupun variabel yang diubah.
+
 ---
 
 <div class="source-code-link">

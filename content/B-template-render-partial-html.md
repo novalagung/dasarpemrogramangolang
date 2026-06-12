@@ -9,7 +9,7 @@ Ada beberapa metode yang bisa digunakan, 2 di antaranya:
 
 ## B.5.1. Struktur Aplikasi
 
-Mari belajar sambil praktek seperti biasa. Buat project baru, siapkan file dan folder dengan susunan seperti dengan gambar berikut.
+Mari belajar sambil praktik seperti biasa. Buat project baru, siapkan file dan folder dengan susunan seperti dengan gambar berikut.
 
 ![Structure](images/B_template_render_partial_html_1_structure.png)
 
@@ -21,52 +21,55 @@ Buka `main.go`, isi dengan kode berikut.
 package main
 
 import (
-	"net/http"
-	"html/template"
-	"fmt"
+    "html/template"
+    "log"
+    "net/http"
 )
 
-type M map[string]interface{}
+type M map[string]any
 
 func main() {
-	var tmpl, err = template.ParseGlob("views/*")
-	if err != nil {
-		panic(err.Error())
-	}
+    var tmpl, err = template.ParseGlob("views/*")
+    if err != nil {
+        panic(err.Error())
+    }
 }
 ```
 
-Tipe `M` merupakan alias dari `map[string]interface{}`, disiapkan untuk mempersingkat penulisan tipe map tersebut. Pada pembahasan-pembahasan selanjutnya kita akan banyak menggunakan tipe ini.
+Tipe `M` merupakan alias dari `map[string]any`, disiapkan untuk mempersingkat penulisan tipe map tersebut. Pada pembahasan-pembahasan selanjutnya kita akan banyak menggunakan tipe ini.
 
 Pada kode di atas, di dalam fungsi `main()`, fungsi `template.ParseGlob()` dipanggil, dengan parameter adalah pattern path `"views/*"`. Fungsi ini digunakan untuk memparsing semua file yang match dengan *pattern*/pola yang ditentukan. Fungsi ini mengembalikan 2 objek yaitu `*template.Template` & `error`.
 
-> Pattern path pada fungsi `template.ParseGlob()` nantinya akan di proses oleh `filepath.Glob()`
+> Pattern path pada fungsi `template.ParseGlob()` nantinya akan diproses oleh `filepath.Glob()`
 
 Proses parsing semua file html dalam folder `views` dilakukan di awal, agar ketika suatu endpoint diakses nantinya tidak terjadi proses parsing melainkan hanya proses rendering saja.
 
-> Parsing semua file menggunakan `template.ParseGlob()` yang dilakukan di luar handler, tidak direkomendasikan dalam fase development. Karena akan mempersulit testing html. Lebih detailnya akan dibahas di bagian bawah.
+> Parsing semua file menggunakan `template.ParseGlob()` yang dilakukan di luar handler, tidak direkomendasikan dalam fase development. Karena akan mempersulit testing html. Lebih jelasnya akan dibahas di bagian bawah.
 
 Selanjutnya, masih di dalam fungsi `main()`, siapkan 2 buah rute.
 
 ```go
 http.HandleFunc("/index", func(w http.ResponseWriter, r *http.Request) {
-	var data = M{"name": "Batman"}
-	err = tmpl.ExecuteTemplate(w, "index", data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+    var data = M{"name": "Batman"}
+    err = tmpl.ExecuteTemplate(w, "index", data)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
 })
 
 http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
-	var data = M{"name": "Batman"}
-	err = tmpl.ExecuteTemplate(w, "about", data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+    var data = M{"name": "Batman"}
+    err = tmpl.ExecuteTemplate(w, "about", data)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
 })
 
-fmt.Println("server started at localhost:9000")
-http.ListenAndServe(":9000", nil)
+log.Println("server started at localhost:9000")
+err = http.ListenAndServe(":9000", nil)
+if err != nil {
+    log.Fatal(err)
+}
 ```
 
 Kedua rute tersebut sama, pembedanya adalah template yang di-render. Rute `/index` me-render template bernama `index`, dan rute `/about` me-render template bernama `about`.
@@ -83,7 +86,7 @@ Karena semua file html sudah diparsing di awal, maka untuk render template terte
 
 ## B.5.3.1. Template `index.html`
 
-OK, sekarang waktunya untuk mulai menyiapkan template view. Ada 4 buah template yang harus kita siapkan satu per satu. 
+OK, sekarang waktunya untuk mulai menyiapkan template view. Ada 4 buah template yang harus kita siapkan satu per satu.
 
 Buka file `index.html`, lalu tulis kode berikut.
 
@@ -91,14 +94,14 @@ Buka file `index.html`, lalu tulis kode berikut.
 {{define "index"}}
 <!DOCTYPE html>
 <html>
-	<head>
-		{{template "_header"}}
-	</head>
-	<body>
-		{{template "_message"}}
-		<p>Page: Index</p>
-		<p>Welcome {{.name}}</p>
-	</body>
+    <head>
+        {{template "_header"}}
+    </head>
+    <body>
+        {{template "_message"}}
+        <p>Page: Index</p>
+        <p>Welcome {{.name}}</p>
+    </body>
 </html>
 {{end}}
 ```
@@ -113,20 +116,20 @@ Pada kode di atas terlihat bahwa ada beberapa kode yang ditulis dengan notasinya
 
 ## B.5.3.2. Template `about.html`
 
-Template ke-2, `about.html` diisi dengan dengan kode yang sama seperti pada `index.html`, hanya berbeda di bagian nama template dan beberapa text.
+Template ke-2, `about.html` diisi dengan kode yang sama seperti pada `index.html`, hanya berbeda di bagian nama template dan beberapa text.
 
 ```html
 {{define "about"}}
 <!DOCTYPE html>
 <html>
-	<head>
-		{{template "_header"}}
-	</head>
-	<body>
-		{{template "_message"}}
-		<p>Page: About</p>
-		<p>Welcome {{.name}}</p>
-	</body>
+    <head>
+        {{template "_header"}}
+    </head>
+    <body>
+        {{template "_message"}}
+        <p>Page: About</p>
+        <p>Welcome {{.name}}</p>
+    </body>
 </html>
 {{end}}
 ```
@@ -159,7 +162,7 @@ Jalankan aplikasi, test via browser.
 
 ![Rute `/about` & `/index`](images/B_template_render_partial_html_2_routes.png)
 
-Bisa dilihat pada gambar di atas, ketika rute `/index` dan `/about` di akses, konten yang keluar adalah berbeda, sesuai dengan template yang di-render di masing-masing rute.
+Bisa dilihat pada gambar di atas, ketika rute `/index` dan `/about` diakses, konten yang keluar adalah berbeda, sesuai dengan template yang di-render di masing-masing rute.
 
 ## B.5.5. Parsing Banyak File HTML Menggunakan `template.ParseFiles()`
 
@@ -171,53 +174,52 @@ Dan juga, karena statement `template.ParseGlob()` dieksekusi diluar handler, mak
 
 Alternatif metode lain yang bisa digunakan, yang lebih efisien, adalah dengan memanfaatkan fungsi `template.ParseFiles()`. Fungsi ini selain bisa digunakan untuk parsing satu buah file saja (seperti yang sudah dicontohkan pada chapter sebelumnya), bisa digunakan untuk parsing banyak file.
 
-Mari kita praktekan. Ubah handler rute `/index` dan `/about`. Gunakan `template.ParseFiles()` dengan isi parameter (variadic) adalah path dari file-file html yang akan dipergunakan di masing-masing rute. Lalu hapus statement `template.ParseGlob()`
+Mari kita praktikkan. Ubah handler rute `/index` dan `/about`. Gunakan `template.ParseFiles()` dengan isi parameter (variadic) adalah path dari file-file html yang akan dipergunakan di masing-masing rute. Lalu hapus statement `template.ParseGlob()`
 
  - Rute `/index` dan handlernya.
 
-	```go
-	http.HandleFunc("/index", func(w http.ResponseWriter, r *http.Request) {
-		var data = M{"name": "Batman"}
-		var tmpl = template.Must(template.ParseFiles(
-			"views/index.html",
-			"views/_header.html",
-			"views/_message.html",
-		))
+    ```go
+    http.HandleFunc("/index", func(w http.ResponseWriter, r *http.Request) {
+        var data = M{"name": "Batman"}
+        var tmpl = template.Must(template.ParseFiles(
+            "views/index.html",
+            "views/_header.html",
+            "views/_message.html",
+        ))
 
-		var err = tmpl.ExecuteTemplate(w, "index", data)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-	})
-	```
+        var err = tmpl.ExecuteTemplate(w, "index", data)
+        if err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+    })
+    ```
 
  - Rute `/about` dan handlernya.
 
-	```go
-	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
-		var data = M{"name": "Batman"}
-		var tmpl = template.Must(template.ParseFiles(
-			"views/about.html",
-			"views/_header.html",
-			"views/_message.html",
-		))
+    ```go
+    http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
+        var data = M{"name": "Batman"}
+        var tmpl = template.Must(template.ParseFiles(
+            "views/about.html",
+            "views/_header.html",
+            "views/_message.html",
+        ))
 
-		var err = tmpl.ExecuteTemplate(w, "about", data)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-	})
-	```
+        var err = tmpl.ExecuteTemplate(w, "about", data)
+        if err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+    })
+    ```
 
  - Tak lupa **hapus** statement `template.ParseGlob()`.
 
-	```go
-	var tmpl, err = template.ParseGlob("views/*")
-	if err != nil {
-		panic(err.Error())
-		return
-	}
-	```
+    ```go
+    var tmpl, err = template.ParseGlob("views/*")
+    if err != nil {
+        panic(err.Error())
+    }
+    ```
 
 Rute `/index` memakai view `_header.html`, `_message.html`, dan `index.html`; sedangkan rute `/about` tidak memakai `index.html`, melainkan menggunakan `about.html`.
 

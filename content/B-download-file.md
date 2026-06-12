@@ -12,7 +12,7 @@ OK, pertama siapkan terlebih dahulu proyek dengan struktur seperti gambar beriku
 
 ![Project structure](images/B_download_file_1_structure.png)
 
-File yang berada di folder `files` adalah dummy file. Silakan gunakan file apapun dengan jumlah berapapun untuk keperluan praktek ini.
+File yang berada di folder `files` adalah dummy file. Silakan gunakan file apapun dengan jumlah berapapun untuk keperluan praktik ini.
 
 ## B.17.2. Front End
 
@@ -23,15 +23,15 @@ Pertama siapkan dahulu template nya, isi file `view.html` dengan kode berikut.
 ```html
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Download file</title>
-		<script>
-			// javascript code goes here
-		</script>
-	</head>
-	<body>
-		<ul id="list-files"></ul>
-	</body>
+    <head>
+        <title>Download file</title>
+        <script>
+            // javascript code goes here
+        </script>
+    </head>
+    <body>
+        <ul id="list-files"></ul>
+    </body>
 </html>
 ```
 
@@ -41,24 +41,24 @@ Selanjutnya, siapkan sebuah fungsi dengan nama `Yo` atau bisa lainnya, fungsi in
 
 ```js
 function Yo() {
-	var self = this;
-	var $ul = document.getElementById("list-files");
+    var self = this;
+    var $ul = document.getElementById("list-files");
 
-	var renderData = function (res) {
-		// do stuff
-	};
+    var renderData = function (res) {
+        // do stuff
+    };
 
-	var getAllListFiles = function () {
-		// do stuff
-	};
+    var getAllListFiles = function () {
+        // do stuff
+    };
 
-	self.init = function () {
-		getAllListFiles();
-	};
+    self.init = function () {
+        getAllListFiles();
+    };
 };
 
 window.onload = function () {
-	new Yo().init();
+    new Yo().init();
 };
 ```
 
@@ -66,18 +66,18 @@ Closure `renderData()` bertugas untuk melakukan rendering data JSON ke HTML. Ber
 
 ```js
 var renderData = function (res) {
-	res.forEach(function (each) {
-		var $li = document.createElement("li");
-		var $a = document.createElement("a");
+    res.forEach(function (each) {
+        var $li = document.createElement("li");
+        var $a = document.createElement("a");
 
-		$li.innerText = "download ";
-		$li.appendChild($a);
-		$ul.appendChild($li);
+        $li.innerText = "download ";
+        $li.appendChild($a);
+        $ul.appendChild($li);
 
-		$a.href = "/download?path=" + encodeURI(each.path);
-		$a.innerText = each.filename;
-		$a.target = "_blank";
-	});
+        $a.href = "/download?path=" + encodeURI(each.path);
+        $a.innerText = each.filename;
+        $a.target = "_blank";
+    });
 };
 ```
 
@@ -85,15 +85,15 @@ Sedangkan closure `getAllListFiles()`, memiliki tugas untuk request ke back end,
 
 ```js
 var getAllListFiles = function () {
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "/list-files");
-	xhr.onreadystatechange = function () {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			var json = JSON.parse(xhr.responseText);
-			renderData(json);
-		}
-	};
-	xhr.send();
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/list-files");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var json = JSON.parse(xhr.responseText);
+            renderData(json);
+        }
+    };
+    xhr.send();
 };
 ```
 
@@ -105,6 +105,7 @@ Pindah ke bagian back end. Siapkan beberapa hal pada `main.go`, import package, 
 package main
 
 import "fmt"
+import "log"
 import "net/http"
 import "html/template"
 import "path/filepath"
@@ -115,12 +116,15 @@ import "os"
 type M map[string]interface{}
 
 func main() {
-	http.HandleFunc("/", handleIndex)
-	http.HandleFunc("/list-files", handleListFiles)
-	http.HandleFunc("/download", handleDownload)
+    http.HandleFunc("/", handleIndex)
+    http.HandleFunc("/list-files", handleListFiles)
+    http.HandleFunc("/download", handleDownload)
 
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -128,10 +132,10 @@ Buat handler untuk rute `/`.
 
 ```go
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("view.html"))
-	if err := tmpl.Execute(w, nil); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+    tmpl := template.Must(template.ParseFiles("view.html"))
+    if err := tmpl.Execute(w, nil); err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
 }
 ```
 
@@ -139,70 +143,72 @@ Lalu siapkan juga route handler `/list-files`. Isi dari handler ini adalah memba
 
 ```go
 func handleListFiles(w http.ResponseWriter, r *http.Request) {
-	files := []M{}
-	basePath, _ := os.Getwd()
-	filesLocation := filepath.Join(basePath, "files")
-	
-	err := filepath.Walk(filesLocation, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
+    files := []M{}
+    basePath, _ := os.Getwd()
+    filesLocation := filepath.Join(basePath, "files")
 
-		if info.IsDir() {
-			return nil
-		}
+    err := filepath.WalkDir(filesLocation, func(path string, d os.DirEntry, err error) error {
+        if err != nil {
+            return err
+        }
 
-		files = append(files, M{"filename": info.Name(), "path": path})
-		return nil
-	})
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+        if d.IsDir() {
+            return nil
+        }
 
-	res, err := json.Marshal(files)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+        files = append(files, M{"filename": d.Name(), "path": path})
+        return nil
+    })
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(res)
+    res, err := json.Marshal(files)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    w.Header().Set("Content-Type", "application/json")
+    w.Write(res)
 }
 ```
 
-Fungsi `os.Getwd()` mengembalikan informasi absolute path di mana aplikasi di-eksekusi. Path tersebut kemudian di gabung dengan folder bernama `files` lewat fungsi `filepath.Join`. 
+Fungsi `os.Getwd()` mengembalikan informasi absolute path di mana aplikasi di-eksekusi. Path tersebut kemudian digabung dengan folder bernama `files` lewat fungsi `filepath.Join`.
 
 > Fungsi `filepath.Join` akan menggabungkan item-item dengan path separator sesuai dengan sistem operasi di mana program dijalankan. `\` untuk Windows dan `/` untuk Linux/Unix.
 
-Fungsi `filepath.Walk` berguna untuk operasi list isi folder, apa yang ada di dalamnya (baik itu file maupun folder) akan diiterasi. Dengan memanfaatkan callback parameter kedua fungsi ini (yang bertipe `filepath.WalkFunc`), kita bisa mengambil informasi tiap item satu-per satu.
+Fungsi `filepath.WalkDir` berguna untuk operasi list isi folder, apa yang ada di dalamnya (baik itu file maupun folder) akan diiterasi. Dengan memanfaatkan callback parameter kedua fungsi ini (yang bertipe `filepath.WalkDirFunc`), kita bisa mengambil informasi tiap item satu-per satu.
+
+> Sejak Go 1.16, `filepath.WalkDir` direkomendasikan sebagai pengganti `filepath.Walk`. Fungsi ini lebih efisien karena callback-nya menerima `os.DirEntry` (bukan `os.FileInfo`), sehingga tidak perlu melakukan `os.Stat` tambahan untuk setiap entry.
 
 Selanjutnya siapkan handler untuk `/download`. Implementasi teknik download pada dasarnya sama pada semua bahasa pemrograman, yaitu dengan memainkan isi dari header **Content-Disposition** pada HTTP response.
 
 ```go
 func handleDownload(w http.ResponseWriter, r *http.Request) {
-	if err := r.ParseForm(); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+    if err := r.ParseForm(); err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
 
-	path := r.FormValue("path")
-	f, err := os.Open(path)
-	if f != nil {
-		defer f.Close()
-	}
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+    path := r.FormValue("path")
+    f, err := os.Open(path)
+    if f != nil {
+        defer f.Close()
+    }
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
 
-	contentDisposition := fmt.Sprintf("attachment; filename=%s", f.Name())
-	w.Header().Set("Content-Disposition", contentDisposition)
+    contentDisposition := fmt.Sprintf("attachment; filename=%s", filepath.Base(f.Name()))
+    w.Header().Set("Content-Disposition", contentDisposition)
 
-	if _, err := io.Copy(w, f); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+    if _, err := io.Copy(w, f); err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
 }
 ```
 

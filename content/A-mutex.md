@@ -21,21 +21,21 @@ Lalu buat beberapa method struct `counter`.
 package main
 
 import (
-	"fmt"
-	"runtime"
-	"sync"
+    "fmt"
+    "runtime"
+    "sync"
 )
 
 type counter struct {
-	val int
+    val int
 }
 
 func (c *counter) Add() {
-	c.val++
+    c.val++
 }
 
 func (c *counter) Value() int {
-	return c.val
+    return c.val
 }
 ```
 
@@ -49,25 +49,25 @@ Program berikut merupakan contoh program yang di dalamnya memungkinkan terjadi r
 
 ```go
 func main() {
-	runtime.GOMAXPROCS(2)
+    runtime.GOMAXPROCS(2)
 
-	var wg sync.WaitGroup
-	var meter counter
+    var wg sync.WaitGroup
+    var meter counter
 
-	for i := 0; i < 1000; i++ {
-		wg.Add(1)
+    for i := 0; i < 1000; i++ {
+        wg.Add(1)
 
-		go func() {
-			for j := 0; j < 1000; j++ {
-				meter.Add()
-			}
+        go func() {
+            for j := 0; j < 1000; j++ {
+                meter.Add()
+            }
 
-			wg.Done()
-		}()
-	}
+            wg.Done()
+        }()
+    }
 
-	wg.Wait()
-	fmt.Println(meter.Value())
+    wg.Wait()
+    fmt.Println(meter.Value())
 }
 ```
 

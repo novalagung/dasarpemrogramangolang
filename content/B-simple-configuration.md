@@ -2,7 +2,7 @@
 
 Dalam development, pastinya kita programmer akan berurusan dengan banyak sekali variabel dan konstanta untuk keperluan konfigurasi. Misalnya, variabel berisi informasi port web server, timeout, variabel global, dan lainnya.
 
-Pada chapter ini, kita akan belajar dasar pengelolahan variabel konfigurasi dengan memanfaatkan file JSON. 
+Pada chapter ini, kita akan belajar dasar pengelolaan variabel konfigurasi dengan memanfaatkan file JSON.
 
 ## B.22.1. Struktur Aplikasi
 
@@ -38,7 +38,7 @@ Data JSON di atas berisi 4 buah data konfigurasi.
  1. Property `server.port`. Port yang digunakan saat start web server.
  2. Property `server.read_timeout`. Dijadikan sebagai timeout read.
  3. Property `server.write_timeout`. Dijadikan sebagai timeout write.
- 4. Property `log.verbose`. Penentu apakah log di print atau tidak.
+ 4. Property `log.verbose`. Penentu apakah log diprint atau tidak.
 
 ## B.22.3. Pemrosesan Konfigurasi
 
@@ -88,20 +88,17 @@ func init() {
     basePath, err := os.Getwd()
     if err != nil {
         panic(err)
-        return
     }
 
     bts, err := os.ReadFile(filepath.Join(basePath, "conf", "config.json"))
     if err != nil {
         panic(err)
-        return
     }
 
     shared = new(_Configuration)
     err = json.Unmarshal(bts, &shared)
     if err != nil {
         panic(err)
-        return
     }
 }
 ```
@@ -122,7 +119,7 @@ Masuk ke bagian implementasi, buka `main.go`, lalu buat custom mux.
 package main
 
 import (
-    "chapter-B.22/conf"
+    "example/chapter-B.22-simple-configuration/conf"
     "fmt"
     "log"
     "net/http"
@@ -133,7 +130,7 @@ type CustomMux struct {
     http.ServeMux
 }
 
-func (c CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (c *CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     if conf.Configuration().Log.Verbose {
         log.Println("Incoming request from", r.Host, "accessing", r.URL.String())
     }
@@ -175,7 +172,7 @@ if conf.Configuration().Log.Verbose {
 
 err := server.ListenAndServe()
 if err != nil {
-    panic(err)
+    log.Fatal(err)
 }
 ```
 
@@ -185,7 +182,7 @@ Dengan memanfaatkan struct ini, kita bisa meng-custom beberapa konfigurasi defau
 
 Bisa dilihat di contoh ada 4 buah properti milik `server` yang diisi nilainya dengan data konfigurasi.
 
- - `server.Handler`. Properti ini wajib di isi dengan custom mux yang dibuat.
+ - `server.Handler`. Properti ini wajib diisi dengan custom mux yang dibuat.
  - `server.ReadTimeout`. Adalah timeout ketika memproses sebuah request. Kita isi dengan nilai dari configurasi.
  - `server.WriteTimeout`. Adalah timeout ketika memproses response.
  - `server.Addr`. Port yang digunakan web server pada saat start.
@@ -214,7 +211,7 @@ Dengan ini akan cukup merepotkan jika kita harus cari terlebih dahulu value konf
 
 #### ◉ Tidak terpusat
 
-Dalam pengembangan aplikasi, banyak konfigurasi yang nilai-nya akan didapat lewat jalan lain, seperti *environment variables* atau *command arguments*. Menyimpan konfigurasi file itu sudah cukup bagus, cuman untuk *case* dimana terdapat banyak sekali services, agak merepotkan pengelolahannya.
+Dalam pengembangan aplikasi, banyak konfigurasi yang nilai-nya akan didapat lewat jalan lain, seperti *environment variables* atau *command arguments*. Menyimpan konfigurasi file itu sudah cukup bagus, cuman untuk *case* dimana terdapat banyak sekali services, agak merepotkan pengelolaannya.
 
 Ketika ada perubahan konfigurasi, semua services harus direstart.
 
@@ -222,7 +219,7 @@ Ketika ada perubahan konfigurasi, semua services harus direstart.
 
 Konfigurasi umumnya dibaca hanya jika diperlukan. Penulisan konfigurasi dalam file membuat proses pembacaan file harus dilakukan di awal, haru kemudian kita bisa ambil nilai konfigurasi dari data yang sudah ada di memori.
 
-Hal tersebut memiliki beberapa konsekuensi, untuk aplikasi yang di-manage secara automated, sangat mungkin adanya perubahan nilai konfigurasi. Dari sini berarti pembacaan konfigurasi file tidak boleh hanya dilakukan di awal saja. Tapi juga tidak boleh dilakukan di setiap waktu, karena membaca file itu ada *cost*-nya dari prespektif I/O.
+Hal tersebut memiliki beberapa konsekuensi, untuk aplikasi yang di-manage secara automated, sangat mungkin adanya perubahan nilai konfigurasi. Dari sini berarti pembacaan konfigurasi file tidak boleh hanya dilakukan di awal saja. Tapi juga tidak boleh dilakukan disetiap waktu, karena membaca file itu ada *cost*-nya dari prespektif I/O.
 
 #### ◉ Solusi
 

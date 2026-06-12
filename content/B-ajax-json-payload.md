@@ -12,9 +12,9 @@ Sebenarnya [perbedaan](http://stackoverflow.com/a/23152367/1467988) antara kedua
 
 Untuk payload JSON, `Content-Type` yang digunakan adalah `application/json`. Dengannya, data disisipkan di dalam `Body` request dalam bentuk **JSON** string.
 
-## B.14.1. Struktur Folder Proyek 
+## B.14.1. Struktur Folder Proyek
 
-OK, mari praktek. Pertama siapkan proyek dengan struktur seperti gambar berikut.
+OK, mari praktik. Pertama siapkan proyek dengan struktur seperti gambar berikut.
 
 ![Struktur proyek](images/B_ajax_json_payload_1_structure.png)
 
@@ -27,21 +27,21 @@ Layout dari view perlu disiapkan terlebih dahulu, tulis kode berikut pada file `
 ```html
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>JSON Payload</title>
-		<script src="static/jquery-1.12.0.min.js"></script>
-		<script>
-			$(function () {
-				// javascript code here
-			});
-		</script>
-	</head>
-	<body>
-		<p class="message"></p>
-		<form id="user-form" method="post" action="/save">
-			<!-- html code here -->
-		</form>
-	</body>
+    <head>
+        <title>JSON Payload</title>
+        <script src="static/jquery-3.7.1.min.js"></script>
+        <script>
+            $(function () {
+                // javascript code here
+            });
+        </script>
+    </head>
+    <body>
+        <p class="message"></p>
+        <form id="user-form" method="post" action="/save">
+            <!-- html code here -->
+        </form>
+    </body>
 </html>
 ```
 
@@ -49,61 +49,61 @@ Selanjutnya, pada tag `<form />` tambahkan tabel sederhana dengan isi didalamnya
 
 ```html
 <table noborder>
-	<tr>
-		<td><label>Name :</label></td>
-		<td>
-			<input required type="text" name="name" placeholder="Type name here" />
-		</td>
-	</tr>
-	<tr>
-		<td><label>Age :</label></td>
-		<td>
-			<input required type="number" name="age" placeholder="Set age" />
-		</td>
-	</tr>
-	<tr>
-		<td><label>Gender :</label></td>
-		<td>
-			<select name="gender" required style="width: 100%;">
-				<option value="">Select one</option>
-				<option value="male">Male</option>
-				<option value="female">Female</option>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" style="text-align: right;">
-			<button type="submit">Save</button>
-		</td>
-	</tr>
+    <tr>
+        <td><label>Name :</label></td>
+        <td>
+            <input required type="text" name="name" placeholder="Type name here" />
+        </td>
+    </tr>
+    <tr>
+        <td><label>Age :</label></td>
+        <td>
+            <input required type="number" name="age" placeholder="Set age" />
+        </td>
+    </tr>
+    <tr>
+        <td><label>Gender :</label></td>
+        <td>
+            <select name="gender" required style="width: 100%;">
+                <option value="">Select one</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: right;">
+            <button type="submit">Save</button>
+        </td>
+    </tr>
 </table>
 ```
 
-## B.14.3. Front End - HTML
+## B.14.3. Front End - JavaScript
 
 Sekarang kita masuk ke bagian paling menyenangkan/menyebalkan (tergantung taste), yaitu javascript. Siapkan sebuah event `submit` pada `#user-form`. Default handler untuk event submit milik `<form />` di-override, diganti dengan AJAX request.
 
 ```js
 $("#user-form").on("submit", function (e) {
-	e.preventDefault();
+    e.preventDefault();
 
-	var $self = $(this);
-	var payload = JSON.stringify({
-		name: $('[name="name"]').val(),
-		age: parseInt($('[name="age"]').val(), 10),
-		gender: $('[name="gender"]').val()
-	});
+    var $self = $(this);
+    var payload = JSON.stringify({
+        name: $('[name="name"]').val(),
+        age: parseInt($('[name="age"]').val(), 10),
+        gender: $('[name="gender"]').val()
+    });
 
-	$.ajax({
-		url: $self.attr("action"),
-		type: $self.attr("method"),
-		data: payload,
-		contentType: 'application/json',
-	}).then(function (res) {
-		$(".message").text(res);
-	}).catch(function (a) {
-		alert("ERROR: " + a.responseText);
-	});
+    $.ajax({
+        url: $self.attr("action"),
+        type: $self.attr("method"),
+        data: payload,
+        contentType: 'application/json',
+    }).then(function (res) {
+        $(".message").text(res);
+    }).catch(function (a) {
+        alert("ERROR: " + a.responseText);
+    });
 });
 ```
 
@@ -118,21 +118,24 @@ Respon dari AJAX di atas nantinya dimunculkan pada `<p class="message"></p>`.
 ```go
 package main
 
-import "fmt"
+import "log"
 import "net/http"
 import "html/template"
 import "encoding/json"
 
 func main() {
-	http.HandleFunc("/", handleIndex)
-	http.HandleFunc("/save", handleSave)
+    http.HandleFunc("/", handleIndex)
+    http.HandleFunc("/save", handleSave)
 
-	http.Handle("/static/", 
-		http.StripPrefix("/static/", 
-			http.FileServer(http.Dir("assets"))))
+    http.Handle("/static/", 
+        http.StripPrefix("/static/", 
+            http.FileServer(http.Dir("assets"))))
 
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -140,10 +143,10 @@ Handler `handleIndex` berisikan kode untuk parsing `view.html`.
 
 ```go
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("view.html"))
-	if err := tmpl.Execute(w, nil); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+    tmpl := template.Must(template.ParseFiles("view.html"))
+    if err := tmpl.Execute(w, nil); err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
 }
 ```
 
@@ -151,29 +154,29 @@ Sedangkan `handleSave` akan memproses request yang di-submit dari front-end.
 
 ```go
 func handleSave(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
-		decoder := json.NewDecoder(r.Body)
-		payload := struct {
-			Name   string `json:"name"`
-			Age    int    `json:"age"`
-			Gender string `json:"gender"`
-		}{}
-		if err := decoder.Decode(&payload); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+    if r.Method == "POST" {
+        decoder := json.NewDecoder(r.Body)
+        payload := struct {
+            Name   string `json:"name"`
+            Age    int    `json:"age"`
+            Gender string `json:"gender"`
+        }{}
+        if err := decoder.Decode(&payload); err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+            return
+        }
 
-		message := fmt.Sprintf(
-			"hello, my name is %s. I'm %d year old %s", 
-			payload.Name, 
-			payload.Age, 
-			payload.Gender,
-		)
-		w.Write([]byte(message))
-		return
-	}
+        message := fmt.Sprintf(
+            "hello, my name is %s. I'm %d year old %s", 
+            payload.Name, 
+            payload.Age, 
+            payload.Gender,
+        )
+        w.Write([]byte(message))
+        return
+    }
 
-	http.Error(w, "Only accept POST request", http.StatusBadRequest)
+    http.Error(w, "Only accept POST request", http.StatusBadRequest)
 }
 ```
 

@@ -2,7 +2,7 @@
 
 HTTP Basic Auth adalah salah satu spesifikasi yang mengatur otentikasi pada HTTP request. Metode ini mewajibkan client request untuk menyertakan username dan password dalam header request. Dengan menerapkan basic auth maka kita tidak perlu menggunakan token untuk mendapatkan session.
 
-> Lebih jelasnya mengenai spesifikasi Basic Auth bisa di lihat di[RFC-7617](https://tools.ietf.org/html/rfc7617)
+> Lebih jelasnya mengenai spesifikasi Basic Auth bisa di lihat di [RFC-7617](https://tools.ietf.org/html/rfc7617).
 
 Informasi username dan password harus di-encode terlebih dahulu ke format yg sudah ditentukan sesuai spesifikasi, kemudian dijadikan value dari header `Authentication`.
 
@@ -32,7 +32,7 @@ Pada chapter ini kita akan membuat sebuah web service sederhana, isinya hanya sa
 
 Data siswa sendiri merupakan slice object yang disimpan di variabel global.
 
-OK, langsung saja kita praktekan. Siapkan 3 buah file berikut, tempatkan dalam satu folder proyek.
+OK, langsung saja kita praktikkan. Siapkan 3 buah file berikut, tempatkan dalam satu folder proyek.
 
 ![Project structure](images/B_http_basic_auth_1_structure.png)
 
@@ -43,9 +43,11 @@ Buka `main.go`, isi dengan kode berikut.
 ```go
 package main
 
-import "net/http"
-import "fmt"
-import "encoding/json"
+import (
+    "encoding/json"
+    "log"
+    "net/http"
+)
 
 func main() {
     http.HandleFunc("/student", ActionStudent)
@@ -53,8 +55,10 @@ func main() {
     server := new(http.Server)
     server.Addr = ":9000"
 
-    fmt.Println("server started at localhost:9000")
-    server.ListenAndServe()
+    log.Println("server started at localhost:9000")
+    if err := server.ListenAndServe(); err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -62,7 +66,7 @@ Lalu siapkan handler untuk rute `/student`.
 
 ```go
 func ActionStudent(w http.ResponseWriter, r *http.Request) {
-    if !Auth(w, r)         {
+    if !Auth(w, r) {
         return
     }
     if !AllowOnlyGET(w, r) {
@@ -91,7 +95,7 @@ Setelah request lolos dari 2 validasi di atas, lanjut ke pengecekan berikutnya y
 Selanjutnya tambahkan satu fungsi lagi di `main()` yaitu `OutputJSON()`. Fungsi ini digunakan konversi data ke bentuk JSON string.
 
 ```go
-func OutputJSON(w http.ResponseWriter, o interface{}) {
+func OutputJSON(w http.ResponseWriter, o any) {
     res, err := json.Marshal(o)
     if err != nil {
         w.Write([]byte(err.Error()))
@@ -103,7 +107,7 @@ func OutputJSON(w http.ResponseWriter, o interface{}) {
 }
 ```
 
-Konversi dari objek atau slice ke JSON string dilakukan via `json.Marshal()`. Lebih jelasnya mengenai fungsi tersebut di bahas di chapter [A.53. JSON Data](/A-json.html).
+Konversi dari objek atau slice ke JSON string dilakukan via `json.Marshal()`. Lebih jelasnya mengenai fungsi tersebut dibahas di chapter [A.53. JSON Data](/A-json.html).
 
 ## B.18.3. Data `Student`
 
@@ -170,13 +174,13 @@ const PASSWORD = "secret"
 func Auth(w http.ResponseWriter, r *http.Request) bool {
     username, password, ok := r.BasicAuth()
     if !ok {
-        w.Write([]byte(`something went wrong`))
+        http.Error(w, "unauthorized", http.StatusUnauthorized)
         return false
     }
 
     isValid := (username == USERNAME) && (password == PASSWORD)
     if !isValid {
-        w.Write([]byte(`wrong username/password`))
+        http.Error(w, "wrong username/password", http.StatusUnauthorized)
         return false
     }
 
@@ -194,6 +198,8 @@ Fungsi `r.BasicAuth()` mengembalikan 3 informasi:
 
 Error dimunculkan ketika basic auth terdeteksi adalah tidak valid. Sedangkan jika ternyata valid, maka dilanjutkan ke proses otentikasi, mengecek apakah username dan password yang dikirim cocok dengan username dan password yang sudah di-*hardcode*.
 
+> Pada aplikasi production, perbandingan credentials sebaiknya menggunakan `subtle.ConstantTimeCompare` dari package `crypto/subtle`, bukan operator `==`. Hal ini untuk mencegah *timing attack*, yaitu serangan yang memanfaatkan selisih waktu eksekusi perbandingan string untuk menebak nilai yang benar.
+
 #### ◉ Fungsi `AllowOnlyGET()`
 
 Fungsi ini bertugas memastikan bahwa request yang diperbolehkan hanya yang ber-method `GET`. Selainnya, maka dianggap invalid request.
@@ -201,7 +207,7 @@ Fungsi ini bertugas memastikan bahwa request yang diperbolehkan hanya yang ber-m
 ```go
 func AllowOnlyGET(w http.ResponseWriter, r *http.Request) bool {
     if r.Method != "GET" {
-        w.Write([]byte("Only GET is allowed"))
+        http.Error(w, "Only GET is allowed", http.StatusMethodNotAllowed)
         return false
     }
 
@@ -214,7 +220,7 @@ func AllowOnlyGET(w http.ResponseWriter, r *http.Request) bool {
 Semuanya sudah siap, sekarang jalankan aplikasi.
 
 ```bash
-go run *.go
+go run .
 ```
 
 Jangan menggunakan `go run main.go`, dikarenakan dalam package `main` terdapat beberapa file lain yang harus diikutsertakan pada saat runtime.

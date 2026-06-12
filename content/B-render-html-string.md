@@ -2,28 +2,29 @@
 
 Output HTML yang muncul, selain bersumber dari template view bisa juga bersumber dari sebuah string. Dengan menggunakan method `Parse()` milik `*template.Template` kita bisa menjadikan HTML string sebagai output di web.
 
-## B.10.1. Praktek
+## B.10.1. Praktik
 
-Langsung saja kita praktekkan, siapkan folder project baru beserta file `main.go`, isi dengan kode berikut. 
+Langsung saja kita praktikkan, siapkan folder project baru beserta file `main.go`, isi dengan kode berikut.
 
 ```go
 package main
 
 import "net/http"
-import "fmt"
+import "log"
 import "html/template"
 
-const view string = `<html>
-	<head>
-		<title>Template</title>
-	</head>
-	<body>
-		<h1>Hello</h1>
-	</body>
+const view string = `<!DOCTYPE html>
+<html>
+    <head>
+        <title>Template</title>
+    </head>
+    <body>
+        <h1>Hello</h1>
+    </body>
 </html>`
 ```
 
-Konstanta bernama `view` dengan tipe `string` disiapkan, isinya HTML string yang nanbtinya kita jadikan sebagai output pengaksesan endpoint.
+Konstanta bernama `view` dengan tipe `string` disiapkan, isinya HTML string yang nantinya kita jadikan sebagai output pengaksesan endpoint.
 
 Kemudian buat fungsi `main()`, isinya adalah route handler `/index`. Dalam handler tersebut, string html `view` diparsing lalu dirender sebagai output.
 
@@ -31,19 +32,22 @@ Tambahkan juga rute `/` yang isinya adalah me-redirect request secara paksa ke `
 
 ```go
 func main() {
-	http.HandleFunc("/index", func(w http.ResponseWriter, r *http.Request) {
-		var tmpl = template.Must(template.New("main-template").Parse(view))
-		if err := tmpl.Execute(w, nil); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-	})
+    http.HandleFunc("/index", func(w http.ResponseWriter, r *http.Request) {
+        var tmpl = template.Must(template.New("main-template").Parse(view))
+        if err := tmpl.Execute(w, nil); err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+    })
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/index", http.StatusTemporaryRedirect)
-	})
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        http.Redirect(w, r, "/index", http.StatusTemporaryRedirect)
+    })
 
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 

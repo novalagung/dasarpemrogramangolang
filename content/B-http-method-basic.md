@@ -6,30 +6,33 @@ Sebuah route handler pada dasarnya bisa menerima segala jenis request, apapun je
 
 > Pada chapter lain kita akan belajar teknik routing yg lebih advance dengan bantuan *3rd party* routing library.
 
-## B.11.1. Praktek
+## B.11.1. Praktik
 
-Mari coba praktekan. Disiapkan sebuah handler untuk rute `/` yang didalamnya ada pengecekan seleksi kondisi berdasarkan HTTP method.
+Mari coba praktikkan. Disiapkan sebuah handler untuk rute `/` yang didalamnya ada pengecekan seleksi kondisi berdasarkan HTTP method.
 
 ```go
 package main
 
 import "net/http"
-import "fmt"
+import "log"
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		switch r.Method {
-		case "POST":
-			w.Write([]byte("post"))
-		case "GET":
-			w.Write([]byte("get"))
-		default:
-			http.Error(w, "", http.StatusBadRequest)
-		}
-	})
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        switch r.Method {
+        case "POST":
+            w.Write([]byte("post"))
+        case "GET":
+            w.Write([]byte("get"))
+        default:
+            http.Error(w, "", http.StatusBadRequest)
+        }
+    })
 
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 

@@ -1,6 +1,6 @@
 # B.7. Template: Functions
 
-Go menyediakan beberapa *predefiend* function yang bisa digunakan langsung dalam file template. Pada chapter ini kita akan membahas beberapa di antaranya beserta cara penggunaannya.
+Go menyediakan beberapa *predefined* function yang bisa digunakan langsung dalam file template. Pada chapter ini kita akan membahas beberapa di antaranya beserta cara penggunaannya.
 
 Cara pemanggilan fungsi atau method sebuah objek pada file template sedikit berbeda dibanding dengan yang telah dicontohkan pada chapter sebelumnya.
 
@@ -11,9 +11,12 @@ Siapkan folder proyek baru, dengan isi 2 buah file: `main.go` dan `view.html`. D
 ```go
 package main
 
-import "net/http"
-import "fmt"
-import "html/template"
+import (
+    "fmt"
+    "html/template"
+    "log"
+    "net/http"
+)
 
 type Superhero struct {
 	Name    string
@@ -45,8 +48,11 @@ func main() {
 		}
 	})
 
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -66,7 +72,7 @@ Jalankan program, buka [http://localhost:9000/](http://localhost:9000/), lalu la
 
 ## B.7.2. Fungsi Escape String
 
-Fungsi pertama yang akan kita bahas adalah `html`. Fungsi ini digunakan untuk meng-escape string. Agar lebih mudah dipahami silakan praktekan kode di bawah ini.
+Fungsi pertama yang akan kita bahas adalah `html`. Fungsi ini digunakan untuk meng-escape string. Agar lebih mudah dipahami silakan praktikkan kode di bawah ini.
 
 Tulis kode berikut dalam `<body></body>` file `view.html`.
 
@@ -93,15 +99,15 @@ Selain fungsi `html`, ada juga beberapa fungsi lain yang sudah disediakan oleh G
 
 ## B.7.3. Fungsi Operator Perbandingan
 
-Pada chapter sebelumnya telah dibahas bagaimana penggunaan operator `ne` pada actions `if`. `eq` dan `ne` adalah contoh dari fungsi operator perbandingan. Jika digunakan pada seleksi kondisi yang nilai kondisinya bertipe `bool`, maka cukup dengan menuliskannya seletah operator, contohnya.
+Pada chapter sebelumnya telah dibahas bagaimana penggunaan operator `ne` pada actions `if`. `eq` dan `ne` adalah contoh dari fungsi operator perbandingan. Jika nilai kondisinya bertipe `bool`, cukup tuliskan langsung tanpa `eq`, contohnya.
 
 ```html
-{{if eq true}}
+{{if true}}
 	benar
 {{end}}
 ```
 
-> Nilai kondisi yang bertipe bool hanya bisa digunakan pada `eq` dan `ne` saja
+> Untuk memeriksa kesamaan nilai boolean secara eksplisit, tetap gunakan `eq` dengan dua argumen: `if eq $isTrue true`
 
 Jika nilai kondisinya merupakan perbandingan, maka nilai yang dibandingkan harus dituliskan, sebagai contoh di bawah ini adalah seleksi kondisi memanfaatkan operator `gt` untuk deteksi apakah nilai di atas 60.
 
@@ -115,7 +121,7 @@ Pada kode di atas, nilai variabel `$value` akan dibandingkan dengan angka `60`, 
 
 > `gt` merupakan kependekan dari **greater than**
 
-Praktekan kode berikut, tulis ke dalam file `view.html`.
+Praktikan kode berikut, tulis ke dalam file `view.html`.
 
 ```html
 {{if eq .Name "Bruce Wayne"}}
@@ -190,7 +196,7 @@ Kedua statement di atas menghasilkan output yang sama.
 
 Kegunaan dari fungsi `len` seperti yang sudah diketahui adalah untuk menghitung jumlah elemen. Sedangkan fungsi `index` digunakan jika elemen tertentu ingin diakses.
 
-Sebagai contoh, `Friends` yang merupakan array, diakses elemen indeks ke-1 menggunakan `index`, maka caranya:
+Sebagai contoh, `Friends` yang merupakan slice, diakses elemen indeks ke-1 menggunakan `index`, maka caranya:
 
 ```html
 {{index .Friends 1}}
@@ -215,7 +221,7 @@ Output program:
 
 Selain fungsi operator perbandingan, terdapat juga operator logika `or`, `and`, dan `not`. Cara penggunaannya adalah dengan dituliskan setelah actions `if` atau `elseif`, sebagai fungsi dengan parameter adalah nilai yang ingin dibandingkan.
 
-> Fungsi `not` ekuivalen dengan `ne`
+> Fungsi `not` menerima satu argumen dan mengembalikan negasi boolean-nya, contohnya `if not $cond1`. Berbeda dengan `ne` yang membandingkan dua nilai.
 
 ```html
 {{$cond1 := true}}

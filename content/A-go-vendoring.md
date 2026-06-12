@@ -29,13 +29,13 @@ Isi `main.go` dengan blok kode berikut, untuk menampilkan angka random dengan ra
 package main
 
 import (
-	"fmt"
+    "fmt"
 
-	gubrak "github.com/novalagung/gubrak/v2"
+    gubrak "github.com/novalagung/gubrak/v2"
 )
 
 func main() {
-	fmt.Println(gubrak.RandomInt(10, 20))
+    fmt.Println(gubrak.RandomInt(10, 20))
 }
 ```
 
