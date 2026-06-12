@@ -95,7 +95,7 @@
   * [B.6. Template: Actions & Variables](B-template-actions-variables.md)
   * [B.7. Template: Functions](B-template-functions.md)
   * [B.8. Template: Custom Functions](B-template-custom-functions.md)
-  * [B.9. Template: Render Named Template](B-render-specific-html-template.md)
+  * [B.9. Template: Render Specific HTML Template](B-render-specific-html-template.md)
   * [B.10. Template: Render HTML String](B-render-html-string.md)
   * [B.11. HTTP Method: POST & GET](B-http-method-basic.md)
   * [B.12. HTTP Form Value](B-form-value.md)
