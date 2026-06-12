@@ -2,23 +2,26 @@
 
 Pada chapter ini, kita akan belajar 3 hal sekaligus yang mencakup poin-poin berikut: 
 
-1. Cara untuk upload file via AJAX
+1. Cara untuk upload file secara asinkron
 2. Cara untuk handle upload banyak file sekaligus
 3. Cara handle upload file yang lebih hemat memori
 
-Sebelumnya, pada chapter [B.13. Form Upload File](/B-form-upload-file.html), pemrosesan file upload dilakukan lewat **ParseMultipartForm**, sedangkan pada chapter ini metode yang dipakai berbeda, yaitu **MultipartReader**. 
+Sebelumnya, pada chapter [B.13. File Upload: ParseMultipartForm](/B-form-upload-file.html), pemrosesan file upload dilakukan lewat **ParseMultipartForm**, sedangkan pada chapter ini metode yang dipakai berbeda, yaitu **MultipartReader**. 
 
 Kelebihan dari `MultipartReader` adalah, file yang di upload **tidak** disimpan pada file temporary di lokal terlebih dahulu (tidak seperti `ParseMultipartForm`), melainkan data file bisa diambil langsung dari stream `io.Reader`.
 
-Cara penerapan `MultipartReader` ini membutuhkan front-end untuk melakukan upload file secara asynchronous menggunakan objek [FormData](https://developer.mozilla.org/en/docs/Web/API/FormData). Semua file yang akan di-upload diambil konten dan metadatanya menggunakan javascript untuk dimasukkan ke objek `FormData`. Setelahnya, object tersebut dijadikan sebagai payload AJAX request.
+Cara penerapan `MultipartReader` ini membutuhkan front-end untuk melakukan upload file secara asynchronous menggunakan objek [FormData](https://developer.mozilla.org/en/docs/Web/API/FormData). Semua file yang akan di-upload diambil konten dan metadatanya menggunakan JavaScript untuk dimasukkan ke objek `FormData`. Setelahnya, objek tersebut dijadikan sebagai payload HTTP request.
 
 ## B.16.1. Struktur Folder Proyek
 
-Mari praktikkan, pertama siapkan proyek dengan struktur seperti gambar di bawah ini.
+Mari praktikkan, pertama siapkan proyek dengan struktur berikut.
 
-![Folder Structure](images/B_ajax_multi_upload_1_structure.png)
-
-> Silakan unduh file js jQuery dari situs official jQuery.
+```
+chapter-B.16-ajax-multi-upload/
+├── files/
+├── main.go
+└── view.html
+```
 
 ## B.16.2. Front End
 
@@ -31,9 +34,8 @@ Untuk mengaktifkan kapabilitas multi upload, cukup tambahkan atribut `multiple` 
 <html>
     <head>
         <title>Multiple Upload</title>
-        <script src="static/jquery-3.7.1.min.js"></script>
         <script>
-            $(function () {
+            document.addEventListener("DOMContentLoaded", function () {
                 // javascript code goes here
             });
         </script>
@@ -48,64 +50,60 @@ Untuk mengaktifkan kapabilitas multi upload, cukup tambahkan atribut `multiple` 
 </html>
 ```
 
-Override event `submit` pada form `#user-form`, handler event ini berisikan proses mulai pembentukan objek `FormData` dari file-file yang telah di upload, hingga eksekusi AJAX.
+Override event `submit` pada form `#user-form`, handler event ini berisikan proses mulai pembentukan objek `FormData` dari file-file yang telah di-upload, hingga pengiriman HTTP request.
 
 ```js
-$("#user-form").on("submit", function (e) {
+document.getElementById("user-form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    var $self = $(this);
-    var files = $("#upload-file")[0].files;
-    var formData = new FormData();
+    const form = e.target;
+    const files = document.getElementById("upload-file").files;
+    const formData = new FormData();
 
-    for (var i = 0; i < files.length; i++) {
-        formData.append("files", files[i]);
+    for (const file of files) {
+        formData.append("files", file);
     }
 
-    $.ajax({
-        url: $self.attr("action"),
-        type: $self.attr("method"),
-        data: formData,
-        processData: false,
-        contentType: false,
-    }).then(function (res) {
-        alert(res);
-        $("#user-form").trigger("reset");
-    }).catch(function (a) {
-        alert("ERROR: " + a.responseText);
-    });
+    try {
+        const res = await fetch(form.action, {
+            method: form.method,
+            body: formData,
+        });
+        const text = await res.text();
+        if (!res.ok) throw new Error(text);
+        alert(text);
+        form.reset();
+    } catch (err) {
+        alert("ERROR: " + err.message);
+    }
 });
 ```
 
-Objek inputan files (yang didapat dari `$("#upload-file")[0]`) memiliki property `.files` yang isinya merupakan array dari semua file yang dipilih oleh user ketika upload. File-file tersebut diiterasi, setiap datanya dimasukkan ke dalam objek `FormData` yang telah dibuat.
+Objek input file memiliki properti `.files` yang berisi daftar semua file yang dipilih user. File-file tersebut diiterasi menggunakan `for...of`, setiap item dimasukkan ke dalam objek `FormData` dengan key `"files"`.
 
-Operasi AJAX request dilakukan lewat `jQuery.ajax`. Berikut adalah penjelasan mengenai konfigurasi `processData` dan `contentType` dalam AJAX yang sudah dibuat.
-
- - Konfigurasi `contentType` perlu diset ke `false` agar header Content-Type yang dikirim bisa menyesuaikan data yang disisipkan. 
- - Konfigurasi `processData` juga perlu diset ke `false`, agar data yang akan dikirim tidak otomatis dikonversi ke query string atau json string (tergantung `contentType`). Pada konteks ini kita memerlukan payload tetap dalam tipe `FormData`.
+Fungsi `fetch()` dipanggil dengan `method` dan `body` dari form. Ketika body berupa objek `FormData`, browser secara otomatis mengatur header `Content-Type` ke `multipart/form-data` beserta boundary yang diperlukan, sehingga tidak perlu di-set secara manual. Keyword `async/await` digunakan untuk menunggu respons secara asinkron.
 
 ## B.16.3. Back-End
 
-Ada 2 route handler yang harus dipersiapkan di back-end. Pertama adalah rute `/` untuk keperluan memunculkan form upload, dan rute `/upload` untuk pemrosesan upload dari AJAX request.
+Ada 2 route handler yang harus dipersiapkan di back-end. Pertama adalah rute `/` untuk keperluan memunculkan form upload, dan rute `/upload` untuk pemrosesan upload file.
 
-Buka file `main.go`, import package yang diperlukan, lalu deklarasikan dua rute yang telah disebut di atas, beserta satu buah rute baru untuk *serving* static assets.
+Buka file `main.go`, import package yang diperlukan, lalu deklarasikan dua rute tersebut.
 
 ```go
 package main
 
-import "log"
-import "net/http"
-import "html/template"
-import "path/filepath"
-import "io"
-import "os"
+import (
+    "html/template"
+    "io"
+    "log"
+    "net/http"
+    "os"
+    "path/filepath"
+)
 
 func main() {
     http.HandleFunc("/", handleIndex)
     http.HandleFunc("/upload", handleUpload)
-    http.Handle("/static/", 
-        http.StripPrefix("/static/", 
-            http.FileServer(http.Dir("assets"))))
 
     log.Println("server started at localhost:9000")
     err := http.ListenAndServe(":9000", nil)

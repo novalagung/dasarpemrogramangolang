@@ -1,4 +1,4 @@
-# B.13. Form: File Upload
+# B.13. File Upload: ParseMultipartForm
 
 Pada bagian ini kita akan belajar bagaimana cara meng-handle upload file yang dilakukan via form submit di sisi front-end. Pada beberapa bagian, caranya mirip seperti pada chapter sebelumnya, perbedaannya kali ini handler berisi proses untuk handling file yang di-upload. Proses yang dimaksud adalah memproses payload file dari front-end untuk kemudian disimpan ke path/folder.
 
@@ -165,7 +165,7 @@ Fungsi `os.OpenFile()` digunakan untuk membuka file. Fungsi ini membutuhkan 3 bu
 
 Fungsi `io.Copy()` mengisi konten file parameter pertama (`targetFile`) dengan isi parameter kedua (`uploadedFile`). File kosong yang telah kita buat tadi akan diisi dengan data file yang tersimpan di memory.
 
-> Nantinya pada salah satu pembahasan pada chapter [B.16. AJAX Multiple File Upload](/B-ajax-multi-upload.html) akan dijelaskan cara handling file upload dengan metode yang lebih efektif dan hemat memori, yaitu menggunakan `MultipartReader`.
+> Nantinya pada salah satu pembahasan pada chapter [B.16. Multiple File Upload: MultipartReader](/B-ajax-multi-upload.html) akan dijelaskan cara handling file upload dengan metode yang lebih efektif dan hemat memori, yaitu menggunakan `MultipartReader`.
 
 ## B.13.4. Testing
 

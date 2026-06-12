@@ -12,8 +12,9 @@ Pertama siapkan terlebih dahulu struct dan beberapa data sample.
 package main
 
 import "encoding/json"
-import "net/http"
 import "fmt"
+import "log"
+import "net/http"
 
 type student struct {
     ID    string
@@ -107,7 +108,10 @@ func main() {
     http.HandleFunc("/user", user)
 
     fmt.Println("starting web server at http://localhost:8080/")
-    http.ListenAndServe(":8080", nil)
+    err := http.ListenAndServe(":8080", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 

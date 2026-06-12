@@ -4,7 +4,7 @@ Pada chapter ini kita akan belajar penerapan web socket di Go, untuk membuat seb
 
 > Jelasnya kapabilitas web socket bisa dicapai dengan cukup menggunakan default package yang disediakan Go. Namun pada chapter ini pembelajaran dilakukan menggunakan 3rd party library.
 
-Seperti biasanya proses belajar dilakukan sambil praktek. Kita buat aplikasi chatting minimalis, dengan kode se-sedikit mungkin agar mudah dipahami, development dilakukan *from scratch*.
+Seperti biasanya proses belajar dilakukan sambil praktik. Kita buat aplikasi chatting minimalis, dengan kode se-sedikit mungkin agar mudah dipahami, development dilakukan *from scratch*.
 
 Nantinya saat testing akan ada banyak user terhubung dengan socket server, dalam satu room. Setiap pesan yang ditulis oleh salah seorang user, bisa dibaca oleh semua user lainnya.
 
@@ -21,7 +21,7 @@ mkdir chapter-d3
 cd chapter-d3
 go mod init chapter-d3
 
-go get -u github.com/gorilla/websocket@v1.4.1
+go get -u github.com/gorilla/websocket@v1.5.3
 go get -u github.com/novalagung/gubrak/v2
 ```
 
@@ -45,6 +45,11 @@ type M map[string]interface{}
 const MESSAGE_NEW_USER = "New User"
 const MESSAGE_CHAT = "Chat"
 const MESSAGE_LEAVE = "Leave"
+
+var upgrader = websocket.Upgrader{
+    ReadBufferSize:  1024,
+    WriteBufferSize: 1024,
+}
 
 var connections = make([]*WebSocketConnection, 0)
 ```
@@ -109,11 +114,11 @@ func main() {
 }
 ```
 
-Handler `/ws` diisi dengan proses untuk konversi koneksi HTTP ke koneksi web socket. Statement `websocket.Upgrade()` digunakan untuk ini. Pada statement tersebut, parameter ke-4 adalah besar read buffer, sedangkan parameter ke-5 adalah besar write buffer.
+Handler `/ws` diisi dengan proses untuk konversi koneksi HTTP ke koneksi web socket. Objek `upgrader` bertipe `websocket.Upgrader` disiapkan di package level, dengan konfigurasi besar read buffer dan write buffer masing-masing 1024 bytes. Method `upgrader.Upgrade()` kemudian digunakan untuk melakukan upgrade koneksi.
 
 ```go
 http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-    currentGorillaConn, err := websocket.Upgrade(w, r, w.Header(), 1024, 1024)
+    currentGorillaConn, err := upgrader.Upgrade(w, r, w.Header())
     if err != nil {
         http.Error(w, "Could not open websocket connection", http.StatusBadRequest)
         return
@@ -123,26 +128,26 @@ http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
     currentConn := WebSocketConnection{Conn: currentGorillaConn, Username: username}
     connections = append(connections, &currentConn)
 
-    go handleIO(&currentConn, connections)
+    go handleIO(&currentConn)
 })
 ```
 
-Di sisi client, ketika inisialisasi koneksi web socket, informasi **username** disisipkan sebagai query string. Lalu di back end diambil untuk ditempelkan ke objek koneksi socket (yang kemudian dimasukan ke `connections`).
+Di sisi client, ketika inisialisasi koneksi web socket, informasi **username** disisipkan sebagai query string. Lalu di back end diambil untuk ditempelkan ke objek koneksi socket (yang kemudian dimasukkan ke `connections`).
 
 ```js
-app.ws = new WebSocket("ws://localhost:8080/ws?username=" + name)
+app.ws = new WebSocket("ws://localhost:8080/ws?username=" + name);
 ```
 
 Objek `currentGorillaConn` yang merupakan objek *current* koneksi web server, kita cast ke tipe `WebSocketConnection`, kemudian ditampung ke `currentConn`. Informasi username di atas ditambahkan sebagai identifier dalam objek tersebut.
 
 Slice `connections` menampung semua koneksi web socket, termasuk `currentConn`.
 
-Di akhir handler, fungsi `handleIO()` dipanggil sebagai sebuah goroutine, dalam pemanggilannya objek `currentConn` dan `connections` disisipkan. Tugas fungsi `handleIO()` ini adalah untuk me-manage komunikasi antara client dan server. Proses broadcast message ke semua client yg terhubung dilakukan dalam fungsi ini.
+Di akhir handler, fungsi `handleIO()` dipanggil sebagai sebuah goroutine dengan objek `currentConn` disisipkan sebagai argument (variabel `connections` diakses langsung sebagai global). Tugas fungsi `handleIO()` ini adalah untuk me-manage komunikasi antara client dan server. Proses broadcast message ke semua client yg terhubung dilakukan dalam fungsi ini.
 
 Berikut adalah isi fungsi `handleIO()`.
 
 ```go
-func handleIO(currentConn *WebSocketConnection, connections []*WebSocketConnection) {
+func handleIO(currentConn *WebSocketConnection) {
     defer func() {
         if r := recover(); r != nil {
             log.Println("ERROR", fmt.Sprintf("%v", r))
@@ -240,7 +245,7 @@ Kurang lebih kode-nya seperti berikut.
     <div class="container"></div>
 
     <div class="form">
-        <form onsubmit="app.doSendMessage(); return false;">
+        <form>
             <div class="placeholder">
                 <label>Hello <b class="username"></b>. Say something:</label>
             </div>
@@ -297,30 +302,34 @@ Tampilan sekilas aplikasi bisa dilihat pada gambar di bawah ini.
 OK, sekarang saatnya masuk ke bagian yang paling disukai anak jaman now (?), yaitu javascript. Siapkan beberapa property, satu untuk menampung objek client socket server, dan satu lagi menampung element container (element inilah yang nantinya akan diisi message yang di-broadcast oleh server).
 
 ```js
-var app = {}
-app.ws = undefined
-app.container = undefined
+const app = {};
+app.ws = null;
+app.container = null;
 
 app.init = function () {
-    if (!(window.WebSocket)) {
-        alert('Your browser does not support WebSocket')
-        return
+    if (!window.WebSocket) {
+        alert("Your browser does not support WebSocket");
+        return;
     }
 
-    var name = prompt('Enter your name please:') || "No name"
-    document.querySelector('.username').innerText = name
-
-    app.container = document.querySelector('.container')
-
-    app.ws = new WebSocket("ws://localhost:8080/ws?username=" + name)
+    const name = prompt("Enter your name please:") || "No name";
+    document.querySelector(".username").innerText = name;
+    app.container = document.querySelector(".container");
+    app.ws = new WebSocket("ws://localhost:8080/ws?username=" + name);
 
     // ...
-}
+};
 
-window.onload = app.init
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        app.doSendMessage();
+    });
+    app.init();
+});
 ```
 
-Fungsi `app.init()` dipanggil pada event `window.onload`. 
+Fungsi `app.init()` dan event listener form diregistrasi dalam event `DOMContentLoaded`. 
 
 Di saat pertama kali page load, muncul prompt yang meminta inputan nama user. Nantinya user yang diinput dijadikan sebagai *current* username pada aplikasi chatting ini.
 
@@ -331,64 +340,55 @@ Property `app.ws` digunakan untuk menampung objek client web socket. Dari objek 
  - Event `onopen`. Event ini dieksekusi ketika *current* socket client berhasil terhubung dengan socket server.
 
     ```js
-    app.ws.onopen = function() {
-        var message = '<b>me</b>: connected'
-        app.print(message)
-    }
+    app.ws.onopen = function () {
+        app.print("<b>me</b>: connected");
+    };
     ```
 
  - Event `onmessage`. Event ini terpanggil ketika socket server mengirim data dan diterima oleh masing-masing socket client. Di dalam event init, message yang di-broadcast oleh socket server ditampilkan sesuai jenis message-nya, apakah `New User`, `Leave`, atau `Chat`.
 
     ```js
     app.ws.onmessage = function (event) {
-        var res = JSON.parse(event.data)
-
-        var messsage = ''
-        if (res.Type === 'New User') {
-            message = 'User <b>' + res.From + '</b>: connected'
-        } else if (res.Type === 'Leave') {
-            message = 'User <b>' + res.From + '</b>: disconnected'
+        const res = JSON.parse(event.data);
+        let message = "";
+        if (res.Type === "New User") {
+            message = "User <b>" + res.From + "</b>: connected";
+        } else if (res.Type === "Leave") {
+            message = "User <b>" + res.From + "</b>: disconnected";
         } else {
-            message = '<b>' + res.From + '</b>: ' + res.Message 
+            message = "<b>" + res.From + "</b>: " + res.Message;
         }
-
-        app.print(message)
-    }
+        app.print(message);
+    };
     ```
 
  - Event `onclose`. Seperti yang sudah disinggung di atas, ketika koneksi *current* socket terputus dengan server, event ini terpanggil secara otomatis.
 
     ```js
     app.ws.onclose = function () {
-        var message = '<b>me</b>: disconnected'
-        app.print(message)
-    }
+        app.print("<b>me</b>: disconnected");
+    };
     ```
 
 Kemudian tambahkan fungsi `app.print()`, fungsi ini digunakan untuk mencetak pesan ke `.container`.
 
 ```js
 app.print = function (message) {
-    var el = document.createElement("p")
-    el.innerHTML = message
-    app.container.append(el)
-}
+    const el = document.createElement("p");
+    el.innerHTML = message;
+    app.container.append(el);
+};
 ```
 
 Dan fungsi `app.doSendMessage()`, fungsi ini digunakan untuk mengirim payload message (inputan user) ke socket server.
 
 ```js
 app.doSendMessage = function () {
-    var messageRaw = document.querySelector('.input-message').value
-    app.ws.send(JSON.stringify({
-        Message: messageRaw
-    }));
-
-    var message = '<b>me</b>: ' + messageRaw
-    app.print(message)
-
-    document.querySelector('.input-message').value = ''
-}
+    const messageRaw = document.querySelector(".input-message").value;
+    app.ws.send(JSON.stringify({ Message: messageRaw }));
+    app.print("<b>me</b>: " + messageRaw);
+    document.querySelector(".input-message").value = "";
+};
 ```
 
 OK, aplikasi sudah siap, mari lanjut ke bagian testing.
