@@ -109,7 +109,14 @@
   - [B.20. Custom Multiplexer](B-custom-mux-multiplexer.md)
   - [B.21. HTTP Cookie](B-cookie.md)
   - [B.22. Simple Configuration](B-simple-configuration.md)
-  - [B.23. Server Handler HTTP Request Cancellation](B-server-handler-http-request-cancellation.md)
+  - [B.23. Handler Testing dengan net/http/httptest](B-httptest-handler-testing.md)
+  - [B.24. Graceful Shutdown](B-graceful-shutdown.md)
+  - [B.25. HTTP Redirect](B-http-redirect.md)
+  - [B.26. Custom Error Handler](B-custom-error-handler.md)
+  - [B.27. Request Body Size Limit](B-request-body-size-limit.md)
+  - [B.28. HTTP Timeout Handler](B-http-timeout-handler.md)
+  - [B.29. HTTP Handler Context Value](B-http-handler-context-value.md)
+  - [B.30. Server Handler HTTP Request Cancellation](B-server-handler-http-request-cancellation.md)
 
 <hr>
 
@@ -156,6 +163,5 @@
 <hr>
 
 - D. Studi Kasus
-  - [D.1. Insert 1 Juta Data dari File CSV Ke Database Server, Menggunakan Teknik Worker Pool, Database Connection Pool, dan Mekanisme Failover](D-insert-1mil-csv-record-into-db-in-a-minute.md)
   - [D.2. Google API Search Dengan Timeout](D-google-api-search.md)
   - [D.3. Web Socket: Chatting App](D-golang-web-socket-chatting-app.md)
