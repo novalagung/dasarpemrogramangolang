@@ -4,7 +4,7 @@ Pada chapter ini, topik yang dibahas adalah penerapan interface `http.Handler` u
 
 > Apa itu middleware? 
 > 
-> Istilah middleware berbeda-beda di tiap bahasa/framework. Di NodeJS dan Rails ada istilah middleware. Pada pemrograman Java Enterprise, istilah filters digunakan. Pada C# middleware disebut dengan delegate handlers. Definisi sederhana middleware adalah sebuah blok kode yang dipanggil sebelum ataupun sesudah http request di proses.
+> Istilah middleware berbeda-beda di tiap bahasa/framework. Di NodeJS dan Rails ada istilah middleware. Pada pemrograman Java Enterprise, istilah filters digunakan. Pada C# middleware disebut dengan delegate handlers. Definisi sederhana middleware adalah sebuah blok kode yang dipanggil sebelum ataupun sesudah http request diproses.
 
 Pada chapter sebelumnya, terdapat beberapa proses yang dijalankan dalam handler rute `/student`, yaitu pengecekan otentikasi dan pengecekan HTTP method. Misalnya terdapat rute lagi, maka dua validasi tersebut juga harus dipanggil lagi dalam handlernya.
 
@@ -21,13 +21,13 @@ func ActionStudent(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Jika ada banyak rute, apa yang harus kita lakukan? salah satu solusi adalah dengan memanggil fungsi `Auth()` dan `AllowOnlyGet()` di setiap handler rute yang ada. Namun jelasnya ini bukan best practice karena mengharuskan penulisan kode yang berulang-ulang. Selain itu, bisa jadi ada jenis validasi lainnya yang harus diterapkan, misalnya misalnya pengecekan csrf, authorization, dan lainnya. Maka perlu ada desain penataan kode yang lebih efisien tanpa harus menuliskan validasi yang banyak tersebut berulang-ulang. 
+Jika ada banyak rute, apa yang harus kita lakukan? salah satu solusi adalah dengan memanggil fungsi `Auth()` dan `AllowOnlyGET()` di setiap handler rute yang ada. Namun jelasnya ini bukan best practice karena mengharuskan penulisan kode yang berulang-ulang. Selain itu, bisa jadi ada jenis validasi lainnya yang harus diterapkan, misalnya pengecekan csrf, authorization, dan lainnya. Maka perlu ada desain penataan kode yang lebih efisien tanpa harus menuliskan validasi yang banyak tersebut berulang-ulang.
 
 Solusi yang pas adalah dengan membuat middleware baru untuk keperluan validasi.
 
 ## B.19.1. Interface `http.Handler`
 
-Interface `http.Handler` merupakan tipe data paling populer di Go untuk keperluan manajemen middleware. Struct yang mengimplementasikan interface ini diwajibkan untuk memilik method dengan skema `ServeHTTP(ResponseWriter, *Request)`.
+Interface `http.Handler` merupakan tipe data paling populer di Go untuk keperluan manajemen middleware. Struct yang mengimplementasikan interface ini diwajibkan untuk memiliki method dengan skema `ServeHTTP(ResponseWriter, *Request)`.
 
 > Di Go, objek utama untuk keperluan routing web server adalah `mux` (kependekan dari multiplexer), dan `mux` ini mengimplementasikan interface `http.Handler`.
 
@@ -66,8 +66,10 @@ OK, mari masuk ke bagian *coding*. Pertama duplikat folder project sebelumnya se
         server.Addr = ":9000"
         server.Handler = handler
 
-        fmt.Println("server started at localhost:9000")
-        server.ListenAndServe()
+        log.Println("server started at localhost:9000")
+        if err := server.ListenAndServe(); err != nil {
+            log.Fatal(err)
+        }
     }
     ```
 
@@ -91,7 +93,7 @@ mux := http.DefaultServeMux
 mux.HandleFunc("/student", ActionStudent)
 ```
 
-Dua kode di atas melakukan prosees yang ekuivalen.
+Dua kode di atas melakukan proses yang ekuivalen.
 
 Mux sendiri adalah bentuk nyata struct yang mengimplementasikan interface `http.Handler`. Di kode setelah routing, bisa dilihat objek `mux` ditampung ke variabel baru bertipe `http.Handler`. Seperti ini adalah valid karena memang struct multiplexer memenuhi kriteria interface `http.Handler`, yaitu memiliki method `ServeHTTP()`. 
 
@@ -110,11 +112,13 @@ Fungsi `MiddlewareAuth()` dan `MiddlewareAllowOnlyGet()` adalah middleware yang 
  - `MiddlewareAuth()` bertugas melakukan pengecekan credentials, basic auth.
  - `MiddlewareAllowOnlyGet()` bertugas melakukan pengecekan method.
 
+Perlu diperhatikan bahwa **urutan registrasi middleware menentukan urutan eksekusinya**. Pada contoh di atas, `MiddlewareAuth` diregistrasi lebih dahulu, sehingga request yang masuk akan diperiksa oleh `MiddlewareAuth` terlebih dahulu sebelum dilanjutkan ke `MiddlewareAllowOnlyGet`. Jika urutan dibalik, maka pengecekan method akan dilakukan sebelum pengecekan credentials.
+
 > Silakan lihat source code beberapa library middleware yang sudah terkenal seperti gorilla, gin-contrib, echo middleware, dan lainnya; Semua metode implementasi middleware-nya adalah sama, atau minimal mirip. Point plus nya, beberapa di antara library tersebut mudah diintegrasikan dan *compatible* satu sama lain.
 
 Kedua middleware yang akan kita buat tersebut mengembalikan fungsi bertipe `http.Handler`. Eksekusi middleware sendiri terjadi pada saat ada http request masuk.
 
-Setelah semua middleware diregistrasi. Masukan objek `handler` ke property `.Handler` milik server.
+Setelah semua middleware diregistrasi, masukkan objek `handler` ke property `.Handler` milik server.
 
 ```go
 server := new(http.Server)
@@ -156,7 +160,7 @@ Tak lupa, ubah juga `AllowOnlyGet()` menjadi `MiddlewareAllowOnlyGet()`.
 func MiddlewareAllowOnlyGet(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         if r.Method != "GET" {
-            w.Write([]byte("Only GET is allowed"))
+            http.Error(w, "Only GET is allowed", http.StatusMethodNotAllowed)
             return
         }
 
@@ -165,7 +169,7 @@ func MiddlewareAllowOnlyGet(next http.Handler) http.Handler {
 }
 ```
 
-## B.19.4. Testing
+## B.19.5. Testing
 
 Jalankan aplikasi.
 

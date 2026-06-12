@@ -8,6 +8,7 @@ Siapkan folder project baru, buat file template bernama `view.html`, lalu isi de
 
 ```html
 {{define "index"}}
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Learning html/template Functions</title>
@@ -19,6 +20,7 @@ Siapkan folder project baru, buat file template bernama `view.html`, lalu isi de
 {{end}}
 
 {{define "test"}}
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Other Template</title>
@@ -43,7 +45,7 @@ Selanjutnya siapkan kode di sisi back-end, buat file `main.go`, tulis kode berik
 package main
 
 import "net/http"
-import "fmt"
+import "log"
 import "html/template"
 
 func main() {
@@ -61,8 +63,11 @@ func main() {
 		}
 	})
 	
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+	log.Println("server started at localhost:9000")
+	err := http.ListenAndServe(":9000", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 ```
 

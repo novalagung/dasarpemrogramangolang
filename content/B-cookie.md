@@ -6,7 +6,7 @@ Cookie merupakan salah satu aspek penting dalam pengembangan aplikasi web. Sanga
 
 Pada chapter ini kita akan belajar bagaimana cara membuat dan mengakses cookie lewat Go.
 
-## B.21.1. Praktek
+## B.21.1. Praktik
 
 Buat sebuah folder proyek, siapkan satu buah file `main.go`. Buat fungsi `main()`, registrasikan dua buah rute.
 
@@ -14,13 +14,14 @@ Buat sebuah folder proyek, siapkan satu buah file `main.go`. Buat fungsi `main()
 package main
 
 import (
-    "fmt"
-    gubrak "github.com/novalagung/gubrak/v2"
+    "log"
     "net/http"
     "time"
+
+    "github.com/novalagung/gubrak/v2"
 )
 
-type M map[string]interface{}
+type M map[string]any
 
 var cookieName = "CookieData"
 
@@ -28,8 +29,11 @@ func main() {
     http.HandleFunc("/", ActionIndex)
     http.HandleFunc("/delete", ActionDelete)
 
-    fmt.Println("server started at localhost:9000")
-    http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -42,8 +46,6 @@ OK, sekarang buat fungsi handler `ActionIndex()`. Di dalam handler tersebut terd
 
 ```go
 func ActionIndex(w http.ResponseWriter, r *http.Request) {
-    cookieName := "CookieData"
-
     c := &http.Cookie{}
 
     if storedCookie, _ := r.Cookie(cookieName); storedCookie != nil {
@@ -62,13 +64,13 @@ func ActionIndex(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Cookie bisa dikases lewat method `.Cookie()` milik objek `*http.Request`. Method ini mengembalikan 2 informasi yaitu objek cookie dan error, jika ada.
+Cookie bisa diakses lewat method `.Cookie()` milik objek `*http.Request`. Method ini mengembalikan 2 informasi yaitu objek cookie dan error, jika ada.
 
 Pembuatan cookie cukup mudah, tinggal cetak saja objek baru dari struct `http.Cookie`.
 
 Pada kode di atas, ketika `storedCookie` nilainya bukan `nil` (berarti cookie dengan nama `cookieName` sudah dibuat), maka objek `storedCookie` nilainya disimpan ke variabel `c`.
 
-Jika `c.Value` bernilai kosong, diasumsikan cookie belum pernah dibuat (atau expired), maka dibuatkanlah cookie baru dengan data adalah random string. 
+Jika `c.Value` bernilai kosong, diasumsikan cookie belum pernah dibuat (atau expired), maka dibuatkanlah cookie baru dengan data adalah random string.
 
 > Untuk mempermudah generate random string, kita gunakan library bernama [Gubrak v2](https://github.com/novalagung/gubrak). Fungsi `gubrak.RandomString(32)` akan menghasilkan string 32 karakter.
 
@@ -100,7 +102,7 @@ Jalankan aplikasi, lalu akses endpoint `/`. Di halaman website akan muncul sebua
 
 Coba refresh page beberapa kali, informasi header cookie dan data yang muncul adalah tetap sama. Karena ketika cookie sudah pernah dibuat, maka seterusnya endpoint ini akan menggunakan data cookie yang sudah tersimpan tersebut.
 
-Selanjutnya, buka url `/delete`, halaman akan di redirect kembali ke `/`, dan random string baru beserta cookie baru terbuat. Dalam endpoint ini, cookie di hapus, dan karena step selanjutnya adalah redirect ke `/`, maka proses pengecekan dan pembuatan cookie akan dimulai kembali. Pengunjung akan mendapatkan data cookie baru dengan nama yang sama.
+Selanjutnya, buka url `/delete`, halaman akan di redirect kembali ke `/`, dan random string baru beserta cookie baru terbuat. Dalam endpoint ini, cookie dihapus, dan karena step selanjutnya adalah redirect ke `/`, maka proses pengecekan dan pembuatan cookie akan dimulai kembali. Pengunjung akan mendapatkan data cookie baru dengan nama yang sama.
 
 ## B.21.3. Properties Object `http.Cookie`
 
@@ -113,7 +115,7 @@ Objek cookie memiliki beberapa property, beberapa di antaranya:
 | Domain | `string` | Scope domain cookie |
 | Expires | `time.Time` | Durasi cookie, ditulis dalam tipe `time.Time` |
 | MaxAge | `int` | Durasi cookie, ditulis dalam detik (numerik) |
-| Secure | `bool` | Scope cookie dalam konteks protocol yang digunakan ketika pengaksesan web. Property ini hanya berguna pada saat web server SSL/TLS enabled.<br /><ul><li>Jika <code>false</code>, maka cookie yang disimpan ketika web diakses menggunakan protocol <code>http://</code>, tetap bisa diakses lewat <code>https://</code>, dan berlaku juga untuk kebalikannya.</li><li>Jika <code>true</code>, pada saat pengaksesan lewat protokol <code>https://</code>, maka data cookie akan di-enkripsi. Sedangkan pada pengaksesan lewat protokol <code>http://</code> cookie disimpan seperti biasa (tanpa dienkripsi). Jika dalam satu web server, dua protokol tersebut bisa diakses, <code>https://</code> dan <code>https://</code>, maka aturan di atas tetap berlaku untuk masing-masing protokol, dengan catatan data yang disimpan lewat <code>https://</code> hanya bisa diakses lewat protokol tersebut.</li></ul> |
+| Secure | `bool` | Scope cookie dalam konteks protocol yang digunakan ketika pengaksesan web. Property ini hanya berguna pada saat web server SSL/TLS enabled.<br /><ul><li>Jika <code>false</code>, maka cookie yang disimpan ketika web diakses menggunakan protocol <code>http://</code>, tetap bisa diakses lewat <code>https://</code>, dan berlaku juga untuk kebalikannya.</li><li>Jika <code>true</code>, pada saat pengaksesan lewat protokol <code>https://</code>, maka data cookie akan di-enkripsi. Sedangkan pada pengaksesan lewat protokol <code>http://</code> cookie disimpan seperti biasa (tanpa dienkripsi). Jika dalam satu web server, dua protokol tersebut bisa diakses, <code>http://</code> dan <code>https://</code>, maka aturan di atas tetap berlaku untuk masing-masing protokol, dengan catatan data yang disimpan lewat <code>https://</code> hanya bisa diakses lewat protokol tersebut.</li></ul> |
 | HttpOnly | `bool` | <ul><li>Jika <code>false</code>, maka cookie bisa dibuat lewat back end (Go), maupun lewat front end (javascript)</li><li>Jika <code>true</code>, maka cookie hanya bisa diciptakan dari back end</li></ul> |
 
 ---

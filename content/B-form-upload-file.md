@@ -17,20 +17,20 @@ Di bagian front end, isi file `view.html` dengan kode berikut. Template file ini
 ```html
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Input Message</title>
-	</head>
-	<body>
-		<form method="post" action="/process" enctype="multipart/form-data">
-			<label>The file :</label>
-			<input type="file" name="file" required /><br />
+    <head>
+        <title>Input Message</title>
+    </head>
+    <body>
+        <form method="post" action="/process" enctype="multipart/form-data">
+            <label>The file :</label>
+            <input type="file" name="file" required /><br />
 
-			<label>Rename to :</label>
-			<input type="text" name="alias" /><br />
+            <label>Rename to :</label>
+            <input type="text" name="alias" /><br />
 
-			<button type="submmit">Submit</button>
-		</form>
-	</body>
+            <button type="submit">Submit</button>
+        </form>
+    </body>
 </html>
 ```
 
@@ -47,17 +47,21 @@ package main
 
 import "net/http"
 import "fmt"
+import "log"
 import "os"
 import "io"
 import "path/filepath"
 import "html/template"
 
 func main() {
-	http.HandleFunc("/", routeIndexGet)
-	http.HandleFunc("/process", routeSubmitPost)
+    http.HandleFunc("/", routeIndexGet)
+    http.HandleFunc("/process", routeSubmitPost)
 
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -65,35 +69,35 @@ Handler route `/` isinya proses untuk menampilkan landing page (file `view.html`
 
 ```go
 func routeIndexGet(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
-		http.Error(w, "", http.StatusBadRequest)
-		return
-	}
+    if r.Method != "GET" {
+        http.Error(w, "", http.StatusBadRequest)
+        return
+    }
 
-	var tmpl = template.Must(template.ParseFiles("view.html"))
-	var err = tmpl.Execute(w, nil)
+    var tmpl = template.Must(template.ParseFiles("view.html"))
+    var err = tmpl.Execute(w, nil)
 
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
 }
 ```
 
-Selanjutnya siapkan handler untuk rute `/proccess`, yaitu fungsi `routeSubmitPost`. Gunakan statement `r.ParseMultipartForm(1024)` untuk parsing form data yang dikirim.
+Selanjutnya siapkan handler untuk rute `/process`, yaitu fungsi `routeSubmitPost`. Gunakan statement `r.ParseMultipartForm(1024)` untuk parsing form data yang dikirim.
 
 ```go
 func routeSubmitPost(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, "", http.StatusBadRequest)
-		return
-	}
+    if r.Method != "POST" {
+        http.Error(w, "", http.StatusBadRequest)
+        return
+    }
 
-	if err := r.ParseMultipartForm(1024); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+    if err := r.ParseMultipartForm(1024); err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
 
-	// ...
+    // ...
 }
 ```
 
@@ -102,25 +106,25 @@ Method `ParseMultipartForm()` digunakan untuk mem-parsing form data yang ada dat
 Masih dalam fungsi `routeSubmitPost()`, tambahkan kode untuk mengambil data alias dan file.
 
 ```go
-alias := r.FormValue("alias")
+alias := filepath.Base(r.FormValue("alias"))
 
 uploadedFile, handler, err := r.FormFile("file")
 if err != nil {
-	http.Error(w, err.Error(), http.StatusInternalServerError)
-	return
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
 }
 defer uploadedFile.Close()
 
 dir, err := os.Getwd()
 if err != nil {
-	http.Error(w, err.Error(), http.StatusInternalServerError)
-	return
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
 }
 ```
 
 Statement `r.FormFile("file")` digunakan untuk mengambil file yg di upload, dan mengembalikan 3 objek: 
 
- - Objek bertipe multipart.File (yang merupakan turunan dari `*os.File`)
+ - Objek bertipe `multipart.File` (yang merupakan interface, memiliki implementasi method yang mirip dengan `*os.File`)
  - Informasi header file (bertipe `*multipart.FileHeader`)
  - Dan `error` jika ada
 
@@ -129,20 +133,20 @@ Tahap selanjutnya adalah menambahkan kode membuat file baru, yang nantinya file 
 ```go
 filename := handler.Filename
 if alias != "" {
-	filename = fmt.Sprintf("%s%s", alias, filepath.Ext(handler.Filename))
+    filename = fmt.Sprintf("%s%s", alias, filepath.Ext(handler.Filename))
 }
 
 fileLocation := filepath.Join(dir, "files", filename)
 targetFile, err := os.OpenFile(fileLocation, os.O_WRONLY|os.O_CREATE, 0666)
 if err != nil {
-	http.Error(w, err.Error(), http.StatusInternalServerError)
-	return
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
 }
 defer targetFile.Close()
 
 if _, err := io.Copy(targetFile, uploadedFile); err != nil {
-	http.Error(w, err.Error(), http.StatusInternalServerError)
-	return
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
 }
 
 w.Write([]byte("done"))
@@ -156,7 +160,7 @@ Fungsi `os.OpenFile()` digunakan untuk membuka file. Fungsi ini membutuhkan 3 bu
 
  - Parameter pertama merupakan path atau lokasi dari file yang ingin di buka.
  - Parameter kedua adalah flag mode, apakah *read only*, *write only*, atau keduanya, atau lainnya. 
- 	- `os.O_WRONLY|os.O_CREATE` maknanya, file yang dibuka hanya akan bisa di tulis saja (*write only* konsantanya adalah `os.O_WRONLY`), dan file tersebut akan dibuat jika belum ada (konstantanya `os.O_CREATE`). 
+     - `os.O_WRONLY|os.O_CREATE` maknanya, file yang dibuka hanya akan bisa ditulis saja (*write only*, konstantanya adalah `os.O_WRONLY`), dan file tersebut akan dibuat jika belum ada (konstantanya `os.O_CREATE`). 
  - Sedangkan parameter terakhir adalah permission dari file, yang digunakan dalam pembuatan file itu sendiri.
 
 Fungsi `io.Copy()` mengisi konten file parameter pertama (`targetFile`) dengan isi parameter kedua (`uploadedFile`). File kosong yang telah kita buat tadi akan diisi dengan data file yang tersimpan di memory.

@@ -1,6 +1,6 @@
 # B.4. Template: Render HTML Template
 
-Pada bagian ini kita akan belajar bagaimana cara render file **template** yang berisi **HTML** untuk ditampilkan ke layar browser. 
+Pada bagian ini kita akan belajar bagaimana cara render file **template** yang berisi **HTML** untuk ditampilkan ke layar browser.
 
 Terdapat banyak jenis template pada Go, di sini yang akan kita pakai adalah template HTML. Package `html/template` berisi banyak sekali fungsi untuk operasi rendering dan parsing file template HTML.
 
@@ -12,23 +12,28 @@ Buat project baru, siapkan file dan folder dengan struktur sesuai dengan gambar 
 
 ## B.4.2. Back End
 
-Hal pertama yang perlu dilakukan adalah mempersiapkan back end. Buka file `main.go`, import package `net/http`, `html/template`, dan `path`. Siapkan juga rute `/`.
+Hal pertama yang perlu dilakukan adalah mempersiapkan back end. Buka file `main.go`, import package `net/http`, `html/template`, dan `path/filepath`. Siapkan juga rute `/`.
 
 ```go
 package main
 
-import "fmt"
-import "net/http"
-import "html/template"
-import "path"
+import (
+    "html/template"
+    "log"
+    "net/http"
+    "path/filepath"
+)
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// not yet implemented
-	})
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        // not yet implemented
+    })
 
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -37,35 +42,33 @@ Handler rute `/` akan kita isi dengan proses untuk rendering template html untuk
 Silakan tulis kode berikut di dalam handler rute `/`.
 
 ```go
-var filepath = path.Join("views", "index.html")
-var tmpl, err = template.ParseFiles(filepath)
+var tmplPath = filepath.Join("views", "index.html")
+var tmpl, err = template.ParseFiles(tmplPath)
 if err != nil {
-	http.Error(w, err.Error(), http.StatusInternalServerError)
-	return
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
 }
 
-var data = map[string]interface{}{
-	"title": "Learning Golang Web",
-	"name":  "Batman",
+var data = map[string]any{
+    "title": "Learning Golang Web",
+    "name":  "Batman",
 }
 
 err = tmpl.Execute(w, data)
 if err != nil {
-	http.Error(w, err.Error(), http.StatusInternalServerError)
+    http.Error(w, err.Error(), http.StatusInternalServerError)
 }
 ```
 
-Package `path` berisikan banyak fungsi yang berhubungan dengan lokasi folder atau path, yang salah satu di antaranya adalah fungsi `path.Join()`. Fungsi ini digunakan untuk menggabungkan folder atau file atau keduanya menjadi sebuah path, dengan separator relatif terhadap OS yang digunakan.
+Package `path/filepath` berisikan banyak fungsi untuk operasi path file system. Salah satunya adalah `filepath.Join()`, yang digunakan untuk menggabungkan folder atau file menjadi satu path dengan separator yang menyesuaikan sistem operasi (`\` di Windows, `/` di Linux/macOS).
 
-> Separator yang digunakan oleh `path.Join()` adalah `\` untuk windows dan `/` untuk linux/unix/macos.
+Contoh penerapan `filepath.Join()` bisa dilihat di kode di atas, `views` di-join dengan `index.html`, menghasilkan `views/index.html`.
 
-Contoh penerapan `path.Join()` bisa dilihat di kode di atas, `views` di-join dengan `index.html`, menghasilkan `views/index.html`.
-
-Sedangkan `template.ParseFiles()`, digunakan untuk parsing file template, dalam contoh ini file `view/index.html`. Fungsi ini mengembalikan 2 data, yaitu hasil dari proses parsing yang bertipe `*template.Template`, dan informasi `error` jika ada.
+Sedangkan `template.ParseFiles()`, digunakan untuk parsing file template, dalam contoh ini file `views/index.html`. Fungsi ini mengembalikan 2 data, yaitu hasil dari proses parsing yang bertipe `*template.Template`, dan informasi `error` jika ada.
 
 Fungsi `http.Error()` digunakan untuk menandai HTTP request dengan response berupa error dengan kode serta pesan error bisa kita tentukan sendiri. Pada contoh di atas yang digunakan adalah **500 - internal server error**, direpresentasikan oleh variabel `http.StatusInternalServerError`.
 
-Method `Execute()` milik `*template.Template`, digunakan untuk menyisipkan data pada template, kemudian menampilkannya ke browser. Data bisa disipkan ke view dalam bentuk `struct`, `map`, atau `interface{}`.
+Method `Execute()` milik `*template.Template`, digunakan untuk menyisipkan data pada template, kemudian menampilkannya ke browser. Data bisa disisipkan ke view dalam bentuk `struct`, `map`, atau `interface{}`.
 
  - Jika dituliskan dalam bentuk `map`, maka **key** akan menjadi nama variabel dan **value** menjadi nilainya
  - Jika dituliskan dalam bentuk variabel objek cetakan `struct`, nama **property** akan menjadi nama variabel
@@ -79,12 +82,12 @@ OK, back end sudah siap, selanjutnya kita masuk ke bagian user interface. Pada f
 ```html
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>{{.title}}</title>
-	</head>
-	<body>
-		<p>Welcome {{.name}}</p>
-	</body>
+    <head>
+        <title>{{.title}}</title>
+    </head>
+    <body>
+        <p>Welcome {{.name}}</p>
+    </body>
 </html>
 ```
 
@@ -104,10 +107,10 @@ Coba tambahkan sebuah stylesheet di sini. Buat file `assets/site.css`, isi denga
 
 ```css
 body {
-	font-family: "Helvetica Neue";
-	font-weight: bold;
-	font-size: 24px;
-	color: #07c;
+    font-family: "Helvetica Neue";
+    font-weight: bold;
+    font-size: 24px;
+    color: #07c;
 }
 ```
 
@@ -121,14 +124,17 @@ Terakhir pada fungsi `main()`, tambahkan router untuk handling file statis.
 
 ```go
 func main() {
-	// ...
+    // ...
 
-	http.Handle("/static/", 
-		http.StripPrefix("/static/", 
-			http.FileServer(http.Dir("assets"))))
+    http.Handle("/static/",
+        http.StripPrefix("/static/",
+            http.FileServer(http.Dir("assets"))))
 
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 

@@ -2,37 +2,40 @@
 
 Kita telah belajar cara untuk memproses request dengan payload bertipe JSON di chapter sebelumnya. Pembelajaran kali ini masih tentang tipe data JSON tapi lebih fokus ke bagian back-end-nya, yaitu membuat sebuah Web Service API sederhana yang mengembalikan response berbentuk JSON.
 
-## B.15.1. Praktek
+## B.15.1. Praktik
 
 Siapkan satu buah folder proyek baru, dengan satu buah file di dalamnya bernama `main.go`. Dalam file ini siapkan rute `/`.
 
 ```go
 package main
 
-import "fmt"
+import "log"
 import "net/http"
 import "encoding/json"
 
 func main() {
     http.HandleFunc("/", ActionIndex)
 
-    fmt.Println("server started at localhost:9000")
-    http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
-Selanjutnya buat handler untuk rute `/`. Di dalam fungsi tersenit, disiapkan data dummy ber-tipe slice object. Data ini kemudian dikonversi ke JSON lalu dijadikan nilai balik endpoint `/`.
+Selanjutnya buat handler untuk rute `/`. Di dalam fungsi tersebut, disiapkan data dummy ber-tipe slice object. Data ini kemudian dikonversi ke JSON lalu dijadikan nilai balik endpoint `/`.
 
 ```go
 func ActionIndex(w http.ResponseWriter, r *http.Request) {
-    data := [] struct {
+    data := []struct {
         Name string
         Age  int
-    } {
-        { "Richard Grayson", 24 },
-        { "Jason Todd", 23 },
-        { "Tim Drake", 22 },
-        { "Damian Wayne", 21 },
+    }{
+        {"Richard Grayson", 24},
+        {"Jason Todd", 23},
+        {"Tim Drake", 22},
+        {"Damian Wayne", 21},
     }
 
     jsonInBytes, err := json.Marshal(data)
@@ -46,7 +49,7 @@ func ActionIndex(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Cara mengkonversi data ke bentuk json cukup mudah, bisa menggunakan `json.Marshal()`. Fungsi ini mengembalikan dua nilai balik, data JSON dalam bentuk `[]byte`, dan error jika ada. 
+Cara mengkonversi data ke bentuk json cukup mudah, bisa menggunakan `json.Marshal()`. Fungsi ini mengembalikan dua nilai balik, data JSON dalam bentuk `[]byte`, dan error jika ada.
 
 > Untuk mengambil bentuk string dari hasil konversi JSON, cukup lakukan casting pada data slice bytes tersebut. Contoh: `string(jsonInBytes)`
 

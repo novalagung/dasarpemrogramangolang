@@ -2,7 +2,7 @@
 
 Pada chapter ini kita akan belajar bagaimana cara untuk submit data dari form di front-end untuk dikirim ke back-end melalui API call (HTTP request).
 
-# B.12.1. Front-End
+## B.12.1. Front-End
 
 Pertama siapkan folder project baru dan sebuah file template view `view.html`. Pada file ini perlu didefinisikan 2 buah template, yaitu `form` dan `result`. Template pertama (`form`) dijadikan landing page program, isinya beberapa inputan untuk submit data.
 
@@ -10,22 +10,22 @@ Pertama siapkan folder project baru dan sebuah file template view `view.html`. P
 {{define "form"}}
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Input Message</title>
-	</head>
-	<body>
-		<form method="post" action="/process">
-			<label>Name :</label>
-			<input type="text" placeholder="Type name here" name="name" required />
-			<br />
-			
-			<label>Message :</label>
-			<input type="text" placeholder="Type message here" name="message" required />
-			<br />
-			
-			<button type="submmit">Print</button>
-		</form>
-	</body>
+    <head>
+        <title>Input Message</title>
+    </head>
+    <body>
+        <form method="post" action="/process">
+            <label>Name :</label>
+            <input type="text" placeholder="Type name here" name="name" required />
+            <br />
+            
+            <label>Message :</label>
+            <input type="text" placeholder="Type message here" name="message" required />
+            <br />
+            
+            <button type="submit">Print</button>
+        </form>
+    </body>
 </html>
 {{end}}
 ```
@@ -36,13 +36,13 @@ Aksi dari form di atas adalah `/process`, yang mana url tersebut nantinya akan m
 {{define "result"}}
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Show Message</title>
-	</head>
-	<body>
-		<h1>Hello {{.name}}</h1>
-		<p>{{.message}}</p>
-	</body>
+    <head>
+        <title>Show Message</title>
+    </head>
+    <body>
+        <h1>Hello {{.name}}</h1>
+        <p>{{.message}}</p>
+    </body>
 </html>
 {{end}}
 ```
@@ -58,15 +58,18 @@ Buat file `main.go`. Dalam file ini 2 buah route handler diregistrasikan.
 package main
 
 import "net/http"
-import "fmt"
+import "log"
 import "html/template"
 
 func main() {
-	http.HandleFunc("/", routeIndexGet)
-	http.HandleFunc("/process", routeSubmitPost)
+    http.HandleFunc("/", routeIndexGet)
+    http.HandleFunc("/process", routeSubmitPost)
 
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -74,17 +77,17 @@ Handler route `/` dibungkus dalam fungsi bernama `routeIndexGet()`. Di dalamnya,
 
 ```go
 func routeIndexGet(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		var tmpl = template.Must(template.New("form").ParseFiles("view.html"))
-		var err = tmpl.Execute(w, nil)
+    if r.Method == "GET" {
+        var tmpl = template.Must(template.New("form").ParseFiles("view.html"))
+        var err = tmpl.Execute(w, nil)
 
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-		return
-	}
+        if err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+        return
+    }
 
-	http.Error(w, "", http.StatusBadRequest)
+    http.Error(w, "", http.StatusBadRequest)
 }
 ```
 
@@ -92,26 +95,26 @@ Fungsi `routeSubmitPost()` yang merupakan handler route `/process`, berisikan pr
 
 ```go
 func routeSubmitPost(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
-		var tmpl = template.Must(template.New("result").ParseFiles("view.html"))
+    if r.Method == "POST" {
+        var tmpl = template.Must(template.New("result").ParseFiles("view.html"))
 
-		if err := r.ParseForm(); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+        if err := r.ParseForm(); err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+            return
+        }
 
-		var name = r.FormValue("name")
-		var message = r.Form.Get("message")
+        var name = r.FormValue("name")
+        var message = r.Form.Get("message")
 
-		var data = map[string]string{"name": name, "message": message}
+        var data = map[string]string{"name": name, "message": message}
 
-		if err := tmpl.Execute(w, data); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-		return
-	}
+        if err := tmpl.Execute(w, data); err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+        return
+    }
 
-	http.Error(w, "", http.StatusBadRequest)
+    http.Error(w, "", http.StatusBadRequest)
 }
 ```
 

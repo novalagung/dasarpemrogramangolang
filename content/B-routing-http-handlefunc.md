@@ -17,13 +17,15 @@ Seperti yang sudah dijelaskan sekilas pada chapter sebelumnya, fungsi `http.Hand
  1. Parameter ke-1, adalah rute (atau endpoint). Sebagai contoh: `/`, `/index`, `/about`.
  2. Parameter ke-2, berisikan handler untuk rute bersangkutan. Sebagai contoh handler untuk rute `/` bertugas untuk menampilkan output berupa html `<p>hello</p>`.
 
-Agar lebih mudah dipahami mari langsung praktek. Siapkan file `main.go` dengan package adalah `main`, dan import package `net/http` di dalamnya.
+Agar lebih mudah dipahami mari langsung praktik. Siapkan file `main.go` dengan package adalah `main`, dan import package `net/http` di dalamnya.
 
 ```go
 package main
 
-import "fmt"
-import "net/http"
+import (
+    "log"
+    "net/http"
+)
 ```
 
 Buat fungsi `main()`, di dalamnya siapkan sebuah closure `handlerIndex`, lalu gunakan closure tersebut sebagai handler dari dua rute baru yang sebentar lagi disiapkan, yaitu rute `/` dan `/index`.
@@ -57,8 +59,11 @@ Terakhir, jalankan web server.
 func main() {
     // ...
 
-    fmt.Println("server started at localhost:9000")
-    http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -69,6 +74,74 @@ Tes dan lihat hasilnya.
 ![Rute `/data` mengembalikan data](images/B_routing_http_handlefunc_1_routing.png)
 
 Handler bisa berupa fungsi, closure, ataupun anonymous function, intinya bebas, yang terpenting adalah skema fungsi-nya harus sesuai dengan `func (http.ResponseWriter, *http.Request)`.
+
+## B.2.3. Enhanced Routing Pattern (Go 1.22+)
+
+Sejak Go 1.22, pola routing pada `http.HandleFunc()` mendukung dua fitur baru yang sangat berguna: penentuan HTTP method langsung di pola rute, dan wildcard pada segmen path.
+
+#### ◉ Method-Based Routing
+
+Sebelumnya, satu handler bisa dipanggil dari method GET, POST, DELETE, maupun method HTTP lainnya tanpa bisa dibedakan langsung di level rute. Sekarang, kita bisa menentukannya langsung di parameter pertama:
+
+```go
+http.HandleFunc("GET /articles", handlerListArticles)
+http.HandleFunc("POST /articles", handlerCreateArticle)
+```
+
+Rute `GET /articles` hanya akan cocok dengan request GET, sedangkan `POST /articles` hanya cocok dengan POST. Request dengan method lain akan mendapat response `405 Method Not Allowed` secara otomatis.
+
+#### ◉ Wildcard Path
+
+Segmen path bisa dijadikan wildcard menggunakan kurung kurawal `{nama}`. Nilai wildcard kemudian diambil lewat `r.PathValue("nama")`:
+
+```go
+http.HandleFunc("GET /articles/{id}", func(w http.ResponseWriter, r *http.Request) {
+    id := r.PathValue("id")
+    w.Write([]byte("article id: " + id))
+})
+```
+
+Akses rute `/articles/42`, maka `id` bernilai `"42"`.
+
+Untuk menangkap sisa path (termasuk `/`), gunakan `{nama...}`:
+
+```go
+http.HandleFunc("/static/{path...}", handlerStatic)
+```
+
+Berikut contoh lengkap penggunaan kedua fitur ini:
+
+```go
+package main
+
+import (
+    "log"
+    "net/http"
+)
+
+func main() {
+    http.HandleFunc("GET /articles", func(w http.ResponseWriter, r *http.Request) {
+        w.Write([]byte("list semua artikel"))
+    })
+
+    http.HandleFunc("POST /articles", func(w http.ResponseWriter, r *http.Request) {
+        w.Write([]byte("buat artikel baru"))
+    })
+
+    http.HandleFunc("GET /articles/{id}", func(w http.ResponseWriter, r *http.Request) {
+        id := r.PathValue("id")
+        w.Write([]byte("article id: " + id))
+    })
+
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+}
+```
+
+> Fitur ini hanya tersedia mulai Go 1.22. Pada Go versi sebelumnya, pola routing seperti `"GET /articles/{id}"` tidak dikenali dan perlu menggunakan library routing pihak ketiga (seperti gorilla/mux atau chi).
 
 ---
 

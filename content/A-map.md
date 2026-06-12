@@ -143,7 +143,7 @@ var chickens = []map[string]string{
 }
 
 for _, chicken := range chickens {
-	fmt.Println(chicken["gender"], chicken["name"])
+    fmt.Println(chicken["gender"], chicken["name"])
 }
 ```
 
@@ -153,9 +153,9 @@ Penulisan tipe data tiap item adalah opsional. Boleh ditulis atau tidak. Contoh 
 
 ```go
 var chickens = []map[string]string{
-	{"name": "chicken blue",   "gender": "male"},
-	{"name": "chicken red",    "gender": "male"},
-	{"name": "chicken yellow", "gender": "female"},
+    {"name": "chicken blue",   "gender": "male"},
+    {"name": "chicken red",    "gender": "male"},
+    {"name": "chicken yellow", "gender": "female"},
 }
 ```
 
@@ -163,9 +163,9 @@ Dalam `[]map[string]string`, tiap elemen bisa saja memiliki key yang berbeda-bed
 
 ```go
 var data = []map[string]string{
-	{"name": "chicken blue", "gender": "male", "color": "brown"},
-	{"address": "mangga street", "id": "k001"},
-	{"community": "chicken lovers"},
+    {"name": "chicken blue", "gender": "male", "color": "brown"},
+    {"address": "mangga street", "id": "k001"},
+    {"community": "chicken lovers"},
 }
 ```
 

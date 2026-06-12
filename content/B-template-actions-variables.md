@@ -1,6 +1,6 @@
 # B.6. Template: Actions & Variables
 
-[**Actions**](https://golang.org/pkg/text/template/#hdr-Actions) merupakan *predefined* keyword yang disediakan oleh Go. Actions biasa dimanfaatkan dalam pembuatan template. 
+[**Actions**](https://golang.org/pkg/text/template/#hdr-Actions) merupakan *predefined* keyword yang disediakan oleh Go. Actions biasa dimanfaatkan dalam pembuatan template.
 
 Sebenarnya pada dua chapter sebelumnya, secara tidak sadar kita telah menggunakan beberapa jenis actions, di antaranya:
 
@@ -16,45 +16,50 @@ Pertama-tama, siapkan sebuah file bernama `main.go`, lalu isi dengan kode beriku
 ```go
 package main
 
-import "net/http"
-import "fmt"
-import "html/template"
+import (
+    "html/template"
+    "log"
+    "net/http"
+)
 
 type Info struct {
-	Affiliation string
-	Address     string
+    Affiliation string
+    Address     string
 }
 
 type Person struct {
-	Name    string
-	Gender  string
-	Hobbies []string
-	Info    Info
+    Name    string
+    Gender  string
+    Hobbies []string
+    Info    Info
 }
 ```
 
-Pada kode di atas, dua buah struct disiapkan, `Info` dan `Person` (yang mana struct `Info` di-embed ke dalam struct `Person`). Kedua struct tersebut nantinya akan digunakan untuk pembuatan objek untuk kemudian disisipkan ke dalam view.
+Pada kode di atas, dua buah struct disiapkan, `Info` dan `Person` (yang mana struct `Person` memiliki field bertipe `Info`). Kedua struct tersebut nantinya akan digunakan untuk pembuatan objek untuk kemudian disisipkan ke dalam view.
 
 Selanjutnya, siapkan fungsi `main()`, dengan di dalamnya berisikan 1 buah route handler `/`, dan juga kode untuk menjalankan server pada port `9000`.
 
 ```go
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		var person = Person{
-			Name:    "Bruce Wayne",
-			Gender:  "male",
-			Hobbies: []string{"Reading Books", "Traveling", "Buying things"},
-			Info:    Info{"Wayne Enterprises", "Gotham City"},
-		}
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        var person = Person{
+            Name:    "Bruce Wayne",
+            Gender:  "male",
+            Hobbies: []string{"Reading Books", "Traveling", "Buying things"},
+            Info:    Info{"Wayne Enterprises", "Gotham City"},
+        }
 
-		var tmpl = template.Must(template.ParseFiles("view.html"))
-		if err := tmpl.Execute(w, person); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-	})
+        var tmpl = template.Must(template.ParseFiles("view.html"))
+        if err := tmpl.Execute(w, person); err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+    })
 
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+    log.Println("server started at localhost:9000")
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -68,13 +73,13 @@ OK, bagian back end sudah selesai, sekarang saatnya lanjut ke bagian depan. Buat
 
 ```html
 <html>
-	<head>
-		<title>Learning html/template Actions</title>
-	</head>
-	<body>
-		<table>
-		</table>
-	</body>
+    <head>
+        <title>Learning html/template Actions</title>
+    </head>
+    <body>
+        <table>
+        </table>
+    </body>
 </html>
 ```
 
@@ -88,9 +93,9 @@ Tulis kode berikut di dalam tag `<table></table>` pada `view.html`.
 
 ```html
 <tr>
-	{{/* example how to use actions */}}
-	<td>{{"Name"}}</td>
-	<td>: {{.Name}}</td>
+    {{/* example how to use actions */}}
+    <td>{{"Name"}}</td>
+    <td>: {{.Name}}</td>
 </tr>
 ```
 
@@ -108,11 +113,11 @@ Cara membuat variabel dalam template adalah dengan mendeklarasikannya menggunaka
 
 ```html
 <tr>
-	<td>Gender</td>
-	{{$gender := .Gender}}
-	<td style="text-transform: capitalize;">: 
-		{{$gender}}
-	</td>
+    <td>Gender</td>
+    {{$gender := .Gender}}
+    <td style="text-transform: capitalize;">: 
+        {{$gender}}
+    </td>
 </tr>
 ```
 
@@ -126,12 +131,12 @@ Actions `range` digunakan untuk melakukan perulangan pada template view. Keyword
 
 ```html
 <tr>
-	<td>Hobbies</td>
-	<td>: 
-		{{range $index, $elem := .Hobbies}}
-			{{$elem}},
-		{{end}}
-	</td>
+    <td>Hobbies</td>
+    <td>: 
+        {{range $index, $elem := .Hobbies}}
+            {{$elem}},
+        {{end}}
+    </td>
 </tr>
 ```
 
@@ -145,8 +150,8 @@ Cara mengakses property sebuah variabel objek bisa dilakukan lewat notasi titik 
 
 ```html
 <tr>
-	<td>Affiliation</td>
-	<td>: {{.Info.Affiliation}}</td>
+    <td>Affiliation</td>
+    <td>: {{.Info.Affiliation}}</td>
 </tr>
 ```
 
@@ -156,7 +161,7 @@ Sedangkan untuk pengaksesan method, caranya juga sama, hanya saja tidak perlu di
 
 ```go
 func (t Info) GetAffiliationDetailInfo() string {
-	return "have 31 divisions"
+    return "have 31 divisions"
 }
 ```
 
@@ -164,8 +169,8 @@ Lalu akses method tersebut pada template view.
 
 ```html
 <tr>
-	<td>Affiliation</td>
-	<td>: {{.Info.Affiliation}} ({{.Info.GetAffiliationDetailInfo}})</td>
+    <td>Affiliation</td>
+    <td>: {{.Info.Affiliation}} ({{.Info.GetAffiliationDetailInfo}})</td>
 </tr>
 ```
 
@@ -177,15 +182,15 @@ Lalu bagaimana cara pengaksesan method yang membutuhkan parameter, jika tanda ku
 
 Default-nya, **current scope** di template view adalah data yang dilempar back end. Scope current objek bisa diganti dengan menggunakan keyword `with`, sehingga nantinya untuk mengakses sub-property variabel objek (seperti `.Info.Affiliation`), bisa tidak dilakukan dari objek terluar.
 
-> Current scope yg dimaksud di sini adalah seperti object `this` ibarat bahasa pemrograman lain.
+> Current scope yg dimaksud di sini adalah seperti object `this` pada bahasa pemrograman lain.
 
 Sebagai contoh property `Info` yang merupakan variabel objek. Kita bisa menentukan scope suatu block adalah mengikuti variabel objek tersebut.
 
 ```html
 {{with .Info}}
 <tr>
-	<td>Address</td>
-	<td>: {{.Address}}</td>
+    <td>Address</td>
+    <td>: {{.Address}}</td>
 </tr>
 {{end}}
 ```
@@ -201,9 +206,9 @@ Seleksi kondisi juga bisa dilakukan pada template view. Keyword actions yang dig
 ```html
 {{if eq .Name "Bruce Wayne"}}
 <tr>
-	<td colspan="2" style="font-weight: bold;">
-		I'm the Batman!
-	</td>
+    <td colspan="2" style="font-weight: bold;">
+        I'm the Batman!
+    </td>
 </tr>
 {{end}}
 ```
@@ -226,21 +231,21 @@ Untuk seleksi kondisi yang kondisinya adalah bersumber dari variabel bertipe `bo
 
 ```html
 {{if .IsTrue}}
-	<p>true</p>
+    <p>true</p>
 {{end}}
 
-{{isTrue := true}}
+{{$isTrue := true}}
 
-{{if isTrue}}
-	<p>true</p>
+{{if $isTrue}}
+    <p>true</p>
 {{end}}
 
-{{if eq isTrue}}
-	<p>true</p>
+{{if eq $isTrue true}}
+    <p>true</p>
 {{end}}
 
-{{if ne isTrue}}
-	<p>not true (false)</p>
+{{if ne $isTrue true}}
+    <p>not true (false)</p>
 {{end}}
 ```
 

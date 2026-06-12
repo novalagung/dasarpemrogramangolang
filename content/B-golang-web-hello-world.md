@@ -12,6 +12,7 @@ Mari belajar sambil praktik. Pertama buat folder project baru dengan isi `main.g
 package main
 
 import "fmt"
+import "log"
 import "net/http"
 ```
 
@@ -34,7 +35,7 @@ func handlerHello(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Method `Write()` milik parameter pertama (yang bertipe `http.ResponseWriter`), digunakan untuk meng-output-kan data ke HTTP response. Argumen method adalah data yang ingin dijadikan output, dituliskan dalam bentuk `[]byte`. 
+Method `Write()` milik parameter pertama (yang bertipe `http.ResponseWriter`), digunakan untuk meng-output-kan data ke HTTP response. Argumen method adalah data yang ingin dijadikan output, dituliskan dalam bentuk `[]byte`.
 
 Pada contoh ini, data yang akan kita tampilkan bertipe string, maka perlu dilakukan casting dari `string` ke `[]byte`. Praktiknya bisa dilihat seperti pada kode di atas, di bagian `w.Write([]byte(message))`.
 
@@ -50,14 +51,14 @@ func main() {
     fmt.Printf("server started at %s\n", address)
     err := http.ListenAndServe(address, nil)
     if err != nil {
-        fmt.Println(err.Error())
+        log.Fatal(err)
     }
 }
 ```
 
 Fungsi `http.HandleFunc()` digunakan untuk keperluan routing. Parameter pertama adalah rute dan parameter ke-2 adalah handler-nya.
 
-Fungsi `http.ListenAndServe()` digunakan membuat sekaligus start server baru, dengan parameter pertama adalah alamat web server yang diinginkan (bisa diisi host, host & port, atau port saja). Parameter kedua merupakan object mux atau multiplexer. 
+Fungsi `http.ListenAndServe()` digunakan membuat sekaligus start server baru, dengan parameter pertama adalah alamat web server yang diinginkan (bisa diisi host, host & port, atau port saja). Parameter kedua merupakan objek mux atau multiplexer.
 
 > Dalam chapter ini kita menggunakan *default* mux yang sudah disediakan oleh Go, jadi untuk parameter ke-2 cukup isi dengan `nil`.
 
@@ -81,16 +82,16 @@ Pada kode di atas, tiga buah rute didaftarkan:
  - Rute `/index` dengan aksi adalah sama dengan `/`, yaitu fungsi `handlerIndex()`
  - Rute `/hello` dengan aksi fungsi `handlerHello()`
 
-Ketika rute-rute di atas diakses lewat browser, outputnya adalah isi-handler rute yang bersangkutan. Kebetulan pada chapter ini, ketiga rute tersebut outputnya adalah sama, yaitu berupa string.
+Ketika rute-rute di atas diakses lewat browser, outputnya adalah isi-handler rute yang bersangkutan. Pada chapter ini, ketiga rute tersebut outputnya adalah berupa string (meskipun isi pesannya berbeda).
 
 > Pada contoh di atas, ketika rute yang tidak terdaftar diakses, maka secara otomatis handler rute `/` yang dipanggil.
 
 #### ◉ Penjelasan Mengenai **Handler**
 
-Route handler atau handler atau parameter kedua fungsi `http.HandleFunc()`, adalah sebuah fungsi dengan ber-skema `func (ResponseWriter, *Request)`. 
+Route handler atau handler atau parameter kedua fungsi `http.HandleFunc()`, adalah sebuah fungsi berskema `func (ResponseWriter, *Request)`.
 
  - Parameter ke-1 merupakan objek untuk keperluan http response.
- - Sedang parameter ke-2 yang bertipe `*request` ini, berisikan informasi-informasi yang berhubungan dengan http request untuk rute yang bersangkutan. 
+ - Sedangkan parameter ke-2 yang bertipe `*http.Request` berisikan informasi-informasi yang berhubungan dengan http request untuk rute yang bersangkutan.
 
 Contoh penulisan handler bisa dilihat pada fungsi `handlerIndex()` berikut.
 
@@ -105,14 +106,14 @@ Output dari rute dituliskan di dalam handler menggunakan method `Write()` milik 
 
 Pada contoh program yang telah kita buat, handler `handlerIndex()` memunculkan text `"Welcome"`, dan handler `handlerHello()` memunculkan text `"Hello world!"`.
 
-Sebuah handler bisa dipergunakan pada banyak rute, bisa dilihat pada di atas handler `handlerIndex()` digunakan pada rute `/` dan `/index`.
+Sebuah handler bisa dipergunakan pada banyak rute, bisa dilihat pada contoh di atas handler `handlerIndex()` digunakan pada rute `/` dan `/index`.
 
 #### ◉ Penggunaan `http.ListenAndServe()`
 
 Fungsi ini digunakan untuk membuat web server baru. Pada contoh yang telah dibuat, web server di-*start* pada port `9000` (bisa dituliskan dalam bentuk `localhost:9000`, `0.0.0.0:9000`, atau cukup `:9000` saja).
 
 ```go
-var address = ":9000"
+var address = "localhost:9000"
 fmt.Printf("server started at %s\n", address)
 err := http.ListenAndServe(address, nil)
 ```
@@ -128,20 +129,20 @@ Selain menggunakan `http.ListenAndServe()`, ada cara lain yang bisa diterapkan u
 Kode di bagian start server yang sudah kita buat, jika diubah ke cara ini, kurang lebih menjadi seperti berikut.
 
 ```go
-var address = ":9000"
+var address = "localhost:9000"
 fmt.Printf("server started at %s\n", address)
 
 server := new(http.Server)
 server.Addr = address
 err := server.ListenAndServe()
 if err != nil {
-    fmt.Println(err.Error())
+    log.Fatal(err)
 }
 ```
 
-Informasi host/port perlu dimasukan dalam property `.Addr` milik objek server. Lalu dari objek tersebut panggil method `.ListenAndServe()` untuk start web server.
+Informasi host/port perlu dimasukkan ke dalam property `.Addr` milik objek server. Lalu dari objek tersebut panggil method `.ListenAndServe()` untuk start web server.
 
-Kelebihan menggunakan `http.Server` salah satunya adalah kemampuan untuk mengubah beberapa konfigurasi default web server Go. Contohnya bisa dilihat pada kode berikut, timeout untuk read request dan write request di ubah menjadi 10 detik.
+Kelebihan menggunakan `http.Server` salah satunya adalah kemampuan untuk mengubah beberapa konfigurasi default web server Go. Contohnya bisa dilihat pada kode berikut, timeout untuk read request dan write request diubah menjadi 10 detik.
 
 ```go
 server.ReadTimeout = time.Second * 10
