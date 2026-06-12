@@ -68,8 +68,9 @@ func randomString(length int) string {
 
     return string(b)
 }
-
 ```
+
+> Sejak Go 1.20, fungsi global `math/rand` sudah otomatis di-seed. Untuk penggunaan umum, `rand.New(rand.NewSource(...))` tidak diperlukan lagi. Cukup gunakan `rand.Intn()` atau `rand.IntN()` (Go 1.22+) secara langsung.
 
 #### ◉ Fungsi `generateFiles()`
 

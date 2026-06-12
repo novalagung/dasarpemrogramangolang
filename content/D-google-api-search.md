@@ -2,7 +2,7 @@
 
 Pada chapter ini kita akan mencoba studi kasus yaitu membuat web service API untuk *wrap* pencarian ke Google Search API.
 
-Proses pembelajaran dilakukan dengan praktek membuat sebuah aplikasi web service kecil, yang tugasnya melakukan pencarian data. Nantinya akan dibuat juga middleware `MiddlewareUtility`, tugasnya menyisipkan informasi origin dispatcher request, ke dalam context request, sebelum akhirnya sampai pada handler endpoint yg sedang diakses.
+Proses pembelajaran dilakukan dengan praktik membuat sebuah aplikasi web service kecil, yang tugasnya melakukan pencarian data. Nantinya akan dibuat juga middleware `MiddlewareUtility`, tugasnya menyisipkan informasi origin dispatcher request, ke dalam context request, sebelum akhirnya sampai pada handler endpoint yg sedang diakses.
 
 ## D.2.1. Context Value
 
@@ -49,7 +49,7 @@ func (c *CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Lalu pada file `main.go`, buat satu buah endpoint `/api/search`, dengan isi handler menampilkan data `from` yang diambil dari request context. Data `from` ini di set ke dalam request context oleh middleware `MiddlewareUtility`.
+Lalu pada file `main.go`, buat satu buah endpoint `/api/search`, dengan isi handler menampilkan data `from` yang diambil dari request context. Data `from` ini diset ke dalam request context oleh middleware `MiddlewareUtility`.
 
 ```go
 package main
@@ -299,7 +299,7 @@ Jalankan, lihat hasilnya.
 
 ![Request response OK](images/D_google_api_search_3_result_ok.png)
 
-Informasi tambahan: best practice mengenai cancelation context adalah untuk selalu menambahkan `defer cancel()` setelah (cancelation) context dibuat. Lebih detailnya silakan baca https://blog.golang.org/context.
+Informasi tambahan: best practice mengenai cancelation context adalah untuk selalu menambahkan `defer cancel()` setelah (cancelation) context dibuat. Lebih jelasnya silakan baca https://blog.golang.org/context.
 
 ## D.2.3. Google Search API Restrictions Referer
 

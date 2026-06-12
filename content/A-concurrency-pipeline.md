@@ -242,6 +242,8 @@ Cukup panjang isi fungsi ini, tetapi isinya cukup *straight forward* kok.
 * File dibaca menggunakan `os.ReadFile()`, kemudian lewat fungsi `md5.Sum()` kita cari md5 hash sum dari konten file.
 * Setelahnya, kita rename file dengan nama `file-<md5hash>.txt`.
 
+> Sejak Go 1.16, `filepath.Walk()` memiliki pengganti yang lebih efisien yaitu `filepath.WalkDir()`. Penjelasan lengkapnya ada di bagian [A.63.7. filepath.WalkDir sebagai Pengganti filepath.Walk](#).
+
 Semoga cukup jelas. Kalo iya, jalankan programnya.
 
 ![Generate dummy files](images/A_concurrency_pipeline_2_rename_sequentially.png)

@@ -1,4 +1,4 @@
-# B.12. Form Value
+# B.12. HTTP Form Value
 
 Pada chapter ini kita akan belajar bagaimana cara untuk submit data dari form di front-end untuk dikirim ke back-end melalui API call (HTTP request).
 

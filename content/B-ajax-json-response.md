@@ -1,4 +1,4 @@
-# B.15. AJAX JSON Response
+# B.15. HTTP Response: JSON
 
 Kita telah belajar cara untuk memproses request dengan payload bertipe JSON di chapter sebelumnya. Pembelajaran kali ini masih tentang tipe data JSON tapi lebih fokus ke bagian back-end-nya, yaitu membuat sebuah Web Service API sederhana yang mengembalikan response berbentuk JSON.
 
