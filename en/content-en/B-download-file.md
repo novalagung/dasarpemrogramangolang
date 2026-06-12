@@ -8,15 +8,20 @@ Dengan penerapan teknik yang dibahas pada chapter ini, file bisa dipastikan di-d
 
 ## B.17.1. Struktur Folder Proyek
 
-OK, pertama siapkan terlebih dahulu proyek dengan struktur seperti gambar berikut.
+OK, pertama siapkan terlebih dahulu proyek dengan struktur berikut.
 
-![Project structure](images/B_download_file_1_structure.png)
+```
+chapter-B.17-download-file/
+├── files/
+├── main.go
+└── view.html
+```
 
 File yang berada di folder `files` adalah dummy file. Silakan gunakan file apapun dengan jumlah berapapun untuk keperluan praktik ini.
 
 ## B.17.2. Front End
 
-Kali ini di bagian front end kita tidak menggunakan jQuery, cukup javascript saja tanpa library.
+Kali ini di bagian front end kita tidak menggunakan library tambahan, cukup JavaScript native.
 
 Pertama siapkan dahulu template nya, isi file `view.html` dengan kode berikut.
 
@@ -35,67 +40,51 @@ Pertama siapkan dahulu template nya, isi file `view.html` dengan kode berikut.
 </html>
 ```
 
-Tag `<ul />` nantinya diisi dengan data list file yang ada dalam folder `files`. Data list file sendiri nantinya didapat dari API call ke back end. Di sini sebuah AJAX diperlukan untuk pengambilan data.
+Tag `<ul />` nantinya diisi dengan data list file yang ada dalam folder `files`. Data list file didapat dari HTTP request ke back end. Setelah data diterima, fungsi `renderData()` dipanggil untuk merender hasilnya ke HTML.
 
-Selanjutnya, siapkan sebuah fungsi dengan nama `Yo` atau bisa lainnya, fungsi ini berisikan closure `renderData()`, `getAllListFiles()`, dan method `init()`. Buat instance object baru dari `Yo`, lalu akses method `init()`, tempatkan dalam event `window.onload`.
+Siapkan event listener `DOMContentLoaded`, di dalamnya definisikan fungsi `renderData()` dan lakukan HTTP request ke `/list-files`.
 
 ```js
-function Yo() {
-    var self = this;
-    var $ul = document.getElementById("list-files");
+document.addEventListener("DOMContentLoaded", async function () {
+    const ul = document.getElementById("list-files");
 
-    var renderData = function (res) {
+    const renderData = function (files) {
         // do stuff
     };
 
-    var getAllListFiles = function () {
-        // do stuff
-    };
-
-    self.init = function () {
-        getAllListFiles();
-    };
-};
-
-window.onload = function () {
-    new Yo().init();
-};
+    try {
+        const res = await fetch("/list-files");
+        if (!res.ok) throw new Error(await res.text());
+        const files = await res.json();
+        renderData(files);
+    } catch (err) {
+        alert("ERROR: " + err.message);
+    }
+});
 ```
 
-Closure `renderData()` bertugas untuk melakukan rendering data JSON ke HTML. Berikut adalah isi dari fungsi ini.
+Fungsi `renderData()` bertugas untuk melakukan rendering data JSON ke HTML. Berikut adalah isinya.
 
 ```js
-var renderData = function (res) {
-    res.forEach(function (each) {
-        var $li = document.createElement("li");
-        var $a = document.createElement("a");
+const renderData = function (files) {
+    files.forEach(function (each) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
 
-        $li.innerText = "download ";
-        $li.appendChild($a);
-        $ul.appendChild($li);
+        li.innerText = "download ";
+        li.appendChild(a);
+        ul.appendChild(li);
 
-        $a.href = "/download?path=" + encodeURI(each.path);
-        $a.innerText = each.filename;
-        $a.target = "_blank";
+        a.href = "/download?path=" + encodeURI(each.path);
+        a.innerText = each.filename;
+        a.target = "_blank";
     });
 };
 ```
 
-Sedangkan closure `getAllListFiles()`, memiliki tugas untuk request ke back end, mengambil data list semua file. Request dilakukan dalam bentuk AJAX, nilai baliknya adalah data JSON. Setelah data sudah didapatkan, fungsi `renderData()` dipanggil.
+Setiap item file dirender sebagai elemen `<li>` berisi link `<a>` yang mengarah ke endpoint `/download?path=...`. Klik link tersebut akan memicu download file di browser.
 
-```js
-var getAllListFiles = function () {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/list-files");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var json = JSON.parse(xhr.responseText);
-            renderData(json);
-        }
-    };
-    xhr.send();
-};
-```
+HTTP request ke `/list-files` dilakukan menggunakan `fetch()`. Karena `fetch()` mengembalikan Promise, keyword `async/await` digunakan untuk menunggu respons. Respons di-parse sebagai JSON menggunakan `res.json()`, hasilnya diteruskan ke `renderData()`.
 
 ## B.17.3. Back End
 
@@ -104,14 +93,16 @@ Pindah ke bagian back end. Siapkan beberapa hal pada `main.go`, import package, 
 ```go
 package main
 
-import "fmt"
-import "log"
-import "net/http"
-import "html/template"
-import "path/filepath"
-import "io"
-import "encoding/json"
-import "os"
+import (
+    "encoding/json"
+    "fmt"
+    "html/template"
+    "io"
+    "log"
+    "net/http"
+    "os"
+    "path/filepath"
+)
 
 type M map[string]interface{}
 
@@ -139,7 +130,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Lalu siapkan juga route handler `/list-files`. Isi dari handler ini adalah membaca semua file yang ada pada folder `files` untuk kemudian dikembalikan sebagai output berupa JSON. Endpoint ini akan diakses oleh AJAX dari front end.
+Lalu siapkan juga route handler `/list-files`. Isi dari handler ini adalah membaca semua file yang ada pada folder `files` untuk kemudian dikembalikan sebagai output berupa JSON. Endpoint ini akan diakses dari front end.
 
 ```go
 func handleListFiles(w http.ResponseWriter, r *http.Request) {
