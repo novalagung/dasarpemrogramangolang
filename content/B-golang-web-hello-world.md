@@ -160,4 +160,5 @@ Struct `http.Server` memiliki cukup banyak property lainnya, yang pastinya akan 
 
 ---
 
-<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/ebooks.html" width="100%" height="430px" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/substack.html" width="100%" height="320px" frameborder="0" scrolling="no"></iframe>
