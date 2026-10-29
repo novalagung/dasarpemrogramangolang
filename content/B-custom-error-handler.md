@@ -152,4 +152,5 @@ Response: `HTTP/1.1 500 Internal Server Error` dengan body `500 - Terjadi kesala
 
 ---
 
-<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/ebooks.html" width="100%" height="430px" frameborder="0" scrolling="no"></iframe>
+<iframe src="partial/substack.html" width="100%" height="320px" frameborder="0" scrolling="no"></iframe>

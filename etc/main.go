@@ -294,7 +294,7 @@ func ebookPreAdjustment() {
 		htmlString = strings.ReplaceAll(htmlString, substackEmbedToRemove, "")
 
 		// ==== remove ebooks embed
-		ebooksEmbedToRemove := `<iframe src="partial/ebooks.html" width="100%" height="390px" frameborder="0" scrolling="no"></iframe>`
+		ebooksEmbedToRemove := `<iframe src="partial/ebooks.html" width="100%" height="430px" frameborder="0" scrolling="no"></iframe>`
 		htmlString = strings.ReplaceAll(htmlString, ebooksEmbedToRemove, "")
 
 		// ==== update file
