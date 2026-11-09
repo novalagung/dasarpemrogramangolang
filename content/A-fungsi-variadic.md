@@ -103,7 +103,7 @@ var avg = calculate(numbers...)
 var avg = calculate(2, 4, 3, 5, 4, 3, 3, 5, 5, 3)
 ```
 
-Pada deklarasi parameter fungsi variadic, tanda 3 titik (`...`) dituliskan sebelum tipe data parameter. Sedangkan pada pemanggilan fungsi dengan menyisipkan parameter array, tanda tersebut dituliskan di belakang variabelnya.
+Pada deklarasi parameter fungsi variadic, tanda 3 titik (`...`) dituliskan sebelum tipe data parameter. Sedangkan pada pemanggilan fungsi dengan menyisipkan parameter slice, tanda tersebut dituliskan di belakang variabelnya.
 
 ## A.20.4. Fungsi Dengan Parameter Biasa & Variadic
 
